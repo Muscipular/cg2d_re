@@ -353,6 +353,7 @@ struct BattleActorPayload {
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* effect105C; // 4131B0首个标死/清空槽，非拥有引用，生产仍待父链。
     YobiAction* effect1060; // 413550发布克隆、渐变完成后标死并清槽，非拥有引用。
+    YobiAction* centeredEffect1064; // 41FA00发布的非拥有居中特效；41F950随父对象移动。
     YobiAction* effect1068; // 41FB20检查非空，4131B0标死并清空；实际生产仍待父链。
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
     YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
@@ -360,8 +361,8 @@ struct BattleActorPayload {
     std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
     std::int32_t value13A4;
     std::int32_t queuedTargetCount13A8;
-    std::int32_t baseImage13AC; // 413550非恢复分支保存原图号，独立于13E4。
-    std::int32_t value13B0; // 413550完成时写0/1，4131B0按非零选择phase220/214。
+    std::int32_t baseImage13AC; // 413550保存原图号，413750/413980恢复，独立于13E4。
+    std::int32_t value13B0; // 413550写0/1，413750/413980恢复后清零，4131B0消费。
     YobiAction* gear13B4; // 422C20主附件，非拥有引用。
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
@@ -8990,6 +8991,67 @@ YobiAction* NewBattleHitEffect_41F5B0(
     return action;
 }
 
+void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    } else {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+        static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
+        const std::int32_t halfWidth = render::ReadGraphicDxWidth(parent->graphicIndex) / 2;
+        action->offset40 = static_cast<float>(
+            static_cast<double>(halfWidth) + parent->graphicOffsetX + parent->offset40);
+        const std::int32_t halfHeight = render::ReadGraphicDxHeight(parent->graphicIndex) / 2;
+        action->offset44 = static_cast<float>(
+            static_cast<double>(halfHeight) + parent->graphicOffsetY + parent->offset44);
+    }
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+}
+
+YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* const parent, const std::int32_t imageNo)
+{
+    if (static_cast<BattleActorPayload*>(parent->payload)->centeredEffect1064 != nullptr) {
+        return nullptr;
+    }
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags;
+    action->callback = UpdateBattleCenteredEffect_41F950;
+    action->displayPriority = 0xC8;
+    action->framePlayingRate = 100;
+    action->flags = flags | 0x40000u;
+    static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));
+    const std::int32_t halfWidth = render::ReadGraphicDxWidth(parent->graphicIndex) / 2;
+    action->offset40 = static_cast<float>(
+        static_cast<double>(halfWidth) + parent->graphicOffsetX + parent->offset40);
+    const std::int32_t halfHeight = render::ReadGraphicDxHeight(parent->graphicIndex) / 2;
+    const double centerY = static_cast<double>(halfHeight) + parent->graphicOffsetY + parent->offset44;
+    action->imageNo = imageNo;
+    action->direction = 0;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    action->offset44 = static_cast<float>(centerY);
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+    static_cast<BattleActorPayload*>(parent->payload)->centeredEffect1064 = action;
+    action->battleAttachmentParent10 = parent;
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
+    const float y = action->offset44;
+    action->x = x + offsetX;
+    const std::int32_t projectedY = static_cast<std::int32_t>(y);
+    const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+    action->field270 = 0;
+    action->y = projectedY + offsetY;
+    return action;
+}
+
 void UpdateBattleAttachedEffect_41FB20(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -11774,6 +11836,97 @@ void UpdateBattleAction218_413550(YobiAction* const action)
     }
     action->frameEvent = 0;
     AdvanceBattleCastState_439340(action);
+}
+
+namespace {
+
+// 413750/413980相同的恢复阶段；true仅表示本帧完成，两个动作的完成尾仍各自执行。
+bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const payload)
+{
+    if (payload->effect1060 == nullptr) {
+        YobiAction* const copy = CloneBattleAction_41EAB0(action);
+        payload->effect1060 = copy;
+        copy->callback = nullptr;
+        payload->effect1060->imageNo = payload->baseImage13AC;
+        payload->effect1060->characterAction = 10;
+        SetYobiActionField30F(payload->effect1060, 0);
+        YobiAction* const currentCopy = payload->effect1060;
+        // 原同步推进到终帧；循环只重取1060，不重查图号或限制迭代次数。
+        if (currentCopy->imageNo > 999 && PlayFrame_517DA0(currentCopy, 1) != 1) {
+            while (PlayFrame_517DA0(payload->effect1060, 1) != 1) {
+            }
+        }
+        if (payload->effect1060 == nullptr) {
+            return false;
+        }
+    }
+    static_cast<void>(NewBattleRandomEffect_419FC0(action, 110471, 0));
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        action->flags |= 0x8000u;
+        payload->effect1060->flags |= 0x10000u;
+    }
+    SetYobiActionField308(action, 8);
+    SetYobiActionField308(payload->effect1060, 8);
+    YobiAction* const copy = payload->effect1060;
+    const std::int32_t nextAlpha = GetYobiActionField30F(copy) + 7;
+    if (nextAlpha < 255) {
+        const std::int32_t alpha = GetYobiActionField30F(action) - 7;
+        SetYobiActionField30F(action, alpha <= 0 ? 0 : static_cast<std::uint8_t>(alpha));
+        YobiAction* const currentCopy = payload->effect1060;
+        const std::uint8_t copyAlpha = GetYobiActionField30F(currentCopy);
+        SetYobiActionField30F(currentCopy, static_cast<std::uint8_t>(copyAlpha + 7));
+        return false;
+    }
+    static_cast<void>(MarkDeath(copy));
+    const std::int32_t imageNo = payload->baseImage13AC;
+    payload->effect1060 = nullptr;
+    action->imageNo = imageNo;
+    action->characterAction = 10;
+    SetYobiActionField308(action, 0);
+    SetYobiActionField30F(action, 255);
+    action->drawMode.bytes[11] = 255;
+    if (imageNo > 999 && PlayFrame_517DA0(action, 1) != 1) {
+        while (PlayFrame_517DA0(action, 1) != 1) {
+        }
+    }
+    payload->value13B0 = 0;
+    action->frameEvent = 0;
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        action->flags &= ~0x8000u;
+    }
+    return true;
+}
+
+} // namespace
+
+void UpdateBattleAction219_413750(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (!RestoreBattleBaseImage(action, payload)) {
+        return;
+    }
+    if ((payload->flagsFDC & 0x0Cu) == 0) {
+        YobiAction* const effect = payload->attachedEffect1058;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            payload->attachedEffect1058 = nullptr;
+        }
+        payload->stateFE0 |= 2u;
+        action->phase = 48;
+        return;
+    }
+    static_cast<void>(NewBattleCenteredEffect_41FA00(action, 110169));
+    static_cast<void>(audio::PlaySe_52C450(215, action->x));
+    payload->stateFE0 |= 2u;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction220_413980(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (RestoreBattleBaseImage(action, payload)) {
+        action->phase = 214;
+    }
 }
 
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)

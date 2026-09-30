@@ -344,6 +344,8 @@ void UpdateBattleHitEffect_41F570(YobiAction* action); // 计数达到上限后�
 YobiAction* NewBattleHitEffect_41F5B0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
     std::int32_t lifetime, std::int32_t imageNo);
+void UpdateBattleCenteredEffect_41F950(YobiAction* action); // 父标死仍执行公共坐标投影尾。
+YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // 1064已有引用时返回空，不换图。
 void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
 YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
@@ -407,6 +409,8 @@ void UpdateBattleAction214_4132B0(YobiAction* action); // 两设备分支：闪�
 void UpdateBattleAction215_4133D0(YobiAction* action); // 1024严格为2才清槽并推进动作。
 void UpdateBattleAction216_413400(YobiAction* action); // 施法特效、帧事件逐项消费及播放后独立平铺尾。
 void UpdateBattleAction218_413550(YobiAction* action); // 克隆换图、双对象渐变及13AC/13B0完成回写。
+void UpdateBattleAction219_413750(YobiAction* action); // 恢复原图后按FDC走48或居中特效/动作推进。
+void UpdateBattleAction220_413980(YobiAction* action); // 恢复原图、动作10终帧及透明度后转214。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(

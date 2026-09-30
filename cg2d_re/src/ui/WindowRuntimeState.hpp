@@ -1601,6 +1601,14 @@ std::int32_t Sub_4A5390(); // 五组选择槽及D2F0B8已证前缀重置。
 std::int32_t Sub_48C150(); // 所选宠物与两组五槽按原序重置。
 std::int32_t Sub_4742B0(); // 只清CF4E50/54。
 std::int32_t Sub_4A0940(); // D67B40七槽交错清零。
+extern WindowElementPrototype gWindowElements56DB38[111]; // 窗口21原型坐标唯一来源，本体仍待。
+std::int32_t Sub_4A0970(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
+void Sub_4A1690(std::int32_t mode, std::int32_t category); // 显示模式后接名单类别布局。
+void Sub_4A16B0(std::int32_t mode); // 联系人三行/九行显隐，不触碰末三元素。
+void Sub_4A1780(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。
+void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
+std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
+std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。
 void Sub_4CBD30(); // 首次借用原localtime对象并写同源日志文件名。
 void InitializeLoginWindows_470600(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。

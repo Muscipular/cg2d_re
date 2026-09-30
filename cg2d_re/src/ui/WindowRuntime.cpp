@@ -983,7 +983,10 @@ struct LoginWindowRuntimeSlots {
     std::int32_t countCC4CFC; // 48D460每帧重建的状态1计数，48C150不清此槽。
     std::array<std::int32_t, 3> valuesD2EAA0;
     std::array<std::int32_t, 2> valuesCF4E50;
-    std::array<std::int32_t, 7> valuesD67B40;
+    std::array<std::int32_t, 7> valuesD67B40; // 两组三类滚动位置，末槽为D67B58类别。
+    std::uint32_t mailSortModeD67B3C; // 4A0970从存档live排序模式复制。
+    std::int32_t mailBlinkPhaseD67B5C; // 4A32B0有符号余数相位。
+    std::int32_t mailBlinkFlagD67B60; // 每16帧异或1，开窗不清零。
     std::int32_t valueCC31A4;
     std::int32_t valueD2E444;
     std::int32_t valueCB0604;
@@ -24305,6 +24308,228 @@ std::int32_t Sub_4742B0()
     gLoginWindowRuntime.valuesCF4E50[0] = 0;
     gLoginWindowRuntime.valuesCF4E50[1] = 0;
     return 0;
+}
+
+std::int32_t Sub_4A0970(const std::int32_t value)
+{
+    if (value == -1) {
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t mode = gValueD67B38;
+        const std::uint32_t sortMode = platform::gValueD67CD0;
+        gLoginWindowRuntime.mailSortModeD67B3C = sortMode;
+        Sub_4A1690(mode, category);
+        static_cast<void>(world::detail::Sub_518DA0());
+        Sub_4A2700();
+    }
+    return 1;
+}
+
+void Sub_4A1690(const std::int32_t mode, const std::int32_t category)
+{
+    Sub_4A16B0(mode);
+    Sub_4A1780(category);
+}
+
+void Sub_4A16B0(const std::int32_t mode)
+{
+    for (std::int32_t index = 0; index < 21; ++index) {
+        gCurrentWindow->elements[index].visible = 1;
+    }
+    if (mode == 0) {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[7].data);
+        graphic->imageNo = 0x3B612;
+        for (std::int32_t index = 21; index < 54; ++index) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+        for (std::int32_t index = 54; index < 108; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    } else if (mode == 1) {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[7].data);
+        graphic->imageNo = 0x3B611;
+        for (std::int32_t index = 21; index < 54; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        for (std::int32_t index = 54; index < 108; ++index) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+    }
+}
+
+void Sub_4A1780(const std::int32_t category)
+{
+    if (category == 0) {
+        for (std::int32_t index = 21; index < 27; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gCurrentWindow->elements[13].visible = 0;
+        gCurrentWindow->elements[20].visible = 0;
+        for (const std::int32_t index : {32, 40, 48}) {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t x = gWindowElements56DB38[32].x;
+            window->elements[index].x = x - 24;
+        }
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data);
+        graphic->imageNo = 0x3B57E;
+        for (std::int32_t index = 21; index < 27; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    } else if (category == 1) {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data);
+        graphic->imageNo = 0x3B581;
+        gCurrentWindow->elements[13].visible = 0;
+        for (const std::int32_t index : {32, 40, 48}) {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t x = gWindowElements56DB38[32].x;
+            window->elements[index].x = x;
+        }
+    } else if (category == 2) {
+        for (std::int32_t index = 21; index < 27; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gCurrentWindow->elements[13].visible = 1;
+        for (const std::int32_t index : {34, 42, 50, 58, 63, 68, 73, 78, 83, 88, 93, 98, 20}) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data);
+        graphic->imageNo = 0x3C116;
+        for (const std::int32_t index : {32, 40, 48}) {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t x = gWindowElements56DB38[32].x;
+            window->elements[index].x = x - 24;
+        }
+        for (const std::int32_t index : {34, 42, 50, 0, 3, 4, 8, 19, 20}) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gCurrentWindow->elements[5].visible = 1;
+        gCurrentWindow->elements[6].visible = 1;
+        for (std::int32_t index = 21; index < 27; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    } else {
+        return;
+    }
+
+    for (const std::int32_t index : {1, 2, 7}) {
+        WindowInstance* const xWindow = gCurrentWindow;
+        const std::int32_t x = gWindowElements56DB38[index].x;
+        xWindow->elements[index].x = x + (category == 2 ? 110 : 0);
+        WindowInstance* const yWindow = gCurrentWindow;
+        const std::int32_t y = gWindowElements56DB38[index].y;
+        yWindow->elements[index].y = y + (category == 2 ? 17 : 0);
+    }
+}
+
+void Sub_4A2700()
+{
+    // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
+    std::int32_t maximum;
+    std::int32_t position;
+    const std::int32_t mode = gValueD67B38;
+    if (mode == 0) {
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        if (gLoginWindowRuntime.valuesD67B40[category] < 0) {
+            gLoginWindowRuntime.valuesD67B40[category] = 0;
+        }
+        switch (category) {
+        case 0:
+            maximum = 57;
+            if (gLoginWindowRuntime.valuesD67B40[0] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[0] = maximum;
+            }
+            break;
+        case 1: {
+            const std::int32_t count = login::detail::gOrderedRecordCount1051510;
+            maximum = count < 100 ? 97 : count - 3;
+            if (gLoginWindowRuntime.valuesD67B40[1] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[1] = maximum;
+            }
+            break;
+        }
+        case 2:
+            maximum = 17;
+            if (gLoginWindowRuntime.valuesD67B40[2] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[2] = maximum;
+            }
+            break;
+        }
+        position = gLoginWindowRuntime.valuesD67B40[category];
+    } else if (mode == 1) {
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        if (gLoginWindowRuntime.valuesD67B40[3 + category] < 0) {
+            gLoginWindowRuntime.valuesD67B40[3 + category] = 0;
+        }
+        switch (category) {
+        case 0:
+            maximum = 51;
+            if (gLoginWindowRuntime.valuesD67B40[3] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[3] = maximum;
+            }
+            break;
+        case 1: {
+            const std::int32_t count = login::detail::gOrderedRecordCount1051510;
+            maximum = count < 100 ? 91 : count - 9;
+            if (gLoginWindowRuntime.valuesD67B40[4] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[4] = maximum;
+            }
+            break;
+        }
+        case 2:
+            maximum = 11;
+            if (gLoginWindowRuntime.valuesD67B40[5] > maximum) {
+                gLoginWindowRuntime.valuesD67B40[5] = maximum;
+            }
+            break;
+        }
+        position = gLoginWindowRuntime.valuesD67B40[3 + category];
+    }
+    Sub_4742C0(&gCurrentWindow->elements[17], maximum, position);
+}
+
+std::int32_t Sub_4A3820(const std::int32_t)
+{
+    // 类别0/1/2均有真实计数；无效类别的入口寄存器值不专项模拟。
+    std::int32_t count;
+    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    case 0:
+        count = 60;
+        break;
+    case 1:
+        count = login::detail::gOrderedRecordCount1051510;
+        if (count < 100) {
+            count = 100;
+        }
+        break;
+    case 2:
+        count = 20;
+        break;
+    }
+    WindowElement* const elements = gCurrentWindow->elements;
+    auto* const mouse = static_cast<WindowMouseData*>(elements[17].data);
+    if ((mouse->flags & 1) != 0) {
+        if (gValueD67B38 == 0) {
+            count = Sub_474270(&elements[17], count - 3);
+            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            gLoginWindowRuntime.valuesD67B40[category] = count;
+        } else {
+            count = Sub_474270(&elements[17], count - 9);
+            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            gLoginWindowRuntime.valuesD67B40[3 + category] = count;
+        }
+    }
+    return count;
+}
+
+std::int32_t Sub_4A32B0()
+{
+    const std::int32_t phase = (gLoginWindowRuntime.mailBlinkPhaseD67B5C + 1) % 16;
+    gLoginWindowRuntime.mailBlinkPhaseD67B5C = phase;
+    std::int32_t flag = gLoginWindowRuntime.mailBlinkFlagD67B60;
+    if (phase == 0) {
+        flag ^= 1;
+        gLoginWindowRuntime.mailBlinkFlagD67B60 = flag;
+    }
+    return flag;
 }
 
 std::int32_t Sub_4A0940()

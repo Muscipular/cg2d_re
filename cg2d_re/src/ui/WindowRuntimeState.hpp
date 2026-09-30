@@ -1609,6 +1609,8 @@ std::int32_t Sub_4742B0(); // 只清CF4E50/54。
 std::int32_t Sub_4A0940(); // D67B40七槽交错清零。
 extern WindowElementPrototype gWindowElements56DB38[111]; // 窗口21原型坐标唯一来源，本体仍待。
 std::int32_t Sub_4A0970(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
+std::int32_t Sub_4A09B0(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
+std::int32_t Sub_4A09E0(); // 三行/九行联系人完整内容刷新，不调用公共Draw。
 void Sub_4A1690(std::int32_t mode, std::int32_t category); // 显示模式后接名单类别布局。
 void Sub_4A16B0(std::int32_t mode); // 联系人三行/九行显隐，不触碰末三元素。
 void Sub_4A1780(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。

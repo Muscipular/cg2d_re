@@ -38,6 +38,9 @@ std::int32_t Sub_532D80(); // 登录窄重置，不清邮件；返回窗口48关
 std::int32_t ReadGuildValue10514B4() noexcept; // 窗口51权限读取，共用回复写入的value0C。
 std::int32_t ReadGuildTextIndex10514B0() noexcept; // 窗口7分支与索引各自读取value08。
 std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21权限，借同源职级记录value00。
+std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗口21三行按钮只读权限首字节。
+std::int32_t ReadGuildStatus10514AC() noexcept; // 窗口21公会状态，借header.value04。
+std::int32_t ReadGuildOwnKey10514B8() noexcept; // 窗口21成员本人判断，借header.value10。
 const char* BorrowGuildName10514BC() noexcept; // 同源texts14[0]，原字节借用。
 const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
 

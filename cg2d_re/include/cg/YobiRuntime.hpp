@@ -371,6 +371,9 @@ void UpdateBattleStatusEffect_41FCD0(YobiAction* action);
 YobiAction* NewBattleStatusEffect_41FE00(YobiAction* parent, std::int32_t imageNo, std::int32_t mode); // 1068发布后执行缩放/下降。
 void UpdateBattleFieldEffect_41FF90(YobiAction* action); // 当前全局场景标死时标死自身，仍执行投影尾。
 YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // B0已有对象仅换图返空，新建播放后重取场景发布T*。
+void UpdateBattleBackgroundFade_421480(YobiAction* action); // 完整五态淡变，同源背景发布与延后标死。
+YobiAction* NewBattleBackgroundFade_421570(
+    std::int32_t imageNo, std::uint8_t step, std::int32_t publishBackground);
 void RestoreBattleStateEffects_422370(YobiAction* parent); // 固定入口FDC快照，保留成对共用清位掩码。
 YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
 void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
@@ -535,6 +538,8 @@ void UpdateBattleAction115_40FB80(YobiAction* action); // 工厂Y=-32，调用�
 void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30种映射；118不创建但仍phase162。
 void UpdateBattleActions127To129_40FF90(YobiAction* action); // 工厂type7/8/9末参0，完成后直接推进。
 void UpdateBattleAction138_40FF40(YobiAction* action); // 工厂type20，播放后检查1024，最后phase162。
+void UpdateBattleAction139_410000(YobiAction* action); // 施法事件/405身份更新，效果消费及独立平铺尾。
+void UpdateBattleAction140_410730(YobiAction* action); // 技能工厂或61至63先推进目标，最后推进自身。
 void UpdateBattleAction141_410E90(YobiAction* action); // 13D8/13DC与技能选择减益图，重读FDC决定播放。
 void UpdateBattleAction142_410F70(YobiAction* action); // 标死1054后重读/清FDC六状态位，无条件播放并推进。
 void UpdateBattleAction143_410FC0(YobiAction* action); // 两型状态图号/13E0索引，调用后条件播放并推进。

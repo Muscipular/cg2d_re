@@ -17,6 +17,7 @@
 #include "cg/LoginRequest.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
+#include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
@@ -440,6 +441,11 @@ std::int32_t gValueCF4AAC = 0;
 std::int32_t gValueCF4690 = 0;
 std::int32_t gValueCA0440 = 0;
 std::int32_t gValueD67B38 = 0;
+std::int8_t gSettingsPanelCC4234 = 0;
+std::int32_t gSettingsOffsetCA02DC = 0;
+std::int32_t gSettingsStepD2D610 = 0;
+std::array<char, 12> gSettingsMusicTextD3041C {};
+std::array<char, 12> gSettingsEffectTextD2EA64 {};
 login::YobiAction* gWindowActionCA0174 = nullptr;
 login::YobiAction* gWindowActionD2E928 = nullptr;
 login::YobiAction* gPreviewActionD67B84 = nullptr;
@@ -15635,6 +15641,315 @@ std::int32_t Sub_492880(const std::int32_t index, const std::int32_t state)
     }
     if ((state & 8) != 0) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = idle + 1;
+    }
+    return consumed;
+}
+
+namespace {
+
+constexpr std::array<WindowValueCallback, 4> kSettingsPanelCallbacks57DF38 {
+    &Sub_493A70, &Sub_493AF0, &Sub_493B70, &Sub_493CB0,
+};
+constexpr char kSettingsLogout586DE8[] = "\xB5\x6E\xA5\x58\xA6\xF8\xAA\x41\xBE\xB9\xA1\x43";
+constexpr char kSettingsInput586DF8[] = "\xB3\x5D\xA9\x77\xB7\xC6\xB9\xAB\xBB\x50\xC1\xE4\xBD\x4C\xAA\xBA\xBE\xDE\xA7\x40\xA4\xE8\xA6\xA1\xA1\x43";
+constexpr char kSettingsAudio586E14[] = "\xB3\x5D\xA9\x77\xAD\xB5\xBC\xD6\xAD\xB5\xAE\xC4\xA1\x43";
+constexpr char kSettingsDisplay586E24[] = "\xB1\xBD\xB4\x79\xBD\x75\xA6\x50\xB4\xC1\xB3\x5D\xA9\x77";
+
+} // namespace
+
+void Sub_493A70(const std::int32_t offset)
+{
+    WindowInstance* const window = gWindowStates[24].window;
+    window->elements[27].x = offset + 16;
+    WindowElement* const elements = window->elements;
+    const std::int32_t x = elements[27].x;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[27].data);
+    const std::int32_t width = 16 - x;
+    graphic->width = width;
+    const std::int32_t limit = window->elements[27].width;
+    if (width > limit) {
+        graphic->width = limit;
+    }
+    const std::int32_t visible = offset <= -146 ? 1 : 0;
+    window->elements[8].visible = visible;
+    window->elements[9].visible = visible;
+}
+
+void Sub_493AF0(const std::int32_t offset)
+{
+    WindowInstance* const window = gWindowStates[24].window;
+    window->elements[28].x = offset + 16;
+    WindowElement* const elements = window->elements;
+    const std::int32_t x = elements[28].x;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[28].data);
+    const std::int32_t width = 16 - x;
+    graphic->width = width;
+    const std::int32_t limit = window->elements[28].width;
+    if (width > limit) {
+        graphic->width = limit;
+    }
+    const std::int32_t visible = offset <= -146 ? 1 : 0;
+    window->elements[10].visible = visible;
+    window->elements[11].visible = visible;
+    window->elements[12].visible = visible;
+}
+
+void Sub_493B70(const std::int32_t offset)
+{
+    WindowInstance* const window = gWindowStates[24].window;
+    window->elements[29].x = offset + 16;
+    WindowElement* const elements = window->elements;
+    const std::int32_t x = elements[29].x;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[29].data);
+    const std::int32_t width = 16 - x;
+    graphic->width = width;
+    const std::int32_t limit = window->elements[29].width;
+    if (width > limit) {
+        graphic->width = limit;
+    }
+    if (offset > -146) {
+        for (std::int32_t index = 13; index <= 20; ++index) {
+            window->elements[index].visible = 0;
+        }
+        return;
+    }
+    window->elements[13].visible = 1;
+    const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+    window->elements[13].x = ((37 - musicWidth) >> 1) + offset + 69;
+    window->elements[14].visible = 1;
+    window->elements[15].visible = 1;
+    window->elements[16].visible = 1;
+    const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+    window->elements[16].x = ((37 - effectWidth) >> 1) + offset + 69;
+    window->elements[17].visible = 1;
+    window->elements[18].visible = 1;
+    window->elements[19].visible = 1;
+    window->elements[20].visible = 1;
+}
+
+void Sub_493CB0(const std::int32_t offset)
+{
+    WindowInstance* const window = gWindowStates[24].window;
+    window->elements[30].x = offset + 16;
+    WindowElement* const elements = window->elements;
+    const std::int32_t x = elements[30].x;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[30].data);
+    const std::int32_t width = 16 - x;
+    graphic->width = width;
+    const std::int32_t limit = window->elements[30].width;
+    if (width > limit) {
+        graphic->width = limit;
+    }
+    window->elements[21].visible = 0;
+    if (offset <= -146) {
+        window->elements[21].visible = 1;
+        for (std::int32_t index = 22; index <= 26; ++index) {
+            window->elements[index].visible = 0;
+        }
+        const std::int8_t mode = std::bit_cast<std::int8_t>(platform::gSupportedRenderMode);
+        window->elements[mode + 22].visible = 1;
+    }
+}
+
+std::int32_t Sub_493D60(const std::int32_t value)
+{
+    if (value == -1) {
+        for (std::int32_t index = 8; index <= 30; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+        gSettingsPanelCC4234 = -1;
+        gSettingsOffsetCA02DC = 0;
+    }
+    return 1;
+}
+
+std::int32_t Sub_493DB0(const std::int32_t)
+{
+    const std::int8_t panel = gSettingsPanelCC4234;
+    if (panel >= 0) {
+        std::int32_t offset = gSettingsOffsetCA02DC;
+        if (offset > -146) {
+            const std::int32_t step = gSettingsStepD2D610;
+            offset -= step;
+            gSettingsOffsetCA02DC = offset;
+            gSettingsStepD2D610 = step - 1;
+            if (offset < -146) {
+                offset = -146;
+                gSettingsOffsetCA02DC = offset;
+            }
+            kSettingsPanelCallbacks57DF38[panel](offset);
+        }
+    }
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+void Sub_493E10()
+{
+    static_cast<void>(login::detail::Sub_520470());
+    static_cast<void>(login::detail::Sub_520590());
+    const std::int32_t selected = login::gSelectedCharacterIndex;
+    static_cast<void>(login::detail::Sub_520510(selected));
+    static_cast<void>(login::detail::Sub_520640());
+    static_cast<void>(login::detail::Sub_5206F0());
+    static_cast<void>(login::detail::Sub_520200());
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
+}
+
+std::int32_t Sub_493EE0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B8BE;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8C0;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsLogout586DE8);
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t visible = gCurrentWindow->elements[27].visible;
+        for (std::int32_t element = 8; element <= 30; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gSettingsPanelCC4234 = -1;
+        gSettingsOffsetCA02DC = 0;
+        if (visible == 0) {
+            gSettingsPanelCC4234 = 0;
+            gSettingsStepD2D610 = 17;
+            gCurrentWindow->elements[8].visible = 1;
+            gCurrentWindow->elements[9].visible = 1;
+            gCurrentWindow->elements[27].visible = 1;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (gCurrentWindow->elements[27].visible != 0) {
+        graphic->imageNo = 0x3B8BF;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494000(const std::int32_t index, const std::int32_t state)
+{
+    auto* graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B8C1;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8C3;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsInput586DF8);
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t visible = gCurrentWindow->elements[28].visible;
+        for (std::int32_t element = 8; element <= 30; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gSettingsPanelCC4234 = -1;
+        gSettingsOffsetCA02DC = 0;
+        if (visible == 0) {
+            gSettingsPanelCC4234 = 1;
+            gSettingsStepD2D610 = 17;
+            gCurrentWindow->elements[10].visible = 1;
+            gCurrentWindow->elements[11].visible = 1;
+            gCurrentWindow->elements[12].visible = 1;
+            gCurrentWindow->elements[28].visible = 1;
+            auto* const inputGraphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data);
+            inputGraphic->imageNo = 0x3B8DE;
+            if (platform::gValueD67AE8 != 0) {
+                inputGraphic->imageNo = 0x3B8DB;
+            }
+            // 原494121改写EBP；末尾选中图也写这个借用载荷。
+            graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data);
+            graphic->imageNo = 0x3B8E4;
+            if (platform::gValueD67AE4 != 0) {
+                graphic->imageNo = 0x3B8E1;
+            }
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (gCurrentWindow->elements[28].visible != 0) {
+        graphic->imageNo = 0x3B8C2;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B8C4;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8C6;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsAudio586E14);
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t visible = gCurrentWindow->elements[29].visible;
+        for (std::int32_t element = 8; element <= 30; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gSettingsPanelCC4234 = -1;
+        gSettingsOffsetCA02DC = 0;
+        if (visible == 0) {
+            gSettingsPanelCC4234 = 2;
+            gSettingsStepD2D610 = 17;
+            gCurrentWindow->elements[19].visible = 1;
+            gCurrentWindow->elements[13].visible = 1;
+            gCurrentWindow->elements[14].visible = 1;
+            gCurrentWindow->elements[15].visible = 1;
+            gCurrentWindow->elements[16].visible = 1;
+            gCurrentWindow->elements[17].visible = 1;
+            gCurrentWindow->elements[18].visible = 1;
+            gCurrentWindow->elements[29].visible = 1;
+            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
+            gCurrentWindow->elements[13].x =
+                ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
+            gCurrentWindow->elements[16].x =
+                ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (gCurrentWindow->elements[29].visible != 0) {
+        graphic->imageNo = 0x3B8C5;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_494370(const std::int32_t index, const std::int32_t state)
+{
+    auto* graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B8C7;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B8C9;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsDisplay586E24);
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t visible = gCurrentWindow->elements[30].visible;
+        for (std::int32_t element = 8; element <= 30; ++element) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        gSettingsPanelCC4234 = -1;
+        gSettingsOffsetCA02DC = 0;
+        if (visible == 0) {
+            gSettingsPanelCC4234 = 3;
+            gSettingsStepD2D610 = 17;
+            gCurrentWindow->elements[21].visible = 1;
+            gCurrentWindow->elements[30].visible = 1;
+            // 原49444C改写EBP，后续选中图仍写元素21。
+            graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[21].data);
+            graphic->imageNo = 0x3B8F9;
+            if (platform::gScanlineSyncMode != 0) {
+                graphic->imageNo = 0x3B8FC;
+            }
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if (gCurrentWindow->elements[30].visible != 0) {
+        graphic->imageNo = 0x3B8C8;
     }
     return consumed;
 }

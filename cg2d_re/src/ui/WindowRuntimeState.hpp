@@ -841,6 +841,22 @@ std::int32_t Sub_492520(std::int32_t index, std::int32_t state); // 单行/十�
 std::int32_t Sub_492800(std::int32_t index, std::int32_t state); // 拖动结果恰1时反求图鉴起点。
 std::int32_t Sub_492840(std::int32_t index, std::int32_t state); // 图鉴滚轮，恒返0。
 std::int32_t Sub_492880(std::int32_t index, std::int32_t state); // 图鉴详情四种翻页与旋转。
+void Sub_493A70(std::int32_t offset); // 设置窗口登出侧栏裁剪与两按钮显隐。
+void Sub_493AF0(std::int32_t offset); // 设置窗口输入侧栏裁剪与三按钮显隐。
+void Sub_493B70(std::int32_t offset); // 设置窗口音量侧栏，两同源数字分别测宽。
+void Sub_493CB0(std::int32_t offset); // 设置窗口显示侧栏，读取当前模式S8。
+std::int32_t Sub_493D60(std::int32_t value); // -1仅隐藏侧栏、清活动索引和位移。
+std::int32_t Sub_493DB0(std::int32_t unusedValue); // 四侧栏减速展开与公共绘制尾。
+void Sub_493E10(); // 设置写回/持久化后播放关闭音效。
+std::int32_t Sub_493EE0(std::int32_t index, std::int32_t state); // 登出侧栏开关。
+std::int32_t Sub_494000(std::int32_t index, std::int32_t state); // 输入侧栏，展开后保留元素11载荷别名。
+std::int32_t Sub_494180(std::int32_t index, std::int32_t state); // 音量侧栏，生成两个type7同源文本。
+std::int32_t Sub_494370(std::int32_t index, std::int32_t state); // 显示侧栏，展开后保留元素21载荷别名。
+extern std::int8_t gSettingsPanelCC4234;
+extern std::int32_t gSettingsOffsetCA02DC;
+extern std::int32_t gSettingsStepD2D610;
+extern std::array<char, 12> gSettingsMusicTextD3041C; // 5689C0借用，音乐音量S32的%d文本。
+extern std::array<char, 12> gSettingsEffectTextD2EA64; // 5689B8借用，音效音量S32的%d文本。
 std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称输入焦点。
 std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
 std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。

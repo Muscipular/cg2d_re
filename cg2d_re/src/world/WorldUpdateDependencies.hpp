@@ -39,6 +39,7 @@ namespace cg::login::detail {
 
 void Sub_46DD40(); // 原 0x46DD40；复用 YobiRuntime.cpp 的外部定义。
 std::int32_t Sub_520470(); // 原 [0x520470,0x5204BF)，保存当前音频设置。
+std::int32_t Sub_520510(std::int32_t selected); // 原 [0x520510,0x520545)，保存所选角色四项显示状态。
 std::uint8_t Sub_520590(); // 原 [0x520590,0x5205D5)，保存六项标量并返回 AL。
 std::uint32_t Sub_520640(); // 原 [0x520640,0x520681)，复制 24 项文本。
 std::uint8_t Sub_5206F0(); // 原 [0x5206F0,0x5206FB)，保存 +0x313 并返回 AL。

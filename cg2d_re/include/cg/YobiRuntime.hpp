@@ -293,6 +293,8 @@ void UpdateBattleProjection_418D80(YobiAction* action); // 父FD0门禁仅影响
 void NewBattleProjection_418DF0(
     YobiAction* parent, float x, float y, float targetX, float targetY,
     std::int32_t imageNo); // 目标先截S32再转向；指定图号播放后额外移动两次。
+void UpdateBattleScatterEffect_41E4D0(YobiAction* action); // 移动后播放，严格终帧标死仍投影。
+YobiAction* NewBattleScatterEffect_41E510(YobiAction* parent, std::int32_t imageNo); // 分配成功才依序随机速率/角度/速度。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleCoordinateEffect_41E720(float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
@@ -444,6 +446,15 @@ std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重
 std::int32_t UpdateBattleAction29_40AE50(YobiAction* action); // 新计数<14后退，>=44推进。
 std::int32_t UpdateBattleAction30_40AF30(YobiAction* action); // 新计数>=14才读死亡位，阈值14/28推进。
 std::int32_t UpdateBattleAction31_40B020(YobiAction* action); // 偶数帧旋转，28帧后等other退出动作14。
+void UpdateBattleAction32_40B410(YobiAction* action); // 受击动作，严格终帧才推进。
+void UpdateBattleAction33_40B450(YobiAction* action); // 防御动作，严格终帧才推进。
+std::int32_t UpdateBattleAction34_40B5E0(YobiAction* action); // 完整四边反弹退场，播放至非零，不加循环上限。
+std::int32_t UpdateBattleAction35_40B930(YobiAction* action); // 入口FDC决定死亡处理，晚期每帧建尾迹后直线退场。
+void UpdateBattleAction36_40BAD0(YobiAction* action); // 条件播放后重读FF0，新值>=30才推进。
+void UpdateBattleAction37_40BB20(YobiAction* action); // 同源计时，新值>=60才推进。
+void UpdateBattleAction38_40BB70(YobiAction* action); // 同源计时，新值>=120才推进。
+std::int32_t UpdateBattleAction39_40BBC0(YobiAction* action); // 按36-nameY切换角色动作，尾部固定播放三次。
+void UpdateBattleAction40_40BD40(YobiAction* action); // 载荷方向恢复后推进，不播放。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

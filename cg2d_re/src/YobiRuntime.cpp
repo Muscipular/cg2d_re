@@ -310,7 +310,7 @@ constexpr std::array<std::int32_t, 16> kBattleEmitterYOffsets {
     0, 14, 26, 44, 47, 44, 26, 14, 0, -14, -26, -44, -47, -44, -26, -14,
 };
 
-// 427470骑乘拆分原18h载荷；指针原生拓宽，末8B仅保留原分配范围，不解释业务。
+// 4239D0/427470骑乘拆分原18h载荷；指针原生拓宽，末8B仅保留原分配范围，不解释业务。
 struct BattleRideCarrierPayload {
     YobiAction* first00; // 42958F写入首个438290结果，非拥有引用。
     YobiAction* second04; // 429923写入第二个438290结果，非拥有引用。
@@ -374,7 +374,7 @@ struct BattleActorPayload {
     std::int32_t valueFF0;
     std::int32_t attackModeFF4; // 426FC0写入原完整攻击模式。
     std::int32_t aliveFF8;
-    std::int32_t flashCounter1000; // 404DB0残影节拍；角色完整初始生产仍待438290。
+    std::int32_t flashCounter1000; // 404DB0残影节拍；438290沿通用分配零化，不额外写入。
     std::int32_t flash1004; // 416DD0的bit100门禁，仅首次写1并播放音效。
     std::int32_t fpUsed1008;
     std::int32_t targetPosition100C; // 4242B0三方序列写入原目标。
@@ -12344,6 +12344,322 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
     destination[3] = '\0';
     payload->packetOffset64 += 4;
     return 0;
+}
+
+YobiAction* NewBattleActor_438290(const std::int32_t position)
+{
+    using namespace world::detail;
+    const auto priority = static_cast<std::uint8_t>(static_cast<std::uint8_t>(position) * 10 + 2);
+    YobiAction* const action = NewYobiAction_404AE0(priority, sizeof(BattleActorPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags;
+    action->callback = UpdateBattleActor_404DB0;
+    action->imageNo = 100500;
+    action->flags = flags | 0x60054u;
+    action->characterAction = 0;
+    action->framePlayingRate = 100;
+    action->value54 = 3.0F;
+    action->direction = 1;
+    action->displayPriority = 9;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][0]);
+    action->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1]);
+    payload->x00 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][2];
+    payload->y04 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][3];
+    payload->x08 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][0];
+    const std::int32_t y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1];
+    payload->battlePosition18 = position;
+    payload->y0C = y;
+    action->phase = 0;
+    action->field270 = 0;
+    PlayFrame_517DA0(action, 0);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
+    return action;
+}
+
+void ParseBattleMRide_4239D0(YobiAction* const action)
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    auto* const scene = static_cast<BattleScenePayload*>(action->payload);
+    std::array<char, 4> header;
+    std::array<char, 32> previewName;
+    for (;;) {
+        const std::int32_t initialOffset = scene->packetOffset64;
+        static_cast<void>(GetBattleMObjectHeader_423960(action, header.data()));
+        std::size_t kind = 0;
+        while (kind < kBattleMHeaders553E94.size()
+            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            ++kind;
+        }
+        if (kind != 22) {
+            scene->packetOffset64 = initialOffset;
+            return;
+        }
+        std::int32_t previewOffset = scene->packetOffset64;
+        if (TakeBattleMIntegerAt_43B940(&previewOffset) != 0) {
+            scene->packetOffset64 = initialOffset;
+            return;
+        }
+        for (std::int32_t i = 0; i < 3; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+        }
+        TakeBattleMStringAt_43B8C0(&previewOffset, previewName.data(), 29);
+        // 原预读20个整数，实际消费19个；成功后仍发布预读游标。
+        for (std::int32_t i = 0; i < 8; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+        }
+        const std::int32_t firstPreviewFlags = TakeBattleMIntegerAt_43B940(&previewOffset);
+        TakeBattleMStringAt_43B8C0(&previewOffset, previewName.data(), 29);
+        for (std::int32_t i = 0; i < 6; ++i) {
+            static_cast<void>(TakeBattleMIntegerAt_43B940(&previewOffset));
+        }
+        const std::int32_t secondPreviewFlags = TakeBattleMIntegerAt_43B940(&previewOffset);
+        if ((firstPreviewFlags & 2) == 0 && (secondPreviewFlags & 2) == 0) {
+            scene->packetOffset64 = initialOffset;
+            return;
+        }
+
+        static_cast<void>(TakeBattleMInteger_438F70(action));
+        const std::int32_t first = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(action));
+        const std::int32_t second = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(action));
+        YobiAction* const existing = gBattleAllEntries59E980[first];
+        if (existing == nullptr) {
+            FinishBattleEvent_43B6C0(action);
+            ++scene->packetSubState58;
+            return;
+        }
+        auto* const existingPayload = static_cast<BattleActorPayload*>(existing->payload);
+        static_cast<void>(TakeBattleMInteger_438F70(action));
+        YobiAction* const firstActor = NewBattleActor_438290(first);
+        auto* const firstPayload = static_cast<BattleActorPayload*>(firstActor->payload);
+        TakeBattleMString_438FE0(action, firstActor->nameC4.data(), 29);
+        firstActor->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        const std::int32_t gearImage = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        firstActor->field1D0 = TakeBattleMInteger_438F70(action);
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            firstActor->readiness.readCount = count;
+            firstActor->readiness.encoded = encoded;
+            firstActor->readiness.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            firstActor->maxHp.readCount = count;
+            firstActor->maxHp.encoded = encoded;
+            firstActor->maxHp.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            firstActor->barValue1B0.readCount = count;
+            firstActor->barValue1B0.encoded = encoded;
+            firstActor->barValue1B0.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            const auto count = temporary.readCount;
+            firstActor->barMaximum1C0.encoded = encoded;
+            firstActor->barMaximum1C0.mask = mask;
+            firstActor->barMaximum1C0.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        firstPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
+        firstPayload->stateFE0 = 0;
+        firstActor->fields288[3] = 0;
+        firstActor->fields288[2] = 0;
+        firstActor->fields288[1] = 0;
+        firstActor->fields288[0] = 0;
+        if ((firstPayload->flagsFDC & 0x1000000u) != 0) {
+            firstActor->fields288[0] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x2000000u) != 0) {
+            firstActor->fields288[1] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x4000000u) != 0) {
+            firstActor->fields288[2] = 1;
+        }
+        if ((firstPayload->flagsFDC & 0x8000000u) != 0) {
+            firstActor->fields288[3] = 1;
+        }
+        firstPayload->castPlayIndexFC4 = 0;
+        firstPayload->castListIndexFC8 = -1;
+        firstPayload->castListCA4[0] = 0;
+        firstPayload->castListCA4[1] = -1;
+        firstActor->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][2]);
+        firstActor->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][3]);
+        firstActor->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][2];
+        firstActor->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][3];
+        action->scaleX = 1.0F;
+        action->scaleY = 1.0F;
+        firstPayload->battlePosition18 = first;
+        UpdateBattleAlbumFlag_4238F0(firstActor);
+        const std::uint32_t firstFlags = firstActor->flags | 2u;
+        firstActor->phase = 0;
+        firstActor->flags = firstFlags;
+        firstActor->callback = nullptr;
+
+        std::strcpy(existingPayload->rider13C8->nameC4.data(), firstActor->nameC4.data());
+        existingPayload->rider13C8->field1D0 = firstActor->field1D0;
+        CopyPayload(&existingPayload->rider13C8->readiness, &firstActor->readiness);
+        CopyPayload(&existingPayload->rider13C8->maxHp, &firstActor->maxHp);
+        CopyPayload(&existingPayload->rider13C8->barValue1B0, &firstActor->barValue1B0);
+        CopyPayload(&existingPayload->rider13C8->barMaximum1C0, &firstActor->barMaximum1C0);
+        YobiAction* const riderX = existingPayload->rider13C8;
+        YobiAction** const originalSlot = &gBattleAllEntries59E980[first];
+        YobiAction* const sourceX = *originalSlot;
+        riderX->offset40 = static_cast<float>(static_cast<double>(sourceX->frameX) + sourceX->offset40);
+        YobiAction* const sourceY = *originalSlot;
+        YobiAction* const riderY = existingPayload->rider13C8;
+        riderY->offset44 = sourceY->offset44;
+
+        YobiAction* const secondActor = NewBattleActor_438290(second);
+        auto* const secondPayload = static_cast<BattleActorPayload*>(secondActor->payload);
+        TakeBattleMString_438FE0(action, secondActor->nameC4.data(), 29);
+        secondActor->imageNo = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(action));
+        secondActor->field1D0 = TakeBattleMInteger_438F70(action);
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            secondActor->readiness.readCount = count;
+            secondActor->readiness.encoded = encoded;
+            secondActor->readiness.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            secondActor->maxHp.readCount = count;
+            secondActor->maxHp.encoded = encoded;
+            secondActor->maxHp.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            secondActor->barValue1B0.readCount = count;
+            secondActor->barValue1B0.encoded = encoded;
+            secondActor->barValue1B0.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(action);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            const auto count = temporary.readCount;
+            const auto encoded = temporary.encoded;
+            const auto mask = temporary.mask;
+            secondActor->barMaximum1C0.readCount = count;
+            secondActor->barMaximum1C0.encoded = encoded;
+            secondActor->barMaximum1C0.mask = mask;
+            Destroy_401CF0(&temporary);
+        }
+        secondPayload->flagsFDC = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(action));
+        secondPayload->stateFE0 = 0;
+        secondActor->fields288[3] = 0;
+        secondActor->fields288[2] = 0;
+        secondActor->fields288[1] = 0;
+        secondActor->fields288[0] = 0;
+        if ((secondPayload->flagsFDC & 0x1000000u) != 0) {
+            secondActor->fields288[0] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x2000000u) != 0) {
+            secondActor->fields288[1] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x4000000u) != 0) {
+            secondActor->fields288[2] = 1;
+        }
+        if ((secondPayload->flagsFDC & 0x8000000u) != 0) {
+            secondActor->fields288[3] = 1;
+        }
+        secondPayload->castPlayIndexFC4 = 0;
+        secondPayload->castListCA4[0] = 0;
+        secondPayload->castListIndexFC8 = -1;
+        secondPayload->castListCA4[1] = -1;
+        // 第二对象仍从首位置取坐标；位置身份独立写入second。
+        secondActor->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][2]);
+        secondActor->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][3]);
+        secondActor->x = gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][2];
+        secondActor->y = gBattleGraphicPoints553758[gBattlePointIndices5536FC[first]][3];
+        action->scaleX = 1.0F;
+        action->scaleY = 1.0F;
+        secondPayload->battlePosition18 = second;
+        UpdateBattleAlbumFlag_4238F0(secondActor);
+        const std::uint32_t secondFlags = secondActor->flags | 2u;
+        secondActor->phase = 0;
+        secondActor->flags = secondFlags;
+        secondActor->callback = nullptr;
+
+        YobiAction* const carrierAction = NewYobiAction_404AE0(2, sizeof(BattleRideCarrierPayload));
+        existingPayload->effect1060 = carrierAction;
+        auto* const carrier = static_cast<BattleRideCarrierPayload*>(carrierAction->payload);
+        carrier->first00 = firstActor;
+        carrier->second04 = secondActor;
+        carrier->gearImage0C = gearImage;
+        AppendBattleCast_4392A0(action, *originalSlot, 226);
+        AppendBattleEffect_439400(*originalSlot, {first, 0u, first, second});
+        if ((firstPayload->flagsFDC & 2u) != 0) {
+            firstActor->value54 = 4.0F;
+            AppendBattleCast_4392A0(action, firstActor, 11);
+            AppendBattleCast_4392A0(action, firstActor, 40);
+            AppendBattleCast_4392A0(action, firstActor, 46);
+        } else {
+            firstActor->value54 = 5.0F;
+            AppendBattleCast_4392A0(action, firstActor, 7);
+            AppendBattleCast_4392A0(action, firstActor, 11);
+            AppendBattleCast_4392A0(action, firstActor, 10);
+        }
+        if ((secondPayload->flagsFDC & 2u) != 0) {
+            secondActor->value54 = 4.0F;
+            AppendBattleCast_4392A0(action, secondActor, 11);
+            AppendBattleCast_4392A0(action, secondActor, 40);
+            AppendBattleCast_4392A0(action, secondActor, 46);
+        } else {
+            secondActor->value54 = 5.0F;
+            AppendBattleCast_4392A0(action, secondActor, 7);
+            AppendBattleCast_4392A0(action, secondActor, 11);
+            AppendBattleCast_4392A0(action, secondActor, 10);
+        }
+        scene->packetOffset64 = previewOffset;
+    }
 }
 
 void FinishBattleEvent_43B6C0(YobiAction* const action)

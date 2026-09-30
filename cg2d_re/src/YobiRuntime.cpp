@@ -14008,6 +14008,332 @@ void UpdateBattleAction40_40BD40(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+void ConsumeBattleFpCost_405B60(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t cost = payload->fpUsed1008;
+    if (cost > 0) {
+        SubtractAssign_401E40(&action->barValue1B0, cost);
+        if (Less_401DB0(&action->barValue1B0, 0)) {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, 0);
+            const std::uint32_t mask = temporary.mask;
+            const std::uint32_t encoded = temporary.encoded;
+            const std::uint8_t count = temporary.readCount;
+            // 原405BA8/AF/B2先mask后encoded，不使用写序不同的CopyPayload。
+            action->barValue1B0.mask = mask;
+            action->barValue1B0.encoded = encoded;
+            action->barValue1B0.readCount = count;
+            Destroy_401CF0(&temporary);
+        }
+        payload->fpUsed1008 = -1;
+    }
+}
+
+void UpdateBattleAction41_40BD60(YobiAction* const action)
+{
+    using world::detail::gBattleGraphicPoints553758;
+    using world::detail::gBattlePointIndices5536FC;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[payload->targetPosition100C]];
+    const float y = static_cast<float>(point[3]);
+    const float x = static_cast<float>(point[2]);
+    TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction42_40BDB0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const target = world::detail::gBattleAllEntries59E980[payload->targetPosition100C];
+    const float y = target->offset44;
+    const float x = target->offset40;
+    TurnBattleTowardPosition_4060D0(action, x, y, 1, 0.0F);
+    AdvanceBattleCastState_439340(action);
+}
+
+std::int32_t UpdateBattleAction43_40BE30(YobiAction* const action)
+{
+    YobiAction* const other = action->battleOpponent10;
+    if (other != nullptr) {
+        TurnBattleToward_406190(action, other, 1, 0.0F);
+    }
+    action->framePlayingRate = 100;
+    action->characterAction = 0;
+    return PlayFrame_517DA0(action, 0);
+}
+
+void UpdateBattleAction44_40BDF0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* const target = world::detail::gBattleAllEntries59E980[
+        payload->effects1C[payload->effectRunningC9C].position];
+    TurnBattleToward_406190(target, action, 1, 0.0F);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction45_40B130(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    platform::LegacyCryptInt temporary;
+    ConstructFromInt_401CC0(&temporary, 0);
+    const std::uint32_t mask = temporary.mask;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint8_t count = temporary.readCount;
+    // 原40B14F/59/5F先mask后encoded，保留目标token及未复制字节。
+    action->readiness.mask = mask;
+    action->readiness.encoded = encoded;
+    action->readiness.readCount = count;
+    Destroy_401CF0(&temporary);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction46_40B200(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x10000000u) != 0) {
+        payload->valueFF0 = action->phase;
+        action->phase = 164;
+        return;
+    }
+    if (payload->rider13C8 != nullptr && payload->effect1060 != nullptr) {
+        const auto* const carrier = static_cast<const BattleRideCarrierPayload*>(payload->effect1060->payload);
+        YobiAction* const first = carrier->first00;
+        bool dead = false;
+        if (first != nullptr) {
+            const auto* const firstPayload = static_cast<const BattleActorPayload*>(first->payload);
+            dead = firstPayload != nullptr && (firstPayload->flagsFDC & 2u) != 0;
+        }
+        if (!dead) {
+            YobiAction* const second = carrier->second04;
+            if (second != nullptr) {
+                const auto* const secondPayload = static_cast<const BattleActorPayload*>(second->payload);
+                dead = secondPayload != nullptr && (secondPayload->flagsFDC & 2u) != 0;
+            }
+        }
+        if (dead) {
+            AdvanceBattleCastState_439340(action);
+            if (action->phase == 46) {
+                AdvanceBattleCastState_439340(action);
+            }
+            return;
+        }
+    }
+    action->characterAction = 10;
+    action->framePlayingRate = 100;
+    if (PlayFrame_517DA0(action, 1) != 1) {
+        return;
+    }
+    if ((payload->flagsFDC & 0x1000u) != 0) {
+        action->scaleX = 1.0F;
+        action->scaleY = 1.0F;
+        payload->flagsFDC &= ~0x1000u;
+    }
+    YobiAction* effect = payload->effect105C;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->effect105C = nullptr;
+    }
+    effect = payload->effect1054;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->effect1054 = nullptr;
+    }
+    effect = payload->effect1068;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->effect1068 = nullptr;
+    }
+    if (payload->value13B0 != 0) {
+        action->phase = 219;
+        return;
+    }
+    if ((payload->flagsFDC & 0xCu) != 0) {
+        static_cast<void>(NewBattleCenteredEffect_41FA00(action, 110169));
+        static_cast<void>(audio::PlaySe_52C450(215, action->x));
+        payload->stateFE0 |= 2u;
+        AdvanceBattleCastState_439340(action);
+        return;
+    }
+    effect = payload->attachedEffect1058;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->attachedEffect1058 = nullptr;
+    }
+    payload->stateFE0 |= 2u;
+    action->phase = 48;
+}
+
+void UpdateBattleAction47_40B3F0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    payload->flagsFDC |= 2u;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction48_40B490(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        const std::int32_t count = payload->valueFF0 + 1;
+        payload->valueFF0 = count;
+        if (action->field58 >= 8) {
+            const std::uint32_t flags = action->flags;
+            const std::int32_t x = action->x;
+            action->field58 = 0;
+            action->flags = flags | 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(218, x));
+            static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 36, 0, 1));
+            action->phase = 49;
+        } else if (count > 4) {
+            payload->valueFF0 = 0;
+            const std::uint32_t flags = action->flags ^ 2u;
+            const std::int32_t step = action->field58 + 1;
+            action->flags = flags;
+            action->field58 = step;
+        }
+        return;
+    }
+    if (payload->valueFF0 != 255) {
+        payload->valueFF0 = 255;
+        static_cast<void>(audio::PlaySe_52C450(218, action->x));
+    }
+    const std::uint8_t previousAlpha = GetYobiActionField30F(action);
+    SetYobiActionField308(action, 8);
+    if (previousAlpha == 0) {
+        action->field58 = 0;
+        payload->valueFF0 = 0;
+        action->phase = 51;
+        return;
+    }
+    static_cast<void>(NewBattleRisingEffect_420D50(action));
+    const std::uint8_t alpha = GetYobiActionField30F(action);
+    SetYobiActionField30F(action, alpha < 4 ? 0 : static_cast<std::uint8_t>(alpha - 4));
+}
+
+void UpdateBattleAction49_40B5B0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (payload->value1024 == 2) {
+        payload->value1024 = 0;
+        action->phase = 51;
+    }
+}
+
+void UpdateBattleAction50_40B3C0(YobiAction* const action)
+{
+    action->characterAction = 10;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+YobiAction* UpdateBattleAction51_40BE70(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    world::detail::gBattleAllEntries59E980[payload->battlePosition18] = nullptr;
+    return MarkDeath(action);
+}
+
+void UpdateBattleAction52_40BE90(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
+    YobiAction* const caster = payload->caster1070;
+    if ((flags & 4u) != 0) {
+        const std::int32_t petPosition = GetBattlePetPosition_405B40(payload->battlePosition18);
+        YobiAction* const pet = gBattleAllEntries59E980[petPosition];
+        if (pet != nullptr) {
+            AppendBattleCast_4392A0(caster, pet, 13);
+            AppendBattleCast_4392A0(caster, gBattleAllEntries59E980[petPosition], 47);
+            AppendBattleCast_4392A0(caster, gBattleAllEntries59E980[petPosition], 51);
+            const std::int32_t currentPetPosition = GetBattlePetPosition_405B40(payload->battlePosition18);
+            MoveBattleCastState_439380(gBattleAllEntries59E980[currentPetPosition]);
+        }
+    }
+    AdvanceBattleCastState_439340(action);
+}
+
+std::int32_t UpdateBattleAction53_40BF20(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    const double step = std::bit_cast<float>(0x3CA3D70Au);
+    const double scaleX = static_cast<double>(action->scaleX) - step;
+    action->flags = flags;
+    action->scaleX = static_cast<float>(scaleX);
+    action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) - step);
+    if (!(scaleX >= 0.0)) {
+        action->scaleX = 0.0F;
+        action->scaleY = 0.0F;
+    }
+    if (payload->value1024 == 0) {
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 22, 0, 1);
+    }
+    const float currentScaleX = action->scaleX;
+    if (!(currentScaleX < 0.0F) && !(currentScaleX > 0.0F)) {
+        YobiAction* const effect = action->battleCastEffect10;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            action->battleCastEffect10 = nullptr;
+        }
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+std::int32_t UpdateBattleAction54_40BFE0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    action->flags |= hasDevice ? 0x100000u : 0x8000u;
+    Sub_406260(action);
+    const double step = std::bit_cast<float>(0x3CA3D70Au);
+    const double scaleX = static_cast<double>(action->scaleX) + step;
+    action->scaleX = static_cast<float>(scaleX);
+    action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) + step);
+    if (scaleX > 1.0) {
+        action->scaleX = 1.0F;
+        action->scaleY = 1.0F;
+    }
+    if (payload->value1024 == 0) {
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 23, 0, 1);
+    }
+    if (std::bit_cast<std::uint32_t>(action->scaleX) == 0x3F800000u) {
+        YobiAction* const effect = action->battleCastEffect10;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            action->battleCastEffect10 = nullptr;
+        }
+        const bool currentDevice = render::HasLegacy3DDevice_44B610() != 0;
+        action->flags &= currentDevice ? ~0x100000u : ~0x8000u;
+        payload->value1024 = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+void UpdateBattleAction55_40C0C0(YobiAction* const action)
+{
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+    ConsumeBattleFpCost_405B60(action);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction56_40C160(YobiAction* const action)
+{
+    action->characterAction = 5;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        action->frameIndex = 0;
+        action->frameRemain = 0;
+        action->frameEvent = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
 void UpdateBattleAction236_406630(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

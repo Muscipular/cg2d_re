@@ -317,7 +317,7 @@ struct BattleRideCarrierPayload {
 
 // 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
 struct BattleActorPayload {
-    std::int32_t x00;
+    std::int32_t x00; // 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
     std::int32_t y04;
     std::int32_t x08;
     std::int32_t y0C; // 43C9A0按(08-00,0C-04)计算朝向，不与对象坐标合并。
@@ -346,6 +346,7 @@ struct BattleActorPayload {
     std::int32_t fpUsed1008;
     std::int32_t targetPosition100C; // 4242B0三方序列写入原目标。
     std::int32_t reactionImage1010;
+    std::int32_t image1014; // 429A05写51B740转换后的图号，40C480消费；完整生产父链仍待落位。
     std::int32_t value1018;
     std::int32_t value1024;
     std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
@@ -14332,6 +14333,220 @@ void UpdateBattleAction56_40C160(YobiAction* const action)
         action->frameEvent = 0;
         AdvanceBattleCastState_439340(action);
     }
+}
+
+void UpdateBattleAction57_40C1A0(YobiAction* const action)
+{
+    action->characterAction = 13;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        action->frameIndex = 0;
+        action->frameRemain = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction58_40C1E0(YobiAction* const action)
+{
+    action->characterAction = 14;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        action->frameIndex = 0;
+        action->frameRemain = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction59_40C240(YobiAction* const action)
+{
+    action->characterAction = 15;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        action->frameIndex = 0;
+        action->frameRemain = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction60_40C220(YobiAction* const action)
+{
+    action->characterAction = 15;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction61_40C280(YobiAction* const action)
+{
+    action->characterAction = 12;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction62_40C2B0(YobiAction* const action)
+{
+    action->characterAction = 18;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+std::int32_t UpdateBattleAction63_40C2E0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 0;
+    const std::int32_t previous = payload->valueFF0;
+    const std::int32_t count = previous + 1;
+    payload->valueFF0 = count;
+    if (previous >= 70) {
+        AdvanceBattleCastState_439340(action);
+        payload->valueFF0 = 0;
+    } else {
+        if (count == 20) {
+            action->direction -= 2;
+        }
+        if (payload->valueFF0 == 50) {
+            action->direction += 4;
+        }
+        const std::int32_t direction = action->direction;
+        if (direction >= 8) {
+            action->direction = direction - 8;
+        }
+        const std::int32_t correctedDirection = action->direction;
+        if (correctedDirection < 0) {
+            action->direction = correctedDirection + 8;
+            return PlayFrame_517DA0(action, 0);
+        }
+    }
+    return PlayFrame_517DA0(action, 0);
+}
+
+void UpdateBattleAction64_40CBB0(YobiAction* const action)
+{
+    action->characterAction = 0;
+    AdvanceBattleCastState_439340(action);
+}
+
+std::int32_t UpdateBattleAction65_40C380(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 0;
+    const std::int32_t previous = payload->valueFF0;
+    const std::int32_t count = previous + 1;
+    payload->valueFF0 = count;
+    if (previous >= 70) {
+        AdvanceBattleCastState_439340(action);
+        payload->valueFF0 = 0;
+    } else {
+        if (count == 8) {
+            --action->direction;
+        }
+        if (payload->valueFF0 == 16) {
+            ++action->direction;
+        }
+        if (payload->valueFF0 == 24) {
+            ++action->direction;
+        }
+        if (payload->valueFF0 == 32) {
+            --action->direction;
+        }
+        if (payload->valueFF0 == 40) {
+            --action->direction;
+        }
+        if (payload->valueFF0 == 48) {
+            ++action->direction;
+        }
+        if (payload->valueFF0 == 56) {
+            ++action->direction;
+        }
+        if (payload->valueFF0 == 64) {
+            --action->direction;
+        }
+        const std::int32_t direction = action->direction;
+        if (direction >= 8) {
+            action->direction = direction - 8;
+        }
+        const std::int32_t correctedDirection = action->direction;
+        if (correctedDirection < 0) {
+            action->direction = correctedDirection + 8;
+            return PlayFrame_517DA0(action, 0);
+        }
+    }
+    return PlayFrame_517DA0(action, 0);
+}
+
+void UpdateBattleAction66_40C480(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 5;
+    action->imageNo = payload->image1014;
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+        action->frameEvent = 0;
+    }
+}
+
+void UpdateBattleAction67_4106B0(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    const std::int32_t event = action->frameEvent;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 6;
+    if (event >= 10000 && event < 20000) {
+        for (;;) {
+            const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
+            if (position == -1) {
+                break;
+            }
+            MoveBattleCastState_439380(gBattleAllEntries59E980[position]);
+            static_cast<void>(AdvanceBattleEffect_439470(action));
+        }
+        static_cast<void>(AdvanceBattleEffect_439470(action));
+        action->frameEvent = 0;
+    }
+    if (PlayFrame_517DA0(action, 1) == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction68_40C0E0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    static_cast<void>(NewBattleFloatingIcon_41F4C0(action, payload->reactionImage1010, 0, 0));
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 1));
+    }
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction69_40C120(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    static_cast<void>(NewBattleHitEffect_41F5B0(action, 0, 0, 30, payload->reactionImage1010));
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 1));
+    }
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction71_40C4D0(YobiAction* const action)
+{
+    using world::detail::gBattleAllEntries59E980;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    for (;;) {
+        const std::int32_t position = payload->effects1C[payload->effectRunningC9C].position;
+        if (position == -1) {
+            break;
+        }
+        MoveBattleCastState_439380(gBattleAllEntries59E980[position]);
+        static_cast<void>(AdvanceBattleEffect_439470(action));
+    }
+    static_cast<void>(AdvanceBattleEffect_439470(action));
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction72_40CAA0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    auto* const casterPayload = static_cast<BattleActorPayload*>(payload->caster1070->payload);
+    ++casterPayload->x00;
+    AdvanceBattleCastState_439340(action);
 }
 
 void UpdateBattleAction236_406630(YobiAction* const action)

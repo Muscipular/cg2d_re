@@ -1,5 +1,7 @@
 # Yobi action/runtime、modal 与九宫格还原证据
 
+按回调原地址登记创建、载荷、子分派和清理责任，见[Yobi Update分类覆盖与依赖计划](cg2d_yobi_update_coverage.md)；此处继续保存原端详细证据，不复制第二份执行进度。
+
 ## 范围与证据源
 
 本次只依据当前 IDA 实例 `ida-17524` 中的

@@ -432,6 +432,12 @@ void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中�
 std::int32_t ProbeBattleAttackEvent_4065E0(YobiAction* action); // 播至严格终帧或攻击事件，重置上次动作和事件。
 void UpdateBattleAction16_4072E0(YobiAction* action); // 完整投射命中，保留目标重取/特殊技能推进和双播放尾。
 void UpdateBattleAction17_4093B0(YobiAction* action); // 只移动/越界标死，不播放或推进队列。
+void UpdateBattleAction20_408410(YobiAction* action); // 近距命中，免疫跳过扣血/死亡位，标死后仍移动。
+std::int32_t UpdateBattleAction21_408750(YobiAction* action); // 重读00/04，单圈修正后转phase22。
+std::int32_t UpdateBattleAction22_4087C0(YobiAction* action); // 回旋效果队列命中，独立HP分支及3/7帧延迟。
+std::int32_t UpdateBattleAction23_4090F0(YobiAction* action); // 回到other并追加266动作，死亡后仍移动/播放。
+void UpdateBattleAction24_409380(YobiAction* action); // 新FF0严格超过20才推进。
+void UpdateBattleAction25_406BA0(YobiAction* action); // 等待目标待机，X/Y分别查目标后保存到10/14。
 void UpdateBattleAction26_40A9E0(YobiAction* action); // 单次后退/播放，不消费FCC或推进动作。
 std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // 初始FDC决定时长，减速阶段重读状态。
 std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重读计数，14/34/54帧分段。
@@ -474,10 +480,12 @@ void Sub_43C040(); // 命令初始化逐槽清flags bit40，不改变其他位�
 void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，按DX尺寸和播放偏移画框。
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
+void NormalizeBattleAngle_405E60(YobiAction* action); // 仅修正一圈，不更新direction。
 void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
 std::int8_t GetBattleRelativeDirection_405ED0(
     float sourceX, float sourceY, float targetX, float targetY,
     float tolerance); // 第二组坐标作基准，原负基准两次相减及三闭区间保持独立。
+double GetBattleAngleDifference_406060(YobiAction* source, YobiAction* target); // 空引用返回0，未舍入角差只校正一圈。
 void TurnBattleTowardPosition_4060D0(
     YobiAction* action, float x, float y, std::int32_t updateDirection,
     float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。

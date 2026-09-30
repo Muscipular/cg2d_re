@@ -3574,6 +3574,34 @@ std::int32_t Sub_512470(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x510E30,0x510EBE)：放地请求，容量读取先于格式化，缓冲读取在其后。
+std::int32_t Sub_510E30(
+    const std::uintptr_t socket,
+    const std::int32_t x,
+    const std::int32_t y,
+    const std::int32_t pet)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "FvWm"));
+    const std::int32_t xCapacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const xToken = FormatProtocolIntegerToken_517120(x);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(xToken), xCapacity));
+    const std::int32_t yCapacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const yToken = FormatProtocolIntegerToken_517120(y);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(yToken), yCapacity));
+    const std::int32_t petCapacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const petToken = FormatProtocolIntegerToken_517120(pet);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(petToken), petCapacity));
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x5124E0,0x51256E)：三轮分别采容量、格式化后重读共享缓冲。
 std::int32_t Sub_5124E0(
     const std::uintptr_t socket,

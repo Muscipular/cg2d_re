@@ -833,6 +833,10 @@ extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 窗口15与16/17/18
 extern std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34; // 原连续110B费用文本，491AA0生产。
 std::int32_t Sub_48C1E0(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
 std::int32_t Sub_48D4E0(); // 五状态局部快照叠加真实跟随位，透传发送结果。
+std::int32_t Sub_48ECA0(std::int32_t index, std::int32_t state); // 宠物技能页六按钮。
+std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称输入焦点。
+std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
+std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。
 extern std::array<char, 256> gTitleDraftD45FC0; // 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
 extern std::int32_t& gTitleModeCF4E50; // 借既有登录窗口状态槽0，0选择/1删除。
 extern std::int32_t& gTitlePageCF4E54; // 借既有登录窗口状态槽1，重置/刷新/滚动同源。

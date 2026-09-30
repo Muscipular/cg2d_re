@@ -92,6 +92,48 @@ WindowTextPrototype gWindowText56B708 {
 };
 
 WindowGraphicData gWindowGraphic55F780 {0, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565608 {0x3BAEC, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565620 {0x3BAED, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowGraphicData gWindowGraphic565638 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565650 {0x3B56E, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565698 {0x3BAEE, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5656B0 {0x3BAF5, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5656C8 {0x3B584, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5656E0 {0x3BAF2, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565878 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565890 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5658A8 {0x3B5B7, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5658C0 {0x3BAF7, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic565920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kPetPage58600C[] = "1/5";
+constexpr char kPetTechnique586004[] = "\xA7\xF0\x92\xB0";
+constexpr char kPetTechniqueDescription585FF4[] = "\xB6\x69\xA6\xE6\xA7\xF0\xC0\xBB";
+WindowTextPrototype gWindowText565950 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
+};
+WindowTextPrototype gWindowText565988 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetPage58600C,
+};
+WindowTextPrototype gWindowText565990 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTechnique586004,
+};
+WindowTextPrototype gWindowText5659A0 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kPetTechniqueDescription585FF4,
+};
+WindowNumberData gWindowNumbers5667C0[10] {
+    {gPetTechniqueCostsD66C34[0].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[1].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[2].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[3].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[4].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[5].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[6].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[7].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[8].data(), 0, 0, 0, 0},
+    {gPetTechniqueCostsD66C34[9].data(), 0, 0, 0, 0},
+};
+
 WindowGraphicData gWindowGraphic55F798 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F7B0 {0x3BAC5, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F7C8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1097,6 +1139,60 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1];
 WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4];
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];
+
+WindowElementPrototype gWindowElements566810[51] {
+    {5, 66, 31, 96, 12, 1, {.unusedValue = 0}, &Sub_48F380},
+    {1, 225, 9, 12, 12, 1, {.graphic = &gWindowGraphic565638}, &Sub_4C1FB0},
+    {1, 80, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656B0}, &Sub_48F410},
+    {1, 133, 276, 35, 25, 1, {.graphic = &gWindowGraphic5656C8}, &Sub_48F410},
+    {1, 186, 275, 35, 25, 1, {.graphic = &gWindowGraphic5656E0}, &Sub_4B0F10},
+    {1, 187, 28, 32, 16, 1, {.graphic = &gWindowGraphic565650}, &Sub_48ECA0},
+    {1, 175, 253, 49, 15, 1, {.graphic = &gWindowGraphic5658C0}, &Sub_48ECA0},
+    {1, 21, 253, 13, 15, 1, {.graphic = &gWindowGraphic565878}, &Sub_48ECA0},
+    {1, 65, 253, 13, 15, 1, {.graphic = &gWindowGraphic565890}, &Sub_48ECA0},
+    {1, 225, 50, 11, 11, 1, {.graphic = &gWindowGraphic565908}, &Sub_48ECA0},
+    {1, 225, 195, 11, 11, 1, {.graphic = &gWindowGraphic565920}, &Sub_48ECA0},
+    {3, 66, 31, 0, 0, 1, {.text = &gWindowText565950}, &Sub_4B0F10},
+    {3, 44, 256, 0, 0, 1, {.text = &gWindowText565988}, &Sub_4B0F10},
+    {3, 20, 50, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 66, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 82, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 98, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 114, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 130, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 146, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 162, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 178, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {3, 20, 194, 0, 0, 1, {.text = &gWindowText565990}, &Sub_4B0F10},
+    {7, 201, 51, 0, 0, 1, {.number = &gWindowNumbers5667C0[0]}, &Sub_4B0F10},
+    {7, 201, 67, 0, 0, 1, {.number = &gWindowNumbers5667C0[1]}, &Sub_4B0F10},
+    {7, 201, 83, 0, 0, 1, {.number = &gWindowNumbers5667C0[2]}, &Sub_4B0F10},
+    {7, 201, 99, 0, 0, 1, {.number = &gWindowNumbers5667C0[3]}, &Sub_4B0F10},
+    {7, 201, 115, 0, 0, 1, {.number = &gWindowNumbers5667C0[4]}, &Sub_4B0F10},
+    {7, 201, 131, 0, 0, 1, {.number = &gWindowNumbers5667C0[5]}, &Sub_4B0F10},
+    {7, 201, 147, 0, 0, 1, {.number = &gWindowNumbers5667C0[6]}, &Sub_4B0F10},
+    {7, 201, 163, 0, 0, 1, {.number = &gWindowNumbers5667C0[7]}, &Sub_4B0F10},
+    {7, 201, 179, 0, 0, 1, {.number = &gWindowNumbers5667C0[8]}, &Sub_4B0F10},
+    {7, 201, 195, 0, 0, 1, {.number = &gWindowNumbers5667C0[9]}, &Sub_4B0F10},
+    {3, 25, 213, 0, 0, 1, {.text = &gWindowText5659A0}, &Sub_4B0F10},
+    {3, 25, 225, 0, 0, 1, {.text = &gWindowText5659A0}, &Sub_4B0F10},
+    {3, 25, 237, 0, 0, 1, {.text = &gWindowText5659A0}, &Sub_4B0F10},
+    {3, 25, 249, 0, 0, 1, {.text = &gWindowText5659A0}, &Sub_4B0F10},
+    {1, 17, 48, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 64, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 80, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 96, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 112, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 128, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 144, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 160, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 176, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 192, 206, 15, 1, {.graphic = &gWindowGraphic5658A8}, &Sub_48F6C0},
+    {1, 17, 32, 0, 0, 1, {.graphic = &gWindowGraphic565698}, &Sub_4B0F10},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic565608}, &Sub_4B0F10},
+    {1, 14, 25, 0, 0, 1, {.graphic = &gWindowGraphic565620}, &Sub_4B0F10},
+    {0, 250, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
+};
 
 WindowElementPrototype gWindowElements57B508[48] {
     {0, 0, 0, 549, 366, 1, {.unusedValue = 0}, &Sub_4D0230},

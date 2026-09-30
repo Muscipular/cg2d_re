@@ -418,6 +418,10 @@ std::int32_t Sub_512620(
 // 原 [0x510F50,0x510F98)：构造fS、追加一个整数，技能回复使用共享连接调用。
 std::int32_t Sub_510F50(std::uintptr_t socket, std::int32_t value);
 
+// 原[510E30,510EBE)：FvWm放地请求，三轮各自读取容量与共享缓冲。
+std::int32_t Sub_510E30(
+    std::uintptr_t socket, std::int32_t x, std::int32_t y, std::int32_t pet);
+
 // 原[510EC0,510F4E)：构造yi，依次追加来源槽号、目标槽号及数量并发送。
 std::int32_t Sub_510EC0(
     std::uintptr_t socket, std::int32_t source, std::int32_t target, std::int32_t amount);

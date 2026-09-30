@@ -411,6 +411,9 @@ void UpdateBattleAction216_413400(YobiAction* action); // 施法特效、帧事�
 void UpdateBattleAction218_413550(YobiAction* action); // 克隆换图、双对象渐变及13AC/13B0完成回写。
 void UpdateBattleAction219_413750(YobiAction* action); // 恢复原图后按FDC走48或居中特效/动作推进。
 void UpdateBattleAction220_413980(YobiAction* action); // 恢复原图、动作10终帧及透明度后转214。
+void UpdateBattleAction221_413B40(YobiAction* action); // 效果双次推进、固定目标HP及原源HP清零差异。
+std::int32_t UpdateBattleAction222_413E90(YobiAction* action); // 追踪/返回转向，标死后仍移动播放并返回帧结果。
+void UpdateBattleAction223_413FE0(YobiAction* action); // 发布或先刷新后清宠物快照槽，再按效果/动作顺序推进。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(

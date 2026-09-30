@@ -289,6 +289,10 @@ void SetBattleGear_422C20(YobiAction* action, std::int32_t imageNo, std::int32_t
 void SetBattleAuxGear_422C90(
     YobiAction* action, std::int32_t imageNo, std::int32_t type, std::int32_t index);
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
+void UpdateBattleProjection_418D80(YobiAction* action); // 父FD0门禁仅影响移动，标死后仍播放/投影。
+void NewBattleProjection_418DF0(
+    YobiAction* parent, float x, float y, float targetX, float targetY,
+    std::int32_t imageNo); // 目标先截S32再转向；指定图号播放后额外移动两次。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleCoordinateEffect_41E720(float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
@@ -471,6 +475,9 @@ void DrawBattleEntryHover_43C0A0(std::int32_t index); // 固定可选对象，�
 std::int32_t GetSelectedBattleEntry_43C120(); // 返回单体/邻接/阵营/全体目标编号，先快照目标位与命中。
 void Sub_405CB0(YobiAction* action); // 角度只校正一圈，按八个不等宽区间写方向。
 void MoveBattleByAngle_405EA0(YobiAction* action); // X存回F32后才计算Y，角度/速度按原序读取。
+std::int8_t GetBattleRelativeDirection_405ED0(
+    float sourceX, float sourceY, float targetX, float targetY,
+    float tolerance); // 第二组坐标作基准，原负基准两次相减及三闭区间保持独立。
 void TurnBattleTowardPosition_4060D0(
     YobiAction* action, float x, float y, std::int32_t updateDirection,
     float step); // 无空指针门禁；角差转S32取绝对值后限步，严格1才更新方向。

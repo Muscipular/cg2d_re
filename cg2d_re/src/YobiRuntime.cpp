@@ -8693,6 +8693,71 @@ void InitBattleScreenYEffect_4234B0(
     action->offset44 = static_cast<float>(y);
 }
 
+void UpdateBattleProjection_418D80(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    action->value54 = 10.0F;
+    const auto* const parentPayload = static_cast<const BattleActorPayload*>(parent->payload);
+    if (parentPayload->valueFD0 == 0) {
+        MoveBattleByAngle_405EA0(action);
+    }
+    if (action->battleAttachmentParent10->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    }
+    action->displayPriority = action->battleAttachmentParent10->displayPriority;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const float y = action->offset44;
+    action->x = x;
+    action->y = static_cast<std::int32_t>(y);
+}
+
+void NewBattleProjection_418DF0(
+    YobiAction* const parent, const float x, const float y,
+    const float targetX, const float targetY, const std::int32_t imageNo)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+    if (action == nullptr) {
+        return;
+    }
+    const std::uint32_t flags = action->flags | 0x40000u;
+    action->callback = UpdateBattleProjection_418D80;
+    action->flags = flags;
+    action->characterAction = 0;
+    action->framePlayingRate = 10;
+    const std::uint8_t priority = parent->displayPriority;
+    action->battleAttachmentParent10 = parent;
+    action->displayPriority = priority;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->imageNo = imageNo;
+    action->offset40 = x;
+    action->offset44 = y;
+    const std::int32_t integerX = static_cast<std::int32_t>(targetX);
+    payload->x00 = integerX;
+    const std::int32_t integerY = static_cast<std::int32_t>(targetY);
+    payload->y04 = integerY;
+    const float turnY = static_cast<float>(integerY);
+    const float turnX = static_cast<float>(integerX);
+    TurnBattleTowardPosition_4060D0(action, turnX, turnY, 0, 0.0F);
+    const std::int32_t initialImage = action->imageNo;
+    action->value54 = 10.0F;
+    action->field270 = 0;
+    if (initialImage == 110016 || initialImage == 111055) {
+        action->rebirthValue1 = 4;
+        action->rebirthValue2 = 4;
+    }
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    const std::int32_t currentImage = action->imageNo;
+    if (currentImage == 110016 || currentImage == 111055) {
+        MoveBattleByAngle_405EA0(action);
+        MoveBattleByAngle_405EA0(action);
+    }
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
+}
+
 void UpdateBattlePositionEffect_41E640(YobiAction* const action)
 {
     if (PlayFrame_517DA0(action, 1) == 1) {
@@ -11427,6 +11492,48 @@ void MoveBattleByAngle_405EA0(YobiAction* const action)
     action->offset40 = static_cast<float>(xStep + action->offset40);
     const double yFactor = world::detail::Sub_46F930(yAngle);
     action->offset44 = static_cast<float>(yFactor * action->value54 + action->offset44);
+}
+
+std::int8_t GetBattleRelativeDirection_405ED0(
+    const float sourceX, const float sourceY, const float targetX, const float targetY,
+    const float tolerance)
+{
+    using world::detail::gBattleGraphicPoints553758;
+    const std::int32_t referenceY = gBattleGraphicPoints553758[1][3] - gBattleGraphicPoints553758[0][3];
+    const std::int32_t referenceX = gBattleGraphicPoints553758[1][2] - gBattleGraphicPoints553758[0][2];
+    const float referenceDeltaY = static_cast<float>(referenceY);
+    const float referenceDeltaX = static_cast<float>(referenceX);
+    const double referenceAngle = world::detail::Sub_46F970(referenceDeltaX, referenceDeltaY);
+    float reference = static_cast<float>(referenceAngle);
+    if (referenceAngle > 180.0) {
+        reference = static_cast<float>(static_cast<double>(reference) - 360.0);
+    } else if (!(reference > -180.0F)) {
+        reference = static_cast<float>(static_cast<double>(reference) + 360.0);
+    }
+    const float deltaY = static_cast<float>(static_cast<double>(targetY) - sourceY);
+    const float deltaX = static_cast<float>(static_cast<double>(targetX) - sourceX);
+    double difference = world::detail::Sub_46F970(deltaX, deltaY);
+    if (!(reference >= 0.0F)) {
+        difference -= static_cast<double>(reference) + 360.0;
+    }
+    // 原405F85在负基准分支之后仍再次相减，不合并为通常的单次相对角。
+    difference -= reference;
+    if (difference > 180.0) {
+        difference -= 360.0;
+    } else if (!(difference > -180.0)) {
+        difference += 360.0;
+    }
+    const double limit = tolerance;
+    if (!(-limit > difference) && !(difference > limit)) {
+        return 0;
+    }
+    if (!(180.0 - limit > difference) && !(difference > limit + 180.0)) {
+        return 0;
+    }
+    if (!(-180.0 - limit > difference) && !(difference > limit - 180.0)) {
+        return 0;
+    }
+    return (!(reference >= 0.0F) != !(difference >= 0.0)) ? 1 : -1;
 }
 
 void TurnBattleTowardPosition_4060D0(

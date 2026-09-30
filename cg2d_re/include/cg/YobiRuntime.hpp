@@ -341,6 +341,8 @@ void InitBattleScreenYEffect_4234B0(
     std::int32_t* side); // 可空数值输出；写输出后才读取目标屏幕Y。
 YobiAction* NewBattleRandomEffect_419FC0(
     YobiAction* parent, std::int32_t imageNo, std::int32_t direction); // X/Y分别取随机并重读尺寸。
+YobiAction* NewBattleScreenEffect_41A0D0(
+    std::int32_t x, std::int32_t y, std::int32_t imageNo, std::int32_t direction); // 屏幕坐标直接创建，绑定完整419FA0，不提前播放。
 void UpdateBattleFloatingIcon_41F450(YobiAction* action); // 未舍入速度推进Y，停留60帧后标死并投影。
 void UpdateBattleNumber_41F110(YobiAction* action); // 延迟后整数累加屏幕Y，停留50帧；独立投影文字坐标。
 std::int32_t NewBattleNumber_41F1A0(
@@ -498,6 +500,14 @@ void UpdateBattleAction79_40CBD0(YobiAction* action); // 按1064/106C/三附属�
 void UpdateBattleAction80_40CC80(YobiAction* action); // 先快照屏幕X，再读1018音效并播放/推进。
 void UpdateBattleAction81_40CCB0(YobiAction* action); // 独立101C音效，读取/调用顺序同80。
 void UpdateBattleAction82_40CCE0(YobiAction* action); // 独立1020音效，读取/调用顺序同80。
+std::int32_t UpdateBattleAction83_40CD10(YobiAction* action); // 未舍入放大达阈值后推进，再重取载荷置1000位。
+void UpdateBattleAction84_40CD70(YobiAction* action); // 缩小完成后重取载荷清位，播放门禁仍用入口载荷。
+void UpdateBattleAction85_40CDE0(YobiAction* action); // 放大/旋转，技能2002按原名称及57E174表选图。
+void UpdateBattleAction86_40C520(YobiAction* action); // 逐效果完整目标处理，固定目标与动态HP/phase目标分别保留。
+std::int32_t UpdateBattleAction87_40C780(YobiAction* action); // 十位置逐次重读阵营，按门禁/图号/Y/X/音效消费随机。
+void UpdateBattleAction88_40C8D0(YobiAction* action); // 振幅6、启用同源震动后推进。
+void UpdateBattleAction89_40C8F0(YobiAction* action); // 只停止震动并推进，不清振幅。
+void UpdateBattleAction90_40C910(YobiAction* action); // 逐目标启动与4帧延迟，越界后额外推进效果再推进动作。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

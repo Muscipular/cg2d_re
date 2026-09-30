@@ -547,6 +547,11 @@ void UpdateBattleAction144_411240(YobiAction* action); // 标死1068后清槽/�
 void UpdateBattleAction145_411290(YobiAction* action); // 四技能图号更新场地特效，其他技能只推进。
 void UpdateBattleAction147_411320(YobiAction* action); // 反转特效开关，创建失败仍按原合同置FDC800。
 void UpdateBattleAction148_40FEF0(YobiAction* action); // 工厂type33，播放后检查1024，最后phase162。
+void UpdateBattleAction154_40F790(YobiAction* action); // type24发布1060，等待特效phase严格1。
+void UpdateBattleAction155_40F800(YobiAction* action); // 两次独立重播种/缩放目标与方向差异音效，收尾令1060.phase=2。
+void UpdateBattleAction156_40FB30(YobiAction* action); // 1060.phase严格3才标死、清槽并推进。
+void UpdateBattleAction159_4107C0(YobiAction* action); // 1034选择HP/FP操作，独立比较/复制后推进动作。
+void UpdateBattleAction160_410B00(YobiAction* action); // 同159数值处理，但只转phase37，不推进动作队列。
 void UpdateBattleAction162_410E30(YobiAction* action); // 1024严格2才清通知/隐藏/2D8并推进。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。

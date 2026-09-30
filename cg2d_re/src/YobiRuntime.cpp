@@ -84,7 +84,7 @@ struct YobiAction {
     std::int32_t nameY;              // 原+A8；下落族作终点，41B440帧事件族作S32消退计数。
     float nameOffsetAC; // 原+AC，伤害数字创建/更新投影到nameX。
     float nameOffsetB0; // 原+B0，伤害数字创建/更新投影到nameY。
-    float battleTurnStepB4; // 原+B4；41C3B0/4219D0未命中时累加F32转向步长，独立于速度54/B8。
+    float battleTurnStepB4; // 原+B4；41C3B0/4219D0转向步长，40F800复用为F32目标缩放。
     float numberVelocityB8; // 原+B8，41F1A0写-8，41F110更新独立数字速度。
     std::int8_t nameColor;           // 原 +BC。
     std::int8_t nameFontType;        // 原 +BD。
@@ -362,6 +362,7 @@ struct BattleActorPayload {
     std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
     std::int32_t image102C; // 426FC0按技术索引和目标阵营选表。
     std::int32_t value1030; // 41CD00的type18按2000/3500选图，非指针。
+    std::int32_t value1034; // 4107C0/410B00显示及数值类型，427470生产父链尚未落位。
     std::int32_t value1038;
     std::int32_t castSkill103C;
     std::int32_t castLevel1040; // 与1044的技术索引独立。
@@ -371,7 +372,7 @@ struct BattleActorPayload {
     YobiAction* effect1054; // 41F660发布；416DD0先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* effect105C; // 41F860发布；4131B0/422370标死并清槽，非拥有引用。
-    YobiAction* effect1060; // 非拥有克隆/骑乘承载对象；4067F0骑乘路径的payload为BattleRideCarrierPayload。
+    YobiAction* effect1060; // 非拥有克隆/骑乘/缩放特效；4067F0骑乘路径payload为BattleRideCarrierPayload。
     YobiAction* centeredEffect1064; // 41FA00发布的非拥有居中特效；41F950随父对象移动。
     YobiAction* effect1068; // 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
     YobiAction* rebirthEffect106C; // 4114B0/438CAF发布419CF0结果；497C80只检查空值，79标死后清槽。
@@ -16606,6 +16607,248 @@ void UpdateBattleAction148_40FEF0(YobiAction* const action)
         static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 33, 0, 1));
     }
     action->phase = 162;
+}
+
+void UpdateBattleAction154_40F790(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    if (payload->effect1060 == nullptr) {
+        payload->effect1060 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 24, 0, 0);
+        static_cast<void>(audio::PlaySe_52C450(212, action->x));
+    }
+    if (payload->effect1060->phase == 1) {
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction155_40F800(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        while (PlayFrame_517DA0(action, 1) == 0) {
+        }
+    }
+    const float step = std::bit_cast<float>(0x3C23D70Au);
+    const float tenth = std::bit_cast<float>(0x3DCCCCCDu);
+    if (payload->value1024 == 0) {
+        YobiAction* const effect = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 22, 0, 1);
+        const std::int32_t soundX = action->x;
+        action->battleCastEffect10 = effect;
+        static_cast<void>(audio::PlaySe_52C450(213, soundX));
+        static_cast<void>(SeedBattleRandom_4065A0(payload->battlePosition18
+            + payload->effects1C[payload->effectRunningC9C].position));
+        action->battleTurnStepB4 = static_cast<float>(
+            static_cast<double>(platform::RandomRange_46FAF0(1, 9)) * tenth);
+        static_cast<void>(SeedBattleRandom_4065A0(payload->battlePosition18
+            + payload->effects1C[payload->effectRunningC9C].position));
+        payload->attackModeFF4 = platform::RandomRange_46FAF0(5, 9);
+        action->characterAction = 8;
+        const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+        const std::uint32_t flags = action->flags;
+        action->flags = flags | (hasDevice ? 0x100000u : 0x8000u);
+        payload->valueFF0 = 0;
+    }
+    if (action->battleTurnStepB4 < action->scaleX) {
+        const double scaleX = static_cast<double>(action->scaleX) - step;
+        action->scaleX = static_cast<float>(scaleX);
+        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) - step);
+        if (scaleX <= action->battleTurnStepB4) {
+            action->scaleX = action->battleTurnStepB4;
+            action->scaleY = action->battleTurnStepB4;
+            const std::int32_t count = payload->valueFF0 + 1;
+            const std::int32_t total = payload->attackModeFF4;
+            payload->valueFF0 = count;
+            if (count < total) {
+                if (count == total - 1) {
+                    if (payload->value1030 == 1) {
+                        action->battleTurnStepB4 = 0.0F;
+                    } else {
+                        action->battleTurnStepB4 =
+                            (static_cast<BattleActorPayload*>(action->payload)->flagsFDC & 0x1000u) != 0
+                            ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+                        static_cast<void>(audio::PlaySe_52C450(213, action->x));
+                    }
+                } else {
+                    const std::int32_t minimum = static_cast<std::int32_t>(
+                        static_cast<double>(action->battleTurnStepB4) * 10.0F);
+                    const std::int32_t target = platform::RandomRange_46FAF0(minimum, 9);
+                    const std::int32_t soundX = action->x;
+                    action->battleTurnStepB4 = static_cast<float>(static_cast<double>(target) * tenth);
+                    static_cast<void>(audio::PlaySe_52C450(213, soundX));
+                }
+            }
+        }
+    } else {
+        const double scaleX = static_cast<double>(action->scaleX) + step;
+        action->scaleX = static_cast<float>(scaleX);
+        action->scaleY = static_cast<float>(static_cast<double>(action->scaleY) + step);
+        if (scaleX >= action->battleTurnStepB4) {
+            action->scaleX = action->battleTurnStepB4;
+            action->scaleY = action->battleTurnStepB4;
+            const std::int32_t count = payload->valueFF0 + 1;
+            const std::int32_t total = payload->attackModeFF4;
+            payload->valueFF0 = count;
+            if (count < total) {
+                if (count == total - 1) {
+                    if (payload->value1030 == 1) {
+                        action->battleTurnStepB4 = 0.0F;
+                        static_cast<void>(audio::PlaySe_52C450(213, action->x));
+                    } else {
+                        action->battleTurnStepB4 =
+                            (static_cast<BattleActorPayload*>(action->payload)->flagsFDC & 0x1000u) != 0
+                            ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+                    }
+                } else {
+                    const std::int32_t maximum = static_cast<std::int32_t>(
+                        static_cast<double>(action->battleTurnStepB4) * 10.0F);
+                    const std::int32_t target = platform::RandomRange_46FAF0(1, maximum);
+                    const std::int32_t soundX = action->x;
+                    action->battleTurnStepB4 = static_cast<float>(static_cast<double>(target) * tenth);
+                    static_cast<void>(audio::PlaySe_52C450(213, soundX));
+                }
+            }
+        }
+    }
+    const std::int32_t total = payload->attackModeFF4;
+    if (payload->valueFF0 >= total + 1) {
+        if (action->battleCastEffect10 != nullptr) {
+            static_cast<void>(MarkDeath(action->battleCastEffect10));
+            action->battleCastEffect10 = nullptr;
+            payload->value1024 = 0;
+        }
+        payload->effect1060->phase = 2;
+        payload->valueFF0 = 0;
+        const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+        const std::uint32_t flags = action->flags & ~(hasDevice ? 0x100000u : 0x8000u);
+        const std::int32_t soundX = action->x;
+        action->flags = flags;
+        static_cast<void>(audio::PlaySe_52C450(212, soundX));
+        action->characterAction = 0;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+void UpdateBattleAction156_40FB30(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    if (payload->effect1060->phase == 3) {
+        static_cast<void>(MarkDeath(payload->effect1060));
+        payload->effect1060 = nullptr;
+        AdvanceBattleCastState_439340(action);
+    }
+}
+
+namespace {
+
+// 4107C0/410B00排除七处不同收尾后245条规范化指令相同；仅复用数值段。
+void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    const std::int32_t displayType = payload->value1034;
+    if (displayType != 0) {
+        const std::int32_t y = action->y - 80;
+        const std::int32_t x = action->x;
+        static_cast<void>(NewBattleNumber_41F1A0(x, y, payload->value1030, displayType, 2, 0));
+    }
+    switch (payload->value1034) {
+    case 6:
+        SubtractAssign_401E40(&action->readiness, payload->value1030);
+        if (Less_401DB0(&action->readiness, 0)) {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, 0);
+            CopyPayload(&action->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        break;
+    case 5:
+        AddAssign_401E20(&action->readiness, payload->value1030);
+        if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
+            CopyPayload(&action->readiness, &action->maxHp);
+        }
+        break;
+    case 4:
+        AddAssign_401E20(&action->barValue1B0, payload->value1030);
+        if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
+            CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+        }
+        break;
+    case 3:
+        SubtractAssign_401E40(&action->barValue1B0, payload->value1030);
+        if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, 0);
+            CopyPayload(&action->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        break;
+    case 0:
+        static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22459, 0, 0));
+        break;
+    case 9: {
+        platform::LegacyCryptInt temporary;
+        ConstructFromInt_401CC0(&temporary, payload->value1030);
+        action->readiness.readCount = temporary.readCount;
+        action->readiness.encoded = temporary.encoded;
+        action->readiness.mask = temporary.mask;
+        Destroy_401CF0(&temporary);
+        if (IntGreaterCrypt_401F80(0, &action->readiness)) {
+            ConstructFromInt_401CC0(&temporary, 0);
+            action->readiness.readCount = temporary.readCount;
+            action->readiness.encoded = temporary.encoded;
+            action->readiness.mask = temporary.mask;
+            Destroy_401CF0(&temporary);
+        }
+        if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
+            CopyPayload(&action->readiness, &action->maxHp);
+        }
+        break;
+    }
+    case 8: {
+        platform::LegacyCryptInt temporary;
+        ConstructFromInt_401CC0(&temporary, payload->value1030);
+        action->barValue1B0.mask = temporary.mask;
+        action->barValue1B0.encoded = temporary.encoded;
+        action->barValue1B0.readCount = temporary.readCount;
+        Destroy_401CF0(&temporary);
+        if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
+            ConstructFromInt_401CC0(&temporary, 0);
+            action->barValue1B0.mask = temporary.mask;
+            action->barValue1B0.encoded = temporary.encoded;
+            action->barValue1B0.readCount = temporary.readCount;
+            Destroy_401CF0(&temporary);
+        }
+        if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {
+            CopyPayload(&action->barValue1B0, &action->barMaximum1C0);
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+} // namespace
+
+void UpdateBattleAction159_4107C0(YobiAction* const action)
+{
+    ApplyBattleResourceChange_4107C0_410B00(action);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction160_410B00(YobiAction* const action)
+{
+    ApplyBattleResourceChange_4107C0_410B00(action);
+    action->phase = 37;
 }
 
 void UpdateBattleAction162_410E30(YobiAction* const action)

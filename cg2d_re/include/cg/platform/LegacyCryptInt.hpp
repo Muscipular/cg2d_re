@@ -65,7 +65,7 @@ std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 // 原 CryptInt::mul@[0x401E90,0x401E9D)，单次读取后返回乘积低 W32。
 std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
 
-// 下列比较均只调用 Read_401EC0 一次，并按有符号 int32 比较。
+// 下列比较按有符号int32；整数比较单读，加密双值比较按各自合同独立读取。
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected);
 // 原 CryptInt::neq@[0x401D20,0x401D40)：先读右对象，再读左对象。
 bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
@@ -75,6 +75,8 @@ bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
 bool GreaterEqualCrypt_401D80(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
 bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
+bool LessCrypt_401DC0(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左独立读取，即使别名。
+bool IntGreaterCrypt_401F80(std::int32_t lhs, LegacyCryptInt* rhs); // 右值单读，保留计数/RNG副作用。
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);
 
 // 原 401FE0 经 401EA0 尾跳读取右侧一次，再作完整 W32 的 lhs-rhs。

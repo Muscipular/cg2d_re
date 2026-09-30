@@ -425,6 +425,12 @@ void UpdateBattleAction11_4067F0(YobiAction* action); // 骑乘双T*死亡短路
 void UpdateBattleAction12_406930(YobiAction* action); // Y→X随机、旧FF0周期和FCC减速门禁。
 void UpdateBattleAction13_406A80(YobiAction* action); // 先播放再转向/移动到08/0C，末尾不补播放。
 void UpdateBattleAction14_409680(YobiAction* action); // 完整帧事件命中，四类HP/FP路径与FD0/FD4尾。
+void UpdateBattleAction26_40A9E0(YobiAction* action); // 单次后退/播放，不消费FCC或推进动作。
+std::int32_t UpdateBattleAction27_40AA70(YobiAction* action); // 初始FDC决定时长，减速阶段重读状态。
+std::int32_t UpdateBattleAction28_40ACF0(YobiAction* action); // 132音效后重读计数，14/34/54帧分段。
+std::int32_t UpdateBattleAction29_40AE50(YobiAction* action); // 新计数<14后退，>=44推进。
+std::int32_t UpdateBattleAction30_40AF30(YobiAction* action); // 新计数>=14才读死亡位，阈值14/28推进。
+std::int32_t UpdateBattleAction31_40B020(YobiAction* action); // 偶数帧旋转，28帧后等other退出动作14。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

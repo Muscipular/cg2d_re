@@ -12434,6 +12434,253 @@ void UpdateBattleAction14_409680(YobiAction* const action)
     }
 }
 
+void UpdateBattleAction26_40A9E0(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    action->characterAction = 8;
+    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+        action->characterAction = 9;
+    }
+    const double angle = static_cast<double>(action->angle50) + 180.0;
+    action->framePlayingRate = 50;
+    action->value54 = 5.0F;
+    action->angle50 = static_cast<float>(angle);
+    if (angle >= 360.0) {
+        action->angle50 = static_cast<float>(angle - 360.0);
+    }
+    MoveBattleByAngle_405EA0(action);
+    static_cast<void>(PlayFrame_517DA0(action, 1));
+}
+
+std::int32_t UpdateBattleAction27_40AA70(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 8;
+    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+        action->characterAction = 9;
+    }
+    action->framePlayingRate = 50;
+    const std::uint32_t initialFlags = payload->flagsFDC;
+    const std::int32_t initialBit = static_cast<std::int32_t>((initialFlags >> 1) & 1u);
+    const std::int32_t count = payload->valueFCC + 1;
+    payload->valueFCC = count;
+    if (count < 14 * (initialBit + 1)) {
+        const double angle = static_cast<double>(action->angle50) + 180.0;
+        action->value54 = 5.0F;
+        action->angle50 = static_cast<float>(angle);
+        if (angle >= 360.0) {
+            action->angle50 = static_cast<float>(angle - 360.0);
+        }
+        if ((payload->flagsFDC & 2u) != 0) {
+            gYobiUpdateGateMode = 1;
+            payload->aliveFF8 = 1;
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count < 14 * initialBit + 34) {
+        if ((payload->effectFlagsFE4 & 2) != 0) {
+            const std::int32_t direction = action->direction + 1;
+            action->direction = direction;
+            if (direction >= 8) {
+                action->direction = direction - 8;
+            }
+        }
+        const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1);
+        if (payload->valueFCC == threshold) {
+            action->value54 = 5.0F;
+            if ((payload->flagsFDC & 2u) != 0) {
+                if (CountBattleActiveEntries_406360() <= 1) {
+                    gYobiUpdateGateMode = 0;
+                }
+                payload->aliveFF8 = 0;
+            }
+            payload->valueFF0 = 0;
+        }
+        if (payload->valueFF0 == 0) {
+            static_cast<void>(NewBattlePositionEffect_41E680(action, 110006));
+        }
+        const std::int32_t previous = payload->valueFF0;
+        payload->valueFF0 = previous + 1;
+        if (previous >= 2) {
+            payload->valueFF0 = 0;
+        }
+        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        action->value54 = static_cast<float>(speed);
+        if (!(speed >= 0.0)) {
+            action->value54 = 0.0F;
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count >= 14 * initialBit + 54) {
+        payload->valueFCC = 0;
+        if ((initialFlags & 2u) == 0) {
+            action->value54 = 6.0F;
+            action->framePlayingRate = 100;
+            AdvanceBattleCastState_439340(action);
+            if (action->phase == 11) {
+                action->value54 = 4.0F;
+                action->framePlayingRate = 100;
+            }
+        } else if ((payload->effectFlagsFE4 & 0x3010) != 0) {
+            action->value54 = 6.0F;
+            action->framePlayingRate = 100;
+            AdvanceBattleCastState_439340(action);
+        } else {
+            action->value54 = 1.0F;
+            action->framePlayingRate = 250;
+            AdvanceBattleCastState_439340(action);
+        }
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+std::int32_t UpdateBattleAction28_40ACF0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 8;
+    if (payload->valueFCC == 0) {
+        static_cast<void>(audio::PlaySe_52C450(132, action->x));
+    }
+    action->framePlayingRate = 50;
+    const std::int32_t count = payload->valueFCC + 1;
+    payload->valueFCC = count;
+    if (count < 14) {
+        const double angle = static_cast<double>(action->angle50) + 180.0;
+        action->value54 = 5.0F;
+        action->angle50 = static_cast<float>(angle);
+        if (angle >= 360.0) {
+            action->angle50 = static_cast<float>(angle - 360.0);
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count < 34) {
+        if (count == 14) {
+            action->value54 = 5.0F;
+            payload->valueFF0 = 0;
+        }
+        if (payload->valueFF0 == 0) {
+            static_cast<void>(NewBattlePositionEffect_41E680(action, 110006));
+        }
+        const std::int32_t previous = payload->valueFF0;
+        payload->valueFF0 = previous + 1;
+        if (previous >= 2) {
+            payload->valueFF0 = 0;
+        }
+        const double speed = static_cast<double>(action->value54) - std::bit_cast<float>(0x3E99999Au);
+        action->value54 = static_cast<float>(speed);
+        if (!(speed >= 0.0)) {
+            action->value54 = 0.0F;
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count >= 54) {
+        payload->valueFCC = 0;
+        action->value54 = 4.0F;
+        action->framePlayingRate = 100;
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+std::int32_t UpdateBattleAction29_40AE50(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 8;
+    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+        action->characterAction = 9;
+    }
+    action->framePlayingRate = 50;
+    const std::int32_t count = payload->valueFCC + 1;
+    payload->valueFCC = count;
+    if (count < 14) {
+        const double angle = static_cast<double>(action->angle50) + 180.0;
+        action->value54 = 5.0F;
+        action->angle50 = static_cast<float>(angle);
+        if (angle >= 360.0) {
+            action->angle50 = static_cast<float>(angle - 360.0);
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count >= 44) {
+        payload->valueFCC = 0;
+        action->framePlayingRate = 100;
+        action->value54 = 4.0F;
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+std::int32_t UpdateBattleAction30_40AF30(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = 8;
+    if ((payload->effectFlagsFE4 & 0xC04) != 0) {
+        action->characterAction = 9;
+    }
+    action->framePlayingRate = 50;
+    const std::int32_t count = payload->valueFCC + 1;
+    payload->valueFCC = count;
+    if (count < 14) {
+        const double angle = static_cast<double>(action->angle50) + 180.0;
+        action->value54 = 5.0F;
+        action->angle50 = static_cast<float>(angle);
+        if (angle >= 360.0) {
+            action->angle50 = static_cast<float>(angle - 360.0);
+        }
+        MoveBattleByAngle_405EA0(action);
+        return PlayFrame_517DA0(action, 1);
+    }
+    if (count >= 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1)) {
+        payload->valueFCC = 0;
+        action->framePlayingRate = 100;
+        action->value54 = 4.0F;
+        AdvanceBattleCastState_439340(action);
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
+std::int32_t UpdateBattleAction31_40B020(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->framePlayingRate = 100;
+    const std::int32_t previous = payload->valueFCC;
+    const std::int32_t flags = payload->effectFlagsFE4;
+    const std::int32_t count = previous + 1;
+    payload->valueFCC = count;
+    if ((flags & 0x08000000) != 0 && count % 2 == 0) {
+        const std::int32_t direction = action->direction + 1;
+        action->direction = direction;
+        if (direction >= 8) {
+            action->direction = direction - 8;
+        }
+    }
+    const std::int32_t current = payload->valueFCC;
+    if (current < 14) {
+        action->characterAction = 1;
+        action->value54 = -4.0F;
+        MoveBattleByAngle_405EA0(action);
+    } else if (current < 28) {
+        action->characterAction = 0;
+    } else {
+        YobiAction* const other = action->battleOpponent10;
+        if (other == nullptr || other->phase != 14) {
+            if ((payload->effectFlagsFE4 & 0x08000000) != 0) {
+                Sub_405CB0(action);
+            }
+            action->characterAction = 0;
+            action->value54 = (payload->effectFlagsFE4 & 0x1010) != 0 ? 6.0F : 4.0F;
+            payload->valueFCC = 0;
+            AdvanceBattleCastState_439340(action);
+        }
+    }
+    return PlayFrame_517DA0(action, 1);
+}
+
 void UpdateBattleAction236_406630(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);

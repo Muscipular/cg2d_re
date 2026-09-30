@@ -516,6 +516,13 @@ void UpdateBattleAction95_40D0B0(YobiAction* action); // 旧FF0<16才移动，�
 void UpdateBattleAction96_40D170(YobiAction* action); // 当前效果目标hidden=0，再推进源动作。
 void UpdateBattleAction97_40D1A0(YobiAction* action); // 当前效果目标hidden=1，再推进源动作。
 void UpdateBattleAction98_40D1D0(YobiAction* action); // 事件/完成两次独立特效；平铺尾重读技能判断type5。
+std::int32_t UpdateBattleAction99_40D390(YobiAction* action); // 速率25，推进后清帧索引/剩余帧并返回0。
+void UpdateBattleAction100_40D3C0(YobiAction* action); // S8序列/共享游标，完成后分效果、随机音效并检查下一哨兵。
+std::int32_t UpdateBattleAction101_40D580(YobiAction* action); // 两侧中心汇聚，位置分支逐次重读，到达后转向/推进。
+void UpdateBattleAction102_40D6C0(YobiAction* action); // 旧FF0门禁后完整逐效果伤害/回复处理，固定目标与动态数值目标分开。
+void UpdateBattleAction104_40DC90(YobiAction* action); // 原编码调查消息；保留原CryptInt按值实参前两字，不解码HP/FP。
+std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // 四阶段绕固定目标定位，推进源后重查位置决定推进该目标。
+void UpdateBattleAction106_40DF50(YobiAction* action); // 只设置角色动作13并推进，不播放。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

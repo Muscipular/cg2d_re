@@ -63,6 +63,7 @@
 | 54 | [宠物与技能选择](ui_windows/window_54.md) | `54EC90` | 107 |
 | 56 | [外观选择](ui_windows/window_56.md) | `54ED20` | 15 |
 | 58 | [自身资料](ui_windows/window_58.md) | `54E3F0` | 34 |
+| 59 | [自身资料分类选择](ui_windows/window_59.md) | `54ED60` | 32 |
 | 60 | [资料分类选择](ui_windows/window_60.md) | `54ED90` | 162 |
 | 61 | [资料搜索结果](ui_windows/window_61.md) | `54EDC0` | 71 |
 | 62 | [查看资料](ui_windows/window_62.md) | `54EDF0` | 22 |

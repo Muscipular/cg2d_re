@@ -245,6 +245,16 @@ const char* ReadCategoryText105FA24(const std::int32_t group, const std::int32_t
     return gCategory105FA10.records[group * 100 + index].text0C.data();
 }
 
+std::int32_t ReadCategoryCount105FA18()
+{
+    return gCategory105FA10.count08;
+}
+
+std::int32_t ReadCategoryCount105FA1C()
+{
+    return gCategory105FA10.count0C;
+}
+
 const CategoryRecord& ReadCategoryRecord105FA24(
     const std::int32_t group, const std::int32_t index)
 {

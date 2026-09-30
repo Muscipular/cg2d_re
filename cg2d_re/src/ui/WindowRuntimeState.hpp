@@ -1215,6 +1215,11 @@ std::int32_t Sub_4CB6A0(std::int32_t index, std::int32_t state); // 双层转义
 std::int32_t Sub_4CB920(std::int32_t unusedIndex, std::int32_t state); // 固定元素1输入焦点与非活动绘制。
 std::int32_t Sub_478330(std::int32_t index, std::int32_t state); // 资料公开/切窗/三目录/确认的完整八分支。
 extern std::int32_t gProfileCategory1085DA0; // 478330生产，窗口59按0/1/2选择类别，非地址。
+extern std::int32_t gProfileScrollCA0444; // 窗口59六入口共用的S32页码。
+std::int32_t Sub_4C94F0(std::int32_t index, std::int32_t state); // 十行分类选择，写当前资料。
+std::int32_t Sub_4C96F0(std::int32_t index, std::int32_t state); // 窗口59四滚动/翻页按钮。
+std::int32_t Sub_4C9B80(std::int32_t index, std::int32_t state); // 拖动恰返1才更新页码。
+std::int32_t Sub_4C9BE0(std::int32_t unusedIndex, std::int32_t state); // 三模式滚轮，恒返0。
 std::int32_t Sub_4CB9E0(std::int32_t unusedValue); // 窗口64每帧完整刷新，返回1。
 std::uint32_t Sub_4CB9F0(); // 图号转换、八文本及256B四行提取，返回末行含NUL长度。
 std::int32_t Sub_4C9EE0(std::int32_t value); // 窗口60仅初始化刷新，随后检查距离。

@@ -66,6 +66,8 @@ struct CategoryRecord {
 };
 
 const CategoryRecord& ReadCategoryRecord105FA24(std::int32_t group, std::int32_t index);
+std::int32_t ReadCategoryCount105FA18(); // 类别0/1共用count08，每次读取真实回复状态。
+std::int32_t ReadCategoryCount105FA1C(); // 类别2的count0C，与前两类独立。
 
 // 原F19FB0的74H联系人记录，三路回复生产，普通邮件与窗口共用。
 struct ContactRuntimeRecord {

@@ -118,6 +118,7 @@ std::int32_t gShopImageD2DAD0 = 0;
 std::int32_t gValueD2D608 = 0;
 std::int32_t gDialogValueCF4E5C = 0;
 std::int32_t gProfileCategory1085DA0 = 0;
+std::int32_t gProfileScrollCA0444 = 0;
 std::int32_t gShopDialogTypeCC3EC8 = 0;
 std::int32_t gShopValueCF467C = 0;
 std::array<std::int8_t, 20> gShopInventoryMapD2DAB8 {};
@@ -4024,6 +4025,260 @@ void Sub_4CE930(const std::int32_t result)
         window->elements[0].visible = 1;
     }
     gStallPendingD67C31 = 0;
+}
+
+void Sub_4C9C70()
+{
+    const std::int32_t mode = gProfileCategory1085DA0;
+    std::int32_t image;
+    switch (mode) {
+    case 0: image = 0x3C386; break;
+    case 1: image = 0x3C387; break;
+    case 2: image = 0x3C385; break;
+    default: return;
+    }
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
+    for (std::int32_t row = 0; row < 10; ++row) {
+        const std::int32_t page = gProfileScrollCA0444;
+        const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + row);
+        const char* const source =
+            record.used != 0 ? record.text0C.data() : input::LegacyText593850();
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 9].data);
+        const std::size_t length = std::strlen(source) + 1;
+        std::memcpy(data->text, source, length);
+    }
+}
+
+std::int32_t Sub_4C94B0(const std::int32_t value)
+{
+    if (value == -1) {
+        gProfileScrollCA0444 = 0;
+    }
+    if (gWindowStates[58].window == nullptr) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    Sub_4C9C70();
+    return 1;
+}
+
+static constexpr char kProfileCategoryHint5884F4[] = "\xB3\x5D\xA9\x77\xB3\x63\xBD\xE6\xAA\xBA\xA5\xD8\xBF\xFD";
+static constexpr char kProfileCategoryHint588504[] = "\xB3\x5D\xA9\x77\xC1\xCA\xB6\x52\xAA\xBA\xA5\xD8\xBF\xFD";
+static constexpr char kProfileCategoryHint588514[] = "\xB3\x5D\xA9\x77\xB4\x79\xAD\x7A\xAA\xBA\xA5\xD8\xBF\xFD";
+
+std::int32_t Sub_4C94F0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        switch (gProfileCategory1085DA0) {
+        case 0: std::strcpy(gHoverTextD68AE8.data(), kProfileCategoryHint5884F4); break;
+        case 1: std::strcpy(gHoverTextD68AE8.data(), kProfileCategoryHint588504); break;
+        case 2: std::strcpy(gHoverTextD68AE8.data(), kProfileCategoryHint588514); break;
+        default: break;
+        }
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB04;
+        consumed = 1;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
+    }
+
+    const std::int32_t selectedMode = gProfileCategory1085DA0;
+    if (selectedMode >= 0 && selectedMode <= 2) {
+        const std::int32_t page = gProfileScrollCA0444;
+        const std::int32_t selected =
+            world::detail::BorrowCurrentProfile10738E8().entries410[selectedMode].value00;
+        if (selected == page + index - 19) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB03;
+        }
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+
+    const std::int32_t mode = gProfileCategory1085DA0;
+    if (mode >= 0 && mode <= 2) {
+        const std::int32_t page = gProfileScrollCA0444;
+        const auto& record = world::detail::ReadCategoryRecord105FA24(mode, page + index - 19);
+        if (record.used == 0) {
+            return 1;
+        }
+        const std::int32_t value = record.value04;
+        const std::int32_t image = record.value08;
+        auto& entry = world::detail::BorrowCurrentProfile10738E8().entries410[mode];
+        entry.value00 = value;
+        entry.value04 = image;
+    }
+    static_cast<void>(Sub_4A7B00());
+    return 1;
+}
+
+std::int32_t Sub_4C96F0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    const auto setImage = [index](const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+    };
+    switch (index) {
+    case 3: {
+        if ((state & 1) != 0) {
+            setImage(0x3B594);
+            consumed = 1;
+        } else {
+            setImage(0x3B592);
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B593);
+            consumed = 1;
+        }
+        if ((state & 0x400) == 0) {
+            return consumed;
+        }
+        const std::int32_t page = gProfileScrollCA0444 - 1;
+        gProfileScrollCA0444 = page;
+        if (page < 0) {
+            gProfileScrollCA0444 = 0;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        const std::int32_t mode = gProfileCategory1085DA0;
+        if (mode >= 0 && mode <= 2) {
+            const std::int32_t position = gProfileScrollCA0444;
+            WindowInstance* window;
+            std::int32_t count;
+            if (mode == 2) {
+                window = gCurrentWindow;
+                count = world::detail::ReadCategoryCount105FA1C();
+            } else {
+                count = world::detail::ReadCategoryCount105FA18();
+                window = gCurrentWindow;
+            }
+            static_cast<void>(Sub_4742C0(window->elements + 2, count - 10, position));
+        }
+        return 1;
+    }
+    case 4: {
+        if ((state & 1) != 0) {
+            setImage(0x3B597);
+            consumed = 1;
+        } else {
+            setImage(0x3B595);
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B596);
+            consumed = 1;
+        }
+        if ((state & 0x400) == 0) {
+            return consumed;
+        }
+        const std::int32_t mode = gProfileCategory1085DA0;
+        if (mode >= 0 && mode <= 2) {
+            const std::int32_t count = mode == 2
+                ? world::detail::ReadCategoryCount105FA1C()
+                : world::detail::ReadCategoryCount105FA18();
+            const std::int32_t page = gProfileScrollCA0444 + 1;
+            gProfileScrollCA0444 = page;
+            if (page <= count - 11) {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                gProfileScrollCA0444 = count > 10 ? count - 10 : 0;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            const std::int32_t position = gProfileScrollCA0444;
+            const std::int32_t currentCount = mode == 2
+                ? world::detail::ReadCategoryCount105FA1C()
+                : world::detail::ReadCategoryCount105FA18();
+            WindowInstance* const window = gCurrentWindow;
+            static_cast<void>(Sub_4742C0(window->elements + 2, currentCount - 10, position));
+        }
+        return 1;
+    }
+    case 6:
+        setImage((state & 1) != 0 ? 0x3B558 : 0x3B556);
+        if ((state & 2) != 0) {
+            std::int32_t page = gProfileScrollCA0444 - 10;
+            gProfileScrollCA0444 = page;
+            if (page < 0) {
+                page = 0;
+                gProfileScrollCA0444 = page;
+            }
+            const std::int32_t mode = gProfileCategory1085DA0;
+            if (mode >= 0 && mode <= 2) {
+                const std::int32_t count = mode == 2
+                    ? world::detail::ReadCategoryCount105FA1C()
+                    : world::detail::ReadCategoryCount105FA18();
+                WindowInstance* const window = gCurrentWindow;
+                static_cast<void>(Sub_4742C0(window->elements + 2, count - 10, page));
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B557);
+        }
+        return consumed;
+    case 7:
+        setImage((state & 1) != 0 ? 0x3B55B : 0x3B559);
+        if ((state & 2) != 0) {
+            const std::int32_t mode = gProfileCategory1085DA0;
+            if (mode >= 0 && mode <= 2) {
+                const std::int32_t count = mode == 2
+                    ? world::detail::ReadCategoryCount105FA1C()
+                    : world::detail::ReadCategoryCount105FA18();
+                const std::int32_t page = gProfileScrollCA0444 + 10;
+                gProfileScrollCA0444 = page;
+                if (page > count - 11) {
+                    gProfileScrollCA0444 = count > 10 ? count - 10 : 0;
+                }
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                const std::int32_t position = gProfileScrollCA0444;
+                const std::int32_t currentCount = mode == 2
+                    ? world::detail::ReadCategoryCount105FA1C()
+                    : world::detail::ReadCategoryCount105FA18();
+                WindowInstance* const window = gCurrentWindow;
+                static_cast<void>(Sub_4742C0(window->elements + 2, currentCount - 10, position));
+            }
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B55A);
+        }
+        return consumed;
+    default:
+        return 0;
+    }
+}
+
+std::int32_t Sub_4C9B80(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t result = Sub_4741A0(index, state);
+    if (result == 1) {
+        const std::int32_t mode = gProfileCategory1085DA0;
+        if (mode >= 0 && mode <= 2) {
+            const std::int32_t count = mode == 2
+                ? world::detail::ReadCategoryCount105FA1C()
+                : world::detail::ReadCategoryCount105FA18();
+            WindowInstance* const window = gCurrentWindow;
+            gProfileScrollCA0444 = Sub_474270(window->elements + 2, count - 10);
+        }
+    }
+    return result;
+}
+
+std::int32_t Sub_4C9BE0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t mode = gProfileCategory1085DA0;
+        if (mode >= 0 && mode <= 2) {
+            const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+            const std::int32_t count = mode == 2
+                ? world::detail::ReadCategoryCount105FA1C()
+                : world::detail::ReadCategoryCount105FA18();
+            const std::int32_t page = gProfileScrollCA0444;
+            WindowInstance* const window = gCurrentWindow;
+            gProfileScrollCA0444 = Sub_4743B0(window->elements + 2, page, count - 10, wheel);
+        }
+    }
+    return 0;
 }
 
 void Sub_4C9F20()

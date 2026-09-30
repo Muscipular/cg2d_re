@@ -825,6 +825,22 @@ WindowTextPrototype gWindowText56CDA8 {
 };
 
 WindowGraphicData gWindowGraphic578BE8 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577170 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577188 {0x3BB00, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5771A0 {0x3BB01, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowGraphicData gWindowGraphic5771B8 {0x3BB03, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5771E8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577200 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577218 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577248 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577260 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic577278 {0x3C386, 0, 0, 0, 0, 0xFFFFFFFFu};
+constexpr char kWindow59Placeholder585D78[] = "\x3F\x82\xA2\x82\xC4\x82\xDE";
+WindowTextPrototype gWindowText577290 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow59Placeholder585D78,
+};
+std::uint32_t gWindowMouseFlagsD67930 = 0;
+
 WindowGraphicData gWindowGraphic577740 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic577758 {0x3C119, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic577770 {0x3BB3D, 0, 0, 0, 0, 0x8FFFFFFFu};
@@ -1148,6 +1164,41 @@ WindowElementPrototype gWindowElements57BB08[43] {
     {1, 22, 53, 243, 274, 0, {.graphic = &gWindowGraphic57B360}, &Sub_4B0F10},
     {1, 292, 127, 248, 198, 0, {.graphic = &gWindowGraphic57B378}, &Sub_4B0F10},
     {1, 0, 0, 40, 11, 1, {.graphic = &gWindowGraphic57B390}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements577298[32] {
+    {1, 206, 8, 11, 11, 1, {.graphic = &gWindowGraphic577170}, &Sub_4C1FB0},
+    {1, 206, 41, 0, 14, 1, {.graphic = &gWindowGraphic5771E8}, &Sub_4B0F10},
+    {4, 205, 41, 11, 134, 1, {.mouseFlags = &gWindowMouseFlagsD67930}, &Sub_4C9B80},
+    {1, 206, 30, 11, 11, 1, {.graphic = &gWindowGraphic577200}, &Sub_4C96F0},
+    {1, 206, 174, 11, 11, 1, {.graphic = &gWindowGraphic577218}, &Sub_4C96F0},
+    {1, 89, 7, 0, 0, 1, {.graphic = &gWindowGraphic577278}, &Sub_4B0F10},
+    {1, 40, 189, 20, 20, 1, {.graphic = &gWindowGraphic577248}, &Sub_4C96F0},
+    {1, 170, 189, 20, 20, 1, {.graphic = &gWindowGraphic577260}, &Sub_4C96F0},
+    {0, 0, 0, 225, 220, 1, {.unusedValue = 0}, &Sub_4C9BE0},
+    {3, 20, 30, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 46, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 62, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 78, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 94, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 110, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 126, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 142, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 158, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {3, 20, 174, 0, 0, 1, {.text = &gWindowText577290}, &Sub_4B0F10},
+    {1, 15, 28, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 44, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 60, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 76, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 92, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 108, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 124, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 140, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 156, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic5771B8}, &Sub_4C94F0},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic577188}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5771A0}, &Sub_4B0F10},
+    {0, 225, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements5777A8[162] {

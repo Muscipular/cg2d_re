@@ -54,6 +54,8 @@ YobiAction* NewYobiAction_404AE0(
 
 // 原41EAB0：克隆战斗对象及原生载荷，保留新节点链表位置，内部T*仍为借用引用。
 YobiAction* CloneBattleAction_41EAB0(YobiAction* source);
+void UpdateBattleAfterimage_41E5C0(YobiAction* action); // 递增FF0，新计数达到12才标死。
+YobiAction* NewBattleAfterimage_41E5F0(YobiAction* source); // 原克隆路径无失败门禁，复用完整浅复制。
 
 // 471440的type2字段写序；已发布的外层slot逐次借用，原内层失败无空保护。
 void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
@@ -405,6 +407,14 @@ std::int32_t TakeBattleAuxEffects_43BC90(
 // 原406390：固定当前flags/position，五块独立执行；附加块消费四输出，逐调用重取对象。
 void ApplyBattleEffectFlags_406390(std::int32_t sourcePosition, YobiAction* action);
 void ApplyBattleCastEffects_416DB0(YobiAction* action); // 动作235：先应用效果，再推进动作队列。
+void UpdateBattleAction0_406650(YobiAction* action); // 待机保留特殊技能的上一动作门禁及FDC重读。
+void UpdateBattleAction1_406720(YobiAction* action); // 归站立后按FDC的60h决定是否播放。
+std::int32_t UpdateBattleAction2_406760(YobiAction* action); // 回00/04坐标，抵达写phase0/FDC，不推进队列。
+std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // 转向后重取效果目标，距离<70推进。
+std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // 跑步追目标，距离<8推进。
+std::int32_t UpdateBattleAction5_40CFA0(YobiAction* action); // 递增FF0但比较旧值，推进后清计数。
+std::int32_t UpdateBattleAction6_406CD0(YobiAction* action); // FE8/FEC转向、移动、重读、抵达推进。
+void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。
 YobiAction* UpdateBattleAction210_412F70(YobiAction* action); // 追近后播放，再取一次随机创建位置特效。

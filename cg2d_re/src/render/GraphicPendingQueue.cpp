@@ -1,5 +1,6 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
+#include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
 
 #include "cg/GraphicRead.hpp"
@@ -118,6 +119,48 @@ const std::array<std::int32_t, 64> gRippleSineTable {
     0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -10, -11, -11, -11, -12,
     -12, -12, -11, -11, -11, -10, -9, -9, -8, -7, -6, -5, -4, -3, -2, -1,
 };
+
+void DrawMatchingGraphicHover_507090(const std::int32_t value4)
+{
+    std::int32_t index = 0;
+    std::int16_t count =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    if (count <= 0) {
+        return;
+    }
+
+    do {
+        const auto queueIndex = static_cast<std::size_t>(index);
+        const GraphicCacheItem32& record =
+            gLegacyPendingStorage.records[queueIndex];
+        if (record.value4 == value4) {
+            // 原函数平行读取层槽，不经排序槽的 cacheIndex 回查主记录。
+            const std::uint8_t layer = gLegacyPendingStorage.cache3[queueIndex].layer;
+            const std::int32_t imageNo = record.imageNo;
+            const DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
+            const std::uint32_t hover = login::detail::gValueD69768;
+            const std::int32_t y = record.y;
+            const std::int32_t x = record.x;
+            const std::int16_t height =
+                std::bit_cast<std::int16_t>(dxBase[imageNo].height);
+            const std::int16_t width =
+                std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+
+            login::detail::DrawGraphicHover(
+                static_cast<std::uint16_t>(x - 2),
+                static_cast<std::uint16_t>(y - 2),
+                static_cast<std::uint16_t>(x + width + 2),
+                static_cast<std::uint16_t>(y + height + 2),
+                layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA},
+                hover,
+                0);
+        }
+
+        // 绘框会追加同一队列；原507124先重读计数，再递增遍历下标。
+        count = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        ++index;
+    } while (index < count);
+}
 
 std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const graphic)
 {

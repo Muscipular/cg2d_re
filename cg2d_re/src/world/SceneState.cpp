@@ -7046,6 +7046,26 @@ std::int32_t ReadPlayerAttribute(const std::int32_t index) noexcept
     return gPlayerRuntime.valuesE4[index];
 }
 
+std::int32_t ReadPlayerValue78(const std::int32_t index) noexcept
+{
+    return gPlayerRuntime.values78[index];
+}
+
+std::int32_t ReadPlayerValueB0(const std::int32_t index) noexcept
+{
+    return gPlayerRuntime.valuesB0[index];
+}
+
+std::int32_t ReadPlayerValueBC(const std::int32_t index) noexcept
+{
+    return gPlayerRuntime.valuesBC[index];
+}
+
+std::int32_t ReadPlayerValueD4(const std::int32_t index) noexcept
+{
+    return gPlayerRuntime.valuesD4[index];
+}
+
 std::int32_t ReadPlayerTitleIndex() noexcept
 {
     return gPlayerRuntime.titleIndex100;

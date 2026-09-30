@@ -32371,6 +32371,89 @@ void Sub_474310()
     }
 }
 
+// 原4767E0：逐项格式化后重取元素；点数门槛阶段独立读取，见window_8.md。
+void Sub_4767E0()
+{
+    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[0].data);
+    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const std::size_t nameLength = std::strlen(name) + 1;
+    std::memcpy(nameData->text, name, nameLength);
+
+    char buffer[256];
+    const auto writeNumber = [&buffer](
+        const std::int32_t index, const std::int32_t value, const char* const format) {
+        std::sprintf(buffer, format, value);
+        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        const std::size_t length = std::strlen(buffer) + 1;
+        std::memcpy(text->text, buffer, length);
+    };
+    writeNumber(1, world::detail::ReadPlayerLevel(), "%3d");
+    writeNumber(2, world::detail::gValueD2F788, "%5d");
+    for (std::int32_t index = 0; index < 5; ++index) {
+        writeNumber(index + 3, world::detail::ReadPlayerValue78(index), "%5d");
+    }
+    for (std::int32_t index = 8; index < 11; ++index) {
+        writeNumber(index, world::detail::ReadPlayerValue78(index), "%5d");
+    }
+    writeNumber(11, world::detail::ReadPlayerValueB0(0), "%5d");
+    for (std::int32_t index = 11; index < 14; ++index) {
+        writeNumber(index + 1, world::detail::ReadPlayerValue78(index), "%5d");
+    }
+    writeNumber(15, world::detail::ReadPlayerValueB0(1), "%5d");
+    for (std::int32_t index = 0; index < 6; ++index) {
+        writeNumber(index + 16, world::detail::ReadPlayerValueBC(index), "%4d");
+    }
+    for (std::int32_t index = 0; index < 4; ++index) {
+        writeNumber(index + 22, world::detail::ReadPlayerValueD4(index), "%4d");
+    }
+    for (std::int32_t index = 5; index < 8; ++index) {
+        writeNumber(index + 21, world::detail::ReadPlayerValue78(index), "%4d");
+    }
+
+    const std::int32_t remainingPoints = world::detail::gValueD2F788;
+    if (remainingPoints > 0) {
+        const std::int32_t quick = world::detail::ReadPlayerValue78(3);
+        std::int32_t total = world::detail::ReadPlayerValue78(4);
+        const std::int32_t toughness = world::detail::ReadPlayerValue78(2);
+        total += quick;
+        const std::int32_t strength = world::detail::ReadPlayerValue78(1);
+        total += toughness;
+        total += strength;
+        const std::int32_t vitality = world::detail::ReadPlayerValue78(0);
+        total += vitality;
+        total += remainingPoints;
+        const std::int32_t limit = total / 2;
+        gCurrentWindow->elements[29].visible = vitality < limit ? 1 : 0;
+        for (std::int32_t index = 1; index < 5; ++index) {
+            const std::int32_t value = world::detail::ReadPlayerValue78(index);
+            gCurrentWindow->elements[29 + index].visible = value < limit ? 1 : 0;
+        }
+    } else {
+        for (std::int32_t index = 29; index < 34; ++index) {
+            gCurrentWindow->elements[index].visible = 0;
+        }
+    }
+}
+
+std::int32_t Sub_475DF0(const std::int32_t)
+{
+    Sub_4767E0();
+    return 1;
+}
+
+void Sub_474360()
+{
+    WindowInstance* const window = gWindowStates[8].window;
+    if (window != nullptr) {
+        gWindowStates[7].x = window->x;
+        gWindowStates[7].y = window->y;
+        gWindowStates[9].x = window->x;
+        gWindowStates[9].y = window->y;
+        gWindowStates[58].x = window->x;
+        gWindowStates[58].y = window->y;
+    }
+}
+
 std::int32_t Sub_4730A0()
 {
     std::int32_t count = 0;

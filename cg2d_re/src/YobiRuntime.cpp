@@ -602,6 +602,7 @@ std::int32_t gBattleMSkillLevel5A4A2C = 0; // SKL状态0先写后读，不属于
 std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 与88/8C独立的归一化等级索引。
 std::int32_t gBattleMSelectedPosition5ABA98 = 0; // SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
 std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 426FC0/424620的独立转向输出，非13项快照或5A4A28。
+std::int32_t gBattlePendingGroupCount5ABB24 = 0; // 4383F0/43B360生产组计数，427470延迟减到零时递减。
 constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 {
     3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0,
 }; // 原553E58，独立于效果工厂553A38的同值表。
@@ -12493,6 +12494,29 @@ namespace {
         }
     }
     FinishBattleEvent_43B6C0(scene);
+}
+
+// 4274DF..427500/427732..42780B；false时父入口直接返回，不执行活动路径的公共回存。
+[[maybe_unused]] bool PrepareBattleMExecution(
+    YobiAction* const scene, BattleScenePayload* const payload,
+    std::uint32_t& flags9C, std::int32_t& valueA0)
+{
+    const std::uint32_t eventBit = 1u << payload->eventSlot60;
+    if ((world::detail::gBattleActiveEventMask5AAA74 & eventBit) == 0) {
+        DrainInactiveBattleMEvent(scene, payload);
+        return false;
+    }
+    const std::int32_t delay = payload->groupBase68;
+    if (delay >= 0) {
+        const std::int32_t nextDelay = delay - 1;
+        payload->groupBase68 = nextDelay;
+        if (nextDelay == 0) {
+            --gBattlePendingGroupCount5ABB24;
+        }
+        return false;
+    }
+    RestoreBattleMExecutionState(payload, flags9C, valueA0);
+    return true;
 }
 
 // 427470的六类完整消息段；入口载荷固定，返回后仍须由总入口执行437A29回存。

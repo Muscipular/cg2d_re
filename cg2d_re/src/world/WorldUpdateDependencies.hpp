@@ -1087,6 +1087,15 @@ std::int32_t ReadPlayerValue08() noexcept; // 原FDA708，技能时长倍率索�
 std::int32_t ReadPlayerTimerRemaining0C() noexcept; // 原FDA70C，转生按钮读取同源计时，不改owner。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
+std::int32_t ReadPlayerAttribute(std::int32_t index) noexcept; // 原FDA7E4四S32，窗口7逐条取值。
+std::int32_t ReadPlayerTitleIndex() noexcept; // 原FDA800，取称号前独立采样。
+std::int16_t ReadPlayerTribe() noexcept; // 原FDA700，窗口7按S16读取。
+std::int32_t ReadPlayerExperienceOnce(); // 原FDA758，单次CryptInt读取。
+std::int32_t ReadPlayerNextExperienceOnce(); // 原FDA768，不复用比较时的值。
+bool IsPlayerNextExperienceEqual(std::int32_t expected); // 原FDA768，独立401D00比较。
+std::int32_t ReadPlayerDuelPoint() noexcept; // 原FDA804的完整S32。
+std::uint16_t ReadPlayerValue1A0() noexcept; // 原FDA8A0的W16。
+std::int32_t ReadPlayerPenalty() noexcept; // 原FDA7F8的完整S32。
 std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
 std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
 std::int32_t ReadPlayerFpOnce(); // 原FDA738。

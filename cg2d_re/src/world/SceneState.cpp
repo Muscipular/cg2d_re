@@ -7041,6 +7041,51 @@ std::int32_t ReadPlayerInjury() noexcept
     return gPlayerRuntime.valueF4;
 }
 
+std::int32_t ReadPlayerAttribute(const std::int32_t index) noexcept
+{
+    return gPlayerRuntime.valuesE4[index];
+}
+
+std::int32_t ReadPlayerTitleIndex() noexcept
+{
+    return gPlayerRuntime.titleIndex100;
+}
+
+std::int16_t ReadPlayerTribe() noexcept
+{
+    return std::bit_cast<std::int16_t>(gPlayerRuntime.value00);
+}
+
+std::int32_t ReadPlayerExperienceOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.value58);
+}
+
+std::int32_t ReadPlayerNextExperienceOnce()
+{
+    return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.value68);
+}
+
+bool IsPlayerNextExperienceEqual(const std::int32_t expected)
+{
+    return platform::legacy_crypt_int::Equal_401D00(&gPlayerRuntime.value68, expected);
+}
+
+std::int32_t ReadPlayerDuelPoint() noexcept
+{
+    return gPlayerRuntime.value104;
+}
+
+std::uint16_t ReadPlayerValue1A0() noexcept
+{
+    return gPlayerRuntime.value1A0;
+}
+
+std::int32_t ReadPlayerPenalty() noexcept
+{
+    return gPlayerRuntime.valueF8;
+}
+
 std::int32_t ReadPlayerHpOnce()
 {
     return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.hp);

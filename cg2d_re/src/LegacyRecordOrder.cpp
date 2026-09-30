@@ -86,6 +86,21 @@ std::int32_t ReadGuildValue10514B4() noexcept
     return gGuildHeader10514A8.value0C;
 }
 
+std::int32_t ReadGuildTextIndex10514B0() noexcept
+{
+    return gGuildHeader10514A8.value08;
+}
+
+const char* BorrowGuildName10514BC() noexcept
+{
+    return gGuildHeader10514A8.texts14[0].data();
+}
+
+const char* BorrowGuildRankText1051518(const std::int32_t index) noexcept
+{
+    return gGuildTextRecords1051514[index].text04.data();
+}
+
 void Sub_50E850(const std::uintptr_t, const char* const text)
 {
     if (world::gValue9A6E0C != 0) {

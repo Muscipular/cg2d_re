@@ -72,6 +72,7 @@ bool NotEqual_401D20(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 bool Greater_401D40(LegacyCryptInt* value, std::int32_t threshold);
 bool GreaterCrypt_401D50(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
 bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum);
+bool GreaterEqualCrypt_401D80(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左各读一次，即使别名。
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
 bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);

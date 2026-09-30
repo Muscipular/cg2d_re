@@ -291,6 +291,7 @@ void SetBattleAuxGear_422C90(
 void UpdateBattleOneShotEffect_419FA0(YobiAction* action); // PlayFrame(1)严格返回1才标死。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* parent, std::int32_t imageNo);
+YobiAction* NewBattleCoordinateEffect_41E720(float x, float y, std::int32_t imageNo); // 无父引用，不提前播放。
 YobiAction* NewBattleTrailEffect_41E7C0(
     float x, float y, std::int32_t imageNo, std::int32_t mode,
     std::uint8_t priority); // 失败不消耗随机；成功绑定41E640，设备分支决定混合标志。
@@ -318,6 +319,8 @@ YobiAction* NewBattleEffect_41CD00(
     YobiAction* source, std::int32_t offsetX, BattleEffectThirdArgument third,
     std::uint32_t type, std::int32_t blend, std::int32_t link); // 完整48类及已有对象公共尾。
 std::int32_t DrawBattleTiledEffect_41E890(std::int32_t type); // 共享相位先推进，按列/行提交100格，返回末次结果。
+void UpdateBattleTiledEffect_41E920(YobiAction* action); // 独立58相位/1D4反向，绘制后判寿命且仍自增。
+YobiAction* NewBattleTiledEffect_41E9D0(std::int32_t type, std::int32_t lifetime); // maxHp/readiness依次临时构造赋值。
 // 工厂初始化：仅借用现有对象与真实回调，空action/source原样返回，不分配/播放。
 void InitBattleTargetEffect_422E50(
     YobiAction* action, YobiAction* source, void (*callback)(YobiAction*)); // 固定目标坐标与图号音效。
@@ -414,6 +417,13 @@ std::int32_t UpdateBattleAction3_406C30(YobiAction* action); // 转向后重取�
 std::int32_t UpdateBattleAction4_406D70(YobiAction* action); // 跑步追目标，距离<8推进。
 std::int32_t UpdateBattleAction5_40CFA0(YobiAction* action); // 递增FF0但比较旧值，推进后清计数。
 std::int32_t UpdateBattleAction6_406CD0(YobiAction* action); // FE8/FEC转向、移动、重读、抵达推进。
+void UpdateBattleAction7_409410(YobiAction* action); // 起跑，目标-1才按00/04转向。
+void UpdateBattleAction8_4094A0(YobiAction* action); // 起跑，按FE8/FEC转向，严格终帧才推进。
+std::int32_t UpdateBattleAction9_409510(YobiAction* action); // 前两动作14走回位距离5，否则重取目标距离70。
+void UpdateBattleAction10_409610(YobiAction* action); // 收跑终帧按上一动作/当前全局位置恢复方向。
+void UpdateBattleAction11_4067F0(YobiAction* action); // 骑乘双T*死亡短路；回位尾重读characterAction。
+void UpdateBattleAction12_406930(YobiAction* action); // Y→X随机、旧FF0周期和FCC减速门禁。
+void UpdateBattleAction13_406A80(YobiAction* action); // 先播放再转向/移动到08/0C，末尾不补播放。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

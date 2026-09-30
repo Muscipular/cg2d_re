@@ -162,6 +162,12 @@ bool GreaterEqual_401D70(LegacyCryptInt* value, std::int32_t minimum)
     return Read_401EC0(value) >= minimum;
 }
 
+bool GreaterEqualCrypt_401D80(LegacyCryptInt* const lhs, LegacyCryptInt* const rhs)
+{
+    const std::int32_t right = Read_401EC0(rhs);
+    return Read_401EC0(lhs) >= right;
+}
+
 bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum)
 {
     return Read_401EC0(value) <= maximum;

@@ -868,6 +868,7 @@ std::int32_t Sub_494F30(std::int32_t index, std::int32_t state); // 554644切换
 std::int32_t Sub_495000(std::int32_t index, std::int32_t state); // 低U8切换后写W16扫描线设置。
 std::int32_t Sub_4950D0(std::int32_t index, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
 std::int32_t Sub_495130(std::int32_t value); // 窗口25初始化，按分类绑定十行回调。
+std::int32_t Sub_4951C0(std::int32_t value); // 窗口25说明/预设文本绘制及编辑焦点收尾。
 std::int32_t Sub_4953B0(std::int32_t index, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
 std::int32_t Sub_495450(std::int32_t index, std::int32_t state); // 上一行，bit400。
 std::int32_t Sub_495500(std::int32_t index, std::int32_t state); // 下一行，音效后重新取计数。

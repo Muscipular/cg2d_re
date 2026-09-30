@@ -606,6 +606,8 @@ void UpdateBattleAction221_413B40(YobiAction* action); // 效果双次推进、�
 std::int32_t UpdateBattleAction222_413E90(YobiAction* action); // 追踪/返回转向，标死后仍移动播放并返回帧结果。
 void UpdateBattleAction223_413FE0(YobiAction* action); // 发布或先刷新后清宠物快照槽，再按效果/动作顺序推进。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
+void UpdateBattleActions238_239_417410(YobiAction* action); // 动态效果命中，FD0归零当帧双播放，按写回F32速度转阶段。
+void UpdateBattleAction240_417AC0(YobiAction* action); // 播放后消费帧事件，清施法特效后重取+10决定平铺。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,

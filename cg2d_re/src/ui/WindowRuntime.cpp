@@ -942,10 +942,12 @@ struct WindowChoiceSlotsCC4CA0 {
 
 // 仅承接D2F0B8已消费前缀，不视为完整对象或最终x64布局。
 struct WindowRuntimePrefixD2F0B8 {
-    std::array<std::byte, 8> bytes00;
+    std::int32_t value00; // 4A2610先写+10再写此槽，后续由邮件窗口消费。
+    std::array<std::byte, 4> bytes04;
     std::int32_t value08;
     std::int32_t value0C;
-    std::array<std::byte, 0x25C> bytes10;
+    std::int32_t value10; // 原W32方式值，不是地址。
+    std::array<std::byte, 0x258> bytes14;
     std::uint32_t value26C;
 };
 
@@ -957,8 +959,10 @@ static_assert(sizeof(WindowListRecordD3FAD4) == 0x40C);
 static_assert(offsetof(WindowChoiceSlotsCC4CA0, values04) == 4);
 static_assert(offsetof(WindowChoiceSlotsCC4CA0, pairs18) == 0x18);
 static_assert(sizeof(WindowChoiceSlotsCC4CA0) == 0x40);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value00) == 0);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value08) == 8);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value0C) == 0x0C);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value10) == 0x10);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value26C) == 0x26C);
 static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
 
@@ -24315,6 +24319,15 @@ std::int32_t Sub_4742B0()
 
 namespace {
 
+constexpr char kMailDetailedHint587444[] = "\xA4\xC1\xB4\xAB\xAC\xB0\xB8\xD4\xB2\xD3\xC5\xE3\xA5\xDC\xA1\x43";
+constexpr char kMailPreviewHint587458[] = "\xA4\xC1\xB4\xAB\xAC\xB0\xB9\x77\xC4\xFD\xC5\xE3\xA5\xDC\xA1\x43";
+constexpr char kMailSortHint58746C[] = "\xA4\xC1\xB4\xAB\xA6\x57\xA4\xF9\xAA\xBA\xB1\xC6\xA7\xC7\xA4\xE8\xA6\xA1\xA1\x43";
+constexpr char kMailGroupHint58749C[] = "\xB9\xEF\xA4\x40\xB8\x73\xA4\x48\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kMailContactsHint5874B0[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\x57\xA4\xF9\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kMailGuildHint5874C4[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xAE\x61\xB1\xDA\xA6\x57\xC3\xAF\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kMailMiniHint5874DC[] = "\xA4\xC1\xB4\xAB\xA8\xEC\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xB8\x73\xB2\xD5\xA1\x43";
+constexpr char kMailGuildDetailsHint587544[] = "\xB6\x7D\xB1\xD2\xAE\x61\xB1\xDA\xB8\xD4\xB2\xD3\xB8\xEA\xAE\xC6\xB5\xF8\xB5\xA1\xA1\x43";
+
 struct MailStatusTextTable {
     char prefixes[25][64];
     char suffixes[20][8];
@@ -24860,6 +24873,278 @@ void Sub_4A1780(const std::int32_t category)
         const std::int32_t y = gWindowElements56DB38[index].y;
         yWindow->elements[index].y = y + (category == 2 ? 17 : 0);
     }
+}
+
+std::int32_t Sub_4A1C30(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t imageOffset = index == 14 ? 0 : 3;
+    graphic->imageNo = 0x3B592 + imageOffset;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B594 + imageOffset;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B593 + imageOffset;
+    }
+    if ((state & 0x400) == 0) {
+        return 0;
+    }
+
+    const std::int32_t mode = gValueD67B38;
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    std::int32_t& position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
+    position += index == 14 ? -1 : 1;
+    if ((mode == 0 || mode == 1) && category >= 0 && category <= 2) {
+        std::int32_t maximum;
+        if (category == 0) {
+            maximum = mode == 0 ? 57 : 51;
+        } else if (category == 1) {
+            const std::int32_t count = login::detail::gOrderedRecordCount1051510;
+            maximum = count < 100 ? (mode == 0 ? 97 : 91) : count - (mode == 0 ? 3 : 9);
+        } else {
+            maximum = mode == 0 ? 17 : 11;
+        }
+        std::int32_t sound = 51;
+        if (position < 0) {
+            position = 0;
+            sound = 55;
+        } else if (position > maximum) {
+            position = maximum;
+            sound = 55;
+        }
+        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    }
+    Sub_4A2700();
+    login::detail::Sub_520200();
+    return 1;
+}
+
+std::int32_t Sub_4A1EF0(const std::int32_t index, const std::int32_t state)
+{
+    if (index >= 51 && index <= 53) {
+        if ((state & 4) == 0) {
+            return 0;
+        }
+        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        case 0: {
+            const std::int32_t recordIndex = Sub_4A37E0(index);
+            if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
+                return 1;
+            }
+            static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 0, recordIndex));
+            break;
+        }
+        case 1: {
+            const std::int32_t recordIndex = Sub_4A37E0(index);
+            const auto& record = login::detail::gOrderedRecords1051B14[recordIndex];
+            if (record.value08 == 0) {
+                return 1;
+            }
+            const std::int32_t target = record.value0C;
+            static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 1, target));
+            break;
+        }
+        case 2: {
+            const std::int32_t recordIndex = Sub_4A37E0(index);
+            const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+            if (record.used == 0) {
+                return 1;
+            }
+            const std::int32_t target = record.key04;
+            static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 2, target));
+            break;
+        }
+        }
+        return 0;
+    }
+    if (index < 1 || index > 6) {
+        return 0;
+    }
+
+    const std::int32_t imageOffset = (index & 1) != 0 ? 0 : 3;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558 + imageOffset;
+        if (index <= 2) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                gValueD67B38 != 0 ? kMailDetailedHint587444 : kMailPreviewHint587458);
+        } else if (index <= 4) {
+            std::strcpy(gHoverTextD68AE8.data(), kMailSortHint58746C);
+        }
+    } else {
+        graphic->imageNo = 0x3B556 + imageOffset;
+    }
+
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        if (index <= 2) {
+            const std::int32_t oldMode = gValueD67B38;
+            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            const std::int32_t mode = oldMode == 0 ? 1 : 0;
+            gValueD67B38 = mode;
+            Sub_4A1690(mode, category);
+            const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+            gLoginWindowRuntime.valuesD67B40[3 + currentCategory] = 0;
+            gLoginWindowRuntime.valuesD67B40[currentCategory] = 0;
+            Sub_4A2700();
+        } else if (index <= 4) {
+            const std::int32_t oldSort = std::bit_cast<std::int32_t>(gLoginWindowRuntime.mailSortModeD67B3C);
+            const std::int32_t sort = (oldSort + (index == 3 ? 4 : 6)) % 5;
+            gLoginWindowRuntime.mailSortModeD67B3C = std::bit_cast<std::uint32_t>(sort);
+            platform::gValueD67CD0 = std::bit_cast<std::uint32_t>(sort);
+        } else {
+            const std::int32_t mode = gValueD67B38;
+            const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+            const std::int32_t step = mode == 0 ? 3 : 9;
+            gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category] += index == 5 ? -step : step;
+            Sub_4A2700();
+        }
+        login::detail::Sub_520200();
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        // 业务调用可能改变当前窗口，按原尾路径重新借用载荷。
+        auto* const pressed = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        pressed->imageNo = 0x3B557 + imageOffset;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A2610(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B541;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B543;
+        std::strcpy(gHoverTextD68AE8.data(), kMailGroupHint58749C);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B542;
+        WindowInstance* const window = gWindowStates[49].window;
+        if (window != nullptr) {
+            window->state |= 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        } else {
+            gLoginWindowRuntime.prefixD2F0B8.value10 = 1;
+            gLoginWindowRuntime.prefixD2F0B8.value00 = 0;
+            static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B542;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A2870(const std::int32_t index, const std::int32_t state)
+{
+    if (index < 10 || index > 12) {
+        return 0;
+    }
+    const std::int32_t category = index - 10;
+    if (gLoginWindowRuntime.valuesD67B40[6] == category) {
+        return 0;
+    }
+    const std::int32_t idle = category == 0 ? 0x3B57D : (category == 1 ? 0x3B580 : 0x3C115);
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = idle + 2;
+        const char* const hint = category == 0 ? kMailContactsHint5874B0
+            : (category == 1 ? kMailGuildHint5874C4 : kMailMiniHint5874DC);
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        consumed = 1;
+    } else {
+        graphic->imageNo = idle;
+    }
+    if ((state & 2) != 0) {
+        if (category == 2) {
+            auto* const selected = static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data);
+            selected->imageNo = 0x3C116;
+        } else {
+            auto* const title = static_cast<WindowGraphicData*>(gCurrentWindow->elements[108].data);
+            title->imageNo = category == 0 ? 0x3B9DE : 0x3B9E3;
+        }
+        gCurrentWindow->elements[0].visible = category == 1 ? 1 : 0;
+        gLoginWindowRuntime.valuesD67B40[6] = category;
+        Sub_4A2700();
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+        const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t mode = gValueD67B38;
+        Sub_4A1690(mode, currentCategory);
+        consumed = 1;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A2BD0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B9E5;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B9E7;
+        std::strcpy(gHoverTextD68AE8.data(), kMailGuildDetailsHint587544);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B9E6;
+        static_cast<void>(CreateWindowAnimation_475AA0(48, 1, 0, nullptr));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B9E6;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A37E0(const std::int32_t index)
+{
+    if (gValueD67B38 == 0) {
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
+        return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 51];
+    }
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category];
+    return gLoginWindowRuntime.mailIndicesC9FCE4[position + index - 99];
+}
+
+std::int32_t Sub_4A40C0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) == 0) {
+        return 0;
+    }
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    std::int32_t count;
+    switch (category) {
+    case 0:
+        count = 60;
+        break;
+    case 1:
+        count = login::detail::gOrderedRecordCount1051510;
+        if (count < 100) {
+            count = 100;
+        }
+        break;
+    case 2:
+        count = 20;
+        break;
+    default:
+        count = state;
+        break;
+    }
+    const std::int32_t mode = gValueD67B38;
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + category];
+    const std::int32_t result = Sub_4743B0(
+        &gCurrentWindow->elements[17], position, count - (mode == 0 ? 3 : 9), wheel);
+    const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+    gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
+    return 0;
 }
 
 void Sub_4A2700()

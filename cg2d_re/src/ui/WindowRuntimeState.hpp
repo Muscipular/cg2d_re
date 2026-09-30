@@ -1614,6 +1614,13 @@ std::int32_t Sub_4A09E0(); // 三行/九行联系人完整内容刷新，不调�
 void Sub_4A1690(std::int32_t mode, std::int32_t category); // 显示模式后接名单类别布局。
 void Sub_4A16B0(std::int32_t mode); // 联系人三行/九行显隐，不触碰末三元素。
 void Sub_4A1780(std::int32_t category); // 普通/公会/迷你名单布局，借原型坐标。
+std::int32_t Sub_4A1C30(std::int32_t index, std::int32_t state); // 单行滚动、边界音效及保存。
+std::int32_t Sub_4A1EF0(std::int32_t index, std::int32_t state); // 显示/排序/翻页及三行记录TLKH发送。
+std::int32_t Sub_4A2610(std::int32_t index, std::int32_t state); // 群发入口：检查49，动画打开22。
+std::int32_t Sub_4A2870(std::int32_t index, std::int32_t state); // 普通/公会/迷你类别切换。
+std::int32_t Sub_4A2BD0(std::int32_t index, std::int32_t state); // 动画打开窗口48公会详情。
+std::int32_t Sub_4A37E0(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
+std::int32_t Sub_4A40C0(std::int32_t unused, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

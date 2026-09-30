@@ -362,6 +362,8 @@ void UpdateBattleDebuffEffect_41F800(YobiAction* action); // 1054/105C共用父�
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // 105C已有引用返回空。
 void UpdateBattleCenteredEffect_41F950(YobiAction* action); // 父标死仍执行公共坐标投影尾。
 void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* action); // 父标死仍按屏幕坐标/S32偏移跟随并播放。
+void UpdateBattleTransitionEffect_419BE0(YobiAction* action); // phase0播放严格完成才置phase1/隐藏，不自动标死。
+YobiAction* NewBattleTransitionEffect_419C10(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleOffsetFollowEffect_419CF0(
     YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY, std::int32_t imageNo); // 播放后按浮点坐标加偏移投影。
 YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // 1064已有引用时返回空，不换图。
@@ -553,6 +555,7 @@ void UpdateBattleAction156_40FB30(YobiAction* action); // 1060.phase严格3才�
 void UpdateBattleAction159_4107C0(YobiAction* action); // 1034选择HP/FP操作，独立比较/复制后推进动作。
 void UpdateBattleAction160_410B00(YobiAction* action); // 同159数值处理，但只转phase37，不推进动作队列。
 void UpdateBattleAction162_410E30(YobiAction* action); // 1024严格2才清通知/隐藏/2D8并推进。
+void UpdateBattleAction163_4113A0(YobiAction* action); // 转生进入/退出、四槽发布与差异透明度/清理尾。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

@@ -369,6 +369,8 @@ void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
 void UpdateBattleStatusEffect_41FCD0(YobiAction* action);
 YobiAction* NewBattleStatusEffect_41FE00(YobiAction* parent, std::int32_t imageNo, std::int32_t mode); // 1068发布后执行缩放/下降。
+void UpdateBattleFieldEffect_41FF90(YobiAction* action); // 当前全局场景标死时标死自身，仍执行投影尾。
+YobiAction* NewBattleFieldEffect_41FFE0(std::int32_t imageNo); // B0已有对象仅换图返空，新建播放后重取场景发布T*。
 void RestoreBattleStateEffects_422370(YobiAction* parent); // 固定入口FDC快照，保留成对共用清位掩码。
 YobiAction* NewBattleScreenEffect_421610(std::int32_t x, std::int32_t y);
 void UpdateBattleScreenEmitter_4216B0(YobiAction* action); // 原rand先Y后X，生成后重取阶段并递减。
@@ -529,6 +531,18 @@ void UpdateBattleAction110_40E560(YobiAction* action); // 旧FF0蓄力/接近、
 std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // 阈值散射/反向离场，越界推进后仍移动和播放。
 void UpdateBattleAction113_40EFE0(YobiAction* action); // 抛物线/关联对象定位；原混合EAX未被caller消费。
 void UpdateBattleAction114_40F0A0(YobiAction* action); // 按效果索引回填位置、同源附加效果及动态源对象命中。
+void UpdateBattleAction115_40FB80(YobiAction* action); // 工厂Y=-32，调用后重取目标隐藏，最后phase162。
+void UpdateBattleFactoryAction_40FC10(YobiAction* action); // 31动作共享30种映射；118不创建但仍phase162。
+void UpdateBattleActions127To129_40FF90(YobiAction* action); // 工厂type7/8/9末参0，完成后直接推进。
+void UpdateBattleAction138_40FF40(YobiAction* action); // 工厂type20，播放后检查1024，最后phase162。
+void UpdateBattleAction141_410E90(YobiAction* action); // 13D8/13DC与技能选择减益图，重读FDC决定播放。
+void UpdateBattleAction142_410F70(YobiAction* action); // 标死1054后重读/清FDC六状态位，无条件播放并推进。
+void UpdateBattleAction143_410FC0(YobiAction* action); // 两型状态图号/13E0索引，调用后条件播放并推进。
+void UpdateBattleAction144_411240(YobiAction* action); // 标死1068后清槽/状态位，无条件播放并推进。
+void UpdateBattleAction145_411290(YobiAction* action); // 四技能图号更新场地特效，其他技能只推进。
+void UpdateBattleAction147_411320(YobiAction* action); // 反转特效开关，创建失败仍按原合同置FDC800。
+void UpdateBattleAction148_40FEF0(YobiAction* action); // 工厂type33，播放后检查1024，最后phase162。
+void UpdateBattleAction162_410E30(YobiAction* action); // 1024严格2才清通知/隐藏/2D8并推进。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

@@ -1621,6 +1621,12 @@ std::int32_t Sub_4A2870(std::int32_t index, std::int32_t state); // 普通/公�
 std::int32_t Sub_4A2BD0(std::int32_t index, std::int32_t state); // 动画打开窗口48公会详情。
 std::int32_t Sub_4A37E0(std::int32_t index); // 三行/九行元素编号到同源排序后记录索引。
 std::int32_t Sub_4A40C0(std::int32_t unused, std::int32_t state); // 滚轮推进，重读类别写回，恒返回0。
+std::int32_t Sub_4A2530(std::int32_t index, std::int32_t state); // 六职级按钮，bit400转交完整4A38C0。
+void Sub_4A38C0(std::int32_t index); // 两次联系人索引读取，生产职级状态后直接打开55。
+std::int32_t Sub_4A2B00(std::int32_t index, std::int32_t state); // 发布同源记录/两类别槽，动画打开40。
+std::int32_t Sub_4A3780(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
+std::int32_t Sub_4A39C0(std::int32_t index, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
+std::int32_t Sub_4A3C70(std::int32_t index, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

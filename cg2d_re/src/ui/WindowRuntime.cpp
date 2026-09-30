@@ -943,7 +943,7 @@ struct WindowChoiceSlotsCC4CA0 {
 // 仅承接D2F0B8已消费前缀，不视为完整对象或最终x64布局。
 struct WindowRuntimePrefixD2F0B8 {
     std::int32_t value00; // 4A2610先写+10再写此槽，后续由邮件窗口消费。
-    std::array<std::byte, 4> bytes04;
+    std::int32_t value04; // 4A3C70写排序后的记录索引，不是地址。
     std::int32_t value08;
     std::int32_t value0C;
     std::int32_t value10; // 原W32方式值，不是地址。
@@ -960,6 +960,7 @@ static_assert(offsetof(WindowChoiceSlotsCC4CA0, values04) == 4);
 static_assert(offsetof(WindowChoiceSlotsCC4CA0, pairs18) == 0x18);
 static_assert(sizeof(WindowChoiceSlotsCC4CA0) == 0x40);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value00) == 0);
+static_assert(offsetof(WindowRuntimePrefixD2F0B8, value04) == 4);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value08) == 8);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value0C) == 0x0C);
 static_assert(offsetof(WindowRuntimePrefixD2F0B8, value10) == 0x10);
@@ -994,6 +995,11 @@ struct LoginWindowRuntimeSlots {
     std::int32_t mailBlinkFlagD67B60; // 每16帧异或1，开窗不清零。
     std::array<std::int32_t, 200> mailIndicesC9FCE4; // 窗口21三类名单共用的数值索引，不与CA0004重叠。
     std::array<std::uint8_t, 2> mailGuildColorsD6784C; // 公会状态文本两W8颜色，保留原虚拟零存储。
+    std::int32_t mailMemberIndexCB1D18; // 4A38C0按编号查得，窗口55的4A4540消费。
+    std::int32_t mailMemberKeyD45F88; // 独立于D45F78金额文本；4A4370消费编号。
+    std::int32_t mailRankCF4A14; // 4A38C0/4A4220生产，4A4370发送时读取。
+    std::int32_t mailCategoryD67B64; // 4A2B00发布，4A47C0/4A48A0消费。
+    std::int32_t mailCategoryCC4D50; // 4A2B00随后发布，4A49B0/4A4FC0消费。
     std::int32_t valueCC31A4;
     std::int32_t valueD2E444;
     std::int32_t valueCB0604;
@@ -24327,6 +24333,13 @@ constexpr char kMailContactsHint5874B0[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\x57\xA4
 constexpr char kMailGuildHint5874C4[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xAE\x61\xB1\xDA\xA6\x57\xC3\xAF\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kMailMiniHint5874DC[] = "\xA4\xC1\xB4\xAB\xA8\xEC\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xB8\x73\xB2\xD5\xA1\x43";
 constexpr char kMailGuildDetailsHint587544[] = "\xB6\x7D\xB1\xD2\xAE\x61\xB1\xDA\xB8\xD4\xB2\xD3\xB8\xEA\xAE\xC6\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kMailRankHint587484[] = "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kMailReadContactHint5874F4[] = "\xB9\xEE\xAC\xDD\xA6\xB9\xA6\x57\xA4\xF9\xA4\xA7\xA5\x44\xA4\x48\xAA\xBA\xB6\x6C\xA5\xF3\xAC\xF6\xBF\xFD";
+constexpr char kMailReadGuildHint587510[] = "\xB9\xEE\xAC\xDD\xA6\xB9\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xAA\xBA\xB6\x6C\xA5\xF3\xAC\xF6\xBF\xFD";
+constexpr char kMailReadMiniHint58752C[] = "\xC2\x73\xC4\xFD\xA6\xB9\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xAA\xBA\xBE\xFA\xB5\x7B\xA1\x43";
+constexpr char kMailWriteContactHint5876B0[] = "\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xA6\xB9\xA6\x57\xA4\xF9\xAA\xBA\xA5\x44\xA4\x48\xA1\x43";
+constexpr char kMailWriteGuildHint5876CC[] = "\xB9\xEF\xA6\xB9\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kMailWriteMiniHint5876E4[] = "\xB6\xC7\xB0\x65\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xA1\x43";
 
 struct MailStatusTextTable {
     char prefixes[25][64];
@@ -25145,6 +25158,253 @@ std::int32_t Sub_4A40C0(const std::int32_t, const std::int32_t state)
     const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
     gLoginWindowRuntime.valuesD67B40[(mode == 0 ? 0 : 3) + currentCategory] = result;
     return 0;
+}
+
+std::int32_t Sub_4A2530(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t parity = (index - 21) % 2;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t imageOffset = parity != 0 ? 3 : 0;
+    graphic->imageNo = 0x3B556 + imageOffset;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558 + imageOffset;
+        std::strcpy(gHoverTextD68AE8.data(), kMailRankHint587484);
+    }
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        graphic->imageNo = 0x3B557 + imageOffset;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        Sub_4A38C0(index);
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557 + imageOffset;
+    }
+    return consumed;
+}
+
+void Sub_4A38C0(const std::int32_t index)
+{
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t row = (index - 21) / 2;
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
+    const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    const std::int32_t key = login::detail::gOrderedRecords1051B14[recordIndex].value0C;
+    const std::int32_t memberIndex = login::detail::FindActiveOrderedRecordIndex_5195C0(key);
+    const std::int32_t currentCategory = gLoginWindowRuntime.valuesD67B40[6];
+    gLoginWindowRuntime.mailMemberIndexCB1D18 = memberIndex;
+    const std::int32_t currentPosition = gLoginWindowRuntime.valuesD67B40[currentCategory];
+    const std::int32_t currentIndex = gLoginWindowRuntime.mailIndicesC9FCE4[currentPosition + row];
+    gLoginWindowRuntime.mailMemberKeyD45F88 = login::detail::gOrderedRecords1051B14[currentIndex].value0C;
+    gLoginWindowRuntime.mailRankCF4A14 = login::detail::gOrderedRecords1051B14[memberIndex].value00 - 1;
+    static_cast<void>(OpenWindow_471440(55));
+}
+
+std::int32_t Sub_4A2B00(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B547;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B549;
+        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        case 0:
+            std::strcpy(gHoverTextD68AE8.data(), kMailReadContactHint5874F4);
+            break;
+        case 1:
+            std::strcpy(gHoverTextD68AE8.data(), kMailReadGuildHint587510);
+            break;
+        case 2:
+            std::strcpy(gHoverTextD68AE8.data(), kMailReadMiniHint58752C);
+            break;
+        }
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B548;
+        world::detail::gValueCF4FC0 = Sub_4A3780(index);
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        gLoginWindowRuntime.mailCategoryD67B64 = category;
+        gLoginWindowRuntime.mailCategoryCC4D50 = category;
+        static_cast<void>(CreateWindowAnimation_475AA0(40, 1, 0, nullptr));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B548;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A3780(const std::int32_t index)
+{
+    if (gValueD67B38 == 0) {
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        const std::int32_t row = (index - 27) / 8;
+        const std::int32_t position = gLoginWindowRuntime.valuesD67B40[category];
+        return gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    }
+    const std::int32_t row = (index - 54) / 5;
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category];
+    return gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+}
+
+std::int32_t Sub_4A39C0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[3 + category] + index - 99;
+    render::GraphicDescriptor16 descriptor {};
+    const std::int32_t* recordImage = nullptr;
+    switch (category) {
+    case 0:
+        if (position < 0 || position > 59) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const auto& record = world::detail::gContactsF19FB0[recordIndex];
+            if (record.used != 0) {
+                recordImage = &record.value0C;
+            }
+        }
+        break;
+    case 1:
+        if (position < 0) {
+            return 0;
+        }
+        if (position > login::detail::gOrderedRecordCount1051510 - 1) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const auto& record = login::detail::gOrderedRecords1051B14[recordIndex];
+            if (record.value08 != 0) {
+                recordImage = &record.value14;
+            }
+        }
+        break;
+    case 2:
+        if ((state & 1) != 0) {
+            const std::int32_t recordIndex = gLoginWindowRuntime.mailIndicesC9FCE4[position];
+            const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+            if (record.used != 0) {
+                recordImage = &record.value0C;
+            }
+        }
+        break;
+    }
+    std::int32_t consumed = 0;
+    if (recordImage != nullptr) {
+        WindowInstance* const firstWindow = gCurrentWindow;
+        const std::uint32_t color = 0xFFFFFFFFu;
+        std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+        descriptor.bytes[13] = 4;
+        WindowElement* const firstElements = firstWindow->elements;
+        const std::int32_t firstWindowY = firstWindow->y;
+        const std::int32_t firstElementY = firstElements[index].y;
+        const std::int32_t firstElementX = firstElements[index].x;
+        const std::int32_t firstY = firstElementY + firstWindowY + 55;
+        const std::int32_t firstWindowX = firstWindow->x;
+        static_cast<void>(login::detail::DrawGraphic(
+            firstElementX + firstWindowX + 182, firstY, 223, 0x3BD32, 0, &descriptor));
+
+        // 先固定第一次绘图后的元素；图号转换后仅重取当前窗口，不更换此元素。
+        WindowElement* const element = &gCurrentWindow->elements[index];
+        const std::int32_t image = character_select::detail::Sub_51BC50(*recordImage);
+        const std::int32_t elementY = element->y;
+        WindowInstance* const currentWindow = gCurrentWindow;
+        const std::int32_t windowY = currentWindow->y;
+        const std::int32_t y = elementY + windowY + 55;
+        const std::int32_t elementX = element->x;
+        const std::int32_t windowX = currentWindow->x;
+        static_cast<void>(login::detail::DrawGraphic(
+            elementX + windowX + 182, y, 223, image, 0, &descriptor));
+        consumed = 1;
+    }
+    if ((state & 4) == 0) {
+        return consumed;
+    }
+    switch (gLoginWindowRuntime.valuesD67B40[6]) {
+    case 0: {
+        const std::int32_t recordIndex = Sub_4A37E0(index);
+        if (world::detail::gContactsF19FB0[recordIndex].used == 0) {
+            return 1;
+        }
+        static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 0, recordIndex));
+        break;
+    }
+    case 1: {
+        const std::int32_t recordIndex = Sub_4A37E0(index);
+        const auto& record = login::detail::gOrderedRecords1051B14[recordIndex];
+        if (record.value08 == 0) {
+            return 1;
+        }
+        const std::int32_t target = record.value0C;
+        static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 1, target));
+        break;
+    }
+    case 2: {
+        const std::int32_t recordIndex = Sub_4A37E0(index);
+        const auto& record = world::detail::ReadMiniMailContact1075A90(recordIndex);
+        if (record.used == 0) {
+            return 1;
+        }
+        const std::int32_t target = record.key04;
+        static_cast<void>(network::Sub_511760(platform::gConnectionSocket, 2, target));
+        break;
+    }
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A3C70(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    graphic->imageNo = hover ? 0x3B546 : 0x3B544;
+    const std::int32_t consumed = hover ? 1 : 0;
+    bool nineRows;
+    std::int32_t row;
+    switch (index) {
+    case 28: nineRows = false; row = 0; break;
+    case 36: nineRows = false; row = 1; break;
+    case 44: nineRows = false; row = 2; break;
+    case 55: nineRows = true; row = 0; break;
+    case 60: nineRows = true; row = 1; break;
+    case 65: nineRows = true; row = 2; break;
+    case 70: nineRows = true; row = 3; break;
+    case 75: nineRows = true; row = 4; break;
+    case 80: nineRows = true; row = 5; break;
+    case 85: nineRows = true; row = 6; break;
+    case 90: nineRows = true; row = 7; break;
+    case 95: nineRows = true; row = 8; break;
+    default: return consumed;
+    }
+    const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+    if (!nineRows && (category < 0 || category > 2)) {
+        return consumed;
+    }
+    if (hover) {
+        switch (category) {
+        case 0:
+            std::strcpy(gHoverTextD68AE8.data(), kMailWriteContactHint5876B0);
+            break;
+        case 1:
+            std::strcpy(gHoverTextD68AE8.data(), kMailWriteGuildHint5876CC);
+            break;
+        case 2:
+            std::strcpy(gHoverTextD68AE8.data(), kMailWriteMiniHint5876E4);
+            break;
+        }
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+    gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
+    gLoginWindowRuntime.prefixD2F0B8.value00 = category;
+    const std::int32_t position = gLoginWindowRuntime.valuesD67B40[(nineRows ? 3 : 0) + category];
+    gLoginWindowRuntime.prefixD2F0B8.value04 = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
+    static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+    return 1;
 }
 
 void Sub_4A2700()

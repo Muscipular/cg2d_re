@@ -836,6 +836,10 @@ std::int32_t Sub_48D4E0(); // 五状态局部快照叠加真实跟随位，透�
 std::int32_t Sub_48ECA0(std::int32_t index, std::int32_t state); // 宠物技能页六按钮。
 std::int32_t Sub_48DD80(std::int32_t index, std::int32_t state); // 宠物详情名称/放地/选择/旋转。
 std::int32_t Sub_48E430(std::int32_t index, std::int32_t state); // 宠物详细属性九按钮，9..13发送加点。
+std::int32_t Sub_492430(std::int32_t index, std::int32_t state); // 图鉴列表打开选中详情。
+std::int32_t Sub_492520(std::int32_t index, std::int32_t state); // 单行/十行滚动按钮。
+std::int32_t Sub_492800(std::int32_t index, std::int32_t state); // 拖动结果恰1时反求图鉴起点。
+std::int32_t Sub_492840(std::int32_t index, std::int32_t state); // 图鉴滚轮，恒返0。
 std::int32_t Sub_48F380(std::int32_t index, std::int32_t state); // 共享名称输入焦点。
 std::int32_t Sub_48F410(std::int32_t index, std::int32_t state); // 三详情页切换。
 std::int32_t Sub_48F6C0(std::int32_t index, std::int32_t state); // 描述、技能换位与拖动。

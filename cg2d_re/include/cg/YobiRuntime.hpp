@@ -523,6 +523,12 @@ void UpdateBattleAction102_40D6C0(YobiAction* action); // 旧FF0门禁后完整�
 void UpdateBattleAction104_40DC90(YobiAction* action); // 原编码调查消息；保留原CryptInt按值实参前两字，不解码HP/FP。
 std::int32_t UpdateBattleAction105_40DE40(YobiAction* action); // 四阶段绕固定目标定位，推进源后重查位置决定推进该目标。
 void UpdateBattleAction106_40DF50(YobiAction* action); // 只设置角色动作13并推进，不播放。
+YobiAction* UpdateBattleAction107_40DF70(YobiAction* action); // 只标死并返回原生对象指针。
+void UpdateBattleAction108_40DF80(YobiAction* action); // 原帧事件触发多目标命中；普通免疫仅按flags判断。
+void UpdateBattleAction110_40E560(YobiAction* action); // 旧FF0蓄力/接近、两侧清HP、事件等待及独立FD0收尾。
+std::int32_t UpdateBattleAction111_40E970(YobiAction* action); // 阈值散射/反向离场，越界推进后仍移动和播放。
+void UpdateBattleAction113_40EFE0(YobiAction* action); // 抛物线/关联对象定位；原混合EAX未被caller消费。
+void UpdateBattleAction114_40F0A0(YobiAction* action); // 按效果索引回填位置、同源附加效果及动态源对象命中。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。

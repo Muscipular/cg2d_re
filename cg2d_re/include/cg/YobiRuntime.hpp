@@ -294,6 +294,10 @@ void UpdateBattleProjection_418D80(YobiAction* action); // 父FD0门禁仅影响
 void NewBattleProjection_418DF0(
     YobiAction* parent, float x, float y, float targetX, float targetY,
     std::int32_t imageNo); // 目标先截S32再转向；指定图号播放后额外移动两次。
+void UpdateBattleArcProjection_418F10(YobiAction* action); // 固定父引用，标死后仍残影/屏幕投影，保留两次角度读取。
+YobiAction* NewBattleArcProjection_418FF0(
+    YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY,
+    YobiAction* distanceSource, YobiAction* target, std::int32_t imageNo); // 原rand角度，距离分两次有符号除法。
 void UpdateBattleScatterEffect_41E4D0(YobiAction* action); // 移动后播放，严格终帧标死仍投影。
 YobiAction* NewBattleScatterEffect_41E510(YobiAction* parent, std::int32_t imageNo); // 分配成功才依序随机速率/角度/速度。
 void UpdateBattlePositionEffect_41E640(YobiAction* action); // PlayFrame(1)严格完成才标死，所有路径投影X/Y。
@@ -614,6 +618,9 @@ void UpdateBattleAction245_418580(YobiAction* action); // 当前效果指定平�
 void UpdateBattleAction246_4185C0(YobiAction* action); // position3乘原F32比例设置速度，再推进效果及动作。
 void UpdateBattleAction247_4185F0(YobiAction* action); // 原F32坐标按X/Y分别截断到载荷10/14。
 std::int32_t UpdateBattleAction248_418620(YobiAction* action); // 返回载荷10/14坐标，距离<5时重读坐标并推进。
+void UpdateBattleAction251_40B180(YobiAction* action); // 两次独立CryptInt(1)，按mask/encoded/count分别写HP和FP。
+void UpdateBattleAction253_40FE50(YobiAction* action); // 播放后判phase253/1024，创建type43后总是推进。
+void UpdateBattleAction254_40FEB0(YobiAction* action); // 仅+10非空才标死并清+10/1024，空槽保留1024。
 void UpdateBattleAction255_4186B0(YobiAction* action); // 每轮固定效果记录，治疗用目标1DC，保留空目标收尾。
 void UpdateBattleAction256_418B50(YobiAction* unused); // 对象实参未使用，仅顺序写5ABB1C/5ABB20。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。

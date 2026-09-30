@@ -8811,6 +8811,94 @@ void InitBattleScreenYEffect_4234B0(
     action->offset44 = static_cast<float>(y);
 }
 
+void UpdateBattleArcProjection_418F10(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    if (parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    }
+    action->displayPriority = parent->displayPriority;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    if (payload->flash1004 == 1) {
+        static_cast<void>(NewBattleAfterimage_41E5F0(action));
+    }
+    const std::int32_t parentX = static_cast<std::int32_t>(parent->offset40);
+    action->x = parentX + action->deltaX;
+    const std::int32_t parentY = static_cast<std::int32_t>(parent->offset44);
+    const std::int32_t y = parentY + action->deltaY;
+    const std::int32_t previous = action->field58;
+    action->y = y;
+    const std::int32_t duration = payload->valueFF0;
+    const std::int32_t squared = duration * duration - previous * previous;
+    const std::int32_t direction = action->direction + 1;
+    action->direction = direction;
+    if (direction > 7) {
+        action->direction = 0;
+    }
+    const float amplitude = static_cast<float>(squared);
+    const double xFactor = world::detail::Sub_46F950(action->angle50);
+    const std::int32_t xStep = static_cast<std::int32_t>(xFactor * amplitude);
+    const std::int32_t x = action->x + xStep;
+    const float yAngle = action->angle50;
+    action->x = x;
+    const double yFactor = world::detail::Sub_46F930(yAngle);
+    const std::int32_t yStep = static_cast<std::int32_t>(yFactor * amplitude);
+    const std::int32_t nextY = action->y + yStep;
+    const std::int32_t next = action->field58 + 1;
+    action->y = nextY;
+    action->field58 = next;
+}
+
+YobiAction* NewBattleArcProjection_418FF0(
+    YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
+    YobiAction* const distanceSource, YobiAction* const target, const std::int32_t imageNo)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = action->flags | 0x40000u;
+    action->callback = UpdateBattleArcProjection_418F10;
+    action->flags = flags;
+    action->characterAction = 0;
+    action->framePlayingRate = 10;
+    action->displayPriority = parent->displayPriority;
+    action->imageNo = imageNo;
+    action->battleAttachmentParent10 = parent;
+    action->deltaX = offsetX;
+    action->deltaY = offsetY;
+    const double x = static_cast<double>(offsetX) + parent->offset40;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->offset40 = static_cast<float>(x);
+    action->offset44 = static_cast<float>(static_cast<double>(offsetY) + parent->offset44);
+    payload->x00 = static_cast<std::int32_t>(target->offset40) + offsetX;
+    payload->y04 = static_cast<std::int32_t>(target->offset44) + offsetY;
+    TurnBattleToward_406190(action, target, 0, 0.0F);
+    const std::int32_t randomAngle = platform::NextRandom_53B4C9() % 90;
+    const std::int32_t angle = static_cast<std::int32_t>(
+        static_cast<double>(randomAngle) + action->angle50 + 135.0) % 360;
+    action->angle50 = static_cast<float>(angle);
+    if (angle < 0) {
+        action->angle50 = static_cast<float>(angle + 360);
+    }
+    const std::int32_t distance = GetBattleDistance_406300(distanceSource, target);
+    const std::int32_t duration = ((distance - 20) / 10) / 2;
+    payload->valueFF0 = duration;
+    action->field58 = 2 - duration;
+    action->value54 = 10.0F;
+    action->field270 = 0;
+    action->rebirthValue1 = 4;
+    action->rebirthValue2 = 4;
+    payload->flash1004 = 1;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
+    return action;
+}
+
 void UpdateBattleProjection_418D80(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -19813,6 +19901,53 @@ std::int32_t UpdateBattleAction248_418620(YobiAction* const action)
         AdvanceBattleCastState_439340(action);
     }
     return PlayFrame_517DA0(action, 0);
+}
+
+void UpdateBattleAction251_40B180(YobiAction* const action)
+{
+    using namespace platform::legacy_crypt_int;
+    platform::LegacyCryptInt temporary;
+    ConstructFromInt_401CC0(&temporary, 1);
+    const std::uint32_t hpMask = temporary.mask;
+    const std::uint32_t hpEncoded = temporary.encoded;
+    const std::uint8_t hpCount = temporary.readCount;
+    action->readiness.mask = hpMask;
+    action->readiness.encoded = hpEncoded;
+    action->readiness.readCount = hpCount;
+    Destroy_401CF0(&temporary);
+    ConstructFromInt_401CC0(&temporary, 1);
+    const std::uint32_t fpMask = temporary.mask;
+    const std::uint32_t fpEncoded = temporary.encoded;
+    const std::uint8_t fpCount = temporary.readCount;
+    action->barValue1B0.mask = fpMask;
+    action->barValue1B0.encoded = fpEncoded;
+    action->barValue1B0.readCount = fpCount;
+    Destroy_401CF0(&temporary);
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction253_40FE50(YobiAction* const action)
+{
+    const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
+    if ((payload->flagsFDC & 0x60u) == 0) {
+        static_cast<void>(PlayFrame_517DA0(action, 0));
+    }
+    if (action->phase == 253 && payload->value1024 == 0) {
+        action->battleCastEffect10 = NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 43, 0, 1);
+    }
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction254_40FEB0(YobiAction* const action)
+{
+    YobiAction* const effect = action->battleCastEffect10;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        action->battleCastEffect10 = nullptr;
+        payload->value1024 = 0;
+    }
+    AdvanceBattleCastState_439340(action);
 }
 
 void UpdateBattleAction255_4186B0(YobiAction* const action)

@@ -582,6 +582,9 @@ std::int32_t UpdateBattleAction228_416000(YobiAction* action); // 清FF0后立�
 std::int32_t UpdateBattleAction229_416020(YobiAction* action); // 旧FF0决定播放速率，满60推进后仍播放。
 void UpdateBattleAction230_4160A0(YobiAction* action); // 三段重取效果坐标，flags按S32转F32。
 std::int32_t UpdateBattleAction231_416150(YobiAction* action); // 未舍入减速、两个独立尾迹条件，返回旧FF0。
+std::int32_t UpdateBattleAction232_416220(YobiAction* action); // 动态目标命中，先推进自身动作再推进效果，每帧原rand尾迹。
+std::int32_t UpdateBattleAction233_416860(YobiAction* action); // 无位移和减速的分段旋转，保留入口FDC与旧计数。
+std::int32_t UpdateBattleAction234_416AB0(YobiAction* action); // 首帧散射及四边反弹，播放至非零，不加循环上限。
 void SyncBattleAttachmentAlpha_420F10(
     YobiAction* action, std::int32_t alpha, std::int8_t delta,
     std::uint32_t addMask, std::uint32_t removeMask); // 按原九槽顺序重取，不处理1060/1070。

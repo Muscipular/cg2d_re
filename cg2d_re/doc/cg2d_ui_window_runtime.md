@@ -42,6 +42,7 @@
 | 12 | [窗口12操作与结果](ui_windows/window_12.md) | `54E480` | 15 |
 | 13 | [窗口13操作与结果](ui_windows/window_13.md) | `54E4B0` | 14 |
 | 14 | [库存与装备](ui_windows/window_14.md) | `54E4E0` | 24 |
+| 15 | [宠物列表](ui_windows/window_15.md) | `54E540` | 259 |
 | 26 | [战斗命令](ui_windows/window_26.md) | `54E720` | 14 |
 | 27 | [战斗物品](ui_windows/window_27.md) | `54E7E0` | 22 |
 | 28 | [战斗宠物切换](ui_windows/window_28.md) | `54E810` | 8 |

@@ -962,6 +962,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t selectedPetCC3E5C;
     std::array<std::int32_t, 5> valuesCC1A18;
     std::array<std::int32_t, 5> valuesCC4CE8;
+    std::int32_t countCC4CFC; // 48D460每帧重建的状态1计数，48C150不清此槽。
     std::array<std::int32_t, 3> valuesD2EAA0;
     std::array<std::int32_t, 2> valuesCF4E50;
     std::array<std::int32_t, 7> valuesD67B40;
@@ -32824,6 +32825,197 @@ void Sub_474360()
         gWindowStates[58].x = window->x;
         gWindowStates[58].y = window->y;
     }
+}
+
+void Sub_48D460()
+{
+    gLoginWindowRuntime.valuesCC4CE8[0] = -1;
+    gLoginWindowRuntime.valuesCC4CE8[2] = -1;
+    gLoginWindowRuntime.valuesCC4CE8[3] = -1;
+    gLoginWindowRuntime.valuesCC4CE8[4] = -1;
+    gLoginWindowRuntime.valuesCC4CE8[1] = -1;
+    gLoginWindowRuntime.countCC4CFC = 0;
+    for (std::int32_t slot = 0; slot < 5; ++slot) {
+        const auto& pet = world::detail::gPetRuntimeF633F8[slot];
+        const std::int32_t state = std::bit_cast<std::int16_t>(pet.flags6AA);
+        gLoginWindowRuntime.valuesCC1A18[slot] = state;
+        if (state == 2) {
+            gLoginWindowRuntime.valuesCC4CE8[0] = slot;
+        } else if (state == 1) {
+            const std::int32_t count = gLoginWindowRuntime.countCC4CFC;
+            gLoginWindowRuntime.valuesCC4CE8[count + 2] = slot;
+            gLoginWindowRuntime.countCC4CFC = gLoginWindowRuntime.countCC4CFC + 1;
+        }
+        if (pet.follow6D4 != 0) {
+            gLoginWindowRuntime.valuesCC4CE8[1] = slot;
+        }
+    }
+}
+
+namespace {
+
+// 原48C920四段同构属性条：先逐格隐藏，再取S16宠物索引，图号/显隐分别重取窗口。
+void RefreshPetListAttributeBar(
+    const std::int32_t row, const world::detail::PetPairRecord* const pair,
+    const std::int32_t attribute, const std::int32_t singleImage,
+    const std::int32_t middleImage, const std::int32_t firstImage,
+    const std::int32_t lastImage)
+{
+    const std::int32_t base = 26 + row * 40 + attribute * 10;
+    for (std::int32_t segment = 0; segment < 10; ++segment) {
+        gCurrentWindow->elements[base + segment].visible = 0;
+    }
+    const std::int16_t petIndex = std::bit_cast<std::int16_t>(pair->index);
+    const std::int32_t segments =
+        world::detail::gPetRuntimeF633F8[petIndex].values70[21 + attribute] / 10;
+    const auto show = [](const std::int32_t element, const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
+        gCurrentWindow->elements[element].visible = 1;
+    };
+    if (segments == 1) {
+        show(base, singleImage);
+    } else {
+        for (std::int32_t segment = 0; segment < segments; ++segment) {
+            show(base + segment, middleImage);
+            if (segment == 0) {
+                show(base, firstImage);
+            }
+            if (segment == segments - 1) {
+                show(base + segment, lastImage);
+            }
+        }
+    }
+}
+
+} // namespace
+
+void Sub_48C920()
+{
+    Sub_48D460();
+    char buffer[256];
+    const auto copyNumber = [&buffer](const std::int32_t element) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
+        const std::size_t length = std::strlen(buffer) + 1;
+        std::memcpy(data->text, buffer, length);
+    };
+    const auto setImage = [](const std::int32_t element, const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
+    };
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const auto* const pair = &world::detail::gPetPairsDE0B08[row];
+        // 只固定索引对地址，技能查询和各次CryptInt读取之间重新取编号。
+        const auto petIndex = [pair]() {
+            return std::bit_cast<std::int16_t>(pair->index);
+        };
+        const std::int16_t initialIndex = petIndex();
+        WindowInstance* const initialWindow = gCurrentWindow;
+        const std::int32_t textBase = 1 + row * 5;
+        if (world::detail::gPetRuntimeF633F8[initialIndex].used == 0) {
+            initialWindow->elements[textBase].visible = 0;
+            for (std::int32_t column = 1; column < 5; ++column) {
+                gCurrentWindow->elements[textBase + column].visible = 0;
+            }
+            for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
+                for (std::int32_t segment = 0; segment < 10; ++segment) {
+                    gCurrentWindow->elements[26 + row * 40 + attribute * 10 + segment].visible = 0;
+                }
+            }
+            gCurrentWindow->elements[231 + row].visible = 0;
+            gCurrentWindow->elements[236 + row].visible = 0;
+            gCurrentWindow->elements[226 + row].visible = 0;
+            gCurrentWindow->elements[241 + row].visible = 0;
+            continue;
+        }
+
+        initialWindow->elements[textBase].visible = 1;
+        for (std::int32_t column = 1; column < 5; ++column) {
+            gCurrentWindow->elements[textBase + column].visible = 1;
+        }
+        gCurrentWindow->elements[226 + row].visible = 1;
+        gCurrentWindow->elements[231 + row].visible = 1;
+        gCurrentWindow->elements[236 + row].visible = 1;
+        if (Sub_4EA670(petIndex()) == 1) {
+            gCurrentWindow->elements[226 + row].visible = 1;
+        }
+        const std::int16_t loyaltyIndex = petIndex();
+        const bool canSelect = world::detail::gPetRuntimeF633F8[loyaltyIndex].values70[10] == 100
+            || gLoginWindowRuntime.valuesCC1A18[loyaltyIndex] == 3;
+        gCurrentWindow->elements[241 + row].visible = canSelect ? 1 : 0;
+
+        const auto& namePet = world::detail::gPetRuntimeF633F8[petIndex()];
+        const char* const name =
+            namePet.name6BD[0] != '\0' ? namePet.name6BD.data() : namePet.name6AC.data();
+        WindowElement* const nameElements = gCurrentWindow->elements;
+        const std::size_t nameLength = std::strlen(name) + 1;
+        auto* const nameData = static_cast<WindowTextData*>(nameElements[textBase].data);
+        std::memcpy(nameData->text, name, nameLength);
+
+        const std::int16_t colorIndex = petIndex();
+        WindowInstance* const colorWindow = gCurrentWindow;
+        const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
+        static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
+            colorState == 3 ? std::byte{7} : std::byte{0};
+        std::sprintf(buffer, "%3d", world::detail::gPetRuntimeF633F8[petIndex()].value08);
+        copyNumber(textBase + 1);
+        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
+            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[1]);
+        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
+            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[0]);
+        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        copyNumber(textBase + 2);
+        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
+            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[3]);
+        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
+            &world::detail::gPetRuntimeF633F8[petIndex()].values0C[2]);
+        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        copyNumber(textBase + 3);
+
+        const std::int16_t tribeIndex = petIndex();
+        WindowInstance* const tribeWindow = gCurrentWindow;
+        const std::int16_t tribe =
+            std::bit_cast<std::int16_t>(world::detail::gPetRuntimeF633F8[tribeIndex].value04);
+        WindowElement* const tribeElements = tribeWindow->elements;
+        const char* const tribeName = gTribeNames57CB54[tribe];
+        auto* const tribeData = static_cast<WindowTextData*>(tribeElements[textBase + 4].data);
+        const std::size_t tribeLength = std::strlen(tribeName) + 1;
+        std::memcpy(tribeData->text, tribeName, tribeLength);
+
+        const std::int32_t state = gLoginWindowRuntime.valuesCC1A18[petIndex()];
+        if (state >= 0 && state <= 3) {
+            setImage(231 + row, state == 1 ? 0x3B589 : 0x3B58A);
+            setImage(236 + row, state == 2 ? 0x3B58C : 0x3B58D);
+            setImage(241 + row, state == 3 ? 0x3B58F : 0x3B590);
+        }
+        if (Sub_4EA670(petIndex()) == 1) {
+            const std::int16_t followIndex = petIndex();
+            WindowInstance* const followWindow = gCurrentWindow;
+            const std::int32_t follow = world::detail::gPetRuntimeF633F8[followIndex].follow6D4;
+            static_cast<WindowGraphicData*>(followWindow->elements[226 + row].data)->imageNo =
+                follow != 0 ? 0x3B586 : 0x3B587;
+        } else {
+            gCurrentWindow->elements[226 + row].visible = 0;
+        }
+        RefreshPetListAttributeBar(row, pair, 0, 0x3B5D2, 0x3B5D0, 0x3B5CF, 0x3B5D1);
+        RefreshPetListAttributeBar(row, pair, 1, 0x3B5D7, 0x3B5D5, 0x3B5D4, 0x3B5D6);
+        RefreshPetListAttributeBar(row, pair, 2, 0x3B5DC, 0x3B5DA, 0x3B5D9, 0x3B5DB);
+        RefreshPetListAttributeBar(row, pair, 3, 0x3B5E1, 0x3B5DF, 0x3B5DE, 0x3B5E0);
+    }
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const bool selected = gLoginWindowRuntime.valuesD2EAA0[0] == 1
+            && gLoginWindowRuntime.valuesD2EAA0[1] == row;
+        setImage(246 + row, selected ? 0x3BAE4 : 0x3B5C4);
+    }
+}
+
+std::int32_t Sub_48C1B0(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.valuesD2EAA0[0] = 0;
+        gLoginWindowRuntime.valuesD2EAA0[1] = -1;
+        gLoginWindowRuntime.valuesD2EAA0[2] = -1;
+    }
+    Sub_48C920();
+    return 1;
 }
 
 static constexpr char kTitleEditHint5863C4[] = "\xB3\x5D\xA9\x77\xA6\xDB\xA4\x76\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";

@@ -830,6 +830,7 @@ extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入�
 extern WindowInputPrototype gWindow50InputPrototype580618; // 借Input唯一CC2080，供更新与编辑交互。
 extern WindowInputPrototype gTitleInputPrototype57CCB8; // 原型当前context为编辑正文来源。
 extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 窗口15与16/17/18共用名称输入原型。
+extern std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34; // 原连续110B费用文本，491AA0生产。
 std::int32_t Sub_48C1E0(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
 std::int32_t Sub_48D4E0(); // 五状态局部快照叠加真实跟随位，透传发送结果。
 extern std::array<char, 256> gTitleDraftD45FC0; // 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。

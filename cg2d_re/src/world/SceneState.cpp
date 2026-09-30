@@ -3977,6 +3977,7 @@ std::uint8_t gBattleAttributeEffectFlags59F9E0 = 0;
 std::int32_t gBattleType5ABFC8 = 0;
 std::uint32_t gBattleModeFlag5ABFCC = 0;
 std::uint32_t gValue5ABB1C = 0;
+std::uint32_t gValue5ABB20 = 0xFFFFFFFFu;
 std::uint32_t gValue5ABB28 = 0;
 std::uint32_t gBattleFirstTurnPending5ABC6C = 0;
 std::int32_t gBattleCWriteIndex5AAA6C = 0;

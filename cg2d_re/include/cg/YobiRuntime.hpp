@@ -614,6 +614,8 @@ void UpdateBattleAction245_418580(YobiAction* action); // 当前效果指定平�
 void UpdateBattleAction246_4185C0(YobiAction* action); // position3乘原F32比例设置速度，再推进效果及动作。
 void UpdateBattleAction247_4185F0(YobiAction* action); // 原F32坐标按X/Y分别截断到载荷10/14。
 std::int32_t UpdateBattleAction248_418620(YobiAction* action); // 返回载荷10/14坐标，距离<5时重读坐标并推进。
+void UpdateBattleAction255_4186B0(YobiAction* action); // 每轮固定效果记录，治疗用目标1DC，保留空目标收尾。
+void UpdateBattleAction256_418B50(YobiAction* unused); // 对象实参未使用，仅顺序写5ABB1C/5ABB20。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(
     YobiAction* action, std::int32_t mode, std::int32_t* firstImage, std::int32_t* secondImage,

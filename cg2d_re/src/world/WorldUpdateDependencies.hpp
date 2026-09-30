@@ -1145,6 +1145,7 @@ extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 4209C0门禁；43CBB0�
 extern std::int32_t gBattleType5ABFC8; // 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 仅类型2写1。
 extern std::uint32_t gValue5ABB1C;
+extern std::uint32_t gValue5ABB20; // 原W32初值FFFFFFFF，418B50置1；完整场景重置/调度仍待接线。
 extern std::uint32_t gValue5ABB28;
 extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 50D3C0的A消息严格1时消费。
 extern std::int32_t gBattleCWriteIndex5AAA6C;

@@ -289,6 +289,7 @@ std::int32_t gHoverObjectValueD68AC8 = 0;
 std::array<char, 260> gHoverTitleD68BF4 {};
 std::int32_t gHoverTitleValueD69748 = 0;
 std::int32_t gWindow6HoverD2EA70 = 0;
+static std::uint64_t gWindow6RequestTimeD67AF0 = 0; // 原W64；473840只用低W32差作30秒门禁。
 std::int32_t gValueCC4D34 = 0;
 std::int32_t gValueCC4D3C = 0;
 static_assert(sizeof(gTradeNameD2D654) == 17);
@@ -28214,6 +28215,104 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
     return consumed;
 }
 
+std::int32_t Sub_496FB0()
+{
+    if (gWindowStates[26].window == nullptr
+        || gWindowStates[26].userState.value != 0
+        || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return 0;
+    }
+    const auto actionState = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    if (actionState < 0 || actionState > 2
+        || world::detail::gBattleSkillUsed5ABC68 != 0) {
+        return 0;
+    }
+    return world::detail::gBattleSelectionModes5ABC7C[2] == 0 ? -1 : 0;
+}
+
+std::int32_t Sub_4970B0()
+{
+    if (gWindowStates[26].window == nullptr
+        || gWindowStates[26].userState.value != 0
+        || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return 0;
+    }
+    const auto actionState = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    if (actionState < 0 || actionState > 2
+        || world::detail::gBattleSkillUsed5ABC68 != 0) {
+        return 0;
+    }
+    return world::detail::gBattleSelectionModes5ABC7C[3] == 0 ? -1 : 0;
+}
+
+void Sub_497100()
+{
+    if (gWindowStates[26].window == nullptr
+        || gWindowStates[26].userState.value != 0
+        || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return;
+    }
+    const auto actionState = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    if (actionState < 0 || actionState > 2
+        || world::detail::gBattleSkillUsed5ABC68 != 0
+        || world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
+        return;
+    }
+    Sub_496F10();
+    world::detail::gBattleSelectionModes5ABC7C[3] = 1;
+    world::detail::gBattleSelectionMode5ABC70 = 3;
+    login::detail::FlushBattleEntries_43C060();
+    login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+    world::detail::gBattleCommandAction5ABC00 = nullptr;
+    world::detail::gBattleItemTargetPending5ABCC4 = 0;
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gBattleValueCB054C = 0;
+    gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
+}
+
+std::int32_t Sub_4971C0()
+{
+    if (gWindowStates[26].window == nullptr
+        || gWindowStates[26].userState.value != 0
+        || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return 0;
+    }
+    const auto actionState = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    if (actionState < 0 || actionState > 2
+        || world::detail::gBattleSkillUsed5ABC68 != 0) {
+        return 0;
+    }
+    return world::detail::gBattleSelectionModes5ABC7C[4] == 0 ? -1 : 0;
+}
+
+void Sub_497210()
+{
+    if (gWindowStates[26].window == nullptr
+        || gWindowStates[26].userState.value != 0
+        || world::detail::gBattleCurrentPosition5ABCA4 >= 20) {
+        return;
+    }
+    const auto actionState = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+    if (actionState < 0 || actionState > 2
+        || world::detail::gBattleSkillUsed5ABC68 != 0
+        || world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
+        return;
+    }
+    Sub_496F10();
+    world::detail::gBattleSelectionModes5ABC7C[4] = 1;
+    world::detail::gBattleSelectionMode5ABC70 = 4;
+    login::detail::FlushBattleEntries_43C060();
+    login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
+    world::detail::gBattleCommandAction5ABC00 = nullptr;
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
+}
+
 void Sub_497000()
 {
     if (gWindowStates[26].window == nullptr
@@ -31697,6 +31796,244 @@ std::int32_t Sub_472D20()
         }
     }
     return result;
+}
+
+std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 0:
+        gWindow6HoverD2EA70 = static_cast<std::uint8_t>(state) & 1u;
+        return 0;
+    case 1: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[1].data);
+        graphic->imageNo = (state & 1) != 0 ? 0x3B960 : 0x3B95F;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        WindowInstance* first = gWindowStates[7].window;
+        WindowInstance* second;
+        WindowInstance* third;
+        // 短路命中后重取9/8/7；未命中时三个局部均已由条件赋值。
+        if (first != nullptr
+            || (second = gWindowStates[8].window) != nullptr
+            || gWindowStates[58].window != nullptr
+            || (third = gWindowStates[9].window) != nullptr) {
+            graphic->imageNo = 0x3B95E;
+            third = gWindowStates[9].window;
+            second = gWindowStates[8].window;
+            first = gWindowStates[7].window;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+
+        std::int32_t savedX;
+        std::int32_t savedY;
+        if (first != nullptr || second != nullptr) {
+            if (first != nullptr) {
+                first->state |= 0x8000u;
+                WindowInstance* const current = gWindowStates[7].window;
+                savedX = current->x;
+                savedY = current->y;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+                second = gWindowStates[8].window;
+            }
+            if (second != nullptr) {
+                second->state |= 0x8000u;
+                WindowInstance* const current = gWindowStates[8].window;
+                savedX = current->x;
+                savedY = current->y;
+                static_cast<void>(audio::PlaySe_52C450(57, 320));
+            }
+            third = gWindowStates[9].window;
+        } else if (gWindowStates[58].window != nullptr) {
+            // 原47397A在仅58路径用完整state暂存坐标，后续关闭仍可覆盖。
+            savedX = state;
+            savedY = state;
+        } else if (third == nullptr) {
+            static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+            return 1;
+        }
+        if (third != nullptr) {
+            third->state |= 0x8000u;
+            WindowInstance* const current = gWindowStates[9].window;
+            savedX = current->x;
+            savedY = current->y;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        WindowInstance* const last = gWindowStates[58].window;
+        if (last != nullptr) {
+            last->state |= 0x8000u;
+            WindowInstance* const current = gWindowStates[58].window;
+            savedX = current->x;
+            savedY = current->y;
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        gWindowStates[7].y = savedY;
+        gWindowStates[8].y = savedY;
+        gWindowStates[9].y = savedY;
+        gWindowStates[58].y = savedY;
+        gWindowStates[7].x = savedX;
+        gWindowStates[8].x = savedX;
+        gWindowStates[9].x = savedX;
+        gWindowStates[58].x = savedX;
+        return 1;
+    }
+    case 2: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+        graphic->imageNo = (state & 1) != 0 ? 0x3B963 : 0x3B962;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        if (world::gCurrentSceneType != 10) {
+            if (gWindowStates[10].window != nullptr) {
+                graphic->imageNo = 0x3B961;
+            }
+        } else {
+            switch (Sub_496FB0()) {
+            case 0: graphic->imageNo = 0x3B961; break;
+            case 1: graphic->imageNo = 0x3B962; break;
+            case 2: graphic->imageNo = 0x3B963; break;
+            default: break;
+            }
+        }
+        if ((state & 2) != 0) {
+            if (world::gCurrentSceneType != 10) {
+                WindowInstance* const window = gWindowStates[10].window;
+                if (window != nullptr) {
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                } else {
+                    static_cast<void>(Sub_47A490());
+                }
+            } else {
+                Sub_497000();
+            }
+            return 1;
+        }
+        return consumed;
+    }
+    case 3: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data);
+        graphic->imageNo = (state & 1) != 0 ? 0x3B966 : 0x3B965;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        if (world::gCurrentSceneType != 10) {
+            if (gWindowStates[14].window != nullptr) {
+                graphic->imageNo = 0x3B964;
+            }
+        } else {
+            switch (Sub_4970B0()) {
+            case 0: graphic->imageNo = 0x3B964; break;
+            case 1: graphic->imageNo = 0x3B965; break;
+            case 2: graphic->imageNo = 0x3B966; break;
+            default: break;
+            }
+        }
+        if ((state & 2) != 0) {
+            if (world::gCurrentSceneType != 10) {
+                WindowInstance* const window = gWindowStates[14].window;
+                if (window != nullptr) {
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                } else {
+                    static_cast<void>(CreateWindowAnimation_475AA0(14, 1, 0, nullptr));
+                }
+            } else {
+                Sub_497100();
+            }
+            return 1;
+        }
+        return consumed;
+    }
+    case 4: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data);
+        graphic->imageNo = (state & 1) != 0 ? 0x3B969 : 0x3B968;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        if (world::gCurrentSceneType != 10) {
+            if (gWindowStates[15].window != nullptr) {
+                graphic->imageNo = 0x3B967;
+            }
+        } else {
+            switch (Sub_4971C0()) {
+            case 0: graphic->imageNo = 0x3B967; break;
+            case 1: graphic->imageNo = 0x3B968; break;
+            case 2: graphic->imageNo = 0x3B969; break;
+            default: break;
+            }
+        }
+        if ((state & 2) != 0) {
+            if (world::gCurrentSceneType != 10) {
+                WindowInstance* const window = gWindowStates[15].window;
+                if (window != nullptr) {
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                } else {
+                    static_cast<void>(CreateWindowAnimation_475AA0(15, 1, 0, nullptr));
+                }
+            } else {
+                Sub_497210();
+            }
+            return 1;
+        }
+        return consumed;
+    }
+    case 5:
+    case 6:
+    case 7: {
+        const std::int32_t windowId = index == 5 ? 21 : (index == 6 ? 19 : 24);
+        const std::int32_t normalImage = 0x3B96B + (index - 5) * 3;
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        graphic->imageNo = (state & 1) != 0 ? normalImage + 1 : normalImage;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        WindowInstance* window = gWindowStates[windowId].window;
+        if (window != nullptr) {
+            graphic->imageNo = normalImage - 1;
+            window = gWindowStates[windowId].window;
+        }
+        if ((state & 2) != 0) {
+            if (window == nullptr) {
+                static_cast<void>(CreateWindowAnimation_475AA0(windowId, 1, 0, nullptr));
+            } else {
+                window->state |= 0x8000u;
+                if (index != 7) {
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+            }
+            return 1;
+        }
+        return consumed;
+    }
+    case 8: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[8].data);
+        graphic->imageNo = 0x18666;
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            const auto now = static_cast<std::uint32_t>(platform::ReadSystemSeconds_4589D0());
+            const auto previous = static_cast<std::uint32_t>(gWindow6RequestTimeD67AF0);
+            const std::int32_t elapsed = std::bit_cast<std::int32_t>(now - previous);
+            if (elapsed >= 30) {
+                static_cast<void>(network::SendIuEPacket_516D70(platform::gConnectionSocket));
+                gWindow6RequestTimeD67AF0 = platform::ReadSystemSeconds_4589D0();
+            } else {
+                world::detail::Sub_44B050(
+                    "\xBD\xD0\xB5\xA5\xAB\xDD" "30" "\xAC\xED\xAB\xE1\xA6\x41\xBE\xDE\xA7\x40", 4, 3);
+            }
+            return 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
+    }
 }
 
 // 原4731E0：窗口6主更新；忽略参数，复制描述后仅清共享缓冲首字节。

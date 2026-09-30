@@ -3833,6 +3833,14 @@ std::int32_t Sub_516C90(
         socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+std::int32_t SendIuEPacket_516D70(const std::uintptr_t socket)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "iuE"));
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 std::int32_t SendBattlePacket_5109B0(
     const std::uintptr_t socket, const char* const text)
 {

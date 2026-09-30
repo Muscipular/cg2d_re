@@ -160,6 +160,12 @@ std::int32_t Sub_496D50(std::int32_t unused); // 先绘制再更新技术名，�
 void Sub_496AE0(); // 窗口26存在才收尾、关闭10/27/28及清三展开引用，原返回无人消费。
 void Sub_496F10(); // 先清九个选择槽，再关闭三子窗及清同源展开引用。
 void Sub_497000(); // 战斗技能快捷入口，保留actionFlags低S8门槛；原返回不用。
+std::int32_t Sub_496FB0(); // 技能可用性：门禁失败/已选返回0，否则-1。
+std::int32_t Sub_4970B0(); // 同一门禁，读取物品选择槽3。
+void Sub_497100(); // 物品快捷入口，清目标待选状态并打开27。
+std::int32_t Sub_4971C0(); // 同一门禁，读取宠物选择槽4。
+void Sub_497210(); // 宠物快捷入口，打开28，不清物品待选状态。
+std::int32_t Sub_473840(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
 std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
 std::int32_t Sub_4973C0(std::int32_t index, std::int32_t state); // 防御G命令及玩家动作完成。
 void Sub_4974C0(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。

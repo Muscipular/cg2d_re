@@ -536,6 +536,20 @@ struct BattleScenePayload {
     std::int32_t eventSlot60;
     std::int32_t packetOffset64;
     std::int32_t groupBase68;
+    std::int32_t casterPosition6C; // 427750恢复、437A29回存的同源执行快照，非新端字节偏移。
+    std::int32_t value70;
+    std::int32_t defenderPosition74;
+    std::int32_t targetPosition78;
+    std::int32_t skill7C;
+    std::int32_t technique80;
+    std::int32_t value84;
+    std::int32_t value88;
+    std::int32_t value8C;
+    std::uint32_t resultFlags90;
+    std::uint32_t flags94;
+    std::int32_t value98;
+    std::uint32_t flags9C; // 恢复为函数局部量，公共尾不回存。
+    std::int32_t valueA0; // 同上，不与messageValueA4合并。
     std::int32_t messageValueA4;
     std::uint32_t entryMaskA8; // 4394A0参与对象位图，含特殊槽20/21。
     std::int32_t waitCountAC; // 忙状态每次检查递增，超时逐对象恢复后清零。
@@ -570,9 +584,24 @@ constexpr std::array<const char*, 25> kBattleMHeaders553E94 {
 // 原427470独占的同源W32；活动路径先从载荷恢复，失活消息先解析位置，不依赖初值。
 std::int32_t gBattleMCasterPosition5AAA64 = 0;
 std::uint32_t gBattleMResultFlags5A4A20 = 0;
+std::int32_t gBattleMValue5ABA7C = 0;
+std::int32_t gBattleMDefenderPosition5A4A24 = 0;
+std::int32_t gBattleMTargetPosition5AAA40 = 0;
+std::int32_t gBattleMSkill5AAA78 = 0;
+std::int32_t gBattleMTechnique5A4A38 = 0;
+std::int32_t gBattleMValue59FA10 = 0;
+std::int32_t gBattleMValue5A4A34 = 0;
+std::int32_t gBattleMValue5ABA90 = 0;
+std::uint32_t gBattleMFlags5ABA84 = 0;
+std::int32_t gBattleMValue5A4A28 = 0;
+std::int32_t gBattleMMessageValue59FA14 = 0;
 
 enum class BattleMTransitionHeader : std::int32_t {
     Escape = 1, Clear = 2, Support = 3, PetNotice = 15, PetLeave = 16, PetDown = 18,
+};
+
+enum class BattleMDataHeader : std::int32_t {
+    Action = 12, ConsumeFp = 13, Chat = 14, ChangeBody = 17, AppendSkill = 23, End = 24,
 };
 
 // 原54D4E8起十行：数字基图、加号、减号、冒号；41F1A0按style取行。
@@ -12356,6 +12385,45 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
 
 namespace {
 
+// 427750..42780B；两局部量在98之后、A4之前读取，不发布为另一组全局。
+[[maybe_unused]] void RestoreBattleMExecutionState(
+    const BattleScenePayload* const payload, std::uint32_t& flags9C, std::int32_t& valueA0)
+{
+    gBattleMCasterPosition5AAA64 = payload->casterPosition6C;
+    gBattleMValue5ABA7C = payload->value70;
+    gBattleMDefenderPosition5A4A24 = payload->defenderPosition74;
+    gBattleMTargetPosition5AAA40 = payload->targetPosition78;
+    gBattleMSkill5AAA78 = payload->skill7C;
+    gBattleMTechnique5A4A38 = payload->technique80;
+    gBattleMValue59FA10 = payload->value84;
+    gBattleMValue5A4A34 = payload->value88;
+    gBattleMValue5ABA90 = payload->value8C;
+    gBattleMResultFlags5A4A20 = payload->resultFlags90;
+    gBattleMFlags5ABA84 = payload->flags94;
+    gBattleMValue5A4A28 = payload->value98;
+    flags9C = payload->flags9C;
+    valueA0 = payload->valueA0;
+    gBattleMMessageValue59FA14 = payload->messageValueA4;
+}
+
+// 437A29..437ABA；即使消息已推进或对象已标死，活动路径仍回存13项，不写9C/A0。
+[[maybe_unused]] void SaveBattleMExecutionState(BattleScenePayload* const payload)
+{
+    payload->casterPosition6C = gBattleMCasterPosition5AAA64;
+    payload->value70 = gBattleMValue5ABA7C;
+    payload->defenderPosition74 = gBattleMDefenderPosition5A4A24;
+    payload->targetPosition78 = gBattleMTargetPosition5AAA40;
+    payload->skill7C = gBattleMSkill5AAA78;
+    payload->technique80 = gBattleMTechnique5A4A38;
+    payload->value84 = gBattleMValue59FA10;
+    payload->value88 = gBattleMValue5A4A34;
+    payload->value8C = gBattleMValue5ABA90;
+    payload->resultFlags90 = gBattleMResultFlags5A4A20;
+    payload->flags94 = gBattleMFlags5ABA84;
+    payload->value98 = gBattleMValue5A4A28;
+    payload->messageValueA4 = gBattleMMessageValue59FA14;
+}
+
 // 427500..427732失活位路径；总427470尚未闭合，本段不单独绑定回调。
 [[maybe_unused]] void DrainInactiveBattleMEvent(YobiAction* const scene, BattleScenePayload* const payload)
 {
@@ -12554,6 +12622,160 @@ namespace {
     }
     }
     ++payload->packetSubState58;
+}
+
+} // namespace
+
+namespace {
+
+// 六类活动数据消息；父入口负责恢复/回存，本段不充当未完成的427470总回调。
+[[maybe_unused]] void ProcessBattleMDataHeader(
+    YobiAction* const scene, BattleScenePayload* const payload, const BattleMDataHeader kind)
+{
+    using namespace world::detail;
+    using namespace platform::legacy_crypt_int;
+    switch (kind) {
+    case BattleMDataHeader::Action: {
+        gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        YobiAction* const actor = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+        if (actor != nullptr) {
+            static_cast<void>(NewBattleAttachedEffect_41FBE0(actor, 2));
+        }
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    case BattleMDataHeader::ConsumeFp: {
+        const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        YobiAction* const actor = gBattleAllEntries59E980[position];
+        gBattleMCasterPosition5AAA64 = position;
+        if (actor != nullptr) {
+            const std::int32_t amount = TakeBattleMInteger_438F70(scene);
+            SubtractAssign_401E40(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, amount);
+            if (Less_401DB0(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, 0)) {
+                platform::LegacyCryptInt temporary;
+                ConstructFromInt_401CC0(&temporary, 0);
+                CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, &temporary);
+                Destroy_401CF0(&temporary);
+            }
+        }
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    case BattleMDataHeader::Chat: {
+        const std::int32_t subState = payload->packetSubState58;
+        if (subState == 0) {
+            gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+            const std::int32_t color = TakeBattleMInteger_438F70(scene);
+            const std::int32_t font = TakeBattleMInteger_438F70(scene);
+            const std::int32_t duration = TakeBattleMInteger_438F70(scene);
+            payload->messageValueA4 = duration;
+            gBattleMMessageValue59FA14 = duration;
+            std::array<char, 256> message;
+            TakeBattleMString_438FE0(scene, message.data(), 256);
+            if (platform::gValue554644 != 0) {
+                static_cast<void>(audio::PlaySe_52C450(74, 320));
+            }
+            Sub_44B050(message.data(), color, font);
+            const std::int32_t position = gBattleMCasterPosition5AAA64;
+            if (position < 20) {
+                YobiAction* const actor = gBattleAllEntries59E980[position];
+                if (actor != nullptr) {
+                    static_cast<void>(render::LoadGraphic_522570(actor->graphicIndex));
+                    const std::int32_t lifetime = gBattleMMessageValue59FA14;
+                    YobiAction* const current = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+                    const std::int32_t offsetY = -render::ReadGraphicDxHeight(current->graphicIndex);
+                    static_cast<void>(NewBattleHitEffect_41F5B0(current, -30, offsetY, lifetime, 22335));
+                }
+            }
+            ++payload->packetSubState58;
+        } else if (subState == 1) {
+            const std::int32_t remaining = payload->messageValueA4 - 1;
+            payload->messageValueA4 = remaining;
+            gBattleMMessageValue59FA14 = remaining;
+            if (payload->messageValueA4 <= 0) {
+                FinishBattleEvent_43B6C0(scene);
+            }
+        }
+        return;
+    }
+    case BattleMDataHeader::ChangeBody: {
+        const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        YobiAction* const actor = gBattleAllEntries59E980[position];
+        gBattleMCasterPosition5AAA64 = position;
+        if (actor == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            return;
+        }
+        const std::int32_t image = character_select::detail::Sub_51B740(TakeBattleMInteger_438F70(scene));
+        gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->imageNo = image;
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(scene);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->readiness, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(scene);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->maxHp, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(scene);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        {
+            const std::int32_t value = TakeBattleMInteger_438F70(scene);
+            platform::LegacyCryptInt temporary;
+            ConstructFromInt_401CC0(&temporary, value);
+            CopyPayload(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barMaximum1C0, &temporary);
+            Destroy_401CF0(&temporary);
+        }
+        const std::int32_t riderValue = TakeBattleMInteger_438F70(scene);
+        for (std::int32_t index = 0; index < 2; ++index) {
+            const std::int32_t gear = TakeBattleMInteger_438F70(scene);
+            const std::int32_t firstImage = TakeBattleMInteger_438F70(scene);
+            const std::int32_t secondImage = TakeBattleMInteger_438F70(scene);
+            SetBattleGear_422C20(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gear, index);
+            SetBattleAuxGear_422C90(
+                gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], firstImage, secondImage, index);
+        }
+        YobiAction* const current = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+        if (static_cast<BattleActorPayload*>(current->payload)->rider13C8 != nullptr && riderValue != 0) {
+            static_cast<void>(SetBattleRider_4222B0(current, current->imageNo, riderValue));
+        }
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    case BattleMDataHeader::AppendSkill: {
+        gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        const std::int32_t technique = TakeBattleMInteger_438F70(scene);
+        const std::uint32_t flags = gBattleMResultFlags5A4A20;
+        gBattleMTechnique5A4A38 = technique;
+        if (flags == 0x400u) {
+            AddBattleAppendEffect_43BE00(8, technique, gBattleMCasterPosition5AAA64);
+        } else if (flags == 0x1000u) {
+            AddBattleAppendEffect_43BE00(11, technique, gBattleMCasterPosition5AAA64);
+        }
+        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            Sub_406260(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+            FinishBattleEvent_43B6C0(scene);
+        }
+        return;
+    }
+    case BattleMDataHeader::End:
+        if (CheckBattleTurnReady_4394A0(scene, 0) == 1) {
+            FinishBattleEvent_43B6C0(scene);
+            world::gCurrentSceneState = 7;
+        }
+        return;
+    }
 }
 
 } // namespace

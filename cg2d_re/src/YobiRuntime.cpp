@@ -601,6 +601,7 @@ std::int32_t gBattleMStatusMode5ABA88 = 0; // PSN先写后读，不属于13项�
 std::int32_t gBattleMSkillLevel5A4A2C = 0; // SKL状态0先写后读，不属于13项快照。
 std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 与88/8C独立的归一化等级索引。
 std::int32_t gBattleMSelectedPosition5ABA98 = 0; // SKL98额外操作位置，独立于主施法者/目标，不属于13项快照。
+std::int32_t gBattleMRedirectPosition5AAA70 = 0; // 426FC0/424620的独立转向输出，非13项快照或5A4A28。
 constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 {
     3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0,
 }; // 原553E58，独立于效果工厂553A38的同值表。
@@ -18383,6 +18384,26 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 {
     MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
     ParseBattleMRide_4239D0(scene);
     ++payload->packetSubState58;
+}
+
+} // namespace
+
+namespace {
+
+// 原43699B..4369F9；3101沿426FC0生产，收尾重取initial输出而非source。
+[[maybe_unused]] void ProcessBattleMSkill3101(
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
+{
+    using namespace world::detail;
+    const std::int32_t attackMode = TakeBattleMInteger_438F70(scene);
+    const std::int32_t levelIndex = gBattleMSkillLevelIndex5A3A18;
+    const std::int32_t level = gBattleMSkillLevel5A4A2C;
+    const std::int32_t skill = gBattleMSkill5AAA78;
+    TakeBattleMSkillTargets_426FC0(scene, skill, level, levelIndex, fpUsed, attackMode,
+        &gBattleMCasterPosition5AAA64, &gBattleMValue5ABA7C, &gBattleMTargetPosition5AAA40, &gBattleMRedirectPosition5AAA70);
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMValue5ABA7C]);
+    ParseBattleMRide_4239D0(scene);
+    payload->packetSubState58 = 1;
 }
 
 } // namespace

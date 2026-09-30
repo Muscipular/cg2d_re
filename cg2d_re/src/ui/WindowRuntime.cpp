@@ -964,6 +964,7 @@ struct LoginWindowRuntimeSlots {
     std::array<std::int32_t, 5> petSequencesCAFEB0;
     std::array<char, 256> petNameDraftD45E74;
     std::int32_t petTechniqueD2D66C; // 原物理技能下标，生产见48F620/48F690/48F6C0。
+    std::int32_t petTechniqueValueD2F784; // 原拖动关联槽，48D9A0置-1，48F620/48F6C0后续写。
     std::int32_t petTechniqueDragD460CC; // 4920F0绘制门禁，初始化由48D9A0负责。
     std::array<std::int32_t, 5> valuesCC1A18;
     std::array<std::int32_t, 5> valuesCC4CE8;
@@ -33352,6 +33353,209 @@ std::int32_t Sub_492390()
         }
     }
     return 0;
+}
+
+// 窗口16完整刷新；复制取样和空宠物显隐差异见window_16.md。
+std::uint32_t Sub_48F8F0()
+{
+    const auto selectedPet = []() -> world::detail::PetRuntimeRecord& {
+        const auto index = std::bit_cast<std::int16_t>(
+            world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+        return world::detail::gPetRuntimeF633F8[index];
+    };
+    // 原复制段在测长前固定elements或data；二者取样阶段不能合并。
+    const auto copyTextAfterScan = [](const std::int32_t element, const char* const text) {
+        WindowElement* const elements = gCurrentWindow->elements;
+        const std::size_t length = std::strlen(text) + 1;
+        auto* const data = static_cast<WindowTextData*>(elements[element].data);
+        std::memcpy(data->text, text, length);
+    };
+    const auto copyTextBeforeScan = [](const std::int32_t element, const char* const text) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[element].data);
+        const std::size_t length = std::strlen(text) + 1;
+        std::memcpy(data->text, text, length);
+        return length;
+    };
+    char buffer[256];
+    if (selectedPet().used != 0) {
+        constexpr std::int32_t visibleElements[] {9, 11, 12, 13, 14, 15, 16, 17, 20, 10, 18, 19};
+        for (const std::int32_t element : visibleElements) {
+            gCurrentWindow->elements[element].visible = 1;
+        }
+        const bool customName = selectedPet().name6BD[0] != '\0';
+        input::InputContext* const activeInput = input::gCurrentInputData;
+        if (activeInput == &input::gInputContextD2D4A0) {
+            gCurrentWindow->elements[9].visible = 0;
+            const char* const text = gPetNameInputPrototype57DCF8.input.context->text;
+            const std::size_t length = std::strlen(text) + 1;
+            WindowInstance* const window = gCurrentWindow;
+            std::memcpy(gLoginWindowRuntime.petNameDraftD45E74.data(), text, length);
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 1));
+        } else {
+            gCurrentWindow->elements[9].visible = 1;
+            if (customName) {
+                static_cast<void>(copyTextBeforeScan(9, gLoginWindowRuntime.petNameDraftD45E74.data()));
+            } else {
+                copyTextAfterScan(9, gLoginWindowRuntime.petNameDraftD45E74.data());
+            }
+            const auto& compared = selectedPet();
+            const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+            const bool changed = std::strcmp(gLoginWindowRuntime.petNameDraftD45E74.data(), name) != 0;
+            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+            data->bytes00[0] = changed ? std::byte{6} : std::byte{0};
+        }
+        const auto& compared = selectedPet();
+        const char* const name = customName ? compared.name6BD.data() : compared.name6AC.data();
+        const bool changed = std::strcmp(gLoginWindowRuntime.petNameDraftD45E74.data(), name) != 0;
+        gCurrentWindow->elements[5].visible = changed ? 1 : 0;
+
+        if (platform::legacy_crypt_int::Equal_401D00(&selectedPet().values0C[5], -1)) {
+            const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
+                &selectedPet().values0C[4]);
+            std::sprintf(buffer, "%8d/       -", experience);
+        } else {
+            const std::int32_t nextExperience = platform::legacy_crypt_int::Read_401EC0(
+                &selectedPet().values0C[5]);
+            const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
+                &selectedPet().values0C[4]);
+            std::sprintf(buffer, "%8d/%8d", experience, nextExperience);
+        }
+        copyTextAfterScan(11, buffer);
+        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
+        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
+        std::sprintf(buffer, "%5d/%5d", hp, maxHp);
+        copyTextAfterScan(12, buffer);
+        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
+        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
+        std::sprintf(buffer, "%5d/%5d", fp, maxFp);
+        copyTextAfterScan(13, buffer);
+
+        const auto& tribePet = selectedPet();
+        WindowInstance* const tribeWindow = gCurrentWindow;
+        const auto tribe = std::bit_cast<std::int16_t>(tribePet.value04);
+        WindowElement* const tribeElements = tribeWindow->elements;
+        const char* const tribeName = gTribeNames57CB54[tribe];
+        const std::size_t tribeLength = std::strlen(tribeName) + 1;
+        auto* const tribeData = static_cast<WindowTextData*>(tribeElements[14].data);
+        std::memcpy(tribeData->text, tribeName, tribeLength);
+        std::sprintf(buffer, "%3d", selectedPet().values70[10]);
+        static_cast<void>(copyTextBeforeScan(15, buffer));
+        std::sprintf(buffer, "%2d", selectedPet().value6A4);
+        static_cast<void>(copyTextBeforeScan(16, buffer));
+        std::sprintf(buffer, "%3d", selectedPet().value08);
+        static_cast<void>(copyTextBeforeScan(18, buffer));
+        const auto& weightPet = selectedPet();
+        const std::int32_t maxWeight = weightPet.values6D8[2];
+        const std::int32_t weight = weightPet.values6D8[1];
+        std::sprintf(buffer, "%6d/%6d", weight, maxWeight);
+        static_cast<void>(copyTextBeforeScan(19, buffer));
+
+        const auto& imagePet = selectedPet();
+        WindowElement* const imageElements = gCurrentWindow->elements;
+        const std::int32_t imageNo = imagePet.imageNo6A0;
+        auto* const imageData = static_cast<WindowAnimationData*>(imageElements[20].data);
+        login::detail::SetYobiActionField2A8(imageData->action, imageNo);
+        auto* const directionData = static_cast<WindowAnimationData*>(gCurrentWindow->elements[20].data);
+        const std::int32_t direction = gLoginWindowRuntime.valueD673D0;
+        login::detail::SetYobiActionField2B8(directionData->action, direction);
+
+        const std::int32_t injury = selectedPet().values70[25];
+        std::int32_t injuryImage;
+        if (injury == 0) {
+            injuryImage = 0x3B614;
+        } else if (injury <= 25) {
+            injuryImage = 0x3B615;
+        } else if (injury <= 50) {
+            injuryImage = 0x3B616;
+        } else if (injury <= 75) {
+            injuryImage = 0x3B617;
+        } else {
+            injuryImage = 0x3B618;
+        }
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->imageNo = injuryImage;
+
+        const auto showSegment = [](const std::int32_t element, const std::int32_t image) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[element].data)->imageNo = image;
+            gCurrentWindow->elements[element].visible = 1;
+        };
+        for (std::int32_t attribute = 0; attribute < 4; ++attribute) {
+            const std::int32_t base = 21 + attribute * 10;
+            for (std::int32_t segment = 0; segment < 10; ++segment) {
+                gCurrentWindow->elements[base + segment].visible = 0;
+            }
+            const std::int32_t segments = selectedPet().values70[21 + attribute] / 10;
+            const auto& images = gPetBarImages57E434[attribute];
+            if (segments == 1) {
+                showSegment(base, images[3]);
+            } else {
+                for (std::int32_t segment = 0; segment < segments; ++segment) {
+                    showSegment(base + segment, images[1]);
+                    if (segment == 0) {
+                        showSegment(base, images[0]);
+                    }
+                    if (segment == segments - 1) {
+                        showSegment(base + segment, images[2]);
+                    }
+                }
+            }
+        }
+    } else {
+        constexpr std::int32_t hiddenElements[] {9, 11, 12, 13, 14, 15, 16, 20, 18, 19};
+        for (const std::int32_t element : hiddenElements) {
+            gCurrentWindow->elements[element].visible = 0;
+        }
+        for (std::int32_t segment = 0; segment < 10; ++segment) {
+            gCurrentWindow->elements[21 + segment].visible = 0;
+            gCurrentWindow->elements[31 + segment].visible = 0;
+            gCurrentWindow->elements[41 + segment].visible = 0;
+            gCurrentWindow->elements[51 + segment].visible = 0;
+        }
+        gCurrentWindow->elements[10].visible = 0;
+    }
+    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
+}
+
+// 窗口16主更新，入口-1负责共享详情拖动槽的初始化。
+std::int32_t Sub_48D9A0(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
+        static_cast<void>(Sub_492350());
+        Sub_492280();
+        gLoginWindowRuntime.petTechniqueD2D66C = -1;
+        gLoginWindowRuntime.petTechniqueValueD2F784 = -1;
+        gLoginWindowRuntime.petTechniqueDragD460CC = 0;
+        return 1;
+    }
+    if (gLoginWindowRuntime.selectedPetCC3E5C != gLoginWindowRuntime.previousPetCC4888) {
+        Sub_492280();
+    }
+    gLoginWindowRuntime.previousPetCC4888 = gLoginWindowRuntime.selectedPetCC3E5C;
+    if (Sub_492390() != 0 || Sub_492270() != 0) {
+        static_cast<void>(Sub_492350());
+        Sub_492280();
+        Sub_492260();
+        const char* const text = gLoginWindowRuntime.petNameDraftD45E74.data();
+        const std::size_t length = std::strlen(text) + 1;
+        const std::size_t bulk = length & ~std::size_t{3};
+        std::memcpy(gPetNameInputPrototype57DCF8.text.data(), text, bulk);
+        WindowInstance* const window = gCurrentWindow;
+        std::memcpy(gPetNameInputPrototype57DCF8.text.data() + bulk, text + bulk, length - bulk);
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gPetNameInputPrototype57DCF8, x, y, 0));
+    }
+    const auto selected = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLoginWindowRuntime.selectedPetCC3E5C].index);
+    if (world::detail::gPetRuntimeF633F8[selected].used == 0) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    static_cast<void>(Sub_48F8F0());
+    return 1;
 }
 
 WindowElement* Sub_491AA0()

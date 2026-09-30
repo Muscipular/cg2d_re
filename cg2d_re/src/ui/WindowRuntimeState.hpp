@@ -867,6 +867,20 @@ std::int32_t Sub_494E60(std::int32_t index, std::int32_t state); // 声道设置
 std::int32_t Sub_494F30(std::int32_t index, std::int32_t state); // 554644切换，提示仍复用声道文案。
 std::int32_t Sub_495000(std::int32_t index, std::int32_t state); // 低U8切换后写W16扫描线设置。
 std::int32_t Sub_4950D0(std::int32_t index, std::int32_t state); // 当前渲染模式提示/图号，恒返0。
+std::int32_t Sub_495130(std::int32_t value); // 窗口25初始化，按分类绑定十行回调。
+std::int32_t Sub_4953B0(std::int32_t index, std::int32_t state); // 关闭并写回预设文本，不直接持久化。
+std::int32_t Sub_495450(std::int32_t index, std::int32_t state); // 上一行，bit400。
+std::int32_t Sub_495500(std::int32_t index, std::int32_t state); // 下一行，音效后重新取计数。
+std::int32_t Sub_4955C0(std::int32_t index, std::int32_t state); // 上十行，音效先于位置修改。
+std::int32_t Sub_495670(std::int32_t index, std::int32_t state); // 下十行，保留三阶段计数读取。
+std::int32_t Sub_495750(std::int32_t index, std::int32_t state); // 窗口25滚轮，恒返0。
+std::int32_t Sub_4957B0(std::int32_t index, std::int32_t state); // 分类0与十行复位。
+std::int32_t Sub_4958D0(std::int32_t index, std::int32_t state); // 分类1与十行复位。
+std::int32_t Sub_4959F0(std::int32_t index, std::int32_t state); // 分类2与十行复位。
+std::int32_t Sub_495B10(std::int32_t index, std::int32_t state); // 分类3只换回调，不复位行图号。
+std::int32_t Sub_495C20(std::int32_t index, std::int32_t state); // 预设文本备份、初始化及同源焦点。
+extern std::int8_t gHotkeySelectedCC4B20; // S8选中记录，495130初始化为-1。
+extern WindowInputPrototype gHotkeyInputPrototype57DF48; // 借24项InputContext中的当前编辑项。
 extern std::int8_t gSettingsPanelCC4234;
 extern std::int32_t gSettingsOffsetCA02DC;
 extern std::int32_t gSettingsStepD2D610;

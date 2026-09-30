@@ -446,6 +446,11 @@ std::int32_t gSettingsOffsetCA02DC = 0;
 std::int32_t gSettingsStepD2D610 = 0;
 std::array<char, 12> gSettingsMusicTextD3041C {};
 std::array<char, 12> gSettingsEffectTextD2EA64 {};
+std::int8_t gHotkeySelectedCC4B20 = 0;
+WindowInputPrototype gHotkeyInputPrototype57DF48 {
+    {{nullptr}, WindowInputReferenceKind::Context},
+    0, 0, 3, 8, 0, {}, 1, 24, 0, 0,
+};
 login::YobiAction* gWindowActionCA0174 = nullptr;
 login::YobiAction* gWindowActionD2E928 = nullptr;
 login::YobiAction* gPreviewActionD67B84 = nullptr;
@@ -16411,6 +16416,397 @@ std::int32_t Sub_4950D0(const std::int32_t index, const std::int32_t state)
     }
     graphic->imageNo = 0x3B5A0 + 3 * index;
     return 0;
+}
+
+namespace {
+
+constexpr std::array<std::int8_t, 8> kHotkeyCounts56AEC4 {14, 27, 16, 24, 14, 27, 16, 24};
+constexpr char kHotkeyWindows586FA4[] = "\xC5\xE3\xA5\xDC\xB9\x43\xC0\xB8\xA5\x5C\xAF\xE0\xB5\xF8\xB5\xA1\xAC\xDB\xC3\xF6\xBC\xF6\xC1\xE4\xA1\x43";
+constexpr char kHotkeyStatus586FC0[] = "\xC5\xE3\xA5\xDC\xB5\x65\xAD\xB1\xA5\xAA\xA4\x57\xA8\xA4\xAA\xAC\xBA\x41\xC5\xE3\xA5\xDC\xAC\xDB\xC3\xF6\xBC\xF6\xC1\xE4\xA1\x43";
+constexpr char kHotkeyActions586FE4[] = "\xC5\xE3\xA5\xDC\xB5\x65\xAD\xB1\xA5\x6B\xA4\x57\xA8\xA4\xB1\xA1\xBA\xFC\xB0\xCA\xA7\x40\xAC\xDB\xC3\xF6\xBC\xF6\xC1\xE4\xA1\x43";
+constexpr char kHotkeyPresets587008[] = "\xB5\x6E\xBF\xFD\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
+
+} // namespace
+
+std::int32_t Sub_495130(const std::int32_t value)
+{
+    if (value == -1) {
+        WindowInstance* const window = gCurrentWindow;
+        gWindowStates[25].value14 = 0;
+        WindowElement* const elements = window->elements;
+        const std::int32_t height = elements[2].height;
+        const std::int32_t y = elements[3].y;
+        elements[2].y = y - (height >> 1);
+        const std::uint32_t category = gWindowStates[25].value10;
+        gHotkeySelectedCC4B20 = -1;
+        const WindowElementCallback callback = category == 3 ? &Sub_495C20 : &Sub_4B0F10;
+        for (std::int32_t index = 9; index <= 18; ++index) {
+            gCurrentWindow->elements[index].mouseCallback = callback;
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_4953B0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B538;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B53A;
+        std::strcpy(gHoverTextD68AE8.data(), kSettingsClose55331C);
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    graphic->imageNo = 0x3B539;
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(login::detail::Sub_520640());
+    static_cast<void>(audio::PlaySe_52C450(57, 320));
+    return 1;
+}
+
+std::int32_t Sub_495450(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
+        if (position > 0) {
+            windowState->value14 = static_cast<std::uint32_t>(position - 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
+        const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
+        static_cast<void>(Sub_4742C0(&gCurrentWindow->elements[3], maximum, current));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B592;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B594;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B593;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495500(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 0x400) != 0) {
+        const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
+        const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
+        if (position < maximum) {
+            windowState->value14 = static_cast<std::uint32_t>(position + 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
+        const std::int32_t currentCategory = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMaximum = kHotkeyCounts56AEC4[currentCategory + currentMode * 4] - 10;
+        static_cast<void>(Sub_4742C0(&gCurrentWindow->elements[3], currentMaximum, current));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B595;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B597;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B596;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4955C0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        if (std::bit_cast<std::int32_t>(windowState->value14) > 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) - 10;
+        windowState->value14 = static_cast<std::uint32_t>(position);
+        if (position < 0) {
+            windowState->value14 = 0;
+        }
+        const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
+        const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
+        static_cast<void>(Sub_4742C0(&gCurrentWindow->elements[3], maximum, current));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B556;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B558;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495670(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
+        if (maximum > 0 && std::bit_cast<std::int32_t>(windowState->value14) < maximum) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14) + 10;
+        windowState->value14 = static_cast<std::uint32_t>(position);
+        const std::int32_t limitMode = gValueCF4AAC;
+        const std::int32_t limitCategory = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t limit = kHotkeyCounts56AEC4[limitCategory + limitMode * 4] - 10;
+        if (position > limit) {
+            windowState->value14 = static_cast<std::uint32_t>(limit);
+        }
+        const std::int32_t current = std::bit_cast<std::int32_t>(windowState->value14);
+        const std::int32_t currentMode = gValueCF4AAC;
+        const std::int32_t currentMaximum = kHotkeyCounts56AEC4[limitCategory + currentMode * 4] - 10;
+        static_cast<void>(Sub_4742C0(&gCurrentWindow->elements[3], currentMaximum, current));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B559;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B55B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B55A;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495750(const std::int32_t index, const std::int32_t state)
+{
+    WindowState* const windowState = gCurrentWindowState;
+    if ((state & 0x21) != 0) {
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t category = std::bit_cast<std::int32_t>(windowState->value10);
+        const std::int32_t mode = gValueCF4AAC;
+        const std::int32_t maximum = kHotkeyCounts56AEC4[category + mode * 4] - 10;
+        const std::int32_t position = std::bit_cast<std::int32_t>(windowState->value14);
+        windowState->value14 = static_cast<std::uint32_t>(
+            Sub_4743B0(&gCurrentWindow->elements[index - 5], position, maximum, wheel));
+    }
+    return 0;
+}
+
+std::int32_t Sub_4957B0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kHotkeyWindows586FA4);
+    }
+    if ((state & 2) != 0) {
+        if (windowState->value10 != 0) {
+            windowState->value14 = 0;
+            windowState->value10 = 0;
+            WindowElement* const current = gCurrentWindow->elements;
+            const std::int32_t height = current[2].height;
+            const std::int32_t y = current[3].y;
+            current[2].y = y - (height >> 1);
+            for (std::int32_t row = 9; row <= 18; ++row) {
+                gCurrentWindow->elements[row].mouseCallback = &Sub_4B0F10;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B903;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B905;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B904;
+    }
+    if (windowState->value10 == 0) {
+        graphic->imageNo = 0x3B904;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4958D0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kHotkeyStatus586FC0);
+    }
+    if ((state & 2) != 0) {
+        if (windowState->value10 != 1) {
+            windowState->value14 = 0;
+            windowState->value10 = 1;
+            WindowElement* const current = gCurrentWindow->elements;
+            const std::int32_t height = current[2].height;
+            const std::int32_t y = current[3].y;
+            current[2].y = y - (height >> 1);
+            for (std::int32_t row = 9; row <= 18; ++row) {
+                gCurrentWindow->elements[row].mouseCallback = &Sub_4B0F10;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B906;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B908;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B907;
+    }
+    if (windowState->value10 == 1) {
+        graphic->imageNo = 0x3B907;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4959F0(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kHotkeyActions586FE4);
+    }
+    if ((state & 2) != 0) {
+        if (windowState->value10 != 2) {
+            windowState->value14 = 0;
+            windowState->value10 = 2;
+            WindowElement* const current = gCurrentWindow->elements;
+            const std::int32_t height = current[2].height;
+            const std::int32_t y = current[3].y;
+            current[2].y = y - (height >> 1);
+            for (std::int32_t row = 9; row <= 18; ++row) {
+                gCurrentWindow->elements[row].mouseCallback = &Sub_4B0F10;
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[row].data)->imageNo = 0x3B59C;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B909;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B90B;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B90A;
+    }
+    if (windowState->value10 == 2) {
+        graphic->imageNo = 0x3B90A;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495B10(const std::int32_t index, const std::int32_t state)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    WindowState* const windowState = gCurrentWindowState;
+    auto* const graphic = static_cast<WindowGraphicData*>(elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kHotkeyPresets587008);
+    }
+    if ((state & 2) != 0) {
+        if (windowState->value10 != 3) {
+            windowState->value14 = 0;
+            windowState->value10 = 3;
+            WindowElement* const current = gCurrentWindow->elements;
+            const std::int32_t height = current[2].height;
+            const std::int32_t y = current[3].y;
+            current[2].y = y - (height >> 1);
+            for (std::int32_t row = 9; row <= 18; ++row) {
+                gCurrentWindow->elements[row].mouseCallback = &Sub_495C20;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3BE60;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BE62;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BE61;
+    }
+    if (windowState->value10 == 3) {
+        graphic->imageNo = 0x3BE61;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_495C20(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t row = std::bit_cast<std::int32_t>(gCurrentWindowState->value14) + index - 9;
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const auto selected = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(row));
+        gHotkeySelectedCC4B20 = selected;
+        input::InputContext* const context = &input::gInputContexts5F9758[selected];
+        gHotkeyInputPrototype57DF48.input = {{context}, WindowInputReferenceKind::Context};
+        char savedText[288];
+        std::strcpy(savedText, context->text);
+        static_cast<void>(Sub_476570(&gHotkeyInputPrototype57DF48, 0, 0, 0));
+        input::SetContext_44B330(&input::gInputContexts5F9758[gHotkeySelectedCC4B20]);
+        input::LoadInitialText_44A160(savedText);
+        WindowInstance* const window = gCurrentWindow;
+        gFocusedElementDataD45F94 = window->elements[0].data;
+        input::InputContext* const selectedContext = &input::gInputContexts5F9758[gHotkeySelectedCC4B20];
+        static_cast<WindowInputData*>(window->elements[0].data)->context = selectedContext;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    graphic->imageNo = 0x3B59C;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B59E;
+    }
+    if (row == gHotkeySelectedCC4B20) {
+        graphic->imageNo = 0x3B59D;
+    }
+    return consumed;
 }
 
 void Sub_4B5A90()

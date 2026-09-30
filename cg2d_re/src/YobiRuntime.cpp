@@ -10237,6 +10237,248 @@ void UpdateBattleAttachment_421F90(YobiAction* const action)
     }
 }
 
+// 原[421FB0,4221C0)：404DB0公共尾显式同步，不替换421F90身份检查回调。
+void SyncBattleRider_421FB0(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    YobiAction* const registered = world::detail::gBattleAllEntries59E980[action->value1D4];
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    if (registered != parent) {
+        static_cast<void>(MarkDeath(action));
+        return;
+    }
+    const bool followsParent = action->phase == 0;
+    if (followsParent) {
+        action->deltaX = parent->x;
+        action->deltaY = parent->y;
+        switch (parent->characterAction) {
+        case 1:
+            action->characterAction = 1;
+            break;
+        case 2:
+        case 3:
+        case 4:
+            action->characterAction = 3;
+            break;
+        case 5:
+        case 6:
+            action->characterAction = 5;
+            break;
+        case 8:
+        case 10:
+            action->characterAction = 8;
+            break;
+        case 9:
+            action->characterAction = 9;
+            break;
+        default:
+            action->characterAction = 0;
+            break;
+        }
+        bool play;
+        if (parent->phase != 0) {
+            play = true;
+        } else if (action->characterAction != 0) {
+            action->characterAction = 0;
+            play = (payload->flagsFDC & 0x60u) == 0;
+        } else {
+            play = (parent->flags & 0x40u) != 0 && (payload->flagsFDC & 0x60u) == 0;
+        }
+        if (action->direction != parent->direction) {
+            action->direction = parent->direction;
+            play = true;
+        }
+        if (play) {
+            static_cast<void>(PlayFrame_517DA0(
+                action, action->characterAction == 5 ? 0 : parent->playRevert));
+        }
+    }
+    action->flags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
+    action->flags |= parent->flags & 0x118000u;
+    action->flags |= parent->flags & 0x40002u;
+    action->batchType = parent->batchType;
+    action->color2 = parent->color2;
+    action->rebirthValue1 = parent->rebirthValue1;
+    action->rebirthValue2 = parent->rebirthValue2;
+    if (followsParent) {
+        const std::int32_t xOffset = static_cast<std::int32_t>(
+            static_cast<double>(parent->frameX) * parent->scaleX);
+        action->x = xOffset + parent->x;
+        const std::int32_t yOffset = static_cast<std::int32_t>(
+            static_cast<double>(parent->frameY) * parent->scaleY);
+        action->y = yOffset + parent->y;
+    }
+    action->scaleX = parent->scaleX;
+    action->scaleY = parent->scaleY;
+}
+
+// 原[4225D0,42277A)：播放非零返回会隐藏主装备，不改变装备自己的缩放。
+void SyncBattleGear_4225D0(YobiAction* const action)
+{
+    YobiAction* const parent = action->battleAttachmentParent10;
+    YobiAction* const registered = world::detail::gBattleAllEntries59E980[action->value1D4];
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    if (registered != parent) {
+        static_cast<void>(MarkDeath(action));
+        return;
+    }
+    action->deltaX = parent->x;
+    action->deltaY = parent->y;
+    action->characterAction = parent->characterAction == 8 ? 3 : 0;
+    const std::uint32_t flags = payload->flagsFDC;
+    std::uint32_t extraFlags = 0;
+    if ((flags & 0x10000000u) != 0) {
+        extraFlags = 2;
+    }
+    if (payload->value13B0 != 0) {
+        extraFlags = 2;
+    }
+    if ((flags & 0x2000u) != 0) {
+        extraFlags = 2;
+    }
+    bool play;
+    if (parent->phase != 0) {
+        play = true;
+    } else if (action->characterAction != 0) {
+        action->characterAction = 0;
+        play = (payload->flagsFDC & 0x60u) == 0;
+    } else {
+        play = (parent->flags & 0x40u) != 0 && (flags & 0x60u) == 0;
+    }
+    if (action->direction != parent->direction) {
+        action->direction = parent->direction;
+        play = true;
+    }
+    if (play && PlayFrame_517DA0(action, 0) != 0) {
+        extraFlags = 2;
+    }
+    action->flags = (action->flags & 0xFFEA7FFDu) | 0x820000u;
+    action->flags |= parent->flags & 0x118000u;
+    action->flags |= (parent->flags & 0x40002u) | extraFlags;
+    action->batchType = parent->batchType;
+    action->color2 = parent->color2;
+    action->rebirthValue1 = parent->rebirthValue1;
+    action->rebirthValue2 = parent->rebirthValue2;
+    YobiAction* const rider = payload->rider13C8;
+    if (rider != nullptr) {
+        const std::int32_t xOffset = static_cast<std::int32_t>(
+            static_cast<double>(rider->frameX) * parent->scaleX);
+        action->x = xOffset + rider->x;
+        YobiAction* const currentRider = payload->rider13C8;
+        const std::int32_t yOffset = static_cast<std::int32_t>(
+            static_cast<double>(currentRider->frameY) * parent->scaleX);
+        action->y = yOffset + currentRider->y;
+    } else {
+        const std::int32_t xOffset = static_cast<std::int32_t>(
+            static_cast<double>(parent->frameX) * parent->scaleX);
+        action->x = xOffset + parent->x;
+        const std::int32_t yOffset = static_cast<std::int32_t>(
+            static_cast<double>(parent->frameY) * parent->scaleY);
+        action->y = yOffset + parent->y;
+    }
+}
+
+void SyncBattleAuxGear_422780(YobiAction* const action, const std::int32_t index)
+{
+    if (action == nullptr) {
+        return;
+    }
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (parent == nullptr) {
+        return;
+    }
+    const auto* const payload = static_cast<const BattleActorPayload*>(parent->payload);
+    if (payload == nullptr) {
+        return;
+    }
+    action->direction = parent->direction;
+    if (world::detail::gBattleAllEntries59E980[action->value1D4] != parent) {
+        static_cast<void>(MarkDeath(action));
+        return;
+    }
+    std::int32_t graphicIndex = action->graphicIndex;
+    std::int32_t type = 0;
+    if (index == 0) {
+        type = payload->auxiliaryGearTypes13C0[0];
+    } else if (index == 1) {
+        type = payload->auxiliaryGearTypes13C0[1];
+    }
+    std::int32_t characterAction = 0;
+    std::int32_t stopAtEnd = 0;
+    std::int32_t xOffset = 0;
+    std::int32_t yOffset = 0;
+    switch (type) {
+    case 2:
+        break;
+    case 3:
+    case 4:
+    case 5:
+        switch (parent->characterAction) {
+        case 0:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+            break;
+        case 1:
+        case 3:
+        case 6:
+            characterAction = parent->characterAction;
+            break;
+        case 2:
+        case 4:
+        case 5:
+        case 8:
+        case 9:
+        case 10:
+            characterAction = parent->characterAction;
+            stopAtEnd = 1;
+            break;
+        default:
+            stopAtEnd = 1;
+            break;
+        }
+        switch (parent->direction) {
+        case 0: xOffset = 34; yOffset = -4; break;
+        case 1: xOffset = 36; yOffset = 16; break;
+        case 2: xOffset = 16; yOffset = 24; break;
+        case 3: xOffset = -16; yOffset = 26; break;
+        case 4: xOffset = -34; yOffset = 8; break;
+        case 5: xOffset = -36; yOffset = -12; break;
+        case 6: xOffset = -20; yOffset = -20; break;
+        case 7: xOffset = 16; yOffset = -26; break;
+        default: break;
+        }
+        break;
+    case 6:
+        if (parent->characterAction == 10) {
+            characterAction = 10;
+            stopAtEnd = 1;
+            graphicIndex = -1;
+        }
+        break;
+    default:
+        if (parent->characterAction == 10) {
+            characterAction = 10;
+            stopAtEnd = 1;
+        }
+        break;
+    }
+    action->characterAction = characterAction;
+    action->graphicIndex = graphicIndex;
+    action->flags = parent->flags | 0x2000000u;
+    action->deltaX = parent->deltaX;
+    action->deltaY = parent->deltaY;
+    action->offset40 = parent->offset40;
+    action->offset44 = parent->offset44;
+    const std::int32_t x = static_cast<std::int32_t>(parent->offset40);
+    action->x = x + parent->deltaX + xOffset;
+    const std::int32_t y = static_cast<std::int32_t>(parent->offset44);
+    action->y = y + yOffset + parent->deltaY;
+    static_cast<void>(PlayFrame_517DA0(action, stopAtEnd));
+}
+
 YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t imageNo)
 {
     YobiAction* const action = NewYobiAction_404AE0(2, 0);

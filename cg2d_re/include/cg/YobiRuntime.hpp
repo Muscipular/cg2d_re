@@ -278,6 +278,9 @@ void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。
 std::int32_t GetBattleValueBand_43BF00(std::int32_t value); // 原1..15按五阈值分档，范围外-1。
 void UpdateBattleAttachment_421F90(YobiAction* action); // 父战斗槽身份变化时只标死附件。
+void SyncBattleRider_421FB0(YobiAction* action); // 非零phase仅同步绘制属性；零phase另映射动作并投影。
+void SyncBattleGear_4225D0(YobiAction* action); // 骑乘两轴均用父scaleX，Y轴重取骑乘引用。
+void SyncBattleAuxGear_422780(YobiAction* action, std::int32_t index); // type/动作/方向映射；身份检查前复制方向。
 YobiAction* NewBattleRider_4221F0(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleGear_422A30(YobiAction* parent, std::int32_t imageNo);
 YobiAction* NewBattleAuxGear_422B00(

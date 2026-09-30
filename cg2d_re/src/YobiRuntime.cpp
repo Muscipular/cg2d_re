@@ -600,6 +600,9 @@ std::int32_t gBattleMMessageValue59FA14 = 0;
 std::int32_t gBattleMStatusMode5ABA88 = 0; // PSN先写后读，不属于13项回存。
 std::int32_t gBattleMSkillLevel5A4A2C = 0; // SKL状态0先写后读，不属于13项快照。
 std::int32_t gBattleMSkillLevelIndex5A3A18 = 0; // 与88/8C独立的归一化等级索引。
+constexpr std::array<std::int32_t, 12> kBattleMSkillEffectOffsets553E58 {
+    3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0,
+}; // 原553E58，独立于效果工厂553A38的同值表。
 
 enum class BattleMTransitionHeader : std::int32_t {
     Escape = 1, Clear = 2, Support = 3, PetNotice = 15, PetLeave = 16, PetDown = 18,
@@ -14311,6 +14314,282 @@ namespace {
     }
     gBattleMSkillLevel5A4A2C = technique + 1;
     return skill;
+}
+
+} // namespace
+
+namespace {
+
+// 原42B282..42B600，SKL技能4的完整状态0生产；公共字段已由父入口读取。
+[[maybe_unused]] void ProcessBattleMSkill4(
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
+{
+    using namespace world::detail;
+    std::int32_t firstImage = 0;
+    std::int32_t secondImage = 0;
+    std::array<std::int32_t, 2> firstImages {};
+    std::array<std::int32_t, 2> secondImages {};
+    std::array<std::int32_t, 2> values {};
+    const std::int32_t mode = TakeBattleMInteger_438F70(scene);
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (caster == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->attackModeFF4 = mode;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 70);
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            break;
+        }
+        gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        const std::int32_t amount = TakeBattleMInteger_438F70(scene);
+        if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {
+            TakeBattleMAuxGraphics_43BF30(
+                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
+        }
+        AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
+            {gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, amount, firstImage});
+        std::size_t imageIndex = 0;
+        for (std::size_t index = 0; index < 2; ++index) {
+            if (firstImages[index] > 0) {
+                imageIndex = index;
+                break;
+            }
+        }
+        AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
+            gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, firstImage, secondImage, firstImages[imageIndex]);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 0);
+        std::uint32_t flags = gBattleMResultFlags5A4A20;
+        if ((flags & 0x108u) == 0) {
+            if ((flags & 0x40u) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
+                if (gBattleCurrentPosition5ABCA4 == gBattleMTargetPosition5AAA40) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 256);
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 52);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 51);
+                }
+                flags = gBattleMResultFlags5A4A20;
+            } else if (amount != 0 && (flags & 3u) != 0) {
+                if ((flags & 0x8000u) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 123);
+                    flags = gBattleMResultFlags5A4A20;
+                } else if ((flags & 0x4000u) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 122);
+                    flags = gBattleMResultFlags5A4A20;
+                } else if ((flags & 0x2000u) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 121);
+                    flags = gBattleMResultFlags5A4A20;
+                } else if ((flags & 0x20000000u) == 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
+                        (flags & 2u) != 0 ? 165 : 27);
+                    flags = gBattleMResultFlags5A4A20;
+                }
+            }
+        }
+        if ((amount != 0 || (flags & 0x108u) != 0) && (flags & 0x2000E000u) == 0) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 11);
+            flags = gBattleMResultFlags5A4A20;
+            if ((flags & 0x100u) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 76);
+                flags = gBattleMResultFlags5A4A20;
+            }
+        }
+        if ((flags & 0x20u) != 0) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 46);
+        }
+    }
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    ParseBattleMRide_4239D0(scene);
+    ++payload->packetSubState58;
+}
+
+// 原42B600..42BEAC；61/62/63/83共用生产，反弹参与者与当前目标分别保留。
+[[maybe_unused]] void ProcessBattleMSkill61Family(
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
+{
+    using namespace world::detail;
+    static_cast<void>(TakeBattleMInteger_438F70(scene));
+    payload->value00 = 0;
+    payload->entryCount04 = 0;
+    gBattleMMessageValue59FA14 = 0;
+    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    if (caster == nullptr) {
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
+    if (gBattleMSkill5AAA78 == 83) {
+        const std::int32_t x15 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[15]][2];
+        const std::int32_t x5 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[5]][2];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->moveTargetXFE8 = x15 + (x5 - x15) / 2;
+        const std::int32_t y15 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[15]][3];
+        const std::int32_t y5 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[5]][3];
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->moveTargetYFEC = y15 + (y5 - y15) / 2;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 8);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 6);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 137);
+        const std::int32_t position = gBattleMCasterPosition5AAA64;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[position], position < 20 ? 90 : 198);
+        if (gBattleCurrentPosition5ABCA4 == gBattleMCasterPosition5AAA64) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 256);
+        } else {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 52);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 51);
+        }
+    } else {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 139);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
+        const std::int32_t level = gBattleMSkillLevelIndex5A3A18;
+        const std::int32_t image = level < 12 ? kBattleMSkillEffectOffsets553E58[level] + 110081 : 111014;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->image1028 = image;
+    }
+    for (;;) {
+        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        if (gBattleMTargetPosition5AAA40 == 255) {
+            break;
+        }
+        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+            FinishBattleEvent_43B6C0(scene);
+            break;
+        }
+        gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
+        const std::int32_t amount = TakeBattleMInteger_438F70(scene);
+        std::uint32_t flags = gBattleMResultFlags5A4A20;
+        if ((flags & 0x10000u) != 0) {
+            const std::int32_t target = gBattleMTargetPosition5AAA40;
+            const std::int32_t total = gBattleMMessageValue59FA14 + amount;
+            gBattleMFlags5ABA84 = flags;
+            flags &= ~0x20u;
+            gBattleMValue5ABA90 = target;
+            gBattleMMessageValue59FA14 = total;
+            gBattleMResultFlags5A4A20 = flags;
+            payload->entryPositions08[payload->entryCount04] = target;
+            ++payload->entryCount04;
+            flags = gBattleMResultFlags5A4A20;
+        }
+        AppendBattleEffectList_4393A0(
+            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMTargetPosition5AAA40, flags, amount);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->castSkill103C = gBattleMSkill5AAA78;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+        std::int32_t sourcePosition = gBattleMCasterPosition5AAA64;
+        std::int32_t targetPosition = gBattleMTargetPosition5AAA40;
+        if (sourcePosition < 20) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 149);
+            sourcePosition = gBattleMCasterPosition5AAA64;
+            targetPosition = gBattleMTargetPosition5AAA40;
+        } else {
+            if (targetPosition < 10 && sourcePosition != 20) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 149);
+                sourcePosition = gBattleMCasterPosition5AAA64;
+                targetPosition = gBattleMTargetPosition5AAA40;
+            }
+            if (targetPosition >= 10 && sourcePosition != 21) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 149);
+                sourcePosition = gBattleMCasterPosition5AAA64;
+                targetPosition = gBattleMTargetPosition5AAA40;
+            }
+        }
+        flags = gBattleMResultFlags5A4A20;
+        const bool sameSide = (sourcePosition == 20 && targetPosition < 10)
+            || (sourcePosition == 21 && targetPosition >= 10);
+        const std::uint32_t response = (flags & 0x40000u) != 0 ? 0x40000u
+            : (flags & 0x20000u) != 0 ? 0x20000u : (flags & 0x10000u);
+        if (sameSide) {
+            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[targetPosition], sourcePosition, flags, amount);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 184);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 74);
+            targetPosition = gBattleMTargetPosition5AAA40;
+        }
+        if (response == 0x40000u) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 126);
+            continue;
+        }
+        if (response == 0x10000u) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 124);
+            continue;
+        }
+        if (response == 0x20000u) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 125);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 159);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 32);
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                ->value1030 = amount;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                ->value1034 = 6;
+            if ((gBattleMResultFlags5A4A20 & 0x10000000u) != 0) {
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                    ->value1034 = 0;
+            }
+            if ((gBattleMResultFlags5A4A20 & 0x20u) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 46);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 47);
+            }
+            continue;
+        }
+        if (!sameSide) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[targetPosition], 160);
+        }
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->value1030 = amount;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+            ->value1034 = 5;
+        if ((gBattleMResultFlags5A4A20 & 0x10000000u) != 0) {
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
+                ->value1034 = 0;
+        }
+    }
+    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
+    if (gBattleMMessageValue59FA14 != 0) {
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMValue5ABA90]->payload)
+            ->castSkill103C = gBattleMSkill5AAA78;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMValue5ABA90]->payload)
+            ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+        gBattleMFlags5ABA84 &= ~0x10000u;
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMValue5ABA90], 1);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMValue5ABA90], 140);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 0);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 149);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 160);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->value1030 = gBattleMMessageValue59FA14;
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
+            ->value1034 = 5;
+        AppendBattleEffectList_4393A0(
+            gBattleAllEntries59E980[gBattleMValue5ABA90], gBattleMCasterPosition5AAA64,
+            gBattleMFlags5ABA84, gBattleMMessageValue59FA14);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMValue5ABA90], 74);
+    }
+    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);
+    ParseBattleMRide_4239D0(scene);
+    payload->packetSubState58 = 2;
 }
 
 } // namespace

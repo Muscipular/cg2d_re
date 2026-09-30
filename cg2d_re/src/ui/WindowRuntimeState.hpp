@@ -828,6 +828,9 @@ struct WindowInputPrototype {
 };
 extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入原型，57E698为容量成员。
 extern WindowInputPrototype gWindow50InputPrototype580618; // 借Input唯一CC2080，供更新与编辑交互。
+extern WindowInputPrototype gTitleInputPrototype57CCB8; // 原型当前context为编辑正文来源。
+extern std::array<char, 256> gTitleDraftD45FC0; // 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
+extern std::int32_t gTitlePageCF4E54; // 窗口9排序称号表起点，初始化/滚动共享。
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。

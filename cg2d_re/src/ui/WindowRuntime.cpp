@@ -832,6 +832,13 @@ std::array<StallOffer, 5> gStallPetOffersCC3E98 {};
 std::array<std::uint8_t, 20> gStallItemUsedCC31AC {};
 std::array<std::uint8_t, 5> gStallPetUsedCF400C {};
 
+std::int32_t gTitlePageCF4E54 = 0;
+std::array<char, 256> gTitleDraftD45FC0 {};
+WindowInputPrototype gTitleInputPrototype57CCB8 {
+    {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
+    105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
+};
+
 std::array<char, 256> gProfileSearchKeyword1075988 {};
 WindowInputPrototype gProfileSearchInputPrototype580A80 {
     {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
@@ -32542,6 +32549,94 @@ void Sub_474360()
         gWindowStates[7].y = window->y;
         gWindowStates[9].x = window->x;
         gWindowStates[9].y = window->y;
+        gWindowStates[58].x = window->x;
+        gWindowStates[58].y = window->y;
+    }
+}
+
+// 原478010：草稿比较分别控制颜色与确认显隐，六行固定表起点、逐行重取窗口。
+void Sub_478010()
+{
+    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[6].data);
+    const char* const name = world::detail::BorrowPlayerDisplayText(1);
+    const std::size_t nameLength = std::strlen(name) + 1;
+    std::memcpy(nameData->text, name, nameLength);
+
+    char buffer[256];
+    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
+    auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
+    const std::size_t levelLength = std::strlen(buffer) + 1;
+    std::memcpy(levelData->text, buffer, levelLength);
+
+    const std::int32_t titleIndex = world::detail::ReadPlayerTitleIndex();
+    auto* const titleData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+    const char* const title = world::detail::gTitlesFF0508[titleIndex].text.data();
+    const std::size_t titleLength = std::strlen(title) + 1;
+    std::memcpy(titleData->text, title, titleLength);
+
+    if (input::gCurrentInputData != &input::gInputContextD2DC10) {
+        gCurrentWindow->elements[8].visible = 1;
+        auto* const draftData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
+        const std::size_t draftLength = std::strlen(gTitleDraftD45FC0.data()) + 1;
+        std::memcpy(draftData->text, gTitleDraftD45FC0.data(), draftLength);
+        const bool unchanged = std::strcmp(
+            gTitleDraftD45FC0.data(), world::detail::BorrowPlayerDisplayText(2)) == 0;
+        auto* const colorData = static_cast<WindowTextData*>(gCurrentWindow->elements[8].data);
+        colorData->bytes00[0] = unchanged ? std::byte{0} : std::byte{6};
+    } else {
+        const char* const edited = gTitleInputPrototype57CCB8.input.context->text;
+        const std::size_t editedLength = std::strlen(edited) + 1;
+        std::memcpy(gTitleDraftD45FC0.data(), edited, editedLength);
+        gCurrentWindow->elements[8].visible = 0;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gTitleInputPrototype57CCB8, x, y, 1));
+    }
+
+    const bool unchanged = std::strcmp(
+        gTitleDraftD45FC0.data(), world::detail::BorrowPlayerDisplayText(2)) == 0;
+    gCurrentWindow->elements[21].visible = unchanged ? 0 : 1;
+
+    const world::detail::TitleRecord* record =
+        world::detail::gSortedTitlesDE03F8.data() + gTitlePageCF4E54;
+    for (std::int32_t index = 10; index < 16; ++index) {
+        WindowInstance* const window = gCurrentWindow;
+        const char* const text = record->text.data();
+        ++record;
+        auto* const data = static_cast<WindowTextData*>(window->elements[index].data);
+        const std::size_t length = std::strlen(text) + 1;
+        std::memcpy(data->text, text, length);
+    }
+}
+
+// 原4774C0及47752C公共尾，IDA分段不改变同一主更新的正常出口。
+std::int32_t Sub_4774C0(const std::int32_t value)
+{
+    if (value == -1) {
+        const char* const ownTitle = world::detail::BorrowPlayerDisplayText(2);
+        gTitlePageCF4E54 = 0;
+        const std::size_t draftLength = std::strlen(ownTitle) + 1;
+        std::memcpy(gTitleDraftD45FC0.data(), ownTitle, draftLength);
+
+        WindowElement* const elements = gCurrentWindow->elements;
+        const char* const displayTitle = world::detail::BorrowPlayerDisplayText(2);
+        const std::size_t displayLength = std::strlen(displayTitle) + 1;
+        auto* const data = static_cast<WindowTextData*>(elements[8].data);
+        std::memcpy(data->text, displayTitle, displayLength);
+    }
+    Sub_478010();
+    return 1;
+}
+
+void Sub_4744A0()
+{
+    WindowInstance* const window = gWindowStates[9].window;
+    if (window != nullptr) {
+        gWindowStates[7].x = window->x;
+        gWindowStates[7].y = window->y;
+        gWindowStates[8].x = window->x;
+        gWindowStates[8].y = window->y;
         gWindowStates[58].x = window->x;
         gWindowStates[58].y = window->y;
     }

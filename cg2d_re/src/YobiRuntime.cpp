@@ -91,10 +91,11 @@ struct YobiAction {
     std::int8_t nameLayer;           // 原 +BE；DrawText2 的 renderMode。
     std::int32_t nameValueC0;        // 原 +C0；DrawText2 仅消费低 S8。
     std::array<char, 29> nameC4; // 原 +C4..+E0；445D20允许28B及NUL，不是+64绘制文本。
-    std::array<char, 17> titleE1; // 原 +E1，51A090 当前最多写16B及NUL。
+    std::array<char, 33> titleE1; // 原+E1..101；41EB10复制33B，51A090仍最多写16B及NUL。
     std::array<char, 33> text102;
     std::array<char, 33> text123;
     std::array<char, 17> text144; // 原+144；445350复制长度<=16的独立原字节文本。
+    std::array<std::byte, 25> bytes155; // 原+155..16D，41EB10复制原字节，业务用途未定。
     platform::LegacyCryptInt readiness; // 原 +170；地图实体将同一槽用于 HP。
     platform::LegacyCryptInt maxHp; // 原 +180；不与 +170 合并。
     platform::LegacyCryptInt value190; // 原+190/+1A0，选择对象静态构造各自初始化。
@@ -122,6 +123,7 @@ struct YobiAction {
     std::uint32_t field280;
     std::int32_t walkSpeed;
     std::array<std::uint16_t, 4> fields288; // 原+288/+28A/+28C/+28E；423800相册匹配按序消费。
+    std::array<std::byte, 20> bytes290; // 原+290..2A3的五W32复制范围；不作为本机地址存储。
     std::int32_t framePlayingRate;
     std::int32_t imageNo; // 原+2A8；420100族以此槽分派阶段，图形序号另存graphicIndex。
     std::int32_t characterAction;
@@ -135,6 +137,7 @@ struct YobiAction {
     std::int32_t graphicOffsetY;    // 原 +2CC。
     std::int32_t frameEvent;        // 原+2D0：播放flag>=10000写入；完成族清零，帧事件族消费，41BB00作命中标记。
     std::int32_t hidden;            // 原 +2D4：仅严格等于 1 时跳过播放。
+    std::uint32_t field2D8;         // 原+2D8；41EB10复制，410E30/4124E0另清零，独立位型。
     std::uint32_t completedLoops;   // 原 +2DC。
     std::int32_t playRevert;        // 原 +2E0：保留 caller 完整 W32。
     std::int32_t field2E4;          // 原 +2E4；51A5B0 比较完整 W32 是否为2。
@@ -349,6 +352,7 @@ struct BattleActorPayload {
     YobiAction* effect1054; // 416DD0在flags100000h分支先标死再清槽，非拥有引用。
     YobiAction* attachedEffect1058; // 41FBE0创建并发布的非拥有附属特效引用。
     YobiAction* effect105C; // 4131B0首个标死/清空槽，非拥有引用，生产仍待父链。
+    YobiAction* effect1060; // 413550发布克隆、渐变完成后标死并清槽，非拥有引用。
     YobiAction* effect1068; // 41FB20检查非空，4131B0标死并清空；实际生产仍待父链。
     std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
     YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
@@ -356,7 +360,8 @@ struct BattleActorPayload {
     std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
     std::int32_t value13A4;
     std::int32_t queuedTargetCount13A8;
-    std::int32_t value13B0; // 4131B0原值返回并按非零选择phase220/214，生产尚未落位。
+    std::int32_t baseImage13AC; // 413550非恢复分支保存原图号，独立于13E4。
+    std::int32_t value13B0; // 413550完成时写0/1，4131B0按非零选择phase220/214。
     YobiAction* gear13B4; // 422C20主附件，非拥有引用。
     std::array<YobiAction*, 2> auxiliaryGear13B8; // 原13B8/13BC，422C90的0/1槽。
     std::array<std::int32_t, 2> auxiliaryGearTypes13C0; // 原13C0/13C4，清附件不清类型。
@@ -364,6 +369,7 @@ struct BattleActorPayload {
     std::int32_t image13E4; // 41CD00的type43从重取的源载荷读取，生产仍待上游。
 };
 static_assert(sizeof(BattleEntryEffectRecord) == 16);
+static_assert(std::is_trivially_copyable_v<BattleActorPayload>);
 static_assert(offsetof(BattleEntryEffectRecord, position4) == 12);
 
 // 原553A38的12项S32等级映射；59F9E8只有工厂type34/43发布，不拥有或释放对象。
@@ -1441,6 +1447,133 @@ YobiAction* NewYobiAction_404AE0(
         previous->next = action;
         insertionPoint->prev = action;
     }
+    return action;
+}
+
+namespace {
+
+// 原41EB10逐成员复制；三个联合槽按原生宽度复制，CryptInt不改目标token/保留字节。
+YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiAction* const source)
+{
+    using platform::legacy_crypt_int::CopyPayload;
+    destination->prev = source->prev;
+    destination->next = source->next;
+    destination->callback = source->callback;
+    destination->payload = source->payload;
+    std::memcpy(&destination->completionSlot10, &source->completionSlot10, sizeof(source->completionSlot10));
+    destination->priority = source->priority;
+    destination->displayPriority = source->displayPriority;
+    destination->cacheIndex = source->cacheIndex;
+    destination->deathFlag = source->deathFlag;
+    destination->graphicIndex = source->graphicIndex;
+    destination->flags = source->flags;
+    destination->counter28 = source->counter28;
+    std::memcpy(&destination->numberWindowCallback2C, &source->numberWindowCallback2C, sizeof(source->numberWindowCallback2C));
+    destination->x = source->x;
+    destination->y = source->y;
+    destination->deltaX = source->deltaX;
+    destination->deltaY = source->deltaY;
+    std::memcpy(&destination->offset40, &source->offset40, sizeof(source->offset40));
+    std::memcpy(&destination->offset44, &source->offset44, sizeof(source->offset44));
+    std::memcpy(&destination->effectAcceleration48, &source->effectAcceleration48, sizeof(source->effectAcceleration48));
+    destination->value4CBits = source->value4CBits;
+    std::memcpy(&destination->angle50, &source->angle50, sizeof(source->angle50));
+    std::memcpy(&destination->value54, &source->value54, sizeof(source->value54));
+    destination->field58 = source->field58;
+    std::memcpy(&destination->scaleX, &source->scaleX, sizeof(source->scaleX));
+    std::memcpy(&destination->scaleY, &source->scaleY, sizeof(source->scaleY));
+    destination->displayName = source->displayName;
+    destination->nameX = source->nameX;
+    destination->nameY = source->nameY;
+    std::memcpy(&destination->nameOffsetAC, &source->nameOffsetAC, sizeof(source->nameOffsetAC));
+    std::memcpy(&destination->nameOffsetB0, &source->nameOffsetB0, sizeof(source->nameOffsetB0));
+    std::memcpy(&destination->battleTurnStepB4, &source->battleTurnStepB4, sizeof(source->battleTurnStepB4));
+    std::memcpy(&destination->numberVelocityB8, &source->numberVelocityB8, sizeof(source->numberVelocityB8));
+    destination->nameColor = source->nameColor;
+    destination->nameFontType = source->nameFontType;
+    destination->nameLayer = source->nameLayer;
+    destination->nameValueC0 = source->nameValueC0;
+    destination->nameC4 = source->nameC4;
+    destination->titleE1 = source->titleE1;
+    destination->text102 = source->text102;
+    destination->text123 = source->text123;
+    destination->text144 = source->text144;
+    destination->bytes155 = source->bytes155;
+    CopyPayload(&destination->readiness, &source->readiness);
+    CopyPayload(&destination->maxHp, &source->maxHp);
+    CopyPayload(&destination->value190, &source->value190);
+    CopyPayload(&destination->value1A0, &source->value1A0);
+    CopyPayload(&destination->barValue1B0, &source->barValue1B0);
+    CopyPayload(&destination->barMaximum1C0, &source->barMaximum1C0);
+    std::memcpy(&destination->windowCompletionSlot1D0, &source->windowCompletionSlot1D0, sizeof(source->windowCompletionSlot1D0));
+    destination->value1D4 = source->value1D4;
+    destination->field1D8 = source->field1D8;
+    destination->counter1DC = source->counter1DC;
+    CopyPayload(&destination->mapX1E0, &source->mapX1E0);
+    CopyPayload(&destination->mapY1F0, &source->mapY1F0);
+    CopyPayload(&destination->mapX200, &source->mapX200);
+    CopyPayload(&destination->mapY210, &source->mapY210);
+    destination->pathX220 = source->pathX220;
+    destination->pathY248 = source->pathY248;
+    destination->field270 = source->field270;
+    destination->field272 = source->field272;
+    std::memcpy(&destination->worldX, &source->worldX, sizeof(source->worldX));
+    std::memcpy(&destination->worldY, &source->worldY, sizeof(source->worldY));
+    destination->field27C = source->field27C;
+    destination->field280 = source->field280;
+    destination->walkSpeed = source->walkSpeed;
+    destination->fields288 = source->fields288;
+    destination->bytes290 = source->bytes290;
+    destination->framePlayingRate = source->framePlayingRate;
+    destination->imageNo = source->imageNo;
+    destination->lastImageNo = source->lastImageNo;
+    destination->characterAction = source->characterAction;
+    destination->lastCharacterAction = source->lastCharacterAction;
+    destination->direction = source->direction;
+    destination->lastDirection = source->lastDirection;
+    destination->frameIndex = source->frameIndex;
+    destination->frameRemain = source->frameRemain;
+    destination->graphicOffsetX = source->graphicOffsetX;
+    destination->graphicOffsetY = source->graphicOffsetY;
+    destination->frameEvent = source->frameEvent;
+    destination->hidden = source->hidden;
+    destination->field2D8 = source->field2D8;
+    destination->completedLoops = source->completedLoops;
+    destination->playRevert = source->playRevert;
+    destination->field2E4 = source->field2E4;
+    destination->imageNo2E8 = source->imageNo2E8;
+    destination->refresh2EC = source->refresh2EC;
+    destination->frameX = source->frameX;
+    destination->frameY = source->frameY;
+    destination->drawMode = source->drawMode;
+    destination->batchType = source->batchType;
+    destination->rebirthValue1 = source->rebirthValue1;
+    destination->color2 = source->color2;
+    destination->rebirthValue2 = source->rebirthValue2;
+    destination->mapOffsetX = source->mapOffsetX;
+    destination->mapOffsetY = source->mapOffsetY;
+    destination->text31C = source->text31C;
+    return destination;
+}
+
+} // namespace
+
+YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)
+{
+    const auto* const sourcePayload = static_cast<const BattleActorPayload*>(source->payload);
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleActorPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    YobiAction* const previous = action->prev;
+    YobiAction* const next = action->next;
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    static_cast<void>(CopyYobiAction_41EB10(action, source));
+    action->next = next;
+    action->prev = previous;
+    action->payload = payload;
+    // 原0x13E8B载荷在新端按原生结构浅复制，不回绑其中的T*。
+    std::memcpy(payload, sourcePayload, sizeof(BattleActorPayload));
     return action;
 }
 
@@ -11575,6 +11708,72 @@ void UpdateBattleAction216_413400(YobiAction* const action)
             static_cast<void>(DrawBattleTiledEffect_41E890(1));
         }
     }
+}
+
+void UpdateBattleAction218_413550(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    action->characterAction = payload->effects1C[payload->effectRunningC9C].position == -1 ? 0 : 6;
+    if (payload->effect1060 == nullptr) {
+        if (payload->effects1C[payload->effectRunningC9C].position != -1
+            && PlayFrame_517DA0(action, 1) != 1) {
+            return;
+        }
+        YobiAction* const copy = CloneBattleAction_41EAB0(action);
+        payload->effect1060 = copy;
+        copy->callback = nullptr;
+        const std::int32_t index = payload->effectRunningC9C;
+        payload->effect1060->imageNo = payload->effects1C[index].position4;
+        payload->effect1060->characterAction = 0;
+        SetYobiActionField30F(payload->effect1060, 0);
+        static_cast<void>(PlayFrame_517DA0(payload->effect1060, 0));
+        return;
+    }
+    static_cast<void>(NewBattleRandomEffect_419FC0(action, 110471, 0));
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        action->flags |= 0x8000u;
+        payload->effect1060->flags |= 0x10000u;
+    }
+    SetYobiActionField308(action, 8);
+    SetYobiActionField308(payload->effect1060, 8);
+    YobiAction* const copy = payload->effect1060;
+    const std::int32_t nextAlpha = GetYobiActionField30F(copy) + 7;
+    if (nextAlpha < 255) {
+        const std::int32_t alpha = GetYobiActionField30F(action) - 7;
+        SetYobiActionField30F(action, alpha <= 0 ? 0 : static_cast<std::uint8_t>(alpha));
+        YobiAction* const currentCopy = payload->effect1060;
+        const std::uint8_t copyAlpha = GetYobiActionField30F(currentCopy);
+        SetYobiActionField30F(currentCopy, static_cast<std::uint8_t>(copyAlpha + 7));
+        return;
+    }
+    static_cast<void>(MarkDeath(copy));
+    const std::int32_t index = payload->effectRunningC9C;
+    payload->effect1060 = nullptr;
+    const BattleEntryEffectRecord& effect = payload->effects1C[index];
+    if (effect.position != -1) {
+        const std::uint32_t flags = payload->flagsFDC;
+        payload->value13B0 = 1;
+        if ((flags & 0x10000000u) == 0) {
+            payload->baseImage13AC = action->imageNo;
+            action->imageNo = effect.position4;
+        }
+    } else {
+        const std::uint32_t flags = payload->flagsFDC;
+        payload->value13B0 = 0;
+        if ((flags & 0x10000000u) == 0) {
+            action->imageNo = effect.position4;
+        }
+    }
+    action->characterAction = 0;
+    SetYobiActionField308(action, 0);
+    SetYobiActionField30F(action, 255);
+    action->drawMode.bytes[11] = 255;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    if (render::HasLegacy3DDevice_44B610() == 0) {
+        action->flags &= ~0x8000u;
+    }
+    action->frameEvent = 0;
+    AdvanceBattleCastState_439340(action);
 }
 
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* const action)

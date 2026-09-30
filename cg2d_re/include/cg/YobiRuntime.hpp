@@ -52,6 +52,9 @@ YobiAction* NewYobiAction_404AE0(
     std::uint8_t priority,
     std::uint32_t payloadSize);
 
+// 原41EAB0：克隆战斗对象及原生载荷，保留新节点链表位置，内部T*仍为借用引用。
+YobiAction* CloneBattleAction_41EAB0(YobiAction* source);
+
 // 471440的type2字段写序；已发布的外层slot逐次借用，原内层失败无空保护。
 void ConfigureWindowElementAction(YobiAction*& slot, const std::int32_t* imageNo);
 // 原4B4863–4B48A4：先转换图号，再逐次借用共享宠物预览槽写字段。
@@ -403,6 +406,7 @@ std::int32_t UpdateBattleAction213_4131B0(YobiAction* action); // 动画结束�
 void UpdateBattleAction214_4132B0(YobiAction* action); // 两设备分支：闪烁后建特效，或先快照/后重读30F衰减。
 void UpdateBattleAction215_4133D0(YobiAction* action); // 1024严格为2才清槽并推进动作。
 void UpdateBattleAction216_413400(YobiAction* action); // 施法特效、帧事件逐项消费及播放后独立平铺尾。
+void UpdateBattleAction218_413550(YobiAction* action); // 克隆换图、双对象渐变及13AC/13B0完成回写。
 std::int32_t UpdateBattleAction237_416DD0(YobiAction* action); // 完整动作237，返回最终PlayFrame结果。
 // 原43BF30：mode1只消费预扫描8整数；mode0读对象字段，五输出均为S32非拥有指针。
 void TakeBattleMAuxGraphics_43BF30(

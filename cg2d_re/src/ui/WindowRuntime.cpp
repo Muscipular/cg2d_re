@@ -28174,14 +28174,14 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
     if (action == nullptr) {
         return 0;
     }
-    const std::int32_t* const rebirth = login::detail::BorrowBattleRebirthState106C(action);
+    login::YobiAction* const* const rebirth = login::detail::BorrowBattleRebirthSlot106C(action);
     if (rebirth == nullptr) {
         return 0;
     }
     std::int32_t consumed = 0;
     if ((state & 1) != 0) {
         std::strcpy(gHoverTextD68AE8.data(),
-            *rebirth != 0 ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
+            *rebirth != nullptr ? kSkillDisableRebirth5864B4 : kSkillEnableRebirth5864A0);
     }
     if ((state & 2) != 0) {
         Sub_496F10();
@@ -28191,7 +28191,7 @@ std::int32_t Sub_497C80(const std::int32_t index, const std::int32_t state)
         const login::YobiAction* const current =
             world::detail::gBattleEntries59E980[world::detail::gBattleCurrentPosition5ABCA4];
         const char* const command =
-            *login::detail::BorrowBattleRebirthState106C(current) != 0 ? "R|0" : "R|1";
+            *login::detail::BorrowBattleRebirthSlot106C(current) != nullptr ? "R|0" : "R|1";
         static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, command));
         login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);
         world::detail::gBattleCommandAction5ABC00 = nullptr;

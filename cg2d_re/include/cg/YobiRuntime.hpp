@@ -359,6 +359,9 @@ YobiAction* NewBattleDebuffEffect_41F660(YobiAction* parent, std::int32_t imageN
 void UpdateBattleDebuffEffect_41F800(YobiAction* action); // 1054/105C共用父对象跟随回调。
 YobiAction* NewBattleReverseEffect_41F860(YobiAction* parent, std::int32_t imageNo); // 105C已有引用返回空。
 void UpdateBattleCenteredEffect_41F950(YobiAction* action); // 父标死仍执行公共坐标投影尾。
+void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* action); // 父标死仍按屏幕坐标/S32偏移跟随并播放。
+YobiAction* NewBattleOffsetFollowEffect_419CF0(
+    YobiAction* parent, std::int32_t offsetX, std::int32_t offsetY, std::int32_t imageNo); // 播放后按浮点坐标加偏移投影。
 YobiAction* NewBattleCenteredEffect_41FA00(YobiAction* parent, std::int32_t imageNo); // 1064已有引用时返回空，不换图。
 void UpdateBattleAttachedEffect_41FB20(YobiAction* action);
 YobiAction* NewBattleAttachedEffect_41FBE0(YobiAction* parent, std::int32_t mode); // 已有槽只换图并返回空。
@@ -487,6 +490,14 @@ void UpdateBattleAction68_40C0E0(YobiAction* action); // 浮动图标创建后�
 void UpdateBattleAction69_40C120(YobiAction* action); // 30帧命中特效创建后重读FDC，条件播放后总推进。
 void UpdateBattleAction71_40C4D0(YobiAction* action); // 无播放门禁，启动全部当前效果目标后推进源动作。
 void UpdateBattleAction72_40CAA0(YobiAction* action); // 递增caster载荷原00槽，再推进源动作。
+void UpdateBattleAction75_40CB10(YobiAction* action); // 1004置1后推进，不播放。
+void UpdateBattleAction76_40CB30(YobiAction* action); // 1004清零后推进，不播放。
+void UpdateBattleAction77_40CB50(YobiAction* action); // 查询设备后只设置对应绘制位，再推进。
+void UpdateBattleAction78_40CB80(YobiAction* action); // 查询设备后只清对应绘制位，再推进。
+void UpdateBattleAction79_40CBD0(YobiAction* action); // 按1064/106C/三附属槽顺序标死清槽，再清两组死亡位并推进。
+void UpdateBattleAction80_40CC80(YobiAction* action); // 先快照屏幕X，再读1018音效并播放/推进。
+void UpdateBattleAction81_40CCB0(YobiAction* action); // 独立101C音效，读取/调用顺序同80。
+void UpdateBattleAction82_40CCE0(YobiAction* action); // 独立1020音效，读取/调用顺序同80。
 void UpdateBattleAction236_406630(YobiAction* action); // 清phase/FD8后执行完整动作0。
 void SetBattleAction208Target_412870(YobiAction* action); // 按目标坐标界线写FE8/FEC，最后phase6。
 std::int32_t UpdateBattleAction209_412900(YobiAction* action); // 完整动作209，效果按调用边界重读。
@@ -557,8 +568,8 @@ void Sub_43CA80(); // 战斗原名字绘制，保留测量前Y/后X以及逐槽�
 std::int32_t CheckBattleCommand_43C560(std::int32_t position, std::uint32_t flags);
 // 原43C060：逐槽清选择位、置绘制位及cacheIndex=-2，不销毁对象。
 void FlushBattleEntries_43C060();
-// 原战斗载荷+106C字段借用；空载荷返空，497C80仅在入口检查，点击后按原路径直接读取。
-const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* action) noexcept;
+// 原战斗载荷+106C非拥有对象引用槽；空载荷返空，497C80仅在入口检查，点击后重取槽值。
+YobiAction* const* BorrowBattleRebirthSlot106C(const YobiAction* action) noexcept;
 // 原战斗载荷+13C8的非拥有Yobi引用槽；载荷空返空，调用方保留各自原门禁。
 YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* action) noexcept;
 

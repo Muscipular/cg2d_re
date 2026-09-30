@@ -315,6 +315,14 @@ struct BattleRideCarrierPayload {
     YobiAction* second04; // 429923写入第二个438290结果，非拥有引用。
 };
 
+// 原419CF0的12B载荷：仅父引用拓宽，419CB0按屏幕坐标和S32偏移跟随。
+struct BattleFollowOffsetPayload {
+    YobiAction* parent00;
+    std::int32_t offsetX04;
+    std::int32_t offsetY08;
+};
+static_assert(sizeof(BattleFollowOffsetPayload) == sizeof(YobiAction*) + 2 * sizeof(std::int32_t));
+
 // 战斗专用原生载荷；只映射已消费字段，不沿用原偏移，完整生产/其余字段尚未落位。
 struct BattleActorPayload {
     std::int32_t x00; // 原00坐标槽；40CAA0还会递增caster载荷同槽，不另建计数副本。
@@ -348,6 +356,8 @@ struct BattleActorPayload {
     std::int32_t reactionImage1010;
     std::int32_t image1014; // 429A05写51B740转换后的图号，40C480消费；完整生产父链仍待落位。
     std::int32_t value1018;
+    std::int32_t value101C; // 40CCB0音效编号；424620/427470的已证生产尚待落位。
+    std::int32_t value1020; // 40CCE0音效编号；与1018/101C独立，不是地址。
     std::int32_t value1024;
     std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
     std::int32_t image102C; // 426FC0按技术索引和目标阵营选表。
@@ -363,8 +373,9 @@ struct BattleActorPayload {
     YobiAction* effect1060; // 非拥有克隆/骑乘承载对象；4067F0骑乘路径的payload为BattleRideCarrierPayload。
     YobiAction* centeredEffect1064; // 41FA00发布的非拥有居中特效；41F950随父对象移动。
     YobiAction* effect1068; // 41FE00发布、41FCD0更新；4131B0标死并清槽，非拥有引用。
-    std::int32_t rebirthState106C; // 497C80悬停借用、点击刷新后重取。
+    YobiAction* rebirthEffect106C; // 4114B0/438CAF发布419CF0结果；497C80只检查空值，79标死后清槽。
     YobiAction* caster1070; // 4392A0记录动作发起者，非拥有引用。
+    std::array<YobiAction*, 3> rebirthAuxiliaryEffects1074; // 原1074/1078/107C三槽，非拥有；79按原顺序清理。
     std::int8_t rebirthEffectType1080; // 4208F0按S8选图；仅映射已消费字节，完整生产仍缺。
     std::array<std::int32_t, 200> queuedTargets1084; // 原[1084,13A4)，43B7F0追加值及哨兵。
     std::int32_t value13A4;
@@ -9314,6 +9325,53 @@ YobiAction* NewBattleReverseEffect_41F860(YobiAction* const parent, const std::i
     return action;
 }
 
+void UpdateBattleOffsetFollowEffect_419CB0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleFollowOffsetPayload*>(action->payload);
+    YobiAction* const parent = payload->parent00;
+    if (parent->deathFlag == 1) {
+        static_cast<void>(MarkDeath(action));
+    }
+    const std::int32_t parentX = parent->x;
+    const std::int32_t offsetX = payload->offsetX04;
+    action->x = parentX + offsetX;
+    const std::int32_t parentY = parent->y;
+    const std::int32_t offsetY = payload->offsetY08;
+    action->y = parentY + offsetY;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+}
+
+YobiAction* NewBattleOffsetFollowEffect_419CF0(
+    YobiAction* const parent, const std::int32_t offsetX, const std::int32_t offsetY,
+    const std::int32_t imageNo)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, sizeof(BattleFollowOffsetPayload));
+    if (action == nullptr) {
+        return nullptr;
+    }
+    auto* const payload = static_cast<BattleFollowOffsetPayload*>(action->payload);
+    payload->parent00 = parent;
+    const std::uint32_t flags = action->flags | 0x60000u;
+    action->callback = UpdateBattleOffsetFollowEffect_419CB0;
+    action->flags = flags;
+    action->imageNo = imageNo;
+    action->characterAction = 0;
+    action->framePlayingRate = 100;
+    action->value54 = 0.0F;
+    action->displayPriority = 9;
+    action->offset40 = parent->offset40;
+    action->offset44 = parent->offset44;
+    payload->offsetX04 = offsetX;
+    payload->offsetY08 = offsetY;
+    action->field270 = 0;
+    static_cast<void>(PlayFrame_517DA0(action, 0));
+    const double x = static_cast<double>(payload->offsetX04) + action->offset40;
+    action->x = static_cast<std::int32_t>(x);
+    const double y = static_cast<double>(payload->offsetY08) + action->offset44;
+    action->y = static_cast<std::int32_t>(y);
+    return action;
+}
+
 void UpdateBattleCenteredEffect_41F950(YobiAction* const action)
 {
     YobiAction* const parent = action->battleAttachmentParent10;
@@ -14549,6 +14607,89 @@ void UpdateBattleAction72_40CAA0(YobiAction* const action)
     AdvanceBattleCastState_439340(action);
 }
 
+void UpdateBattleAction75_40CB10(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    payload->flash1004 = 1;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction76_40CB30(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    payload->flash1004 = 0;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction77_40CB50(YobiAction* const action)
+{
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    action->flags |= hasDevice ? 0x100000u : 0x8000u;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction78_40CB80(YobiAction* const action)
+{
+    const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
+    action->flags &= hasDevice ? ~0x100000u : ~0x8000u;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction79_40CBD0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    YobiAction* effect = payload->centeredEffect1064;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->centeredEffect1064 = nullptr;
+    }
+    effect = payload->rebirthEffect106C;
+    if (effect != nullptr) {
+        static_cast<void>(MarkDeath(effect));
+        payload->rebirthEffect106C = nullptr;
+    }
+    for (YobiAction*& slot : payload->rebirthAuxiliaryEffects1074) {
+        effect = slot;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
+            slot = nullptr;
+        }
+    }
+    action->characterAction = 0;
+    const std::uint32_t flags = payload->flagsFDC & ~2u;
+    const std::uint32_t state = payload->stateFE0 & ~2u;
+    payload->flagsFDC = flags;
+    payload->stateFE0 = state;
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction80_40CC80(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t x = action->x;
+    const std::int32_t sound = payload->value1018;
+    static_cast<void>(audio::PlaySe_52C450(sound, x));
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction81_40CCB0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t x = action->x;
+    const std::int32_t sound = payload->value101C;
+    static_cast<void>(audio::PlaySe_52C450(sound, x));
+    AdvanceBattleCastState_439340(action);
+}
+
+void UpdateBattleAction82_40CCE0(YobiAction* const action)
+{
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    const std::int32_t x = action->x;
+    const std::int32_t sound = payload->value1020;
+    static_cast<void>(audio::PlaySe_52C450(sound, x));
+    AdvanceBattleCastState_439340(action);
+}
+
 void UpdateBattleAction236_406630(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
@@ -15974,10 +16115,10 @@ void FlushBattleEntries_43C060()
     }
 }
 
-const std::int32_t* BorrowBattleRebirthState106C(const YobiAction* const action) noexcept
+YobiAction* const* BorrowBattleRebirthSlot106C(const YobiAction* const action) noexcept
 {
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
-    return payload != nullptr ? &payload->rebirthState106C : nullptr;
+    return payload != nullptr ? &payload->rebirthEffect106C : nullptr;
 }
 
 YobiAction* const* BorrowBattleRiderSlot13C8(const YobiAction* const action) noexcept

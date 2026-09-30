@@ -830,7 +830,13 @@ extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入�
 extern WindowInputPrototype gWindow50InputPrototype580618; // 借Input唯一CC2080，供更新与编辑交互。
 extern WindowInputPrototype gTitleInputPrototype57CCB8; // 原型当前context为编辑正文来源。
 extern std::array<char, 256> gTitleDraftD45FC0; // 窗口9草稿，区别于玩家ownTitle和原型内嵌文本。
-extern std::int32_t gTitlePageCF4E54; // 窗口9排序称号表起点，初始化/滚动共享。
+extern std::int32_t& gTitleModeCF4E50; // 借既有登录窗口状态槽0，0选择/1删除。
+extern std::int32_t& gTitlePageCF4E54; // 借既有登录窗口状态槽1，重置/刷新/滚动同源。
+std::int32_t Sub_477540(std::int32_t unusedIndex, std::int32_t state); // 草稿编辑焦点。
+std::int32_t Sub_477600(std::int32_t index, std::int32_t state); // 六行称号选择/删除。
+std::int32_t Sub_477710(std::int32_t index, std::int32_t state); // 完整按钮分派与背景清模式。
+std::int32_t Sub_4782A0(std::int32_t unusedIndex, std::int32_t state); // 称号滚轮，恒返0。
+std::int32_t Sub_4782E0(std::int32_t index, std::int32_t state); // 拖动后反求称号页码。
 
 union WindowUserState {
     std::uint32_t value; // 原+18的数值路径。

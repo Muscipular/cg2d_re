@@ -832,13 +832,6 @@ std::array<StallOffer, 5> gStallPetOffersCC3E98 {};
 std::array<std::uint8_t, 20> gStallItemUsedCC31AC {};
 std::array<std::uint8_t, 5> gStallPetUsedCF400C {};
 
-std::int32_t gTitlePageCF4E54 = 0;
-std::array<char, 256> gTitleDraftD45FC0 {};
-WindowInputPrototype gTitleInputPrototype57CCB8 {
-    {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
-    105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
-};
-
 std::array<char, 256> gProfileSearchKeyword1075988 {};
 WindowInputPrototype gProfileSearchInputPrototype580A80 {
     {{&input::gInputContextCB0610}, WindowInputReferenceKind::Context},
@@ -1404,6 +1397,14 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 }
 
 } // namespace
+
+std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
+std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
+std::array<char, 256> gTitleDraftD45FC0 {};
+WindowInputPrototype gTitleInputPrototype57CCB8 {
+    {{&input::gInputContextD2DC10}, WindowInputReferenceKind::Context},
+    105, 31, 3, 12, 6, {}, 1, 16, 0, 0,
+};
 
 // 原71槽逐项绑定；下标仅用于静态初始化，不是对象句柄。
 std::array<WindowDragPrototype*, kWindowCount> gWindowDragPrototypes57C24C {
@@ -32552,6 +32553,277 @@ void Sub_474360()
         gWindowStates[58].x = window->x;
         gWindowStates[58].y = window->y;
     }
+}
+
+static constexpr char kTitleEditHint5863C4[] = "\xB3\x5D\xA9\x77\xA6\xDB\xA4\x76\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+static constexpr char kTitleSelectHint5863D8[] = "\xB3\x5D\xA9\x77\xA6\xB9\xBA\xD9\xB8\xB9\xA1\x43";
+static constexpr char kTitleStatusHint5858D8[] = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xAA\xAC\xBA\x41\xB5\xF8\xB5\xA1\xA1\x43";
+static constexpr char kTitleDetailsHint5858C0[] = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xA9\xFA\xB2\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+static constexpr char kTitleProfileHint58637C[] = "\xA4\xC1\xB4\xAB\xA6\xA8\xAA\xB1\xAE\x61\xC2\xB2\xA4\xB6\xB5\xF8\xB5\xA1";
+static constexpr char kTitleCancelHint5863FC[] = "\xA8\xFA\xAE\xF8\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+static constexpr char kTitleDeleteHint5863E8[] = "\xA7\x52\xB0\xA3\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+
+std::int32_t Sub_477540(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kTitleEditHint5863C4);
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    if (gFocusedElementDataD45F94 != window->elements[0].data) {
+        const std::size_t length = std::strlen(gTitleDraftD45FC0.data()) + 1;
+        std::memcpy(gTitleInputPrototype57CCB8.text.data(), gTitleDraftD45FC0.data(), length);
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gTitleInputPrototype57CCB8, x, y, 0));
+        input::SetContext_44B330(&input::gInputContextD2DC10);
+        WindowInstance* const focused = gCurrentWindow;
+        gFocusedElementDataD45F94 = focused->elements[0].data;
+        static_cast<WindowInputData*>(focused->elements[0].data)->context =
+            &input::gInputContextD2DC10;
+    }
+    return 1;
+}
+
+std::int32_t Sub_477600(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B59E;
+        std::strcpy(gHoverTextD68AE8.data(), kTitleSelectHint5863D8);
+        consumed = 1;
+    } else {
+        graphic->imageNo = 0x3B59D;
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+    const std::int32_t mode = gTitleModeCF4E50;
+    if (mode == 0 || mode == 1) {
+        const std::int32_t id = world::detail::gSortedTitlesDE03F8[gTitlePageCF4E54 + index - 26].id;
+        // 删除模式直接查原表，只有普通选择先拒绝负id。
+        if (mode == 1 || id >= 0) {
+            const std::int32_t originalIndex = world::detail::Sub_519840(id);
+            if (originalIndex >= 0) {
+                if (mode == 1) {
+                    static_cast<void>(network::Sub_512310(platform::gConnectionSocket, originalIndex));
+                } else {
+                    static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, originalIndex));
+                }
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_477710(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    const auto setImage = [index](const std::int32_t image) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = image;
+    };
+    switch (index) {
+    case 17:
+    case 18:
+    case 20: {
+        if (index == 20 && character_select::state::gPukVersion < 8u) {
+            setImage(0x3C111);
+            return 0;
+        }
+        const std::int32_t target = index == 17 ? 7 : index == 18 ? 8 : 58;
+        const std::int32_t idle = index == 17 ? 0x3BAB5 : index == 18 ? 0x3B583 : 0x3C111;
+        const std::int32_t hover = index == 17 ? 0x3BAB7 : index == 18 ? 0x3B585 : 0x3C112;
+        if ((state & 1) != 0) {
+            setImage(hover);
+            std::strcpy(gHoverTextD68AE8.data(),
+                index == 17 ? kTitleStatusHint5858D8
+                            : index == 18 ? kTitleDetailsHint5858C0 : kTitleProfileHint58637C);
+            consumed = 1;
+        } else {
+            setImage(idle);
+        }
+        if ((state & 2) != 0 && gWindowStates[target].window == nullptr) {
+            gCurrentWindow->state |= 0x8000u;
+            static_cast<void>(OpenWindow_471440(target));
+            WindowInstance* const xSource = gCurrentWindow;
+            WindowInstance* const xTarget = gWindowStates[target].window;
+            xTarget->x = xSource->x;
+            WindowInstance* const ySource = gCurrentWindow;
+            WindowInstance* const yTarget = gWindowStates[target].window;
+            yTarget->y = ySource->y;
+            static_cast<void>(audio::PlaySe_52C450(56, 320));
+            consumed = 1;
+        }
+        return consumed;
+    }
+    case 21: {
+        if ((state & 1) != 0) {
+            setImage(0x3BAC4);
+            std::strcpy(gHoverTextD68AE8.data(), kTitleSelectHint5863D8);
+            consumed = 1;
+        } else {
+            setImage(0x3BAC2);
+        }
+        if ((state & 2) != 0) {
+            char workspace[256];
+            const std::size_t length = std::strlen(gTitleDraftD45FC0.data()) + 1;
+            std::memcpy(workspace, gTitleDraftD45FC0.data(), length);
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
+                workspace, workspace + 128, 128));
+            static_cast<void>(network::Sub_512360(platform::gConnectionSocket, workspace + 128));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(Sub_4A7B00());
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3BAC3);
+        }
+        return consumed;
+    }
+    case 22:
+        if ((state & 1) != 0) {
+            setImage(0x3B576);
+            std::strcpy(gHoverTextD68AE8.data(), kTitleCancelHint5863FC);
+            consumed = 1;
+        } else {
+            setImage(0x3B574);
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, -1));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B575);
+        }
+        return consumed;
+    case 23: {
+        if (gTitleModeCF4E50 == 1) {
+            setImage(0x3B578);
+            std::strcpy(gHoverTextD68AE8.data(), kTitleDeleteHint5863E8);
+        }
+        const std::int32_t mode = gTitleModeCF4E50;
+        if ((state & 1) != 0) {
+            if (mode == 0) {
+                setImage(0x3B579);
+            }
+            consumed = 1;
+        } else if (mode == 0) {
+            setImage(0x3B577);
+        }
+        if ((state & 2) != 0) {
+            gTitleModeCF4E50 = gTitleModeCF4E50 != 1 ? 1 : 0;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        return consumed;
+    }
+    case 3:
+    case 4:
+        if ((state & 1) != 0) {
+            setImage(index == 3 ? 0x3B594 : 0x3B597);
+            consumed = 1;
+        } else {
+            setImage(index == 3 ? 0x3B592 : 0x3B595);
+        }
+        if ((state & 0x400) != 0) {
+            const std::int32_t page = gTitlePageCF4E54;
+            if (index == 3 && page > 0) {
+                gTitlePageCF4E54 = page - 1;
+                WindowInstance* const window = gCurrentWindow;
+                static_cast<void>(Sub_4742C0(window->elements + 2, 58, page - 1));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else if (index == 4 && page < 58) {
+                WindowInstance* const window = gCurrentWindow;
+                gTitlePageCF4E54 = page + 1;
+                static_cast<void>(Sub_4742C0(window->elements + 2, 58, page + 1));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            setImage(index == 3 ? 0x3B593 : 0x3B596);
+            consumed = 1;
+        }
+        return consumed;
+    case 24:
+        if ((state & 1) != 0) {
+            setImage(0x3B55B);
+            consumed = 1;
+        } else {
+            setImage(0x3B559);
+        }
+        if ((state & 2) != 0) {
+            std::int32_t page = gTitlePageCF4E54 + 6;
+            gTitlePageCF4E54 = page;
+            if (page > 58) {
+                page = 58;
+                gTitlePageCF4E54 = page;
+            }
+            WindowInstance* const window = gCurrentWindow;
+            static_cast<void>(Sub_4742C0(window->elements + 2, 58, page));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B55A);
+        }
+        return consumed;
+    case 25:
+        if ((state & 1) != 0) {
+            setImage(0x3B558);
+            consumed = 1;
+        } else {
+            setImage(0x3B556);
+        }
+        if ((state & 2) != 0) {
+            const std::int32_t previousPage = gTitlePageCF4E54 - 6;
+            gTitlePageCF4E54 = previousPage;
+            if (previousPage < 0) {
+                gTitlePageCF4E54 = 0;
+            }
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t page = gTitlePageCF4E54;
+            static_cast<void>(Sub_4742C0(window->elements + 2, 58, page));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 8) != 0) {
+            setImage(0x3B557);
+        }
+        return consumed;
+    case 35:
+        if ((state & 2) != 0) {
+            gTitleModeCF4E50 = 0;
+            return 1;
+        }
+        return 0;
+    default:
+        return 0;
+    }
+}
+
+std::int32_t Sub_4782A0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const auto wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t page = gTitlePageCF4E54;
+        gTitlePageCF4E54 = Sub_4743B0(window->elements + 2, page, 58, wheel);
+    }
+    return 0;
+}
+
+std::int32_t Sub_4782E0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t result = Sub_4741A0(index, state);
+    if (result != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        gTitlePageCF4E54 = Sub_474270(window->elements + 2, 58);
+    }
+    return result;
 }
 
 // 原478010：草稿比较分别控制颜色与确认显隐，六行固定表起点、逐行重取窗口。

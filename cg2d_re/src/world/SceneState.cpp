@@ -75,6 +75,13 @@ float gTransitionYFF48F0 = 0.0f;
 float gTransitionAlternateYFF48F4 = 0.0f;
 float gTransitionVelocityFF48F8 = 0.0f;
 float gTransitionActiveLinesFF48FC = 0.0f;
+std::int32_t gReverseTransitionPhase58B6D4 = -1; // 原加载区初值FFFFFFFF。
+std::int32_t gReverseTransitionActiveLinesFF276C = 0;
+float gReverseTransitionVelocityFF47C4 = 0.0f;
+float gReverseTransitionXFF4900 = 0.0f;
+float gReverseTransitionAlternateXFF4904 = 0.0f;
+float gReverseTransitionYFF4908 = 0.0f;
+float gReverseTransitionAlternateYFF490C = 0.0f;
 
 // 原__ftol先截断为S64，再消费低S32；4535B0另取低S16坐标。
 std::int32_t TruncateTransitionCoordinate(const double value)
@@ -9693,6 +9700,446 @@ std::int32_t Sub_51D790(
     gValue73ECD0.encoded = encoded;
     gValue73ECD0.mask = mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    return 1;
+}
+
+// 原[51E0D0,51EBE0)：完整反向过渡；6/7/8初次预计算与恢复在同次调用完成。
+std::int32_t Sub_51E0D0(
+    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+{
+    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
+    std::int32_t phase;
+    if (gValue58B6D0 == 1) {
+        phase = -1;
+        gValue58B6D0 = 0;
+        gReverseTransitionPhase58B6D4 = -1;
+    } else {
+        phase = gReverseTransitionPhase58B6D4;
+    }
+    const float acceleration = std::bit_cast<float>(payloadBits);
+    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
+    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    constexpr float initialSpeedY = std::bit_cast<float>(0x418B3333U);
+    constexpr float initialSpeedX = std::bit_cast<float>(0x41B66666U);
+    constexpr float initialY = std::bit_cast<float>(0x44004CCDU);
+    constexpr float initialNegativeY = std::bit_cast<float>(0xC4004CCDU);
+    constexpr float initialX = std::bit_cast<float>(0x44254000U);
+    constexpr float initialNegativeX = std::bit_cast<float>(0xC4254000U);
+    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);
+    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);
+    auto& speeds = gTransitionLines.speedFF0FA8;
+    auto& offsetsX = gTransitionLines.xFF172C;
+    auto& offsetsY = gTransitionLines.yFF1EB0;
+    switch (mode) {
+    case 0: {
+        double position;
+        if (phase == -1) {
+            position = static_cast<double>(initialY);
+            gReverseTransitionVelocityFF47C4 = initialSpeedY;
+            gReverseTransitionXFF4900 = 0.0f;
+            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);
+            gReverseTransitionPhase58B6D4 = 0;
+        } else {
+            position = static_cast<double>(gReverseTransitionYFF4908)
+                - static_cast<double>(gReverseTransitionVelocityFF47C4);
+        }
+        gReverseTransitionYFF4908 = static_cast<float>(position);
+        break;
+    }
+    case 1:
+    case 5: {
+        double position;
+        if (phase == -1) {
+            position = static_cast<double>(initialNegativeY);
+            gReverseTransitionXFF4900 = 0.0f;
+            if (mode == 5) {
+                gReverseTransitionAlternateYFF490C = initialY;
+            }
+            gReverseTransitionVelocityFF47C4 = initialSpeedY;
+            gReverseTransitionPhase58B6D4 = 0;
+        } else {
+            position = static_cast<double>(gReverseTransitionYFF4908);
+        }
+        gReverseTransitionYFF4908 = static_cast<float>(
+            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);
+        if (mode == 5) {
+            gReverseTransitionAlternateYFF490C = static_cast<float>(
+                static_cast<double>(gReverseTransitionAlternateYFF490C)
+                - static_cast<double>(gReverseTransitionVelocityFF47C4));
+        }
+        break;
+    }
+    case 2: {
+        double position;
+        if (phase == -1) {
+            position = static_cast<double>(initialX);
+            gReverseTransitionVelocityFF47C4 = initialSpeedX;
+            gReverseTransitionYFF4908 = 0.0f;
+            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);
+            gReverseTransitionPhase58B6D4 = 0;
+        } else {
+            position = static_cast<double>(gReverseTransitionXFF4900)
+                - static_cast<double>(gReverseTransitionVelocityFF47C4);
+        }
+        gReverseTransitionXFF4900 = static_cast<float>(position);
+        break;
+    }
+    case 3:
+    case 4: {
+        double position;
+        if (phase == -1) {
+            position = static_cast<double>(initialNegativeX);
+            if (mode == 4) {
+                gReverseTransitionAlternateXFF4904 = initialX;
+            }
+            gReverseTransitionYFF4908 = 0.0f;
+            gReverseTransitionVelocityFF47C4 = initialSpeedX;
+            gReverseTransitionPhase58B6D4 = 0;
+        } else {
+            position = static_cast<double>(gReverseTransitionXFF4900);
+        }
+        gReverseTransitionXFF4900 = static_cast<float>(
+            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);
+        if (mode == 4) {
+            gReverseTransitionAlternateXFF4904 = static_cast<float>(
+                static_cast<double>(gReverseTransitionAlternateXFF4904)
+                - static_cast<double>(gReverseTransitionVelocityFF47C4));
+        }
+        break;
+    }
+    case 6: {
+        std::int32_t active;
+        if (phase == -1) {
+            std::fill_n(speeds.begin(), 480, 0.0f);
+            std::fill_n(offsetsX.begin(), 480, 0.0f);
+            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+            active = 0;
+            gReverseTransitionPhase58B6D4 = 0;
+            for (;;) {
+                for (std::int32_t index = 0; index < active; ++index) {
+                    if ((index & 1) != 0) {
+                        const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                            + static_cast<double>(speeds[index]);
+                        speeds[index] = static_cast<float>(speed);
+                        offsetsX[index] = static_cast<float>(
+                            speed + static_cast<double>(offsetsX[index]));
+                        const std::int32_t reverse = 480 - index;
+                        const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                            + static_cast<double>(speeds[reverse]);
+                        speeds[reverse] = static_cast<float>(reverseSpeed);
+                        offsetsX[reverse] = static_cast<float>(
+                            reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                    } else {
+                        const double speed = static_cast<double>(speeds[index])
+                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                        speeds[index] = static_cast<float>(speed);
+                        offsetsX[index] = static_cast<float>(
+                            speed + static_cast<double>(offsetsX[index]));
+                        const std::int32_t reverse = 478 - index;
+                        const double reverseSpeed = static_cast<double>(speeds[reverse])
+                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                        speeds[reverse] = static_cast<float>(reverseSpeed);
+                        offsetsX[reverse] = static_cast<float>(
+                            reverseSpeed + static_cast<double>(offsetsX[reverse]));
+                    }
+                }
+                active += step != 0 ? step : 4;
+                if (active > 240) {
+                    active = 240;
+                }
+                if (!(offsetsX[241] >= -640.0f)) {
+                    break;
+                }
+                if (offsetsX[241] > 640.0f) {
+                    break;
+                }
+            }
+        } else {
+            active = gReverseTransitionActiveLinesFF276C;
+        }
+        // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。
+        for (std::int32_t index = 0; index < 240; ++index) {
+            if ((index & 1) != 0) {
+                if (offsetsX[index] > 1.0f) {
+                    offsetsX[index] = static_cast<float>(
+                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));
+                    speeds[index] = static_cast<float>(
+                        static_cast<double>(speeds[index])
+                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                } else {
+                    offsetsX[index] = 0.0f;
+                }
+                const std::int32_t reverse = 480 - index;
+                if (offsetsX[reverse] > 1.0f) {
+                    offsetsX[reverse] = static_cast<float>(
+                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));
+                    speeds[reverse] = static_cast<float>(
+                        static_cast<double>(speeds[reverse])
+                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                } else {
+                    offsetsX[reverse] = 0.0f;
+                }
+            } else {
+                if (!(offsetsX[index] >= -1.0f)) {
+                    offsetsX[index] = static_cast<float>(
+                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));
+                    speeds[index] = static_cast<float>(
+                        static_cast<double>(gReverseTransitionVelocityFF47C4)
+                        + static_cast<double>(speeds[index]));
+                } else {
+                    offsetsX[index] = 0.0f;
+                }
+                const std::int32_t reverse = 478 - index;
+                if (!(offsetsX[reverse] >= -1.0f)) {
+                    offsetsX[reverse] = static_cast<float>(
+                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));
+                    speeds[reverse] = static_cast<float>(
+                        static_cast<double>(gReverseTransitionVelocityFF47C4)
+                        + static_cast<double>(speeds[reverse]));
+                } else {
+                    offsetsX[reverse] = 0.0f;
+                }
+            }
+        }
+        active += step != 0 ? step : 1;
+        gReverseTransitionActiveLinesFF276C = active;
+        if (active > 240) {
+            gReverseTransitionActiveLinesFF276C = 240;
+        }
+        const float leadingOffset = offsetsX[0];
+        if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {
+            gReverseTransitionPhase58B6D4 = 1;
+        }
+        break;
+    }
+    case 7: {
+        std::int32_t active;
+        if (phase == -1) {
+            std::fill_n(speeds.begin(), 480, 0.0f);
+            for (std::int32_t index = 0; index < 480; ++index) {
+                offsetsY[index] = static_cast<float>(index);
+            }
+            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+            active = 0;
+            gReverseTransitionPhase58B6D4 = 0;
+            gReverseTransitionActiveLinesFF276C = 0;
+            for (;;) {
+                for (std::int32_t index = 0; index < active; ++index) {
+                    const std::int32_t reverse = 480 - index;
+                    if (reverse >= 240) {
+                        const double speed = static_cast<double>(speeds[index])
+                            - static_cast<double>(gReverseTransitionVelocityFF47C4);
+                        speeds[index] = static_cast<float>(speed);
+                        offsetsY[index] = static_cast<float>(
+                            speed + static_cast<double>(offsetsY[index]));
+                        if (reverse > 240) {
+                            const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)
+                                + static_cast<double>(speeds[reverse]);
+                            speeds[reverse] = static_cast<float>(reverseSpeed);
+                            offsetsY[reverse] = static_cast<float>(
+                                reverseSpeed + static_cast<double>(offsetsY[reverse]));
+                        }
+                    }
+                }
+                if (active < 241) {
+                    active += step != 0 ? step : 4;
+                }
+                if (!(offsetsY[241] >= -640.0f)) {
+                    break;
+                }
+                if (offsetsY[241] > 640.0f) {
+                    break;
+                }
+            }
+            gReverseTransitionActiveLinesFF276C = active;
+        } else {
+            active = gReverseTransitionActiveLinesFF276C;
+        }
+        for (std::int32_t index = 0; index < active; ++index) {
+            const std::int32_t reverse = 480 - index;
+            if (reverse >= 240) {
+                offsetsY[index] = static_cast<float>(
+                    static_cast<double>(offsetsY[index]) - static_cast<double>(speeds[index]));
+                speeds[index] = static_cast<float>(
+                    static_cast<double>(gReverseTransitionVelocityFF47C4)
+                    + static_cast<double>(speeds[index]));
+                if (reverse > 240) {
+                    offsetsY[reverse] = static_cast<float>(
+                        static_cast<double>(offsetsY[reverse]) - static_cast<double>(speeds[reverse]));
+                    speeds[reverse] = static_cast<float>(
+                        static_cast<double>(speeds[reverse])
+                        - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                }
+            }
+        }
+        if (offsetsY[240] >= 240.0f) {
+            active -= step != 0 ? step : 4;
+            gReverseTransitionActiveLinesFF276C = active;
+            if (active < 0) {
+                gReverseTransitionActiveLinesFF276C = 0;
+            }
+        }
+        if (offsetsY[0] >= 0.0f) {
+            gReverseTransitionPhase58B6D4 = 1;
+        }
+        break;
+    }
+    case 8: {
+        std::int32_t active;
+        if (phase == -1) {
+            std::fill_n(speeds.begin(), 480, 0.0f);
+            for (std::int32_t index = 0; index < 480; ++index) {
+                offsetsY[index] = static_cast<float>(index);
+            }
+            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;
+            active = 0;
+            gReverseTransitionPhase58B6D4 = 0;
+            do {
+                const std::int32_t first = 479 - active;
+                for (std::int32_t index = 479; index >= first; --index) {
+                    if (index >= 0) {
+                        const float speed = static_cast<float>(
+                            static_cast<double>(speeds[index])
+                            - static_cast<double>(gReverseTransitionVelocityFF47C4));
+                        speeds[index] = speed;
+                        if (speed > -100.0f) {
+                            offsetsY[index] = static_cast<float>(
+                                static_cast<double>(speed) + static_cast<double>(offsetsY[index]));
+                        } else {
+                            offsetsY[index] = static_cast<float>(
+                                static_cast<double>(offsetsY[index]) - 100.0);
+                        }
+                    }
+                }
+                active += step != 0 ? step : 16;
+                if (active > 480) {
+                    active = 480;
+                }
+            } while (offsetsY[0] >= 0.0f);
+            gReverseTransitionActiveLinesFF276C = active;
+        } else {
+            active = gReverseTransitionActiveLinesFF276C;
+        }
+        const std::int32_t first = 479 - active;
+        for (std::int32_t index = 479; index >= first; --index) {
+            if (index >= 0) {
+                const float oldSpeed = speeds[index];
+                const double position = static_cast<double>(offsetsY[index]);
+                if (oldSpeed > -100.0f) {
+                    offsetsY[index] = static_cast<float>(
+                        position - static_cast<double>(speeds[index]));
+                } else {
+                    offsetsY[index] = static_cast<float>(position + 100.0);
+                }
+                speeds[index] = static_cast<float>(
+                    static_cast<double>(gReverseTransitionVelocityFF47C4)
+                    + static_cast<double>(speeds[index]));
+            }
+        }
+        if (offsetsY[0] >= 0.0f) {
+            active -= step != 0 ? step : 16;
+            gReverseTransitionActiveLinesFF276C = active;
+            if (active < 0) {
+                gReverseTransitionActiveLinesFF276C = 0;
+            }
+        }
+        if (offsetsY[479] >= 479.0f) {
+            gReverseTransitionPhase58B6D4 = 1;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。
+    if (mode >= 0 && mode <= 5) {
+        const float decrement = customAcceleration ? acceleration
+            : (mode >= 2 && mode <= 4 ? defaultX : defaultY);
+        const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)
+            - static_cast<double>(decrement);
+        gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);
+        if (!(velocity > 0.0)) {
+            gReverseTransitionPhase58B6D4 = 1;
+        }
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    switch (mode) {
+    case 4:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            rectangle = {0, row, 640, row + 1};
+            const std::int32_t x = TruncateTransitionCoordinate(
+                (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        }
+        break;
+    case 5:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            rectangle = {0, row, 640, row + 1};
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const std::int32_t y = TruncateTransitionCoordinate(
+                (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                0, static_cast<std::int16_t>(row + y), rectangle, source));
+        }
+        break;
+    case 6:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const double position = static_cast<double>(offsetsX[row]);
+            rectangle = {0, row, 640, row + 1};
+            const std::int32_t x = TruncateTransitionCoordinate(position);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        }
+        break;
+    case 7:
+    case 8:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            rectangle[1] = row;
+            const double position = static_cast<double>(offsetsY[row]);
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
+            const std::int32_t y = TruncateTransitionCoordinate(position);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                0, static_cast<std::int16_t>(y), rectangle, source));
+        }
+        break;
+    default: {
+        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);
+        const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);
+        static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
+        break;
+    }
+    }
+    if (gReverseTransitionPhase58B6D4 != 1) {
+        return 0;
+    }
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        gReverseTransitionPhase58B6D4 = -1;
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint32_t mask = temporary.mask;
+    const std::uint8_t readCount = temporary.readCount;
+    gValue73ECD0.encoded = encoded;
+    gValue73ECD0.mask = mask;
+    gValue73ECD0.readCount = readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gReverseTransitionPhase58B6D4 = -1;
     return 1;
 }
 

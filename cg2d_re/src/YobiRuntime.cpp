@@ -12351,6 +12351,117 @@ std::int32_t CheckBattleMParticipants_43B290(
     return 1;
 }
 
+void DispatchBattleEvents_43B360(YobiAction* const scene)
+{
+    using namespace world::detail;
+    std::int32_t source = -1;
+    std::int32_t previousSource = -1;
+    const std::uint32_t exitRequested = gValue5ABB20;
+    if (!(world::gCurrentSceneType == 10
+            && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
+        && exitRequested != 1) {
+        return;
+    }
+    const std::uint32_t activeEvents = gBattleActiveEventMask5AAA74;
+    if (activeEvents == 0) {
+        gBattlePendingGroupCount5ABB24 = 0;
+    } else if (gValue5ABB1C != 0) {
+        return;
+    }
+    gValue5ABB1C = 1;
+    if (exitRequested == 1) {
+        world::gCurrentSceneState = 7;
+        return;
+    }
+    if (gValue5ABB28 == 1) {
+        if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, 1) != 0) {
+            gValue5ABB28 = 0;
+            gValue5ABB1C = 0;
+            gBattlePendingGroupCount5ABB24 = 0;
+            ++gBattleTurnSnapshot5ABC08;
+            world::gCurrentSceneState = 2;
+        }
+        return;
+    }
+
+    std::size_t slot = 0;
+    while (slot < gBattleEventActions5ABA9C.size()
+        && gBattleEventActions5ABA9C[slot] != nullptr) {
+        ++slot;
+    }
+    gBattlePreviewParticipants5AAA48.fill(0);
+    for (YobiAction* const event : gBattleEventActions5ABA9C) {
+        if (event != nullptr) {
+            const auto* const payload = static_cast<const BattleScenePayload*>(event->payload);
+            for (std::size_t position = 0; position < gBattlePreviewParticipants5AAA48.size(); ++position) {
+                if ((payload->entryMaskA8 & (1U << position)) != 0) {
+                    ++gBattlePreviewParticipants5AAA48[position];
+                }
+            }
+        }
+    }
+
+    YobiAction* previousEvent = nullptr;
+    // 原var_8仅由工厂写入；previousEvent首次非空前必经一次成功创建。
+    YobiAction* lastCreated;
+    std::int32_t groupBoundary;
+    while (slot < gBattleEventActions5ABA9C.size()) {
+        const std::int32_t priorSource = previousSource;
+        std::uint32_t participants = 0;
+        if (CheckBattleMParticipants_43B290(
+                &source, priorSource, &participants, &groupBoundary) != 1) {
+            return;
+        }
+        std::array<char, 4> header;
+        if (GetBattleMHeader_439070(header.data()) == 1) {
+            gValue5ABB28 = 1;
+            return;
+        }
+        if (previousEvent != nullptr && priorSource == source) {
+            auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
+            ++payload->remainingMessages5C;
+            payload->entryMaskA8 |= participants;
+            gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+        } else {
+            std::size_t kind = 0;
+            while (kind < kBattleMHeaders553E94.size()
+                && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+                ++kind;
+            }
+            if (kind < kBattleMHeaders553E94.size()) {
+                if (previousEvent != nullptr
+                    && (kind == static_cast<std::size_t>(BattleMDataHeader::Chat)
+                        || kind == static_cast<std::size_t>(BattleMStatusHeader::QueuedValue))) {
+                    auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
+                    ++payload->remainingMessages5C;
+                    payload->entryMaskA8 |= participants;
+                    gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+                    previousSource = source;
+                    previousEvent = lastCreated;
+                } else {
+                    lastCreated = NewBattleEvent_43B610(
+                        static_cast<std::int32_t>(kind), static_cast<std::int32_t>(slot),
+                        participants, gBattlePendingGroupCount5ABB24);
+                    if (lastCreated != nullptr) {
+                        gBattleActiveEventMask5AAA74 |= 1U << slot;
+                        while (slot < gBattleEventActions5ABA9C.size()
+                            && gBattleEventActions5ABA9C[slot] != nullptr) {
+                            ++slot;
+                        }
+                        static_cast<BattleScenePayload*>(lastCreated->payload)->remainingMessages5C = 1;
+                        gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
+                        previousSource = source;
+                        previousEvent = lastCreated;
+                    }
+                }
+            }
+        }
+        if (groupBoundary != 0) {
+            ++gBattlePendingGroupCount5ABB24;
+        }
+    }
+}
+
 std::int32_t PeekBattleMInteger_43B860(YobiAction* const action)
 {
     const auto* const payload = static_cast<const BattleScenePayload*>(action->payload);

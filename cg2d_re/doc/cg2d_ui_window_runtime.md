@@ -69,7 +69,7 @@
 | 45 | [文本目标选择](ui_windows/window_45.md) | `54E900` | 19 |
 | 46 | [属性目标选择](ui_windows/window_46.md) | `54E930` | 34 |
 | 47 | [通用确认](ui_windows/window_47.md) | `54EA80` | 34 |
-| 49 | [群组选人（主回调与名单生产）](ui_windows/window_49.md) | `54EC00` | 37 |
+| 49 | [群组选人](ui_windows/window_49.md) | `54EC00` | 37 |
 | 50 | [四记录对话](ui_windows/window_50.md) | `54EC30` | 36 |
 | 51 | [文本列表](ui_windows/window_51.md) | `54EB70` | 26 |
 | 52 | [商店选择](ui_windows/window_52.md) | `54E960` | 3 |

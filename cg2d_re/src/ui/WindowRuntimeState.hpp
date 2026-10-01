@@ -1684,9 +1684,15 @@ extern WindowTextPrototype gWindowText572F88;
 std::int32_t Sub_4B4B00(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
 void Sub_4B4B70(); // 释放时仅关闭仍处于群发方式的22。
 std::int32_t Sub_4B4B90(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
+std::int32_t Sub_4B4BB0(std::int32_t index, std::int32_t state); // 前后翻七行，仅hover消费。
+std::int32_t Sub_4B4CA0(std::int32_t index, std::int32_t state); // bit400单行滚动，发声后修正位置。
 std::int32_t Sub_4B4DB0(); // 顺序修正上下界，保留count<7时负上界。
 std::int32_t Sub_4B4DF0(std::int32_t unused); // 非负最大值反求并发布滚动位置。
 void Sub_4B4E20(); // 三种标题和七行显隐，不改选择标志。
+std::int32_t Sub_4B5210(std::int32_t index, std::int32_t state); // 切换三模式后清滚动位置。
+std::int32_t Sub_4B53C0(std::int32_t index, std::int32_t state); // 全组选择，普通联系人借原排序索引。
+std::int32_t Sub_4B5550(std::int32_t index, std::int32_t state); // 七行选择，点击时重读滚动位置。
+std::int32_t Sub_4B5A40(std::int32_t unused, std::int32_t state); // 零wheel仍调用4743B0。
 void Sub_4B5630(); // 清计数/模式及两200项数组，不清初始化标志。
 void Sub_4B5660(std::int32_t mode); // 稀疏名单生产，不按count压紧槽位。
 void Sub_4B5760(std::int32_t category); // 原CRT次序排序60或200个S32索引。

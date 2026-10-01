@@ -26986,6 +26986,71 @@ std::int32_t Sub_4B4B90(const std::int32_t value)
     return 1;
 }
 
+std::int32_t Sub_4B4BB0(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 6 && index != 7) {
+        return 0;
+    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t idle = index == 6 ? 0x3B556 : 0x3B559;
+    graphic->imageNo = idle;
+    std::int32_t result = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = idle + 2;
+        result = 1;
+    }
+    if ((state & 2) != 0) {
+        graphic->imageNo = idle + 1;
+        const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+        gLoginWindowRuntime.mailGroupScrollD67B88 = position + (index == 6 ? -7 : 7);
+        static_cast<void>(Sub_4B4DB0());
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = idle + 1;
+    }
+    return result;
+}
+
+std::int32_t Sub_4B4CA0(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 1 && index != 2) {
+        return 0;
+    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t idle = index == 1 ? 0x3B592 : 0x3B595;
+    graphic->imageNo = idle;
+    std::int32_t result = 0;
+    if ((state & 1) != 0) {
+        graphic->imageNo = idle + 2;
+        result = 1;
+    }
+    if ((state & 0x400) != 0) {
+        graphic->imageNo = idle + 1;
+        std::int32_t sound = 51;
+        if (index == 1) {
+            const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88 - 1;
+            gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+            if (position < 0) {
+                gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
+                sound = 55;
+            }
+        } else {
+            const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+            const std::int32_t maximum = gLoginWindowRuntime.mailGroupCC1A30.count - 7;
+            gLoginWindowRuntime.mailGroupScrollD67B88 = position + 1;
+            if (position + 1 > maximum) {
+                gLoginWindowRuntime.mailGroupScrollD67B88 = maximum;
+                sound = 55;
+            }
+        }
+        static_cast<void>(audio::PlaySe_52C450(sound, 320));
+        static_cast<void>(Sub_4B4DB0());
+        result = 1;
+    }
+    return result;
+}
+
 std::int32_t Sub_4B4DB0()
 {
     std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
@@ -27044,6 +27109,137 @@ void Sub_4B4E20()
         gCurrentWindow->elements[20 + row].visible = visible;
         gCurrentWindow->elements[28 + row].visible = visible;
     }
+}
+
+std::int32_t Sub_4B5210(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 8 && index != 9) {
+        return 0;
+    }
+    const std::int32_t idle = index == 8 ? 0x3B556 : 0x3B559;
+    std::int32_t result = 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((state & 1) != 0) {
+        graphic->imageNo = idle + 2;
+        std::strcpy(gHoverTextD68AE8.data(), "\xA4\xC1\xB4\xAB\xB6\xB0\xB9\xCE\xB6\x6C\xA5\xF3\xA1\x43");
+        result = 1;
+    } else {
+        graphic->imageNo = idle;
+    }
+    if ((state & 2) != 0) {
+        if (index == 8) {
+            const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode - 1;
+            gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+            if (mode < 0) {
+                gLoginWindowRuntime.mailGroupCC1A30.mode = 2;
+            }
+            Sub_4B5660(gLoginWindowRuntime.mailGroupCC1A30.mode);
+        } else {
+            std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode + 1;
+            gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+            if (mode > 2) {
+                mode = 0;
+                gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+            }
+            Sub_4B5660(mode);
+        }
+        gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        result = 1;
+    }
+    if ((state & 8) != 0) {
+        auto* const current = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        current->imageNo = idle + 1;
+    }
+    return result;
+}
+
+std::int32_t Sub_4B53C0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t result = 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BA20;
+        const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+        if (mode == 0 || mode == 1 || mode == 2) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xB7\xC7\xB3\xC6\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xA6\xB9\xB6\xB0\xB9\xCE\xA1\x43");
+        }
+        result = 1;
+    } else {
+        graphic->imageNo = 0x3BA1E;
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+        if (mode == 0 || mode == 1 || mode == 2) {
+            std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+            for (std::int32_t row = 0; row < count; ++row) {
+                const std::int32_t source = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                if (source != -1) {
+                    if (mode == 2) {
+                        gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                    } else if (mode == 1) {
+                        if (login::detail::gOrderedRecords1051B14[source].value0A != 0) {
+                            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                        }
+                    } else {
+                        // 原普通分支查CC2E6C排序表，不用CC1A38名单值取联系人。
+                        const std::int32_t ordered = gLoginWindowRuntime.mailGroupOrderCC2E6C[row];
+                        if (world::detail::gContactsF19FB0[ordered].value02 != 0) {
+                            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+                        }
+                    }
+                }
+                count = gLoginWindowRuntime.mailGroupCC1A30.count;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        auto* const current = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+        current->imageNo = 0x3BA1F;
+    }
+    return result;
+}
+
+std::int32_t Sub_4B5550(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
+    const std::int32_t selected = gLoginWindowRuntime.mailGroupCC1A30.selected[scroll + index - 20];
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = selected == 1 ? 0x3BA21 : 0x3BA22;
+    std::int32_t result = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), selected == 1
+            ? "\xB9\xEF\xA4\xE8\xAA\xBA\xB6\x6C\xA5\xF3\xB1\x48\xB9\x4C\xA8\xD3\xA4\x46\xA1\x43"
+            : "\xB7\xC7\xB3\xC6\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB9\xEF\xA4\xE8\xA1\x43");
+        result = 1;
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t currentScroll = gLoginWindowRuntime.mailGroupScrollD67B88;
+        const std::int32_t row = currentScroll + index - 20;
+        const std::int32_t current = gLoginWindowRuntime.mailGroupCC1A30.selected[row];
+        if (current != 0) {
+            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 0;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            gLoginWindowRuntime.mailGroupCC1A30.selected[row] = 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    return result;
+}
+
+std::int32_t Sub_4B5A40(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        const std::int32_t maximum = count - 7;
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+        gLoginWindowRuntime.mailGroupScrollD67B88 =
+            Sub_4743B0(&window->elements[4], position, maximum < 0 ? 0 : maximum, wheel);
+    }
+    return 0;
 }
 
 void Sub_4B5630()
@@ -36713,8 +36909,10 @@ std::int32_t Sub_474270(WindowElement* const element, const std::int32_t maximum
     }
     const std::int32_t span = element->height - (element - 1)->height;
     const std::int32_t halfStep = span / (maximum * 2);
-    const auto* const mouse = static_cast<const WindowMouseData*>(element->data);
-    return (halfStep + mouse->deltaY) * maximum / span;
+    const auto* const data = static_cast<const std::byte*>(element->data);
+    std::int32_t delta;
+    std::memcpy(&delta, data + offsetof(WindowMouseData, deltaY), sizeof(delta));
+    return (halfStep + delta) * maximum / span;
 }
 
 std::int32_t Sub_4742C0(
@@ -36740,7 +36938,7 @@ std::int32_t Sub_4743B0(
     WindowElement* const element, std::int32_t position, std::int32_t maximum,
     const std::int32_t wheel)
 {
-    auto* const mouse = static_cast<WindowMouseData*>(element->data);
+    auto* const data = static_cast<std::byte*>(element->data);
     if (wheel == 0) {
         return position;
     }
@@ -36777,9 +36975,11 @@ std::int32_t Sub_4743B0(
         previous->y = element->y - previous->height + element->height;
     }
     const std::int32_t delta = previous->y - element->y;
-    const std::uint32_t flags = mouse->flags;
-    mouse->deltaY = delta;
-    mouse->flags = flags | 1u;
+    std::uint32_t flags;
+    std::memcpy(&flags, data + offsetof(WindowMouseData, flags), sizeof(flags));
+    flags |= 1u;
+    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
+    std::memcpy(data + offsetof(WindowMouseData, flags), &flags, sizeof(flags));
     return position;
 }
 
@@ -40304,16 +40504,21 @@ void Sub_473560(const std::int32_t index)
 
 std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
 {
-    auto* const data = static_cast<WindowMouseData*>(gCurrentWindow->elements[index].data);
+    // 窗口49的type1与普通type4共享+0/+8语义，按对象字节访问而不强转异型结构。
+    auto* const data = static_cast<std::byte*>(gCurrentWindow->elements[index].data);
+    static_assert(offsetof(WindowMouseData, flags) == offsetof(WindowGraphicData, imageNo));
+    static_assert(offsetof(WindowMouseData, deltaY) == offsetof(WindowGraphicData, offsetY));
     std::int32_t result = 0;
-    if ((data->flags & 2u) == 0) {
-        data->flags = 0;
+    if ((std::to_integer<std::uint8_t>(data[0]) & 2u) == 0) {
+        const std::uint32_t flags = 0;
+        std::memcpy(data, &flags, sizeof(flags));
     }
     if ((state & 8) != 0) {
-        data->flags = 3;
+        const std::uint32_t flags = 3;
+        std::memcpy(data, &flags, sizeof(flags));
         result = 1;
     }
-    if ((data->flags & 2u) != 0) {
+    if ((std::to_integer<std::uint8_t>(data[0]) & 2u) != 0) {
         WindowInstance* const window = gCurrentWindow;
         WindowElement* const previous = &window->elements[index - 1];
         const std::int32_t y = platform::legacy_crypt_int::Subtract_401E60(
@@ -40331,9 +40536,13 @@ std::int32_t Sub_4741A0(const std::int32_t index, const std::int32_t state)
         element[-1].y = bottom - previousHeight;
     }
     element = &gCurrentWindow->elements[index];
-    data->deltaY = element[-1].y - element->y;
+    const std::int32_t delta = element[-1].y - element->y;
+    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));
     if ((state & 8) == 0) {
-        data->flags &= ~std::uint32_t{2};
+        std::uint32_t flags;
+        std::memcpy(&flags, data, sizeof(flags));
+        flags &= ~std::uint32_t{2};
+        std::memcpy(data, &flags, sizeof(flags));
     }
     return result;
 }

@@ -370,6 +370,14 @@ LegacyPanelRecord gLegacyButtonSettings585578 {
     0, 0, 192, 304, 12, {22549, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 4> gLegacyButtonRecordsD687B8 {};
+std::int32_t gLegacyBottomWidth5858A0 = 640;
+std::int32_t gLegacyBottomHeight5858A4 = 24;
+std::int32_t gLegacyBottomXD68930 = 0;
+std::int32_t gLegacyBottomYCB1DD8 = 0;
+std::int32_t gLegacyBottomHeightCA0014 = 0;
+std::int32_t gLegacyBottomHeightD2DAB4 = 0;
+// 仅承接九个已证W32初始化值；不是原40B结构，未知+24H尾部及指针语义不定型。
+std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {};
 constexpr char kLegacyButton58A914[] = "\xAB\xF6\xB6\x73\xB3\x5D\xA9\x77";
 constexpr char kLegacyButton58A4BC[] = "\xA6\x5E\xA4\x57\xA4\x40\xAD\xB6";
 constexpr char kLegacyButton58A904[] = "\xA6\x5E\xA8\xEC\xA8\x74\xB2\xCE\xBF\xEF\xB3\xE6\xA1\x43";
@@ -435,6 +443,26 @@ std::int32_t Sub_4FC8D0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
     static_cast<void>(audio::Sub_504180(12));
+    return 0;
+}
+
+std::int32_t InitializeLegacyBottomBarPrefix(
+    std::array<std::int32_t, 9>& record, const std::int32_t xOffset,
+    const std::int32_t value1C)
+{
+    const std::int32_t width = gLegacyBottomWidth5858A0;
+    const std::int32_t x = gLegacyBottomXD68930;
+    record[4] = 80;
+    record[0] = width / 2 + x;
+    const std::int32_t height = gLegacyBottomHeight5858A4;
+    record[2] = x + xOffset;
+    const std::int32_t y = gLegacyBottomYCB1DD8;
+    record[3] = y;
+    record[1] = height / 2 + y;
+    record[5] = 24;
+    record[6] = 0;
+    record[7] = value1C;
+    record[8] = 0;
     return 0;
 }
 
@@ -2364,6 +2392,137 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
         world::detail::gValueC8A77C = 1;
     }
     return hitId;
+}
+
+std::int32_t Sub_502C30()
+{
+    return Sub_502C40();
+}
+
+std::int32_t Sub_502C40()
+{
+    const std::int32_t height = gLegacyBottomHeight5858A4;
+    const std::int32_t y = 480 - height;
+    gLegacyBottomYCB1DD8 = y;
+    return y;
+}
+
+std::int32_t Sub_502C60()
+{
+    return Sub_502C70();
+}
+
+std::int32_t Sub_502C70()
+{
+    const std::int32_t height = gLegacyBottomHeight5858A4;
+    gLegacyBottomHeightCA0014 = height;
+    return height;
+}
+
+std::int32_t Sub_502C80()
+{
+    return Sub_502C90();
+}
+
+std::int32_t Sub_502C90()
+{
+    const std::int32_t height = gLegacyBottomHeightCA0014;
+    gLegacyBottomHeightD2DAB4 = height;
+    return height;
+}
+
+std::int32_t Sub_502CA0()
+{
+    return Sub_502CB0();
+}
+
+std::int32_t Sub_502CB0()
+{
+    const std::int32_t width = gLegacyBottomWidth5858A0;
+    const std::int32_t x = gLegacyBottomXD68930;
+    auto& record = gLegacyBottomInitWordsD68938[0];
+    record[2] = x;
+    record[4] = 80;
+    record[0] = width / 2 + x;
+    const std::int32_t height = gLegacyBottomHeight5858A4;
+    record[5] = 24;
+    const std::int32_t y = gLegacyBottomYCB1DD8;
+    record[3] = y;
+    record[1] = height / 2 + y;
+    record[6] = 0;
+    record[7] = 22551;
+    record[8] = 0;
+    return 0;
+}
+
+std::int32_t Sub_502D20()
+{
+    return Sub_502D30();
+}
+
+std::int32_t Sub_502D30()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[1], 80, 22552);
+}
+
+std::int32_t Sub_502DA0()
+{
+    return Sub_502DB0();
+}
+
+std::int32_t Sub_502DB0()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[2], 160, 22553);
+}
+
+std::int32_t Sub_502E20()
+{
+    return Sub_502E30();
+}
+
+std::int32_t Sub_502E30()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[3], 240, 22554);
+}
+
+std::int32_t Sub_502EA0()
+{
+    return Sub_502EB0();
+}
+
+std::int32_t Sub_502EB0()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[4], 320, 22555);
+}
+
+std::int32_t Sub_502F20()
+{
+    return Sub_502F30();
+}
+
+std::int32_t Sub_502F30()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[5], 400, 22556);
+}
+
+std::int32_t Sub_502FA0()
+{
+    return Sub_502FB0();
+}
+
+std::int32_t Sub_502FB0()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[6], 480, 22557);
+}
+
+std::int32_t Sub_503020()
+{
+    return Sub_503030();
+}
+
+std::int32_t Sub_503030()
+{
+    return InitializeLegacyBottomBarPrefix(gLegacyBottomInitWordsD68938[7], 560, 22558);
 }
 
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)

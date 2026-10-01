@@ -98,6 +98,29 @@ std::int32_t Sub_501FD0(std::int32_t x, std::int32_t y); // 旧称号输入、�
 std::int32_t Sub_502930(); // 原CRT 5530C8入口，尾跳旧地图面板构造。
 std::int32_t Sub_502940(); // D68868同源面板初始化，不触碰玩家坐标或地图数据。
 std::uint32_t Sub_5029B0(std::int32_t opened); // 旧地图面板；正常尾返回D046C0而非绘图结果。
+// 原CRT 5530CC..5530F4；底部栏初始化值，不公开未证的完整记录布局。
+std::int32_t Sub_502C30();
+std::int32_t Sub_502C40(); // CB1DD8=480-5858A4，返回写入值。
+std::int32_t Sub_502C60();
+std::int32_t Sub_502C70(); // CA0014复制5858A4。
+std::int32_t Sub_502C80();
+std::int32_t Sub_502C90(); // D2DAB4复制CA0014。
+std::int32_t Sub_502CA0();
+std::int32_t Sub_502CB0(); // 第0组，写序不同于后七组。
+std::int32_t Sub_502D20();
+std::int32_t Sub_502D30(); // 第1组。
+std::int32_t Sub_502DA0();
+std::int32_t Sub_502DB0(); // 第2组。
+std::int32_t Sub_502E20();
+std::int32_t Sub_502E30(); // 第3组。
+std::int32_t Sub_502EA0();
+std::int32_t Sub_502EB0(); // 第4组。
+std::int32_t Sub_502F20();
+std::int32_t Sub_502F30(); // 第5组。
+std::int32_t Sub_502FA0();
+std::int32_t Sub_502FB0(); // 第6组。
+std::int32_t Sub_503020();
+std::int32_t Sub_503030(); // 第7组。
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* records, std::int32_t count);
 void Sub_503120(LegacyPanelTextButtonRecord* records, std::int32_t count);
 std::int32_t Sub_503160(

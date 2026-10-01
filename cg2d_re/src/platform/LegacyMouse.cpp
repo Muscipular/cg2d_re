@@ -206,6 +206,26 @@ struct LegacyMapPanelStaticInitializer {
 
 const LegacyMapPanelStaticInitializer gLegacyMapPanelStaticInitializer;
 
+// 原CRT 5530CC..5530F4；逐项调用，不能跨条目提前缓存尺寸或位置。
+struct LegacyBottomBarStaticInitializer {
+    LegacyBottomBarStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_502C30());
+        static_cast<void>(cg::login::detail::Sub_502C60());
+        static_cast<void>(cg::login::detail::Sub_502C80());
+        static_cast<void>(cg::login::detail::Sub_502CA0());
+        static_cast<void>(cg::login::detail::Sub_502D20());
+        static_cast<void>(cg::login::detail::Sub_502DA0());
+        static_cast<void>(cg::login::detail::Sub_502E20());
+        static_cast<void>(cg::login::detail::Sub_502EA0());
+        static_cast<void>(cg::login::detail::Sub_502F20());
+        static_cast<void>(cg::login::detail::Sub_502FA0());
+        static_cast<void>(cg::login::detail::Sub_503020());
+    }
+};
+
+const LegacyBottomBarStaticInitializer gLegacyBottomBarStaticInitializer;
+
 struct LegacyMouseStaticInitializer {
     LegacyMouseStaticInitializer()
     {

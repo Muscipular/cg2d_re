@@ -42,6 +42,7 @@ std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗�
 std::int32_t ReadGuildStatus10514AC() noexcept; // 窗口21公会状态，借header.value04。
 std::int32_t ReadGuildOwnKey10514B8() noexcept; // 窗口21成员本人判断，借header.value10。
 const char* BorrowGuildName10514BC() noexcept; // 同源texts14[0]，原字节借用。
+const char* BorrowGuildSecondText10514E5() noexcept; // 窗口48借用同一公会头的第二文本。
 const char* BorrowGuildRankText1051518(std::int32_t index) noexcept; // 原30h步长文本，不加索引门禁。
 
 // 原 52FB60：qsort 的两个 W32 索引参数；相等时仍返回 -1。

@@ -207,6 +207,10 @@ std::int32_t Sub_511030(
 // 原511190：FPkR联系人删除请求，整数保持S32，返回实际发送结果。
 std::int32_t Sub_511190(std::uintptr_t socket, std::int32_t value);
 
+// 原511250：Ufm公会文本变更，容量/输出各自重取，返回真实发送结果。
+std::int32_t Sub_511250(
+    std::uintptr_t socket, std::int32_t kind, const char* text);
+
 // 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
 std::int32_t Sub_5112C0(
     std::uintptr_t socket,

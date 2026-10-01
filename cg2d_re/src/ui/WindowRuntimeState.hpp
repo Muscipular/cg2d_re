@@ -1771,6 +1771,12 @@ std::int32_t Sub_4A3260(
     const login::detail::OrderedRecord1051B14* left,
     const login::detail::OrderedRecord1051B14* right); // 公会S16 value0A，零映射最大S32。
 std::int32_t Sub_4A3950(); // 当前公会职级权限80H。
+std::uint32_t Sub_4AF960(); // 窗口48管理权限下复制草稿，返回末文本含NUL长度。
+std::int32_t Sub_4AFE20(std::int32_t index); // 公会草稿差异；原职级含80H时忽略纯flags变化。
+std::int32_t Sub_4AFEA0(); // 完整扫描32职级，不首个差异早返。
+std::int32_t Sub_4AFB10(); // 公会名称变更校验/转义/Ufm类型2发送。
+std::int32_t Sub_4AFC00(); // 公会第二文本变更校验/转义/Ufm类型3发送。
+std::int32_t Sub_4AFCF0(); // 先验证全体变化文本，再逐条GY发送并恢复聊天。
 std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
 std::int32_t Sub_4A3990(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。

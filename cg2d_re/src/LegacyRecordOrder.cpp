@@ -118,6 +118,11 @@ const char* BorrowGuildName10514BC() noexcept
     return gGuildHeader10514A8.texts14[0].data();
 }
 
+const char* BorrowGuildSecondText10514E5() noexcept
+{
+    return gGuildHeader10514A8.texts14[1].data();
+}
+
 const char* BorrowGuildRankText1051518(const std::int32_t index) noexcept
 {
     return gGuildTextRecords1051514[index].text04.data();

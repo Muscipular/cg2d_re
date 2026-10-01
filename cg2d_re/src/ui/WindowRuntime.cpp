@@ -28092,6 +28092,155 @@ std::int32_t Sub_4A3260(
     return leftSequence <= rightSequence ? -1 : 1;
 }
 
+namespace {
+
+struct GuildRankDraft {
+    std::int32_t flags;
+    std::array<char, 41> text;
+    std::array<std::byte, 3> bytes2D;
+};
+
+// CF401C+48*33与CF464C是同一草稿文本；仅保留已证字段及间隔，不解释未消费字节。
+struct GuildWindowDraft {
+    std::array<GuildRankDraft, 32> ranks;
+    std::array<std::byte, 4> bytes600;
+    std::array<char, 41> name604;
+    std::array<std::byte, 7> bytes62D;
+    std::array<char, 41> secondText634;
+};
+
+static_assert(offsetof(GuildRankDraft, text) == 4);
+static_assert(offsetof(GuildRankDraft, bytes2D) == 0x2D);
+static_assert(sizeof(GuildRankDraft) == 0x30);
+static_assert(offsetof(GuildWindowDraft, name604) == 0x604);
+static_assert(offsetof(GuildWindowDraft, secondText634) == 0x634);
+GuildWindowDraft gGuildDraftCF4018 {};
+
+} // namespace
+
+std::uint32_t Sub_4AF960()
+{
+    if (Sub_4A3950() == 0) {
+        return 0;
+    }
+    for (std::int32_t index = 0; index < 32; ++index) {
+        const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
+        const char* const text = login::detail::BorrowGuildRankText1051518(index);
+        gGuildDraftCF4018.ranks[index].flags = flags;
+        std::strcpy(gGuildDraftCF4018.ranks[index].text.data(), text);
+    }
+    std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
+    const char* const text = login::detail::BorrowGuildSecondText10514E5();
+    const auto length = static_cast<std::uint32_t>(std::strlen(text) + 1);
+    std::memcpy(gGuildDraftCF4018.secondText634.data(), text, length);
+    return length;
+}
+
+std::int32_t Sub_4AFE20(const std::int32_t index)
+{
+    std::int32_t changes = std::strcmp(
+        gGuildDraftCF4018.ranks[index].text.data(),
+        login::detail::BorrowGuildRankText1051518(index)) != 0 ? 1 : 0;
+    const std::int32_t flags = login::detail::ReadGuildRankFlags1051514(index);
+    if ((flags & 0x80) == 0 && gGuildDraftCF4018.ranks[index].flags != flags) {
+        ++changes;
+    }
+    return changes > 0 ? 1 : 0;
+}
+
+std::int32_t Sub_4AFEA0()
+{
+    std::int32_t changes = 0;
+    for (std::int32_t index = 0; index < 32; ++index) {
+        if (Sub_4AFE20(index) != 0) {
+            ++changes;
+        }
+    }
+    return changes > 0 ? 1 : 0;
+}
+
+std::int32_t Sub_4AFB10()
+{
+    std::int32_t result = std::strcmp(
+        gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
+    if (result == 0) {
+        return result;
+    }
+    result = input::Sub_476740(gGuildDraftCF4018.name604.data());
+    if (result == 0) {
+        return result;
+    }
+    result = input::Sub_45E770(gGuildDraftCF4018.name604.data());
+    if (result == 1) {
+        return result;
+    }
+    std::array<char, 512> buffers;
+    std::strcpy(buffers.data(), gGuildDraftCF4018.name604.data());
+    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
+        buffers.data(), buffers.data() + 256, 256));
+    static_cast<void>(network::Sub_511250(
+        platform::gConnectionSocket, 2, buffers.data() + 256));
+    static_cast<void>(audio::PlaySe_52C450(79, 320));
+    return Sub_4A7B00();
+}
+
+std::int32_t Sub_4AFC00()
+{
+    std::int32_t result = std::strcmp(
+        gGuildDraftCF4018.secondText634.data(), login::detail::BorrowGuildSecondText10514E5());
+    if (result == 0) {
+        return result;
+    }
+    result = input::Sub_476740(gGuildDraftCF4018.secondText634.data());
+    if (result == 0) {
+        return result;
+    }
+    result = input::Sub_45E770(gGuildDraftCF4018.secondText634.data());
+    if (result == 1) {
+        return result;
+    }
+    std::array<char, 512> buffers;
+    std::strcpy(buffers.data(), gGuildDraftCF4018.secondText634.data());
+    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
+        buffers.data(), buffers.data() + 256, 256));
+    static_cast<void>(network::Sub_511250(
+        platform::gConnectionSocket, 3, buffers.data() + 256));
+    static_cast<void>(audio::PlaySe_52C450(79, 320));
+    return Sub_4A7B00();
+}
+
+std::int32_t Sub_4AFCF0()
+{
+    for (std::int32_t index = 0; index < 32; ++index) {
+        char* const text = gGuildDraftCF4018.ranks[index].text.data();
+        if (Sub_4AFE20(index) != 0) {
+            const std::int32_t valid = input::Sub_476740(text);
+            if (valid == 0) {
+                return valid;
+            }
+            const std::int32_t rejected = input::Sub_45E770(text);
+            if (rejected == 1) {
+                return rejected;
+            }
+        }
+    }
+    std::array<char, 512> buffers;
+    for (std::int32_t index = 0; index < 32; ++index) {
+        const char* const draft = gGuildDraftCF4018.ranks[index].text.data();
+        if (std::strcmp(login::detail::BorrowGuildRankText1051518(index), draft) != 0
+            || login::detail::ReadGuildRankFlags1051514(index) != gGuildDraftCF4018.ranks[index].flags) {
+            std::strcpy(buffers.data(), draft);
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
+                buffers.data(), buffers.data() + 256, 256));
+            const std::int32_t flags = gGuildDraftCF4018.ranks[index].flags;
+            const std::uintptr_t socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_5112C0(socket, index, flags, buffers.data() + 256));
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    return Sub_4A7B00();
+}
+
 std::int32_t Sub_4A3950()
 {
     return Sub_4A3960(0x80);

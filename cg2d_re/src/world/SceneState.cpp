@@ -87,6 +87,36 @@ std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {};
 std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {};
 static_assert(sizeof(gQuadrantTransitionXFF275C) == 16);
 static_assert(sizeof(gQuadrantTransitionYFF47D0) == 16);
+// 原51EF80的64画块同源状态；阶段加载初值-1，其余为未加载区零初值。
+// 状态1/2的含义随显隐/下落模式变化，源坐标与运动坐标不可合并。
+std::int32_t gTileTransitionPhase58B6DC = -1;
+std::int32_t gTileTransitionCompletedFF46C0 = 0;
+std::int32_t gTileTransitionStartedFF28BC = 0;
+std::array<std::int32_t, 64> gTileTransitionStateFF27B8 {};
+std::array<std::int32_t, 64> gTileTransitionSpeedFF46C4 {};
+std::array<std::int32_t, 64> gTileTransitionSourceYFF47E4 {};
+std::array<std::int32_t, 64> gTileTransitionYFF0D7C {};
+std::array<std::int32_t, 64> gTileTransitionXFF265C {};
+std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {};
+
+// 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
+void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScreen)
+{
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t first = row * 8;
+        const std::int32_t y = row * 60;
+        std::fill_n(gTileTransitionStateFF27B8.begin() + first, 8, state);
+        std::fill_n(gTileTransitionSpeedFF46C4.begin() + first, 8, 0);
+        std::fill_n(gTileTransitionSourceYFF47E4.begin() + first, 8, y);
+        std::fill_n(gTileTransitionYFF0D7C.begin() + first, 8, aboveScreen ? -60 : y);
+        for (std::int32_t column = 0; column < 8; ++column) {
+            const std::int32_t index = first + column;
+            const std::int32_t x = column * 80;
+            gTileTransitionXFF265C[index] = x;
+            gTileTransitionSourceXFF0E7C[index] = x;
+        }
+    }
+}
 
 // 原__ftol先截断为S64，再消费低S32；4535B0另取低S16坐标。
 std::int32_t TruncateTransitionCoordinate(const double value)
@@ -10310,6 +10340,190 @@ std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
     gValue73ECD0.readCount = readCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     gQuadrantTransitionPhase58B6D8 = -1;
+    return 1;
+}
+
+// 原[51EF80,51F5F5)：64画块随机显隐/下落；候选仅在原拒绝路径重抽。
+std::int32_t Sub_51EF80(
+    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+{
+    std::int32_t selected = platform::RandomRange_46FAF0(0, 63);
+    std::int32_t acceleration = static_cast<std::int32_t>(
+        static_cast<std::int64_t>(std::bit_cast<float>(payloadBits)));
+    if (acceleration < 1) {
+        acceleration = 1;
+    }
+    const std::int8_t lowCount = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    const std::int32_t count = lowCount != 0 ? lowCount : 1;
+    std::int32_t phase;
+    if (gValue58B6D0 == 1) {
+        phase = -1;
+        gValue58B6D0 = 0;
+        gTileTransitionPhase58B6DC = -1;
+    } else {
+        phase = gTileTransitionPhase58B6DC;
+    }
+    if (phase == -1 && mode >= 0 && mode <= 3) {
+        InitializeTileTransitionGrid(mode == 0 ? 1 : (mode == 2 ? 2 : 0), mode == 3);
+        gTileTransitionPhase58B6DC = 0;
+        gTileTransitionCompletedFF46C0 = 0;
+        if (mode >= 2) {
+            gTileTransitionStartedFF28BC = 0;
+        }
+    }
+    switch (mode) {
+    case 0:
+        for (std::int32_t index = 0; index < count; ++index) {
+            while (gTileTransitionStateFF27B8[selected] == 0) {
+                selected = platform::RandomRange_46FAF0(0, 63);
+            }
+            const std::int32_t completed = gTileTransitionCompletedFF46C0;
+            gTileTransitionStateFF27B8[selected] = 0;
+            const std::int32_t next = completed + 1;
+            gTileTransitionCompletedFF46C0 = next;
+            if (next >= 64) {
+                gTileTransitionPhase58B6DC = 1;
+                break;
+            }
+        }
+        break;
+    case 1:
+        for (std::int32_t index = 0; index < count; ++index) {
+            while (gTileTransitionStateFF27B8[selected] == 1) {
+                selected = platform::RandomRange_46FAF0(0, 63);
+            }
+            const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
+            gTileTransitionStateFF27B8[selected] = 1;
+            gTileTransitionCompletedFF46C0 = next;
+            if (next >= 64) {
+                gTileTransitionPhase58B6DC = 1;
+                break;
+            }
+        }
+        break;
+    case 2: {
+        for (std::int32_t index = 0; index < count; ++index) {
+            if (gTileTransitionStartedFF28BC >= 64) {
+                break;
+            }
+            while (gTileTransitionStateFF27B8[selected] <= 1) {
+                selected = platform::RandomRange_46FAF0(0, 63);
+            }
+            const std::int32_t started = gTileTransitionStartedFF28BC;
+            gTileTransitionStateFF27B8[selected] = 1;
+            gTileTransitionStartedFF28BC = started + 1;
+        }
+        std::int32_t completed = gTileTransitionCompletedFF46C0;
+        for (std::int32_t index = 0; index < 64; ++index) {
+            if (gTileTransitionStateFF27B8[index] == 1) {
+                const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
+                const std::int32_t oldY = gTileTransitionYFF0D7C[index];
+                const std::int32_t speed = oldSpeed + acceleration;
+                gTileTransitionSpeedFF46C4[index] = speed;
+                const std::int32_t y = oldY + speed;
+                gTileTransitionYFF0D7C[index] = y;
+                if (y >= 500) {
+                    gTileTransitionStateFF27B8[index] = 0;
+                    ++completed;
+                }
+            }
+        }
+        gTileTransitionCompletedFF46C0 = completed;
+        if (completed >= 64) {
+            gTileTransitionPhase58B6DC = 1;
+        }
+        break;
+    }
+    case 3:
+        for (std::int32_t index = 0; index < count; ++index) {
+            if (gTileTransitionStartedFF28BC >= 64) {
+                break;
+            }
+            while (gTileTransitionStateFF27B8[selected] >= 1) {
+                selected = platform::RandomRange_46FAF0(0, 63);
+            }
+            const std::int32_t started = gTileTransitionStartedFF28BC;
+            gTileTransitionStateFF27B8[selected] = 1;
+            gTileTransitionStartedFF28BC = started + 1;
+        }
+        for (std::int32_t index = 0; index < 64; ++index) {
+            if (gTileTransitionStateFF27B8[index] == 1) {
+                const std::int32_t oldSpeed = gTileTransitionSpeedFF46C4[index];
+                const std::int32_t oldY = gTileTransitionYFF0D7C[index];
+                const std::int32_t speed = oldSpeed + acceleration;
+                gTileTransitionSpeedFF46C4[index] = speed;
+                const std::int32_t y = oldY + speed;
+                const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+                gTileTransitionYFF0D7C[index] = y;
+                if (y >= sourceY) {
+                    gTileTransitionYFF0D7C[index] = sourceY;
+                    const std::int32_t next = gTileTransitionCompletedFF46C0 + 1;
+                    gTileTransitionStateFF27B8[index] = 2;
+                    gTileTransitionCompletedFF46C0 = next;
+                }
+            }
+        }
+        if (gTileTransitionCompletedFF46C0 >= 64) {
+            gTileTransitionPhase58B6DC = 1;
+        }
+        break;
+    default:
+        break;
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    std::array<std::int32_t, 4> rectangle;
+    // 原两遍有不同的源读取顺序，先画状态2再画状态1。
+    for (std::int32_t index = 0; index < 64; ++index) {
+        if (gTileTransitionStateFF27B8[index] == 2) {
+            const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
+            const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+            const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
+            rectangle[0] = sourceX;
+            rectangle[1] = sourceY;
+            rectangle[2] = sourceX + 80;
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            rectangle[3] = sourceY + 60;
+            const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangle, source));
+        }
+    }
+    for (std::int32_t index = 0; index < 64; ++index) {
+        if (gTileTransitionStateFF27B8[index] == 1) {
+            const std::int32_t sourceY = gTileTransitionSourceYFF47E4[index];
+            const std::int32_t sourceX = gTileTransitionSourceXFF0E7C[index];
+            rectangle[1] = sourceY;
+            rectangle[0] = sourceX;
+            rectangle[3] = sourceY + 60;
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            rectangle[2] = sourceX + 80;
+            const auto y = static_cast<std::int16_t>(gTileTransitionYFF0D7C[index]);
+            const auto x = static_cast<std::int16_t>(gTileTransitionXFF265C[index]);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangle, source));
+        }
+    }
+    if (gTileTransitionPhase58B6DC != 1) {
+        return 0;
+    }
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        gTileTransitionPhase58B6DC = -1;
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    const std::uint8_t readCount = temporary.readCount;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint32_t mask = temporary.mask;
+    gValue73ECD0.readCount = readCount;
+    gValue73ECD0.encoded = encoded;
+    gValue73ECD0.mask = mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gTileTransitionPhase58B6DC = -1;
     return 1;
 }
 

@@ -1675,6 +1675,22 @@ std::uint8_t Sub_4A6AC0(); // 宠物名称/颜色和携带物品图、数量刷�
 std::int32_t Sub_4A6D30(std::int32_t index); // 同源flags6AA完整W16恰3。
 std::int32_t Sub_4A6D50(std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
 std::int32_t Sub_47D4A0(); // 原S32 D67B00窄读，不返回其他状态。
+extern WindowTextPrototype gWindowText572F58; // 49三类副标题，元素原型与刷新同源。
+extern WindowTextPrototype gWindowText572F60;
+extern WindowTextPrototype gWindowText572F68;
+extern WindowTextPrototype gWindowText572F78; // 49三类标题。
+extern WindowTextPrototype gWindowText572F80;
+extern WindowTextPrototype gWindowText572F88;
+std::int32_t Sub_4B4B00(std::int32_t value); // 群组选人初始化/恢复与父窗门禁。
+void Sub_4B4B70(); // 释放时仅关闭仍处于群发方式的22。
+std::int32_t Sub_4B4B90(std::int32_t value); // 滚动反求、七行刷新、公共绘制。
+std::int32_t Sub_4B4DB0(); // 顺序修正上下界，保留count<7时负上界。
+std::int32_t Sub_4B4DF0(std::int32_t unused); // 非负最大值反求并发布滚动位置。
+void Sub_4B4E20(); // 三种标题和七行显隐，不改选择标志。
+void Sub_4B5630(); // 清计数/模式及两200项数组，不清初始化标志。
+void Sub_4B5660(std::int32_t mode); // 稀疏名单生产，不按count压紧槽位。
+void Sub_4B5760(std::int32_t category); // 原CRT次序排序60或200个S32索引。
+std::int32_t Sub_4B57B0(const std::int32_t* left, const std::int32_t* right);
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

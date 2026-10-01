@@ -1360,6 +1360,30 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 } // namespace
 
 WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1];
+WindowTextPrototype gWindowText572F58 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xAB\xF9\xA6\xB3\xA6\x57\xA4\xF9\xA1\xAE\xA4\x57\xBD\x75\xAA\xBA\xA4\x48\xAD\xFB",
+};
+WindowTextPrototype gWindowText572F60 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xA6\x50\xAE\x61\xB1\xDA\xA4\xBA\xA4\x57\xBD\x75\xAA\xBA\xA4\x48\xAD\xFB",
+};
+WindowTextPrototype gWindowText572F68 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xA6\x50\xAE\x61\xB1\xDA\xA5\xFE\xB3\xA1\xAA\xBA\xA4\x48\xAD\xFB",
+};
+WindowTextPrototype gWindowText572F78 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xA5\xE6\xB4\xAB\xB9\x4C\xA6\x57\xA4\xF9\xAA\xBA\xA4\x48",
+};
+WindowTextPrototype gWindowText572F80 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB",
+};
+WindowTextPrototype gWindowText572F88 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
+    "\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9",
+};
 WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4];
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];
 

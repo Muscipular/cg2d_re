@@ -1002,6 +1002,9 @@ struct LoginWindowRuntimeSlots {
     WindowRuntimePrefixD2F0B8 prefixD2F0B8;
     WindowRuntimePrefixD2F0B8 mailDraftCF4BC8; // 4A5650只更新五字段和正文，保留其余字节。
     WindowMailGroupSlotsCC1A30 mailGroupCC1A30;
+    std::int32_t mailGroupScrollD67B88;
+    std::int32_t mailGroupSortCategoryCB0600;
+    std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原排序索引，末地址CC318C，不与技能HP区重叠。
     std::int32_t valueD673D0;
     std::int32_t selectedPetCC3E5C;
     std::int32_t previousPetCC4888; // 详情页记排序位置，不是实际宠物编号。
@@ -25880,6 +25883,75 @@ constexpr char kNormalMailHint5877A4[] = "\xB1\x48\xB0\x65\xA4\x40\xAF\xEB\xB6\x
 constexpr char kSwitchMailPetHint58778C[] =
     "\xB4\xAB\xA5\x74\xA4\x40\xB0\xA6\xC3\x64\xAA\xAB\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
 
+// 原53C112/53C266四字节排序路径；21/49均有非严格比较器，不能换成std::sort。
+void SortMailIndicesLegacy(
+    std::int32_t* first, const std::uint32_t count,
+    std::int32_t (*compare)(const std::int32_t*, const std::int32_t*))
+{
+    std::int32_t* last = first + count - 1;
+    std::array<std::int32_t*, 30> firstStack;
+    std::array<std::int32_t*, 30> lastStack;
+    std::int32_t stackSize = 0;
+    for (;;) {
+        const auto length = last - first + 1;
+        if (length <= 8) {
+            while (last > first) {
+                std::int32_t* maximum = first;
+                for (std::int32_t* item = first + 1; item <= last; ++item) {
+                    if (compare(item, maximum) > 0) {
+                        maximum = item;
+                    }
+                }
+                std::swap(*maximum, *last);
+                --last;
+            }
+        } else {
+            std::swap(*(first + length / 2), *first);
+            std::int32_t* left = first;
+            std::int32_t* right = last + 1;
+            for (;;) {
+                do {
+                    ++left;
+                } while (left <= last && compare(left, first) <= 0);
+                do {
+                    --right;
+                } while (right > first && compare(right, first) >= 0);
+                if (right < left) {
+                    break;
+                }
+                std::swap(*left, *right);
+            }
+            std::swap(*first, *right);
+            if (right - first > last - left) {
+                if (first + 1 < right) {
+                    firstStack[stackSize] = first;
+                    lastStack[stackSize] = right - 1;
+                    ++stackSize;
+                }
+                if (left < last) {
+                    first = left;
+                    continue;
+                }
+            } else {
+                if (left < last) {
+                    firstStack[stackSize] = left;
+                    lastStack[stackSize] = last;
+                    ++stackSize;
+                }
+                if (first + 1 < right) {
+                    last = right - 1;
+                    continue;
+                }
+            }
+        }
+        if (--stackSize < 0) {
+            return;
+        }
+        first = firstStack[stackSize];
+        last = lastStack[stackSize];
+    }
+}
+
 // 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
 void FormatMailTimestamp587768(char* const destination)
 {
@@ -26879,6 +26951,211 @@ std::uint8_t Sub_4A6AC0()
     return Sub_476570(&gMailInputPrototype57E740, x, y, 2);
 }
 
+std::int32_t Sub_4B4B00(const std::int32_t value)
+{
+    if (value == -1) {
+        if (gLoginWindowRuntime.mailGroupCC1A30.initialize == 0) {
+            gLoginWindowRuntime.mailGroupScrollD67B88 = 0;
+            Sub_4B5630();
+            gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
+            Sub_4B5660(0);
+            gCurrentWindow->elements[19].visible = 1;
+        }
+        gLoginWindowRuntime.mailGroupCC1A30.initialize = 0;
+        return 1;
+    }
+    if (gWindowStates[22].window == nullptr) {
+        gWindowStates[49].window->state |= 0x8000u;
+    }
+    return 1;
+}
+
+void Sub_4B4B70()
+{
+    WindowInstance* const window = gWindowStates[22].window;
+    if (window != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 == 1) {
+        window->state |= 0x8000u;
+    }
+}
+
+std::int32_t Sub_4B4B90(const std::int32_t value)
+{
+    static_cast<void>(Sub_4B4DF0(value));
+    Sub_4B4E20();
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+std::int32_t Sub_4B4DB0()
+{
+    std::int32_t position = gLoginWindowRuntime.mailGroupScrollD67B88;
+    if (position < 0) {
+        position = 0;
+        gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+    }
+    const std::int32_t maximum = gLoginWindowRuntime.mailGroupCC1A30.count - 7;
+    if (position > maximum) {
+        position = maximum;
+        gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+    }
+    return Sub_4742C0(&gCurrentWindow->elements[4], maximum, position);
+}
+
+std::int32_t Sub_4B4DF0(const std::int32_t)
+{
+    const std::int32_t count = gLoginWindowRuntime.mailGroupCC1A30.count;
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t maximum = count - 7;
+    const std::int32_t position = Sub_474270(&window->elements[4], maximum < 0 ? 0 : maximum);
+    gLoginWindowRuntime.mailGroupScrollD67B88 = position;
+    return position;
+}
+
+void Sub_4B4E20()
+{
+    const std::int32_t mode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+    if (mode != 0 && mode != 1 && mode != 2) {
+        return;
+    }
+    WindowInstance* const titleWindow = gCurrentWindow;
+    const char* const title = mode == 0 ? gWindowText572F78.text
+        : mode == 1 ? gWindowText572F80.text : gWindowText572F88.text;
+    auto* const titleData = static_cast<WindowTextData*>(titleWindow->elements[10].data);
+    std::strcpy(titleData->text, title);
+    WindowInstance* const subtitleWindow = gCurrentWindow;
+    const char* const subtitle = mode == 0 ? gWindowText572F58.text
+        : mode == 1 ? gWindowText572F60.text : gWindowText572F68.text;
+    auto* const subtitleData = static_cast<WindowTextData*>(subtitleWindow->elements[11].data);
+    std::strcpy(subtitleData->text, subtitle);
+    for (std::int32_t row = 0; row < 7; ++row) {
+        const std::int32_t scroll = gLoginWindowRuntime.mailGroupScrollD67B88;
+        const std::int32_t position = scroll + row;
+        const std::int32_t source = gLoginWindowRuntime.mailGroupCC1A30.indices[position];
+        const std::int32_t visible = source != -1 ? 1 : 0;
+        if (visible != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            const char* const name = mode == 0 ? world::detail::gContactsF19FB0[source].name10.data()
+                : mode == 1 ? login::detail::gOrderedRecords1051B14[source].text18
+                : login::detail::BorrowGuildRankText1051518(position);
+            auto* const text = static_cast<WindowTextData*>(window->elements[12 + row].data);
+            std::strcpy(text->text, name);
+        }
+        gCurrentWindow->elements[12 + row].visible = visible;
+        gCurrentWindow->elements[20 + row].visible = visible;
+        gCurrentWindow->elements[28 + row].visible = visible;
+    }
+}
+
+void Sub_4B5630()
+{
+    gLoginWindowRuntime.mailGroupCC1A30.count = 0;
+    gLoginWindowRuntime.mailGroupCC1A30.mode = 0;
+    for (std::int32_t index = 0; index < 200; ++index) {
+        gLoginWindowRuntime.mailGroupCC1A30.indices[index] = 0;
+        gLoginWindowRuntime.mailGroupCC1A30.selected[index] = 0;
+    }
+}
+
+void Sub_4B5660(const std::int32_t mode)
+{
+    gLoginWindowRuntime.mailGroupCC1A30.count = 0;
+    gLoginWindowRuntime.mailGroupCC1A30.mode = mode;
+    for (std::int32_t index = 0; index < 200; ++index) {
+        gLoginWindowRuntime.mailGroupCC1A30.indices[index] = -1;
+        gLoginWindowRuntime.mailGroupCC1A30.selected[index] = 0;
+    }
+    switch (mode) {
+    case 0:
+        Sub_4B5760(0);
+        for (std::int32_t index = 0; index < 60; ++index) {
+            const std::int32_t source = gLoginWindowRuntime.mailGroupOrderCC2E6C[index];
+            if (world::detail::gContactsF19FB0[source].used == 1) {
+                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = source;
+                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+            }
+        }
+        break;
+    case 1:
+        Sub_4B5760(1);
+        for (std::int32_t index = 0; index < 200; ++index) {
+            const std::int32_t source = gLoginWindowRuntime.mailGroupOrderCC2E6C[index];
+            if (login::detail::gOrderedRecords1051B14[source].value08 == 1) {
+                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = source;
+                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+            }
+        }
+        break;
+    case 2:
+        for (std::int32_t index = 0; index < 32; ++index) {
+            if (login::detail::ReadGuildRankFlags1051514(index) != 0) {
+                gLoginWindowRuntime.mailGroupCC1A30.indices[index] = index;
+                ++gLoginWindowRuntime.mailGroupCC1A30.count;
+            }
+        }
+        break;
+    }
+}
+
+void Sub_4B5760(const std::int32_t category)
+{
+    gLoginWindowRuntime.mailGroupSortCategoryCB0600 = category;
+    for (std::int32_t index = 0; index < 200; ++index) {
+        gLoginWindowRuntime.mailGroupOrderCC2E6C[index] = index;
+    }
+    SortMailIndicesLegacy(gLoginWindowRuntime.mailGroupOrderCC2E6C.data(),
+        category == 0 ? 60u : 200u, Sub_4B57B0);
+}
+
+std::int32_t Sub_4B57B0(const std::int32_t* const left, const std::int32_t* const right)
+{
+    const std::int32_t category = gLoginWindowRuntime.mailGroupSortCategoryCB0600;
+    const std::int32_t rightIndex = *right;
+    std::int32_t leftIndex;
+    if (category == 0) {
+        if (world::detail::gContactsF19FB0[rightIndex].used == 0) {
+            return -1;
+        }
+        leftIndex = *left;
+        if (world::detail::gContactsF19FB0[leftIndex].used == 0) {
+            return 1;
+        }
+    } else {
+        if (login::detail::gOrderedRecords1051B14[rightIndex].value08 == 0) {
+            return -1;
+        }
+        leftIndex = *left;
+        if (login::detail::gOrderedRecords1051B14[leftIndex].value08 == 0) {
+            return 1;
+        }
+    }
+    const std::uint32_t mode = platform::gValueD67CD0;
+    if (mode > 4) {
+        return 0;
+    }
+    if (category == 0) {
+        const auto* const other = &world::detail::gContactsF19FB0[rightIndex];
+        const auto* const current = &world::detail::gContactsF19FB0[leftIndex];
+        switch (mode) {
+        case 0: return Sub_4A3010(current, other);
+        case 1: return Sub_4A3100(current, other);
+        case 2: return Sub_4A3160(current, other);
+        case 3: return Sub_4A31C0(&current->value04, &other->value04);
+        case 4: return Sub_4A31E0(current, other);
+        }
+    } else {
+        const auto* const other = &login::detail::gOrderedRecords1051B14[rightIndex];
+        const auto* const current = &login::detail::gOrderedRecords1051B14[leftIndex];
+        switch (mode) {
+        case 0: return Sub_4A3070(current, other);
+        case 1: return Sub_4A30D0(current, other);
+        case 2: return Sub_4A3190(current, other);
+        case 3: return Sub_4A31C0(&current->value04, &other->value04);
+        case 4: return Sub_4A3260(current, other);
+        }
+    }
+    return 0;
+}
+
 void Sub_4A2700()
 {
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。
@@ -26963,70 +27240,7 @@ void Sub_4A2C60()
         count = 20;
         break;
     }
-    // 复用已证53C112/53C266四字节路径，保留非严格比较器的原排序次序。
-    std::int32_t* first = gLoginWindowRuntime.mailIndicesC9FCE4.data();
-    std::int32_t* last = first + count - 1;
-    std::array<std::int32_t*, 30> firstStack;
-    std::array<std::int32_t*, 30> lastStack;
-    std::int32_t stackSize = 0;
-    for (;;) {
-        const auto length = last - first + 1;
-        if (length <= 8) {
-            while (last > first) {
-                std::int32_t* maximum = first;
-                for (std::int32_t* item = first + 1; item <= last; ++item) {
-                    if (Sub_4A2CC0(item, maximum) > 0) {
-                        maximum = item;
-                    }
-                }
-                std::swap(*maximum, *last);
-                --last;
-            }
-        } else {
-            std::swap(*(first + length / 2), *first);
-            std::int32_t* left = first;
-            std::int32_t* right = last + 1;
-            for (;;) {
-                do {
-                    ++left;
-                } while (left <= last && Sub_4A2CC0(left, first) <= 0);
-                do {
-                    --right;
-                } while (right > first && Sub_4A2CC0(right, first) >= 0);
-                if (right < left) {
-                    break;
-                }
-                std::swap(*left, *right);
-            }
-            std::swap(*first, *right);
-            if (right - first > last - left) {
-                if (first + 1 < right) {
-                    firstStack[stackSize] = first;
-                    lastStack[stackSize] = right - 1;
-                    ++stackSize;
-                }
-                if (left < last) {
-                    first = left;
-                    continue;
-                }
-            } else {
-                if (left < last) {
-                    firstStack[stackSize] = left;
-                    lastStack[stackSize] = last;
-                    ++stackSize;
-                }
-                if (first + 1 < right) {
-                    last = right - 1;
-                    continue;
-                }
-            }
-        }
-        if (--stackSize < 0) {
-            return;
-        }
-        first = firstStack[stackSize];
-        last = lastStack[stackSize];
-    }
+    SortMailIndicesLegacy(gLoginWindowRuntime.mailIndicesC9FCE4.data(), count, Sub_4A2CC0);
 }
 
 std::int32_t Sub_4A2CC0(const std::int32_t* const left, const std::int32_t* const right)

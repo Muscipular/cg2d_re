@@ -1630,6 +1630,7 @@ void Sub_4796F0(); // 只清D67AFD。
 void Sub_479610(); // 清两借用Yobi槽与计数/三个字节，不释放对象。
 void Sub_4C7AD0(); // 只清CF4AAC。
 void RestoreWindowPositions_475C10(); // 现存窗口恢复原型坐标，仅五类追加原序随机/边界处理。
+void ProcessWindowShortcuts_4C7AE0(); // 两模式完整快捷键，Ctrl优先；唯一caller弃用原返回。
 void Sub_470980(); // 普通场景完整重开，保持626C14与22/23门禁。
 std::int32_t InitializeWindowSystem_4705D0(); // 启动UI完整初始化，返回category加载结果。
 std::int32_t Sub_4923D0(); // 三个UI数值依序写5/0/0。

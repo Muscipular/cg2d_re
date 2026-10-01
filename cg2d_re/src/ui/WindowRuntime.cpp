@@ -29,6 +29,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/RendererResources.hpp"
+#include "cg/render/SdlPresenter.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
@@ -15245,6 +15246,306 @@ void RestoreWindowPositions_475C10()
             const std::int32_t y = platform::RandomRange_46FAF0(460 - height, 480 - height);
             state.window->y = y;
         }
+    }
+}
+
+namespace {
+
+std::int32_t gWindowUpdateCountCC4844 = 0; // 473F80的共享数量，draw返回后重读。
+
+void ToggleShortcutWindow(const std::int32_t id)
+{
+    WindowInstance* const window = gWindowStates[id].window;
+    if (window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(id, 1, 0, nullptr));
+    } else {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+}
+
+void PlayShortcutEmote(const std::int32_t action, const std::int32_t selected)
+{
+    world::detail::Sub_4FA8E0(action);
+    static_cast<void>(Sub_495F70(selected));
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+// 4C803D/4C8B07两段顺序指令的归纳，不是原端存储表；每项执行后才读取下一键。
+struct ShortcutEmoteBinding {
+    std::uint8_t keyMode0;
+    std::uint8_t keyMode1;
+    std::int32_t action;
+    std::int32_t selected;
+};
+
+constexpr ShortcutEmoteBinding kShortcutEmotes[] {
+    {0x31, 0x31, 0, 0},
+    {0x32, 0x32, 2, 1},
+    {0x33, 0x33, 4, 2},
+    {0x34, 0x34, 6, 3},
+    {0x35, 0x35, 8, 4},
+    {0x36, 0x36, 10, 5},
+    {0x37, 0x37, 12, 6},
+    {0x38, 0x38, 1, 9},
+    {0x39, 0x39, 3, 10},
+    {0x30, 0x42, 5, 11},
+    {0x54, 0x4E, 15, 16},
+    {0xBD, 0x4D, 7, 12},
+    {0xDE, 0xBC, 9, 13},
+    {0x47, 0xBE, 11, 14},
+    {0x42, 0xBF, 13, 15},
+};
+
+} // namespace
+
+void ProcessWindowShortcuts_4C7AE0()
+{
+    const std::int32_t mode = gValueCF4AAC;
+    if (mode != 0 && mode != 1) {
+        return;
+    }
+    const bool modeOne = mode == 1;
+    if ((platform::gKeyStates[0x23] & 4u) != 0) {
+        ToggleShortcutWindow(65);
+    }
+    if ((platform::gKeyStates[0x78] & 4u) != 0) {
+        ToggleShortcutWindow(66);
+    }
+    if ((platform::gKeyStates[0x11] & 2u) != 0) {
+        if ((platform::gKeyStates[modeOne ? 0x51 : 0x57] & 4u) != 0) {
+            constexpr std::int32_t ids[] {7, 8, 9, 58};
+            bool found = false;
+            for (const std::int32_t id : ids) {
+                WindowInstance* const window = gWindowStates[id].window;
+                if (window != nullptr) {
+                    found = true;
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+            }
+            if (!found) {
+                static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+            }
+        }
+        if ((platform::gKeyStates[modeOne ? 0x57 : 0x45] & 4u) != 0) {
+            if (world::gCurrentSceneType == 10) {
+                Sub_497000();
+            } else {
+                WindowInstance* const window = gWindowStates[10].window;
+                if (window == nullptr) {
+                    static_cast<void>(Sub_47A490());
+                } else {
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+            }
+        }
+        if ((platform::gKeyStates[modeOne ? 0x45 : 0x52] & 4u) != 0) {
+            if (world::gCurrentSceneType == 10) {
+                Sub_497100();
+            } else {
+                ToggleShortcutWindow(14);
+            }
+        }
+        if ((platform::gKeyStates[modeOne ? 0x52 : 0x41] & 4u) != 0) {
+            if (world::gCurrentSceneType == 10) {
+                Sub_497210();
+            } else {
+                ToggleShortcutWindow(15);
+            }
+        }
+        if ((platform::gKeyStates[modeOne ? 0x54 : 0x53] & 4u) != 0) {
+            ToggleShortcutWindow(21);
+        }
+        if ((platform::gKeyStates[modeOne ? 0x59 : 0x44] & 4u) != 0) {
+            ToggleShortcutWindow(19);
+        }
+        if ((platform::gKeyStates[modeOne ? 0x41 : 0x46] & 4u) != 0
+            && world::gCurrentSceneType != 10) {
+            ToggleShortcutWindow(34);
+        }
+        if ((platform::gKeyStates[modeOne ? 0x53 : 0x51] & 4u) != 0
+            && world::gCurrentSceneType != 10) {
+            ToggleShortcutWindow(33);
+        }
+        if ((platform::gKeyStates[modeOne ? 0x44 : 0x59] & 4u) != 0) {
+            ToggleShortcutWindow(25);
+        }
+        if ((platform::gKeyStates[modeOne ? 0x5A : 0x4F] & 4u) != 0) {
+            static_cast<void>(Sub_503CB0());
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x26] & 4u) != 0) {
+            Sub_4A7710();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x28] & 4u) != 0) {
+            Sub_4A7720();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x27] & 4u) != 0) {
+            Sub_4A7740();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x25] & 4u) != 0) {
+            Sub_4A7730();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[modeOne ? 0x55 : 0x50] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_472F40());
+        }
+        if ((platform::gKeyStates[modeOne ? 0x49 : 0xBA] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_472F70());
+        }
+        if ((platform::gKeyStates[modeOne ? 0x4F : 0xBE] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_472FA0());
+        }
+        if ((platform::gKeyStates[modeOne ? 0x50 : 0x4C] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_472FD0());
+        }
+        if ((platform::gKeyStates[modeOne ? 0x46 : 0xBC] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_473000());
+        }
+        if ((platform::gKeyStates[modeOne ? 0xDB : 0x4E] & 4u) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            static_cast<void>(world::detail::Sub_473030());
+        }
+
+        // 该门禁只采一次场景，覆盖全部请求和动作；门内回调不触发再次判场景。
+        if (world::gCurrentSceneType != 10) {
+            if ((platform::gKeyStates[modeOne ? 0x4A : 0x4B] & 4u) != 0) {
+                world::detail::Sub_470050();
+            }
+            if ((platform::gKeyStates[modeOne ? 0x4B : 0x56] & 4u) != 0) {
+                world::detail::Sub_470150();
+            }
+            if (!modeOne && (platform::gKeyStates[0x48] & 4u) != 0) {
+                PlayShortcutEmote(9, 13);
+            }
+            if ((platform::gKeyStates[modeOne ? 0x4C : 0xBF] & 4u) != 0) {
+                world::detail::Sub_470270();
+            }
+            if ((platform::gKeyStates[modeOne ? 0xBA : 0xDB] & 4u) != 0) {
+                world::detail::Sub_4703C0();
+            }
+            if ((platform::gKeyStates[modeOne ? 0xDE : 0xDD] & 4u) != 0) {
+                world::detail::Sub_4704A0();
+            }
+            if ((platform::gKeyStates[modeOne ? 0xDD : 0x4D] & 4u) != 0) {
+                world::detail::Sub_470670();
+            }
+            for (const ShortcutEmoteBinding& binding : kShortcutEmotes) {
+                const std::uint8_t key = modeOne ? binding.keyMode1 : binding.keyMode0;
+                if ((platform::gKeyStates[key] & 4u) != 0) {
+                    PlayShortcutEmote(binding.action, binding.selected);
+                }
+            }
+            if ((platform::gKeyStates[0xDC] & 4u) != 0) {
+                const std::int32_t remainder = platform::NextRandom_53B4C9() % 3;
+                if (remainder == 0) {
+                    PlayShortcutEmote(14, 7);
+                } else if (remainder == 1) {
+                    PlayShortcutEmote(16, 8);
+                } else {
+                    PlayShortcutEmote(17, 17);
+                }
+            }
+        }
+        if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+            RestoreWindowPositions_475C10();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x7A] & 4u) != 0) {
+            world::detail::gActorBarsEnabled5AC490 =
+                world::detail::gActorBarsEnabled5AC490 != 1 ? 1u : 0u;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x24] & 4u) != 0) {
+            static_cast<void>(Sub_4A8330());
+        }
+        return;
+    }
+    if ((platform::gKeyStates[0x10] & 2u) != 0) {
+        if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+            CloseWindowsByCategory_472240(7);
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        if ((platform::gKeyStates[0x1B] & 4u) != 0) {
+            CloseWindowsByCategory_472240(7);
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+        if ((platform::gKeyStates[0x24] & 4u) != 0) {
+            if (input::gValueC9A96C == 1) {
+                input::gValueC9A96C = 0;
+                input::gValue626C14 = 1;
+            } else {
+                input::gValueC9A96C = 1;
+                input::gValue626C14 = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x27] & 4u) != 0) {
+            const std::int32_t range = platform::gValue554640 + 1;
+            platform::gValue554640 = range;
+            if (range > 5) {
+                platform::gValue554640 = 1;
+            }
+            world::detail::gValue626BFC = 180;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x25] & 4u) != 0) {
+            const std::int32_t range = platform::gValue554640 - 1;
+            platform::gValue554640 = range;
+            if (range < 1) {
+                platform::gValue554640 = 5;
+            }
+            world::detail::gValue626BFC = 180;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((platform::gKeyStates[0x26] & 0x10u) != 0) {
+            const std::int32_t previous = gChatScrollOffsetC9A940;
+            const std::int32_t count = world::detail::gCountC9A944;
+            const std::int32_t scroll = previous + 1;
+            gChatScrollOffsetC9A940 = scroll;
+            if (scroll > count) {
+                gChatScrollOffsetC9A940 = count;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+        if ((platform::gKeyStates[0x28] & 0x10u) != 0) {
+            const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
+            gChatScrollOffsetC9A940 = scroll;
+            if (scroll < 0) {
+                gChatScrollOffsetC9A940 = 0;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+        return;
+    }
+    if ((platform::gKeyStates[0x1B] & 4u) != 0) {
+        ToggleShortcutWindow(24);
+    }
+    if ((platform::gKeyStates[0x7A] & 4u) != 0) {
+        static_cast<void>(Sub_503CD0());
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if ((platform::gKeyStates[0x7B] & 4u) != 0) {
+        static_cast<void>(render::TakeScreenshotThrottled_503C80());
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if ((platform::gKeyStates[0x24] & 4u) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        static_cast<void>(Sub_44B170());
     }
 }
 
@@ -42641,6 +42942,71 @@ std::int32_t Sub_4A7B00()
 }
 
 } // namespace detail
+
+std::int32_t UpdateWindows_473F80()
+{
+    using namespace detail;
+    std::int32_t carried = 1;
+    world::detail::gValueC8A77C = 0;
+    world::detail::gValueC8A780 = 0;
+    gWindowHasFocusCA0AB4 = 0;
+    Sub_473E40();
+    const std::int32_t count = Sub_4730A0();
+    gWindowUpdateCountCC4844 = count;
+    if (count > 0) {
+        std::int32_t index = 0;
+        for (;;) {
+            WindowInstance* window = gWindows[index];
+            gCurrentWindow = window;
+            gCurrentWindowState = &gWindowStates[window->id];
+            gCurrentWindowIdD67A1C = window->id;
+            const std::int32_t focused = Sub_472D20();
+            std::int32_t updateResult = gCurrentWindow->update(carried);
+            window = gCurrentWindow;
+            std::int32_t elementIndex = 0;
+            gCurrentElementIndex57C12C = 0;
+            while (elementIndex < window->elementCount) {
+                if (window->elements[elementIndex].visible == 1) {
+                    Sub_473560(elementIndex);
+                    window = gCurrentWindow;
+                    elementIndex = gCurrentElementIndex57C12C;
+                }
+                ++elementIndex;
+                gCurrentElementIndex57C12C = elementIndex;
+            }
+            gCurrentElementIndex57C12C = -1;
+            if (focused != 0) {
+                const std::int32_t phase = gMousePhase57C128;
+                platform::gLegacyMouseState.valueD68DB4 = 212;
+                gWindowHasFocusCA0AB4 = 1;
+                if (phase == 4) {
+                    const WindowDragCallback callback = gDragCallback57C118;
+                    if (callback != nullptr) {
+                        callback(4, 0, gDragSourceIndex57C114);
+                    }
+                    static_cast<void>(Sub_4763E0());
+                    window = gCurrentWindow;
+                }
+                updateResult = 0;
+            }
+            carried = window->draw(updateResult);
+            const std::int32_t currentCount = gWindowUpdateCountCC4844;
+            ++index;
+            if (index >= currentCount) {
+                break;
+            }
+        }
+    }
+    ProcessWindowShortcuts_4C7AE0();
+    static_cast<void>(input::ProcessPresetHotkeys_44B340());
+    const std::int32_t phase = gMousePhase57C128;
+    gCurrentWindowIdD67A1C = 0;
+    if (phase == 1 && platform::gLegacyMouseState.valueD68DB4 < 212u) {
+        world::detail::gValueC8A780 = 1;
+        platform::gLegacyMouseState.valueD68DB4 = 212;
+    }
+    return 1;
+}
 
 std::int32_t ReadChatInputByteWidth_4A80E0()
 {

@@ -803,6 +803,9 @@ void SetYobiActionField30C(YobiAction* action, std::int32_t value);
 std::uint8_t GetYobiActionField30F(YobiAction* action);
 void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 
+// 原45E6E0：创建预览16阶段推进，仅阶段转换时读取一次+170，尾部置上次动作为-1。
+std::int32_t Sub_45E6E0(YobiAction* action);
+
 // 原 Yobi::FrameMove@[0x517880,0x517D9D)：参数速率、严格 ==1 停播及低 W8 静图翻转开关。
 std::int32_t Sub_517880(
     YobiAction* action,

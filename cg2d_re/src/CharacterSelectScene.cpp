@@ -14,6 +14,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <array>
@@ -65,6 +66,51 @@ constexpr std::array<std::int32_t, 42> kCreationGraphic55C354 {{
     242100, 242200, 242300, 242400, 242500, 242600, 242700,
     205000, 205100, 205200, 205300, 205400, 205500, 270000,
     205700, 205800, 205900, 270100, 206100, 206200, 206300,
+}};
+
+constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectDraw54DF00 {{
+    {{111, 169}}, {{111, 243}}, {{111, 317}}, {{179, 133}}, {{179, 207}},
+    {{179, 281}}, {{179, 355}}, {{315, 169}}, {{315, 243}}, {{315, 317}},
+    {{247, 133}}, {{247, 207}}, {{247, 281}}, {{247, 355}},
+}};
+constexpr std::array<std::array<std::int32_t, 2>, 14> kCreationSelectHit54DF70 {{
+    {{79, 133}}, {{79, 207}}, {{79, 281}}, {{147, 97}}, {{147, 171}},
+    {{147, 245}}, {{147, 319}}, {{283, 133}}, {{283, 207}}, {{283, 281}},
+    {{215, 97}}, {{215, 171}}, {{215, 245}}, {{215, 319}},
+}};
+constexpr std::array<std::int32_t, 2> kCreationSelectSize54DFE0 {{64, 72}};
+constexpr std::array<CharacterSelectUiRecord, 2> kCreationSelectButtons54DFE8 {{
+    {{256, 400, 65, 17, 243048, 243049, 243050}},
+    {{105, 400, 66, 17, 245045, 245046, 245047}},
+}};
+// 原54E020起是两个矩形、两组三图号及三版本标签，不是七元UI记录。
+constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationVersionHit54E020 {{
+    {{222, 420, 18, 18}}, {{186, 420, 18, 18}},
+}};
+constexpr std::array<std::array<std::int32_t, 3>, 2> kCreationVersionImages54E040 {{
+    {{243033, 243034, 243035}}, {{243030, 243031, 243032}},
+}};
+constexpr std::array<std::int32_t, 3> kCreationVersionLabels54E058 {{
+    245481, 245482, 245483,
+}};
+constexpr std::array<std::array<std::int32_t, 4>, 2> kCreationPreviewHit54E064 {{
+    {{455, 138, 125, 125}}, {{455, 291, 125, 125}},
+}};
+constexpr std::array<CharacterSelectUiRecord, 2> kCreationVariantButtons54E084 {{
+    {{458, 268, 18, 18, 243030, 243031, 243032}},
+    {{559, 268, 18, 18, 243033, 243034, 243035}},
+}};
+constexpr std::array<std::int32_t, 28> kCreationGraphic55C3FC {{
+    202800, 202900, 203000, 203100, 203200, 203300, 203400,
+    203500, 203600, 203700, 203800, 203900, 204000, 204100,
+    200000, 200200, 200800, 201000, 201200, 201400, 201600,
+    200400, 200600, 201800, 202000, 202200, 202400, 202600,
+}};
+constexpr std::array<std::int32_t, 28> kCreationGraphic55C46C {{
+    30000, 34000, 38000, 46000, 42000, 50000, 54000,
+    70000, 74000, 78000, 82000, 86000, 90000, 94000,
+    33100, 33100, 33100, 33100, 33100, 33100, 33100,
+    33101, 33101, 33101, 33101, 33101, 33101, 33101,
 }};
 
 constexpr char kCreationConfirm55C9B0[] = "\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
@@ -164,6 +210,240 @@ void Sub_462880(const std::uint8_t resetSelection)
         login::detail::SetYobiActionField2B8(state::gCreateActions[1], 5);
     }
     input::SetContext_44B330(nullptr);
+}
+
+std::int32_t Sub_462930()
+{
+    std::uint8_t selected = state::gValue9A4CFC;
+    render::GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0x3FFFFFFF;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    std::int32_t result = 0;
+    std::int8_t confirmState = 0;
+    std::int8_t cancelState = 0;
+    std::int8_t versionPlus = 0;
+    std::int8_t versionMinus = 0;
+    std::int8_t variantMinus = 0;
+    std::int8_t variantPlus = 0;
+    const auto hover = []() -> std::int8_t {
+        return (CreationMouseByte(platform::gLegacyMouseState.heldButtons) & 1) != 0 ? 1 : 2;
+    };
+
+    for (std::int32_t index = 0; index < 14; ++index) {
+        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const std::int32_t image = kCreationGraphic55C354[14 * version + index];
+        if (image >= 206000 && image <= 206300) {
+            if (CreationSignedByte(selected) >= 7 && selected != 10) {
+                selected = 0;
+                state::gValue9A4CFC = 0;
+            }
+            continue;
+        }
+        const auto& position = kCreationSelectHit54DF70[index];
+        const std::int32_t top = position[1];
+        const std::int32_t height = kCreationSelectSize54DFE0[1];
+        const std::int32_t left = position[0];
+        const std::int32_t width = kCreationSelectSize54DFE0[0];
+        if (login::detail::Sub_5049A0(left, top, left + width, top + height, -1) != 0
+            && (CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            state::gValue9A4CFC = static_cast<std::uint8_t>(index);
+            state::gValue9A5B00 = 0;
+            break;
+        }
+        selected = state::gValue9A4CFC;
+    }
+    if (Sub_464290(kCreationSelectButtons54DFE8[0].values.data()) != 0) {
+        confirmState = hover();
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            audio::PlaySe_52C450(53, 320);
+            result = 1;
+        }
+    }
+    if (Sub_464290(kCreationSelectButtons54DFE8[1].values.data()) != 0) {
+        cancelState = hover();
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            audio::PlaySe_52C450(54, 320);
+            result = 2;
+        }
+    }
+    if (state::gPukVersion >= 5) {
+        if (Sub_464290(kCreationVersionHit54E020[0].data()) != 0) {
+            versionPlus = hover();
+            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+                const std::uint8_t puk = state::gPukVersion;
+                const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+                const std::int32_t limit = puk >= 8 ? 2 : 1;
+                if (version < limit) {
+                    ++state::gValue9A57E0;
+                } else {
+                    state::gValue9A57E0 = static_cast<std::uint8_t>(limit);
+                }
+            }
+        }
+        if (Sub_464290(kCreationVersionHit54E020[1].data()) != 0) {
+            versionMinus = hover();
+            if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+                if (CreationSignedByte(state::gValue9A57E0) > 0) {
+                    --state::gValue9A57E0;
+                } else {
+                    state::gValue9A57E0 = 0;
+                }
+            }
+        }
+    }
+    if (Sub_464290(kCreationVariantButtons54E084[0].values.data()) != 0) {
+        variantMinus = hover();
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 - 1);
+            state::gValue9A5B00 = next;
+            if (CreationSignedByte(next) < 0) {
+                state::gValue9A5B00 = 3;
+            }
+        }
+    }
+    if (Sub_464290(kCreationVariantButtons54E084[1].values.data()) != 0) {
+        variantPlus = hover();
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            const auto next = static_cast<std::uint8_t>(state::gValue9A5B00 + 1);
+            state::gValue9A5B00 = next;
+            if (CreationSignedByte(next) > 3) {
+                state::gValue9A5B00 = 0;
+            }
+        }
+    }
+
+    if (Sub_464290(kCreationPreviewHit54E064[0].data()) != 0
+        || Sub_464290(kCreationPreviewHit54E064[1].data()) != 0) {
+        login::YobiAction* first;
+        login::YobiAction* second;
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 1) != 0) {
+            first = state::gCreateActions[0];
+            if (first != nullptr) {
+                login::detail::SetYobiActionField2B8(
+                    first, login::detail::GetYobiActionField2B8(first) - 1);
+                first = state::gCreateActions[0];
+                if (login::detail::GetYobiActionField2B8(first) < 0) {
+                    login::detail::SetYobiActionField2B8(first, 7);
+                    first = state::gCreateActions[0];
+                }
+            }
+            second = state::gCreateActions[1];
+            if (second != nullptr) {
+                login::detail::SetYobiActionField2B8(
+                    second, login::detail::GetYobiActionField2B8(second) - 1);
+                second = state::gCreateActions[1];
+                if (login::detail::GetYobiActionField2B8(second) < 0) {
+                    login::detail::SetYobiActionField2B8(second, 7);
+                    second = state::gCreateActions[1];
+                }
+                first = state::gCreateActions[0];
+            }
+        } else {
+            second = state::gCreateActions[1];
+            first = state::gCreateActions[0];
+        }
+        if ((CreationMouseByte(platform::gLegacyMouseState.edgeButtons) & 2) != 0) {
+            if (first != nullptr) {
+                login::detail::SetYobiActionField2B8(
+                    first, login::detail::GetYobiActionField2B8(first) + 1);
+                login::YobiAction* const current = state::gCreateActions[0];
+                if (login::detail::GetYobiActionField2B8(current) > 7) {
+                    login::detail::SetYobiActionField2B8(current, 0);
+                }
+                second = state::gCreateActions[1];
+            }
+            if (second != nullptr) {
+                login::detail::SetYobiActionField2B8(
+                    second, login::detail::GetYobiActionField2B8(second) + 1);
+                second = state::gCreateActions[1];
+                if (login::detail::GetYobiActionField2B8(second) > 7) {
+                    login::detail::SetYobiActionField2B8(second, 0);
+                }
+            }
+        }
+    }
+
+    const auto& selectedPosition = kCreationSelectDraw54DF00[CreationSignedByte(state::gValue9A4CFC)];
+    login::detail::DrawGraphic(selectedPosition[0], selectedPosition[1], 10, 245042, 0, nullptr);
+    if (render::HasLegacy3DDevice_44B610() != 0) {
+        const auto& position = kCreationSelectDraw54DF00[CreationSignedByte(state::gValue9A4CFC)];
+        login::detail::DrawGraphic(position[0], position[1], 10, 245043, 0, &descriptor);
+    }
+    login::detail::DrawGraphic(
+        138, 409, 10, kCreationSelectButtons54DFE8[1].values[4 + cancelState], 0, nullptr);
+    login::detail::DrawGraphic(
+        289, 409, 10, kCreationSelectButtons54DFE8[0].values[4 + confirmState], 0, nullptr);
+    if (state::gPukVersion >= 5) {
+        login::detail::DrawGraphic(230, 429, 10, kCreationVersionImages54E040[0][versionPlus], 0, nullptr);
+        login::detail::DrawGraphic(194, 429, 10, kCreationVersionImages54E040[1][versionMinus], 0, nullptr);
+    }
+    login::detail::DrawGraphic(
+        203, 412, 10, kCreationVersionLabels54E058[CreationSignedByte(state::gValue9A57E0)], 0, nullptr);
+    const std::uint8_t labelPuk = state::gPukVersion;
+    login::detail::DrawGraphic(
+        221, 412, 10, labelPuk < 5 ? 245481 : (labelPuk < 8 ? 245482 : 245483), 0, nullptr);
+
+    const std::uint8_t listPuk = state::gPukVersion;
+    const std::int32_t* const graphicTable = listPuk >= 7 ? kCreationGraphic55C354.data()
+        : (listPuk >= 5 ? kCreationGraphic55C3FC.data() : kCreationGraphic55C46C.data());
+    for (std::int32_t index = 0; index < 14; ++index) {
+        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const auto& position = kCreationSelectDraw54DF00[index];
+        login::detail::DrawGraphic(
+            position[0], position[1], 10, graphicTable[14 * version + index], 0, nullptr);
+    }
+    login::detail::DrawGraphic(214, 254, 10, 245041, 0, nullptr);
+    login::detail::DrawGraphic(
+        467, 277, 10, kCreationVariantButtons54E084[0].values[4 + variantMinus], 0, nullptr);
+    login::detail::DrawGraphic(
+        568, 277, 10, kCreationVariantButtons54E084[1].values[4 + variantPlus], 0, nullptr);
+
+    login::YobiAction* const second = state::gCreateActions[1];
+    if (second != nullptr) {
+        login::detail::SetYobiActionField15(second, 2);
+        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
+        const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+        const std::int32_t motion = kCreationMotion54DDB0[28 * version + character + 14] + 6 * variant;
+        login::detail::SetYobiActionField2A8(state::gCreateActions[1], motion);
+        login::detail::Sub_517880(state::gCreateActions[1], 100, 1, 0);
+        if (state::gPukVersion >= 5 && state::gValue9A57E0 == 0) {
+            const std::int32_t graphic = login::detail::GetYobiActionField20(state::gCreateActions[1]);
+            render::DrawGraphic2_521DD0(517, 396, 10, graphic, 0, 0, nullptr);
+        }
+    }
+    login::YobiAction* const first = state::gCreateActions[0];
+    if (first != nullptr) {
+        login::detail::SetYobiActionField15(first, 2);
+        const std::uint8_t puk = state::gPukVersion;
+        const std::int32_t version = CreationSignedByte(state::gValue9A57E0);
+        const std::int32_t character = CreationSignedByte(state::gValue9A4CFC);
+        std::int32_t motion;
+        if (puk < 5) {
+            const std::int32_t graphic = kCreationGraphic55C46C[14 * version + character];
+            if (graphic == 33100 || graphic == 33101) {
+                const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+                motion = (graphic == 33100 ? 100900 : 100901) + 6 * variant;
+            } else {
+                const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+                motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
+            }
+        } else {
+            const std::int32_t variant = CreationSignedByte(state::gValue9A5B00);
+            motion = kCreationMotion54DDB0[28 * version + character] + 6 * variant;
+        }
+        login::detail::SetYobiActionField2A8(state::gCreateActions[0], motion);
+        if (login::detail::Sub_517880(state::gCreateActions[0], 100, 1, 0) != 0) {
+            login::detail::Sub_45E6E0(state::gCreateActions[0]);
+            login::YobiAction* const currentSecond = state::gCreateActions[1];
+            if (currentSecond != nullptr) {
+                login::detail::Sub_45E6E0(currentSecond);
+            }
+        }
+    }
+    login::detail::DrawGraphic(518, 275, 1, 245044, 0, nullptr);
+    login::detail::DrawGraphic(320, 240, 1, 245040, 0, nullptr);
+    return result;
 }
 
 std::uint32_t Sub_463100()

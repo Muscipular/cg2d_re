@@ -31319,6 +31319,43 @@ const render::GraphicDescriptor16* BorrowYobiActionDrawMode(
     return &action->drawMode;
 }
 
+std::int32_t Sub_45E6E0(YobiAction* const action)
+{
+    // 原55B2C0，每项依次为动作、持续次数、基图号偏移。
+    static constexpr std::array<std::array<std::int32_t, 3>, 16> sequence {{
+        {{1, 2, 0}}, {{3, 2, 0}}, {{5, 1, -2}}, {{5, 1, -1}},
+        {{5, 1, 0}}, {{5, 1, 1}}, {{5, 1, 2}}, {{5, 1, 3}},
+        {{6, 1, 0}}, {{7, 1, 0}}, {{8, 1, 0}}, {{9, 1, 0}},
+        {{10, 1, 0}}, {{11, 1, 0}}, {{12, 1, 0}}, {{13, 1, 0}},
+    }};
+    const std::int32_t phase = action->phase;
+    if (phase < 0 || static_cast<std::uint32_t>(phase) >= 16) {
+        action->phase = 0;
+    }
+    const std::int32_t counter = action->field1D0 + 1;
+    action->field1D0 = counter;
+    std::int32_t result = action->phase;
+    if (counter >= sequence[result][1]) {
+        const std::int32_t next = result + 1;
+        action->field1D0 = 0;
+        action->phase = next;
+        if (static_cast<std::uint32_t>(next) >= 16) {
+            action->phase = 0;
+        }
+        const std::int32_t base = platform::legacy_crypt_int::Read_401EC0(&action->readiness);
+        const std::int32_t current = action->phase;
+        action->imageNo = base;
+        const std::int32_t offset = sequence[current][2];
+        if (offset != 0) {
+            action->imageNo = base + offset;
+        }
+        result = sequence[current][0];
+        action->characterAction = result;
+    }
+    action->lastCharacterAction = -1;
+    return result;
+}
+
 std::int32_t GetYobiActionField20(YobiAction* const action)
 {
     return action->graphicIndex;

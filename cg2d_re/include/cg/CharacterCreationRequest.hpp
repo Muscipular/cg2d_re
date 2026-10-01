@@ -7,6 +7,9 @@ namespace cg::login {
 // 原 0xDA3B2A 的 W16 创建回复码，独立于相邻的删除和登录回复码。
 extern std::uint16_t gCharacterCreationReplyCode;
 
+// 原508E00：按原序取创建字段、发送aSEl，再发布请求状态和起始tick。
+std::uint32_t StartCharacterCreationRequest();
+
 // 原 sub_508E90@[0x508E90,0x508EE0)：完成回复或 600000 ms 超时。
 std::int32_t PollCharacterCreationRequest();
 

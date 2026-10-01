@@ -3,6 +3,7 @@
 #include "CharacterSelectState.hpp"
 
 #include "cg/LoginRequest.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 
 #include <cstddef>
@@ -29,6 +30,32 @@ static_assert(sizeof(kSuccessfulResult) == 11);
 namespace cg::login {
 
 std::uint16_t gCharacterCreationReplyCode = 0;
+
+std::uint32_t StartCharacterCreationRequest()
+{
+    const std::int32_t element3 = character_select::state::gValueDE0B04;
+    const std::int32_t element2 = character_select::state::gValueF633F4;
+    const std::int32_t element1 = character_select::state::gValueFF03D0;
+    const std::int32_t element0 = character_select::state::gValueF7C948;
+    const std::int32_t attribute4 = character_select::state::gValueF7CA00;
+    const std::int32_t attribute3 = character_select::state::gValueDE0AF8;
+    const std::int32_t attribute2 = character_select::state::gValueDE03F4;
+    const std::int32_t attribute1 = character_select::state::gValueF633F0;
+    const std::int32_t attribute0 = character_select::state::gValueF633EC;
+    const std::int32_t graphic = character_select::state::gSelectedGraphicNo;
+    const std::int32_t motion = character_select::state::gValueDE0AFC;
+    const std::int32_t selected = gSelectedCharacterIndex;
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    gCharacterCreationReplyCode = 0;
+    network::Sub_5128C0(
+        socket, selected, character_select::state::gCreationNameFF0D18.data(),
+        motion, graphic, attribute0, attribute1, attribute2, attribute3, attribute4,
+        element0, element1, element2, element3);
+    gRequestStatus = 1;
+    const std::uint32_t tick = platform::ReadTickCount32();
+    gRequestStartTick = tick;
+    return tick;
+}
 
 std::int32_t PollCharacterCreationRequest()
 {

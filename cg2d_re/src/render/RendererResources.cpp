@@ -40,6 +40,8 @@ struct LegacyTextureInterface {
 
 struct RendererResources {
     std::unique_ptr<PaletteBinding> palette;
+    std::int32_t logicalWidth = 0; // 原 +94，44B75A 发布。
+    std::int32_t logicalHeight = 0; // 原 +98，44B76A 发布。
     // 原纹理/像素格式字段；GPTR 零初值，由 RendererInit 在原时点发布。
     LegacyTextureState textureState {};
     std::unique_ptr<LegacyTextureInterface> textureInterface;
@@ -152,6 +154,16 @@ std::int32_t HasLegacy3DDevice_44B610()
     return gRenderer->textureInterface != nullptr ? 1 : 0;
 }
 
+std::int32_t GetRendererLogicalWidth() noexcept
+{
+    return gRenderer->logicalWidth;
+}
+
+std::int32_t GetRendererLogicalHeight() noexcept
+{
+    return gRenderer->logicalHeight;
+}
+
 bool CreateRendererTextureDevice() noexcept
 {
     if (gRenderer == nullptr || gRenderer->textureInterface == nullptr) {
@@ -215,6 +227,8 @@ std::int8_t RendererInit_44B630()
             "GlobalAllocPtr Error ( DIRECT_DRAW )", kConfirmCaption, 0x10);
         return 1;
     }
+    gRenderer->logicalWidth = kCpuSurfaceWidth;
+    gRenderer->logicalHeight = kCpuSurfaceHeight;
     gTextureSizeW = 64;
     gTextureSizeH = 48;
     if (!CreateRendererPresenter()) {

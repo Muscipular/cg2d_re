@@ -20,6 +20,10 @@ std::int8_t RendererInit_44B630();
 // 查询同一 renderer owner 的独立格式接口槽，不以设备或请求模式代替。
 std::int32_t HasLegacy3DDevice_44B610();
 
+// 原 renderer +94/+98 的同源 S32 逻辑尺寸，不是纹理采样尺寸。
+std::int32_t GetRendererLogicalWidth() noexcept;
+std::int32_t GetRendererLogicalHeight() noexcept;
+
 // 原 44BB1E–44BBB7：Back 像素格式发布的共享 W32 槽。
 extern std::uint32_t gRendererRedMask;   // 0x628FE4。
 extern std::uint32_t gRendererGreenMask; // 0x62A660。

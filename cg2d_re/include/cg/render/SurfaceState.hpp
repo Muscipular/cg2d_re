@@ -7,6 +7,8 @@
 
 namespace cg::render {
 
+struct TextureSurface;
+
 // 原 gBackgroundColor@0x62B0A8；固定 32bpp 路径使用 0x00RRGGBB 位模式。
 extern std::uint32_t gBackgroundColor;
 extern std::uint32_t gValueFF48E4; // 原 0xFF48E4；51D750 写入的完整 W32 随机状态。
@@ -69,6 +71,15 @@ std::int32_t DrawColorAutoMap_44FEB0(
 // 原 Back→Temp 的 BltFast：只复制左上 640x480，不拉伸或使用色键。
 // 源或目标尚未创建时不复制。
 bool CopyBackToTemp() noexcept;
+
+// 非拥有原生 T*；仅同步借用同一 Temp，不延长其生命周期。
+TextureSurface* BorrowCpuTempSurface() noexcept;
+
+// 原4535B0：按renderer逻辑尺寸原位裁剪源RECT，然后无色键复制至Back。
+// 完全离屏返回0且不改RECT；native复制成功/失败返回0/-1。
+std::int32_t BlitSurfaceToBack_4535B0(
+    std::int16_t x, std::int16_t y,
+    std::array<std::int32_t, 4>& rectangle, TextureSurface* source) noexcept;
 
 // 将 Temp 的半开源矩形同步复制到 Back，不混合、不缩放、不使用色键。
 // 调用方必须先裁剪到逻辑 640x480 边界；内部采用 Temp 的实际行距。

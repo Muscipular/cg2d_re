@@ -58,6 +58,30 @@ std::int32_t gValueFF0D54 = 0; // 原普通场景等待帧数，门槛按S32比�
 std::int32_t gValueFF0D68 = 0; // 原普通场景BGM恢复号，不是当前播放号owner。
 std::uint32_t gLogoutTransition9A6E94 = 0; // 原45EBB0/45EEE0共享过渡阶段。
 std::array<char, 0x108> gLogoutText9A5B08 {}; // 原264B消息区，排他尾9A5C10独立。
+
+// 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
+struct TransitionLines {
+    std::array<float, 481> speedFF0FA8 {};
+    std::array<float, 481> xFF172C {};
+    std::array<float, 481> yFF1EB0 {};
+};
+static_assert(offsetof(TransitionLines, xFF172C) == 0xFF172C - 0xFF0FA8);
+static_assert(offsetof(TransitionLines, yFF1EB0) == 0xFF1EB0 - 0xFF0FA8);
+static_assert(sizeof(TransitionLines) == 0xFF2634 - 0xFF0FA8);
+TransitionLines gTransitionLines {};
+float gTransitionXFF48E8 = 0.0f;
+float gTransitionAlternateXFF48EC = 0.0f;
+float gTransitionYFF48F0 = 0.0f;
+float gTransitionAlternateYFF48F4 = 0.0f;
+float gTransitionVelocityFF48F8 = 0.0f;
+float gTransitionActiveLinesFF48FC = 0.0f;
+
+// 原__ftol先截断为S64，再消费低S32；4535B0另取低S16坐标。
+std::int32_t TruncateTransitionCoordinate(const double value)
+{
+    return static_cast<std::int32_t>(static_cast<std::int64_t>(value));
+}
+
 constexpr char kLogoutTimeout55CA18[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA5\x58\xB9\x4F\xAE\xC9\xA1\x43";
 constexpr char kLogoutFailure55CA08[] = "\xB5\x6E\xA5\x58\xB3\x42\xB2\x7A\xA5\xA2\xB1\xD1\xA1\x43";
 constexpr char kLogoutMaintenance55CA28[] =
@@ -9383,6 +9407,293 @@ std::int32_t Sub_45EEE0()
         login::detail::Sub_43F230();
     }
     return 0;
+}
+
+// 原[51D790,51E0A0)：完整九模式；FST后仍参与计算的值保留PC53中间精度。
+std::int32_t Sub_51D790(
+    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
+{
+    std::int32_t completed = 0;
+    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
+    if (gValue58B6D0 == 1) {
+        completed = -1;
+        gValue58B6D0 = 0;
+        gTransitionXFF48E8 = 0.0f;
+        gTransitionAlternateXFF48EC = 0.0f;
+        gTransitionYFF48F0 = 0.0f;
+        gTransitionVelocityFF48F8 = 0.0f;
+    }
+    const float acceleration = std::bit_cast<float>(payloadBits);
+    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);
+    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);
+    // 原FCOMP的C3选择默认值；零及unordered均走默认。
+    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;
+    auto& speeds = gTransitionLines.speedFF0FA8;
+    auto& offsetsX = gTransitionLines.xFF172C;
+    auto& offsetsY = gTransitionLines.yFF1EB0;
+    switch (mode) {
+    case 0: {
+        const double position = static_cast<double>(gTransitionYFF48F0)
+            - static_cast<double>(gTransitionVelocityFF48F8);
+        gTransitionYFF48F0 = static_cast<float>(position);
+        gTransitionVelocityFF48F8 = static_cast<float>(
+            static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(customAcceleration ? acceleration : defaultY));
+        if (!(position > -480.0)) {
+            completed = 1;
+        }
+        break;
+    }
+    case 1:
+    case 5: {
+        const double position = static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(gTransitionYFF48F0);
+        gTransitionYFF48F0 = static_cast<float>(position);
+        if (mode == 5) {
+            gTransitionAlternateYFF48F4 = static_cast<float>(
+                static_cast<double>(gTransitionAlternateYFF48F4)
+                - static_cast<double>(gTransitionVelocityFF48F8));
+        }
+        gTransitionVelocityFF48F8 = static_cast<float>(
+            static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(customAcceleration ? acceleration : defaultY));
+        if (position >= 480.0) {
+            completed = 1;
+        }
+        break;
+    }
+    case 2: {
+        const double position = static_cast<double>(gTransitionXFF48E8)
+            - static_cast<double>(gTransitionVelocityFF48F8);
+        gTransitionXFF48E8 = static_cast<float>(position);
+        gTransitionVelocityFF48F8 = static_cast<float>(
+            static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(customAcceleration ? acceleration : defaultX));
+        if (!(position > -640.0)) {
+            completed = 1;
+        }
+        break;
+    }
+    case 3:
+    case 4: {
+        const double position = static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(gTransitionXFF48E8);
+        gTransitionXFF48E8 = static_cast<float>(position);
+        if (mode == 4) {
+            gTransitionAlternateXFF48EC = static_cast<float>(
+                static_cast<double>(gTransitionAlternateXFF48EC)
+                - static_cast<double>(gTransitionVelocityFF48F8));
+        }
+        gTransitionVelocityFF48F8 = static_cast<float>(
+            static_cast<double>(gTransitionVelocityFF48F8)
+            + static_cast<double>(customAcceleration ? acceleration : defaultX));
+        if (position >= 640.0) {
+            completed = 1;
+        }
+        break;
+    }
+    case 6: {
+        double active;
+        if (completed == -1) {
+            std::fill_n(speeds.begin(), 480, 0.0f);
+            std::fill_n(offsetsX.begin(), 480, 0.0f);
+            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
+            completed = 0;
+            active = 0.0;
+        } else {
+            active = static_cast<double>(gTransitionActiveLinesFF48FC);
+        }
+        for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+            if ((index & 1) != 0) {
+                const double speed = static_cast<double>(gTransitionVelocityFF48F8)
+                    + static_cast<double>(speeds[index]);
+                speeds[index] = static_cast<float>(speed);
+                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));
+                const std::int32_t reverse = 480 - index;
+                const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
+                    + static_cast<double>(speeds[reverse]);
+                speeds[reverse] = static_cast<float>(reverseSpeed);
+                offsetsX[reverse] = static_cast<float>(
+                    reverseSpeed + static_cast<double>(offsetsX[reverse]));
+            } else {
+                const double speed = static_cast<double>(speeds[index])
+                    - static_cast<double>(gTransitionVelocityFF48F8);
+                speeds[index] = static_cast<float>(speed);
+                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));
+                const std::int32_t reverse = 478 - index;
+                const double reverseSpeed = static_cast<double>(speeds[reverse])
+                    - static_cast<double>(gTransitionVelocityFF48F8);
+                speeds[reverse] = static_cast<float>(reverseSpeed);
+                offsetsX[reverse] = static_cast<float>(
+                    reverseSpeed + static_cast<double>(offsetsX[reverse]));
+            }
+        }
+        gTransitionActiveLinesFF48FC = static_cast<float>(
+            active + (step != 0 ? static_cast<double>(step) : 4.0));
+        if (gTransitionActiveLinesFF48FC > 241.0f) {
+            gTransitionActiveLinesFF48FC = 241.0f;
+        }
+        if (!(offsetsX[241] >= -640.0f)) {
+            completed = 1;
+        }
+        if (offsetsX[241] > 640.0f) {
+            completed = 1;
+        }
+        break;
+    }
+    case 7:
+    case 8: {
+        double active;
+        if (completed == -1) {
+            std::fill_n(speeds.begin(), 480, 0.0f);
+            for (std::int32_t index = 0; index < 480; ++index) {
+                offsetsY[index] = static_cast<float>(index);
+            }
+            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;
+            completed = 0;
+            active = 0.0;
+        } else {
+            active = static_cast<double>(gTransitionActiveLinesFF48FC);
+        }
+        if (mode == 7) {
+            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+                const std::int32_t reverse = 480 - index;
+                if (reverse >= 240) {
+                    const double speed = static_cast<double>(speeds[index])
+                        - static_cast<double>(gTransitionVelocityFF48F8);
+                    speeds[index] = static_cast<float>(speed);
+                    offsetsY[index] = static_cast<float>(
+                        speed + static_cast<double>(offsetsY[index]));
+                    if (reverse > 240) {
+                        const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)
+                            + static_cast<double>(speeds[reverse]);
+                        speeds[reverse] = static_cast<float>(reverseSpeed);
+                        offsetsY[reverse] = static_cast<float>(
+                            reverseSpeed + static_cast<double>(offsetsY[reverse]));
+                    }
+                }
+            }
+            gTransitionActiveLinesFF48FC = static_cast<float>(
+                active + (step != 0 ? static_cast<double>(step) : 4.0));
+            if (gTransitionActiveLinesFF48FC > 241.0f) {
+                gTransitionActiveLinesFF48FC = 241.0f;
+            }
+            if (!(offsetsY[241] >= -640.0f)) {
+                completed = 1;
+            }
+            if (offsetsY[241] > 640.0f) {
+                completed = 1;
+            }
+        } else {
+            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {
+                const float speed = static_cast<float>(
+                    static_cast<double>(gTransitionVelocityFF48F8)
+                    + static_cast<double>(speeds[index]));
+                speeds[index] = speed;
+                // 原局部F32重读，不复用上方未舍入的和。
+                if (!(speed >= 100.0f)) {
+                    offsetsY[index] = static_cast<float>(
+                        static_cast<double>(speed) + static_cast<double>(offsetsY[index]));
+                } else {
+                    offsetsY[index] = static_cast<float>(
+                        static_cast<double>(offsetsY[index]) + 100.0);
+                }
+            }
+            gTransitionActiveLinesFF48FC = static_cast<float>(
+                active + (step != 0 ? static_cast<double>(step) : 16.0));
+            if (gTransitionActiveLinesFF48FC > 480.0f) {
+                gTransitionActiveLinesFF48FC = 480.0f;
+            }
+            if (offsetsY[479] > 600.0f) {
+                completed = 1;
+            }
+        }
+        break;
+    }
+    default:
+        break;
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    switch (mode) {
+    case 4:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            rectangle = {0, row, 640, row + 1};
+            const std::int32_t x = TruncateTransitionCoordinate(
+                (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        }
+        break;
+    case 5:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            rectangle = {0, row, 640, row + 1};
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const std::int32_t y = TruncateTransitionCoordinate(
+                (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                0, static_cast<std::int16_t>(row + y), rectangle, source));
+        }
+        break;
+    case 6:
+        for (std::int32_t row = 0; row < 480; ++row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const double position = static_cast<double>(offsetsX[row]);
+            rectangle = {0, row, 640, row + 1};
+            const std::int32_t x = TruncateTransitionCoordinate(position);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
+        }
+        break;
+    case 7:
+    case 8:
+        for (std::int32_t row = 479; row > 0; --row) {
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const double position = static_cast<double>(offsetsY[row]);
+            rectangle = {0, row, 640, row + 1};
+            const std::int32_t y = TruncateTransitionCoordinate(position);
+            static_cast<void>(render::BlitSurfaceToBack_4535B0(
+                0, static_cast<std::int16_t>(y), rectangle, source));
+        }
+        break;
+    default: {
+        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);
+        const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);
+        static_cast<void>(render::BlitSurfaceToBack_4535B0(
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));
+        break;
+    }
+    }
+    if (completed != 1) {
+        return 0;
+    }
+    gTransitionXFF48E8 = 0.0f;
+    gTransitionAlternateXFF48EC = 0.0f;
+    gTransitionYFF48F0 = 0.0f;
+    gTransitionAlternateYFF48F4 = 0.0f;
+    gTransitionVelocityFF48F8 = 0.0f;
+
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    const std::uint8_t readCount = temporary.readCount;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint32_t mask = temporary.mask;
+    gValue73ECD0.readCount = readCount;
+    gValue73ECD0.encoded = encoded;
+    gValue73ECD0.mask = mask;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    return 1;
 }
 
 std::int32_t Sub_45EBB0()

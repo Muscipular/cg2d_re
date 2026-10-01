@@ -1,6 +1,7 @@
 #include "cg/render/SurfaceState.hpp"
 
 #include "cg/Palette.hpp"
+#include "cg/render/RendererResources.hpp"
 
 #include "BackTextDrawing.hpp"
 #include "GraphicDxCacheState.hpp"
@@ -631,6 +632,61 @@ bool CopyBackToTemp() noexcept
     return BlitWithoutSourceColorKey(
         gCpuBackSurface->blitSurface.get(), rectangle,
         GetTextureSdlSurface(gCpuTempSurface), rectangle);
+}
+
+TextureSurface* BorrowCpuTempSurface() noexcept
+{
+    return gCpuTempSurface;
+}
+
+std::int32_t BlitSurfaceToBack_4535B0(
+    const std::int16_t x, const std::int16_t y,
+    std::array<std::int32_t, 4>& rectangle, TextureSurface* const source) noexcept
+{
+    const std::int32_t top = rectangle[1];
+    const std::int32_t right = rectangle[2];
+    const std::int32_t left = rectangle[0];
+    const std::int32_t bottom = rectangle[3];
+    const std::int32_t copyHeight = bottom - top;
+    const std::int32_t copyWidth = right - left;
+    if (x >= GetRendererLogicalWidth() || x + copyWidth <= 0
+        || y >= GetRendererLogicalHeight() || y + copyHeight <= 0) {
+        return 0;
+    }
+
+    std::int32_t destinationX = x;
+    if (x < 0) {
+        destinationX = 0;
+        rectangle[0] = left - x;
+    }
+    const std::int32_t width = GetRendererLogicalWidth();
+    if (x + copyWidth > width) {
+        rectangle[2] = width - x - copyWidth + right;
+    }
+    std::int32_t destinationY = y;
+    if (y < 0) {
+        destinationY = 0;
+        rectangle[1] = top - y;
+    }
+    const std::int32_t height = GetRendererLogicalHeight();
+    if (y + copyHeight > height) {
+        rectangle[3] = height - y - copyHeight + bottom;
+    }
+
+    SDL_Surface* const sourceSurface = GetTextureSdlSurface(source);
+    if (sourceSurface == nullptr || gCpuBackSurface == nullptr
+        || gCpuBackSurface->blitSurface == nullptr) {
+        return -1;
+    }
+    const SDL_Rect sourceRect {
+        rectangle[0], rectangle[1],
+        rectangle[2] - rectangle[0], rectangle[3] - rectangle[1]
+    };
+    const SDL_Rect destinationRect {
+        destinationX, destinationY, sourceRect.w, sourceRect.h
+    };
+    return BlitWithoutSourceColorKey(
+        sourceSurface, sourceRect, gCpuBackSurface->blitSurface.get(), destinationRect) ? 0 : -1;
 }
 
 bool BlitTempToBack(

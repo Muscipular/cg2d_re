@@ -3,6 +3,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
+#include "cg/AnimationRuntime.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -124,6 +125,16 @@ struct SceneTransitionValueStaticInitializer {
 };
 
 const SceneTransitionValueStaticInitializer gSceneTransitionValueStaticInitializer;
+
+// 原CRT 553060；中间Graphic容器由既有std容器承接，不重复构造。
+struct AnimationSharedValueStaticInitializer {
+    AnimationSharedValueStaticInitializer()
+    {
+        static_cast<void>(cg::resource::animation::Sub_45B370());
+    }
+};
+
+const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializer;
 
 struct PlayerCoordinatesStaticInitializer {
     PlayerCoordinatesStaticInitializer()

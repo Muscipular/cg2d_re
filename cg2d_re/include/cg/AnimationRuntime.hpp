@@ -53,6 +53,10 @@ extern AnimeCacheRecord* gAnimateCache9A4A5C;
 extern std::int32_t gAnimateCount9A4A60;
 extern std::int32_t gMaxAnimateCount9A4A4C;
 
+// 原CRT 553060及完整复制叶：9A4A50单次快照写入独立9A4A48，返回同一W32。
+std::uint32_t Sub_45B370();
+std::uint32_t Sub_45B380();
+
 // 原 45B420：qsort 的无符号首 W32 升序比较。
 std::int32_t __cdecl Compare_45B420(const void* left, const void* right);
 

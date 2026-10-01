@@ -2,6 +2,7 @@
 
 #include "AnimationRuntimeState.hpp"
 
+#include "cg/GraphicAlloc.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
@@ -34,6 +35,9 @@ std::int32_t gMaxAnimateCount9A4A4C = 0;
 
 namespace {
 
+// 原45B380独立W32复制目标，不是9A3A48缓存数组的一过尾记录。
+std::uint32_t gValue9A4A48 = 0;
+
 // 原 AnimeInit 的磁盘读取槽与 10000 项局部配对表；均无指针，不随 x64 扩宽。
 struct AnimeInfoDiskRecord {
     std::uint32_t animeNo;
@@ -63,6 +67,18 @@ constexpr char kAnimeSizeErrorCaption[] =
     "\x82\xAA\x94\x6A\x91\xB9\x82\xB5\x82\xC4\x82\xA2\x82\xDC\x82\xB7\x81\x42";
 
 } // namespace
+
+std::uint32_t Sub_45B370()
+{
+    return Sub_45B380();
+}
+
+std::uint32_t Sub_45B380()
+{
+    const std::uint32_t value = gValue9A4A50;
+    gValue9A4A48 = value;
+    return value;
+}
 
 std::int32_t AnimeInit_45BB20(
     char* const* const dataPaths, char* const* const infoPaths)

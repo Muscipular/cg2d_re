@@ -165,6 +165,16 @@ struct LegacyChatSettingsStaticInitializer {
 
 const LegacyChatSettingsStaticInitializer gLegacyChatSettingsStaticInitializer;
 
+// 原CRT 5530B8；中间音乐/音效页仍暂缓，不注册空构造。
+struct LegacyMouseSettingsStaticInitializer {
+    LegacyMouseSettingsStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FE490());
+    }
+};
+
+const LegacyMouseSettingsStaticInitializer gLegacyMouseSettingsStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

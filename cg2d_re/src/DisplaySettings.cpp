@@ -5,6 +5,7 @@
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 
 namespace cg::login::detail {
@@ -88,6 +89,46 @@ std::int32_t Sub_4FD640()
 std::int32_t Sub_4FE3E0()
 {
     static_cast<void>(audio::Sub_504180(3u));
+    return 0;
+}
+
+std::int32_t Sub_4FE3F0()
+{
+    const std::int32_t speed = platform::gValue553438;
+    if (speed < 100) {
+        platform::gValue553438 = speed + 1;
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+std::int32_t Sub_4FE440()
+{
+    const std::int32_t speed = platform::gValue553438;
+    if (speed > 1) {
+        platform::gValue553438 = speed - 1;
+        static_cast<void>(PlaySe(51, 320, 240));
+    } else {
+        static_cast<void>(PlaySe(55, 320, 240));
+    }
+    return 0;
+}
+
+std::int32_t Sub_4FEAC0()
+{
+    const std::int32_t show = platform::gValueD67AE4 == 0 ? 1 : 0;
+    platform::gValueD67AE4 = static_cast<std::uint32_t>(show);
+    static_cast<void>(platform::ShowLegacyCursor(show));
+    static_cast<void>(PlaySe(51, 320, 240));
+    return 0;
+}
+
+std::int32_t Sub_4FEFF0()
+{
+    platform::gValueD67AE8 = (platform::gValueD67AE8 - 1u) & 1u;
+    static_cast<void>(PlaySe(51, 320, 240));
     return 0;
 }
 

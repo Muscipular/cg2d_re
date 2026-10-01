@@ -128,6 +128,8 @@ D046C0的5033F2生产已补，4ECFD5/4ED645/502B55消费父函数仍待。
 见[旧设置主菜单](legacy_settings_menu.md)；不等同于主窗口表window id 3。
 旧选择编号5的18条记录构造及完整4FD1A0已补，CRT5530AC已接，
 见[旧聊天设置页](legacy_chat_settings.md)；八个回调复用既有显示设置实现。
+旧选择编号9的11条记录、四个新回调及完整4FE860已补，CRT5530B8已接，
+见[旧鼠标设置页](legacy_mouse_settings.md)；5530B0/B4音乐与音效仍暂缓。
 
 ## 旧表调用边界
 

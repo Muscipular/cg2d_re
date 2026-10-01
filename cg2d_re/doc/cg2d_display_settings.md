@@ -3,6 +3,8 @@
 > 后续增量：4FCB90/4FCBA0构造及完整4FD1A0已实现，CRT5530AC已接，
 > 见[旧聊天设置页](ui_windows/legacy_chat_settings.md)。下文“构造/消费仍待”保留为当时证据；
 > 公共消费者已有本体，旧选择表上层分派及完整运行验收仍未完成。
+> 旧鼠标页四个设置回调4FE3F0/4FE440/4FEAC0/4FEFF0也已补，
+> 原字段宽度及光标API次序见[旧鼠标设置页](ui_windows/legacy_mouse_settings.md)。
 
 当前已打开的 `ida-17524/cg2d.exe` 只读指令证据：
 

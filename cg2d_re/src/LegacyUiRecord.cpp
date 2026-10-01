@@ -319,6 +319,26 @@ constexpr char kLegacyChat58A594[] = "\xA4\xA3\xAF\xE0\xA6\x41\xB4\xEE\xA4\xD6\x
 constexpr char kLegacyChat553FB4[] = "\x25\x32\x64";
 constexpr char kLegacyChat5531A4[] = "\x25\x64";
 
+LegacyPanelRecord gLegacyMouseSettings585320 {
+    0, 0, 192, 304, 9, {22963, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 11> gLegacyMouseRecordsD68358 {};
+constexpr char kLegacyMouse58A7B0[] = "\xB7\xC6\xB9\xAB\xB4\xE5\xBC\xD0\xB3\x5D\xA9\x77";
+constexpr char kLegacyMouse58A7A0[] = "\xB3\x5D\xA9\x77\xAA\xAB\xAB\x7E\xAA\xBA\xB2\xBE\xB0\xCA";
+constexpr char kLegacyMouse58A790[] = "\xBD\xD5\xBE\xE3\xB7\xC6\xB9\xAB\xB3\x74\xAB\xD7";
+constexpr char kLegacyMouse58A784[] = "\xA5\xD8\xAB\x65\xB3\x74\xAB\xD7";
+constexpr char kLegacyMouse58A774[] = "\xA8\xEC\xA8\x74\xB2\xCE\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyMouse58A838[] = "\xA5\xBF\xB1\x60";
+constexpr char kLegacyMouse58A830[] = "\xA5\xAD\xB7\xC6";
+constexpr char kLegacyMouse58A820[] = "\x43\x74\x72\x6C\x2B\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4";
+constexpr char kLegacyMouse58A814[] = "\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4";
+constexpr char kLegacyMouse58A7FC[] = "\xC5\xDC\xA7\xF3\xAC\xB0\xA5\xBF\xB1\x60\xA1\x43";
+constexpr char kLegacyMouse58A7EC[] = "\xC5\xDC\xA7\xF3\xAC\xB0\xA5\xAD\xB7\xC6\xA1\x43";
+constexpr char kLegacyMouse58A7D4[] = "\xC5\xDC\xA7\xF3\xAC\xB0\x43\x74\x72\x6C\x2B\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xA1\x43";
+constexpr char kLegacyMouse58A7C0[] = "\xC5\xDC\xA7\xF3\xAC\xB0\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xA1\x43";
+constexpr char kLegacyMouse5535F8[] = "\x25\x73";
+constexpr char kLegacyMouse58A80C[] = "\x25\x32\x2E\x31\x66";
+
 std::int32_t Sub_4FC7F0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -1623,6 +1643,210 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyChatSettings585000, 1);
+}
+
+std::int32_t Sub_4FE490()
+{
+    return Sub_4FE4A0();
+}
+
+std::int32_t Sub_4FE4A0()
+{
+    const std::int32_t y = gLegacyMouseSettings585320.y;
+    const std::int32_t x = gLegacyMouseSettings585320.x;
+    auto& records = gLegacyMouseRecordsD68358;
+    // 原132条交错存储；不清空每条记录未写的+23H字节。
+    records[1].label.textY = y + 60;
+    records[2].label.textY = y + 80;
+    records[2].label.top = y + 80;
+    records[0].label.textY = y + 40;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[2].label.textX = x + 120;
+    records[3].label.textY = y + 100;
+    records[5].label.textX = x + 120;
+    records[0].label.textX = x + 20;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyMouse58A7B0;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[1] = std::byte {0};
+    records[0].hint = nullptr;
+    records[1].label.textX = x + 20;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A500;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[1] = std::byte {0};
+    records[1].hint = nullptr;
+    records[2].label.left = x + 119;
+    records[2].label.width = 54;
+    records[2].label.height = 18;
+    records[2].label.text = kLegacyChat58A54C;
+    records[2].callback = &Sub_4FEAC0;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {1};
+    records[2].reserved21[1] = std::byte {0xF9};
+    records[2].hint = nullptr;
+    records[3].label.textX = x + 20;
+    records[3].label.left = 0;
+    records[3].label.top = 0;
+    records[3].label.width = 0;
+    records[3].label.height = 0;
+    records[3].label.text = kLegacyMouse58A7A0;
+    records[3].callback = nullptr;
+    records[3].color = 4;
+    records[3].reserved21[0] = std::byte {0xFF};
+    records[3].reserved21[1] = std::byte {0};
+    records[3].hint = nullptr;
+    records[4].label.textX = x + 20;
+    records[4].label.textY = y + 120;
+    records[4].label.left = 0;
+    records[4].label.top = 0;
+    records[4].label.width = 0;
+    records[4].label.height = 0;
+    records[4].label.text = kLegacyChat58A500;
+    records[4].callback = nullptr;
+    records[4].color = 0;
+    records[4].reserved21[0] = std::byte {0xFF};
+    records[4].reserved21[1] = std::byte {0};
+    records[4].hint = nullptr;
+    records[5].label.textY = y + 160;
+    records[5].label.left = x + 119;
+    records[5].label.top = y + 160;
+    records[6].label.textX = x + 20;
+    records[7].label.textX = x + 20;
+    records[7].label.textY = y + 200;
+    records[8].label.textX = x + 124;
+    records[6].label.textY = y + 180;
+    records[8].label.textY = y + 220;
+    records[8].label.top = y + 220;
+    records[9].label.textX = x + 156;
+    records[9].label.textY = y + 220;
+    records[9].label.top = y + 220;
+    records[8].label.left = x + 123;
+    records[5].label.height = 18;
+    records[8].label.height = 18;
+    records[9].label.height = 18;
+    records[10].label.height = 18;
+    records[5].label.width = 54;
+    records[5].label.text = kLegacyChat58A54C;
+    records[5].callback = &Sub_4FEFF0;
+    records[5].color = 0;
+    records[5].reserved21[0] = std::byte {1};
+    records[5].reserved21[1] = std::byte {0xF9};
+    records[5].hint = nullptr;
+    records[6].label.left = 0;
+    records[6].label.top = 0;
+    records[6].label.width = 0;
+    records[6].label.height = 0;
+    records[6].label.text = kLegacyMouse58A790;
+    records[6].callback = nullptr;
+    records[6].color = 4;
+    records[6].reserved21[0] = std::byte {0xFF};
+    records[6].reserved21[1] = std::byte {0};
+    records[6].hint = nullptr;
+    records[7].label.left = 0;
+    records[7].label.top = 0;
+    records[7].label.width = 0;
+    records[7].label.height = 0;
+    records[7].label.text = kLegacyMouse58A784;
+    records[7].callback = nullptr;
+    records[7].color = 0;
+    records[7].reserved21[0] = std::byte {0xFF};
+    records[7].reserved21[1] = std::byte {0};
+    records[7].hint = nullptr;
+    records[8].label.width = 19;
+    records[8].label.text = kLegacyChat58A574;
+    records[8].callback = &Sub_4FE3F0;
+    records[8].color = 0;
+    records[8].reserved21[0] = std::byte {1};
+    records[8].reserved21[1] = std::byte {0xF9};
+    records[8].hint = nullptr;
+    records[9].label.left = x + 155;
+    records[9].label.width = 19;
+    records[9].label.text = kLegacyChat58A570;
+    records[9].callback = &Sub_4FE440;
+    records[9].color = 0;
+    records[9].reserved21[0] = std::byte {1};
+    records[9].reserved21[1] = std::byte {0xF9};
+    records[9].hint = nullptr;
+    records[10].label.textX = x + 62;
+    records[10].label.textY = y + 260;
+    records[10].label.left = x + 60;
+    records[10].label.top = y + 260;
+    records[10].label.width = 69;
+    records[10].label.text = kLegacyChat58A4F8;
+    records[10].callback = &Sub_4FE3E0;
+    records[10].color = 0;
+    records[10].reserved21[0] = std::byte {1};
+    records[10].reserved21[1] = std::byte {0xF9};
+    records[10].hint = kLegacyMouse58A774;
+    return 0;
+}
+
+std::uint32_t Sub_4FE860(const std::int32_t opened)
+{
+    const char* const cursorNames[2] {kLegacyMouse58A838, kLegacyMouse58A830};
+    const char* const moveNames[2] {kLegacyMouse58A820, kLegacyMouse58A814};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMouseSettings585320, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        static_cast<void>(Sub_520720());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyMouseRecordsD68358.data(), 11);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    char buffer[128];
+    const std::uint32_t cursorMode = platform::gValueD67AE4;
+    std::sprintf(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
+    const std::int32_t cursorY = gLegacyMouseSettings585320.y;
+    const std::int32_t cursorX = gLegacyMouseSettings585320.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(cursorX + 62),
+        static_cast<std::int16_t>(cursorY + 60), 2, 0, 0, buffer, 0, 0));
+    const std::uint32_t moveMode = platform::gValueD67AE8;
+    std::sprintf(buffer, kLegacyMouse5535F8, moveNames[moveMode]);
+    const std::int32_t moveY = gLegacyMouseSettings585320.y;
+    const std::int32_t moveX = gLegacyMouseSettings585320.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(moveX + 31),
+        static_cast<std::int16_t>(moveY + 140), 2, 0, 0, buffer, 0, 0));
+    // 原54D4BC为F32 0x3DCCCCCD，不能改成double字面量0.1。
+    const double speed = static_cast<double>(platform::gValue553438)
+        * static_cast<double>(std::bit_cast<float>(std::uint32_t {0x3DCCCCCD}));
+    std::sprintf(buffer, kLegacyMouse58A80C, speed);
+    const std::int32_t speedY = gLegacyMouseSettings585320.y;
+    const std::int32_t speedX = gLegacyMouseSettings585320.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(speedX + 100),
+        static_cast<std::int16_t>(speedY + 200), 2, 0, 0, buffer, 0, 0));
+    Sub_503120(gLegacyMouseRecordsD68358.data(), 11);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMouseSettings585320) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyMouseRecordsD68358[2].label) & 0x40) != 0) {
+        hint = platform::gValueD67AE4 != 0 ? kLegacyMouse58A7FC : kLegacyMouse58A7EC;
+    } else if ((character_select::detail::Sub_503990(&gLegacyMouseRecordsD68358[5].label) & 0x40) != 0) {
+        hint = platform::gValueD67AE8 != 0 ? kLegacyMouse58A7D4 : kLegacyMouse58A7C0;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMouseSettings585320, 1);
 }
 
 std::int32_t Sub_502930()

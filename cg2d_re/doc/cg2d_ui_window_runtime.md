@@ -63,7 +63,7 @@
 | 28 | [战斗宠物切换](ui_windows/window_28.md) | `54E810` | 8 |
 | 32 | [战斗入场提示](ui_windows/window_32.md) | `54E840` | 2 |
 | 33 | [小地图](ui_windows/window_33.md) | `54E6C0` | 7 |
-| 34 | [情绪动作（取证，待实现）](ui_windows/window_34.md) | `54E6F0` | 20 |
+| 34 | [情绪动作](ui_windows/window_34.md) | `54E6F0` | 20 |
 | 36 | [通用对话共享实例](ui_windows/window_36.md) | `54E870` | 19 |
 | 37 | [通用对话创建入口](ui_windows/window_37.md) | `54E870` | 19 |
 | 38 | [外部物品存放](ui_windows/window_38.md) | `54EB40` | 6 |

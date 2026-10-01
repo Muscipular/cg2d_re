@@ -182,6 +182,9 @@ login::YobiAction* Sub_495F00(
 std::int32_t Sub_495E10(std::int32_t index, std::int32_t unused); // 小地图按窗口/元素坐标入既有绘制队列。
 std::int32_t Sub_495E60(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家X。
 std::int32_t Sub_495EB0(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
+std::int32_t Sub_495F70(std::int32_t index); // 清18B后选中指定字节，Y/X快照交4D3020。
+std::int32_t Sub_495FC0(); // 按四W32/一W16清唯一18B选择区，返回0。
+std::int32_t Sub_495FE0(std::int32_t index, std::int32_t state); // 情绪窗18按钮，请求被拒仍更新选择并发声。
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
 void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
 void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。

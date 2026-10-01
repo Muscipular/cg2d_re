@@ -136,6 +136,14 @@ static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
 static_assert(sizeof(kTradeNoTarget556CC4) == 19);
 static_assert(sizeof(kGuildInviteDenied5862AC) == 39);
 
+constexpr std::array<std::int32_t, 18> kEmoteLocalActions584B6C {
+    11, 0, 12, 1, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
+};
+constexpr std::array<std::int32_t, 18> kEmoteProtocolActions584BB4 {
+    11, 31, 12, 30, 16, 10, 13, 5, 14, 9, 15, 8, 7, 6, 18, 3, 19, 17,
+};
+std::uint32_t gEmoteRequestTickD67D20 = 0;
+
 struct DirectionDelta {
     std::int16_t x;
     std::int16_t y;
@@ -7737,6 +7745,46 @@ void Sub_470670()
         ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
     }
     static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_4FA8E0(const std::int32_t index)
+{
+    if (gPlayerRuntime.action == nullptr || gCurrentSceneType == 10
+        || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)
+        || index < 0) {
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gEmoteRequestTickD67D20 + 500u >= now) {
+        return;
+    }
+    login::YobiAction* const action = gPlayerRuntime.action;
+    bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
+    if (!useLimitedActions) {
+        const std::int32_t image = action->imageNo;
+        useLimitedActions = !((image >= 0x186A0 && image <= 0x18A87)
+            || (image >= 0x19A28 && image <= 0x1A130)
+            || (image >= 0x1AF0E && image <= 0x1AF25)
+            || (image >= 0x197D0 && image <= 0x19848)
+            || (image >= 0x1D524 && image <= 0x1D553)
+            || (image >= 0x1D55C && image <= 0x1D563));
+    }
+    std::int32_t selected = index;
+    if (useLimitedActions
+        && (selected == 0 || selected == 2 || selected == 4 || selected == 6
+            || selected == 8 || selected == 10 || selected == 12 || selected == 14
+            || selected == 16 || selected == 17)) {
+        selected = 1;
+    }
+    const std::int32_t protocolAction = kEmoteProtocolActions584BB4[selected];
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+    static_cast<void>(network::Sub_511DD0(
+        platform::gConnectionSocket, x, y, protocolAction));
+    const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
+    Sub_51A060(localAction);
+    gEmoteRequestTickD67D20 = platform::ReadTickCount32();
 }
 
 std::uint32_t Sub_51B3E0()

@@ -37722,6 +37722,43 @@ constexpr char kQuickMap58625C[] = "\xA5\xB4\xB6\x7D\xA4\x70\xA6\x61\xB9\xCF\xB5
 constexpr char kQuickGuild586284[] = "\xC1\xDC\xBD\xD0\xB9\xEF\xA4\xE8\xA5\x5B\xA4\x4A\xA6\xDB\xA4\x76\xAA\xBA\xAE\x61\xB1\xDA\xA1\x43";
 constexpr char kQuickStall5862A0[] = "\xB6\x69\xA6\xE6\xC2\x5C\xC5\x75";
 
+constexpr const char* kEmoteHints5871B0[18] {
+    "\xB0\xB5\xA1\x75\xA7\xA4\xA4\x55\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xB4\xA7\xA4\xE2\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xC2\x49\xC0\x59\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xB0\xAA\xBF\xB3\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xBC\xAB\xAB\xE3\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xB4\x64\xB6\xCB\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA7\xEB\xC2\x59\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA5\x58\xB0\xC5\xA4\x4D\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA5\x58\xA5\xAC\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xAF\xB8\xA5\xDF\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA8\xAB\xB8\xF4\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xAD\xCB\xA4\x55\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA7\xF0\xC0\xBB\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA8\xBE\xBF\x6D\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA8\xFC\xB6\xCB\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xC5\x5D\xAA\x6B\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xB2\xBE\xB0\xCA\xA4\xA4\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+    "\xB0\xB5\xA1\x75\xA5\x58\xA5\xDB\xC0\x59\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43",
+};
+constexpr std::int32_t kEmoteButtonActions[18] {
+    0, 2, 4, 6, 8, 10, 12, 14, 16, 1, 3, 5, 7, 9, 11, 13, 15, 17,
+};
+std::array<std::uint8_t, 18> gEmoteSelectionCF4FC4 {};
+static_assert(sizeof(gEmoteSelectionCF4FC4) == 18);
+
+void ClearEmoteSelection()
+{
+    const std::uint32_t zero32 = 0;
+    const std::uint16_t zero16 = 0;
+    std::memcpy(gEmoteSelectionCF4FC4.data(), &zero32, sizeof(zero32));
+    std::memcpy(gEmoteSelectionCF4FC4.data() + 4, &zero32, sizeof(zero32));
+    std::memcpy(gEmoteSelectionCF4FC4.data() + 8, &zero32, sizeof(zero32));
+    std::memcpy(gEmoteSelectionCF4FC4.data() + 12, &zero32, sizeof(zero32));
+    std::memcpy(gEmoteSelectionCF4FC4.data() + 16, &zero16, sizeof(zero16));
+}
+
 } // namespace
 
 std::int32_t Sub_46FBA0(const std::int32_t)
@@ -37838,6 +37875,58 @@ login::YobiAction* Sub_495F00(
         y = gWindowStates[33].y;
     }
     return login::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
+}
+
+std::int32_t Sub_495F50(const std::int32_t)
+{
+    if (Sub_4D3040(1, 1) != 0) {
+        static_cast<void>(Sub_495FC0());
+    }
+    return 1;
+}
+
+std::int32_t Sub_495F70(const std::int32_t index)
+{
+    ClearEmoteSelection();
+    gEmoteSelectionCF4FC4[index] = 1;
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    return Sub_4D3020(x, y);
+}
+
+std::int32_t Sub_495FC0()
+{
+    ClearEmoteSelection();
+    return 0;
+}
+
+std::int32_t Sub_495FE0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = 0;
+    if (hover) {
+        graphic->imageNo = 0x3B987 + index * 3;
+        consumed = 1;
+    } else {
+        const bool selected = gEmoteSelectionCF4FC4[index] == 1;
+        graphic->imageNo = (selected ? 0x3B985 : 0x3B986) + index * 3;
+    }
+    if (static_cast<std::uint32_t>(index) > 17u) {
+        return consumed;
+    }
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(), kEmoteHints5871B0[index]);
+    }
+    if ((state & 2) != 0) {
+        world::detail::Sub_4FA8E0(kEmoteButtonActions[index]);
+        static_cast<void>(Sub_495F70(index));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)

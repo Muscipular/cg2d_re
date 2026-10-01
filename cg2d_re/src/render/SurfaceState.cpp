@@ -648,15 +648,30 @@ bool BlitSurfaceRectangleToBack(
         || gCpuBackSurface->blitSurface == nullptr) {
         return false;
     }
+    SDL_Surface* const destination = gCpuBackSurface->blitSurface.get();
+    // 原直接BltFast不裁剪；先完成资源层范围判定，避免Unchecked越界访问。
+    if (rectangle[0] < 0 || rectangle[1] < 0
+        || rectangle[2] <= rectangle[0] || rectangle[3] <= rectangle[1]
+        || rectangle[2] > sourceSurface->w || rectangle[3] > sourceSurface->h) {
+        return false;
+    }
+    const std::int32_t width = rectangle[2] - rectangle[0];
+    const std::int32_t height = rectangle[3] - rectangle[1];
+    if (destinationX < 0 || destinationY < 0
+        || width > destination->w || height > destination->h
+        || destinationX > destination->w - width
+        || destinationY > destination->h - height) {
+        return false;
+    }
     const SDL_Rect sourceRect {
         rectangle[0], rectangle[1],
-        rectangle[2] - rectangle[0], rectangle[3] - rectangle[1]
+        width, height
     };
     const SDL_Rect destinationRect {
         destinationX, destinationY, sourceRect.w, sourceRect.h
     };
     return BlitWithoutSourceColorKey(
-        sourceSurface, sourceRect, gCpuBackSurface->blitSurface.get(), destinationRect);
+        sourceSurface, sourceRect, destination, destinationRect);
 }
 
 std::int32_t BlitSurfaceToBack_4535B0(

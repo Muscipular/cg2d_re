@@ -10609,6 +10609,100 @@ std::int32_t Sub_51F610(const std::int32_t value)
     return 1;
 }
 
+namespace {
+
+enum class ScanlineOrigin {
+    Top,
+    Bottom,
+};
+
+// 原51F860/51FA70的相同入口/推进尾；两者只改变逐行采样及目标方向。
+std::int32_t ProcessScanlineTransition(
+    const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
+{
+    std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
+    bool initialize;
+    if (gValue58B6D0 == 1) {
+        gValue58B6D0 = 0;
+        initialize = true;
+    } else {
+        initialize = gImageTransitionInitializedFF4910 == 0;
+    }
+    if (initialize) {
+        gImageTransitionInitializedFF4910 = 1;
+        gImageTransitionScaleFF0D78 = direction >= 0 ? 0 : 480;
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    std::int32_t scale = gImageTransitionScaleFF0D78;
+    if (scale > 0) {
+        std::int32_t row = 0;
+        std::int32_t numerator = 0;
+        do {
+            const std::int32_t sampledRow = numerator / scale;
+            rectangle[1] = origin == ScanlineOrigin::Bottom ? 480 - sampledRow : sampledRow;
+            rectangle[3] = rectangle[1] + 1;
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const std::int32_t destinationY = origin == ScanlineOrigin::Bottom ? 480 - row : row;
+            static_cast<void>(render::BlitSurfaceRectangleToBack(0, destinationY, rectangle, source));
+            scale = gImageTransitionScaleFF0D78;
+            ++row;
+            numerator += 480;
+        } while (row < scale);
+    }
+    std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    if (step == 0) {
+        step = 8;
+    }
+    const std::int32_t next = direction < 0 ? scale - step : scale + step;
+    gImageTransitionScaleFF0D78 = next;
+    if (direction < 0 ? next >= 0 : next <= 480) {
+        return 0;
+    }
+
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        gImageTransitionInitializedFF4910 = 0;
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    if (direction < 0) {
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        gValue73ECD0.mask = mask;
+        gValue73ECD0.encoded = encoded;
+        gValue73ECD0.readCount = readCount;
+    } else {
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        gValue73ECD0.encoded = encoded;
+        gValue73ECD0.mask = mask;
+        gValue73ECD0.readCount = readCount;
+    }
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gImageTransitionInitializedFF4910 = 0;
+    return 1;
+}
+
+} // namespace
+
+std::int32_t Sub_51F860(const std::int32_t direction, const std::int32_t value)
+{
+    return ProcessScanlineTransition(direction, value, ScanlineOrigin::Top);
+}
+
+std::int32_t Sub_51FA70(const std::int32_t direction, const std::int32_t value)
+{
+    return ProcessScanlineTransition(direction, value, ScanlineOrigin::Bottom);
+}
+
 std::int32_t Sub_45EBB0()
 {
     std::int32_t sceneState = gCurrentSceneState;

@@ -72,6 +72,24 @@ WindowGraphicData gWindowGraphic56B270 {0x3B9B8, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56B288 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56B2A0 {0x3B984, 0, 0, 0, 0, 0xFFFFFFFFu};
 
+WindowGraphicData gWindowGraphic570B10 {245167, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570B28 {245160, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570B40 {245187, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570B58 {245172, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570B70 {245206, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570B88 {245192, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570BA0 {245161, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570BD0 {245171, 0, 0, 0, 0, 0x30FFFFFFu};
+WindowGraphicData gWindowGraphic570BE8 {245169, 0, 0, 0, 0, 0x30FFFFFFu};
+WindowGraphicData gWindowGraphic570C00 {243096, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570C18 {245165, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570C30 {245164, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570C48 {245166, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570C60 {245212, 0, 0, 0, 0, 0xA0FFFFFFu};
+WindowGraphicData gWindowGraphic570C78 {243091, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570C90 {243094, 0, 0, 0, 0, 0xFFFFFFFFu};
+std::uint32_t gWindowMouseFlagsD67870 = 0;
+
 WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F4F0 {0x3B965, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1525,6 +1543,29 @@ WindowElementPrototype gWindowElements56B2B8[20] {
     {1, 29, 225, 23, 23, 1, {.graphic = &gWindowGraphic56B270}, &Sub_495FE0},
     {1, 45, 7, 11, 11, 1, {.graphic = &gWindowGraphic56B288}, &Sub_4C1FB0},
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements570CB0[20] {
+    {5, 0, 0, 0, 0, 1, {}, &Sub_4A6EA0},
+    {6, 0, 0, 0, 0, 1, {}, &Sub_4B0F10},
+    {0, 0, 0, 0, 0, 1, {}, &Sub_4A81D0},
+    {1, 7, 3, 18, 16, 1, {.graphic = &gWindowGraphic570BA0}, &Sub_4A6FC0},
+    {1, 27, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B40}, &Sub_4A6FC0},
+    {1, 48, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B58}, &Sub_4A6FC0},
+    {1, 68, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B70}, &Sub_4A6FC0},
+    {1, 87, 3, 18, 16, 1, {.graphic = &gWindowGraphic570B88}, &Sub_4A6FC0},
+    {1, 0, 0, 11, 14, 1, {.graphic = &gWindowGraphic570C00}, &Sub_4B0F10},
+    {4, 239, 104, 11, 100, 1, {.mouseFlags = &gWindowMouseFlagsD67870}, &Sub_4A80F0},
+    {1, 0, 0, 14, 534, 1, {.graphic = &gWindowGraphic570C18}, &Sub_4A6FC0},
+    {1, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C78}, &Sub_4A6FC0},
+    {1, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C90}, &Sub_4A6FC0},
+    {1, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C30}, &Sub_4A6FC0},
+    {1, 0, 0, 14, 16, 1, {.graphic = &gWindowGraphic570C48}, &Sub_4A6FC0},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B10}, &Sub_4B0F10},
+    {1, 454, 0, 0, 0, 1, {.graphic = &gWindowGraphic570B28}, &Sub_4B0F10},
+    {1, 0, -370, 0, 0, 1, {.graphic = &gWindowGraphic570BD0}, &Sub_4B0F10},
+    {1, 0, -386, 0, 0, 1, {.graphic = &gWindowGraphic570BE8}, &Sub_4B0F10},
+    {1, 1, 1, 0, 0, 1, {.graphic = &gWindowGraphic570C60}, &Sub_4A6FC0},
 };
 
 WindowElementPrototype gWindowElements570FD8[2] {

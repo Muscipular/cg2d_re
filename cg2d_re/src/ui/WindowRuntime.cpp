@@ -27,6 +27,7 @@
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
+#include "cg/render/RendererResources.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
@@ -27816,6 +27817,404 @@ std::int32_t Sub_4A6DB0()
     world::detail::gCountC9A944 = 0;
     gChatHeightRequestC9A93C = 0;
     return 0;
+}
+
+WindowInstance* FindWindowById_477490(const std::int32_t id)
+{
+    for (std::size_t index = 0; index < gWindows.size(); ++index) {
+        WindowInstance* const window = gWindows[index];
+        if (window->id == id) {
+            return gWindows[index];
+        }
+    }
+    return nullptr;
+}
+
+void Sub_4A8140()
+{
+    WindowInstance* const window = FindWindowById_477490(35);
+    if (window == nullptr) {
+        return;
+    }
+    const std::int32_t scroll = gChatScrollOffsetC9A940;
+    WindowElement* const before = window->elements;
+    const std::int32_t count = world::detail::gCountC9A944;
+    static_cast<void>(Sub_4742C0(&before[9], count, scroll));
+    const std::int32_t currentCount = world::detail::gCountC9A944;
+    WindowElement* const elements = window->elements;
+    if (currentCount == 0) {
+        elements[8].y = elements[14].y - 14;
+        return;
+    }
+    const double currentScroll = static_cast<double>(gChatScrollOffsetC9A940);
+    const std::int32_t span = elements[10].height - 14;
+    const double ratio = currentScroll / static_cast<double>(world::detail::gCountC9A944);
+    const double pixels = ratio * static_cast<double>(span);
+    // 原PC53除法/乘法及__ftol取低S32，不能改为整数先乘后除。
+    const auto position = static_cast<std::int32_t>(static_cast<std::int64_t>(pixels));
+    elements[8].y = elements[14].y - position - 14;
+}
+
+void Sub_4A7C40()
+{
+    const std::int32_t height = gChatHeightUnitsC9A938 + gChatHeightRequestC9A93C;
+    gChatHeightUnitsC9A938 = height;
+    if (height > 26) {
+        gChatHeightUnitsC9A938 = 4;
+    } else if (height < 4) {
+        gChatHeightUnitsC9A938 = 26;
+    }
+    const std::int32_t width = gChatWidthUnitsC9A930 + gChatWidthRequestC9A934;
+    gChatHeightRequestC9A93C = 0;
+    gChatWidthUnitsC9A930 = width;
+    if (width > 37) {
+        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        WindowInstance* const window = gWindowStates[35].window;
+        gChatWidthUnitsC9A930 = 12;
+        window->x += 26 * fontWidth;
+    }
+    if (gChatWidthUnitsC9A930 < 12) {
+        const std::int32_t fontWidth = render::gFontMetrics[9].doubleWidth;
+        WindowInstance* const window = gWindowStates[35].window;
+        gChatWidthUnitsC9A930 = 37;
+        window->x -= 26 * fontWidth;
+    }
+    if (gChatWidthRequestC9A934 == 1) {
+        WindowInstance* const window = gWindowStates[35].window;
+        window->x -= render::gFontMetrics[9].doubleWidth;
+    }
+    if (gChatWidthRequestC9A934 == -1) {
+        WindowInstance* const window = gWindowStates[35].window;
+        window->x += render::gFontMetrics[9].doubleWidth;
+    }
+    const std::int32_t currentWidth = gChatWidthUnitsC9A930;
+    WindowInstance* const firstWindow = gCurrentWindow;
+    gChatWidthRequestC9A934 = 0;
+    WindowElement* const firstElements = firstWindow->elements;
+    const std::int32_t inputWidth = (currentWidth + 1) * render::gFontMetrics[9].doubleWidth;
+    auto* graphic = static_cast<WindowGraphicData*>(firstElements[15].data);
+    const std::int32_t dragWidth = inputWidth + 111;
+    graphic->width = inputWidth;
+    graphic->height = 25;
+    graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[19].data);
+    graphic->width = inputWidth + 20;
+    graphic->height = 25;
+    gCurrentWindow->elements[16].x = inputWidth;
+    graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[17].data);
+    graphic->width = dragWidth;
+    const std::int32_t backgroundHeight =
+        (gChatHeightUnitsC9A938 - 1) * render::gFontMetrics[9].doubleWidth;
+    graphic->height = backgroundHeight;
+    gCurrentWindow->elements[17].y = -backgroundHeight;
+    WindowElement* elements = gCurrentWindow->elements;
+    const std::int32_t backgroundWidth = gChatWidthUnitsC9A930;
+    graphic = static_cast<WindowGraphicData*>(elements[18].data);
+    graphic->width = backgroundWidth * 12 + 111;
+    graphic->height = gChatHeightUnitsC9A938 == 0 ? 0 : 12;
+    elements = gCurrentWindow->elements;
+    elements[18].y = elements[17].y - 12;
+    elements = gCurrentWindow->elements;
+    elements[2].x = elements[18].x;
+    elements = gCurrentWindow->elements;
+    elements[2].y = elements[18].y;
+    gCurrentWindow->elements[2].width = inputWidth + 125;
+    const std::int32_t rows = gChatHeightUnitsC9A938 - 1;
+    WindowInstance* const hitWindow = gCurrentWindow;
+    const std::int32_t hitHeight = rows * render::gFontMetrics[9].doubleWidth;
+    const std::int32_t scrollX = inputWidth + 97;
+    hitWindow->elements[2].height = hitHeight + 16;
+    gCurrentWindow->elements[9].x = scrollX;
+    const std::int32_t scrollY = 17 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    gCurrentWindow->elements[9].y = scrollY;
+    gCurrentWindow->elements[9].width = 14;
+    const std::int32_t scrollHeight =
+        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+    gCurrentWindow->elements[9].height = scrollHeight;
+    gCurrentWindow->elements[10].x = scrollX;
+    const std::int32_t trackY = 17 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    gCurrentWindow->elements[10].y = trackY;
+    gCurrentWindow->elements[10].width = 14;
+    const std::int32_t trackHeight =
+        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+    gCurrentWindow->elements[10].height = trackHeight;
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->width = 14;
+    const std::int32_t trackGraphicHeight =
+        render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938 - 28;
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[10].data)->height = trackGraphicHeight;
+    gCurrentWindow->elements[11].x = scrollX;
+    const std::int32_t upY = 4 - render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    gCurrentWindow->elements[11].y = upY;
+    gCurrentWindow->elements[12].x = scrollX;
+    gCurrentWindow->elements[12].y = -12;
+    gCurrentWindow->elements[13].x = scrollX;
+    const std::int32_t upHitY = -render::gFontMetrics[9].doubleWidth * gChatHeightUnitsC9A938;
+    gCurrentWindow->elements[13].y = upHitY;
+    gCurrentWindow->elements[14].x = scrollX;
+    gCurrentWindow->elements[14].y = -11;
+    gCurrentWindow->elements[8].x = scrollX;
+    Sub_4A8140();
+    gCurrentWindow->dragRects40[0].width = dragWidth;
+    const std::int32_t finalWidth = gChatWidthUnitsC9A930;
+    gCurrentWindow->width = finalWidth * 12 + 123;
+    gCurrentWindow->elements[0].width = inputWidth;
+    gCurrentWindow->elements[0].height = 25;
+    elements = gCurrentWindow->elements;
+    const std::int32_t button3X = gWindowElements570CB0[3].x;
+    elements[3].x = elements[16].x + button3X;
+    WindowInstance* window = gCurrentWindow;
+    const std::int32_t button4X = gWindowElements570CB0[4].x;
+    elements = window->elements;
+    elements[4].x = elements[16].x + button4X;
+    window = gCurrentWindow;
+    const std::int32_t button5X = gWindowElements570CB0[5].x;
+    elements = window->elements;
+    elements[5].x = elements[16].x + button5X;
+    window = gCurrentWindow;
+    const std::int32_t button6X = gWindowElements570CB0[6].x;
+    elements = window->elements;
+    elements[6].x = elements[16].x + button6X;
+    elements = gCurrentWindow->elements;
+    const std::int32_t button7X = gWindowElements570CB0[7].x;
+    elements[7].x = elements[16].x + button7X;
+    window = gCurrentWindow;
+    const std::int32_t color = input::gInputContext626AA0.field140;
+    static_cast<WindowGraphicData*>(window->elements[7].data)->imageNo = color + 245192;
+}
+
+std::int32_t Sub_4A6DD0(const std::int32_t value)
+{
+    if (value == -1) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gChatInputPrototype57E970, x, y, 3));
+        WindowInstance* const current = gCurrentWindow;
+        gFocusedElementDataD45F94 = current->elements[0].data;
+        static_cast<WindowInputData*>(current->elements[0].data)->context =
+            &input::gInputContext626AA0;
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        return 1;
+    }
+    if (render::HasLegacy3DDevice_44B610() == 1) {
+        gCurrentWindow->elements[18].visible = 1;
+        gCurrentWindow->elements[17].visible = 1;
+    } else {
+        gCurrentWindow->elements[18].visible = 0;
+        gCurrentWindow->elements[17].visible = 0;
+    }
+    Sub_4A7C40();
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t y = window->y;
+    const std::int32_t x = window->x;
+    static_cast<void>(Sub_476570(&gChatInputPrototype57E970, x, y, 2));
+    return 1;
+}
+
+std::int32_t Sub_4A6FC0(const std::int32_t index, const std::int32_t state)
+{
+    if (input::gValueC9A96C == 0) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 4:
+        if ((state & 1) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC3;
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xC2\x49\xC0\xBB\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xBC\x57\xA5\x5B"
+                "\xA4\xE5\xA6\x72\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA1\x41\xC2\x49"
+                "\xC0\xBB\xB7\xC6\xB9\xAB\xA5\x6B\xC1\xE4\xB4\xEE\xA4\xD6\xA4\xE5"
+                "\xA6\x72\xB0\x54\xAE\xA7\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA1\x43");
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[4].data)->imageNo = 0x3BDC4;
+        }
+        if ((state & 0x400) != 0) {
+            Sub_4A7710();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 0x800) != 0) {
+            Sub_4A7720();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        break;
+    case 5:
+        if ((state & 1) != 0) {
+            const std::int32_t image = platform::gValue554640 * 3 + 0x3BDB1;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[5].data)->imageNo = image;
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA4\xC1\xB4\xAB\xB5\x6F\xB8\xDC\xAA\xBA\xBD\x64\xB3\xF2\xA1\x43");
+            consumed = 1;
+        } else {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t range = platform::gValue554640;
+            static_cast<WindowGraphicData*>(window->elements[5].data)->imageNo = range * 3 + 0x3BDB2;
+        }
+        if ((state & 2) != 0) {
+            const std::int32_t range = platform::gValue554640 + 1;
+            platform::gValue554640 = range;
+            if (range > 5) {
+                platform::gValue554640 = 1;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            world::detail::gValue626BFC = 180;
+            consumed = 1;
+        }
+        if ((state & 4) != 0) {
+            const std::int32_t range = platform::gValue554640 - 1;
+            platform::gValue554640 = range;
+            if (range < 1) {
+                platform::gValue554640 = 5;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            world::detail::gValue626BFC = 180;
+            consumed = 1;
+        }
+        break;
+    case 6: {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[6].data);
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xA7\xEF\xC5\xDC\xB2\xE1\xA4\xD1\xAE\xC9\xAA\xBA\xA4\xE5\xA6\x72"
+                "\xA4\x6A\xA4\x70\xA1\x43");
+            consumed = 1;
+            switch (platform::gValue73ECBC) {
+            case 0: graphic->imageNo = 0x3BDD5; break;
+            case 1: graphic->imageNo = 0x3BDDB; break;
+            case 2: graphic->imageNo = 0x3BDD8; break;
+            default: break;
+            }
+        } else {
+            switch (platform::gValue73ECBC) {
+            case 0: graphic->imageNo = 0x3BDD4; break;
+            case 1: graphic->imageNo = 0x3BDDA; break;
+            case 2: graphic->imageNo = 0x3BDD7; break;
+            default: break;
+            }
+        }
+        if ((state & 2) != 0) {
+            static_cast<void>(Sub_503CB0());
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 4) != 0) {
+            const std::int32_t mode = platform::gValue73ECBC + 1;
+            platform::gValue73ECBC = mode;
+            if (mode > 2) {
+                platform::gValue73ECBC = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        break;
+    }
+    case 3:
+        if ((state & 1) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BDA9;
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xC2\x49\xC0\xBB\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xBC\x57\xA5\x5B"
+                "\xA4\xE5\xA6\x72\xC5\xE3\xA5\xDC\xA6\x72\xBC\xC6\xA1\x41\xC2\x49"
+                "\xC0\xBB\xB7\xC6\xB9\xAB\xA5\x6B\xC1\xE4\xB4\xEE\xA4\xD6\xA4\xE5"
+                "\xA6\x72\xB0\x54\xAE\xA7\xC5\xE3\xA5\xDC\xA6\x72\xBC\xC6\xA1\x43");
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BDAA;
+        }
+        if ((state & 0x400) != 0) {
+            Sub_4A7730();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 0x800) != 0) {
+            Sub_4A7740();
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        break;
+    case 7: {
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                "\xC5\xDC\xA7\xF3\xA4\xE5\xA6\x72\xAA\xBA\xC3\x43\xA6\xE2\xA1\x43");
+            consumed = 1;
+        }
+        std::int32_t color;
+        if ((state & 2) != 0) {
+            const std::int32_t next = input::gInputContext626AA0.field140 + 1;
+            input::gInputContext626AA0.field140 = next;
+            if (next == 4) {
+                input::gInputContext626AA0.field140 = 5;
+            } else if (next > 9) {
+                input::gInputContext626AA0.field140 = 0;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            color = input::gInputContext626AA0.field140;
+            world::detail::gInputContext626840.field140 = color;
+            consumed = 1;
+        } else {
+            color = input::gInputContext626AA0.field140;
+        }
+        if ((state & 4) != 0) {
+            --color;
+            input::gInputContext626AA0.field140 = color;
+            if (color == 4) {
+                input::gInputContext626AA0.field140 = 3;
+            } else if (color < 0) {
+                input::gInputContext626AA0.field140 = 9;
+            }
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            world::detail::gInputContext626840.field140 = input::gInputContext626AA0.field140;
+            consumed = 1;
+        }
+        break;
+    }
+    case 13:
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo =
+            (state & 1) != 0 ? 0x3B594 : 0x3B592;
+        consumed = (state & 1) != 0 ? 1 : 0;
+        if ((state & 0x400) != 0) {
+            const std::int32_t scroll = gChatScrollOffsetC9A940 + 1;
+            const std::int32_t count = world::detail::gCountC9A944;
+            gChatScrollOffsetC9A940 = scroll;
+            if (scroll > count) {
+                WindowInstance* const window = gCurrentWindow;
+                gChatScrollOffsetC9A940 = count;
+                static_cast<WindowGraphicData*>(window->elements[11].data)->imageNo = 0x3B593;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+            Sub_4A8140();
+            consumed = 1;
+        }
+        break;
+    case 14:
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo =
+            (state & 1) != 0 ? 0x3B597 : 0x3B595;
+        consumed = (state & 1) != 0 ? 1 : 0;
+        if ((state & 0x400) != 0) {
+            const std::int32_t scroll = gChatScrollOffsetC9A940 - 1;
+            gChatScrollOffsetC9A940 = scroll;
+            if (scroll < 0) {
+                WindowInstance* const window = gCurrentWindow;
+                gChatScrollOffsetC9A940 = 0;
+                static_cast<WindowGraphicData*>(window->elements[12].data)->imageNo = 0x3B596;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+            Sub_4A8140();
+            consumed = 1;
+        }
+        break;
+    case 10:
+        consumed = (state & 1) != 0 ? 1 : 0;
+        break;
+    default:
+        break;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)

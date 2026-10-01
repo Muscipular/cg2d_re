@@ -24,6 +24,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/SurfaceState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
@@ -50,6 +51,9 @@ std::array<std::int32_t, 100> gRotationTableC8A7B0 {};
 std::int32_t gRotationCursorC8A940 = 0;
 std::uint32_t gValue62B348 = 0;
 std::int32_t gValueFF0D44 = 0; // 原普通场景与结果窗口分派共用的写入槽。
+std::int32_t gValueFF0D50 = 0; // 原普通场景初始化标志，11分支只认恰1。
+std::int32_t gValueFF0D54 = 0; // 原普通场景等待帧数，门槛按S32比较。
+std::int32_t gValueFF0D68 = 0; // 原普通场景BGM恢复号，不是当前播放号owner。
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
@@ -5903,6 +5907,489 @@ std::int32_t __cdecl Sub_509550(
         gValueC82218 = 1;
     }
     return 1;
+}
+
+// 原[51C7D0,51D447)完整22状态；共享尾保持原同帧跳转，见场景明细normal-scene-complete。
+void DrawNormalScene_51C7D0()
+{
+    switch (gCurrentSceneState) {
+    case 0:
+        gCurrentSceneState = 100;
+        gValueFF0D44 = 0;
+        gValueFF0D50 = 0;
+        gValue5ABFC4 = 0;
+        [[fallthrough]];
+    case 100:
+        Sub_519A80();
+        Sub_455C60();
+        Sub_446640();
+        Sub_4D3170();
+        ui::ProcessSceneWindows_503E80();
+        login::detail::Sub_43F220();
+        static_cast<void>(Sub_518DA0());
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        gCurrentSceneState = 101;
+        [[fallthrough]];
+    case 101:
+        if (gValue9A4B94 != 0) {
+            platform::gValue73ECC0 = 0;
+            return;
+        }
+        [[fallthrough]];
+    case 102:
+        gValueFF0D54 = 0;
+        gCurrentSceneState = 104;
+        return;
+    case 104: {
+        Sub_51D6F0();
+        Sub_458F00();
+        if (gValueFF0D54 < 5) {
+            goto waitFrame;
+        }
+        platform::gPendingGraphicCount = 0;
+        platform::gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        ui::detail::gValue5F9754 = 0;
+        Sub_46BD40();
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        audio::Sub_52B940();
+        Sub_469020();
+        static_cast<void>(ui::RenderWindows_504120());
+        input::ProcessKeyInput_4596D0();
+        input::BrowseChatHistory_44A1B0();
+        RenderInput_4590E0();
+        render::SortTextures_520790();
+        static_cast<void>(render::ClearSurface_4512C0());
+        render::gRenderQueueMode103CF10 = 0;
+        render::DrawAllQueued_520DD0();
+        static_cast<void>(render::CopyBackToTemp());
+        platform::gPendingGraphicCount = 0;
+        render::gRenderQueueMode103CF10 = 1;
+        platform::gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        if (gValueFF0D58 != 0) {
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
+            static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::Sub_520200());
+            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            gValueFF0D68 = audio::gBgmTarget1050818;
+            gValueFF0D58 = 0;
+            audio::gBgmRequest1050810 = 1;
+        } else {
+            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+        }
+        const std::uint32_t tick = platform::ReadTickCount32();
+        platform::gValue73ECC0 = 2;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        gValue58B6D0 = 1;
+        static_cast<void>(Sub_51FDE0(15, 8, 0x40000000u));
+        gCurrentSceneState = 103;
+        Sub_51D6F0();
+        return;
+    }
+    case 103:
+        platform::gValue73ECC0 = 2;
+        if (Sub_51FDE0(15, 8, 0x40000000u) == 1) {
+            gValueFF0D50 = 1;
+            gValue62B5B0 = platform::ReadTickCount32();
+            gCurrentSceneState = 20;
+        }
+        return;
+    case 200:
+        gValue58B6D0 = 1;
+        static_cast<void>(Sub_51D750());
+        platform::gLastRenderDt = static_cast<double>(platform::ReadTickCount32());
+        ui::ProcessSceneWindows_503E80();
+        gCurrentSceneState = 201;
+        [[fallthrough]];
+    case 201: {
+        const std::uint32_t gate = gValueD67E78;
+        platform::gValue73ECC0 = 2;
+        const std::int32_t selector = gate == 1 ? 14 : 16;
+        const std::int32_t steps = gate == 1 ? 8 : 32;
+        if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
+            gCurrentSceneState = 202;
+        }
+        goto inputTail;
+    }
+    case 202:
+        if (gValueC82210 != 0) {
+            platform::gValue73ECC0 = 0;
+            static_cast<void>(ui::RenderWindows_504120());
+            RenderInput_4590E0();
+            return;
+        }
+        gValueC82210 = 0;
+        [[fallthrough]];
+    case 203:
+        gValueFF0D54 = 0;
+        gCurrentSceneState = 205;
+        return;
+    case 205: {
+        Sub_51D6F0();
+        Sub_458F00();
+        if (gValueFF0D54 < 5) {
+            goto waitFrame;
+        }
+        render::ClearSurfaceTransformCache_44D490();
+        Sub_51D6F0();
+        static_cast<void>(render::UpdatePalette_450BB0());
+        platform::gPendingGraphicCount = 0;
+        platform::gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        Sub_46BD40();
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        Sub_4691D0();
+        Sub_469020();
+        if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
+            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
+                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
+            Sub_46E2A0();
+        }
+        gMapCharaSceneSlots.valueC8A75C = 0;
+        gMapCharaSceneSlots.valueC8A758 = 0;
+        input::ProcessKeyInput_4596D0();
+        input::BrowseChatHistory_44A1B0();
+        render::SortTextures_520790();
+        static_cast<void>(render::ClearSurface_4512C0());
+        Sub_46F160();
+        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
+                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+            static_cast<void>(Sub_46E4C0(80));
+        }
+        render::gRenderQueueMode103CF10 = 0;
+        render::DrawAllQueued_520DD0();
+        static_cast<void>(render::CopyBackToTemp());
+        render::gRenderQueueMode103CF10 = 1;
+        platform::gPendingGraphicCount = 0;
+        platform::gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        const std::uint32_t tick = platform::ReadTickCount32();
+        gValue58B6D0 = 1;
+        gCurrentSceneState = 204;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        Sub_51D6F0();
+        [[fallthrough]];
+    }
+    case 204: {
+        const std::uint32_t gate = gValueD67E78;
+        platform::gValue73ECC0 = 2;
+        const std::int32_t selector = gate == 1 ? 15 : 17;
+        const std::int32_t steps = gate == 1 ? 8 : 32;
+        if (Sub_51FDE0(selector, steps, 0x40000000u) == 1) {
+            ui::ProcessSceneWindows_503E80();
+            gValue62B5B0 = platform::ReadTickCount32();
+            const std::uint32_t changeBgm = gValueFF0D58;
+            gCurrentSceneState = 20;
+            gValueD67E78 = 0;
+            if (changeBgm != 0) {
+                static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
+                static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
+                static_cast<void>(login::detail::Sub_520200());
+                static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+                gValueFF0D68 = audio::gBgmTarget1050818;
+                gValueFF0D58 = 0;
+                audio::gBgmRequest1050810 = 1;
+            }
+            static_cast<void>(audio::Sub_5042D0(100));
+            static_cast<void>(ui::RenderWindows_504120());
+        }
+        goto inputTail;
+    }
+    case 250: {
+        ui::ProcessSceneWindows_503E80();
+        Sub_46F160();
+        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
+                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+            static_cast<void>(Sub_46E4C0(80));
+        }
+        render::gRenderQueueMode103CF10 = 0;
+        render::DrawAllQueued_520DD0();
+        platform::gPendingGraphicCount = 0;
+        render::gRenderQueueMode103CF10 = 1;
+        platform::gPendingGraphicCount2 = 0;
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        const std::uint32_t tick = platform::ReadTickCount32();
+        gValue58B6D0 = 1;
+        gCurrentSceneState = 204;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        Sub_51D6F0();
+        const std::int32_t bgm = login::detail::Sub_440FE0();
+        audio::gBgmTarget1050818 = bgm;
+        static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+        gValueFF0D68 = audio::gBgmTarget1050818;
+        gCurrentSceneState = 251;
+        [[fallthrough]];
+    }
+    case 251:
+        platform::gValue73ECC0 = 0;
+        static_cast<void>(Sub_440FF0());
+        Sub_51D6F0();
+        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        input::ProcessKeyInput_4596D0();
+        input::BrowseChatHistory_44A1B0();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        Sub_44A410();
+        Sub_458F00();
+        return;
+    case 252: {
+        gValueFF0D74 = 0;
+        ui::ProcessSceneWindows_503E80();
+        gValue62B5B0 = platform::ReadTickCount32();
+        Sub_46F160();
+        if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
+            || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
+                && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+            static_cast<void>(Sub_46E4C0(80));
+        }
+        Sub_51D6F0();
+        Sub_46BD40();
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        Sub_4691D0();
+        Sub_469020();
+        static_cast<void>(ui::RenderWindows_504120());
+        render::gRenderQueueMode103CF10 = 0;
+        render::DrawAllQueued_520DD0();
+        render::gRenderQueueMode103CF10 = 1;
+        const std::uint32_t tick = platform::ReadTickCount32();
+        platform::gPendingGraphicCount = 0;
+        platform::gPendingGraphicCount2 = 0;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        static_cast<void>(render::ResetGraphicCache_456D30());
+        Sub_46BD40();
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        Sub_469020();
+        static_cast<void>(ui::RenderWindows_504120());
+        const std::uint32_t changeBgm = gValueFF0D58;
+        gValueD67E78 = 0;
+        if (changeBgm != 0) {
+            static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
+            static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
+            static_cast<void>(login::detail::Sub_520200());
+            static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+            gValueFF0D68 = audio::gBgmTarget1050818;
+            gValueFF0D58 = 0;
+            audio::gBgmRequest1050810 = 1;
+        }
+        gCurrentSceneState = 20;
+        return;
+    }
+    case 1:
+        gValueFF0D54 = 0;
+        gCurrentSceneState = 11;
+        return;
+    case 11: {
+        Sub_51D6F0();
+        Sub_458F00();
+        if (gValueFF0D54 < 30) {
+            goto waitFrame;
+        }
+        gCurrentSceneState = 1;
+        gValueFF0D44 = 1;
+        Sub_519A80();
+        Sub_455C60();
+        Sub_446640();
+        Sub_4D3170();
+        ui::ProcessSceneWindows_503E80();
+        login::detail::Sub_43F220();
+        static_cast<void>(Sub_518DA0());
+        if (gValueFF0D50 == 1) {
+            platform::gPendingGraphicCount = 0;
+            platform::gPendingGraphicCount2 = 0;
+            static_cast<void>(render::ResetGraphicCache_456D30());
+            Sub_46BD40();
+            static_cast<void>(login::detail::YobiUpdateAll_404C50());
+            RenderChara_521F20();
+            audio::Sub_52B940();
+            static_cast<void>(Sub_468200());
+            Sub_4691D0();
+            Sub_469020();
+            if (audio::gBgmRequest1050810 == 0) {
+                if (gValueFF0D58 != 0) {
+                    static_cast<void>(audio::SelectBgmTarget_52C9C0(std::bit_cast<std::int32_t>(gValueFF0D5C)));
+                    static_cast<void>(login::detail::Sub_520750(login::gSelectedCharacterIndex));
+                    static_cast<void>(login::detail::Sub_520200());
+                    static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(audio::gBgmTarget1050818)));
+                    gValueFF0D68 = audio::gBgmTarget1050818;
+                    gValueFF0D58 = 0;
+                    gValueFF0D5C = 0xFFFFFFFFu;
+                } else {
+                    const std::int32_t bgm = gValueFF0D68;
+                    audio::gBgmTarget1050818 = bgm;
+                    static_cast<void>(login::detail::LoadAndPlayBGM(static_cast<std::uint32_t>(bgm)));
+                }
+                audio::gBgmRequest1050810 = 1;
+            }
+            static_cast<void>(ui::RenderWindows_504120());
+            if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
+                || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
+                    && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
+                Sub_46E2A0();
+            }
+            gMapCharaSceneSlots.valueC8A75C = 0;
+            gMapCharaSceneSlots.valueC8A758 = 0;
+            input::ProcessKeyInput_4596D0();
+            input::BrowseChatHistory_44A1B0();
+            RenderInput_4590E0();
+            render::SortTextures_520790();
+            static_cast<void>(render::ClearSurface_4512C0());
+            Sub_46F160();
+            if ((gMapCharaSceneSlots.valueC8A73E != 0 && gMapCharaSceneSlots.valueC8A740 == 0)
+                || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0
+                    && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) == 0)) {
+                static_cast<void>(Sub_46E4C0(80));
+            }
+            Sub_51D6F0();
+            static_cast<void>(render::UpdatePalette_450BB0());
+            Sub_458F00();
+            render::gRenderQueueMode103CF10 = 0;
+            render::DrawAllQueued_520DD0();
+            static_cast<void>(render::CopyBackToTemp());
+            render::gRenderQueueMode103CF10 = 1;
+            platform::gPendingGraphicCount = 0;
+            platform::gPendingGraphicCount2 = 0;
+            static_cast<void>(render::ResetGraphicCache_456D30());
+            const std::uint32_t tick = platform::ReadTickCount32();
+            const std::uint32_t gate = gValueD67E78;
+            platform::gLastRenderDt = static_cast<double>(tick);
+            const std::int32_t selector = gate == 1 ? 15 : 13;
+            platform::gValue73ECC0 = 2;
+            static_cast<void>(Sub_51FDE0(selector, 8, 0x40000000u));
+        } else {
+            const std::int32_t state = gCurrentSceneState;
+            gValueFF0D50 = 1;
+            gCurrentSceneState = state + 1;
+        }
+        input::ProcessKeyInput_4596D0();
+        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        RenderInput_4590E0();
+        Sub_44A410();
+        Sub_51D6F0();
+        ++gCurrentSceneState;
+        return;
+    }
+    case 2: {
+        const std::int32_t selector = gValueD67E78 == 1 ? 15 : 13;
+        if (Sub_51FDE0(selector, 8, 0x40000000u) == 1) {
+            gCurrentSceneState = 20;
+            gValueC82210 = 0;
+            gValueD67E78 = 0;
+        }
+        input::ProcessKeyInput_4596D0();
+        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        RenderInput_4590E0();
+        Sub_44A410();
+        Sub_51D6F0();
+        return;
+    }
+    case 20:
+        platform::gValue73ECC0 = 0;
+        static_cast<void>(Sub_51D640());
+        gCurrentSceneState = 3;
+        [[fallthrough]];
+    case 3: {
+        platform::gValue73ECC0 = 0;
+        gValueC82204 = 0;
+        Sub_51D6F0();
+        Sub_4468F0();
+        static_cast<void>(Sub_46F680());
+        Sub_504A50();
+        static_cast<void>(NextRotationValue_455C70());
+        static_cast<void>(Sub_469C90());
+        Sub_46BD40();
+        Sub_455FC0();
+        static_cast<void>(login::detail::YobiUpdateAll_404C50());
+        RenderChara_521F20();
+        Sub_46E4A0();
+        Sub_469020();
+        input::ProcessKeyInput_4596D0();
+        input::BrowseChatHistory_44A1B0();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        Sub_44A410();
+        Sub_458F00();
+        if (gValue5ABFC4 != 1) {
+            return;
+        }
+        if (gValueCAFEA0 == 0) {
+            gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
+        }
+        static_cast<void>(Sub_519D50());
+        Sub_4464D0();
+        static_cast<void>(Sub_4681B0());
+        Sub_51B0F0();
+        gValue62B5B0 = 0;
+        Sub_455FC0();
+        Sub_455C60();
+        const std::uint32_t mask = gValue9FB918.mask;
+        const std::uint32_t encoded = gValue9FB918.encoded;
+        const std::uint8_t readCount = gValue9FB918.readCount;
+        gValueC821E8.mask = mask;
+        gValueC821E8.encoded = encoded;
+        gValueC821E8.readCount = readCount;
+        platform::LegacyCryptInt zero;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
+        gValueC821D8.mask = zero.mask;
+        gValueC821D8.encoded = zero.encoded;
+        gValueC821D8.readCount = zero.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&zero);
+        platform::LegacyCryptInt one;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&one, 1);
+        gRippleGate.mask = one.mask;
+        gRippleGate.encoded = one.encoded;
+        gRippleGate.readCount = one.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&one);
+        gValue9FB92E = 0;
+        gValueFF03D8 = 0;
+        gValueF7CA04 = 0;
+        gValueC8A79C = 0;
+        gValue58B6D0 = 1;
+        static_cast<void>(audio::Sub_5042D0(100));
+        ui::ProcessSceneWindows_503E80();
+        static_cast<void>(login::detail::Sub_43F230());
+        Sub_51BEF0();
+        platform::RequestRender_457010();
+        static_cast<void>(audio::PlaySe_52C450(201, 320));
+        gValueFF0D68 = audio::ReadBgmRecordIndex58D4F8();
+        audio::Sub_52B940();
+        ++gCurrentSceneState;
+        return;
+    }
+    case 4:
+        static_cast<void>(Sub_51D750());
+        platform::gValue73ECC0 = 2;
+        ui::ProcessSceneWindows_503E80();
+        static_cast<void>(login::detail::Sub_43F230());
+        ++gCurrentSceneState;
+        goto inputTail;
+    case 5:
+        if (Sub_51FDE0(12, 8, 0x40000000u) == 1) {
+            static_cast<void>(SetCurrentSceneType(10));
+        }
+        goto inputTail;
+    default:
+        return;
+    }
+
+waitFrame:
+    static_cast<void>(render::ClearSurface_4512C0());
+    ++gValueFF0D54;
+    return;
+
+inputTail:
+    input::ProcessKeyInput_4596D0();
+    render::DrawInputText_4568A0(&input::gInputContext626AA0);
+    RenderInput_4590E0();
+    Sub_44A410();
 }
 
 // 原 [51D640,51D6E3)：恢复 C82204 后拷贝整面，queueMode 固定写回 1。

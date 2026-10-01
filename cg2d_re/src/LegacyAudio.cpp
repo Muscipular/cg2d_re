@@ -1365,6 +1365,11 @@ void __cdecl Sub_52CD60()
     }
 }
 
+std::int32_t ReadBgmRecordIndex58D4F8() noexcept
+{
+    return gRecordIndex;
+}
+
 std::uint32_t Sub_52B990() noexcept
 {
     const std::int32_t index = gRecordIndex;

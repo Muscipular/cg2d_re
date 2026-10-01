@@ -39,6 +39,8 @@ std::int32_t __cdecl Sub_52C680(
     std::int32_t requestIndex, std::int32_t isNew);
 void __cdecl Sub_52CD60(); // 原 [0x52CD60,0x52CDDB)，扫描同一 50 项表。
 std::uint32_t Sub_52B990() noexcept;
+void Sub_52B940(); // 原资源清理入口，普通场景复用既有实现。
+std::int32_t ReadBgmRecordIndex58D4F8() noexcept; // 只读真实当前BGM号，不替代目标1050818。
 
 // 原 57C368 表与 CC236C 三槽的共享音效选择入口。
 std::int32_t __cdecl Sub_5044C0(std::uint32_t id);

@@ -422,6 +422,16 @@ constexpr char kLegacyMoneyAll585B28[] = "\xAB\xFC\xA9\x77\xA5\xFE\xC3\x42\xA1\x
 constexpr char kLegacyMoneyClear585B14[] = "\xB1\x4E\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43";
 constexpr char kLegacyMoneyDigit585B6C[] = "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
 constexpr char kLegacyMoneyLimit58A3B4[] = "\xA4\xA3\xAF\xE0\xB6\x57\xA5\x58\xB3\x6F\xAD\xD3\xAA\xF7\xC3\x42\xA1\x43";
+LegacyPanelRecord gLegacyEngravingPanel582FD8 {
+    368, 0, 272, 252, 79, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyEngravingHover58309C = -1;
+std::int32_t gLegacyEngravingPageC8AA9C = 0;
+std::int32_t gLegacyEngravingTargetCC1A14 = 0;
+constexpr char kLegacyEngravingSelect5895C0[] = "\xA8\xE8\xA6\x4C\xA6\xB9\xB9\x44\xA8\xE3\xA1\x43";
+constexpr char kLegacyEngravingReject5895AC[] = "\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA1\x43";
+constexpr char kLegacyEngravingClose5868EC[] = "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1";
+constexpr char kLegacyEngravingChoose589594[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xA8\xE8\xA6\x4C\xAA\xBA\xB9\x44\xA8\xE3\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -931,6 +941,136 @@ std::int32_t Sub_455940()
     records[4][6] = 22998;
     records[4][7] = 22999;
     return centerY;
+}
+
+void Sub_4E9280()
+{
+    gLegacyEngravingPageC8AA9C = 0;
+    gLegacyEngravingTargetCC1A14 = -1;
+}
+
+std::uint32_t Sub_4E92A0(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyEngravingPanel582FD8, Sub_4E9280, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(79));
+    }
+    std::int32_t hovered = -1;
+    std::int32_t usedHovered = -1;
+    std::int32_t hoverColumn;
+    std::int32_t hoverRow;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyEngravingPanel582FD8.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyEngravingPanel582FD8.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
+                hoverRow = row;
+                hoverColumn = column;
+                hovered = 8 + row * 5 + column;
+                if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+                    usedHovered = hovered;
+                }
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyEngravingHover58309C) {
+        gLegacyEngravingPageC8AA9C = 0;
+    }
+    const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+    if (usedHovered >= 0 && (clicks & 1u) != 0) {
+        const std::int32_t target = gLegacyEngravingTargetCC1A14;
+        bool rejected = (target >= 0 && target == usedHovered) || usedHovered == gLegacySpecialUseItemC8A96C;
+        if (!rejected) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+            if (item->itemType == 47) {
+                rejected = true;
+            } else {
+                const std::uint16_t flags = item->flags;
+                rejected = (flags & 0x100u) != 0 || item->count > 0
+                    || ((flags & 0x200u) != 0 && (flags & 0x400u) == 0);
+            }
+        }
+        if (rejected) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            gLegacyEngravingTargetCC1A14 = usedHovered;
+        }
+    } else if (hovered >= 0 && (clicks & 2u) != 0) {
+        gLegacyEngravingPageC8AA9C ^= 1;
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            if (item->used != 0) {
+                const std::int32_t image = item->imageNo;
+                const std::int32_t top = gLegacyEngravingPanel582FD8.y + 60 + 53 * row;
+                const std::int32_t left = gLegacyEngravingPanel582FD8.x + 32 + 52 * column;
+                static_cast<void>(DrawGraphic(left, top, 213, image, 0, nullptr));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyEngravingPanel582FD8.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyEngravingPanel582FD8.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+            }
+        }
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyEngravingPanel582FD8.y + 53 * hoverRow;
+        const std::int32_t left = gLegacyEngravingPanel582FD8.x + 52 * hoverColumn;
+        DrawGraphicHover(Low16(left + 8), Low16(top + 36), Low16(left + 55), Low16(top + 83),
+            212, gValueD69768, 0);
+        const std::int32_t page = gLegacyEngravingPageC8AA9C;
+        const std::int32_t y = gLegacyEngravingPanel582FD8.y;
+        const std::int32_t height = gLegacyEngravingPanel582FD8.height;
+        const std::int32_t x = gLegacyEngravingPanel582FD8.x;
+        Sub_4FB940(x, y + height, hovered, page);
+    }
+    const std::int32_t target = gLegacyEngravingTargetCC1A14;
+    if (target >= 0) {
+        const std::int32_t source = gLegacySpecialUseItemC8A96C;
+        static_cast<void>(network::Sub_511D60(platform::gConnectionSocket, target, source));
+        static_cast<void>(audio::PlaySe_52C450(77, 320));
+        static_cast<void>(audio::Sub_5042D0(79));
+    }
+    if (gLegacySpecialUseItemC8A96C >= 0) {
+        const std::int32_t row = gLegacySpecialUseRowD2D614;
+        const std::int32_t top = gLegacyEngravingPanel582FD8.y + 53 * row;
+        const std::int32_t column = gLegacySpecialUseColumnCF4AA8;
+        const std::int32_t left = gLegacyEngravingPanel582FD8.x + 52 * column;
+        DrawGraphicHover(Low16(left + 10), Low16(top + 38), Low16(left + 53), Low16(top + 81),
+            212, 251, 0);
+    }
+    // 原4E9621无悬停非负门禁；异常索引按RPLAN.24，不引入替代物品。
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (item->used != 0) {
+        const std::uint16_t flags = item->flags;
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(hint, item->name.data());
+            std::strcat(hint, "[kok]");
+        } else if ((flags & 0x200u) != 0) {
+            std::strcpy(hint, item->memo.data());
+            std::strcat(hint, "[han]");
+        } else {
+            const bool selectable = item->itemType != 47 && item->count <= 0
+                && usedHovered != gLegacySpecialUseItemC8A96C;
+            std::strcpy(hint, selectable ? kLegacyEngravingSelect5895C0 : kLegacyEngravingReject5895AC);
+        }
+    } else {
+        std::strcpy(hint, Sub_503590(&gLegacyEngravingPanel582FD8) != 0
+            ? kLegacyEngravingClose5868EC : kLegacyEngravingChoose589594);
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyEngravingPanel582FD8, 1);
+    gLegacyEngravingHover58309C = hovered;
+    return result;
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

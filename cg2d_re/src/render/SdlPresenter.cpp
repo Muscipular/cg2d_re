@@ -19,6 +19,7 @@
 #endif
 #include <Windows.h>
 
+#include <atomic>
 #include <cstddef>
 #include <cerrno>
 #include <cstdio>
@@ -91,9 +92,27 @@ struct SdlPresenter::Impl {
     // 最终帧的固定尺寸，与外部窗口实际输出尺寸相互独立。
     int width {};
     int height {};
+    SDL_WindowID windowId {};
+    bool watchingEvents {false};
+    // 观察器可能在其他线程执行；只发布失效，不接触资源或上层状态。
+    std::atomic<bool> resourcesLost {false};
+
+    static bool SDLCALL ObserveRenderEvent(void* userdata, SDL_Event* event) noexcept
+    {
+        auto* const state = static_cast<Impl*>(userdata);
+        if ((event->type == SDL_EVENT_RENDER_DEVICE_RESET
+                || event->type == SDL_EVENT_RENDER_DEVICE_LOST)
+            && event->render.windowID == state->windowId) {
+            state->resourcesLost.store(true, std::memory_order_relaxed);
+        }
+        return true;
+    }
 
     ~Impl()
     {
+        if (watchingEvents) {
+            SDL_RemoveEventWatch(ObserveRenderEvent, this);
+        }
         if (texture != nullptr) {
             SDL_DestroyTexture(texture);
         }
@@ -189,6 +208,10 @@ bool SdlPresenter::Create(
     if ((SDL_GetWindowFlags(pending->window) & SDL_WINDOW_EXTERNAL) == 0) {
         return Fail("Create", "SDL 未将窗口标记为外部窗口。");
     }
+    pending->windowId = SDL_GetWindowID(pending->window);
+    if (pending->windowId == 0) {
+        return FailSdl("SDL_GetWindowID");
+    }
 
     pending->renderer = SDL_CreateRenderer(pending->window, driver);
     if (pending->renderer == nullptr) {
@@ -212,6 +235,10 @@ bool SdlPresenter::Create(
     if (!SDL_SetRenderDrawColor(pending->renderer, 0, 0, 0, 255)) {
         return FailSdl("SDL_SetRenderDrawColor");
     }
+    if (!SDL_AddEventWatch(Impl::ObserveRenderEvent, pending.get())) {
+        return FailSdl("SDL_AddEventWatch");
+    }
+    pending->watchingEvents = true;
 
     impl_ = std::move(pending);
     lastError_[0] = '\0';
@@ -253,6 +280,9 @@ bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes
     if (impl_ == nullptr) {
         return Fail("Present", "实例尚未创建或已销毁。");
     }
+    if (impl_->resourcesLost.load(std::memory_order_relaxed)) {
+        return Fail("Present", "呈现资源已失效，须销毁后重新创建。");
+    }
     constexpr int bytesPerPixel = sizeof(std::uint32_t);
     if (pitchBytes <= 0 || pitchBytes % bytesPerPixel != 0) {
         return Fail("Present", "pitchBytes 必须为正且为 4 的倍数。");
@@ -273,19 +303,43 @@ bool SdlPresenter::Present(std::span<const std::uint32_t> pixels, int pitchBytes
     }
 
     if (!SDL_UpdateTexture(impl_->texture, nullptr, pixels.data(), pitchBytes)) {
+        impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_UpdateTexture");
     }
     if (!SDL_RenderClear(impl_->renderer)) {
+        impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_RenderClear");
     }
     if (!SDL_RenderTexture(impl_->renderer, impl_->texture, nullptr, nullptr)) {
+        impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_RenderTexture");
     }
     if (!SDL_RenderPresent(impl_->renderer)) {
+        impl_->resourcesLost.store(true, std::memory_order_relaxed);
         return FailSdl("SDL_RenderPresent");
+    }
+    if (impl_->resourcesLost.load(std::memory_order_relaxed)) {
+        return Fail("Present", "提交期间呈现设备已重置或丢失，须重新创建。");
     }
     lastError_[0] = '\0';
     return true;
+}
+
+bool SdlPresenter::IsLost() noexcept
+{
+    if (impl_ == nullptr) {
+        return false;
+    }
+    if (impl_->resourcesLost.load(std::memory_order_relaxed)) {
+        return true;
+    }
+    int width;
+    int height;
+    if (!SDL_GetRenderOutputSize(impl_->renderer, &width, &height)) {
+        impl_->resourcesLost.store(true, std::memory_order_relaxed);
+        static_cast<void>(FailSdl("SDL_GetRenderOutputSize"));
+    }
+    return impl_->resourcesLost.load(std::memory_order_relaxed);
 }
 
 bool SdlPresenter::Destroy() noexcept
@@ -510,6 +564,36 @@ void RendererDestroy_44C3C0() noexcept
         return; // 后端销毁失败时保留 owner，供主线程重试销毁。
     }
     ReleaseRendererResources();
+}
+
+// 原4536D0：每项检查后继续，节点数量动态重读；CPU锁定不等于lost。
+int IsLost_4536D0()
+{
+    int lost = 0;
+    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {
+        TextureSurface* const surface = gTextureNodes[static_cast<std::size_t>(index)].surface;
+        if (surface != nullptr) {
+            SDL_Surface* const native = GetTextureSdlSurface(surface);
+            if (native == nullptr || native->pixels == nullptr) {
+                lost = 1;
+            }
+        }
+    }
+    TextureSurface* const temp = BorrowCpuTempSurface();
+    if (temp != nullptr) {
+        SDL_Surface* const native = GetTextureSdlSurface(temp);
+        if (native == nullptr || native->pixels == nullptr) {
+            lost = 1;
+        }
+    }
+    SDL_Surface* const back = GetCpuBackSdlSurface();
+    if (back != nullptr && back->pixels == nullptr) {
+        lost = 1;
+    }
+    if (gRendererPresenter.IsLost()) {
+        return 1;
+    }
+    return lost;
 }
 
 // 原 44C6B0：DX 合作级别探测在 SDL 后端映射为可尝试重建的门禁。

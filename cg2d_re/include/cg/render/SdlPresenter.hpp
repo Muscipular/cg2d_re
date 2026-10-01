@@ -36,6 +36,10 @@ public:
     // 调用期间源数据须有效且不被并发修改，本类不保留 pixels 的引用。
     [[nodiscard]] bool Present(std::span<const std::uint32_t> pixels, int pitchBytes) noexcept;
 
+    // front原生失效检测；未创建返回false，已发布实例的失败锁存至Destroy。
+    // 仅查询输出与设备事件/提交失败，不泵消息、不呈现或清除全局lost。
+    [[nodiscard]] bool IsLost() noexcept;
+
     // 可重复销毁；不销毁外部原生窗口，不清除 LastError。
     // 有资源时若不在主线程，返回 false 并保留资源，须回到主线程销毁。
     [[nodiscard]] bool Destroy() noexcept;

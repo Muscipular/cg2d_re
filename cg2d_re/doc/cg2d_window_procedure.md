@@ -83,3 +83,54 @@
 - 唯一直接调用点 `WIN_PROC@0x466E2D`：`0x466E11..2B` 仅完整 `wParam32` 为 1/2 且 renderer 非空才进入；`0x466E32` 严格比较结果与 1，命中后 `0x466E36` 写 `gRendererLost=1`，不因本次返回零清该槽。与 `TestCooperativeLevel@44C6B0` 是两个独立入口。
 - 缓存池半开区间 `[0x1020F08,0x103CF08)` 及 count 的创建/发布合同见 [DX 缓存证据第 63–70 节](cg2d_graphic_dx_cache.md#63-g3b1-证据来源与覆盖边界)：创建入口清 count，整轮完成才发布 4096，不把失败前缀当作已发布计数。这里仅记录 `IsLost` 对当前 count 的读取方式，不推断间接修改或失败后的可用池长度。
 - 新端当前只有 [WindowProcedureDependencies.hpp](../src/platform/WindowProcedureDependencies.hpp) 的声明和窗口调用；[SurfaceState.hpp](../include/cg/render/SurfaceState.hpp) 的 CPU Back/Temp 像素数组不是原 surface 状态或 4096 项缓存的 owner。已批准的 DX7 底层 surface lost 机制替换不等于批准上层 `IsLost` 固定返回零或一。统一资源归属、创建/重建/销毁时点，以及 SDL 驱动与等价失败状态的生产、探测、消费策略仍待 SPEC 裁决；本项不新增伪探测实现，不计窗口激活链、链接或运行完成。
+
+<a id="surface-loss-native"></a>
+## IsLost 原生资源检测
+
+上述为早期状态。本轮复核4536D0全函数57条指令及466E0C..466E3C调用门禁；
+当前节点池、Temp、Back与SDL呈现器均已有唯一owner和实际创建/释放链。
+按既有DX7底层替换与用户工程委托，采用以下局部SPEC，不恢复COM或驱动HRESULT。
+
+1. 原序扫描gTextureNodeCount个节点，每轮重读S32数量，非空T*才检查；
+   命中lost只累计1，不提前结束。之后检查Temp、Back、front，返回完整0/1。
+   不扩大至原函数未检查的AutoMap、变换缓存或3D接口。
+2. 节点/Temp由GetTextureSdlSurface借用既有SDL包装；非空原生T*的包装
+   或pixels缺失视为失效。Back借用GetCpuBackSdlSurface，非空时检查pixels。
+   空资源槽仍跳过，不把尚未创建/已释放当成失效，不探测已释放指针。
+   CPU内存不因失焦或SDL_SURFACE_LOCKED丢失，不锁面、不改变引用计数。
+3. front沿SdlPresenter唯一Impl。未发布Impl表示原front为空；
+   已发布实例通过SDL_GetRenderOutputSize探测输出查询失败，不把零尺寸、
+   最小化或失焦作为失败。既有四项提交操作的失败均锁存为资源失效。
+4. 每个成功创建的呈现器登记自己的SDL事件观察器，仅匹配自身windowID的
+   RENDER_DEVICE_RESET/RENDER_DEVICE_LOST，记录失效且不渲染、不改全局
+   gRendererLost、不消费事件。回调可能跨线程，仅写Impl内原子标志；
+   注册失败沿Create现有失败清理，不发布半初始化实例。
+   TARGETS_RESET不单独置位：本呈现器只有STREAMING纹理，没有TARGET纹理。
+5. 失效在该Impl生命周期内不清除，Present检测前后保留失效结果；
+   Destroy先移除观察器，再按现有顺序释放纹理/renderer/窗口/VIDEO。
+   新建Impl才恢复初始健康态。Flip原失败置位及帧奇偶翻转不变，
+   WM_ACTIVATE仍仅在结果==1时置位，不因本次健康清除已有lost。
+6. IsLost不泵消息、不触发呈现或重建、不合并TestCooperativeLevel；
+   SDL类型只留render后端。检测不保证GPU故障在驱动报告前可见，
+   不宣称DX7所有异常时点等价或窗口激活流程已经运行验收。
+
+API合同按本地SDL3-3.4.8头文件核对：SDL_events.h的SDL_RenderEvent含windowID，
+Add/RemoveEventWatch及可能跨线程回调，SDL_render.h的GetRenderOutputSize
+返回bool且仅限主线程。沿现有主线程呈现约束，不新增依赖或修改输入事件循环。
+
+观察器释放补证：只读SDL官方release-3.4.8的
+`src/events/SDL_eventwatch.c`，Dispatch与Remove均持同一list锁；
+跨线程Remove等当前回调返回，同线程分发期间移除则标记removed，
+后续迭代跳过。新观察器只做windowID判断与原子写入，不调用销毁/事件API。
+源码来源：
+`https://raw.githubusercontent.com/libsdl-org/SDL/release-3.4.8/src/events/SDL_eventwatch.c`。
+未下载为工程依赖，不以SDL源码代替cg2d指令证据。
+
+实施结果：IsLost_4536D0已有唯一本体，原WM_ACTIVATE调用无需修改即对应到实现；
+SdlPresenter新增原生探测、两设备事件观察及四提交失败锁存。
+静态核对节点/Temp/Back/front次序、动态count、空槽/锁定语义、
+事件windowID过滤、失败不发布、先注销后释放及新Impl重置边界。
+既有Flip、RendererDestroy、TestCooperativeLevel、全屏切换、截图和
+WindowProcedure本体逐字保留，466B80先Destroy后Init的现有调用不变。
+未执行新增函数、构建、测试、客户端或检查产物；设备丢失恢复和画面仍未运行验收。
+本步只补局部适配与唯一进度，不对齐总SPEC、不压缩日志。

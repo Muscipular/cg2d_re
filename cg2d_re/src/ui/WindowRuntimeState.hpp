@@ -179,6 +179,9 @@ std::int32_t Sub_4708A0(std::int32_t index, std::int32_t state); // 窗口34存�
 std::int32_t Sub_470910(std::int32_t index, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
 login::YobiAction* Sub_495F00(
     std::uint32_t flags, std::uint32_t mode, login::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
+std::int32_t Sub_495E10(std::int32_t index, std::int32_t unused); // 小地图按窗口/元素坐标入既有绘制队列。
+std::int32_t Sub_495E60(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家X。
+std::int32_t Sub_495EB0(std::int32_t index, std::int32_t unused); // 固定文本实例，门禁后刷新玩家Y。
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
 void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
 void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。

@@ -37756,6 +37756,71 @@ std::int32_t Sub_46FC10(const std::int32_t, const std::int32_t state)
     return 1;
 }
 
+std::int32_t Sub_495D70(const std::int32_t value)
+{
+    if (value == -1) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        data->text[0] = '\0';
+        return 1;
+    }
+    if (world::detail::Sub_440B50() == 0) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[3].data);
+        char* const destination = data->text;
+        if (destination[0] == '\0') {
+            const char* const name = world::ReadText9DAD30();
+            std::memcpy(destination, name, std::strlen(name) + 1);
+            const std::int32_t measured = login::detail::TextMeasure(name, 12);
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t width = window->width;
+            WindowElement* const elements = window->elements;
+            elements[3].x = ((width - measured) >> 1) + 2;
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_495E10(const std::int32_t index, const std::int32_t)
+{
+    if (world::detail::Sub_440B50() != 0) {
+        return 0;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    WindowElement* const elements = window->elements;
+    const std::int32_t windowY = window->y;
+    const std::int32_t elementY = elements[index].y;
+    const std::int32_t elementX = elements[index].x;
+    const std::int32_t y = elementY + windowY - 117;
+    const std::int32_t x = elementX + window->x - 14;
+    static_cast<void>(render::QueueMap_521AA0(x, y, 0xDF));
+    return 0;
+}
+
+std::int32_t Sub_495E60(const std::int32_t index, const std::int32_t)
+{
+    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+    if (world::detail::Sub_440B50() != 0) {
+        data->text[0] = '\0';
+        return 0;
+    }
+    const std::int32_t x =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    std::sprintf(data->text, "%3d", x);
+    return 0;
+}
+
+std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
+{
+    auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+    if (world::detail::Sub_440B50() != 0) {
+        data->text[0] = '\0';
+        return 0;
+    }
+    const std::int32_t y =
+        platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    std::sprintf(data->text, "%3d", y);
+    return 0;
+}
+
 login::YobiAction* Sub_495F00(
     const std::uint32_t flags, const std::uint32_t mode,
     login::YobiAction** const completionSlot)

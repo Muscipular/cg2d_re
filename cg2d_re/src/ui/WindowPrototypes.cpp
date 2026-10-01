@@ -38,6 +38,19 @@ WindowNumberData gWindowNumber55F090 {gStatusHpTextD40B18.data(), 10, 0, 0, 0};
 WindowNumberData gWindowNumber55F098 {gStatusFpTextD45D50.data(), 10, 0, 0, 0};
 std::uint32_t gWindowMouseFlagsD67650 = 0;
 
+WindowGraphicData gWindowGraphic56AEF0 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56AF08 {0x3B97A, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic56AF20 {0x3B97B, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowTextPrototype gWindowText56AF38 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+WindowTextPrototype gWindowText56AF40 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+WindowTextPrototype gWindowText56AF48 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+
 WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F4F0 {0x3B965, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1458,6 +1471,16 @@ WindowElementPrototype gWindowElements55ED60[11] {
 WindowElementPrototype gWindowElements55EEC0[2] {
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &Sub_4B0F10},
     {4, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &Sub_46FC10},
+};
+
+WindowElementPrototype gWindowElements56AF50[7] {
+    {1, 165, 4, 11, 11, 1, {.graphic = &gWindowGraphic56AEF0}, &Sub_4C1FB0},
+    {3, 51, 21, 0, 0, 1, {.text = &gWindowText56AF38}, &Sub_495E60},
+    {3, 159, 21, 0, 0, 1, {.text = &gWindowText56AF40}, &Sub_495EB0},
+    {3, 160, 138, 0, 0, 1, {.text = &gWindowText56AF48}, &Sub_4B0F10},
+    {0, -19, 81, 0, 0, 1, {}, &Sub_495E10},
+    {1, -16, 0, 0, 0, 1, {.graphic = &gWindowGraphic56AF08}, &Sub_4B0F10},
+    {1, 4, 16, 0, 0, 1, {.graphic = &gWindowGraphic56AF20}, &Sub_4B0F10},
 };
 
 WindowElementPrototype gWindowElements55F0A0[24] {

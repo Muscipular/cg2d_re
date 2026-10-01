@@ -4,6 +4,7 @@
 #include "CharacterSelectState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
+#include "cg/CharacterCreationRequest.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Input.hpp"
 #include "cg/LoginMessage.hpp"
@@ -168,6 +169,20 @@ struct CreationSnapshot {
 
 CreationSnapshot gCreationSnapshot {};
 
+// 原五个离散S32和9A6E88观察槽，仅45E7B0/45E7D0使用。
+struct CreationRequestProgress {
+    std::int32_t phase; // 9A50E0。
+    std::int32_t columns; // 9A565C。
+    std::int32_t rows; // 9A566C。
+    std::int32_t x; // 9A4E90。
+    std::int32_t y; // 9A50D8。
+    login::YobiAction* action; // 9A6E88，非拥有，完成时标死后清槽。
+};
+
+CreationRequestProgress gCreationRequestProgress {};
+constexpr char kCreationProgress55C9C0[] = "\xB3\xD0\xB3\x79\xA8\xA4\xA6\xE2\xA4\xA4";
+static_assert(sizeof(kCreationProgress55C9C0) == 11);
+
 std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
@@ -179,6 +194,65 @@ std::uint8_t Sub_50E770(std::uintptr_t, const std::uint8_t pukVersion)
 {
     state::gPukVersion = pukVersion;
     return pukVersion;
+}
+
+std::int32_t Sub_45E7B0()
+{
+    const std::int32_t selected = login::gSelectedCharacterIndex;
+    gCreationRequestProgress.phase = 0;
+    world::detail::Sub_5345A0(selected);
+    return world::detail::Sub_534770();
+}
+
+std::int32_t Sub_45E7D0()
+{
+    char text[sizeof(kCreationProgress55C9C0)];
+    std::memcpy(text, kCreationProgress55C9C0, sizeof(text));
+    if (gCreationRequestProgress.phase == 0) {
+        gCreationRequestProgress.phase = 1;
+        const auto length = static_cast<std::uint32_t>(std::strlen(text));
+        std::int32_t columns = std::bit_cast<std::int32_t>((9U * (length + 7U)) >> 6);
+        gCreationRequestProgress.columns = columns;
+        if (columns < 2) {
+            columns = 2;
+            gCreationRequestProgress.columns = 2;
+        }
+        const std::int32_t x = ((10 - columns) * 64) / 2;
+        gCreationRequestProgress.rows = 2;
+        gCreationRequestProgress.x = x;
+        gCreationRequestProgress.y = 192;
+        gCreationRequestProgress.action = login::detail::Sub_5044E0(
+            x, 192, columns * 64, 96, 4, 1);
+    }
+    if (gCreationRequestProgress.phase == 1) {
+        login::StartCharacterCreationRequest();
+        ++gCreationRequestProgress.phase;
+    }
+    if (gCreationRequestProgress.phase == 2) {
+        const std::int32_t status = login::PollCharacterCreationRequest();
+        if (status == 1 || status < 0) {
+            const std::int32_t result = status == 1 ? 1 : 2;
+            login::YobiAction* const action = gCreationRequestProgress.action;
+            if (action != nullptr) {
+                login::detail::MarkDeath(action);
+                gCreationRequestProgress.action = nullptr;
+            }
+            return result;
+        }
+    }
+    login::YobiAction* const action = gCreationRequestProgress.action;
+    if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+        const std::int32_t rows = gCreationRequestProgress.rows;
+        const std::int32_t top = gCreationRequestProgress.y;
+        const std::int32_t y = (48 * rows - 16) / 2 + top;
+        const auto textUnits = static_cast<std::int32_t>(std::strlen(text) >> 1);
+        const std::int32_t columns = gCreationRequestProgress.columns;
+        const std::int32_t left = gCreationRequestProgress.x;
+        const std::int32_t x = (64 * columns - 17 * textUnits) / 2 + left;
+        login::detail::DrawText3(
+            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
+    }
+    return 0;
 }
 
 void Sub_462870()

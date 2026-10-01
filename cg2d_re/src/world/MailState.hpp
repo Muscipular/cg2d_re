@@ -160,6 +160,7 @@ void Sub_533910(); // 只清20个used，再清消息、profile双槽和当前资
 void Sub_533950(); // 默认首槽后复制到第二槽及所选当前资料，保留未写字段。
 std::int32_t Sub_533C80(std::int32_t mode); // 两路profile同步；mode0发送后局部写回，mode1透传发送结果。
 std::int32_t Sub_534290(); // 先同步profile，再重取连接发送lz；第一次失败不抑制第二次。
+std::int32_t Sub_5345A0(std::int32_t index); // 局部重置指定资料槽，再复制当前角色整条资料，返回当前S16角色。
 std::int32_t Sub_534770(); // profile.dat整块保存，打开成功即返回1。
 std::int32_t Sub_5347F0(); // 整块读取后重取角色并复制当前资料，不按短读失败。
 

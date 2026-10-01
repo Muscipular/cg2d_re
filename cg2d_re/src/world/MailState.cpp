@@ -1328,6 +1328,34 @@ std::int32_t Sub_534910()
     return 1;
 }
 
+std::int32_t Sub_5345A0(const std::int32_t index)
+{
+    ProfileRuntimeRecord& record = gProfiles1074938[index];
+    std::strcpy(record.text08.data(), input::LegacyText593850());
+    const char* const source = input::LegacyText593850();
+    const std::size_t bytes = std::strlen(source) + 1;
+    record.value108 = -1;
+    record.value04 = 0;
+    std::memcpy(record.text110.data(), source, bytes);
+    std::strcpy(record.text210.data(), input::LegacyText593850());
+    std::strcpy(record.text310.data(), input::LegacyText593850());
+    for (ProfileEntry& entry : record.entries410) {
+        entry.value00 = 0;
+        entry.value04 = 246000;
+        std::strcpy(entry.text08.data(), kProfileDefault58F614);
+    }
+    // 原534737在末条文本的movsd与movsb之间读取当前角色，不沿用重置实参。
+    std::memcpy(record.text728.data(), kProfileDefault58F614, 4);
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    std::memcpy(
+        record.text728.data() + 4, kProfileDefault58F614 + 4,
+        sizeof(kProfileDefault58F614) - 4);
+    std::memcpy(
+        &gCurrentProfile10738E8, &gProfiles1074938[selected],
+        sizeof(gCurrentProfile10738E8));
+    return selected;
+}
+
 std::int32_t Sub_534770()
 {
     char path[1024];

@@ -59,6 +59,9 @@ std::int32_t Sub_520200();
 // sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。
 using cg::login::Sub_51B110;
 
+std::int32_t Sub_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。
+std::int32_t Sub_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。
+
 // 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。
 std::int32_t Sub_464290(const std::int32_t* rectangle);
 

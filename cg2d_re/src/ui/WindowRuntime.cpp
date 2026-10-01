@@ -1575,6 +1575,16 @@ std::int32_t ReadLegacyHealthImage(const std::int32_t health)
     return gHealthImages57CBA4[Sub_519680(health)];
 }
 
+std::int32_t ReadSkillRequestD64E13() noexcept
+{
+    return std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
+}
+
+std::uint32_t ReadSkillExtraDelayCF46C4() noexcept
+{
+    return gSkillExtraDelayCF46C4;
+}
+
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
 std::array<char, 256> gTitleDraftD45FC0 {};

@@ -1,6 +1,7 @@
 #include "cg/YobiRuntime.hpp"
 
 #include "LoginMessageDependencies.hpp"
+#include "LegacyPanelRuntime.hpp"
 #include "CharacterSelectSceneDependencies.hpp"
 #include "AnimationRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
@@ -31941,6 +31942,331 @@ void SetYobiActionField30F(
     const std::uint32_t updated =
         (bits & 0x00FFFFFFU) | (std::uint32_t{value} << 24U);
     action->color2 = std::bit_cast<std::int32_t>(updated);
+}
+
+namespace {
+
+// 旧选择38的私有面板/预览状态；证据见doc/ui_windows/legacy_gather_panel.md。
+LegacyPanelRecord gLegacyGatherPanel583B00 {0, 0, 272, 252, 38, {23357}};
+YobiAction* gLegacyGatherActionD67CD8 = nullptr;
+std::int32_t gLegacyGatherPhaseCC3E78 = 0;
+std::int32_t gLegacyGatherKindCF3F10 = 0;
+std::int32_t gLegacyGatherStopD2D494 = 0;
+std::int32_t gLegacyGatherStopD2D64C = 0;
+std::int32_t gLegacyGatherStopD64E0C = 0;
+std::uint32_t gLegacyGatherTickCC3E84 = 0;
+std::uint32_t gLegacyGatherTickD2F794 = 0;
+std::uint32_t gLegacyGatherTickC8B38C = 0;
+
+std::int32_t ReadGatherActionMode294(const YobiAction* const action)
+{
+    std::int32_t mode;
+    std::memcpy(&mode, action->bytes290.data() + 4, sizeof(mode));
+    return mode;
+}
+
+void WriteGatherActionMode294(YobiAction* const action, const std::int32_t mode)
+{
+    std::memcpy(action->bytes290.data() + 4, &mode, sizeof(mode));
+}
+
+YobiAction* Sub_4D3110(
+    const std::int32_t image, const std::int32_t x, const std::int32_t y,
+    const std::int32_t displayPriority)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->imageNo = image;
+    action->displayPriority = static_cast<std::uint8_t>(displayPriority);
+    action->callback = nullptr;
+    action->characterAction = 0;
+    action->direction = 5;
+    action->flags = 0x16;
+    action->x = x;
+    action->y = y;
+    return action;
+}
+
+std::int32_t Sub_4EE9E0()
+{
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    switch (world::detail::gSkillsF1BAFC[skill].skillId) {
+    case 226:
+    case 253:
+        return 1;
+    case 227:
+    case 250:
+        return 2;
+    case 225:
+    case 251:
+    default:
+        return 0;
+    }
+}
+
+std::int32_t Sub_4EE130()
+{
+    const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(ui::detail::Sub_4D3020(playerX, playerY));
+    const std::int32_t y = gLegacyGatherPanel583B00.y + 132;
+    const std::int32_t x = gLegacyGatherPanel583B00.x + 136;
+    const std::int32_t playerImage = world::detail::ReadPlayerImageNo();
+    YobiAction* action = Sub_4D3110(playerImage, x, y, 213);
+    gLegacyGatherActionD67CD8 = action;
+    if (action != nullptr) {
+        const std::int32_t image = world::detail::ReadPlayerImageNo();
+        if (image >= 100000 && image <= 100999) {
+            const std::int32_t offset = image - 100000;
+            action->imageNo = 25 * (offset / 25) + 6 * (offset % 25 / 6 + 16667);
+            action = gLegacyGatherActionD67CD8;
+            WriteGatherActionMode294(action, 0);
+            action = gLegacyGatherActionD67CD8;
+        } else if (image >= 105000 && image <= 106800) {
+            const std::int32_t offset = image - 105000;
+            action->imageNo = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 105002;
+            action = gLegacyGatherActionD67CD8;
+            WriteGatherActionMode294(action, 0);
+            action = gLegacyGatherActionD67CD8;
+        } else if ((image >= 104400 && image <= 104520)
+                   || (image >= 120100 && image <= 120147)) {
+            const std::int32_t offset = image - 104400;
+            if (offset >= 0 && offset <= 120) {
+                action->imageNo = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 104402;
+                action = gLegacyGatherActionD67CD8;
+            }
+            WriteGatherActionMode294(action, 0);
+            action = gLegacyGatherActionD67CD8;
+        } else if (image >= 120156 && image <= 120163) {
+            // 原4EE2C7直接进入尾部，保留+294，不补写普通图号标志。
+        } else if (image >= 110350 && image <= 110373) {
+            action->imageNo = 6 * ((image - 110350) / 6 + 18392);
+            WriteGatherActionMode294(gLegacyGatherActionD67CD8, 0);
+            action = gLegacyGatherActionD67CD8;
+        } else {
+            action->imageNo = image;
+            WriteGatherActionMode294(gLegacyGatherActionD67CD8, 1);
+            action = gLegacyGatherActionD67CD8;
+        }
+    }
+    // 原分配失败也进入该尾部；不新增失败保护或清除+310。
+    const std::int32_t image = action->imageNo;
+    if (image >= 110350 && image <= 110373) {
+        action->rebirthValue1 = 4;
+        gLegacyGatherActionD67CD8->rebirthValue2 = 4;
+    } else {
+        action->rebirthValue1 = 0;
+    }
+    gLegacyGatherPhaseCC3E78 = 0;
+    const std::int32_t kind = Sub_4EE9E0();
+    gLegacyGatherKindCF3F10 = kind;
+    return kind;
+}
+
+std::int32_t Sub_4EE670()
+{
+    const std::int32_t kind = gLegacyGatherKindCF3F10;
+    if (kind != 0 && kind != 1 && kind != 2) {
+        return 1;
+    }
+    YobiAction* action = gLegacyGatherActionD67CD8;
+    if (action == nullptr) {
+        return 1;
+    }
+    if (kind == 0 || kind == 1) {
+        std::int32_t& stop = kind == 0 ? gLegacyGatherStopD2D494 : gLegacyGatherStopD2D64C;
+        std::uint32_t& start = kind == 0 ? gLegacyGatherTickCC3E84 : gLegacyGatherTickD2F794;
+        const std::int32_t phase = gLegacyGatherPhaseCC3E78;
+        if (phase == 0) {
+            if (ReadGatherActionMode294(action) == 0) {
+                action->imageNo -= kind == 0 ? 2 : 1;
+                action = gLegacyGatherActionD67CD8;
+            }
+            action->characterAction = 1;
+            stop = 0;
+            start = platform::ReadTickCount32();
+            gLegacyGatherPhaseCC3E78 = 1;
+        } else if (phase == 1) {
+            const std::uint32_t now = platform::ReadTickCount32();
+            if (start + 2000u < now) {
+                gLegacyGatherActionD67CD8->characterAction = 5;
+                gLegacyGatherPhaseCC3E78 = 2;
+            }
+        } else if (phase == 2 && std::bit_cast<std::int32_t>(action->completedLoops) >= 2) {
+            action->characterAction = ReadGatherActionMode294(action) == 0 ? 16 : 6;
+            gLegacyGatherPhaseCC3E78 = 3;
+        }
+        const std::uint32_t now = platform::ReadTickCount32();
+        std::uint32_t deadline;
+        if (kind == 0) {
+            const std::uint32_t tick = start;
+            deadline = ui::detail::ReadSkillExtraDelayCF46C4() + tick + 4500u;
+        } else {
+            const std::uint32_t extra = ui::detail::ReadSkillExtraDelayCF46C4();
+            deadline = extra + start + 4500u;
+        }
+        if (deadline < now) {
+            action = gLegacyGatherActionD67CD8;
+            gLegacyGatherPhaseCC3E78 = 4;
+            action->flags |= 2u;
+            return 1;
+        }
+        const std::int32_t stopAtEnd = stop;
+        static_cast<void>(Sub_517880(gLegacyGatherActionD67CD8, 100, stopAtEnd, 0));
+        return 0;
+    }
+
+    const std::int32_t phase = gLegacyGatherPhaseCC3E78;
+    if (phase == 0) {
+        action->characterAction = 5;
+        gLegacyGatherStopD64E0C = 0;
+        gLegacyGatherTickC8B38C = platform::ReadTickCount32();
+        gLegacyGatherPhaseCC3E78 = 1;
+    } else if (phase == 1 && std::bit_cast<std::int32_t>(action->completedLoops) >= 4) {
+        action->characterAction = ReadGatherActionMode294(action) == 0 ? 16 : 6;
+        gLegacyGatherPhaseCC3E78 = 2;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    const std::uint32_t tick = gLegacyGatherTickC8B38C;
+    const std::uint32_t deadline = ui::detail::ReadSkillExtraDelayCF46C4() + tick + 4500u;
+    if (deadline < now) {
+        action = gLegacyGatherActionD67CD8;
+        gLegacyGatherPhaseCC3E78 = 3;
+        action->flags |= 2u;
+        return 1;
+    }
+    const std::int32_t stopAtEnd = gLegacyGatherStopD64E0C;
+    static_cast<void>(Sub_517880(gLegacyGatherActionD67CD8, 100, stopAtEnd, 0));
+    return 0;
+}
+
+} // namespace
+
+std::int32_t Sub_504C50(const std::int32_t currentImage, const std::int32_t requestedImage)
+{
+    if (currentImage == requestedImage) {
+        return currentImage;
+    }
+    if (requestedImage >= 100000 && requestedImage <= 100999) {
+        if ((requestedImage - 100000) / 6 != (currentImage - 100000) / 6) {
+            const std::int32_t offset = requestedImage - 100000;
+            return 25 * (offset / 25) + 6 * (offset % 25 / 6 + 16667);
+        }
+    } else if (requestedImage >= 105000 && requestedImage <= 106800) {
+        if ((requestedImage - 105000) / 6 != (currentImage - 105000) / 6) {
+            const std::int32_t offset = world::detail::ReadPlayerImageNo() - 105000;
+            return 25 * (offset / 25) + 6 * (offset % 25 / 6) + 105002;
+        }
+    } else if (requestedImage >= 104400 && requestedImage <= 104520) {
+        if ((requestedImage - 104400) / 6 != (currentImage - 104400) / 6) {
+            const std::int32_t offset = world::detail::ReadPlayerImageNo() - 104400;
+            return 25 * (offset / 25) + 6 * (offset % 25 / 6) + 104402;
+        }
+    } else if (requestedImage >= 120100 && requestedImage <= 120147) {
+        if ((requestedImage - 104400) / 6 != (currentImage - 104400) / 6) {
+            const std::int32_t offset = world::detail::ReadPlayerImageNo() - 120100;
+            return 30 * (offset / 30) + 6 * (offset % 30 / 6 + 20017);
+        }
+    } else if (requestedImage >= 120156 && requestedImage <= 120163) {
+        return currentImage;
+    } else if (requestedImage >= 110350 && requestedImage <= 110373) {
+        if ((requestedImage - 110350) / 6 != (currentImage - 110350) / 6) {
+            return 2 * (3 * ((requestedImage - 110350) / 6) + 55176);
+        }
+    } else {
+        return world::detail::ReadPlayerImageNo();
+    }
+    return currentImage;
+}
+
+std::uintptr_t Sub_4EE380(const std::int32_t opened)
+{
+    const char* const texts[] {
+        "\xA5\xEF\xA4\xEC\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
+        "\xA5\xB4\xC2\x79\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
+        "\xAB\xF5\xB1\xB8\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
+    };
+    constexpr std::int8_t imageOffsets[] {-2, -1, 0};
+    const std::int32_t result = Sub_503160(
+        opened, &gLegacyGatherPanel583B00, [] { static_cast<void>(Sub_4EE130()); }, 1);
+    if (result == 0) {
+        return 0;
+    }
+    if (result == 2) {
+        if (audio::ReadLegacyPanelSelectionCC236C() != 19) {
+            if (gLegacySkillPendingD67C48 != 0) {
+                gLegacySkillPendingD67C48 = 0;
+            } else if (ui::detail::gValue5F9754 != 0) {
+                const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
+                ui::detail::gValue5F9754 = 0;
+            }
+        }
+        YobiAction* action = gLegacyGatherActionD67CD8;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyGatherActionD67CD8 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+
+    YobiAction* action = gLegacyGatherActionD67CD8;
+    if (action != nullptr) {
+        const std::int32_t requestedImage = world::detail::ReadPlayerImageNo();
+        const std::int32_t mapped = Sub_504C50(action->imageNo, requestedImage);
+        action = gLegacyGatherActionD67CD8;
+        if (mapped != action->imageNo) {
+            action->imageNo = mapped;
+            const bool hasGatherAnimation =
+                (mapped >= 100000 && mapped <= 100999)
+                || (mapped >= 105000 && mapped <= 106800)
+                || (mapped >= 104400 && mapped <= 104520)
+                || (mapped >= 120100 && mapped <= 120147)
+                || (mapped >= 120156 && mapped <= 120163)
+                || (mapped >= 110350 && mapped <= 110373);
+            WriteGatherActionMode294(gLegacyGatherActionD67CD8, hasGatherAnimation ? 0 : 1);
+            action = gLegacyGatherActionD67CD8;
+            if (ReadGatherActionMode294(action) == 0) {
+                action->imageNo += imageOffsets[gLegacyGatherKindCF3F10];
+                action = gLegacyGatherActionD67CD8;
+            }
+            if (mapped >= 110350 && mapped <= 110373) {
+                action->rebirthValue1 = 4;
+                gLegacyGatherActionD67CD8->rebirthValue2 = 4;
+            } else {
+                action->rebirthValue1 = 0;
+            }
+            action = gLegacyGatherActionD67CD8;
+        }
+        if (action != nullptr) {
+            action->flags &= ~2u;
+        }
+    }
+    if (ui::detail::Sub_4D3040(1, 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGatherPanel583B00.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (Sub_4EE670() != 0) {
+        const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        char text[16];
+        text[0] = '\0';
+        const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+        static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, -1, text));
+        const std::uint32_t id = gLegacyGatherPanel583B00.id;
+        gLegacySkillPendingD67C48 = 1;
+        static_cast<void>(audio::Sub_5042D0(id));
+    }
+    const std::int32_t kind = gLegacyGatherKindCF3F10;
+    const std::int32_t y = gLegacyGatherPanel583B00.y + 168;
+    const char* const text = texts[kind];
+    const std::int32_t x = gLegacyGatherPanel583B00.x + 72;
+    DrawText(static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, 0, text, 0, 0);
+    return Sub_503440(&gLegacyGatherPanel583B00, 1);
 }
 
 } // namespace detail

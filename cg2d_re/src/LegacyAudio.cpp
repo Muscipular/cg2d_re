@@ -949,6 +949,11 @@ std::int32_t __cdecl Sub_5043D0(const std::int32_t index)
     return gSoundSelectionCC236C[static_cast<std::size_t>(index)] != 0;
 }
 
+std::uint32_t ReadLegacyPanelSelectionCC236C() noexcept
+{
+    return gSoundSelectionCC236C[0];
+}
+
 std::uint32_t Sub_52CCE0() noexcept
 {
     if (gValue103DE80 == 1) {

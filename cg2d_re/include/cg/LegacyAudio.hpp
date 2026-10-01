@@ -53,6 +53,7 @@ std::int32_t __cdecl Sub_504180(std::uint32_t id);
 std::int32_t __cdecl Sub_5042D0(std::uint32_t id);
 std::int32_t __cdecl Sub_504380(std::uint32_t id);
 std::int32_t __cdecl Sub_5043D0(std::int32_t index);
+std::uint32_t ReadLegacyPanelSelectionCC236C() noexcept; // 旧面板直接读取首槽编号，不经类别映射。
 std::int32_t __cdecl Sub_504AF0();
 std::int32_t Sub_504460(std::uint32_t id); // 旧面板按同源action槽切换选择，不直接清理对象。
 // 沿用57C368唯一表的非拥有运行期槽，不建立UI平行表；索引来自5044C0。

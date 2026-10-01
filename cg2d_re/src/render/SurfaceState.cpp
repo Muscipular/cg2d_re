@@ -639,6 +639,26 @@ TextureSurface* BorrowCpuTempSurface() noexcept
     return gCpuTempSurface;
 }
 
+bool BlitSurfaceRectangleToBack(
+    const std::int32_t destinationX, const std::int32_t destinationY,
+    const std::array<std::int32_t, 4>& rectangle, TextureSurface* const source) noexcept
+{
+    SDL_Surface* const sourceSurface = GetTextureSdlSurface(source);
+    if (sourceSurface == nullptr || gCpuBackSurface == nullptr
+        || gCpuBackSurface->blitSurface == nullptr) {
+        return false;
+    }
+    const SDL_Rect sourceRect {
+        rectangle[0], rectangle[1],
+        rectangle[2] - rectangle[0], rectangle[3] - rectangle[1]
+    };
+    const SDL_Rect destinationRect {
+        destinationX, destinationY, sourceRect.w, sourceRect.h
+    };
+    return BlitWithoutSourceColorKey(
+        sourceSurface, sourceRect, gCpuBackSurface->blitSurface.get(), destinationRect);
+}
+
 std::int32_t BlitSurfaceToBack_4535B0(
     const std::int16_t x, const std::int16_t y,
     std::array<std::int32_t, 4>& rectangle, TextureSurface* const source) noexcept

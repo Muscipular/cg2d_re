@@ -75,6 +75,12 @@ bool CopyBackToTemp() noexcept;
 // 非拥有原生 T*；仅同步借用同一 Temp，不延长其生命周期。
 TextureSurface* BorrowCpuTempSurface() noexcept;
 
+// 原直接BltFast的native边界：同步借源，不裁剪/改写矩形，保留完整S32坐标。
+// 无色键、混合或缩放；不同于4535B0的上层裁剪及低S16入口。
+bool BlitSurfaceRectangleToBack(
+    std::int32_t destinationX, std::int32_t destinationY,
+    const std::array<std::int32_t, 4>& rectangle, TextureSurface* source) noexcept;
+
 // 原4535B0：按renderer逻辑尺寸原位裁剪源RECT，然后无色键复制至Back。
 // 完全离屏返回0且不改RECT；native复制成功/失败返回0/-1。
 std::int32_t BlitSurfaceToBack_4535B0(

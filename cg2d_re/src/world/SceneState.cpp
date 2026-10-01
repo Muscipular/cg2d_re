@@ -99,6 +99,18 @@ std::array<std::int32_t, 64> gTileTransitionYFF0D7C {};
 std::array<std::int32_t, 64> gTileTransitionXFF265C {};
 std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {};
 
+// 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
+std::uint32_t gImageTransitionInitializedFF4910 = 0;
+std::int32_t gImageTransitionScaleFF0D78 = 0;
+struct GridTransitionOffset {
+    std::int32_t x;
+    std::int32_t y;
+};
+static_assert(sizeof(GridTransitionOffset) == 8);
+static_assert(offsetof(GridTransitionOffset, y) == 4);
+std::array<GridTransitionOffset, 960> gGridTransitionOffsetsFF28C0 {};
+static_assert(sizeof(gGridTransitionOffsetsFF28C0) == 0xFF46C0 - 0xFF28C0);
+
 // 原51EF80四种初始化的共同网格写序，不在此修改阶段/计数或消费随机数。
 void InitializeTileTransitionGrid(const std::int32_t state, const bool aboveScreen)
 {
@@ -10524,6 +10536,76 @@ std::int32_t Sub_51EF80(
     gValue73ECD0.mask = mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     gTileTransitionPhase58B6DC = -1;
+    return 1;
+}
+
+// 原[51F610,51F85F)：960个20x16画块直接BltFast，绘制后才推进共享比例。
+std::int32_t Sub_51F610(const std::int32_t value)
+{
+    bool initialize;
+    if (gValue58B6D0 == 1) {
+        gValue58B6D0 = 0;
+        initialize = true;
+    } else {
+        initialize = gImageTransitionInitializedFF4910 == 0;
+    }
+    if (initialize) {
+        gImageTransitionInitializedFF4910 = 1;
+        std::size_t index = 0;
+        for (std::int32_t y = -232; y < 248; y += 16) {
+            for (std::int32_t x = -310; x < 330; x += 20) {
+                gGridTransitionOffsetsFF28C0[index].x = x;
+                gGridTransitionOffsetsFF28C0[index].y = y;
+                ++index;
+            }
+        }
+        gImageTransitionScaleFF0D78 = value >= 0 ? 0 : 64;
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    std::int32_t index = 959;
+    for (std::int32_t sourceY = 464; sourceY >= 0; sourceY -= 16) {
+        for (std::int32_t sourceX = 620; sourceX >= 0; sourceX -= 20) {
+            const std::int32_t scale = gImageTransitionScaleFF0D78;
+            std::array<std::int32_t, 4> rectangle;
+            rectangle[1] = sourceY;
+            rectangle[3] = sourceY + 16;
+            const std::int32_t yProduct = gGridTransitionOffsetsFF28C0[index].y * scale;
+            rectangle[0] = sourceX;
+            rectangle[2] = sourceX + 20;
+            render::TextureSurface* const source = render::BorrowCpuTempSurface();
+            const std::int32_t y = yProduct / 64 + 232;
+            const std::int32_t xProduct = gGridTransitionOffsetsFF28C0[index].x * scale;
+            const std::int32_t x = xProduct / 64 + 310;
+            static_cast<void>(render::BlitSurfaceRectangleToBack(x, y, rectangle, source));
+            --index;
+        }
+    }
+    const std::int32_t next = gImageTransitionScaleFF0D78 + value;
+    gImageTransitionScaleFF0D78 = next;
+    if (value < 0 ? next >= 0 : next <= 64) {
+        return 0;
+    }
+
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        gImageTransitionInitializedFF4910 = 0;
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    const std::uint32_t mask = temporary.mask;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint8_t readCount = temporary.readCount;
+    gValue73ECD0.mask = mask;
+    gValue73ECD0.encoded = encoded;
+    gValue73ECD0.readCount = readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gImageTransitionInitializedFF4910 = 0;
     return 1;
 }
 

@@ -75,6 +75,9 @@ std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W3
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。
 std::int32_t Sub_5014A0(std::int32_t x, std::int32_t y); // 旧人物面板完整属性页，返回0。
 std::int32_t Sub_501FD0(std::int32_t x, std::int32_t y); // 旧称号输入、选择/删除、八行分页。
+std::int32_t Sub_502930(); // 原CRT 5530C8入口，尾跳旧地图面板构造。
+std::int32_t Sub_502940(); // D68868同源面板初始化，不触碰玩家坐标或地图数据。
+std::uint32_t Sub_5029B0(std::int32_t opened); // 旧地图面板；正常尾返回D046C0而非绘图结果。
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* records, std::int32_t count);
 void Sub_503120(LegacyPanelTextButtonRecord* records, std::int32_t count);
 std::int32_t Sub_503160(

@@ -10,9 +10,11 @@
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/world/SceneState.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -228,6 +230,11 @@ std::uint32_t gLegacyProfileEditTickD68864 = 0;
 std::int8_t gLegacyTitlePageCF49B4 = 0;
 std::int8_t gLegacyTitlePageCountC8AF80 = 0;
 std::int8_t gLegacyTitleDeleteCF4678 = 0;
+LegacyPanelRecord gLegacyMapPanelD68868 {};
+std::int32_t gLegacyMapDefaultX57CB24 = 392;
+std::int32_t gLegacyMapDefaultYD67AD4 = 0;
+constexpr char kLegacyMapEast58AA54[] = "\xAA\x46 %3d";
+constexpr char kLegacyMapSouth58AA4C[] = "\xAB\x6E %3d";
 constexpr char kLegacyTitleSubmit5863C4[] =
     "\xB3\x5D\xA9\x77\xA6\xDB\xA4\x76\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
 constexpr char kLegacyTitlePage58A98C[] = "\xB4\xAB\xAD\xB6\xA1\x43";
@@ -871,6 +878,82 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     }
     std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     return 0;
+}
+
+std::int32_t Sub_502930()
+{
+    return Sub_502940();
+}
+
+std::int32_t Sub_502940()
+{
+    const std::int32_t x = gLegacyMapDefaultX57CB24;
+    const std::int32_t y = gLegacyMapDefaultYD67AD4;
+    gLegacyMapPanelD68868.backgrounds[1] = 0;
+    gLegacyMapPanelD68868.x = x;
+    gLegacyMapPanelD68868.backgrounds[2] = 0;
+    gLegacyMapPanelD68868.y = y;
+    gLegacyMapPanelD68868.backgrounds[3] = 0;
+    gLegacyMapPanelD68868.width = 248;
+    gLegacyMapPanelD68868.height = 220;
+    gLegacyMapPanelD68868.id = 1;
+    gLegacyMapPanelD68868.backgrounds[0] = 22535;
+    gLegacyMapPanelD68868.backgrounds[4] = 0;
+    // 原尾部156B含页签指针；按原生字段清空，不能沿用x86字节数。
+    gLegacyMapPanelD68868.tabs = {};
+    gLegacyMapPanelD68868.selected = 0;
+    gLegacyMapPanelD68868.hovered = 0;
+    gLegacyMapPanelD68868.reservedA2 = {};
+    gLegacyMapPanelD68868.closeButton = {};
+    return 0;
+}
+
+std::uint32_t Sub_5029B0(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyMapPanelD68868, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    const std::int32_t nameWidth = TextMeasure(world::ReadText9DAD30(), 0);
+    const std::int32_t nameY = gLegacyMapPanelD68868.y;
+    const std::int32_t nameX = gLegacyMapPanelD68868.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX - nameWidth / 2 + 124),
+        static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
+    char buffer[256];
+    const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    std::sprintf(buffer, kLegacyMapEast58AA54, playerX);
+    const std::int32_t eastY = gLegacyMapPanelD68868.y;
+    const std::int32_t eastX = gLegacyMapPanelD68868.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
+        static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
+    const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    std::sprintf(buffer, kLegacyMapSouth58AA4C, playerY);
+    const std::int32_t southY = gLegacyMapPanelD68868.y;
+    const std::int32_t southX = gLegacyMapPanelD68868.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(southX + 133),
+        static_cast<std::int16_t>(southY + 186), 2, 0, 0, buffer, 0, 0));
+    if (Sub_503590(&gLegacyMapPanelD68868) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+    }
+    const std::int32_t width = gLegacyMapPanelD68868.width;
+    const std::int32_t x = gLegacyMapPanelD68868.x;
+    gLegacyMapPanelD68868.closeButton.normalImage = 22509;
+    gLegacyMapPanelD68868.closeButton.imageX = width + x - 16;
+    const std::int32_t y = gLegacyMapPanelD68868.y;
+    gLegacyMapPanelD68868.closeButton.left = width + x - 26;
+    gLegacyMapPanelD68868.closeButton.top = y + 6;
+    gLegacyMapPanelD68868.closeButton.imageY = y + 16;
+    gLegacyMapPanelD68868.closeButton.width = 20;
+    gLegacyMapPanelD68868.closeButton.height = 20;
+    gLegacyMapPanelD68868.closeButton.pressedImage = 22510;
+    static_cast<void>(render::QueueMap_521AA0(x, y, 212));
+    static_cast<void>(Sub_503440(&gLegacyMapPanelD68868, 1));
+    const std::uint32_t hitId = gLegacyPanelHitIdD046C0;
+    if (hitId == 1) {
+        world::detail::gValueC8A780 = 1;
+        world::detail::gValueC8A77C = 1;
+    }
+    return hitId;
 }
 
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)

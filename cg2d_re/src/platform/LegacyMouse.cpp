@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "../LoginMessageDependencies.hpp"
+#include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -128,6 +129,16 @@ struct ItemSelectorsStaticInitializer {
 };
 
 const ItemSelectorsStaticInitializer gItemSelectorsStaticInitializer;
+
+// 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
+struct LegacyMapPanelStaticInitializer {
+    LegacyMapPanelStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_502930());
+    }
+};
+
+const LegacyMapPanelStaticInitializer gLegacyMapPanelStaticInitializer;
 
 struct LegacyMouseStaticInitializer {
     LegacyMouseStaticInitializer()

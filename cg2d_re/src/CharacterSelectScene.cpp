@@ -183,6 +183,12 @@ CreationRequestProgress gCreationRequestProgress {};
 constexpr char kCreationProgress55C9C0[] = "\xB3\xD0\xB3\x79\xA8\xA4\xA6\xE2\xA4\xA4";
 static_assert(sizeof(kCreationProgress55C9C0) == 11);
 
+std::uint8_t gCreationRestore9A6EB8 = 0; // 原创建场景同次调用的恢复回边标志。
+constexpr char kCreationDuplicate55C980[] =
+    "\xA4\x77\xB8\x67\xA6\xB3\xAC\xDB\xA6\x50\xA6\x57\xA6\x72"
+    "\xAA\xBA\xA8\xA4\xA6\xE2\xA6\x73\xA6\x62\xA4\x46\xA1\x49";
+static_assert(sizeof(kCreationDuplicate55C980) == 29);
+
 std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
 {
     return *reinterpret_cast<const std::uint8_t*>(&value);
@@ -253,6 +259,125 @@ std::int32_t Sub_45E7D0()
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
     }
     return 0;
+}
+
+void ProcessCreationScene_4626A0(const std::int32_t entryGate)
+{
+    std::int32_t sceneState = world::gCurrentSceneState;
+    if (sceneState == 0) {
+        Sub_462870();
+        sceneState = world::gCurrentSceneState;
+    }
+    std::int32_t gate = entryGate;
+    bool selectCharacter = false;
+    if (sceneState == 1) {
+        Sub_462880(1);
+        world::gCurrentSceneState = 3;
+        selectCharacter = true;
+    } else {
+        if (sceneState == 2) {
+            Sub_462880(0);
+            sceneState = world::gCurrentSceneState;
+            ++sceneState;
+            world::gCurrentSceneState = sceneState;
+        }
+        selectCharacter = sceneState == 3;
+    }
+    if (selectCharacter) {
+        gate = Sub_462930();
+        if (gate == 1) {
+            sceneState = 10;
+            world::gCurrentSceneState = sceneState;
+        } else {
+            if (gate == 2) {
+                world::SetCurrentSceneTypeAndState(3, 10);
+            }
+            sceneState = world::gCurrentSceneState;
+        }
+    }
+
+    // 原462726回边只重做后半分派，必须保留当前局部状态和ESI门禁。
+    for (;;) {
+        bool editCharacter = false;
+        bool skipRemainingStages = false;
+        if (sceneState == 10 && gate != 1) {
+            skipRemainingStages = true;
+        } else if (sceneState == 10 || sceneState == 11) {
+            Sub_463100();
+            world::gCurrentSceneState = 12;
+            editCharacter = true;
+        } else if (sceneState == 12) {
+            editCharacter = true;
+        }
+        if (editCharacter) {
+            if (gCreationRestore9A6EB8 == 1) {
+                Sub_464380();
+                gCreationRestore9A6EB8 = 0;
+            }
+            gate = Sub_4631D0();
+            if (gate == 1) {
+                const std::int32_t selected = login::gSelectedCharacterIndex;
+                world::gCurrentSceneState = 30;
+                login::Sub_51B3B0(static_cast<std::uint32_t>(selected));
+                const std::int32_t unusedSelected = login::gSelectedCharacterIndex;
+                static_cast<void>(unusedSelected);
+                cg::NullSub_509080();
+                Sub_520200();
+                input::SetContext_44B330(nullptr);
+                sceneState = world::gCurrentSceneState;
+            } else if (gate == 2) {
+                sceneState = gate;
+                world::gCurrentSceneState = sceneState;
+                skipRemainingStages = true;
+            } else {
+                sceneState = world::gCurrentSceneState;
+            }
+        }
+        if (!skipRemainingStages) {
+            bool processRequest = false;
+            if (sceneState == 30) {
+                Sub_45E7B0();
+                world::gCurrentSceneState = 31;
+                processRequest = true;
+            } else if (sceneState == 31) {
+                processRequest = true;
+            }
+            if (processRequest) {
+                gate = Sub_45E7D0();
+                if (gate == 1) {
+                    state::gPendingCharacterCount =
+                        static_cast<std::int16_t>(state::gPendingCharacterCount + 1);
+                    world::SetCurrentSceneType(3);
+                    state::gCharacterEntryState = 1;
+                    sceneState = world::gCurrentSceneState;
+                } else if (gate == 2) {
+                    world::gCurrentSceneState = 100;
+                    sceneState = 100;
+                } else {
+                    sceneState = world::gCurrentSceneState;
+                }
+            }
+            if (sceneState == 100) {
+                login::ResetLoginMessage();
+                sceneState = world::gCurrentSceneState;
+                ++sceneState;
+                world::gCurrentSceneState = sceneState;
+            }
+            if (sceneState == 101) {
+                if (login::UpdateLoginMessage(kCreationDuplicate55C980) != 0) {
+                    sceneState = 10;
+                    gCreationRestore9A6EB8 = 1;
+                    world::gCurrentSceneState = sceneState;
+                    gate = 1;
+                    continue;
+                }
+                sceneState = world::gCurrentSceneState;
+            }
+        }
+        if (gCreationRestore9A6EB8 != 1) {
+            return;
+        }
+    }
 }
 
 void Sub_462870()

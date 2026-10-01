@@ -260,4 +260,18 @@ std::int8_t RemoveBlacklistRecord_4012F0(const char* const name)
     return 1;
 }
 
+std::int8_t ClearBlacklistRecords_401470()
+{
+    if (gRecords[0][0] == 0 || gCursor == 0) {
+        return 0;
+    }
+    std::memset(gRecords.data(), 0, sizeof(gRecords));
+    gCursor = 0;
+    const std::int32_t fileId = gCurrentFileId;
+    if (fileId >= 0) {
+        static_cast<void>(PersistBlacklistFile_4011A0(fileId));
+    }
+    return 1;
+}
+
 } // namespace cg::blacklist

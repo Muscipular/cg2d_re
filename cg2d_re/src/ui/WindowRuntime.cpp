@@ -11,6 +11,7 @@
 #include "../world/MailState.hpp"
 #include "../world/WorldUpdateDependencies.hpp"
 #include "cg/GraphicInfo.hpp"
+#include "cg/Blacklist.hpp"
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/LegacyRecordOrder.hpp"
@@ -108,6 +109,10 @@ WindowInputPrototype gDialogInputPrototype57E478 {
 WindowInputPrototype gWindow50InputPrototype580618 {
     {{&input::gInputContextCC2080}, WindowInputReferenceKind::Context},
     33, 368, 3, 12, 0, {}, 2, 70, 16, 0,
+};
+WindowInputPrototype gBlacklistInputPrototype580EF0 {
+    {{&input::gInputContextC8B1B8}, WindowInputReferenceKind::Context},
+    75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
 };
 std::int32_t gChatWindowModeD66E04 = 0;
 std::uint8_t gValue5F9754 = 0;
@@ -1043,6 +1048,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t mailDeleteIndexD2DA8C; // 删除确认与后续列表父链共用的记录索引。
     std::int32_t valueCC31A4;
     std::int32_t valueD2E444;
+    std::int32_t blacklistDeleteModeD67BC4; // 只由65删除按钮切换，初始化不重置。
     std::int32_t valueCB0604;
     std::uint32_t valueD67618;
     platform::LegacyTm53B8C6* calendarTimeD67BAC; // 借用platform同一可变localtime对象。
@@ -1065,6 +1071,35 @@ struct Window47RuntimeSlots {
 };
 
 Window47RuntimeSlots gWindow47Runtime {};
+constexpr char kBlacklistRejectHint588668[] =
+    "\xA9\xDA\xB5\xB4\xB1\xB5\xA6\xAC\xA6\xB9\xA4\x48\xAA\xBA\xB5\x6F\xB8\xDC\xA1\x43";
+constexpr char kBlacklistDeleteRowHint588654[] =
+    "\xA7\x52\xB0\xA3\xA6\xB9\xB5\xA7\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistOccupied5885FC[] =
+    "\xA6\xB9\xC4\xE6\xA6\xEC\xA4\x77\xA6\xB3\xA6\x57\xB3\xE6";
+constexpr char kBlacklistPreviousHint5886CC[] =
+    "\xC5\xE3\xA5\xDC\xAB\x65\xA4\x51\xB5\xA7\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistNextHint5886B4[] =
+    "\xC5\xE3\xA5\xDC\xAB\xE1\xA4\x51\xB5\xA7\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistDeleteHint58869C[] =
+    "\xA7\x52\xB0\xA3\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistClearHint588680[] =
+    "\xA5\x69\xA4\x40\xA6\xB8\xA7\x52\xB0\xA3\xA9\xD2\xA6\xB3\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistRemoved58863C[] =
+    "\xA4\x77\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xA6\x43\xAA\xED\xA4\xA4\xB2\xBE\xB0\xA3\x25\x73";
+constexpr char kBlacklistRemoveFailed588620[] =
+    "\xB5\x4C\xAA\x6B\xB1\x4E\x25\x73\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xA6\x43\xAA\xED\xA4\xA4\xB2\xBE\xB0\xA3";
+constexpr char kBlacklistAbsent58860C[] =
+    "\x25\x73\xA4\xA3\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA6\x43\xAA\xED\xA4\xA4";
+constexpr char kBlacklistClearConfirm5886E4[] =
+    "\x0A\x20\x20\x0A\x20\x20\x20\x20\xBD\x54\xA9\x77\xA7\x52\xB0\xA3\x0A\x20\x20\x20"
+    "\xA9\xD2\xA6\xB3\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xB6\xDC\xA1\x48\x0A\x20\x0A\x20"
+    "\x28\xBD\x54\xA9\x77\xA7\x52\xB0\xA3\xAE\xC9\xA1\x41\xBD\xD0\xAB\xF6\xA6\xED\x0A"
+    "\x20\x43\x54\x52\x4C\xC1\xE4\xA6\x41\xBF\xEF\xBE\xDC\xA1\x75\xAC\x4F\xA1\x76\x29";
+constexpr char kBlacklistCleared588754[] =
+    "\xA4\x77\xA7\x52\xB0\xA3\xA9\xD2\xA6\xB3\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
+constexpr char kBlacklistEmpty588738[] =
+    "\xB6\xC2\xA6\x57\xB3\xE6\xA8\xC3\xA8\x53\xA6\xB3\xA4\xBA\xAE\x65\xA5\x69\xA7\x52\xB0\xA3\xA1\x43";
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
 std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
 constexpr char kWindow50WriteHint587C84[] = "\xBC\x67\xA4\x55\xB0\x54\xAE\xA7\xA1\x43";
@@ -27752,6 +27787,261 @@ std::int32_t Sub_4CC6A0()
     return 0;
 }
 
+void Sub_4CCED0()
+{
+    render::GraphicDescriptor16 descriptor {};
+    for (std::int32_t row = 0; row < 10; ++row) {
+        gCurrentWindow->elements[9 + row * 3].visible = 0;
+        gCurrentWindow->elements[10 + row * 3].visible = 0;
+        gCurrentWindow->elements[11 + row * 3].visible = 0;
+        const char* const recordAddress =
+            reinterpret_cast<const char*>(blacklist::gRecords[row].data());
+        const char* text;
+        WindowTextData* destination;
+        // 原门禁比较静态记录地址，不是记录首字节；空记录也绘行号。
+        if (recordAddress != nullptr) {
+            const std::int32_t page = gLoginWindowRuntime.valueD2E444;
+            const std::uint32_t color = 0xFFFFFFFFu;
+            std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+            descriptor.bytes[13] = 4;
+            const std::int32_t number = page + row + 1;
+            for (std::int32_t column = 0; column < 3; ++column) {
+                WindowInstance* const window = gCurrentWindow;
+                WindowElement* const elements = window->elements;
+                const std::int32_t digit = column == 0 ? (number % 1000) / 100
+                    : column == 1 ? (number % 100) / 10 : number % 10;
+                const WindowElement& element = elements[9 + row * 3 + column];
+                const std::int32_t y = element.y + window->y + 4;
+                const std::int32_t x = element.x + window->x + 1;
+                static_cast<void>(login::detail::DrawGraphic(
+                    x, y, 223, digit + 0x3B6B4, 0, &descriptor));
+            }
+            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            text = reinterpret_cast<const char*>(blacklist::gRecords[currentPage + row].data());
+            destination = static_cast<WindowTextData*>(gCurrentWindow->elements[49 + row].data);
+        } else {
+            WindowInstance* const window = gCurrentWindow;
+            text = input::LegacyText593850();
+            destination = static_cast<WindowTextData*>(window->elements[49 + row].data);
+        }
+        std::strcpy(destination->text, text);
+        gCurrentWindow->elements[39 + row].visible = 0;
+    }
+    if (input::gCurrentInputData == &input::gInputContextC8B1B8) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gBlacklistInputPrototype580EF0, x, y, 1));
+        render::DrawInputText_4568A0(&input::gInputContextC8B1B8);
+    }
+}
+
+std::int32_t Sub_4CC6C0(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.valueD2E444 = 0;
+    }
+    Sub_4CCED0();
+    return 1;
+}
+
+std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        const char* const hint = gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 0
+            ? kBlacklistDeleteRowHint588654 : kBlacklistRejectHint588668;
+        std::strcpy(gHoverTextD68AE8.data(), hint);
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FCC;
+        consumed = 1;
+    } else {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3BB02;
+    }
+    if ((state & 2) == 0) {
+        return consumed;
+    }
+    if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
+        const std::int32_t recordIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
+        const char* const record = reinterpret_cast<const char*>(blacklist::gRecords[recordIndex].data());
+        if (std::strcmp(record, input::LegacyText593850()) != 0) {
+            char message[128] {};
+            char name[17] {};
+            std::strcpy(name, record);
+            if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
+                const char* const format = blacklist::RemoveBlacklistRecord_4012F0(name) != 0
+                    ? kBlacklistRemoved58863C : kBlacklistRemoveFailed588620;
+                std::sprintf(message, format, name);
+            } else {
+                std::sprintf(message, kBlacklistAbsent58860C, name);
+            }
+            world::detail::Sub_44B050(message, 4, 3);
+        }
+    }
+    const std::int32_t currentIndex = gLoginWindowRuntime.valueD2E444 + index - 59;
+    const char* const currentRecord = reinterpret_cast<const char*>(blacklist::gRecords[currentIndex].data());
+    if (std::strlen(currentRecord) != 0) {
+        std::memset(&input::gInputContextC8B1B8, 0, sizeof(input::InputContext));
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        world::detail::Sub_44B050(kBlacklistOccupied5885FC, 4, 3);
+        return 1;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    void* const focused = gFocusedElementDataD45F94;
+    WindowElement* const elements = window->elements;
+    void* const target = elements[0].data;
+    const std::int32_t y = elements[index].y;
+    const bool changeFocus = focused != target;
+    gBlacklistInputPrototype580EF0.y = y + 1;
+    const std::int32_t windowY = window->y;
+    const std::int32_t windowX = window->x;
+    static_cast<void>(Sub_476570(&gBlacklistInputPrototype580EF0, windowX, windowY, 0));
+    input::SetContext_44B330(&input::gInputContextC8B1B8);
+    if (changeFocus) {
+        gFocusedElementDataD45F94 = gCurrentWindow->elements[0].data;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4CC9B0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 3:
+    case 4: {
+        const std::int32_t base = index == 3 ? 0x3B592 : 0x3B595;
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+            base + ((state & 1) != 0 ? 2 : 0);
+        if ((state & 1) != 0) {
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            consumed = 1;
+        }
+        if ((state & 0x400) != 0) {
+            const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (index == 3 ? -1 : 1);
+            gLoginWindowRuntime.valueD2E444 = page;
+            const bool boundary = index == 3 ? page < 0 : page > 89;
+            if (boundary) {
+                gLoginWindowRuntime.valueD2E444 = index == 3 ? 0 : 90;
+            }
+            static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            static_cast<void>(Sub_4742C0(&window->elements[2], 90, currentPage));
+            consumed = 1;
+        }
+        break;
+    }
+    case 5:
+    case 6: {
+        const std::int32_t base = index == 5 ? 0x3B556 : 0x3B559;
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+            base + ((state & 1) != 0 ? 2 : 0);
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                index == 5 ? kBlacklistPreviousHint5886CC : kBlacklistNextHint5886B4);
+        }
+        if ((state & 0x400) != 0) {
+            const std::int32_t page = gLoginWindowRuntime.valueD2E444 + (index == 5 ? -10 : 10);
+            gLoginWindowRuntime.valueD2E444 = page;
+            const bool boundary = index == 5 ? page < 0 : page > 90;
+            if (boundary) {
+                gLoginWindowRuntime.valueD2E444 = index == 5 ? 0 : 90;
+            }
+            static_cast<void>(audio::PlaySe_52C450(boundary ? 55 : 51, 320));
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t currentPage = gLoginWindowRuntime.valueD2E444;
+            static_cast<void>(Sub_4742C0(&window->elements[2], 90, currentPage));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+        }
+        break;
+    }
+    case 7:
+        if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 1) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC7;
+            std::strcpy(gHoverTextD68AE8.data(), kBlacklistDeleteHint58869C);
+        }
+        if ((state & 1) != 0) {
+            if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
+                static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC8;
+            }
+            std::strcpy(gHoverTextD68AE8.data(), kBlacklistDeleteHint58869C);
+            consumed = 1;
+        } else if (gLoginWindowRuntime.blacklistDeleteModeD67BC4 == 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FC6;
+        }
+        if ((state & 2) != 0) {
+            gLoginWindowRuntime.blacklistDeleteModeD67BC4 =
+                gLoginWindowRuntime.blacklistDeleteModeD67BC4 != 1 ? 1 : 0;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        break;
+    case 8:
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo =
+            (state & 1) != 0 ? 0x8FCB : 0x8FC9;
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), kBlacklistClearHint588680);
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x8FCA;
+            static_cast<void>(Sub_4CD150());
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        break;
+    default:
+        break;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4CCE90(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t consumed = Sub_4741A0(index, state);
+    if (consumed == 1) {
+        gLoginWindowRuntime.valueD2E444 = Sub_474270(&gCurrentWindow->elements[2], 90);
+    }
+    return consumed;
+}
+
+login::YobiAction* Sub_4CD150()
+{
+    gWindow47Runtime.visibleMaskCC4240 = 3;
+    gWindow47Runtime.widthUnitsCC4244 = 3;
+    gWindow47Runtime.valueCC424C = 0;
+    gWindow47Runtime.valueCC4248 = 0;
+    gWindow47Runtime.initializeCC4250 = nullptr;
+    gWindow47Runtime.actionsCC4254[5] = nullptr;
+    gWindow47Runtime.actionsCC4254[4] = nullptr;
+    gWindow47Runtime.actionsCC4254[3] = nullptr;
+    gWindow47Runtime.actionsCC4254[2] = nullptr;
+    gWindow47Runtime.actionsCC4254[0] = &Sub_4CD1E0;
+    gWindow47Runtime.actionsCC4254[1] = &Sub_4CD220;
+    std::strcpy(gWindow47Runtime.textCC426C.data(), kBlacklistClearConfirm5886E4);
+    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+}
+
+std::int32_t Sub_4CD1E0(const std::int32_t, const std::int32_t)
+{
+    const char* const message = blacklist::ClearBlacklistRecords_401470() != 0
+        ? kBlacklistCleared588754 : kBlacklistEmpty588738;
+    world::detail::Sub_44B050(message, 4, 3);
+    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    return 1;
+}
+
+std::int32_t Sub_4CD220(const std::int32_t, const std::int32_t)
+{
+    if (gWindowStates[65].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(65, 1, 0, nullptr));
+    }
+    return 1;
+}
+
 void Sub_4CBD30()
 {
     platform::LegacyTm53B8C6* const previous = gLoginWindowRuntime.calendarTimeD67BAC;
@@ -27817,6 +28107,31 @@ std::int32_t Sub_4A6DB0()
     world::detail::gCountC9A944 = 0;
     gChatHeightRequestC9A93C = 0;
     return 0;
+}
+
+WindowInstance* Sub_4A8330()
+{
+    WindowInstance* result;
+    if (gChatWindowModeD66E04 == 0) {
+        WindowInstance* const window = gWindowStates[35].window;
+        if (window == nullptr) {
+            return nullptr;
+        }
+        window->state |= 0x8000u;
+        result = OpenWindow_471440(57);
+        gChatWindowModeD66E04 = 1;
+    } else {
+        WindowInstance* const window = gWindowStates[57].window;
+        if (window == nullptr) {
+            return nullptr;
+        }
+        window->state |= 0x8000u;
+        result = OpenWindow_471440(35);
+        gChatWindowModeD66E04 = 0;
+    }
+    input::gValue626C14 = 0;
+    input::gValueC9A96C = 1;
+    return result;
 }
 
 WindowInstance* FindWindowById_477490(const std::int32_t id)

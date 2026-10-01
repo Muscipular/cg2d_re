@@ -47,4 +47,7 @@ std::int8_t AddBlacklistRecord_401270(const char* name);
 // 原 sub_4012F0@0x4012F0：删除首个同名记录，按旧游标压移，正常完成后仅当文件 ID 非负时调用持久化，忽略其返回值。
 std::int8_t RemoveBlacklistRecord_4012F0(const char* name);
 
+// 原401470：首记录和游标均非零才清表；非负fileId持久化，忽略保存返回。
+std::int8_t ClearBlacklistRecords_401470();
+
 } // namespace cg::blacklist

@@ -1769,6 +1769,14 @@ std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读�
 std::int32_t Sub_4A3990(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。
 void Sub_4CBD30(); // 首次借用原localtime对象并写同源日志文件名。
+WindowInstance* Sub_4A8330(); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
+void Sub_4CCED0(); // 窗口65十行序号/名称与活动输入刷新。
+std::int32_t Sub_4CC6E0(std::int32_t index, std::int32_t state); // 删除后重读行，再决定提示或编辑。
+std::int32_t Sub_4CC9B0(std::int32_t index, std::int32_t state); // 六个黑名单按钮及原消费差异。
+std::int32_t Sub_4CCE90(std::int32_t index, std::int32_t state); // 拖动恰1才更新页。
+login::YobiAction* Sub_4CD150(); // 生产窗口47的清空确认及两个真实回调。
+std::int32_t Sub_4CD1E0(std::int32_t unusedIndex, std::int32_t unusedState);
+std::int32_t Sub_4CD220(std::int32_t unusedIndex, std::int32_t unusedState);
 void InitializeLoginWindows_470600(); // 每次登录的完整UI/邮件/profile初始化；不清全部窗口指针。
 std::int32_t Sub_4A6DB0(); // 仅重置回看、两调整请求与数量。
 std::int32_t Sub_44B170(); // 清512条日志首字节，再清数量与回看。

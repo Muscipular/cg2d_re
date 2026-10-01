@@ -130,6 +130,21 @@ struct ItemSelectorsStaticInitializer {
 
 const ItemSelectorsStaticInitializer gItemSelectorsStaticInitializer;
 
+// 原CRT 5530A4；成功构造后才登记析构，浏览区不与玩家宠物共享。
+struct StallBrowsePetsStaticInitializer {
+    StallBrowsePetsStaticInitializer()
+    {
+        cg::ui::ConstructStallBrowsePetValues();
+    }
+
+    ~StallBrowsePetsStaticInitializer()
+    {
+        cg::ui::DestroyStallBrowsePetValues();
+    }
+};
+
+const StallBrowsePetsStaticInitializer gStallBrowsePetsStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

@@ -44327,6 +44327,37 @@ void DestroyItemSelectors()
     login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorCF3B10.preview);
 }
 
+void ConstructStallBrowsePetValues()
+{
+    std::size_t completed = 0;
+    try {
+        for (world::detail::PetRuntimeRecord& pet : detail::gStallBrowseD046D8.pets) {
+            for (platform::LegacyCryptInt& value : pet.values0C) {
+                platform::legacy_crypt_int::ConstructZero_401C70(&value);
+                ++completed;
+            }
+        }
+    } catch (...) {
+        // 六成员连续前缀对应原成员SEH清理，再逆序回退先前完整宠物。
+        while (completed != 0) {
+            --completed;
+            platform::legacy_crypt_int::Destroy_401CF0(
+                &detail::gStallBrowseD046D8.pets[completed / 6].values0C[completed % 6]);
+        }
+        throw;
+    }
+}
+
+void DestroyStallBrowsePetValues()
+{
+    for (std::size_t pet = detail::gStallBrowseD046D8.pets.size(); pet != 0; --pet) {
+        auto& values = detail::gStallBrowseD046D8.pets[pet - 1].values0C;
+        for (std::size_t value = values.size(); value != 0; --value) {
+            platform::legacy_crypt_int::Destroy_401CF0(&values[value - 1]);
+        }
+    }
+}
+
 void InitializeNumberSpacing_477170()
 {
     using namespace detail;

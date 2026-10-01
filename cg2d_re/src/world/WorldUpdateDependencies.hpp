@@ -680,6 +680,7 @@ static_assert(sizeof(PetPairRecord) == 8);
 extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8;
 extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
 extern std::int32_t gPetCountDE0B00;
+std::int32_t Sub_52E1D0(std::int32_t index); // 四个邮件技能按原顺序逐次查询，任一命中即1。
 std::int32_t Sub_52E180(
     std::int32_t index, std::int32_t techniqueId); // 原十个真实技能记录，非排序索引表。
 extern std::uint32_t gValueD67B28; // 492250置1，UI后续复用。

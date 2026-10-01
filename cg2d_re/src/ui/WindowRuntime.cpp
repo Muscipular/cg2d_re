@@ -83,6 +83,10 @@ WindowInputPrototype gTradeInputPrototype5803D0 {
     {{&input::gInputContextCC21E8}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
 };
+WindowInputPrototype gMailInputPrototype57E740 {
+    {{&input::gInputContextD66CA8}, WindowInputReferenceKind::Context},
+    22, 70, 3, 12, 0, {}, 10, 28, 12, 0,
+};
 WindowInputPrototype gNumberInputPrototype57DA70 {
     {{&input::gInputContextCB0878}, WindowInputReferenceKind::Context},
     0, -100, 3, 8, 127, {}, 1, 0, 0, 0,
@@ -951,6 +955,26 @@ struct WindowRuntimePrefixD2F0B8 {
     std::uint32_t value26C;
 };
 
+// 原CC1A30..CC207B，窗口22消费、窗口49生产；两个数组各200个数值槽。
+struct WindowMailGroupSlotsCC1A30 {
+    std::int32_t count;
+    std::int32_t mode;
+    std::array<std::int32_t, 200> indices;
+    std::array<std::int32_t, 200> selected;
+    std::int32_t initialize;
+};
+
+static_assert(offsetof(WindowMailGroupSlotsCC1A30, indices) == 8);
+static_assert(offsetof(WindowMailGroupSlotsCC1A30, selected) == 0x328);
+static_assert(offsetof(WindowMailGroupSlotsCC1A30, initialize) == 0x648);
+static_assert(sizeof(WindowMailGroupSlotsCC1A30) == 0x64C);
+
+std::int32_t Sub_4A6D00(
+    const WindowRuntimePrefixD2F0B8 first, const WindowRuntimePrefixD2F0B8 second)
+{
+    return first.value00 == second.value00 && first.value04 == second.value04 ? 1 : 0;
+}
+
 static_assert(offsetof(WindowListRecordD3FAD4, value00) == 0);
 static_assert(offsetof(WindowListRecordD3FAD4, value04) == 4);
 static_assert(offsetof(WindowListRecordD3FAD4, texts08) == 8);
@@ -976,6 +1000,8 @@ struct LoginWindowRuntimeSlots {
     std::array<WindowListRecordD3FAD4, 4> recordsD3FAD4;
     WindowChoiceSlotsCC4CA0 choicesCC4CA0;
     WindowRuntimePrefixD2F0B8 prefixD2F0B8;
+    WindowRuntimePrefixD2F0B8 mailDraftCF4BC8; // 4A5650只更新五字段和正文，保留其余字节。
+    WindowMailGroupSlotsCC1A30 mailGroupCC1A30;
     std::int32_t valueD673D0;
     std::int32_t selectedPetCC3E5C;
     std::int32_t previousPetCC4888; // 详情页记排序位置，不是实际宠物编号。
@@ -25848,6 +25874,29 @@ constexpr char kPreviousMailHint587718[] = "\xA4\x57\xA4\x40\xAB\xCA\xB6\x6C\xA5
 constexpr char kNextMailHint587724[] = "\xA4\x55\xA4\x40\xAB\xCA\xB6\x6C\xA5\xF3";
 constexpr char kReplyMailHint587730[] =
     "\xB9\xEF\xA4\x77\xBF\xEF\xBE\xDC\xAA\xBA\xB9\xEF\xB6\x48\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kPetMailHint58774C[] = "\xA8\xCF\xA5\xCE\xC3\x64\xAA\xAB\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kGroupMailText587780[] = "\xB8\x73\xB2\xD5\xB6\x6C\xA5\xF3";
+
+// 4A5970各成功发送路径分别取时，不跨收件人复用时间或Input正文。
+void FormatMailTimestamp587768(char* const destination)
+{
+    std::int32_t time;
+    platform::ReadLegacyTime32_53BA26(&time);
+    const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+    const auto* const bytes = reinterpret_cast<const std::byte*>(calendar);
+    std::int32_t minute;
+    std::memcpy(&minute, bytes + 4, sizeof(minute));
+    std::int32_t hour;
+    std::memcpy(&hour, bytes + 8, sizeof(hour));
+    std::int32_t day;
+    std::memcpy(&day, bytes + 12, sizeof(day));
+    std::int32_t month;
+    std::memcpy(&month, bytes + 16, sizeof(month));
+    std::int32_t year;
+    std::memcpy(&year, bytes + 20, sizeof(year));
+    std::sprintf(destination, "%4d/%2d/%2d %02d:%02d",
+        year + 1900, month + 1, day, hour, minute);
+}
 
 } // namespace
 
@@ -26159,6 +26208,352 @@ std::int32_t Sub_4A4FC0(const std::int32_t, const std::int32_t state)
     const std::int32_t x = window->x;
     static_cast<void>(login::detail::DrawGraphic(x + 202, y + 216, 223, image, 0, &descriptor));
     return 1;
+}
+
+std::int32_t Sub_4A53F0(const std::int32_t value)
+{
+    if (value == -1) {
+        if (gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
+            WindowInstance* const window = gWindowStates[49].window;
+            if (window != nullptr) {
+                window->state |= 0x8000u;
+            }
+        } else {
+            if (gLoginWindowRuntime.prefixD2F0B8.value26C != 0) {
+                gLoginWindowRuntime.mailGroupCC1A30.initialize = 1;
+            }
+            static_cast<void>(CreateWindowAnimation_475AA0(49, 1, 0, nullptr));
+        }
+        WindowInstance* const petWindow = gWindowStates[23].window;
+        if (petWindow != nullptr) {
+            petWindow->state |= 0x8000u;
+            const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+            if (oldSlot != -1) {
+                auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+                auto count = occupancy[oldSlot];
+                gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+                --count;
+                gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+                occupancy[oldSlot] = count;
+            }
+        }
+        const WindowRuntimePrefixD2F0B8 previous = gLoginWindowRuntime.mailDraftCF4BC8;
+        const WindowRuntimePrefixD2F0B8 current = gLoginWindowRuntime.prefixD2F0B8;
+        if (Sub_4A6D00(current, previous) != 0) {
+            std::strcpy(gMailInputPrototype57E740.text.data(),
+                reinterpret_cast<const char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()));
+        }
+        const WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        if (Sub_476570(&gMailInputPrototype57E740, x, y, 0) == 0) {
+            gMailInputPrototype57E740.input.context = &input::gInputContextD66CA8;
+            gMailInputPrototype57E740.input.kind = WindowInputReferenceKind::Context;
+        }
+        input::gInputContextD66CA8.maxCharPerLine = 28;
+        gMailInputPrototype57E740.maxCharPerLine = 28;
+        input::gInputContextD66CA8.maxLine = 10;
+        gMailInputPrototype57E740.maxLine = 10;
+        input::gInputContextD66CA8.field14C = 12;
+        gMailInputPrototype57E740.value224 = 12;
+        input::gInputContextD66CA8.encrypt = 0;
+        gMailInputPrototype57E740.encrypt = 0;
+        input::SetContext_44B330(&input::gInputContextD66CA8);
+        WindowInstance* const focused = gCurrentWindow;
+        gMailInputPrototype57E740.text[0] = '\0';
+        gFocusedElementDataD45F94 = focused->elements[1].data;
+        static_cast<WindowInputData*>(focused->elements[1].data)->context = &input::gInputContextD66CA8;
+        gLoginWindowRuntime.prefixD2F0B8.value26C = 0;
+    }
+    gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        const auto petIndex = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[index].index);
+        if (world::detail::gPetRuntimeF633F8[petIndex].used == 0) {
+            continue;
+        }
+        const std::int32_t available = world::detail::Sub_52E1D0(petIndex);
+        if (available == 1) {
+            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = available;
+            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = petIndex;
+            const std::int32_t output = gLoginWindowRuntime.choicesCC4CA0.value00;
+            gLoginWindowRuntime.choicesCC4CA0.values04[output] = petIndex;
+            const std::int32_t count = gLoginWindowRuntime.choicesCC4CA0.value00;
+            gLoginWindowRuntime.choicesCC4CA0.value00 = count + 1;
+        } else {
+            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][1] = 0;
+            gLoginWindowRuntime.choicesCC4CA0.pairs18[index][0] = petIndex;
+        }
+    }
+    if (world::gCurrentSceneType == 10) {
+        for (auto& pair : gLoginWindowRuntime.choicesCC4CA0.pairs18) {
+            pair[1] = 0;
+        }
+        gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
+    }
+    if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0
+        || world::detail::Sub_440B50() != 0) {
+        for (auto& pair : gLoginWindowRuntime.choicesCC4CA0.pairs18) {
+            pair[1] = 0;
+        }
+        gLoginWindowRuntime.choicesCC4CA0.value00 = 0;
+    }
+    static_cast<void>(Sub_4A6160());
+    WindowInstance* const groupWindow = gWindowStates[49].window;
+    if (groupWindow != nullptr && gLoginWindowRuntime.prefixD2F0B8.value10 != 1) {
+        groupWindow->state |= 0x8000u;
+    }
+    return 1;
+}
+
+void Sub_4A5650()
+{
+    const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
+    const std::int32_t target = gLoginWindowRuntime.prefixD2F0B8.value04;
+    gLoginWindowRuntime.mailDraftCF4BC8.value00 = category;
+    const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
+    gLoginWindowRuntime.mailDraftCF4BC8.value04 = target;
+    gLoginWindowRuntime.mailDraftCF4BC8.value10 = mode;
+    const std::int32_t pet = gLoginWindowRuntime.prefixD2F0B8.value08;
+    const std::size_t length = std::strlen(input::gInputContextD66CA8.text) + 1;
+    gLoginWindowRuntime.mailDraftCF4BC8.value08 = pet;
+    const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+    gLoginWindowRuntime.mailDraftCF4BC8.value0C = oldSlot;
+    std::memcpy(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data(), input::gInputContextD66CA8.text, length);
+    if (oldSlot != -1) {
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        auto count = occupancy[oldSlot];
+        gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+        --count;
+        gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+        occupancy[oldSlot] = count;
+    }
+    WindowInstance* const groupWindow = gWindowStates[49].window;
+    if (groupWindow != nullptr) {
+        groupWindow->state |= 0x8000u;
+    }
+}
+
+std::int32_t Sub_4A58E0(const std::int32_t, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        if (gFocusedElementDataD45F94 != window->elements[1].data) {
+            const std::int32_t y = window->y;
+            const std::int32_t x = window->x;
+            static_cast<void>(Sub_476570(&gMailInputPrototype57E740, x, y, 1));
+            input::SetContext_44B330(&input::gInputContextD66CA8);
+            WindowInstance* const focused = gCurrentWindow;
+            gFocusedElementDataD45F94 = focused->elements[1].data;
+            static_cast<WindowInputData*>(focused->elements[1].data)->context = &input::gInputContextD66CA8;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        consumed = 1;
+    }
+    if (input::gCurrentInputData != &input::gInputContextD66CA8) {
+        render::DrawInputText_4568A0(&input::gInputContextD66CA8);
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
+{
+    if (index != 2 && index != 3) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if (index == 2) {
+        auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data);
+        if ((state & 1) != 0) {
+            graphic->imageNo = 0x3BA0A;
+            std::strcpy(gHoverTextD68AE8.data(), kPetMailHint58774C);
+            consumed = 1;
+        } else {
+            graphic->imageNo = 0x3BA08;
+        }
+        if ((state & 2) != 0) {
+            std::strcpy(reinterpret_cast<char*>(gLoginWindowRuntime.mailDraftCF4BC8.bytes14.data()),
+                input::gInputContextD66CA8.text);
+            static_cast<void>(CreateWindowAnimation_475AA0(23, 1, 0, nullptr));
+            static_cast<void>(CreateWindowAnimation_475AA0(14, 1, 0, nullptr));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[2].data)->imageNo = 0x3BA09;
+        }
+        return consumed;
+    }
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data);
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3BA1D;
+        std::strcpy(gHoverTextD68AE8.data(), kReplyMailHint587730);
+        consumed = 1;
+    } else {
+        graphic->imageNo = 0x3BA1B;
+    }
+    char timestamp[64];
+    char packet[1024];
+    char combined[1024];
+    char escapedName[256];
+    char escapedText[1024];
+    bool closeAfterSend = false;
+    const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
+    if (mode != 0) {
+        if ((state & 2) != 0) {
+            const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+            if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
+                if (input::gInputContextD66CA8.text[0] == '\0'
+                    || gLoginWindowRuntime.mailGroupCC1A30.count <= 0) {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    std::strcpy(combined, input::gInputContextD66CA8.text);
+                    input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                    for (std::int32_t row = 0; row < gLoginWindowRuntime.mailGroupCC1A30.count; ++row) {
+                        if (gLoginWindowRuntime.mailGroupCC1A30.selected[row] != 1) {
+                            continue;
+                        }
+                        if (groupMode == 0) {
+                            const std::int32_t contact = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                            const std::uintptr_t socket = platform::gConnectionSocket;
+                            static_cast<void>(network::Sub_510FA0(socket, contact, packet, 0));
+                            FormatMailTimestamp587768(timestamp);
+                            world::detail::Sub_5191C0(contact, 1, timestamp, input::gInputContextD66CA8.text);
+                        } else if (groupMode == 1) {
+                            const std::int32_t member = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                            const std::uintptr_t socket = platform::gConnectionSocket;
+                            const std::int32_t key = login::detail::gOrderedRecords1051B14[member].value0C;
+                            static_cast<void>(network::Sub_511480(socket, key, packet, 0));
+                            FormatMailTimestamp587768(timestamp);
+                            static_cast<void>(world::detail::Sub_519370(
+                                key, 1, timestamp, input::gInputContextD66CA8.text));
+                        } else {
+                            const std::int32_t group = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                            const std::uintptr_t socket = platform::gConnectionSocket;
+                            static_cast<void>(network::Sub_511480(socket, group + 0x400, packet, 0));
+                            for (std::int32_t member = 0; member < 200; ++member) {
+                                const std::int32_t memberGroup = login::detail::gOrderedRecords1051B14[member].value00;
+                                const std::int32_t currentGroup = gLoginWindowRuntime.mailGroupCC1A30.indices[row];
+                                if (memberGroup == currentGroup) {
+                                    FormatMailTimestamp587768(timestamp);
+                                    const std::int32_t key = login::detail::gOrderedRecords1051B14[member].value0C;
+                                    static_cast<void>(world::detail::Sub_519370(
+                                        key, 1, timestamp, input::gInputContextD66CA8.text));
+                                }
+                            }
+                        }
+                    }
+                    static_cast<void>(world::detail::Sub_519300());
+                    static_cast<void>(world::detail::Sub_519550());
+                    static_cast<void>(audio::PlaySe_52C450(78, 320));
+                    closeAfterSend = true;
+                }
+            }
+            consumed = 1;
+        }
+    } else {
+        const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
+        if ((category == 0 || category == 1 || category == 2) && (state & 2) != 0) {
+            if (input::gInputContextD66CA8.text[0] == '\0') {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else if (category == 2) {
+                const std::int32_t contact = gLoginWindowRuntime.prefixD2F0B8.value04;
+                const auto& record = world::detail::ReadMiniMailContact1075A90(contact);
+                const std::int32_t key = record.key04;
+                input::EscapeLegacyText_52D1B0(record.name10.data(), escapedName, 256);
+                input::EscapeLegacyText_52D1B0(input::gInputContextD66CA8.text, escapedText, 1024);
+                std::sprintf(combined, "%d|%s|%s", key, escapedName, escapedText);
+                input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
+                static_cast<void>(world::detail::Sub_534520(timestamp));
+                const std::int32_t currentContact = gLoginWindowRuntime.prefixD2F0B8.value04;
+                world::detail::Sub_5343C0(currentContact, 1, timestamp, input::gInputContextD66CA8.text);
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                closeAfterSend = true;
+            } else {
+                std::int32_t target;
+                if (category == 1) {
+                    const std::int32_t member = gLoginWindowRuntime.prefixD2F0B8.value04;
+                    target = login::detail::gOrderedRecords1051B14[member].value0C;
+                    std::strcpy(combined, input::gInputContextD66CA8.text);
+                } else {
+                    const std::size_t length = std::strlen(input::gInputContextD66CA8.text) + 1;
+                    target = gLoginWindowRuntime.prefixD2F0B8.value04;
+                    std::memcpy(combined, input::gInputContextD66CA8.text, length);
+                }
+                input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                if (category == 1) {
+                    static_cast<void>(network::Sub_511480(socket, target, packet, 0));
+                } else {
+                    static_cast<void>(network::Sub_510FA0(socket, target, packet, 0));
+                }
+                FormatMailTimestamp587768(timestamp);
+                if (category == 1) {
+                    static_cast<void>(world::detail::Sub_519370(
+                        target, 1, timestamp, input::gInputContextD66CA8.text));
+                } else {
+                    world::detail::Sub_5191C0(target, 1, timestamp, input::gInputContextD66CA8.text);
+                }
+                static_cast<void>(world::detail::Sub_519300());
+                static_cast<void>(world::detail::Sub_519550());
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                closeAfterSend = true;
+            }
+            consumed = 1;
+        }
+    }
+    if (closeAfterSend) {
+        WindowInstance* const window = gCurrentWindow;
+        input::gInputContextD66CA8.text[0] = '\0';
+        window->state |= 0x8000u;
+    }
+    if ((state & 8) != 0) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[3].data)->imageNo = 0x3BA1C;
+    }
+    return consumed;
+}
+
+std::uint8_t Sub_4A6160()
+{
+    const std::int32_t mode = gLoginWindowRuntime.prefixD2F0B8.value10;
+    if (mode != 0) {
+        const std::int32_t groupMode = gLoginWindowRuntime.mailGroupCC1A30.mode;
+        if (groupMode == 0 || groupMode == 1 || groupMode == 2) {
+            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            std::strcpy(text->text, kGroupMailText587780);
+            gCurrentWindow->elements[2].visible = 0;
+        }
+    } else {
+        const std::int32_t category = gLoginWindowRuntime.prefixD2F0B8.value00;
+        const char* name;
+        switch (category) {
+        case 0:
+            name = world::detail::gContactsF19FB0[gLoginWindowRuntime.prefixD2F0B8.value04].name10.data();
+            break;
+        case 1:
+            name = login::detail::gOrderedRecords1051B14[gLoginWindowRuntime.prefixD2F0B8.value04].text18;
+            break;
+        case 2:
+            name = world::detail::ReadMiniMailContact1075A90(
+                gLoginWindowRuntime.prefixD2F0B8.value04).name10.data();
+            break;
+        }
+        if (category == 0 || category == 1 || category == 2) {
+            auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            std::strcpy(text->text, name);
+        }
+        if (gLoginWindowRuntime.prefixD2F0B8.value00 == 2) {
+            gCurrentWindow->elements[2].visible = 0;
+        } else {
+            const std::int32_t count = gLoginWindowRuntime.choicesCC4CA0.value00;
+            gCurrentWindow->elements[2].visible = count != 0 ? 1 : 0;
+        }
+    }
+    const WindowInstance* const window = gCurrentWindow;
+    const std::int32_t y = window->y;
+    const std::int32_t x = window->x;
+    return Sub_476570(&gMailInputPrototype57E740, x, y, 2);
 }
 
 void Sub_4A2700()

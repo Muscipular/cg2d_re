@@ -836,6 +836,7 @@ extern WindowInputPrototype gDialogInputPrototype57E478; // 同源可写输入�
 extern WindowInputPrototype gWindow50InputPrototype580618; // 借Input唯一CC2080，供更新与编辑交互。
 extern WindowInputPrototype gTitleInputPrototype57CCB8; // 原型当前context为编辑正文来源。
 extern WindowInputPrototype gPetNameInputPrototype57DCF8; // 窗口15与16/17/18共用名称输入原型。
+extern WindowInputPrototype gMailInputPrototype57E740; // 窗口22/23共用，借Input唯一D66CA8。
 extern std::array<std::array<char, 11>, 10> gPetTechniqueCostsD66C34; // 原连续110B费用文本，491AA0生产。
 std::int32_t Sub_48C1E0(std::int32_t index, std::int32_t state); // 窗口15完整五组交互。
 std::int32_t Sub_48D4E0(); // 五状态局部快照叠加真实跟随位，透传发送结果。
@@ -1662,6 +1663,11 @@ std::int32_t Sub_4A47C0(std::int32_t index, std::int32_t state); // 回复上下
 void Sub_4A48A0(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
 std::uint32_t Sub_4A49B0(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
 std::int32_t Sub_4A4FC0(std::int32_t unused, std::int32_t state); // 悬停双图，区分三类头像采样序。
+std::int32_t Sub_4A53F0(std::int32_t value); // 发信初始化、宠物候选和收件人刷新。
+void Sub_4A5650(); // 22/23共享释放：保存草稿、释放占用、关闭49。
+std::int32_t Sub_4A58E0(std::int32_t unused, std::int32_t state); // 输入聚焦及非当前输入补绘。
+std::int32_t Sub_4A5970(std::int32_t index, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
+std::uint8_t Sub_4A6160(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

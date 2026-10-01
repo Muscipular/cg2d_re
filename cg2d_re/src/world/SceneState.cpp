@@ -3424,6 +3424,20 @@ std::int32_t Sub_52E180(const std::int32_t index, const std::int32_t techniqueId
     return 0;
 }
 
+std::int32_t Sub_52E1D0(const std::int32_t index)
+{
+    if (Sub_52E180(index, 0x22C4) != 0) {
+        return 1;
+    }
+    if (Sub_52E180(index, 0x22C5) != 0) {
+        return 1;
+    }
+    if (Sub_52E180(index, 0x22C6) != 0) {
+        return 1;
+    }
+    return Sub_52E180(index, 0x22C7) != 0 ? 1 : 0;
+}
+
 void Sub_519770(
     const std::int32_t petIndex, const std::int32_t itemIndex, const char* const text)
 {

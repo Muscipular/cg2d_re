@@ -1018,7 +1018,7 @@ std::int32_t Sub_4D0990(
 std::int32_t Sub_4D0A80(
     std::int32_t x, std::int32_t y, std::int32_t index); // 完整浏览宠物详情，复用D67B84预览。
 std::int32_t Sub_4D0EB0(std::int32_t index, std::int32_t state); // 上架/浏览宠物行，末尾金额两次读取及详情分派。
-extern std::int32_t gDragItemIndex584DA4; // 4FB8F0已接重置，4FAEF0拖动生产仍待接。
+extern std::int32_t gDragItemIndex584DA4; // 4FB8F0重置与旧14的4FAEF0拖动生产共用。
 extern std::int32_t gDragImageNoD67D24;
 extern std::int32_t gItemDragXCC4880;
 extern std::int32_t gItemDragYCC4884;

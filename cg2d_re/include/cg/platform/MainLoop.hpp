@@ -41,6 +41,7 @@ extern std::uint32_t gPeriodicReportSeconds; // 原 0x73ED18，阈值比较按 s
 
 // Win32 GetTickCount 的最小平台边界；保留原 32 位回绕值，不向 world 公开 Win32 类型。
 std::uint32_t ReadTickCount32() noexcept;
+void RequestRender_457010() noexcept; // 原457010：只将共享强制呈现标志写1。
 
 // 原 0x458DC0：发布 DX/输入能力探测结果，再返回其无符号阈值门禁。
 std::int32_t CheckLegacyDxCapability_458DC0();

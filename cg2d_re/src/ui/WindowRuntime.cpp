@@ -38203,6 +38203,79 @@ void Sub_49F7E0(const std::int32_t offset)
     }
 }
 
+namespace {
+
+std::uint32_t gBattleResultCloseTickCB0F78 = 0; // 原窗口30/31共用到期tick，不按窗口复制。
+
+} // namespace
+
+std::int32_t Sub_4990F0(const std::int32_t index, const std::int32_t state)
+{
+    if ((state & 1) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::uint32_t image = login::detail::gValueD69768;
+        WindowElement* const elements = window->elements;
+        const std::int32_t windowY = window->y;
+        const std::int32_t windowX = window->x;
+        const std::int32_t x = elements[index].x;
+        const std::int32_t y = elements[index].y;
+        const std::int32_t height = elements[index].height;
+        const std::int32_t width = elements[index].width;
+        login::detail::DrawGraphicHover(
+            static_cast<std::uint16_t>(windowX + x - 2),
+            static_cast<std::uint16_t>(windowY + y - 2),
+            static_cast<std::uint16_t>(width + windowX + x + 2),
+            static_cast<std::uint16_t>(height + windowY + y + 2), 223, image, 0);
+        std::strcpy(gHoverTextD68AE8.data(), "\xB5\xB2\xA7\xF4\xC6\x5B\xBE\xD4\xA1\x43");
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "U"));
+    world::gCurrentSceneState = 7;
+    return 1;
+}
+
+std::int32_t Sub_499790(const std::int32_t value)
+{
+    if (value == -1) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        WindowInstance* window = gCurrentWindow;
+        gBattleResultCloseTickCB0F78 = now + 5000u;
+        const std::int32_t delta = world::detail::gValueFF0D04;
+        std::sprintf(static_cast<WindowTextData*>(window->elements[2].data)->text, "DP   %+9d", delta);
+        window = gCurrentWindow;
+        const std::int32_t total = world::detail::gValueFF0D08;
+        std::sprintf(static_cast<WindowTextData*>(window->elements[3].data)->text, "Total%9d", total);
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gBattleResultCloseTickCB0F78 < now) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    return 1;
+}
+
+std::int32_t Sub_499880(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const std::int32_t consumed = (state & 1) != 0 ? 1 : 0;
+    if ((state & 2) != 0) {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    graphic->imageNo = 0x3B568;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B56A;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B569;
+    }
+    return consumed;
+}
+
 std::int32_t Sub_499830(const std::int32_t)
 {
     DrawCurrentWindow_4729B0();

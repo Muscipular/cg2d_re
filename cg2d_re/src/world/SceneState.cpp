@@ -49,6 +49,7 @@ namespace {
 std::array<std::int32_t, 100> gRotationTableC8A7B0 {};
 std::int32_t gRotationCursorC8A940 = 0;
 std::uint32_t gValue62B348 = 0;
+std::int32_t gValueFF0D44 = 0; // 原普通场景与结果窗口分派共用的写入槽。
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
@@ -5619,6 +5620,47 @@ void Sub_50D500(const std::uintptr_t, const char* const payload)
             record.value04 = 0;
         }
         ++field;
+    }
+}
+
+std::int32_t Sub_4ED670()
+{
+    std::int32_t result = 0;
+    for (const BattleResultRecord& record : gBattleResultsFF0C14) {
+        if (record.value02 == 1) {
+            result = 1;
+        }
+    }
+    for (const BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
+        if (record.value00 == 1) {
+            result = 1;
+        }
+    }
+    return result;
+}
+
+void Sub_504A50()
+{
+    const std::int16_t mode = std::bit_cast<std::int16_t>(gValueFF0C10);
+    if (mode <= 0) {
+        return;
+    }
+    if (mode == 1) {
+        static_cast<void>(ui::CreateWindowAnimation_475AA0(30, 1, 0, nullptr));
+        if (Sub_4ED670() != 0) {
+            static_cast<void>(audio::PlaySe_52C450(64, 320));
+        }
+        gValueFF0D44 = 0;
+        gValueFF0C10 = 0;
+    } else if (mode == 2) {
+        static_cast<void>(ui::CreateWindowAnimation_475AA0(31, 1, 0, nullptr));
+        gValueFF0D44 = 0;
+        gValueFF0C10 = 0;
+    } else {
+        if (mode == 3) {
+            static_cast<void>(audio::Sub_504AF0());
+        }
+        gValueFF0C10 = 0;
     }
 }
 

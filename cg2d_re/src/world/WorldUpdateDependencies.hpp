@@ -931,6 +931,10 @@ void Sub_50D120(
     std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 void Sub_50D3C0(std::uintptr_t socket, const char* text); // C/P/A/第二字节U/M完整分派。
 void Sub_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
+extern std::int32_t gValueFF0D04; // 既有DP回复变化值，窗口31直接读取。
+extern std::int32_t gValueFF0D08; // 既有DP回复总量，与变化值分别采样。
+std::int32_t Sub_4ED670(); // 四角色/宠物与十五技能结果字段恰1检查，完整扫描不提前返回。
+void Sub_504A50(); // S16结果模式分派30/31或既有BGM控制，原唯一caller弃返回。
 void Sub_455C60(); // 仅清既有62B5B0，不关闭窗口。
 void Sub_455FC0(); // 窗口39创建/动画清理父入口，保留额外SE56。
 void Sub_51A5F0(); // 仅清玩家flags18A的200。

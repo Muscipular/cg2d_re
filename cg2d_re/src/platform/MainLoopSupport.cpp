@@ -505,6 +505,11 @@ std::uint32_t ReadTickCount32() noexcept
     return static_cast<std::uint32_t>(GetTickCount());
 }
 
+void RequestRender_457010() noexcept
+{
+    gForceRender = 1;
+}
+
 // 原 0x458AE0 的完整平台探测仍未实现；不以固定版本码接通音频初始化。
 std::int32_t Sub_458AE0();
 

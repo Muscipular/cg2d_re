@@ -32042,6 +32042,52 @@ void Sub_4467D0(const std::int32_t objectIndex)
     action->flags |= flags;
 }
 
+void Sub_446640()
+{
+    for (std::size_t index = 0; index < kWorldObjectCapacity; ++index) {
+        auto& record = gWorldObjects[index];
+        if (record.used == 0 || record.action != nullptr) {
+            continue;
+        }
+        const std::int32_t direction = record.direction;
+        const std::int32_t mapY =
+            platform::legacy_crypt_int::Read_401EC0(&record.coordinate1C);
+        const std::int32_t mapX =
+            platform::legacy_crypt_int::Read_401EC0(&record.coordinate0C);
+        const auto imageNo = std::bit_cast<std::int32_t>(record.imageNo);
+        login::YobiAction* action =
+            login::detail::Sub_441DB0(imageNo, mapX, mapY, direction);
+        record.action = action;
+        if (action == nullptr) {
+            continue;
+        }
+        record.used = 2;
+        static_cast<login::detail::MapActorPayload*>(record.action->payload)->index =
+            static_cast<std::int32_t>(index);
+        const std::uint16_t category = record.category;
+        if (category == 1 || category == 8) {
+            action = record.action;
+            const std::int32_t level = record.level2C;
+            action->field1D0 = level;
+            char* const destination = record.action->nameC4.data();
+            std::memmove(destination, record.name54.data(), std::strlen(record.name54.data()) + 1);
+        } else if (category == 2 || category == 4) {
+            const std::size_t limit = category == 2 ? 28u : 16u;
+            if (std::strlen(record.nameC9.data()) <= limit) {
+                char* const destination = record.action->nameC4.data();
+                std::memmove(destination, record.nameC9.data(), std::strlen(record.nameC9.data()) + 1);
+            } else {
+                std::memmove(record.action->nameC4.data(), "???", 4);
+            }
+        } else {
+            continue;
+        }
+        action = record.action;
+        const std::uint32_t flags = record.flags114;
+        action->flags |= flags;
+    }
+}
+
 void Sub_445350(
     const std::int32_t objectIndex, const std::int32_t imageNo,
     const std::int32_t mapX, const std::int32_t mapY,

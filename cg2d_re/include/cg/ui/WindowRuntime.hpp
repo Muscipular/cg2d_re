@@ -30,6 +30,7 @@ void CloseWindow_472160(WindowInstance* window); // 记录置bit1后释放，不
 std::int32_t CloseAllWindows_472190(); // 完整关闭与观察退出请求，返回0或发送结果。
 void ProcessSceneWindows_503E80(); // 场景切换的标记、关闭、保存和三路重开；原caller弃返回。
 std::int32_t UpdateWindows_473F80(); // 完整鼠标/窗口/快捷键/预设输入父循环，返回1。
+std::int32_t RenderWindows_504120(); // 转生计时到期发送/清标志后，透传完整窗口更新返回。
 void CloseWindowsByCategory_472240(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
 void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。

@@ -707,3 +707,43 @@ flags W16非0且objectIndex完整W32位型相等，才清该槽action并停止�
 四次CryptInt构造与各自发布序、删除后首匹配/既有源登记、限定差异、
 严格UTF-8无BOM/LF及文档文件链接仅静态核对；剩余回复33项。
 未构建、测试、运行、检查产物，不计完整对象生命周期或收发验收。
+
+<a id="recreate-world-actors"></a>
+
+## 普通场景全表补建446640
+
+2026-10-01核446640..4467C4完整124条原指令；仅51C82A/51CF8E两个caller，
+均属于普通场景51C7D0。工程方案沿YobiRuntime.cpp已有world::detail实现，
+复用唯一1000项World表、441DB0工厂和MapActorPayload，不公开Yobi私有布局，
+不建立新对象表或缓存。调用方不消费返回，采用void完整副作用接口。
+
+原指针从5AC4DC开始，每轮加13CH至5F973C，共1000条；
+不是按gWorldObjectUpperBound或usedCount截断。每条先used W16非零，
+再action空才创建；未用或已有action跳下一条，不刷新名称或标志。
+创建参数依序采direction、CryptInt读coordinate1C(Y)、再读coordinate0C(X)，
+然后读W32 imageNo并调用441DB0。工厂返回先发布record.action，
+空则保留used及其他记录，继续下一条，不补回滚或重试。
+
+成功先used=2，再重取action和payload写当前槽下标，之后重读category W16：
+
+| category | 名称与附加发布 |
+|---|---|
+| 恰1或8 | 重取action，取level2C写action.field1D0，再重取action，将name54含NUL复制到nameC4 |
+| 恰2 | nameC9字节长<=28时再测一次长度并复制含NUL，否则复制原554590的`???`含NUL |
+| 恰4 | 同上，但长度门槛16 |
+| 其他 | 直接下一槽，不复制名称、不写field1D0，也不合并flags114 |
+
+上述1/8/2/4路径复制后均再重取record.action，随后读record.flags114，
+将完整W32或入action.flags。类别是精确值比较，不能将类别3等复合位当作1/2；
+只有1/8写等级。该入口不复制title65，与单项补建4467D0不同，不能复用其本体。
+字符按原字节容量处理，不新增截断/Unicode转换；`???`来源4B为3F3F3F00。
+已证短名称门槛保留；异常索引、文本与分配沿RPLAN.24，不加防御性分支。
+
+完整场景51C7D0含736条代码指令及多状态路径，本步只补该真实依赖，
+不注册部分场景回调。音频仍暂缓，渲染快照/转场与其他状态依赖继续单列。
+
+实施状态：446640完整本体已落位；124条原指令、1000槽终点算式、
+门禁与工厂前后字段读序、精确类别、两次长度读取及4B回退串已静态核对。
+新增实现直接借用既有记录/action/payload，布局、工厂、单项4467D0和其他
+生产/释放函数未改。类别1/8不补title复制，其他类别不额外合并flags，
+没有将单项与全表行为统一化。仅静态核对，不构建、测试或运行地图对象链。

@@ -43013,6 +43013,22 @@ std::int32_t ReadChatInputByteWidth_4A80E0()
     return detail::gChatWidthUnitsC9A930 * 2;
 }
 
+std::int32_t RenderWindows_504120()
+{
+    using namespace detail;
+    if (gValue5F9754 != 0 && world::detail::ReadPlayerTimerRemaining0C() <= 0) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
+        auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+        const auto decreased = static_cast<std::uint8_t>(occupancy[7] - 1);
+        gValue5F9754 = 0;
+        occupancy[7] = decreased;
+        Sub_47A140();
+    }
+    return UpdateWindows_473F80();
+}
+
 WindowInstance* Sub_5342E0()
 {
     return OpenWindow_471440(64);

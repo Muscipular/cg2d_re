@@ -111,6 +111,7 @@ std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关
 std::uintptr_t Sub_4EE380(std::int32_t opened); // 旧选择编号38采集动画；关闭可返回原生对象地址。
 std::uintptr_t Sub_4EF0F0(std::int32_t opened); // 旧选择37技能结果/再次使用，关闭可返回对象地址。
 std::uint32_t Sub_4F0B40(std::int32_t opened); // 旧选择34不足FP提示，保留完整发送/绘制返回。
+std::uintptr_t Sub_4F0F70(std::int32_t opened); // 旧16拆分数量，关闭可返回聊天上下文地址。
 std::uintptr_t Sub_4F1C40(std::int32_t opened); // 旧选择33物品加工结果，按钮后才读取技能配对。
 std::uintptr_t Sub_4F2130(std::int32_t opened); // 旧选择32名称输入，关闭可返回聊天上下文地址。
 std::int32_t Sub_4F24A0(); // 名称双快照、真实请求及64B结果名/图号生产。
@@ -166,6 +167,7 @@ std::int32_t Sub_501FD0(std::int32_t x, std::int32_t y); // 旧称号输入、�
 std::int32_t Sub_502930(); // 原CRT 5530C8入口，尾跳旧地图面板构造。
 std::int32_t Sub_502940(); // D68868同源面板初始化，不触碰玩家坐标或地图数据。
 std::uint32_t Sub_5029B0(std::int32_t opened); // 旧地图面板；正常尾返回D046C0而非绘图结果。
+std::int32_t Sub_502B80(std::int32_t* value, std::int32_t digits); // 旧数字键输入，位数门槛先于退格。
 // 原CRT 5530CC..5530F4；底部栏初始化值，不公开未证的完整记录布局。
 std::int32_t Sub_502C30();
 std::int32_t Sub_502C40(); // CB1DD8=480-5858A4，返回写入值。

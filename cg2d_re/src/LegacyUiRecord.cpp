@@ -401,6 +401,17 @@ constexpr char kLegacyInventoryFeet585BF0[] = "\xB8\xCB\xB3\xC6\xB8\x7D\xB3\xA1\
 constexpr char kLegacyInventoryAccessory585BDC[] = "\xB8\xCB\xB3\xC6\xB8\xCB\xB9\xA2\xAB\x7E\xAA\xBA\xA6\xEC\xB8\x6D\xA1\x43";
 constexpr char kLegacyInventoryCrystal585BC8[] = "\xB8\xCB\xB3\xC6\xA4\xF4\xB4\xB9\xAA\xBA\xA6\xEC\xB8\x6D\xA1\x43";
 constexpr char kLegacyInventoryMemo58A38C[] = "\xA1\x79%s\xA1\x7A";
+LegacyPanelRecord gLegacyItemSplitPanel584078 {
+    440, 0, 200, 200, 16, {23310, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacySplitConfirm589CC4[] = "\xAB\xFC\xA9\x77\xA4\xC0\xB0\x74\xAD\xD3\xBC\xC6";
+constexpr char kLegacySplitEmpty589CB4[] = "\xBD\xD0\xAB\xFC\xA9\x77\xAD\xD3\xBC\xC6\xA1\x43";
+constexpr char kLegacySplitBack589CA4[] = "\xA6\x5E\xA8\xEC\xAA\xAB\xAB\x7E\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacySplitAll589C98[] = "\xA5\xFE\xB3\xA1\xAB\xFC\xA9\x77\xA1\x43";
+constexpr char kLegacySplitClear589C84[] = "\xB1\x4E\xAB\xFC\xA9\x77\xAD\xD3\xBC\xC6\xC2\x6B\xB9\x73\xA1\x43";
+constexpr char kLegacySplitBackspace585B34[] = "\xB4\xEE\xA4\xD6\xA4\x40\xA6\xEC\xBC\xC6\xA1\x43";
+constexpr char kLegacySplitLimit589C64[] = "\xB5\x4C\xAA\x6B\xAB\xFC\xA9\x77\xA7\xF3\xA6\x68\xAD\xD3\xBC\xC6\xA1\x43";
+constexpr char kLegacySplitDigit589C78[] = "\xAB\xFC\xA9\x77\xAD\xD3\xBC\xC6\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -1383,6 +1394,131 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         static_cast<std::int16_t>(valueY + 44), 2, 0, 0, buffer, 0, 0));
     static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 4, 1, gValueD69768, 218));
     return Sub_503440(&gLegacyFpNoticePanel583E20, 0);
+}
+
+std::uintptr_t Sub_4F0F70(const std::int32_t opened)
+{
+    const std::int32_t width = gLegacyItemSplitPanel584078.width;
+    const std::int32_t x = gLegacyItemSplitPanel584078.x;
+    const std::int32_t height = gLegacyItemSplitPanel584078.height;
+    const std::int32_t y = gLegacyItemSplitPanel584078.y;
+    const std::int32_t centerX = x + width / 2;
+    const std::int32_t centerY = y + height / 2;
+    LegacyPanelButtonRecord confirm {centerX, centerY, x + 24, y + 167, 72, 18, 23314, 23314};
+    LegacyPanelButtonRecord back {centerX, centerY, x + 107, y + 167, 72, 18, 0, 23316};
+    LegacyPanelButtonRecord backspace {centerX, centerY, x + 138, y + 111, 52, 12, 0, 23311};
+    LegacyPanelButtonRecord all {centerX, centerY, x + 138, y + 127, 52, 12, 0, 23312};
+    LegacyPanelButtonRecord clear {centerX, centerY, x + 138, y + 143, 52, 12, 0, 23313};
+    std::array<LegacyPanelButtonRecord, 10> digits;
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        digits[digit] = {centerX, centerY, x + 16 + 24 * (digit % 5),
+            y + (digit < 5 ? 135 : 111), 20, 20, 0, 23320 + digit};
+    }
+    const std::int32_t state = Sub_503160(opened, &gLegacyItemSplitPanel584078, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (input::IsCurrentContext_503E40(nullptr) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            return reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        return 0;
+    }
+    input::SetContext_44B330(nullptr);
+    const std::int32_t count = world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count;
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        const std::int32_t amount = gLegacySplitAmountC8A948;
+        if (amount != 0) {
+            const std::int32_t target = gLegacySplitTargetCC21DC;
+            const std::int32_t source = gLegacySplitSourceCC3E60;
+            static_cast<void>(network::Sub_510EC0(platform::gConnectionSocket, source, target, amount));
+            gLegacySplitAmountC8A948 = 0;
+            static_cast<void>(audio::Sub_504180(14));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(14));
+    } else {
+        bool changed = true;
+        if ((QueryPanelButtonState(&all) & 1) != 0) {
+            gLegacySplitAmountC8A948 = count;
+        } else if ((QueryPanelButtonState(&clear) & 1) != 0) {
+            gLegacySplitAmountC8A948 = 0;
+        } else if ((QueryPanelButtonState(&backspace) & 1) != 0) {
+            gLegacySplitAmountC8A948 /= 10;
+        } else {
+            changed = false;
+            for (std::int32_t digit = 0; digit < 10; ++digit) {
+                if ((QueryPanelButtonState(&digits[digit]) & 1) != 0) {
+                    gLegacySplitAmountC8A948 = 10 * gLegacySplitAmountC8A948 + digit;
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        if (changed) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    // 确认/返回请求不结束原帧，键盘仍可改数量，随后才按入口快照限制。
+    static_cast<void>(Sub_502B80(&gLegacySplitAmountC8A948, 7));
+    if (gLegacySplitAmountC8A948 > count) {
+        gLegacySplitAmountC8A948 = count;
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+    }
+    char buffer[256];
+    std::sprintf(buffer, "%7d", world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count);
+    const std::int32_t countY = gLegacyItemSplitPanel584078.y + 46;
+    const std::int32_t countX = gLegacyItemSplitPanel584078.x + 88;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+    std::sprintf(buffer, "%7d", gLegacySplitAmountC8A948);
+    const std::int32_t amountY = gLegacyItemSplitPanel584078.y + 86;
+    const std::int32_t amountX = gLegacyItemSplitPanel584078.x + 88;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),
+        static_cast<std::int16_t>(amountY), 2, 1, 0, buffer, 0, 0));
+    for (auto& digit : digits) {
+        Sub_5035E0(&digit, 212, 1, gValueD69768, 0);
+    }
+    if (gLegacySplitAmountC8A948 != 0) {
+        confirm.normalImage = 0;
+        confirm.pressedImage = 23315;
+    } else {
+        confirm.normalImage = 23314;
+        confirm.pressedImage = 23314;
+    }
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&backspace, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&all, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&clear, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyItemSplitPanel584078) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = gLegacySplitAmountC8A948 != 0 ? kLegacySplitConfirm589CC4 : kLegacySplitEmpty589CB4;
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacySplitBack589CA4;
+    } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
+        hint = kLegacySplitAll589C98;
+    } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
+        hint = kLegacySplitClear589C84;
+    } else if ((QueryPanelButtonState(&backspace) & 0x40) != 0) {
+        hint = kLegacySplitBackspace585B34;
+    } else {
+        for (auto& digit : digits) {
+            if ((QueryPanelButtonState(&digit) & 0x40) != 0) {
+                hint = gLegacySplitAmountC8A948 < count ? kLegacySplitDigit589C78 : kLegacySplitLimit589C64;
+                break;
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyItemSplitPanel584078, 1);
 }
 
 std::uintptr_t Sub_4F1C40(const std::int32_t opened)
@@ -4905,6 +5041,43 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
         world::detail::gValueC8A77C = 1;
     }
     return hitId;
+}
+
+std::int32_t Sub_502B80(std::int32_t* const value, const std::int32_t digits)
+{
+    if (digits <= 0) {
+        return digits;
+    }
+    std::int32_t divisor = 1;
+    for (std::int32_t remaining = digits - 1; remaining > 0; --remaining) {
+        divisor *= 10;
+    }
+    const std::int32_t quotient = *value / divisor;
+    if (quotient >= 10) {
+        return quotient;
+    }
+    const std::int32_t backspace = platform::ReadKeyFlag4_4597A0(8);
+    if (backspace != 0) {
+        const std::int32_t current = *value;
+        if (current < 10) {
+            *value = 0;
+            return backspace;
+        }
+        *value = current / 10;
+        return 0; // 原502BCE的EAX取非负商符号位，不返回新数量。
+    }
+    if ((platform::gKeyStates[17] & 2u) != 0) {
+        return 0;
+    }
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        if (platform::ReadKeyFlag4_4597A0(digit + 48) != 0
+            || platform::ReadKeyFlag4_4597A0(digit + 96) != 0) {
+            const std::int32_t result = *value * 10 + digit;
+            *value = result;
+            return result;
+        }
+    }
+    return 0;
 }
 
 std::int32_t Sub_502C30()

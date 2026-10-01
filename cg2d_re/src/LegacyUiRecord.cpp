@@ -25,6 +25,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <string>
 
 namespace {
 
@@ -280,6 +281,17 @@ LegacyPanelRecord gLegacyItemWorkResultPanel584140 {
     0, 0, 272, 440, 33, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 YobiAction* gLegacyItemWorkResultActionD67CE0 = nullptr;
+LegacyPanelRecord gLegacyItemWorkNamePanel584208 {
+    368, 0, 272, 104, 32, {23355, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyItemWorkPanel5842D0 {
+    368, 0, 272, 440, 31, {23354, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+input::InputContext* gLegacyItemWorkInputD67CE4 = nullptr;
+std::string gLegacyItemWorkDraftCC31E0; // 仅已证NUL复制合同，不猜原固定容量。
+std::int32_t gLegacyItemWorkInitGateD67CE8 = 0; // 只证W32测试/返回，尚无地址用途。
+std::int32_t gLegacyItemWorkButtonKindD67CF4 = 0;
+std::int32_t gLegacyItemWorkPhaseCC4220 = 0;
 LegacyPanelRecord gLegacyCraftResultPanel5843A0 {
     0, 0, 272, 440, 28, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1486,6 +1498,190 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
                 ? kLegacyCraftAdd589FC8 : kLegacyCraftChoose589FD8);
     }
     return Sub_503440(&gLegacyCraftResultPanel5843A0, 1);
+}
+
+std::uintptr_t Sub_4F2130(const std::int32_t opened)
+{
+    const std::int32_t y = gLegacyItemWorkNamePanel584208.y;
+    const std::int32_t x = gLegacyItemWorkNamePanel584208.x;
+    LegacyPanelButtonRecord confirm {x + 218, y + 50, x + 178, y + 40, 80, 20, 22712, 22713};
+    LegacyPanelButtonRecord back {x + 218, y + 78, x + 178, y + 68, 80, 20, 22710, 22711};
+    const std::int32_t state = Sub_503160(opened, &gLegacyItemWorkNamePanel584208, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    input::InputContext* context = gLegacyItemWorkInputD67CE4;
+    if (state == 2) {
+        std::uintptr_t result = 0;
+        if (input::IsCurrentContext_503E40(context) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyItemWorkInputD67CE4 = nullptr;
+        return result;
+    }
+    if (context == nullptr) {
+        const std::int32_t top = gLegacyItemWorkNamePanel584208.y;
+        const std::int32_t left = gLegacyItemWorkNamePanel584208.x;
+        gLegacyItemWorkInputD67CE4 = &input::gInputContextCB01F8;
+        input::gInputContextCB01F8.text[0] = '\0';
+        input::gInputContextCB01F8.totalByteLength = 0;
+        input::gInputContextCB01F8.caretByteOffset = 0;
+        input::InitializeContext_449CF0(&input::gInputContextCB01F8,
+            left + 19, top + 41, 2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+        input::SetContext_44B330(gLegacyItemWorkInputD67CE4);
+    }
+    char trimmed[32];
+    bool submit = false;
+    if ((QueryPanelButtonState(&confirm) & 1) != 0
+        && (world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].flags & 0x400u) != 0) {
+        if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->text) == 1) {
+            static_cast<void>(audio::Sub_504180(81));
+        } else {
+            std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->text);
+            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
+            static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "\xA1\x40"));
+            if (std::strlen(trimmed) == 0 && std::strlen(gLegacyItemWorkInputD67CE4->text) != 0) {
+                static_cast<void>(audio::Sub_504180(82));
+            } else {
+                submit = true;
+            }
+        }
+    } else if ((QueryPanelButtonState(&confirm) & 1) != 0
+               && std::strlen(gLegacyItemWorkInputD67CE4->text) != 0) {
+        std::strcpy(trimmed, gLegacyItemWorkInputD67CE4->text);
+        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, " "));
+        static_cast<void>(input::RemoveLegacyBytes_52D570(trimmed, "\xA1\x40"));
+        if (std::strlen(trimmed) == 0) {
+            static_cast<void>(audio::Sub_504180(82));
+        } else if (input::Sub_45E770(gLegacyItemWorkInputD67CE4->text) == 1) {
+            static_cast<void>(audio::Sub_504180(81));
+        } else {
+            submit = true;
+        }
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(31));
+    }
+    if (submit) {
+        gLegacyItemWorkDraftCC31E0 = gLegacyItemWorkInputD67CE4->text;
+        static_cast<void>(Sub_4F24A0());
+        static_cast<void>(audio::Sub_5042D0(100));
+    }
+    render::DrawInputText_4568A0(gLegacyItemWorkInputD67CE4);
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    return Sub_503440(&gLegacyItemWorkNamePanel584208, 1);
+}
+
+std::int32_t Sub_4F24A0()
+{
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    char request[256];
+    char source[256];
+    std::strcpy(request, gLegacyItemWorkDraftCC31E0.c_str());
+    std::strcpy(source, gLegacyItemWorkDraftCC31E0.c_str());
+    NullSub_509080();
+    const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
+    const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request));
+    if (std::strlen(source) != 0) {
+        std::strncpy(gLegacyItemWorkNameCC40D8.data(), source, 64);
+    } else {
+        std::strncpy(gLegacyItemWorkNameCC40D8.data(),
+            world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].name.data(), 64);
+    }
+    const std::int32_t selected = gLegacyItemWorkSelection584394;
+    const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
+    gLegacyItemWorkImageCC320C = world::detail::gPlayerItemsFDA8A4[selected + 8].imageNo;
+    return audio::Sub_5042D0(panelId);
+}
+
+std::int32_t Sub_4F2650()
+{
+    const std::int32_t gate = gLegacyItemWorkInitGateD67CE8;
+    if (gate != 0) {
+        return gate;
+    }
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    static_cast<void>(ui::detail::Sub_4D3020(x, y));
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    gLegacyItemWorkSelection584394 = -1;
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+    ui::detail::WriteLegacyItemWorkSkillD67CF0(skillId);
+    if (skillId == 219 || skillId == 2033) {
+        gLegacyItemWorkButtonKindD67CF4 = 1;
+    } else if (skillId == 220) {
+        gLegacyItemWorkButtonKindD67CF4 = 2;
+    } else if (skillId != 218 && skillId != 2032) {
+        gLegacyItemWorkButtonKindD67CF4 = 0;
+    }
+    gLegacyItemWorkPhaseCC4220 = 0;
+    return skillId;
+}
+
+std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
+{
+    if (world::detail::IsCostGreaterThanPlayerFp(cost)) {
+        gLegacyItemWorkPhaseCC4220 = 3;
+        return 1;
+    }
+    const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+    if (skillId == 219 || skillId == 2033) {
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        if (item->hasDescription != 0) {
+            gLegacyItemWorkPhaseCC4220 = 4;
+            return 1;
+        }
+        if (item->level > world::detail::gSkillsF1BAFC[skill].level) {
+            gLegacyItemWorkPhaseCC4220 = 12;
+            return 1;
+        }
+    } else if (skillId == 217 || skillId == 2031 || skillId == 218 || skillId == 2032) {
+        const auto* item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        if (item->hasDescription == 0) {
+            gLegacyItemWorkPhaseCC4220 = 5;
+            return 1;
+        }
+        const std::int32_t rejectedKind = skillId == 217 || skillId == 2031 ? 2 : 1;
+        if (ui::detail::Sub_482F70(item->itemType) == rejectedKind) {
+            gLegacyItemWorkPhaseCC4220 = 10;
+            return 1;
+        }
+        item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        if (ui::detail::Sub_482F70(item->itemType) == 0) {
+            gLegacyItemWorkPhaseCC4220 = 11;
+            return 1;
+        }
+        item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        if (item->level > world::detail::gSkillsF1BAFC[skill].level) {
+            gLegacyItemWorkPhaseCC4220 = 13;
+            return 1;
+        }
+    } else if (skillId == 220) {
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8];
+        const std::uint16_t flags = item->flags;
+        if ((flags & 0x200u) != 0 && (flags & 0x400u) == 0) {
+            gLegacyItemWorkPhaseCC4220 = 14;
+            return 1;
+        }
+        if ((flags & 0x100u) != 0 && (flags & 0x400u) == 0) {
+            gLegacyItemWorkPhaseCC4220 = 6;
+            return 1;
+        }
+        if (item->hasDescription == 0) {
+            gLegacyItemWorkPhaseCC4220 = 15;
+            return 1;
+        }
+        if (item->count > 0 || item->itemType == 47) {
+            gLegacyItemWorkPhaseCC4220 = 14;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

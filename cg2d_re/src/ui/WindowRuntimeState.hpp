@@ -1263,6 +1263,8 @@ const char* BorrowLegacySkillDetailsCB0FDC() noexcept;
 std::int32_t ReadLegacyItemWorkResultCB05FC() noexcept;
 const char* BorrowLegacyItemWorkSuffixD2DADC() noexcept;
 const char* BorrowLegacyItemWorkDetailsD2DB00() noexcept;
+std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept; // 新旧加工入口与结果回复同源技能类别。
+void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
 std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
 std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
 const char* BorrowLegacyCraftNameCF46D4() noexcept;

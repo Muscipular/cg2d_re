@@ -1645,6 +1645,16 @@ const char* BorrowLegacyItemWorkDetailsD2DB00() noexcept
     return gItemWorkDetailsD2DB00.c_str();
 }
 
+std::int32_t ReadLegacyItemWorkSkillD67CF0() noexcept
+{
+    return gItemWorkSkillIdD67CF0;
+}
+
+void WriteLegacyItemWorkSkillD67CF0(const std::int32_t skillId) noexcept
+{
+    gItemWorkSkillIdD67CF0 = skillId;
+}
+
 std::int32_t ReadLegacyCraftResultCC46D8() noexcept
 {
     return gCraftResultCC46D8;

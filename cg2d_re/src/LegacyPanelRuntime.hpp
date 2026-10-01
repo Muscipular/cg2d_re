@@ -102,6 +102,10 @@ std::uintptr_t Sub_4EE380(std::int32_t opened); // 旧选择编号38采集动画
 std::uintptr_t Sub_4EF0F0(std::int32_t opened); // 旧选择37技能结果/再次使用，关闭可返回对象地址。
 std::uint32_t Sub_4F0B40(std::int32_t opened); // 旧选择34不足FP提示，保留完整发送/绘制返回。
 std::uintptr_t Sub_4F1C40(std::int32_t opened); // 旧选择33物品加工结果，按钮后才读取技能配对。
+std::uintptr_t Sub_4F2130(std::int32_t opened); // 旧选择32名称输入，关闭可返回聊天上下文地址。
+std::int32_t Sub_4F24A0(); // 名称双快照、真实请求及64B结果名/图号生产。
+std::int32_t Sub_4F2650(); // 旧选择31初始化，218/2032保留原按钮分类。
+std::int32_t Sub_4F2720(std::int32_t cost, std::int32_t skill); // 旧加工资格检查，失败只改对应阶段。
 std::uintptr_t Sub_4F3ED0(std::int32_t opened); // 旧选择28制造结果，含25/29/30选择分支。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。

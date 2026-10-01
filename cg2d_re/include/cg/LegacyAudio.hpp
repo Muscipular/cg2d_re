@@ -2,6 +2,10 @@
 
 #include <cstdint>
 
+namespace cg::login {
+struct YobiAction;
+}
+
 namespace cg::audio {
 
 struct SpatialAudioRecord;
@@ -50,5 +54,9 @@ std::int32_t __cdecl Sub_5042D0(std::uint32_t id);
 std::int32_t __cdecl Sub_504380(std::uint32_t id);
 std::int32_t __cdecl Sub_5043D0(std::int32_t index);
 std::int32_t __cdecl Sub_504AF0();
+std::int32_t Sub_504460(std::uint32_t id); // 旧面板按同源action槽切换选择，不直接清理对象。
+// 沿用57C368唯一表的非拥有运行期槽，不建立UI平行表；索引来自5044C0。
+login::YobiAction*& BorrowLegacyPanelAction57C374(std::int32_t index) noexcept;
+std::uint8_t& BorrowLegacyPanelDirty57C378(std::int32_t index) noexcept;
 
 } // namespace cg::audio

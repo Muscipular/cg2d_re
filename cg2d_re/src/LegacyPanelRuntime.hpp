@@ -1,0 +1,80 @@
+#pragma once
+
+#include "CharacterSelectSceneDependencies.hpp"
+
+#include <array>
+#include <cstddef>
+#include <cstdint>
+
+namespace cg::login::detail {
+
+// 原5035E0的32B图形按钮；前六字段与503990矩形合同相同，末尾是图号而非文本。
+struct LegacyPanelButtonRecord {
+    std::int32_t imageX;
+    std::int32_t imageY;
+    std::int32_t left;
+    std::int32_t top;
+    std::int32_t width;
+    std::int32_t height;
+    std::int32_t normalImage;
+    std::int32_t pressedImage;
+};
+
+// 原面板+28H起五条24B页签，只有末槽为地址。
+struct LegacyPanelTabRecord {
+    std::int32_t image;
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+    const char* hint;
+};
+
+// 原503160/503440共用196B记录；新端不使用原偏移遍历指针字段。
+struct LegacyPanelRecord {
+    std::int32_t x;
+    std::int32_t y;
+    std::int32_t width;
+    std::int32_t height;
+    std::uint32_t id;
+    std::array<std::int32_t, 5> backgrounds;
+    std::array<LegacyPanelTabRecord, 5> tabs;
+    std::int8_t selected;
+    std::int8_t hovered;
+    std::array<std::byte, 2> reservedA2;
+    LegacyPanelButtonRecord closeButton;
+};
+
+// 原5030A0/503120共用40B文字按钮；三个原指针分别保留正文/回调/提示身份。
+struct LegacyPanelTextButtonRecord {
+    character_select::detail::CharacterModalUiRecord label;
+    std::int32_t (*callback)();
+    std::uint8_t color;
+    std::array<std::byte, 3> reserved21;
+    const char* hint;
+};
+
+static_assert(sizeof(LegacyPanelButtonRecord) == 32);
+static_assert(offsetof(LegacyPanelTabRecord, hint) == 24);
+static_assert(sizeof(LegacyPanelTabRecord) == 32);
+static_assert(offsetof(LegacyPanelRecord, tabs) == 40);
+static_assert(offsetof(LegacyPanelRecord, selected) == 200);
+static_assert(offsetof(LegacyPanelRecord, closeButton) == 204);
+static_assert(sizeof(LegacyPanelRecord) == 240);
+static_assert(offsetof(LegacyPanelTextButtonRecord, callback) == 32);
+static_assert(offsetof(LegacyPanelTextButtonRecord, color) == 40);
+static_assert(offsetof(LegacyPanelTextButtonRecord, hint) == 48);
+static_assert(sizeof(LegacyPanelTextButtonRecord) == 56);
+
+extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函数借用。
+std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* records, std::int32_t count);
+void Sub_503120(LegacyPanelTextButtonRecord* records, std::int32_t count);
+std::int32_t Sub_503160(
+    std::int32_t opened, LegacyPanelRecord* panel, void (*initialize)(), std::int32_t flags);
+std::uint32_t Sub_503440(LegacyPanelRecord* panel, std::int32_t flags);
+std::int32_t Sub_503590(LegacyPanelRecord* panel);
+void Sub_5035E0(
+    LegacyPanelButtonRecord* button, std::uint8_t layer, std::int32_t hoverMode,
+    std::uint32_t hoverImage, std::int32_t style);
+
+} // namespace cg::login::detail

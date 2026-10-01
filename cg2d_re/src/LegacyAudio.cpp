@@ -84,12 +84,12 @@ static_assert(offsetof(SpatialAudioRecord, value0C) == 0x0C);
 static_assert(offsetof(SpatialAudioRecord, value10) == 0x10);
 static_assert(sizeof(SpatialAudioRecord) == 0x14);
 
-// 原 [57C368,57CB24)：保留 x86 handler 地址位型，不作为 x64 函数指针。
+// 原 [57C368,57CB24)：handler只保留原地址证据编号，运行期对象槽改用非拥有T*。
 struct SoundRecord57C368 final {
     std::uint32_t id;
     std::uint32_t handlerToken;
     std::uint32_t categoryBits;
-    std::uint32_t runtimeToken = 0;
+    login::YobiAction* runtimeAction = nullptr;
     std::uint8_t dirty = 0;
     std::array<std::uint8_t, 3> reserved {};
 };
@@ -97,9 +97,9 @@ struct SoundRecord57C368 final {
 static_assert(offsetof(SoundRecord57C368, id) == 0);
 static_assert(offsetof(SoundRecord57C368, handlerToken) == 4);
 static_assert(offsetof(SoundRecord57C368, categoryBits) == 8);
-static_assert(offsetof(SoundRecord57C368, runtimeToken) == 12);
-static_assert(offsetof(SoundRecord57C368, dirty) == 16);
-static_assert(sizeof(SoundRecord57C368) == 0x14);
+static_assert(offsetof(SoundRecord57C368, runtimeAction) == 16);
+static_assert(offsetof(SoundRecord57C368, dirty) == 24);
+static_assert(sizeof(SoundRecord57C368) == 32);
 
 // 原 [104A3B8,104C9B8)：与 104E010 播放记录分离的 128 项配置表。
 struct BgmConfigRecord final {
@@ -469,7 +469,7 @@ std::array<SoundRecord57C368, 99> gSoundRecords57C368 {{
     {100, 0, 2},
 }};
 std::array<std::uint32_t, 3> gSoundSelectionCC236C {};
-static_assert(sizeof(gSoundRecords57C368) == 99 * 0x14);
+static_assert(sizeof(gSoundRecords57C368) == 99 * sizeof(SoundRecord57C368));
 static_assert(sizeof(gSoundSelectionCC236C) == 3 * sizeof(std::uint32_t));
 
 } // namespace
@@ -764,6 +764,31 @@ std::int32_t __cdecl Sub_5044C0(const std::uint32_t id)
         }
     }
     return -1;
+}
+
+login::YobiAction*& BorrowLegacyPanelAction57C374(const std::int32_t index) noexcept
+{
+    return gSoundRecords57C368[index].runtimeAction;
+}
+
+std::uint8_t& BorrowLegacyPanelDirty57C378(const std::int32_t index) noexcept
+{
+    return gSoundRecords57C368[index].dirty;
+}
+
+std::int32_t Sub_504460(const std::uint32_t id)
+{
+    const std::int32_t index = Sub_5044C0(id);
+    if (index < 0) {
+        return -1;
+    }
+    if (gSoundRecords57C368[index].runtimeAction == nullptr) {
+        static_cast<void>(Sub_504180(id));
+        return 1;
+    }
+    static_cast<void>(Sub_5042D0(id));
+    static_cast<void>(PlaySe_52C450(57, 320));
+    return 0;
 }
 
 // 原 [0x504410,0x50445F)：类别 2 读首槽，其他类别以有符号 W8 索引共享槽。

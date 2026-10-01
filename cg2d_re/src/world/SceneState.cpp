@@ -73,28 +73,9 @@ platform::LegacyCryptInt gRippleGate {};
 // 原62B5B8；455FC0持有非拥有动画引用，4758D0经借用槽地址完成清空。
 login::YobiAction* gWindow39Action62B5B8 = nullptr;
 
-// 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
-struct BattleResultRecord {
-    std::uint16_t value00;
-    std::uint16_t value02;
-    std::int32_t value04;
-};
-static_assert(offsetof(BattleResultRecord, value00) == 0);
-static_assert(offsetof(BattleResultRecord, value02) == 2);
-static_assert(offsetof(BattleResultRecord, value04) == 4);
-static_assert(sizeof(BattleResultRecord) == 8);
+using detail::BattleResultRecord;
+using detail::BattleSkillResultRecord;
 std::array<BattleResultRecord, 4> gBattleResultsFF0C14 {};
-
-// 原FF0C8C十五条技能结果；+2两字节不由50D500写入，末条止FF0D04。
-struct BattleSkillResultRecord {
-    std::int16_t value00;
-    std::array<std::byte, 2> bytes02;
-    std::int32_t value04;
-};
-static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
-static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
-static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
-static_assert(sizeof(BattleSkillResultRecord) == 8);
 std::array<BattleSkillResultRecord, 15> gBattleSkillResultsFF0C8C {};
 
 // 原FF0C34三条29B名称与FF0D0C三个图号；结果展示须借用同一存储。
@@ -5569,6 +5550,26 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
             gBattleMWriteIndex5A3A1C = 0;
         }
     }
+}
+
+const std::array<BattleResultRecord, 4>& BorrowBattleResults() noexcept
+{
+    return gBattleResultsFF0C14;
+}
+
+const std::array<BattleSkillResultRecord, 15>& BorrowBattleSkillResults() noexcept
+{
+    return gBattleSkillResultsFF0C8C;
+}
+
+const std::array<std::array<char, 29>, 3>& BorrowBattleResultNames() noexcept
+{
+    return gBattleResultNamesFF0C34;
+}
+
+const std::array<std::int32_t, 3>& BorrowBattleResultGraphics() noexcept
+{
+    return gBattleResultGraphicsFF0D0C;
 }
 
 void Sub_50D500(const std::uintptr_t, const char* const payload)

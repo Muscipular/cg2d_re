@@ -930,6 +930,33 @@ void Sub_50D080(
 void Sub_50D120(
     std::uintptr_t socket, std::int32_t type, std::int32_t imageNo); // 完整战斗进入回复，socket未用。
 void Sub_50D3C0(std::uintptr_t socket, const char* text); // C/P/A/第二字节U/M完整分派。
+// 原FF0C14四条结果记录；50D500按两次W16、一次S32的顺序发布。
+struct BattleResultRecord {
+    std::uint16_t value00;
+    std::uint16_t value02;
+    std::int32_t value04;
+};
+static_assert(offsetof(BattleResultRecord, value00) == 0);
+static_assert(offsetof(BattleResultRecord, value02) == 2);
+static_assert(offsetof(BattleResultRecord, value04) == 4);
+static_assert(sizeof(BattleResultRecord) == 8);
+
+// 原FF0C8C十五条技能结果；+2两字节不由50D500写入，末条止FF0D04。
+struct BattleSkillResultRecord {
+    std::int16_t value00;
+    std::array<std::byte, 2> bytes02;
+    std::int32_t value04;
+};
+static_assert(offsetof(BattleSkillResultRecord, value00) == 0);
+static_assert(offsetof(BattleSkillResultRecord, bytes02) == 2);
+static_assert(offsetof(BattleSkillResultRecord, value04) == 4);
+static_assert(sizeof(BattleSkillResultRecord) == 8);
+
+// 窗口30只读借用50D500唯一结果存储，各字段仍按原指令时机读取。
+const std::array<BattleResultRecord, 4>& BorrowBattleResults() noexcept;
+const std::array<BattleSkillResultRecord, 15>& BorrowBattleSkillResults() noexcept;
+const std::array<std::array<char, 29>, 3>& BorrowBattleResultNames() noexcept;
+const std::array<std::int32_t, 3>& BorrowBattleResultGraphics() noexcept;
 void Sub_50D500(std::uintptr_t socket, const char* payload); // 三阶段战斗结果生产，socket未用。
 extern std::int32_t gValueFF0D04; // 既有DP回复变化值，窗口31直接读取。
 extern std::int32_t gValueFF0D08; // 既有DP回复总量，与变化值分别采样。

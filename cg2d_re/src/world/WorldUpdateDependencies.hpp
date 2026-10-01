@@ -40,12 +40,14 @@ namespace cg::login::detail {
 void Sub_46DD40(); // 原 0x46DD40；复用 YobiRuntime.cpp 的外部定义。
 std::int32_t Sub_520470(); // 原 [0x520470,0x5204BF)，保存当前音频设置。
 std::int32_t Sub_520510(std::int32_t selected); // 原 [0x520510,0x520545)，保存所选角色四项显示状态。
+std::int32_t Sub_520550(std::int32_t selected); // 按同一保存记录恢复四项显示状态。
 std::uint8_t Sub_520590(); // 原 [0x520590,0x5205D5)，保存六项标量并返回 AL。
 std::uint32_t Sub_520640(); // 原 [0x520640,0x520681)，复制 24 项文本。
 std::uint8_t Sub_5206F0(); // 原 [0x5206F0,0x5206FB)，保存 +0x313 并返回 AL。
 std::uint8_t Sub_520720(); // 原 [0x520720,0x52072B)，保存 +0x315 并返回 AL。
 std::int32_t Sub_520160(); // 原 [0x520160,0x5201A8)，顺序保存并透传 520200 返回。
 std::int32_t Sub_520750(std::int32_t selected); // 普通场景保存BGM目标低W16，沿既有持久化owner。
+std::int32_t Sub_520770(std::int32_t selected); // 恢复同一BGM目标，不触发播放。
 std::int32_t LoadAndPlayBGM(std::uint32_t bgmId); // 原52BE60，复用既有SDL音频适配。
 
 } // namespace cg::login::detail
@@ -851,8 +853,8 @@ std::uint32_t __cdecl Sub_46BD20(
 std::int32_t __cdecl Sub_50C8D0(
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
-struct RecipeItemData;
-RecipeItemData* Sub_5199A0();              // 原 0x5199A0。
+extern std::int32_t gValueFDA6F8; // 5199A0读取、4631D0待接写入；不是联系人索引的一过尾元素。
+void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
 login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原查槽后借用action。
 void Sub_50AEF0(std::uintptr_t unusedSocket, const char* payload); // 最多五组对象HP/FP，无全局门禁。

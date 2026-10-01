@@ -1,6 +1,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include "../CharacterSelectSceneDependencies.hpp"
+#include "../CharacterSelectState.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginInputDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
@@ -9229,6 +9230,52 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     }
     gPlayerRuntime.value190 = value;
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));
+}
+
+// 原FDA6F8位于六块清零范围之外；后续角色创建与此处复制共用。
+std::int32_t gValueFDA6F8 = 0;
+
+// 原 [5199A0,519A7E)：六块清零后恢复设置与编号，不重建CryptInt。
+void Sub_5199A0()
+{
+    static_assert(sizeof(gPetRuntimeF633F8) == 0x19550);
+    static_assert(sizeof(gSkillRuntimeSlots) == 0x4790C);
+    static_assert(sizeof(gContactsF19FB0) == 0x1B30);
+    static_assert(sizeof(gPetPairsDE0B08) == 0x28);
+
+    // 含原生非拥有指针的两块按类型置空，其余沿原无指针整块清零。
+    gPlayerRuntime = {};
+    std::memset(gPetRuntimeF633F8.data(), 0, sizeof(gPetRuntimeF633F8));
+    gPetMapCharaSlots.fill({});
+    std::memset(&gSkillRuntimeSlots, 0, sizeof(gSkillRuntimeSlots));
+    std::memset(gContactsF19FB0.data(), 0, sizeof(gContactsF19FB0));
+    std::memset(gPetPairsDE0B08.data(), 0, sizeof(gPetPairsDE0B08));
+
+    const volatile std::int16_t& selected = login::gSelectedCharacterIndex;
+    const std::int16_t unusedSelected = selected;
+    static_cast<void>(unusedSelected);
+    cg::NullSub_509080();
+    static_cast<void>(login::detail::Sub_520550(selected));
+    static_cast<void>(login::detail::Sub_520770(selected));
+
+    gValueFF0D36 = 0;
+    for (PetMapCharaSlot& slot : gPetMapCharaSlots) {
+        slot.flags = 0;
+        slot.objectIndex = 0;
+        slot.action = nullptr;
+    }
+
+    const std::int32_t selectedGraphic = character_select::state::gSelectedGraphicNo;
+    const std::int32_t value = gValueFDA6F8;
+    gPlayerRuntime.value17C = selectedGraphic;
+    gPlayerRuntime.value104 = value;
+    for (TitleRecord& title : gTitlesFF0508) {
+        title.id = -1;
+    }
+    for (std::int32_t index = 0; index < 15; ++index) {
+        Sub_519950(index);
+    }
+    gPlayerRuntime.direction = -1;
 }
 
 // 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。

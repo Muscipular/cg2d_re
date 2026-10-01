@@ -278,6 +278,7 @@ void DispatchBattleEvents_43B360(YobiAction* scene);
 // 原43B610四参工厂，仅保留真实声明；不以部分427470回调补齐。
 YobiAction* NewBattleEvent_43B610(
     std::int32_t kind, std::int32_t slot, std::uint32_t participants, std::int32_t group);
+void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620依赖仍缺，43B610未注册。
 std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不推进对象或全局游标。
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 YobiAction* NewBattleScene_4383B0(); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。
@@ -419,6 +420,12 @@ std::int32_t AppendBattleRedirect_4242B0(
 void TakeBattleMSkillTargets_426FC0(
     YobiAction* scene, std::int32_t skill, std::int32_t level,
     std::int32_t technique, std::int32_t fpUsed, std::int32_t attackMode,
+    std::int32_t* sourcePosition, std::int32_t* initialPosition,
+    std::int32_t* targetPosition, std::int32_t* redirectedPosition);
+// 原424620九参攻击生产，仅真实依赖声明；var_50待决，不提供替身。
+void TakeBattleMSkillAttackTargets_424620(
+    YobiAction* scene, std::int32_t skill, std::int32_t level,
+    std::int32_t levelIndex, std::int32_t fpUsed,
     std::int32_t* sourcePosition, std::int32_t* initialPosition,
     std::int32_t* targetPosition, std::int32_t* redirectedPosition);
 // 原43B9B0：只推进局部游标，flags&1010h非零且位置匹配时返回次位置，否则-1。

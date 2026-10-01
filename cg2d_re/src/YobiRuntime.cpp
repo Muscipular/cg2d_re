@@ -17574,7 +17574,8 @@ std::int32_t gBattleMHalfValue5A4A30 = 0;
 // 原43412E/434130..434EDF；常规入口传entryValue=0，3037保留原EDI=1。
 [[maybe_unused]] void ProcessBattleMSkill19Family(
     YobiAction* const scene, BattleScenePayload* const payload,
-    const std::int32_t fpUsed, const std::int32_t entryValue)
+    const std::int32_t fpUsed, const std::int32_t entryValue,
+    const std::uint32_t flags9C, const std::int32_t valueA0)
 {
     using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
@@ -17645,8 +17646,8 @@ std::int32_t gBattleMHalfValue5A4A30 = 0;
     }
     bool seenCaster = false;
     std::int32_t lastAmount;
-    std::int32_t reflectedSecondImage;
-    std::int32_t reflectedAlternateImage;
+    std::int32_t reflectedSecondImage = std::bit_cast<std::int32_t>(flags9C);
+    std::int32_t reflectedAlternateImage = valueA0;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -17912,7 +17913,8 @@ namespace {
 
 // 原434EDF..43573F；267保留继承累计值，每目标累计效果与最终累计尾分别生产。
 [[maybe_unused]] void ProcessBattleMSkill267(
-    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed,
+    const std::uint32_t flags9C, const std::int32_t valueA0)
 {
     using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
@@ -17940,8 +17942,8 @@ namespace {
     gBattleMValue5ABA7C = 0;
     gBattleMFlags5ABA84 = 0;
     std::int32_t lastAmount;
-    std::int32_t accumulatedSecondImage;
-    std::int32_t accumulatedAlternateImage;
+    std::int32_t accumulatedSecondImage = std::bit_cast<std::int32_t>(flags9C);
+    std::int32_t accumulatedAlternateImage = valueA0;
     std::int32_t firstImage = 0;
     std::int32_t secondImage = 0;
     std::array<std::int32_t, 2> firstImages {};
@@ -18664,7 +18666,266 @@ namespace {
     ++payload->packetSubState58;
 }
 
+// 42B253/43576F/436983共用九参生产尾；3100写1，其余两路递增。
+void ProcessBattleMSkillAttackTargets(
+    YobiAction* const scene, BattleScenePayload* const payload,
+    const std::int32_t fpUsed, const bool fixedState)
+{
+    TakeBattleMSkillAttackTargets_424620(
+        scene, gBattleMSkill5AAA78, gBattleMSkillLevel5A4A2C,
+        gBattleMSkillLevelIndex5A3A18, fpUsed,
+        &gBattleMCasterPosition5AAA64, &gBattleMValue5ABA7C,
+        &gBattleMTargetPosition5AAA40, &gBattleMRedirectPosition5AAA70);
+    MoveBattleCastState_439380(world::detail::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
+    ParseBattleMRide_4239D0(scene);
+    if (fixedState) {
+        payload->packetSubState58 = 1;
+    } else {
+        ++payload->packetSubState58;
+    }
+}
+
+void ProcessBattleMSkillHeader(
+    YobiAction* const scene, BattleScenePayload* const payload,
+    const std::uint32_t flags9C, const std::int32_t valueA0)
+{
+    if (payload->packetSubState58 != 0) {
+        ProcessBattleMSkillWaitingState(scene, payload);
+        return;
+    }
+    std::int32_t fpUsed;
+    const std::int32_t skill = ReadBattleMSkillHeader(scene, fpUsed);
+    switch (skill) {
+    case 4:
+        ProcessBattleMSkill4(scene, payload, fpUsed);
+        break;
+    case 61: case 62: case 63: case 83:
+        ProcessBattleMSkill61Family(scene, payload, fpUsed);
+        break;
+    case 50: case 51: case 52: case 53: case 88:
+        ProcessBattleMSkill50Family(scene, payload, fpUsed);
+        break;
+    case 12:
+        ProcessBattleMSkill12(scene, payload, fpUsed);
+        break;
+    case 82:
+        ProcessBattleMSkill82(scene, payload, fpUsed);
+        break;
+    case 97:
+        ProcessBattleMSkill97(scene, payload, fpUsed);
+        break;
+    case 93:
+        ProcessBattleMSkill93(scene, payload, fpUsed);
+        break;
+    case 98:
+        ProcessBattleMSkill98(scene, payload, fpUsed);
+        break;
+    case 107:
+        ProcessBattleMSkill107(scene, payload, fpUsed);
+        break;
+    case 108:
+        ProcessBattleMSkill108(scene, payload, fpUsed);
+        break;
+    case 109:
+        ProcessBattleMSkill109(scene, payload, fpUsed);
+        break;
+    case 112:
+        ProcessBattleMSkill112(scene, payload, fpUsed);
+        break;
+    case 114:
+        ProcessBattleMSkill114(scene, payload, fpUsed);
+        break;
+    case 117:
+        ProcessBattleMSkill117(scene, payload, fpUsed);
+        break;
+    case 106: case 111: case 2002:
+        ProcessBattleMSkill106Family(scene, payload, fpUsed);
+        break;
+    case 99: case 100: case 101: case 102: case 103: case 104:
+    case 2019: case 3001:
+        ProcessBattleMSkill99Family(scene, payload, fpUsed);
+        break;
+    case 263:
+        ProcessBattleMSkill263(scene, payload, fpUsed);
+        break;
+    case 400:
+        ProcessBattleMSkill400(scene, payload, fpUsed);
+        break;
+    case 401:
+        ProcessBattleMSkill401(scene, payload, fpUsed);
+        break;
+    case 402:
+        ProcessBattleMSkill402(scene, payload, fpUsed);
+        break;
+    case 405:
+        ProcessBattleMSkill405(scene, payload, fpUsed);
+        break;
+    case 404: case 406:
+        ProcessBattleMSkill404Family(scene, payload);
+        break;
+    case 267: case 3029:
+        ProcessBattleMSkill267(scene, payload, fpUsed, flags9C, valueA0);
+        break;
+    case 2005: case 4003:
+        ProcessBattleMSkill2005Family(scene, payload, fpUsed);
+        break;
+    case 2028:
+        ProcessBattleMSkill2028(scene, payload, fpUsed);
+        break;
+    case 3101:
+        ProcessBattleMSkill3101(scene, payload, fpUsed);
+        break;
+    case 32: case 33: case 34: case 35: case 36: case 37: case 38:
+    case 39: case 40: case 41: case 42: case 43: case 44: case 45:
+    case 46: case 47: case 48: case 49:
+    case 54: case 55: case 56: case 57: case 58: case 59: case 60:
+    case 64: case 65: case 66: case 67: case 68: case 86:
+    case 2006: case 2010: case 2011: case 2012: case 2013: case 2014: case 2015:
+    case 2027: case 2050: case 2051: case 2052:
+    case 2058: case 2059: case 2060: case 2061: case 2062:
+    case 2063: case 2064: case 2065: case 2066: case 2067:
+    case 2089: case 2090: case 2091: case 2092: case 2093: case 2094: case 2095:
+    case 3002: case 3003: case 3004: case 3005: case 3006:
+    case 3007: case 3008: case 3009: case 3010: case 3011:
+    case 3012: case 3013: case 3014: case 3015: case 3016:
+        ProcessBattleMSkill32Family(scene, payload, fpUsed);
+        break;
+    case 19: case 20: case 21: case 22: case 23: case 24: case 25:
+    case 26: case 27: case 28: case 29: case 30: case 31:
+    case 2055: case 2056: case 2057:
+    case 2068: case 2069: case 2070: case 2071: case 2072: case 2073:
+    case 2074: case 2075: case 2076: case 2077: case 2078: case 2079:
+        ProcessBattleMSkill19Family(scene, payload, fpUsed, 0, flags9C, valueA0);
+        break;
+    case 3037:
+        ProcessBattleMSkill19Family(scene, payload, fpUsed, 1, flags9C, valueA0);
+        break;
+    case 73: {
+        const std::int32_t mode = TakeBattleMInteger_438F70(scene);
+        if (mode == 0) {
+            ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, false);
+        } else {
+            ProcessBattleMSkill73NonzeroMode(scene, payload, mode);
+        }
+        break;
+    }
+    case 3100:
+        TakeBattleMInteger_438F70(scene);
+        ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, true);
+        break;
+    case 0: case 1: case 3: case 5: case 6: case 72:
+    case 75: case 76: case 77: case 78: case 79: case 80: case 81:
+    case 84: case 85: case 87: case 94: case 95: case 96:
+    case 105: case 110: case 113:
+    case 257: case 258: case 259: case 260: case 262: case 266:
+    case 2007: case 2008: case 2016: case 2017: case 2021: case 2022:
+    case 2096: case 2097: case 2098: case 2099: case 2100: case 2101:
+    case 3019: case 3038: case 4002: {
+        const std::int32_t mode = TakeBattleMInteger_438F70(scene);
+        const std::int32_t currentSkill = gBattleMSkill5AAA78;
+        if (currentSkill == 72 || currentSkill == 113 || currentSkill == 2017 || mode == 0) {
+            ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, false);
+        } else {
+            ProcessBattleMSkillAttackNonzeroMode(scene, payload, fpUsed, mode);
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 } // namespace
+
+void UpdateBattleEvent_427470(YobiAction* const scene)
+{
+    auto* const payload = static_cast<BattleScenePayload*>(scene->payload);
+    std::uint32_t flags9C;
+    std::int32_t valueA0;
+    if (!PrepareBattleMExecution(scene, payload, flags9C, valueA0)) {
+        return;
+    }
+    switch (scene->phase) {
+    case 0:
+        ProcessBattleMSkillHeader(scene, payload, flags9C, valueA0);
+        break;
+    case 1:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Escape);
+        break;
+    case 2:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Clear);
+        break;
+    case 3:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::Support);
+        break;
+    case 4:
+        ProcessBattleMPositionHeader(scene, payload);
+        break;
+    case 5:
+        ProcessBattleMMonsterHeader(scene, payload);
+        break;
+    case 6:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Equipment);
+        break;
+    case 7:
+        ProcessBattleMItemHeader(scene, payload);
+        break;
+    case 8:
+        ProcessBattleMComboHeader(scene, payload);
+        break;
+    case 9:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::StatusValue);
+        break;
+    case 10:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Debuff);
+        break;
+    case 11:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Power);
+        break;
+    case 12:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::Action);
+        break;
+    case 13:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::ConsumeFp);
+        break;
+    case 14:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::Chat);
+        break;
+    case 15:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetNotice);
+        break;
+    case 16:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetLeave);
+        break;
+    case 17:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::ChangeBody);
+        break;
+    case 18:
+        ProcessBattleMTransitionHeader(scene, payload, BattleMTransitionHeader::PetDown);
+        break;
+    case 19:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::Rebirth);
+        break;
+    case 20:
+        ProcessBattleMStatusHeader(scene, payload, BattleMStatusHeader::QueuedValue);
+        break;
+    case 21:
+        ProcessBattleMGmnHeader(scene, payload);
+        break;
+    case 22:
+        ProcessBattleMRideHeader(scene, payload);
+        break;
+    case 23:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::AppendSkill);
+        break;
+    case 24:
+        ProcessBattleMDataHeader(scene, payload, BattleMDataHeader::End);
+        break;
+    default:
+        break;
+    }
+    SaveBattleMExecutionState(payload);
+}
 
 YobiAction* NewBattleScene_4383B0()
 {

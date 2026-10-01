@@ -67,6 +67,9 @@ static_assert(offsetof(LegacyPanelTextButtonRecord, hint) == 48);
 static_assert(sizeof(LegacyPanelTextButtonRecord) == 56);
 
 extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函数借用。
+extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是同源selected。
+extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
+std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* records, std::int32_t count);
 void Sub_503120(LegacyPanelTextButtonRecord* records, std::int32_t count);
 std::int32_t Sub_503160(

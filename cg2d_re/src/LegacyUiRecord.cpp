@@ -2,9 +2,11 @@
 #include "LegacyPanelRuntime.hpp"
 #include "LoginSceneDependencies.hpp"
 #include "ui/WindowRuntimeState.hpp"
+#include "world/WorldUpdateDependencies.hpp"
 
 #include "cg/LoginInput.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/Startup.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -173,6 +175,113 @@ void DrawLegacyUiRecord_45EFD0(
 namespace cg::login::detail {
 
 std::uint32_t gLegacyPanelHitIdD046C0 = 0;
+LegacyPanelRecord gLegacySkillList585708 {
+    0, 0, 272, 438, 18, {0x58DE, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::uint8_t gLegacySkillPendingD67C48 = 0;
+
+namespace {
+
+constexpr char kLegacySkillClose55331C[] =
+    "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacySkillOpen5864C8[] =
+    "\xA5\xB4\xB6\x7D\xB3\x6F\xAD\xD3\xA7\xDE\xAF\xE0\xAA\xBA\xA7\xDE"
+    "\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+
+} // namespace
+
+std::int32_t Sub_500370(const std::int32_t opened)
+{
+    std::uint8_t usedSlots = 0;
+    const std::int32_t result = Sub_503160(opened, &gLegacySkillList585708, nullptr, 1);
+    if (result == 0 || result == 2) {
+        return result;
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const std::int32_t top = gLegacySkillList585708.y;
+        const std::int32_t bottom = row * 29 + top + 139;
+        const std::int32_t y = row * 29 + top + 119;
+        const std::int32_t left = gLegacySkillList585708.x;
+        const std::int32_t right = left + 263;
+        if (Sub_5049A0(left + 5, y, right, bottom, -1) != 0) {
+            hovered = row;
+            const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+            if ((clicks & 1u) != 0 && world::detail::gSkillPairsF63370[row].used != 0) {
+                static_cast<void>(audio::Sub_504180(19));
+                ui::detail::gSkillPairIndexD67AD8 = static_cast<std::uint8_t>(row);
+                gLegacySkillPendingD67C48 = 0;
+            } else if ((clicks & 2u) != 0 && world::detail::gSkillPairsF63370[row].used != 0
+                && world::detail::gValueDA3B20 == 0) {
+                const std::int32_t skill = std::bit_cast<std::int16_t>(
+                    world::detail::gSkillPairsF63370[row].index);
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                static_cast<void>(network::Sub_512470(socket, skill, -1));
+                world::detail::gValueDA3B20 = 1;
+            }
+            break;
+        }
+    }
+    char buffer[128];
+    const std::int32_t nameWidth = TextMeasure(world::detail::BorrowPlayerJobName(), 0);
+    const std::int32_t nameTop = gLegacySkillList585708.y;
+    const std::int32_t nameLeft = gLegacySkillList585708.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameLeft - nameWidth / 2 + 147),
+        static_cast<std::int16_t>(nameTop + 45), 2, 0, 0,
+        world::detail::BorrowPlayerJobName(), 0, 0));
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const world::detail::SkillPairRecord* const pair = &world::detail::gSkillPairsF63370[row];
+        if (pair->used == 0) {
+            continue;
+        }
+        const std::int32_t skillIndex = std::bit_cast<std::int16_t>(pair->index);
+        const world::detail::SkillRuntimeRecord* const skill = &world::detail::gSkillsF1BAFC[skillIndex];
+        usedSlots = static_cast<std::uint8_t>(usedSlots + skill->requiredSlots19[0]);
+        const std::int32_t skillTop = gLegacySkillList585708.y;
+        const std::int32_t skillLeft = gLegacySkillList585708.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(skillLeft + 30),
+            static_cast<std::int16_t>(skillTop + row * 29 + 120), 2, 0, 0,
+            skill->name.data(), 0, 0));
+        std::sprintf(buffer, "%2d", skill->level);
+        const std::int32_t levelTop = gLegacySkillList585708.y;
+        const std::int32_t levelLeft = gLegacySkillList585708.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(levelLeft + 203),
+            static_cast<std::int16_t>(levelTop + row * 29 + 120), 2, 0, 0, buffer, 0, 0));
+        const std::int32_t required = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
+        std::sprintf(buffer, "%d", required);
+        const std::int32_t slotsTop = gLegacySkillList585708.y;
+        const std::int32_t slotsLeft = gLegacySkillList585708.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(slotsLeft + 250),
+            static_cast<std::int16_t>(slotsTop + row * 29 + 120), 2, 0, 0, buffer, 0, 0));
+        const std::int32_t imageTop = gLegacySkillList585708.y;
+        const std::int32_t imageLeft = gLegacySkillList585708.x;
+        static_cast<void>(DrawGraphic(imageLeft + 134, row * 29 + imageTop + 129,
+            212, 0x58E4, 0, nullptr));
+        if (row == hovered) {
+            const std::int32_t hoverTop = gLegacySkillList585708.y;
+            const std::uint32_t image = gValueD69768;
+            const std::int32_t hoverLeft = gLegacySkillList585708.x;
+            DrawGraphicHover(
+                static_cast<std::uint16_t>(hoverLeft + 5),
+                static_cast<std::uint16_t>(row * 29 + hoverTop + 119),
+                static_cast<std::uint16_t>(hoverLeft + 263),
+                static_cast<std::uint16_t>(row * 29 + hoverTop + 139),
+                214, image, 0);
+        }
+    }
+    const std::int32_t signedUsed = std::bit_cast<std::int8_t>(usedSlots);
+    std::sprintf(buffer, "%2d", 10 - signedUsed);
+    const std::int32_t footerTop = gLegacySkillList585708.y;
+    const std::int32_t footerLeft = gLegacySkillList585708.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(footerLeft + 156),
+        static_cast<std::int16_t>(footerTop + 73), 2, 0, 0, buffer, 0, 0));
+    if (Sub_503590(&gLegacySkillList585708) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+    } else if (hovered >= 0 && world::detail::gSkillPairsF63370[hovered].used != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillOpen5864C8);
+    }
+    return std::bit_cast<std::int32_t>(Sub_503440(&gLegacySkillList585708, 1));
+}
 
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)
 {

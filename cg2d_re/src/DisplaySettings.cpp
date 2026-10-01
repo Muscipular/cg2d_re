@@ -141,4 +141,11 @@ std::int32_t Sub_4FF310()
     return 0;
 }
 
+std::int32_t Sub_4FF620()
+{
+    platform::gValueD68858 = platform::gValueD68858 == 0 ? 1u : 0u;
+    static_cast<void>(PlaySe(51, 320, 240));
+    return 0;
+}
+
 } // namespace cg::login::detail

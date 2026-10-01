@@ -186,6 +186,16 @@ struct LegacyHotkeyAndScanlineStaticInitializer {
 
 const LegacyHotkeyAndScanlineStaticInitializer gLegacyHotkeyAndScanlineStaticInitializer;
 
+// 原CRT 5530C4，紧邻已接的5530C0与5530C8。
+struct LegacyButtonSettingsStaticInitializer {
+    LegacyButtonSettingsStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FF340());
+    }
+};
+
+const LegacyButtonSettingsStaticInitializer gLegacyButtonSettingsStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

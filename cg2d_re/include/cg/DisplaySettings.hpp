@@ -20,5 +20,6 @@ std::int32_t Sub_4FE440(); // 553438速度减少，原下界1。
 std::int32_t Sub_4FEAC0(); // D67AE4切换并调用原生光标边界。
 std::int32_t Sub_4FEFF0(); // D67AE8物品移动方式切换。
 std::int32_t Sub_4FF310(); // 554B74低U8切换后写完整W16，返回0。
+std::int32_t Sub_4FF620(); // D68858完整W32零/非零切换，返回0。
 
 } // namespace cg::login::detail

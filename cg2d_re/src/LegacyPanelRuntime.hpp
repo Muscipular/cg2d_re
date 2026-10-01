@@ -87,6 +87,9 @@ std::uint32_t Sub_4FEF30(std::int32_t opened); // 旧选择编号10，说明文�
 std::int32_t Sub_4FF020(); // 原CRT 5530C0入口，尾跳扫描线设置构造。
 std::int32_t Sub_4FF030(); // D68718四条记录，共享既有扫描线模式。
 std::uint32_t Sub_4FF1A0(std::int32_t opened); // 旧选择编号11，S16索引显示与完整交互。
+std::int32_t Sub_4FF340(); // 原CRT 5530C4入口，尾跳旧按钮设置构造。
+std::int32_t Sub_4FF350(); // D687B8四条文字记录，所有初始颜色为0。
+std::uint32_t Sub_4FF4C0(std::int32_t opened); // 旧选择编号12，测宽后右对齐绘字与完整交互。
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W32/上下文T*仅在返回边界拓宽。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。

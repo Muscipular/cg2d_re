@@ -366,6 +366,22 @@ constexpr char kLegacyScanline58A8E8[] = "\xB1\xBD\xB4\x79\xBD\x75\xAB\x44\xA6\x
 constexpr char kLegacyScanline58A8D4[] = "\xB1\xBD\xB4\x79\xBD\x75\xC5\xDC\xA7\xF3\xAC\xB0\xA6\x50\xA8\x42\xA1\x43";
 constexpr char kLegacyScanline58A8BC[] = "\xB1\xBD\xB4\x79\xBD\x75\xC5\xDC\xA7\xF3\xAC\xB0\xAB\x44\xA6\x50\xA8\x42\xA1\x43";
 
+LegacyPanelRecord gLegacyButtonSettings585578 {
+    0, 0, 192, 304, 12, {22549, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 4> gLegacyButtonRecordsD687B8 {};
+constexpr char kLegacyButton58A914[] = "\xAB\xF6\xB6\x73\xB3\x5D\xA9\x77";
+constexpr char kLegacyButton58A4BC[] = "\xA6\x5E\xA4\x57\xA4\x40\xAD\xB6";
+constexpr char kLegacyButton58A904[] = "\xA6\x5E\xA8\xEC\xA8\x74\xB2\xCE\xBF\xEF\xB3\xE6\xA1\x43";
+constexpr char kLegacyButton58A97C[] = "\xB2\xE1\xA4\xD1\xA4\xE5\xA6\x72\xA4\x6A\xA4\x70";
+constexpr char kLegacyButton58A970[] = "\xB2\xE1\xA4\xD1\xBD\x64\xB3\xF2";
+constexpr char kLegacyButton58A948[] =
+    "\xB1\x4E\xB2\xE1\xA4\xD1\xA4\xE5\xA6\x72\xA4\x6A\xA4\x70\xAB\xF6\xB6\x73"
+    "\xC5\xDC\xA7\xF3\xA6\xA8\xB2\xE1\xA4\xD1\xBD\x64\xB3\xF2\xAB\xF6\xB6\x73\xA1\x43";
+constexpr char kLegacyButton58A920[] =
+    "\xB1\x4E\xB2\xE1\xA4\xD1\xBD\x64\xB3\xF2\xAB\xF6\xB6\x73\xC5\xDC\xA7\xF3"
+    "\xA6\xA8\xB2\xE1\xA4\xD1\xA4\xE5\xA6\x72\xA4\x6A\xA4\x70\xAB\xF6\xB6\x73\xA1\x43";
+
 std::int32_t Sub_4FC7F0()
 {
     static_cast<void>(audio::Sub_5042D0(3));
@@ -2171,6 +2187,107 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyScanlineSettings5854B0, 1);
+}
+
+std::int32_t Sub_4FF340()
+{
+    return Sub_4FF350();
+}
+
+std::int32_t Sub_4FF350()
+{
+    const std::int32_t x = gLegacyButtonSettings585578.x;
+    const std::int32_t y = gLegacyButtonSettings585578.y;
+    auto& records = gLegacyButtonRecordsD687B8;
+    records[0].label.textX = x + 20;
+    records[1].label.textX = x + 20;
+    records[1].label.textY = y + 60;
+    records[2].label.textX = x + 120;
+    records[2].label.left = x + 119;
+    records[2].label.textY = y + 100;
+    records[2].label.top = y + 100;
+    records[0].label.textY = y + 40;
+    records[3].label.textX = x + 62;
+    records[2].label.height = 18;
+    records[3].label.height = 18;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyButton58A914;
+    records[0].callback = nullptr;
+    records[0].color = 0;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[0].reserved21[1] = std::byte {0};
+    records[0].hint = nullptr;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A500;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[1] = std::byte {0};
+    records[1].hint = nullptr;
+    records[2].label.width = 54;
+    records[2].label.text = kLegacyChat58A54C;
+    records[2].callback = &Sub_4FF620;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {1};
+    records[2].reserved21[1] = std::byte {0xF9};
+    records[2].hint = nullptr;
+    records[3].label.textY = y + 260;
+    records[3].label.left = x + 60;
+    records[3].label.top = y + 260;
+    records[3].label.width = 69;
+    records[3].label.text = kLegacyButton58A4BC;
+    records[3].callback = &Sub_4FE3E0;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {1};
+    records[3].reserved21[1] = std::byte {0xF9};
+    records[3].hint = kLegacyButton58A904;
+    return 0;
+}
+
+std::uint32_t Sub_4FF4C0(const std::int32_t opened)
+{
+    const char* const modeNames[2] {kLegacyButton58A97C, kLegacyButton58A970};
+    const std::int32_t state = Sub_503160(opened, &gLegacyButtonSettings585578, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyButtonRecordsD687B8.data(), 4);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    const std::uint32_t mode = platform::gValueD68858;
+    const std::int32_t y = gLegacyButtonSettings585578.y;
+    const char* const text = modeNames[mode];
+    const std::int32_t width = TextMeasure(text, 0);
+    const std::int32_t x = gLegacyButtonSettings585578.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x - width + 172),
+        static_cast<std::int16_t>(y + 80), 2, 0, 4, text, 0, 0));
+    Sub_503120(gLegacyButtonRecordsD687B8.data(), 4);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyButtonSettings585578) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyButtonRecordsD687B8[2].label) & 0x40) != 0) {
+        hint = platform::gValueD68858 == 0 ? kLegacyButton58A948 : kLegacyButton58A920;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyButtonSettings585578, 1);
 }
 
 std::int32_t Sub_502930()

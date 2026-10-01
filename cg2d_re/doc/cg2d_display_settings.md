@@ -7,6 +7,7 @@
 > 原字段宽度及光标API次序见[旧鼠标设置页](ui_windows/legacy_mouse_settings.md)。
 > 4FF310扫描线模式回调及其父入口已补，低U8/W16/S16的不同读取与写回合同
 > 见[旧扫描线设置页](ui_windows/legacy_scanline_settings.md)；不改动呈现器适配。
+> 4FF620按钮模式的完整W32零/非零切换及页面已补，见[旧按钮设置页](ui_windows/legacy_button_settings.md)。
 
 当前已打开的 `ida-17524/cg2d.exe` 只读指令证据：
 

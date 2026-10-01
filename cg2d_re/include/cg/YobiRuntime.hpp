@@ -273,12 +273,12 @@ void ScanBattleMParticipants_439B30(
 // 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
 std::int32_t CheckBattleMParticipants_43B290(
     std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
-// 原43B360完整事件调度，4383B0已绑定；43B610真实依赖尚未闭合。
+// 原43B360完整事件调度，4383B0已绑定；事件执行仍有424620传递依赖。
 void DispatchBattleEvents_43B360(YobiAction* scene);
-// 原43B610四参工厂，仅保留真实声明；不以部分427470回调补齐。
+// 原43B610：绑定完整427470、原序初始化22位置并发布32槽事件T*。
 YobiAction* NewBattleEvent_43B610(
     std::int32_t kind, std::int32_t slot, std::uint32_t participants, std::int32_t group);
-void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620依赖仍缺，43B610未注册。
+void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620依赖仍缺。
 std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不推进对象或全局游标。
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 YobiAction* NewBattleScene_4383B0(); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。

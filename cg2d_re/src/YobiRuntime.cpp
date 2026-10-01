@@ -18927,6 +18927,37 @@ void UpdateBattleEvent_427470(YobiAction* const scene)
     SaveBattleMExecutionState(payload);
 }
 
+YobiAction* NewBattleEvent_43B610(
+    const std::int32_t kind, const std::int32_t slot,
+    const std::uint32_t participants, const std::int32_t group)
+{
+    using namespace world::detail;
+    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));
+    if (scene == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = scene->flags;
+    auto* const payload = static_cast<BattleScenePayload*>(scene->payload);
+    scene->flags = flags | 2U;
+    scene->callback = UpdateBattleEvent_427470;
+    scene->imageNo = 0;
+    scene->phase = kind;
+    payload->packetSubState58 = 0;
+    payload->eventSlot60 = slot;
+    const std::int32_t offset = gBattleMScanOffset5A8A3C;
+    payload->entryMaskA8 = participants;
+    payload->packetOffset64 = offset;
+    for (std::int32_t position = 0; position < 22; ++position) {
+        if ((payload->entryMaskA8 & (1U << position)) != 0) {
+            InitBattleCastList_4390E0(position);
+        }
+    }
+    gBattleEventActions5ABA9C[payload->eventSlot60] = scene;
+    payload->waitCountAC = 0;
+    payload->groupBase68 = 22 * group;
+    return scene;
+}
+
 YobiAction* NewBattleScene_4383B0()
 {
     YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));

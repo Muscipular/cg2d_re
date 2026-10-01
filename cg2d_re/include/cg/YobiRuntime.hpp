@@ -251,6 +251,7 @@ std::int32_t Sub_43DD00(YobiAction* action, const char* payload, std::int32_t fi
 
 // 原 Yobi::UpdateAll@[0x404C50,0x404CF7)。
 std::int32_t YobiUpdateAll_404C50();
+std::int32_t SortBattleActions_405C30(); // flags筛选、原次序排序及低W8绘制层级发布。
 
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);

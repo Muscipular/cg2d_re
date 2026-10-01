@@ -1630,6 +1630,46 @@ const char* BorrowLegacySkillDetailsCB0FDC() noexcept
     return gWindow13DetailsCB0FDC.c_str();
 }
 
+std::int32_t ReadLegacyItemWorkResultCB05FC() noexcept
+{
+    return gItemWorkResultCB05FC;
+}
+
+const char* BorrowLegacyItemWorkSuffixD2DADC() noexcept
+{
+    return gItemWorkSuffixD2DADC.data();
+}
+
+const char* BorrowLegacyItemWorkDetailsD2DB00() noexcept
+{
+    return gItemWorkDetailsD2DB00.c_str();
+}
+
+std::int32_t ReadLegacyCraftResultCC46D8() noexcept
+{
+    return gCraftResultCC46D8;
+}
+
+std::int32_t ReadLegacyCraftImageCF4B60() noexcept
+{
+    return gCraftResultImageCF4B60;
+}
+
+const char* BorrowLegacyCraftNameCF46D4() noexcept
+{
+    return gCraftNameCF46D4.data();
+}
+
+const char* BorrowLegacyCraftSuffixD672B4() noexcept
+{
+    return gCraftResultSuffixD672B4.data();
+}
+
+const char* BorrowLegacyCraftDetailsD2E92C() noexcept
+{
+    return gCraftResultDetailsD2E92C.c_str();
+}
+
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
 std::array<char, 256> gTitleDraftD45FC0 {};

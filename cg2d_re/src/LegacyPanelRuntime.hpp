@@ -71,6 +71,9 @@ extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是�
 extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 旧选择编号2；585870是三页共享selected。
 extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
 extern std::int32_t gLegacyRequiredFpCC31D8; // 4EF0F0/4FF650生产，旧选择34显示；不复制玩家FP。
+extern std::int32_t gLegacyItemWorkSelection584394; // 旧物品加工槽号，初值-1，不是现代选中物品状态。
+extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定64B复制目标。
+extern std::int32_t gLegacyItemWorkImageCC320C;
 // 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
 std::int32_t Sub_455490();
 std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。
@@ -98,6 +101,8 @@ std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关
 std::uintptr_t Sub_4EE380(std::int32_t opened); // 旧选择编号38采集动画；关闭可返回原生对象地址。
 std::uintptr_t Sub_4EF0F0(std::int32_t opened); // 旧选择37技能结果/再次使用，关闭可返回对象地址。
 std::uint32_t Sub_4F0B40(std::int32_t opened); // 旧选择34不足FP提示，保留完整发送/绘制返回。
+std::uintptr_t Sub_4F1C40(std::int32_t opened); // 旧选择33物品加工结果，按钮后才读取技能配对。
+std::uintptr_t Sub_4F3ED0(std::int32_t opened); // 旧选择28制造结果，含25/29/30选择分支。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。
 std::int32_t Sub_4FC430(); // 原D67D38八条文字按钮，保留未写字节并返回Y快照+260。

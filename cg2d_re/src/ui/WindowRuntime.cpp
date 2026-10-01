@@ -1615,6 +1615,21 @@ const char* BorrowGatherResultDetailsCC190C() noexcept
     return gWindow12DetailsCC190C.c_str();
 }
 
+std::int32_t ReadLegacySkillResultD66E2C() noexcept
+{
+    return gWindow13ResultD66E2C;
+}
+
+const char* BorrowLegacySkillSummaryCC18CC() noexcept
+{
+    return gWindow13SummaryCC18CC.data();
+}
+
+const char* BorrowLegacySkillDetailsCB0FDC() noexcept
+{
+    return gWindow13DetailsCB0FDC.c_str();
+}
+
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
 std::array<char, 256> gTitleDraftD45FC0 {};

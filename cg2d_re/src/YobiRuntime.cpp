@@ -31920,6 +31920,11 @@ void SetYobiActionField310(YobiAction* const action, const std::uint8_t value)
     action->rebirthValue2 = value;
 }
 
+std::uint8_t GetYobiActionField310(const YobiAction* const action) noexcept
+{
+    return action->rebirthValue2;
+}
+
 void SetYobiActionField30C(
     YobiAction* const action,
     const std::int32_t value)

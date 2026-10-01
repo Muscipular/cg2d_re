@@ -814,6 +814,7 @@ void SetYobiActionField308(YobiAction* action, std::uint8_t value);
 std::uint8_t ReadYobiBatchType(const YobiAction* action) noexcept; // 原+308，战斗场景状态条绘制门禁。
 void SetYobiActionField309(YobiAction* action, std::uint8_t value); // 原描述符替换掩码。
 void SetYobiActionField310(YobiAction* action, std::uint8_t value); // 原掩码替换值，与309独立写入。
+std::uint8_t GetYobiActionField310(const YobiAction* action) noexcept; // 旧结果页按位或，不能替换其他位。
 void SetYobiActionField30C(YobiAction* action, std::int32_t value);
 std::uint8_t GetYobiActionField30F(YobiAction* action);
 void SetYobiActionField30F(YobiAction* action, std::uint8_t value);

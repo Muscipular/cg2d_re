@@ -70,6 +70,7 @@ extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函�
 extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是同源selected。
 extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 旧选择编号2；585870是三页共享selected。
 extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
+extern std::int32_t gLegacyRequiredFpCC31D8; // 4EF0F0/4FF650生产，旧选择34显示；不复制玩家FP。
 // 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
 std::int32_t Sub_455490();
 std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。
@@ -95,6 +96,8 @@ std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。
 std::uintptr_t Sub_4EE380(std::int32_t opened); // 旧选择编号38采集动画；关闭可返回原生对象地址。
+std::uintptr_t Sub_4EF0F0(std::int32_t opened); // 旧选择37技能结果/再次使用，关闭可返回对象地址。
+std::uint32_t Sub_4F0B40(std::int32_t opened); // 旧选择34不足FP提示，保留完整发送/绘制返回。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。
 std::int32_t Sub_4FC430(); // 原D67D38八条文字按钮，保留未写字节并返回Y快照+260。

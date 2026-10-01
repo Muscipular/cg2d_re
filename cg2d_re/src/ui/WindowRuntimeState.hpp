@@ -1257,6 +1257,9 @@ std::int32_t ReadGatherResultImageCF3FF0() noexcept;
 const char* BorrowGatherResultNameD2DA94() noexcept;
 const char* BorrowGatherResultSuffixCB1E1C() noexcept;
 const char* BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
+std::int32_t ReadLegacySkillResultD66E2C() noexcept; // 旧选择37与窗口13共享回复结果。
+const char* BorrowLegacySkillSummaryCC18CC() noexcept;
+const char* BorrowLegacySkillDetailsCB0FDC() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 比较按S8，写入只取低U8。
 extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C;

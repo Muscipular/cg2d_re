@@ -9082,7 +9082,7 @@ std::uint16_t Sub_469FC0()
                         gDirectionDeltas55D9DC[static_cast<std::size_t>(direction)].x;
                     const std::int32_t nextX =
                         platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
-                    Sub_46A410(nextX, nextY, speed);
+                    MovePlayerOneStep_46B1B0(nextX, nextY, speed);
                     const std::int32_t y =
                         platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
                     const std::int32_t x =

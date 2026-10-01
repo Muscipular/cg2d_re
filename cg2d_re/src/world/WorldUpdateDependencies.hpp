@@ -1118,6 +1118,8 @@ void Sub_46A940(); // 从顺序表第2项起调用442730，首个负S16终止。
 void Sub_46A5F0(); // 原完整跟随路径调度；到达后启动首路径并向后继传点。
 std::uint16_t Sub_469FC0(); // 普通玩家完整移动调度，承接原AX返回。
 std::uint32_t Sub_46A190(); // 完整两轮跟随调度，返回公共尾先读取的世界X位型。
+void MovePlayerOneStep_46B1B0(
+    std::int32_t x, std::int32_t y, std::int32_t speed); // 普通移动：先通知跟随对象，再快照/计算速度。
 void Sub_46A410(
     std::int32_t x, std::int32_t y, std::int32_t speed); // 玩家快照/共享移动分量初始化。
 void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。

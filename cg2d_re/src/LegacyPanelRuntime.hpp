@@ -75,6 +75,9 @@ std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。
 std::int32_t Sub_4FC430(); // 原D67D38八条文字按钮，保留未写字节并返回Y快照+260。
 std::uint32_t Sub_4FC730(std::int32_t opened); // 旧选择编号3；关闭保存/八按钮交互及完整绘制。
+std::int32_t Sub_4FCB90(); // 原CRT 5530AC入口，尾跳旧聊天设置18条记录构造。
+std::int32_t Sub_4FCBA0(); // D67E80同源文字记录，不重置原+23H未写字节。
+std::uint32_t Sub_4FD1A0(std::int32_t opened); // 旧选择编号5，颜色/行数/范围显示与完整交互。
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W32/上下文T*仅在返回边界拓宽。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。

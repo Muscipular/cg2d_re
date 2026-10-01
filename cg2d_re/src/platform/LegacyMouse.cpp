@@ -155,6 +155,16 @@ struct LegacySettingsMenuStaticInitializer {
 
 const LegacySettingsMenuStaticInitializer gLegacySettingsMenuStaticInitializer;
 
+// 原CRT 5530AC；复用既有显示设置回调，不增加初始化之外的操作。
+struct LegacyChatSettingsStaticInitializer {
+    LegacyChatSettingsStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FCB90());
+    }
+};
+
+const LegacyChatSettingsStaticInitializer gLegacyChatSettingsStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

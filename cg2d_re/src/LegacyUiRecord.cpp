@@ -7,6 +7,7 @@
 
 #include "cg/LoginInput.hpp"
 #include "cg/LoginRequest.hpp"
+#include "cg/DisplaySettings.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -281,6 +282,42 @@ constexpr char kLegacySettingsText58A3F4[] = "\xC3\xB8\x20\xB9\xCF\x20\xB3\x5D\x
 constexpr char kLegacySettingsHint58A3E4[] = "\xB3\x5D\xA9\x77\xC3\xB8\xB9\xCF\xBC\xD2\xA6\xA1\xA1\x43";
 constexpr char kLegacySettingsText58A3D8[] = "\xB3\x5D\xA9\x77\xAB\xF6\xB6\x73";
 constexpr char kLegacySettingsHint58A3C8[] = "\xB6\x69\xA6\xE6\xAB\xF6\xB6\x73\xB3\x5D\xA9\x77";
+
+LegacyPanelRecord gLegacyChatSettings585000 {
+    0, 0, 192, 304, 5, {22960, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 18> gLegacyChatRecordsD67E80 {};
+constexpr char kLegacyChat58A584[] = "\xB3\x5D\xA9\x77\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6";
+constexpr char kLegacyChat58A57C[] = "\xA5\xD8\xAB\x65";
+constexpr char kLegacyChat58A578[] = "\xA6\xE6";
+constexpr char kLegacyChat58A574[] = "\xA1\xF4";
+constexpr char kLegacyChat58A570[] = "\xA1\xF5";
+constexpr char kLegacyChat58A560[] = "\xA4\xE5\xA6\x72\xC3\x43\xA6\xE2\xB3\x5D\xA9\x77";
+constexpr char kLegacyChat58A554[] = "\xA5\xD8\xAB\x65\xC3\x43\xA6\xE2";
+constexpr char kLegacyChat58A54C[] = "\x3C\xC5\xDC\xA7\xF3\x3E";
+constexpr char kLegacyChat5877B4[] = "\xC5\xDC\xA7\xF3\xA4\xE5\xA6\x72\xAA\xBA\xC3\x43\xA6\xE2\xA1\x43";
+constexpr char kLegacyChat58A540[] = "\xB1\x60\xA5\xCE\xA5\x79\xB3\x5D\xA9\x77";
+constexpr char kLegacyChat58A538[] = "\x3C\xB3\x5D\xA9\x77\x3E";
+constexpr char kLegacyChat58A524[] = "\xA5\xB4\xB6\x7D\xB1\x60\xA5\xCE\xA5\x79\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyChat58A514[] = "\xB3\x5D\xA9\x77\xB2\xE1\xA4\xD1\xAD\xB5\xAE\xC4";
+constexpr char kLegacyChat58A508[] = "\xBD\x64\xB3\xF2\xB3\x5D\xA9\x77";
+constexpr char kLegacyChat58A500[] = "\xB2\x7B\xA6\x62";
+constexpr char kLegacyChat58A4F8[] = "\x20\xA4\x57\xA4\x40\xAD\xB6";
+constexpr char kLegacyChat58A4E8[] = "\xA6\x5E\xA8\xEC\xA8\x74\xB2\xCE\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyChat58A668[] = "\xB6\x7D";
+constexpr char kLegacyChat58A664[] = "\xC3\xF6";
+constexpr char kLegacyChat58A654[] = "\xBC\x57\xA5\x5B\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA1\x43";
+constexpr char kLegacyChat58A63C[] = "\xA4\xA3\xAF\xE0\xA6\x41\xBC\x57\xA5\x5B\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA4\x46\xA1\x43";
+constexpr char kLegacyChat58A62C[] = "\xB4\xEE\xA4\xD6\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA1\x43";
+constexpr char kLegacyChat58A614[] = "\xA4\xA3\xAF\xE0\xA6\x41\xB4\xEE\xA4\xD6\xC5\xE3\xA5\xDC\xA6\xE6\xBC\xC6\xA4\x46\xA1\x43";
+constexpr char kLegacyChat58A604[] = "\xC3\xF6\xB3\xAC\xB2\xE1\xA4\xD1\xAD\xB5\xAE\xC4\xA1\x43";
+constexpr char kLegacyChat58A5F4[] = "\xB6\x7D\xB1\xD2\xB2\xE1\xA4\xD1\xAD\xB5\xAE\xC4\xA1\x43";
+constexpr char kLegacyChat58A5E0[] = "\xBC\x57\xA4\x6A\xB2\xE1\xA4\xD1\xAA\xBA\xBD\x64\xB3\xF2\xA1\x43";
+constexpr char kLegacyChat58A5C4[] = "\xA4\xA3\xAF\xE0\xA6\x41\xBC\x57\xA4\x6A\xB2\xE1\xA4\xD1\xAA\xBA\xBD\x64\xB3\xF2\xA4\x46\xA1\x43";
+constexpr char kLegacyChat58A5B0[] = "\xC1\x59\xA4\x70\xB2\xE1\xA4\xD1\xAA\xBA\xBD\x64\xB3\xF2\xA1\x43";
+constexpr char kLegacyChat58A594[] = "\xA4\xA3\xAF\xE0\xA6\x41\xB4\xEE\xA4\xD6\xB2\xE1\xA4\xD1\xAA\xBA\xBD\x64\xB3\xF2\xA4\x46\xA1\x43";
+constexpr char kLegacyChat553FB4[] = "\x25\x32\x64";
+constexpr char kLegacyChat5531A4[] = "\x25\x64";
 
 std::int32_t Sub_4FC7F0()
 {
@@ -1298,6 +1335,294 @@ std::uint32_t Sub_4FC730(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
     }
     return Sub_503440(&gLegacySettingsMenu584E70, 1);
+}
+
+std::int32_t Sub_4FCB90()
+{
+    return Sub_4FCBA0();
+}
+
+std::int32_t Sub_4FCBA0()
+{
+    const std::int32_t x = gLegacyChatSettings585000.x;
+    const std::int32_t y = gLegacyChatSettings585000.y;
+    auto& records = gLegacyChatRecordsD67E80;
+    // 按原216次字段写入推进；保留每条+23H字节，不整表赋值。
+    records[2].label.textX = x + 84;
+    records[3].label.textX = x + 124;
+    records[3].label.left = x + 123;
+    records[0].label.textY = y + 40;
+    records[1].label.textY = y + 60;
+    records[2].label.textY = y + 60;
+    records[3].label.textY = y + 60;
+    records[3].label.top = y + 60;
+    records[4].label.textX = x + 156;
+    records[4].label.textY = y + 60;
+    records[4].label.top = y + 60;
+    records[0].label.textX = x + 20;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyChat58A584;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[0].reserved21[1] = std::byte {0};
+    records[0].hint = nullptr;
+    records[1].label.textX = x + 20;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A57C;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[1] = std::byte {0};
+    records[1].hint = nullptr;
+    records[2].label.left = 0;
+    records[2].label.top = 0;
+    records[2].label.width = 0;
+    records[2].label.height = 0;
+    records[2].label.text = kLegacyChat58A578;
+    records[2].callback = nullptr;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {0xFF};
+    records[2].reserved21[1] = std::byte {0};
+    records[2].hint = nullptr;
+    records[3].label.width = 19;
+    records[3].label.height = 18;
+    records[3].label.text = kLegacyChat58A574;
+    records[3].callback = &Sub_4FD4C0;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {1};
+    records[3].reserved21[1] = std::byte {0xF9};
+    records[3].hint = nullptr;
+    records[4].label.left = x + 155;
+    records[4].label.width = 19;
+    records[4].label.height = 18;
+    records[4].label.text = kLegacyChat58A570;
+    records[4].callback = &Sub_4FD510;
+    records[4].color = 0;
+    records[4].reserved21[0] = std::byte {1};
+    records[4].reserved21[1] = std::byte {0xF9};
+    records[4].hint = nullptr;
+    records[5].label.textX = x + 20;
+    records[5].label.textY = y + 80;
+    records[5].label.left = 0;
+    records[5].label.top = 0;
+    records[6].label.textY = y + 100;
+    records[7].label.textY = y + 100;
+    records[7].label.top = y + 100;
+    records[8].label.textY = y + 120;
+    records[9].label.textX = x + 120;
+    records[9].label.textY = y + 140;
+    records[9].label.top = y + 140;
+    records[7].label.textX = x + 120;
+    records[10].label.textY = y + 160;
+    records[5].label.width = 0;
+    records[5].label.height = 0;
+    records[5].label.text = kLegacyChat58A560;
+    records[5].callback = nullptr;
+    records[5].color = 4;
+    records[5].reserved21[0] = std::byte {0xFF};
+    records[5].reserved21[1] = std::byte {0};
+    records[5].hint = nullptr;
+    records[6].label.textX = x + 20;
+    records[6].label.left = 0;
+    records[6].label.top = 0;
+    records[6].label.width = 0;
+    records[6].label.height = 0;
+    records[6].label.text = kLegacyChat58A554;
+    records[6].callback = nullptr;
+    records[6].color = 0;
+    records[6].reserved21[0] = std::byte {0xFF};
+    records[6].reserved21[1] = std::byte {0};
+    records[6].hint = nullptr;
+    records[7].label.left = x + 119;
+    records[7].label.width = 54;
+    records[7].label.height = 18;
+    records[7].label.text = kLegacyChat58A54C;
+    records[7].callback = &Sub_4FD550;
+    records[7].color = 0;
+    records[7].reserved21[0] = std::byte {1};
+    records[7].reserved21[1] = std::byte {0xF9};
+    records[7].hint = kLegacyChat5877B4;
+    records[8].label.textX = x + 20;
+    records[8].label.left = 0;
+    records[8].label.top = 0;
+    records[8].label.width = 0;
+    records[8].label.height = 0;
+    records[8].label.text = kLegacyChat58A540;
+    records[8].callback = nullptr;
+    records[8].color = 4;
+    records[8].reserved21[0] = std::byte {0xFF};
+    records[8].reserved21[1] = std::byte {0};
+    records[8].hint = nullptr;
+    records[9].label.left = x + 119;
+    records[9].label.width = 54;
+    records[9].label.height = 18;
+    records[9].label.text = kLegacyChat58A538;
+    records[9].callback = &Sub_4FD5A0;
+    records[9].color = 0;
+    records[9].reserved21[0] = std::byte {1};
+    records[9].reserved21[1] = std::byte {0xF9};
+    records[9].hint = kLegacyChat58A524;
+    records[10].label.textX = x + 20;
+    records[10].label.left = 0;
+    records[10].label.top = 0;
+    records[10].label.width = 0;
+    records[10].label.height = 0;
+    records[10].label.text = kLegacyChat58A514;
+    records[10].callback = nullptr;
+    records[10].color = 4;
+    records[10].reserved21[0] = std::byte {0xFF};
+    records[10].reserved21[1] = std::byte {0};
+    records[10].hint = nullptr;
+    records[11].label.textX = x + 20;
+    records[11].label.textY = y + 180;
+    records[11].label.left = 0;
+    records[11].label.top = 0;
+    records[11].label.width = 0;
+    records[13].label.textX = x + 20;
+    records[12].label.textX = x + 120;
+    records[12].label.textY = y + 180;
+    records[12].label.top = y + 180;
+    records[14].label.textX = x + 20;
+    records[13].label.textY = y + 200;
+    records[15].label.textX = x + 124;
+    records[15].label.left = x + 123;
+    records[11].reserved21[0] = std::byte {0xFF};
+    records[12].label.left = x + 119;
+    records[13].reserved21[0] = std::byte {0xFF};
+    records[14].label.textY = y + 220;
+    records[14].reserved21[0] = std::byte {0xFF};
+    records[15].label.textY = y + 220;
+    records[15].label.top = y + 220;
+    records[16].label.textX = x + 156;
+    records[16].label.textY = y + 220;
+    records[16].label.top = y + 220;
+    records[11].label.height = 0;
+    records[11].label.text = kLegacyChat58A57C;
+    records[11].callback = nullptr;
+    records[11].color = 0;
+    records[11].reserved21[1] = std::byte {0};
+    records[11].hint = nullptr;
+    records[12].label.width = 54;
+    records[12].label.height = 18;
+    records[12].label.text = kLegacyChat58A54C;
+    records[12].callback = &Sub_4FD5C0;
+    records[12].color = 0;
+    records[12].reserved21[0] = std::byte {1};
+    records[12].reserved21[1] = std::byte {0xF9};
+    records[12].hint = nullptr;
+    records[13].label.left = 0;
+    records[13].label.top = 0;
+    records[13].label.width = 0;
+    records[13].label.height = 0;
+    records[13].label.text = kLegacyChat58A508;
+    records[13].callback = nullptr;
+    records[13].color = 4;
+    records[13].reserved21[1] = std::byte {0};
+    records[13].hint = nullptr;
+    records[14].label.left = 0;
+    records[14].label.top = 0;
+    records[14].label.width = 0;
+    records[14].label.height = 0;
+    records[14].label.text = kLegacyChat58A500;
+    records[14].callback = nullptr;
+    records[14].color = 0;
+    records[14].reserved21[1] = std::byte {0};
+    records[14].hint = nullptr;
+    records[15].label.width = 19;
+    records[15].label.height = 18;
+    records[15].label.text = kLegacyChat58A574;
+    records[15].callback = &Sub_4FD5F0;
+    records[15].color = 0;
+    records[15].reserved21[0] = std::byte {1};
+    records[15].reserved21[1] = std::byte {0xF9};
+    records[15].hint = nullptr;
+    records[16].label.left = x + 155;
+    records[16].label.width = 19;
+    records[16].label.height = 18;
+    records[16].label.text = kLegacyChat58A570;
+    records[16].callback = &Sub_4FD640;
+    records[16].color = 0;
+    records[16].reserved21[0] = std::byte {1};
+    records[16].reserved21[1] = std::byte {0xF9};
+    records[16].hint = nullptr;
+    records[17].label.textX = x + 62;
+    records[17].label.textY = y + 260;
+    records[17].label.height = 18;
+    records[17].label.left = x + 60;
+    records[17].label.top = y + 260;
+    records[17].label.width = 69;
+    records[17].label.text = kLegacyChat58A4F8;
+    records[17].callback = &Sub_4FE3E0;
+    records[17].color = 0;
+    records[17].reserved21[0] = std::byte {1};
+    records[17].reserved21[1] = std::byte {0xF9};
+    records[17].hint = kLegacyChat58A4E8;
+    return 0;
+}
+
+std::uint32_t Sub_4FD1A0(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyChatSettings585000, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyChatRecordsD67E80.data(), 18);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    char buffer[128];
+    std::sprintf(buffer, kLegacyChat553FB4, platform::gValue55463C);
+    const std::int32_t linesY = gLegacyChatSettings585000.y;
+    const std::int32_t linesX = gLegacyChatSettings585000.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(linesX + 62),
+        static_cast<std::int16_t>(linesY + 60), 2, 0, 0, buffer, 0, 0));
+    const char* const soundText = platform::gValue554644 != 0 ? kLegacyChat58A668 : kLegacyChat58A664;
+    const std::int32_t soundY = gLegacyChatSettings585000.y;
+    std::strcpy(buffer, soundText);
+    const std::int32_t soundX = gLegacyChatSettings585000.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(soundX + 62),
+        static_cast<std::int16_t>(soundY + 180), 2, 0, 0, buffer, 0, 0));
+    std::sprintf(buffer, kLegacyChat5531A4, platform::gValue554640);
+    const std::int32_t rangeY = gLegacyChatSettings585000.y;
+    const std::int32_t rangeX = gLegacyChatSettings585000.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(rangeX + 62),
+        static_cast<std::int16_t>(rangeY + 220), 2, 0, 0, buffer, 0, 0));
+    gLegacyChatRecordsD67E80[6].color = static_cast<std::uint8_t>(input::gInputContext626AA0.field140);
+    Sub_503120(gLegacyChatRecordsD67E80.data(), 18);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyChatSettings585000) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[3].label) & 0x40) != 0) {
+        hint = platform::gValue55463C < 512 ? kLegacyChat58A654 : kLegacyChat58A63C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[4].label) & 0x40) != 0) {
+        hint = platform::gValue55463C > 0 ? kLegacyChat58A62C : kLegacyChat58A614;
+    } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[12].label) & 0x40) != 0) {
+        hint = platform::gValue554644 != 0 ? kLegacyChat58A604 : kLegacyChat58A5F4;
+    } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[15].label) & 0x40) != 0) {
+        hint = platform::gValue554640 < 5 ? kLegacyChat58A5E0 : kLegacyChat58A5C4;
+    } else if ((character_select::detail::Sub_503990(&gLegacyChatRecordsD67E80[16].label) & 0x40) != 0) {
+        hint = platform::gValue554640 > 1 ? kLegacyChat58A5B0 : kLegacyChat58A594;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyChatSettings585000, 1);
 }
 
 std::int32_t Sub_502930()

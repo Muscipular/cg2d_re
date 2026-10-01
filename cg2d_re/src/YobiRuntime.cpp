@@ -32182,6 +32182,108 @@ std::int32_t Sub_504C50(const std::int32_t currentImage, const std::int32_t requ
     return currentImage;
 }
 
+YobiAction* Sub_4FAAA0(
+    const std::int32_t image, const std::int32_t x, const std::int32_t y)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    std::int32_t mapped = image;
+    if (image >= 110350 && image <= 110373) {
+        mapped = 6 * ((image - 110350) / 6 + 18392);
+    } else if (image >= 100000 && image <= 100999) {
+        if (image != 100900 && image != 100901) {
+            const std::int32_t offset = image - 100000;
+            mapped = 25 * (offset / 25) + 6 * (offset % 25 / 6 + 16667);
+        }
+    } else if (image >= 105000 && image <= 106800) {
+        const std::int32_t offset = image - 105000;
+        mapped = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 105002;
+    } else if (image >= 104400 && image <= 104520) {
+        const std::int32_t offset = image - 104400;
+        mapped = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 104402;
+    } else if (image >= 120100 && image <= 120147) {
+        const std::int32_t offset = world::detail::ReadPlayerImageNo() - 120100;
+        if (offset >= 0 && offset <= 120) {
+            mapped = 30 * (offset / 30) + 6 * (offset % 30 / 6 + 20017);
+        }
+    }
+    action->callback = [](YobiAction* const value) { static_cast<void>(Sub_4FACE0(value)); };
+    action->imageNo = mapped;
+    action->characterAction = 0;
+    action->direction = 5;
+    action->displayPriority = 221;
+    action->flags = 0x14;
+    action->x = x;
+    action->y = y;
+    if (mapped >= 110350 && mapped <= 110373) {
+        action->rebirthValue1 = 4;
+        action->rebirthValue2 = 4;
+    } else {
+        action->rebirthValue1 = 0;
+    }
+    return action;
+}
+
+std::int32_t Sub_4FACE0(YobiAction* const action)
+{
+    const std::int32_t image = world::detail::ReadPlayerImageNo();
+    if (image >= 100000 && image <= 100999) {
+        std::int32_t mapped = image;
+        if (image != 100900 && image != 100901) {
+            const std::int32_t offset = image - 100000;
+            mapped = 25 * (offset / 25) + 6 * (offset % 25 / 6 + 16667);
+        }
+        action->imageNo = mapped;
+    } else if (image >= 105000 && image <= 106800) {
+        const std::int32_t offset = image - 105000;
+        action->imageNo = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 105002;
+    } else if (image >= 104400 && image <= 104520) {
+        const std::int32_t offset = image - 104400;
+        action->imageNo = 25 * (offset / 25) + 6 * (offset % 25 / 6) + 104402;
+    } else if (image >= 120100 && image <= 120147) {
+        const std::int32_t offset = image - 120100;
+        action->imageNo = 30 * (offset / 30) + 6 * (offset % 30 / 6 + 20017);
+    }
+    // 上述闭区间已约束同次快照差值；原4FAE5F的指针写图号分支不可达。
+    std::int32_t stopAtEnd = 1;
+    switch (action->characterAction) {
+    case 0:
+    case 1:
+    case 5:
+    case 6:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+        stopAtEnd = 0;
+        break;
+    default:
+        break;
+    }
+    return Sub_517880(action, 100, stopAtEnd, 0);
+}
+
+void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
+{
+    if (action == nullptr) {
+        return;
+    }
+    const std::int32_t image = action->imageNo;
+    if ((image >= 110350 && image <= 110373)
+        || (image >= 100000 && image <= 100999)
+        || (image >= 105000 && image <= 106800)
+        || (image >= 104400 && image <= 104520)
+        || (image >= 120100 && image <= 120147)
+        || (image >= 120156 && image <= 120163)) {
+        action->characterAction = result != 0 ? 18 : 15;
+    } else if (image > 100999) {
+        action->characterAction = result != 0 ? 5 : 10;
+    }
+}
+
 std::uintptr_t Sub_4EE380(const std::int32_t opened)
 {
     const char* const texts[] {

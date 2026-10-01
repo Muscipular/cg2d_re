@@ -1585,6 +1585,36 @@ std::uint32_t ReadSkillExtraDelayCF46C4() noexcept
     return gSkillExtraDelayCF46C4;
 }
 
+void WriteSkillExtraDelayCF46C4(const std::uint32_t delay) noexcept
+{
+    gSkillExtraDelayCF46C4 = delay;
+}
+
+std::int32_t ReadGatherResultD2D820() noexcept
+{
+    return gWindow12ResultD2D820;
+}
+
+std::int32_t ReadGatherResultImageCF3FF0() noexcept
+{
+    return gWindow12ValueCF3FF0;
+}
+
+const char* BorrowGatherResultNameD2DA94() noexcept
+{
+    return gWindow12NameD2DA94.data();
+}
+
+const char* BorrowGatherResultSuffixCB1E1C() noexcept
+{
+    return gWindow12SuffixCB1E1C.data();
+}
+
+const char* BorrowGatherResultDetailsCC190C() noexcept
+{
+    return gWindow12DetailsCC190C.c_str();
+}
+
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
 std::array<char, 256> gTitleDraftD45FC0 {};

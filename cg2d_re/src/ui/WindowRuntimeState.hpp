@@ -1251,6 +1251,12 @@ extern std::int32_t gSelectedItem57EE0C; // 原装载初值-1，窗口51只做�
 extern std::uint8_t gSkillPairIndexD67AD8; // 配方查询按S8解释。
 std::int32_t ReadSkillRequestD64E13() noexcept; // 旧技能请求读取同源低S8；不补造4FF650生产。
 std::uint32_t ReadSkillExtraDelayCF46C4() noexcept; // 新旧技能面板共用额外时长。
+void WriteSkillExtraDelayCF46C4(std::uint32_t delay) noexcept;
+std::int32_t ReadGatherResultD2D820() noexcept; // 旧选择39借用窗口12同源回复。
+std::int32_t ReadGatherResultImageCF3FF0() noexcept;
+const char* BorrowGatherResultNameD2DA94() noexcept;
+const char* BorrowGatherResultSuffixCB1E1C() noexcept;
+const char* BorrowGatherResultDetailsCC190C() noexcept; // 借用NUL文本，不复制到另一结果缓存。
 extern std::int32_t gRecipeIndex5846BC; // 原装载初值-1。
 extern std::array<std::uint8_t, 20> gTradeItemSlotsCF3AE8; // 比较按S8，写入只取低U8。
 extern std::array<std::uint8_t, 28> gTradeItemMarksD2D61C;

@@ -532,7 +532,7 @@ std::int32_t gBattleTiledEffectReverse59F9F0 = 0;
 // 原54D4C0起物理16B；末零不用于索引回退，逻辑有效项数不据此扩充。
 constexpr std::array<std::int32_t, 4> kBattleStatusImages54D4C0 {103018, 103022, 103020, 0};
 
-// 原场景载荷仅映射本步字段；完整180B生产与调度回调仍待实现。
+// 原场景180B载荷；标量保留宽度，B0场地特效引用按原生T*拓宽。
 struct BattleScenePayload {
     std::int32_t value00; // 原+00，41A9E0/41AF00完成指定分类且场景phase8时递增。
     std::int32_t entryCount04; // 427470/CMB按S32读写的参与者数量。
@@ -561,6 +561,8 @@ struct BattleScenePayload {
     std::int32_t waitCountAC; // 忙状态每次检查递增，超时逐对象恢复后清零。
     YobiAction* fieldEffectB0; // 41FFE0发布的非拥有场地特效；438550无场地标志时标死并重取载荷清槽。
 };
+static_assert(offsetof(BattleScenePayload, entryMaskA8) == 0xA8);
+static_assert(offsetof(BattleScenePayload, fieldEffectB0) == 0xB0);
 
 // 4390E0/4391E0仅共享此写序；各自队列尾、技能及朝向处理保持独立。
 void ResetBattleCastEffects(BattleActorPayload* const payload)
@@ -18663,6 +18665,35 @@ namespace {
 }
 
 } // namespace
+
+YobiAction* NewBattleScene_4383B0()
+{
+    YobiAction* const scene = NewYobiAction_404AE0(1, sizeof(BattleScenePayload));
+    if (scene == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t flags = scene->flags;
+    scene->callback = DispatchBattleEvents_43B360;
+    scene->imageNo = 0;
+    scene->flags = flags | 2U;
+    static_cast<BattleScenePayload*>(scene->payload)->entryMaskA8 = 0xFFFFFFFFU;
+    return scene;
+}
+
+void InitializeBattleScene_4383F0()
+{
+    using namespace world::detail;
+    gBattleSceneAction5ABA94 = NewBattleScene_4383B0();
+    gBattleEventActions5ABA9C.fill(nullptr);
+    gBattleAllEntries59E980.fill(nullptr);
+    gBattleActiveEventMask5AAA74 = 0;
+    gBattlePendingGroupCount5ABB24 = 0;
+    gValue5ABB20 = 0;
+    gYobiScreenOffsetRising = 0;
+    gYobiScreenOffsetAmplitude = 0;
+    gYobiUpdateGateMode = 0;
+    ui::detail::Sub_496570();
+}
 
 YobiAction* NewBattleActor_438290(const std::int32_t position)
 {

@@ -1244,7 +1244,7 @@ struct BattleNamedEffectRecord {
     std::int32_t value; // 原+20，439B30按名称更新。
 };
 extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0;
-extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，完整生产仍缺。
+extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，43CBB0父入口仍未接。
 extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 含20/21特殊槽的唯一非拥有对象表。
 extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC;

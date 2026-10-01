@@ -70,6 +70,8 @@ extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函�
 extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是同源selected。
 extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 旧选择编号2；585870是三页共享selected。
 extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
+std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
+std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W32/上下文T*仅在返回边界拓宽。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。

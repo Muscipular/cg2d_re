@@ -8242,6 +8242,11 @@ std::int32_t ReadPlayerFpOnce()
     return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.fp);
 }
 
+platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept
+{
+    return gPlayerRuntime.fp;
+}
+
 std::int32_t ReadPlayerMaxFpOnce()
 {
     return platform::legacy_crypt_int::Read_401EC0(&gPlayerRuntime.maxFp);

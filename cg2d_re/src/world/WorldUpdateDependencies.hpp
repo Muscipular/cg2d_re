@@ -1165,6 +1165,7 @@ std::int32_t ReadPlayerPenalty() noexcept; // 原FDA7F8的完整S32。
 std::int32_t ReadPlayerHpOnce(); // 原FDA718，仅执行一次CryptInt读取，不复制载荷。
 std::int32_t ReadPlayerMaxHpOnce(); // 原FDA728。
 std::int32_t ReadPlayerFpOnce(); // 原FDA738。
+platform::LegacyCryptInt ReadPlayerFpRawSnapshot() noexcept; // 旧25的原始16B格式实参，不解密或增加读取计数。
 std::int32_t ReadPlayerMaxFpOnce(); // 原FDA748。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
 bool IsCostGreaterThanPlayerFp(std::int32_t cost); // 4F2720实际401F80入口，保留右值单读。

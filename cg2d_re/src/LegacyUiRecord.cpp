@@ -199,6 +199,7 @@ std::int32_t gLegacyItemWorkSelection584394 = -1;
 std::array<char, 64> gLegacyItemWorkNameCC40D8 {};
 std::int32_t gLegacyItemWorkImageCC320C = 0;
 std::int32_t gLegacyCraftPhaseD67D00 = 0;
+std::int32_t gLegacyRecipePageD67D0C = 0;
 
 namespace {
 
@@ -361,6 +362,14 @@ constexpr char kLegacyMaterialText58A010[] = "\xA8\x53\xA6\xB3\xBF\xEF\xBE\xDC\x
 constexpr char kLegacyMaterialText58A020[] = "\xB5\x6E\xBF\xFD\xA9\xD2\xBF\xEF\xAA\xBA\xA7\xF7\xAE\xC6\xA1\x43";
 constexpr char kLegacyMaterialText589FFC[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xA4\x77\xB3\x51\xBF\xEF\xBE\xDC\xA1\x43";
 constexpr char kLegacyMaterialText589FEC[] = "\xBF\xEF\xBE\xDC\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+LegacyPanelRecord gLegacyCraftRecipePanel5845F8 {
+    0, 0, 344, 380, 25, {23350, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyRecipePageCountD67D10 = 0;
+constexpr char kLegacyRecipePage586D2C[] = "\xA4\xC1\xB4\xAB\xAD\xB6\xBC\xC6\xA1\x43";
+constexpr char kLegacyRecipeBack58A0E0[] = "\xA6\x5E\xA8\xEC\xAF\xE0\xA4\x4F\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyRecipeUnavailable58A0B8[] = "\xB2\x7B\xA6\x62\xB5\x4C\xAA\x6B\xBB\x73\xA7\x40\xA6\xB9\xB6\xB5\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyRecipeSelect58A0D0[] = "\xBB\x73\xA7\x40\xA6\xB9\xB6\xB5\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -2689,6 +2698,155 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyCraftBack58A084);
     }
     return Sub_503440(&gLegacyCraftExecutionPanel584530, 1);
+}
+
+std::int32_t Sub_519640(const std::int32_t skill)
+{
+    std::int32_t count = 0;
+    while (count < 56 && world::detail::gSkillsF1BAFC[skill].recipes8E8[count].itemId >= 0) {
+        ++count;
+    }
+    return count == 0 ? 1 : (count - 1) / 8 + 1;
+}
+
+std::uint32_t Sub_4F5A60(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyCraftRecipePanel5845F8.x;
+    const std::int32_t y = gLegacyCraftRecipePanel5845F8.y;
+    LegacyPanelButtonRecord previous {x + 61, y + 357, x + 47, y + 345, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 153, y + 357, x + 139, y + 345, 28, 24, 23023, 23027};
+    LegacyPanelButtonRecord back {x + 257, y + 357, x + 217, y + 347, 80, 20, 22710, 22711};
+    const std::int32_t state = Sub_503160(opened, &gLegacyCraftRecipePanel5845F8, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::uint32_t selected = audio::ReadLegacyPanelSelectionCC236C();
+        if (selected == 19 || selected == 26) {
+            return selected;
+        }
+        const std::uint8_t notify = ui::detail::gValue5F9754;
+        if (notify == 0) {
+            return (selected & 0xFFFFFF00u) | notify;
+        }
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::int32_t result = network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62);
+        ui::detail::gValue5F9754 = 0;
+        return static_cast<std::uint32_t>(result);
+    }
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    gLegacyRecipePageCountD67D10 = Sub_519640(skill);
+    std::int32_t hoveredRow = -1;
+    std::int32_t hoveredRecipe = -1;
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t top = gLegacyCraftRecipePanel5845F8.y;
+        const std::int32_t left = gLegacyCraftRecipePanel5845F8.x;
+        if (Sub_5049A0(left + 11, top + 89 + 24 * row, left + 333, top + 109 + 24 * row, -1) != 0) {
+            hoveredRow = row;
+            hoveredRecipe = row + 8 * gLegacyRecipePageD67D0C;
+            const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[hoveredRecipe];
+            if (recipe->itemId >= 0 && (gValueD68D9C & 1u) != 0) {
+                if (recipe->value0C == 1) {
+                    ui::detail::gRecipeIndex5846BC = hoveredRecipe;
+                    static_cast<void>(audio::Sub_504180(26));
+                    static_cast<void>(audio::Sub_504180(27));
+                } else {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                }
+            }
+            break;
+        }
+    }
+    if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+        --gLegacyRecipePageD67D0C;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyRecipePageD67D0C < 0) {
+            gLegacyRecipePageD67D0C = gLegacyRecipePageCountD67D10 - 1;
+        }
+    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+        ++gLegacyRecipePageD67D0C;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyRecipePageD67D0C >= gLegacyRecipePageCountD67D10) {
+            gLegacyRecipePageD67D0C = 0;
+        }
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyCraftRecipePanel5845F8.id));
+        static_cast<void>(audio::Sub_504180(19));
+    }
+    char buffer[256];
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font, const std::int8_t color) {
+        const std::int32_t top = gLegacyCraftRecipePanel5845F8.y;
+        const std::int32_t left = gLegacyCraftRecipePanel5845F8.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left + offsetX),
+            static_cast<std::int16_t>(top + offsetY), 2, font, color, text, 0, 0));
+    };
+    const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
+    const std::int32_t width = TextMeasure(name, 0);
+    drawAt(name, 85 - width / 2, 35, 0, 0);
+    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    drawAt(buffer, 66, 60, 1, 0);
+    // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
+    const platform::LegacyCryptInt rawFp = world::detail::ReadPlayerFpRawSnapshot();
+    std::sprintf(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
+    drawAt(buffer, 258, 60, 1, 0);
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t recipeIndex = row + 8 * gLegacyRecipePageD67D0C;
+        const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex];
+        if (recipe->itemId >= 0) {
+            const std::int8_t color = recipe->value0C == 0 ? 7 : 0;
+            drawAt(recipe->name.data(), 11, 90 + 24 * row, 0, color);
+            const std::int32_t costRecipe = row + 8 * gLegacyRecipePageD67D0C;
+            const std::int32_t multiplierSkill = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+            const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
+            // 原4F5EB2直接以配对槽号取倍率，不再次通过pair.index映射。
+            const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[multiplierSkill].fpReduce / 100;
+            std::sprintf(buffer, "%4d", cost);
+            drawAt(buffer, 295, 92 + 24 * row, 1, color);
+        }
+    }
+    const std::int32_t page = gLegacyRecipePageD67D0C;
+    const std::int32_t pageCount = gLegacyRecipePageCountD67D10;
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    drawAt(buffer, 87, 350, 1, 0);
+    if (hoveredRow >= 0) {
+        const std::int32_t recipeIndex = hoveredRow + 8 * gLegacyRecipePageD67D0C;
+        if (world::detail::gSkillsF1BAFC[skill].recipes8E8[recipeIndex].itemId >= 0) {
+            for (std::int32_t line = 0; line < 2; ++line) {
+                const std::int32_t descriptionRecipe = hoveredRow + 8 * gLegacyRecipePageD67D0C;
+                const char* const description =
+                    world::detail::gSkillsF1BAFC[skill].recipes8E8[descriptionRecipe].description.data();
+                if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 28) != 0) {
+                    drawAt(buffer, 46, 293 + 20 * line, 0, 0);
+                }
+            }
+            const std::int32_t top = gLegacyCraftRecipePanel5845F8.y;
+            const std::uint32_t image = gValueD69768;
+            const std::int32_t left = gLegacyCraftRecipePanel5845F8.x;
+            DrawGraphicHover(Low16(left + 11), Low16(top + 89 + 24 * hoveredRow),
+                Low16(left + 333), Low16(top + 109 + 24 * hoveredRow), 214, image, 0);
+        }
+    }
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    if (Sub_503590(&gLegacyCraftRecipePanel5845F8) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
+               || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyRecipePage586D2C);
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyRecipeBack58A0E0);
+    } else if (hoveredRecipe >= 0) {
+        const auto* const recipe = &world::detail::gSkillsF1BAFC[skill].recipes8E8[hoveredRecipe];
+        if (recipe->itemId >= 0) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(),
+                recipe->value0C == 1 ? kLegacyRecipeSelect58A0D0 : kLegacyRecipeUnavailable58A0B8);
+        }
+    }
+    return Sub_503440(&gLegacyCraftRecipePanel5845F8, 1);
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

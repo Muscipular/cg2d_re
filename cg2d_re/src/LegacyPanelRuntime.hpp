@@ -75,6 +75,7 @@ extern std::int32_t gLegacyItemWorkSelection584394; // 旧物品加工槽号，�
 extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定64B复制目标。
 extern std::int32_t gLegacyItemWorkImageCC320C;
 extern std::int32_t gLegacyCraftPhaseD67D00; // 旧选择26/27共享，不是现代窗口11状态。
+extern std::int32_t gLegacyRecipePageD67D0C; // 旧25页号；4FF650待实现的复位须写同一槽。
 // 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
 std::int32_t Sub_455490();
 std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。
@@ -120,6 +121,8 @@ std::int32_t Sub_4F50D0(); // 旧制造预览动作，尾部总会517880，含�
 std::int32_t Sub_4F5170(); // 三组六槽依序填-1，数量不填0。
 std::int32_t Sub_4F51A0(); // 旧选择26完整初始化，末尾透传4D3020。
 std::uint32_t Sub_4F51D0(std::int32_t opened); // 旧选择26制造执行，关闭尾返回关闭27结果。
+std::uint32_t Sub_4F5A60(std::int32_t opened); // 旧25配方选择，原始FP token显示与分页前提示索引。
+std::int32_t Sub_519640(std::int32_t skill); // 连续非负配方每8项一页，空表仍1页。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 void Sub_4FB940(std::int32_t x, std::int32_t y, std::int32_t item, std::int32_t page); // 旧物品详情八行绘制，原caller均不消费返回。
 void Sub_504BA0(

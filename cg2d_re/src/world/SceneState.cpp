@@ -82,6 +82,11 @@ float gReverseTransitionXFF4900 = 0.0f;
 float gReverseTransitionAlternateXFF4904 = 0.0f;
 float gReverseTransitionYFF4908 = 0.0f;
 float gReverseTransitionAlternateYFF490C = 0.0f;
+std::int32_t gQuadrantTransitionPhase58B6D8 = -1; // 原加载区初值FFFFFFFF。
+std::array<std::int32_t, 4> gQuadrantTransitionXFF275C {};
+std::array<std::int32_t, 4> gQuadrantTransitionYFF47D0 {};
+static_assert(sizeof(gQuadrantTransitionXFF275C) == 16);
+static_assert(sizeof(gQuadrantTransitionYFF47D0) == 16);
 
 // 原__ftol先截断为S64，再消费低S32；4535B0另取低S16坐标。
 std::int32_t TruncateTransitionCoordinate(const double value)
@@ -10140,6 +10145,171 @@ std::int32_t Sub_51E0D0(
     gValue73ECD0.readCount = readCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     gReverseTransitionPhase58B6D4 = -1;
+    return 1;
+}
+
+// 原[51EC10,51EF75)：四块画面分离/合拢，坐标发布和阈值清零沿原序。
+std::int32_t Sub_51EC10(const std::int32_t mode, const std::int32_t value)
+{
+    std::array<std::array<std::int32_t, 4>, 4> rectangles {{
+        {0, 0, 320, 240},
+        {320, 0, 640, 240},
+        {0, 240, 320, 480},
+        {320, 240, 640, 480},
+    }};
+    const std::int8_t lowStep = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    const std::int32_t step = lowStep != 0 ? lowStep : 4;
+    std::int32_t phase;
+    if (gValue58B6D0 == 1) {
+        phase = -1;
+        gValue58B6D0 = 0;
+        gQuadrantTransitionPhase58B6D8 = -1;
+    } else {
+        phase = gQuadrantTransitionPhase58B6D8;
+    }
+
+    if (mode == 1) {
+        std::int32_t x0;
+        std::int32_t x1;
+        std::int32_t x2;
+        std::int32_t y0;
+        std::int32_t y1;
+        if (phase == -1) {
+            x0 = -280;
+            x1 = 600;
+            y0 = -280;
+            y1 = -280;
+            x2 = -280;
+            gQuadrantTransitionYFF47D0[2] = 520;
+            gQuadrantTransitionXFF275C[3] = 600;
+            gQuadrantTransitionYFF47D0[3] = 520;
+            gQuadrantTransitionPhase58B6D8 = 0;
+        } else {
+            x2 = gQuadrantTransitionXFF275C[2];
+            x1 = gQuadrantTransitionXFF275C[1];
+            x0 = gQuadrantTransitionXFF275C[0];
+            y1 = gQuadrantTransitionYFF47D0[1];
+            y0 = gQuadrantTransitionYFF47D0[0];
+        }
+        std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
+        x0 += step;
+        y2 -= step;
+        y0 += step;
+        gQuadrantTransitionYFF47D0[2] = y2;
+        std::int32_t x3 = gQuadrantTransitionXFF275C[3];
+        x3 -= step;
+        x1 -= step;
+        gQuadrantTransitionXFF275C[3] = x3;
+        std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
+        y3 -= step;
+        y1 += step;
+        gQuadrantTransitionYFF47D0[3] = y3;
+        x2 += step;
+        gQuadrantTransitionXFF275C[0] = x0;
+        gQuadrantTransitionYFF47D0[0] = y0;
+        gQuadrantTransitionXFF275C[1] = x1;
+        gQuadrantTransitionYFF47D0[1] = y1;
+        gQuadrantTransitionXFF275C[2] = x2;
+        if (x0 > 0) {
+            x0 = 0;
+            gQuadrantTransitionXFF275C[0] = 0;
+        }
+        if (y0 > 0) {
+            gQuadrantTransitionYFF47D0[0] = 0;
+        }
+        if (x1 < 320) {
+            gQuadrantTransitionXFF275C[1] = 0;
+        }
+        if (y1 > 0) {
+            gQuadrantTransitionYFF47D0[1] = 0;
+        }
+        if (x2 > 0) {
+            gQuadrantTransitionXFF275C[2] = 0;
+        }
+        if (gQuadrantTransitionYFF47D0[2] < 240) {
+            gQuadrantTransitionYFF47D0[2] = 0;
+        }
+        if (gQuadrantTransitionXFF275C[3] < 320) {
+            gQuadrantTransitionXFF275C[3] = 0;
+        }
+        if (gQuadrantTransitionYFF47D0[3] < 240) {
+            gQuadrantTransitionYFF47D0[3] = 0;
+        }
+        if (x0 >= 0) {
+            gQuadrantTransitionPhase58B6D8 = 1;
+        }
+    } else if (mode == 0) {
+        std::int32_t x0;
+        if (phase == -1) {
+            x0 = 0;
+            gQuadrantTransitionYFF47D0[0] = 0;
+            gQuadrantTransitionXFF275C[1] = 320;
+            gQuadrantTransitionYFF47D0[1] = 0;
+            gQuadrantTransitionXFF275C[2] = 0;
+            gQuadrantTransitionYFF47D0[2] = 240;
+            gQuadrantTransitionXFF275C[3] = 320;
+            gQuadrantTransitionYFF47D0[3] = 240;
+            gQuadrantTransitionPhase58B6D8 = 0;
+        } else {
+            x0 = gQuadrantTransitionXFF275C[0];
+        }
+        std::int32_t y0 = gQuadrantTransitionYFF47D0[0];
+        std::int32_t x1 = gQuadrantTransitionXFF275C[1];
+        std::int32_t y1 = gQuadrantTransitionYFF47D0[1];
+        y0 -= step;
+        gQuadrantTransitionYFF47D0[0] = y0;
+        std::int32_t x2 = gQuadrantTransitionXFF275C[2];
+        x1 += step;
+        y1 -= step;
+        x2 -= step;
+        gQuadrantTransitionXFF275C[1] = x1;
+        std::int32_t y2 = gQuadrantTransitionYFF47D0[2];
+        gQuadrantTransitionYFF47D0[1] = y1;
+        std::int32_t x3 = gQuadrantTransitionXFF275C[3];
+        gQuadrantTransitionXFF275C[2] = x2;
+        std::int32_t y3 = gQuadrantTransitionYFF47D0[3];
+        x0 -= step;
+        y2 += step;
+        x3 += step;
+        y3 += step;
+        gQuadrantTransitionXFF275C[0] = x0;
+        gQuadrantTransitionYFF47D0[2] = y2;
+        gQuadrantTransitionXFF275C[3] = x3;
+        gQuadrantTransitionYFF47D0[3] = y3;
+        if (x0 <= -320) {
+            gQuadrantTransitionPhase58B6D8 = 1;
+        }
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    for (std::size_t index = 0; index < 4; ++index) {
+        render::TextureSurface* const source = render::BorrowCpuTempSurface();
+        const auto y = static_cast<std::int16_t>(gQuadrantTransitionYFF47D0[index]);
+        const auto x = static_cast<std::int16_t>(gQuadrantTransitionXFF275C[index]);
+        static_cast<void>(render::BlitSurfaceToBack_4535B0(x, y, rectangles[index], source));
+    }
+    if (gQuadrantTransitionPhase58B6D8 != 1) {
+        return 0;
+    }
+    std::int32_t nextState;
+    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {
+        nextState = 3;
+    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {
+        nextState = 4;
+    } else {
+        gQuadrantTransitionPhase58B6D8 = -1;
+        return 1;
+    }
+    platform::LegacyCryptInt temporary;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);
+    const std::uint32_t mask = temporary.mask;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint8_t readCount = temporary.readCount;
+    gValue73ECD0.mask = mask;
+    gValue73ECD0.encoded = encoded;
+    gValue73ECD0.readCount = readCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    gQuadrantTransitionPhase58B6D8 = -1;
     return 1;
 }
 

@@ -25,6 +25,10 @@ inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
 
 namespace legacy_crypt_int {
 
+// 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
+void ConstructStartupValues_401C20();
+void DestroyStartupValues_401C50();
+
 // 原 sub_401C70@[0x401C70,0x401C92)。storage 必须指向可写的 16 字节对象。
 LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage);
 

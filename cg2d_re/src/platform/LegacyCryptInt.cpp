@@ -7,6 +7,10 @@
 namespace cg::platform::legacy_crypt_int {
 namespace {
 
+// 原CRT首项的两个独立对象；不与后续保护状态共享。
+LegacyCryptInt gStartupValue5939C8{};
+LegacyCryptInt gStartupValue5939D8{};
+
 std::uint32_t ToBits(std::int32_t value)
 {
     return std::bit_cast<std::uint32_t>(value);
@@ -23,6 +27,18 @@ std::uint32_t NextMask()
 }
 
 } // namespace
+
+void ConstructStartupValues_401C20()
+{
+    ConstructZero_401C70(&gStartupValue5939C8);
+    ConstructZero_401C70(&gStartupValue5939D8);
+}
+
+void DestroyStartupValues_401C50()
+{
+    Destroy_401CF0(&gStartupValue5939D8);
+    Destroy_401CF0(&gStartupValue5939C8);
+}
 
 LegacyCryptInt* ConstructZero_401C70(LegacyCryptInt* storage)
 {

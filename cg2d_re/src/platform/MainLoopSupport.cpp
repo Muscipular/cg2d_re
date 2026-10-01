@@ -227,6 +227,36 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
+void ConstructProtectionChecksum1_404130()
+{
+    legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum1);
+}
+
+void DestroyProtectionChecksum1_404150()
+{
+    legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum1);
+}
+
+void ConstructProtectionChecksum2_404170()
+{
+    legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum2);
+}
+
+void DestroyProtectionChecksum2_404190()
+{
+    legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum2);
+}
+
+void ConstructProtectionProcessState_4041B0()
+{
+    legacy_crypt_int::ConstructZero_401C70(&gProtectionProcessState);
+}
+
+void DestroyProtectionProcessState_4041D0()
+{
+    legacy_crypt_int::Destroy_401CF0(&gProtectionProcessState);
+}
+
 void InitializeProtection_4041E0(const char* moduleName)
 {
     if (gProtectionModule == nullptr) {

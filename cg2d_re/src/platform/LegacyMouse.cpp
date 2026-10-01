@@ -20,6 +20,63 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
+// 原CRT 553004..553010；每项完成后独立登记退出，早于553014对象表。
+struct StartupCryptValuesStaticInitializer {
+    StartupCryptValuesStaticInitializer()
+    {
+        legacy_crypt_int::ConstructStartupValues_401C20();
+    }
+
+    ~StartupCryptValuesStaticInitializer()
+    {
+        legacy_crypt_int::DestroyStartupValues_401C50();
+    }
+};
+
+const StartupCryptValuesStaticInitializer gStartupCryptValuesStaticInitializer;
+
+struct ProtectionChecksum1StaticInitializer {
+    ProtectionChecksum1StaticInitializer()
+    {
+        ConstructProtectionChecksum1_404130();
+    }
+
+    ~ProtectionChecksum1StaticInitializer()
+    {
+        DestroyProtectionChecksum1_404150();
+    }
+};
+
+const ProtectionChecksum1StaticInitializer gProtectionChecksum1StaticInitializer;
+
+struct ProtectionChecksum2StaticInitializer {
+    ProtectionChecksum2StaticInitializer()
+    {
+        ConstructProtectionChecksum2_404170();
+    }
+
+    ~ProtectionChecksum2StaticInitializer()
+    {
+        DestroyProtectionChecksum2_404190();
+    }
+};
+
+const ProtectionChecksum2StaticInitializer gProtectionChecksum2StaticInitializer;
+
+struct ProtectionProcessStateStaticInitializer {
+    ProtectionProcessStateStaticInitializer()
+    {
+        ConstructProtectionProcessState_4041B0();
+    }
+
+    ~ProtectionProcessStateStaticInitializer()
+    {
+        DestroyProtectionProcessState_4041D0();
+    }
+};
+
+const ProtectionProcessStateStaticInitializer gProtectionProcessStateStaticInitializer;
+
 struct WorldObjectsStaticInitializer {
     WorldObjectsStaticInitializer()
     {

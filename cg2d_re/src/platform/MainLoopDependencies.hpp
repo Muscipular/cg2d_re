@@ -26,6 +26,14 @@ using cg::network::NetworkLoop_507DF0;
 // 原 4576B0 的首个直接依赖；父初始化本体位于 ClientInitialization.cpp。
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。
 
+// 原CRT 553008/55300C/553010；各自独立登记退出，复用保护逻辑的唯一状态。
+void ConstructProtectionChecksum1_404130(); // 原594070。
+void DestroyProtectionChecksum1_404150();
+void ConstructProtectionChecksum2_404170(); // 原594080。
+void DestroyProtectionChecksum2_404190();
+void ConstructProtectionProcessState_4041B0(); // 原59E548。
+void DestroyProtectionProcessState_4041D0();
+
 // 原 MainLoop 的直接依赖，不提供占位函数；每个后续实现仍须对照其完整原函数。
 int InitializeClient_4576B0();
 void InitializeProtection_4041E0(const char* moduleName);

@@ -1876,3 +1876,60 @@ security/template均空。INVALID_HANDLE_VALUE返回0，不关闭无效句柄。
 源码加入14B/40B及关键字段偏移断言，但本轮未编译这些断言。
 原生HANDLE与BGR24借用指针未截断，两个原caller仍待截图主函数落位后接线。
 没有执行文件写入、截图、客户端、构建或测试；仅静态验证，不称磁盘往返已通过。
+
+### SDL截图局部适配裁决
+
+同日继续453760/503C80。本节按既有工程委托确定native适配，不刷新总SPEC，
+不压缩日志。原453760共491条代码指令，503C80共12条；公共文件前导、
+完整GDI分支、计时尾及全函数反编译已核。早期“主函数仍待”是前一步状态。
+
+SDL presenter不提供DirectDraw桌面Primary锁定，不能伪造Lock/Unlock，
+也不能从CPU Back或私存逻辑帧冒充客户区屏幕像素。本步采用原4539BC至
+453B71的真实GDI桌面捕获路径，作为SDL后端的截图实现：GetDC(nullptr)、
+ClientToScreen所得原点、固定640×480、SRCCOPY及24位GetDIBits均沿原值。
+不抓整个桌面、不拉伸窗口输出、不改为截取应用内纹理，也不新增遮挡或裁剪策略。
+这属于已批准DX原生替换：不实现COM Primary及其锁/解锁失败点；
+原Primary成功/解锁失败分支保留为证据，不声称其native故障语义已复刻。
+应用可观察消息采用真实执行的原GDI分支，包括原字节成功提示，而非换成
+Primary路径的另一套提示。实际显示捕获、遮挡/全屏表现与输出文件仍未运行验收。
+
+GDI分支资源次序不顺带修复：malloc(12C000H)后CreateCompatibleDC，
+再CreateCompatibleBitmap；BitBlt失败不还原所选对象，成功才SelectObject还原；
+GetDIBits只判非零，不新增恰480行门槛。只有其成功才DeleteObject，
+随后两次重读当前hWnd，分别ReleaseDC(hWnd,compatibleDC)与
+ReleaseDC(hWnd,desktopDC)，再写BMP。原错误配对和失败残留照实保留，
+不改为DeleteDC、ReleaseDC(nullptr,...)或全路径RAII清理。
+所有路径最终先AppendMsg(color4,font3)，再free像素缓冲；
+mkdir失败且errno!=17则无消息返回，1000个读探测均成功则只提示，不捕获。
+
+文件前导使用既有原time32和唯一可变localtime对象，每次探测依序重读月、
+日、年，再做年%100；保留256B路径、256B GDI消息和1280B满额提示缓冲。
+目录接口用现代_mkdir/errno对应原_mkdir与errno=17的成功/EEXIST边界，
+不传播其他现代错误信息。新增依赖只有已有Windows SDK的gdi32链接，
+没有外部库或新文件。共享日历、消息、像素格式状态均复用既有owner。
+
+原62A64C/62A650/62A654只有4538A9/AF/B4三处写引用，作为本文件私有W32槽，
+32位路径先读取三掩码再依序写入，不另造渲染格式源。
+D68A78只有503C89读和503CA0写，为独立私有U32；四槽处于.data未装入的
+零填充区（is_loaded=false、文件偏移-1），不能把IDA显示FF当初值。
+503C80返回实际U32 tick：入口采一次，旧值+500的U32结果大于入口tick则返回；
+否则完整截图后再采一次、发布并返回，不因目录/捕获/写入失败跳过更新。
+保留U32返回供旧5596DC函数表消费，两个快捷键直接caller弃返回；
+旧表完整分派未验收，不将其视为没有返回值。
+
+十条实际使用的字符串均以IDA原字节保存，禁止按反编译乱码重新编码：
+556598失败(7)、5565BC成功、5565D4/G4、5565F8/G3、55661C/G2、
+556640/G1、5566F4满额、556714路径、556738目录、554908读模式。
+原Primary消息556570/556584各19B，仅保留证据；
+按上述两Primary消息在先、其后十条所列顺序（均含终止零）的310B摘要为
+`aca7c439bc1c6c61cdbc7fa4eaf3200c77e15fbbcefabed55804b2e8432c154b`。
+
+实施状态：TakeScreenshot_453760与TakeScreenshotThrottled_503C80已落位，
+共享文件前导、完整GDI捕获/提示/释放和计时发布接既有BMP写入叶。
+十条实际字符串272B回映一致，连同两Primary证据的310B摘要一致；
+两个入口声明/唯一定义、四私有W32槽、同源time/localtime/聊天与tick接口、
+原字节缓冲及逐次hWnd读取已静态核对。CMake仅为既有render目标补gdi32和
+沿既有策略的CRT警告宏，未新增库或改变其他目标。
+4C7AE0/473F80及旧5596DC表分派仍待，不把函数本体当真实按键接线。
+未构建、测试、创建截图目录、写文件、读取屏幕或运行客户端；
+native捕获可用性及原资源残留的实际影响仍未验收。

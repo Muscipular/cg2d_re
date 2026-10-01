@@ -1,11 +1,13 @@
 #include "cg/render/SdlPresenter.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/render/SurfaceState.hpp"
 
 #include "GraphicDxCacheState.hpp"
 #include "LegacyTextureDrawing.hpp"
+#include "../world/WorldUpdateDependencies.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -18,7 +20,11 @@
 #include <Windows.h>
 
 #include <cstddef>
+#include <cerrno>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
+#include <direct.h>
 #include <exception>
 #include <limits>
 #include <new>
@@ -37,6 +43,37 @@ static_assert(kCpuSurfacePitchBytes <= static_cast<std::size_t>((std::numeric_li
 namespace {
 
 SdlPresenter gRendererPresenter;
+
+// 原截图专用槽，仅在 453760/503C80 发布，不复用渲染源掩码或其他计时器。
+std::uint32_t gScreenshotRedMask62A64C = 0;
+std::uint32_t gScreenshotGreenMask62A650 = 0;
+std::uint32_t gScreenshotBlueMask62A654 = 0;
+std::uint32_t gScreenshotTickD68A78 = 0;
+
+constexpr char kScreenshotWriteFailure556598[] =
+    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
+    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x37\x29\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotSuccess5565BC[] =
+    "\x89\xE6\x3F\x82\xF0\x95\xDB\x91\xB6\x82\xB5\x82\xDC\x82\xB5\x82"
+    "\xBD\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotDibFailure5565D4[] =
+    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
+    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x34\x29\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotBlitFailure5565F8[] =
+    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
+    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x33\x29\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotBitmapFailure55661C[] =
+    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
+    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x32\x29\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotDcFailure556640[] =
+    "\x89\xE6\x3F\x82\xCC\x95\xDB\x91\xB6\x82\xC9\x8E\xB8\x94\x73\x82"
+    "\xB5\x82\xDC\x82\xB5\x82\xBD\x28\x47\x31\x29\x81\x42\x28\x25\x73\x29";
+constexpr char kScreenshotLimit5566F4[] =
+    "\xA4\xB5\xA4\xD1\xA4\x77\xB8\x67\xA4\xA3\xAF\xE0\xA6\x73\xA8\xFA"
+    "\xA7\xF3\xA6\x68\xAA\xBA\xB5\x65\xAD\xB1\xA4\x46\xA1\x43";
+constexpr char kScreenshotPath556714[] = "screenshot\\CG%02d%02d%02d_%03d.bmp";
+constexpr char kScreenshotDirectory556738[] = "screenshot";
+constexpr char kScreenshotReadMode554908[] = "r";
 
 } // namespace
 
@@ -358,6 +395,103 @@ std::int32_t SaveScreenshotBitmap_453E80(
     }
     static_cast<void>(CloseHandle(file));
     return 1;
+}
+
+void TakeScreenshot_453760()
+{
+    POINT origin {0, 0};
+    static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
+    static_assert(EEXIST == 17);
+    if (_mkdir(kScreenshotDirectory556738) != 0 && errno != EEXIST) {
+        return;
+    }
+    std::int32_t time;
+    static_cast<void>(platform::ReadLegacyTime32_53BA26(&time));
+    const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&time);
+    char path[256];
+    std::int32_t sequence = 0;
+    for (; sequence < 1000; ++sequence) {
+        const std::int32_t month = calendar->month0based;
+        const std::int32_t day = calendar->day;
+        const std::int32_t year = calendar->yearMinus1900;
+        std::sprintf(path, kScreenshotPath556714, year % 100, month + 1, day, sequence);
+        std::FILE* const probe = std::fopen(path, kScreenshotReadMode554908);
+        if (probe == nullptr) {
+            break;
+        }
+        static_cast<void>(std::fclose(probe));
+    }
+    if (sequence >= 1000) {
+        char message[1280];
+        std::sprintf(message, kScreenshotLimit5566F4);
+        world::detail::Sub_44B050(message, 4, 3);
+        return;
+    }
+    if (GetLegacyTextureState().pixelBitCount == 32) {
+        const std::uint32_t red = gRendererRedMask;
+        const std::uint32_t green = gRendererGreenMask;
+        const std::uint32_t blue = gRendererBlueMask;
+        gScreenshotRedMask62A64C = red;
+        gScreenshotGreenMask62A650 = green;
+        gScreenshotBlueMask62A654 = blue;
+    }
+
+    // SDL 无桌面 Primary 锁；沿原 4539BC GDI 路径，不读取正在构帧的 CPU Back。
+    const HDC desktop = GetDC(nullptr);
+    BITMAPINFO bitmapInfo;
+    bitmapInfo.bmiHeader = {};
+    bitmapInfo.bmiHeader.biSize = 40;
+    bitmapInfo.bmiHeader.biWidth = 640;
+    bitmapInfo.bmiHeader.biHeight = 480;
+    bitmapInfo.bmiHeader.biPlanes = 1;
+    bitmapInfo.bmiHeader.biBitCount = 24;
+    auto* const pixels = static_cast<std::uint8_t*>(std::malloc(0x12C000));
+    const HDC compatible = CreateCompatibleDC(desktop);
+    char message[256];
+    if (compatible == nullptr) {
+        std::sprintf(message, kScreenshotDcFailure556640, path);
+    } else {
+        const HBITMAP bitmap = CreateCompatibleBitmap(desktop, 640, 480);
+        if (bitmap == nullptr) {
+            std::sprintf(message, kScreenshotBitmapFailure55661C, path);
+        } else {
+            const HGDIOBJ previous = SelectObject(compatible, bitmap);
+            if (!BitBlt(compatible, 0, 0, 640, 480, desktop, origin.x, origin.y, SRCCOPY)) {
+                std::sprintf(message, kScreenshotBlitFailure5565F8, path);
+            } else {
+                static_cast<void>(SelectObject(compatible, previous));
+                if (GetDIBits(compatible, bitmap, 0, 480, pixels, &bitmapInfo, DIB_RGB_COLORS) == 0) {
+                    std::sprintf(message, kScreenshotDibFailure5565D4, path);
+                } else {
+                    static_cast<void>(DeleteObject(bitmap));
+                    // 保留原成功支路的释放参数及失败残留，详见截图局部适配裁决。
+                    static_cast<void>(ReleaseDC(
+                        reinterpret_cast<HWND>(platform::gLegacyWindow), compatible));
+                    static_cast<void>(ReleaseDC(
+                        reinterpret_cast<HWND>(platform::gLegacyWindow), desktop));
+                    if (SaveScreenshotBitmap_453E80(pixels, 640, 480, path) != 0) {
+                        std::sprintf(message, kScreenshotSuccess5565BC, path);
+                    } else {
+                        std::sprintf(message, kScreenshotWriteFailure556598, path);
+                    }
+                }
+            }
+        }
+    }
+    world::detail::Sub_44B050(message, 4, 3);
+    std::free(pixels);
+}
+
+std::uint32_t TakeScreenshotThrottled_503C80()
+{
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gScreenshotTickD68A78 + 500u > now) {
+        return now;
+    }
+    TakeScreenshot_453760();
+    const std::uint32_t completed = platform::ReadTickCount32();
+    gScreenshotTickD68A78 = completed;
+    return completed;
 }
 
 void RendererDestroy_44C3C0() noexcept

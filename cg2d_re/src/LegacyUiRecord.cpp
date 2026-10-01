@@ -11,6 +11,7 @@
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -338,6 +339,32 @@ constexpr char kLegacyMouse58A7D4[] = "\xC5\xDC\xA7\xF3\xAC\xB0\x43\x74\x72\x6C\
 constexpr char kLegacyMouse58A7C0[] = "\xC5\xDC\xA7\xF3\xAC\xB0\xB7\xC6\xB9\xAB\xA5\xAA\xC1\xE4\xA1\x43";
 constexpr char kLegacyMouse5535F8[] = "\x25\x73";
 constexpr char kLegacyMouse58A80C[] = "\x25\x32\x2E\x31\x66";
+
+LegacyPanelRecord gLegacyHotkeyHelp5853E8 {
+    0, 0, 192, 304, 10, {22964, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 13> gLegacyHotkeyRecordsD68510 {};
+constexpr char kLegacyHotkey58A8AC[] = "\xA4\x48\xAA\xAB\xA6\x57\xBA\xD9\xC5\xE3\xA5\xDC";
+constexpr char kLegacyHotkey58A8A8[] = "\x46\x31\x31";
+constexpr char kLegacyHotkey58A89C[] = "\xBF\xC3\xB9\xF5\xC2\x5E\xA8\xFA";
+constexpr char kLegacyHotkey58A898[] = "\x46\x31\x32";
+constexpr char kLegacyHotkey58A884[] = "\xB2\x4D\xB0\xA3\xBF\xC3\xB9\xF5\xB2\xE1\xA4\xD1\xB0\x54\xAE\xA7";
+constexpr char kLegacyHotkey58A87C[] = "\x48\x4F\x4D\x45";
+constexpr char kLegacyHotkey58A86C[] = "\xC3\xF6\xB3\xAC\xB2\xE1\xA4\xD1\xC0\x57\xB9\x44";
+constexpr char kLegacyHotkey58A85C[] = "\x53\x68\x69\x66\x74\x20\x2B\x20\x48\x4F\x4D\x45";
+constexpr char kLegacyHotkey58A850[] = "\xAB\x5F\xC0\x49\xAA\xCC\xA4\xE9\xBB\x78";
+constexpr char kLegacyHotkey58A84C[] = "\x46\x39";
+constexpr char kLegacyHotkey58A840[] = "\xB6\xC2\xA6\x57\xB3\xE6\xA6\x43\xAA\xED";
+constexpr char kLegacyHotkey553F00[] = "\x45\x4E\x44";
+LegacyPanelRecord gLegacyScanlineSettings5854B0 {
+    0, 0, 192, 304, 11, {22965, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 4> gLegacyScanlineRecordsD68718 {};
+constexpr char kLegacyScanline586E24[] = "\xB1\xBD\xB4\x79\xBD\x75\xA6\x50\xB4\xC1\xB3\x5D\xA9\x77";
+constexpr char kLegacyScanline58A8F8[] = "\xB1\xBD\xB4\x79\xBD\x75\xA6\x50\xA8\x42";
+constexpr char kLegacyScanline58A8E8[] = "\xB1\xBD\xB4\x79\xBD\x75\xAB\x44\xA6\x50\xA8\x42";
+constexpr char kLegacyScanline58A8D4[] = "\xB1\xBD\xB4\x79\xBD\x75\xC5\xDC\xA7\xF3\xAC\xB0\xA6\x50\xA8\x42\xA1\x43";
+constexpr char kLegacyScanline58A8BC[] = "\xB1\xBD\xB4\x79\xBD\x75\xC5\xDC\xA7\xF3\xAC\xB0\xAB\x44\xA6\x50\xA8\x42\xA1\x43";
 
 std::int32_t Sub_4FC7F0()
 {
@@ -1847,6 +1874,303 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMouseSettings585320, 1);
+}
+
+std::int32_t Sub_4FEB00()
+{
+    return Sub_4FEB10();
+}
+
+std::int32_t Sub_4FEB10()
+{
+    const std::int32_t x = gLegacyHotkeyHelp5853E8.x;
+    const std::int32_t y = gLegacyHotkeyHelp5853E8.y;
+    auto& records = gLegacyHotkeyRecordsD68510;
+    // 原156条字段写序，说明行不添加命中区域或回调。
+    records[1].label.textX = x + 140;
+    records[3].label.textX = x + 140;
+    records[3].label.textY = y + 90;
+    records[4].label.textY = y + 108;
+    records[0].label.textY = y + 40;
+    records[1].label.textY = y + 57;
+    records[5].label.textX = x + 130;
+    records[0].label.textX = x + 20;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyHotkey58A8AC;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[0].reserved21[1] = std::byte {0};
+    records[0].hint = nullptr;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyHotkey58A8A8;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[1] = std::byte {0};
+    records[1].hint = nullptr;
+    records[2].label.textX = x + 20;
+    records[2].label.textY = y + 74;
+    records[2].label.left = 0;
+    records[2].label.top = 0;
+    records[2].label.width = 0;
+    records[2].label.height = 0;
+    records[2].label.text = kLegacyHotkey58A89C;
+    records[2].callback = nullptr;
+    records[2].color = 4;
+    records[2].reserved21[0] = std::byte {0xFF};
+    records[2].reserved21[1] = std::byte {0};
+    records[2].hint = nullptr;
+    records[3].label.left = 0;
+    records[3].label.top = 0;
+    records[3].label.width = 0;
+    records[3].label.height = 0;
+    records[3].label.text = kLegacyHotkey58A898;
+    records[3].callback = nullptr;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {0xFF};
+    records[3].reserved21[1] = std::byte {0};
+    records[3].hint = nullptr;
+    records[4].label.textX = x + 20;
+    records[4].label.left = 0;
+    records[4].label.top = 0;
+    records[4].label.width = 0;
+    records[4].label.height = 0;
+    records[4].label.text = kLegacyHotkey58A884;
+    records[4].callback = nullptr;
+    records[4].color = 4;
+    records[4].reserved21[0] = std::byte {0xFF};
+    records[4].reserved21[1] = std::byte {0};
+    records[4].hint = nullptr;
+    records[5].label.textY = y + 125;
+    records[5].label.left = 0;
+    records[5].label.top = 0;
+    records[6].label.textX = x + 20;
+    records[6].label.textY = y + 142;
+    records[7].label.textX = x + 58;
+    records[7].label.textY = y + 159;
+    records[8].label.textX = x + 20;
+    records[10].label.textX = x + 20;
+    records[8].label.textY = y + 176;
+    records[10].label.textY = y + 210;
+    records[9].label.textX = x + 147;
+    records[11].label.textX = x + 138;
+    records[5].label.width = 0;
+    records[5].label.height = 0;
+    records[5].label.text = kLegacyHotkey58A87C;
+    records[5].callback = nullptr;
+    records[5].color = 0;
+    records[5].reserved21[0] = std::byte {0xFF};
+    records[5].reserved21[1] = std::byte {0};
+    records[5].hint = nullptr;
+    records[6].label.left = 0;
+    records[6].label.top = 0;
+    records[6].label.width = 0;
+    records[6].label.height = 0;
+    records[6].label.text = kLegacyHotkey58A86C;
+    records[6].callback = nullptr;
+    records[6].color = 4;
+    records[6].reserved21[0] = std::byte {0xFF};
+    records[6].reserved21[1] = std::byte {0};
+    records[6].hint = nullptr;
+    records[7].label.left = 0;
+    records[7].label.top = 0;
+    records[7].label.width = 0;
+    records[7].label.height = 0;
+    records[7].label.text = kLegacyHotkey58A85C;
+    records[7].callback = nullptr;
+    records[7].color = 0;
+    records[7].reserved21[0] = std::byte {0xFF};
+    records[7].reserved21[1] = std::byte {0};
+    records[7].hint = nullptr;
+    records[8].label.left = 0;
+    records[8].label.top = 0;
+    records[8].label.width = 0;
+    records[8].label.height = 0;
+    records[8].label.text = kLegacyHotkey58A850;
+    records[8].callback = nullptr;
+    records[8].color = 4;
+    records[8].reserved21[0] = std::byte {0xFF};
+    records[8].reserved21[1] = std::byte {0};
+    records[8].hint = nullptr;
+    records[9].label.textY = y + 193;
+    records[9].label.left = 0;
+    records[9].label.top = 0;
+    records[9].label.width = 0;
+    records[9].label.height = 0;
+    records[9].label.text = kLegacyHotkey58A84C;
+    records[9].callback = nullptr;
+    records[9].color = 0;
+    records[9].reserved21[0] = std::byte {0xFF};
+    records[9].reserved21[1] = std::byte {0};
+    records[9].hint = nullptr;
+    records[10].label.left = 0;
+    records[10].label.top = 0;
+    records[10].label.width = 0;
+    records[10].label.height = 0;
+    records[10].label.text = kLegacyHotkey58A840;
+    records[10].callback = nullptr;
+    records[10].color = 4;
+    records[10].reserved21[0] = std::byte {0xFF};
+    records[10].reserved21[1] = std::byte {0};
+    records[10].hint = nullptr;
+    records[11].label.textY = y + 227;
+    records[11].label.left = 0;
+    records[11].label.top = 0;
+    records[12].label.textX = x + 62;
+    records[11].reserved21[0] = std::byte {0xFF};
+    records[11].label.width = 0;
+    records[11].label.height = 0;
+    records[11].label.text = kLegacyHotkey553F00;
+    records[11].callback = nullptr;
+    records[11].color = 0;
+    records[11].reserved21[1] = std::byte {0};
+    records[11].hint = nullptr;
+    records[12].label.textY = y + 260;
+    records[12].label.left = x + 60;
+    records[12].label.top = y + 260;
+    records[12].label.width = 69;
+    records[12].label.height = 18;
+    records[12].label.text = kLegacyChat58A4F8;
+    records[12].callback = &Sub_4FE3E0;
+    records[12].color = 0;
+    records[12].reserved21[0] = std::byte {1};
+    records[12].reserved21[1] = std::byte {0xF9};
+    records[12].hint = kLegacyChat58A4E8;
+    return 0;
+}
+
+std::uint32_t Sub_4FEF30(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyHotkeyHelp5853E8, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyHotkeyRecordsD68510.data(), 13);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    Sub_503120(gLegacyHotkeyRecordsD68510.data(), 13);
+    if (Sub_503590(&gLegacyHotkeyHelp5853E8) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+    }
+    return Sub_503440(&gLegacyHotkeyHelp5853E8, 1);
+}
+
+std::int32_t Sub_4FF020()
+{
+    return Sub_4FF030();
+}
+
+std::int32_t Sub_4FF030()
+{
+    const std::int32_t x = gLegacyScanlineSettings5854B0.x;
+    const std::int32_t y = gLegacyScanlineSettings5854B0.y;
+    auto& records = gLegacyScanlineRecordsD68718;
+    records[0].label.textX = x + 20;
+    records[1].label.textX = x + 20;
+    records[1].label.textY = y + 60;
+    records[2].label.textX = x + 120;
+    records[2].label.left = x + 119;
+    records[2].label.textY = y + 100;
+    records[2].label.top = y + 100;
+    records[0].label.textY = y + 40;
+    records[3].label.textX = x + 62;
+    records[2].label.height = 18;
+    records[3].label.height = 18;
+    records[0].label.left = 0;
+    records[0].label.top = 0;
+    records[0].label.width = 0;
+    records[0].label.height = 0;
+    records[0].label.text = kLegacyScanline586E24;
+    records[0].callback = nullptr;
+    records[0].color = 4;
+    records[0].reserved21[0] = std::byte {0xFF};
+    records[0].reserved21[1] = std::byte {0};
+    records[0].hint = nullptr;
+    records[1].label.left = 0;
+    records[1].label.top = 0;
+    records[1].label.width = 0;
+    records[1].label.height = 0;
+    records[1].label.text = kLegacyChat58A500;
+    records[1].callback = nullptr;
+    records[1].color = 0;
+    records[1].reserved21[0] = std::byte {0xFF};
+    records[1].reserved21[1] = std::byte {0};
+    records[1].hint = nullptr;
+    records[2].label.width = 54;
+    records[2].label.text = kLegacyChat58A54C;
+    records[2].callback = &Sub_4FF310;
+    records[2].color = 0;
+    records[2].reserved21[0] = std::byte {1};
+    records[2].reserved21[1] = std::byte {0xF9};
+    records[2].hint = nullptr;
+    records[3].label.textY = y + 260;
+    records[3].label.left = x + 60;
+    records[3].label.top = y + 260;
+    records[3].label.width = 69;
+    records[3].label.text = kLegacyChat58A4F8;
+    records[3].callback = &Sub_4FE3E0;
+    records[3].color = 0;
+    records[3].reserved21[0] = std::byte {1};
+    records[3].reserved21[1] = std::byte {0xF9};
+    records[3].hint = kLegacyChat58A4E8;
+    return 0;
+}
+
+std::uint32_t Sub_4FF1A0(const std::int32_t opened)
+{
+    const char* const modeNames[2] {kLegacyScanline58A8F8, kLegacyScanline58A8E8};
+    const std::int32_t state = Sub_503160(opened, &gLegacyScanlineSettings5854B0, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacyScanlineRecordsD68718.data(), 4);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    char buffer[128];
+    const std::int32_t mode = std::bit_cast<std::int16_t>(platform::gScanlineSyncMode);
+    std::sprintf(buffer, kLegacyMouse5535F8, modeNames[mode]);
+    const std::int32_t y = gLegacyScanlineSettings5854B0.y;
+    const std::int32_t x = gLegacyScanlineSettings5854B0.x;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 31),
+        static_cast<std::int16_t>(y + 80), 2, 0, 0, buffer, 0, 0));
+    Sub_503120(gLegacyScanlineRecordsD68718.data(), 4);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyScanlineSettings5854B0) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((character_select::detail::Sub_503990(&gLegacyScanlineRecordsD68718[2].label) & 0x40) != 0) {
+        hint = platform::gScanlineSyncMode != 0 ? kLegacyScanline58A8D4 : kLegacyScanline58A8BC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyScanlineSettings5854B0, 1);
 }
 
 std::int32_t Sub_502930()

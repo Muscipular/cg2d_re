@@ -5,6 +5,7 @@
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
+#include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 
@@ -128,6 +129,14 @@ std::int32_t Sub_4FEAC0()
 std::int32_t Sub_4FEFF0()
 {
     platform::gValueD67AE8 = (platform::gValueD67AE8 - 1u) & 1u;
+    static_cast<void>(PlaySe(51, 320, 240));
+    return 0;
+}
+
+std::int32_t Sub_4FF310()
+{
+    const std::uint8_t mode = static_cast<std::uint8_t>(platform::gScanlineSyncMode);
+    platform::gScanlineSyncMode = static_cast<std::uint16_t>((mode - 1) & 1);
     static_cast<void>(PlaySe(51, 320, 240));
     return 0;
 }

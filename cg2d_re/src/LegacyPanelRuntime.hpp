@@ -81,6 +81,12 @@ std::uint32_t Sub_4FD1A0(std::int32_t opened); // 旧选择编号5，颜色/行�
 std::int32_t Sub_4FE490(); // 原CRT 5530B8入口，尾跳旧鼠标设置11条记录构造。
 std::int32_t Sub_4FE4A0(); // D68358同源文字记录，原+23H字节不写。
 std::uint32_t Sub_4FE860(std::int32_t opened); // 旧选择编号9，模式/速度绘字、交互及完整保存。
+std::int32_t Sub_4FEB00(); // 原CRT 5530BC入口，尾跳快捷键说明页构造。
+std::int32_t Sub_4FEB10(); // D68510的13条记录，不增加真实键盘分发。
+std::uint32_t Sub_4FEF30(std::int32_t opened); // 旧选择编号10，说明文字/返回交互及关闭保存。
+std::int32_t Sub_4FF020(); // 原CRT 5530C0入口，尾跳扫描线设置构造。
+std::int32_t Sub_4FF030(); // D68718四条记录，共享既有扫描线模式。
+std::uint32_t Sub_4FF1A0(std::int32_t opened); // 旧选择编号11，S16索引显示与完整交互。
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W32/上下文T*仅在返回边界拓宽。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。

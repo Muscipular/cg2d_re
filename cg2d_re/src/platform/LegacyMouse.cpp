@@ -175,6 +175,17 @@ struct LegacyMouseSettingsStaticInitializer {
 
 const LegacyMouseSettingsStaticInitializer gLegacyMouseSettingsStaticInitializer;
 
+// 原相邻CRT 5530BC/5530C0；两构造均无析构或RNG消费。
+struct LegacyHotkeyAndScanlineStaticInitializer {
+    LegacyHotkeyAndScanlineStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FEB00());
+        static_cast<void>(cg::login::detail::Sub_4FF020());
+    }
+};
+
+const LegacyHotkeyAndScanlineStaticInitializer gLegacyHotkeyAndScanlineStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

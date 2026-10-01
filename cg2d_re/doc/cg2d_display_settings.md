@@ -5,6 +5,8 @@
 > 公共消费者已有本体，旧选择表上层分派及完整运行验收仍未完成。
 > 旧鼠标页四个设置回调4FE3F0/4FE440/4FEAC0/4FEFF0也已补，
 > 原字段宽度及光标API次序见[旧鼠标设置页](ui_windows/legacy_mouse_settings.md)。
+> 4FF310扫描线模式回调及其父入口已补，低U8/W16/S16的不同读取与写回合同
+> 见[旧扫描线设置页](ui_windows/legacy_scanline_settings.md)；不改动呈现器适配。
 
 当前已打开的 `ida-17524/cg2d.exe` 只读指令证据：
 

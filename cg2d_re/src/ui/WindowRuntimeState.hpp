@@ -1283,6 +1283,7 @@ extern const std::array<std::array<std::int32_t, 4>, 4> gPetBarImages57E434; // 
 extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030;
 extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原字节提示的借用指针表。
 extern const std::array<const char*, 20> gTribeNames57CB54; // 后八项共用585C50原字节串。
+std::int32_t ReadLegacyHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;
 extern std::array<std::int32_t, 6> gSelectionCountsD66E0C;

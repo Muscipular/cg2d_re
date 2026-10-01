@@ -1570,6 +1570,11 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 
 } // namespace
 
+std::int32_t ReadLegacyHealthImage(const std::int32_t health)
+{
+    return gHealthImages57CBA4[Sub_519680(health)];
+}
+
 std::int32_t& gTitleModeCF4E50 = gLoginWindowRuntime.valuesCF4E50[0];
 std::int32_t& gTitlePageCF4E54 = gLoginWindowRuntime.valuesCF4E50[1];
 std::array<char, 256> gTitleDraftD45FC0 {};

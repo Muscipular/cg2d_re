@@ -28,6 +28,7 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
 #include "cg/render/TextPendingQueue.hpp"
+#include "cg/world/GameTime.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <bit>
@@ -293,6 +294,8 @@ std::int32_t gWindowListCountCF46A8 = 0;
 WindowListSelectionCallback gWindowListCallbackCB1E14 = nullptr;
 std::int32_t gWindowListOffsetCC3EF4 = 0;
 std::array<char, 256> gHoverTextD68AE8 {};
+std::array<char, 24> gStatusHpTextD40B18 {};
+std::array<char, 28> gStatusFpTextD45D50 {};
 std::int32_t gHoverObjectValueD68AC8 = 0;
 std::array<char, 260> gHoverTitleD68BF4 {};
 std::int32_t gHoverTitleValueD69748 = 0;
@@ -1010,6 +1013,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t statusHasMailCC4B5C; // 470AC0的518DA0结果，按钮固定入口快照。
     std::int32_t statusMailCategoryD66E34; // 4723D0传给518F00的同源输出。
     std::int32_t statusMailIndexD2E2D8;
+    std::int32_t statusBlinkPhaseCF4FBC; // 470AC0递增并在>60时回零，开窗不重置。
     std::int32_t valueD673D0;
     std::int32_t selectedPetCC3E5C;
     std::int32_t previousPetCC4888; // 详情页记排序位置，不是实际宠物编号。
@@ -37608,6 +37612,65 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
 
 namespace {
 
+constexpr char kStatusVitalsFormat553FE8[] = "%4d/%4d";
+constexpr double kStatusTimeScale54F638 = std::bit_cast<double>(std::uint64_t{0x3FC5555555555556});
+
+// 两刷新同序读取/复制HP并格式化FP；FP复制阶段的窗口采样差别留给caller。
+void FormatStatusBarVitals(char* const buffer)
+{
+    login::YobiAction* battlePlayer = nullptr;
+    if (world::gCurrentSceneType == 10) {
+        const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
+        if (position < 20) {
+            battlePlayer = world::detail::gBattleEntries59E980[position];
+        }
+    }
+    if (battlePlayer != nullptr) {
+        const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
+        const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        std::strcpy(gStatusHpTextD40B18.data(), buffer);
+        const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t maxFp =
+            login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
+        const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
+        const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+    } else {
+        const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+        const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        std::strcpy(gStatusHpTextD40B18.data(), buffer);
+        const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+        const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+    }
+}
+
+void DrawStatusBarTimer(const std::int32_t firstElement, render::GraphicDescriptor16* const descriptor)
+{
+    const std::int32_t duration = world::detail::ReadPlayerTimerRemaining0C();
+    const std::int32_t hours = duration / 3600000;
+    const std::int32_t minutes = (duration - hours * 3600000) / 60000;
+    const std::int32_t digits[4] {hours / 10, hours % 10, minutes / 10, minutes % 10};
+    gCurrentWindow->elements[firstElement].visible = 0;
+    gCurrentWindow->elements[firstElement + 1].visible = 0;
+    gCurrentWindow->elements[firstElement + 2].visible = 0;
+    const std::int32_t mode = world::detail::ReadPlayerTimerMode10();
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor->bytes.data() + 8, &color, sizeof(color));
+    descriptor->bytes[13] = 4;
+    const std::int32_t baseImage = mode != 0 ? 0x3B6A0 : 0x3B664;
+    for (std::int32_t digit = 0; digit < 4; ++digit) {
+        WindowInstance* const window = gCurrentWindow;
+        const WindowElement& element = window->elements[firstElement + (digit == 0 ? 0 : digit - 1)];
+        const std::int32_t y = element.y + window->y + 3;
+        const std::int32_t x = element.x + window->x + (digit == 0 ? -6 : 1);
+        static_cast<void>(login::detail::DrawGraphic(x, y, 0xDF, baseImage + digits[digit], 0, descriptor));
+    }
+}
+
 constexpr char kStatusNoMail556D14[] = "\xB2\x7B\xA6\x62\xA8\x53\xA6\xB3\xB6\x6C\xA5\xF3\xA1\x43";
 constexpr char kStatusNewMail556D24[] = "\xB2\x7B\xA6\x62\xA6\xB3\xB7\x73\xB6\x6C\xA5\xF3\xA1\x43";
 constexpr char kStatusNoPoints556D34[] =
@@ -37629,6 +37692,91 @@ constexpr char kStatusPetPoints586314[] =
     "\xB2\x7B\xA6\x62%s\xBE\xD6\xA6\xB3%d\xC2\x49\xAA\xBA\xAF\xE0\xA4\x4F\xC2\x49\xBC\xC6\xA1\x43";
 
 } // namespace
+
+std::int32_t Sub_470A80(const std::int32_t)
+{
+    if (world::gCurrentSceneType == 10) {
+        gCurrentWindow->state |= 0x8000u;
+        static_cast<void>(OpenWindow_471440(2));
+    }
+    Sub_470AC0();
+    return 1;
+}
+
+std::int32_t Sub_470AB0(const std::int32_t)
+{
+    Sub_4718F0();
+    return 1;
+}
+
+void Sub_470AC0()
+{
+    render::GraphicDescriptor16 descriptor {};
+    char buffer[256];
+    FormatStatusBarVitals(buffer);
+    const std::size_t fpLength = std::strlen(buffer) + 1;
+    WindowInstance* const timeWindow = gCurrentWindow;
+    std::memcpy(gStatusFpTextD45D50.data(), buffer, fpLength);
+    WindowElement* const elements = timeWindow->elements;
+    const std::int32_t hours = std::bit_cast<std::int32_t>(world::gCgTime.hours);
+    auto* const timeGraphic = static_cast<WindowGraphicData*>(elements[15].data);
+    const std::int32_t minutes = std::bit_cast<std::int32_t>(world::gCgTime.minutes);
+    const std::int32_t totalMinutes = hours * 60 + minutes;
+    const double offset = static_cast<double>(totalMinutes) * kStatusTimeScale54F638;
+    timeGraphic->offsetX = static_cast<std::int32_t>(static_cast<std::int64_t>(offset));
+    timeGraphic->offsetY = 0;
+    timeGraphic->width = 100;
+    timeGraphic->height = 9;
+    DrawStatusBarTimer(8, &descriptor);
+
+    const std::int32_t points = world::detail::Sub_504B10();
+    const std::int32_t initialInjury = world::detail::ReadPlayerInjury();
+    gLoginWindowRuntime.statusHasPointsD66E24 = points != 6 ? 1 : 0;
+    if (initialInjury == 0) {
+        const std::int32_t pet = world::detail::Sub_504B60();
+        gLoginWindowRuntime.statusHasInjuryD046C8 = 0;
+        if (pet != -1) {
+            gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
+        }
+    } else {
+        gLoginWindowRuntime.statusHasInjuryD046C8 = 1;
+    }
+    gLoginWindowRuntime.statusHasMailCC4B5C = world::detail::Sub_518DA0() != 0 ? 1 : 0;
+    std::int32_t phase = gLoginWindowRuntime.statusBlinkPhaseCF4FBC + 1;
+    gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
+    if (phase > 60) {
+        phase = 0;
+        gLoginWindowRuntime.statusBlinkPhaseCF4FBC = phase;
+    }
+    const bool pointsBlink = gLoginWindowRuntime.statusHasPointsD66E24 != 0 && phase >= 30;
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo =
+        pointsBlink ? 0x3B953 : 0x3B954;
+
+    bool injuryBlink = false;
+    if (gLoginWindowRuntime.statusHasInjuryD046C8 != 0) {
+        injuryBlink = gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
+    }
+    const std::int32_t injury = world::detail::ReadPlayerInjury();
+    const std::int32_t injuryImage = injury == 0 ? 0x3B941
+        : injury <= 25 ? 0x3B944
+        : injury <= 50 ? 0x3B947
+        : injury <= 75 ? 0x3B94A : 0x3B94D;
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo =
+        injuryImage - (injuryBlink ? 1 : 0);
+    const bool mailBlink = gLoginWindowRuntime.statusHasMailCC4B5C != 0
+        && gLoginWindowRuntime.statusBlinkPhaseCF4FBC >= 30;
+    static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo =
+        mailBlink ? 0x3B94F : 0x3B950;
+}
+
+void Sub_4718F0()
+{
+    render::GraphicDescriptor16 descriptor {};
+    char buffer[256];
+    FormatStatusBarVitals(buffer);
+    std::strcpy(gStatusFpTextD45D50.data(), buffer);
+    DrawStatusBarTimer(2, &descriptor);
+}
 
 std::int32_t Sub_473080()
 {

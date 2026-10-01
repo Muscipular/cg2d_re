@@ -173,6 +173,8 @@ std::int32_t Sub_4971C0(); // 同一门禁，读取宠物选择槽4。
 void Sub_497210(); // 宠物快捷入口，打开28，不清物品待选状态。
 std::int32_t Sub_473840(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
+void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
+void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。
 std::int32_t Sub_473080(); // 玩家伤势优先；否则宠物原编号+10，未命中-1。
 std::int32_t Sub_4731B0(std::int32_t index); // 宠物原编号反求首个S16配对位置，不查used。
 std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
@@ -1213,6 +1215,8 @@ extern std::int32_t gWindowListCountCF46A8;
 extern WindowListSelectionCallback gWindowListCallbackCB1E14; // 49EF60借用名单文本并弃返回。
 extern std::int32_t gWindowListOffsetCC3EF4;
 extern std::array<char, 256> gHoverTextD68AE8; // 已识别地址跨度，不是新增文本长度限制。
+extern std::array<char, 24> gStatusHpTextD40B18; // 状态栏type7共用原文本跨度，非新截断门槛。
+extern std::array<char, 28> gStatusFpTextD45D50;
 extern std::int32_t gHoverObjectValueD68AC8; // 507140命中伴随值，4731E0后续须共享。
 extern std::array<char, 260> gHoverTitleD68BF4; // 至既有鼠标D68CF8之前的原字节区。
 extern std::int32_t gHoverTitleValueD69748; // 副标题伴随值，非主描述值。

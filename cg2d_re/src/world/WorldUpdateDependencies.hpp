@@ -1089,6 +1089,7 @@ std::int32_t ReadPlayerValue15BCC() noexcept; // 原FF02CC，库存第二数值�
 std::int32_t ReadPlayerLevel() noexcept; // 原FDA704，存放宠物费用读取同源等级。
 std::int32_t ReadPlayerValue08() noexcept; // 原FDA708，技能时长倍率索引，借读既有槽。
 std::int32_t ReadPlayerTimerRemaining0C() noexcept; // 原FDA70C，转生按钮读取同源计时，不改owner。
+std::int32_t ReadPlayerTimerMode10() noexcept; // 原FDA710完整S32，状态栏时长数字选择图号。
 void ConsumeBattlePlayerTimer(std::int32_t seconds); // 原43BBCE..43BBF2，先扣毫秒再按S32负值清零。
 std::int32_t ReadPlayerInjury() noexcept; // 原FDA7F4，属性选择列表使用同一伤势。
 std::int32_t Sub_504B10(); // 玩家正加点返回5，宠物非零加点返回首个配对位置，无则6。

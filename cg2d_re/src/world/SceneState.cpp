@@ -7049,6 +7049,11 @@ std::int32_t ReadPlayerTimerRemaining0C() noexcept
     return gPlayerRuntime.timerRemaining0C;
 }
 
+std::int32_t ReadPlayerTimerMode10() noexcept
+{
+    return gPlayerRuntime.timerMode10;
+}
+
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 {
     gPlayerRuntime.timerRemaining0C -= 1000 * seconds;

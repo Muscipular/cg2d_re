@@ -102,6 +102,7 @@ std::array<std::int32_t, 64> gTileTransitionSourceXFF0E7C {};
 // 原51F610/51F860/51FA70共用，不随入口拆成独立比例或初始化标志。
 std::uint32_t gImageTransitionInitializedFF4910 = 0;
 std::int32_t gImageTransitionScaleFF0D78 = 0;
+std::int32_t gHalfTransitionScaleFF0F7C = 0; // 原51FC90独立比例，不属于源X数组。
 struct GridTransitionOffset {
     std::int32_t x;
     std::int32_t y;
@@ -10701,6 +10702,61 @@ std::int32_t Sub_51F860(const std::int32_t direction, const std::int32_t value)
 std::int32_t Sub_51FA70(const std::int32_t direction, const std::int32_t value)
 {
     return ProcessScanlineTransition(direction, value, ScanlineOrigin::Bottom);
+}
+
+// 原[51FC90,51FDDA)：中心上下半幅采样，每次直接复制后独立读取比例。
+std::int32_t Sub_51FC90(const std::int32_t mode, const std::int32_t value)
+{
+    std::int32_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));
+    if (step == 0) {
+        step = 8;
+    }
+    if (gValue58B6D0 == 1) {
+        gValue58B6D0 = 0;
+        // 原AND只作用于CL：非零mode的FFFFFF10加240得到0，而不是256。
+        gHalfTransitionScaleFF0F7C = mode == 0 ? 240 : 0;
+    }
+
+    static_cast<void>(render::ClearSurface_4512C0());
+    std::int32_t scale = gHalfTransitionScaleFF0F7C;
+    std::array<std::int32_t, 4> upperRectangle;
+    std::array<std::int32_t, 4> lowerRectangle;
+    upperRectangle[0] = 0;
+    upperRectangle[2] = 640;
+    lowerRectangle[0] = 0;
+    lowerRectangle[2] = 640;
+    if (scale > 0) {
+        std::int32_t row = 0;
+        std::int32_t numerator = 0;
+        do {
+            const std::int32_t upperSample = numerator / scale;
+            upperRectangle[1] = 240 - upperSample;
+            upperRectangle[3] = upperRectangle[1] + 1;
+            render::TextureSurface* const upperSource = render::BorrowCpuTempSurface();
+            const std::int32_t upperY = 240 - row;
+            static_cast<void>(render::BlitSurfaceRectangleToBack(
+                0, upperY, upperRectangle, upperSource));
+
+            const std::int32_t lowerSample = numerator / gHalfTransitionScaleFF0F7C;
+            render::TextureSurface* const lowerSource = render::BorrowCpuTempSurface();
+            const std::int32_t lowerY = row + 240;
+            lowerRectangle[1] = lowerSample + 240;
+            lowerRectangle[3] = lowerRectangle[1] + 1;
+            static_cast<void>(render::BlitSurfaceRectangleToBack(
+                0, lowerY, lowerRectangle, lowerSource));
+            scale = gHalfTransitionScaleFF0F7C;
+            ++row;
+            numerator += 240;
+        } while (row < scale);
+    }
+    if (mode == 0) {
+        const std::int32_t next = scale - step;
+        gHalfTransitionScaleFF0F7C = next;
+        return next < 0 ? 1 : 0;
+    }
+    const std::int32_t next = scale + step;
+    gHalfTransitionScaleFF0F7C = next;
+    return next > 240 ? 1 : 0;
 }
 
 std::int32_t Sub_45EBB0()

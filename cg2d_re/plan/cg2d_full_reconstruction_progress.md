@@ -1,6 +1,6 @@
 # cg2d 完整复刻独立进度
 
-> 当前增量：51F860/51FA70逐行过渡已落位，共306条原指令，复用同一初始化标志/比例；原生直接复制补齐资源矩形整次失败边界，保留原第480行请求。51FDE0的selector0..33现均有完整目标本体，仅静态核对；51FC90、创建入口ECX、三项补零及完整验收仍待。音频暂缓、直接缺口0/0/1及整体SPEC未完成保持。
+> 当前增量：51FC90中心上下半幅两模式已落位，101条原指令及八项状态/调用事件仅静态核对。51FDE0的0..35全部36项分发对应八类目标现均有完整本体，不等于完整场景验收；创建入口ECX、战斗父链、三项补零及完整验收仍待。音频暂缓、直接缺口0/0/1及整体SPEC未完成保持。
 > 本文件是本线唯一执行进度；[总 SPEC](cg2d_full_reconstruction_plan.md)、[执行规则](../AGENTS.md)保持有效，旧 M 系列及根 `plans/progess.md` 不参与本线完成度。
 > 最近一次压缩前进度固定于 `65b0e32b`；拆分前全文为 `810c6f75`，前次516行日志基线为 `928e20a3778fa56e340a37e9b30e3b30188369f8`。按用户最新要求，仅触发SPEC对齐时压缩日志，普通推进追加记录；详细证据保留各窗口/共享明细，不复制另一份日志，追溯方法见§5。
 
@@ -59,7 +59,7 @@
 
 [创建页交互/绘制](../doc/cg2d_character_select_scene.md#creation-interaction-4631d0)4631D0已完整落位，确认阶段九数值源、选中图号与FDA6F8生产已补，DE0AFC和FF0D18沿新增唯一owner；此增量覆盖上一段尚无生产的状态。属性-1仍画图11、元素-1不画，确认/返回均保留共同绘制尾。现已续补[462930/45E6E0/508E00](../doc/cg2d_character_select_scene.md#creation-selection-request)选择页、预览序列与创建请求生产，既有三表/状态/协议/轮询复用；[45E7B0/45E7D0及5345A0](../doc/cg2d_character_select_scene.md#creation-request-progress)消息父入口和单槽资料重置也已完整落位，发送/轮询已在消息本体接入。[4626A0显式参数本体](../doc/cg2d_character_select_scene.md#creation-scene-explicit-gate)已保留完整分支/回边，但入口ECX生产与旧无参ABI未闭合，尚无生产调用，不称完整创建场景可运行。
 
-[场景7退出控制器](../doc/cg2d_scene_state.md#logout-scene-controller)45EBB0/45EEE0已补，保存/清理、登出消息与维护/失败分支复用既有同源状态，WorldUpdate原调用保持；9A6E94和264B消息区各唯一私有。[51D790九模式与裁剪](../doc/cg2d_scene_state.md#scene-transition-51d790)、[51E0D0完整反向过渡](../doc/cg2d_scene_state.md#scene-transition-51e0d0)、[51EC10四块过渡](../doc/cg2d_scene_state.md#scene-transition-51ec10)、[51EF80随机画块四模式](../doc/cg2d_scene_state.md#scene-transition-51ef80)、[51F610网格聚拢/展开](../doc/cg2d_scene_state.md#scene-transition-51f610)及[51F860/51FA70逐行过渡](../doc/cg2d_scene_state.md#scene-transition-scanlines)现已接51FDE0选择项0..33，退出selector14的本段依赖已补；共享数组、F32中间值、反向预计算、随机顺序、覆盖顺序及第480行失败后继续推进保持。仅余51FC90目标未补，完整画面/退出流程未验收。
+[场景7退出控制器](../doc/cg2d_scene_state.md#logout-scene-controller)45EBB0/45EEE0已补，保存/清理、登出消息与维护/失败分支复用既有同源状态，WorldUpdate原调用保持；9A6E94和264B消息区各唯一私有。[51D790九模式与裁剪](../doc/cg2d_scene_state.md#scene-transition-51d790)、[51E0D0完整反向过渡](../doc/cg2d_scene_state.md#scene-transition-51e0d0)、[51EC10四块过渡](../doc/cg2d_scene_state.md#scene-transition-51ec10)、[51EF80随机画块四模式](../doc/cg2d_scene_state.md#scene-transition-51ef80)、[51F610网格聚拢/展开](../doc/cg2d_scene_state.md#scene-transition-51f610)、[51F860/51FA70逐行过渡](../doc/cg2d_scene_state.md#scene-transition-scanlines)及[51FC90中心半幅](../doc/cg2d_scene_state.md#scene-transition-51fc90)已覆盖51FDE0全部36项分发的八类直接目标。共享状态、各类读取/覆盖顺序及不同完成尾保持，51D750快照入口已有本体；完整画面、父场景和退出流程仍未验收。
 
 ## 2. 窗口10与战斗技能增量
 
@@ -863,9 +863,13 @@
 
 原51FA70首行源/目标480不改为479；上一轮直接复制接口补齐真实面尺寸范围检查，非法请求整次失败、不裁剪、不改RECT，上层照常推进。初始RECT16B、共同五项绘制事件、两完成尾及修改范围静态核对，selector0..33均有完整本体，仅余51FC90目标及完整画面/状态往返验收待补。未执行复制失败、新增函数、构建、测试、客户端或检查产物；历史证据/日志保留，不对齐总SPEC、不压缩日志，0/0/1及既有待决保持。
 
+**本轮追加小步：** [51FC90中心上下半幅两模式](../doc/cg2d_scene_state.md#scene-transition-51fc90)完整落位，共101条原指令。独立S32比例FF0F7C不与源X数组或FF0D78合并；保留低S8默认8、mode零/非零初始化240/0、AND CL而非W32的原指令语义、上下两次独立复制及其间比例重读。完成仅发布比例并返回，不新增CryptInt、RNG或初始化标志副作用。
+
+八项状态/调用事件摘要及两模式返回边界静态一致；限定检查36项分发、八类唯一声明/完整本体和已有51D750快照，未改分发文件，不将本段齐备当作创建/战斗父链或整体SPEC完成。原源码/证据只追加，未执行新增函数、构建、测试、客户端或检查产物；不对齐总SPEC、不压缩日志，0/0/1与既有待决保持。
+
 ## 3. 后续任务与规则
 
-场景7的45EBB0/45EEE0、51D790/51E0D0各完整九模式、51EC10完整两模式、51EF80完整四模式、51F610、51F860/51FA70及两种复制入口已补，不再按旧缺口重复。下一步补51FC90完整两模式及真实依赖，再核过渡父链其余接线与共享初始化。Back/Temp、共享行数据与渲染队列沿已有现代owner，不把早期未批布局描述当作当前禁令，也不假称既有owner已证明全部过渡算法/精度或完整画面。
+场景7的45EBB0/45EEE0、51FDE0全部八类目标及两种复制入口已补，不再按旧缺口重复。下一步返回WorldUpdate场景4的4596D0→4626A0入口ECX生产契约，先核InputKeyDispatch主块/401920尾块和真实callee的退出路径；不得用固定门禁或现代任意寄存器接显式本体。未闭合分支保持待证，同时沿下述普通/战斗父链与共享初始化推进其他真实依赖。Back/Temp、共享行数据与渲染队列沿已有现代owner，不假称全部画面或场景验收已完成。
 
 5199A0六块重置、创建463100/4642C0/464380、4631D0、462930、45E6E0、508E00、45E7B0/45E7D0及5345A0均已有完整本体，4626A0也已有必传entryGate的完整显式本体，不重复实现。下一步只需沿4596D0各退出路径补入口ECX生产契约，或完整证明场景4外部状态10的生产/重入边界，再决定旧无参ABI接线；不传固定1/0或仅直返键值，也不读取现代调用后的任意寄存器。此项未闭合前继续其他已证完整依赖，不能将“本体已写”当作场景已接入。窗口504120→473F80→4C7AE0已完整落位，以下旧摘要中对应“仍待/下一步”不再适用，剩余输入/旧日志/旧表分派和实际交互验收仍分别保留。
 

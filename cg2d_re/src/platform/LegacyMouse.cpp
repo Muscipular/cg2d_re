@@ -12,6 +12,7 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include <cstring>
+#include <iostream>
 
 namespace cg::platform {
 
@@ -91,6 +92,54 @@ struct WorldObjectsStaticInitializer {
 };
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
+
+// 原5495EE不创建sentry；直接同步缓冲，避免现代flush额外刷新tie。
+template <typename Character>
+void FlushLegacyStandardStream(std::basic_ostream<Character>& stream)
+{
+    if (!stream.fail() && stream.rdbuf()->pubsync() == -1) {
+        stream.setstate(std::ios_base::badbit);
+    }
+}
+
+// 原CRT 553020/553024；标准流由本机CRT持有，只承接应用侧配置与退出顺序。
+struct NarrowStandardStreamsStaticInitializer {
+    NarrowStandardStreamsStaticInitializer()
+    {
+        std::cin.tie(&std::cout);
+        std::cerr.tie(&std::cout);
+        std::cerr.setf(std::ios_base::unitbuf);
+        std::clog.tie(&std::cout);
+    }
+
+    ~NarrowStandardStreamsStaticInitializer()
+    {
+        FlushLegacyStandardStream(std::cout);
+        FlushLegacyStandardStream(std::cerr);
+        FlushLegacyStandardStream(std::clog);
+    }
+};
+
+const NarrowStandardStreamsStaticInitializer gNarrowStandardStreamsStaticInitializer;
+
+struct WideStandardStreamsStaticInitializer {
+    WideStandardStreamsStaticInitializer()
+    {
+        std::wcin.tie(&std::wcout);
+        std::wcerr.tie(&std::wcout);
+        std::wcerr.setf(std::ios_base::unitbuf);
+        std::wclog.tie(&std::wcout);
+    }
+
+    ~WideStandardStreamsStaticInitializer()
+    {
+        FlushLegacyStandardStream(std::wcout);
+        FlushLegacyStandardStream(std::wcerr);
+        FlushLegacyStandardStream(std::wclog);
+    }
+};
+
+const WideStandardStreamsStaticInitializer gWideStandardStreamsStaticInitializer;
 
 // 原CRT 55302C..553050；无析构登记，不能把十五组记录改为统一写序。
 struct LegacyUi455490StaticInitializer {

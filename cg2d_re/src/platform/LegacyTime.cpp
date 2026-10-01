@@ -18,19 +18,6 @@ std::int32_t gDaylightCache_1085FC8 = 0;
 std::int32_t gLegacyErrno_1085FE0 = 0;
 std::uint32_t gLegacyDosError_1085FE4 = 0;
 
-// 原 0x1086128..0x108614B：九个连续 S32 槽，不是现代 CRT tm。
-struct LegacyTm53B8C6 {
-    std::int32_t seconds;       // +00 秒
-    std::int32_t minutes;       // +04 分
-    std::int32_t hours;         // +08 时
-    std::int32_t day;           // +0C 月内日
-    std::int32_t month0based;   // +10 从零起的月份
-    std::int32_t yearMinus1900; // +14 距 1900 年
-    std::int32_t weekDay;       // +18 星期
-    std::int32_t yearDay0based; // +1C 从零起的年内日
-    std::int32_t dst;           // +20 夏令时标记
-};
-
 static_assert(offsetof(LegacyTm53B8C6, seconds) == 0x00);
 static_assert(offsetof(LegacyTm53B8C6, minutes) == 0x04);
 static_assert(offsetof(LegacyTm53B8C6, hours) == 0x08);

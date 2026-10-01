@@ -1,5 +1,6 @@
 #include "WindowPrototypeDependencies.hpp"
 
+#include "../world/WorldUpdateDependencies.hpp"
 #include "cg/Input.hpp"
 
 namespace cg::ui::detail {
@@ -107,6 +108,23 @@ WindowTextPrototype gWindowText57A448 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "???",
 };
 std::uint32_t gWindowMouseFlagsD679B8 = 0;
+
+WindowGraphicData gWindowGraphic57ADD8 {243001, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57ADF0 {243033, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE08 {243030, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE20 {36814, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE38 {36804, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE50 {36805, 0, 0, 0, 0, 0x80808080u};
+WindowGraphicData gWindowGraphic57AE68 {243096, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE80 {243090, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic57AE98 {243093, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowTextPrototype gWindowText57AEB0 {
+    {std::byte{1}, std::byte{12}, std::byte{0}, std::byte{0}}, world::detail::gLogFileName554648,
+};
+WindowTextPrototype gWindowText57AEB8 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, input::LegacyText593850(),
+};
+std::uint32_t gWindowMouseFlagsD679C8 = 0;
 
 WindowGraphicData gWindowGraphic55F4C0 {0x3B95F, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F4D8 {0x3B962, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1663,6 +1681,34 @@ WindowElementPrototype gWindowElements57A450[71] {
     {1, 15, 172, 186, 16, 1, {.graphic = &gWindowGraphic57A358}, &Sub_4CC6E0},
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57A328}, &Sub_4B0F10},
     {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57A340}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements57AEC0[25] {
+    {1, 419, 54, 0, 14, 1, {.graphic = &gWindowGraphic57AE68}, &Sub_4B0F10},
+    {4, 419, 54, 11, 221, 1, {.mouseFlags = &gWindowMouseFlagsD679C8}, &Sub_4741A0},
+    {1, 419, 43, 11, 11, 1, {.graphic = &gWindowGraphic57AE80}, &Sub_4CBDB0},
+    {1, 419, 275, 11, 11, 1, {.graphic = &gWindowGraphic57AE98}, &Sub_4CBDB0},
+    {3, 150, 286, 0, 0, 1, {.text = &gWindowText57AEB0}, &Sub_4B0F10},
+    {1, 434, 8, 12, 12, 1, {.graphic = &gWindowGraphic57ADD8}, &Sub_4C1FB0},
+    {1, 380, 283, 18, 18, 1, {.graphic = &gWindowGraphic57ADF0}, &Sub_4CBDB0},
+    {1, 360, 283, 18, 18, 1, {.graphic = &gWindowGraphic57AE08}, &Sub_4CBDB0},
+    {1, 60, 284, 0, 0, 1, {.graphic = &gWindowGraphic57AE20}, &Sub_4B0F10},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic57AE38}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic57AE50}, &Sub_4B0F10},
+    {3, 25, 45, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 61, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 77, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 93, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 109, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 125, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 141, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 157, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 173, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 189, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 205, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 221, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 237, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
+    {3, 25, 253, 0, 0, 1, {.text = &gWindowText57AEB8}, &Sub_4B0F10},
 };
 
 WindowElementPrototype gWindowElements55F0A0[24] {

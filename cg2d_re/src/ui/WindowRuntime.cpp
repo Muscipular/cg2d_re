@@ -115,6 +115,7 @@ WindowInputPrototype gBlacklistInputPrototype580EF0 {
     75, 30, 3, 9, 0, {}, 1, 20, 0, 0,
 };
 std::int32_t gChatWindowModeD66E04 = 0;
+std::int32_t gLogDisplayGate593F84 = 0;
 std::uint8_t gValue5F9754 = 0;
 std::int32_t gChatWidthUnitsC9A930 = 0;
 std::int32_t gChatWidthRequestC9A934 = 0;
@@ -1001,6 +1002,33 @@ static_assert(offsetof(WindowRuntimePrefixD2F0B8, value26C) == 0x26C);
 static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
 
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
+// 原FILE关闭只清标志不释放槽；日期按钮和重开入口会先后关闭同一槽。
+struct LogViewerFileSlot {
+    std::FILE* stream;
+};
+
+LogViewerFileSlot gLogViewerFileStorage {};
+
+LogViewerFileSlot* OpenLogViewerFile(const char* const path, const char* const mode)
+{
+    std::FILE* const stream = std::fopen(path, mode);
+    if (stream == nullptr) {
+        return nullptr;
+    }
+    gLogViewerFileStorage.stream = stream;
+    return &gLogViewerFileStorage;
+}
+
+std::int32_t CloseLogViewerFile(LogViewerFileSlot* const slot)
+{
+    if (slot->stream == nullptr) {
+        return -1;
+    }
+    const std::int32_t result = std::fclose(slot->stream);
+    slot->stream = nullptr;
+    return result;
+}
+
 struct LoginWindowRuntimeSlots {
     std::int32_t valueCF4A00;
     std::int32_t valueC8A95C;
@@ -1054,6 +1082,9 @@ struct LoginWindowRuntimeSlots {
     platform::LegacyTm53B8C6* calendarTimeD67BAC; // 借用platform同一可变localtime对象。
     std::int32_t timeCB1DF0;
     std::int32_t valueD67BB0;
+    std::int32_t logViewerMaximumD67BB4; // 原计数上限，含EOF空读取，不减可见行数。
+    LogViewerFileSlot* logViewerFileD67BB8; // 只在打开后发布；关闭保留原非空槽身份。
+    std::int32_t logViewerErrorD67BBC;
     std::int32_t dayD67BC0;
 };
 
@@ -1100,6 +1131,21 @@ constexpr char kBlacklistCleared588754[] =
     "\xA4\x77\xA7\x52\xB0\xA3\xA9\xD2\xA6\xB3\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA1\x43";
 constexpr char kBlacklistEmpty588738[] =
     "\xB6\xC2\xA6\x57\xB3\xE6\xA8\xC3\xA8\x53\xA6\xB3\xA4\xBA\xAE\x65\xA5\x69\xA7\x52\xB0\xA3\xA1\x43";
+constexpr char kLogViewerUpHint5885EC[] =
+    "\xA9\xB9\xA4\x57\xAC\x64\xAC\xDD\xA4\xBA\xAE\x65\xA1\x43";
+constexpr char kLogViewerDownHint5885DC[] =
+    "\xA9\xB9\xA4\x55\xAC\x64\xAC\xDD\xA4\xBA\xAE\x65\xA1\x43";
+constexpr char kLogViewerNextHint5885C8[] =
+    "\xAC\x64\xAC\xDD\xAB\xE1\xA4\x40\xA4\xD1\xAA\xBA\xA4\xBA\xAE\x65\xA1\x43";
+constexpr char kLogViewerPreviousHint5885B4[] =
+    "\xAC\x64\xAC\xDD\xAB\x65\xA4\x40\xA4\xD1\xAA\xBA\xA4\xBA\xAE\x65\xA1\x43";
+constexpr char kLogViewerFailure55358C[] =
+    "\xB5\x4C\xAA\x6B\xB6\x7D\xB1\xD2\xAB\x5F\xC0\x49\xAA\xCC\xA4\xE9\xBB\x78";
+constexpr char kLogViewerFileFormat55351C[] = "chat_%02d%02d%02d.txt";
+constexpr char kLogViewerDirectory554658[] = "Log";
+constexpr char kLogViewerPathFormat553514[] = "%s\\%s";
+constexpr char kLogViewerReadMode553510[] = "rt";
+constexpr char kLogViewerAppendMode55350C[] = "a+t";
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
 std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
 constexpr char kWindow50WriteHint587C84[] = "\xBC\x67\xA4\x55\xB0\x54\xAE\xA7\xA1\x43";
@@ -28063,6 +28109,233 @@ void Sub_4CBD30()
     std::memcpy(&year, bytes + 0x14, sizeof(year));
     std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
         year % 100, month + 1, day);
+}
+
+void Sub_4CC540()
+{
+    LogViewerFileSlot* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
+    if (previous != nullptr) {
+        static_cast<void>(CloseLogViewerFile(previous));
+    }
+    const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
+    platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+    const std::int32_t month = calendar->month0based;
+    const std::int32_t year = calendar->yearMinus1900;
+    std::sprintf(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
+        year % 100, month + 1, day);
+    char path[256];
+    std::sprintf(path, kLogViewerPathFormat553514,
+        kLogViewerDirectory554658, world::detail::gLogFileName554648);
+    LogViewerFileSlot* current = OpenLogViewerFile(path, kLogViewerReadMode553510);
+    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    if (current == nullptr) {
+        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        return;
+    }
+    gLoginWindowRuntime.logViewerErrorD67BBC = 0;
+    static_cast<void>(CloseLogViewerFile(current));
+    current = OpenLogViewerFile(path, kLogViewerAppendMode55350C);
+    gLoginWindowRuntime.logViewerFileD67BB8 = current;
+    if (current == nullptr) {
+        gLoginWindowRuntime.logViewerErrorD67BBC = 1;
+        return;
+    }
+    gLogDisplayGate593F84 = 1;
+    gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
+    while (std::feof(current->stream) == 0) {
+        char buffer[1000] {};
+        static_cast<void>(std::fgets(buffer, sizeof(buffer), current->stream));
+        const auto length = static_cast<std::int32_t>(std::strlen(buffer));
+        if (length > 65) {
+            gLoginWindowRuntime.logViewerMaximumD67BB4 += (length - 1) / 65;
+        }
+        const std::int32_t count = gLoginWindowRuntime.logViewerMaximumD67BB4;
+        current = gLoginWindowRuntime.logViewerFileD67BB8;
+        gLoginWindowRuntime.logViewerMaximumD67BB4 = count + 1;
+    }
+}
+
+void Sub_4CC340()
+{
+    char buffer[1000] {};
+    char rows[10000][65] {};
+    if (gLoginWindowRuntime.logViewerFileD67BB8 == nullptr
+        && gLoginWindowRuntime.logViewerErrorD67BBC == 0) {
+        Sub_4CC540();
+    }
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+    gLoginWindowRuntime.valueD67BB0 = Sub_474270(&window->elements[1], maximum);
+    if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
+        static_cast<void>(std::fseek(gLoginWindowRuntime.logViewerFileD67BB8->stream, 0, SEEK_SET));
+        std::int32_t row = 0;
+        while (std::fgets(buffer, sizeof(buffer), gLoginWindowRuntime.logViewerFileD67BB8->stream) != nullptr) {
+            std::int32_t column = 0;
+            const char* source = buffer;
+            while (*source != '\0') {
+                if (column >= 63 && (static_cast<std::uint8_t>(*source) & 0x80u) != 0) {
+                    rows[row][column] = '\0';
+                    column = 0;
+                    ++row;
+                }
+                if ((static_cast<std::uint8_t>(*source) & 0x80u) != 0) {
+                    rows[row][column] = *source;
+                    ++source;
+                    ++column;
+                }
+                rows[row][column] = *source;
+                ++source;
+                ++column;
+                if (column >= 64) {
+                    rows[row][column] = '\0';
+                    column = 0;
+                    ++row;
+                }
+            }
+            ++row;
+            if (row >= 10000) {
+                break;
+            }
+        }
+        for (std::int32_t line = 0; line < 14; ++line) {
+            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
+            const char* const text = rows[page + line];
+            auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[11 + line].data);
+            std::strcpy(data->text, text);
+        }
+        return;
+    }
+    auto* const first = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
+    std::strcpy(first->text, kLogViewerFailure55358C);
+    for (std::int32_t line = 12; line < 25; ++line) {
+        WindowInstance* const current = gCurrentWindow;
+        const char* const text = input::LegacyText593850();
+        auto* const data = static_cast<WindowTextData*>(current->elements[line].data);
+        std::strcpy(data->text, text);
+    }
+}
+
+std::int32_t Sub_4CBD90(const std::int32_t value)
+{
+    if (value == -1) {
+        gLoginWindowRuntime.valueD67BB0 = 0;
+    }
+    Sub_4CC340();
+    return 1;
+}
+
+std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    switch (index) {
+    case 2:
+    case 3: {
+        const std::int32_t base = index == 2 ? 0x3B592 : 0x3B595;
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                index == 2 ? kLogViewerUpHint5885EC : kLogViewerDownHint5885DC);
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+        }
+        if ((state & 0x400) != 0) {
+            const std::int32_t page = gLoginWindowRuntime.valueD67BB0;
+            const bool canMove = index == 2 ? page > 0 : page < gLoginWindowRuntime.logViewerMaximumD67BB4;
+            if (canMove) {
+                gLoginWindowRuntime.valueD67BB0 = page + (index == 2 ? -1 : 1);
+            }
+            static_cast<void>(audio::PlaySe_52C450(canMove ? 51 : 55, 320));
+            const std::int32_t currentPage = gLoginWindowRuntime.valueD67BB0;
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+            static_cast<void>(Sub_4742C0(&window->elements[1], maximum, currentPage));
+            consumed = 1;
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+            consumed = 1;
+        }
+        break;
+    }
+    case 6:
+    case 7: {
+        const std::int32_t base = index == 6 ? 0x3B559 : 0x3B556;
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(),
+                index == 6 ? kLogViewerNextHint5885C8 : kLogViewerPreviousHint5885B4);
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 2;
+            consumed = 1;
+        } else {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
+        }
+        if ((state & 0x400) != 0) {
+            LogViewerFileSlot* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
+            if (stream != nullptr) {
+                static_cast<void>(CloseLogViewerFile(stream));
+            }
+            if (index == 6) {
+                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
+                const std::int32_t month = calendar->month0based;
+                if (month == 1 && (calendar->day == 29 || day == 29)) {
+                    calendar->month0based = month + 1;
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                } else if ((month == 3 || month == 5 || month == 8 || month == 10)
+                    && (calendar->day == 30 || day == 30)) {
+                    calendar->month0based = month + 1;
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                } else if (calendar->day == 31 || day == 31) {
+                    gLoginWindowRuntime.dayD67BC0 = 1;
+                    const std::int32_t currentMonth = calendar->month0based;
+                    if (currentMonth == 11) {
+                        ++calendar->yearMinus1900;
+                        gLoginWindowRuntime.calendarTimeD67BAC->month0based = 0;
+                    } else {
+                        calendar->month0based = currentMonth + 1;
+                    }
+                } else {
+                    gLoginWindowRuntime.dayD67BC0 = day + 1;
+                }
+            } else if (gLoginWindowRuntime.dayD67BC0 == 1) {
+                platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
+                const std::int32_t month = calendar->month0based;
+                if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10) {
+                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    --calendar->month0based;
+                } else if (month == 2) {
+                    gLoginWindowRuntime.dayD67BC0 = 29;
+                    --calendar->month0based;
+                } else if (month == 0) {
+                    gLoginWindowRuntime.dayD67BC0 = 31;
+                    --calendar->yearMinus1900;
+                    gLoginWindowRuntime.calendarTimeD67BAC->month0based = 12;
+                    --gLoginWindowRuntime.calendarTimeD67BAC->month0based;
+                } else {
+                    gLoginWindowRuntime.dayD67BC0 = 30;
+                    --calendar->month0based;
+                }
+            } else {
+                --gLoginWindowRuntime.dayD67BC0;
+            }
+            Sub_4CC540();
+            auto* const title = static_cast<WindowTextData*>(gCurrentWindow->elements[4].data);
+            std::strcpy(title->text, world::detail::gLogFileName554648);
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
+            gLoginWindowRuntime.valueD67BB0 = 0;
+            static_cast<void>(Sub_4742C0(&window->elements[1], maximum, 0));
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+        if ((state & 8) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base + 1;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return consumed;
 }
 
 void InitializeLoginWindows_470600()

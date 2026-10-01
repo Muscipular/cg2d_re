@@ -1036,6 +1036,7 @@ extern std::uint32_t gWindowHasFocusCA0AB4; // 元素回调成功后占用，独
 extern WindowInputPrototype gChatInputPrototype57E970;
 extern WindowInputPrototype gTradeInputPrototype5803D0; // 借用input唯一CC21E8上下文。
 extern std::int32_t gChatWindowModeD66E04; // 原独立S32，窗口35/57选择与设置文件共用。
+extern std::int32_t gLogDisplayGate593F84; // 窗口66与旧402020/4021A0共用，非恒1。
 extern std::uint8_t gValue57DA28; // 原独立U8，初值FF，设置文件与物品窗口共用。
 extern std::int32_t gInventoryHover57DA2C; // 普通背包悬停槽，初值-2，仅488FB0读写。
 extern std::int32_t gEquipmentHover57DA68; // 装备页独立悬停槽，初值-2，仅489760读写。
@@ -1769,6 +1770,9 @@ std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读�
 std::int32_t Sub_4A3990(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。
 void Sub_4CBD30(); // 首次借用原localtime对象并写同源日志文件名。
+void Sub_4CC340(); // 窗口66原字节分行/十四行刷新，固定651000B局部缓冲。
+void Sub_4CC540(); // 日志文件重开/计数，保留原双关闭槽语义，见window_66.md。
+std::int32_t Sub_4CBDB0(std::int32_t index, std::int32_t state); // 上下翻与原非标准日期前后切换。
 WindowInstance* Sub_4A8330(); // 标旧聊天窗关闭、开另一窗后发布模式，透传新窗T*。
 void Sub_4CCED0(); // 窗口65十行序号/名称与活动输入刷新。
 std::int32_t Sub_4CC6E0(std::int32_t index, std::int32_t state); // 删除后重读行，再决定提示或编辑。

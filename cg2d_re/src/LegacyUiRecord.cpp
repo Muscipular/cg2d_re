@@ -7,9 +7,11 @@
 
 #include "cg/LoginInput.hpp"
 #include "cg/LegacyRecordOrder.hpp"
+#include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
+#include "cg/render/TextPendingQueue.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -219,6 +221,24 @@ constexpr std::array<std::array<std::uint32_t, 2>, 4> kLegacyAttributeBars57CBB8
     {250, 2}, {254, 6}, {249, 1}, {251, 3},
 }};
 std::uint32_t gLegacyProfilePositionTickD68860 = 0;
+input::InputContext* gLegacyProfileInputD6885C = nullptr;
+std::uint32_t gLegacyProfileEditTickD68864 = 0;
+std::int8_t gLegacyTitlePageCF49B4 = 0;
+std::int8_t gLegacyTitlePageCountC8AF80 = 0;
+std::int8_t gLegacyTitleDeleteCF4678 = 0;
+constexpr char kLegacyTitleSubmit5863C4[] =
+    "\xB3\x5D\xA9\x77\xA6\xDB\xA4\x76\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kLegacyTitlePage58A98C[] = "\xB4\xAB\xAD\xB6\xA1\x43";
+constexpr char kLegacyTitleDelete5863E8[] =
+    "\xA7\x52\xB0\xA3\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kLegacyTitleCancelDelete58AA3C[] =
+    "\xA4\xA3\xAF\xE0\xA7\x52\xB0\xA3\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kLegacyTitleClear5863FC[] =
+    "\xA8\xFA\xAE\xF8\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kLegacyTitleRemove58AA1C[] =
+    "\xA8\xFA\xAE\xF8\xB3\x6F\xAD\xD3\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kLegacyTitleSelect58AA2C[] =
+    "\xB3\x5D\xA9\x77\xB3\x6F\xAD\xD3\xBA\xD9\xB8\xB9\xA1\x43";
 std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0;
 std::uint32_t gLegacyAttributeTickD67440 = 0;
 
@@ -605,6 +625,185 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
+{
+    LegacyPanelButtonRecord submit {x + 135, y + 211, x + 201, y + 57, 64, 24, 22981, 22982};
+    LegacyPanelButtonRecord previous {x + 143, y + 109, x + 129, y + 97, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 235, y + 109, x + 221, y + 97, 28, 24, 23023, 23027};
+    LegacyPanelButtonRecord remove {x + 77, y + 387, x + 37, y + 377, 80, 20, 22985, 22986};
+    LegacyPanelButtonRecord clear {x + 195, y + 387, x + 155, y + 377, 80, 20, 22983, 22984};
+    std::int32_t submitState = 0;
+    std::int32_t nextState = 0;
+    std::int32_t removeState = 0;
+    std::int32_t clearState = 0;
+    std::int32_t hovered = -1;
+    std::int32_t hoveredTitle = -1;
+    char buffer[32];
+    char text[128];
+    char escaped[128];
+    if (gLegacyProfileInputD6885C == nullptr) {
+        std::strcpy(text, world::detail::BorrowPlayerDisplayText(2));
+        input::gInputContextD2E2E0.text[0] = '\0';
+        input::gInputContextD2E2E0.totalByteLength = 0;
+        input::gInputContextD2E2E0.caretByteOffset = 0;
+        gLegacyProfileInputD6885C = &input::gInputContextD2E2E0;
+        input::InitializeContext_449CF0(&input::gInputContextD2E2E0,
+            x + 12, y + 62, 2, 0, 0, text, 1, 16, 0, 0);
+        gLegacyTitlePageCF49B4 = 0;
+        gLegacyTitleDeleteCF4678 = 0;
+        gLegacyTitlePageCountC8AF80 = static_cast<std::int8_t>(world::detail::Sub_519870());
+    }
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t top = y + 133 + row * 30;
+        if (Sub_5049A0(x + 41, top, x + 229, top + 22, -1) != 0) {
+            hovered = row;
+            hoveredTitle = row + 8 * gLegacyTitlePageCF49B4;
+            break;
+        }
+    }
+    const std::int32_t previousState = QueryPanelButtonState(&previous);
+    if ((previousState & 1) != 0) {
+        gLegacyTitlePageCF49B4 = static_cast<std::int8_t>(gLegacyTitlePageCF49B4 - 1);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyTitlePageCF49B4 < 0) {
+            gLegacyTitlePageCF49B4 = static_cast<std::int8_t>(gLegacyTitlePageCountC8AF80 - 1);
+        }
+    } else if (((nextState = QueryPanelButtonState(&next)) & 1) != 0) {
+        gLegacyTitlePageCF49B4 = static_cast<std::int8_t>(gLegacyTitlePageCF49B4 + 1);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyTitlePageCF49B4 >= gLegacyTitlePageCountC8AF80) {
+            gLegacyTitlePageCF49B4 = 0;
+        }
+    } else if (((submitState = QueryPanelButtonState(&submit)) & 1) != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (gLegacyProfileEditTickD68864 + 500u < now) {
+            const input::InputContext* const context = gLegacyProfileInputD6885C;
+            if (std::strcmp(world::detail::BorrowPlayerDisplayText(2), context->text) != 0) {
+                std::strcpy(text, context->text);
+                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 128));
+                static_cast<void>(network::Sub_512360(platform::gConnectionSocket, escaped));
+            }
+            gLegacyProfileEditTickD68864 = platform::ReadTickCount32();
+        }
+        gLegacyTitleDeleteCF4678 = 0;
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if (((removeState = QueryPanelButtonState(&remove)) & 1) != 0) {
+        if (gLegacyTitleDeleteCF4678 != 0) {
+            gLegacyTitleDeleteCF4678 = 0;
+            static_cast<void>(audio::PlaySe_52C450(52, 320));
+        } else {
+            gLegacyTitleDeleteCF4678 = 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    } else if (((clearState = QueryPanelButtonState(&clear)) & 1) != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (gLegacyProfileEditTickD68864 + 500u < now) {
+            static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, -1));
+            gLegacyTitleDeleteCF4678 = 0;
+            gLegacyProfileEditTickD68864 = platform::ReadTickCount32();
+        }
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else {
+        const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+        if (hovered >= 0 && (clicks & 1u) != 0) {
+            const world::detail::TitleRecord* const title = &world::detail::gSortedTitlesDE03F8[hoveredTitle];
+            if (title->id >= 0) {
+                const std::uint32_t now = platform::ReadTickCount32();
+                if (gLegacyProfileEditTickD68864 + 500u < now) {
+                    if (gLegacyTitleDeleteCF4678 == 0) {
+                        const std::int32_t current = world::detail::ReadPlayerTitleIndex();
+                        bool different = current < 0;
+                        if (!different) {
+                            const std::int32_t id = title->id;
+                            different = world::detail::gTitlesFF0508[current].id != id;
+                        }
+                        if (different) {
+                            const std::int32_t index = world::detail::Sub_519840(title->id);
+                            if (index >= 0) {
+                                static_cast<void>(network::Sub_5122C0(platform::gConnectionSocket, index));
+                            }
+                        }
+                    } else {
+                        const std::int32_t index = world::detail::Sub_519840(title->id);
+                        if (index >= 0) {
+                            static_cast<void>(network::Sub_512310(platform::gConnectionSocket, index));
+                            gLegacyTitleDeleteCF4678 = 0;
+                        }
+                    }
+                    gLegacyProfileEditTickD68864 = platform::ReadTickCount32();
+                }
+                static_cast<void>(audio::PlaySe_52C450(79, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        } else if (gLegacyTitleDeleteCF4678 != 0 && (clicks & 3u) != 0) {
+            gLegacyTitleDeleteCF4678 = 0;
+        }
+    }
+    if (hovered >= 0) {
+        const std::uint32_t hoverImage = gLegacyTitleDeleteCF4678 != 0 ? 249 : gValueD69768;
+        DrawGraphicHover(static_cast<std::uint16_t>(x + 41),
+            static_cast<std::uint16_t>(y + hovered * 30 + 133),
+            static_cast<std::uint16_t>(x + 229),
+            static_cast<std::uint16_t>(y + hovered * 30 + 155), 214, hoverImage, 0);
+    }
+    std::int32_t currentTitle = world::detail::ReadPlayerTitleIndex();
+    std::int32_t rowTop = y + 133;
+    for (std::int32_t row = 0; row < 8; ++row, rowTop += 30) {
+        const std::int32_t index = row + 8 * gLegacyTitlePageCF49B4;
+        const world::detail::TitleRecord* const title = &world::detail::gSortedTitlesDE03F8[index];
+        if (title->id >= 0) {
+            std::int8_t color = 0;
+            if (currentTitle >= 0) {
+                const std::int32_t id = title->id;
+                color = world::detail::gTitlesFF0508[currentTitle].id == id ? 1 : 0;
+            }
+            static_cast<void>(DrawText(static_cast<std::int16_t>(x + 44),
+                static_cast<std::int16_t>(y + row * 30 + 136), 2, 0, color, title->text.data(), 0, 0));
+            currentTitle = world::detail::ReadPlayerTitleIndex();
+            if (currentTitle >= 0) {
+                const std::int32_t currentIndex = row + 8 * gLegacyTitlePageCF49B4;
+                const std::int32_t id = world::detail::gSortedTitlesDE03F8[currentIndex].id;
+                if (world::detail::gTitlesFF0508[currentTitle].id == id) {
+                    DrawGraphicHover(static_cast<std::uint16_t>(x + 41),
+                        static_cast<std::uint16_t>(rowTop), static_cast<std::uint16_t>(x + 229),
+                        static_cast<std::uint16_t>(rowTop + 22), 214, 254, 0);
+                    currentTitle = world::detail::ReadPlayerTitleIndex();
+                }
+            }
+        }
+    }
+    render::DrawInputText_4568A0(gLegacyProfileInputD6885C);
+    const std::int32_t page = gLegacyTitlePageCF49B4;
+    const std::int32_t pages = gLegacyTitlePageCountC8AF80;
+    std::sprintf(buffer, "%2d/%2d", page + 1, pages);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 166),
+        static_cast<std::int16_t>(y + 101), 2, 0, 0, buffer, 0, 0));
+    Sub_5035E0(&submit, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const std::int32_t deleteMode = gLegacyTitleDeleteCF4678;
+    Sub_5038B0(&remove, 212, 1, gValueD69768, deleteMode);
+    Sub_5035E0(&clear, 212, 1, gValueD69768, 0);
+    const char* hint;
+    if ((submitState & 0x40) != 0) {
+        hint = kLegacyTitleSubmit5863C4;
+    } else if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
+        hint = kLegacyTitlePage58A98C;
+    } else if ((removeState & 0x40) != 0) {
+        hint = gLegacyTitleDeleteCF4678 == 0 ? kLegacyTitleDelete5863E8 : kLegacyTitleCancelDelete58AA3C;
+    } else if ((clearState & 0x40) != 0) {
+        hint = kLegacyTitleClear5863FC;
+    } else {
+        if (hovered < 0 || world::detail::gSortedTitlesDE03F8[hoveredTitle].id < 0) {
+            return 0;
+        }
+        hint = gLegacyTitleDeleteCF4678 != 0 ? kLegacyTitleRemove58AA1C : kLegacyTitleSelect58AA2C;
+    }
+    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    return 0;
+}
+
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)
 {
     for (std::int32_t index = 0; index < count; ++index) {
@@ -842,6 +1041,37 @@ void Sub_5035E0(
                 static_cast<std::uint16_t>(frameTop - 2),
                 static_cast<std::uint16_t>(frameRight),
                 static_cast<std::uint16_t>(frameBottom),
+                layer, hoverImage, hoverMode == 2 ? 1 : 0);
+        }
+    }
+}
+
+void Sub_5038B0(
+    LegacyPanelButtonRecord* const button, const std::uint8_t layer,
+    const std::int32_t hoverMode, const std::uint32_t hoverImage, const std::int32_t selected)
+{
+    GraphicDescriptor16 descriptor {};
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    const std::int32_t image = selected != 0 ? button->pressedImage : button->normalImage;
+    const std::int32_t y = button->imageY;
+    const std::int32_t x = button->imageX;
+    static_cast<void>(DrawGraphic(x, y, layer, image, 1, &descriptor));
+    if (hoverMode != 0) {
+        const std::int32_t top = button->top;
+        const std::int32_t height = button->height;
+        const std::int32_t left = button->left;
+        const std::int32_t width = button->width;
+        if (Sub_5049A0(left, top, left + width, top + height, -1) != 0) {
+            const std::int32_t frameTop = button->top;
+            const std::int32_t frameLeft = button->left;
+            const std::int32_t frameHeight = button->height;
+            const std::int32_t frameWidth = button->width;
+            DrawGraphicHover(
+                static_cast<std::uint16_t>(frameLeft - 2),
+                static_cast<std::uint16_t>(frameTop - 2),
+                static_cast<std::uint16_t>(frameLeft + frameWidth + 2),
+                static_cast<std::uint16_t>(frameTop + frameHeight + 2),
                 layer, hoverImage, hoverMode == 2 ? 1 : 0);
         }
     }

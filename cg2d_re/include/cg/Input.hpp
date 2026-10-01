@@ -95,6 +95,7 @@ extern InputContext gInputContextCC49C0;
 // 原CA02E0：通用对话36/37共享输入上下文，UI只借用。
 extern InputContext gInputContextCA02E0;
 extern InputContext gInputContextD2E130; // 窗口48九个输入原型共用的唯一上下文。
+extern InputContext gInputContextD2E2E0; // 旧人物501FD0称号编辑，独立于现代窗口9。
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

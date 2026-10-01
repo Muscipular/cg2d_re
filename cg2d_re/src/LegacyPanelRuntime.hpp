@@ -73,6 +73,7 @@ extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加�
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。
 std::int32_t Sub_5014A0(std::int32_t x, std::int32_t y); // 旧人物面板完整属性页，返回0。
+std::int32_t Sub_501FD0(std::int32_t x, std::int32_t y); // 旧称号输入、选择/删除、八行分页。
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* records, std::int32_t count);
 void Sub_503120(LegacyPanelTextButtonRecord* records, std::int32_t count);
 std::int32_t Sub_503160(
@@ -82,5 +83,8 @@ std::int32_t Sub_503590(LegacyPanelRecord* panel);
 void Sub_5035E0(
     LegacyPanelButtonRecord* button, std::uint8_t layer, std::int32_t hoverMode,
     std::uint32_t hoverImage, std::int32_t style);
+void Sub_5038B0(
+    LegacyPanelButtonRecord* button, std::uint8_t layer, std::int32_t hoverMode,
+    std::uint32_t hoverImage, std::int32_t selected); // 非零选中图号，不屏蔽hover。
 
 } // namespace cg::login::detail

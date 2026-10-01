@@ -1091,6 +1091,7 @@ void Sub_50E5D0(
     std::int32_t value30, char* text, const char* name); // 相册记录回复，socket未用。
 using cg::audio::Sub_52B990;               // 原 0x52B990。
 std::int32_t Sub_45EBB0();                 // 原 0x45EBB0。
+std::int32_t Sub_45EEE0();                 // 原45EEE0，场景7过渡初始化/绘制，仅完成时返回1。
 void Sub_45ED80();                        // 原 [0x45ED80,0x45ED8B)，重置 9A6204。
 extern std::uint32_t gValue9A6204;         // 原 0x9A6204；45ED90 后续复用。
 std::int32_t Sub_45ED90();                 // 原 [0x45ED90,0x45EEDA)，场景 7 请求与展示。

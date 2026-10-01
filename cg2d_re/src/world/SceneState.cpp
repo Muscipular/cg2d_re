@@ -9,6 +9,7 @@
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyRecordOrder.hpp"
+#include "cg/LoginMessage.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -55,6 +56,21 @@ std::int32_t gValueFF0D44 = 0; // 原普通场景与结果窗口分派共用的�
 std::int32_t gValueFF0D50 = 0; // 原普通场景初始化标志，11分支只认恰1。
 std::int32_t gValueFF0D54 = 0; // 原普通场景等待帧数，门槛按S32比较。
 std::int32_t gValueFF0D68 = 0; // 原普通场景BGM恢复号，不是当前播放号owner。
+std::uint32_t gLogoutTransition9A6E94 = 0; // 原45EBB0/45EEE0共享过渡阶段。
+std::array<char, 0x108> gLogoutText9A5B08 {}; // 原264B消息区，排他尾9A5C10独立。
+constexpr char kLogoutTimeout55CA18[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA5\x58\xB9\x4F\xAE\xC9\xA1\x43";
+constexpr char kLogoutFailure55CA08[] = "\xB5\x6E\xA5\x58\xB3\x42\xB2\x7A\xA5\xA2\xB1\xD1\xA1\x43";
+constexpr char kLogoutMaintenance55CA28[] =
+    "\xAC\xDB\xB7\xED\xA9\xEA\xBA\x70\xA1\x41\xAC\xB0\xA4\x46\xBA\xFB"
+    "\xAB\xF9\xA8\x7D\xA6\x6E\xAA\xBA\xB9\x43\xC0\xB8\xC0\xF4\xB9\xD2\x0A"
+    "\xA5\xD8\xAB\x65\xA6\xF8\xAA\x41\xBE\xB9\xBC\xC8\xAE\xC9\xB6\x69"
+    "\xA6\xE6\xB0\xB1\xBE\xF7\xBA\xFB\xC5\x40\xA1\x43\x0A"
+    "\xBA\xFB\xC5\x40\xA7\xB9\xB2\xA6\xAB\xE1\xB1\x4E\xAD\xAB\xB7\x73"
+    "\xB6\x7D\xBE\xF7\xA1\x41\xBD\xD0\xB5\x79\xB0\xB5\xB5\xA5\xAD\xD4\xA1\x43";
+static_assert(sizeof(kLogoutTimeout55CA18) == 15);
+static_assert(sizeof(kLogoutFailure55CA08) == 15);
+static_assert(sizeof(kLogoutMaintenance55CA28) == 97);
+static_assert(sizeof(gLogoutText9A5B08) == 0x108);
 static_assert(sizeof(gRotationTableC8A7B0) == 0x190);
 
 // 原 [9E03D0,9E0434)：46AC10先写前缀，再按发送门禁决定是否写NUL。
@@ -9343,6 +9359,107 @@ std::int32_t Sub_504100()
     gValueFF0C10 = 0;
     gValueCAFEA0 = 0;
     return 0;
+}
+
+std::int32_t Sub_45EEE0()
+{
+    const std::uint32_t phase = gLogoutTransition9A6E94;
+    if (phase == 1) {
+        if (Sub_51FDE0(14, 8, 0x40000000U) == 1) {
+            platform::gValue73ECC0 = 0;
+            render::SelectPalette(0, 0);
+            return 1;
+        }
+    } else if (phase == 0) {
+        Sub_51D750();
+        platform::gValue73ECC0 = 2;
+        audio::Sub_52B990();
+        const std::uint32_t tick = platform::ReadTickCount32();
+        const std::uint32_t next = gLogoutTransition9A6E94 + 1;
+        gValue58B6D0 = 1;
+        gLogoutTransition9A6E94 = next;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        ui::ProcessSceneWindows_503E80();
+        login::detail::Sub_43F230();
+    }
+    return 0;
+}
+
+std::int32_t Sub_45EBB0()
+{
+    std::int32_t sceneState = gCurrentSceneState;
+    if (sceneState == 0) {
+        gValue9A6E0C = 1;
+        const std::int32_t transition = Sub_45EEE0();
+        if (transition == 0) {
+            return transition;
+        }
+        Sub_520160();
+        gLogoutTransition9A6E94 = 0;
+        Sub_519D50();
+        Sub_446470();
+        login::detail::YobiClearUp_404D30();
+        sceneState = gCurrentSceneState;
+        ++sceneState;
+        gCurrentSceneState = sceneState;
+    }
+
+    bool resetFailure = false;
+    bool resetMaintenance = false;
+    if (sceneState == 1) {
+        Sub_45ED80();
+        ++gCurrentSceneState;
+    } else if (sceneState == 2) {
+        const std::int32_t result = Sub_45ED90();
+        if (result == 1) {
+            network::ShutdownNetworkRuntime_5081A0();
+            login::detail::YobiClearUp_404D30();
+            SetCurrentSceneType(2);
+        } else if (result == 2) {
+            gCurrentSceneState = 200;
+            const std::size_t bytes = std::strlen(kLogoutMaintenance55CA28) + 1;
+            login::detail::gReplyCodeDA3B2E = 0;
+            std::memcpy(gLogoutText9A5B08.data(), kLogoutMaintenance55CA28, bytes);
+            resetMaintenance = true;
+        } else if (result == -1) {
+            network::ShutdownNetworkRuntime_5081A0();
+            gCurrentSceneState = 100;
+            std::strcpy(gLogoutText9A5B08.data(), kLogoutTimeout55CA18);
+            resetFailure = true;
+        } else if (result == -2) {
+            network::ShutdownNetworkRuntime_5081A0();
+            gCurrentSceneState = 100;
+            std::strcpy(gLogoutText9A5B08.data(), kLogoutFailure55CA08);
+            resetFailure = true;
+        }
+    }
+
+    // 原维护结果直接跳200重置，超时/失败直接跳100重置，均不重复入口分派。
+    if (!resetMaintenance) {
+        if (resetFailure || gCurrentSceneState == 100) {
+            login::ResetLoginMessage();
+            ++gCurrentSceneState;
+        }
+        if (gCurrentSceneState == 101 && login::UpdateLoginMessage(gLogoutText9A5B08.data()) != 0) {
+            SetCurrentSceneType(2);
+        }
+        resetMaintenance = gCurrentSceneState == 200;
+    }
+    if (resetMaintenance) {
+        login::ResetLoginMessage();
+        ++gCurrentSceneState;
+    }
+    const std::int32_t finalState = gCurrentSceneState;
+    if (finalState == 201) {
+        const std::int32_t result = login::UpdateLoginMessage(gLogoutText9A5B08.data());
+        if (result == 0) {
+            return result;
+        }
+        network::ShutdownNetworkRuntime_5081A0();
+        login::detail::YobiClearUp_404D30();
+        return SetCurrentSceneType(2);
+    }
+    return finalState;
 }
 
 // 原 [0x45ED80,0x45ED8B)：只清场景 7 阶段槽，不定义返回值。

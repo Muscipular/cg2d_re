@@ -976,6 +976,21 @@ std::int32_t Sub_4450D0(
     std::int32_t x, std::int32_t y, std::uint16_t category); // 返回完整0/1。
 std::int32_t Sub_445160(
     std::int32_t x, std::int32_t y, std::uint16_t category); // 命中返回对象编号，否则-1。
+// 原相邻对象查询；包含掩码为0跳过字段，排除掩码为0仍读字段，返回完整0/1。
+std::int32_t Sub_4451F0(
+    std::int32_t x, std::int32_t y, std::uint16_t category,
+    std::uint16_t flags42Mask, std::uint16_t flags120Mask);
+std::int32_t Sub_4452A0(
+    std::int32_t x, std::int32_t y, std::uint16_t category,
+    std::uint16_t excluded42, std::uint16_t excluded120);
+std::int32_t Sub_455A90(); // 单读地图号，正序匹配原14项观战名单。
+// 原快捷按钮与两条键盘路径共用；caller均不消费EAX，复用唯一62B5AC计时槽。
+void Sub_470050(); // 对战请求。
+void Sub_470150(); // 观战请求，先查地图名单。
+void Sub_470270(); // 组队请求，保留跟随分支和静默返回。
+void Sub_4703C0(); // 名片请求，无跟随门禁。
+void Sub_4704A0(); // 交易请求，两格查询均执行。
+void Sub_470670(); // 家族邀请，读取同源职级权限低U8。
 void Sub_446470(); // 原只清引用的全表重置；调用者均弃用原表外返回地址。
 void Sub_446610(); // 全表仅对占用项清action、写value34=-1。
 void* __cdecl Sub_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。

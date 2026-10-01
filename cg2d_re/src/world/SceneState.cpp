@@ -7,6 +7,7 @@
 #include "../ui/WindowRuntimeState.hpp"
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
+#include "cg/LegacyRecordOrder.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -119,6 +120,21 @@ constexpr std::array<std::int32_t, 4> kMapFloors5541F4 {
     37623,
     37619,
 };
+
+// 原556C48；455A90按原顺序查找，不将尾部连续地图号改作区间。
+constexpr std::array<std::int32_t, 14> kWatchBattleMapFloors556C48 {
+    1401, 33221, 43131, 59553, 59972, 59973, 59974,
+    59975, 59976, 59977, 59978, 59979, 59980, 59981,
+};
+constexpr char kTradeNoTarget556CC4[] =
+    "\xA8\x53\xA6\xB3\xA5\x69\xA5\xE6\xA9\xF6\xAA\xBA\xB9\xEF\xB6\x48\xA1\x49";
+constexpr char kGuildInviteDenied5862AC[] =
+    "\xB1\x7A\xA8\x53\xA6\xB3\xAE\x61\xB1\xDA\xAD\xF2\xA1\x41\xA9\xD2"
+    "\xA5\x48\xA4\xA3\xAF\xE0\xC1\xDC\xBD\xD0\xB9\xEF\xA4\xE8\xAE\xBA"
+    "\x2E\x2E\x2E\x5E\x5E\x22";
+static_assert(sizeof(kWatchBattleMapFloors556C48) == 56);
+static_assert(sizeof(kTradeNoTarget556CC4) == 19);
+static_assert(sizeof(kGuildInviteDenied5862AC) == 39);
 
 struct DirectionDelta {
     std::int16_t x;
@@ -7506,6 +7522,221 @@ std::uint8_t Sub_46F680()
         gValueC8A7AC = 1;
     }
     return 2;
+}
+
+std::int32_t Sub_455A90()
+{
+    const std::int32_t floor = gMapFloor;
+    for (const std::int32_t allowed : kWatchBattleMapFloors556C48) {
+        if (floor == allowed) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 六请求的门禁、声音和计时差异见doc/ui_windows/window_4.md。
+void Sub_470050()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+    const std::int32_t targetX =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+    const std::int32_t target = Sub_4450D0(targetX, targetY, 8);
+    const std::uint16_t follow = gValueFF0D36;
+    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
+        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(network::Sub_510880(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_470150()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    std::int32_t target = 0;
+    if (Sub_455A90() == 1) {
+        const std::int32_t targetY =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        const std::int32_t targetX =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        target = Sub_4451F0(targetX, targetY, 8, 0xC400, 0);
+    }
+    const std::uint16_t follow = gValueFF0D36;
+    if ((follow != 0 && (follow != 1 || (ReadPlayerFlags18A() & 0x100u) == 0))
+        || target != 1 || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(network::Sub_510940(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_470270()
+{
+    const bool joinTeam = gValueFF0D36 == 0;
+    if (joinTeam) {
+        const std::int32_t direction = gPlayerRuntime.direction;
+        if (direction < 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return;
+        }
+        const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+        const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+        const std::int32_t targetY =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+        const std::int32_t targetX =
+            platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+        if (Sub_4452A0(targetX, targetY, 0x28, 0x400, 0) != 1) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            return;
+        }
+    }
+    if (gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        if (joinTeam && (ReadPlayerFlags18A() & 0x100u) != 0) {
+            return;
+        }
+        const std::int32_t mode = joinTeam ? 1 : 0;
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(network::Sub_511A50(platform::gConnectionSocket, x, y, mode));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_4703C0()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+    const std::int32_t targetX =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+    if (Sub_4450D0(targetX, targetY, 8) != 1
+        || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(network::Sub_5111E0(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_4704A0()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t firstY =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+    const std::int32_t firstX =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+    const std::int32_t first = Sub_4450D0(firstX, firstY, 8);
+    const std::int32_t secondY =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY * 2);
+    const std::int32_t secondX =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX * 2);
+    const std::int32_t second = Sub_4450D0(secondX, secondY, 8);
+    if (gValueFF0D36 != 1 && first != 1 && second != 1) {
+        Sub_44B050(kTradeNoTarget556CC4, 4, 0);
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    if (gValue9A86D8 == 0 && gValue9FB92E == 0
+        && platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+            static_cast<void>(network::Sub_511FB0(platform::gConnectionSocket));
+            ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+        }
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+}
+
+void Sub_470670()
+{
+    const std::int32_t direction = gPlayerRuntime.direction;
+    if (direction < 0) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t deltaX = gDirectionDeltas55D9DC[direction].x;
+    const std::int32_t deltaY = gDirectionDeltas55D9DC[direction].y;
+    const std::int32_t targetY =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerY, deltaY);
+    const std::int32_t targetX =
+        platform::legacy_crypt_int::Add_401E10(&gPlayerX, deltaX);
+    if (Sub_4450D0(targetX, targetY, 8) != 1
+        || gValue9A86D8 != 0 || gValue9FB92E != 0
+        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)) {
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::int32_t rank = login::detail::ReadGuildTextIndex10514B0();
+    if ((login::detail::ReadGuildRankFlagsByte1051514(rank) & 1u) == 0) {
+        Sub_44B050(kGuildInviteDenied5862AC, 4, 0);
+        static_cast<void>(audio::PlaySe_52C450(55, 320));
+        return;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (ui::detail::gWindowActionTick62B5AC + 500u < now) {
+        const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
+        const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerX);
+        static_cast<void>(network::Sub_5113C0(platform::gConnectionSocket, x, y));
+        ui::detail::gWindowActionTick62B5AC = platform::ReadTickCount32();
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
 std::uint32_t Sub_51B3E0()

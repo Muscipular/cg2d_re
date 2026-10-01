@@ -32387,6 +32387,62 @@ std::int32_t Sub_445160(
     return -1;
 }
 
+std::int32_t Sub_4451F0(
+    const std::int32_t x, const std::int32_t y, const std::uint16_t category,
+    const std::uint16_t flags42Mask, const std::uint16_t flags120Mask)
+{
+    std::int32_t upperBound = gWorldObjectUpperBound;
+    if (upperBound <= 0) {
+        return 0;
+    }
+    std::int32_t index = 0;
+    do {
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        if (record.used != 0) {
+            login::YobiAction* const action = record.action;
+            if (action != nullptr
+                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
+                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (record.category & category) != 0
+                && (flags42Mask == 0 || (record.flags42 & flags42Mask) != 0)
+                && (flags120Mask == 0 || (record.flags120 & flags120Mask) != 0)) {
+                return 1;
+            }
+        }
+        upperBound = gWorldObjectUpperBound;
+        ++index;
+    } while (index < upperBound);
+    return 0;
+}
+
+std::int32_t Sub_4452A0(
+    const std::int32_t x, const std::int32_t y, const std::uint16_t category,
+    const std::uint16_t excluded42, const std::uint16_t excluded120)
+{
+    std::int32_t upperBound = gWorldObjectUpperBound;
+    if (upperBound <= 0) {
+        return 0;
+    }
+    std::int32_t index = 0;
+    do {
+        auto& record = gWorldObjects[static_cast<std::size_t>(index)];
+        if (record.used != 0) {
+            login::YobiAction* const action = record.action;
+            if (action != nullptr
+                && platform::legacy_crypt_int::Equal_401D00(&action->mapX1E0, x)
+                && platform::legacy_crypt_int::Equal_401D00(&record.action->mapY1F0, y)
+                && (record.category & category) != 0
+                && (record.flags42 & excluded42) == 0
+                && (record.flags120 & excluded120) == 0) {
+                return 1;
+            }
+        }
+        upperBound = gWorldObjectUpperBound;
+        ++index;
+    } while (index < upperBound);
+    return 0;
+}
+
 void Sub_46B4B0(const std::int32_t direction)
 {
     if (direction < 0 || direction > 7) {

@@ -183,6 +183,14 @@ std::int32_t Sub_510810(
     std::int32_t first,
     std::int32_t second);
 
+// 原快捷交互请求：两整数独立采容量/格式化/追加，透传真实发送返回。
+std::int32_t Sub_510880(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second); // ik
+std::int32_t Sub_510940(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second); // IMv
+std::int32_t Sub_5111E0(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second); // vcAz
+
 // 原 sub_512800@[0x512800,0x5128B1)：四文本依序追加并发送 JFVf。
 std::int32_t Sub_512800(
     std::uintptr_t socket,

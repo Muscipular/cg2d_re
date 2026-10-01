@@ -9,6 +9,7 @@
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/KeyState.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -222,6 +223,7 @@ constexpr std::array<std::array<std::uint32_t, 2>, 4> kLegacyAttributeBars57CBB8
 }};
 std::uint32_t gLegacyProfilePositionTickD68860 = 0;
 input::InputContext* gLegacyProfileInputD6885C = nullptr;
+std::int32_t gLegacyProfilePreviousPage585894 = -1;
 std::uint32_t gLegacyProfileEditTickD68864 = 0;
 std::int8_t gLegacyTitlePageCF49B4 = 0;
 std::int8_t gLegacyTitlePageCountC8AF80 = 0;
@@ -366,6 +368,73 @@ std::int32_t Sub_500370(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillOpen5864C8);
     }
     return std::bit_cast<std::int32_t>(Sub_503440(&gLegacySkillList585708, 1));
+}
+
+std::uintptr_t Sub_5006F0(const std::int32_t opened)
+{
+    gLegacyProfilePanel5857D0.backgrounds[0] =
+        character_select::state::gPukVersion < 7 ? 0x57E5 : 0x3A3D2;
+    using PageCallback = std::int32_t (*)(std::int32_t, std::int32_t);
+    constexpr std::array<PageCallback, 3> pages {Sub_5008C0, Sub_5014A0, Sub_501FD0};
+    const std::int32_t state = Sub_503160(opened, &gLegacyProfilePanel5857D0, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        input::InputContext* const context = gLegacyProfileInputD6885C;
+        gLegacyProfilePanel5857D0.selected = 0;
+        std::uintptr_t result = 0;
+        if (input::IsCurrentContext_503E40(context) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            // 原44B330在EAX透传上下文；只在混合返回边界转换地址。
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyProfileInputD6885C = nullptr;
+        gLegacyProfilePreviousPage585894 = -1;
+        return result;
+    }
+    if (platform::ReadControlKeyPressFlag_4597C0(9) != 0) {
+        const std::int8_t next = static_cast<std::int8_t>(gLegacyProfilePanel5857D0.selected + 1);
+        gLegacyProfilePanel5857D0.selected = next;
+        if (next >= 3) {
+            gLegacyProfilePanel5857D0.selected = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(52, 320));
+    }
+    std::int8_t selected = gLegacyProfilePanel5857D0.selected;
+    const PageCallback page = pages[selected];
+    if (page != nullptr) {
+        const std::int32_t y = gLegacyProfilePanel5857D0.y;
+        const std::int32_t x = gLegacyProfilePanel5857D0.x;
+        static_cast<void>(page(x, y));
+        selected = gLegacyProfilePanel5857D0.selected;
+    }
+    if (selected < 2) {
+        const std::int32_t width = TextMeasure(world::detail::BorrowPlayerDisplayText(1), 0);
+        const std::int32_t y = gLegacyProfilePanel5857D0.y;
+        const std::int32_t x = gLegacyProfilePanel5857D0.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 116),
+            static_cast<std::int16_t>(y + 9), 2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
+        selected = gLegacyProfilePanel5857D0.selected;
+    }
+    if (gLegacyProfilePreviousPage585894 != selected) {
+        input::InputContext* context;
+        if (selected < 2) {
+            context = &input::gInputContext626AA0;
+        } else {
+            if (input::IsChatContext_503E60() == 0) {
+                static_cast<void>(audio::Sub_504380(2));
+            }
+            context = gLegacyProfileInputD6885C;
+        }
+        input::SetContext_44B330(context);
+    }
+    if (Sub_503590(&gLegacyProfilePanel5857D0) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyProfilePanel5857D0, 1);
+    gLegacyProfilePreviousPage585894 = gLegacyProfilePanel5857D0.selected;
+    return static_cast<std::uintptr_t>(result);
 }
 
 std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)

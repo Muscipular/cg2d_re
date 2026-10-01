@@ -556,6 +556,75 @@ std::int32_t Sub_518DA0()
     return 0;
 }
 
+void Sub_518F00(std::int32_t* const category, std::int32_t* const index)
+{
+    const std::ptrdiff_t selected = login::gSelectedCharacterIndex;
+    for (std::int32_t position = 0; position < 60; ++position) {
+        const std::int32_t contact = gContactIndicesFDA608[position];
+        if (gContactsF19FB0[contact].used == 0) {
+            continue;
+        }
+        const std::byte* const entry = gMailStorageF7CA08.data()
+            + selected * kMailGroupBytes
+            + static_cast<std::ptrdiff_t>(contact) * kMailNumberBytes;
+        for (std::ptrdiff_t message = 0; message < 10; ++message) {
+            if (entry[message * kMailMessageBytes] != std::byte{0}) {
+                *category = 0;
+                *index = gContactIndicesFDA608[position];
+                return;
+            }
+        }
+    }
+    for (std::int32_t position = 0; position < 200; ++position) {
+        const auto& member = login::detail::gOrderedRecords1051B14[position];
+        if (member.value08 == 0) {
+            continue;
+        }
+        const std::int32_t slot = Sub_5195F0(member.value0C);
+        if (slot == -1) {
+            continue;
+        }
+        const std::ptrdiff_t currentSelected = login::gSelectedCharacterIndex;
+        const std::byte* const entry = gGuildMailStorageDE0B30.data()
+            + currentSelected * kGuildMailGroupBytes
+            + static_cast<std::ptrdiff_t>(slot) * kGuildMailEntryBytes;
+        std::uint32_t active;
+        std::memcpy(&active, entry + 4, sizeof(active));
+        if (active == 0) {
+            continue;
+        }
+        for (std::ptrdiff_t message = 0; message < 10; ++message) {
+            if (entry[8 + message * kMailMessageBytes] != std::byte{0}) {
+                *category = 1;
+                const std::ptrdiff_t selectedForKey = login::gSelectedCharacterIndex;
+                const std::byte* const keyEntry = gGuildMailStorageDE0B30.data()
+                    + selectedForKey * kGuildMailGroupBytes
+                    + static_cast<std::ptrdiff_t>(slot) * kGuildMailEntryBytes;
+                std::int32_t key;
+                std::memcpy(&key, keyEntry, sizeof(key));
+                *index = login::detail::FindActiveOrderedRecordIndex_5195C0(key);
+                return;
+            }
+        }
+    }
+    for (std::int32_t position = 0; position < 20; ++position) {
+        if (gMiniMailRuntime.contacts[position].used == 0) {
+            continue;
+        }
+        const std::byte* const entry = gMiniMailRuntime.messages.data()
+            + static_cast<std::ptrdiff_t>(position) * kMailNumberBytes;
+        for (std::ptrdiff_t message = 0; message < 10; ++message) {
+            if (entry[message * kMailMessageBytes] != std::byte{0}) {
+                *category = 2;
+                *index = position;
+                return;
+            }
+        }
+    }
+    *category = -1;
+    *index = -1;
+}
+
 std::int32_t Sub_519090(const std::int32_t index)
 {
     if (index < 0 || index >= 60) {

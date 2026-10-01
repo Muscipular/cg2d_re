@@ -7062,6 +7062,31 @@ std::int32_t ReadPlayerInjury() noexcept
     return gPlayerRuntime.valueF4;
 }
 
+std::int32_t Sub_504B10()
+{
+    if (gValueD2F788 > 0) {
+        return 5;
+    }
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
+        if (gPetRuntimeF633F8[index].lvFlag6C != 0) {
+            return position;
+        }
+    }
+    return 6;
+}
+
+std::int32_t Sub_504B60()
+{
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const std::int16_t index = std::bit_cast<std::int16_t>(gPetPairsDE0B08[position].index);
+        if (gPetRuntimeF633F8[index].values70[25] != 0) {
+            return index;
+        }
+    }
+    return -1;
+}
+
 std::int32_t ReadPlayerAttribute(const std::int32_t index) noexcept
 {
     return gPlayerRuntime.valuesE4[index];

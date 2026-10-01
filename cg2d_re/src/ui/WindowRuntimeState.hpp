@@ -172,6 +172,9 @@ void Sub_497100(); // 物品快捷入口，清目标待选状态并打开27。
 std::int32_t Sub_4971C0(); // 同一门禁，读取宠物选择槽4。
 void Sub_497210(); // 宠物快捷入口，打开28，不清物品待选状态。
 std::int32_t Sub_473840(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
+std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
+std::int32_t Sub_473080(); // 玩家伤势优先；否则宠物原编号+10，未命中-1。
+std::int32_t Sub_4731B0(std::int32_t index); // 宠物原编号反求首个S16配对位置，不查used。
 std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。
 std::int32_t Sub_4973C0(std::int32_t index, std::int32_t state); // 防御G命令及玩家动作完成。
 void Sub_4974C0(std::int32_t skillIndex, std::int32_t technique); // CC4230真实双参数命令回调。

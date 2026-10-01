@@ -1005,6 +1005,11 @@ struct LoginWindowRuntimeSlots {
     std::int32_t mailGroupScrollD67B88;
     std::int32_t mailGroupSortCategoryCB0600;
     std::array<std::int32_t, 200> mailGroupOrderCC2E6C; // 原排序索引，末地址CC318C，不与技能HP区重叠。
+    std::int32_t statusHasPointsD66E24; // 470AC0生产，4723D0两次独立读取。
+    std::int32_t statusHasInjuryD046C8; // 伤势提示门禁，不是玩家伤势副本。
+    std::int32_t statusHasMailCC4B5C; // 470AC0的518DA0结果，按钮固定入口快照。
+    std::int32_t statusMailCategoryD66E34; // 4723D0传给518F00的同源输出。
+    std::int32_t statusMailIndexD2E2D8;
     std::int32_t valueD673D0;
     std::int32_t selectedPetCC3E5C;
     std::int32_t previousPetCC4888; // 详情页记排序位置，不是实际宠物编号。
@@ -37593,6 +37598,211 @@ std::int32_t Sub_473840(const std::int32_t index, const std::int32_t state)
                     "\xBD\xD0\xB5\xA5\xAB\xDD" "30" "\xAC\xED\xAB\xE1\xA6\x41\xBE\xDE\xA7\x40", 4, 3);
             }
             return 1;
+        }
+        return consumed;
+    }
+    default:
+        return 0;
+    }
+}
+
+namespace {
+
+constexpr char kStatusNoMail556D14[] = "\xB2\x7B\xA6\x62\xA8\x53\xA6\xB3\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kStatusNewMail556D24[] = "\xB2\x7B\xA6\x62\xA6\xB3\xB7\x73\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kStatusNoPoints556D34[] =
+    "\xB2\x7B\xA6\x62\xA8\x53\xA6\xB3\xA5\xF4\xA6\xF3\xAA\xBA\xBC\x57\xA5\x5B\xC2\x49\xBC\xC6\xA1\x43";
+constexpr char kStatusPlayerPoints556D50[] =
+    "\xB2\x7B\xA6\x62\xA6\xB3\xBC\x57\xA5\x5B\xC2\x49\xBC\xC6%d\xC2\x49\xA1\x43";
+constexpr char kStatusHealthy556D68[] = "\xB2\x7B\xA6\x62\xA4\x51\xA4\xC0\xB0\xB7\xB1\x64\xA1\x43";
+constexpr char kStatusPetInjury556D78[] = "\xB2\x7B\xA6\x62%s\xC3\x78\xC1\x7B\xA6\xBA\xA4\x60\xA1\x43";
+constexpr char kStatusPetInjury556D8C[] = "\xB2\x7B\xA6\x62%s\xA8\xFC\xA4\x46\xAD\xAB\xB6\xCB\xA1\x43";
+constexpr char kStatusPetInjury556DA0[] = "\xB2\x7B\xA6\x62%s\xA8\xFC\xA8\xEC\xBB\xB4\xB6\xCB\xA1\x43";
+constexpr char kStatusPetInjury556DB4[] = "\xB2\x7B\xA6\x62%s\xA8\xFC\xA8\xEC\xC0\xBF\xB6\xCB\xA1\x43";
+constexpr char kStatusPlayerInjury556DC8[] =
+    "\xB2\x7B\xA6\x62\xA5\xBF\xAD\xB1\xC1\x7B\xA6\xBA\xA4\x60\xC3\xE4\xBD\x74\xA1\x43";
+constexpr char kStatusPlayerInjury556DE0[] = "\xB2\x7B\xA6\x62\xA8\xFC\xA8\xEC\xAD\xAB\xB6\xCB\xA1\x43";
+constexpr char kStatusPlayerInjury556DF0[] = "\xB2\x7B\xA6\x62\xA8\xFC\xA4\x46\xBB\xB4\xB6\xCB\xA1\x43";
+constexpr char kStatusPlayerInjury556E00[] =
+    "\xB2\x7B\xA6\x62\xA8\xFC\xA4\x46\xA4\x40\xC2\x49\xA4\x70\xB6\xCB\xA1\x43";
+constexpr char kStatusPetPoints586314[] =
+    "\xB2\x7B\xA6\x62%s\xBE\xD6\xA6\xB3%d\xC2\x49\xAA\xBA\xAF\xE0\xA4\x4F\xC2\x49\xBC\xC6\xA1\x43";
+
+} // namespace
+
+std::int32_t Sub_473080()
+{
+    if (world::detail::ReadPlayerInjury() != 0) {
+        return 0;
+    }
+    const std::int32_t pet = world::detail::Sub_504B60();
+    return pet == -1 ? -1 : pet + 10;
+}
+
+std::int32_t Sub_4731B0(const std::int32_t index)
+{
+    for (std::int32_t position = 0; position < 5; ++position) {
+        const std::int16_t candidate =
+            std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+        if (index == candidate) {
+            return position;
+        }
+    }
+    return -1;
+}
+
+std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
+{
+    std::int32_t consumed = 0;
+    char buffer[256];
+    switch (index) {
+    case 13: {
+        const std::int32_t candidate = world::detail::Sub_504B10();
+        if ((state & 1) != 0) {
+            if (gLoginWindowRuntime.statusHasPointsD66E24 != 0) {
+                if (candidate <= 4) {
+                    const std::int16_t petIndex =
+                        std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[candidate].index);
+                    const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                    const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                    const std::int32_t points = pet.lvFlag6C;
+                    std::sprintf(buffer, kStatusPetPoints586314, name, points);
+                } else {
+                    const std::int32_t points = world::detail::gValueD2F788;
+                    std::sprintf(buffer, kStatusPlayerPoints556D50, points);
+                }
+            } else {
+                std::strcpy(buffer, kStatusNoPoints556D34);
+            }
+            std::strcpy(gHoverTextD68AE8.data(), buffer);
+        }
+        if (gLoginWindowRuntime.statusHasPointsD66E24 == 0) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[13].data)->imageNo = 0x3B955;
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            if (candidate <= 4) {
+                WindowInstance* const details = gWindowStates[16].window;
+                gLoginWindowRuntime.selectedPetCC3E5C = candidate;
+                if (details != nullptr) {
+                    details->state |= 0x8000u;
+                }
+                WindowInstance* const skills = gWindowStates[18].window;
+                if (skills != nullptr) {
+                    skills->state |= 0x8000u;
+                }
+                static_cast<void>(CreateWindowAnimation_475AA0(17, 1, 0, nullptr));
+            } else {
+                WindowInstance* const profile = gWindowStates[7].window;
+                if (profile != nullptr) {
+                    profile->state |= 0x8000u;
+                }
+                WindowInstance* const titles = gWindowStates[9].window;
+                if (titles != nullptr) {
+                    titles->state |= 0x8000u;
+                }
+                static_cast<void>(CreateWindowAnimation_475AA0(8, 1, 0, nullptr));
+            }
+            consumed = 1;
+        }
+        return consumed;
+    }
+    case 12: {
+        const std::int32_t hasMail = gLoginWindowRuntime.statusHasMailCC4B5C;
+        if ((state & 1) != 0) {
+            std::strcpy(gHoverTextD68AE8.data(), hasMail != 0 ? kStatusNewMail556D24 : kStatusNoMail556D14);
+            if (hasMail == 0) {
+                return 0;
+            }
+        }
+        if (hasMail == 0) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[12].data)->imageNo = 0x3B951;
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            world::detail::Sub_518F00(
+                &gLoginWindowRuntime.statusMailCategoryD66E34, &gLoginWindowRuntime.statusMailIndexD2E2D8);
+            const std::int32_t category = gLoginWindowRuntime.statusMailCategoryD66E34;
+            if (category == 0 || category == 1 || category == 2) {
+                const std::int32_t mailIndex = gLoginWindowRuntime.statusMailIndexD2E2D8;
+                gLoginWindowRuntime.mailCategoryD67B64 = category;
+                world::detail::gValueCF4FC0 = mailIndex;
+                gLoginWindowRuntime.mailCategoryCC4D50 = category;
+                static_cast<void>(CreateWindowAnimation_475AA0(40, 1, 0, nullptr));
+            }
+            consumed = 1;
+        }
+        return consumed;
+    }
+    case 11: {
+        const std::int32_t target = Sub_473080();
+        std::int32_t injury = world::detail::ReadPlayerInjury();
+        const std::int32_t petIndex = target - 10;
+        if ((state & 1) != 0) {
+            if (injury != 0) {
+                const char* const text = injury <= 25 ? kStatusPlayerInjury556E00
+                    : injury <= 50 ? kStatusPlayerInjury556DF0
+                    : injury <= 75 ? kStatusPlayerInjury556DE0 : kStatusPlayerInjury556DC8;
+                std::strcpy(gHoverTextD68AE8.data(), text);
+            } else if (target == -1) {
+                std::strcpy(gHoverTextD68AE8.data(), kStatusHealthy556D68);
+            } else {
+                const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
+                const std::int32_t petInjury = pet.values70[25];
+                const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+                const char* const format = petInjury <= 25 ? kStatusPetInjury556DB4
+                    : petInjury <= 50 ? kStatusPetInjury556DA0
+                    : petInjury <= 75 ? kStatusPetInjury556D8C : kStatusPetInjury556D78;
+                std::sprintf(buffer, format, name);
+                const std::size_t length = std::strlen(buffer) + 1;
+                const std::size_t bulk = length & ~std::size_t{3};
+                std::memcpy(gHoverTextD68AE8.data(), buffer, bulk);
+                injury = world::detail::ReadPlayerInjury();
+                std::memcpy(gHoverTextD68AE8.data() + bulk, buffer + bulk, length - bulk);
+            }
+        }
+        if (gLoginWindowRuntime.statusHasInjuryD046C8 == 0) {
+            return 0;
+        }
+        if ((state & 1) != 0) {
+            const std::int32_t image = injury == 0 ? 0x3B942
+                : injury <= 25 ? 0x3B945
+                : injury <= 50 ? 0x3B948
+                : injury <= 75 ? 0x3B94B : 0x3B94E;
+            static_cast<WindowGraphicData*>(gCurrentWindow->elements[11].data)->imageNo = image;
+            consumed = 1;
+        }
+        if ((state & 2) != 0) {
+            if (target == 0) {
+                WindowInstance* const attributes = gWindowStates[8].window;
+                if (attributes != nullptr) {
+                    attributes->state |= 0x8000u;
+                }
+                WindowInstance* const titles = gWindowStates[9].window;
+                if (titles != nullptr) {
+                    titles->state |= 0x8000u;
+                }
+                static_cast<void>(CreateWindowAnimation_475AA0(7, 1, 0, nullptr));
+            } else if (target != -1) {
+                WindowInstance* const attributes = gWindowStates[17].window;
+                if (attributes != nullptr) {
+                    attributes->state |= 0x8000u;
+                }
+                WindowInstance* const skills = gWindowStates[18].window;
+                if (skills != nullptr) {
+                    skills->state |= 0x8000u;
+                }
+                gLoginWindowRuntime.selectedPetCC3E5C = Sub_4731B0(petIndex);
+                gLoginWindowRuntime.valueD673D0 = 5;
+                static_cast<void>(CreateWindowAnimation_475AA0(16, 1, 0, nullptr));
+            }
+            consumed = 1;
         }
         return consumed;
     }

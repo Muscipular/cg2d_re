@@ -6,6 +6,7 @@
 
 #include "cg/LoginInput.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <bit>
@@ -187,6 +188,44 @@ constexpr char kLegacySkillClose55331C[] =
 constexpr char kLegacySkillOpen5864C8[] =
     "\xA5\xB4\xB6\x7D\xB3\x6F\xAD\xD3\xA7\xDE\xAF\xE0\xAA\xBA\xA7\xDE"
     "\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyAttributeLimit58A220[] =
+    "\xA4\x77\xB8\x67\xA4\xA3\xAF\xE0\xA6\x41\xA4\xC0\xB0\x74\xC2\x49"
+    "\xBC\xC6\xA4\x46\xA1\x43";
+constexpr char kLegacyAttributeHint58AA08[] =
+    "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xC5\xE9\xA4\x4F\xA1\x43";
+constexpr char kLegacyAttributeHint58A274[] =
+    "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xA4\x4F\xB6\x71\xA1\x43";
+constexpr char kLegacyAttributeHint58A9F4[] =
+    "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xB1\x6A\xAB\xD7\xA1\x43";
+constexpr char kLegacyAttributeHint58A24C[] =
+    "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xB3\x74\xAB\xD7\xA1\x43";
+constexpr char kLegacyAttributeHint58A9E0[] =
+    "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xC5\x5D\xA4\x4F\xA1\x43";
+std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0;
+std::uint32_t gLegacyAttributeTickD67440 = 0;
+
+std::uint32_t Sub_501F60()
+{
+    if (world::detail::gValueD2F788 == 0) {
+        gLegacyAttributeBlinkCC3EF8 = 0;
+        gLegacyAttributeTickD67440 = 0;
+        return 0;
+    }
+    if (gLegacyAttributeTickD67440 == 0) {
+        gLegacyAttributeBlinkCC3EF8 = 1;
+        const std::uint32_t now = platform::ReadTickCount32();
+        gLegacyAttributeTickD67440 = now;
+        return now;
+    }
+    const std::uint32_t now = platform::ReadTickCount32();
+    if (gLegacyAttributeTickD67440 + 1000u < now) {
+        gLegacyAttributeBlinkCC3EF8 = (gLegacyAttributeBlinkCC3EF8 - 1u) & 1u;
+        const std::uint32_t next = platform::ReadTickCount32();
+        gLegacyAttributeTickD67440 = next;
+        return next;
+    }
+    return now;
+}
 
 } // namespace
 
@@ -281,6 +320,111 @@ std::int32_t Sub_500370(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillOpen5864C8);
     }
     return std::bit_cast<std::int32_t>(Sub_503440(&gLegacySkillList585708, 1));
+}
+
+std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
+{
+    std::array<LegacyPanelButtonRecord, 5> buttons;
+    for (std::int32_t index = 0; index < 5; ++index) {
+        buttons[index] = {x + 241, y + 92 + index * 23, x + 226, y + 82 + index * 23,
+            31, 19, 22517, 22518};
+    }
+    std::array<std::int32_t, 6> values;
+    values[1] = world::detail::ReadPlayerValue78(1);
+    values[0] = world::detail::ReadPlayerValue78(0);
+    values[2] = world::detail::ReadPlayerValue78(2);
+    values[3] = world::detail::ReadPlayerValue78(3);
+    values[4] = world::detail::ReadPlayerValue78(4);
+    values[5] = world::detail::gValueD2F788;
+    std::int32_t hovered = -1;
+    std::int32_t total = 0;
+    for (const std::int32_t value : values) {
+        total += value;
+    }
+    const std::int32_t limit = total / 2;
+    if (values[5] != 0) {
+        for (std::int32_t index = 0; index < 5; ++index) {
+            if ((QueryPanelButtonState(&buttons[index]) & 0x40) != 0) {
+                hovered = index;
+                if (values[index] >= limit) {
+                    hovered = -2;
+                }
+            }
+            if ((QueryPanelButtonState(&buttons[index]) & 1) != 0 && values[index] < limit) {
+                static_cast<void>(network::Sub_5123B0(platform::gConnectionSocket, index));
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                break;
+            }
+        }
+    }
+    char buffer[256];
+    const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
+        const std::int32_t offsetY, const char* const format, const std::int8_t color = 0) {
+        std::sprintf(buffer, format, value);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
+            static_cast<std::int16_t>(y + offsetY), 2, 1, color, buffer, 0, 0));
+    };
+    drawNumber(world::detail::ReadPlayerLevel(), 62, 38, "%3d");
+    const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
+    const std::int32_t hp = world::detail::ReadPlayerHpOnce();
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
+        static_cast<std::int16_t>(y + 61), 2, 1, 0, buffer, 0, 0));
+    const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
+    const std::int32_t fp = world::detail::ReadPlayerFpOnce();
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
+        static_cast<std::int16_t>(y + 84), 2, 1, 0, buffer, 0, 0));
+    drawNumber(world::detail::ReadPlayerValue78(8), 62, 107, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(9), 62, 130, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(10), 62, 153, "%3d");
+    drawNumber(world::detail::ReadPlayerValueB0(0), 62, 176, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(11), 62, 199, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(12), 62, 222, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(13), 62, 245, "%3d");
+    drawNumber(world::detail::ReadPlayerValueB0(1), 62, 269, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(5), 186, 206, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(6), 186, 228, "%3d");
+    drawNumber(world::detail::ReadPlayerValue78(7), 186, 252, "%3d");
+    drawNumber(world::detail::ReadPlayerValueD4(0), 194, 298, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueD4(1), 194, 321, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueD4(2), 194, 344, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueD4(3), 194, 367, "%+4d");
+    drawNumber(world::detail::gValueD2F788, 220, 61, "%4d");
+    const std::int8_t color = world::detail::ReadPlayerPenalty() != 0 ? 6 : 0;
+    drawNumber(world::detail::ReadPlayerValue78(0), 192, 84, "%3d", color);
+    drawNumber(world::detail::ReadPlayerValue78(1), 192, 107, "%3d", color);
+    drawNumber(world::detail::ReadPlayerValue78(2), 192, 130, "%3d", color);
+    drawNumber(world::detail::ReadPlayerValue78(3), 192, 153, "%3d", color);
+    drawNumber(world::detail::ReadPlayerValue78(4), 192, 176, "%3d", color);
+    drawNumber(world::detail::ReadPlayerValueBC(0), 69, 268, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueBC(1), 69, 291, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueBC(2), 69, 314, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueBC(3), 69, 337, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueBC(4), 69, 360, "%+4d");
+    drawNumber(world::detail::ReadPlayerValueBC(5), 69, 383, "%+4d");
+    static_cast<void>(Sub_501F60());
+    if (gLegacyAttributeBlinkCC3EF8 != 0) {
+        static_cast<void>(DrawGraphic(x + 177, y + 68, 212, 22516, 1, nullptr));
+    }
+    if (world::detail::gValueD2F788 != 0) {
+        for (LegacyPanelButtonRecord& button : buttons) {
+            const std::uint32_t hoverImage = gValueD69768;
+            Sub_5035E0(&button, 212, 1, hoverImage, 0);
+        }
+    }
+    const char* hint;
+    switch (hovered) {
+    case -2: hint = kLegacyAttributeLimit58A220; break;
+    case 0: hint = kLegacyAttributeHint58AA08; break;
+    case 1: hint = kLegacyAttributeHint58A274; break;
+    case 2: hint = kLegacyAttributeHint58A9F4; break;
+    case 3: hint = kLegacyAttributeHint58A24C; break;
+    case 4: hint = kLegacyAttributeHint58A9E0; break;
+    default: return 0;
+    }
+    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    return 0;
 }
 
 std::int32_t Sub_5030A0(LegacyPanelTextButtonRecord* const records, const std::int32_t count)

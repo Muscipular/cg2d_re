@@ -412,6 +412,16 @@ constexpr char kLegacySplitClear589C84[] = "\xB1\x4E\xAB\xFC\xA9\x77\xAD\xD3\xBC
 constexpr char kLegacySplitBackspace585B34[] = "\xB4\xEE\xA4\xD6\xA4\x40\xA6\xEC\xBC\xC6\xA1\x43";
 constexpr char kLegacySplitLimit589C64[] = "\xB5\x4C\xAA\x6B\xAB\xFC\xA9\x77\xA7\xF3\xA6\x68\xAD\xD3\xBC\xC6\xA1\x43";
 constexpr char kLegacySplitDigit589C78[] = "\xAB\xFC\xA9\x77\xAD\xD3\xBC\xC6\xA1\x43";
+LegacyPanelRecord gLegacyMoneyPanel584DA8 {
+    440, 0, 200, 200, 15, {22930, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyMoneyAmountD2D618 = 0;
+constexpr char kLegacyMoneyDrop585B54[] = "\xB1\x4E\xAB\xFC\xA9\x77\xAA\xBA\xAA\xF7\xC3\x42\xA9\xF1\xA6\x61\xA4\x57\xA1\x43";
+constexpr char kLegacyMoneyEmpty585B44[] = "\xBD\xD0\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
+constexpr char kLegacyMoneyAll585B28[] = "\xAB\xFC\xA9\x77\xA5\xFE\xC3\x42\xA1\x43";
+constexpr char kLegacyMoneyClear585B14[] = "\xB1\x4E\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43";
+constexpr char kLegacyMoneyDigit585B6C[] = "\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
+constexpr char kLegacyMoneyLimit58A3B4[] = "\xA4\xA3\xAF\xE0\xB6\x57\xA5\x58\xB3\x6F\xAD\xD3\xAA\xF7\xC3\x42\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -3284,6 +3294,134 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     const std::uint32_t result = Sub_503440(&gLegacyInventoryPanel584C00, 1);
     gLegacyInventoryHoverC8AF78 = hovered;
     return result;
+}
+
+void Sub_4FBB30()
+{
+    gLegacyMoneyAmountD2D618 = 0;
+}
+
+std::uintptr_t Sub_4FBB40(const std::int32_t opened)
+{
+    const std::int32_t width = gLegacyMoneyPanel584DA8.width;
+    const std::int32_t x = gLegacyMoneyPanel584DA8.x;
+    const std::int32_t height = gLegacyMoneyPanel584DA8.height;
+    const std::int32_t y = gLegacyMoneyPanel584DA8.y;
+    const std::int32_t centerX = x + width / 2;
+    const std::int32_t centerY = y + height / 2;
+    LegacyPanelButtonRecord confirm {centerX, centerY, x + 24, y + 167, 72, 18, 22934, 22934};
+    LegacyPanelButtonRecord back {centerX, centerY, x + 107, y + 167, 72, 18, 0, 22936};
+    LegacyPanelButtonRecord backspace {centerX, centerY, x + 138, y + 111, 52, 12, 0, 22931};
+    LegacyPanelButtonRecord all {centerX, centerY, x + 138, y + 127, 52, 12, 0, 22932};
+    LegacyPanelButtonRecord clear {centerX, centerY, x + 138, y + 143, 52, 12, 0, 22933};
+    std::array<LegacyPanelButtonRecord, 10> digits;
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        digits[digit] = {centerX, centerY, x + 16 + 24 * (digit % 5),
+            y + (digit < 5 ? 135 : 111), 20, 20, 0, 22940 + digit};
+    }
+    const std::int32_t state = Sub_503160(opened, &gLegacyMoneyPanel584DA8, Sub_4FBB30, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        std::uintptr_t result = 0;
+        if (input::IsCurrentContext_503E40(nullptr) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        Sub_4FBB30();
+        return result;
+    }
+    input::SetContext_44B330(nullptr);
+    if (gLegacyMoneyAmountD2D618 != 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
+        const std::int32_t amount = gLegacyMoneyAmountD2D618;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_510DA0(platform::gConnectionSocket, playerX, playerY, amount));
+        gLegacyMoneyAmountD2D618 = 0;
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(14));
+    } else {
+        bool changed = true;
+        if ((QueryPanelButtonState(&all) & 1) != 0) {
+            gLegacyMoneyAmountD2D618 = world::detail::ReadPlayerValueFC();
+        } else if ((QueryPanelButtonState(&clear) & 1) != 0) {
+            gLegacyMoneyAmountD2D618 = 0;
+        } else if ((QueryPanelButtonState(&backspace) & 1) != 0) {
+            gLegacyMoneyAmountD2D618 /= 10;
+        } else {
+            changed = false;
+            for (std::int32_t digit = 0; digit < 10; ++digit) {
+                if ((QueryPanelButtonState(&digits[digit]) & 1) != 0) {
+                    gLegacyMoneyAmountD2D618 = 10 * gLegacyMoneyAmountD2D618 + digit;
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        if (changed) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    static_cast<void>(Sub_502B80(&gLegacyMoneyAmountD2D618, 7));
+    // 原4FC0C7只读一次金额，供上限修正和第一行显示共同使用。
+    const std::int32_t money = world::detail::ReadPlayerValueFC();
+    if (money < gLegacyMoneyAmountD2D618) {
+        gLegacyMoneyAmountD2D618 = money;
+    }
+    char buffer[256];
+    std::sprintf(buffer, "%7d", money);
+    const std::int32_t moneyY = gLegacyMoneyPanel584DA8.y + 46;
+    const std::int32_t moneyX = gLegacyMoneyPanel584DA8.x + 88;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(moneyX),
+        static_cast<std::int16_t>(moneyY), 2, 1, 0, buffer, 0, 0));
+    std::sprintf(buffer, "%7d", gLegacyMoneyAmountD2D618);
+    const std::int32_t amountY = gLegacyMoneyPanel584DA8.y + 86;
+    const std::int32_t amountX = gLegacyMoneyPanel584DA8.x + 88;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),
+        static_cast<std::int16_t>(amountY), 2, 1, 0, buffer, 0, 0));
+    for (auto& digit : digits) {
+        Sub_5035E0(&digit, 218, 1, gValueD69768, 0);
+    }
+    if (gLegacyMoneyAmountD2D618 != 0) {
+        confirm.normalImage = 0;
+        confirm.pressedImage = 22935;
+    } else {
+        confirm.normalImage = 22934;
+        confirm.pressedImage = 22934;
+    }
+    Sub_5035E0(&confirm, 218, 1, gValueD69768, 0);
+    Sub_5035E0(&back, 218, 1, gValueD69768, 0);
+    Sub_5035E0(&backspace, 218, 1, gValueD69768, 0);
+    Sub_5035E0(&all, 218, 1, gValueD69768, 0);
+    Sub_5035E0(&clear, 218, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMoneyPanel584DA8) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = gLegacyMoneyAmountD2D618 != 0 ? kLegacyMoneyDrop585B54 : kLegacyMoneyEmpty585B44;
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacySplitBack589CA4;
+    } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
+        hint = kLegacyMoneyAll585B28;
+    } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
+        hint = kLegacyMoneyClear585B14;
+    } else if ((QueryPanelButtonState(&backspace) & 0x40) != 0) {
+        hint = kLegacySplitBackspace585B34;
+    } else {
+        for (auto& digit : digits) {
+            if ((QueryPanelButtonState(&digit) & 0x40) != 0) {
+                const std::int32_t amount = gLegacyMoneyAmountD2D618;
+                const std::int32_t currentMoney = world::detail::ReadPlayerValueFC();
+                hint = amount < currentMoney ? kLegacyMoneyDigit585B6C : kLegacyMoneyLimit58A3B4;
+                break;
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMoneyPanel584DA8, 1);
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

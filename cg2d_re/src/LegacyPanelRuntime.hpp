@@ -136,6 +136,8 @@ std::int32_t Sub_4FAED0(); // 旧14重置既有物品拖动及本页详情/悬�
 std::uintptr_t Sub_4FAEF0(std::int32_t opened); // 旧14完整物品页，关闭返回非拥有预览地址。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 void Sub_4FB940(std::int32_t x, std::int32_t y, std::int32_t item, std::int32_t page); // 旧物品详情八行绘制，原caller均不消费返回。
+void Sub_4FBB30(); // 旧15金额草稿清零，原指令不改EAX。
+std::uintptr_t Sub_4FBB40(std::int32_t opened); // 旧15金钱页；发送留本页，关闭重置保留焦点返回。
 void Sub_504BA0(
     std::int32_t x, std::int32_t y, std::int32_t width, std::uint8_t layer,
     std::int32_t font, const char* name, const char* memo,

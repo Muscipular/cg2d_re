@@ -175,6 +175,11 @@ std::int32_t Sub_473840(std::int32_t index, std::int32_t state); // 窗口6完�
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
 void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
 void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。
+std::int32_t Sub_471CD0(std::int32_t unused, std::int32_t state); // 状态栏1点击切2，调用后发布保存模式。
+std::int32_t Sub_471D10(std::int32_t unused, std::int32_t state); // 状态栏2点击切3。
+std::int32_t Sub_471D60(std::int32_t unused, std::int32_t state); // 状态栏3按场景返回2或1。
+std::int32_t Sub_471DD0(std::int32_t unused, std::int32_t state); // 仅hover命中消费。
+std::int32_t Sub_471DF0(std::int32_t index, std::int32_t state); // 六选项命中区操作前15项图形，发送后SE51。
 std::int32_t Sub_473080(); // 玩家伤势优先；否则宠物原编号+10，未命中-1。
 std::int32_t Sub_4731B0(std::int32_t index); // 宠物原编号反求首个S16配对位置，不查used。
 std::int32_t Sub_4972B0(std::int32_t index, std::int32_t state); // 攻击选择，原目标标志475H。

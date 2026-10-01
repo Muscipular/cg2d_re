@@ -884,6 +884,7 @@ void Sub_51A6A0(
     std::int32_t duration, const char* text, std::int32_t color,
     std::int32_t font, std::int32_t length); // 同源玩家头顶文本生产。
 std::int32_t Sub_472F40(); // 同源玩家选项切换04后发送。
+std::uint8_t ReadPlayerOptions194LowByte() noexcept; // 原FDA894低U8，状态栏提示与图号用同一快照。
 std::int32_t Sub_472F70(); // 切换08后发送。
 std::int32_t Sub_472FA0(); // 切换01后发送。
 std::int32_t Sub_472FD0(); // 切换10后发送。

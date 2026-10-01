@@ -37690,6 +37690,27 @@ constexpr char kStatusPlayerInjury556E00[] =
     "\xB2\x7B\xA6\x62\xA8\xFC\xA4\x46\xA4\x40\xC2\x49\xA4\x70\xB6\xCB\xA1\x43";
 constexpr char kStatusPetPoints586314[] =
     "\xB2\x7B\xA6\x62%s\xBE\xD6\xA6\xB3%d\xC2\x49\xAA\xBA\xAF\xE0\xA4\x4F\xC2\x49\xBC\xC6\xA1\x43";
+constexpr char kStatusDuelOff556E14[] = "\xB2\x7B\xA6\x62\xA4\xA3\xAF\xE0\xB8\xF2\xA7\x4F\xA4\x48\xB9\xEF\xBE\xD4\xA1\x43";
+constexpr char kStatusDuelOn556E2C[] = "\xB2\x7B\xA6\x62\xA5\x69\xA5\x48\xB8\xF2\xA7\x4F\xA4\x48\xB9\xEF\xBE\xD4\xA1\x43";
+constexpr char kStatusChatOff556E44[] = "\xB2\x7B\xA6\x62\xB6\x69\xA6\xE6\xB4\xB6\xB3\x71\xAA\xBA\xB2\xE1\xA4\xD1\xA1\x43";
+constexpr char kStatusChatOn556E5C[] = "\xB2\x7B\xA6\x62\xB6\x69\xA6\xE6\xA4\x70\xB6\xA4\xAA\xBA\xB2\xE1\xA4\xD1\xA1\x43";
+constexpr char kStatusPartyOff556E74[] =
+    "\xB2\x7B\xA6\x62\xB8\x54\xA4\xEE\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xB2\xD5\xB6\xA4\xA1\x43";
+constexpr char kStatusPartyOn556E90[] =
+    "\xB2\x7B\xA6\x62\xA4\xB9\xB3\x5C\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xB2\xD5\xB6\xA4\xA1\x43";
+constexpr char kStatusCardOff556EAC[] =
+    "\xB2\x7B\xA6\x62\xB8\x54\xA4\xEE\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xA5\xE6\xB4\xAB\xA6\x57\xA4\xF9\xA1\x43";
+constexpr char kStatusCardOn556ECC[] =
+    "\xB2\x7B\xA6\x62\xA4\xB9\xB3\x5C\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xA5\xE6\xB4\xAB\xA6\x57\xA4\xF9\xA1\x43";
+constexpr char kStatusTradeOff556EEC[] =
+    "\xB2\x7B\xA6\x62\xB8\x54\xA4\xEE\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kStatusTradeOn556F08[] =
+    "\xB2\x7B\xA6\x62\xA4\xB9\xB3\x5C\xA7\x4F\xA4\x48\xBB\x50\xA6\xDB\xA4\x76\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kStatusGuildUnavailable586270[] = "\xB5\x4C\xAA\x6B\xA8\xCF\xA5\xCE\xAE\x61\xB1\xDA\xA5\x5C\xAF\xE0\xA1\x43";
+constexpr char kStatusGuildOff5862D4[] =
+    "\xB2\x7B\xA6\x62\xB8\x54\xA4\xEE\xA7\x4F\xA4\x48\xC1\xDC\xBD\xD0\xA6\xDB\xA4\x76\xB0\xD1\xA5\x5B\xAE\x61\xB1\xDA\xA1\x43";
+constexpr char kStatusGuildOn5862F4[] =
+    "\xB2\x7B\xA6\x62\xA4\xB9\xB3\x5C\xA7\x4F\xA4\x48\xC1\xDC\xBD\xD0\xA6\xDB\xA4\x76\xB0\xD1\xA5\x5B\xAE\x61\xB1\xDA\xA1\x43";
 
 } // namespace
 
@@ -37776,6 +37797,100 @@ void Sub_4718F0()
     FormatStatusBarVitals(buffer);
     std::strcpy(gStatusFpTextD45D50.data(), buffer);
     DrawStatusBarTimer(2, &descriptor);
+}
+
+std::int32_t Sub_471CD0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(OpenWindow_471440(2));
+    gValueCF4690 = 1;
+    return 1;
+}
+
+std::int32_t Sub_471D10(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(OpenWindow_471440(3));
+    gValueCF4690 = 2;
+    return 1;
+}
+
+std::int32_t Sub_471D60(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    const std::int32_t scene = world::gCurrentSceneType;
+    gCurrentWindow->state |= 0x8000u;
+    if (scene == 10) {
+        static_cast<void>(OpenWindow_471440(2));
+        gValueCF4690 = 1;
+    } else {
+        static_cast<void>(OpenWindow_471440(1));
+        gValueCF4690 = 0;
+    }
+    return 1;
+}
+
+std::int32_t Sub_471DD0(const std::int32_t, const std::int32_t state)
+{
+    return (state & 1) != 0 ? 1 : 0;
+}
+
+std::int32_t Sub_471DF0(const std::int32_t index, const std::int32_t state)
+{
+    // 原先访问对应图形，再分派命中区编号；不将默认分支改成入口保护。
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index - 15].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = hover ? 1 : 0;
+    graphic->imageNo = 0x3B8FC + index * 3 + (hover ? 1 : 0);
+    if (index < 17 || index > 22) {
+        return consumed;
+    }
+    if (index == 22 && character_select::state::gPukVersion < 7u) {
+        if (hover) {
+            graphic->imageNo = 0x3B93E;
+            std::strcpy(gHoverTextD68AE8.data(), kStatusGuildUnavailable586270);
+        }
+        return consumed;
+    }
+    const std::uint8_t options = world::detail::ReadPlayerOptions194LowByte();
+    constexpr std::uint8_t masks[6] {0x04, 0x08, 0x01, 0x10, 0x20, 0x40};
+    const char* const hints[6][2] {
+        {kStatusDuelOff556E14, kStatusDuelOn556E2C},
+        {kStatusChatOff556E44, kStatusChatOn556E5C},
+        {kStatusPartyOff556E74, kStatusPartyOn556E90},
+        {kStatusCardOff556EAC, kStatusCardOn556ECC},
+        {kStatusTradeOff556EEC, kStatusTradeOn556F08},
+        {kStatusGuildOff5862D4, kStatusGuildOn5862F4},
+    };
+    std::int32_t (*const toggleCallbacks[6])() {
+        &world::detail::Sub_472F40, &world::detail::Sub_472F70, &world::detail::Sub_472FA0,
+        &world::detail::Sub_472FD0, &world::detail::Sub_473000, &world::detail::Sub_473030,
+    };
+    const std::int32_t slot = index - 17;
+    const bool enabled = (options & masks[slot]) != 0;
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(), hints[slot][enabled ? 1 : 0]);
+    }
+    if (enabled) {
+        graphic->imageNo = 0x3B92E + slot * 3;
+    }
+    if ((state & 2) != 0) {
+        static_cast<void>(toggleCallbacks[slot]());
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    return consumed;
 }
 
 std::int32_t Sub_473080()

@@ -2334,6 +2334,11 @@ std::int32_t Sub_472F40()
     return TogglePlayerOptionAndSend(0x04);
 }
 
+std::uint8_t ReadPlayerOptions194LowByte() noexcept
+{
+    return static_cast<std::uint8_t>(gPlayerRuntime.options194);
+}
+
 std::int32_t Sub_472F70()
 {
     return TogglePlayerOptionAndSend(0x08);

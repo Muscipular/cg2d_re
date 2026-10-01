@@ -1820,3 +1820,59 @@ native 场景状态由唯一设备持有，Submit 先写混合/绑定再绘制�
 空队列/Back 缺失/读图失败/几何早退/节点上传失败路径、状态写入次序、
 源登记与真实下游接口；未执行场景、文件复制或绘制。
 场景 `46CF60`、UI 初始化、完整链接与最终画面仍未验收。
+
+<a id="screenshot-bitmap-writer"></a>
+
+## 截图写入叶与父链边界
+
+2026-10-01沿快捷键4C7AE0→503C80→453760核到BMP写入453E80。
+本步局部方案：写入叶归既有SdlPresenter.cpp及头文件，复用Windows文件边界，
+不新增源文件、依赖或独立截图owner。输入为借用的const uint8_t*，
+宽高为S32，HANDLE保持原生宽；用系统BMP结构及大小/偏移断言固定磁盘格式。
+这里的24位BMP是输出文件格式，不是恢复已排除的24位色渲染。
+
+### 453E80完整写入合同
+
+原范围453E80..453FB0，共109条代码指令。两caller 453B13/453D6C
+均传(buffer,640,480,path)，以返回非零判断成功。
+输入已是带行对齐的BGR24，写入叶不转换像素、不翻行。
+pitch=(width*3+3)&~3，文件大小=pitch*abs(height)+54；
+文件信息头仍写原signed height，不将其替换为绝对值。
+
+| 磁盘区域 | 字段 |
+|---|---|
+| 14B文件头 | 类型4D42H、上述文件大小、两reserved为0、像素偏移54 |
+| 40B信息头 | size40、width/height原值、planes1、bitCount24、compression0 |
+| 信息头其余 | sizeImage、XPelsPerMeter、YPelsPerMeter、ClrUsed、ClrImportant均0 |
+| 像素 | 原输入连续写bfSize-bfOffBits字节 |
+
+CreateFileA按GENERIC_WRITE、share0、CREATE_ALWAYS、FILE_ATTRIBUTE_NORMAL，
+security/template均空。INVALID_HANDLE_VALUE返回0，不关闭无效句柄。
+依序WriteFile文件头14B→信息头40B→像素，每次BOOL成功且written等于
+请求长度才继续；失败或短写立即关闭并返回0，不再写后段。
+全部成功则关闭后返回1，忽略CloseHandle结果。
+保留已创建或已部分写入的文件，不删除、重试、修复或补写；
+不新增尺寸、空指针、缓冲容量检查，异常仍沿RPLAN.24边界。
+
+### 截图主函数仍待
+
+453760..453DE0先ClientToScreen取得客户区屏幕原点，建立screenshot目录，
+仅mkdir成功或EEXIST继续；time/localtime后借共享日期对象，逐次格式化
+`screenshot\\CG%02d%02d%02d_%03d.bmp`，序号0至999并用读打开探测。
+不能把命名、目录错误、满1000项或日期借用改为独立现代截图策略。
+
+原正常路径锁Primary并按客户区屏幕原点/pitch取640×480已呈现像素，
+32位转换为倒序行BGR24，解锁失败无消息直接释放；锁失败走桌面GDI备选，
+包含G1/G2/G3/G4失败提示及原不同释放路径。原HRESULT归一化与资源残留
+已观察到，不能假称现代实现天然保留这些分支。
+现有CPU Back属于构帧源，尚无已呈现帧保存；键盘触发时可能已清屏或开始下一帧。
+本步不以Back直接代替Primary，不添加假成功截图或空503C80。
+后续须明确SDL呈现/截图源和GDI备选的局部适配边界，再补完整主函数、
+消息原字节、节流状态与父快捷键接线。BMP叶落位不等于截图功能已完成或已验收。
+
+实施状态：SaveScreenshotBitmap_453E80完整本体及声明已落位，
+109条原指令的参数、头字段、三次写入各自的BOOL/字节数检查、
+关闭与返回顺序已静态核对，不只检查最后一次写入。
+源码加入14B/40B及关键字段偏移断言，但本轮未编译这些断言。
+原生HANDLE与BGR24借用指针未截断，两个原caller仍待截图主函数落位后接线。
+没有执行文件写入、截图、客户端、构建或测试；仅静态验证，不称磁盘往返已通过。

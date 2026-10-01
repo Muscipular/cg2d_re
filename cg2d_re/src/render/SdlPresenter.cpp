@@ -313,6 +313,53 @@ void Flip_44C560()
     gFrameParity628FC8 = gFrameParity628FC8 == 0 ? 1u : 0u;
 }
 
+std::int32_t SaveScreenshotBitmap_453E80(
+    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const char* path)
+{
+    static_assert(sizeof(BITMAPFILEHEADER) == 14);
+    static_assert(offsetof(BITMAPFILEHEADER, bfSize) == 2);
+    static_assert(offsetof(BITMAPFILEHEADER, bfOffBits) == 10);
+    static_assert(sizeof(BITMAPINFOHEADER) == 40);
+    static_assert(offsetof(BITMAPINFOHEADER, biHeight) == 8);
+    static_assert(offsetof(BITMAPINFOHEADER, biBitCount) == 14);
+    static_assert(offsetof(BITMAPINFOHEADER, biSizeImage) == 20);
+    const std::int32_t pitch = (width * 3 + 3) & ~3;
+    const std::int32_t absoluteHeight = height < 0 ? -height : height;
+    BITMAPFILEHEADER fileHeader {};
+    fileHeader.bfType = 0x4D42;
+    fileHeader.bfSize = static_cast<DWORD>(pitch * absoluteHeight + 54);
+    fileHeader.bfOffBits = 54;
+    BITMAPINFOHEADER infoHeader {};
+    infoHeader.biSize = 40;
+    infoHeader.biWidth = width;
+    infoHeader.biHeight = height;
+    infoHeader.biPlanes = 1;
+    infoHeader.biBitCount = 24;
+    infoHeader.biCompression = BI_RGB;
+
+    const HANDLE file = CreateFileA(
+        path, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file == INVALID_HANDLE_VALUE) {
+        return 0;
+    }
+    DWORD written;
+    if (!WriteFile(file, &fileHeader, 14, &written, nullptr) || written != 14) {
+        static_cast<void>(CloseHandle(file));
+        return 0;
+    }
+    if (!WriteFile(file, &infoHeader, 40, &written, nullptr) || written != 40) {
+        static_cast<void>(CloseHandle(file));
+        return 0;
+    }
+    const DWORD pixelBytes = fileHeader.bfSize - fileHeader.bfOffBits;
+    if (!WriteFile(file, pixels, pixelBytes, &written, nullptr) || written != pixelBytes) {
+        static_cast<void>(CloseHandle(file));
+        return 0;
+    }
+    static_cast<void>(CloseHandle(file));
+    return 1;
+}
+
 void RendererDestroy_44C3C0() noexcept
 {
     if (!SDL_IsMainThread()) {

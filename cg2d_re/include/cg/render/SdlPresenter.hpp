@@ -68,6 +68,10 @@ extern std::uint32_t gFrameParity628FC8;
 // 原 44C560：将统一 CPU Back 提交到 SDL，失败置 lost，随后无条件翻转帧槽。
 void Flip_44C560();
 
+// 原 453E80：原序写入已排好行的 BGR24 BMP；失败保留部分文件，返回 0/1。
+std::int32_t SaveScreenshotBitmap_453E80(
+    const std::uint8_t* pixels, std::int32_t width, std::int32_t height, const char* path);
+
 // 原 44C3C0：节点、缓存面、设备、接口、调色板、Back、SDL 呈现器与 renderer owner。
 void RendererDestroy_44C3C0() noexcept;
 

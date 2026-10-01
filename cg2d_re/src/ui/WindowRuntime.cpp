@@ -15200,6 +15200,54 @@ void Sub_4C7AD0()
     gValueCF4AAC = 0;
 }
 
+void RestoreWindowPositions_475C10()
+{
+    for (std::size_t index = 0; index < kWindowCount; ++index) {
+        WindowState& state = gWindowStates[index];
+        WindowInstance* window = state.window;
+        if (window == nullptr) {
+            continue;
+        }
+        const WindowPrototype* const prototype = gWindowPrototypes57C130[index];
+        window->x = prototype->defaultX;
+        window = state.window;
+        window->y = prototype->defaultY;
+        if (index != 10 && index != 11 && index != 12 && index != 14 && index != 27) {
+            continue;
+        }
+
+        // 两次偏移固定各自调用前实例，越界修正则写回调用后重取的实例。
+        window = state.window;
+        const std::int32_t offsetX = platform::RandomRange_46FAF0(-15, 15);
+        window->x += offsetX;
+        window = state.window;
+        const std::int32_t offsetY = platform::RandomRange_46FAF0(-15, 15);
+        window->y += offsetY;
+        window = state.window;
+        if (window->x < 0) {
+            const std::int32_t x = platform::RandomRange_46FAF0(10, 20);
+            state.window->x = x;
+        }
+        window = state.window;
+        if (window->y < 0) {
+            const std::int32_t y = platform::RandomRange_46FAF0(10, 20);
+            state.window->y = y;
+        }
+        window = state.window;
+        const std::int32_t width = prototype->width;
+        if (window->x + width > 640) {
+            const std::int32_t x = platform::RandomRange_46FAF0(620 - width, 640 - width);
+            state.window->x = x;
+        }
+        window = state.window;
+        const std::int32_t height = prototype->height;
+        if (window->y + height > 480) {
+            const std::int32_t y = platform::RandomRange_46FAF0(460 - height, 480 - height);
+            state.window->y = y;
+        }
+    }
+}
+
 namespace {
 
 // 三条重开共用的两轮窄清理；不释放实例，也不清记录的其他字段。

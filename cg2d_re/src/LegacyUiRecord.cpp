@@ -11,6 +11,7 @@
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
+#include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
@@ -389,6 +390,18 @@ constexpr char kLegacyButton58A948[] =
 constexpr char kLegacyButton58A920[] =
     "\xB1\x4E\xB2\xE1\xA4\xD1\xBD\x64\xB3\xF2\xAB\xF6\xB6\x73\xC5\xDC\xA7\xF3"
     "\xA6\xA8\xB2\xE1\xA4\xD1\xA4\xE5\xA6\x72\xA4\x6A\xA4\x70\xAB\xF6\xB6\x73\xA1\x43";
+
+LegacyPanelRecord gLegacyLogoutPanel584F38 {
+    0, 0, 192, 304, 4, {22504, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyLogout58A4D8[] = "\xA6\x5E\xA8\xEC\xAB\xB0\xA4\xBA\xB5\x6E\xA4\x4A\xC2\x49";
+constexpr char kLegacyLogout58A4C8[] = "\xA6\xF8\xAA\x41\xBE\xB9\xBF\xEF\xBE\xDC\xB5\x65\xAD\xB1";
+constexpr char kLegacyLogout553FD0[] = "\xC3\xF6\xB3\xAC\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyLogout586E60[] =
+    "\xB5\x6E\xA5\x58\xAB\xE1\xA6\x5E\xA8\xEC\xA6\xF8\xAA\x41\xBE\xB9\xBF\xEF\xBE\xDC\xB5\x65\xAD\xB1\xA1\x43";
+constexpr char kLegacyLogout586E48[] =
+    "\xB5\x6E\xA5\x58\xA8\xC3\xA6\x5E\xA8\xEC\xAB\xB0\xA4\xBA\xB5\x6E\xA4\x4A\xC2\x49\xA1\x43";
+constexpr char kLegacyLogout58A4B0[] = "\xA9\xF1\xB1\xF3\xB5\x6E\xA5\x58\xA1\x43";
 
 std::int32_t Sub_4FC7F0()
 {
@@ -1426,6 +1439,65 @@ std::uint32_t Sub_4FC730(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
     }
     return Sub_503440(&gLegacySettingsMenu584E70, 1);
+}
+
+std::uint32_t Sub_4FC8F0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyLogoutPanel584F38.x;
+    const std::int32_t y = gLegacyLogoutPanel584F38.y;
+    const character_select::detail::CharacterModalUiRecord town {
+        x + 35, y + 70, x + 26, y + 70, 138, 18, kLegacyLogout58A4D8,
+    };
+    const character_select::detail::CharacterModalUiRecord server {
+        x + 35, y + 120, x + 26, y + 120, 138, 18, kLegacyLogout58A4C8,
+    };
+    const character_select::detail::CharacterModalUiRecord back {
+        x + 62, y + 260, x + 60, y + 260, 69, 18, kLegacyButton58A4BC,
+    };
+    const std::int32_t state = Sub_503160(opened, &gLegacyLogoutPanel584F38, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    if ((character_select::detail::Sub_503990(&server) & 1) != 0) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        world::detail::gValue73ECD0.encoded = encoded;
+        world::detail::gValue73ECD0.mask = mask;
+        world::detail::gValue73ECD0.readCount = readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+        static_cast<void>(world::SetPendingSceneType(7));
+        static_cast<void>(PlaySe(60, 320, 240));
+    } else if ((character_select::detail::Sub_503990(&town) & 1) != 0) {
+        static_cast<void>(network::Sub_512CF0(platform::gConnectionSocket));
+        if (world::gCurrentSceneType == 10) {
+            world::gCurrentSceneState = 7;
+        }
+        static_cast<void>(PlaySe(60, 320, 240));
+        world::gValueD67E78 = 1;
+    } else if ((character_select::detail::Sub_503990(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(3));
+    }
+    static_cast<void>(character_select::detail::Sub_503A20(&town, 2, 0, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&server, 2, 0, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&back, 2, 0, 1, gValueD69768, 218));
+    if (Sub_503590(&gLegacyLogoutPanel584F38) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    }
+    const char* hint = nullptr;
+    if ((character_select::detail::Sub_503990(&server) & 0x40) != 0) {
+        hint = kLegacyLogout586E60;
+    } else if ((character_select::detail::Sub_503990(&town) & 0x40) != 0) {
+        hint = kLegacyLogout586E48;
+    } else if ((character_select::detail::Sub_503990(&back) & 0x40) != 0) {
+        hint = kLegacyLogout58A4B0;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyLogoutPanel584F38, 1);
 }
 
 std::int32_t Sub_4FCB90()

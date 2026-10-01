@@ -27818,6 +27818,114 @@ std::int32_t Sub_4A6DB0()
     return 0;
 }
 
+std::int32_t Sub_4A6EA0(const std::int32_t, const std::int32_t state)
+{
+    if (input::gValueC9A96C == 0) {
+        return 0;
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        if (Sub_476570(&gChatInputPrototype57E970, x, y, 3) == 0) {
+            for (;;) {
+                WindowInstance* const current = gCurrentWindow;
+                gChatInputPrototype57E970.input.context = &input::gInputContext626AA0;
+                gChatInputPrototype57E970.input.kind = WindowInputReferenceKind::Context;
+                gChatInputPrototype57E970.x = 8;
+                std::memcpy(
+                    &input::gInputContext626AA0, &world::detail::gInputContext626840,
+                    sizeof(input::InputContext));
+                gChatInputPrototype57E970.y = 5;
+                gChatInputPrototype57E970.renderMode = 3;
+                gChatInputPrototype57E970.fontType = 9;
+                gChatInputPrototype57E970.color = 0;
+                gChatInputPrototype57E970.maxLine = 1;
+                gChatInputPrototype57E970.maxCharPerLine = 76;
+                gChatInputPrototype57E970.value224 = 0;
+                gChatInputPrototype57E970.encrypt = 0;
+                const std::int32_t currentY = current->y;
+                const std::int32_t currentX = current->x;
+                if (Sub_476570(&gChatInputPrototype57E970, currentX, currentY, 3) != 0) {
+                    break;
+                }
+            }
+        }
+        WindowElement* const focusedElements = gWindowStates[35].window->elements;
+        WindowInstance* const current = gCurrentWindow;
+        gFocusedElementDataD45F94 = focusedElements[0].data;
+        static_cast<WindowInputData*>(current->elements[0].data)->context =
+            &input::gInputContext626AA0;
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        consumed = 1;
+    }
+    if (input::gCurrentInputData != &input::gInputContext626AA0) {
+        Sub_4A7590(&input::gInputContext626AA0);
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A8240(const std::int32_t value)
+{
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t y = window->y;
+    const std::int32_t x = window->x;
+    if (value == -1) {
+        static_cast<void>(Sub_476570(&gChatInputPrototype57E970, x, y, 3));
+        WindowInstance* const current = gCurrentWindow;
+        gFocusedElementDataD45F94 = current->elements[0].data;
+        static_cast<WindowInputData*>(current->elements[0].data)->context =
+            &input::gInputContext626AA0;
+        input::SetContext_44B330(&input::gInputContext626AA0);
+    } else {
+        static_cast<void>(Sub_476570(&gChatInputPrototype57E970, x, y, 2));
+        static_cast<void>(Sub_4A82E0());
+    }
+    return 1;
+}
+
+std::int32_t Sub_4A82C0(const std::int32_t)
+{
+    if (input::gValueC9A96C != 0) {
+        DrawCurrentWindow_4729B0();
+    }
+    return 1;
+}
+
+std::int32_t Sub_4A80F0(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t consumed = Sub_4741A0(index, state);
+    if ((state & 8) != 0) {
+        WindowInstance* const window = gCurrentWindow;
+        const std::int32_t count = world::detail::gCountC9A944;
+        const std::int32_t position = Sub_474270(&window->elements[9], count);
+        gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - position;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A81D0(const std::int32_t, const std::int32_t state)
+{
+    WindowInstance* const window = gCurrentWindow;
+    if (window != gWindows[0] || (state & 0x21) == 0) {
+        return 0;
+    }
+    const std::int32_t count = world::detail::gCountC9A944;
+    if (count == 0) {
+        if (platform::gLegacyMouseState.tailReset != 0) {
+            WindowElement* const elements = window->elements;
+            elements[8].y = elements[14].y - 14;
+        }
+        return 0;
+    }
+    const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+    const std::int32_t position = count - gChatScrollOffsetC9A940;
+    const std::int32_t next = Sub_4743B0(&window->elements[9], position, count, wheel);
+    gChatScrollOffsetC9A940 = world::detail::gCountC9A944 - next;
+    return 0;
+}
+
 std::int32_t Sub_4A7700()
 {
     world::detail::gCountC9A944 = 0;

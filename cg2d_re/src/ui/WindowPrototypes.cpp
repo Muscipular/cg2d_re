@@ -1527,6 +1527,11 @@ WindowElementPrototype gWindowElements56B2B8[20] {
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic56B2A0}, &Sub_4B0F10},
 };
 
+WindowElementPrototype gWindowElements570FD8[2] {
+    {5, 0, 0, 0, 0, 1, {}, &Sub_4A6EA0},
+    {6, 0, 0, 0, 0, 1, {}, &Sub_4B0F10},
+};
+
 WindowElementPrototype gWindowElements55F0A0[24] {
     {7, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &Sub_4B0F10},
     {7, 20, 29, 0, 0, 1, {.number = &gWindowNumber55F098}, &Sub_4B0F10},

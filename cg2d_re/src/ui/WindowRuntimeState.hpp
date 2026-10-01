@@ -1570,6 +1570,9 @@ std::uint8_t Sub_476570(
     WindowInputPrototype* prototype, std::int32_t x, std::int32_t y,
     std::uint32_t mode);
 std::int32_t Sub_4A7B00();
+std::int32_t Sub_4A6EA0(std::int32_t unused, std::int32_t state); // 共用聊天点击，焦点取35槽、上下文写当前窗。
+std::int32_t Sub_4A80F0(std::int32_t index, std::int32_t state); // 拖动后按新日志数量反求回看偏移。
+std::int32_t Sub_4A81D0(std::int32_t unused, std::int32_t state); // 首窗口滚轮，零日志只调整滑块Y。
 void Sub_4740F0(char* destination); // 前10项技能索引的S16槽数，格式化后复制原字节。
 void Sub_4A7590(input::InputContext* context); // 按聊天宽度滚动目标输入并绘制。
 void Sub_4A7640(input::InputContext* context); // 按固定1024像素滚动目标输入并绘制。

@@ -158,6 +158,13 @@ constexpr std::ptrdiff_t kMailMessageBytes = 0x140;
 static_assert(sizeof(gMailStorageF7CA08) == 2 * 60 * 10 * 0x140);
 static_assert(sizeof(gGuildMailStorageDE0B30) == 2 * 200 * 0xC88);
 
+MailMessageView BorrowMailMessageBytes(std::byte* const message)
+{
+    return {message, message + 1,
+        reinterpret_cast<const char*>(message + 2),
+        reinterpret_cast<const char*>(message + 0x14)};
+}
+
 std::int32_t CompareContactIndices_4EC030(
     const std::int32_t* const left, const std::int32_t* const right)
 {
@@ -195,6 +202,32 @@ std::int32_t CompareContactIndices_4EC030(
 const MiniMailContactRecord& ReadMiniMailContact1075A90(const std::int32_t index)
 {
     return gMiniMailRuntime.contacts[index];
+}
+
+MailMessageView BorrowMailMessageF7CA08(
+    const std::int16_t selected, const std::int32_t contact, const std::int32_t page)
+{
+    return BorrowMailMessageBytes(gMailStorageF7CA08.data()
+        + selected * kMailGroupBytes
+        + static_cast<std::ptrdiff_t>(contact) * kMailNumberBytes
+        + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
+}
+
+MailMessageView BorrowGuildMailMessageDE0B30(
+    const std::int16_t selected, const std::int32_t slot, const std::int32_t page)
+{
+    return BorrowMailMessageBytes(gGuildMailStorageDE0B30.data()
+        + selected * kGuildMailGroupBytes
+        + static_cast<std::ptrdiff_t>(slot) * kGuildMailEntryBytes + 8
+        + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
+}
+
+MailMessageView BorrowMiniMailMessage10763A0(
+    const std::int32_t contact, const std::int32_t page)
+{
+    return BorrowMailMessageBytes(gMiniMailRuntime.messages.data()
+        + static_cast<std::ptrdiff_t>(contact) * kMailNumberBytes
+        + static_cast<std::ptrdiff_t>(page) * kMailMessageBytes);
 }
 
 const ProfileRuntimeRecord& ReadViewedProfile105ECE0()

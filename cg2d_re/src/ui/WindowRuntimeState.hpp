@@ -1654,6 +1654,14 @@ std::int32_t Sub_4A4370(std::int32_t index, std::int32_t state); // uHb设置后
 std::int32_t Sub_4A4420(std::int32_t index, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
 std::uint32_t Sub_4A4540(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
 std::int32_t Sub_4A45E0(std::int32_t unused, std::int32_t state); // 非零滚轮推进，恒返回0。
+std::int32_t Sub_4A4620(std::int32_t value); // 读信初始化：选页后保存，再扫描未读。
+std::int32_t Sub_4A4650(std::int32_t unused); // 刷新清当前未读，再公共绘制。
+std::int32_t Sub_4A4660(std::int32_t index, std::int32_t state); // 上一封，负页跳9。
+std::int32_t Sub_4A4710(std::int32_t index, std::int32_t state); // 下一封，页>=10跳0。
+std::int32_t Sub_4A47C0(std::int32_t index, std::int32_t state); // 回复上下文与旧物品占用释放。
+void Sub_4A48A0(); // 最后未读位置；原唯一caller不消费混合地址/整数返回。
+std::uint32_t Sub_4A49B0(); // 三类邮件十行、姓名、时间和页码，返回末复制长度。
+std::int32_t Sub_4A4FC0(std::int32_t unused, std::int32_t state); // 悬停双图，区分三类头像采样序。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

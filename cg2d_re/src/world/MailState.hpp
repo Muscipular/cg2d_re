@@ -110,6 +110,17 @@ struct MiniMailContactRecord {
 };
 
 const MiniMailContactRecord& ReadMiniMailContact1075A90(std::int32_t index); // 窗口21借用，存储仍归MailState。
+// 窗口40借用原140H消息字节；不复制状态，也不在原字节区构造结构体对象。
+struct MailMessageView {
+    std::byte* unread00;
+    const std::byte* kind01;
+    const char* text02;
+    const char* text14;
+};
+
+MailMessageView BorrowMailMessageF7CA08(std::int16_t selected, std::int32_t contact, std::int32_t page);
+MailMessageView BorrowGuildMailMessageDE0B30(std::int16_t selected, std::int32_t slot, std::int32_t page);
+MailMessageView BorrowMiniMailMessage10763A0(std::int32_t contact, std::int32_t page);
 extern std::array<std::int32_t, 60> gContactIndicesFDA608; // 数值索引，不是地址。
 extern std::uint16_t gValue62B354; // 518DA0写未读类别0/1/2/3。
 extern std::uint32_t gValueCB1384; // 同源邮件页号，518C80清零。

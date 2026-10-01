@@ -25842,6 +25842,325 @@ std::int32_t Sub_4A45E0(const std::int32_t, const std::int32_t state)
     return 0;
 }
 
+namespace {
+
+constexpr char kPreviousMailHint587718[] = "\xA4\x57\xA4\x40\xAB\xCA\xB6\x6C\xA5\xF3";
+constexpr char kNextMailHint587724[] = "\xA4\x55\xA4\x40\xAB\xCA\xB6\x6C\xA5\xF3";
+constexpr char kReplyMailHint587730[] =
+    "\xB9\xEF\xA4\x77\xBF\xEF\xBE\xDC\xAA\xBA\xB9\xEF\xB6\x48\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+
+} // namespace
+
+std::int32_t Sub_4A4620(const std::int32_t value)
+{
+    if (value == -1) {
+        Sub_4A48A0();
+        static_cast<void>(world::detail::Sub_519300());
+        static_cast<void>(world::detail::Sub_519550());
+        static_cast<void>(world::detail::Sub_518DA0());
+        NullSub_509080();
+    }
+    return 1;
+}
+
+std::int32_t Sub_4A4650(const std::int32_t)
+{
+    static_cast<void>(Sub_4A49B0());
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+std::int32_t Sub_4A4660(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B556;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kPreviousMailHint587718);
+        graphic->imageNo = 0x3B558;
+    }
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B557;
+        const std::int32_t page = world::detail::gValueD046D4 - 1;
+        world::detail::gValueD046D4 = page;
+        if (page < 0) {
+            world::detail::gValueD046D4 = 9;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        NullSub_509080();
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B557;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A4710(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    graphic->imageNo = 0x3B559;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kNextMailHint587724);
+        graphic->imageNo = 0x3B55B;
+    }
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B55A;
+        const std::int32_t page = world::detail::gValueD046D4 + 1;
+        world::detail::gValueD046D4 = page;
+        if (page >= 10) {
+            world::detail::gValueD046D4 = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        NullSub_509080();
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B55A;
+    }
+    return consumed;
+}
+
+std::int32_t Sub_4A47C0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    std::int32_t consumed = 0;
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kReplyMailHint587730);
+        graphic->imageNo = 0x3BA1D;
+    } else {
+        graphic->imageNo = 0x3BA1B;
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t contact = world::detail::gValueCF4FC0;
+        const std::int32_t oldSlot = gLoginWindowRuntime.prefixD2F0B8.value0C;
+        const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
+        gLoginWindowRuntime.prefixD2F0B8.value04 = contact;
+        gLoginWindowRuntime.prefixD2F0B8.value10 = 0;
+        gLoginWindowRuntime.prefixD2F0B8.value00 = category;
+        if (oldSlot != -1) {
+            auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
+            auto value = occupancy[oldSlot];
+            gLoginWindowRuntime.prefixD2F0B8.value0C = -1;
+            --value;
+            gLoginWindowRuntime.prefixD2F0B8.value08 = -1;
+            occupancy[oldSlot] = value;
+        }
+        static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3BA1C;
+    }
+    return consumed;
+}
+
+void Sub_4A48A0()
+{
+    using namespace world::detail;
+    const std::int32_t category = gLoginWindowRuntime.mailCategoryD67B64;
+    gValueD046D4 = 0;
+    switch (category) {
+    case 0: {
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int32_t contact = gValueCF4FC0;
+        for (std::int32_t page = 9; page >= 0; --page) {
+            if (*BorrowMailMessageF7CA08(selected, contact, page).unread00 != std::byte{0}) {
+                gValueD046D4 = page;
+                break;
+            }
+        }
+        break;
+    }
+    case 1: {
+        const std::int32_t member = gValueCF4FC0;
+        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
+        static_cast<void>(login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey));
+        const std::int32_t mailMember = gValueCF4FC0;
+        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t slot = Sub_5195F0(mailKey);
+        if (slot == -1) {
+            gValueD046D4 = 0;
+            return;
+        }
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        for (std::int32_t page = 9; page >= 0; --page) {
+            if (*BorrowGuildMailMessageDE0B30(selected, slot, page).unread00 != std::byte{0}) {
+                gValueD046D4 = page;
+                break;
+            }
+        }
+        break;
+    }
+    case 2: {
+        const std::int32_t contact = gValueCF4FC0;
+        for (std::int32_t page = 9; page >= 0; --page) {
+            if (*BorrowMiniMailMessage10763A0(contact, page).unread00 != std::byte{0}) {
+                gValueD046D4 = page;
+                break;
+            }
+        }
+        break;
+    }
+    }
+}
+
+std::uint32_t Sub_4A49B0()
+{
+    using namespace world::detail;
+    const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
+    if (category != 0 && category != 1 && category != 2) {
+        return static_cast<std::uint32_t>(category) - 2u;
+    }
+    char buffer[2048];
+    std::int32_t memberIndex = 0;
+    std::int32_t mailSlot = 0;
+    if (category == 1) {
+        const std::int32_t member = gValueCF4FC0;
+        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
+        memberIndex = login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t mailMember = gValueCF4FC0;
+        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        mailSlot = Sub_5195F0(mailKey);
+    }
+    // 每次调用都重新采样；颜色与正文不能共用一次消息快照。
+    const auto borrowCurrent = [category, mailSlot]() -> MailMessageView {
+        if (category == 0) {
+            const std::int16_t selected = login::gSelectedCharacterIndex;
+            const std::int32_t contact = gValueCF4FC0;
+            const std::int32_t page = gValueD046D4;
+            return BorrowMailMessageF7CA08(selected, contact, page);
+        }
+        if (category == 1) {
+            const std::int16_t selected = login::gSelectedCharacterIndex;
+            const std::int32_t page = gValueD046D4;
+            return BorrowGuildMailMessageDE0B30(selected, mailSlot, page);
+        }
+        const std::int32_t contact = gValueCF4FC0;
+        const std::int32_t page = gValueD046D4;
+        return BorrowMiniMailMessage10763A0(contact, page);
+    };
+    if (category == 1 && mailSlot == -1) {
+        auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
+        std::strcpy(time->text, input::LegacyText593850());
+        for (std::int32_t row = 0; row < 10; ++row) {
+            auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            std::strcpy(line->text, input::LegacyText593850());
+        }
+    } else {
+        const MailMessageView message = borrowCurrent();
+        *message.unread00 = std::byte{0};
+        std::sprintf(buffer, "%s", message.text02);
+        const char* const slash = std::strchr(buffer, '/');
+        auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
+        std::strcpy(time->text, slash != nullptr ? slash + 1 : input::LegacyText593850());
+        for (std::int32_t row = 0; row < 10; ++row) {
+            const std::byte kind = *borrowCurrent().kind01;
+            auto* const color = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            color->bytes00[0] = kind == std::byte{0} ? std::byte{4} : std::byte{0};
+            const char* const text = borrowCurrent().text14;
+            static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 2048, text, row, 28));
+            auto* const line = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 4].data);
+            std::strcpy(line->text, buffer);
+        }
+    }
+    const char* name;
+    if (category == 1) {
+        name = login::detail::gOrderedRecords1051B14[memberIndex].text18;
+    } else {
+        const std::int32_t contact = gValueCF4FC0;
+        name = category == 0 ? gContactsF19FB0[contact].name10.data()
+            : ReadMiniMailContact1075A90(contact).name10.data();
+    }
+    std::sprintf(buffer, "%s", name);
+    auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
+    std::strcpy(nameData->text, buffer);
+    const std::int32_t page = gValueD046D4 + 1;
+    std::sprintf(buffer, "%2d/%2d", page, 10);
+    auto* const pageData = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
+    const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(buffer) + 1);
+    std::memcpy(pageData->text, buffer, length);
+    return length;
+}
+
+std::int32_t Sub_4A4FC0(const std::int32_t, const std::int32_t state)
+{
+    using namespace world::detail;
+    render::GraphicDescriptor16 descriptor {};
+    if ((state & 1) == 0) {
+        return 0;
+    }
+    const std::int32_t category = gLoginWindowRuntime.mailCategoryCC4D50;
+    MailMessageView message;
+    std::int32_t identity;
+    switch (category) {
+    case 0: {
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        identity = gValueCF4FC0;
+        const std::int32_t page = gValueD046D4;
+        message = BorrowMailMessageF7CA08(selected, identity, page);
+        break;
+    }
+    case 1: {
+        const std::int32_t member = gValueCF4FC0;
+        const std::int32_t memberKey = login::detail::gOrderedRecords1051B14[member].value0C;
+        identity = login::detail::FindActiveOrderedRecordIndex_5195C0(memberKey);
+        const std::int32_t mailMember = gValueCF4FC0;
+        const std::int32_t mailKey = login::detail::gOrderedRecords1051B14[mailMember].value0C;
+        const std::int32_t slot = Sub_5195F0(mailKey);
+        const std::int16_t selected = login::gSelectedCharacterIndex;
+        const std::int32_t page = gValueD046D4;
+        message = BorrowGuildMailMessageDE0B30(selected, slot, page);
+        break;
+    }
+    case 2: {
+        identity = gValueCF4FC0;
+        const std::int32_t page = gValueD046D4;
+        message = BorrowMiniMailMessage10763A0(identity, page);
+        break;
+    }
+    default:
+        return 1;
+    }
+    if (message.text14[0] == '\0' && message.text02[0] == '\0') {
+        return 0;
+    }
+    const std::byte kind = *message.kind01;
+    const std::uint32_t color = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));
+    descriptor.bytes[13] = 4;
+    const WindowInstance* const firstWindow = gCurrentWindow;
+    const std::int32_t firstY = firstWindow->y;
+    const std::int32_t firstX = firstWindow->x;
+    static_cast<void>(login::detail::DrawGraphic(firstX + 202, firstY + 216, 223, 0x3BD32, 0, &descriptor));
+    std::int32_t image;
+    const WindowInstance* window;
+    if (kind == std::byte{0}) {
+        std::int32_t source;
+        if (category == 0) {
+            source = gContactsF19FB0[identity].value0C;
+        } else if (category == 1) {
+            source = login::detail::gOrderedRecords1051B14[identity].value14;
+        } else {
+            source = ReadMiniMailContact1075A90(identity).value0C;
+        }
+        image = character_select::detail::Sub_51BC50(source);
+        window = gCurrentWindow;
+    } else if (category == 2) {
+        window = gCurrentWindow;
+        image = ReadPlayerValue17C();
+    } else {
+        image = ReadPlayerValue17C();
+        window = gCurrentWindow;
+    }
+    const std::int32_t y = window->y;
+    const std::int32_t x = window->x;
+    static_cast<void>(login::detail::DrawGraphic(x + 202, y + 216, 223, image, 0, &descriptor));
+    return 1;
+}
+
 void Sub_4A2700()
 {
     // 原无效模式/类别读取入口寄存器暂存；不补默认计数或模拟异常结果。

@@ -91,6 +91,25 @@ struct WorldObjectsStaticInitializer {
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
+// 原CRT 55302C..553050；无析构登记，不能把十五组记录改为统一写序。
+struct LegacyUi455490StaticInitializer {
+    LegacyUi455490StaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_455490());
+        static_cast<void>(cg::login::detail::Sub_4554C0());
+        static_cast<void>(cg::login::detail::Sub_455540());
+        static_cast<void>(cg::login::detail::Sub_4555C0());
+        static_cast<void>(cg::login::detail::Sub_455640());
+        static_cast<void>(cg::login::detail::Sub_4556C0());
+        static_cast<void>(cg::login::detail::Sub_455740());
+        static_cast<void>(cg::login::detail::Sub_4557C0());
+        static_cast<void>(cg::login::detail::Sub_455840());
+        static_cast<void>(cg::login::detail::Sub_455930());
+    }
+};
+
+const LegacyUi455490StaticInitializer gLegacyUi455490StaticInitializer;
+
 // 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
 struct SceneTransitionValueStaticInitializer {
     SceneTransitionValueStaticInitializer()

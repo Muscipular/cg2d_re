@@ -371,6 +371,16 @@ LegacyPanelRecord gLegacyButtonSettings585578 {
     0, 0, 192, 304, 12, {22549, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::array<LegacyPanelTextButtonRecord, 4> gLegacyButtonRecordsD687B8 {};
+std::int32_t gLegacyUiHeight556C28 = 64;
+std::int32_t gLegacyUiY556C2C = -1;
+std::int32_t gLegacyUiWidth556C30 = 192;
+std::int32_t gLegacyUiX62B39C = 0;
+// 455490组只存已证的八槽初始化值；不据此公开未知消费者的记录布局。
+std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B3B8 {};
+std::array<std::int32_t, 8> gLegacyUiInitWords62B460 {};
+std::array<std::int32_t, 8> gLegacyUiInitWords62B488 {};
+std::array<std::array<std::int32_t, 8>, 3> gLegacyUiInitWords62B4A8 {};
+std::array<std::array<std::int32_t, 8>, 5> gLegacyUiInitWords62B508 {};
 std::int32_t gLegacyBottomWidth5858A0 = 640;
 std::int32_t gLegacyBottomHeight5858A4 = 24;
 std::int32_t gLegacyBottomXD68930 = 0;
@@ -459,6 +469,26 @@ std::int32_t Sub_4FC8D0()
     return 0;
 }
 
+std::int32_t InitializeLegacyUiSquareRecord(
+    std::array<std::int32_t, 8>& record,
+    const std::int32_t centerOffsetX, const std::int32_t centerOffsetY,
+    const std::int32_t hitOffsetX, const std::int32_t normalImage)
+{
+    const std::int32_t width = gLegacyUiWidth556C30;
+    const std::int32_t x = gLegacyUiX62B39C;
+    record[6] = normalImage;
+    record[7] = normalImage + 1;
+    record[0] = width / 2 + x + centerOffsetX;
+    const std::int32_t height = gLegacyUiHeight556C28;
+    record[2] = x + hitOffsetX;
+    const std::int32_t y = gLegacyUiY556C2C;
+    record[3] = y + 5;
+    record[1] = height / 2 + y + centerOffsetY;
+    record[4] = 27;
+    record[5] = 27;
+    return 27;
+}
+
 std::int32_t InitializeLegacyBottomBarPrefix(
     std::array<std::int32_t, 9>& record, const std::int32_t xOffset,
     const std::int32_t value1C)
@@ -525,6 +555,205 @@ LegacyPanelRecord gLegacyProfilePanel5857D0 {
       {1, 187, 416, 77, 16, kLegacyProfileTab5858A8}, {}, {}}},
     0, 0, {}, {},
 };
+
+std::int32_t Sub_455490()
+{
+    return Sub_4554A0();
+}
+
+std::int32_t Sub_4554A0()
+{
+    const std::int32_t width = gLegacyUiWidth556C30;
+    const std::int32_t x = 640 - width;
+    gLegacyUiX62B39C = x;
+    return x;
+}
+
+std::int32_t Sub_4554C0()
+{
+    return Sub_4554D0();
+}
+
+std::int32_t Sub_4554D0()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[0], -16, 0, 8, 22581);
+}
+
+std::int32_t Sub_455540()
+{
+    return Sub_455550();
+}
+
+std::int32_t Sub_455550()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[1], -16, 0, 38, 22583);
+}
+
+std::int32_t Sub_4555C0()
+{
+    return Sub_4555D0();
+}
+
+std::int32_t Sub_4555D0()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[2], -16, 0, 68, 22585);
+}
+
+std::int32_t Sub_455640()
+{
+    return Sub_455650();
+}
+
+std::int32_t Sub_455650()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[3], -16, 0, 98, 22587);
+}
+
+std::int32_t Sub_4556C0()
+{
+    return Sub_4556D0();
+}
+
+std::int32_t Sub_4556D0()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B3B8[4], -16, 0, 128, 22589);
+}
+
+std::int32_t Sub_455740()
+{
+    return Sub_455750();
+}
+
+std::int32_t Sub_455750()
+{
+    return InitializeLegacyUiSquareRecord(gLegacyUiInitWords62B460, 76, -13, 158, 238544);
+}
+
+std::int32_t Sub_4557C0()
+{
+    return Sub_4557D0();
+}
+
+std::int32_t Sub_4557D0()
+{
+    const std::int32_t width = gLegacyUiWidth556C30;
+    const std::int32_t x = gLegacyUiX62B39C;
+    auto& record = gLegacyUiInitWords62B488;
+    record[4] = 65;
+    record[5] = 17;
+    record[6] = 22591;
+    record[0] = width / 2 + x - 16;
+    const std::int32_t height = gLegacyUiHeight556C28;
+    record[2] = x + 90;
+    const std::int32_t y = gLegacyUiY556C2C;
+    const std::int32_t hitY = y + 38;
+    record[1] = height / 2 + y;
+    record[3] = hitY;
+    record[7] = 22592;
+    return hitY;
+}
+
+std::int32_t Sub_455840()
+{
+    return Sub_455850();
+}
+
+std::int32_t Sub_455850()
+{
+    const std::int32_t width = gLegacyUiWidth556C30;
+    const std::int32_t x = gLegacyUiX62B39C;
+    const std::int32_t y = gLegacyUiY556C2C;
+    auto& records = gLegacyUiInitWords62B4A8;
+    records[0][6] = 22563;
+    records[0][7] = 22564;
+    const std::int32_t centerX = width / 2 + x - 16;
+    const std::int32_t height = gLegacyUiHeight556C28;
+    const std::int32_t hitX = x + 71;
+    const std::int32_t centerY = height / 2 + y;
+    const std::int32_t hitY = y + 38;
+    records[0][3] = hitY;
+    records[0][4] = 16;
+    records[0][5] = 16;
+    records[1][4] = 16;
+    records[1][5] = 16;
+    records[2][4] = 16;
+    records[2][5] = 16;
+    records[1][3] = hitY;
+    records[2][3] = hitY;
+    records[0][0] = centerX;
+    records[0][1] = centerY;
+    records[0][2] = hitX;
+    records[1][0] = centerX;
+    records[1][1] = centerY;
+    records[1][2] = hitX;
+    records[1][6] = 22561;
+    records[1][7] = 22562;
+    records[2][0] = centerX;
+    records[2][1] = centerY;
+    records[2][2] = hitX;
+    records[2][6] = 22565;
+    records[2][7] = 22566;
+    return centerY;
+}
+
+std::int32_t Sub_455930()
+{
+    return Sub_455940();
+}
+
+std::int32_t Sub_455940()
+{
+    const std::int32_t width = gLegacyUiWidth556C30;
+    const std::int32_t x = gLegacyUiX62B39C;
+    const std::int32_t y = gLegacyUiY556C2C;
+    auto& records = gLegacyUiInitWords62B508;
+    records[0][6] = 22990;
+    records[0][7] = 22991;
+    const std::int32_t centerX = width / 2 + x - 16;
+    const std::int32_t height = gLegacyUiHeight556C28;
+    const std::int32_t hitX = x + 71;
+    const std::int32_t centerY = height / 2 + y;
+    const std::int32_t hitY = y + 38;
+    records[0][3] = hitY;
+    records[0][4] = 16;
+    records[0][5] = 16;
+    records[1][4] = 16;
+    records[1][5] = 16;
+    records[2][4] = 16;
+    records[2][5] = 16;
+    records[3][4] = 16;
+    records[3][5] = 16;
+    records[4][4] = 16;
+    records[4][5] = 16;
+    records[1][3] = hitY;
+    records[2][3] = hitY;
+    records[3][3] = hitY;
+    records[4][3] = hitY;
+    records[0][0] = centerX;
+    records[0][1] = centerY;
+    records[0][2] = hitX;
+    records[1][0] = centerX;
+    records[1][1] = centerY;
+    records[1][2] = hitX;
+    records[1][6] = 22992;
+    records[1][7] = 22993;
+    records[2][0] = centerX;
+    records[2][1] = centerY;
+    records[2][2] = hitX;
+    records[2][6] = 22994;
+    records[2][7] = 22995;
+    records[3][0] = centerX;
+    records[3][1] = centerY;
+    records[3][2] = hitX;
+    records[3][6] = 22996;
+    records[3][7] = 22997;
+    records[4][0] = centerX;
+    records[4][1] = centerY;
+    records[4][2] = hitX;
+    records[4][6] = 22998;
+    records[4][7] = 22999;
+    return centerY;
+}
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)
 {

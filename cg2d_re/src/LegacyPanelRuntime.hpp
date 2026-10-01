@@ -70,6 +70,27 @@ extern std::uint32_t gLegacyPanelHitIdD046C0; // 503160写入，旧面板父函�
 extern LegacyPanelRecord gLegacySkillList585708; // 选择编号18；5857A8是同源selected。
 extern LegacyPanelRecord gLegacyProfilePanel5857D0; // 旧选择编号2；585870是三页共享selected。
 extern std::uint8_t gLegacySkillPendingD67C48; // 500370清零，旧技能/加工父入口共享。
+// 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
+std::int32_t Sub_455490();
+std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。
+std::int32_t Sub_4554C0();
+std::int32_t Sub_4554D0(); // 62B3B8起第0组。
+std::int32_t Sub_455540();
+std::int32_t Sub_455550(); // 第1组。
+std::int32_t Sub_4555C0();
+std::int32_t Sub_4555D0(); // 第2组。
+std::int32_t Sub_455640();
+std::int32_t Sub_455650(); // 第3组。
+std::int32_t Sub_4556C0();
+std::int32_t Sub_4556D0(); // 第4组。
+std::int32_t Sub_455740();
+std::int32_t Sub_455750(); // 62B460，两个中心偏移不同。
+std::int32_t Sub_4557C0();
+std::int32_t Sub_4557D0(); // 62B488，返回Y+38。
+std::int32_t Sub_455840();
+std::int32_t Sub_455850(); // 62B4A8起三组交错写入。
+std::int32_t Sub_455930();
+std::int32_t Sub_455940(); // 62B508起五组交错写入。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。

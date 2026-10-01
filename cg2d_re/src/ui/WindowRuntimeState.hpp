@@ -1646,6 +1646,14 @@ WindowInstance* Sub_4AE8C0(); // 固定窗口47标关闭，返回同一实例。
 char* Sub_4AE8D0(); // 十一文本清理与原字节LF分行刷新。
 std::int32_t Sub_4AE9C0(); // 六按钮逐项显隐，原最终偏移216。
 std::int32_t Sub_4AEA10(char* destination, const char* text); // 按字节长度与宽度单位补空格。
+std::int32_t Sub_4A4180(std::int32_t value); // 窗口55只初始化滚动位置。
+std::int32_t Sub_4A41A0(std::int32_t unused); // 刷新/公共绘制后反求滚动，再画九宫格。
+std::int32_t Sub_4A4220(std::int32_t index, std::int32_t state); // 职级行选择及当前选择图号。
+std::int32_t Sub_4A42C0(std::int32_t index, std::int32_t state); // 固定入口窗口关闭、声音后的图形更新。
+std::int32_t Sub_4A4370(std::int32_t index, std::int32_t state); // uHb设置后重取窗口关闭，返回仅由hover决定。
+std::int32_t Sub_4A4420(std::int32_t index, std::int32_t state); // 上下滚动先发声，只修各自一侧边界。
+std::uint32_t Sub_4A4540(); // 十行职级/成员姓名刷新，返回含NUL姓名长度。
+std::int32_t Sub_4A45E0(std::int32_t unused, std::int32_t state); // 非零滚轮推进，恒返回0。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

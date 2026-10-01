@@ -196,6 +196,9 @@ std::int32_t Sub_511030(
     std::uintptr_t socket, const std::int32_t* values,
     std::int32_t count);
 
+// 原511190：FPkR联系人删除请求，整数保持S32，返回实际发送结果。
+std::int32_t Sub_511190(std::uintptr_t socket, std::int32_t value);
+
 // 原 sub_5112C0@[0x5112C0,0x51134E)：构造 GY、追加两整数与原字节文本并发送。
 std::int32_t Sub_5112C0(
     std::uintptr_t socket,

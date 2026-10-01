@@ -2394,6 +2394,22 @@ std::int32_t Sub_511030(
         reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
 }
 
+// 原 [0x511190,0x5111D8)：FPkR单整数发送；容量先采，输出缓冲独立重取。
+std::int32_t Sub_511190(
+    const std::uintptr_t socket,
+    const std::int32_t value)
+{
+    static_cast<void>(BuildProtocolCommand_517510(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0), "FPkR"));
+    const std::int32_t capacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);
+    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);
+    static_cast<void>(AppendProtocolText_5170D0(
+        reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0),
+        reinterpret_cast<const char*>(token), capacity));
+    return SendProtocolBuffer_517480(
+        socket, reinterpret_cast<char*>(gNetworkRuntimeState.buffer58B5F0));
+}
+
 // 原 [0x5112C0,0x51134E)：两整数、文本各自采容量并重读输出缓冲。
 std::int32_t Sub_5112C0(
     const std::uintptr_t socket,

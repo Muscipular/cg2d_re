@@ -1607,7 +1607,7 @@ std::int32_t Sub_4A5390(); // 五组选择槽及D2F0B8已证前缀重置。
 std::int32_t Sub_48C150(); // 所选宠物与两组五槽按原序重置。
 std::int32_t Sub_4742B0(); // 只清CF4E50/54。
 std::int32_t Sub_4A0940(); // D67B40七槽交错清零。
-extern WindowElementPrototype gWindowElements56DB38[111]; // 窗口21原型坐标唯一来源，本体仍待。
+extern WindowElementPrototype gWindowElements56DB38[111]; // 窗口21完整元素及原型坐标唯一来源。
 std::int32_t Sub_4A0970(std::int32_t value); // 窗口21布局、未读扫描与滚动条初始化。
 std::int32_t Sub_4A09B0(std::int32_t value); // 完整滚动/闪烁/内容刷新后绘制窗口21。
 std::int32_t Sub_4A09E0(); // 三行/九行联系人完整内容刷新，不调用公共Draw。
@@ -1627,6 +1627,25 @@ std::int32_t Sub_4A2B00(std::int32_t index, std::int32_t state); // 发布同源
 std::int32_t Sub_4A3780(std::int32_t index); // 三行/九行分组按钮到实际记录索引。
 std::int32_t Sub_4A39C0(std::int32_t index, std::int32_t state); // 九行头像悬停及独立TLKH双击发送。
 std::int32_t Sub_4A3C70(std::int32_t index, std::int32_t state); // 十二写信按钮，发布类别/索引后动画打开22。
+std::int32_t Sub_4A32E0(std::int32_t index, std::int32_t state); // 三类联系人删除确认分派。
+login::YobiAction* Sub_4A33C0(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
+login::YobiAction* Sub_4A3480(std::int32_t index); // 公会成员除名确认。
+login::YobiAction* Sub_4A3540(std::int32_t index); // 迷你邮件联系人删除确认。
+std::int32_t Sub_4A3600(std::int32_t unusedIndex, std::int32_t unusedState); // FPkR发送、重读清理及保存。
+std::int32_t Sub_4A3660(std::int32_t unusedIndex, std::int32_t unusedState); // 公会编号请求与两保存。
+std::int32_t Sub_4A36B0(std::int32_t unusedIndex, std::int32_t unusedState); // 迷你姓名转义、发送及重读清理。
+std::int32_t Sub_4A3760(std::int32_t unusedIndex, std::int32_t unusedState); // 取消时必要重开窗口21。
+std::int32_t Sub_4AE5F0(std::int32_t value); // 窗口47初始化：显隐、文本、初始化回调。
+std::int32_t Sub_4AE620(std::int32_t index, std::int32_t state); // CTRL确认，动作槽0。
+std::int32_t Sub_4AE690(std::int32_t index, std::int32_t state); // 动作槽1，取消音效55。
+std::int32_t Sub_4AE700(std::int32_t index, std::int32_t state); // 动作槽2，音效51。
+std::int32_t Sub_4AE770(std::int32_t index, std::int32_t state); // 动作槽3，音效55。
+std::int32_t Sub_4AE7E0(std::int32_t index, std::int32_t state); // 动作槽4，音效51。
+std::int32_t Sub_4AE850(std::int32_t index, std::int32_t state); // 动作槽5，音效51。
+WindowInstance* Sub_4AE8C0(); // 固定窗口47标关闭，返回同一实例。
+char* Sub_4AE8D0(); // 十一文本清理与原字节LF分行刷新。
+std::int32_t Sub_4AE9C0(); // 六按钮逐项显隐，原最终偏移216。
+std::int32_t Sub_4AEA10(char* destination, const char* text); // 按字节长度与宽度单位补空格。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

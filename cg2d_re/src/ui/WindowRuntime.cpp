@@ -1000,6 +1000,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t mailRankCF4A14; // 4A38C0/4A4220生产，4A4370发送时读取。
     std::int32_t mailCategoryD67B64; // 4A2B00发布，4A47C0/4A48A0消费。
     std::int32_t mailCategoryCC4D50; // 4A2B00随后发布，4A49B0/4A4FC0消费。
+    std::int32_t mailDeleteIndexD2DA8C; // 删除确认与后续列表父链共用的记录索引。
     std::int32_t valueCC31A4;
     std::int32_t valueD2E444;
     std::int32_t valueCB0604;
@@ -1011,6 +1012,19 @@ struct LoginWindowRuntimeSlots {
 };
 
 LoginWindowRuntimeSlots gLoginWindowRuntime {};
+
+// 原CC4240..CC466C确认上下文；函数指针原生化，不沿用x86字段偏移。
+struct Window47RuntimeSlots {
+    std::int32_t visibleMaskCC4240;
+    std::int32_t widthUnitsCC4244;
+    std::uint32_t valueCC4248;
+    std::uint32_t valueCC424C;
+    WindowCallback initializeCC4250;
+    std::array<WindowElementCallback, 6> actionsCC4254;
+    std::array<char, 1024> textCC426C;
+};
+
+Window47RuntimeSlots gWindow47Runtime {};
 // 原D30138..D303F8；4B6970整区清零，4DFD38从+9起消费，其他字段尚未冻结。
 std::array<std::byte, 0x2C0> gWindow50AlternateRecordsD30138 {};
 constexpr char kWindow50WriteHint587C84[] = "\xBC\x67\xA4\x55\xB0\x54\xAE\xA7\xA1\x43";
@@ -24340,6 +24354,62 @@ constexpr char kMailReadMiniHint58752C[] = "\xC2\x73\xC4\xFD\xA6\xB9\xB0\x67\xA7
 constexpr char kMailWriteContactHint5876B0[] = "\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xA6\xB9\xA6\x57\xA4\xF9\xAA\xBA\xA5\x44\xA4\x48\xA1\x43";
 constexpr char kMailWriteGuildHint5876CC[] = "\xB9\xEF\xA6\xB9\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xB1\x48\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
 constexpr char kMailWriteMiniHint5876E4[] = "\xB6\xC7\xB0\x65\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kMailDeleteContactHint58755C[] = "\xA7\x52\xB0\xA3\xA6\xB9\xA6\x57\xA4\xF9\xA1\x43";
+constexpr char kMailDeleteGuildHint58756C[] = "\xB9\xEF\xA6\xB9\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xB6\x69\xA6\xE6\xB0\xA3\xA6\x57\xA1\x43";
+constexpr char kMailDeleteMiniHint587584[] = "\xA7\x52\xB0\xA3\xA6\xB9\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xAA\xBA\xA6\x57\xA4\xF9\xA1\x43";
+constexpr char kMailDeleteContactFormat58759C[] =
+    "\n     \xBD\x54\xA9\x77\xB1\x4E\n\xA1\x40\n\xA1\x40%s\n\xA1\x40\n"
+    "\xA1\x40\xB1\x71\xA6\x57\xA4\xF9\xB8\xCC\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48\n \n"
+    " (\xBD\x54\xA9\x77\xA7\x52\xB0\xA3\xAE\xC9\xA1\x41\xBD\xD0\xAB\xF6\xA6\xED\n"
+    "  CTRL\xC1\xE4\xA6\x41\xBF\xEF\xBE\xDC\xA1\x75\xAC\x4F\xA1\x76)";
+constexpr char kMailDeleteGuildFormat5875F4[] =
+    "\n     \xBD\x54\xA9\x77\xB1\x4E\n\xA1\x40\n\xA1\x40%s\n\xA1\x40\n"
+    "\xB1\x71\xAE\x61\xB1\xDA\xB7\x7C\xAD\xFB\xA6\x57\xB3\xE6\xA4\xA4\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48\n\n"
+    " (\xBD\x54\xA9\x77\xA7\x52\xB0\xA3\xAE\xC9\xA1\x41\xBD\xD0\xAB\xF6\xA6\xED\n"
+    "  CTRL\xC1\xE4\xA6\x41\xBF\xEF\xBE\xDC\xA1\x75\xAC\x4F\xA1\x76)";
+constexpr char kMailDeleteMiniFormat587654[] =
+    "\n     \xBD\x54\xA9\x77\xB1\x4E\n\xA1\x40\n\xA1\x40%s\n\xA1\x40\n"
+    "\xB1\x71\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xA4\xA4\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48\n\n"
+    " (\xBD\x54\xA9\x77\xA7\x52\xB0\xA3\xAE\xC9\xA1\x41\xBD\xD0\xAB\xF6\xA6\xED\n"
+    "  CTRL\xC1\xE4\xA6\x41\xBF\xEF\xBE\xDC\xA1\x75\xAC\x4F\xA1\x76)";
+constexpr char kWindow47Delimiter5531C4[] = "\n";
+constexpr char kWindow47Space55C9BC[] = " ";
+
+void InitializeMailDeleteConfirmation(const WindowElementCallback callback)
+{
+    gWindow47Runtime.visibleMaskCC4240 = 3;
+    gWindow47Runtime.widthUnitsCC4244 = 3;
+    gWindow47Runtime.valueCC424C = 0;
+    gWindow47Runtime.valueCC4248 = 0;
+    gWindow47Runtime.initializeCC4250 = nullptr;
+    gWindow47Runtime.actionsCC4254[5] = nullptr;
+    gWindow47Runtime.actionsCC4254[4] = nullptr;
+    gWindow47Runtime.actionsCC4254[3] = nullptr;
+    gWindow47Runtime.actionsCC4254[2] = nullptr;
+    gWindow47Runtime.actionsCC4254[0] = callback;
+    gWindow47Runtime.actionsCC4254[1] = &Sub_4A3760;
+}
+
+std::int32_t HandleWindow47Button(
+    const std::int32_t index, const std::int32_t state, const std::int32_t idleImage,
+    WindowElementCallback* const callbackSlot, const std::int32_t sound, const bool requiresControl)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = idleImage;
+    if ((state & 1) != 0) {
+        graphic->imageNo = idleImage + 2;
+    }
+    if ((state & 2) == 0 || (requiresControl && (platform::gKeyStates[17] & 2) == 0)) {
+        return 0;
+    }
+    static_cast<void>(Sub_4AE8C0());
+    const WindowElementCallback callback = *callbackSlot;
+    if (callback != nullptr) {
+        static_cast<void>(callback(index, state));
+    }
+    static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    return 1;
+}
 
 struct MailStatusTextTable {
     char prefixes[25][64];
@@ -25405,6 +25475,219 @@ std::int32_t Sub_4A3C70(const std::int32_t index, const std::int32_t state)
     gLoginWindowRuntime.prefixD2F0B8.value04 = gLoginWindowRuntime.mailIndicesC9FCE4[position + row];
     static_cast<void>(CreateWindowAnimation_475AA0(22, 1, 0, nullptr));
     return 1;
+}
+
+std::int32_t Sub_4A32E0(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B54A;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B54C;
+        switch (gLoginWindowRuntime.valuesD67B40[6]) {
+        case 0:
+            std::strcpy(gHoverTextD68AE8.data(), kMailDeleteContactHint58755C);
+            break;
+        case 1:
+            std::strcpy(gHoverTextD68AE8.data(), kMailDeleteGuildHint58756C);
+            break;
+        case 2:
+            std::strcpy(gHoverTextD68AE8.data(), kMailDeleteMiniHint587584);
+            break;
+        }
+    }
+    std::int32_t consumed = 0;
+    if ((state & 2) != 0) {
+        const std::int32_t recordIndex = Sub_4A3780(index);
+        const std::int32_t category = gLoginWindowRuntime.valuesD67B40[6];
+        gLoginWindowRuntime.mailDeleteIndexD2DA8C = recordIndex;
+        switch (category) {
+        case 0: static_cast<void>(Sub_4A33C0(recordIndex)); break;
+        case 1: static_cast<void>(Sub_4A3480(recordIndex)); break;
+        case 2: static_cast<void>(Sub_4A3540(recordIndex)); break;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        consumed = 1;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B54B;
+    }
+    return consumed;
+}
+
+login::YobiAction* Sub_4A33C0(const std::int32_t index)
+{
+    InitializeMailDeleteConfirmation(&Sub_4A3600);
+    char buffer[1024];
+    std::sprintf(buffer, kMailDeleteContactFormat58759C, world::detail::gContactsF19FB0[index].name10.data());
+    std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
+    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_4A3480(const std::int32_t index)
+{
+    InitializeMailDeleteConfirmation(&Sub_4A3660);
+    char buffer[1024];
+    std::sprintf(buffer, kMailDeleteGuildFormat5875F4, login::detail::gOrderedRecords1051B14[index].text18);
+    std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
+    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+}
+
+login::YobiAction* Sub_4A3540(const std::int32_t index)
+{
+    InitializeMailDeleteConfirmation(&Sub_4A36B0);
+    char buffer[1024];
+    std::sprintf(buffer, kMailDeleteMiniFormat587654, world::detail::ReadMiniMailContact1075A90(index).name10.data());
+    std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
+    return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
+}
+
+std::int32_t Sub_4A3600(const std::int32_t, const std::int32_t)
+{
+    const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+    static_cast<void>(network::Sub_511190(platform::gConnectionSocket, index));
+    const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+    static_cast<void>(world::detail::Sub_5192C0(currentIndex));
+    static_cast<void>(world::detail::Sub_519300());
+    static_cast<void>(world::detail::Sub_519550());
+    if (gWindowStates[21].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(21, 1, 0, nullptr));
+    }
+    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    return 1;
+}
+
+std::int32_t Sub_4A3660(const std::int32_t, const std::int32_t)
+{
+    const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    const std::int32_t key = login::detail::gOrderedRecords1051B14[index].value0C;
+    static_cast<void>(network::Sub_511430(socket, key));
+    static_cast<void>(world::detail::Sub_519300());
+    static_cast<void>(world::detail::Sub_519550());
+    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    return 1;
+}
+
+std::int32_t Sub_4A36B0(const std::int32_t, const std::int32_t)
+{
+    const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+    const auto& record = world::detail::ReadMiniMailContact1075A90(index);
+    const std::int32_t key = record.key04;
+    char buffer[512];
+    std::strcpy(buffer, record.name10.data());
+    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
+    const std::uintptr_t socket = platform::gConnectionSocket;
+    static_cast<void>(network::Sub_5117D0(socket, key, buffer + 256));
+    const std::int32_t currentIndex = gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+    world::detail::Sub_534480(currentIndex);
+    static_cast<void>(audio::PlaySe_52C450(78, 320));
+    return 1;
+}
+
+std::int32_t Sub_4A3760(const std::int32_t, const std::int32_t)
+{
+    if (gWindowStates[21].window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(21, 1, 0, nullptr));
+    }
+    return 1;
+}
+
+std::int32_t Sub_4AE5F0(const std::int32_t value)
+{
+    if (value == -1) {
+        static_cast<void>(Sub_4AE9C0());
+        static_cast<void>(Sub_4AE8D0());
+        const WindowCallback callback = gWindow47Runtime.initializeCC4250;
+        if (callback != nullptr) {
+            static_cast<void>(callback(-1));
+        }
+    }
+    return 1;
+}
+
+std::int32_t Sub_4AE620(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3BE4B, &gWindow47Runtime.actionsCC4254[0], 51, true);
+}
+
+std::int32_t Sub_4AE690(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3BE4E, &gWindow47Runtime.actionsCC4254[1], 55, false);
+}
+
+std::int32_t Sub_4AE700(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3B568, &gWindow47Runtime.actionsCC4254[2], 51, false);
+}
+
+std::int32_t Sub_4AE770(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3BE48, &gWindow47Runtime.actionsCC4254[3], 55, false);
+}
+
+std::int32_t Sub_4AE7E0(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3BE54, &gWindow47Runtime.actionsCC4254[4], 51, false);
+}
+
+std::int32_t Sub_4AE850(const std::int32_t index, const std::int32_t state)
+{
+    return HandleWindow47Button(index, state, 0x3BE51, &gWindow47Runtime.actionsCC4254[5], 51, false);
+}
+
+WindowInstance* Sub_4AE8C0()
+{
+    WindowInstance* const window = gWindowStates[47].window;
+    window->state |= 0x8000u;
+    return window;
+}
+
+char* Sub_4AE8D0()
+{
+    for (std::int32_t index = 0; index < 11; ++index) {
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
+        std::strcpy(data->text, input::LegacyText593850());
+    }
+    char text[1024];
+    char line[1024];
+    std::strcpy(text, gWindow47Runtime.textCC426C.data());
+    char* token = std::strtok(text, kWindow47Delimiter5531C4);
+    std::int32_t row = 0;
+    while (token != nullptr) {
+        static_cast<void>(Sub_4AEA10(line, token));
+        auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
+        std::strcpy(data->text, line);
+        token = std::strtok(nullptr, kWindow47Delimiter5531C4);
+        ++row;
+    }
+    return token;
+}
+
+std::int32_t Sub_4AE9C0()
+{
+    std::int32_t mask = gWindow47Runtime.visibleMaskCC4240;
+    for (std::int32_t index = 11; index < 17; ++index) {
+        gCurrentWindow->elements[index].visible = 0;
+        if ((mask & 1) != 0) {
+            gCurrentWindow->elements[index].visible = 1;
+        }
+        mask >>= 1;
+    }
+    return 216;
+}
+
+std::int32_t Sub_4AEA10(char* const destination, const char* const text)
+{
+    const std::int32_t length = static_cast<std::int32_t>(std::strlen(text));
+    const std::int32_t widthUnits = gWindow47Runtime.widthUnitsCC4244;
+    std::int32_t spaces = ((widthUnits * 74 - length * 12 - 20) / 2) / 12;
+    std::strcpy(destination, input::LegacyText593850());
+    while (spaces > 0) {
+        std::strcat(destination, kWindow47Space55C9BC);
+        --spaces;
+    }
+    std::strcat(destination, text);
+    return 0;
 }
 
 void Sub_4A2700()

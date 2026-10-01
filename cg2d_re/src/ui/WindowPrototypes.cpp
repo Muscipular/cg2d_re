@@ -136,6 +136,13 @@ WindowGraphicData gWindowGraphic570190 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kMailTarget585EA4[] = "\xB4\xFA\xB8\xD5\xA4\x48\xAD\xFB";
 WindowTextPrototype gWindowText5701F0 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kMailTarget585EA4};
 
+WindowGraphicData gWindowGraphic570118 {0x3BA0D, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic570130 {0x3BA0E, 0, 0, 0, 0, 0x80FFFFFFu};
+WindowGraphicData gWindowGraphic570178 {0x3BE54, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5701A8 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5701C0 {0x3BE5D, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic5701D8 {0x3BE5A, 0, 0, 0, 0, 0xFFFFFFFFu};
+
 WindowGraphicData gWindowGraphic570560 {0x3BE34, 0, 0, 74, 54, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic570578 {0x3BE35, 0, 0, 74, 54, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic570590 {0x3BE36, 0, 0, 74, 54, 0xFFFFFFFFu};
@@ -1535,6 +1542,22 @@ WindowElementPrototype gWindowElements5701F8[9] {
     {1, 16, 46, 0, 0, 1, {.graphic = &gWindowGraphic5700B8}, &Sub_4B0F10},
     {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic5700D0}, &Sub_4B0F10},
     {1, 14, 23, 0, 0, 1, {.graphic = &gWindowGraphic5700E8}, &Sub_4B0F10},
+    {0, 207, 0, 25, 100, 1, {}, &Sub_474170},
+};
+
+WindowElementPrototype gWindowElements570318[13] {
+    {1, 191, 9, 11, 11, 1, {.graphic = &gWindowGraphic570190}, &Sub_4C1FB0},
+    {5, 33, 84, 170, 120, 1, {}, &Sub_4A58E0},
+    {1, 15, 29, 56, 16, 1, {.graphic = &gWindowGraphic570178}, &Sub_4A6450},
+    {1, 154, 29, 50, 18, 1, {.graphic = &gWindowGraphic570160}, &Sub_4A6450},
+    {1, 151, 199, 0, 0, 1, {.graphic = &gWindowGraphic5701A8}, &Sub_4B0F10},
+    {1, 151, 199, 50, 50, 1, {.graphic = &gWindowGraphic5701A8}, &Sub_4A6300},
+    {3, 21, 49, 0, 0, 1, {.text = &gWindowText5701F0}, &Sub_4B0F10},
+    {3, 16, 199, 0, 0, 1, {.text = &gWindowText5701F0}, &Sub_4B0F10},
+    {1, 16, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701C0}, &Sub_4A6450},
+    {1, 66, 224, 13, 11, 1, {.graphic = &gWindowGraphic5701D8}, &Sub_4A6450},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic570118}, &Sub_4B0F10},
+    {1, 13, 26, 0, 0, 1, {.graphic = &gWindowGraphic570130}, &Sub_4B0F10},
     {0, 207, 0, 25, 100, 1, {}, &Sub_474170},
 };
 

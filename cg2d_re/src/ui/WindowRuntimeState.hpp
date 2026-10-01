@@ -1668,6 +1668,13 @@ void Sub_4A5650(); // 22/23共享释放：保存草稿、释放占用、关闭49
 std::int32_t Sub_4A58E0(std::int32_t unused, std::int32_t state); // 输入聚焦及非当前输入补绘。
 std::int32_t Sub_4A5970(std::int32_t index, std::int32_t state); // 宠物邮件切换、单发/群发完整六路径。
 std::uint8_t Sub_4A6160(); // 收件人/宠物按钮显隐及输入位置刷新，透传476570低W8。
+std::int32_t Sub_4A56F0(std::int32_t value); // 宠物邮件两遍候选与刷新，标关闭后仍继续。
+std::int32_t Sub_4A6300(std::int32_t index, std::int32_t state); // 物品占用迁移、取出拖动及悬停框。
+std::int32_t Sub_4A6450(std::int32_t index, std::int32_t state); // 四按钮，两类发送保留不同失败声音。
+std::uint8_t Sub_4A6AC0(); // 宠物名称/颜色和携带物品图、数量刷新。
+std::int32_t Sub_4A6D30(std::int32_t index); // 同源flags6AA完整W16恰3。
+std::int32_t Sub_4A6D50(std::int32_t index); // 先47D4A0，非零才读取flags6AA恰2。
+std::int32_t Sub_47D4A0(); // 原S32 D67B00窄读，不返回其他状态。
 void Sub_4A2700(); // 修正当前名单位置并更新元素17滚动条。
 std::int32_t Sub_4A3820(std::int32_t unused); // 滚动条反求位置；调用后重读类别写回。
 std::int32_t Sub_4A32B0(); // 邮件闪烁相位推进；开窗不重置。

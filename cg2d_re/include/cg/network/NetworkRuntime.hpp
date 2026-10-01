@@ -231,6 +231,10 @@ std::int32_t Sub_511480(
     const char* text,
     std::int32_t third);
 
+// 原5110B0：普通宠物邮件rMsv，三整数/文本/末整数各自采容量并发送。
+std::int32_t Sub_5110B0(
+    std::uintptr_t socket, std::int32_t first, std::int32_t second,
+    std::int32_t third, const char* text, std::int32_t fifth);
 // 原 sub_511510@[0x511510,0x5115E4)：三整数、原字节文本、末整数发送 PfqV。
 std::int32_t Sub_511510(
     std::uintptr_t socket,

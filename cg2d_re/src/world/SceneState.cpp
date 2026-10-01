@@ -58,6 +58,14 @@ std::int32_t gValueFF0D54 = 0; // 原普通场景等待帧数，门槛按S32比�
 std::int32_t gValueFF0D68 = 0; // 原普通场景BGM恢复号，不是当前播放号owner。
 std::uint32_t gLogoutTransition9A6E94 = 0; // 原45EBB0/45EEE0共享过渡阶段。
 std::array<char, 0x108> gLogoutText9A5B08 {}; // 原264B消息区，排他尾9A5C10独立。
+login::YobiAction* gBattleExitAction5ABCDC = nullptr; // 原非拥有退出面板；43CBB0清槽并保留非空交互尾。
+std::int32_t gBattleSceneIndex5ABFD8 = 0; // 原场景循环游标，回调之后重读，非对象地址。
+constexpr char kBattleStartHint5541CC[] = "\xB5\xA5\xAB\xDD\xBE\xD4\xB0\xAB\xB6\x7D\xA9\x6C\xA1\x43";
+constexpr char kBattleTurnHint5541BC[] = "\xB5\xA5\xAB\xDD\xA6\x5E\xA6\x58\xB5\xB2\xA7\xF4\xA1\x43";
+constexpr char kBattleInputHint5541A0[] = "\xB5\xA5\xAB\xDD\xA8\xE4\xA5\x4C\xAA\xB1\xAE\x61\xAA\xBA\xBF\xE9\xA4\x4A\xAB\xFC\xA5\x4F\xA1\x43";
+constexpr char kBattleExitHint554194[] = "\xB5\xB2\xA7\xF4\xC6\x5B\xBE\xD4\xA1\x43";
+constexpr char kBattleExitRequest554190[] = "U";
+constexpr char kBattleExitText554184[] = "\xC6\x5B\xBE\xD4\xB5\xB2\xA7\xF4";
 
 // 原51D790/51E0D0共用的行数据；第480项独立于原前480项清零范围。
 struct TransitionLines {
@@ -6599,6 +6607,413 @@ std::int32_t __cdecl Sub_50C870(
     gValue9E0434 = pathValue;
     gValue73ED40 = std::bit_cast<std::uint32_t>(adjustment);
     return adjustment;
+}
+
+void DrawBattleScene_43CBB0()
+{
+    using namespace login::detail;
+    std::int32_t state = gCurrentSceneState;
+    if (static_cast<std::uint32_t>(state) >= 2U
+        && static_cast<std::uint32_t>(state) <= 6U
+        && gBattleBackgroundImage59F9F8 != gBattleBackgroundSnapshot5ABCD8) {
+        Sub_43CB10();
+        state = gCurrentSceneState;
+    }
+    const auto clearBattleEffects = [] {
+        const std::uint16_t zero = 0;
+        std::memcpy(&gBattleSceneEffectC8A768, &zero, sizeof(zero));
+        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A768) + 2, &zero, sizeof(zero));
+        std::memcpy(&gBattleSceneEffectC8A76C, &zero, sizeof(zero));
+        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A76C) + 2, &zero, sizeof(zero));
+    };
+    switch (state) {
+    case 0: {
+        gValue5ABFC4 = 0;
+        std::memset(gBattleNamedEffects5ABCE0.data(), 0, sizeof(gBattleNamedEffects5ABCE0));
+        std::size_t title = 0;
+        while (title < gSortedTitlesDE03F8.size() && gSortedTitlesDE03F8[title].value != 1101) {
+            ++title;
+        }
+        gBattleAttributeEffectFlags59F9E0 = 0;
+        if (title < gSortedTitlesDE03F8.size()) {
+            gBattleAttributeEffectFlags59F9E0 = 5;
+        }
+        if (gMapCharaSceneSlots.valueC8A73E != 0
+            || static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) != 0) {
+            static_cast<void>(Sub_46E4C0(160));
+        }
+        YobiClearUp_404D30();
+        InitializeBattleScene_4383F0();
+        gBattleEntryNoticeAction5ABFB8 = nullptr;
+        gBattleExitAction5ABCDC = nullptr;
+        gValue58B6D0 = 1;
+        gBattleCommandAction5ABC00 = nullptr;
+        gValueFF0C10 = 3;
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        Sub_43CB10();
+        platform::gValue73ECC0 = 2;
+        input::BrowseChatHistory_44A1B0();
+        if (gValue9DAD68 == 1) {
+            const std::int32_t image = gBattleBackgroundImage59F9F8;
+            const bool specialBackground = image >= 238607 && image <= 238618;
+            switch (gBattleType5ABFC8) {
+            case 1:
+            case 4:
+                static_cast<void>(LoadAndPlayBGM(specialBackground ? 34 : 25));
+                break;
+            case 2:
+            case 3:
+                static_cast<void>(LoadAndPlayBGM(16));
+                break;
+            case 5:
+                static_cast<void>(LoadAndPlayBGM(specialBackground ? 35 : 26));
+                break;
+            case 6:
+                static_cast<void>(LoadAndPlayBGM(26));
+                break;
+            default:
+                break;
+            }
+        } else {
+            switch (gBattleType5ABFC8) {
+            case 1:
+            case 4:
+                static_cast<void>(LoadAndPlayBGM(13));
+                break;
+            case 2:
+            case 3:
+                static_cast<void>(LoadAndPlayBGM(16));
+                break;
+            case 5:
+                static_cast<void>(LoadAndPlayBGM(14));
+                break;
+            case 6:
+                static_cast<void>(LoadAndPlayBGM(15));
+                break;
+            default:
+                break;
+            }
+        }
+        const std::int32_t floor = gMapFloor;
+        if (floor >= 1457 && floor <= 1480) {
+            static_cast<void>(LoadAndPlayBGM(16));
+        }
+        const std::uint32_t tick = platform::ReadTickCount32();
+        platform::gValue73ECC0 = 2;
+        platform::gLastRenderDt = static_cast<double>(tick);
+        static_cast<void>(Sub_51FDE0(13, 8, 0x40000000U));
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        cg::NullSub_509080();
+        ++gCurrentSceneState;
+        break;
+    }
+    case 1:
+        if (Sub_51FDE0(13, 8, 0x40000000U) == 1) {
+            Sub_43CB10();
+            platform::gValue73ECC0 = 3;
+            const std::uint32_t tick = platform::ReadTickCount32();
+            platform::gValue73ECC0 = 3;
+            platform::gLastRenderDt = static_cast<double>(tick);
+            input::ProcessKeyInput_4596D0();
+            input::BrowseChatHistory_44A1B0();
+            static_cast<void>(ui::RenderWindows_504120());
+            RenderInput_4590E0();
+            Sub_44A410();
+            cg::NullSub_509080();
+            ui::ProcessSceneWindows_503E80();
+            ++gCurrentSceneState;
+        } else {
+            static_cast<void>(ui::RenderWindows_504120());
+            RenderInput_4590E0();
+            cg::NullSub_509080();
+        }
+        input::ProcessKeyInput_4596D0();
+        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        RenderInput_4590E0();
+        Sub_44A410();
+        break;
+    case 2: {
+        input::ProcessKeyInput_4596D0();
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(SortBattleActions_405C30());
+        RenderChara_521F20();
+        input::BrowseChatHistory_44A1B0();
+        Sub_44A410();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        static_cast<void>(NextRotationValue_455C70());
+        if ((gBattlePlayerFlags5ABCAC & 0x40U) != 0) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleStartHint5541CC);
+        }
+        const std::int32_t readIndex = gBattleCReadIndex5AAA44;
+        if (readIndex != gBattleCWriteIndex5AAA6C) {
+            const char* const source = gBattleCQueue5A4A3C.data() + readIndex * 0x1000;
+            const std::size_t size = std::strlen(source) + 1;
+            const std::size_t wordBytes = size & ~std::size_t{3};
+            std::memcpy(gBattleCText5A3A20.data(), source, wordBytes);
+            const std::int32_t nextIndex = readIndex + 1;
+            gBattleCReadIndex5AAA44 = nextIndex;
+            std::memcpy(gBattleCText5A3A20.data() + wordBytes, source + wordBytes, size & 3U);
+            if (nextIndex >= 4) {
+                gBattleCReadIndex5AAA44 = 0;
+            }
+            ParseBattleC_438550();
+            if ((gBattleFieldFlags5ABB58 & 0x20U) != 0) {
+                gCurrentSceneState = 7;
+                break;
+            }
+            Sub_43C9A0();
+            const std::int32_t position = std::bit_cast<std::int32_t>(gBattlePosition5ABCA8);
+            const bool changed = gBattleCurrentPosition5ABCA4 != position;
+            gBattleCurrentPosition5ABCA4 = position;
+            if (changed) {
+                std::int32_t index = 0;
+                gBattleSceneIndex5ABFD8 = 0;
+                do {
+                    if (gBattleAllEntries59E980[index] != nullptr) {
+                        UpdateBattleAlbumFlag_4238F0(gBattleAllEntries59E980[index]);
+                        index = gBattleSceneIndex5ABFD8;
+                    }
+                    gBattleSceneIndex5ABFD8 = ++index;
+                } while (index < 20);
+            }
+            gBattleSnapshotPetIndex5ABBFC = Sub_43C4B0();
+            ui::detail::Sub_4965D0();
+            if (gBattleCurrentPosition5ABCA4 >= 20 && ui::detail::gWindowStates[29].window == nullptr) {
+                static_cast<void>(ui::CreateWindowAnimation_475AA0(29, 1, 0, nullptr));
+                static_cast<void>(audio::PlaySe_52C450(56, 320));
+            }
+            gCurrentSceneState = 3;
+        }
+        if ((gBattlePlayerFlags5ABCAC & 0x40U) != 0) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleTurnHint5541BC);
+        }
+        break;
+    }
+    case 3:
+        ui::detail::Sub_43C950();
+        input::ProcessKeyInput_4596D0();
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(SortBattleActions_405C30());
+        RenderChara_521F20();
+        Sub_43CA80();
+        input::BrowseChatHistory_44A1B0();
+        Sub_44A410();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        static_cast<void>(NextRotationValue_455C70());
+        if (Sub_43C910() == 1) {
+            if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
+                static_cast<void>(MarkDeath(gBattleEntryNoticeAction5ABFB8));
+                const std::uint32_t flags = gBattlePlayerFlags5ABCAC;
+                gBattleEntryNoticeAction5ABFB8 = nullptr;
+                gBattlePlayerFlags5ABCAC = flags & ~3U;
+            }
+            Sub_43C4E0();
+            gCurrentSceneState = 4;
+        }
+        break;
+    case 4:
+        input::ProcessKeyInput_4596D0();
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(SortBattleActions_405C30());
+        Sub_43CA80();
+        input::BrowseChatHistory_44A1B0();
+        Sub_44A410();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        static_cast<void>(NextRotationValue_455C70());
+        ui::detail::Sub_498520();
+        RenderChara_521F20();
+        Sub_458F40();
+        break;
+    case 5: {
+        input::ProcessKeyInput_4596D0();
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(SortBattleActions_405C30());
+        RenderChara_521F20();
+        Sub_43CA80();
+        input::BrowseChatHistory_44A1B0();
+        Sub_44A410();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        static_cast<void>(NextRotationValue_455C70());
+        Sub_458F40();
+        const std::int32_t readIndex = gBattleMReadIndex5AAA68;
+        if (readIndex != gBattleMWriteIndex5A3A1C) {
+            const char* const source = gBattleMQueue59FA18.data() + readIndex * 0x1000;
+            const std::size_t size = std::strlen(source) + 1;
+            const std::size_t wordBytes = size & ~std::size_t{3};
+            std::memcpy(gBattleMText5AAA7C.data(), source, wordBytes);
+            const std::int32_t nextIndex = readIndex + 1;
+            gBattleMReadIndex5AAA68 = nextIndex;
+            std::memcpy(gBattleMText5AAA7C.data() + wordBytes, source + wordBytes, size & 3U);
+            if (nextIndex >= 4) {
+                gBattleMReadIndex5AAA68 = 0;
+            }
+            gBattleMScanOffset5A8A3C = 2;
+            gCurrentSceneState = 6;
+        } else if (Sub_43CA50() >= 2) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleInputHint5541A0);
+        }
+        break;
+    }
+    case 6:
+        input::ProcessKeyInput_4596D0();
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(SortBattleActions_405C30());
+        RenderChara_521F20();
+        input::BrowseChatHistory_44A1B0();
+        Sub_44A410();
+        static_cast<void>(ui::RenderWindows_504120());
+        RenderInput_4590E0();
+        static_cast<void>(NextRotationValue_455C70());
+        Sub_458F40();
+        break;
+    case 7: {
+        gBattleActiveEventMask5AAA74 = 0;
+        gValue5ABB20 = 1;
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(Sub_43BAA0());
+        ClearBattleAppendEffects_43BED0();
+        gBattleSceneIndex5ABFD8 = 22;
+        gBattleAllEntries59E980.fill(nullptr);
+        static_cast<void>(audio::Sub_52B990());
+        static_cast<void>(Sub_51D750());
+        const std::uint16_t firstEffect = static_cast<std::uint16_t>(gBattleSceneEffectC8A768);
+        platform::gValue73ECC0 = 2;
+        if (firstEffect != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A768 >> 16) != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C) != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C >> 16) != 0) {
+            clearBattleEffects();
+            static_cast<void>(Sub_46E4C0(160));
+        }
+        const std::int32_t nextState = gCurrentSceneState + 1;
+        clearBattleEffects();
+        gValue58B6D0 = 1;
+        gCurrentSceneState = nextState;
+        [[fallthrough]];
+    }
+    case 8: {
+        input::ProcessKeyInput_4596D0();
+        render::DrawInputText_4568A0(&input::gInputContext626AA0);
+        RenderInput_4590E0();
+        Sub_44A410();
+        const std::int32_t selector = gValueD67E78 == 1 ? 14 : 12;
+        if (Sub_51FDE0(selector, 8, 0x40000000U) != 1) {
+            break;
+        }
+        ui::ProcessSceneWindows_503E80();
+        render::ClearSurfaceTransformCache_44D490();
+        static_cast<void>(SetCurrentSceneTypeAndState(9, 1));
+        YobiClearUp_404D30();
+        Sub_446610();
+        platform::LegacyCryptInt zero;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
+        gRippleGate.mask = zero.mask;
+        gRippleGate.encoded = zero.encoded;
+        gRippleGate.readCount = zero.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&zero);
+        static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
+        return;
+    }
+    case 9: {
+        gValue5ABB20 = 1;
+        gBattleActiveEventMask5AAA74 = 0;
+        static_cast<void>(YobiUpdateAll_404C50());
+        static_cast<void>(Sub_43BAA0());
+        gBattleSceneIndex5ABFD8 = 22;
+        gBattleAllEntries59E980.fill(nullptr);
+        static_cast<void>(audio::Sub_52B990());
+        static_cast<void>(Sub_51D750());
+        const std::uint16_t firstEffect = static_cast<std::uint16_t>(gBattleSceneEffectC8A768);
+        platform::gValue73ECC0 = 2;
+        if (firstEffect != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A768 >> 16) != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C) != 0
+            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C >> 16) != 0) {
+            clearBattleEffects();
+            static_cast<void>(Sub_46E4C0(160));
+        }
+        clearBattleEffects();
+        YobiClearUp_404D30();
+        Sub_446610();
+        platform::LegacyCryptInt rippleZero;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&rippleZero, 0);
+        gRippleGate.mask = rippleZero.mask;
+        gRippleGate.encoded = rippleZero.encoded;
+        gRippleGate.readCount = rippleZero.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&rippleZero);
+        platform::LegacyCryptInt transitionZero;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&transitionZero, 0);
+        gValue73ECD0.mask = transitionZero.mask;
+        gValue73ECD0.encoded = transitionZero.encoded;
+        gValue73ECD0.readCount = transitionZero.readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&transitionZero);
+        static_cast<void>(SetPendingSceneType(7));
+        return;
+    }
+    default:
+        break;
+    }
+
+    if (platform::gValue73ECC0 == 2) {
+        return;
+    }
+    const std::int32_t position = gBattleCurrentPosition5ABCA4;
+    std::int32_t index = position < 10 || position >= 20 ? 0 : 10;
+    const std::int32_t end = position < 10 ? 10 : 20;
+    gBattleSceneIndex5ABFD8 = index;
+    do {
+        login::YobiAction* const actor = gBattleAllEntries59E980[index];
+        if (actor != nullptr) {
+            const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
+            bool atRest = GetYobiActionField30(actor) == point[2]
+                && GetYobiActionField34(actor) == point[3];
+            if (!atRest) {
+                const std::int32_t action = GetYobiActionField2B0(actor);
+                atRest = action == 0 || action == 9 || action == 8 || action == 10 || action == 1;
+            }
+            if (atRest && ReadYobiBatchType(actor) == 0 && (GetYobiActionFlagsLowByte(actor) & 2U) == 0) {
+                Sub_4990A0(index);
+                index = gBattleSceneIndex5ABFD8;
+            }
+        }
+        gBattleSceneIndex5ABFD8 = ++index;
+    } while (index < end);
+    if (platform::gValue73ECC0 == 2) {
+        return;
+    }
+    Sub_46E4A0();
+    if (gValue5ABCB0 == 1) {
+        gCurrentSceneState = 7;
+        gValue5ABCB0 = 0;
+    }
+    if (gBattleExitAction5ABCDC != nullptr && ReadYobiActionHpOnce(gBattleExitAction5ABCDC) > 0) {
+        login::YobiAction* const action = gBattleExitAction5ABCDC;
+        const std::int32_t y = GetYobiActionField34(action);
+        const std::int32_t x = GetYobiActionField30(action);
+        if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
+            constexpr std::size_t wordBytes = sizeof(kBattleExitHint554194) & ~std::size_t{3};
+            std::memcpy(ui::detail::gHoverTextD68AE8.data(), kBattleExitHint554194, wordBytes);
+            const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+            std::memcpy(ui::detail::gHoverTextD68AE8.data() + wordBytes,
+                kBattleExitHint554194 + wordBytes, sizeof(kBattleExitHint554194) & 3U);
+            if ((clicked & 1U) != 0) {
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+                static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, kBattleExitRequest554190));
+                gCurrentSceneState = 7;
+            }
+        }
+        login::YobiAction* const drawAction = gBattleExitAction5ABCDC;
+        const std::int32_t drawY = GetYobiActionField34(drawAction);
+        const std::int32_t drawX = GetYobiActionField30(drawAction);
+        static_cast<void>(render::DrawText2_456670(
+            static_cast<std::int16_t>(drawX + 23), static_cast<std::int16_t>(drawY + 40),
+            2, 2, 0, kBattleExitText554184, 0));
+    }
 }
 
 void* __cdecl Sub_51D5B0()

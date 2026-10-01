@@ -281,12 +281,12 @@ YobiAction* NewBattleEvent_43B610(
 std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不推进对象或全局游标。
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 YobiAction* NewBattleScene_4383B0(); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。
-void InitializeBattleScene_4383F0(); // 先发布创建结果，再清两指针表/六标量并生产宠物快照；父场景未接。
+void InitializeBattleScene_4383F0(); // 43CBB0先清Yobi再调用；发布创建结果、清两表/六标量并生产宠物快照。
 YobiAction* NewBattleActor_438290(std::int32_t position); // 基础创建与404DB0绑定；完整角色属性由各caller生产。
 void ParseBattleMRide_4239D0(YobiAction* action); // RID预读/实际消费差异，双新对象交226恢复发布。
 std::int32_t TakeBattleCInteger_438450(); // C独立全局游标，大写十六进制读取。
 void TakeBattleCString_4384C0(char* destination, std::int32_t capacity); // 原双字节截断，尾部反转义/空叶。
-void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；43CBB0父入口尚待。
+void ParseBattleC_438550(); // 完整C角色/附件生产及22槽缺席清理；43CBB0消费一槽C后调用。
 void FinishBattleEvent_43B6C0(YobiAction* action); // 推进同一事件消息或注销当前槽后MarkDeath。
 void AppendBattleQueuedTarget_43B7F0(YobiAction* action, std::int32_t value);
 std::int32_t AdvanceBattleQueuedTarget_43B830(YobiAction* action); // 先推进13A4，再判断新槽是否为-1。
@@ -804,6 +804,7 @@ void SetYobiActionField34(YobiAction* action, std::int32_t value);
 void SetYobiActionField2B8(YobiAction* action, std::int32_t value);
 std::int32_t GetYobiActionField2B8(const YobiAction* action) noexcept; // 原方向S32，库存旋转重读。
 void SetYobiActionField308(YobiAction* action, std::uint8_t value);
+std::uint8_t ReadYobiBatchType(const YobiAction* action) noexcept; // 原+308，战斗场景状态条绘制门禁。
 void SetYobiActionField309(YobiAction* action, std::uint8_t value); // 原描述符替换掩码。
 void SetYobiActionField310(YobiAction* action, std::uint8_t value); // 原掩码替换值，与309独立写入。
 void SetYobiActionField30C(YobiAction* action, std::int32_t value);

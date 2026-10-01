@@ -1215,11 +1215,11 @@ std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()�
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。
 extern std::int32_t gBattleBackgroundImage59F9F8;
-extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 4209C0门禁；43CBB0完整配置生产仍待接线。
+extern std::uint8_t gBattleAttributeEffectFlags59F9E0; // 4209C0门禁；43CBB0按称号value生产0/5。
 extern std::int32_t gBattleType5ABFC8; // 50D120写完整S32类型。
 extern std::uint32_t gBattleModeFlag5ABFCC; // 仅类型2写1。
 extern std::uint32_t gValue5ABB1C;
-extern std::uint32_t gValue5ABB20; // 原W32初值FFFFFFFF，418B50置1；完整场景重置/调度仍待接线。
+extern std::uint32_t gValue5ABB20; // 原W32初值FFFFFFFF，4383F0清零，418B50/43CBB0置1。
 extern std::uint32_t gValue5ABB28;
 extern std::uint32_t gBattleFirstTurnPending5ABC6C; // 50D3C0的A消息严格1时消费。
 extern std::int32_t gBattleCWriteIndex5AAA6C;
@@ -1235,7 +1235,7 @@ extern std::array<char, 0x1000> gBattleMText5AAA7C;
 extern std::int32_t gBattleMScanOffset5A8A3C; // M头扫描S32游标，非队列索引或对象载荷64游标。
 extern std::int32_t gBattleMPreviewOffset5AAA60; // 439600/439700预扫描游标，由43B290复制头游标。
 extern std::uint32_t gBattleActiveEventMask5AAA74; // 32事件槽位图，43B6C0清当前位。
-extern std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C; // 非拥有事件引用，完整创建/初始化仍缺。
+extern std::array<login::YobiAction*, 32> gBattleEventActions5ABA9C; // 非拥有事件引用，4383F0清表；43B610创建仍待。
 extern const std::array<std::int32_t, 5> gBattleValueThresholds54D93C;
 extern std::array<std::uint8_t, 22> gBattlePreviewParticipants5AAA48; // 调度累计、43B290逐槽冲突判定。
 extern std::array<std::array<std::int32_t, 2>, 22> gBattleEffectPairs5A8A40; // 仅映射439B30已消费位置，40F2B1同源读取。
@@ -1244,7 +1244,7 @@ struct BattleNamedEffectRecord {
     std::int32_t value; // 原+20，439B30按名称更新。
 };
 extern std::array<BattleNamedEffectRecord, 20> gBattleNamedEffects5ABCE0;
-extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，43CBB0父入口仍未接。
+extern login::YobiAction* gBattleSceneAction5ABA94; // 4383F0发布的非拥有场景对象，43CBB0已调用初始化。
 extern std::array<login::YobiAction*, 22> gBattleAllEntries59E980; // 含20/21特殊槽的唯一非拥有对象表。
 extern const std::span<login::YobiAction*, 20> gBattleEntries59E980; // 常规路径仅遍历前20槽。
 extern const std::array<std::int32_t, 22> gBattlePointIndices5536FC;
@@ -1292,7 +1292,7 @@ extern std::uint32_t gBattleTurnSnapshot5ABC08;
 extern std::uint32_t gValue5ABCB0;
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
-void DrawBattleScene_43CBB0();             // 原 World::DrawBattleScene@0x43CBB0。
+void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；43B610/427470传递依赖仍未闭合。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t Sub_51FDE0(

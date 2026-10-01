@@ -31605,6 +31605,11 @@ std::int32_t GetYobiActionField2B8(const YobiAction* const action) noexcept
     return action->direction;
 }
 
+std::uint8_t ReadYobiBatchType(const YobiAction* const action) noexcept
+{
+    return action->batchType;
+}
+
 void SetYobiActionField308(
     YobiAction* const action,
     const std::uint8_t value)

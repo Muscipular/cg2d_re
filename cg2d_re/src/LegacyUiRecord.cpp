@@ -6,6 +6,7 @@
 #include "world/WorldUpdateDependencies.hpp"
 
 #include "cg/LoginInput.hpp"
+#include "cg/LoginRequest.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -259,6 +260,83 @@ constexpr char kLegacyTitleSelect58AA2C[] =
     "\xB3\x5D\xA9\x77\xB3\x6F\xAD\xD3\xBA\xD9\xB8\xB9\xA1\x43";
 std::uint32_t gLegacyAttributeBlinkCC3EF8 = 0;
 std::uint32_t gLegacyAttributeTickD67440 = 0;
+
+LegacyPanelRecord gLegacySettingsMenu584E70 {
+    0, 0, 192, 304, 3, {22500, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<LegacyPanelTextButtonRecord, 8> gLegacySettingsButtonsD67D38 {};
+constexpr char kLegacySettingsText58A4A4[] = "\xB5\x6E\x20\x20\x20\x20\x20\x20\x20\xA5\x58";
+constexpr char kLegacySettingsHint586DE8[] = "\xB5\x6E\xA5\x58\xA6\xF8\xAA\x41\xBE\xB9\xA1\x43";
+constexpr char kLegacySettingsText58A498[] = "\xB2\xE1\x20\xA4\xD1\x20\xB3\x5D\x20\xA9\x77";
+constexpr char kLegacySettingsHint58A484[] = "\xB3\x5D\xA9\x77\xB2\xE1\xA4\xD1\xAA\xBA\xBF\xEF\xB6\xB5\xA1\x43";
+constexpr char kLegacySettingsText58A478[] = "\xAD\xB5\x20\xBC\xD6\x20\xB3\x5D\x20\xA9\x77";
+constexpr char kLegacySettingsHint58A460[] = "\xB3\x5D\xA9\x77\xAD\x49\xB4\xBA\xAD\xB5\xBC\xD6\xAA\xBA\xBF\xEF\xB6\xB5\xA1\x43";
+constexpr char kLegacySettingsText58A454[] = "\xAD\xB5\x20\xAE\xC4\x20\xB3\x5D\x20\xA9\x77";
+constexpr char kLegacySettingsHint58A440[] = "\xB3\x5D\xA9\x77\xAD\xB5\xAE\xC4\xAA\xBA\xBF\xEF\xB6\xB5\xA1\x43";
+constexpr char kLegacySettingsText58A434[] = "\xB7\xC6\x20\xB9\xAB\x20\xB3\x5D\x20\xA9\x77";
+constexpr char kLegacySettingsHint58A420[] = "\xB3\x5D\xA9\x77\xB7\xC6\xB9\xAB\xAA\xBA\xBF\xEF\xB6\xB5\xA1\x43";
+constexpr char kLegacySettingsText58A414[] = "\xC1\xE4\x20\xBD\x4C\x20\xBC\xF6\x20\xC1\xE4";
+constexpr char kLegacySettingsHint58A400[] = "\xC1\xE4\xBD\x4C\xBC\xF6\xC1\xE4\xAA\xBA\xBB\xA1\xA9\xFA\xA1\x43";
+constexpr char kLegacySettingsText58A3F4[] = "\xC3\xB8\x20\xB9\xCF\x20\xB3\x5D\x20\xA9\x77";
+constexpr char kLegacySettingsHint58A3E4[] = "\xB3\x5D\xA9\x77\xC3\xB8\xB9\xCF\xBC\xD2\xA6\xA1\xA1\x43";
+constexpr char kLegacySettingsText58A3D8[] = "\xB3\x5D\xA9\x77\xAB\xF6\xB6\x73";
+constexpr char kLegacySettingsHint58A3C8[] = "\xB6\x69\xA6\xE6\xAB\xF6\xB6\x73\xB3\x5D\xA9\x77";
+
+std::int32_t Sub_4FC7F0()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(4));
+    return 0;
+}
+
+std::int32_t Sub_4FC810()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(5));
+    return 0;
+}
+
+std::int32_t Sub_4FC830()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(7));
+    return 0;
+}
+
+std::int32_t Sub_4FC850()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(8));
+    return 0;
+}
+
+std::int32_t Sub_4FC870()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(9));
+    return 0;
+}
+
+std::int32_t Sub_4FC890()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(10));
+    return 0;
+}
+
+std::int32_t Sub_4FC8B0()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(11));
+    return 0;
+}
+
+std::int32_t Sub_4FC8D0()
+{
+    static_cast<void>(audio::Sub_5042D0(3));
+    static_cast<void>(audio::Sub_504180(12));
+    return 0;
+}
 
 std::uint32_t Sub_4ECDF0()
 {
@@ -1084,6 +1162,142 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     }
     std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     return 0;
+}
+
+std::int32_t Sub_4FC420()
+{
+    return Sub_4FC430();
+}
+
+std::int32_t Sub_4FC430()
+{
+    const std::int32_t y = gLegacySettingsMenu584E70.y;
+    const std::int32_t x = gLegacySettingsMenu584E70.x;
+    auto& buttons = gLegacySettingsButtonsD67D38;
+    // 保留原构造交错写序；两坐标均来自入口单次快照，原+23字节不写。
+    buttons[1].label.textY = y + 80;
+    buttons[1].label.top = y + 80;
+    buttons[2].label.textY = y + 110;
+    buttons[2].label.top = y + 110;
+    buttons[3].label.textY = y + 140;
+    buttons[3].label.top = y + 140;
+    buttons[0].label.textY = y + 50;
+    buttons[0].label.top = y + 50;
+    buttons[4].label.textY = y + 170;
+    buttons[4].label.top = y + 170;
+    buttons[0].label.textX = x + 45;
+    buttons[0].label.left = x + 27;
+    buttons[0].label.width = 136;
+    buttons[0].label.height = 18;
+    buttons[0].label.text = kLegacySettingsText58A4A4;
+    buttons[0].callback = &Sub_4FC7F0;
+    buttons[0].color = 0;
+    buttons[0].reserved21[0] = std::byte {1};
+    buttons[0].reserved21[1] = std::byte {0xF9};
+    buttons[0].hint = kLegacySettingsHint586DE8;
+    buttons[1].label.textX = x + 45;
+    buttons[1].label.left = x + 27;
+    buttons[1].label.width = 136;
+    buttons[1].label.height = 18;
+    buttons[1].label.text = kLegacySettingsText58A498;
+    buttons[1].callback = &Sub_4FC810;
+    buttons[1].color = 0;
+    buttons[1].reserved21[0] = std::byte {1};
+    buttons[1].reserved21[1] = std::byte {0xF9};
+    buttons[1].hint = kLegacySettingsHint58A484;
+    buttons[2].label.textX = x + 45;
+    buttons[2].label.left = x + 27;
+    buttons[2].label.width = 136;
+    buttons[2].label.height = 18;
+    buttons[2].label.text = kLegacySettingsText58A478;
+    buttons[2].callback = &Sub_4FC830;
+    buttons[2].color = 0;
+    buttons[2].reserved21[0] = std::byte {1};
+    buttons[2].reserved21[1] = std::byte {0xF9};
+    buttons[2].hint = kLegacySettingsHint58A460;
+    buttons[3].label.textX = x + 45;
+    buttons[3].label.left = x + 27;
+    buttons[3].label.width = 136;
+    buttons[3].label.height = 18;
+    buttons[3].label.text = kLegacySettingsText58A454;
+    buttons[3].callback = &Sub_4FC850;
+    buttons[3].color = 0;
+    buttons[3].reserved21[0] = std::byte {1};
+    buttons[3].reserved21[1] = std::byte {0xF9};
+    buttons[3].hint = kLegacySettingsHint58A440;
+    buttons[4].label.textX = x + 45;
+    buttons[4].label.left = x + 27;
+    buttons[4].label.width = 136;
+    buttons[4].label.height = 18;
+    buttons[4].label.text = kLegacySettingsText58A434;
+    buttons[4].callback = &Sub_4FC870;
+    buttons[4].color = 0;
+    buttons[4].reserved21[0] = std::byte {1};
+    buttons[4].reserved21[1] = std::byte {0xF9};
+    buttons[4].hint = kLegacySettingsHint58A420;
+    buttons[5].label.textX = x + 45;
+    buttons[5].label.textY = y + 200;
+    buttons[5].label.left = x + 27;
+    buttons[5].label.top = y + 200;
+    buttons[5].label.width = 136;
+    buttons[6].label.width = 136;
+    buttons[7].label.width = 136;
+    buttons[5].label.height = 18;
+    buttons[6].label.textX = x + 45;
+    buttons[6].label.height = 18;
+    buttons[7].label.textX = x + 45;
+    buttons[7].label.height = 18;
+    buttons[6].label.textY = y + 230;
+    buttons[6].label.top = y + 230;
+    buttons[5].reserved21[1] = std::byte {0xF9};
+    buttons[6].reserved21[1] = std::byte {0xF9};
+    buttons[7].reserved21[1] = std::byte {0xF9};
+    buttons[5].label.text = kLegacySettingsText58A414;
+    buttons[5].callback = &Sub_4FC890;
+    buttons[5].color = 0;
+    buttons[5].reserved21[0] = std::byte {1};
+    buttons[5].hint = kLegacySettingsHint58A400;
+    buttons[6].label.left = x + 27;
+    buttons[6].label.text = kLegacySettingsText58A3F4;
+    buttons[6].callback = &Sub_4FC8B0;
+    buttons[6].color = 0;
+    buttons[6].reserved21[0] = std::byte {1};
+    buttons[6].hint = kLegacySettingsHint58A3E4;
+    buttons[7].label.textY = y + 260;
+    buttons[7].label.left = x + 27;
+    buttons[7].label.top = y + 260;
+    buttons[7].label.text = kLegacySettingsText58A3D8;
+    buttons[7].callback = &Sub_4FC8D0;
+    buttons[7].color = 0;
+    buttons[7].reserved21[0] = std::byte {1};
+    buttons[7].hint = kLegacySettingsHint58A3C8;
+    return y + 260;
+}
+
+std::uint32_t Sub_4FC730(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacySettingsMenu584E70, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        static_cast<void>(Sub_520470());
+        static_cast<void>(Sub_520590());
+        const std::int32_t selected = gSelectedCharacterIndex;
+        static_cast<void>(Sub_520510(selected));
+        static_cast<void>(Sub_520640());
+        static_cast<void>(Sub_5206F0());
+        return static_cast<std::uint32_t>(Sub_520200());
+    }
+    const std::int32_t interaction = Sub_5030A0(gLegacySettingsButtonsD67D38.data(), 8);
+    if (interaction != 0) {
+        return static_cast<std::uint32_t>(interaction);
+    }
+    Sub_503120(gLegacySettingsButtonsD67D38.data(), 8);
+    if (Sub_503590(&gLegacySettingsMenu584E70) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillClose55331C);
+    }
+    return Sub_503440(&gLegacySettingsMenu584E70, 1);
 }
 
 std::int32_t Sub_502930()

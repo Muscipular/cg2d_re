@@ -145,6 +145,16 @@ struct StallBrowsePetsStaticInitializer {
 
 const StallBrowsePetsStaticInitializer gStallBrowsePetsStaticInitializer;
 
+// 原CRT 5530A8；文字记录持有真实回调，不引入额外析构或RNG消费。
+struct LegacySettingsMenuStaticInitializer {
+    LegacySettingsMenuStaticInitializer()
+    {
+        static_cast<void>(cg::login::detail::Sub_4FC420());
+    }
+};
+
+const LegacySettingsMenuStaticInitializer gLegacySettingsMenuStaticInitializer;
+
 // 原CRT 5530C8；只补已证地图构造，不为其他缺项填空体。
 struct LegacyMapPanelStaticInitializer {
     LegacyMapPanelStaticInitializer()

@@ -1168,6 +1168,7 @@ std::int32_t ReadPlayerFpOnce(); // 原FDA738。
 std::int32_t ReadPlayerMaxFpOnce(); // 原FDA748。
 bool IsPlayerFpLessThan(std::int32_t cost); // 原FDA738，499C30各次401DB0比较共用同一CryptInt。
 bool IsCostGreaterThanPlayerFp(std::int32_t cost); // 4F2720实际401F80入口，保留右值单读。
+bool IsPlayerFpGreaterEqual(std::int32_t cost); // 旧制造执行实际401D70，不改为401DB0取反。
 std::int32_t ReadPlayerValue15BD0(std::int32_t index) noexcept; // 原FF02D0/D4/D8三项金额上限。
 std::int16_t ReadPetFollowIndex(std::size_t position) noexcept;
 login::YobiAction* ReadPetMapAction(std::int16_t index) noexcept;

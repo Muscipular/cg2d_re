@@ -197,6 +197,7 @@ std::int32_t gLegacyRequiredFpCC31D8 = 0;
 std::int32_t gLegacyItemWorkSelection584394 = -1;
 std::array<char, 64> gLegacyItemWorkNameCC40D8 {};
 std::int32_t gLegacyItemWorkImageCC320C = 0;
+std::int32_t gLegacyCraftPhaseD67D00 = 0;
 
 namespace {
 
@@ -333,6 +334,15 @@ LegacyPanelRecord gLegacyCraftResultPanel5843A0 {
     0, 0, 272, 440, 28, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 YobiAction* gLegacyCraftResultActionD67CFC = nullptr;
+LegacyPanelRecord gLegacyCraftExecutionPanel584530 {
+    0, 0, 344, 380, 26, {23351, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyCraftExecutionActionD67D08 = nullptr;
+std::uint32_t gLegacyCraftExecutionTickD2F78C = 0;
+std::uint32_t gLegacyCraftExecutionDurationD2DC08 = 0;
+constexpr char kLegacyCraftMissing58A098[] = "\xA7\xF7\xAE\xC6\xA5\xBC\xB3\x51\xB5\x6E\xBF\xFD\xA1\x43";
+constexpr char kLegacyCraftExecute58A0A8[] = "\xB1\x4E\xA6\xB9\xA7\xF7\xAE\xC6\xA6\x58\xA6\xA8\xA1\x43";
+constexpr char kLegacyCraftBack58A084[] = "\xA6\x5E\xA8\xEC\xA4\x57\xA4\x40\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -2100,6 +2110,217 @@ void Sub_504BA0(
     }
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + width / 2 - textWidth / 2),
         static_cast<std::int16_t>(y + 5), layer, static_cast<std::int8_t>(font), color, text, 0, 0));
+}
+
+std::int32_t Sub_4F50D0()
+{
+    YobiAction* action = gLegacyCraftExecutionActionD67D08;
+    if (action != nullptr) {
+        const std::int32_t image = GetYobiActionField2A8(action);
+        const bool extended = (image >= 100000 && image <= 100999)
+            || (image >= 105000 && image <= 106800)
+            || (image >= 104400 && image <= 104520)
+            || (image >= 120100 && image <= 120147)
+            || (image >= 120156 && image <= 120163);
+        SetYobiActionField2B0(action, extended ? 16 : 6);
+        action = gLegacyCraftExecutionActionD67D08;
+        if (GetYobiActionField2B0(action) != 1) {
+            SetYobiActionField2B4(action, -1);
+            action = gLegacyCraftExecutionActionD67D08;
+        }
+    }
+    return Sub_517880(action, 100, 0, 0);
+}
+
+std::int32_t Sub_4F5170()
+{
+    ui::detail::gSelectedSlotsCA0A90.fill(-1);
+    ui::detail::gSelectionCountsD66E0C.fill(-1);
+    ui::detail::gSelectionImagesCF3FF4.fill(-1);
+    return -1;
+}
+
+std::int32_t Sub_4F51A0()
+{
+    static_cast<void>(Sub_4F5170());
+    gLegacyCraftPhaseD67D00 = 0;
+    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+    return ui::detail::Sub_4D3020(x, y);
+}
+
+std::uint32_t Sub_4F51D0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyCraftExecutionPanel584530.x;
+    const std::int32_t y = gLegacyCraftExecutionPanel584530.y;
+    LegacyPanelButtonRecord execute {x + 97, y + 357, x + 57, y + 347, 80, 20, 23360, 23362};
+    LegacyPanelButtonRecord disabled {x + 97, y + 357, x + 57, y + 347, 80, 20, 23361, 0};
+    LegacyPanelButtonRecord back {x + 257, y + 357, x + 217, y + 347, 80, 20, 22710, 22711};
+    constexpr std::array<std::array<std::int32_t, 2>, 6> positions {{
+        {177, 214}, {229, 214}, {281, 214}, {177, 267}, {229, 267}, {281, 267},
+    }};
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyCraftExecutionPanel584530,
+        [] { static_cast<void>(Sub_4F51A0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (audio::ReadLegacyPanelSelectionCC236C() != 25) {
+            if (gLegacySkillPendingD67C48 != 0) {
+                gLegacySkillPendingD67C48 = 0;
+            } else if (ui::detail::gValue5F9754 != 0) {
+                const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
+                ui::detail::gValue5F9754 = 0;
+            }
+        }
+        if (gLegacyCraftExecutionActionD67D08 != nullptr) {
+            static_cast<void>(MarkDeath(gLegacyCraftExecutionActionD67D08));
+            gLegacyCraftExecutionActionD67D08 = nullptr;
+        }
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(27));
+    }
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    if (ui::detail::Sub_4D3040(1, 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyCraftExecutionPanel584530.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gLegacyCraftExecutionActionD67D08 == nullptr) {
+        const std::int32_t top = gLegacyCraftExecutionPanel584530.y;
+        const std::int32_t left = gLegacyCraftExecutionPanel584530.x;
+        const std::int32_t image = world::detail::ReadPlayerImageNo();
+        gLegacyCraftExecutionActionD67D08 = Sub_4FAAA0(image, left + 94, top + 290);
+    }
+    char buffer[256];
+    char part[128];
+    if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyCraftExecutionPanel584530.id));
+        static_cast<void>(audio::Sub_504180(25));
+    } else {
+        const std::int32_t phase = gLegacyCraftPhaseD67D00;
+        if (phase != 7 && phase != 6) {
+            if (phase == 5) {
+                const std::uint32_t now = platform::ReadTickCount32();
+                const std::uint32_t elapsed = now - gLegacyCraftExecutionTickD2F78C;
+                NullSub_509080();
+                if (gLegacyCraftExecutionDurationD2DC08 < elapsed) {
+                    const std::int32_t recipe = ui::detail::gRecipeIndex5846BC;
+                    std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+                    for (std::int32_t slot = 0; slot < 6; ++slot) {
+                        const std::int32_t selected = ui::detail::gSelectedSlotsCA0A90[slot];
+                        if (selected >= 0) {
+                            std::sprintf(part, "|%d", selected + 8);
+                            std::strcat(buffer, part);
+                        }
+                    }
+                    NullSub_509080();
+                    const std::int32_t nameRecipe = ui::detail::gRecipeIndex5846BC;
+                    ui::detail::WriteLegacyCraftNameCF46D4(
+                        world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data());
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+                    static_cast<void>(network::Sub_511EF0(socket, skill, level, -1, buffer));
+                    gLegacySkillPendingD67C48 = 1;
+                    gLegacyCraftPhaseD67D00 = 6;
+                }
+            } else if ((QueryPanelButtonState(&execute) & 1) != 0) {
+                if (ui::detail::gSelectionImagesCF3FF4[0] <= 0) {
+                    gLegacyCraftPhaseD67D00 = 3;
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    const std::int32_t recipe = ui::detail::gRecipeIndex5846BC;
+                    const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].value04;
+                    const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
+                    if (world::detail::IsPlayerFpGreaterEqual(cost)) {
+                        gLegacyCraftPhaseD67D00 = 5;
+                        gLegacyCraftExecutionTickD2F78C = platform::ReadTickCount32();
+                        const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+                        const std::int32_t levelRecipe = ui::detail::gRecipeIndex5846BC;
+                        const std::int32_t level =
+                            world::detail::gSkillsF1BAFC[skill].recipes8E8[levelRecipe].level;
+                        const auto duration = static_cast<std::uint32_t>(1000 * (random + 3 * level + 5));
+                        gLegacyCraftExecutionDurationD2DC08 = duration;
+                        const std::uintptr_t socket = platform::gConnectionSocket;
+                        static_cast<void>(network::Sub_512DA0(socket, static_cast<std::int32_t>(duration / 1000u)));
+                        static_cast<void>(Sub_4F50D0());
+                        static_cast<void>(audio::PlaySe_52C450(78, 320));
+                    } else {
+                        gLegacyCraftPhaseD67D00 = 7;
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    }
+                }
+            }
+        }
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        const std::int32_t top = gLegacyCraftExecutionPanel584530.y;
+        const std::int32_t left = gLegacyCraftExecutionPanel584530.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left + offsetX),
+            static_cast<std::int16_t>(top + offsetY), 2, font, 0, text, 0, 0));
+    };
+    const std::int32_t measuredRecipe = ui::detail::gRecipeIndex5846BC;
+    const std::int32_t width =
+        TextMeasure(world::detail::gSkillsF1BAFC[skill].recipes8E8[measuredRecipe].name.data(), 0);
+    const std::int32_t nameRecipe = ui::detail::gRecipeIndex5846BC;
+    drawAt(world::detail::gSkillsF1BAFC[skill].recipes8E8[nameRecipe].name.data(), 137 - width / 2, 37, 0);
+    const std::int32_t costRecipe = ui::detail::gRecipeIndex5846BC;
+    const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
+    const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
+    std::sprintf(buffer, "%4d", cost);
+    drawAt(buffer, 295, 39, 1);
+    std::int32_t materialRecipe = ui::detail::gRecipeIndex5846BC;
+    for (std::int32_t material = 4; material >= 0; --material) {
+        const auto* const item = &world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material];
+        if (item->itemId >= 0) {
+            drawAt(item->name.data(), 11, 65 + 24 * material, 0);
+            materialRecipe = ui::detail::gRecipeIndex5846BC;
+            const std::int32_t count =
+                world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material].count;
+            if (count > 0) {
+                std::sprintf(buffer, "%3d", count);
+                drawAt(buffer, 281, 67 + 24 * material, 1);
+                materialRecipe = ui::detail::gRecipeIndex5846BC;
+            }
+        }
+    }
+    for (std::int32_t slot = 0; slot < 6; ++slot) {
+        const std::int32_t image = ui::detail::gSelectionImagesCF3FF4[slot];
+        if (image > 0) {
+            const std::int32_t top = gLegacyCraftExecutionPanel584530.y;
+            const std::int32_t left = gLegacyCraftExecutionPanel584530.x;
+            static_cast<void>(DrawGraphic(left + positions[slot][0] + 24,
+                top + positions[slot][1] + 24, 213, image, 0, &descriptor));
+            const std::int32_t count = ui::detail::gSelectionCountsD66E0C[slot];
+            if (count > 0) {
+                std::sprintf(buffer, "%3d", count);
+                drawAt(buffer, positions[slot][0] + 21, positions[slot][1] + 31, 1);
+            }
+        }
+    }
+    if (gLegacyCraftPhaseD67D00 >= 5) {
+        Sub_5035E0(&disabled, 212, 1, gValueD69768, 1);
+    } else {
+        Sub_5035E0(&execute, 212, 1, gValueD69768, 0);
+    }
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    if (Sub_503590(&gLegacyCraftExecutionPanel584530) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    } else if ((QueryPanelButtonState(&execute) & 0x40) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
+            ui::detail::gSelectionImagesCF3FF4[0] > 0 ? kLegacyCraftExecute58A0A8 : kLegacyCraftMissing58A098);
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyCraftBack58A084);
+    }
+    return Sub_503440(&gLegacyCraftExecutionPanel584530, 1);
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

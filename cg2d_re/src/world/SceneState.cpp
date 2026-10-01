@@ -8257,6 +8257,11 @@ bool IsCostGreaterThanPlayerFp(const std::int32_t cost)
     return platform::legacy_crypt_int::IntGreaterCrypt_401F80(cost, &gPlayerRuntime.fp);
 }
 
+bool IsPlayerFpGreaterEqual(const std::int32_t cost)
+{
+    return platform::legacy_crypt_int::GreaterEqual_401D70(&gPlayerRuntime.fp, cost);
+}
+
 std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
 {
     return gPlayerRuntime.values15BD0[index];

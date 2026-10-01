@@ -1670,6 +1670,11 @@ const char* BorrowLegacyCraftNameCF46D4() noexcept
     return gCraftNameCF46D4.data();
 }
 
+void WriteLegacyCraftNameCF46D4(const char* const name)
+{
+    std::strcpy(gCraftNameCF46D4.data(), name);
+}
+
 const char* BorrowLegacyCraftSuffixD672B4() noexcept
 {
     return gCraftResultSuffixD672B4.data();

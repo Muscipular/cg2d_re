@@ -1268,6 +1268,7 @@ void WriteLegacyItemWorkSkillD67CF0(std::int32_t skillId) noexcept;
 std::int32_t ReadLegacyCraftResultCC46D8() noexcept;
 std::int32_t ReadLegacyCraftImageCF4B60() noexcept;
 const char* BorrowLegacyCraftNameCF46D4() noexcept;
+void WriteLegacyCraftNameCF46D4(const char* name); // 旧26发送前NUL复制，沿既有60B结果名称。
 const char* BorrowLegacyCraftSuffixD672B4() noexcept;
 const char* BorrowLegacyCraftDetailsD2E92C() noexcept;
 extern std::int32_t gRecipeIndex5846BC; // 原装载初值-1。

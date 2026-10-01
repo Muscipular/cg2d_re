@@ -74,6 +74,7 @@ extern std::int32_t gLegacyRequiredFpCC31D8; // 4EF0F0/4FF650生产，旧选择3
 extern std::int32_t gLegacyItemWorkSelection584394; // 旧物品加工槽号，初值-1，不是现代选中物品状态。
 extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定64B复制目标。
 extern std::int32_t gLegacyItemWorkImageCC320C;
+extern std::int32_t gLegacyCraftPhaseD67D00; // 旧选择26/27共享，不是现代窗口11状态。
 // 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
 std::int32_t Sub_455490();
 std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。
@@ -109,6 +110,10 @@ std::int32_t Sub_4F2650(); // 旧选择31初始化，218/2032保留原按钮分�
 std::int32_t Sub_4F2720(std::int32_t cost, std::int32_t skill); // 旧加工资格检查，失败只改对应阶段。
 std::uintptr_t Sub_4F2A30(std::int32_t opened); // 旧选择31完整背包选择、计时发送及提示。
 std::uintptr_t Sub_4F3ED0(std::int32_t opened); // 旧选择28制造结果，含25/29/30选择分支。
+std::int32_t Sub_4F50D0(); // 旧制造预览动作，尾部总会517880，含空对象路径。
+std::int32_t Sub_4F5170(); // 三组六槽依序填-1，数量不填0。
+std::int32_t Sub_4F51A0(); // 旧选择26完整初始化，末尾透传4D3020。
+std::uint32_t Sub_4F51D0(std::int32_t opened); // 旧选择26制造执行，关闭尾返回关闭27结果。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
 void Sub_4FB940(std::int32_t x, std::int32_t y, std::int32_t item, std::int32_t page); // 旧物品详情八行绘制，原caller均不消费返回。
 void Sub_504BA0(

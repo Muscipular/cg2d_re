@@ -37712,7 +37712,200 @@ constexpr char kStatusGuildOff5862D4[] =
 constexpr char kStatusGuildOn5862F4[] =
     "\xB2\x7B\xA6\x62\xA4\xB9\xB3\x5C\xA7\x4F\xA4\x48\xC1\xDC\xBD\xD0\xA6\xDB\xA4\x76\xB0\xD1\xA5\x5B\xAE\x61\xB1\xDA\xA1\x43";
 
+constexpr char kQuickDuel556C80[] = "\xAD\x6E\xA8\x44\xB6\x69\xA6\xE6\xB9\xEF\xBE\xD4\xA1\x43";
+constexpr char kQuickWatch556C90[] = "\xAD\x6E\xA8\x44\xB6\x69\xA6\xE6\xC6\x5B\xBE\xD4\xA1\x43";
+constexpr char kQuickTeam556CA0[] = "\xAD\x6E\xA8\x44\xA5\x5B\xA4\x4A\xAB\x5F\xC0\x49\xB6\xA4\xA5\xEE\xA1\x43";
+constexpr char kQuickCard556CB4[] = "\xAD\x6E\xA8\x44\xA5\xE6\xB4\xAB\xA6\x57\xA4\xF9\xA1\x43";
+constexpr char kQuickTrade556CD8[] = "\xAD\x6E\xA8\x44\xB6\x69\xA6\xE6\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kQuickEmote556CE8[] = "\xA5\xB4\xB6\x7D\xB1\xA1\xBA\xFC\xB0\xCA\xA7\x40\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kQuickMap58625C[] = "\xA5\xB4\xB6\x7D\xA4\x70\xA6\x61\xB9\xCF\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kQuickGuild586284[] = "\xC1\xDC\xBD\xD0\xB9\xEF\xA4\xE8\xA5\x5B\xA4\x4A\xA6\xDB\xA4\x76\xAA\xBA\xAE\x61\xB1\xDA\xA1\x43";
+constexpr char kQuickStall5862A0[] = "\xB6\x69\xA6\xE6\xC2\x5C\xC5\x75";
+
 } // namespace
+
+std::int32_t Sub_46FBA0(const std::int32_t)
+{
+    if (world::gCurrentSceneType == 10) {
+        gCurrentWindow->state |= 0x8000u;
+    }
+    return 1;
+}
+
+std::int32_t Sub_46FBD0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(OpenWindow_471440(5));
+    gValueCA0440 = 1;
+    return 1;
+}
+
+std::int32_t Sub_46FC10(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    static_cast<void>(audio::PlaySe_52C450(51, 320));
+    gCurrentWindow->state |= 0x8000u;
+    static_cast<void>(OpenWindow_471440(4));
+    gValueCA0440 = 0;
+    return 1;
+}
+
+login::YobiAction* Sub_495F00(
+    const std::uint32_t flags, const std::uint32_t mode,
+    login::YobiAction** const completionSlot)
+{
+    WindowInstance* const window = gWindowStates[33].window;
+    std::int32_t x;
+    std::int32_t y;
+    if (window != nullptr) {
+        window->state |= 0x8000u;
+        WindowInstance* const current = gWindowStates[33].window;
+        x = current->x;
+        y = current->y;
+    } else {
+        x = gWindowStates[33].x;
+        y = gWindowStates[33].y;
+    }
+    return login::detail::Sub_475950(x, y, 184, 159, 33, flags, mode, completionSlot);
+}
+
+std::int32_t Sub_4708A0(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gWindowStates[34].window;
+    if (window != nullptr) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B921;
+        window = gWindowStates[34].window;
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    if (window == nullptr) {
+        static_cast<void>(CreateWindowAnimation_475AA0(34, 1, 0, nullptr));
+    } else {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    return 1;
+}
+
+std::int32_t Sub_470910(const std::int32_t index, const std::int32_t state)
+{
+    WindowInstance* window = gWindowStates[33].window;
+    if (window != nullptr) {
+        static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = 0x3B924;
+        window = gWindowStates[33].window;
+    }
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    if (window == nullptr) {
+        static_cast<void>(Sub_495F00(0, 0, nullptr));
+    } else {
+        window->state |= 0x8000u;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    return 1;
+}
+
+std::int32_t Sub_46FC60(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const bool hover = (state & 1) != 0;
+    std::int32_t consumed = hover ? 1 : 0;
+    if (index == 8) {
+        if (hover) {
+            std::strcpy(gHoverTextD68AE8.data(), kQuickStall5862A0);
+            graphic->imageNo = 0x18224;
+        } else {
+            graphic->imageNo = 0x18225;
+        }
+        if ((state & 8) != 0) {
+            graphic->imageNo = 0x18223;
+            consumed = 1;
+        }
+        if ((state & 2) == 0) {
+            return consumed;
+        }
+        if (world::gCurrentSceneType != 10) {
+            const std::uint32_t now = platform::ReadTickCount32();
+            if (gWindowActionTick62B5AC + 500u < now) {
+                WindowInstance* const window = gWindowStates[67].window;
+                if (window == nullptr) {
+                    static_cast<void>(Sub_4CD3E0());
+                    static_cast<void>(audio::PlaySe_52C450(56, 320));
+                    static_cast<void>(CreateWindowAnimation_475AA0(67, 1, 0, nullptr));
+                } else {
+                    window->state |= 0x8000u;
+                    static_cast<void>(audio::PlaySe_52C450(57, 320));
+                }
+                gWindowActionTick62B5AC = platform::ReadTickCount32();
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        }
+        return 1;
+    }
+
+    graphic->imageNo = 0x3B90E + index * 3 + (hover ? 2 : 0);
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B90F + index * 3;
+    }
+    if (static_cast<std::uint32_t>(index) > 7u) {
+        return consumed;
+    }
+    if (index < 5) {
+        const char* const hints[5] {
+            kQuickDuel556C80, kQuickWatch556C90, kQuickTeam556CA0,
+            kQuickCard556CB4, kQuickTrade556CD8,
+        };
+        void (*const requests[5])() {
+            &world::detail::Sub_470050, &world::detail::Sub_470150,
+            &world::detail::Sub_470270, &world::detail::Sub_4703C0,
+            &world::detail::Sub_4704A0,
+        };
+        if (hover) {
+            std::strcpy(gHoverTextD68AE8.data(), hints[index]);
+        }
+        if ((state & 2) != 0) {
+            requests[index]();
+            return 1;
+        }
+        return consumed;
+    }
+    if (index == 5) {
+        if (character_select::state::gPukVersion < 7u) {
+            if (hover) {
+                graphic->imageNo = 0x3B91D;
+                std::strcpy(gHoverTextD68AE8.data(), kStatusGuildUnavailable586270);
+            }
+            return consumed;
+        }
+        if (hover) {
+            std::strcpy(gHoverTextD68AE8.data(), kQuickGuild586284);
+        }
+        if ((state & 2) != 0) {
+            world::detail::Sub_470670();
+            return 1;
+        }
+        return consumed;
+    }
+    if (index == 6) {
+        if (hover) {
+            std::strcpy(gHoverTextD68AE8.data(), kQuickEmote556CE8);
+        }
+        return Sub_4708A0(6, state);
+    }
+    if (hover) {
+        std::strcpy(gHoverTextD68AE8.data(), kQuickMap58625C);
+    }
+    return Sub_470910(7, state);
+}
 
 std::int32_t Sub_470A80(const std::int32_t)
 {

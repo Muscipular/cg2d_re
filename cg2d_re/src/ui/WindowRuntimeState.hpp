@@ -172,6 +172,13 @@ void Sub_497100(); // 物品快捷入口，清目标待选状态并打开27。
 std::int32_t Sub_4971C0(); // 同一门禁，读取宠物选择槽4。
 void Sub_497210(); // 宠物快捷入口，打开28，不清物品待选状态。
 std::int32_t Sub_473840(std::int32_t index, std::int32_t state); // 窗口6完整九分支按钮。
+std::int32_t Sub_46FBD0(std::int32_t unused, std::int32_t state); // 快捷栏4点击收起到5，打开后发布CA0440。
+std::int32_t Sub_46FC10(std::int32_t unused, std::int32_t state); // 快捷栏5点击展开到4。
+std::int32_t Sub_46FC60(std::int32_t index, std::int32_t state); // 完整九按钮，保留6/7子入口消费覆盖。
+std::int32_t Sub_4708A0(std::int32_t index, std::int32_t state); // 窗口34存在时更新图形，点击开关。
+std::int32_t Sub_470910(std::int32_t index, std::int32_t state); // 窗口33开关，创建使用专有尺寸入口。
+login::YobiAction* Sub_495F00(
+    std::uint32_t flags, std::uint32_t mode, login::YobiAction** completionSlot); // 小地图184x159展开，完成槽原生T**。
 std::int32_t Sub_4723D0(std::int32_t index, std::int32_t state); // 窗口1伤势/新邮件/加点提示及打开对应详情。
 void Sub_470AC0(); // 窗口1完整HP/FP、时间图形、时长数字和提示状态刷新。
 void Sub_4718F0(); // 窗口2仅HP/FP和四位时长数字，不推进提示状态。

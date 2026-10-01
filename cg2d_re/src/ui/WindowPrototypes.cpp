@@ -5,6 +5,19 @@
 namespace cg::ui::detail {
 namespace {
 
+WindowGraphicData gWindowGraphic55EC58 {0x18229, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55EC70 {0x3B90E, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55EC88 {0x3B911, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ECA0 {0x3B914, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ECB8 {0x3B917, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ECD0 {0x3B91A, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ECE8 {0x3B91D, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ED00 {0x3B920, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ED18 {0x3B923, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ED30 {0x18223, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic55ED48 {0x3B90D, 0, 0, 0, 0, 0xFFFFFFFFu};
+std::uint32_t gWindowMouseFlagsD67620 = 0xFFFFFFFFu;
+
 WindowGraphicData gWindowGraphic55EF00 {0x3B92B, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55EF18 {0x3B92F, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55EF30 {0x3B932, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1427,6 +1440,25 @@ WindowTextPrototype gWindowText572F88 {
 };
 WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4];
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];
+
+WindowElementPrototype gWindowElements55ED60[11] {
+    {1, 14, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC70}, &Sub_46FC60},
+    {1, 35, 3, 20, 20, 1, {.graphic = &gWindowGraphic55EC88}, &Sub_46FC60},
+    {1, 56, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECA0}, &Sub_46FC60},
+    {1, 77, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECB8}, &Sub_46FC60},
+    {1, 98, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECD0}, &Sub_46FC60},
+    {1, 119, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ECE8}, &Sub_46FC60},
+    {1, 140, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED00}, &Sub_46FC60},
+    {1, 161, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED18}, &Sub_46FC60},
+    {1, 182, 3, 20, 20, 1, {.graphic = &gWindowGraphic55ED30}, &Sub_46FC60},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55EC58}, &Sub_4B0F10},
+    {4, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &Sub_46FBD0},
+};
+
+WindowElementPrototype gWindowElements55EEC0[2] {
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic55ED48}, &Sub_4B0F10},
+    {4, 0, 0, 14, 33, 1, {.mouseFlags = &gWindowMouseFlagsD67620}, &Sub_46FC10},
+};
 
 WindowElementPrototype gWindowElements55F0A0[24] {
     {7, 20, 19, 0, 0, 1, {.number = &gWindowNumber55F090}, &Sub_4B0F10},

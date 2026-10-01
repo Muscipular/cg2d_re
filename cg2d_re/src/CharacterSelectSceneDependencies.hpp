@@ -68,6 +68,10 @@ void Sub_462870();
 // 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。
 void Sub_462880(std::uint8_t resetSelection);
 
+std::uint32_t Sub_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。
+std::int32_t Sub_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。
+std::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。
+
 // 原 [0x50E770,0x50E77A)：忽略网络首参，写 Puk 版本 W8 并返回该字节。
 std::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);
 

@@ -22,6 +22,35 @@
 #include <cstring>
 
 namespace cg::character_select::detail {
+namespace {
+
+// 原14个离散备份W32与9A4F38输入备份，仅4642C0/464380直接访问。
+struct CreationSnapshot {
+    std::int32_t value9A50A4;
+    std::int32_t value9A4B98;
+    std::int32_t value9A50A0;
+    std::int32_t value9A5670;
+    std::int32_t value9A4E98;
+    std::int32_t value9A4E84;
+    std::int32_t value9A50E4;
+    std::int32_t value9A60E8;
+    std::int32_t value9A5094;
+    std::int32_t value9A57E8;
+    std::int32_t value9A61F4;
+    std::int32_t value9A554C;
+    std::int32_t value9A5664;
+    std::int32_t value9A5954;
+    input::InputContext input9A4F38;
+};
+
+CreationSnapshot gCreationSnapshot {};
+
+std::uint8_t ReadCreationSnapshotByte(const std::int32_t& value)
+{
+    return *reinterpret_cast<const std::uint8_t*>(&value);
+}
+
+} // namespace
 
 std::uint8_t Sub_50E770(std::uintptr_t, const std::uint8_t pukVersion)
 {
@@ -60,6 +89,114 @@ void Sub_462880(const std::uint8_t resetSelection)
     input::SetContext_44B330(nullptr);
 }
 
+std::uint32_t Sub_463100()
+{
+    login::YobiAction* const first = state::gCreateActions[0];
+    if (first != nullptr) {
+        login::detail::MarkDeath(first);
+    }
+    login::YobiAction* const second = state::gCreateActions[1];
+    if (second != nullptr) {
+        login::detail::MarkDeath(second);
+    }
+    state::gValue9A5E78 = 0;
+    state::gValue9A5FA4 = 0;
+    state::gValue9A5FA0 = 0;
+    input::InitializeContext_449CF0(
+        &state::gCreationInput9A51E8, 352, 108, 0, 13, 131, nullptr, 1, 16, 0, 0);
+    input::SetContext_44B330(&state::gCreationInput9A51E8);
+    state::gValue9A5FD4 = 0;
+    state::gValue9A50D0 = 0;
+    state::gValue9A5FD8 = 0;
+    const std::uint32_t version = state::gPukVersion;
+    state::gValue9A5668 = 0;
+    state::gValue9A4B80 = 0;
+    state::gValue9A4D04 = 30;
+    state::gValue9A50C8 = 10;
+    if (version >= 7) {
+        state::gValue9A4B88 = 2;
+        state::gValue9A5AFC = 1;
+    } else {
+        state::gValue9A5AFC = 1;
+        state::gValue9A4B88 = version >= 5 ? 1 : 0;
+    }
+    return version;
+}
+
+std::int32_t Sub_4642C0()
+{
+    const std::int32_t valueF633F0 = state::gValueF633F0;
+    const std::int32_t valueF633EC = state::gValueF633EC;
+    gCreationSnapshot.value9A50A4 = valueF633F0;
+    const std::int32_t valueF7CA00 = state::gValueF7CA00;
+    const std::int32_t valueDE03F4 = state::gValueDE03F4;
+    gCreationSnapshot.value9A4B98 = valueF7CA00;
+    const std::int32_t valueF633F4 = state::gValueF633F4;
+    gCreationSnapshot.value9A50A0 = valueF633EC;
+    const std::int32_t valueDE0AF8 = state::gValueDE0AF8;
+    gCreationSnapshot.value9A5670 = valueF633F4;
+    const std::int32_t value9A50C8 = std::bit_cast<std::int8_t>(state::gValue9A50C8);
+    gCreationSnapshot.value9A4E98 = valueDE0AF8;
+    const std::int32_t valueFF03D0 = state::gValueFF03D0;
+    gCreationSnapshot.value9A4E84 = valueDE03F4;
+    const std::int32_t valueF7C948 = state::gValueF7C948;
+    gCreationSnapshot.value9A50E4 = value9A50C8;
+    gCreationSnapshot.value9A60E8 = valueFF03D0;
+    const std::int32_t value9A4B88 = std::bit_cast<std::int8_t>(state::gValue9A4B88);
+    const std::int32_t value9A4D04 = std::bit_cast<std::int8_t>(state::gValue9A4D04);
+    gCreationSnapshot.value9A5094 = valueF7C948;
+    const std::int32_t valueDE0B04 = state::gValueDE0B04;
+    gCreationSnapshot.value9A57E8 = value9A4B88;
+    gCreationSnapshot.value9A61F4 = valueDE0B04;
+    const std::int32_t value9A5668 = std::bit_cast<std::int8_t>(state::gValue9A5668);
+    gCreationSnapshot.value9A554C = value9A4D04;
+    const std::int32_t value9A4B80 = std::bit_cast<std::int8_t>(state::gValue9A4B80);
+    std::memcpy(
+        &gCreationSnapshot.input9A4F38, &state::gCreationInput9A51E8,
+        sizeof(input::InputContext));
+    gCreationSnapshot.value9A5664 = value9A5668;
+    gCreationSnapshot.value9A5954 = value9A4B80;
+    return value9A4B80;
+}
+
+std::uint8_t Sub_464380()
+{
+    auto* const firstBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A5FD4);
+    auto* const secondBytes = reinterpret_cast<std::uint8_t*>(&state::gValue9A50D0);
+    const std::uint8_t value9A50A4 = ReadCreationSnapshotByte(gCreationSnapshot.value9A50A4);
+    const std::uint8_t value9A50A0 = ReadCreationSnapshotByte(gCreationSnapshot.value9A50A0);
+    const std::uint8_t value9A4E84 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4E84);
+    firstBytes[1] = value9A50A4;
+    const std::uint8_t value9A4B98 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4B98);
+    firstBytes[0] = value9A50A0;
+    const std::uint8_t value9A4E98 = ReadCreationSnapshotByte(gCreationSnapshot.value9A4E98);
+    state::gValue9A5FD8 = value9A4B98;
+    const std::uint8_t value9A5670 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5670);
+    firstBytes[2] = value9A4E84;
+    const std::uint8_t value9A5094 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5094);
+    secondBytes[2] = value9A5670;
+    const std::uint8_t value9A50E4 = ReadCreationSnapshotByte(gCreationSnapshot.value9A50E4);
+    firstBytes[3] = value9A4E98;
+    const std::uint8_t value9A60E8 = ReadCreationSnapshotByte(gCreationSnapshot.value9A60E8);
+    state::gValue9A50C8 = value9A50E4;
+    const std::uint8_t value9A57E8 = ReadCreationSnapshotByte(gCreationSnapshot.value9A57E8);
+    secondBytes[0] = value9A5094;
+    const std::uint8_t value9A61F4 = ReadCreationSnapshotByte(gCreationSnapshot.value9A61F4);
+    secondBytes[1] = value9A60E8;
+    const std::uint8_t value9A554C = ReadCreationSnapshotByte(gCreationSnapshot.value9A554C);
+    state::gValue9A4B88 = value9A57E8;
+    secondBytes[3] = value9A61F4;
+    const std::uint8_t value9A5664 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5664);
+    state::gValue9A4D04 = value9A554C;
+    const std::uint8_t value9A5954 = ReadCreationSnapshotByte(gCreationSnapshot.value9A5954);
+    state::gValue9A5668 = value9A5664;
+    std::memcpy(
+        &state::gCreationInput9A51E8, &gCreationSnapshot.input9A4F38,
+        sizeof(input::InputContext));
+    state::gValue9A4B80 = value9A5954;
+    return value9A5954;
+}
+
 std::int32_t Sub_464290(const std::int32_t* const rectangle)
 {
     const std::int32_t top = rectangle[1];
@@ -82,6 +219,28 @@ std::uint8_t gValue9A57E0 = 0;
 std::uint8_t gValue9A4CFC = 0;
 std::uint8_t gValue9A5B00 = 0;
 std::array<login::YobiAction*, 2> gCreateActions {};
+input::InputContext gCreationInput9A51E8 {};
+std::uint8_t gValue9A5E78 = 0;
+std::int32_t gValue9A5FA4 = 0;
+std::int32_t gValue9A5FA0 = 0;
+std::uint32_t gValue9A5FD4 = 0;
+std::uint32_t gValue9A50D0 = 0;
+std::uint8_t gValue9A5FD8 = 0;
+std::uint8_t gValue9A5668 = 0;
+std::uint8_t gValue9A4B80 = 0;
+std::uint8_t gValue9A4D04 = 0;
+std::uint8_t gValue9A50C8 = 0;
+std::uint8_t gValue9A4B88 = 0;
+std::int32_t gValue9A5AFC = 0;
+std::int32_t gValueF633F0 = 0;
+std::int32_t gValueF7CA00 = 0;
+std::int32_t gValueF633EC = 0;
+std::int32_t gValueF633F4 = 0;
+std::int32_t gValueDE0AF8 = 0;
+std::int32_t gValueDE03F4 = 0;
+std::int32_t gValueFF03D0 = 0;
+std::int32_t gValueF7C948 = 0;
+std::int32_t gValueDE0B04 = 0;
 std::array<login::YobiAction*, 2> gPreviewActions {};
 login::YobiAction* gCharacterModalAction = nullptr;
 std::int16_t gPendingCharacterCount = 0;

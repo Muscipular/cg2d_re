@@ -5,6 +5,10 @@
 #include <array>
 #include <cstdint>
 
+namespace cg::input {
+struct InputContext;
+}
+
 namespace cg::character_select::state {
 
 // 两个角色选择场景共享的原版本载荷，不建立第二份语义存储。
@@ -18,6 +22,30 @@ extern std::uint8_t gValue9A57E0; // 原 0x9A57E0，创建界面版本门禁 W8�
 extern std::uint8_t gValue9A4CFC; // 原 0x9A4CFC，创建界面选择 W8。
 extern std::uint8_t gValue9A5B00; // 原 0x9A5B00，创建界面状态 W8。
 extern std::array<login::YobiAction*, 2> gCreateActions; // 原 0x9A4CB4/0x9A4CB8，非拥有。
+// 创建页463100/4631D0及确认快照共用；两个W32同时被按字节访问。
+extern input::InputContext gCreationInput9A51E8;
+extern std::uint8_t gValue9A5E78;
+extern std::int32_t gValue9A5FA4;
+extern std::int32_t gValue9A5FA0;
+extern std::uint32_t gValue9A5FD4;
+extern std::uint32_t gValue9A50D0;
+extern std::uint8_t gValue9A5FD8;
+extern std::uint8_t gValue9A5668;
+extern std::uint8_t gValue9A4B80;
+extern std::uint8_t gValue9A4D04;
+extern std::uint8_t gValue9A50C8;
+extern std::uint8_t gValue9A4B88;
+extern std::int32_t gValue9A5AFC;
+// 4631D0生产、4642C0取样及508E00请求的同源S32；不能与相邻数组合并。
+extern std::int32_t gValueF633F0;
+extern std::int32_t gValueF7CA00;
+extern std::int32_t gValueF633EC;
+extern std::int32_t gValueF633F4;
+extern std::int32_t gValueDE0AF8;
+extern std::int32_t gValueDE03F4;
+extern std::int32_t gValueFF03D0;
+extern std::int32_t gValueF7C948;
+extern std::int32_t gValueDE0B04;
 extern std::array<login::YobiAction*, 2> gPreviewActions; // 原 0x9A6E44、0x9A6E48。
 extern login::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。
 extern std::int16_t gPendingCharacterCount; // 原 0xF7CA06，R/W16。

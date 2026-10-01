@@ -8,7 +8,6 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/KeyState.hpp"
-#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -172,46 +171,11 @@ std::int32_t ProcessCapability4Input_464E30()
                 gValue9A6E20 = 1;
             }
         } else if (focus == 1) {
-            if (platform::gMonitorKeyboard == 1) {
-                char keyboardText[68];
-                const std::int32_t keyboardResult = detail::Sub_534AB0(
-                    platform::gLegacyWindow,
-                    keyboardText);
-                if (keyboardResult == 1) {
-                    std::strncpy(
-                        gInputContext9A5960.text,
-                        keyboardText,
-                        sizeof(gInputContext9A5960.text));
-                    gInputContext9A5960.totalByteLength =
-                        static_cast<std::int32_t>(
-                            std::strlen(gInputContext9A5960.text));
-                    if (std::strlen(gInputContext9A5960.text) != 0
-                        && std::strlen(gInputContext9A5678.text) != 0
-                        && !input::IsRejectedInputText_404060(
-                            gInputContext9A5960.text)
-                        && !input::IsRejectedInputText_404060(
-                            gInputContext9A5678.text)) {
-                        result = 1;
-                        gInputContext9A5960.text[
-                            static_cast<std::size_t>(
-                                gInputContext9A5960.totalByteLength)] = '\0';
-                        gInputContext9A5678.text[
-                            static_cast<std::size_t>(
-                                gInputContext9A5678.totalByteLength)] = '\0';
-                        gValue9A6E20 = 1;
-                        goto key_processing_complete;
-                    }
-                } else if (keyboardResult == -1) {
-                    platform::gMonitorKeyboard = 0;
-                }
-                gValue9A6E20 = 1;
-            } else {
-                gValue9A6E20 = 0;
-            }
+            // 已排除外部屏幕键盘，沿原关闭分支切换普通输入焦点。
+            gValue9A6E20 = 0;
         }
     }
 
-key_processing_complete:
     if (platform::gMonitorKeyboard == 0) {
         if (static_cast<std::int32_t>(gInputContext9A5678X)
                 < detail::ReadLegacyMouseX()

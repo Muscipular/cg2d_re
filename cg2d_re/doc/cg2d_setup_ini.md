@@ -74,3 +74,12 @@ Effect 按 `GENERALEFF`、`SIMULATEEFF`、`ALPHAEFF`、`HARDEFF` 的顺序执行
 - 原目录检查仍是固定下标 255，短目录已带反斜杠时仍会再追加一个；没有规范化路径。
 - 未解决原长路径、命令行溢出、非 NUL 输入、NULL 命令行、CRT 源目标重叠或未初始化读取，也不承诺这些范围内与旧二进制的内存破坏结果相同。
 - 本项仅做反汇编、伪代码与源码静态核对；未新增测试用例，未编译、运行客户端或提交；共享头、全局定义、CMake 和进度文件均不属于本项修改范围。
+
+## 屏幕键盘排除接线
+
+上述原端行为及历史检查记录保留。按已批准的屏幕键盘范围排除，
+当前ReadSetupIni入口改为gMonitorKeyboard=0，仍读取
+MonitorKeyboard及执行原CLOSE判定，配置不能重新启用键盘；
+其余配置、缓冲及返回行为不变。两登录控制器与构建清单的明确
+排除见[生产接线](cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring)。
+这是用户排除差异，不是声称原端默认值为0；仅静态核对。

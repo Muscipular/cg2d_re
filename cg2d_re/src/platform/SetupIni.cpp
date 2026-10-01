@@ -21,7 +21,8 @@ int ReadSetupIni()
     char screenCommandLine[4096] {};
     char activeCommandLine[4096];
 
-    gMonitorKeyboard = 1;
+    // 用户排除屏幕键盘；保留配置读取，生产路径始终使用普通输入。
+    gMonitorKeyboard = 0;
     GetCurrentDirectoryA(256, buffer);
     // 0x465AEF 检查固定下标 255，不是当前目录字符串的末字符。
     if (buffer[255] != '\\') {

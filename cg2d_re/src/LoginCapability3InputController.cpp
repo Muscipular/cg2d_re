@@ -7,7 +7,6 @@
 
 #include "cg/Palette.hpp"
 #include "cg/platform/KeyState.hpp"
-#include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -158,38 +157,8 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
                 requestedFocus = 0;
             }
         } else if (focus == 0) {
-            if (platform::gMonitorKeyboard == 1) {
-                char keyboardText[68];
-                const std::int32_t keyboardResult = detail::Sub_534AB0(
-                    platform::gLegacyWindow,
-                    keyboardText);
-                if (keyboardResult == 1) {
-                    std::strncpy(
-                        gInputContext9A5678.text,
-                        keyboardText,
-                        sizeof(gInputContext9A5678.text));
-                    gInputContext9A5678.totalByteLength =
-                        static_cast<std::int32_t>(
-                            std::strlen(gInputContext9A5678.text));
-                    if (std::strlen(gInputContext9A5960.text) != 0
-                        && std::strlen(gInputContext9A5678.text) != 0
-                        && !input::IsRejectedInputText_404060(
-                            gInputContext9A5960.text)
-                        && !input::IsRejectedInputText_404060(
-                            gInputContext9A5678.text)) {
-                        result = 1;
-                        gInputContext9A5960.text[
-                            static_cast<std::size_t>(
-                                gInputContext9A5960.totalByteLength)] = '\0';
-                        gInputContext9A5678.text[
-                            static_cast<std::size_t>(
-                                gInputContext9A5678.totalByteLength)] = '\0';
-                    }
-                }
-                requestedFocus = 0;
-            } else {
-                requestedFocus = 1;
-            }
+            // 已排除外部屏幕键盘，沿原关闭分支切换普通输入焦点。
+            requestedFocus = 1;
         }
     }
 

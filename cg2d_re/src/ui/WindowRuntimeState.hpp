@@ -1777,6 +1777,20 @@ std::int32_t Sub_4AFEA0(); // 完整扫描32职级，不首个差异早返。
 std::int32_t Sub_4AFB10(); // 公会名称变更校验/转义/Ufm类型2发送。
 std::int32_t Sub_4AFC00(); // 公会第二文本变更校验/转义/Ufm类型3发送。
 std::int32_t Sub_4AFCF0(); // 先验证全体变化文本，再逐条GY发送并恢复聊天。
+void Sub_4AF180(); // 权限分流与只读刷新，原混合返回由caller弃用。
+void Sub_4AF250(); // 管理模式焦点/草稿/按钮与颜色刷新。
+std::int32_t Sub_4AF650(); // 七职级与三附加文本刷新，返回末行Y推进值304。
+void Sub_4AFA00(std::int32_t index); // 输入原型正文写入当前编辑号对应的同源草稿。
+void Sub_4AFA60(); // 页码原范围0..25与音效、滑块同步。
+void Sub_4AFAE0(std::int32_t unused); // 拖动反求页码；保留主绘制转发的未用实参。
+std::int32_t Sub_4AFED0(); // 固定窗口/焦点，扫描九个输入载荷。
+std::int32_t Sub_4AEC30(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AED40(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AEE00(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AF000(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AF090(std::int32_t index, std::int32_t state);
+std::int32_t Sub_4AF0C0(std::int32_t unused, std::int32_t state);
+std::int32_t Sub_4AF100(std::int32_t index, std::int32_t state);
 std::int32_t Sub_4A3960(std::int32_t mask); // 当前职级-1才拒绝，再读同源权限。
 std::int32_t Sub_4A3990(std::int32_t index, std::int32_t mask); // 当前职级门禁通过后读取指定职级。
 std::int32_t Sub_4CC6A0(); // 三个UI数值依序写5/0/0。

@@ -28115,8 +28115,454 @@ static_assert(sizeof(GuildRankDraft) == 0x30);
 static_assert(offsetof(GuildWindowDraft, name604) == 0x604);
 static_assert(offsetof(GuildWindowDraft, secondText634) == 0x634);
 GuildWindowDraft gGuildDraftCF4018 {};
+std::int32_t gGuildPageD67B78 = 0;
+std::int32_t gGuildEditing57F03C = -1;
+std::array<WindowInputPrototype, 9> gGuildInputs57F040 {{
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        116, 31, 3, 12, 6, {}, 1, 24, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        116, 49, 3, 12, 6, {}, 1, 24, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 165, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 184, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 203, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 222, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 241, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 260, 3, 12, 6, {}, 1, 16, 0, 0},
+    {{{&input::gInputContextD2E130}, WindowInputReferenceKind::Context},
+        38, 279, 3, 12, 6, {}, 1, 16, 0, 0},
+}};
+constexpr char kGuildPermissionHint587AA8[] =
+    "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9\xA9\xD2"
+    "\xC4\xDD\xAA\xBA\xA5\x5B\xA4\x4A\xC5\x76\xAD\xAD\xA1\x43";
+constexpr char kGuildPermissionHint587A88[] =
+    "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9\xA9\xD2"
+    "\xC4\xDD\xAA\xBA\xB0\xA3\xA6\x57\xC5\x76\xAD\xAD\xA1\x43";
+constexpr char kGuildPermissionHint587A60[] =
+    "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9\xA9\xD2"
+    "\xC4\xDD\xAA\xBA\xAE\x61\xB1\xDA\xC3\x7E\xC1\xFD\xBE\x69\xC5\x76"
+    "\xAD\xAD\xA1\x43";
+constexpr char kGuildPermissionHint587A38[] =
+    "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9\xA9\xD2"
+    "\xC4\xDD\xAA\xBA\xAE\x61\xB1\xDA\xAD\xDC\xAE\x77\xA8\xCF\xA5\xCE"
+    "\xC5\x76\xAD\xAD\xA1\x43";
+constexpr char kGuildPermissionHint587A10[] =
+    "\xC5\xDC\xA7\xF3\xA6\xB9\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9\xA9\xD2"
+    "\xC4\xDD\xAA\xBA\xAF\x64\xA8\xA5\xAA\x4F\xA7\x52\xB0\xA3\xC5\x76"
+    "\xAD\xAD\xA1\x43";
+constexpr const char* kGuildPermissionHints[] {
+    kGuildPermissionHint587AA8, kGuildPermissionHint587A88,
+    kGuildPermissionHint587A60, kGuildPermissionHint587A38, kGuildPermissionHint587A10,
+};
+constexpr char kGuildNameSubmitHint587AC8[] =
+    "\xC5\xDC\xA7\xF3\xAE\x61\xB1\xDA\xA6\x57\xBA\xD9\xA1\x43";
+constexpr char kGuildSecondSubmitHint587AD8[] =
+    "\xC5\xDC\xA7\xF3\xAE\x61\xB1\xDA\xB7\x7C\xC0\x5D\xA6\x57\xBA\xD9\xA1\x43";
+constexpr char kGuildRankSubmitHint587AEC[] =
+    "\xC5\xDC\xA7\xF3\xA4\x77\xB3\x5D\xA9\x77\xAA\xBA\xAE\x61\xB1\xDA"
+    "\xBA\xD9\xB8\xB9\xA1\x43";
+constexpr char kGuildNameEditMessage587B04[] =
+    "\xAE\x61\xB1\xDA\xA6\x57\xBA\xD9\xA4\xA3\xB1\x6F\xA7\xF3\xA7\xEF\xB3\xE1\x21\x21";
+constexpr char kGuildCloseHint5868EC[] = "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1";
 
 } // namespace
+
+std::int32_t Sub_4AEAE0(const std::int32_t value)
+{
+    if (value == -1) {
+        gGuildPageD67B78 = 0;
+        gGuildEditing57F03C = -1;
+        static_cast<void>(Sub_4AF960());
+        Sub_4AF180();
+        std::strcpy(gGuildDraftCF4018.name604.data(), login::detail::BorrowGuildName10514BC());
+        std::strcpy(gGuildDraftCF4018.secondText634.data(),
+            login::detail::BorrowGuildSecondText10514E5());
+        for (std::int32_t index = 0; index < 32; ++index) {
+            const char* const source = login::detail::BorrowGuildRankText1051518(index);
+            char* const destination = gGuildDraftCF4018.ranks[index].text.data();
+            std::strcpy(destination, source);
+        }
+        auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+        std::strcpy(name->text, login::detail::BorrowGuildName10514BC());
+        auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+        std::strcpy(second->text, login::detail::BorrowGuildSecondText10514E5());
+    }
+    if (Sub_4AFED0() == 0) {
+        gGuildEditing57F03C = -1;
+    }
+    return 1;
+}
+
+std::int32_t Sub_4AEC10(const std::int32_t value)
+{
+    Sub_4AFAE0(value);
+    Sub_4AF180();
+    DrawCurrentWindow_4729B0();
+    return 1;
+}
+
+void Sub_4AF180()
+{
+    if (Sub_4A3950() != 0) {
+        Sub_4AF250();
+        return;
+    }
+    gCurrentWindow->elements[64].visible = 0;
+    gCurrentWindow->elements[65].visible = 0;
+    gCurrentWindow->elements[72].visible = 0;
+    for (std::int32_t index = 9; index < 18; ++index) {
+        gCurrentWindow->elements[index].visible = 1;
+        gCurrentWindow->elements[index].mouseCallback = &Sub_4B0F10;
+    }
+    for (std::int32_t index = 18; index < 53; ++index) {
+        gCurrentWindow->elements[index].height = 0;
+        gCurrentWindow->elements[index].width = 0;
+        gCurrentWindow->elements[index].mouseCallback = &Sub_4B0F10;
+    }
+    gCurrentWindow->elements[72].visible = 0;
+    static_cast<void>(Sub_4AF650());
+}
+
+void Sub_4AF250()
+{
+    gCurrentWindow->elements[64].visible = 1;
+    gCurrentWindow->elements[65].visible = 1;
+    gCurrentWindow->elements[72].visible = 1;
+    for (std::int32_t index = 9; index < 18; ++index) {
+        gCurrentWindow->elements[index].visible = 1;
+    }
+    for (std::int32_t index = 18; index < 53; ++index) {
+        gCurrentWindow->elements[index].height = 15;
+        gCurrentWindow->elements[index].width = 15;
+        gCurrentWindow->elements[index].mouseCallback = &Sub_4AEC30;
+    }
+    static_cast<void>(Sub_4AF650());
+    WindowInstance* window = gCurrentWindow;
+    WindowElement* elements = window->elements;
+    if (gFocusedElementDataD45F94 == elements[0].data) {
+        std::strcpy(gGuildDraftCF4018.name604.data(), gGuildInputs57F040[0].input.context->text);
+        window->elements[9].visible = 0;
+        WindowInstance* const current = gCurrentWindow;
+        const std::int32_t y = current->y;
+        const std::int32_t x = current->x;
+        static_cast<void>(Sub_476570(&gGuildInputs57F040[0], x, y, 1));
+    } else {
+        elements[9].visible = 1;
+        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+        std::strcpy(text->text, gGuildDraftCF4018.name604.data());
+        const bool changed = std::strcmp(gGuildDraftCF4018.name604.data(),
+            login::detail::BorrowGuildName10514BC()) != 0;
+        static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->bytes00[0] =
+            changed ? std::byte{6} : std::byte{0};
+    }
+    const bool nameChanged = std::strcmp(gGuildDraftCF4018.name604.data(),
+        login::detail::BorrowGuildName10514BC()) != 0;
+    gCurrentWindow->elements[64].visible = nameChanged ? 1 : 0;
+
+    window = gCurrentWindow;
+    elements = window->elements;
+    if (gFocusedElementDataD45F94 == elements[1].data) {
+        elements[10].visible = 0;
+        std::strcpy(gGuildDraftCF4018.secondText634.data(),
+            gGuildInputs57F040[1].input.context->text);
+        WindowInstance* const current = gCurrentWindow;
+        const std::int32_t y = current->y;
+        const std::int32_t x = current->x;
+        static_cast<void>(Sub_476570(&gGuildInputs57F040[1], x, y, 1));
+    } else {
+        elements[10].visible = 1;
+        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+        std::strcpy(text->text, gGuildDraftCF4018.secondText634.data());
+        const bool changed = std::strcmp(gGuildDraftCF4018.secondText634.data(),
+            login::detail::BorrowGuildSecondText10514E5()) != 0;
+        static_cast<WindowTextData*>(gCurrentWindow->elements[10].data)->bytes00[0] =
+            changed ? std::byte{6} : std::byte{0};
+    }
+    const bool secondChanged = std::strcmp(gGuildDraftCF4018.secondText634.data(),
+        login::detail::BorrowGuildSecondText10514E5()) != 0;
+    gCurrentWindow->elements[65].visible = secondChanged ? 1 : 0;
+
+    for (std::int32_t row = 0; row < 7; ++row) {
+        window = gCurrentWindow;
+        elements = window->elements;
+        if (gFocusedElementDataD45F94 == elements[row + 2].data) {
+            elements[row + 11].visible = 0;
+            Sub_4AFA00(row + 2);
+            WindowInstance* const current = gCurrentWindow;
+            // 原显示源为row，而草稿写回使用row+2，不合并这两个索引。
+            const char* const source = gGuildInputs57F040[row].input.context->text;
+            std::strcpy(static_cast<WindowTextData*>(current->elements[row + 11].data)->text,
+                source);
+        }
+        window = gCurrentWindow;
+        const std::int32_t rank = gGuildPageD67B78 + row;
+        auto* const text = static_cast<WindowTextData*>(window->elements[row + 11].data);
+        const std::int32_t changed = Sub_4AFE20(rank);
+        text->bytes00[0] = changed != 0 ? std::byte{6} : std::byte{0};
+    }
+    const std::int32_t changed = Sub_4AFEA0();
+    gCurrentWindow->elements[72].visible = changed;
+}
+
+std::int32_t Sub_4AF650()
+{
+    const std::int32_t editable = Sub_4A3950();
+    gCurrentWindow->elements[53].visible = 0;
+    auto* const name = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
+    std::strcpy(name->text, editable != 0 ? gGuildDraftCF4018.name604.data()
+        : login::detail::BorrowGuildName10514BC());
+    auto* const second = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
+    std::strcpy(second->text, editable != 0 ? gGuildDraftCF4018.secondText634.data()
+        : login::detail::BorrowGuildSecondText10514E5());
+    for (std::int32_t index = 0; index < 3; ++index) {
+        WindowInstance* const window = gCurrentWindow;
+        const char* const source = login::detail::BorrowGuildAuxText1057BF4(index);
+        std::strcpy(static_cast<WindowTextData*>(window->elements[index + 54].data)->text,
+            source);
+    }
+    std::int32_t y = 164;
+    for (std::int32_t row = 0; row < 7; ++row) {
+        const std::int32_t rank = gGuildPageD67B78 + row;
+        const char* const source = editable != 0 ? gGuildDraftCF4018.ranks[rank].text.data()
+            : login::detail::BorrowGuildRankText1051518(rank);
+        auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[row + 11].data);
+        std::strcpy(text->text, source);
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t flags = editable != 0 ? gGuildDraftCF4018.ranks[rank].flags
+                : login::detail::ReadGuildRankFlags1051514(rank);
+            auto* const graphic = static_cast<WindowGraphicData*>(
+                gCurrentWindow->elements[18 + row * 5 + column].data);
+            graphic->imageNo = (flags & (1 << column)) != 0 ? 0x3B9F6 : 0x3B9FD;
+        }
+        const std::uint8_t flags = editable != 0
+            ? *reinterpret_cast<const unsigned char*>(&gGuildDraftCF4018.ranks[rank].flags)
+            : login::detail::ReadGuildRankFlagsByte1051514(rank);
+        if ((flags & 0x80) != 0) {
+            gCurrentWindow->elements[53].visible = 1;
+            gCurrentWindow->elements[53].x = 23;
+            gCurrentWindow->elements[53].y = y;
+        }
+        y += 20;
+    }
+    return y;
+}
+
+void Sub_4AFA00(const std::int32_t index)
+{
+    const std::int32_t editing = gGuildEditing57F03C;
+    if (editing == -1) {
+        return;
+    }
+    char* const destination = reinterpret_cast<char*>(&gGuildDraftCF4018)
+        + 4 + static_cast<std::ptrdiff_t>(editing) * sizeof(GuildRankDraft);
+    std::strcpy(destination, gGuildInputs57F040[index].input.context->text);
+}
+
+std::int32_t Sub_4AFED0()
+{
+    WindowInstance* const window = gCurrentWindow;
+    void* const focused = gFocusedElementDataD45F94;
+    WindowElement* const elements = window->elements;
+    for (std::int32_t index = 0; index < 9; ++index) {
+        if (elements[index].data == focused) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void Sub_4AFAE0(const std::int32_t)
+{
+    WindowElement* const elements = gCurrentWindow->elements;
+    auto* const mouse = static_cast<WindowMouseData*>(elements[69].data);
+    if ((mouse->flags & 1) != 0) {
+        gGuildPageD67B78 = Sub_474270(&elements[69], 25);
+    }
+}
+
+void Sub_4AFA60()
+{
+    const std::int32_t page = gGuildPageD67B78;
+    std::int32_t sound = 51;
+    if (page < 0) {
+        gGuildPageD67B78 = 0;
+        sound = 55;
+    } else if (page > 25) {
+        gGuildPageD67B78 = 25;
+        sound = 55;
+    }
+    static_cast<void>(audio::PlaySe_52C450(sound, 320));
+    WindowInstance* const window = gCurrentWindow;
+    const std::int32_t position = gGuildPageD67B78;
+    static_cast<void>(Sub_4742C0(&window->elements[69], 25, position));
+}
+
+std::int32_t Sub_4AEC30(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t row = (index - 18) / 5;
+    const std::int32_t column = (index - 18) % 5;
+    if (row == 0 && gGuildPageD67B78 == 0) {
+        return 0;
+    }
+    if ((state & 1) != 0) {
+        std::strcpy(gHoverTextD68AE8.data(), kGuildPermissionHints[column]);
+    }
+    if ((state & 2) != 0) {
+        const std::int32_t rank = gGuildPageD67B78 + row;
+        if (gGuildDraftCF4018.ranks[rank].text[0] == '\0') {
+            return 0;
+        }
+        gGuildDraftCF4018.ranks[rank].flags ^= 1 << column;
+        Sub_4AF250();
+        return 1;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4AED40(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B56E;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B570;
+        switch (index) {
+        case 64: std::strcpy(gHoverTextD68AE8.data(), kGuildNameSubmitHint587AC8); break;
+        case 65: std::strcpy(gHoverTextD68AE8.data(), kGuildSecondSubmitHint587AD8); break;
+        case 72: std::strcpy(gHoverTextD68AE8.data(), kGuildRankSubmitHint587AEC); break;
+        }
+    }
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B56F;
+        switch (index) {
+        case 64: static_cast<void>(Sub_4AFB10()); break;
+        case 65: static_cast<void>(Sub_4AFC00()); break;
+        case 72: static_cast<void>(Sub_4AFCF0()); break;
+        }
+        graphic->imageNo = 0x3B56F;
+        return 1;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4AEE00(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t editable = Sub_4A3950();
+    if (editable == 0) {
+        return editable;
+    }
+    WindowInstance* const window = gCurrentWindow;
+    WindowElement* const elements = window->elements;
+    if (gFocusedElementDataD45F94 == elements[index].data) {
+        const std::int32_t y = window->y;
+        const std::int32_t x = window->x;
+        static_cast<void>(Sub_476570(&gGuildInputs57F040[index], x, y, 2));
+        return 0;
+    }
+    elements[index + 9].visible = 1;
+    if ((state & 2) == 0) {
+        return 0;
+    }
+    switch (index) {
+    case 0:
+        world::detail::Sub_44B050(kGuildNameEditMessage587B04, 4, 3);
+        break;
+    case 1: {
+        std::strcpy(gGuildInputs57F040[1].text.data(), gGuildDraftCF4018.secondText634.data());
+        WindowInstance* const current = gCurrentWindow;
+        const std::int32_t y = current->y;
+        const std::int32_t x = current->x;
+        static_cast<void>(Sub_476570(&gGuildInputs57F040[1], x, y, 0));
+        input::SetContext_44B330(&input::gInputContextD2E130);
+        WindowInstance* const focused = gCurrentWindow;
+        gFocusedElementDataD45F94 = focused->elements[index].data;
+        static_cast<WindowInputData*>(focused->elements[index].data)->context =
+            &input::gInputContextD2E130;
+        gGuildEditing57F03C = 33;
+        break;
+    }
+    case 2: case 3: case 4: case 5: case 6: case 7: case 8: {
+        const char* const source =
+            static_cast<WindowTextData*>(gCurrentWindow->elements[index + 9].data)->text;
+        std::strcpy(gGuildInputs57F040[index].text.data(), source);
+        WindowInstance* const current = gCurrentWindow;
+        const std::int32_t y = current->y;
+        const std::int32_t x = current->x;
+        static_cast<void>(Sub_476570(&gGuildInputs57F040[index], x, y, 0));
+        input::SetContext_44B330(&input::gInputContextD2E130);
+        WindowInstance* const focused = gCurrentWindow;
+        gFocusedElementDataD45F94 = focused->elements[index].data;
+        static_cast<WindowInputData*>(focused->elements[index].data)->context =
+            &input::gInputContextD2E130;
+        gGuildEditing57F03C = gGuildPageD67B78 + index - 2;
+        break;
+    }
+    }
+    return 1;
+}
+
+std::int32_t Sub_4AF000(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    const std::int32_t offset = index == 66 ? 0 : 3;
+    graphic->imageNo = 0x3B592 + offset;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B594 + offset;
+    }
+    if ((state & 8) != 0) {
+        graphic->imageNo = 0x3B593 + offset;
+    }
+    if ((state & 0x400) != 0) {
+        gGuildPageD67B78 += index == 66 ? -1 : 1;
+        Sub_4AFA60();
+        static_cast<void>(Sub_4A7B00());
+        return 1;
+    }
+    return 0;
+}
+
+std::int32_t Sub_4AF090(const std::int32_t index, const std::int32_t state)
+{
+    const std::int32_t result = Sub_4741A0(index, state);
+    if (result == 1) {
+        static_cast<void>(Sub_4A7B00());
+    }
+    return result;
+}
+
+std::int32_t Sub_4AF0C0(const std::int32_t, const std::int32_t state)
+{
+    if ((state & 0x21) != 0) {
+        const std::int32_t wheel = std::bit_cast<std::int32_t>(platform::gLegacyMouseState.tailReset);
+        if (wheel != 0) {
+            WindowInstance* const window = gCurrentWindow;
+            const std::int32_t page = gGuildPageD67B78;
+            gGuildPageD67B78 = Sub_4743B0(&window->elements[69], page, 25, wheel);
+            static_cast<void>(Sub_4A7B00());
+        }
+    }
+    return 0;
+}
+
+std::int32_t Sub_4AF100(const std::int32_t index, const std::int32_t state)
+{
+    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);
+    graphic->imageNo = 0x3B538;
+    if ((state & 1) != 0) {
+        graphic->imageNo = 0x3B53A;
+        std::strcpy(gHoverTextD68AE8.data(), kGuildCloseHint5868EC);
+    }
+    if ((state & 2) != 0) {
+        graphic->imageNo = 0x3B539;
+        gWindowStates[48].window->state = 0x8000;
+        return 1;
+    }
+    return 0;
+}
 
 std::uint32_t Sub_4AF960()
 {

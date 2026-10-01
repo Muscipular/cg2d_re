@@ -1258,6 +1258,22 @@ WindowTextPrototype gWindowTexts5719A0[9] {
 };
 std::uint32_t gWindowMouseFlagsD67898 = 0;
 
+WindowGraphicData gWindowGraphic571DF0 {0x3B9FD, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571E08 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571E20 {0x3B56E, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571E38 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571E50 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571E68 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571EB0 {0x3B9F4, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571EC8 {0x3B9F5, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571EE0 {0x3B9F2, 0, 0, 0, 0, 0xFFFFFFFFu};
+WindowGraphicData gWindowGraphic571EF8 {0x3B9F3, 0, 0, 0, 0, 0x80FFFFFFu};
+constexpr char kWindowTitle585F04[] = "guild";
+WindowTextPrototype gWindowText571F10 {
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTitle585F04,
+};
+std::uint32_t gWindowMouseFlagsD678A8 = 0;
+
 WindowGraphicData gWindowGraphic572940 {0x3BA88, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic572958 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic572970 {0x3BA89, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -3951,6 +3967,85 @@ WindowElementPrototype gWindowElements5719E8[26] {
     {0, 15, 225, 48, 48, 1, {.unusedValue = 0}, &Sub_4AE350},
     {1, 0, 0, 267, 305, 1, {.graphic = &gWindowGraphic5718C0}, &Sub_4AE5B0},
     {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic5718D8}, &Sub_4B0F10},
+};
+
+WindowElementPrototype gWindowElements571F18[76] {
+    {5, 116, 31, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 116, 49, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 163, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 182, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 201, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 220, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 239, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 258, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {5, 38, 277, 144, 14, 1, {.unusedValue = 0}, &Sub_4AEE00},
+    {3, 116, 31, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 116, 49, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 165, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 184, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 203, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 222, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 241, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 260, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 38, 279, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {1, 201, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 163, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 182, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 201, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 220, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 239, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 258, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 201, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 220, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 239, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 258, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 277, 277, 0, 0, 1, {.graphic = &gWindowGraphic571DF0}, &Sub_4B0F10},
+    {1, 18, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EC8}, &Sub_4B0F10},
+    {3, 116, 70, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 116, 90, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {3, 116, 110, 0, 0, 1, {.text = &gWindowText571F10}, &Sub_4B0F10},
+    {1, 16, 161, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 180, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 199, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 218, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 237, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 256, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 16, 275, 0, 0, 1, {.graphic = &gWindowGraphic571EB0}, &Sub_4B0F10},
+    {1, 273, 28, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &Sub_4AED40},
+    {1, 273, 46, 32, 17, 0, {.graphic = &gWindowGraphic571E20}, &Sub_4AED40},
+    {1, 299, 163, 11, 11, 1, {.graphic = &gWindowGraphic571E38}, &Sub_4AF000},
+    {1, 299, 280, 11, 11, 1, {.graphic = &gWindowGraphic571E68}, &Sub_4AF000},
+    {1, 299, 173, 0, 0, 1, {.graphic = &gWindowGraphic571E50}, &Sub_4B0F10},
+    {4, 298, 173, 10, 94, 1, {.mouseFlags = &gWindowMouseFlagsD678A8}, &Sub_4AF090},
+    {0, 0, 0, 317, 325, 1, {.unusedValue = 0}, &Sub_4AF0C0},
+    {1, 299, 9, 11, 11, 1, {.graphic = &gWindowGraphic571E08}, &Sub_4AF100},
+    {1, 265, 296, 57, 17, 0, {.graphic = &gWindowGraphic571E20}, &Sub_4AED40},
+    {1, 0, 0, 0, 0, 1, {.graphic = &gWindowGraphic571EE0}, &Sub_4B0F10},
+    {1, 12, 27, 0, 0, 1, {.graphic = &gWindowGraphic571EF8}, &Sub_4B0F10},
+    {0, 317, 0, 20, 130, 1, {.unusedValue = 0}, &Sub_474170},
 };
 
 WindowElementPrototype gWindowElements572AF8[20] {

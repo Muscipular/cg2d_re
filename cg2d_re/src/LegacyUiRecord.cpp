@@ -16,6 +16,7 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -343,6 +344,23 @@ std::uint32_t gLegacyCraftExecutionDurationD2DC08 = 0;
 constexpr char kLegacyCraftMissing58A098[] = "\xA7\xF7\xAE\xC6\xA5\xBC\xB3\x51\xB5\x6E\xBF\xFD\xA1\x43";
 constexpr char kLegacyCraftExecute58A0A8[] = "\xB1\x4E\xA6\xB9\xA7\xF7\xAE\xC6\xA6\x58\xA6\xA8\xA1\x43";
 constexpr char kLegacyCraftBack58A084[] = "\xA6\x5E\xA8\xEC\xA4\x57\xA4\x40\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+LegacyPanelRecord gLegacyCraftMaterialsPanel584468 {
+    368, 0, 272, 380, 27, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<std::uint8_t, 20> gLegacyCraftMarksC8AA7C {};
+std::int32_t gLegacyCraftMaterialPageD67D04 = 0;
+std::int32_t gLegacyCraftMaterialHoverD45F84 = 0; // 位于12B金额文本之后，非文本别名。
+std::int32_t gLegacyCraftDragSlotD2F330 = 0;
+std::int32_t gLegacyCraftDragImageCC3E7C = 0;
+constexpr char kLegacyMaterialText58A078[] = "\xA7\xF7\xAE\xC6\xA4\xA3\xA8\xAC\xA1\x43";
+constexpr char kLegacyMaterialText58A064[] = "\xA7\xF7\xAE\xC6\xAA\xBA\xBF\xEF\xBE\xDC\xA4\xA3\xA5\xBF\xBD\x54\xA1\x43";
+constexpr char kLegacyMaterialText58A054[] = "\xA9\x7C\xA5\xBC\xB5\x6E\xBF\xFD\xA7\xF7\xAE\xC6\xA1\x43";
+constexpr char kLegacyMaterialText58A044[] = "\xA7\xF7\xAE\xC6\xB5\x6E\xBF\xFD\xA4\x46\xA1\x43";
+constexpr char kLegacyMaterialText58A034[] = "\xA5\x5B\xA4\x75\xA4\xA4......";
+constexpr char kLegacyMaterialText58A010[] = "\xA8\x53\xA6\xB3\xBF\xEF\xBE\xDC\xA7\xF7\xAE\xC6\xA1\x43";
+constexpr char kLegacyMaterialText58A020[] = "\xB5\x6E\xBF\xFD\xA9\xD2\xBF\xEF\xAA\xBA\xA7\xF7\xAE\xC6\xA1\x43";
+constexpr char kLegacyMaterialText589FFC[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xA4\x77\xB3\x51\xBF\xEF\xBE\xDC\xA1\x43";
+constexpr char kLegacyMaterialText589FEC[] = "\xBF\xEF\xBE\xDC\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -2110,6 +2128,356 @@ void Sub_504BA0(
     }
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + width / 2 - textWidth / 2),
         static_cast<std::int16_t>(y + 5), layer, static_cast<std::int8_t>(font), color, text, 0, 0));
+}
+
+std::int32_t Sub_4F4470()
+{
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    const std::int32_t skillId = world::detail::gSkillsF1BAFC[skill].skillId;
+    for (std::int32_t first = 0; first < 20; ++first) {
+        if (gLegacyCraftMarksC8AA7C[first] != 0) {
+            for (std::int32_t second = 0; second < 20; ++second) {
+                if (first != second && gLegacyCraftMarksC8AA7C[second] != 0
+                    && world::detail::gPlayerItemsFDA8A4[first + 8].itemId
+                        == world::detail::gPlayerItemsFDA8A4[second + 8].itemId) {
+                    return 2;
+                }
+            }
+        }
+    }
+    if (skillId != 215 && skillId != 216) {
+        bool foundSpecial = false;
+        for (std::int32_t slot = 0; slot < 20; ++slot) {
+            if (gLegacyCraftMarksC8AA7C[slot] != 0
+                && ui::detail::Sub_4F4430(world::detail::gPlayerItemsFDA8A4[slot + 8].itemType, skillId) != 0) {
+                if (foundSpecial) {
+                    return 2;
+                }
+                foundSpecial = true;
+            }
+        }
+    }
+    std::int32_t recipe = ui::detail::gRecipeIndex5846BC;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        if (gLegacyCraftMarksC8AA7C[slot] == 0) {
+            continue;
+        }
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        if (skillId != 215 && skillId != 216) {
+            const std::int32_t special = ui::detail::Sub_4F4430(item->itemType, skillId);
+            recipe = ui::detail::gRecipeIndex5846BC;
+            if (special != 0) {
+                continue;
+            }
+        }
+        bool found = false;
+        for (std::int32_t material = 0; material < 5; ++material) {
+            const std::int32_t itemId = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C[material].itemId;
+            if (itemId < 0) {
+                return 2;
+            }
+            if (item->itemId == itemId) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return 2;
+        }
+    }
+    const auto* const materials = world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].items6C.data();
+    for (std::int32_t material = 0; material < 5; ++material) {
+        const std::int32_t itemId = materials[material].itemId;
+        if (itemId >= 0) {
+            bool found = false;
+            for (std::int32_t slot = 0; slot < 20; ++slot) {
+                const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+                const std::int32_t storedCount = item->count;
+                const std::int32_t count = storedCount == 0 ? 1 : storedCount;
+                if (gLegacyCraftMarksC8AA7C[slot] != 0 && item->itemId == itemId
+                    && count >= materials[material].count) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return 1;
+            }
+        }
+    }
+    return 4;
+}
+
+void Sub_4F4690()
+{
+    std::int32_t normalCount = 0;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        if (gLegacyCraftMarksC8AA7C[slot] != 0) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            const bool special = ui::detail::Sub_4F4430(item->itemType, 0) != 0;
+            const std::int32_t itemId = item->itemId;
+            const std::int32_t image = item->imageNo;
+            const std::int32_t destination = special ? 5 : normalCount;
+            ui::detail::gSelectionImagesCF3FF4[destination] = image;
+            const std::int32_t count = ui::detail::Sub_4F4630(itemId);
+            ui::detail::gSelectionCountsD66E0C[destination] = count;
+            ui::detail::gSelectedSlotsCA0A90[destination] = slot;
+            if (!special) {
+                ++normalCount;
+            }
+            if (normalCount >= 6) {
+                break;
+            }
+        }
+    }
+}
+
+std::int32_t Sub_4F4720()
+{
+    std::int32_t count = 0;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        if (gLegacyCraftMarksC8AA7C[slot] != 0) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+std::int32_t Sub_4F4740()
+{
+    gLegacyCraftMarksC8AA7C.fill(0);
+    return 0;
+}
+
+std::int32_t Sub_4F4760()
+{
+    static_cast<void>(Sub_4F4740());
+    gLegacyCraftPhaseD67D00 = 0;
+    gLegacyCraftMaterialPageD67D04 = 0;
+    gLegacyCraftMaterialHoverD45F84 = -1;
+    gLegacyCraftDragSlotD2F330 = -1;
+    gLegacyCraftDragImageCC3E7C = 0;
+    return 0;
+}
+
+std::uint32_t Sub_4F4790(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyCraftMaterialsPanel584468.x;
+    const std::int32_t y = gLegacyCraftMaterialsPanel584468.y;
+    LegacyPanelButtonRecord confirm {x + 140, y + 357, x + 100, y + 347, 80, 20, 23363, 23365};
+    LegacyPanelButtonRecord disabled {x + 140, y + 357, x + 100, y + 347, 80, 20, 23364, 0};
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyCraftMaterialsPanel584468,
+        [] { static_cast<void>(Sub_4F4760()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(26));
+    }
+    const std::int32_t markedCount = Sub_4F4720();
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyCraftMaterialsPanel584468.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyCraftMaterialsPanel584468.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = row * 5 + column;
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyCraftMaterialHoverD45F84) {
+        gLegacyCraftMaterialPageD67D04 = 0;
+    }
+    const std::int32_t initialDrag = gLegacyCraftDragSlotD2F330;
+    const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+    bool drawDragged = true;
+    if (initialDrag >= 0 && (clicks & 2u) != 0) {
+        gLegacyCraftDragSlotD2F330 = -1;
+        gLegacyCraftDragImageCC3E7C = 0;
+        drawDragged = false;
+    } else if (hovered >= 0 && (clicks & 2u) != 0
+               && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        const std::int32_t page = gLegacyCraftMaterialPageD67D04;
+        const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+        gLegacyCraftMaterialPageD67D04 = page + 1;
+        if (gLegacyCraftMaterialPageD67D04 >= pages) {
+            gLegacyCraftMaterialPageD67D04 = 0;
+        }
+    } else if (gLegacyCraftPhaseD67D00 < 4) {
+        if ((clicks & 0x10u) != 0 && hovered >= 0
+            && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (gLegacyCraftMarksC8AA7C[hovered] != 0) {
+                gLegacyCraftMarksC8AA7C[hovered] = 0;
+                static_cast<void>(audio::PlaySe_52C450(54, 320));
+            } else if (markedCount < 6) {
+                gLegacyCraftMarksC8AA7C[hovered] = 1;
+                static_cast<void>(audio::PlaySe_52C450(79, 320));
+            }
+            gLegacyCraftDragSlotD2F330 = -1;
+            gLegacyCraftDragImageCC3E7C = 0;
+            drawDragged = false;
+        } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+            const std::int32_t result = Sub_4F4470();
+            gLegacyCraftPhaseD67D00 = result;
+            if (result == 4) {
+                static_cast<void>(Sub_4F5170());
+                Sub_4F4690();
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            gLegacyCraftDragSlotD2F330 = -1;
+            gLegacyCraftDragImageCC3E7C = 0;
+            drawDragged = false;
+        } else if (hovered >= 0) {
+            const std::int32_t source = gLegacyCraftDragSlotD2F330;
+            const std::uint8_t dragClicks = static_cast<std::uint8_t>(gValueD68D9C);
+            if (source >= 0 && (dragClicks & 1u) != 0) {
+                if (source != hovered) {
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_510EC0(socket, source + 8, hovered + 8, 0));
+                    gLegacyCraftMarksC8AA7C[gLegacyCraftDragSlotD2F330] = 0;
+                    gLegacyCraftMarksC8AA7C[hovered] = 0;
+                }
+                gLegacyCraftDragSlotD2F330 = -1;
+                gLegacyCraftDragImageCC3E7C = 0;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
+                       && source < 0 && (dragClicks & 1u) != 0) {
+                const std::int32_t image = world::detail::gPlayerItemsFDA8A4[hovered + 8].imageNo;
+                gLegacyCraftDragSlotD2F330 = hovered;
+                gLegacyCraftDragImageCC3E7C = image;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+    }
+    if (drawDragged && gLegacyCraftDragSlotD2F330 >= 0) {
+        const std::int32_t image = gLegacyCraftDragImageCC3E7C;
+        const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, &descriptor));
+    }
+    char buffer[256];
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t slot = row * 5 + column;
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            if (item->used != 0) {
+                const std::int32_t image = item->imageNo;
+                const std::int32_t top = gLegacyCraftMaterialsPanel584468.y;
+                const std::int32_t left = gLegacyCraftMaterialsPanel584468.x;
+                static_cast<void>(DrawGraphic(left + 32 + 52 * column, top + 60 + 53 * row,
+                    212, image, 0, &descriptor));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyCraftMaterialsPanel584468.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyCraftMaterialsPanel584468.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+            }
+            if (hovered == slot) {
+                const std::uint32_t image = gValueD69768;
+                const std::int32_t left = gLegacyCraftMaterialsPanel584468.x + 52 * column;
+                const std::int32_t top = gLegacyCraftMaterialsPanel584468.y + 53 * row;
+                DrawGraphicHover(Low16(left + 8), Low16(top + 36),
+                    Low16(left + 56), Low16(top + 84), 212, image, 0);
+            }
+            std::uint32_t selectedColor = 0;
+            if (gLegacyCraftDragSlotD2F330 == slot) {
+                selectedColor = 254;
+            } else if (gLegacyCraftMarksC8AA7C[slot] != 0) {
+                selectedColor = 251;
+            }
+            if (selectedColor != 0) {
+                const std::int32_t left = gLegacyCraftMaterialsPanel584468.x + 52 * column;
+                const std::int32_t top = gLegacyCraftMaterialsPanel584468.y + 53 * row;
+                DrawGraphicHover(Low16(left + 10), Low16(top + 38),
+                    Low16(left + 54), Low16(top + 82), 212, selectedColor, 0);
+            }
+        }
+    }
+    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        const std::int32_t page = gLegacyCraftMaterialPageD67D04;
+        const std::int32_t height = gLegacyCraftMaterialsPanel584468.height;
+        const std::int32_t top = gLegacyCraftMaterialsPanel584468.y;
+        const std::int32_t left = gLegacyCraftMaterialsPanel584468.x;
+        Sub_4FB940(left, height / 2 + top + 54, hovered + 8, page);
+    }
+    if (gLegacyCraftPhaseD67D00 >= 4) {
+        Sub_5035E0(&disabled, 212, 1, gValueD69768, 1);
+    } else {
+        Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    }
+    std::int32_t phase = gLegacyCraftPhaseD67D00;
+    if (phase != 0) {
+        const char* message = nullptr;
+        switch (phase) {
+        case 1: message = kLegacyMaterialText58A078; break;
+        case 2: message = kLegacyMaterialText58A064; break;
+        case 3: message = kLegacyMaterialText58A054; break;
+        case 4: message = kLegacyMaterialText58A044; break;
+        case 5: case 6: message = kLegacyMaterialText58A034; break;
+        case 7: message = kLegacyGatherNoFp5864F0; break;
+        default: break;
+        }
+        // 原default保留局部缓冲；已证正常阶段生产为0..7，不新增补零或文案。
+        if (message != nullptr) {
+            std::strcpy(buffer, message);
+        }
+        const std::int32_t width = TextMeasure(buffer, 0);
+        const std::int32_t top = gLegacyCraftMaterialsPanel584468.y + 278;
+        const std::int32_t panelWidth = gLegacyCraftMaterialsPanel584468.width;
+        const std::int32_t left = gLegacyCraftMaterialsPanel584468.x;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left + panelWidth / 2 - width / 2),
+            static_cast<std::int16_t>(top), 2, 0, 0, buffer, 0, 0));
+        phase = gLegacyCraftPhaseD67D00;
+    }
+    const auto writeTaggedHint = [](const world::detail::PlayerItemRecord* const item) {
+        const std::uint16_t flags = item->flags;
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), item->name.data());
+            std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+            return true;
+        }
+        if ((flags & 0x200u) != 0) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), item->memo.data());
+            std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+            return true;
+        }
+        return false;
+    };
+    if (hovered >= 0 && phase == 4) {
+        static_cast<void>(writeTaggedHint(&world::detail::gPlayerItemsFDA8A4[hovered + 8]));
+    }
+    if (Sub_503590(&gLegacyCraftMaterialsPanel584468) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    } else {
+        const std::int32_t buttonState = QueryPanelButtonState(&confirm);
+        const std::int32_t hintPhase = gLegacyCraftPhaseD67D00;
+        if ((buttonState & 0x40) != 0 && hintPhase < 4) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(),
+                markedCount > 0 ? kLegacyMaterialText58A020 : kLegacyMaterialText58A010);
+        } else if (hovered >= 0) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+            if (item->used != 0 && hintPhase < 4 && !writeTaggedHint(item)) {
+                std::strcpy(ui::detail::gHoverTextD68AE8.data(),
+                    gLegacyCraftMarksC8AA7C[hovered] != 0 ? kLegacyMaterialText589FFC : kLegacyMaterialText589FEC);
+            }
+        }
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyCraftMaterialsPanel584468, 1);
+    gLegacyCraftMaterialHoverD45F84 = hovered;
+    return result;
 }
 
 std::int32_t Sub_4F50D0()

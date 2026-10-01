@@ -110,6 +110,12 @@ std::int32_t Sub_4F2650(); // 旧选择31初始化，218/2032保留原按钮分�
 std::int32_t Sub_4F2720(std::int32_t cost, std::int32_t skill); // 旧加工资格检查，失败只改对应阶段。
 std::uintptr_t Sub_4F2A30(std::int32_t opened); // 旧选择31完整背包选择、计时发送及提示。
 std::uintptr_t Sub_4F3ED0(std::int32_t opened); // 旧选择28制造结果，含25/29/30选择分支。
+std::int32_t Sub_4F4470(); // 旧材料完整校验：重复/特殊/成员/单堆数量，返回1/2/4。
+void Sub_4F4690(); // 20标记到六材料槽；特殊第5项与数组同源，唯一caller弃返回。
+std::int32_t Sub_4F4720(); // 20个非零标记计数，不读取物品used。
+std::int32_t Sub_4F4740(); // 清同源20B材料标记，返回0。
+std::int32_t Sub_4F4760(); // 旧27完整初始化，不清26的六材料数组。
+std::uint32_t Sub_4F4790(std::int32_t opened); // 旧选择27材料页，含真实换位请求与拖动。
 std::int32_t Sub_4F50D0(); // 旧制造预览动作，尾部总会517880，含空对象路径。
 std::int32_t Sub_4F5170(); // 三组六槽依序填-1，数量不填0。
 std::int32_t Sub_4F51A0(); // 旧选择26完整初始化，末尾透传4D3020。

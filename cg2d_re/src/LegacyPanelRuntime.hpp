@@ -104,10 +104,17 @@ std::uint32_t Sub_4F0B40(std::int32_t opened); // 旧选择34不足FP提示，�
 std::uintptr_t Sub_4F1C40(std::int32_t opened); // 旧选择33物品加工结果，按钮后才读取技能配对。
 std::uintptr_t Sub_4F2130(std::int32_t opened); // 旧选择32名称输入，关闭可返回聊天上下文地址。
 std::int32_t Sub_4F24A0(); // 名称双快照、真实请求及64B结果名/图号生产。
+void Sub_4F25C0(); // 旧加工预览动作，五图号闭区间，不含110350族。
 std::int32_t Sub_4F2650(); // 旧选择31初始化，218/2032保留原按钮分类。
 std::int32_t Sub_4F2720(std::int32_t cost, std::int32_t skill); // 旧加工资格检查，失败只改对应阶段。
+std::uintptr_t Sub_4F2A30(std::int32_t opened); // 旧选择31完整背包选择、计时发送及提示。
 std::uintptr_t Sub_4F3ED0(std::int32_t opened); // 旧选择28制造结果，含25/29/30选择分支。
 std::int32_t Sub_504C50(std::int32_t currentImage, std::int32_t requestedImage); // 旧技能面板预览图号重映射。
+void Sub_4FB940(std::int32_t x, std::int32_t y, std::int32_t item, std::int32_t page); // 旧物品详情八行绘制，原caller均不消费返回。
+void Sub_504BA0(
+    std::int32_t x, std::int32_t y, std::int32_t width, std::uint8_t layer,
+    std::int32_t font, const char* name, const char* memo,
+    std::int32_t unused1, std::int32_t unused2, std::int16_t flags); // 旧物品标题，先测名称再按标志选正文。
 std::int32_t Sub_4FC420(); // 原CRT 5530A8入口，尾跳旧设置菜单八按钮构造。
 std::int32_t Sub_4FC430(); // 原D67D38八条文字按钮，保留未写字节并返回Y快照+260。
 std::uint32_t Sub_4FC730(std::int32_t opened); // 旧选择编号3；关闭保存/八按钮交互及完整绘制。

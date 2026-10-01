@@ -2,6 +2,7 @@
 #include "CharacterSelectState.hpp"
 #include "LegacyPanelRuntime.hpp"
 #include "LoginSceneDependencies.hpp"
+#include "platform/MainLoopDependencies.hpp"
 #include "ui/WindowRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -292,6 +293,42 @@ std::string gLegacyItemWorkDraftCC31E0; // 仅已证NUL复制合同，不猜原�
 std::int32_t gLegacyItemWorkInitGateD67CE8 = 0; // 只证W32测试/返回，尚无地址用途。
 std::int32_t gLegacyItemWorkButtonKindD67CF4 = 0;
 std::int32_t gLegacyItemWorkPhaseCC4220 = 0;
+YobiAction* gLegacyItemWorkActionD67CEC = nullptr;
+std::int32_t gLegacyItemWorkHover584398 = -1;
+std::int32_t gLegacyItemWorkPageD67CF8 = 0;
+std::uint32_t gLegacyItemWorkTickD2E12C = 0;
+std::uint32_t gLegacyItemWorkDurationCC3EDC = 0;
+std::string gLegacyItemWorkMessageCA0ACC; // 原NUL格式化/分行合同，未知阶段保留旧文本。
+constexpr char kItemWorkText589F84[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xA8\xE8\xA6\x4C\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589F6C[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589F54[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xAD\xD7\xB2\x7A\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589F40[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589F2C[] = "\xBB\xDD\xAD\x6E%d\xC2\x49\xAA\xBA\xC5\x5D\xA4\x4F\xA1\x43";
+constexpr char kItemWorkText589F1C[] = "\xA4\x77\xB8\x67\xC5\xB2\xA9\x77\xB9\x4C\xA4\x46\xA1\x43";
+constexpr char kItemWorkText589F04[] = "\xA5\xBC\xB8\x67\xC5\xB2\xA9\x77\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xAD\xD7\xB2\x7A\xA1\x43";
+constexpr char kItemWorkText589EF4[] = "\xA4\x77\xB8\x67\xA8\xE8\xA6\x4C\xB9\x4C\xA4\x46\xA1\x43";
+constexpr char kItemWorkText589EDC[] = "\x0A\x0A      \xAD\xD7\xB2\x7A\xA4\xA4......";
+constexpr char kItemWorkText589EC4[] = "\x0A\x0A      \xC5\xB2\xA9\x77\xA4\xA4......";
+constexpr char kItemWorkText589EAC[] = "\x0A\x0A      \xA8\xE8\xA6\x4C\xA4\xA4......";
+constexpr char kItemWorkText589E94[] = "\xB5\x4C\xAA\x6B\xA5\x48\xB8\xD3\xA7\xDE\xAF\xE0\xB6\x69\xA6\xE6\xAD\xD7\xB2\x7A\xA1\x43";
+constexpr char kItemWorkText589E80[] = "\xB5\x4C\xAA\x6B\xAD\xD7\xB2\x7A\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589E58[] = "\xB8\xD3\xAA\xAB\xAB\x7E\xA5\x48\xB2\x7B\xA6\x62\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xA5\xAF\xC5\xAC\x4F\xB5\x4C\xAA\x6B\xC5\xB2\xA9\x77\xAA\xBA\xA1\x43";
+constexpr char kItemWorkText589E30[] = "\xB8\xD3\xAA\xAB\xAB\x7E\xA5\x48\xB2\x7B\xA6\x62\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xA5\xAF\xC5\xAC\x4F\xB5\x4C\xAA\x6B\xAD\xD7\xB2\x7A\xAA\xBA\xA1\x43";
+constexpr char kItemWorkText589E1C[] = "\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589E04[] = "\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA5\xBC\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589DF4[] = "\xA8\xE8\xA6\x4C\xA9\xD2\xBF\xEF\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589DE0[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xA8\xE8\xA6\x4C\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589DD0[] = "\xC5\xB2\xA9\x77\xA9\xD2\xBF\xEF\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589DBC[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xC5\xB2\xA9\x77\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589DAC[] = "\xAD\xD7\xB2\x7A\xA9\xD2\xBF\xEF\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589D98[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\xD7\xB2\x7A\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589D88[] = "\xA8\xE8\xA6\x4C\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589D74[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA1\x43";
+constexpr char kItemWorkText589D54[] = "\xA5\x48\xB2\x7B\xA6\x62\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xA5\xAF\xC5\xAC\x4F\xB5\x4C\xAA\x6B\xC5\xB2\xA9\x77\xAA\xBA\xA1\x43";
+constexpr char kItemWorkText589D44[] = "\xC5\xB2\xA9\x77\xB8\xD3\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kItemWorkText589D30[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xA4\x77\xC5\xB2\xA9\x77\xB9\x4C\xA4\x46\xA1\x43";
+constexpr char kItemWorkText589D10[] = "\xA5\xBC\xB8\x67\xC5\xB2\xA9\x77\xAA\xBA\xAA\xAB\xAB\x7E\xAC\x4F\xB5\x4C\xAA\x6B\xAD\xD7\xB2\x7A\xAA\xBA\xA1\x43";
+constexpr char kItemWorkText589024[] = "\xAD\xD7\xB2\x7A\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
 LegacyPanelRecord gLegacyCraftResultPanel5843A0 {
     0, 0, 272, 440, 28, {23353, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1598,6 +1635,25 @@ std::int32_t Sub_4F24A0()
     return audio::Sub_5042D0(panelId);
 }
 
+void Sub_4F25C0()
+{
+    YobiAction* action = gLegacyItemWorkActionD67CEC;
+    if (action == nullptr) {
+        return;
+    }
+    const std::int32_t image = GetYobiActionField2A8(action);
+    const bool extended = (image >= 100000 && image <= 100999)
+        || (image >= 105000 && image <= 106800)
+        || (image >= 104400 && image <= 104520)
+        || (image >= 120100 && image <= 120147)
+        || (image >= 120156 && image <= 120163);
+    SetYobiActionField2B0(action, extended ? 16 : 6);
+    action = gLegacyItemWorkActionD67CEC;
+    if (GetYobiActionField2B0(action) != 1) {
+        SetYobiActionField2B4(action, -1);
+    }
+}
+
 std::int32_t Sub_4F2650()
 {
     const std::int32_t gate = gLegacyItemWorkInitGateD67CE8;
@@ -1682,6 +1738,368 @@ std::int32_t Sub_4F2720(const std::int32_t cost, const std::int32_t skill)
         }
     }
     return 0;
+}
+
+std::uintptr_t Sub_4F2A30(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyItemWorkPanel5842D0.x;
+    const std::int32_t y = gLegacyItemWorkPanel5842D0.y;
+    std::array<LegacyPanelButtonRecord, 3> buttons;
+    std::array<LegacyPanelButtonRecord, 3> disabled;
+    for (std::int32_t i = 0; i < 3; ++i) {
+        buttons[i] = {x + 192, y + 408, x + 152, y + 398, 80, 20, 23366 + 3 * i, 23368 + 3 * i};
+        disabled[i] = {x + 192, y + 408, x + 152, y + 398, 80, 20, 23367 + 3 * i, 0};
+    }
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyItemWorkPanel5842D0,
+        [] { static_cast<void>(Sub_4F2650()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (audio::ReadLegacyPanelSelectionCC236C() != 19
+            && audio::ReadLegacyPanelSelectionCC2370() != 32) {
+            if (gLegacySkillPendingD67C48 != 0) {
+                gLegacySkillPendingD67C48 = 0;
+            } else if (ui::detail::gValue5F9754 != 0) {
+                const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, playerX, playerY, 62));
+                ui::detail::gValue5F9754 = 0;
+            }
+        }
+        YobiAction* action = gLegacyItemWorkActionD67CEC;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyItemWorkActionD67CEC = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (ui::detail::Sub_4D3040(1, 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyItemWorkPanel5842D0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gLegacyItemWorkActionD67CEC == nullptr) {
+        const std::int32_t top = gLegacyItemWorkPanel5842D0.y;
+        const std::int32_t left = gLegacyItemWorkPanel5842D0.x;
+        const std::int32_t image = world::detail::ReadPlayerImageNo();
+        gLegacyItemWorkActionD67CEC = Sub_4FAAA0(image, left + 78, top + 408);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyItemWorkPanel5842D0.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = row * 5 + column;
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyItemWorkHover584398) {
+        gLegacyItemWorkPageD67CF8 = 0;
+    }
+    const std::int32_t selected = gLegacyItemWorkSelection584394;
+    const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+    std::int32_t cost = world::detail::gPlayerItemsFDA8A4[selected + 8].level * 10;
+    if (ui::detail::ReadLegacyItemWorkSkillD67CF0() == 220) {
+        cost = 10;
+    }
+    char buffer[256];
+    const std::int32_t phase = gLegacyItemWorkPhaseCC4220;
+    if (phase == 7 || phase == 8 || phase == 9) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint32_t start = gLegacyItemWorkTickD2E12C;
+        const std::uint32_t duration = gLegacyItemWorkDurationCC3EDC;
+        const std::uint32_t elapsed = now - start;
+        if (elapsed > duration && elapsed > 4000u) {
+            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            if (skillId == 217 || skillId == 218 || skillId == 2031
+                || skillId == 2032 || skillId == 219 || skillId == 2033) {
+                buffer[0] = '\0';
+            } else {
+                std::strcpy(buffer, gLegacyItemWorkDraftCC31E0.c_str());
+            }
+            NullSub_509080();
+            const std::int32_t item = gLegacyItemWorkSelection584394 + 8;
+            const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+            static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, item, buffer));
+            const std::int32_t resultItem = gLegacyItemWorkSelection584394;
+            gLegacySkillPendingD67C48 = 1;
+            std::strncpy(gLegacyItemWorkNameCC40D8.data(),
+                world::detail::gPlayerItemsFDA8A4[resultItem + 8].name.data(), 64);
+            const std::int32_t imageItem = gLegacyItemWorkSelection584394;
+            const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;
+            gLegacyItemWorkImageCC320C = world::detail::gPlayerItemsFDA8A4[imageItem + 8].imageNo;
+            static_cast<void>(audio::Sub_5042D0(panelId));
+        }
+    } else if ((QueryPanelButtonState(&buttons[gLegacyItemWorkButtonKindD67CF4]) & 1) != 0) {
+        if (gLegacyItemWorkSelection584394 < 0) {
+            gLegacyItemWorkPhaseCC4220 = 1;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else if (Sub_4F2720(cost, skill) != 0) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
+                gLegacyItemWorkPhaseCC4220 = 7;
+            } else if (skillId == 219 || skillId == 2033) {
+                gLegacyItemWorkPhaseCC4220 = 8;
+            }
+            if (skillId == 220) {
+                if (input::IsChatContext_503E60() == 0) {
+                    static_cast<void>(audio::Sub_504380(32));
+                }
+                static_cast<void>(audio::Sub_504180(32));
+            } else {
+                gLegacyItemWorkTickD2E12C = platform::ReadTickCount32();
+                const std::int32_t random = platform::NextRandom_53B4C9() % 6;
+                const std::int32_t level =
+                    world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].level;
+                const auto duration = static_cast<std::uint32_t>(1000 * (random + 3 * level + 5));
+                const std::uintptr_t socket = platform::gConnectionSocket;
+                gLegacyItemWorkDurationCC3EDC = duration;
+                static_cast<void>(network::Sub_512DA0(socket, static_cast<std::int32_t>(duration / 1000u)));
+                Sub_4F25C0();
+            }
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+    } else if (hovered >= 0) {
+        const std::uint16_t used = world::detail::gPlayerItemsFDA8A4[hovered + 8].used;
+        const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+        if (used != 0 && (clicks & 0x10u) != 0) {
+            if (gLegacyItemWorkSelection584394 >= 0 && gLegacyItemWorkSelection584394 == hovered) {
+                gLegacyItemWorkSelection584394 = -1;
+                gLegacyItemWorkPhaseCC4220 = 0;
+                static_cast<void>(audio::PlaySe_52C450(54, 320));
+            } else {
+                gLegacyItemWorkSelection584394 = hovered;
+                gLegacyItemWorkPhaseCC4220 = 2;
+                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                static_cast<void>(Sub_4F2720(cost, skill));
+            }
+        } else if (used != 0 && (clicks & 2u) != 0) {
+            gLegacyItemWorkPageD67CF8 ^= 1;
+        }
+    }
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t index = row * 5 + column;
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[index + 8];
+            if (item->used != 0) {
+                const std::int32_t image = item->imageNo;
+                const std::int32_t top = gLegacyItemWorkPanel5842D0.y;
+                const std::int32_t left = gLegacyItemWorkPanel5842D0.x;
+                static_cast<void>(DrawGraphic(left + 32 + 52 * column, top + 60 + 53 * row,
+                    212, image, 0, &descriptor));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyItemWorkPanel5842D0.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyItemWorkPanel5842D0.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+            }
+            if (hovered == index) {
+                const std::uint32_t hoverImage = gValueD69768;
+                const std::int32_t left = gLegacyItemWorkPanel5842D0.x + 52 * column;
+                const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 53 * row;
+                DrawGraphicHover(Low16(left + 8), Low16(top + 36),
+                    Low16(left + 56), Low16(top + 84), 212, hoverImage, 0);
+            }
+            if (gLegacyItemWorkSelection584394 == index) {
+                const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 53 * row;
+                const std::int32_t left = gLegacyItemWorkPanel5842D0.x + 52 * column;
+                DrawGraphicHover(Low16(left + 10), Low16(top + 38),
+                    Low16(left + 54), Low16(top + 82), 212, 251, 0);
+            }
+        }
+    }
+    const char* message = nullptr;
+    switch (gLegacyItemWorkPhaseCC4220) {
+    case 0: {
+        const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+        if (skillId == 217 || skillId == 218 || skillId == 2031 || skillId == 2032) {
+            message = kItemWorkText589F54;
+        } else if (skillId == 219 || skillId == 2033) {
+            message = kItemWorkText589F6C;
+        } else if (skillId == 220) {
+            message = kItemWorkText589F84;
+        }
+        break;
+    }
+    case 1: message = kItemWorkText589F40; break;
+    case 2:
+        std::sprintf(buffer, kItemWorkText589F2C, cost);
+        message = buffer;
+        break;
+    case 3: message = kLegacyGatherNoFp5864F0; break;
+    case 4: message = kItemWorkText589F1C; break;
+    case 5: message = kItemWorkText589F04; break;
+    case 6: message = kItemWorkText589EF4; break;
+    case 7: message = kItemWorkText589EDC; break;
+    case 8: message = kItemWorkText589EC4; break;
+    case 9: message = kItemWorkText589EAC; break;
+    case 10: message = kItemWorkText589E94; break;
+    case 11: message = kItemWorkText589E80; break;
+    case 12: message = kItemWorkText589E58; break;
+    case 13: message = kItemWorkText589E30; break;
+    case 14: message = kItemWorkText589E1C; break;
+    case 15: message = kItemWorkText589E04; break;
+    default: break;
+    }
+    if (message != nullptr) {
+        gLegacyItemWorkMessageCA0ACC = message;
+    }
+    for (std::int32_t row = 0; row < 3; ++row) {
+        if (input::ExtractLegacyLine_503AB0(
+                buffer, 256, gLegacyItemWorkMessageCA0ACC.c_str(), row, 28) != 0) {
+            const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 255 + 20 * row;
+            const std::int32_t left = gLegacyItemWorkPanel5842D0.x + 9;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+                static_cast<std::int16_t>(top), 2, 0, 0, buffer, 0, 0));
+        }
+    }
+    if (gLegacyItemWorkPhaseCC4220 >= 7 && gLegacyItemWorkPhaseCC4220 <= 9) {
+        Sub_5035E0(&disabled[gLegacyItemWorkButtonKindD67CF4], 212, 1, gValueD69768, 1);
+    } else {
+        Sub_5035E0(&buttons[gLegacyItemWorkButtonKindD67CF4], 212, 1, gValueD69768, 0);
+    }
+    const auto writeTaggedHint = [](const world::detail::PlayerItemRecord* const item, const bool name) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), name ? item->name.data() : item->memo.data());
+        std::strcat(ui::detail::gHoverTextD68AE8.data(), name ? "[kok]" : "[han]");
+    };
+    if (hovered >= 0) {
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+        if (item->used != 0) {
+            const std::int32_t page = gLegacyItemWorkPageD67CF8;
+            const std::int32_t top = gLegacyItemWorkPanel5842D0.y + 244;
+            const std::int32_t left = gLegacyItemWorkPanel5842D0.x;
+            Sub_4FB940(left, top, hovered + 8, page);
+            // 原4F3492的phase>=7 || phase<=9恒真，所有阶段都保留该标签生产。
+            const std::uint16_t flags = item->flags;
+            if ((flags & 0x100u) != 0) {
+                writeTaggedHint(item, true);
+            } else if ((flags & 0x200u) != 0) {
+                writeTaggedHint(item, false);
+            }
+        }
+    }
+    if (Sub_503590(&gLegacyItemWorkPanel5842D0) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    } else {
+        const std::int32_t buttonState = QueryPanelButtonState(&buttons[gLegacyItemWorkButtonKindD67CF4]);
+        const std::int32_t hintPhase = gLegacyItemWorkPhaseCC4220;
+        const char* hint = nullptr;
+        if ((buttonState & 0x40) != 0 && (hintPhase < 7 || hintPhase > 9)) {
+            const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+            if (skillId == 217 || skillId == 218) {
+                hint = gLegacyItemWorkSelection584394 >= 0 ? kItemWorkText589DAC : kItemWorkText589D98;
+            } else if (skillId == 219 || skillId == 2033) {
+                hint = gLegacyItemWorkSelection584394 >= 0 ? kItemWorkText589DD0 : kItemWorkText589DBC;
+            } else if (skillId == 220) {
+                hint = gLegacyItemWorkSelection584394 >= 0 ? kItemWorkText589DF4 : kItemWorkText589DE0;
+            }
+        } else if (hovered >= 0) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+            if (item->used != 0 && (hintPhase < 7 || hintPhase > 9)) {
+                const std::int32_t skillId = ui::detail::ReadLegacyItemWorkSkillD67CF0();
+                if (skillId == 220) {
+                    const std::uint16_t flags = item->flags;
+                    if ((flags & 0x100u) != 0 && item->itemType != 47) {
+                        writeTaggedHint(item, true);
+                    } else if ((flags & 0x200u) != 0 && item->itemType != 47) {
+                        writeTaggedHint(item, false);
+                    } else if (item->hasDescription == 0 || item->count > 0) {
+                        hint = kItemWorkText589D74;
+                    } else {
+                        hint = item->memo[0] != '\0' || item->itemType == 47
+                            ? kItemWorkText589D74 : kItemWorkText589D88;
+                    }
+                } else if (skillId == 219 || skillId == 2033) {
+                    const std::uint16_t flags = item->flags;
+                    const std::uint16_t described = item->hasDescription;
+                    if ((flags & 0x100u) != 0) {
+                        writeTaggedHint(item, true);
+                    } else if ((flags & 0x200u) != 0) {
+                        writeTaggedHint(item, false);
+                    } else if (described == 0) {
+                        hint = item->level > world::detail::gSkillsF1BAFC[skill].level
+                            ? kItemWorkText589D54 : kItemWorkText589D44;
+                    } else {
+                        hint = kItemWorkText589D30;
+                    }
+                } else if (skillId == 217 || skillId == 2031 || skillId == 218 || skillId == 2032) {
+                    const std::int32_t kind = ui::detail::Sub_482F70(item->itemType);
+                    const std::uint16_t flags = item->flags;
+                    if ((flags & 0x100u) != 0) {
+                        writeTaggedHint(item, true);
+                    } else if ((flags & 0x200u) != 0) {
+                        writeTaggedHint(item, false);
+                    } else if (item->hasDescription == 0) {
+                        hint = kItemWorkText589D10;
+                    } else if (kind == (skillId == 217 || skillId == 2031 ? 2 : 1)) {
+                        hint = kItemWorkText589E94;
+                    } else {
+                        hint = kind == 0 ? kItemWorkText589E80 : kItemWorkText589024;
+                    }
+                }
+            }
+        }
+        if (hint != nullptr) {
+            std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+        }
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyItemWorkPanel5842D0, 1);
+    gLegacyItemWorkHover584398 = hovered;
+    return result;
+}
+
+void Sub_4FB940(
+    const std::int32_t x, const std::int32_t y, const std::int32_t index, const std::int32_t page)
+{
+    if (index < 0 || index >= 28) {
+        return;
+    }
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[index];
+    if (item->used == 0) {
+        return;
+    }
+    Sub_504BA0(x, y, 272, 4, 0, item->name.data(), item->memo.data(),
+        0, 0, std::bit_cast<std::int16_t>(item->flags));
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const char* const text = item->description[page * 8 + row].data();
+        if (std::strlen(text) != 0) {
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, text, 0, 0));
+        }
+    }
+    static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
+}
+
+void Sub_504BA0(
+    const std::int32_t x, const std::int32_t y, const std::int32_t width, const std::uint8_t layer,
+    const std::int32_t font, const char* const name, const char* const memo,
+    const std::int32_t, const std::int32_t, const std::int16_t flags)
+{
+    std::int32_t textWidth = TextMeasure(name, font);
+    const char* text = name;
+    std::int8_t color = 0;
+    if ((flags & 0x100) != 0) {
+        textWidth = TextMeasure(memo, font);
+        text = memo;
+        color = 5;
+    } else if ((flags & 0x200) != 0) {
+        color = 1;
+    }
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + width / 2 - textWidth / 2),
+        static_cast<std::int16_t>(y + 5), layer, static_cast<std::int8_t>(font), color, text, 0, 0));
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

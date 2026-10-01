@@ -954,6 +954,11 @@ std::uint32_t ReadLegacyPanelSelectionCC236C() noexcept
     return gSoundSelectionCC236C[0];
 }
 
+std::uint32_t ReadLegacyPanelSelectionCC2370() noexcept
+{
+    return gSoundSelectionCC236C[1];
+}
+
 std::uint32_t Sub_52CCE0() noexcept
 {
     if (gValue103DE80 == 1) {

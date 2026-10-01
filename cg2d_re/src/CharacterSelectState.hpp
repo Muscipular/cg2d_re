@@ -46,6 +46,8 @@ extern std::int32_t gValueDE03F4;
 extern std::int32_t gValueFF03D0;
 extern std::int32_t gValueF7C948;
 extern std::int32_t gValueDE0B04;
+extern std::int32_t gValueDE0AFC; // 4631D0生产、508E00读取的创建动作图号。
+extern std::array<char, 24> gCreationNameFF0D18; // 至FF0D30前的同源原字节名称区。
 extern std::array<login::YobiAction*, 2> gPreviewActions; // 原 0x9A6E44、0x9A6E48。
 extern login::YobiAction* gCharacterModalAction; // 原 0x9A6E64，原生指针。
 extern std::int16_t gPendingCharacterCount; // 原 0xF7CA06，R/W16。

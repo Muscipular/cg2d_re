@@ -39,6 +39,23 @@ std::array<std::uint16_t, 257> gCtypeTable58FC38 {
 std::uint16_t* gCtypePointer58FC30 = gCtypeTable58FC38.data() + 1;
 static_assert(sizeof(gCtypePointer58FC30) == 8);
 
+// 原[543D0C,543D37)：包含数量耗尽/零数量时的末端读取，不是宿主strnlen。
+std::uint32_t CountLegacyBytes_543D0C(const char* const source, const std::uint32_t limit)
+{
+    const volatile char* cursor = source;
+    std::uint32_t remaining = limit;
+    if (remaining != 0) {
+        do {
+            if (*cursor == '\0') {
+                break;
+            }
+            ++cursor;
+            --remaining;
+        } while (remaining != 0);
+    }
+    return *cursor == '\0' ? static_cast<std::uint32_t>(cursor - source) : limit;
+}
+
 namespace {
 
 // 仅 53DC64 调用域：固定 LOWERCASE、目的长 3、代码页参数 0、strict=1。
@@ -55,10 +72,8 @@ int MapLowercase_543AE8(const std::uint32_t locale, const char* source,
             gLegacyTextLocale1086160.mapBackend = 2;
         }
     }
-    int length = 0;
-    while (length < sourceSize && source[length] != '\0') {
-        ++length;
-    }
+    const int length = static_cast<int>(CountLegacyBytes_543D0C(
+        source, static_cast<std::uint32_t>(sourceSize)));
     if (gLegacyTextLocale1086160.mapBackend == 2) {
         return LCMapStringA(locale, LCMAP_LOWERCASE, source, length, destination, 3);
     }

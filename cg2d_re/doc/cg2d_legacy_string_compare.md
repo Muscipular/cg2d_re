@@ -259,3 +259,32 @@ StrLen_53F9E0、StrCpy_544DB0和StrNCpy_53BEC0。前节初次映射只搜Input�
 原反汇编将FF0000掩码显示为应用符号加偏移，实际操作数已按数值核对，
 不把这些符号化显示误当玩家数据读取。未新增状态、包装或改变原分母。
 本步源码不改，静态核映射和边界；未构建、测试、运行或哈希校验。
+
+## NLS有界字节计数 SPEC（2026-10-02）
+
+原strncnt@[543D0C,543D37)共20条，三个直接调用来自543B69（LCMapStringA包装）
+及547C8B/547CA2（CompareStringA包装）。两个父入口都先要求数量>0才调用；
+数量按原W32传递，返回U32长度，不包含NUL。
+
+原逻辑在最多count次非NUL推进后仍于543D29读取当前字节；若提前遇NUL，
+该字节也在此复读；count0则直接读取source[0]再返回0。
+因此不能把它描述成“到达数量后绝不再读”的通用strnlen。
+
+按工程委托在LegacyStringCompare.cpp实现CountLegacyBytes_543D0C，
+用内部LegacyStringCompareState.hpp声明供已有NLS边界关联。
+游标为非拥有const volatile char*，保留各次读取与末端复读；数量/返回保持U32。
+不另造字符串状态，不添加空指针/容量检查、清零、截断或错误槽。
+
+本步接入MapLowercase_543AE8的既有1/2字节消费域：
+LowerCompareValue_53DC64明确使用source[3]，单字节写source[1]=NUL，
+双字节写source[2]=NUL，因而末端复读均在已写对象内。
+只替换该计数循环，backend探测、共享locale/代码页及API失败分支不变。
+
+MapLegacyCaseTable_543AE8则使用已填满且没有NUL的source[256]。
+其当前有界循环返回256；原函数到达count后的读取落在该数组之外，
+本步不让新代码追加这一越界读取、不扩容/补哨兵，也不把它列为实施阻塞：
+这是既有RPLAN.24不专项模拟越界的边界，返回值消费保留，但不称原访问/故障等价。
+该域仍沿原有计数表达式，不把本次Lowercase接线覆盖为全部LCMapStringA调用已接。
+
+547C0D的两个CompareString计数调用尚未接入本体，继续保留父链缺口。
+完整NLS、字符串父链与运行验收未完成；本步只静态核20条及已接消费域。

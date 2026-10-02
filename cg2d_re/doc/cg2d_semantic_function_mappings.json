@@ -11642,6 +11642,37 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "value/radix保留U32除法及低U8字符，负号标志保留S32非零判断；不使用64位数值、宿主格式化或第二缓冲。S32左右索引保持原do交换含单数字的两次同位置写，避免正常单数字路径形成数组前指针。唯一直接caller54ABFD不消费机器返回残值，内部void；公开Itoa另返原buffer。无新增非法进制/容量保护，RPLAN.24不称异常等价。"
+    },
+    {
+      "original_entry": "0x543D0C",
+      "inventory_id": "F:00143D0C",
+      "status": "原有界计数本体已实现，NLS小写转换窄域已接；其他父链与运行未验",
+      "original_end_exclusive": "0x543D37",
+      "instruction_count": 20,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "CountLegacyBytes_543D0C",
+            "MapLowercase_543AE8",
+            "LowerCompareValue_53DC64"
+          ],
+          "relationship": "原U32计数及末端复读本体，接入已有source[3]且显式写NUL的1/2字节小写转换域"
+        },
+        {
+          "path": "src/platform/LegacyStringCompareState.hpp",
+          "symbols": [
+            "CountLegacyBytes_543D0C"
+          ],
+          "relationship": "既有NLS内部边界声明，不新增状态owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原543D29在数量耗尽/数量0也读取当前字节，提前遇NUL则复读；使用非拥有const volatile char*保留读取，数量/返回U32。固定256字符表域原末端读越出source[256]，按RPLAN.24不新增模拟/哨兵，保留现有有界返回256表达式且不称故障等价；不据此阻塞已证可读窄域。547C0D两调用尚未接线，未声称三引用全部完成。"
     }
   ]
 }

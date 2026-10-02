@@ -8834,6 +8834,245 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "两处存档调用已接：SetCurrentDirectoryA后GetCurrentDirectoryA(261)，仅返回0失败；相同双斜杠前缀早退，否则原U8表构造=X:并设置环境。失败映射共享错误、不回滚CWD；未补缓冲零值/长度门禁，路径过长及未写局部内容不称故障等价。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x54518B",
+      "inventory_id": "F:0014518B",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x545208",
+      "instruction_count": 51,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "GetEnv真实标准库替代及唯一TZ消费者"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x540B40",
+          "parent": "0x540B1D"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一TZ caller及既有用户裁决，直接std::getenv；保留借用指针和父调用后续逻辑，宿主校验/锁/表准备/编码差异不称原体等价。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x54733B",
+      "inventory_id": "F:0014733B",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x54737A",
+      "instruction_count": 24,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x5451E9",
+          "parent": "0x54518B"
+        },
+        {
+          "site": "0x548029",
+          "parent": "0x548011"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅54518B和548011两个原caller，均属旧环境变量名比较。作为GetEnv整体替换的私有依赖关联，不另写NLS比较体，不推广替换其他CompareString调用。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x54737A",
+      "inventory_id": "F:0014737A",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x5473E8",
+      "instruction_count": 58,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x5451A9",
+          "parent": "0x54518B"
+        },
+        {
+          "site": "0x547EE5",
+          "parent": "0x547E8A"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅54518B和547E8A调用的旧宽表补窄表，原CP1转换及旧分配/发布机制随既有GetEnv裁决整体承接；不是通用宽窄转换等价。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x547E8A",
+      "inventory_id": "F:00147E8A",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x548011",
+      "instruction_count": 155,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x5473CA",
+          "parent": "0x54737A"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller54737A实际传第二参数0，负责该补表链发布；不据此授权一般putenv或第二参数非0更新系统环境的应用接口。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x548011",
+      "inventory_id": "F:00148011",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x548069",
+      "instruction_count": 35,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x547F3C",
+          "parent": "0x547E8A"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller547E8A；旧环境表索引查找随GetEnv私有补表链承接，不创建旧表和新表双重owner。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x548069",
+      "inventory_id": "F:00148069",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x5480D0",
+      "instruction_count": 49,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x547EC9",
+          "parent": "0x547E8A"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller547E8A；旧copy-on-write环境表复制随GetEnv裁决整体承接，不把其通用strdup/malloc/amsg_exit一并排除。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x5480D0",
+      "inventory_id": "F:001480D0",
+      "status": "按既有GetEnv裁决整体标准库承接；私有依赖归属不作原体等价",
+      "original_end_exclusive": "0x548143",
+      "instruction_count": 49,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随GetEnv整体标准库承接的原私有依赖；应用文件不是此helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "original_incoming": [
+        {
+          "site": "0x547E9E",
+          "parent": "0x547E8A"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller547E8A的等号搜索依赖；不用新多字节表重新实现已被GetEnv裁决替换的私有链，不代表所有mbschr或strchr调用均被排除。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
     }
   ]
 }

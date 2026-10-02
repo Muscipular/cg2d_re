@@ -114,6 +114,8 @@ std::int32_t Sub_4E0FF0(
     std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t item, std::int32_t page);
 std::int32_t Sub_4E10F0(std::int32_t x, std::int32_t y); // 旧72内嵌数量层，不关闭面板。
 std::uint32_t Sub_4E2030(); // 旧72物品存放子页；外层4E0380切页仍待接入。
+std::uint32_t Sub_4E2D90(); // 旧72存入金额，草稿别名CC4B2C末4B，确认只登记。
+std::uint32_t Sub_4E3750(); // 旧72取出金额，先登记旧草稿再处理键盘/上限。
 std::uint32_t Sub_4E4460(std::int32_t opened); // 旧78物品目标属性页，只读借用nFV的同源值记录。
 void Sub_4E9280(); // 旧79详情页/目标初始化，不重置上次悬停或来源参数。
 std::uint32_t Sub_4E92A0(std::int32_t opened); // 旧79刻印选择，发送后仍保留绘制/提示公共尾。

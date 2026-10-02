@@ -236,6 +236,10 @@ std::int32_t gLegacyStoragePutCountD2DAD4 = 0;
 std::int32_t gLegacyStorageCapacityD30404 = 0;
 std::int32_t gLegacyStorageFeeD40B04 = 0;
 std::int32_t gLegacyStorageMoneyD2F79C = 0;
+std::int32_t gLegacyStorageWithdrawDraftD2EA98 = 0;
+std::int32_t gLegacyStorageWithdrawAmountCF49B8 = 0;
+std::int32_t gLegacyStorageDepositMessageD67CAC = 0;
+std::uint32_t gLegacyStorageDepositTickD67CB0 = 0;
 constexpr char kLegacyStorageNoMoney58906C[] = "\xA7\x41\xAA\xBA\xBF\xFA\xA4\xA3\xB0\xF7\xA1\x49";
 constexpr char kLegacyStorageFee589284[] = "\xA4\xE2\xC4\xF2\xB6\x4F";
 constexpr char kLegacyStorageGold589278[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42";
@@ -245,6 +249,12 @@ constexpr char kLegacyStorageFull589230[] = "\xB5\x4C\xAA\x6B\xA6\x41\xA6\x73\xA
 constexpr char kLegacyStorageCanPut589244[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xA5\x69\xA5\x48\xA6\x73\xA9\xF1\xA1\x43";
 constexpr char kLegacyStoragePut589258[] = "\xA6\x73\xA9\xF1\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kLegacyStorageCannotPut5878BC[] = "\xA6\xB9\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xA6\x73\xA9\xF1\xA1\x43";
+constexpr char kLegacyStorageClear5859FC[] = "\xA7\xE2\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xC2\x6B\xB9\x73\xA1\x43";
+constexpr char kLegacyStorageAmountLimit5892D4[] = "\xB5\x4C\xAA\x6B\xAB\xFC\xA9\x77\xA7\xF3\xA6\x68\xAA\xF7\xC3\x42\xA1\x43";
+constexpr char kLegacyStorageDeposit5892F4[] = "\xA6\x73\xA4\x4A\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
+constexpr char kLegacyStorageCannotDeposit5892E8[] = "\xB5\x4C\xAA\x6B\xA6\x73\xA4\x4A\xA1\x43";
+constexpr char kLegacyStorageBalance589314[] = "\xA6\x73\xB4\xDA";
+constexpr char kLegacyStorageWithdraw589304[] = "\xA8\xFA\xA5\x58\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
 
 char* BorrowLegacyStorageItem(const std::int32_t side, const std::int32_t item)
 {
@@ -1498,6 +1508,279 @@ std::uint32_t Sub_4E2030()
     }
     gLegacyStoragePreviousRight582C68 = right;
     gLegacyStoragePreviousLeft582C64 = left;
+    return result;
+}
+
+std::uint32_t Sub_4E2D90()
+{
+    const std::int32_t x = gLegacyStoragePanel582B70.x;
+    const std::int32_t y = gLegacyStoragePanel582B70.y;
+    LegacyPanelButtonRecord confirm {x + 419, y + 276, x + 379, y + 266, 80, 20, 22712, 22713};
+    LegacyPanelButtonRecord backspace {x + 480, y + 204, x + 454, y + 198, 52, 12, 0, 23260};
+    LegacyPanelButtonRecord all {x + 480, y + 220, x + 454, y + 214, 52, 12, 0, 23261};
+    LegacyPanelButtonRecord clear {x + 480, y + 236, x + 454, y + 230, 52, 12, 0, 23262};
+    std::array<LegacyPanelButtonRecord, 10> digits;
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        const std::int32_t column = 24 * (digit % 5);
+        const std::int32_t row = digit < 5 ? 232 : 208;
+        digits[digit] = {x + 342 + column, y + row, x + 332 + column, y + row - 10,
+            20, 20, 0, 23250 + digit};
+    }
+    const auto readDraft = [] {
+        return ReadRecordW32(ui::detail::gShopTotalTextCC4B2C.data(), 44);
+    };
+    const auto writeDraft = [](const std::int32_t value) {
+        std::memcpy(ui::detail::gShopTotalTextCC4B2C.data() + 44, &value, sizeof(value));
+    };
+    const std::int32_t side = ui::detail::ReadLegacyStorageSideD67618();
+    // 非0/1模式取原var_21C已写几何值，不以默认上限或补零替换。
+    std::int32_t maximum = x + 404;
+    if (side == 0 || side == 1) {
+        const std::int32_t limit = world::detail::ReadPlayerValue15BD0(side + 1);
+        const std::int32_t amount = ReadRecordW32(
+            ui::detail::gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4);
+        maximum = limit - amount;
+    }
+    const std::int32_t money = world::detail::ReadPlayerValueFC();
+    if (maximum > money) {
+        maximum = money;
+    }
+    if (gLegacyStorageDepositMessageD67CAC > 0 && gLegacyStorageDepositTickD67CB0 != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (gLegacyStorageDepositTickD67CB0 + 2000u < now) {
+            gLegacyStorageDepositMessageD67CAC = 0;
+            gLegacyStorageDepositTickD67CB0 = 0;
+        }
+    }
+    std::int32_t hoveredDigit = -1;
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        const std::int32_t currentMoney = world::detail::ReadPlayerValueFC();
+        const std::int32_t draft = readDraft();
+        const std::int32_t fee = gLegacyStorageFeeD40B04;
+        if (currentMoney - draft < fee) {
+            gLegacyStorageDepositMessageD67CAC = 1;
+            gLegacyStorageDepositTickD67CB0 = platform::ReadTickCount32();
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            gLegacyStorageMoneyD2F79C = draft;
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+    } else {
+        bool changed = true;
+        if ((QueryPanelButtonState(&all) & 1) != 0) {
+            writeDraft(maximum);
+        } else if ((QueryPanelButtonState(&clear) & 1) != 0) {
+            writeDraft(0);
+        } else if ((QueryPanelButtonState(&backspace) & 1) != 0) {
+            writeDraft(readDraft() / 10);
+        } else {
+            changed = false;
+            for (std::int32_t digit = 0; digit < 10; ++digit) {
+                if ((QueryPanelButtonState(&digits[digit]) & 0x40) != 0) {
+                    hoveredDigit = digit;
+                }
+                if ((QueryPanelButtonState(&digits[digit]) & 1) != 0) {
+                    writeDraft(10 * readDraft() + digit);
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        if (changed) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    // 原4B槽别名char数组；键盘链仅同步读键态，借用结束即写回原区。
+    std::int32_t keyboardDraft = readDraft();
+    static_cast<void>(Sub_502B80(&keyboardDraft, 7));
+    writeDraft(keyboardDraft);
+    if (readDraft() > maximum) {
+        writeDraft(maximum);
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        const std::int32_t top = gLegacyStoragePanel582B70.y + offsetY;
+        const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
+    };
+    char buffer[64];
+    const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t balance = ReadRecordW32(
+        ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
+    std::sprintf(buffer, "%7d", balance);
+    drawAt(buffer, 146, 150, 0);
+    std::sprintf(buffer, "%7d", maximum);
+    drawAt(buffer, 421, 118, 0);
+    std::sprintf(buffer, "%7d", readDraft());
+    drawAt(buffer, 421, 158, 0);
+    Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
+    for (auto& digit : digits) {
+        Sub_5035E0(&digit, 223, 1, gValueD69768, 0);
+    }
+    Sub_5035E0(&backspace, 223, 1, gValueD69768, 0);
+    Sub_5035E0(&all, 223, 1, gValueD69768, 0);
+    Sub_5035E0(&clear, 223, 1, gValueD69768, 0);
+    const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
+    const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
+    static_cast<void>(DrawGraphic(backgroundX, backgroundY, 212, 23343, 0, nullptr));
+    const std::int32_t message = gLegacyStorageDepositMessageD67CAC;
+    if (message == 1) {
+        drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
+    } else if (message == 0) {
+        drawAt(kLegacyStorageFee589284, 80, 305, 0);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        drawAt(buffer, 139, 306, 1);
+    }
+    drawAt(kLegacyStorageGold589278, 358, 305, 0);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    drawAt(buffer, 417, 306, 1);
+    const char* hint;
+    std::uint32_t result = 0;
+    if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        const std::int32_t currentMoney = world::detail::ReadPlayerValueFC();
+        const std::int32_t draft = readDraft();
+        const std::int32_t fee = gLegacyStorageFeeD40B04;
+        if (currentMoney - draft < fee) {
+            hint = kLegacyStorageCannotDeposit5892E8;
+        } else {
+            hint = kLegacyStorageDeposit5892F4;
+            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+        }
+    } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
+        hint = kLegacyMoneyDigit585B6C;
+    } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
+        hint = kLegacyStorageClear5859FC;
+    } else {
+        const std::int32_t backspaceState = QueryPanelButtonState(&backspace);
+        if ((backspaceState & 0x40) != 0) {
+            hint = kLegacySplitBackspace585B34;
+        } else if (hoveredDigit < 0) {
+            return static_cast<std::uint32_t>(backspaceState);
+        } else if (readDraft() < maximum) {
+            hint = kLegacyMoneyDigit585B6C;
+            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+        } else {
+            hint = kLegacyStorageAmountLimit5892D4;
+        }
+    }
+    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    return result;
+}
+
+std::uint32_t Sub_4E3750()
+{
+    const std::int32_t x = gLegacyStoragePanel582B70.x;
+    const std::int32_t y = gLegacyStoragePanel582B70.y;
+    LegacyPanelButtonRecord confirm {x + 141, y + 276, x + 101, y + 266, 80, 20, 22712, 22713};
+    LegacyPanelButtonRecord backspace {x + 202, y + 204, x + 176, y + 198, 52, 12, 0, 23260};
+    LegacyPanelButtonRecord all {x + 202, y + 220, x + 176, y + 214, 52, 12, 0, 23261};
+    LegacyPanelButtonRecord clear {x + 202, y + 236, x + 176, y + 230, 52, 12, 0, 23262};
+    std::array<LegacyPanelButtonRecord, 10> digits;
+    for (std::int32_t digit = 0; digit < 10; ++digit) {
+        const std::int32_t column = 24 * (digit % 5);
+        const std::int32_t row = digit < 5 ? 232 : 208;
+        digits[digit] = {x + 64 + column, y + row, x + 54 + column, y + row - 10,
+            20, 20, 0, 23250 + digit};
+    }
+    const std::int32_t side = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t limit = world::detail::ReadPlayerValue15BD0(0);
+    const std::int32_t money = world::detail::ReadPlayerValueFC();
+    std::int32_t maximum = limit - money;
+    std::int32_t hoveredDigit = -1;
+    const std::int32_t balance = ReadRecordW32(
+        ui::detail::gItemDetailStorageCC4D58.data() + side * 0xFBF8, 0xFBF4);
+    if (maximum > balance) {
+        maximum = balance;
+    }
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        gLegacyStorageWithdrawAmountCF49B8 = gLegacyStorageWithdrawDraftD2EA98;
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else {
+        bool changed = true;
+        if ((QueryPanelButtonState(&all) & 1) != 0) {
+            gLegacyStorageWithdrawDraftD2EA98 = maximum;
+        } else if ((QueryPanelButtonState(&clear) & 1) != 0) {
+            gLegacyStorageWithdrawDraftD2EA98 = 0;
+        } else if ((QueryPanelButtonState(&backspace) & 1) != 0) {
+            gLegacyStorageWithdrawDraftD2EA98 /= 10;
+        } else {
+            changed = false;
+            for (std::int32_t digit = 0; digit < 10; ++digit) {
+                if ((QueryPanelButtonState(&digits[digit]) & 0x40) != 0) {
+                    hoveredDigit = digit;
+                }
+                if ((QueryPanelButtonState(&digits[digit]) & 1) != 0) {
+                    gLegacyStorageWithdrawDraftD2EA98 = 10 * gLegacyStorageWithdrawDraftD2EA98 + digit;
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        if (changed) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    static_cast<void>(Sub_502B80(&gLegacyStorageWithdrawDraftD2EA98, 7));
+    if (gLegacyStorageWithdrawDraftD2EA98 > maximum) {
+        gLegacyStorageWithdrawDraftD2EA98 = maximum;
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        const std::int32_t top = gLegacyStoragePanel582B70.y + offsetY;
+        const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
+    };
+    char buffer[64];
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    drawAt(buffer, 423, 151, 0);
+    std::sprintf(buffer, "%7d", maximum);
+    drawAt(buffer, 143, 118, 0);
+    std::sprintf(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
+    drawAt(buffer, 143, 158, 0);
+    Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
+    for (auto& digit : digits) {
+        Sub_5035E0(&digit, 223, 1, gValueD69768, 0);
+    }
+    Sub_5035E0(&backspace, 223, 1, gValueD69768, 0);
+    Sub_5035E0(&all, 223, 1, gValueD69768, 0);
+    Sub_5035E0(&clear, 223, 1, gValueD69768, 0);
+    const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
+    const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
+    static_cast<void>(DrawGraphic(backgroundX, backgroundY, 212, 23344, 0, nullptr));
+    drawAt(kLegacyStorageBalance589314, 97, 305, 0);
+    const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
+    const std::int32_t currentBalance = ReadRecordW32(
+        ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, currentBalance);
+    drawAt(buffer, 139, 306, 1);
+    drawAt(kLegacyStorageFee589284, 358, 305, 0);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+    drawAt(buffer, 417, 306, 1);
+    const char* hint;
+    std::uint32_t result = 0;
+    if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = kLegacyStorageWithdraw589304;
+        result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+    } else if ((QueryPanelButtonState(&all) & 0x40) != 0) {
+        hint = kLegacyMoneyDigit585B6C;
+    } else if ((QueryPanelButtonState(&clear) & 0x40) != 0) {
+        hint = kLegacyStorageClear5859FC;
+    } else {
+        const std::int32_t backspaceState = QueryPanelButtonState(&backspace);
+        if ((backspaceState & 0x40) != 0) {
+            hint = kLegacySplitBackspace585B34;
+        } else if (hoveredDigit < 0) {
+            return static_cast<std::uint32_t>(backspaceState);
+        } else if (gLegacyStorageWithdrawDraftD2EA98 < maximum) {
+            hint = kLegacyMoneyDigit585B6C;
+            result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+        } else {
+            hint = kLegacyStorageAmountLimit5892D4;
+        }
+    }
+    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     return result;
 }
 

@@ -4,6 +4,7 @@
 #include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
+#include <cstring>
 
 namespace cg::platform {
 
@@ -21,6 +22,7 @@ LegacyFile** gLegacyStreamTable1086AC4 = nullptr;
 std::int32_t gLegacyStreamLimit1087AE0 = 0;
 std::uint32_t gLegacyStreamAllocationCount108603C = 0;
 std::uint32_t gLegacyDefaultStreamFlags10862AC = 0;
+char* gLegacyTemporaryBuffers1086040[2] {};
 
 void InitializeLegacyStdio_53E9A5()
 {
@@ -320,6 +322,247 @@ char* ReadLegacyStreamLine_53B226(char* const buffer,
     }
     *output = '\0';
     return buffer;
+}
+
+std::int32_t FlushAndWriteLegacyStreamByte_53F8C0(
+    const std::int32_t character, LegacyFile* const stream)
+{
+    std::uint32_t flags = stream->flags;
+    const std::int32_t descriptor = stream->descriptor;
+    if ((flags & 0x82u) == 0 || (flags & 0x40u) != 0) {
+        stream->flags = flags | 0x20u;
+        return -1;
+    }
+    if ((flags & 1u) != 0) {
+        stream->remaining = 0;
+        if ((flags & 0x10u) == 0) {
+            stream->flags = flags | 0x20u;
+            return -1;
+        }
+        stream->current = stream->base;
+        stream->flags = flags & ~1u;
+    }
+    flags = stream->flags;
+    stream->remaining = 0;
+    std::int32_t written = 0;
+    flags = (flags & ~0x10u) | 2u;
+    stream->flags = flags;
+    if ((flags & 0x10Cu) == 0) {
+        if ((stream != &gLegacyStaticFiles58F8B8[1]
+                && stream != &gLegacyStaticFiles58F8B8[2])
+            || IsLegacyDescriptorTty_544705(descriptor) == 0) {
+            static_cast<void>(AllocateLegacyStreamBuffer_544815(stream));
+        }
+    }
+
+    std::int32_t expected;
+    if ((stream->flags & 0x108u) != 0) {
+        char* const base = stream->base;
+        expected = static_cast<std::int32_t>(stream->current - base);
+        stream->current = base + 1;
+        stream->remaining = stream->bufferSize - 1;
+        if (expected > 0) {
+            written = WriteLegacyDescriptor_541279(descriptor, base,
+                static_cast<std::uint32_t>(expected));
+        } else {
+            const auto* const record = descriptor == -1 ? &gLegacyInvalidDescriptor58FB40
+                : &gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31];
+            if ((record->flags & 0x20u) != 0) {
+                static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, 0, 2));
+            }
+        }
+        // 原先重读base存新字节，再判断旧缓冲写出是否成功。
+        *stream->base = std::bit_cast<char>(static_cast<std::uint8_t>(character));
+    } else {
+        expected = 1;
+        written = WriteLegacyDescriptor_541279(descriptor, &character, 1);
+    }
+    if (written != expected) {
+        stream->flags |= 0x20u;
+        return -1;
+    }
+    return static_cast<std::uint8_t>(character);
+}
+
+std::int32_t WriteLegacyStreamByte_53CFDC(
+    const std::int32_t character, LegacyFile* const stream)
+{
+    --stream->remaining;
+    if (stream->remaining < 0) {
+        return FlushAndWriteLegacyStreamByte_53F8C0(character, stream);
+    }
+    char* const current = stream->current;
+    const auto value = static_cast<std::uint8_t>(character);
+    *current = std::bit_cast<char>(value);
+    ++stream->current;
+    return value;
+}
+
+std::uint32_t ReadLegacyStream_53BCCD(void* const buffer,
+    const std::uint32_t elementSize, const std::uint32_t elementCount,
+    LegacyFile* const stream)
+{
+    const std::uint32_t total = elementSize * elementCount;
+    if (total == 0) {
+        return 0;
+    }
+    auto* output = static_cast<char*>(buffer);
+    std::uint32_t remaining = total;
+    std::uint32_t blockSize = (stream->flags & 0x10Cu) != 0
+        ? static_cast<std::uint32_t>(stream->bufferSize) : 4096u;
+    do {
+        if ((stream->flags & 0x10Cu) != 0 && stream->remaining != 0) {
+            const auto available = static_cast<std::uint32_t>(stream->remaining);
+            const std::uint32_t count = remaining < available ? remaining : available;
+            static_cast<void>(CopyLegacyMemory_541620(output, stream->current, count));
+            remaining -= count;
+            stream->remaining = std::bit_cast<std::int32_t>(
+                static_cast<std::uint32_t>(stream->remaining) - count);
+            stream->current += count;
+            output += count;
+        } else if (remaining >= blockSize) {
+            const std::uint32_t count = blockSize == 0
+                ? remaining : remaining - remaining % blockSize;
+            const std::int32_t read =
+                ReadLegacyDescriptor_541426(stream->descriptor, output, count);
+            if (read == 0 || read == -1) {
+                stream->flags |= read == 0 ? 0x10u : 0x20u;
+                return (total - remaining) / elementSize;
+            }
+            remaining -= static_cast<std::uint32_t>(read);
+            output += read;
+        } else {
+            const std::int32_t value = FillLegacyStreamBuffer_53F3BA(stream);
+            if (value == -1) {
+                return (total - remaining) / elementSize;
+            }
+            *output = std::bit_cast<char>(static_cast<std::uint8_t>(value));
+            blockSize = static_cast<std::uint32_t>(stream->bufferSize);
+            ++output;
+            --remaining;
+        }
+    } while (remaining != 0);
+    return elementCount;
+}
+
+std::uint32_t WriteLegacyStream_53C680(const void* const buffer,
+    const std::uint32_t elementSize, const std::uint32_t elementCount,
+    LegacyFile* const stream)
+{
+    const std::uint32_t total = elementSize * elementCount;
+    if (total == 0) {
+        return 0;
+    }
+    const auto* input = static_cast<const char*>(buffer);
+    std::uint32_t remaining = total;
+    std::uint32_t blockSize = (stream->flags & 0x10Cu) != 0
+        ? static_cast<std::uint32_t>(stream->bufferSize) : 4096u;
+    do {
+        const std::uint32_t buffered = stream->flags & 0x108u;
+        if (buffered != 0 && stream->remaining != 0) {
+            const auto available = static_cast<std::uint32_t>(stream->remaining);
+            const std::uint32_t count = remaining < available ? remaining : available;
+            static_cast<void>(CopyLegacyMemory_541620(stream->current, input, count));
+            stream->remaining = std::bit_cast<std::int32_t>(
+                static_cast<std::uint32_t>(stream->remaining) - count);
+            stream->current += count;
+            remaining -= count;
+            input += count;
+        } else if (remaining >= blockSize) {
+            if (buffered != 0 && FlushLegacyStreamBuffer_53BB3D(stream) != 0) {
+                return (total - remaining) / elementSize;
+            }
+            const std::uint32_t count = blockSize == 0
+                ? remaining : remaining - remaining % blockSize;
+            const std::int32_t written =
+                WriteLegacyDescriptor_541279(stream->descriptor, input, count);
+            if (written == -1) {
+                stream->flags |= 0x20u;
+                return (total - remaining) / elementSize;
+            }
+            input += written;
+            remaining -= static_cast<std::uint32_t>(written);
+            if (static_cast<std::uint32_t>(written) < count) {
+                stream->flags |= 0x20u;
+                return (total - remaining) / elementSize;
+            }
+        } else {
+            const auto character =
+                std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(*input));
+            if (FlushAndWriteLegacyStreamByte_53F8C0(character, stream) == -1) {
+                return (total - remaining) / elementSize;
+            }
+            ++input;
+            const std::int32_t size = stream->bufferSize;
+            --remaining;
+            blockSize = size > 0 ? static_cast<std::uint32_t>(size) : 1u;
+        }
+    } while (remaining != 0);
+    return elementCount;
+}
+
+std::int32_t BeginLegacyTemporaryBuffer_53EA5E(LegacyFile* const stream)
+{
+    if (IsLegacyDescriptorTty_544705(stream->descriptor) == 0) {
+        return 0;
+    }
+    std::uint32_t index;
+    if (stream == &gLegacyStaticFiles58F8B8[1]) {
+        index = 0;
+    } else if (stream == &gLegacyStaticFiles58F8B8[2]) {
+        index = 1;
+    } else {
+        return 0;
+    }
+    ++gLegacyStreamAllocationCount108603C;
+    if ((stream->flags & 0x10Cu) != 0) {
+        return 0;
+    }
+    char** const slot = &gLegacyTemporaryBuffers1086040[index];
+    if (*slot == nullptr) {
+        char* const allocated = static_cast<char*>(Malloc_53C3AC(4096));
+        *slot = allocated;
+        if (allocated == nullptr) {
+            char* const buffer = reinterpret_cast<char*>(&stream->characterBuffer);
+            stream->base = buffer;
+            stream->current = buffer;
+            stream->bufferSize = 2;
+            stream->remaining = 2;
+            stream->flags |= 0x1102u;
+            return 1;
+        }
+    }
+    char* const buffer = *slot;
+    stream->bufferSize = 4096;
+    stream->base = buffer;
+    stream->current = buffer;
+    stream->remaining = 4096;
+    stream->flags |= 0x1102u;
+    return 1;
+}
+
+void EndLegacyTemporaryBuffer_53EAEB(
+    const std::int32_t started, LegacyFile* const stream)
+{
+    if ((stream->flags & 0x1000u) != 0) {
+        static_cast<void>(FlushLegacyStreamBuffer_53BB3D(stream));
+        if (started != 0) {
+            stream->flags &= ~0x1100u;
+            stream->bufferSize = 0;
+            stream->current = nullptr;
+            stream->base = nullptr;
+        }
+    }
+}
+
+std::int32_t WriteLegacyStreamString_53B356(
+    const char* const text, LegacyFile* const stream)
+{
+    const auto length = static_cast<std::uint32_t>(std::strlen(text));
+    const std::int32_t started = BeginLegacyTemporaryBuffer_53EA5E(stream);
+    const std::uint32_t written = WriteLegacyStream_53C680(text, 1, length, stream);
+    EndLegacyTemporaryBuffer_53EAEB(started, stream);
+    return written == length ? 0 : -1;
 }
 
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* const stream)

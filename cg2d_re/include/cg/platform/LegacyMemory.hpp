@@ -8,6 +8,9 @@ namespace cg::platform {
 void* __cdecl Malloc_53C3AC(std::uint32_t size);
 void __cdecl Free_53C0A9(void* memory);
 
+// 原541620；按重叠方向、目标对齐及逐W32读写顺序复制，返回原目标。
+void* CopyLegacyMemory_541620(void* destination, const void* source, std::uint32_t byteCount);
+
 // 原541A70；OS/环境/模块链接器版本选择1/2/3，不自动创建或切换堆。
 std::int32_t SelectLegacyHeapMode_541A70();
 

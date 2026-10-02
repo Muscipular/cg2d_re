@@ -51,6 +51,19 @@ void FreeLegacyStreamBuffer_53F38F(LegacyFile* stream);
 std::int32_t FillLegacyStreamBuffer_53F3BA(LegacyFile* stream);
 std::int32_t ReadLegacyStreamByte_53C8B3(LegacyFile* stream);
 char* ReadLegacyStreamLine_53B226(char* buffer, std::int32_t maxCount, LegacyFile* stream);
+// 原批量读取/写入；数量及元素返回为U32，部分元素字节不撤回。
+std::uint32_t ReadLegacyStream_53BCCD(void* buffer, std::uint32_t elementSize,
+    std::uint32_t elementCount, LegacyFile* stream);
+std::uint32_t WriteLegacyStream_53C680(const void* buffer, std::uint32_t elementSize,
+    std::uint32_t elementCount, LegacyFile* stream);
+// 原缓冲输出/单字节/字符串；只使用LegacyFile，禁止与宿主FILE混用。
+std::int32_t FlushAndWriteLegacyStreamByte_53F8C0(std::int32_t character, LegacyFile* stream);
+std::int32_t WriteLegacyStreamByte_53CFDC(std::int32_t character, LegacyFile* stream);
+std::int32_t WriteLegacyStreamString_53B356(const char* text, LegacyFile* stream);
+// 原stdout/stderr临时缓冲缓存；ftbuf拆除FILE引用但不释放缓存。
+extern char* gLegacyTemporaryBuffers1086040[2];
+std::int32_t BeginLegacyTemporaryBuffer_53EA5E(LegacyFile* stream);
+void EndLegacyTemporaryBuffer_53EAEB(std::int32_t started, LegacyFile* stream);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

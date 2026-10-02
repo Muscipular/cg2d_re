@@ -11430,29 +11430,52 @@
     {
       "original_entry": "0x53B356",
       "inventory_id": "F:0013B356",
-      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53B399",
       "instruction_count": 30,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "401236/401241两处写记录/换行，均弃返回"
+            "WriteLegacyStreamString_53B356"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamString_53B356"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fputs.cpp",
-        "symbol": "_fputs_internal"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原strlen→临时缓冲→fwrite大小1及长度→恢复缓冲，写满0否则-1；当前宿主同样写满0/失败EOF。父不检查fopen/fputs/fclose，保持原顺序且不以其返回1宣称成功；无效流校验/故障不称等价。"
+      "boundary": "按既有strlen正常NUL串合同取U32长度，真实stbuf→fwrite(1,length)→ftbuf，只有fwrite数量决定写满0/否则-1；最终flush失败不覆盖返回。不增加RAII；Blacklist宿主FILE尚未迁移，不算两业务原引用已接。",
+      "function_chunks": [
+        {
+          "start": "0x53B356",
+          "end_exclusive": "0x53B399"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x401236",
+          "parent_entry": "0x4011A0"
+        },
+        {
+          "address": "0x401241",
+          "parent_entry": "0x4011A0"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fputs.cpp",
+        "symbol": "_fputs_internal",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53BB02",
@@ -11553,57 +11576,422 @@
     {
       "original_entry": "0x53BCCD",
       "inventory_id": "F:0013BCCD",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53BDB5",
       "instruction_count": 92,
       "original_direct_reference_count": 55,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_44A090"
-          ],
-          "relationship": "原聊天历史整块读取，按完整元素数判定"
+            "ReadLegacyStream_53BCCD"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStream_53BCCD"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fread.cpp",
-        "symbol": "fread"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "非溢出数量内返回完整元素数，短读已写字节保留；原W32乘积零早退，内部541620复制/低层read/filbuf路径另行归属。现有4844h*1调用只判结果1，不补零/撤销短读；其他54处引用不算全完成。"
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。",
+      "function_chunks": [
+        {
+          "start": "0x53BCCD",
+          "end_exclusive": "0x53BDB5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x44A126",
+          "parent_entry": "0x44A090"
+        },
+        {
+          "address": "0x459CE2",
+          "parent_entry": "0x459960"
+        },
+        {
+          "address": "0x45A523",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A567",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A5AB",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A5F3",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A637",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A67E",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A966",
+          "parent_entry": "0x45A900"
+        },
+        {
+          "address": "0x45B8E5",
+          "parent_entry": "0x45B760"
+        },
+        {
+          "address": "0x45BA0D",
+          "parent_entry": "0x45B760"
+        },
+        {
+          "address": "0x45BC33",
+          "parent_entry": "0x45BB20"
+        },
+        {
+          "address": "0x45BFAA",
+          "parent_entry": "0x45BF60"
+        },
+        {
+          "address": "0x45BFCA",
+          "parent_entry": "0x45BF60"
+        },
+        {
+          "address": "0x45BFD9",
+          "parent_entry": "0x45BF60"
+        },
+        {
+          "address": "0x45C261",
+          "parent_entry": "0x45C150"
+        },
+        {
+          "address": "0x4686A1",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x4686B0",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x4686BF",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x4686D1",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x46890A",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468919",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468928",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x46893A",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468CE7",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468CF6",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468D05",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468D17",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468DF3",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468E72",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468EF8",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x46C8E8",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46C8F7",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46C9F5",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46CA8E",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46CB1D",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46DB98",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DBD2",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DBDD",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DBEB",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DBF9",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DC0A",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DC18",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DC26",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DC34",
+          "parent_entry": "0x46DB00"
+        },
+        {
+          "address": "0x46DD1F",
+          "parent_entry": "0x46DC90"
+        },
+        {
+          "address": "0x4C90CF",
+          "parent_entry": "0x4C9060"
+        },
+        {
+          "address": "0x5187E3",
+          "parent_entry": "0x518780"
+        },
+        {
+          "address": "0x518D13",
+          "parent_entry": "0x518CB0"
+        },
+        {
+          "address": "0x518D7E",
+          "parent_entry": "0x518CB0"
+        },
+        {
+          "address": "0x5229BB",
+          "parent_entry": "0x522900"
+        },
+        {
+          "address": "0x5229FE",
+          "parent_entry": "0x522900"
+        },
+        {
+          "address": "0x532F38",
+          "parent_entry": "0x532ED0"
+        },
+        {
+          "address": "0x534847",
+          "parent_entry": "0x5347F0"
+        },
+        {
+          "address": "0x534950",
+          "parent_entry": "0x534910"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fread.cpp",
+        "symbol": "fread",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53C680",
       "inventory_id": "F:0013C680",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53C78A",
       "instruction_count": 106,
       "original_direct_reference_count": 29,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "记录121h*1、索引4B*1及历史4844h*1的真实写入"
+            "WriteLegacyStream_53C680"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStream_53C680"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fwrite.cpp",
-        "symbol": "fwrite"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "非溢出数量内返回完整元素数，短写/缓冲失败返回已完成元素数，不回滚已写字节。原低层短写置错误；宿主乘积校验、缓冲/锁/errno不同。本步保持现有失败后关闭及创建流程，不宣称写满等于磁盘持久化。"
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，业务调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53C680",
+          "end_exclusive": "0x53C78A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x44A015",
+          "parent_entry": "0x449FA0"
+        },
+        {
+          "address": "0x44A04F",
+          "parent_entry": "0x449FA0"
+        },
+        {
+          "address": "0x44A0F7",
+          "parent_entry": "0x44A090"
+        },
+        {
+          "address": "0x45A3AB",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A3BA",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A3C9",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A3D8",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A3EA",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A3FC",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x468817",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468826",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468838",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468847",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468872",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468A16",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468A95",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468BAB",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x4C915B",
+          "parent_entry": "0x4C9130"
+        },
+        {
+          "address": "0x518738",
+          "parent_entry": "0x5186A0"
+        },
+        {
+          "address": "0x519356",
+          "parent_entry": "0x519300"
+        },
+        {
+          "address": "0x5195A6",
+          "parent_entry": "0x519550"
+        },
+        {
+          "address": "0x5202B2",
+          "parent_entry": "0x520200"
+        },
+        {
+          "address": "0x533168",
+          "parent_entry": "0x532FC0"
+        },
+        {
+          "address": "0x5337FB",
+          "parent_entry": "0x533730"
+        },
+        {
+          "address": "0x5347C6",
+          "parent_entry": "0x534770"
+        },
+        {
+          "address": "0x5348E0",
+          "parent_entry": "0x5348A0"
+        },
+        {
+          "address": "0x53B379",
+          "parent_entry": "0x53B356"
+        },
+        {
+          "address": "0x54895E",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x549AC7",
+          "parent_entry": "0x54999A"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fwrite.cpp",
+        "symbol": "fwrite",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53C8B3",
@@ -11833,29 +12221,68 @@
     {
       "original_entry": "0x53CFDC",
       "inventory_id": "F:0013CFDC",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53D000",
       "instruction_count": 15,
       "original_direct_reference_count": 6,
       "sources": [
         {
-          "path": "src/world/SceneState.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_4687B0"
-          ],
-          "relationship": "原四处地图M/A/P/1头字节写入，均弃返回"
+            "WriteLegacyStreamByte_53CFDC"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamByte_53CFDC"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fputc.cpp",
-        "symbol": "fputc"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先减缓冲数量，有空间写参数低W8并返回U8，否则flsbuf。四应用caller按原顺序已接，两CRT内部caller不据此完成；宿主无效流校验与锁保持差异，不新增写失败门禁。"
+      "boundary": "先减S32 count；有空间读取current写参数低U8，之后重读current推进，返回U8；不足转真实flsbuf。地图写出等业务FILE及两个CRT内部caller未迁移，不把宿主对象强转或混用。",
+      "function_chunks": [
+        {
+          "start": "0x53CFDC",
+          "end_exclusive": "0x53D000"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4687E4",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x4687F2",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468800",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x468808",
+          "parent_entry": "0x4687B0"
+        },
+        {
+          "address": "0x548893",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x548924",
+          "parent_entry": "0x548843"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fputc.cpp",
+        "symbol": "fputc",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53BB3D",
@@ -12146,113 +12573,173 @@
     {
       "original_entry": "0x53F8C0",
       "inventory_id": "F:0013F8C0",
-      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53F9D5",
       "instruction_count": 105,
       "original_direct_reference_count": 7,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile",
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+            "FlushAndWriteLegacyStreamByte_53F8C0"
+          ]
         },
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "Sub_44A090",
-            "Sub_449FA0",
-            "Sub_449DA0"
-          ],
-          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+            "FlushAndWriteLegacyStreamByte_53F8C0"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/_flsbuf.cpp",
-        "symbol": "__acrt_stdio_flush_and_write_narrow_nolock"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原读转写只认EOF，写缓冲后存新低W8，追加定位失败被忽略；宿主额外查询文件末尾，追加定位失败设IOERROR且不存新字节。宿主内部bool返回EOF的实际转换另见合同，不能按注释推断该分支外层必返EOF；失败状态未判等。"
+      "boundary": "先采样descriptor；82H/非40H门禁，读转写先清count且仅EOF允许。设置写方向，标准stdout/stderr设备可跳getbuf；108H先发布current=base+1/count=size-1，再写旧缓冲或追加seek。即使失败仍重读base存新低U8，再按旧长度比较成功；非缓冲一次写参数低字节。真实getbuf/isatty/write/seek及fwrite/fputc父链已接，其余调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53F8C0",
+          "end_exclusive": "0x53F9D5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B34A",
+          "parent_entry": "0x53B304"
+        },
+        {
+          "address": "0x53C745",
+          "parent_entry": "0x53C680"
+        },
+        {
+          "address": "0x53CFF8",
+          "parent_entry": "0x53CFDC"
+        },
+        {
+          "address": "0x53D262",
+          "parent_entry": "0x53D21D"
+        },
+        {
+          "address": "0x53F2E3",
+          "parent_entry": "0x53F2C6"
+        },
+        {
+          "address": "0x54AE13",
+          "parent_entry": "0x54AD92"
+        },
+        {
+          "address": "0x54AE3F",
+          "parent_entry": "0x54AD92"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_flsbuf.cpp",
+        "symbol": "__acrt_stdio_flush_and_write_narrow_nolock",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53EA5E",
       "inventory_id": "F:0013EA5E",
-      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53EAEB",
       "instruction_count": 53,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile",
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+            "BeginLegacyTemporaryBuffer_53EA5E",
+            "gLegacyTemporaryBuffers1086040"
+          ]
         },
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "Sub_44A090",
-            "Sub_449FA0",
-            "Sub_449DA0"
-          ],
-          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+            "BeginLegacyTemporaryBuffer_53EA5E"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/_sftbuf.cpp",
-        "symbol": "__acrt_stdio_begin_temporary_buffering_nolock"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原isatty且stdout/stderr才临时缓冲，失败用2B槽；宿主stderr非tty也可启用。通过既有fputs的临时缓冲guard关联，不建立旧1086040缓存或推广标准流重入等价。"
+      "boundary": "先真实isatty，仅唯一stdout/stderr才继续；先累计108603C，再10CH门禁。唯一1086040原生两指针缓存沿无文件后备虚拟零初始化，按需Malloc4096；失败借FILE字符槽2B。按原字段顺序发布并OR1102H返1，其他0；不建立宿主FILE影子或额外缓存释放。",
+      "function_chunks": [
+        {
+          "start": "0x53EA5E",
+          "end_exclusive": "0x53EAEB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B369",
+          "parent_entry": "0x53B356"
+        },
+        {
+          "address": "0x53BC17",
+          "parent_entry": "0x53BC0F"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_sftbuf.cpp",
+        "symbol": "__acrt_stdio_begin_temporary_buffering_nolock",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53EAEB",
       "inventory_id": "F:0013EAEB",
-      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
       "original_end_exclusive": "0x53EB28",
       "instruction_count": 23,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile",
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+            "EndLegacyTemporaryBuffer_53EAEB"
+          ]
         },
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "Sub_44A090",
-            "Sub_449FA0",
-            "Sub_449DA0"
-          ],
-          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+            "EndLegacyTemporaryBuffer_53EAEB"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/_sftbuf.cpp",
-        "symbol": "__acrt_stdio_end_temporary_buffering_nolock"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原flag非0且临时标志时flush并拆除，flag0且仍有临时标志也flush；宿主flagfalse直接返回。现有调用的宿主清理职责定位，嵌套/重入/错误与旧标志生命周期未验。"
+      "boundary": "仍有1000H则flush，started=0也执行；started非零才在flush后清1100H/size/current/base，失败不阻止拆除，不额外清count或释放两槽缓存。真实fputs调用已接，格式输出父链仍待；void表达原caller均不消费非合同残留寄存器。",
+      "function_chunks": [
+        {
+          "start": "0x53EAEB",
+          "end_exclusive": "0x53EB28"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B384",
+          "parent_entry": "0x53B356"
+        },
+        {
+          "address": "0x53BC33",
+          "parent_entry": "0x53BC0F"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_sftbuf.cpp",
+        "symbol": "__acrt_stdio_end_temporary_buffering_nolock",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x544815",
@@ -12279,7 +12766,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。读写父链仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。filbuf/flsbuf真实读写父链已接，其余caller仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x544815",
@@ -12701,7 +13188,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅U32范围检查，返回当前低层FDEV的0/40H，不检查FOPEN、不写错误槽；stbuf/flsbuf及宽输出三父调用尚未接，不以布尔1或宿主isatty代替。",
+      "boundary": "仅U32范围检查，返回当前低层FDEV的0/40H，不检查FOPEN、不写错误槽；stbuf/flsbuf两窄输出父调用已接，宽输出父调用仍待，不以布尔1或宿主isatty代替。",
       "function_chunks": [
         {
           "start": "0x544705",
@@ -13355,7 +13842,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先验证fd/FOPEN，count0或EOF位返0。设备/管道暂存字节先写入且复位，再调用ReadFile；失败5特设错误，109直接0而不回滚预写字节。成功二进制返累计；文本原位CRLF/CTRL-Z、首LF位及末CR额外读一字节，保留同一read计数槽和设备暂存/普通文件回退-1差异。peek失败且错误0的未写局部不补值，特殊失败未验；filbuf及sopen末字节检查已接，fread及其他父链未接。",
+      "boundary": "先验证fd/FOPEN，count0或EOF位返0。设备/管道暂存字节先写入且复位，再调用ReadFile；失败5特设错误，109直接0而不回滚预写字节。成功二进制返累计；文本原位CRLF/CTRL-Z、首LF位及末CR额外读一字节，保留同一read计数槽和设备暂存/普通文件回退-1差异。peek失败且错误0的未写局部不补值，特殊失败未验；filbuf、sopen末字节检查及fread已接，其他父链仍待。",
       "function_chunks": [
         {
           "start": "0x541426",
@@ -20202,6 +20689,98 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ]
+    },
+    {
+      "original_entry": "0x541620",
+      "inventory_id": "F:00141620",
+      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
+      "original_end_exclusive": "0x541955",
+      "instruction_count": 231,
+      "original_direct_reference_count": 14,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "CopyLegacyMemory_541620"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "CopyLegacyMemory_541620"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。",
+      "function_chunks": [
+        {
+          "start": "0x541620",
+          "end_exclusive": "0x541955"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53BD2B",
+          "parent_entry": "0x53BCCD"
+        },
+        {
+          "address": "0x53C6DE",
+          "parent_entry": "0x53C680"
+        },
+        {
+          "address": "0x53FAEE",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FB3D",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FC24",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FC66",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x5443AA",
+          "parent_entry": "0x544294"
+        },
+        {
+          "address": "0x548719",
+          "parent_entry": "0x5486E6"
+        },
+        {
+          "address": "0x54878D",
+          "parent_entry": "0x54875A"
+        },
+        {
+          "address": "0x548B57",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x549071",
+          "parent_entry": "0x549055"
+        },
+        {
+          "address": "0x549104",
+          "parent_entry": "0x54908A"
+        },
+        {
+          "address": "0x549CD4",
+          "parent_entry": "0x549BC7"
+        },
+        {
+          "address": "0x54A3C8",
+          "parent_entry": "0x54A315"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行"
     }
   ]
 }

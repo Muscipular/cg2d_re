@@ -106,6 +106,66 @@ std::int32_t SelectLegacyHeapMode_541A70()
     return static_cast<std::uint8_t>(linkerVersion) < 6 ? 2 : 3;
 }
 
+void* CopyLegacyMemory_541620(void* const destination,
+    const void* const source, const std::uint32_t byteCount)
+{
+    auto* const output = static_cast<unsigned char*>(destination);
+    const auto* const input = static_cast<const unsigned char*>(source);
+    const auto destinationAddress = reinterpret_cast<std::uintptr_t>(destination);
+    const auto sourceAddress = reinterpret_cast<std::uintptr_t>(source);
+    std::uint32_t remaining = byteCount;
+    if (destinationAddress > sourceAddress
+        && destinationAddress - sourceAddress < byteCount) {
+        // 以尾后索引表达原逆向路径，避免构造源/目标起点之前的指针。
+        if (remaining >= 4) {
+            const auto prefix = static_cast<std::uint32_t>(
+                (destinationAddress + remaining) & 3u);
+            for (std::uint32_t index = 0; index < prefix; ++index) {
+                --remaining;
+                const unsigned char value = input[remaining];
+                output[remaining] = value;
+            }
+            while (remaining >= 4) {
+                remaining -= 4;
+                std::uint32_t value;
+                std::memcpy(&value, input + remaining, sizeof(value));
+                std::memcpy(output + remaining, &value, sizeof(value));
+            }
+        }
+        while (remaining != 0) {
+            --remaining;
+            const unsigned char value = input[remaining];
+            output[remaining] = value;
+        }
+    } else {
+        std::uint32_t offset = 0;
+        if (remaining >= 4) {
+            const auto prefix = static_cast<std::uint32_t>(
+                (4u - (destinationAddress & 3u)) & 3u);
+            for (std::uint32_t index = 0; index < prefix; ++index) {
+                const unsigned char value = input[offset];
+                output[offset] = value;
+                ++offset;
+                --remaining;
+            }
+            while (remaining >= 4) {
+                std::uint32_t value;
+                std::memcpy(&value, input + offset, sizeof(value));
+                std::memcpy(output + offset, &value, sizeof(value));
+                offset += 4;
+                remaining -= 4;
+            }
+        }
+        while (remaining != 0) {
+            const unsigned char value = input[offset];
+            output[offset] = value;
+            ++offset;
+            --remaining;
+        }
+    }
+    return destination;
+}
+
 void* AllocateLegacyByteBuffer(const std::uint32_t byteCount)
 {
     // 原53C3BE先拒绝该范围，不调用分配器或new-handler。

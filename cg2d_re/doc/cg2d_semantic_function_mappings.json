@@ -12164,6 +12164,91 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原先stbuf，再output，最后ftbuf，返回保存的核心结果；宿主流锁/参数校验和临时缓冲guard职责已定位，原stbuf/ftbuf差异继续保留。仅六处现有日志消费关联，不覆盖另五引用、4021A0待批数据、所有输入/网络日志或持久化验收。"
+    },
+    {
+      "original_entry": "0x53B447",
+      "inventory_id": "F:0013B447",
+      "status": "原浮点启动组合已取证；P5/FNCLEX等行为未实现、未接线、未排除",
+      "original_end_exclusive": "0x53B45E",
+      "instruction_count": 6,
+      "original_direct_reference_count": 2,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先发布槽，再探测并写1085FC0，后设置精度及FNCLEX；不能因既有PC53域已批准而计全部启动等价。两引用为53C8CD调用及58F864数据槽。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作x64启动编译条件参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/exe_common.inl",
+        "symbol": "__scrt_common_main_seh"
+      }
+    },
+    {
+      "original_entry": "0x53B45E",
+      "inventory_id": "F:0013B45E",
+      "status": "原独立RET回调事实已确认；不冒充有行为入口实现或范围排除",
+      "original_end_exclusive": "0x53B45F",
+      "instruction_count": 1,
+      "original_direct_reference_count": 2,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "58F868/58F86C两数据槽引用，本体只有RET；不与相邻53B447/53B45F合并，不新增空壳函数承接其他浮点职责。"
+    },
+    {
+      "original_entry": "0x53B45F",
+      "inventory_id": "F:0013B45F",
+      "status": "原六浮点槽注册已取证；旧发布时序和宿主启动对应未验",
+      "original_end_exclusive": "0x53B497",
+      "instruction_count": 8,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller53B447；内存写序58FB54/50/58/5C/60/64，六槽初值均545031。宿主直接浮点格式调用仅作职责参考，未实施旧槽/生命周期等价。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作直接浮点格式调用参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "__acrt_fp_format"
+      }
+    },
+    {
+      "original_entry": "0x53FD6E",
+      "inventory_id": "F:0013FD6E",
+      "status": "原x87除法回退探测已取证；未实现、未运行、未排除",
+      "original_end_exclusive": "0x53FDAC",
+      "instruction_count": 24,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一入向为53FDAC的尾跳；读取常量4195835.0/3145727.0/1.0并按原x87状态分支返回。未以现代double重算冒充原精度/异常/硬件行为；探测结果1085FC0仍有542FE2数学片段消费者。"
+    },
+    {
+      "original_entry": "0x53FDAC",
+      "inventory_id": "F:0013FDAC",
+      "status": "原系统查询与x87回退分派已取证；未实现、未接线、未排除",
+      "original_end_exclusive": "0x53FDD5",
+      "instruction_count": 13,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一caller53B447；KERNEL32模块与IsProcessorFeaturePresent可用时传0并原样返值，任一步不可用尾跳53FD6E。不新增现代固定结果或把探测放到精度设置之后。"
     }
   ]
 }

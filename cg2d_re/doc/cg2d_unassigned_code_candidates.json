@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
-  "scope": "R1未归属区间的首个非90/CC候选定位，不是函数发现的完整结果或范围排除清单。",
+  "scope": "R1未归属区间候选定位增量；含首位置及区间内部扫描，不是完整函数发现或范围排除清单。",
   "query": {
     "start_below": "0x535000",
     "minimum_range_bytes": 5,
@@ -10,7 +10,19 @@
     "first_position_with_instruction_display": 16,
     "method": "只读已打开IDA中元数据区间的字节；先剔除完全由90/CC组成的候选，再仅检查首个非90/CC地址的显示行是否非align/dd/db/dw/dq/dt。多字节NOP、后续代码、内嵌数据和短于5B区间不由本筛选判定。"
   },
-  "verification": "当前源码仅确认符号定义定位；未重新核全部函数语义。整段范围、回调可达性与运行验收仍待。",
+  "additional_queries": [
+    {
+      "start_below": "0x535000",
+      "minimum_range_bytes": 40,
+      "checked_ranges": 96,
+      "ranges_with_marked_non_nop_code": 23,
+      "already_listed_callback_ranges": 15,
+      "additional_callback_ranges": 7,
+      "selector_table_misidentified_as_code_ranges": 1,
+      "method": "只读检查区间内每个已有item head的代码标志及指令名，不创建指令/函数；七个补充入口已有源码和原型绑定。4723B4起的代码标记经父分发指令证实属于选择数据，另见边界分类。小于40B区间、未标成代码的字节及535000之后本轮未扫描。"
+    }
+  ],
+  "verification": "候选仅确认当前源码定义和已有证据绑定；未重新核全部函数语义。整个元数据区间及运行验收仍待，不以代码标志或无xref决定范围。",
   "records": [
     {
       "range_start": "0x46FC0D",
@@ -139,6 +151,97 @@
       "source": "src/LegacyUiRecord.cpp",
       "symbol": "Sub_503D00",
       "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x47B0C1",
+      "range_end": "0x47B110",
+      "first_code_candidate": "0x47B0E0",
+      "code_end": "0x47B10E",
+      "instruction_count": 12,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_47B0E0",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_10.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x485663",
+      "range_end": "0x485700",
+      "first_code_candidate": "0x485690",
+      "code_end": "0x4856F3",
+      "instruction_count": 30,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_485690",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_12.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x4927E8",
+      "range_end": "0x492840",
+      "first_code_candidate": "0x492800",
+      "code_end": "0x49283D",
+      "instruction_count": 21,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_492800",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_19.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x4A24C9",
+      "range_end": "0x4A2610",
+      "first_code_candidate": "0x4A2530",
+      "code_end": "0x4A2602",
+      "instruction_count": 76,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A2530",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_21.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x4BB10C",
+      "range_end": "0x4BB1D0",
+      "first_code_candidate": "0x4BB130",
+      "code_end": "0x4BB1AA",
+      "instruction_count": 34,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4BB130",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_53.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x4C9B64",
+      "range_end": "0x4C9BE0",
+      "first_code_candidate": "0x4C9B80",
+      "code_end": "0x4C9BDB",
+      "instruction_count": 32,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C9B80",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_59.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    },
+    {
+      "range_start": "0x4CCE6B",
+      "range_end": "0x4CCED0",
+      "first_code_candidate": "0x4CCE90",
+      "code_end": "0x4CCECA",
+      "instruction_count": 21,
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4CCE90",
+      "binding_source": "src/ui/WindowPrototypes.cpp",
+      "evidence_document": "doc/ui_windows/window_65.md",
+      "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
+      "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
     }
   ]
 }

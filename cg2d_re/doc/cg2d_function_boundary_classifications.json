@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
-  "scope": "原元数据中的函数边界片段与填充分项；不修改数据库或既有分母，不推断其他条目。",
+  "scope": "原元数据中的函数边界片段及未归属区间的分派数据/填充分项；不修改数据库或既有分母，不推断其他条目。",
   "evidence_document": "doc/cg2d_function_boundary_classifications.md",
   "records": [
     {
@@ -47,6 +47,87 @@
       "preceding_return": "0x4C48E9",
       "next_entry": "0x4C48F0",
       "boundary": "该元数据条目没有独立返回或业务指令，前方回调已经retn，后接4C48F0真实入口；当前直接xref为空。仅分类这五字节，不修改IDA，不以无xref证明全程序不可达，也不为其生成空函数。"
+    }
+  ],
+  "unassigned_ranges": [
+    {
+      "range_start": "0x4723A1",
+      "range_end": "0x4723D0",
+      "status": "已映射为父函数的分派数据及对齐填充，不是独立业务入口",
+      "parent_entry": "0x4722F0",
+      "parent_inventory_id": "F:000722F0",
+      "source": {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbols": [
+          "Sub_4722F0"
+        ]
+      },
+      "evidence_documents": [
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_function_boundary_classifications.md"
+      ],
+      "parts": [
+        {
+          "start": "0x4723A1",
+          "end": "0x4723A4",
+          "kind": "前置align标记",
+          "bytes": [
+            141,
+            73,
+            0
+          ]
+        },
+        {
+          "start": "0x4723A4",
+          "end": "0x4723B0",
+          "kind": "三个W32跳转目标",
+          "values": [
+            "0x472338",
+            "0x47231C",
+            "0x472325"
+          ]
+        },
+        {
+          "start": "0x4723B0",
+          "end": "0x4723C4",
+          "kind": "20个U8选择项",
+          "values": [
+            0,
+            0,
+            0,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "start": "0x4723C4",
+          "end": "0x4723D0",
+          "kind": "尾部90填充",
+          "byte": 144,
+          "count": 12
+        }
+      ],
+      "dispatch_evidence": {
+        "range_check": "0x472302..0x472308：无符号(index-21)<=19",
+        "selector_read": "0x47230F：从4723B0按字节读到DL",
+        "indirect_jump": "0x472315：按零扩展选择值索引4723A4"
+      },
+      "boundary": "4723B4..4723C3虽有八项现存指令标记，但实际位于受上界约束的U8选择表内；其逐项语义已由父函数switch承接。代码标志不能替代用途证据。保留原函数与未归属区间分母，不造新F编号，不修改IDA，也不据此排除其他区间。"
     }
   ]
 }

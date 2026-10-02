@@ -1145,6 +1145,11 @@ LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 {
 constexpr char kLegacyGuildNormalMode58F374[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildPetMode58F358[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildReturn58F264[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+LegacyPanelRecord gLegacyGuildPetPanel58EAE0 {
+    0, 0, 272, 238, 88, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyGuildPetIndex1050DB0 = 0; // 旧88写入、旧87发送消费，独立于普通邮件CC2E60。
+constexpr char kLegacyGuildPetHint58F2B4[] = "\x82\xB1\x82\xCC\x8E\x67\x82\xA2\x3F\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x89\x5E\x82\xCE\x82\xB9\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8806,6 +8811,81 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     drawAt(kLegacyMailSortThird58972C, 103);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
+}
+
+std::uint32_t Sub_52E240(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildPetPanel58EAE0.x;
+    const std::int32_t y = gLegacyGuildPetPanel58EAE0.y;
+    LegacyPanelButtonRecord back {x + 136, y + 206, x + 96, y + 196, 80, 20, 22710, 22711};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildPetPanel58EAE0, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::array<std::int32_t, 5> availability;
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        const std::int32_t available = world::detail::Sub_52E1D0(index);
+        availability[row] = available;
+        const std::int32_t top = gLegacyGuildPetPanel58EAE0.y + 41 + 28 * row;
+        const std::int32_t left = gLegacyGuildPetPanel58EAE0.x + 12;
+        if (Sub_5049A0(left, top, left + 249, top + 20, -1) != 0
+            && world::detail::gPetRuntimeF633F8[index].used != 0 && available != 0) {
+            hovered = row;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hovered].index);
+        gLegacyGuildPetIndex1050DB0 = index;
+        static_cast<void>(audio::Sub_504180(87));
+        static_cast<void>(audio::Sub_504180(86));
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(94));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyGuildPetPanel58EAE0.y + 28 * hovered;
+        const std::uint32_t image = gValueD69768;
+        const std::int32_t left = gLegacyGuildPetPanel58EAE0.x;
+        DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
+            212, image, 0);
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        const auto* const pet = &world::detail::gPetRuntimeF633F8[index];
+        if (pet->used == 0) {
+            continue;
+        }
+        const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
+        const std::int8_t color = availability[row] != 0 ? 0 : 7;
+        std::strcpy(buffer, name);
+        const std::int32_t width = TextMeasure(buffer, 0);
+        const std::int32_t nameY = gLegacyGuildPetPanel58EAE0.y + 43 + 28 * row;
+        const std::int32_t nameX = gLegacyGuildPetPanel58EAE0.x - width / 2 + 90;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+            static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
+        // 原52E4C2操作数F63400为宠物+08，不按反编译lv名称改到+6C。
+        const std::int32_t value = pet->value08;
+        std::sprintf(buffer, "%3d", value);
+        const std::int32_t valueY = gLegacyGuildPetPanel58EAE0.y + 45 + 28 * row;
+        const std::int32_t valueX = gLegacyGuildPetPanel58EAE0.x + 226;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
+            static_cast<std::int16_t>(valueY), 2, 1, color, buffer, 0, 0));
+    }
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyGuildPetPanel58EAE0) != 0) {
+        hint = kLegacyGuildClose58F248;
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyGuildReturn58F264;
+    } else if (hovered >= 0) {
+        hint = kLegacyGuildPetHint58F2B4;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGuildPetPanel58EAE0, 1);
 }
 
 std::uint32_t Sub_52F460(const std::int32_t opened)

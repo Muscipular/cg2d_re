@@ -10352,6 +10352,212 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原strlen→临时缓冲→fwrite大小1及长度→恢复缓冲，写满0否则-1；当前宿主同样写满0/失败EOF。父不检查fopen/fputs/fclose，保持原顺序且不以其返回1宣称成功；无效流校验/故障不称等价。"
+    },
+    {
+      "original_entry": "0x53BB02",
+      "inventory_id": "F:0013BB02",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53BB3D",
+      "instruction_count": 29,
+      "original_direct_reference_count": 5,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0"
+          ],
+          "relationship": "449F91日志刷新真实调用，返回丢弃"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fflush.cpp",
+        "symbol": "fflush"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "非空先flush，失败-1，commit标志才执行commit并归一化0/-1；null分支刷新全部流。本步只关联日志调用，宿主全流表、锁及原退出/日志4021A0父链不据此验收。"
+    },
+    {
+      "original_entry": "0x53BC41",
+      "inventory_id": "F:0013BC41",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53BCCD",
+      "instruction_count": 54,
+      "original_direct_reference_count": 25,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0"
+          ],
+          "relationship": "聊天记录和尾部索引的两次原位定位"
+        },
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960"
+          ],
+          "relationship": "元信息文件SEEK_END定位"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fseek.cpp",
+        "symbol": "fseek"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原S32偏移及whence0/1/2，清EOF，CUR经ftell改绝对，flush后lseek，成功0/失败-1。宿主long仍32位但内部64位且有只读缓冲快路；选定调用弃返回，未将宿主errno当原1085FE0自动同步。"
+    },
+    {
+      "original_entry": "0x53BCCD",
+      "inventory_id": "F:0013BCCD",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53BDB5",
+      "instruction_count": 92,
+      "original_direct_reference_count": 55,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090"
+          ],
+          "relationship": "原聊天历史整块读取，按完整元素数判定"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fread.cpp",
+        "symbol": "fread"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "非溢出数量内返回完整元素数，短读已写字节保留；原W32乘积零早退，内部541620复制/低层read/filbuf路径另行归属。现有4844h*1调用只判结果1，不补零/撤销短读；其他54处引用不算全完成。"
+    },
+    {
+      "original_entry": "0x53C680",
+      "inventory_id": "F:0013C680",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53C78A",
+      "instruction_count": 106,
+      "original_direct_reference_count": 29,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "记录121h*1、索引4B*1及历史4844h*1的真实写入"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fwrite.cpp",
+        "symbol": "fwrite"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "非溢出数量内返回完整元素数，短写/缓冲失败返回已完成元素数，不回滚已写字节。原低层短写置错误；宿主乘积校验、缓冲/锁/errno不同。本步保持现有失败后关闭及创建流程，不宣称写满等于磁盘持久化。"
+    },
+    {
+      "original_entry": "0x53C8B3",
+      "inventory_id": "F:0013C8B3",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53C8CD",
+      "instruction_count": 12,
+      "original_direct_reference_count": 39,
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "InitPalette32",
+            "ReadPalette",
+            "UpdatePalette_450BB0"
+          ],
+          "relationship": "三个调色板入口的逐字节颜色读取"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468570"
+          ],
+          "relationship": "现有地图头字节读取"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fgetc.cpp",
+        "symbol": "fgetc"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先减剩余数量，缓冲分支取U8并推进，否则filbuf；宿主正常U8/EOF承接。调色板保留EOF转低U8，不新增拒绝/补零；音频及其他caller不借此恢复，流校验/锁/失败内部状态未判等。"
+    },
+    {
+      "original_entry": "0x53CB78",
+      "inventory_id": "F:0013CB78",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53CCD0",
+      "instruction_count": 123,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960"
+          ],
+          "relationship": "459AD0结果按原U32累计，不新增-1门禁"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/ftell.cpp",
+        "symbol": "ftell"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原S32文件位置，缓冲及文本换行修正；唯一应用caller为GraphicInit，另一caller53BC41。宿主内部64位、公开long超LONG_MAX返-1，文本/锁/错误差异保持；不替换为扩大可接受数值域的_ftelli64接口。"
+    },
+    {
+      "original_entry": "0x53CFDC",
+      "inventory_id": "F:0013CFDC",
+      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "original_end_exclusive": "0x53D000",
+      "instruction_count": 15,
+      "original_direct_reference_count": 6,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4687B0"
+          ],
+          "relationship": "原四处地图M/A/P/1头字节写入，均弃返回"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fputc.cpp",
+        "symbol": "fputc"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先减缓冲数量，有空间写参数低W8并返回U8，否则flsbuf。四应用caller按原顺序已接，两CRT内部caller不据此完成；宿主无效流校验与锁保持差异，不新增写失败门禁。"
     }
   ]
 }

@@ -6,6 +6,10 @@
 #include <cstddef>
 #include <cstdint>
 
+namespace cg::login {
+struct YobiAction;
+}
+
 namespace cg::login::detail {
 
 // 原5035E0的32B图形按钮；前六字段与503990矩形合同相同，末尾是图号而非文本。
@@ -169,6 +173,11 @@ std::int32_t Sub_4F5170(); // 三组六槽依序填-1，数量不填0。
 std::int32_t Sub_4F51A0(); // 旧选择26完整初始化，末尾透传4D3020。
 std::uint32_t Sub_4F51D0(std::int32_t opened); // 旧选择26制造执行，关闭尾返回关闭27结果。
 std::uint32_t Sub_4F5A60(std::int32_t opened); // 旧25配方选择，原始FP token显示与分页前提示索引。
+YobiAction* Sub_4F61C0(); // 旧24初始化，清返回标记，仅空预览才创建。
+std::uintptr_t Sub_4F6220(std::int32_t opened); // 旧24图鉴详情，关闭保存后返回销毁结果T*。
+void Sub_4F6BF0(std::int32_t x, std::int32_t y, std::int32_t rating, std::uint8_t layer);
+std::uint32_t Sub_4F6C60(); // 旧23返回时页=选中/15，返回原商修正符号而非页号。
+std::uint32_t Sub_4F6CA0(std::int32_t opened); // 旧23十五行列表，used才命中，切页后仍共同绘制。
 std::int32_t Sub_519640(std::int32_t skill); // 连续非负配方每8项一页，空表仍1页。
 std::int32_t Sub_4FAED0(); // 旧14重置既有物品拖动及本页详情/悬停。
 std::uintptr_t Sub_4FAEF0(std::int32_t opened); // 旧14完整物品页，关闭返回非拥有预览地址。

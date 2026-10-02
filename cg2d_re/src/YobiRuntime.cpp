@@ -31482,6 +31482,11 @@ void SetYobiActionFlag2(YobiAction* const action, const bool enabled) noexcept
     }
 }
 
+void ClearYobiActionFlags0C(YobiAction* const action) noexcept
+{
+    action->flags &= ~0xCu;
+}
+
 std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 {
     return action->flags;

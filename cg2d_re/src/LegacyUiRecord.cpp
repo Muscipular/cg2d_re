@@ -9,6 +9,7 @@
 #include "cg/LoginInput.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/DisplaySettings.hpp"
+#include "cg/GraphicAlloc.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -211,6 +212,20 @@ std::int32_t gLegacySplitAmountC8A948 = 0;
 std::int32_t gLegacyLastUsedItemCB01EC = 0;
 
 namespace {
+
+LegacyPanelRecord gLegacyAlbumDetailPanel5846C0 {
+    0, 0, 272, 438, 24, {22890, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyAlbumListPanel584788 {
+    0, 0, 272, 438, 23, {22880, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyAlbumSelectionC8AF7C = 0;
+std::int32_t gLegacyAlbumPageC8B1B0 = 0;
+std::int32_t gLegacyAlbumReturningCC40D0 = 0;
+YobiAction* gLegacyAlbumActionD67D14 = nullptr;
+constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xB8\xF5\xB9\x4C\x31\x30\xAD\xB6\xA1\x43";
+constexpr char kLegacyAlbumBack58A0FC[] = "\xA6\x5E\xA8\xEC\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyAlbumOpen58A114[] = "\xA5\xB4\xB6\x7D\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
 
 // 旧52独立面板/拆分参数；交易展示、金额和公开阶段借WindowRuntime原owner。
 LegacyPanelRecord gLegacyTradePanel582F00 {
@@ -6107,6 +6122,315 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
         }
     }
     return Sub_503440(&gLegacyCraftRecipePanel5845F8, 1);
+}
+
+YobiAction* Sub_4F61C0()
+{
+    YobiAction* action = gLegacyAlbumActionD67D14;
+    gLegacyAlbumReturningCC40D0 = 0;
+    if (action == nullptr) {
+        const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y + 145;
+        const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x + 136;
+        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
+        const std::int32_t image = ReadRecordW32(records + index * 0x80, 8);
+        action = Sub_4F9FF0(image, x, y, 221);
+        gLegacyAlbumActionD67D14 = action;
+    }
+    return action;
+}
+
+std::uintptr_t Sub_4F6220(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyAlbumDetailPanel5846C0.x;
+    const std::int32_t y = gLegacyAlbumDetailPanel5846C0.y;
+    LegacyPanelButtonRecord back {x + 48, y + 418, x + 8, y + 408, 80, 20, 22891, 22892};
+    LegacyPanelButtonRecord previousTen {x + 102, y + 418, x + 92, y + 408, 20, 20, 22893, 22894};
+    LegacyPanelButtonRecord previous {x + 130, y + 418, x + 120, y + 408, 20, 20, 22895, 22896};
+    LegacyPanelButtonRecord next {x + 226, y + 418, x + 216, y + 408, 20, 20, 22897, 22898};
+    LegacyPanelButtonRecord nextTen {x + 254, y + 418, x + 244, y + 408, 20, 20, 22899, 22900};
+    constexpr std::array<std::int32_t, 2> firstMarks {22904, 22903};
+    constexpr std::array<std::int32_t, 3> secondMarks {0, 22905, 22906};
+    const std::int32_t state = Sub_503160(opened, &gLegacyAlbumDetailPanel5846C0,
+        +[] { static_cast<void>(Sub_4F61C0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        world::detail::Sub_5186A0();
+        YobiAction* action = gLegacyAlbumActionD67D14;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyAlbumActionD67D14 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if ((QueryPanelButtonState(&back) & 1) != 0) {
+        gLegacyAlbumReturningCC40D0 = 1;
+        static_cast<void>(audio::Sub_504180(23));
+    } else {
+        bool changed = true;
+        if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+            --gLegacyAlbumSelectionC8AF7C;
+            if (gLegacyAlbumSelectionC8AF7C < 0) {
+                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+            }
+        } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;
+            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+            gLegacyAlbumSelectionC8AF7C = selection + 1;
+            if (gLegacyAlbumSelectionC8AF7C >= count) {
+                gLegacyAlbumSelectionC8AF7C -= count;
+            }
+        } else if ((QueryPanelButtonState(&previousTen) & 0x10) != 0) {
+            gLegacyAlbumSelectionC8AF7C -= 10;
+            if (gLegacyAlbumSelectionC8AF7C < 0) {
+                gLegacyAlbumSelectionC8AF7C += std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+            }
+        } else if ((QueryPanelButtonState(&nextTen) & 0x10) != 0) {
+            const std::int32_t selection = gLegacyAlbumSelectionC8AF7C;
+            const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+            gLegacyAlbumSelectionC8AF7C = selection + 10;
+            if (gLegacyAlbumSelectionC8AF7C >= count) {
+                gLegacyAlbumSelectionC8AF7C -= count;
+            }
+        } else {
+            changed = false;
+        }
+        if (changed) {
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    const auto selectedRecord = [] {
+        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
+        return records + index * 0x80;
+    };
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + offsetY;
+        const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
+    };
+    char buffer[128];
+    const std::int16_t selected = login::gSelectedCharacterIndex;
+    const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+    const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
+    const std::byte* const record = records + index * 0x80;
+    if (record[0] != std::byte{0}) {
+        YobiAction* const action = gLegacyAlbumActionD67D14;
+        static_cast<void>(world::detail::ClearAlbumNewFlagAndBorrowName(selected, index));
+        if (action != nullptr) {
+            const std::int32_t mapped = character_select::detail::Sub_51B740(ReadRecordW32(record, 8));
+            SetYobiActionField2A8(gLegacyAlbumActionD67D14, mapped);
+            SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);
+            ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);
+        }
+        std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
+        drawAt(buffer, 46, 170, 1);
+        const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);
+        const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
+        drawAt(name, 154 - nameWidth / 2, 168, 0);
+        const auto firstMark = std::bit_cast<std::int8_t>(selectedRecord()[1]);
+        const std::int32_t firstY = gLegacyAlbumDetailPanel5846C0.y + 207;
+        const std::int32_t firstImage = firstMarks[firstMark];
+        const std::int32_t firstX = gLegacyAlbumDetailPanel5846C0.x + 44;
+        static_cast<void>(DrawGraphic(firstX, firstY, 213, firstImage, 0, nullptr));
+        const auto secondMark = std::bit_cast<std::int8_t>(selectedRecord()[2]);
+        const std::int32_t secondY = gLegacyAlbumDetailPanel5846C0.y + 207;
+        const std::int32_t secondImage = secondMarks[secondMark];
+        const std::int32_t secondX = gLegacyAlbumDetailPanel5846C0.x + 98;
+        static_cast<void>(DrawGraphic(secondX, secondY, 213, secondImage, 0, nullptr));
+        const auto tribe = std::bit_cast<std::int8_t>(selectedRecord()[3]);
+        std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);
+        const std::int32_t tribeWidth = TextMeasure(buffer, 1);
+        drawAt(buffer, 215 - tribeWidth / 2, 193, 1);
+        std::sprintf(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
+        drawAt(buffer, 195, 325, 1);
+        for (std::int32_t rating = 0; rating < 5; ++rating) {
+            const std::byte* const ratingRecord = selectedRecord();
+            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 228 + 24 * rating;
+            const std::int32_t value = ReadRecordW32(ratingRecord, 0x0C + 4 * rating);
+            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 45;
+            Sub_4F6BF0(left, top, value, 213);
+        }
+        for (std::int32_t element = 0; element < 4; ++element) {
+            const std::int32_t top = gLegacyAlbumDetailPanel5846C0.y + 240 + 20 * element;
+            const std::int32_t left = gLegacyAlbumDetailPanel5846C0.x + 187;
+            const std::int32_t elementIndex = gLegacyAlbumSelectionC8AF7C;
+            const std::byte* const elementRecords = world::detail::BorrowSelectedAlbumRecords();
+            const std::uint32_t color = kLegacyAttributeBars57CBB8[element][0];
+            const std::int32_t value = ReadRecordW32(elementRecords + elementIndex * 0x80, 0x20 + 4 * element);
+            const std::int32_t right = left + 7 * value;
+            DrawGraphicHover(Low16(left), Low16(top), Low16(right), Low16(top + 9), 215, color, 1);
+            DrawGraphicHover(Low16(left + 1), Low16(top + 1), Low16(right + 1), Low16(top + 10),
+                214, kLegacyAttributeBars57CBB8[element][1], 0);
+            DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(right + 2), Low16(top + 11),
+                214, kLegacyAttributeBars57CBB8[element][1], 0);
+        }
+        for (std::int32_t line = 0; line < 2; ++line) {
+            const char* const text = reinterpret_cast<const char*>(selectedRecord() + 0x45 + 29 * line);
+            drawAt(text, 10, 354 + 20 * line, 0);
+        }
+    } else if (gLegacyAlbumActionD67D14 != nullptr) {
+        SetYobiActionFlag2(gLegacyAlbumActionD67D14, true);
+    }
+    const std::int32_t current = gLegacyAlbumSelectionC8AF7C;
+    const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
+    std::sprintf(buffer, "%3d/%3d", current + 1, count);
+    drawAt(buffer, 150, 411, 1);
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&nextTen, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyAlbumDetailPanel5846C0) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if ((QueryPanelButtonState(&previousTen) & 0x40) != 0 || (QueryPanelButtonState(&nextTen) & 0x40) != 0) {
+        hint = kLegacyAlbumSkipTen58A0F0;
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyAlbumBack58A0FC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyAlbumDetailPanel5846C0, 1);
+}
+
+void Sub_4F6BF0(const std::int32_t x, const std::int32_t y,
+    const std::int32_t rating, const std::uint8_t layer)
+{
+    const std::int32_t count = rating + 1;
+    constexpr std::array<std::int32_t, 2> images {22901, 22902};
+    if (count < 1 || count > 10) {
+        return;
+    }
+    for (std::int32_t part = 0; part < count; ++part) {
+        static_cast<void>(DrawGraphic(x + 4 + 8 * part, y + 8, layer, images[part % 2], 0, nullptr));
+    }
+}
+
+std::uint32_t Sub_4F6C60()
+{
+    if (gLegacyAlbumReturningCC40D0 != 0) {
+        const std::int32_t index = gLegacyAlbumSelectionC8AF7C;
+        gLegacyAlbumPageC8B1B0 = index / 15;
+        return index < 0 ? 1u : 0u;
+    }
+    gLegacyAlbumPageC8B1B0 = 0;
+    return 0;
+}
+
+std::uint32_t Sub_4F6CA0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyAlbumListPanel584788.x;
+    const std::int32_t y = gLegacyAlbumListPanel584788.y;
+    LegacyPanelButtonRecord previous {x + 78, y + 413, x + 64, y + 403, 28, 20, 22881, 22882};
+    LegacyPanelButtonRecord next {x + 189, y + 413, x + 175, y + 403, 28, 20, 22883, 22884};
+    const std::int32_t state = Sub_503160(opened, &gLegacyAlbumListPanel584788,
+        +[] { static_cast<void>(Sub_4F6C60()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        gLegacyAlbumReturningCC40D0 = 0;
+        return 2;
+    }
+    std::int32_t page = gLegacyAlbumPageC8B1B0;
+    std::int32_t hovered = -1;
+    std::int32_t hoveredIndex = -1;
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const std::int32_t index = row + 15 * page;
+        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        if (records[index * 0x80] != std::byte{0}) {
+            const std::int32_t top = gLegacyAlbumListPanel584788.y + 24 * row;
+            const std::int32_t left = gLegacyAlbumListPanel584788.x;
+            if (Sub_5049A0(left + 42, top + 39, left + 230, top + 59, -1) != 0) {
+                hovered = row;
+                hoveredIndex = index;
+                break;
+            }
+            page = gLegacyAlbumPageC8B1B0;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
+        gLegacyAlbumSelectionC8AF7C = hoveredIndex;
+        static_cast<void>(audio::Sub_504180(24));
+    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+        --gLegacyAlbumPageC8B1B0;
+        if (gLegacyAlbumPageC8B1B0 < 0) {
+            gLegacyAlbumPageC8B1B0 = std::bit_cast<std::int32_t>(resource::gValueCC3E68) - 1;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+        const std::int32_t oldPage = gLegacyAlbumPageC8B1B0;
+        const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueCC3E68);
+        gLegacyAlbumPageC8B1B0 = oldPage + 1;
+        if (gLegacyAlbumPageC8B1B0 >= count) {
+            gLegacyAlbumPageC8B1B0 = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const std::byte* const records = world::detail::BorrowSelectedAlbumRecords();
+        const std::int32_t index = row + 15 * gLegacyAlbumPageC8B1B0;
+        const std::byte* const record = records + index * 0x80;
+        if (record[0] != std::byte{0}) {
+            std::sprintf(buffer, "%03d", ReadRecordW32(record, 4));
+            const std::int32_t numberY = gLegacyAlbumListPanel584788.y + 24 * row + 42;
+            const std::int32_t numberX = gLegacyAlbumListPanel584788.x + 46;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(numberX),
+                static_cast<std::int16_t>(numberY), 2, 1, 0, buffer, 0, 0));
+            const std::byte* const measureRecords = world::detail::BorrowSelectedAlbumRecords();
+            const std::int32_t width = TextMeasure(
+                reinterpret_cast<const char*>(measureRecords + index * 0x80 + 0x34), 0);
+            const std::byte* const nameRecords = world::detail::BorrowSelectedAlbumRecords();
+            const std::int32_t nameY = gLegacyAlbumListPanel584788.y + 24 * row + 40;
+            const char* const name = reinterpret_cast<const char*>(nameRecords + index * 0x80 + 0x34);
+            const std::int32_t nameX = gLegacyAlbumListPanel584788.x - width / 2 + 154;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+                static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+            const std::byte* const flagRecords = world::detail::BorrowSelectedAlbumRecords();
+            if (flagRecords[index * 0x80 + 0x7F] != std::byte{0}) {
+                const std::int32_t markY = gLegacyAlbumListPanel584788.y + 48 + 24 * row;
+                const std::int32_t markX = gLegacyAlbumListPanel584788.x + 23;
+                static_cast<void>(DrawGraphic(markX, markY, 213, 22885, 0, nullptr));
+            }
+        }
+    }
+    const std::int32_t current = gLegacyAlbumPageC8B1B0;
+    const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueCC3E68);
+    std::sprintf(buffer, "%2d/%2d", current + 1, count);
+    const std::int32_t pageY = gLegacyAlbumListPanel584788.y + 406;
+    const std::int32_t pageX = gLegacyAlbumListPanel584788.x + 115;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyAlbumListPanel584788.y + 24 * hovered;
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t left = gLegacyAlbumListPanel584788.x;
+        DrawGraphicHover(Low16(left + 40), Low16(top + 37),
+            Low16(left + 232), Low16(top + 61), 214, color, 0);
+    }
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyAlbumListPanel584788) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if (hovered >= 0) {
+        hint = kLegacyAlbumOpen58A114;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyAlbumListPanel584788, 1);
 }
 
 std::int32_t Sub_4FAED0()

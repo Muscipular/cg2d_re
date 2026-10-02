@@ -1129,6 +1129,16 @@ LegacyPanelRecord gLegacyGuildSortPanel58EEC8 {
 constexpr char kLegacyGuildSortFirst58F408[] = "\x93\x6F\x98\x5E\x3F";
 constexpr char kLegacyGuildSortSecond58F400[] = "\x82\x54\x82\x4F\x89\xB9\x3F";
 constexpr char kLegacyGuildSortThird58F3F4[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F";
+LegacyPanelRecord gLegacyGuildDeletePanel58EE00 {
+    0, 0, 320, 240, 92, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyGuildDeleteYes58F3EC[] = "\x82\xCD\x82\xA2";
+constexpr char kLegacyGuildDeleteNo58F3E4[] = "\x82\xA2\x82\xA2\x82\xA6";
+constexpr char kLegacyGuildDeleteDenied58F3C8[] = "\xA7\x41\xA8\x53\xA6\xB3\xAD\xE7\xB0\xA3\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB\xAA\xBA\xC5\x76\xAD\xAD";
+constexpr char kLegacyGuildDeleteLead58F3B8[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x82\xA9\x82\xE7";
+constexpr char kLegacyGuildDeleteEnd58F3AC[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7";
+constexpr char kLegacyGuildDeleteHint58F3A0[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildKeepHint58F38C[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8790,6 +8800,66 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     drawAt(kLegacyMailSortThird58972C, 103);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
+}
+
+std::uint32_t Sub_52F670(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildDeletePanel58EE00.x;
+    const std::int32_t y = gLegacyGuildDeletePanel58EE00.y;
+    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
+        {x + 89, y + 182, x + 79, y + 180, 55, 20, kLegacyGuildDeleteYes58F3EC},
+        {x + 187, y + 182, x + 185, y + 180, 55, 20, kLegacyGuildDeleteNo58F3E4},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildDeletePanel58EE00, nullptr, 0);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    const std::uint8_t confirmState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[0]));
+    const std::uint8_t cancelState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[1]));
+    if ((confirmState & 1u) != 0) {
+        const std::int32_t rank = ReadGuildTextIndex10514B0();
+        const std::uint8_t permissions = ReadGuildRankFlagsByte1051514(rank);
+        if ((permissions & 2u) != 0) {
+            const std::int32_t target = gLegacyGuildDeleteTarget105132C;
+            const auto socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_511430(socket, target));
+            const std::int32_t currentTarget = gLegacyGuildDeleteTarget105132C;
+            // 原52F75E直接传选择索引；其后也只有普通邮件组保存519300。
+            static_cast<void>(world::detail::Sub_5194F0(currentTarget));
+            static_cast<void>(world::detail::Sub_519300());
+            static_cast<void>(audio::Sub_5042D0(gLegacyGuildDeletePanel58EE00.id));
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        } else {
+            world::detail::Sub_44B050(kLegacyGuildDeleteDenied58F3C8, 4, 0);
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((cancelState & 1u) != 0) {
+        static_cast<void>(audio::Sub_504180(94));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyGuildDeletePanel58EE00.y + offsetY;
+        const std::int32_t left = gLegacyGuildDeletePanel58EE00.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    drawAt(kLegacyGuildDeleteLead58F3B8, 84, 38);
+    const std::int32_t measureTarget = gLegacyGuildDeleteTarget105132C;
+    const std::int32_t width = TextMeasure(gOrderedRecords1051B14[measureTarget].text18, 0);
+    const std::int32_t textTarget = gLegacyGuildDeleteTarget105132C;
+    drawAt(gOrderedRecords1051B14[textTarget].text18, 160 - width / 2, 86);
+    drawAt(kLegacyGuildDeleteEnd58F3AC, 109, 134);
+    Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
+    Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
+    const char* hint = nullptr;
+    if ((confirmState & 0x40u) != 0) {
+        hint = kLegacyGuildDeleteHint58F3A0;
+    } else if ((cancelState & 0x40u) != 0) {
+        hint = kLegacyGuildKeepHint58F38C;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGuildDeletePanel58EE00, 0);
 }
 
 std::uint32_t Sub_52F910(const std::int32_t opened)

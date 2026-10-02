@@ -247,8 +247,8 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
     std::strncpy(
         copied.data(),
         source,
-        static_cast<std::size_t>(count));
-    copied[static_cast<std::size_t>(count)] = '\0';
+        static_cast<std::uint32_t>(count));
+    copied.data()[count] = '\0';
 
     std::int32_t result = 0;
     std::int32_t consumed = 0;
@@ -320,12 +320,13 @@ void LoadInitialText_44A160(const char* const initialText)
         return;
     }
 
-    std::size_t length = std::strlen(initialText);
-    if (length >= InputTextCapacity) {
-        length = InputTextCapacity - 1;
+    // 原44A17E/44A18D/44A19E均按S32解释长度及循环门禁。
+    std::int32_t length = static_cast<std::int32_t>(std::strlen(initialText));
+    if (length >= static_cast<std::int32_t>(InputTextCapacity)) {
+        length = static_cast<std::int32_t>(InputTextCapacity - 1);
     }
 
-    for (std::size_t index = 0; index < length; ++index) {
+    for (std::int32_t index = 0; index < length; ++index) {
         AppendChar_44ADB0(initialText[index]);
     }
 }

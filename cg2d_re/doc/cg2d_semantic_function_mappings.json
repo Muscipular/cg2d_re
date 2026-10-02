@@ -9511,6 +9511,137 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类helper、共享owner与输入容量，不计输入全链及客户端运行通过。"
+    },
+    {
+      "original_entry": "0x44A160",
+      "inventory_id": "F:0004A160",
+      "status": "已修复长度/循环S32解释；现有逐字追加链已关联，运行未验",
+      "original_end_exclusive": "0x44A1A6",
+      "instruction_count": 31,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "LoadInitialText_44A160"
+          ],
+          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "入口当前对象为空即返回；strlen仅取一次，以S32比较288并截到287，逐字读取源再追加，不按追加结果提前停止。原七调用中历史浏览两处合并到同一源码路径，不按源物理调用数冒称原调用数。"
+    },
+    {
+      "original_entry": "0x44B1D0",
+      "inventory_id": "F:0004B1D0",
+      "status": "已修复库复制计数U32边界；既有分类本体保持，运行未验",
+      "original_end_exclusive": "0x44B244",
+      "instruction_count": 44,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "ClassifyAnsiBoundary_44B1D0"
+          ],
+          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原Count低W32以U32交strncpy，随后原S32偏移补NUL、S32扫描；高位字节与下一NUL判断给出0/1/2/3。保留既有局部预清零差异；越界/负数量不专项模拟、不添加门禁、不称故障等价。七处编辑调用保持。"
+    },
+    {
+      "original_entry": "0x44B190",
+      "inventory_id": "F:0004B190",
+      "status": "现有完整末单元分类本体及五处消费者已关联；运行未验",
+      "original_end_exclusive": "0x44B1C5",
+      "instruction_count": 21,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "ClassifyLastAnsiUnit_44B190"
+          ],
+          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+        },
+        {
+          "path": "src/render/InputText.cpp",
+          "symbols": [
+            "ClassifyLastAnsiUnit_44B190"
+          ],
+          "relationship": "两处真实分类调用"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ClassifyLastAnsiUnit_44B190"
+          ],
+          "relationship": "两处真实分类调用"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "空串0，普通尾字节1，高位首字节配非零尾2，孤立高位尾3；只按bit7，不按系统代码页或UTF-8。五处调用分布在追加、输入绘制两处及两个UI父入口；父链另行验收。"
+    },
+    {
+      "original_entry": "0x449CF0",
+      "inventory_id": "F:00049CF0",
+      "status": "现有上下文初始化本体已关联；跨场景生命周期及运行未验",
+      "original_end_exclusive": "0x449D92",
+      "instruction_count": 41,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "InitializeContext_449CF0"
+          ],
+          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留字段写序，仅text[0]/总长/光标/154/158清零，不清整个上下文。initialText非空才保存当前指针、切换到目标、逐字装载、恢复原指针；原指针可空。原生非拥有对象身份，不新增存储。"
+    },
+    {
+      "original_entry": "0x44B340",
+      "inventory_id": "F:0004B340",
+      "status": "现有预设选择及唯一UI调用已关联；音频暂停及运行未验",
+      "original_end_exclusive": "0x44B43E",
+      "instruction_count": 79,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "ProcessPresetHotkeys_44B340"
+          ],
+          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ProcessPresetHotkeys_44B340"
+          ],
+          "relationship": "473F80对应本体内的唯一真实调用"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "Shift优先、否则Ctrl，F1..F8依次调用4597B0，最后非零命中决定0/8/16组索引；未命中保留最后一次按键查询返回。命中先装载再调用52C450。原压栈51/320/240，现有音频窄接口接前两项；音频模块保持暂停，不以本项宣称播放已验收。"
     }
   ]
 }

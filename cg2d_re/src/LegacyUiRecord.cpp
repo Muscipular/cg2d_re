@@ -307,6 +307,12 @@ LegacyPanelRecord gLegacyItemTargetPanel582D40 {
     160, 132, 320, 192, 77, {}, {}, 0, 0, {}, {},
 };
 
+LegacyPanelRecord gLegacyTradeTargetPanel582E08 {
+    160, 132, 320, 192, 51, {}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyTradeTargetSelectionCC4D48 = 0; // 4E4EA0发送前发布，发送后重读。
+constexpr char kLegacyTradeTargetHint589368[] = "\xBB\x50\xB3\x6F\xAD\xD3\xA8\xA4\xA6\xE2\xB6\x69\xA6\xE6\xA5\xE6\xA9\xF6\xA1\x43";
+
 LegacyPanelRecord gLegacyTextNoticePanel583EE8 {
     130, 180, 336, 96, 81, {}, {}, 0, 0, {}, {},
 };
@@ -2761,6 +2767,95 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
         DrawGraphicHover(Low16(left), Low16(top), Low16(left + 148), Low16(top + 20), 218, image, 0);
     }
     return Sub_503440(&gLegacyItemTargetPanel582D40, 0);
+}
+
+std::uint32_t Sub_4E4EA0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyTradeTargetPanel582E08.x;
+    const std::int32_t y = gLegacyTradeTargetPanel582E08.y;
+    const std::array<character_select::detail::CharacterModalUiRecord, 2> cancels {{
+        {x + 133, y + 162, x + 131, y + 162, 57, 18, kLegacyItemUseCancel589008},
+        {x + 79, y + 162, x + 77, y + 162, 57, 18, kLegacyItemUseCancel589008},
+    }};
+    const std::array<character_select::detail::CharacterModalUiRecord, 2> pages {{
+        {x + 195, y + 162, x + 193, y + 162, 37, 18, kLegacySkillTargetNext589360},
+        {x + 195, y + 162, x + 193, y + 162, 37, 18, kLegacySkillTargetPrevious589358},
+    }};
+    const std::uint32_t state = static_cast<std::uint32_t>(
+        Sub_503160(opened, &gLegacyTradeTargetPanel582E08, nullptr, 0));
+    if (state == 0 || state == 2) {
+        return state;
+    }
+    const bool manyPages = gLegacyTradeTargetPageCountCF46D0 > 1;
+    std::int32_t page = gLegacyTradeTargetPageCC3208;
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        if (row + 5 * page >= gLegacyTradeTargetCountD30134) {
+            continue;
+        }
+        const std::int32_t top = gLegacyTradeTargetPanel582E08.y + 20 * row + 50;
+        const std::int32_t left = gLegacyTradeTargetPanel582E08.x + 86;
+        if (Sub_5049A0(left, top, left + 148, top + 20, -1) != 0) {
+            hovered = row;
+            break;
+        }
+        page = gLegacyTradeTargetPageCC3208;
+    }
+    const auto* const cancel = &cancels[manyPages ? 1 : 0];
+    const std::int32_t cancelState = character_select::detail::Sub_503990(cancel);
+    const std::int32_t pageState = manyPages
+        ? character_select::detail::Sub_503990(&pages[gLegacyTradeTargetPageCC3208]) : 0;
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1U) != 0) {
+        const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
+        const auto socket = platform::gConnectionSocket;
+        const std::int32_t selected = hovered + 5 * currentPage;
+        gLegacyTradeTargetSelectionCC4D48 = selected;
+        static_cast<void>(network::Sub_511FF0(socket, selected));
+        const char* const name = gLegacyTradeTargetNamesCB1D1C[gLegacyTradeTargetSelectionCC4D48].data();
+        static_cast<void>(ui::detail::Sub_4E5620(name));
+    } else if ((cancelState & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyTradeTargetPanel582E08.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if ((pageState & 1) != 0) {
+        gLegacyTradeTargetPageCC3208 = (gLegacyTradeTargetPageCC3208 - 1) & 1;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 58),
+        static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 24),
+        2, 0, 4, kLegacyItemUseTitle585F54, 0, 0));
+    if (manyPages) {
+        const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
+        const std::int32_t pageCount = gLegacyTradeTargetPageCountCF46D0;
+        char buffer[128];
+        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 270),
+            static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 24), 2, 0, 0, buffer, 0, 0));
+    }
+    page = gLegacyTradeTargetPageCC3208;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t index = row + 5 * page;
+        if (index < gLegacyTradeTargetCountD30134) {
+            const char* const name = gLegacyTradeTargetNamesCB1D1C[index].data();
+            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 88),
+                static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 52 + 20 * row), 2, 0, 0, name, 0, 0));
+            page = gLegacyTradeTargetPageCC3208;
+        }
+    }
+    static_cast<void>(character_select::detail::Sub_503A20(cancel, 2, 4, 1, gValueD69768, 218));
+    if (manyPages) {
+        const auto* const button = &pages[gLegacyTradeTargetPageCC3208];
+        static_cast<void>(character_select::detail::Sub_503A20(button, 2, 4, 1, gValueD69768, 218));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyTradeTargetPanel582E08.y + 50 + 20 * hovered;
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t left = gLegacyTradeTargetPanel582E08.x + 86;
+        DrawGraphicHover(Low16(left), Low16(top), Low16(left + 148), Low16(top + 20), 218, color, 0);
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeTargetHint589368);
+    } else if ((cancelState & 0x40) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeCancel5889AC);
+    }
+    return Sub_503440(&gLegacyTradeTargetPanel582E08, 0);
 }
 
 std::uint32_t Sub_4F0CD0(const std::int32_t opened)

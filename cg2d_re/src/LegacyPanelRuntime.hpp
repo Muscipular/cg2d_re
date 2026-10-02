@@ -46,6 +46,12 @@ extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对�
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
 
+// 原旧51的真实外部数据依赖；名单总容量、初始页号及生产尚缺，不提供猜测定义。
+extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
+extern std::int32_t gLegacyTradeTargetCountD30134;
+extern std::int32_t gLegacyTradeTargetPageCC3208;
+extern std::int32_t gLegacyTradeTargetPageCountCF46D0;
+
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {
     std::int32_t image;
@@ -163,6 +169,7 @@ std::uint32_t Sub_4D88C0(std::int32_t opened); // 旧61确认学习/覆盖，返
 std::uint32_t Sub_4EFB70(std::int32_t opened); // 旧36属性目标，沿ND六行共享状态及原关闭请求。
 std::uint32_t Sub_4F0460(std::int32_t opened); // 旧35技能名单，五行两页、直接/属性请求及原关闭状态。
 std::uint32_t Sub_4E4A50(std::int32_t opened); // 旧77物品使用目标，LY十条20B同源记录，先写选择再发送。
+std::uint32_t Sub_4E4EA0(std::int32_t opened); // 旧51交易目标消费，发送后重读选择并初始化交易。
 std::uint32_t Sub_4F0CD0(std::int32_t opened); // 旧81固定文字提示；无格式指令的额外值不产生业务状态。
 std::uint32_t Sub_4F0E20(std::int32_t opened); // 旧82固定文字提示，完整确认/关闭及W32返回。
 YobiAction* Sub_4D8D70(); // 旧62预览初始化：借同源图号，发布并返回工厂结果。

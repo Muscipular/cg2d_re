@@ -918,3 +918,18 @@ records341增至348，pending_records18、分类引用4保持，不将关联数�
 records348增至355，pending_records18、分类引用4保持。七项原元数据421条
 只作定位，不称本轮逐条复验或重新实现。源码/CMake保持，只核新增归属、
 边界/入向、提供者和既有用户替代合同；无环境值读取、编译、测试、运行或哈希校验。
+
+## x64 浮点精度与CRT表初始化边界（2026-10-02）
+
+按[局部证据](cg2d_startup_flow.md#x64-启动与浮点精度承接边界2026-10-02)
+新增53C8CD启动职责、53FD5C/54488E/544859固定PC53链的限定数值关联，
+共50条原指令。PC53已有业务double原位承接，不增加全局控制字设置。
+
+实际宿主exe_common.inl仅在_M_IX86中调用_initialize_default_precision，
+default_precision.cpp本身也仅x86可构建。三个记录用host_reference明确仅作参考，
+没有伪称它是当前x64提供者，也不把FNCLEX/Pentium标志/格式函数表随之覆盖。
+宿主C表_initterm_e的非零失败与原两表void执行器不同，最终exe接线仍未验。
+
+records355增至359，pending_records18、分类引用4保持。记录属于限定证据/
+职责关联，不算四个原体全部完成。源码/CMake保持，仅静态核边界、入向、
+宿主编译条件及实际源符号；未操作浮点环境、编译、测试、运行或哈希校验。

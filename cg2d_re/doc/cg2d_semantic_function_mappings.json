@@ -9073,6 +9073,138 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "唯一caller547E8A的等号搜索依赖；不用新多字节表重新实现已被GetEnv裁决替换的私有链，不代表所有mbschr或strchr调用均被排除。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+    },
+    {
+      "original_entry": "0x53C8CD",
+      "inventory_id": "F:0013C8CD",
+      "status": "仅宿主CRT启动职责关联；表返回/失败及最终入口未验",
+      "original_end_exclusive": "0x53C8FA",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "应用入口依赖宿主CRT启动，非原库函数直接定义；当前仅静态库"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/exe_common.inl",
+        "symbol": "__scrt_common_main_seh"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。"
+    },
+    {
+      "original_entry": "0x53FD5C",
+      "inventory_id": "F:0013FD5C",
+      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "original_end_exclusive": "0x53FD6E",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "RenderChara_521F20"
+          ],
+          "relationship": "521F90合并路径的已批准double数值承接；非原控制字函数直接定义"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D790"
+          ],
+          "relationship": "已有PC53中间计算合同；不代表全局或所有函数数值均已验"
+        }
+      ],
+      "host_reference": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/default_precision.cpp",
+        "symbol": "_initialize_default_precision",
+        "activation": "仅x86参考；当前x64不调用此函数"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原固定newValue10000h/mask30000h，仅调用54488E。已批准PC53数值域由现有double原位运算承接，不新增全局控制字设置；宿主_initialize_default_precision仅x86，不能记作x64实际提供者。"
+    },
+    {
+      "original_entry": "0x54488E",
+      "inventory_id": "F:0014488E",
+      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "original_end_exclusive": "0x5448A4",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "RenderChara_521F20"
+          ],
+          "relationship": "521F90合并路径的已批准double数值承接；非原控制字函数直接定义"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D790"
+          ],
+          "relationship": "已有PC53中间计算合同；不代表全局或所有函数数值均已验"
+        }
+      ],
+      "host_reference": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/default_precision.cpp",
+        "symbol": "_initialize_default_precision",
+        "activation": "仅x86参考；当前x64不调用此函数"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅53FD5C调用，清mask的80000h位后交544859；固定PC53调用域的前置证据关联，非通用_controlfp接口实现或任意舍入/异常状态等价。"
+    },
+    {
+      "original_entry": "0x544859",
+      "inventory_id": "F:00144859",
+      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "original_end_exclusive": "0x54488E",
+      "instruction_count": 24,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "RenderChara_521F20"
+          ],
+          "relationship": "521F90合并路径的已批准double数值承接；非原控制字函数直接定义"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D790"
+          ],
+          "relationship": "已有PC53中间计算合同；不代表全局或所有函数数值均已验"
+        }
+      ],
+      "host_reference": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/default_precision.cpp",
+        "symbol": "_initialize_default_precision",
+        "activation": "仅x86参考；当前x64不调用此函数"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅54488E调用，读控制字、抽象位合并、回转写入并返回抽象值。当前只关联已批准的double PC53数值域，不复制x87硬件接口，不声称FNCLEX/Pentium/任意控制字状态已验。"
     }
   ]
 }

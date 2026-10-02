@@ -1444,6 +1444,437 @@
       ],
       "instruction_count": 225,
       "boundary": "该IDA条目含构造、登记、退出、异常清理等多块。PaletteDbfState按装载序释放解压块，随后容器管理节点/存储；释放池522C50不销毁本owner。节点/哨兵/指针数组的具体分配释放次数与时机按既有标准容器适配边界，不称逐指令或完整异常路径等价。"
+    },
+    {
+      "original_entry": "0x45AA80",
+      "inventory_id": "F:0005AA80",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形首见树范围删除",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原非空整范围有快速清树路径，否则逐节点删除；实际GraphicInit调用为清整树，现有clear承接，不释放借用的GraphicInfo。"
+    },
+    {
+      "original_entry": "0x45AB50",
+      "inventory_id": "F:0005AB50",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形首见树单节点删除及平衡",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先取得后继，移接/平衡后删除节点并减计数；由std::map的erase/clear/析构机制承接，节点值保持非拥有引用。"
+    },
+    {
+      "original_entry": "0x45AF20",
+      "inventory_id": "F:0005AF20",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形树子树销毁",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原递归右子树并沿左子树释放节点，止于9A2980共享哨兵；节点销毁由std::map承接，不模拟旧树形和释放顺序。"
+    },
+    {
+      "original_entry": "0x45AF60",
+      "inventory_id": "F:0005AF60",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形树节点插入及平衡",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原分配24B节点、复制键值、按S32键挂接并平衡；现由emplace承接首次记录，节点指针拓宽而mapNo保持S32。"
+    },
+    {
+      "original_entry": "0x45B1D0",
+      "inventory_id": "F:0005B1D0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形树最左节点查找",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "范围删除内部用于寻找后继子树的最左节点；由std::map内部迭代/删除承接，不公开原哨兵指针。"
+    },
+    {
+      "original_entry": "0x45B1F0",
+      "inventory_id": "F:0005B1F0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形树迭代前驱",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "用于父入口唯一插入检查中的前驱移动；当前emplace与此前去重vector共同保留首见记录，不单独暴露旧迭代器。"
+    },
+    {
+      "original_entry": "0x45B250",
+      "inventory_id": "F:0005B250",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图形树迭代后继",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原通过右子树最左节点或父链更新迭代槽；由当前map删除和析构内部遍历承接。"
+    },
+    {
+      "original_entry": "0x45B2A0",
+      "inventory_id": "F:0005B2A0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "图号排序分区叶",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicMapNumbers"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原叶只递归处理超过16元素的分区，小分区由459960内联插入排序收尾；std::sort替代整个父排序阶段，不宣称与该叶独立输出相同。比较为S32，返回残值被父入口弃用。"
+    },
+    {
+      "original_entry": "0x523390",
+      "inventory_id": "F:00123390",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF索引树销毁",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原树节点、表头及最后共享哨兵销毁，包含5226A0异常清理的调用；由map成员析构承接，异常/分配时机保持既有适配未验边界。"
+    },
+    {
+      "original_entry": "0x523450",
+      "inventory_id": "F:00123450",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF迭代后继并返回旧值",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原保存旧节点、推进迭代槽、写旧节点到输出，供退出删除路径；由标准容器内部删除遍历承接，不把后置迭代误记成前驱。"
+    },
+    {
+      "original_entry": "0x5234C0",
+      "inventory_id": "F:001234C0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF有符号唯一键插入",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "5234E9的setl和523571的jge确认S32比较。原重复键返回既有节点且插入标志为0；try_emplace保持该行为，随后父入口无条件更新second为新记录。"
+    },
+    {
+      "original_entry": "0x5235C0",
+      "inventory_id": "F:001235C0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF树范围删除",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原整范围快速清树或逐节点删除，清零计数并恢复空树链接；当前map退出清理承接，不销毁记录所指解压块。"
+    },
+    {
+      "original_entry": "0x523690",
+      "inventory_id": "F:00123690",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF键值临时项构造",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原依次复制两个W32，实际caller第二值为临时空记录引用；当前try_emplace(key,nullptr)后再写真实record，键仍S32、引用才拓宽。"
+    },
+    {
+      "original_entry": "0x5236B0",
+      "inventory_id": "F:001236B0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "四类vector共用插入",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "decodedBlocks",
+            "gIndependentPaletteQueue"
+          ]
+        },
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicMapNumbers"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_518A40",
+            "requests"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_scene_state.md"
+      ],
+      "boundary": "五个直接callsite均在end插入一项：459E07图号、518B37相册请求编号、522A38解压块指针、522AF1/522B7E调色板mapNo。分别由有类型vector的push_back承接，只有解压块元素拓宽为指针；不模拟原容量增长与分配失败时机。"
+    },
+    {
+      "original_entry": "0x5238C0",
+      "inventory_id": "F:001238C0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF树单节点删除及平衡",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先取得后继，移接/平衡后删除节点并减计数；由map清理机制承接，借用的记录不另行释放。"
+    },
+    {
+      "original_entry": "0x523C90",
+      "inventory_id": "F:00123C90",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF子树销毁",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原以103CFAC为终点递归释放树节点；原解压块由外层owner先行释放，不能改成节点逐项delete记录值。"
+    },
+    {
+      "original_entry": "0x523CD0",
+      "inventory_id": "F:00123CD0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF迭代后继",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900",
+            "current",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原父入口522ACB先推进同源迭代槽，再读取旧节点载荷；current++后消费快照保持该顺序，其他树清理消费者由map内部遍历承接。"
+    },
+    {
+      "original_entry": "0x523D20",
+      "inventory_id": "F:00123D20",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF树节点插入及平衡",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原分配24B节点、复制键值、挂接并平衡；实际DBF唯一键流程由try_emplace承接，原树形/颜色/分配次数不复制。"
+    },
+    {
+      "original_entry": "0x523F90",
+      "inventory_id": "F:00123F90",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF最左节点查找",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原范围删除内用于寻找最左节点，止于103CFAC；由map内部删除机制承接。"
+    },
+    {
+      "original_entry": "0x523FD0",
+      "inventory_id": "F:00123FD0",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF迭代前驱",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一插入候选检查使用前驱；由try_emplace的查找/唯一键机制承接，不能和523CD0后继混同。"
+    },
+    {
+      "original_entry": "0x524030",
+      "inventory_id": "F:00124030",
+      "status": "已有调用链级容器适配映射，运行未验",
+      "original_role": "DBF退出清集合的顺序复制叶",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "decodedBlocks"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一直接callsite522734传入相同end作为源起止，执行零次复制并返回目标start，随后原集合end回到start；当前退出由容器析构回收存储，不添加额外载荷复制。"
     }
   ]
 }

@@ -18,6 +18,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -293,6 +294,17 @@ constexpr char kLegacyIdentifyStopHint589124[] = "\xA4\xA3\xC5\xB2\xA9\x77\xA1\x
 constexpr char kLegacyIdentifyAcceptHint589130[] = "\xC5\xB2\xA9\x77\xA1\x43";
 constexpr char kLegacyIdentifyQuestion589138[] = "\xC5\xB2\xA9\x77\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
 constexpr char kLegacyIdentifySummary589150[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xC5\xB2\xA9\x77\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
+
+LegacyPanelRecord gLegacyMessagePanel582AA8 {
+    20, 9, 600, 438, 73, {23224, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+input::InputContext* gLegacyMessageInputD67C8C = nullptr; // 非拥有CC46E0借用，关闭只清槽/归还焦点。
+constexpr char kLegacyMessageDelete58917C[] = "\xA7\x52\xB0\xA3\xA6\xB9\xAF\x64\xA8\xA5\xA1\x43";
+constexpr char kLegacyMessagePrevious58918C[] = "\xAB\x65\xA4\x40\xAD\xB6\xA1\x43";
+constexpr char kLegacyMessageCancel589198[] = "\xA8\xFA\xAE\xF8\xAF\x64\xA8\xA5\xA1\x43";
+constexpr char kLegacyMessageEmpty5891A4[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xA4\xE5\xA6\x72\xA1\x43";
+constexpr char kLegacyMessagePost5891B4[] = "\xAF\x64\xA8\xA5\xA1\x43";
+constexpr char kLegacyMessageNext553574[] = "\xA4\x55\xA4\x40\xAD\xB6\xA1\x43";
 
 constexpr char kLegacySellDecrease588E74[] = "\xB4\xEE\xA4\xD6\xBD\xE6\xB1\xBC\xA6\xB9\xAA\xAB\xAB\x7E\xBC\xC6\xB6\x71\xA1\x43";
 constexpr char kLegacySellIncrease588E8C[] = "\xBC\x57\xA5\x5B\xBD\xE6\xB1\xBC\xA6\xB9\xAA\xAB\xAB\x7E\xBC\xC6\xB6\x71\xA1\x43";
@@ -2965,6 +2977,189 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyIdentifyConfirmPanel5829E0, 0);
+}
+
+std::uintptr_t Sub_4DF730(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMessagePanel582AA8.x;
+    const std::int32_t y = gLegacyMessagePanel582AA8.y;
+    LegacyPanelButtonRecord post {x + 557, y + 394, x + 529, y + 384, 56, 20, 23216, 23217};
+    LegacyPanelButtonRecord cancel {x + 557, y + 418, x + 529, y + 408, 56, 20, 23214, 23215};
+    LegacyPanelButtonRecord previous {x + 192, y + 355, x + 164, y + 345, 56, 20, 23225, 23226};
+    LegacyPanelButtonRecord next {x + 408, y + 355, x + 380, y + 345, 56, 20, 23227, 23228};
+    std::array<LegacyPanelButtonRecord, 4> deletes;
+    for (std::int32_t index = 0; index < 4; ++index) {
+        deletes[index] = {x + 560, y + 52 + 76 * index, x + 532, y + 42 + 76 * index,
+            56, 20, 23218, 23219};
+    }
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    std::int32_t deleteHovered = -1;
+    const std::int32_t state = Sub_503160(opened, &gLegacyMessagePanel582AA8, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        std::uintptr_t result = static_cast<std::uint32_t>(
+            input::IsCurrentContext_503E40(gLegacyMessageInputD67C8C));
+        if (result != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            // 原44B330返回输入指针，关闭分支保留原生T*，不截回W32。
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyMessageInputD67C8C = nullptr;
+        return result;
+    }
+    if (gLegacyMessageInputD67C8C == nullptr) {
+        const std::int32_t inputY = gLegacyMessagePanel582AA8.y + 389;
+        const std::int32_t inputX = gLegacyMessagePanel582AA8.x + 21;
+        gLegacyMessageInputD67C8C = &input::gInputContextCC46E0;
+        input::gInputContextCC46E0.text[0] = '\0';
+        input::gInputContextCC46E0.caretByteOffset = 0;
+        input::gInputContextCC46E0.totalByteLength = 0;
+        input::InitializeContext_449CF0(&input::gInputContextCC46E0,
+            inputX, inputY, 2, 0, 0, nullptr, 2, 70, 18, 0);
+        input::SetContext_44B330(gLegacyMessageInputD67C8C);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const auto sendReply = [](const std::int32_t mode, const char* const text) {
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, mode, text));
+    };
+    char buffer[384];
+    if ((QueryPanelButtonState(&post) & 1) != 0) {
+        if (gLegacyMessageInputD67C8C->text[0] != '\0') {
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(
+                gLegacyMessageInputD67C8C->text, buffer + 128, 255));
+            sendReply(1, buffer + 128);
+            static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if ((ui::detail::gDialogValueCF4E5C & 0x10) != 0
+               && (QueryPanelButtonState(&previous) & 1) != 0) {
+        buffer[0] = '\0';
+        sendReply(16, buffer);
+        static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((ui::detail::gDialogValueCF4E5C & 0x20) != 0
+               && (QueryPanelButtonState(&next) & 1) != 0) {
+        buffer[0] = '\0';
+        sendReply(32, buffer);
+        static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else {
+        for (std::int32_t index = 0; index < 4; ++index) {
+            const std::byte* const record = ui::detail::BorrowLegacyMessageRecordsD30138() + index * 0xB0;
+            if (record[8] == std::byte{0}) {
+                continue;
+            }
+            if ((QueryPanelButtonState(&deletes[index]) & 0x40) != 0) {
+                deleteHovered = index;
+            }
+            if ((QueryPanelButtonState(&deletes[index]) & 1) != 0) {
+                std::sprintf(buffer, "%d", index);
+                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 127));
+                sendReply(64, buffer + 128);
+                static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int32_t font) {
+        const std::int32_t top = gLegacyMessagePanel582AA8.y + offsetY;
+        const std::int32_t left = gLegacyMessagePanel582AA8.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
+    };
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
+    drawAt(lines[0].text.data(), 305 - titleWidth / 2, 9, 0);
+    for (std::int32_t index = 0; index < 4; ++index) {
+        const std::byte* const record = ui::detail::BorrowLegacyMessageRecordsD30138() + index * 0xB0;
+        const std::int32_t image = ReadRecordW32(record, 0);
+        if (image > 999) {
+            // 原4DFD4B图标纵坐标借旧68面板，其他文字使用旧73。
+            const std::int32_t imageY = gLegacyIdentifyPanel582918.y + 70 + 76 * index;
+            const std::int32_t imageX = gLegacyMessagePanel582AA8.x + 44;
+            static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
+        }
+        const char* const name = reinterpret_cast<const char*>(record + 9);
+        if (name[0] != '\0') {
+            const std::int32_t nameWidth = TextMeasure(name, 0);
+            drawAt(name, 160 - nameWidth / 2, 43 + 76 * index, 0);
+        }
+        std::int32_t timeValue = ReadRecordW32(record, 4);
+        if (timeValue != 0) {
+            const platform::LegacyTm53B8C6* const time = platform::LocalTime_53B8C6(&timeValue);
+            if (time != nullptr) {
+                const std::int32_t minutes = time->minutes;
+                const std::int32_t hours = time->hours;
+                const std::int32_t day = time->day;
+                const std::int32_t month = time->month0based + 1;
+                const std::int32_t year = time->yearMinus1900 + 1900;
+                std::sprintf(buffer, "%4d/%02d/%02d/%02d:%02d", year, month, day, hours, minutes);
+                drawAt(buffer, 248, 45 + 76 * index, 1);
+            }
+        }
+        for (std::int32_t line = 0; line < 2; ++line) {
+            if (input::ExtractLegacyLine_503AB0(buffer, 128,
+                    reinterpret_cast<const char*>(record + 26), line, 70) == 0) {
+                buffer[0] = '\0';
+            }
+            drawAt(buffer, 93, 72 + 76 * index + 18 * line, 0);
+        }
+        if (record[8] != std::byte{0}) {
+            Sub_5035E0(&deletes[index], 213, 1, gValueD69768, 0);
+        }
+    }
+    Sub_5035E0(&post, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
+    if ((ui::detail::gDialogValueCF4E5C & 0x10) != 0) {
+        Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+    }
+    if ((ui::detail::gDialogValueCF4E5C & 0x20) != 0) {
+        Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+    }
+    render::DrawInputText_4568A0(gLegacyMessageInputD67C8C);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMessagePanel582AA8) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&post) & 0x40) != 0) {
+        hint = gLegacyMessageInputD67C8C->text[0] != '\0'
+            ? kLegacyMessagePost5891B4 : kLegacyMessageEmpty5891A4;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyMessageCancel589198;
+    } else if ((ui::detail::gDialogValueCF4E5C & 0x10) != 0
+               && (QueryPanelButtonState(&previous) & 0x40) != 0) {
+        hint = kLegacyMessagePrevious58918C;
+    } else if ((ui::detail::gDialogValueCF4E5C & 0x20) != 0
+               && (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyMessageNext553574;
+    } else if (deleteHovered >= 0) {
+        hint = kLegacyMessageDelete58917C;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMessagePanel582AA8, 1);
 }
 
 YobiAction* Sub_4D36B0()

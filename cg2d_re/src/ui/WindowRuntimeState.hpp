@@ -1117,6 +1117,7 @@ extern std::array<char, 2 * 5 * 0x5FC> gTradePetsC9C108;
 extern std::array<char, 5 * 0x600> gPetStorageD64E18; // 外部存放宠物，4A84A0原回复区。
 extern std::array<char, 2 * 0xFBF8> gItemDetailStorageCC4D58; // 每组首20条C44物品、末W32金额，间隔未冻结。
 std::int32_t ReadLegacyStorageSideD67618() noexcept; // 旧72借读既有存放模式，不复制私有状态。
+const std::byte* BorrowLegacyMessageRecordsD30138() noexcept; // 旧73只读借现代50同源2C0H字节区，四条B0H。
 extern std::array<char, 20 * 0xC58> gShopItemsCF4FE0; // 买卖共用原字节记录，字段见窗口53 SPEC。
 extern std::int32_t gShopItemCountCB1E10; // 买入实际数量/出售固定20，与回复商品数独立。
 extern std::int32_t gShopReplyItemCountCF4B58; // 出售回复中实际读取的商品数。

@@ -1612,6 +1612,11 @@ std::int32_t ReadLegacyStorageSideD67618() noexcept
     return std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
 }
 
+const std::byte* BorrowLegacyMessageRecordsD30138() noexcept
+{
+    return gWindow50AlternateRecordsD30138.data();
+}
+
 const char* BorrowGatherResultNameD2DA94() noexcept
 {
     return gWindow12NameD2DA94.data();

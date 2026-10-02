@@ -579,6 +579,18 @@ constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xB8\xF5\xB9\x4C\x31\x30\xAD\xB6\x
 constexpr char kLegacyAlbumBack58A0FC[] = "\xA6\x5E\xA8\xEC\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyAlbumOpen58A114[] = "\xA5\xB4\xB6\x7D\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
 
+// 原旧20列表面板及两帧展开标志；4F7140初始化，4F7150/4F7870共享。
+LegacyPanelRecord gLegacyPetListPanel584850 {
+    0, 0, 272, 408, 20, {22840, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int16_t gLegacyPetStateOpenD67D18 = 0;
+std::int16_t gLegacyPetStatePreviousD2D48C = 0;
+constexpr std::array<std::int32_t, 10> kLegacyPetTribeImages57CB2C {
+    22865, 22866, 22867, 22868, 22869, 22870, 22871, 22872, 22873, 22874,
+};
+constexpr char kLegacyPetOpenDetails586D0C[] = "\xA5\xB4\xB6\x7D\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xAF\xE0\xA4\x4F\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyPetChooseState58A12C[] = "\xAB\xFC\xA9\x77\xC3\x64\xAA\xAB\xAA\xBA\xAA\xAC\xBA\x41\xA1\x43";
+
 constexpr char kLegacyPetBasicTab585958[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xAF\xE0\xA4\x4F\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyPetAttributeTab58593C[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xB8\xD4\xB2\xD3\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyPetSkillTab585920[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
@@ -13315,6 +13327,145 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyAlbumListPanel584788, 1);
+}
+
+std::int32_t Sub_4F7140()
+{
+    gLegacyPetStateOpenD67D18 = 0;
+    gLegacyPetStatePreviousD2D48C = 0;
+    return 0;
+}
+
+// 原旧20完整列表入口；内嵌4F7870仍为真实缺失依赖，不注册不完整页面。
+std::uint32_t Sub_4F7150(const std::int32_t opened)
+{
+    const std::int32_t panelY = gLegacyPetListPanel584850.y;
+    const std::int32_t panelX = gLegacyPetListPanel584850.x;
+    std::array<LegacyPanelButtonRecord, 5> buttons;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        buttons[row] = {panelX + 231, panelY + 83 + 75 * row,
+            panelX + 199, panelY + 67 + 75 * row, 64, 32, 22841, 22842};
+    }
+    constexpr std::array<std::array<std::int32_t, 2>, 3> stateImages {{
+        {{22845, 22846}}, {{22843, 22844}}, {{22841, 22842}},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyPetListPanel584850,
+        +[] { static_cast<void>(Sub_4F7140()); }, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::int32_t stateHovered = -1;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        if (world::detail::gPetPairsDE0B08[row].used == 0) {
+            continue;
+        }
+        if ((QueryPanelButtonState(&buttons[row]) & 0x40) != 0) {
+            stateHovered = row;
+        }
+        if ((QueryPanelButtonState(&buttons[row]) & 1) != 0) {
+            if (gLegacyPetStateOpenD67D18 != 0) {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            gLegacyPetStateOpenD67D18 = 1;
+            break;
+        }
+    }
+    std::int32_t nameHovered = -1;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        if (Sub_5049A0(gLegacyPetListPanel584850.x + 8,
+                gLegacyPetListPanel584850.y + 32 + 75 * row,
+                gLegacyPetListPanel584850.x + 154,
+                gLegacyPetListPanel584850.y + 53 + 75 * row, -1) != 0) {
+            nameHovered = row;
+            break;
+        }
+    }
+    if (nameHovered >= 0 && world::detail::gPetPairsDE0B08[nameHovered].used != 0) {
+        const auto clicks = static_cast<std::uint8_t>(gValueD68D98);
+        if ((clicks & 1) != 0) {
+            static_cast<void>(audio::Sub_504180(21));
+            gLegacyPetDetailPanel584918.selected = 0;
+            gLegacyPetSelectionD67ADC = nameHovered;
+        } else if ((clicks & 2) != 0) {
+            const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[nameHovered].index);
+            const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            const std::uintptr_t socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_510E30(socket, x, y, index));
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    if (gLegacyPetStateOpenD67D18 != 0) {
+        Sub_4F7870(gLegacyPetListPanel584850.x + gLegacyPetListPanel584850.width,
+            gLegacyPetListPanel584850.y);
+    }
+    gLegacyPetStatePreviousD2D48C = gLegacyPetStateOpenD67D18;
+    char buffer[128];
+    for (std::int32_t row = 0; row < 5; ++row) {
+        if (world::detail::gPetPairsDE0B08[row].used == 0) {
+            continue;
+        }
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        auto& pet = world::detail::gPetRuntimeF633F8[index];
+        const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
+        const std::int32_t width = TextMeasure(name, 0);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
+            static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 36 + 75 * row),
+            2, 0, 0, name, 0, 0));
+        std::sprintf(buffer, "%3d", pet.value08);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
+            static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
+            2, 1, 0, buffer, 0, 0));
+        const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+        const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
+            static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 61 + 75 * row),
+            2, 1, 0, buffer, 0, 0));
+        const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+        const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
+            static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 83 + 75 * row),
+            2, 1, 0, buffer, 0, 0));
+        const auto tribe = std::bit_cast<std::int16_t>(pet.value04);
+        static_cast<void>(DrawGraphic(gLegacyPetListPanel584850.x + 163,
+            gLegacyPetListPanel584850.y + 91 + 75 * row, 212,
+            kLegacyPetTribeImages57CB2C[tribe], 0, nullptr));
+        const std::int32_t injuryImage = ui::detail::ReadLegacyHealthImage(pet.values70[25]);
+        static_cast<void>(DrawGraphic(gLegacyPetListPanel584850.x + 258,
+            gLegacyPetListPanel584850.y + 45 + 75 * row, 212, injuryImage, 0, nullptr));
+        for (std::int32_t element = 0; element < 4; ++element) {
+            const std::int32_t left = gLegacyPetListPanel584850.x + 148;
+            const std::int32_t top = gLegacyPetListPanel584850.y + 61 + 75 * row + 4 * element;
+            const std::int32_t right = left + 4 * (pet.values70[21 + element] / 10);
+            DrawGraphicHover(Low16(left), Low16(top), Low16(right), Low16(top + 3),
+                215, kLegacyAttributeBars57CBB8[element][0], 1);
+        }
+        const auto battleState = std::bit_cast<std::int16_t>(pet.flags6AA);
+        buttons[row].normalImage = stateImages[battleState][0];
+        buttons[row].pressedImage = stateImages[battleState][1];
+        Sub_5035E0(&buttons[row], 212, 1, gValueD69768, 0);
+    }
+    if (nameHovered >= 0) {
+        const std::int32_t top = gLegacyPetListPanel584850.y + 32 + 75 * nameHovered;
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t left = gLegacyPetListPanel584850.x;
+        DrawGraphicHover(Low16(left + 8), Low16(top), Low16(left + 154), Low16(top + 21),
+            214, color, 0);
+    }
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyPetListPanel584850) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if (nameHovered >= 0 && world::detail::gPetPairsDE0B08[nameHovered].used != 0) {
+        hint = kLegacyPetOpenDetails586D0C;
+    } else if (stateHovered >= 0 && world::detail::gPetPairsDE0B08[stateHovered].used != 0) {
+        hint = kLegacyPetChooseState58A12C;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyPetListPanel584850, 1);
 }
 
 YobiAction* Sub_4F8340()

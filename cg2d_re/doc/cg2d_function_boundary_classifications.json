@@ -1496,6 +1496,52 @@
         "doc/cg2d_function_boundary_classifications.md"
       ],
       "boundary": "完整1885B包含28张W32跳表、15张U8选择表和12段对齐，共250个目标、853B选择值及32B填充；所有表读/间接跳转引用及目标位于427470内。父链424620等未闭合项不因数据归属确认而消失。"
+    },
+    {
+      "range_start": "0x53F2A6",
+      "range_end": "0x53F2C6",
+      "parent_entry": "0x53EB28",
+      "parts": [
+        {
+          "start": "0x53F2A6",
+          "end": "0x53F2C6",
+          "size": 32,
+          "references": [
+            {
+              "instruction": "0x53EBA4",
+              "owner": "0x53EB28",
+              "display": "jmp ds:jpt_53EBA4[eax*4]"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x53ECDB",
+            "0x53EBAB",
+            "0x53EBC8",
+            "0x53EC14",
+            "0x53EC4B",
+            "0x53EC54",
+            "0x53EC8C",
+            "0x53ED20"
+          ],
+          "all_targets_in_parent": true
+        }
+      ],
+      "status": "格式输出父函数的八状态分派表；不是代码或独立函数",
+      "parent_inventory_id": "F:0013EB28",
+      "source": {
+        "path": "src/Input.cpp",
+        "symbols": [
+          "Sub_449FA0",
+          "Sub_44A090"
+        ],
+        "relationship": "现有sprintf消费根，不是原输出核心的直接源码定义"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_function_boundary_classifications.md"
+      ],
+      "boundary": "原清单同一32B未归属区间完整归为8项W32跳表；唯一分派消费53EBA4，实际8目标都在53EB28..53F2A6内。保留IDA分母/函数边界，不把表计入623条指令或改数据库；父输出引擎的语义差异与运行验收仍未完成。"
     }
   ]
 }

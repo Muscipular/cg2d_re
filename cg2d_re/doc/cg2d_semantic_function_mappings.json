@@ -12087,6 +12087,83 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原游标先加4，仅前槽低W16写AX，未清EAX高位；唯一父53EE05转交wctomb只消费W16。不能误记完整EAX为符号扩展S16；宿主typed参数只关联已证低W16职责，未消费地址残值不模拟。"
+    },
+    {
+      "original_entry": "0x53EB28",
+      "inventory_id": "F:0013EB28",
+      "status": "格式输出核心已取证并关联宿主职责；全语义与运行未完成",
+      "original_end_exclusive": "0x53F2A6",
+      "instruction_count": 623,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090",
+            "Sub_449DA0"
+          ],
+          "relationship": "既有路径sprintf及日志fprintf消费根，仅传递关联宿主引擎"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "output_processor"
+      },
+      "dispatch_evidence": {
+        "instruction": "0x53EBA4",
+        "table_start": "0x53F2A6",
+        "table_end": "0x53F2C6",
+        "targets": [
+          "0x53ECDB",
+          "0x53EBAB",
+          "0x53EBC8",
+          "0x53EC14",
+          "0x53EC4B",
+          "0x53EC54",
+          "0x53EC8C",
+          "0x53ED20"
+        ],
+        "packed_table_start": "0x54F96C",
+        "packed_table_end": "0x54F9C5",
+        "packed_bytes": "0600000600010000100003060006021004454545050505050535300050000000002028385058070800373030575007000020200800000000086068606060600000707078787878080708000007000808080000080008000708",
+        "class_count": 9,
+        "state_count": 8
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_function_boundary_classifications.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "三个实际包装caller明确；623条不包含末尾32B跳表。原精度163/512、直接n写回、宽串转换失败计数及浮点槽初始化与宿主不同，不把现有sprintf当全核心实现。仅地址按x64原生va_list拓宽，不扩数值、不新建旧FILE/变参栈/浮点槽，不擅启用宿主n选项。"
+    },
+    {
+      "original_entry": "0x53BC0F",
+      "inventory_id": "F:0013BC0F",
+      "status": "现有日志fprintf消费域及宿主缓冲职责已关联；完整父链未验",
+      "original_end_exclusive": "0x53BC41",
+      "instruction_count": 22,
+      "original_direct_reference_count": 11,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0"
+          ],
+          "relationship": "原449ECA/449EF3/449F06/449F3C/449F70/449F83六处日志输出，保留弃返回顺序"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "common_vfprintf"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先stbuf，再output，最后ftbuf，返回保存的核心结果；宿主流锁/参数校验和临时缓冲guard职责已定位，原stbuf/ftbuf差异继续保留。仅六处现有日志消费关联，不覆盖另五引用、4021A0待批数据、所有输入/网络日志或持久化验收。"
     }
   ]
 }

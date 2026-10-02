@@ -15816,6 +15816,166 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "基类位置恢复失败：同默认失败位置形成，但独立入口及虚表槽，ret20H；不因形同而归为填充。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548843",
+      "inventory_id": "F:00148843",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x548979",
+      "instruction_count": 124,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFD8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄overflow：输入完整FFFFFFFF返回0；缓冲有空间先Pninc再写低U8。无转换器调用fputc；有转换器先清旧字符串并补8个零字节，再虚调+14并按0/1/3结果分流，短fwrite失败。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x548979",
+      "inventory_id": "F:00148979",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x548A26",
+      "instruction_count": 70,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFDC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄pbackfail：已有读前缀且EOF或前字节相等时Gndec，EOF成功映射0；其他需FILE且非EOF，无转换器ungetc，有转换器反向回推字节串，成功才清串并恢复+40状态。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x548A26",
+      "inventory_id": "F:00148A26",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x548A53",
+      "instruction_count": 24,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFE4",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄underflow：缓冲命中直接读U8且不推进；否则保存虚表，依次调用该表+14的uflow和+8的pbackfail，返回后者结果，不省略回推副作用。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x548A53",
+      "inventory_id": "F:00148A53",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x548B68",
+      "instruction_count": 106,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFE8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄uflow：缓冲命中Gninc后读U8；否则无转换器fgetc。有转换器备份+40到+3C并清字节串，逐字节追加且每次恢复备份后虚调+10；结果1继续，3累计足1B复制，其他失败。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x54999A",
+      "inventory_id": "F:0014999A",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x549AE2",
+      "instruction_count": 124,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x550074",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽overflow：只比较输入低W16的FFFF，缓冲按2B推进写W16；无转换器fputwc。有转换器仍用8B窄字符串作为输出区，输入范围2B，转换与短写门禁保持，返回合同仅按原各路径。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x549AE2",
+      "inventory_id": "F:00149AE2",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x549B99",
+      "instruction_count": 69,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x550078",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽pbackfail：读前缀回退2B并比较W16；无转换器ungetwc，有转换器仍逐字节回推窄字符串，成功后清串并恢复转换状态。不补字符相等检查到转换分支。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x549B99",
+      "inventory_id": "F:00149B99",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x549BC7",
+      "instruction_count": 24,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x550080",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽underflow：缓冲命中仅读W16到AX；否则保存虚表后顺序uflow/pbackfail，返回后者，不能改成宿主peek。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x549BC7",
+      "inventory_id": "F:00149BC7",
+      "status": "原filebuf读写本体已取证；转换器绑定及宿主承接未实现/未验收",
+      "original_end_exclusive": "0x549CE5",
+      "instruction_count": 106,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向（八处虚表数据项）",
+      "inbound_evidence": [
+        {
+          "address": "0x550084",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽uflow：无转换器fgetwc；转换路径却以fgetc逐U8累计到窄字符串，结果1继续，结果3需累计至少2B后memcpy_0取W16。保持入口备份、每次调用前恢复及失败残留。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
     }
   ]
 }

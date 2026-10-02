@@ -64,6 +64,15 @@ std::int32_t WriteLegacyStreamString_53B356(const char* text, LegacyFile* stream
 extern char* gLegacyTemporaryBuffers1086040[2];
 std::int32_t BeginLegacyTemporaryBuffer_53EA5E(LegacyFile* stream);
 void EndLegacyTemporaryBuffer_53EAEB(std::int32_t started, LegacyFile* stream);
+// 原S32位置及缓冲修正；fseek/rewind按原合同忽略前置flush失败。
+std::int32_t TellLegacyStream_53CB78(LegacyFile* stream);
+std::int32_t SeekLegacyStream_53BC41(
+    LegacyFile* stream, std::int32_t offset, std::uint32_t origin);
+void RewindLegacyStream_53B27D(LegacyFile* stream);
+// 原缓冲设置和低字节回推；借用外部缓冲不转移所有权。
+std::int32_t SetLegacyStreamBuffer_54ACF1(
+    LegacyFile* stream, char* buffer, std::uint32_t mode, std::uint32_t size);
+std::int32_t UnreadLegacyStreamByte_54463F(std::int32_t character, LegacyFile* stream);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

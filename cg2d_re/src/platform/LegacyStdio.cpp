@@ -2,6 +2,7 @@
 #include "LegacyLowIo.hpp"
 #include "LegacyRuntimeError.hpp"
 #include "cg/platform/LegacyMemory.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -563,6 +564,196 @@ std::int32_t WriteLegacyStreamString_53B356(
     const std::uint32_t written = WriteLegacyStream_53C680(text, 1, length, stream);
     EndLegacyTemporaryBuffer_53EAEB(started, stream);
     return written == length ? 0 : -1;
+}
+
+std::int32_t TellLegacyStream_53CB78(LegacyFile* const stream)
+{
+    const std::int32_t descriptor = stream->descriptor;
+    if (stream->remaining < 0) {
+        stream->remaining = 0;
+    }
+    std::int32_t position = SeekLegacyDescriptor_53F493(descriptor, 0, 1);
+    if (position < 0) {
+        return -1;
+    }
+    const std::uint32_t flags = stream->flags;
+    if ((flags & 0x108u) == 0) {
+        return position - stream->remaining;
+    }
+
+    char* const current = stream->current;
+    char* const base = stream->base;
+    std::int32_t consumed = static_cast<std::int32_t>(current - base);
+    if ((flags & 3u) != 0) {
+        if ((gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags
+                & 0x80u) != 0) {
+            for (const char* cursor = base;
+                 reinterpret_cast<std::uintptr_t>(cursor)
+                    < reinterpret_cast<std::uintptr_t>(current); ++cursor) {
+                if (*cursor == '\n') {
+                    ++consumed;
+                }
+            }
+        }
+    } else if ((flags & 0x80u) == 0) {
+        gLegacyErrno_1085FE0 = 22;
+        return -1;
+    }
+    if (position == 0) {
+        return consumed;
+    }
+    if ((stream->flags & 1u) != 0) {
+        const std::int32_t remaining = stream->remaining;
+        if (remaining == 0) {
+            consumed = 0;
+        } else {
+            std::int32_t physicalSize =
+                static_cast<std::int32_t>(current - base) + remaining;
+            // 保存组槽地址；系统定位之后重新读取组指针和该fd的标志。
+            auto** const block = &gLegacyDescriptorBlocks10869C0[descriptor >> 5];
+            const std::int32_t slot = descriptor & 31;
+            if (((*block)[slot].flags & 0x80u) != 0) {
+                if (SeekLegacyDescriptor_53F493(descriptor, 0, 2) == position) {
+                    const char* cursor = stream->base;
+                    const char* const end = cursor + physicalSize;
+                    while (reinterpret_cast<std::uintptr_t>(cursor)
+                        < reinterpret_cast<std::uintptr_t>(end)) {
+                        if (*cursor == '\n') {
+                            ++physicalSize;
+                        }
+                        ++cursor;
+                    }
+                    if ((stream->flags & 0x2000u) != 0) {
+                        ++physicalSize;
+                    }
+                } else {
+                    static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, position, 0));
+                    if (static_cast<std::uint32_t>(physicalSize) <= 512u
+                        && (stream->flags & 8u) != 0
+                        && (stream->flags & 0x400u) == 0) {
+                        physicalSize = 512;
+                    } else {
+                        physicalSize = stream->bufferSize;
+                    }
+                    if (((*block)[slot].flags & 4u) != 0) {
+                        ++physicalSize;
+                    }
+                }
+            }
+            position -= physicalSize;
+        }
+    }
+    return consumed + position;
+}
+
+std::int32_t SeekLegacyStream_53BC41(LegacyFile* const stream,
+    std::int32_t offset, std::uint32_t origin)
+{
+    std::uint32_t flags = stream->flags;
+    if ((flags & 0x83u) == 0 || (origin != 0 && origin != 1 && origin != 2)) {
+        gLegacyErrno_1085FE0 = 22;
+        return -1;
+    }
+    stream->flags = flags & ~0x10u;
+    if (origin == 1) {
+        offset += TellLegacyStream_53CB78(stream);
+        origin = 0;
+    }
+    static_cast<void>(FlushLegacyStreamBuffer_53BB3D(stream));
+    flags = stream->flags;
+    if ((flags & 0x80u) != 0) {
+        stream->flags = flags & ~3u;
+    } else if ((flags & 1u) != 0 && (flags & 8u) != 0 && (flags & 0x400u) == 0) {
+        stream->bufferSize = 512;
+    }
+    return SeekLegacyDescriptor_53F493(stream->descriptor, offset, origin) == -1 ? -1 : 0;
+}
+
+void RewindLegacyStream_53B27D(LegacyFile* const stream)
+{
+    const std::int32_t descriptor = stream->descriptor;
+    static_cast<void>(FlushLegacyStreamBuffer_53BB3D(stream));
+    stream->flags &= ~0x30u;
+    auto* const record = descriptor == -1 ? &gLegacyInvalidDescriptor58FB40
+        : &gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31];
+    record->flags &= static_cast<std::uint8_t>(~2u);
+    const std::uint32_t flags = stream->flags;
+    if ((flags & 0x80u) != 0) {
+        stream->flags = flags & ~3u;
+    }
+    static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, 0, 0));
+}
+
+std::int32_t SetLegacyStreamBuffer_54ACF1(LegacyFile* const stream,
+    char* buffer, const std::uint32_t mode, std::uint32_t size)
+{
+    if (mode != 4 && (size < 2 || size > 0x7FFFFFFFu || (mode != 0 && mode != 0x40))) {
+        return -1;
+    }
+    size &= ~1u;
+    static_cast<void>(FlushLegacyStreamBuffer_53BB3D(stream));
+    FreeLegacyStreamBuffer_53F38F(stream);
+    stream->flags &= 0xFFFFC2F3u;
+    const std::uint32_t flags = stream->flags;
+    if ((mode & 4u) != 0) {
+        stream->flags = flags | 4u;
+        buffer = reinterpret_cast<char*>(&stream->characterBuffer);
+        size = 2;
+    } else if (buffer == nullptr) {
+        buffer = static_cast<char*>(Malloc_53C3AC(size));
+        if (buffer == nullptr) {
+            ++gLegacyStreamAllocationCount108603C;
+            return -1;
+        }
+        stream->flags |= 0x408u;
+    } else {
+        stream->flags = flags | 0x500u;
+    }
+    stream->remaining = 0;
+    stream->bufferSize = static_cast<std::int32_t>(size);
+    stream->base = buffer;
+    stream->current = buffer;
+    return 0;
+}
+
+std::int32_t UnreadLegacyStreamByte_54463F(
+    const std::int32_t character, LegacyFile* const stream)
+{
+    if (character == -1) {
+        return -1;
+    }
+    std::uint32_t flags = stream->flags;
+    if ((flags & 1u) == 0 && ((flags & 0x80u) == 0 || (flags & 2u) != 0)) {
+        return -1;
+    }
+    if (stream->base == nullptr) {
+        static_cast<void>(AllocateLegacyStreamBuffer_544815(stream));
+    }
+    char* current = stream->current;
+    if (current == stream->base) {
+        if (stream->remaining != 0) {
+            return -1;
+        }
+        stream->current = ++current;
+    }
+    const auto value = static_cast<std::uint8_t>(character);
+    if ((stream->flags & 0x40u) != 0) {
+        --stream->current;
+        current = stream->current;
+        if (static_cast<std::uint8_t>(*current) != value) {
+            stream->current = current + 1;
+            return -1;
+        }
+    } else {
+        --stream->current;
+        current = stream->current;
+        *current = std::bit_cast<char>(value);
+    }
+    // 原先采样flags，再加count，最后写回方向/EOF位。
+    flags = stream->flags;
+    ++stream->remaining;
+    stream->flags = (flags & ~0x10u) | 1u;
+    return value;
 }
 
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* const stream)

@@ -1143,3 +1143,47 @@ fputs沿既有strlen正常NUL字节串合同取U32长度，stbuf→fwrite(size1)
 本步先完整实现上述依赖，再集中静态核对新增指令/分支/共享字段及元数据。
 不运行样例、文件操作、构建或测试；calloc、定位/格式化剩余本体、业务迁移与启动仍待，
 音频暂停，CRT宿主提案及待批局部补值保持。
+
+## 文件定位与缓冲调整实施 SPEC（2026-10-03）
+
+按第8条工程委托，实现53BC41 fseek、53CB78 ftell、53B27D rewind、
+54ACF1 setvbuf、54463F ungetc五本体；复用唯一LegacyFile、低层描述符、
+Malloc/Free及1085FE0/108603C，不创建宿主FILE副本。原位置/容量保持S32/U32，
+仅游标地址拓宽。沿真实依赖完成该板块后集中静态核对，不执行定位/缓冲样例。
+
+fseek先检查83H活动及origin0/1/2，失败只写errno22并返回-1。
+成功先清EOF10H；CUR调用ftell后直接相加并改BEGIN，不以ftell=-1增加早退。
+忽略flush返回，之后80H流清方向3；否则读流且自有8H、非用户尺寸400H才将size设512。
+最后低层seek只有返回-1才映射失败，成功0；不让先前刷新结果覆盖它。
+
+ftell入口采样fd，把负count清0；底层CUR结果S32<0直接-1。
+无108H缓冲返回位置-count。有缓冲先采样current/base、计算S32已消费量；
+方向3非零且底层文本80H时，按地址从base到current，每个LF给逻辑量加1；
+无方向且无更新80H才errno22/-1。底层位置0直接返回修正后的已消费量。
+读方向count0时只返回底层位置；否则算原未转换块长(current-base)+count。
+文本流再seek END：结果恰等于先前位置时，重读base并扫描固定原块长中的LF，
+再按FILE2000H补1；不把增长后的计数变成扫描上界。
+非EOF分支恢复旧位置，忽略恢复结果；块长U32<=512、自有8H、非400H才按512，
+其他按当前bufferSize，再重读原fd对应组，按低层4H补1。
+最后位置减物理块长再加已消费量；不扩展为宿主64位文件位置或增加恢复保护。
+
+rewind入口保存fd，忽略flush返回，清FILE30H；fd=-1使用已有可变58FB40回退项，
+清低层2H；重读FILE，80H流清方向3，最后忽略seek(0,BEGIN)返回。
+保持void调用合同，不另设定位失败IOERROR。
+
+setvbuf mode4不检查size，其他只接受0/40H及U32 size2..7FFFFFFF；
+无效直接-1，不访问FILE或写errno。容量取偶数，flush/freebuf后仅清flags低W16
+中的3D0CH（保持高W16）。mode4借charbuf前2B并置4；用户buffer直接借用并置500H；
+空buffer调用Malloc，成功OR408H，失败累计108603C后-1，不恢复已释放缓冲。
+成功按count0→size→base→current顺序发布，不清缓冲内容或扩大所有权。
+
+ungetc仅完整S32 -1早退且不读FILE；要求read或update且非write。
+base空才getbuf；current==base时count非零失败，否则先把current加1。
+字符串流先退游标，只有原字节等于输入低U8才成功，失配恢复刚退的游标；
+普通流退游标后写低U8。随后先采样flags，再count+1，再清EOF/置read，返回U8；
+保留缓冲与字段别名导致的重读顺序，不增加容量或字符编码门禁。
+
+所有原直接入向单列，仅fseek内部ftell及低层真实依赖在本步接通；
+GraphicInfo、Blacklist、输入日志、filebuf、格式输入与宽读取等父调用未迁移，
+不把本体存在当业务接线、链接或运行通过。CRT宿主提案与calloc/完整启动仍待；
+音频继续暂停，不构建、查产物、新增/执行测试或哈希校验。

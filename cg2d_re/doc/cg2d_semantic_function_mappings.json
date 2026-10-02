@@ -11047,29 +11047,48 @@
     {
       "original_entry": "0x53B27D",
       "inventory_id": "F:0013B27D",
-      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
       "original_end_exclusive": "0x53B2D1",
       "instruction_count": 32,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile"
-          ],
-          "relationship": "黑名单读取的真实std文件流调用"
+            "RewindLegacyStream_53B27D"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "RewindLegacyStream_53B27D"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/rewind.cpp",
-        "symbol": "_rewind_internal"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一401081不消费原残留EAX，只读EOF位。原flush、清流/低层EOF、更新方向后lseek0；宿主另有显式缓冲重置及seek失败设IOERROR。保留既有std::rewind，不声称文件内部状态/失败路径全等价。"
+      "boundary": "入口保存fd，flush后清FILE30H/低层EOF2H，fd=-1借唯一可变58FB40记录；重读update位后清方向3，再seek(0,BEGIN)。两调用返回均忽略，不因seek失败补IOERROR。void沿唯一401081不消费残留寄存器的合同，Blacklist业务尚未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x53B27D",
+          "end_exclusive": "0x53B2D1"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x401081",
+          "parent_entry": "0x401030"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、定位/缓冲/错误与别名次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/rewind.cpp",
+        "symbol": "_rewind_internal",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53B2D1",
@@ -11542,36 +11561,144 @@
     {
       "original_entry": "0x53BC41",
       "inventory_id": "F:0013BC41",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
       "original_end_exclusive": "0x53BCCD",
       "instruction_count": 54,
       "original_direct_reference_count": 25,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_449FA0"
-          ],
-          "relationship": "聊天记录和尾部索引的两次原位定位"
+            "SeekLegacyStream_53BC41"
+          ]
         },
         {
-          "path": "src/GraphicInfo.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "GraphicInit_459960"
-          ],
-          "relationship": "元信息文件SEEK_END定位"
+            "SeekLegacyStream_53BC41"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fseek.cpp",
-        "symbol": "fseek"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原S32偏移及whence0/1/2，清EOF，CUR经ftell改绝对，flush后lseek，成功0/失败-1。宿主long仍32位但内部64位且有只读缓冲快路；选定调用弃返回，未将宿主errno当原1085FE0自动同步。"
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的业务/filebuf调用未迁移，不混用std::FILE。",
+      "function_chunks": [
+        {
+          "start": "0x53BC41",
+          "end_exclusive": "0x53BCCD"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x402492",
+          "parent_entry": "0x4021A0"
+        },
+        {
+          "address": "0x402766",
+          "parent_entry": "0x4021A0"
+        },
+        {
+          "address": "0x449FF3",
+          "parent_entry": "0x449FA0"
+        },
+        {
+          "address": "0x44A03D",
+          "parent_entry": "0x449FA0"
+        },
+        {
+          "address": "0x459AC4",
+          "parent_entry": "0x459960"
+        },
+        {
+          "address": "0x45A94D",
+          "parent_entry": "0x45A900"
+        },
+        {
+          "address": "0x45B7DD",
+          "parent_entry": "0x45B760"
+        },
+        {
+          "address": "0x45C20B",
+          "parent_entry": "0x45C150"
+        },
+        {
+          "address": "0x468667",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x468A02",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468A80",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468B9A",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468DDF",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468E5D",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468EEA",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x46C8D9",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46C9E0",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46CA7C",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x46CB0B",
+          "parent_entry": "0x46C840"
+        },
+        {
+          "address": "0x4CC3C5",
+          "parent_entry": "0x4CC340"
+        },
+        {
+          "address": "0x52B2F1",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52BF90",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFBF",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x548B80",
+          "parent_entry": "0x548B68"
+        },
+        {
+          "address": "0x548C27",
+          "parent_entry": "0x548BEA"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、定位/缓冲/错误与别名次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fseek.cpp",
+        "symbol": "fseek",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53BCCD",
@@ -12194,29 +12321,52 @@
     {
       "original_entry": "0x53CB78",
       "inventory_id": "F:0013CB78",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
       "original_end_exclusive": "0x53CCD0",
       "instruction_count": 123,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/GraphicInfo.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "GraphicInit_459960"
-          ],
-          "relationship": "459AD0结果按原U32累计，不新增-1门禁"
+            "TellLegacyStream_53CB78"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "TellLegacyStream_53CB78"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/ftell.cpp",
-        "symbol": "ftell"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原S32文件位置，缓冲及文本换行修正；唯一应用caller为GraphicInit，另一caller53BC41。宿主内部64位、公开long超LONG_MAX返-1，文本/锁/错误差异保持；不替换为扩大可接受数值域的_ftelli64接口。"
+      "boundary": "入口保存fd，负count清0；底层CUR为S32负直接-1，无108H缓冲返位置-count。有缓冲按current-base及已消费LF修正；无读写方向且非update才errno22。读流剩余量非零时，文本END相同则重读base扫描固定原块长并按FILE2000H加1，否则恢复旧位置后按512/当前尺寸及低层4H修正；恢复失败被忽略。内部fseek已接，GraphicInit仍待迁移，不扩为64位位置。",
+      "function_chunks": [
+        {
+          "start": "0x53CB78",
+          "end_exclusive": "0x53CCD0"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x459AD0",
+          "parent_entry": "0x459960"
+        },
+        {
+          "address": "0x53BC6B",
+          "parent_entry": "0x53BC41"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、定位/缓冲/错误与别名次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/ftell.cpp",
+        "symbol": "ftell",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53CFDC",
@@ -12766,7 +12916,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。filbuf/flsbuf真实读写父链已接，其余caller仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。filbuf/flsbuf及ungetc真实父链已接，其余caller仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x544815",
@@ -13028,7 +13178,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按原容量/FOPEN及getter验证；SetFilePointer使用S32低偏移/无高字，不预清LastError，仅FFFFFFFF才查询错误。错误非0沿旧映射，成功重读组清EOF并返回W32位型。当前write追加定位已接，其余FILE/应用调用待迁移，不加宿主64位位置校验。",
+      "boundary": "按原容量/FOPEN及getter验证；SetFilePointer使用S32低偏移/无高字，不预清LastError，仅FFFFFFFF才查询错误。错误非0沿旧映射，成功重读组清EOF并返回W32位型。当前write追加、打开尾检查、长度调整、文本读取及FILE fseek/ftell/rewind定位已接，其余FILE/应用调用待迁移，不加宿主64位位置校验。",
       "function_chunks": [
         {
           "start": "0x53F493",
@@ -16914,11 +17064,11 @@
     {
       "original_entry": "0x54ACF1",
       "inventory_id": "F:0014ACF1",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
       "original_end_exclusive": "0x54AD92",
       "instruction_count": 64,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、定位/缓冲/错误与别名次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x548CC1",
@@ -16929,16 +17079,37 @@
           "parent_entry": "0x549CE5"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SetLegacyStreamBuffer_54ACF1"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SetLegacyStreamBuffer_54ACF1"
+          ]
+        }
       ],
-      "boundary": "允许mode4不校验size，其他只mode0/40H且U32 size在2..7FFFFFFF；容量取偶数。先flush/freebuf并清相关标志，再选2B内缓冲、用户缓冲或malloc；分配失败增108603C并返-1，不恢复旧缓冲。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "mode4忽略容量，其他只0/40H及U32 size2..7FFFFFFF；无效-1不读FILE/写errno。size取偶数，真实flush/freebuf后只清低W16的3D0CH；mode4借charbuf2B并置4，用户缓冲置500H，Malloc成功置408H，失败只增108603C并-1，不恢复旧缓冲。成功按count/size/base/current发布；两个filebuf父调用未接。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/setvbuf.cpp",
-        "symbol": "_setvbuf_internal"
-      }
+        "symbol": "_setvbuf_internal",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      },
+      "function_chunks": [
+        {
+          "start": "0x54ACF1",
+          "end_exclusive": "0x54AD92"
+        }
+      ]
     },
     {
       "original_entry": "0x54AD92",
@@ -17216,11 +17387,11 @@
     {
       "original_entry": "0x54463F",
       "inventory_id": "F:0014463F",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
       "original_end_exclusive": "0x5446AD",
       "instruction_count": 48,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、定位/缓冲/错误与别名次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x53E979",
@@ -17239,11 +17410,31 @@
           "parent_entry": "0x54AF70"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamByte_54463F"
+          ]
+        }
       ],
-      "boundary": "拒绝EOF及不满足读状态的流；必要时getbuf，字符串流只允许回推同字节，否则还原指针返EOF；成功增加count、清EOF/设读并返低U8。四caller跨输入核心、窄filebuf与宽读取。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "完整-1输入直接失败不读FILE；允许read或update且非write，必要时真实getbuf。current==base且count非零失败，count0先推进再退回；字符串流只回推相同低U8，失配恢复退指针，普通流写低U8。先取flags再增count，最后清EOF/设read并返U8；四个格式输入/filebuf/宽读取父调用未接。",
+      "function_chunks": [
+        {
+          "start": "0x54463F",
+          "end_exclusive": "0x5446AD"
+        }
+      ]
     },
     {
       "original_entry": "0x548D69",

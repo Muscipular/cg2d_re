@@ -26289,13 +26289,13 @@ char* Sub_4AE8D0()
     char text[1024];
     char line[1024];
     std::strcpy(text, gWindow47Runtime.textCC426C.data());
-    char* token = std::strtok(text, kWindow47Delimiter5531C4);
+    char* token = platform::StrTok_53D26E(text, kWindow47Delimiter5531C4);
     std::int32_t row = 0;
     while (token != nullptr) {
         static_cast<void>(Sub_4AEA10(line, token));
         auto* const data = static_cast<WindowTextData*>(gCurrentWindow->elements[row].data);
         std::strcpy(data->text, line);
-        token = std::strtok(nullptr, kWindow47Delimiter5531C4);
+        token = platform::StrTok_53D26E(nullptr, kWindow47Delimiter5531C4);
         ++row;
     }
     return token;

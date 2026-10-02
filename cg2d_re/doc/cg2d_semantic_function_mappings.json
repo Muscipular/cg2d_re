@@ -11467,6 +11467,43 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原四入向均CRT；零数量/EOF返0，管道/设备先消费lookahead，ReadFile后原地CRLF转换；Ctrl-Z停止，非设备置EOF，设备不复制该字节。宿主设备Ctrl-Z会复制、peek失败门禁/内部64位回退/数量校验不同；只关联既有文件读根，完整设备/父链未验。"
+    },
+    {
+      "original_entry": "0x53D26E",
+      "inventory_id": "F:0013D26E",
+      "status": "原字节分词本体与进程共享续读状态已实现，两处窗口47调用已接；运行验收未完成",
+      "original_end_exclusive": "0x53D30A",
+      "instruction_count": 74,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrTok_53D26E",
+            "gLegacyTokenCursor_108602C"
+          ],
+          "relationship": "完整U8分隔位图、就地截断及唯一进程共享借用游标，替代宿主线程局部分词状态"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrTok_53D26E"
+          ],
+          "relationship": "原字节分词入口声明，返回借用文本指针"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AE8D0"
+          ],
+          "relationship": "4AE945与4AE999两处原调用均替换为StrTok_53D26E，父页顺序保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_47.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原108602C仅函数内读取/写入，虚拟零初值按nullptr表达，只拓宽指针；先建32B位图且含分隔串NUL，每次允许不同分隔串，跳前导分隔符、原位切词、末尾也发布cursor。没有新增清空、线程隔离、锁、空指针校验或行数钳制；父页局部文本借用寿命不延长。仅静态核本体及两调用，完整窗口流程和运行未验。"
     }
   ]
 }

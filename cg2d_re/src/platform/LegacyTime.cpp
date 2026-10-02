@@ -53,6 +53,46 @@ void __cdecl Free_53C0A9(void* memory)
     std::free(memory);
 }
 
+// 原108602C：StrTok_53D26E独占的进程共享续读位置，不拥有输入文本。
+static char* gLegacyTokenCursor_108602C = nullptr;
+
+// 原[53D26E,53D30A)：先建完整U8分隔位图，再就地截断并发布借用续读指针。
+char* StrTok_53D26E(char* text, const char* delimiters)
+{
+    std::uint8_t delimiterBits[32] {};
+    std::uint8_t value;
+    do {
+        value = static_cast<std::uint8_t>(*delimiters++);
+        delimiterBits[value >> 3] |= static_cast<std::uint8_t>(1u << (value & 7u));
+    } while (value != 0);
+
+    char* cursor = text != nullptr ? text : gLegacyTokenCursor_108602C;
+    for (;;) {
+        value = static_cast<std::uint8_t>(*cursor);
+        if ((delimiterBits[value >> 3] & (1u << (value & 7u))) == 0 || value == 0) {
+            break;
+        }
+        ++cursor;
+    }
+
+    char* const token = cursor;
+    for (;;) {
+        value = static_cast<std::uint8_t>(*cursor);
+        if (value == 0) {
+            break;
+        }
+        if ((delimiterBits[value >> 3] & (1u << (value & 7u))) != 0) {
+            *cursor++ = '\0';
+            break;
+        }
+        ++cursor;
+    }
+
+    char* const result = token == cursor ? nullptr : token;
+    gLegacyTokenCursor_108602C = cursor;
+    return result;
+}
+
 // 原 [0x5450F0,0x545174)：左侧按 1/2/4 字节对齐读取，右侧逐字节比较。
 std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right)
 {

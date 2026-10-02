@@ -451,4 +451,194 @@ std::int32_t GenerateLegacyFloatDecimal_546F36(const LegacyFloat80 value,
     return 1;
 }
 
+
+const LegacyFloatBinaryFormat gLegacyDoubleFormat5921C0 {1024, -1023, 53, 11, 64, 1023};
+const LegacyFloatBinaryFormat gLegacySingleFormat5921D8 {128, -127, 24, 8, 32, 127};
+
+std::int32_t IsLegacyFloatMantissaTailZero_5449BF(
+    const LegacyFloatMantissa96* const value, const std::int32_t bitIndex)
+{
+    std::int32_t index = bitIndex / 32;
+    const std::uint32_t shift = static_cast<std::uint32_t>(31 - bitIndex % 32) & 31u;
+    const std::uint32_t mask = ~(0xFFFFFFFFu << shift);
+    if ((LoadFloat32(value->bytes + index * 4) & mask) != 0) {
+        return 0;
+    }
+    for (++index; index < 3; ++index) {
+        if (LoadFloat32(value->bytes + index * 4) != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+std::uint32_t IncrementLegacyFloatMantissa_544A08(
+    LegacyFloatMantissa96* const value, const std::int32_t bitIndex)
+{
+    std::int32_t index = bitIndex / 32;
+    const std::uint32_t shift = static_cast<std::uint32_t>(31 - bitIndex % 32) & 31u;
+    auto* word = value->bytes + index * 4;
+    std::uint32_t carry = AddLegacyFloatWord_546D95(LoadFloat32(word), 1u << shift, word);
+    for (--index; index >= 0 && carry != 0; --index) {
+        word = value->bytes + index * 4;
+        carry = AddLegacyFloatWord_546D95(LoadFloat32(word), 1, word);
+    }
+    return carry;
+}
+
+std::uint32_t RoundLegacyFloatMantissa_544A5E(
+    LegacyFloatMantissa96* const value, const std::int32_t precision)
+{
+    const std::int32_t index = precision / 32;
+    const std::uint32_t shift = static_cast<std::uint32_t>(31 - precision % 32) & 31u;
+    auto* const word = value->bytes + index * 4;
+    std::uint32_t carry = 0;
+    if ((LoadFloat32(word) & (1u << shift)) != 0
+        && IsLegacyFloatMantissaTailZero_5449BF(value, precision + 1) == 0) {
+        carry = IncrementLegacyFloatMantissa_544A08(value, precision - 1);
+    }
+    // 原掩码保留precision对应位；不改为宿主舍入门禁或另一截断掩码。
+    StoreFloat32(word, LoadFloat32(word) & (0xFFFFFFFFu << shift));
+    for (std::int32_t next = index + 1; next < 3; ++next) {
+        StoreFloat32(value->bytes + next * 4, 0);
+    }
+    return carry;
+}
+
+void CopyLegacyFloatMantissa_544AEA(LegacyFloatMantissa96* const destination,
+    const LegacyFloatMantissa96* const source)
+{
+    for (std::int32_t index = 0; index < 3; ++index) {
+        const std::uint32_t word = LoadFloat32(source->bytes + index * 4);
+        StoreFloat32(destination->bytes + index * 4, word);
+    }
+}
+
+void ClearLegacyFloatMantissa_544B05(LegacyFloatMantissa96* const value)
+{
+    StoreFloat32(value->bytes, 0);
+    StoreFloat32(value->bytes + 4, 0);
+    StoreFloat32(value->bytes + 8, 0);
+}
+
+std::int32_t IsLegacyFloatMantissaZero_544B11(const LegacyFloatMantissa96* const value)
+{
+    for (std::int32_t index = 0; index < 3; ++index) {
+        if (LoadFloat32(value->bytes + index * 4) != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void ShiftLegacyFloatMantissaRight_544B2C(
+    LegacyFloatMantissa96* const value, const std::int32_t distance)
+{
+    const std::int32_t wholeWords = distance / 32;
+    const std::int32_t remainder = distance % 32;
+    const std::uint32_t rightShift = static_cast<std::uint32_t>(remainder) & 31u;
+    const std::uint32_t leftShift = static_cast<std::uint32_t>(32 - remainder) & 31u;
+    const std::uint32_t mask = ~(0xFFFFFFFFu << rightShift);
+    std::uint32_t carry = 0;
+    for (std::int32_t index = 0; index < 3; ++index) {
+        auto* const word = value->bytes + index * 4;
+        const std::uint32_t before = LoadFloat32(word);
+        const std::uint32_t tail = before & mask;
+        StoreFloat32(word, (before >> rightShift) | carry);
+        carry = tail << leftShift;
+    }
+    for (std::int32_t index = 2; index >= 0; --index) {
+        if (index >= wholeWords) {
+            const std::uint32_t word = LoadFloat32(value->bytes + (index - wholeWords) * 4);
+            StoreFloat32(value->bytes + index * 4, word);
+        } else {
+            StoreFloat32(value->bytes + index * 4, 0);
+        }
+    }
+}
+
+std::int32_t ConvertLegacyFloat96ToBinary_544BB9(const LegacyFloat96* const source,
+    void* const output, const LegacyFloatBinaryFormat* const format)
+{
+    const std::uint16_t signExponent = LoadFloat16(source->bytes + 10);
+    const std::uint32_t sign = signExponent & 0x8000u;
+    LegacyFloatMantissa96 mantissa;
+    StoreFloat32(mantissa.bytes, LoadFloat32(source->bytes + 6));
+    const std::uint32_t middle = LoadFloat32(source->bytes + 2);
+    const std::uint32_t low = LoadFloat16(source->bytes);
+    std::int32_t exponent = static_cast<std::int32_t>(signExponent & 0x7FFFu) - 0x3FFF;
+    StoreFloat32(mantissa.bytes + 4, middle);
+    StoreFloat32(mantissa.bytes + 8, low << 16);
+    std::int32_t encodedExponent;
+    std::int32_t result;
+    if (exponent == -0x3FFF) {
+        encodedExponent = 0;
+        if (IsLegacyFloatMantissaZero_544B11(&mantissa) != 0) {
+            result = 0;
+        } else {
+            ClearLegacyFloatMantissa_544B05(&mantissa);
+            result = 2;
+        }
+    } else {
+        LegacyFloatMantissa96 saved;
+        CopyLegacyFloatMantissa_544AEA(&saved, &mantissa);
+        if (RoundLegacyFloatMantissa_544A5E(&mantissa, format->precision) != 0) {
+            ++exponent;
+        }
+        const std::int32_t minimumExponent = format->minimumExponent;
+        if (exponent < minimumExponent - format->precision) {
+            ClearLegacyFloatMantissa_544B05(&mantissa);
+            encodedExponent = 0;
+            result = 2;
+        } else if (exponent <= minimumExponent) {
+            const std::int32_t distance = minimumExponent - exponent;
+            CopyLegacyFloatMantissa_544AEA(&mantissa, &saved);
+            ShiftLegacyFloatMantissaRight_544B2C(&mantissa, distance);
+            static_cast<void>(RoundLegacyFloatMantissa_544A5E(&mantissa, format->precision));
+            ShiftLegacyFloatMantissaRight_544B2C(&mantissa, format->exponentBits + 1);
+            encodedExponent = 0;
+            result = 2;
+        } else if (exponent >= format->upperExponent) {
+            ClearLegacyFloatMantissa_544B05(&mantissa);
+            const std::int32_t distance = format->exponentBits;
+            mantissa.bytes[3] |= 0x80u;
+            ShiftLegacyFloatMantissaRight_544B2C(&mantissa, distance);
+            encodedExponent = format->bias + format->upperExponent;
+            result = 1;
+        } else {
+            const std::int32_t distance = format->exponentBits;
+            const std::int32_t bias = format->bias;
+            mantissa.bytes[3] &= 0x7Fu;
+            encodedExponent = bias + exponent;
+            ShiftLegacyFloatMantissaRight_544B2C(&mantissa, distance);
+            result = 0;
+        }
+    }
+    const std::uint32_t shift = static_cast<std::uint32_t>(31 - format->exponentBits) & 31u;
+    const std::int32_t outputBits = format->outputBits;
+    const std::uint32_t high = (static_cast<std::uint32_t>(encodedExponent) << shift)
+        | (sign != 0 ? 0x80000000u : 0u) | LoadFloat32(mantissa.bytes);
+    auto* const bytes = static_cast<std::uint8_t*>(output);
+    if (outputBits == 64) {
+        const std::uint32_t lowWord = LoadFloat32(mantissa.bytes + 4);
+        StoreFloat32(bytes + 4, high);
+        StoreFloat32(bytes, lowWord);
+    } else if (outputBits == 32) {
+        StoreFloat32(bytes, high);
+    }
+    return result;
+}
+
+std::int32_t ConvertLegacyFloat96ToDouble_544D25(
+    const LegacyFloat96* const source, double* const output)
+{
+    return ConvertLegacyFloat96ToBinary_544BB9(source, output, &gLegacyDoubleFormat5921C0);
+}
+
+std::int32_t ConvertLegacyFloat96ToSingle_544D3B(
+    const LegacyFloat96* const source, float* const output)
+{
+    return ConvertLegacyFloat96ToBinary_544BB9(source, output, &gLegacySingleFormat5921D8);
+}
+
 } // namespace cg::platform

@@ -45,4 +45,50 @@ static_assert(sizeof(LegacyFloatDecimalText) == 26);
 std::int32_t GenerateLegacyFloatDecimal_546F36(LegacyFloat80 value,
     std::int32_t precision, std::uint32_t flags, LegacyFloatDecimalText* output);
 
+
+// 原ld12cvt局部尾数：高/中/低W32顺序，与LegacyFloat96的字节布局不同。
+struct LegacyFloatMantissa96 final {
+    std::uint8_t bytes[12];
+};
+static_assert(sizeof(LegacyFloatMantissa96) == 12);
+
+// 原5921C0/5921D8参数；仅数值字段，不随地址拓宽。
+struct LegacyFloatBinaryFormat final {
+    std::int32_t upperExponent; // 原+0：到达该指数进入上界路径。
+    std::int32_t minimumExponent; // 原+4：次正规指数门限。
+    std::int32_t precision; // 原+8：传给RoundMan的精度位号。
+    std::int32_t exponentBits; // 原+0C：尾数右移及指数拼接位置。
+    std::int32_t outputBits; // 原+10：目标32或64位。
+    std::int32_t bias; // 原+14：目标指数偏置。
+};
+static_assert(offsetof(LegacyFloatBinaryFormat, upperExponent) == 0);
+static_assert(offsetof(LegacyFloatBinaryFormat, minimumExponent) == 4);
+static_assert(offsetof(LegacyFloatBinaryFormat, precision) == 8);
+static_assert(offsetof(LegacyFloatBinaryFormat, exponentBits) == 12);
+static_assert(offsetof(LegacyFloatBinaryFormat, outputBits) == 16);
+static_assert(offsetof(LegacyFloatBinaryFormat, bias) == 20);
+static_assert(sizeof(LegacyFloatBinaryFormat) == 24);
+extern const LegacyFloatBinaryFormat gLegacyDoubleFormat5921C0;
+extern const LegacyFloatBinaryFormat gLegacySingleFormat5921D8;
+
+// 原尾数工具；位号/移位距离为S32，返回原全零标记或最终W32进位。
+std::int32_t IsLegacyFloatMantissaTailZero_5449BF(
+    const LegacyFloatMantissa96* value, std::int32_t bitIndex);
+std::uint32_t IncrementLegacyFloatMantissa_544A08(
+    LegacyFloatMantissa96* value, std::int32_t bitIndex);
+std::uint32_t RoundLegacyFloatMantissa_544A5E(
+    LegacyFloatMantissa96* value, std::int32_t precision);
+void CopyLegacyFloatMantissa_544AEA(
+    LegacyFloatMantissa96* destination, const LegacyFloatMantissa96* source);
+void ClearLegacyFloatMantissa_544B05(LegacyFloatMantissa96* value);
+std::int32_t IsLegacyFloatMantissaZero_544B11(const LegacyFloatMantissa96* value);
+void ShiftLegacyFloatMantissaRight_544B2C(
+    LegacyFloatMantissa96* value, std::int32_t distance);
+
+// 原ld12cvt以字节写出浮点表示，返回0正常、1上界、2下界/次正规状态。
+std::int32_t ConvertLegacyFloat96ToBinary_544BB9(const LegacyFloat96* source,
+    void* output, const LegacyFloatBinaryFormat* format);
+std::int32_t ConvertLegacyFloat96ToDouble_544D25(const LegacyFloat96* source, double* output);
+std::int32_t ConvertLegacyFloat96ToSingle_544D3B(const LegacyFloat96* source, float* output);
+
 } // namespace cg::platform

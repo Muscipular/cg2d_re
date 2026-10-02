@@ -22480,7 +22480,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "W32相加结果小于任一输入则carry1，否则0；最后写目标4B（可未对齐），返回carry。已由96位加法及乘法实际调用，其余两个数值转换caller仍待。",
+      "boundary": "W32相加结果小于任一输入则carry1，否则0；最后写目标4B（可未对齐），返回carry。已由96位加法、乘法及544A08尾数进位两处实际调用；数字生成和二进制表示转换内部依赖已接，完整安装仍待。",
       "function_chunks": [
         {
           "start": "0x546D95",
@@ -22672,6 +22672,462 @@
         }
       ],
       "verification_level": "完整原指令、特殊值字符串及共享字段/新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x5449BF",
+      "inventory_id": "F:001449BF",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544A08",
+      "instruction_count": 36,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "IsLegacyFloatMantissaTailZero_5449BF"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "IsLegacyFloatMantissaTailZero_5449BF",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按S32位号除/余32定位W32，用原31-remainder掩码检查该位置以下及后续字；遇非零返0，全零返1。RoundMan按precision+1调用，不改为通常舍入尾位判断。",
+      "function_chunks": [
+        {
+          "start": "0x5449BF",
+          "end_exclusive": "0x544A08"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544AA6",
+          "parent_entry": "0x544A5E"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544A08",
+      "inventory_id": "F:00144A08",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544A5E",
+      "instruction_count": 43,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "IncrementLegacyFloatMantissa_544A08"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "IncrementLegacyFloatMantissa_544A08",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "定位位号所在W32，调用真实546D95加单bit；有carry才逐字向高位加1，返回最后进位。保留原三字高到低布局及读写次序，已接RoundMan。",
+      "function_chunks": [
+        {
+          "start": "0x544A08",
+          "end_exclusive": "0x544A5E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544AB5",
+          "parent_entry": "0x544A5E"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544B11",
+      "inventory_id": "F:00144B11",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544B2C",
+      "instruction_count": 13,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "IsLegacyFloatMantissaZero_544B11"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "IsLegacyFloatMantissaZero_544B11",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按高/中/低W32逐项读取，遇非零立即返0，全零返1；零指数转换父已接。",
+      "function_chunks": [
+        {
+          "start": "0x544B11",
+          "end_exclusive": "0x544B2C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544C06",
+          "parent_entry": "0x544BB9"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544B05",
+      "inventory_id": "F:00144B05",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544B11",
+      "instruction_count": 8,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ClearLegacyFloatMantissa_544B05"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ClearLegacyFloatMantissa_544B05",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按原高/中/低W32次序清0；转换核心三个原清零入口已接，不整块改写其他对象。",
+      "function_chunks": [
+        {
+          "start": "0x544B05",
+          "end_exclusive": "0x544B11"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544C18",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544C57",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544CAA",
+          "parent_entry": "0x544BB9"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544AEA",
+      "inventory_id": "F:00144AEA",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544B05",
+      "instruction_count": 13,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "CopyLegacyFloatMantissa_544AEA"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "CopyLegacyFloatMantissa_544AEA",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "连续三次先读源W32再写目标W32，从高字向低字推进；不将同址/部分重叠源整块快照。转换核心两处真实保存/还原已接，未消费的寄存器返回不作为接口。",
+      "function_chunks": [
+        {
+          "start": "0x544AEA",
+          "end_exclusive": "0x544B05"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544C2E",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544C6F",
+          "parent_entry": "0x544BB9"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544A5E",
+      "inventory_id": "F:00144A5E",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544AEA",
+      "instruction_count": 71,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "RoundLegacyFloatMantissa_544A5E"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "RoundLegacyFloatMantissa_544A5E",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先检查precision对应位，仅该位非零且ZeroTail(precision+1)为0才IncMan(precision-1)；随后保留原全1左移掩码、顺序清后续字并返carry。未加入宿主ties-to-even判断或修改掩码，正常与次正规转换父已接。",
+      "function_chunks": [
+        {
+          "start": "0x544A5E",
+          "end_exclusive": "0x544AEA"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544C3A",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544C85",
+          "parent_entry": "0x544BB9"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544B2C",
+      "inventory_id": "F:00144B2C",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544BB9",
+      "instruction_count": 64,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ShiftLegacyFloatMantissaRight_544B2C"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ShiftLegacyFloatMantissaRight_544B2C",
+            "LegacyFloatMantissa96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "S32距离除/余32；先从高字向低字逐项右移并传递低位，再从低字向高字按整字距离复制或清零。W32移位按原低5位计数，包括余数0和左移计数32；不执行C++移位32，不新增距离限制。转换核心四处已接。",
+      "function_chunks": [
+        {
+          "start": "0x544B2C",
+          "end_exclusive": "0x544BB9"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544C79",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544C93",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544CBA",
+          "parent_entry": "0x544BB9"
+        },
+        {
+          "address": "0x544CDE",
+          "parent_entry": "0x544BB9"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544BB9",
+      "inventory_id": "F:00144BB9",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544D25",
+      "instruction_count": 138,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToBinary_544BB9"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToBinary_544BB9",
+            "LegacyFloatBinaryFormat"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先采样输入符号/指数和高/中/低尾数，零指数保留符号并按是否全零返回0或2；其他保存尾数、原舍入carry增指数后判断下界/次正规/上界/正常。次正规恢复原尾数再移位/舍入/移位并返2，上界按原置位/移位/指数拼接返1，正常清显式首位返0。64位先高W32再低W32写，32位写一个W32，其他位数不写；无宿主数值强转或新增NaN特殊规则。两个包装已接，文本解析及输入赋值仍待。",
+      "function_chunks": [
+        {
+          "start": "0x544BB9",
+          "end_exclusive": "0x544D25"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544D32",
+          "parent_entry": "0x544D25"
+        },
+        {
+          "address": "0x544D48",
+          "parent_entry": "0x544D3B"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544D25",
+      "inventory_id": "F:00144D25",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544D3B",
+      "instruction_count": 6,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToDouble_544D25"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToDouble_544D25",
+            "gLegacyDoubleFormat5921C0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "传入原5921C0六S32参数到真实ld12cvt并返回状态；输出double对象表示由核心按原高低W32写序生成。544D51文本转换父仍待，不使用宿主long double转换。",
+      "function_chunks": [
+        {
+          "start": "0x544D25",
+          "end_exclusive": "0x544D3B"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544D74",
+          "parent_entry": "0x544D51"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行",
+      "format_parameter_evidence": {
+        "address": "0x5921C0",
+        "bytes": "0004000001fcffff350000000b00000040000000ff030000",
+        "fields": [
+          1024,
+          -1023,
+          53,
+          11,
+          64,
+          1023
+        ]
+      }
+    },
+    {
+      "original_entry": "0x544D3B",
+      "inventory_id": "F:00144D3B",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "original_end_exclusive": "0x544D51",
+      "instruction_count": 6,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToSingle_544D3B"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ConvertLegacyFloat96ToSingle_544D3B",
+            "gLegacySingleFormat5921D8"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "传入原5921D8六S32参数到真实ld12cvt并返回状态；输出float对象表示由核心写W32。544D7E文本转换父仍待；不据5921EC额外索引引用推测相邻数据表。",
+      "function_chunks": [
+        {
+          "start": "0x544D3B",
+          "end_exclusive": "0x544D51"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544DA1",
+          "parent_entry": "0x544D7E"
+        }
+      ],
+      "verification_level": "完整原指令、六字段参数字节、布局/舍入/写序和新增源码静态核对；未编译执行",
+      "format_parameter_evidence": {
+        "address": "0x5921D8",
+        "bytes": "8000000081ffffff1800000008000000200000007f000000",
+        "fields": [
+          128,
+          -127,
+          24,
+          8,
+          32,
+          127
+        ]
+      }
     }
   ]
 }

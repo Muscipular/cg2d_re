@@ -1123,6 +1123,12 @@ constexpr char kLegacyGuildSend58F2EC[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\
 constexpr char kLegacyGuildRead58F44C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xCC\x3F\x81\x5B\x3F\x82\xCC\x3F\x97\xF0\x82\xF0\x8C\xA9\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildRemove58F42C[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildRank58F410[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x95\xCF\x8D\x58\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+LegacyPanelRecord gLegacyGuildSortPanel58EEC8 {
+    0, 0, 192, 254, 93, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyGuildSortFirst58F408[] = "\x93\x6F\x98\x5E\x3F";
+constexpr char kLegacyGuildSortSecond58F400[] = "\x82\x54\x82\x4F\x89\xB9\x3F";
+constexpr char kLegacyGuildSortThird58F3F4[] = "\x83\x49\x3F\x3F\x83\x43\x3F\x3F";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8784,6 +8790,61 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     drawAt(kLegacyMailSortThird58972C, 103);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
+}
+
+std::uint32_t Sub_52F910(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildSortPanel58EEC8.x;
+    const std::int32_t y = gLegacyGuildSortPanel58EEC8.y;
+    LegacyPanelButtonRecord confirm {x + 96, y + 220, x + 56, y + 210, 80, 20, 22712, 22713};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildSortPanel58EEC8, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t top = gLegacyGuildSortPanel58EEC8.y + 30 * row;
+        const std::int32_t left = gLegacyGuildSortPanel58EEC8.x;
+        if (Sub_5049A0(left + 19, top + 38, left + 173, top + 64, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        gOrderMode1057C78 = static_cast<std::uint32_t>(hovered);
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        // 原52F9DD保存的是普通D67CD0，不能改成此页公会排序值。
+        static_cast<void>(Sub_5206F0());
+        static_cast<void>(Sub_520200());
+        static_cast<void>(audio::Sub_504180(94));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    }
+    if (hovered >= 0) {
+        const std::int32_t image = gValueD69768;
+        const std::int32_t left = gLegacyGuildSortPanel58EEC8.x;
+        const std::int32_t top = gLegacyGuildSortPanel58EEC8.y + 30 * hovered;
+        static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(left + 19),
+            static_cast<std::int16_t>(top + 38), static_cast<std::int16_t>(left + 173),
+            static_cast<std::int16_t>(top + 64), 212, image, 0));
+    }
+    const std::int32_t selected = std::bit_cast<std::int32_t>(gOrderMode1057C78);
+    const std::int32_t selectedTop = gLegacyGuildSortPanel58EEC8.y + 30 * selected;
+    const std::int32_t selectedLeft = gLegacyGuildSortPanel58EEC8.x;
+    static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(selectedLeft + 19),
+        static_cast<std::int16_t>(selectedTop + 38), static_cast<std::int16_t>(selectedLeft + 173),
+        static_cast<std::int16_t>(selectedTop + 64), 212, 254, 0));
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyGuildSortPanel58EEC8.y + offsetY;
+        const std::int32_t left = gLegacyGuildSortPanel58EEC8.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    drawAt(kLegacyGuildSortFirst58F408, 71, 43);
+    drawAt(kLegacyGuildSortSecond58F400, 62, 73);
+    drawAt(kLegacyGuildSortThird58F3F4, 45, 103);
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    return Sub_503440(&gLegacyGuildSortPanel58EEC8, 1);
 }
 
 std::uintptr_t Sub_52FCF0()

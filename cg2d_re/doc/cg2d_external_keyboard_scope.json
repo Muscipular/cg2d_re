@@ -2,9 +2,157 @@
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
   "authorization": "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring：用户已明确排除屏幕键盘及其专用对象链，普通输入/IME与共享函数保留。",
-  "scope": "43个已由专用构造、四张虚表及三组消息登记证明归属的原入口；不是整个相邻地址区间或所有下游函数的排除。",
+  "scope": "64个已由专用构造、四张虚表、三组消息登记及HWND映射/线程钩子支撑链证明归属的原入口；不是整个相邻地址区间或所有下游函数的排除。",
   "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
-  "verification": "本轮核52个虚表槽、14条消息登记及入向引用；构造来源及三个无独立元数据删除包装沿既有取证。不将范围分类表述为全部函数语义复验或已实现。",
+  "verification": "首批52个虚表槽、14条消息登记及入向引用已核；续补专用CRT、HWND映射、线程钩子及状态读写/全部直接引用。构造来源和三个无独立元数据删除包装沿既有证据，不将分类表述为全部本体语义复验或已实现。",
+  "support_context": {
+    "crt_roots": [
+      {
+        "slot": "0x55310C",
+        "initializer": "0x537A30",
+        "constructor": "0x537A40",
+        "destructor": "0x537A70"
+      },
+      {
+        "slot": "0x553110",
+        "initializer": "0x537AE0",
+        "constructor": "0x537AF0",
+        "destructor": "0x537B10"
+      }
+    ],
+    "window_map": {
+      "object": "0x1085F68",
+      "head": "0x1085F6C",
+      "sentinel": "0x1085FA0",
+      "sentinel_count": "0x1085FA4",
+      "current_thread": "0x1085F94",
+      "constructing_object": "0x1085F9C",
+      "boundary": "这些状态归已证HWND到键盘对象映射；不关联到其他消息树或主窗口/网络状态。"
+    },
+    "callback_edges": [
+      {
+        "source_function": "0x537E60",
+        "write_instruction": "0x537ED1",
+        "target": "0x538170",
+        "use": "基类窗口过程，写对象+11C"
+      },
+      {
+        "source_function": "0x538270",
+        "write_instruction": "0x538298",
+        "target": "0x537FE0",
+        "use": "idHook=4，当前线程WH_CALLWNDPROC"
+      }
+    ],
+    "shared_state_evidence": [
+      {
+        "address": "0x1085F78",
+        "role": "键盘窗口创建临界区",
+        "references": [
+          {
+            "address": "0x537AF0",
+            "function_entry": "0x537AF0",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537B10",
+            "function_entry": "0x537B10",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537B9A",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537C0C",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537C50",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537CD7",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537CF5",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x537D20",
+            "function_entry": "0x537B80",
+            "reference_type": 1
+          },
+          {
+            "address": "0x538031",
+            "function_entry": "0x537FE0",
+            "reference_type": 1
+          },
+          {
+            "address": "0x538102",
+            "function_entry": "0x537FE0",
+            "reference_type": 1
+          },
+          {
+            "address": "0x538148",
+            "function_entry": "0x537FE0",
+            "reference_type": 1
+          },
+          {
+            "address": "0x538270",
+            "function_entry": "0x538270",
+            "reference_type": 1
+          },
+          {
+            "address": "0x5382BD",
+            "function_entry": "0x538270",
+            "reference_type": 1
+          },
+          {
+            "address": "0x5382CB",
+            "function_entry": "0x538270",
+            "reference_type": 1
+          }
+        ]
+      },
+      {
+        "address": "0x1085F98",
+        "role": "键盘创建线程钩子槽",
+        "references": [
+          {
+            "address": "0x53800D",
+            "function_entry": "0x537FE0",
+            "reference_type": 3
+          },
+          {
+            "address": "0x5380E2",
+            "function_entry": "0x537FE0",
+            "reference_type": 3
+          },
+          {
+            "address": "0x538123",
+            "function_entry": "0x537FE0",
+            "reference_type": 2
+          },
+          {
+            "address": "0x538139",
+            "function_entry": "0x537FE0",
+            "reference_type": 3
+          },
+          {
+            "address": "0x5382A7",
+            "function_entry": "0x538270",
+            "reference_type": 2
+          }
+        ]
+      }
+    ]
+  },
   "shared_nonexcluded_entries": [
     {
       "original_entry": "0x509080",
@@ -1404,6 +1552,448 @@
         }
       ],
       "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537A30",
+      "original_end_exclusive": "0x537A3A",
+      "inventory_id": "F:00137A30",
+      "name": "键盘窗口映射CRT包装",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x55310C",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x537A30",
+          "0x537A3A"
+        ],
+        [
+          "0x537A60",
+          "0x537A6C"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x537A40",
+      "original_end_exclusive": "0x537A57",
+      "inventory_id": "F:00137A40",
+      "name": "键盘窗口映射构造",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537A30",
+          "reference_type": 17,
+          "function_entry": "0x537A30"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537A70",
+      "original_end_exclusive": "0x537ADA",
+      "inventory_id": "F:00137A70",
+      "name": "键盘窗口映射退出清理",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537A60",
+          "reference_type": 1,
+          "function_entry": "0x537A30"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537AE0",
+      "original_end_exclusive": "0x537AEA",
+      "inventory_id": "F:00137AE0",
+      "name": "键盘临界区CRT包装",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x553110",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x537AE0",
+          "0x537AEA"
+        ],
+        [
+          "0x537B00",
+          "0x537B0C"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x537AF0",
+      "original_end_exclusive": "0x537AFC",
+      "inventory_id": "F:00137AF0",
+      "name": "键盘临界区初始化",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537AE0",
+          "reference_type": 17,
+          "function_entry": "0x537AE0"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537B10",
+      "original_end_exclusive": "0x537B1C",
+      "inventory_id": "F:00137B10",
+      "name": "键盘临界区销毁",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537B00",
+          "reference_type": 1,
+          "function_entry": "0x537AE0"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537B20",
+      "original_end_exclusive": "0x537B76",
+      "inventory_id": "F:00137B20",
+      "name": "键盘HWND查询对象",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5369B0",
+          "reference_type": 17,
+          "function_entry": "0x536970"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537FE0",
+      "original_end_exclusive": "0x53816B",
+      "inventory_id": "F:00137FE0",
+      "name": "键盘创建消息线程钩子",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x538298",
+          "reference_type": 1,
+          "function_entry": "0x538270"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x537FE0",
+          "0x53816B"
+        ],
+        [
+          "0x537D20",
+          "0x537D2C"
+        ],
+        [
+          "0x54BE70",
+          "0x54BE82"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x538170",
+      "original_end_exclusive": "0x5381F7",
+      "inventory_id": "F:00138170",
+      "name": "键盘窗口过程与对象分派",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537ED1",
+          "reference_type": 1,
+          "function_entry": "0x537E60"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538200",
+      "original_end_exclusive": "0x538269",
+      "inventory_id": "F:00138200",
+      "name": "键盘窗口系统错误提示",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537C04",
+          "reference_type": 17,
+          "function_entry": "0x537B80"
+        },
+        {
+          "address": "0x537CCF",
+          "reference_type": 17,
+          "function_entry": "0x537B80"
+        },
+        {
+          "address": "0x5380FA",
+          "reference_type": 17,
+          "function_entry": "0x537FE0"
+        },
+        {
+          "address": "0x5382B5",
+          "reference_type": 17,
+          "function_entry": "0x538270"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538270",
+      "original_end_exclusive": "0x5382DC",
+      "inventory_id": "F:00138270",
+      "name": "键盘线程钩子安装",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537C44",
+          "reference_type": 17,
+          "function_entry": "0x537B80"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5382E0",
+      "original_end_exclusive": "0x538388",
+      "inventory_id": "F:001382E0",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537A50",
+          "reference_type": 17,
+          "function_entry": "0x537A40"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x5382E0",
+          "0x538388"
+        ],
+        [
+          "0x54BE90",
+          "0x54BEA2"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x538390",
+      "original_end_exclusive": "0x538498",
+      "inventory_id": "F:00138390",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5380DD",
+          "reference_type": 17,
+          "function_entry": "0x537FE0"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5384A0",
+      "original_end_exclusive": "0x53886F",
+      "inventory_id": "F:001384A0",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537FA4",
+          "reference_type": 17,
+          "function_entry": "0x537F40"
+        },
+        {
+          "address": "0x538916",
+          "reference_type": 17,
+          "function_entry": "0x538870"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538870",
+      "original_end_exclusive": "0x53893D",
+      "inventory_id": "F:00138870",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537A92",
+          "reference_type": 17,
+          "function_entry": "0x537A70"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x538870",
+          "0x53893D"
+        ],
+        [
+          "0x54BEB0",
+          "0x54BECA"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x538940",
+      "original_end_exclusive": "0x538955",
+      "inventory_id": "F:00138940",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x538068",
+          "reference_type": 17,
+          "function_entry": "0x537FE0"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538960",
+      "original_end_exclusive": "0x5389C6",
+      "inventory_id": "F:00138960",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5388C5",
+          "reference_type": 17,
+          "function_entry": "0x538870"
+        },
+        {
+          "address": "0x538997",
+          "reference_type": 17,
+          "function_entry": "0x538960"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x538960",
+          "0x5389C6"
+        ],
+        [
+          "0x54BED0",
+          "0x54BEE2"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5389D0",
+      "original_end_exclusive": "0x538C5A",
+      "inventory_id": "F:001389D0",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5383DB",
+          "reference_type": 17,
+          "function_entry": "0x538390"
+        },
+        {
+          "address": "0x538416",
+          "reference_type": 17,
+          "function_entry": "0x538390"
+        },
+        {
+          "address": "0x538459",
+          "reference_type": 17,
+          "function_entry": "0x538390"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x5389D0",
+          "0x538C5A"
+        ],
+        [
+          "0x54BEF0",
+          "0x54BF02"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x538C60",
+      "original_end_exclusive": "0x538C8D",
+      "inventory_id": "F:00138C60",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x537B35",
+          "reference_type": 17,
+          "function_entry": "0x537B20"
+        },
+        {
+          "address": "0x537F60",
+          "reference_type": 17,
+          "function_entry": "0x537F40"
+        },
+        {
+          "address": "0x538186",
+          "reference_type": 17,
+          "function_entry": "0x538170"
+        },
+        {
+          "address": "0x538945",
+          "reference_type": 17,
+          "function_entry": "0x538940"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538C90",
+      "original_end_exclusive": "0x538CE1",
+      "inventory_id": "F:00138C90",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53843D",
+          "reference_type": 17,
+          "function_entry": "0x538390"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x538CF0",
+      "original_end_exclusive": "0x538D33",
+      "inventory_id": "F:00138CF0",
+      "name": "键盘HWND映射树的专用支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5384AF",
+          "reference_type": 17,
+          "function_entry": "0x5384A0"
+        },
+        {
+          "address": "0x538909",
+          "reference_type": 17,
+          "function_entry": "0x538870"
+        }
+      ],
+      "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
     }
   ]
 }

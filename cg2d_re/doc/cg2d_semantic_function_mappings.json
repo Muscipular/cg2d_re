@@ -7,7 +7,7 @@
     {
       "path": "doc/cg2d_external_keyboard_scope.json",
       "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
-      "scope": "43个已证屏幕键盘专用入口及三段无独立ID删除包装；509080作为共享例外保留，不按相邻地址或通用callee扩大排除。"
+      "scope": "64个已证屏幕键盘对象/窗口映射/线程钩子专用入口及三段无独立ID删除包装；509080作为共享例外保留，不按相邻地址或通用callee扩大排除。"
     },
     {
       "path": "doc/cg2d_network_cipher_scope.json",

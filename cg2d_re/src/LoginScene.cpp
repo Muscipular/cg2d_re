@@ -8,6 +8,7 @@
 #include "cg/Palette.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
@@ -444,7 +445,7 @@ std::int32_t GetServerAddressInfo_507D90(
     const auto& record = gValueD69798[static_cast<std::size_t>(serverIndex)];
     std::strcpy(serverAddress, reinterpret_cast<const char*>(record.opaque.data()));
     *port = static_cast<std::uint16_t>(
-        std::atoi(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
+        platform::Atoi_53C649(reinterpret_cast<const char*>(record.opaque.data() + 0x80)));
     return 0;
 }
 

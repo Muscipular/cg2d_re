@@ -613,25 +613,25 @@ void Sub_50DD80(
     ExtractDelimitedField_52CED0(payload, '|', 2, 2047, field);
     const std::int32_t recordIndex = Base62Decode_52D050(field);
     ExtractDelimitedField_52CED0(payload, '|', 3, 2047, field);
-    const std::int32_t recordX = std::atoi(field);
+    const std::int32_t recordX = platform::Atoi_53C649(field);
     ExtractDelimitedField_52CED0(payload, '|', 4, 2047, field);
-    const std::int32_t recordY = std::atoi(field);
+    const std::int32_t recordY = platform::Atoi_53C649(field);
     ExtractDelimitedField_52CED0(payload, '|', 5, 2047, field);
-    const std::int32_t recordDirection = std::atoi(field);
+    const std::int32_t recordDirection = platform::Atoi_53C649(field);
     ExtractDelimitedField_52CED0(payload, '|', 6, 2047, field);
     const std::int32_t recordImageNo =
-        character_select::detail::Sub_51B740(std::atoi(field));
+        character_select::detail::Sub_51B740(platform::Atoi_53C649(field));
     ExtractDelimitedField_52CED0(payload, '|', 7, 2047, field);
-    const std::int32_t level = std::atoi(field);
+    const std::int32_t level = platform::Atoi_53C649(field);
     const std::int32_t value40 = ParseDelimitedInteger_52CFA0(payload, '|', 8);
     ExtractDelimitedField_52CED0(payload, '|', 9, 2047, name);
     input::UnescapeLegacyTextAndNotify_52D2F0(name);
     ExtractDelimitedField_52CED0(payload, '|', 10, 2047, titles);
     input::UnescapeLegacyTextAndNotify_52D2F0(titles);
     ExtractDelimitedField_52CED0(payload, '|', 11, 2047, field);
-    const std::int32_t flag1 = std::atoi(field);
+    const std::int32_t flag1 = platform::Atoi_53C649(field);
     ExtractDelimitedField_52CED0(payload, '|', 12, 2047, field);
-    const std::int32_t flag2 = std::atoi(field);
+    const std::int32_t flag2 = platform::Atoi_53C649(field);
     if (world::detail::Sub_445A60(
             recordIndex, recordImageNo, recordX, recordY, recordDirection,
             name, titles, level, static_cast<std::uint16_t>(value40),
@@ -1370,7 +1370,7 @@ std::int32_t ParseDelimitedInteger_52CFA0(
     if (field[0] == '\0') {
         return -1;
     }
-    return std::atoi(field.data());
+    return platform::Atoi_53C649(field.data());
 }
 
 // 原 [0x52CFF0,0x52D04F)：保留字段提取结果；空字段不写输出。
@@ -1386,7 +1386,7 @@ std::int32_t ParseDelimitedIntegerStatus_52CFF0(
     if (field[0] == '\0') {
         return 2;
     }
-    *output = std::atoi(field.data());
+    *output = platform::Atoi_53C649(field.data());
     return status;
 }
 

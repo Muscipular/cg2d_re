@@ -37,10 +37,16 @@ char* __cdecl GetEnv_54518B(const char* name)
     return std::getenv(name);
 }
 
-// 以下三入口按用户裁决使用现代标准库。
+// Atol、Malloc、Free三个入口按用户裁决使用现代标准库。
 std::int32_t __cdecl Atol_53C5BE(const char* text)
 {
     return static_cast<std::int32_t>(std::atol(text));
+}
+
+// 原[53C649,53C654)：只转调53C5BE，沿用该入口已批准的std替代边界。
+std::int32_t Atoi_53C649(const char* text)
+{
+    return Atol_53C5BE(text);
 }
 
 void* __cdecl Malloc_53C3AC(std::uint32_t size)

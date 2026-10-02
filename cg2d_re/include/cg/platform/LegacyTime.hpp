@@ -8,6 +8,9 @@ namespace cg::platform {
 // 原1085FE0共享S32错误槽；文件查询/目录创建或切换写入，截图读取17判断目录已存在。
 extern std::int32_t gLegacyErrno_1085FE0;
 
+// 原53C649；转发到既有Atol_53C5BE，返回原S32数值，不新增转换或校验。
+std::int32_t Atoi_53C649(const char* text);
+
 // 原53D26E；原字节分词并就地截断，空text续用同一进程共享借用位置。
 char* StrTok_53D26E(char* text, const char* delimiters);
 

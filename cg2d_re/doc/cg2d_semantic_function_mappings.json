@@ -11504,6 +11504,76 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原108602C仅函数内读取/写入，虚拟零初值按nullptr表达，只拓宽指针；先建32B位图且含分隔串NUL，每次允许不同分隔串，跳前导分隔符、原位切词、末尾也发布cursor。没有新增清空、线程隔离、锁、空指针校验或行数钳制；父页局部文本借用寿命不延长。仅静态核本体及两调用，完整窗口流程和运行未验。"
+    },
+    {
+      "original_entry": "0x53C649",
+      "inventory_id": "F:0013C649",
+      "status": "原转发本体及全部45处直接调用已接；沿既有Atol替代裁决，父流程运行未验",
+      "original_end_exclusive": "0x53C654",
+      "instruction_count": 4,
+      "original_direct_reference_count": 45,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Atoi_53C649",
+            "Atol_53C5BE"
+          ],
+          "relationship": "完整原转发关系，Atoi只调用既有Atol并返回S32"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "Atoi_53C649"
+          ],
+          "relationship": "向原真实父函数提供S32转发声明"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DD00",
+            "Sub_50AEF0"
+          ],
+          "relationship": "9+4处原调用，保留数字结果消费与原字段提取顺序"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4888C0",
+            "Sub_49DDB0"
+          ],
+          "relationship": "1+4处原调用，保留后续U8/W16转换"
+        },
+        {
+          "path": "src/LoginScene.cpp",
+          "symbols": [
+            "GetServerAddressInfo_507D90"
+          ],
+          "relationship": "1处原服务器地址记录数值解析"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509550",
+            "Sub_50B380"
+          ],
+          "relationship": "1+16处原调用，包含只求值不保留结果的字段"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50DD80",
+            "ParseDelimitedInteger_52CFA0",
+            "ParseDelimitedIntegerStatus_52CFF0"
+          ],
+          "relationship": "7+1+1处原调用，既有空字段和输出/提取结果契约不变"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原四指令只转调53C5BE，无独立扫描/校验。复用用户已批准Atol的std::atol边界，不扩批其他CRT或宣称原locale/异常等价。原10父函数45调用在当前五源中一一对应，只改调用入口与必要头引用；参数、返回宽度、后续截断/丢弃及共享状态次序不变。仅静态核新增差异，完整业务与运行验收未完成。"
     }
   ]
 }

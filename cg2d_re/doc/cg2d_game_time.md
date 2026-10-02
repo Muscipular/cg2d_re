@@ -1596,3 +1596,35 @@ caller证据限定到548143，不依据函数名或相邻地址扩大范围。
 仍为env/getenv.cpp的common_getenv；不能宣称宿主getenv必经_strdup，或宿主使用
 strcpy_s及size_t就与原分配失败时机、溢出、地址身份完全相同。
 现有GetEnv_54518B及TZ调用、借用返回和环境owner保持，无业务源码修改。
+
+## atoi转发与现有Atol边界 SPEC（2026-10-02）
+
+原atoi@[53C649,53C654)只有四条指令：push原字符串、call53C5BE、平衡栈、ret。
+它没有独立的数字扫描、错误处理或位宽转换。原Atol直接入向除这里外，
+还有已接TZ的540CBF/540CED/540D18三处。
+
+按既有工程委托，在LegacyTime.cpp实现Atoi_53C649(const char*) -> S32，
+只return Atol_53C5BE(text)，不再独立调用std::atoi。
+Atol仍沿用户指定的std::atol替代合同；不是以本步重新批准其他CRT、
+恢复原locale实现或宣称现代标准库与旧异常/溢出行为等价。
+新入口放入已有LegacyTime.hpp供实际父函数使用，不扩充旧Atol公开接口。
+
+原全部45个直接调用与当前源码分布如下，只替换这些转换调用：
+
+| 原父入口 | 当前源/函数 | 调用数 |
+|---|---|---|
+| 43DD00 | YobiRuntime.cpp::Sub_43DD00 | 9 |
+| 4888C0 | ui/WindowRuntime.cpp::Sub_4888C0 | 1 |
+| 49DDB0 | ui/WindowRuntime.cpp::Sub_49DDB0 | 4 |
+| 507D90 | LoginScene.cpp::GetServerAddressInfo_507D90 | 1 |
+| 509550 | world/SceneState.cpp::Sub_509550 | 1 |
+| 50AEF0 | YobiRuntime.cpp::Sub_50AEF0 | 4 |
+| 50B380 | world/SceneState.cpp::Sub_50B380 | 16 |
+| 50DD80 | network/NetworkRuntime.cpp::Sub_50DD80 | 7 |
+| 52CFA0 | network/NetworkRuntime.cpp::ParseDelimitedInteger_52CFA0 | 1 |
+| 52CFF0 | network/NetworkRuntime.cpp::ParseDelimitedIntegerStatus_52CFF0 | 1 |
+
+五个文件共45处，字段提取、后续U8/W16/S32转换、返回丢弃、发布顺序保持。
+尤其52CFA0空字段返回-1、52CFF0空字段不写输出及已有提取结果返回不改。
+不新增空串/空指针校验、缓存、locale设置、数值钳制或错误槽同步。
+本步只核入口与已定位调用，不重新审计十个父函数全部逻辑，不等于完整收发/界面验收。

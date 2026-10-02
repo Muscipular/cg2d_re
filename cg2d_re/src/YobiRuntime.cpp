@@ -20,6 +20,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -4641,7 +4642,7 @@ std::int32_t Sub_43DD00(
     network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
     ++field;
     const auto flags = static_cast<std::uint8_t>(
-        character_select::detail::Sub_51B740(std::atoi(buffer)));
+        character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer)));
     if (payload != nullptr) {
         if (payload->action30 != nullptr) {
             MarkDeath(payload->action30);
@@ -4663,12 +4664,12 @@ std::int32_t Sub_43DD00(
         std::int32_t index = 0;
         while (std::strcmp(buffer, "EF") != 0) {
             const std::int32_t kind =
-                character_select::detail::Sub_51B740(std::atoi(buffer));
+                character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
             if (kind == 0) {
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                    character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
                 if (payload != nullptr) {
                     payload->action30 = NewYobiGear_4410F0(imageNo);
                 }
@@ -4676,7 +4677,7 @@ std::int32_t Sub_43DD00(
                 network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
                 ++field;
                 const std::int32_t imageNo =
-                    character_select::detail::Sub_51B740(std::atoi(buffer));
+                    character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
                 if (payload != nullptr) {
                     if (index == 0) {
                         const std::int32_t y =
@@ -4710,7 +4711,7 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(std::atoi(buffer));
+            character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
         if (payload != nullptr) {
             const auto mapMainImage = [&]() {
                 YobiAction* const player = world::detail::ReadPlayerAction();
@@ -4748,18 +4749,18 @@ std::int32_t Sub_43DD00(
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
         const std::int32_t imageNo =
-            character_select::detail::Sub_51B740(std::atoi(buffer));
+            character_select::detail::Sub_51B740(platform::Atoi_53C649(buffer));
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t packedDirection = std::atoi(buffer);
+        const std::int32_t packedDirection = platform::Atoi_53C649(buffer);
         const std::int32_t direction = packedDirection / 10 - 1;
         const std::int32_t offsetDirection = packedDirection % 10 - 1;
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t level = std::atoi(buffer);
+        const std::int32_t level = platform::Atoi_53C649(buffer);
         network::ExtractDelimitedField_52CED0(text, '|', field, 2047, buffer);
         ++field;
-        const std::int32_t value1D8 = std::atoi(buffer);
+        const std::int32_t value1D8 = platform::Atoi_53C649(buffer);
         char name[256];
         network::ExtractDelimitedField_52CED0(text, '|', field, 255, name);
         ++field;
@@ -32528,13 +32529,13 @@ void Sub_50AEF0(const std::uintptr_t, const char* const payload)
         }
         const std::int32_t objectIndex = network::Base62Decode_52D050(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field - 1, 2047, text);
-        const std::int32_t hp = std::atoi(text);
+        const std::int32_t hp = platform::Atoi_53C649(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field, 2047, text);
-        const std::int32_t maxHp = std::atoi(text);
+        const std::int32_t maxHp = platform::Atoi_53C649(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field + 1, 2047, text);
-        const std::int32_t fp = std::atoi(text);
+        const std::int32_t fp = platform::Atoi_53C649(text);
         network::ExtractDelimitedField_52CED0(payload, '|', field + 2, 2047, text);
-        const std::int32_t maxFp = std::atoi(text);
+        const std::int32_t maxFp = platform::Atoi_53C649(text);
         login::YobiAction* const action = FindObjectYobi_4462B0(objectIndex);
         if (action == nullptr) {
             continue;

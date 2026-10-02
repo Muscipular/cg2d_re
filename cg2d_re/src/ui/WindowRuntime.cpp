@@ -8593,7 +8593,7 @@ std::int32_t Sub_48A6C0(const std::int32_t index, const std::int32_t state)
 
 std::int32_t Sub_4888C0(const char* const text)
 {
-    const std::int32_t selected = std::atoi(text);
+    const std::int32_t selected = platform::Atoi_53C649(text);
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const unsigned char previous = occupancy[selected];
     gSelectedItemCB0A44 = selected;
@@ -9479,7 +9479,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
     const char delimiter = cursor[index];
     number[index] = '\0';
     cursor += index + 1;
-    const std::int32_t imageNo = std::atoi(number.data());
+    const std::int32_t imageNo = platform::Atoi_53C649(number.data());
     std::uint8_t direction = 0;
     if (delimiter == ',') {
         ++cursor;
@@ -9492,7 +9492,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
         }
         number[index] = '\0';
         cursor += index + 1;
-        direction = static_cast<std::uint8_t>(std::atoi(number.data()));
+        direction = static_cast<std::uint8_t>(platform::Atoi_53C649(number.data()));
     }
     const char* const coordinates = std::strchr(cursor, '(');
     if (coordinates != nullptr) {
@@ -9507,7 +9507,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
             }
             number[index] = '\0';
             cursor += index + 1;
-            x = static_cast<std::int16_t>(std::atoi(number.data()));
+            x = static_cast<std::int16_t>(platform::Atoi_53C649(number.data()));
             index = 0;
             while (cursor[index] != '\0' && cursor[index] != ',') {
                 if (cursor[index] != ' ') {
@@ -9516,7 +9516,7 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
                 ++index;
             }
             number[index] = '\0';
-            y = static_cast<std::int16_t>(std::atoi(number.data()));
+            y = static_cast<std::int16_t>(platform::Atoi_53C649(number.data()));
         }
     }
     Sub_49C510(1, imageNo, direction, x, y);

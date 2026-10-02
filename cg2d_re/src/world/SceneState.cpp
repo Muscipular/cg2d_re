@@ -2222,15 +2222,15 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t x = std::atoi(field);
+            const std::int32_t x = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t y = std::atoi(field);
+            const std::int32_t y = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 5, 2047, field);
-            const std::int32_t direction = std::atoi(field);
+            const std::int32_t direction = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 6, 2047, field);
-            const std::int32_t imageNo = std::atoi(field);
+            const std::int32_t imageNo = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 7, 2047, field);
-            const std::int32_t level = std::atoi(field);
+            const std::int32_t level = platform::Atoi_53C649(field);
             const std::int32_t value40 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 8);
             network::ExtractDelimitedField_52CED0(row, '|', 9, 255, name);
@@ -2238,17 +2238,17 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 10, 255, titles);
             input::UnescapeLegacyText_52D150(titles);
             network::ExtractDelimitedField_52CED0(row, '|', 11, 2047, field);
-            const std::int32_t flag1 = std::atoi(field);
+            const std::int32_t flag1 = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 12, 2047, field);
-            const std::int32_t flag2 = std::atoi(field);
+            const std::int32_t flag2 = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 13, 2047, field);
-            static_cast<void>(std::atoi(field));
+            static_cast<void>(platform::Atoi_53C649(field));
             network::ExtractDelimitedField_52CED0(row, '|', 14, 255, extraText);
             input::UnescapeLegacyTextAndNotify_52D2F0(extraText);
             network::ExtractDelimitedField_52CED0(row, '|', 15, 2047, field);
-            const std::int32_t mode = std::atoi(field);
+            const std::int32_t mode = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 16, 2047, field);
-            const std::int32_t attachmentImage = std::atoi(field);
+            const std::int32_t attachmentImage = platform::Atoi_53C649(field);
 
             login::YobiAction* object;
             if (static_cast<std::uint32_t>(objectIndex) == gPlayerRuntime.objectIndex) {
@@ -2331,11 +2331,11 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = std::atoi(field);
+            const std::int32_t x = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = std::atoi(field);
+            const std::int32_t y = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t imageNo = std::atoi(field);
+            const std::int32_t imageNo = platform::Atoi_53C649(field);
             const std::int32_t value48 =
                 network::ParseDelimitedInteger_52CFA0(row, '|', 5);
             network::ExtractDelimitedField_52CED0(row, '|', 6, 1023, label);
@@ -2351,11 +2351,11 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             network::ExtractDelimitedField_52CED0(row, '|', 1, 2047, field);
             const std::int32_t objectIndex = network::Base62Decode_52D050(field);
             network::ExtractDelimitedField_52CED0(row, '|', 2, 2047, field);
-            const std::int32_t x = std::atoi(field);
+            const std::int32_t x = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 3, 2047, field);
-            const std::int32_t y = std::atoi(field);
+            const std::int32_t y = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
-            const std::int32_t count = std::atoi(field);
+            const std::int32_t count = platform::Atoi_53C649(field);
             std::sprintf(label, "%d \xAA\xF7\xB9\xF4", count);
             std::int32_t imageNo;
             if (count < 50) {
@@ -6019,7 +6019,7 @@ std::int32_t __cdecl Sub_509550(
     if (number[0] == '\0') {
         gValueFF0D4C = -1;
     } else {
-        gValueFF0D4C = std::atoi(number.data());
+        gValueFF0D4C = platform::Atoi_53C649(number.data());
         if (gValueFF0D4C < 0) {
             gValueFF0D4C = -1;
         }

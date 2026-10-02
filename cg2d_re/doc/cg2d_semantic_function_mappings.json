@@ -9909,110 +9909,206 @@
     {
       "original_entry": "0x53DED0",
       "inventory_id": "F:0013DED0",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原错误报告链本体及内部调用已实现；外层CRT启动和运行未验",
       "original_end_exclusive": "0x53DEF3",
       "instruction_count": 8,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "FastLegacyRuntimeErrorExit_53DED0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "FastLegacyRuntimeErrorExit_53DED0"
+          ]
         }
       ],
       "native_reference": {
         "component": "MSVC 14.50.35717",
         "source_path": "crt/src/vcruntime/exe_common.inl",
         "symbol": "__scrt_common_main_seh",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异参考；不是当前原合同实现的提供者，不代表当前已链接运行"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原启动失败报告后直接ExitProcess(255)，不并作经旧退出表的53DEAB；宿主启动失败/异常路径不同，实际exe接线未验。"
+      "boundary": "仅模式1先原banner，随后报告指定错误并直接ExitProcess(255)。本体和内部报告调用已实现；不改成53DEAB的间接退出表，不调用宿主fastfail。原53DDB5@53DE1B尚未接新函数，未执行退出/运行验收。",
+      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x53DED0",
+          "end_exclusive": "0x53DEF3"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DE1B",
+          "parent_entry": "0x53DDB5"
+        }
+      ]
     },
     {
       "original_entry": "0x5443C6",
       "inventory_id": "F:001443C6",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原错误报告链本体及内部调用已实现；外层CRT启动和运行未验",
       "original_end_exclusive": "0x5443FF",
       "instruction_count": 18,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "ReportLegacyRuntimeBanner_5443C6"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "ReportLegacyRuntimeBanner_5443C6"
+          ]
         }
       ],
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "internal/report_runtime_error.cpp",
         "symbol": "__acrt_report_runtime_error",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异参考；不是当前原合同实现的提供者，不代表当前已链接运行"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅模式1或默认且控制台类型时报告252、调非空10862A8、报告255；宿主没有以本记录证明同一旧banner/钩子序列，职责关联不等价于原体实现。"
+      "boundary": "模式1或模式0且应用类型1才依次报告252、读取非空10862A8钩子并调用、报告255；钩子读取在首次报告之后，末次报告重新读共享模式。共享S32模式/类型和原生回调独立唯一存储，虚拟零合同及类型已加载2保持。内部报告已接，53DEAB与启动尚未接，运行未验。",
+      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
+      "original_direct_reference_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x5443C6",
+          "end_exclusive": "0x5443FF"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DEB4",
+          "parent_entry": "0x53DEAB"
+        },
+        {
+          "address": "0x53DED9",
+          "parent_entry": "0x53DED0"
+        }
+      ]
     },
     {
       "original_entry": "0x5443FF",
       "inventory_id": "F:001443FF",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原错误报告链本体及内部调用已实现；外层CRT启动和运行未验",
       "original_end_exclusive": "0x544552",
       "instruction_count": 100,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "ReportLegacyRuntimeError_5443FF"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "ReportLegacyRuntimeError_5443FF"
+          ]
         }
       ],
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "internal/report_runtime_error.cpp",
         "symbol": "__acrt_report_runtime_error",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异参考；不是当前原合同实现的提供者，不代表当前已链接运行"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "18项错误表及零哨兵；stderr直写，GUI跳252、取程序名/截长/拼接后弹窗。宿主宽字符、受限复制和调试通知不同；共享544DB0/544DC0复制尾的原父职责已定位，具体错误消息/输出仍未验。"
+      "boundary": "原18条错误码/消息及零哨兵逐字保留，码0不加兜底。按原模式选择stderr WriteFile或GUI；Filename260/消息160局部连续420B不预清，模块名失败才写原未知文本，超过59字符截尾并覆盖前三字节省略号；原前缀/两LF/错误消息与12010H弹窗顺序保持。只有指针拓宽，API返回忽略；正常域使用字节复制/长度函数，不新增安全截断。已接banner及直接退出，间接退出和最终启动未接，异常/运行未验。",
+      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
+      "original_direct_reference_count": 5,
+      "function_chunks": [
+        {
+          "start": "0x5443FF",
+          "end_exclusive": "0x544552"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DEBD",
+          "parent_entry": "0x53DEAB"
+        },
+        {
+          "address": "0x53DEE2",
+          "parent_entry": "0x53DED0"
+        },
+        {
+          "address": "0x5443E2",
+          "parent_entry": "0x5443C6"
+        },
+        {
+          "address": "0x5443F8",
+          "parent_entry": "0x5443C6"
+        },
+        {
+          "address": "0x545176",
+          "parent_entry": "0x545174"
+        }
+      ]
     },
     {
       "original_entry": "0x546D0C",
       "inventory_id": "F:00146D0C",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原错误报告链本体及内部调用已实现；外层CRT启动和运行未验",
       "original_end_exclusive": "0x546D95",
       "instruction_count": 50,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "ShowLegacyRuntimeMessage_546D0C"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "ShowLegacyRuntimeMessage_546D0C"
+          ]
         }
       ],
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "misc/crtmbox.cpp",
         "symbol": "common_show_message_box",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异参考；不是当前原合同实现的提供者，不代表当前已链接运行"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅5443FF调用，缓存USER32的MessageBoxA/GetActiveWindow/GetLastActivePopup，加载失败返0；宿主调试器/窗口模型/交互策略及IDRETRY/IDABORT返回不同，不新建旧缓存。"
+      "boundary": "原user32.dll三API按MessageBoxA→GetActiveWindow→GetLastActivePopup懒加载/发布；首API失败返回0，后两者失败不重试。当前窗口非空才查询popup，最终重读共享MessageBoxA并保留返回。原API指针只在cpp内部按原生类型拓宽，不增加FreeLibrary或宿主交互策略。内部5443FF调用已接；外层CRT及运行未验。",
+      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x546D0C",
+          "end_exclusive": "0x546D95"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54451E",
+          "parent_entry": "0x5443FF"
+        }
+      ]
     },
     {
       "original_entry": "0x545174",

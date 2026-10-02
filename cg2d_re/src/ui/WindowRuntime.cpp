@@ -26169,6 +26169,11 @@ login::YobiAction* Sub_4A3540(const std::int32_t index)
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
 
+std::int32_t& BorrowLegacyMailDeleteIndexD2DA8C()
+{
+    return gLoginWindowRuntime.mailDeleteIndexD2DA8C;
+}
+
 std::int32_t Sub_4A3600(const std::int32_t, const std::int32_t)
 {
     const std::int32_t index = gLoginWindowRuntime.mailDeleteIndexD2DA8C;

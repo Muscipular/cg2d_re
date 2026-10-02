@@ -1748,6 +1748,7 @@ std::int32_t Sub_4A32E0(std::int32_t index, std::int32_t state); // 三类联系
 login::YobiAction* Sub_4A33C0(std::int32_t index); // 普通联系人删除确认，窗口47共享上下文。
 login::YobiAction* Sub_4A3480(std::int32_t index); // 公会成员除名确认。
 login::YobiAction* Sub_4A3540(std::int32_t index); // 迷你邮件联系人删除确认。
+std::int32_t& BorrowLegacyMailDeleteIndexD2DA8C(); // 旧42/后续旧44借同一现代删除索引owner，不复制状态。
 std::int32_t Sub_4A3600(std::int32_t unusedIndex, std::int32_t unusedState); // FPkR发送、重读清理及保存。
 std::int32_t Sub_4A3660(std::int32_t unusedIndex, std::int32_t unusedState); // 公会编号请求与两保存。
 std::int32_t Sub_4A36B0(std::int32_t unusedIndex, std::int32_t unusedState); // 迷你姓名转义、发送及重读清理。

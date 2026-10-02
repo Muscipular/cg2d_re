@@ -167,3 +167,32 @@ LegacyMouse.cpp仍按四组原有次序触发初始化，移除四个适配对�
 原第一项在CF3B10构造后就登记488420；第二项独立构造D2F338后登记499920。新端先前以ItemSelectorsStaticInitializer的一个聚合析构统一登记两个对象，延迟了第一项登记，且未保持两次登记失败的独立性。按[局部修复SPEC](ui_windows/shared_items.md#两个物品选择器逐项退出登记修复-spec2026-10-02)，InitializeItemSelectors现在执行“第一项完整构造→登记第一项退出→第二项完整构造→登记第二项退出”，两次返回均显式弃用，登记失败不阻止后续原步骤。
 
 中央静态适配仅触发InitializeItemSelectors，移除聚合析构；两个原公开Construct/Destroy接口无其他源码消费者并已移除。退出回调分别读取各自唯一owner的preview，调用既有DestroyWindowSelectorPreview；十槽逆序、静态预览所有权、选择和描述符内容不变，没有新增分配/释放或随机读取。此修复不承诺宿主CRT实际退出、构造异常展开或整体窗口生命周期已验收。
+
+## 平台导入跳板的原生边界分类
+
+2026-10-02，按当前cg2d.exe会话的实际指令与导入表，登记534980..534AAE区间内31个独立入口。每项只有一条6B的间接jmp，操作数直接指向已枚举IAT槽；分别为DDRAW 1项、IMM32 9项、WSOCK32 15项、KERNEL32 5项、DSOUND 1项。区间中其他非跳板函数不因此归类或排除。
+
+本轮分类方案：以原元数据稳定ID登记原入口/末界、IAT位置、DLL、当前IDA导入名及序号、原引用位置、现有源码调用点和既有合同。对序号导入，DLL和ordinal才是原导入身份；__imp_标签不是映像有名导入的证明，API对应沿已记录的网络/音频取证。无序号的有名导入不改写成序号。不会为了这些6B跳板另写同名空包装，也不把新端源码存在系统API调用等同于最终链接、旧DLL内部实现或业务流程全部等价。
+
+| 原入口 | 导入边界 | 当前源码承接与范围 |
+|---|---|---|
+| 534980 | DirectDrawCreateEx | RendererResources.cpp的RendererInit_44B630→SdlPresenter.cpp的CreateRendererPresenter；沿已批准SDL创建替代，保留上层失败处理，不恢复COM接口 |
+| 534986、53498C、534992、534998 | ImmGetConversionStatus、ImmAssociateContext、ImmCreateContext、ImmReleaseContext | ImeLifecycle.cpp的初始化/关闭；转换状态另由WindowProcedure.cpp使用 |
+| 53499E、5349A4 | ImmIsIME、ImmSetOpenStatus | ImeLifecycle.cpp的布局检查与关闭/重新打开顺序 |
+| 5349AA | ImmGetDescriptionA | RenderInput.cpp的RenderInput_4590E0 |
+| 5349B0 | ImmGetCompositionStringA | ImeComposition.cpp的Sub_459580 |
+| 5349B6 | ImmGetCandidateListA | WindowProcedure.cpp通知分支；四处原引用与新端分支合并不得只按API出现次数推算完成 |
+| 534A30、534A36、534A3C | send、closesocket、recv | NetworkRuntime.cpp；关闭另由LoginState.cpp连接状态使用 |
+| 534A42、534A48 | __WSAFDIsSet、select | LoginState.cpp直接调用；NetworkRuntime.cpp使用原生FD_ISSET边界及select，不模拟旧fd_set字节布局 |
+| 534A4E、534A54、534A5A | WSAStartup、WSACleanup、WSAGetLastError | NetworkRuntime.cpp初始化/退出/错误叶；错误查询另由LoginState.cpp使用 |
+| 534A60、534A66、534A6C、534A72 | connect、gethostbyname、inet_addr、htons | LoginState.cpp的Sub_508360 |
+| 534A78、534A7E、534A84 | setsockopt、ioctlsocket、socket | 同一连接入口的套接字创建与配置 |
+| 534A8A、534A90、534A96 | Module32Next、Module32First、CreateToolhelp32Snapshot | MainLoopSupport.cpp的CheckProcessModules_4042D0；快照另由CheckProtection_4043B0使用 |
+| 534A9C、534AA2 | Process32Next、Process32First | MainLoopSupport.cpp的CheckProtection_4043B0 |
+| 534AA8 | DSOUND序号1 / DirectSoundCreate标签 | 仅记录52B007的原引用；音频仍暂缓，不计该导入替代已完成 |
+
+IME继续沿现有IMM32 A接口旧字节合同；HIMC/HKL/HWND和原生返回在平台边界处理。Winsock使用现有本机SOCKET/fd_set，CMake声明ws2_32；原WSOCK32导入分类不承诺跨版本内部实现一致。newest排除链也引用同一组网络API，不能因为系统API已经使用就恢复这五个排除函数；加密最终接线、服务器wire合同及完整收发继续待决/未验。
+
+快照/模块/进程枚举沿MainLoopSupport当前原生结构，将dwSize赋为sizeof整个宿主记录；没有运行这些API，也没有改为固定成功或复制原x86结构尺寸。
+
+DirectDraw两处原创建尝试按[SDL呈现合同](cg2d_sdl_presenter.md)已有替代，不声称GUID、HRESULT或重试次数逐项相同。DirectSound仅登记暂缓状态，既有局部SDL音频并不使完整音频或murD/52C3D0自动完成。本轮不改任何业务、API调用、CMake依赖或源码文件，只补导入位置分类；全部父流程和真实运行仍以各自验收证据为准。

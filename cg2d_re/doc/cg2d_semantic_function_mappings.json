@@ -2764,6 +2764,1045 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。"
+    },
+    {
+      "original_entry": "0x534980",
+      "inventory_id": "F:00134980",
+      "status": "已批准SDL创建替代，完整流程未验",
+      "original_role": "平台导入跳板：DirectDrawCreateEx",
+      "import_binding": {
+        "original_end": "0x534986",
+        "iat": "0x54D008",
+        "module": "DDRAW",
+        "ida_name": "DirectDrawCreateEx",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x44B792",
+        "0x44B7AD"
+      ],
+      "sources": [
+        {
+          "path": "src/render/RendererResources.cpp",
+          "symbols": [
+            "RendererInit_44B630",
+            "CreateRendererPresenter"
+          ]
+        },
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "CreateRendererPresenter"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_sdl_presenter.md"
+      ],
+      "boundary": "原44B792/44B7AD两次DirectDraw创建尝试按已批准Renderer原生替代范围由SDL presenter创建承接，不新增COM假接口或恢复DX依赖；不声称HRESULT、GUID或重试行为逐项等价，32位呈现及上层生命周期仍需完整验收。"
+    },
+    {
+      "original_entry": "0x534986",
+      "inventory_id": "F:00134986",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmGetConversionStatus",
+      "import_binding": {
+        "original_end": "0x53498C",
+        "iat": "0x54D080",
+        "module": "IMM32",
+        "ida_name": "ImmGetConversionStatus",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x45901D",
+        "0x467804"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "InitializeIme_458FD0",
+            "ImmGetConversionStatus"
+          ]
+        },
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "WindowProcedure",
+            "ImmGetConversionStatus"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x53498C",
+      "inventory_id": "F:0013498C",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmAssociateContext",
+      "import_binding": {
+        "original_end": "0x534992",
+        "iat": "0x54D07C",
+        "module": "IMM32",
+        "ida_name": "ImmAssociateContext",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x459002",
+        "0x45905F"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "InitializeIme_458FD0",
+            "ShutdownIme_459040",
+            "ImmAssociateContext"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x534992",
+      "inventory_id": "F:00134992",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmCreateContext",
+      "import_binding": {
+        "original_end": "0x534998",
+        "iat": "0x54D078",
+        "module": "IMM32",
+        "ida_name": "ImmCreateContext",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x458FF1"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "InitializeIme_458FD0",
+            "ImmCreateContext"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x534998",
+      "inventory_id": "F:00134998",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmReleaseContext",
+      "import_binding": {
+        "original_end": "0x53499E",
+        "iat": "0x54D074",
+        "module": "IMM32",
+        "ida_name": "ImmReleaseContext",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x45904D"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "ShutdownIme_459040",
+            "ImmReleaseContext"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x53499E",
+      "inventory_id": "F:0013499E",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmIsIME",
+      "import_binding": {
+        "original_end": "0x5349A4",
+        "iat": "0x54D06C",
+        "module": "IMM32",
+        "ida_name": "ImmIsIME",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x459099"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "IsImeKeyboardLayout_459090",
+            "ImmIsIME"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x5349A4",
+      "inventory_id": "F:001349A4",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmSetOpenStatus",
+      "import_binding": {
+        "original_end": "0x5349AA",
+        "iat": "0x54D064",
+        "module": "IMM32",
+        "ida_name": "ImmSetOpenStatus",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x4590B2",
+        "0x4590C0"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeLifecycle.cpp",
+          "symbols": [
+            "ResetImeOpenStatus_4590A0",
+            "ImmSetOpenStatus"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x5349AA",
+      "inventory_id": "F:001349AA",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmGetDescriptionA",
+      "import_binding": {
+        "original_end": "0x5349B0",
+        "iat": "0x54D084",
+        "module": "IMM32",
+        "ida_name": "ImmGetDescriptionA",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x459156"
+      ],
+      "sources": [
+        {
+          "path": "src/world/RenderInput.cpp",
+          "symbols": [
+            "RenderInput_4590E0",
+            "ImmGetDescriptionA"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x5349B0",
+      "inventory_id": "F:001349B0",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmGetCompositionStringA",
+      "import_binding": {
+        "original_end": "0x5349B6",
+        "iat": "0x54D068",
+        "module": "IMM32",
+        "ida_name": "ImmGetCompositionStringA",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x45959F",
+        "0x4595C6",
+        "0x45961D",
+        "0x459640",
+        "0x459662",
+        "0x459685",
+        "0x4596AD"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/ImeComposition.cpp",
+          "symbols": [
+            "Sub_459580",
+            "ImmGetCompositionStringA"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x5349B6",
+      "inventory_id": "F:001349B6",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ImmGetCandidateListA",
+      "import_binding": {
+        "original_end": "0x5349BC",
+        "iat": "0x54D070",
+        "module": "IMM32",
+        "ida_name": "ImmGetCandidateListA",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x467821",
+        "0x467857",
+        "0x467890",
+        "0x4678C7"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "WindowProcedure",
+            "ImmGetCandidateListA"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_input_render.md"
+      ],
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+    },
+    {
+      "original_entry": "0x534A30",
+      "inventory_id": "F:00134A30",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：send",
+      "import_binding": {
+        "original_end": "0x534A36",
+        "iat": "0x54D374",
+        "module": "WSOCK32",
+        "ida_name": "__imp_send",
+        "ordinal": 19,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x5080BC",
+        "0x50FF54"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "send"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A36",
+      "inventory_id": "F:00134A36",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：closesocket",
+      "import_binding": {
+        "original_end": "0x534A3C",
+        "iat": "0x54D370",
+        "module": "WSOCK32",
+        "ida_name": "__imp_closesocket",
+        "ordinal": 3,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x507F35",
+        "0x5080E5",
+        "0x5081C6",
+        "0x5084B3",
+        "0x50852B",
+        "0x508678",
+        "0x5087AC",
+        "0x50FEAD",
+        "0x50FEF1",
+        "0x51012F"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "closesocket"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "closesocket"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A3C",
+      "inventory_id": "F:00134A3C",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：recv",
+      "import_binding": {
+        "original_end": "0x534A42",
+        "iat": "0x54D36C",
+        "module": "WSOCK32",
+        "ida_name": "__imp_recv",
+        "ordinal": 16,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x507EF7",
+        "0x510041"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "recv"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A42",
+      "inventory_id": "F:00134A42",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：__WSAFDIsSet",
+      "import_binding": {
+        "original_end": "0x534A48",
+        "iat": "0x54D368",
+        "module": "WSOCK32",
+        "ida_name": "__imp___WSAFDIsSet",
+        "ordinal": 151,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x507EC9",
+        "0x50861E",
+        "0x508652",
+        "0x50FFCC"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "FD_ISSET"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "__WSAFDIsSet"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A48",
+      "inventory_id": "F:00134A48",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：select",
+      "import_binding": {
+        "original_end": "0x534A4E",
+        "iat": "0x54D364",
+        "module": "WSOCK32",
+        "ida_name": "__imp_select",
+        "ordinal": 18,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x507EB8",
+        "0x50860A",
+        "0x50FFBB"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "select"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "select"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A4E",
+      "inventory_id": "F:00134A4E",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：WSAStartup",
+      "import_binding": {
+        "original_end": "0x534A54",
+        "iat": "0x54D360",
+        "module": "WSOCK32",
+        "ida_name": "__imp_WSAStartup",
+        "ordinal": 115,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x508150",
+        "0x50FCA8"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "WSAStartup"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A54",
+      "inventory_id": "F:00134A54",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：WSACleanup",
+      "import_binding": {
+        "original_end": "0x534A5A",
+        "iat": "0x54D35C",
+        "module": "WSOCK32",
+        "ida_name": "__imp_WSACleanup",
+        "ordinal": 116,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x5081CB",
+        "0x510134"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "WSACleanup"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A5A",
+      "inventory_id": "F:00134A5A",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：WSAGetLastError",
+      "import_binding": {
+        "original_end": "0x534A60",
+        "iat": "0x54D358",
+        "module": "WSOCK32",
+        "ida_name": "__imp_WSAGetLastError",
+        "ordinal": 111,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x5082D7",
+        "0x508317",
+        "0x5084F5",
+        "0x50FEDE"
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "WSAGetLastError"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "WSAGetLastError"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A60",
+      "inventory_id": "F:00134A60",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：connect",
+      "import_binding": {
+        "original_end": "0x534A66",
+        "iat": "0x54D354",
+        "module": "WSOCK32",
+        "ida_name": "__imp_connect",
+        "ordinal": 4,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x5084EB",
+        "0x50FED4"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "connect"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A66",
+      "inventory_id": "F:00134A66",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：gethostbyname",
+      "import_binding": {
+        "original_end": "0x534A6C",
+        "iat": "0x54D350",
+        "module": "WSOCK32",
+        "ida_name": "__imp_gethostbyname",
+        "ordinal": 52,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x508489",
+        "0x50FE9D"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "gethostbyname"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A6C",
+      "inventory_id": "F:00134A6C",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：inet_addr",
+      "import_binding": {
+        "original_end": "0x534A72",
+        "iat": "0x54D34C",
+        "module": "WSOCK32",
+        "ida_name": "__imp_inet_addr",
+        "ordinal": 10,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x508473",
+        "0x50FE8A"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "inet_addr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A72",
+      "inventory_id": "F:00134A72",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：htons",
+      "import_binding": {
+        "original_end": "0x534A78",
+        "iat": "0x54D348",
+        "module": "WSOCK32",
+        "ida_name": "__imp_htons",
+        "ordinal": 9,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x508461",
+        "0x50FE7B"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "htons"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A78",
+      "inventory_id": "F:00134A78",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：setsockopt",
+      "import_binding": {
+        "original_end": "0x534A7E",
+        "iat": "0x54D37C",
+        "module": "WSOCK32",
+        "ida_name": "__imp_setsockopt",
+        "ordinal": 21,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x50843D"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "setsockopt"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A7E",
+      "inventory_id": "F:00134A7E",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：ioctlsocket",
+      "import_binding": {
+        "original_end": "0x534A84",
+        "iat": "0x54D378",
+        "module": "WSOCK32",
+        "ida_name": "__imp_ioctlsocket",
+        "ordinal": 12,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x50841C"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "ioctlsocket"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A84",
+      "inventory_id": "F:00134A84",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：socket",
+      "import_binding": {
+        "original_end": "0x534A8A",
+        "iat": "0x54D380",
+        "module": "WSOCK32",
+        "ida_name": "__imp_socket",
+        "ordinal": 23,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x5083DD",
+        "0x50FE58"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360",
+            "socket"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+    },
+    {
+      "original_entry": "0x534A8A",
+      "inventory_id": "F:00134A8A",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：Module32Next",
+      "import_binding": {
+        "original_end": "0x534A90",
+        "iat": "0x54D09C",
+        "module": "KERNEL32",
+        "ida_name": "Module32Next",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x40438E"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProcessModules_4042D0",
+            "Module32Next"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "原跳板仅尾跳同名导入；沿现有快照/枚举调用，HANDLE与系统结构使用宿主x64布局，dwSize取本机sizeof，不复制原x86结构尺寸。结果、循环和CloseHandle仍由既有父函数负责；没有在本轮执行进程或模块枚举。"
+    },
+    {
+      "original_entry": "0x534A90",
+      "inventory_id": "F:00134A90",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：Module32First",
+      "import_binding": {
+        "original_end": "0x534A96",
+        "iat": "0x54D0A0",
+        "module": "KERNEL32",
+        "ida_name": "Module32First",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x40431A"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProcessModules_4042D0",
+            "Module32First"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "原跳板仅尾跳同名导入；沿现有快照/枚举调用，HANDLE与系统结构使用宿主x64布局，dwSize取本机sizeof，不复制原x86结构尺寸。结果、循环和CloseHandle仍由既有父函数负责；没有在本轮执行进程或模块枚举。"
+    },
+    {
+      "original_entry": "0x534A96",
+      "inventory_id": "F:00134A96",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：CreateToolhelp32Snapshot",
+      "import_binding": {
+        "original_end": "0x534A9C",
+        "iat": "0x54D0A4",
+        "module": "KERNEL32",
+        "ida_name": "CreateToolhelp32Snapshot",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x4042F5",
+        "0x4044BD"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProcessModules_4042D0",
+            "CheckProtection_4043B0",
+            "CreateToolhelp32Snapshot"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "原跳板仅尾跳同名导入；沿现有快照/枚举调用，HANDLE与系统结构使用宿主x64布局，dwSize取本机sizeof，不复制原x86结构尺寸。结果、循环和CloseHandle仍由既有父函数负责；没有在本轮执行进程或模块枚举。"
+    },
+    {
+      "original_entry": "0x534A9C",
+      "inventory_id": "F:00134A9C",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：Process32Next",
+      "import_binding": {
+        "original_end": "0x534AA2",
+        "iat": "0x54D0A8",
+        "module": "KERNEL32",
+        "ida_name": "Process32Next",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x40450C"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProtection_4043B0",
+            "Process32Next"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "原跳板仅尾跳同名导入；沿现有快照/枚举调用，HANDLE与系统结构使用宿主x64布局，dwSize取本机sizeof，不复制原x86结构尺寸。结果、循环和CloseHandle仍由既有父函数负责；没有在本轮执行进程或模块枚举。"
+    },
+    {
+      "original_entry": "0x534AA2",
+      "inventory_id": "F:00134AA2",
+      "status": "原生调用位置已映射，链接与运行未验",
+      "original_role": "平台导入跳板：Process32First",
+      "import_binding": {
+        "original_end": "0x534AA8",
+        "iat": "0x54D0AC",
+        "module": "KERNEL32",
+        "ida_name": "Process32First",
+        "ordinal": 0,
+        "kind": "有名导入"
+      },
+      "reference_sites": [
+        "0x4044E3"
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProtection_4043B0",
+            "Process32First"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "原跳板仅尾跳同名导入；沿现有快照/枚举调用，HANDLE与系统结构使用宿主x64布局，dwSize取本机sizeof，不复制原x86结构尺寸。结果、循环和CloseHandle仍由既有父函数负责；没有在本轮执行进程或模块枚举。"
+    },
+    {
+      "original_entry": "0x534AA8",
+      "inventory_id": "F:00134AA8",
+      "status": "音频暂缓，导入定位不计实现完成",
+      "original_role": "平台导入跳板：DirectSoundCreate",
+      "import_binding": {
+        "original_end": "0x534AAE",
+        "iat": "0x54D010",
+        "module": "DSOUND",
+        "ida_name": "__imp_DirectSoundCreate",
+        "ordinal": 1,
+        "kind": "序号导入"
+      },
+      "reference_sites": [
+        "0x52B007"
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ],
+      "boundary": "原52B007引用此DSOUND序号1跳板；本条只分类原导入，不恢复DirectSound、murD、52C3D0或完整音频，不把既有局部SDL音频视为该入口完整替代验收。"
     }
   ]
 }

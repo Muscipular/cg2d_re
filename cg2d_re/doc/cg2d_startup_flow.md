@@ -40,12 +40,12 @@
 | `0x4659BC` | `0x4659F0` | `ParseClientVersion` | 已实现 |
 | `0x4659C1` | `0x532E70` | `CreateSaveDirectories` | 已实现，未执行 |
 | `0x4659C6` | `0x533300` | `InitializeSavedState_533300` | 已实现，直接入口 |
-| `0x4659CB` | `0x465F00` | `ParseCommandOptions` | 函数体已实现，独立复核中；IP 依赖和一处存储仍未实现 |
+| `0x4659CB` | `0x465F00` | `ParseCommandOptions` | 本体及 ParseIpOptions_507C80 已有；完整流程未验 |
 | `0x4659D0` | `0x456050` | `resource::BuildResourcePaths` | 已实现 |
 | `0x4659D5` | `0x4669F0` | `InitializeWindow` | 已实现，详见窗口证据 |
-| `0x4659DA` | `0x457020` | `MainLoop` | 函数体已实现，独立复核中；初始化、逐帧及后端依赖仍未接通 |
+| `0x4659DA` | `0x457020` | `MainLoop` | 本体已实现；完整依赖与运行未验 |
 
-窗口类的回调 `WindowProcedure@0x466DC0` 也未实现，不用 `DefWindowProc` 空壳替代。
+窗口过程 `WindowProcedure@0x466DC0` 已有本体，ClientEntry 的 gWindowClass.lpfnWndProc 已接入；完整平台事件及渲染链仍未验收。
 原 PE 图标、光标资源尚未接入新工程。
 
 ## 光标与路径的重叠存储

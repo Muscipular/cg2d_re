@@ -240,3 +240,30 @@ DirectDraw两处原创建尝试按[SDL呈现合同](cg2d_sdl_presenter.md)已有
 图形元信息的S16宽高不能替代资源头W32解码宽高；共享读/解码区也不能改为每调用私有副本。ReadGraphicDataByIndex的核心失败仍保留已发布的目标指针，省略paletteLength时沿原局部槽，不新增重试、预清输出或容量修复。变换比较沿既定x64地址适配，不承诺原地址、树形或逐项释放序相同。
 
 本轮只登记已有本体，未修改业务、存储、图形格式、CMake或色深范围。十五条映射不等同于完整加载、像素、设备重建、资源生命周期或运行验收完成；其余R1条目继续独立处理。
+
+## 启动与场景分发命名入口
+
+2026-10-02，补齐十六个已有命名本体与原入口的对应关系。沿[入口合同](cg2d_startup_flow.md)、[窗口生命周期](cg2d_window_lifecycle.md)、[窗口过程](cg2d_window_procedure.md)、[主循环](cg2d_main_loop.md)及[场景状态](cg2d_scene_state.md)登记；这是已有源码的归属定位，不是新增十六个业务函数。
+
+| 原入口 | 当前源码/符号 | 对应边界 |
+|---|---|---|
+| 465790 | ClientEntry.cpp：WinMain | 原命令行、互斥量、updated门禁、窗口类与初始化顺序；最终0 |
+| 4659F0 | StartupCommon.cpp：ParseClientVersion | 三版本分量与sscanf完整返回 |
+| 465A20 | StartupCommon.cpp：CaptureDesktopColor | COLOR_BACKGROUND的U32保存及返回 |
+| 465A30 | WindowLifecycle.cpp：SetWindowedDesktopColor | 设置00A4A0A0；模式门禁在调用者 |
+| 465A80 | SetupIni.cpp：ReadSetupIni | A接口容量/字节，末次sprintf返回；屏幕键盘沿已批排除 |
+| 465F00 | CommandOptions.cpp：ParseCommandOptions | 既有原字段与字节解析；返回末次507C80结果 |
+| 4669F0 | WindowLifecycle.cpp：InitializeWindow | 调用后重读模式；已有/新建窗口分支；公共尾ShowWindow及UpdateWindow返回 |
+| 466D50 | WindowLifecycle.cpp：PumpWindowMessages | PM_REMOVE；WM_QUIT立即0，队列清空1 |
+| 466DC0 | WindowProcedure.cpp：WindowProcedure | 真实回调本体由gWindowClass.lpfnWndProc接入 |
+| 532E70 | StartupCommon.cpp：CreateSaveDirectories | data内0至9目录，忽略API结果，最终1；本轮未执行 |
+| 456050 | ResourcePaths.cpp：BuildResourcePaths | 先九槽六组绑定再逐槽构造；最后coordinateInfo的sprintf结果 |
+| 457020 | MainLoop.cpp：MainLoop | 真实主循环及清理本体，两个正常出口0 |
+| 51C430 | WorldUpdate.cpp：Update | pending提交顺序、原场景分发；void |
+| 51C770 | SceneState.cpp：SetCurrentSceneType | 清当前状态→写类型→返回S32类型 |
+| 51C790 | SceneState.cpp：SetCurrentSceneTypeAndState | 写当前类型→写当前状态→返回S32类型 |
+| 51C7B0 | SceneState.cpp：SetPendingSceneType | 清pending状态→写pending类型→返回S32类型 |
+
+WinMain确有本体且仍编入启动静态库；当前没有完整客户端链接目标，原PE图标和11光标资源也尚未接入。不以创建演示入口替代这条真实启动链。三个场景setter只承接原字段写入，不额外清窗、释放资源或立即提交pending。
+
+本轮同时纠正Startup.hpp接口总注释及启动文档中ParseCommandOptions、MainLoop、WindowProcedure的过时状态。WorldUpdate场景4的4626A0门禁适配仍待确认，取消加密后的网络接线仍待决，音频继续暂缓；本体及命名映射存在不等于上述依赖、最终链接或运行验收已完成。未改CMake、业务分支或待批行为。

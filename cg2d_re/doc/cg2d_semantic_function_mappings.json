@@ -4358,6 +4358,310 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "生成00RRGGBB，所有纯黑先改1，最后仅第0项清零；返回原循环最终值400H。flags不是alpha，保留非零索引黑色与透明索引0的区别。"
+    },
+    {
+      "original_entry": "0x465790",
+      "inventory_id": "F:00065790",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "原客户端入口",
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。"
+    },
+    {
+      "original_entry": "0x4659F0",
+      "inventory_id": "F:000659F0",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "客户端版本解析",
+      "sources": [
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "ParseClientVersion"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按Ver %d.%d.%d解析Ver 1.02.02，保存三个版本分量，返回sscanf完整int结果。"
+    },
+    {
+      "original_entry": "0x465A20",
+      "inventory_id": "F:00065A20",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "桌面背景色读取",
+      "sources": [
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "CaptureDesktopColor"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "GetSysColor(COLOR_BACKGROUND)的U32结果同时写共享颜色并返回；不扩大为颜色或显示模式初始化。"
+    },
+    {
+      "original_entry": "0x465A30",
+      "inventory_id": "F:00065A30",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "窗口模式背景色设置",
+      "sources": [
+        {
+          "path": "src/platform/WindowLifecycle.cpp",
+          "symbols": [
+            "SetWindowedDesktopColor"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_lifecycle.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "向COLOR_BACKGROUND设置00A4A0A0并返回SetSysColors完整int结果。模式门禁在调用者，本函数不另查模式。"
+    },
+    {
+      "original_entry": "0x465A80",
+      "inventory_id": "F:00065A80",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "配置读取及命令行改写",
+      "sources": [
+        {
+          "path": "src/platform/SetupIni.cpp",
+          "symbols": [
+            "ReadSetupIni"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_setup_ini.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留A接口、固定容量及索引255判断，命令行前缀分支保持原指针/复制顺序，最终复制到唯一共享存储并返回sprintf结果。屏幕键盘按已批排除固定为普通输入，仍读配置。"
+    },
+    {
+      "original_entry": "0x465F00",
+      "inventory_id": "F:00065F00",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "启动命令选项解析",
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseCommandOptions"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "本体及ParseIpOptions_507C80已有；保留字节查找、原共享字段和末次507C80的0/sscanf返回，入口弃置结果。完整启动及网络流程未验。"
+    },
+    {
+      "original_entry": "0x4669F0",
+      "inventory_id": "F:000669F0",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "窗口初始化",
+      "sources": [
+        {
+          "path": "src/platform/WindowLifecycle.cpp",
+          "symbols": [
+            "InitializeWindow"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_lifecycle.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按初始模式选style，设置桌面颜色后重读模式；保留已有窗口/创建窗口两路、公共尾再次ShowWindow及UpdateWindow完整返回。HWND为原生指针宽度。"
+    },
+    {
+      "original_entry": "0x466D50",
+      "inventory_id": "F:00066D50",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "窗口消息泵",
+      "sources": [
+        {
+          "path": "src/platform/WindowLifecycle.cpp",
+          "symbols": [
+            "PumpWindowMessages"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_lifecycle.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "PeekMessageA以PM_REMOVE处理整个线程消息队列；WM_QUIT立即返回0，否则Translate/Dispatch，队列清空后返回1。不是额外SDL事件循环。"
+    },
+    {
+      "original_entry": "0x466DC0",
+      "inventory_id": "F:00066DC0",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "原窗口过程",
+      "sources": [
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "WindowProcedure"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "已有消息分支本体，ClientEntry的gWindowClass.lpfnWndProc接此函数；保留原生窗口/消息参数边界，不据此判定平台事件、渲染或完整依赖已验收。"
+    },
+    {
+      "original_entry": "0x532E70",
+      "inventory_id": "F:00132E70",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "存档目录创建",
+      "sources": [
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "CreateSaveDirectories"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "依次chdir到data、格式化并mkdir目录0至9、chdir到上级；忽略API结果，最终返回1。仅登记现有本体，本轮不执行目录操作。"
+    },
+    {
+      "original_entry": "0x456050",
+      "inventory_id": "F:00056050",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "九槽资源路径构造",
+      "sources": [
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "BuildResourcePaths"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先绑定九槽六组路径指针到唯一本地存储，再逐槽依原顺序sprintf拼接目录与资源名；返回第8槽coordinateInfo末次sprintf结果，不展开资源名中的*3。"
+    },
+    {
+      "original_entry": "0x457020",
+      "inventory_id": "F:00057020",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "客户端主循环",
+      "sources": [
+        {
+          "path": "src/platform/MainLoop.cpp",
+          "symbols": [
+            "MainLoop"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "已有初始化、消息泵、逐帧处理及清理本体，两个正常出口均返回0；调用唯一world::Update，不另复制场景switch。依赖、音频、最终链接和运行仍未闭合。"
+    },
+    {
+      "original_entry": "0x51C430",
+      "inventory_id": "F:0011C430",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "场景更新分发",
+      "sources": [
+        {
+          "path": "src/world/WorldUpdate.cpp",
+          "symbols": [
+            "Update"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先提交非负pending类型并清pending类型为-1，保留共享状态及原场景分发表顺序；接口为void。场景4的4626A0入口门禁适配仍待确认，不以已有本体记全链闭合。"
+    },
+    {
+      "original_entry": "0x51C770",
+      "inventory_id": "F:0011C770",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "当前场景类型设置",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "SetCurrentSceneType"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先清当前状态，再写当前类型，返回输入S32类型；不附加清窗或资源释放。"
+    },
+    {
+      "original_entry": "0x51C790",
+      "inventory_id": "F:0011C790",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "当前场景类型及状态设置",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "SetCurrentSceneTypeAndState"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先写当前类型，再写当前状态，返回输入S32类型；不合并两个共享字段或增加场景动作。"
+    },
+    {
+      "original_entry": "0x51C7B0",
+      "inventory_id": "F:0011C7B0",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "original_role": "待提交场景类型设置",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "SetPendingSceneType"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先清待提交状态，再写待提交类型，返回输入S32类型；不立即改当前场景。"
     }
   ]
 }

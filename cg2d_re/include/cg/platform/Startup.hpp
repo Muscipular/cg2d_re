@@ -60,7 +60,7 @@ int InitializeWindow();                   // 原 WndInit@0x4669F0；保留末次
 int PumpWindowMessages();                 // 原 0x466D50，WM_QUIT 返回 0，否则 1。
 int RestoreCurrentSavedState_5201B0();    // 原 0x5201B0；按固定顺序恢复当前保存记录。
 
-// 原入口的真实依赖；当前仅声明，不提供空实现，因而尚不能链接完整客户端。
+// 原入口所用初始化与主循环接口已有本体；完整客户端仍受其他待决依赖及链接验收限制。
 int InitializeSavedState_533300();        // 原 0x533300，正常返回 1；入口忽略结果。
 int ParseCommandOptions();                // 原 0x465F00；返回末次 0x507C80 的 0/sscanf 结果，入口忽略。
 int MainLoop();                           // 原 0x457020；两个正常出口的 EAX 均为 0。

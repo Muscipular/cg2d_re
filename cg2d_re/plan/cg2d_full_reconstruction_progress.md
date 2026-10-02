@@ -1385,3 +1385,10 @@ hover框、返回按钮及关闭/返回/行提示按原序，每次绘制重取�
 - 明确fgetpos失败仍先写回64位结果、setvbuf先释放旧缓冲再分配、文本宽读取尾EOF尝试回推首字节、字符串ungetc同字节限制，以及底层seek错误分支和旧setmode仅两模式。
 - 宿主参数校验、calloc、扩展文本模式和SetFilePointerEx差异保留；不建旧FILE/fd影子表、不增加LastError重置/恢复缓冲等原无行为，不应用待批CRT提案。源码/CMake未改。
 - semantic records550、pending_records18、分类引用4；新增ID/计数/文档、旧记录保持及UTF-8/LF静态核对完成。未构建、查产物、新增或执行测试、运行文件/字符样例/客户端或哈希校验；总PLAN继续。
+
+### 2026-10-03：登录回复接回旧时间兼容层
+
+- 按[局部SPEC](../doc/cg2d_network_runtime.md#登录回复接回旧时间共享状态-spec2026-10-03)修复508800成功回复：原50883D/508847同址传参，508856保存返回指针；此前宿主time/localtime绕过既有旧时间共享状态。
+- NetworkRuntime改用ReadLegacyTime32_53BA26直接写原S32槽，随后以同址调用LocalTime_53B8C6；返回槽改为LegacyTm53B8C6*借用已有共享九槽对象。不加失败门禁、时间副本、owner或宽数值。
+- 原请求/回复状态、协议模式、whV分派、文字/保护表处理及失败busy分支保持；复用已有头声明和真实定义，时间层本体/CMake不改，不应用待批CRT宿主提案。
+- 集中静态检查确认源码仅三处预期差异（移除ctime、指针类型、两调用），同址/顺序及分派保持；当前src/include已无std::time/localtime/gmtime或std::tm消费。UTF-8无BOM/LF及差异检查通过；未构建、查产物、新增或执行测试、运行客户端或哈希校验，完整网络和总PLAN未验收。

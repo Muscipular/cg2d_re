@@ -35,7 +35,6 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <ctime>
 #include <exception>
 #include <string>
 #include <tuple>
@@ -87,7 +86,7 @@ struct NetworkRuntimeState {
     std::array<std::uint8_t, 12> protocolState593FC4;
     std::uint16_t protocolModeDA3B22;
     std::int32_t time62B394; // 原 __time32_t，独立于 0xDA3B28 回复码。
-    std::tm* localTime62B380; // 原 W32 指针槽，x64 承接本机指针。
+    platform::LegacyTm53B8C6* localTime62B380; // 原 W32 指针槽，借用旧时间层的共享九槽对象。
     NetworkCallback callback; // 原 0x58B5E8。
     std::uint32_t bufferLength;
     std::uint8_t* buffer58B5F0;
@@ -811,12 +810,10 @@ void HandleResponse_508800(
     }
 
     gNetworkRuntimeState.protocolModeDA3B22 = 1;
-    gNetworkRuntimeState.time62B394 =
-        static_cast<std::int32_t>(std::time(nullptr));
-    const std::time_t localTimeArgument =
-        static_cast<std::time_t>(gNetworkRuntimeState.time62B394);
+    static_cast<void>(platform::ReadLegacyTime32_53BA26(
+        &gNetworkRuntimeState.time62B394));
     gNetworkRuntimeState.localTime62B380 =
-        std::localtime(&localTimeArgument);
+        platform::LocalTime_53B8C6(&gNetworkRuntimeState.time62B394);
 
     const char* const separator = std::strstr(text, "|");
     std::memset(

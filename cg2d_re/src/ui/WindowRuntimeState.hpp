@@ -1334,6 +1334,21 @@ extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030
 extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原字节提示的借用指针表。
 extern const std::array<const char*, 20> gTribeNames57CB54; // 后八项共用585C50原字节串。
 const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
+// 原ND六行分立列的只读非拥有视图；count必须在原循环边界重读，不复制成新记录。
+struct LegacySkillStatusView {
+    const std::int32_t* count; // C8AA94。
+    const std::array<char, 17>* names; // CC4670。
+    const std::int32_t* levels; // CC31C0。
+    const std::int32_t* injuries; // D67600。
+    const std::int32_t* hp; // CC318C。
+    const std::int32_t* maxHp; // D66C1C。
+    const std::int32_t* fp; // CC2348。
+    const std::int32_t* maxFp; // D2EA80。
+    const std::int32_t* kinds; // CA0A78。
+    const std::int32_t* targets; // CF3FD0。
+};
+LegacySkillStatusView BorrowLegacySkillStatusView() noexcept; // 借4EF750已有唯一owner，地址拓宽，数值仍S32。
+
 std::int32_t ReadLegacyHealthImage(std::int32_t health); // 复用519680分级与57CBA4图号表。
 extern std::array<std::int32_t, 6> gSelectedSlotsCA0A90;
 extern std::array<std::int32_t, 6> gMaterialIndicesCA0458;

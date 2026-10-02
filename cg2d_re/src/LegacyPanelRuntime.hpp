@@ -131,6 +131,7 @@ YobiAction* Sub_4D6A30(); // 旧56预览初始化，沿旧55同源图号/预览�
 std::uintptr_t Sub_4D6A60(std::int32_t opened); // 旧56技能学习，两个按钮均发送，关闭返回T*。
 YobiAction* Sub_4D6E70(); // 旧57预览初始化，沿旧55/56同源工厂与T*槽。
 std::uintptr_t Sub_4D6EA0(std::int32_t opened); // 旧57技能遗忘，十五行/99取消及相邻页号门禁。
+std::uint32_t Sub_4EFB70(std::int32_t opened); // 旧36属性目标，沿ND六行共享状态及原关闭请求。
 YobiAction* Sub_4D91E0(); // 旧63独立图号预览，发布D67C6C。
 std::uintptr_t Sub_4D9220(std::int32_t opened); // 旧63买入列表，正常返回相对悬停W32，关闭返回预览指针。
 void Sub_4DA400(std::int32_t x, std::int32_t y, std::int32_t index,

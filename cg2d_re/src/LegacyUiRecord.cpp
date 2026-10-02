@@ -272,6 +272,21 @@ constexpr char kLegacySkillForgetTotal588C48[] = "\xB2\x7B\xA6\x62\xA7\xDE\xAF\x
 constexpr char kLegacySkillForgetCancelHint588C38[] = "\xB0\xB1\xA4\xEE\xA7\xD1\xB0\x4F\xA7\xDE\xAF\xE0\xA1\x43";
 constexpr char kLegacySkillForgetRowHint588C28[] = "\xA7\xD1\xB0\x4F\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
 
+LegacyPanelRecord gLegacySkillStatusPanel583C90 {
+    64, 108, 512, 240, 36, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacySkillStatusPrompt589B58[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xA8\xCF\xA5\xCE\xB9\xEF\xB6\x48\xA1\x43";
+constexpr char kLegacySkillStatusHeader589B2C[] = "\xB0\xB7\xB1\x64\x20\x20\xB5\xA5\xAF\xC5\x20\xA9\x6D\xA6\x57\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\xA5\xCD\xA9\x52\x20\x20\x20\x20\x20\x20\xC5\x5D\xA4\x4F";
+constexpr char kLegacySkillStatusCancelTransform589B20[] = "\xB0\xB1\xA4\xEE\xC5\xDC\xB8\xCB\xA1\x43";
+constexpr char kLegacySkillStatusCancelDisguise589B14[] = "\xB0\xB1\xA4\xEE\xC5\xDC\xA8\xAD\xA1\x43";
+constexpr char kLegacySkillStatusCancelRestore589B08[] = "\xB0\xB1\xA4\xEE\xAB\xE6\xB1\xCF\xA1\x43";
+constexpr char kLegacySkillStatusCancelHeal589AFC[] = "\xB0\xB1\xA4\xEE\xAA\x76\xC0\xF8\xA1\x43";
+constexpr char kLegacySkillStatusTransform589AEC[] = "\xC5\xDC\xB8\xCB\xA6\xA8\xA6\xB9\xA8\xA4\xA6\xE2\xA1\x43";
+constexpr char kLegacySkillStatusDisguise589ADC[] = "\xC5\xDC\xA8\xAD\xA6\xA8\xA6\xB9\xC3\x64\xAA\xAB\xA1\x43";
+constexpr char kLegacySkillStatusSelf589ACC[] = "\xB4\xC0\xA6\xDB\xA4\x76\xC0\xF8\xB6\xCB\xA1\x43";
+constexpr char kLegacySkillStatusPet589AB8[] = "\xB4\xC0\xB3\x6F\xAD\xD3\xC3\x64\xAA\xAB\xC0\xF8\xB6\xCB\xA1\x43";
+constexpr char kLegacySkillStatusPerson589AA8[] = "\xB4\xC0\xA6\xB9\xA4\x48\xC0\xF8\xB6\xCB\xA1\x43";
+
 LegacyPanelRecord gLegacyBuyPanel5823A0 {
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -2010,6 +2025,144 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacySkillForgetRowHint588C28);
     }
     return Sub_503440(&gLegacySkillForgetPanel581EF0, 1);
+}
+
+std::uint32_t Sub_4EFB70(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacySkillStatusPanel583C90.x;
+    const std::int32_t y = gLegacySkillStatusPanel583C90.y;
+    const character_select::detail::CharacterModalUiRecord cancel {
+        x + 169, y + 202, x + 167, y + 202, 57, 18, kLegacyItemUseCancel589008,
+    };
+    const character_select::detail::CharacterModalUiRecord previous {
+        x + 289, y + 202, x + 287, y + 202, 57, 18, kLegacyDialogButton58597C,
+    };
+    const std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    const std::uint32_t state = static_cast<std::uint32_t>(
+        Sub_503160(opened, &gLegacySkillStatusPanel583C90, nullptr, 0));
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::uint8_t pending = gLegacySkillPendingD67C48;
+        if (pending != 0) {
+            gLegacySkillPendingD67C48 = 0;
+            return pending; // 原mov AL高W24来自状态2，均为0；保留原字节值。
+        }
+        const std::uint8_t flag = ui::detail::gValue5F9754;
+        if (flag == 0) {
+            return 0;
+        }
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        const std::uint32_t result = std::bit_cast<std::uint32_t>(
+            network::Sub_511DD0(socket, playerX, playerY, 62));
+        ui::detail::gValue5F9754 = 0;
+        return result;
+    }
+    const auto rows = ui::detail::BorrowLegacySkillStatusView();
+    std::int32_t hovered = -1;
+    for (std::int32_t index = 0; index < *rows.count; ++index) {
+        const std::int32_t top = gLegacySkillStatusPanel583C90.y + 20 * index + 74;
+        const std::int32_t left = gLegacySkillStatusPanel583C90.x + 44;
+        if (Sub_5049A0(left, top, left + 424, top + 20, -1) != 0) {
+            hovered = index;
+            break;
+        }
+    }
+    const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
+    const std::int32_t previousState = character_select::detail::Sub_503990(&previous);
+    char buffer[128];
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
+        buffer[0] = '\0';
+        std::strcpy(ui::detail::gSkillTargetNameD2F748.data(), rows.names[hovered].data());
+        cg::NullSub_509080(); // 原只ret，传入的缓冲指针不被消费。
+        const std::int32_t target = rows.targets[hovered];
+        const std::int32_t level = ui::detail::ReadSkillRequestD64E13();
+        const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+        const auto socket = platform::gConnectionSocket;
+        const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+        static_cast<void>(network::Sub_511EF0(socket, skill, level, target, buffer));
+        static_cast<void>(audio::Sub_5042D0(gLegacySkillStatusPanel583C90.id));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+        gLegacySkillPendingD67C48 = 1;
+    } else if ((cancelState & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacySkillStatusPanel583C90.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if ((previousState & 1) != 0) {
+        const std::int32_t pair = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+        const auto socket = platform::gConnectionSocket;
+        const std::int32_t skill = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[pair].index);
+        static_cast<void>(network::Sub_511C30(socket, skill));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        gLegacySkillPendingD67C48 = 1;
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacySkillStatusPanel583C90.y + offsetY;
+        const std::int32_t left = gLegacySkillStatusPanel583C90.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
+    };
+    drawAt(kLegacySkillStatusPrompt589B58, 172, 24, 4);
+    drawAt(kLegacySkillStatusHeader589B2C, 44, 50, 0);
+    for (std::int32_t index = 0; index < *rows.count; ++index) {
+        std::sprintf(buffer, "%3d", rows.levels[index]);
+        drawAt(buffer, 107, 76 + 20 * index, 0);
+        std::sprintf(buffer, "%-16s", rows.names[index].data());
+        const std::int8_t color = std::bit_cast<std::int8_t>(
+            static_cast<std::uint8_t>(colors[rows.kinds[index]]));
+        drawAt(buffer, 143, 76 + 20 * index, color);
+        const std::int32_t maxFp = rows.maxFp[index];
+        const std::int32_t fp = rows.fp[index];
+        const std::int32_t maxHp = rows.maxHp[index];
+        const std::int32_t hp = rows.hp[index];
+        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        drawAt(buffer, 296, 76 + 20 * index, 0);
+        const std::int32_t image = ui::detail::ReadLegacyHealthImage(rows.injuries[index]);
+        const std::int32_t imageY = gLegacySkillStatusPanel583C90.y + 20 * index + 84;
+        const std::int32_t imageX = gLegacySkillStatusPanel583C90.x + 70;
+        static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
+    }
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&previous, 2, 4, 1, gValueD69768, 218));
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacySkillStatusPanel583C90.y + 20 * hovered + 74;
+        const std::uint32_t image = gValueD69768;
+        const std::int32_t left = gLegacySkillStatusPanel583C90.x + 44;
+        DrawGraphicHover(Low16(left), Low16(top), Low16(left + 424), Low16(top + 20), 218, image, 0);
+    }
+    const char* hint = nullptr;
+    if ((cancelState & 0x40) != 0) {
+        switch (ui::detail::gSkillTargetKindCF4A10) {
+        case 0: hint = kLegacySkillStatusCancelTransform589B20; break;
+        case 1: hint = kLegacySkillStatusCancelDisguise589B14; break;
+        case 2: hint = kLegacySkillStatusCancelRestore589B08; break;
+        case 3: hint = kLegacySkillStatusCancelHeal589AFC; break;
+        }
+    } else if (hovered >= 0) {
+        const std::int32_t mode = ui::detail::gSkillTargetKindCF4A10;
+        const std::int32_t kind = rows.kinds[hovered];
+        switch (mode) {
+        case 0: hint = kLegacySkillStatusTransform589AEC; break;
+        case 1: hint = kLegacySkillStatusDisguise589ADC; break;
+        case 2:
+        case 3:
+            if (kind == 0) {
+                hint = kLegacySkillStatusSelf589ACC;
+            } else if (kind == 1 || kind == 2) {
+                hint = kLegacySkillStatusPerson589AA8;
+            } else if (kind == 4 || kind == 5 || kind == 6) {
+                hint = kLegacySkillStatusPet589AB8;
+            }
+            break;
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacySkillStatusPanel583C90, 0);
 }
 
 YobiAction* Sub_4D91E0()

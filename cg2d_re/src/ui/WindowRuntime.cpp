@@ -1577,6 +1577,14 @@ const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept
     return reinterpret_cast<const std::byte*>(gHealingDialogRecordsD672F0.data());
 }
 
+LegacySkillStatusView BorrowLegacySkillStatusView() noexcept
+{
+    return {&gSkillStatusCountC8AA94, gSkillStatusNamesCC4670.data(), gSkillStatusLevelsCC31C0.data(),
+        gSkillStatusInjuriesD67600.data(), gSkillStatusHpCC318C.data(), gSkillStatusMaxHpD66C1C.data(),
+        gSkillStatusFpCC2348.data(), gSkillStatusMaxFpD2EA80.data(), gSkillStatusKindsCA0A78.data(),
+        gSkillStatusTargetsCF3FD0.data()};
+}
+
 std::int32_t ReadLegacyHealthImage(const std::int32_t health)
 {
     return gHealthImages57CBA4[Sub_519680(health)];

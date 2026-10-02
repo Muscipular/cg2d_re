@@ -1,15 +1,12 @@
 #include "LegacyRuntimeExit.hpp"
 #include "LegacyRuntimeError.hpp"
+#include "LegacyStdio.hpp"
 #include "cg/platform/LegacyMemory.hpp"
 #include "StartupNative.hpp"
 
 #include <cstddef>
 
 namespace cg::platform {
-
-// 原FILE依赖尚无本体；不以宿主FILE清理代替。
-std::int32_t FlushAllLegacyStreams_53BB99();
-std::int32_t CloseAllLegacyStreams_5446AD();
 
 std::uint8_t gLegacyRuntimeExitCallable1086020 = 0;
 std::int32_t gLegacyRuntimeExitStarted1086024 = 0;

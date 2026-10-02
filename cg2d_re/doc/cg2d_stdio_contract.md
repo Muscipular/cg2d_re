@@ -850,3 +850,71 @@ uflow缓冲命中时先Gninc，再读取原游标；无FILE失败，无转换器
 静态核对新增稳定ID/地址、647指令/八虚表引用、原记录保持及JSON/UTF-8/LF；
 未构建、查产物、新增或执行测试、运行读写/转换样例、客户端或哈希校验。
 不将本体取证计为父应用、字符转换或完整标准流运行通过。
+
+## 原FILE存储、清理及描述符关闭实施 SPEC（2026-10-03）
+
+CRT宿主总提案未获批准，本节将退出所需的旧FILE本体逐步落地；
+此前“仅宿主职责关联、不建旧表”不作为本组新实现的口径。新增LegacyStdio及
+LegacyLowIo内部模块，承载唯一映射到原地址的状态，不从宿主FILE拷贝内部布局。
+现有业务std::FILE消费者仍待整体迁移，不将两种对象混用，也不将新表空闲状态
+算作当前业务资源已被清理。
+
+### 存储、初始化与分配
+
+原FILE的32B八字段依序为current指针、S32 remaining、base指针、W32 flags、
+S32 descriptor、S32 characterBuffer、S32 bufferSize、临时文件名指针。
+只拓宽三个指针，新布局偏移0/8/16/24/28/32/36/40、大小48，以静态断言约束。
+原20个静态FILE中，首项current/base指向1086AE0的4096B虚拟零缓冲，
+flags=101H、fd=0、bufferSize=1000H；第二/三项flags=2、fd=1/2，其他字皆0。
+新端以真实字符数组及原生指针保留，不将stdin初值改成空或动态分配。
+
+1086AC4为FILE**，1087AE0为S32表上限，108603C为W32累计计数，均虚拟零。
+53E9A5按原顺序将上限0改512、小于20改20，调用准确声明53BFF8 calloc；
+失败发布空、改上限20重试，仍失败走已实现错误26。随后逐槽重读共享表指针，
+填入20个静态FILE；再直读底层fd0/1/2句柄，只有-1或0才把FILE.fd写-1。
+53BFF8仍未实现，不以未经批准的宿主calloc或Malloc+清零伪装原分配失败语义。
+
+53F848从0扫描一次采样的上限/表，遇空槽用已批准Malloc分配sizeof(FILE)，
+API后通过重读的全局表发布并取回；失败返空。选中槽只依原顺序写fd=-1、
+remaining=0、flags=0、base/current/tempName为空，不清characterBuffer或bufferSize。
+544815先增加累计计数，Malloc(4096)并发布base；失败OR标志4、改借本FILE的
+characterBuffer前2字节，成功OR标志8/容量4096；末尾count=0、current=base，
+不加内存不足早退、补零或互斥清标志。
+
+### 全流与单流清理
+
+53BB99固定调用53BBA2(1)。后者每轮重读上限和表；活动条件flags&83H，
+mode1按fflush非-1累计成功数，mode0只刷写流并累计错误-1，其他模式不刷新。
+5446AD从3遍历，活动流fclose非-1才加计数；索引>=20的非空槽即使关闭失败
+也经已批准Free释放，并在返回后重读全局表清槽。静态3..19不释放存储。
+
+53BB02非空先flush，非0转-1；成功且commit位4000H才调用541222并将非0归一为-1。
+53BB3D仅写方向且有108H缓冲标志、current-base的S32字节数>0才写；
+短写置20H并返-1，写满且80H置位才清写位2；公共尾始终重读base、清count、重置current。
+541279底层write保留准确声明、尚未实现，不以宿主_write操作另一张描述符表。
+53F38F只释放活动且8位缓冲，返回后只清flags的8/400位及current/base/count。
+53B1D0字符串流直接-1并清flags；其他活动流依序flush/freebuf/close，
+关闭失败结果改-1，成功才释放并清临时文件名；最后清flags。不修复原失败顺序。
+
+### 原生句柄表、commit与close
+
+10869C0..1086AC0为64个组指针，每组32个原8B描述符；
+HANDLE拓宽后每项16B，flags/管道暂存字节/未解释2字节保留，其他只作对齐填充。
+组指针和1086AC0容量沿虚拟零合同；53F52D真实分配/继承生产仍未实现，
+不借宿主描述符、不为无生产的表增加假条目或容错默认句柄。
+原生Win32类型只在内部LegacyLowIo边界出现。
+
+543897先U32 fd与容量比较、再读FOPEN；非法清DOS错误、写errno9并返HANDLE -1。
+54381D要求有效/打开且句柄非-1；应用类型1且fd0/1/2才SetStdHandle(对应号,null)，
+不检查返回；之后重读组指针将句柄改-1，保留flags。非法同样清DOS错误、errno9/-1。
+541222验证失败只写errno9/-1、不清旧DOS错误；FlushFileBuffers失败后
+GetLastError若为0仍返回0，非0才写DOS错误及errno9，不能改为通用错误映射。
+
+53D30A有效流先get_osfhandle；fd1/2依序读2再读1，句柄相等则跳系统关闭。
+其他有效句柄再次get后CloseHandle；失败保存GetLastError。
+随后无论关闭结果均调用54381D，并重读组指针清flags；保存错误非0才调用现有
+MapLegacyFileError_542F44并返-1，否则0。不预清成功路径的errno、不吞失效分支副作用。
+
+本步接回退出模块原全流刷新/关闭两项声明；低层write、calloc、lowio生产、
+fopen/openfile及业务FILE迁移仍未完成。只作静态核对，不构建/测试、读写文件、
+关闭句柄、运行客户端或哈希校验，不宣称完整FILE或退出验收。

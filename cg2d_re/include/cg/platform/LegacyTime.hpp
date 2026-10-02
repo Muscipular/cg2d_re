@@ -7,6 +7,9 @@ namespace cg::platform {
 
 // 原1085FE0共享S32错误槽；文件查询/目录创建或切换写入，截图读取17判断目录已存在。
 extern std::int32_t gLegacyErrno_1085FE0;
+extern std::uint32_t gLegacyDosError_1085FE4; // 原系统错误槽，关闭/提交分别按原合同写入。
+// 原542F44；复用已有错误表及共享槽，返回原表尾关联值，不另建错误映射。
+std::uintptr_t MapLegacyFileError_542F44(std::uint32_t code);
 
 // 原53DA45/53DA5C；S32解析，end借用原字节游标，失败/溢出沿旧共享错误槽。
 std::int32_t Strtol_53DA45(const char* text, char** endPointer, std::int32_t radix);

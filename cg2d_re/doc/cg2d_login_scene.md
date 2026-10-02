@@ -684,3 +684,49 @@ ReadNegativeSelectionAvailability仍须对20个真实宿主字节逐项确认own
 负分类读取继续保留独立缺口：D68AC6的owner和链接表示差异尚需闭合；不以补零、固定可用或当前链接编号替代。
 
 2026-10-02后续定位确认LegacyCryptInt.hpp将legacyVftToken显式保留为原W32数值，LegacyMouseState的mouseY偏移为10H，构造/析构写54D3A0，CopyPayload只写载荷，而ResetLegacyMouseState_506870会清零整个鼠标状态（包含token）。因此D68D09读取应取现有token第1字节，不应直接硬编码D3；本项仅闭合存储定位，暂不新增孤立借用接口。D68AC6位于D68ABC计时值之后、D68AC8伴随值之前；对D68A78..D68AE8的当前item及直接xref定位未发现其owner，不将邻近变量或无xref当作归属/恒零证明。
+
+## 登录标题与密码过期说明原字节 SPEC（2026-10-03）
+
+按已批准的[文本编码SPEC](cg2d_text_encoding_spec.md)，本轮补齐LoginScene中仍以
+UTF-8字面量保存的标题和密码过期说明。读取当前已打开IDA的已加载原始字节，
+不使用IDA解码后的字符串显示作为字节证据，不按代码页名称重新编码中文。
+
+### 标题生产与消费者
+
+- 原WindowName@559384正文为C5 5D A4 4F C4 5F A8 A9，含NUL共9B。
+  45FEC9、4600FD/46011F、460958、4609AF均把该串送入标题格式化。
+- 559958起25个64B分类槽的正文与本文既有“25个分类标题的原字节正文”表逐项一致；
+  新端保留25项指针表，只把各正文改为明确字节。原64B索引已由CategoryTitle转换，
+  不恢复跨对象取址，不改group25..39既有相邻字节视图，也不改20个ASCII服务器标号。
+- 55CD18特殊格式正文为25 73 20 25 73 20 5B B0 66 20 25 73 5D；
+  槽9仍先格式化普通标题，再覆盖为该特殊标题。“逆”保留原B0 66两个字节。
+  基础和普通服务器格式仍为ASCII，版本7.1.00保持。
+- SetBaseWindowTitle/SetServerWindowTitle仍使用同一256B调用方缓冲和既有snprintf，
+  随后原样交SetLegacyWindowText→SetWindowTextA；不新增UTF-8转换、不迁移API，
+  不指定猜测的代码页。各已证标题常量在现有容量内，不借本轮改变历史格式化适配。
+
+### 密码过期回复链
+
+原case23在4607F1读取55CAE4，4607FB先置URL标志，46080B清W16回复码，
+460815..460824将含NUL正文复制到9A60F0。原正文139B、含唯一NUL共140B，
+五个LF位置保持；六段长度依次16/26/32/30/30/0，最后一段为空。
+
+原始正文（不含末尾NUL）：
+
+```text
+BF CB B7 52 AA BA AA B1 AE 61 B1 7A A6 6E A1 47 0A A5 D1 A9 F3 B1 7A AA BA B9 43 C0 B8 B1 4B BD 58 A4 77 B8 67 B9 4C B4 C1 A1 41 0A BD D0 B5 6E A4 4A A4 6A A6 74 B7 7C AD FB A8 74 B2 CE A7 F3 B4 AB B9 43 C0 B8 B1 4B BD 58 A1 41 0A BD D0 A9 77 B4 C1 A7 F3 B4 AB B1 4B BD 58 A5 48 BD 54 AB 4F B1 62 B8 B9 A6 77 A5 FE A1 43 0A C2 49 C0 BB BD 54 A9 77 A1 41 B1 4E AB 65 A9 B9 53 4F 46 54 53 54 41 52 BA F4 AD B6 A1 43 0A
+```
+
+新端kPasswordExpiredMessage改为上述字节，以sizeof==140断言固定合同；既有CopyText
+仍只复制正文及NUL到260B共享消息缓冲，不清剩余120B，不改变URL标志/回复码写序。
+后续UpdateLoginMessage仍复制到256B局部区并按LF分行，再沿既有TextMeasure和
+文字入队路径消费原字节；本轮不改测宽、分行、布局、绘制或关闭/打开URL流程。
+该静态文本不等同Multiline标记，不改账号说明和机码说明的其他共享行。
+
+### 实施与核对边界
+
+只修改上述常量及特殊格式中的两字节，保留全部业务控制流。集中静态核对IDA原字节、
+NUL/长度/LF、25项顺序、实际使用位置和源码限定差异；不执行客户端或格式化/布局样例。
+本文早期“新端标题文本使用UTF-8”描述的是修复前状态，此增量覆盖该状态描述。
+本轮不证明目标系统ANSI显示一致，也不将标题与说明修复算完整登录运行验收。
+不构建、检查产物、新增或执行测试、计算或比对哈希；总SPEC和总索引不例行刷新。

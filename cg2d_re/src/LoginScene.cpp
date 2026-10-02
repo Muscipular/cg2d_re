@@ -23,7 +23,9 @@
 
 namespace {
 
-constexpr char kWindowName[] = "魔力寶貝";
+// 原559384窗口标题正文8B；保持SetWindowTextA消费的原字节。
+constexpr char kWindowName[] = "\xC5\x5D\xA4\x4F\xC4\x5F\xA8\xA9";
+static_assert(sizeof(kWindowName) == 9);
 constexpr char kVersion[] = "7.1.00";
 constexpr char kPasswordExpiredUrl[] = "http://www.softstar.com.tw/Game/Index.aspx";
 
@@ -174,19 +176,42 @@ static_assert(sizeof(kMachineCode1) == 17);
 static_assert(sizeof(kMachineCode2) == 35);
 static_assert(sizeof(kMachineCode3) == 33);
 
+// 原55CAE4密码过期说明：139B正文含五个LF，字面量仅追加末尾NUL。
 constexpr char kPasswordExpiredMessage[] =
-    "親愛的玩家您好：\n"
-    "由於您的遊戲密碼已經過期，\n"
-    "請登入大宇會員系統更換遊戲密碼，\n"
-    "請定期更換密碼以確保帳號安全。\n"
-    "點擊確定，將前往SOFTSTAR網頁。\n";
+    "\xBF\xCB\xB7\x52\xAA\xBA\xAA\xB1\xAE\x61\xB1\x7A\xA6\x6E\xA1\x47\x0A"
+    "\xA5\xD1\xA9\xF3\xB1\x7A\xAA\xBA\xB9\x43\xC0\xB8\xB1\x4B\xBD\x58\xA4\x77\xB8\x67\xB9\x4C\xB4\xC1\xA1\x41\x0A"
+    "\xBD\xD0\xB5\x6E\xA4\x4A\xA4\x6A\xA6\x74\xB7\x7C\xAD\xFB\xA8\x74\xB2\xCE\xA7\xF3\xB4\xAB\xB9\x43\xC0\xB8\xB1\x4B\xBD\x58\xA1\x41\x0A"
+    "\xBD\xD0\xA9\x77\xB4\xC1\xA7\xF3\xB4\xAB\xB1\x4B\xBD\x58\xA5\x48\xBD\x54\xAB\x4F\xB1\x62\xB8\xB9\xA6\x77\xA5\xFE\xA1\x43\x0A"
+    "\xC2\x49\xC0\xBB\xBD\x54\xA9\x77\xA1\x41\xB1\x4E\xAB\x65\xA9\xB9\x53\x4F\x46\x54\x53\x54\x41\x52\xBA\xF4\xAD\xB6\xA1\x43\x0A";
+static_assert(sizeof(kPasswordExpiredMessage) == 140);
 
+// 原559958起25个64B槽的NUL前正文；这里只保存原字节串，索引仍由CategoryTitle承接。
 constexpr std::array<const char*, 25> kCategoryTitles {
-    "卡蓮", "金牛座", "雙子座", "香港", "獅子座",
-    "處女座", "天秤座", "歌姬", "櫻之舞", "摩羯座",
-    "水瓶座", "雙魚座", "香港", "測試", "九龍",
-    "卡蓮", "金牛座", "露比", "香港", "獅子座",
-    "處女座", "露比", "心美", "露比", "心美",
+    "\xA5\x64\xBD\xAC", // 0x559958 卡蓮
+    "\xAA\xF7\xA4\xFB\xAE\x79", // 0x559998 金牛座
+    "\xC2\xF9\xA4\x6C\xAE\x79", // 0x5599D8 雙子座
+    "\xAD\xBB\xB4\xE4", // 0x559A18 香港
+    "\xB7\xE0\xA4\x6C\xAE\x79", // 0x559A58 獅子座
+    "\xB3\x42\xA4\x6B\xAE\x79", // 0x559A98 處女座
+    "\xA4\xD1\xAF\xAF\xAE\x79", // 0x559AD8 天秤座
+    "\xBA\x71\xAE\x56", // 0x559B18 歌姬
+    "\xC4\xE5\xA4\xA7\xBB\x52", // 0x559B58 櫻之舞
+    "\xBC\xAF\xBD\x7E\xAE\x79", // 0x559B98 摩羯座
+    "\xA4\xF4\xB2\x7E\xAE\x79", // 0x559BD8 水瓶座
+    "\xC2\xF9\xB3\xBD\xAE\x79", // 0x559C18 雙魚座
+    "\xAD\xBB\xB4\xE4", // 0x559C58 香港
+    "\xB4\xFA\xB8\xD5", // 0x559C98 測試
+    "\xA4\x45\xC0\x73", // 0x559CD8 九龍
+    "\xA5\x64\xBD\xAC", // 0x559D18 卡蓮
+    "\xAA\xF7\xA4\xFB\xAE\x79", // 0x559D58 金牛座
+    "\xC5\x53\xA4\xF1", // 0x559D98 露比
+    "\xAD\xBB\xB4\xE4", // 0x559DD8 香港
+    "\xB7\xE0\xA4\x6C\xAE\x79", // 0x559E18 獅子座
+    "\xB3\x42\xA4\x6B\xAE\x79", // 0x559E58 處女座
+    "\xC5\x53\xA4\xF1", // 0x559E98 露比
+    "\xA4\xDF\xAC\xFC", // 0x559ED8 心美
+    "\xC5\x53\xA4\xF1", // 0x559F18 露比
+    "\xA4\xDF\xAC\xFC", // 0x559F58 心美
 };
 
 // 原 25 项标题表之后，group 25..39 会按 64 字节步长继续读取相邻映像。
@@ -374,7 +399,7 @@ void SetServerWindowTitle(
         std::snprintf(
             buffer,
             sizeof(buffer),
-            "%s %s [逆 %s]",
+            "%s %s [\xB0\x66 %s]", // 原55CD18，特殊标题中的“逆”保留两字节。
             kWindowName,
             kVersion,
             category);

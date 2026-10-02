@@ -1875,6 +1875,207 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原唯一直接callsite522734传入相同end作为源起止，执行零次复制并返回目标start，随后原集合end回到start；当前退出由容器析构回收存储，不添加额外载荷复制。"
+    },
+    {
+      "original_entry": "0x401D10",
+      "inventory_id": "F:00001D10",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "CryptInt与整数不等",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Read_401EC0"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckProtection_4043B0"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_449400",
+            "Sub_449A00"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "Read_401EC0后与整数比较不等；四个直接callsite为40454E/404598/449421/449A22，各读取一次且只判AL。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
+    },
+    {
+      "original_entry": "0x401F60",
+      "inventory_id": "F:00001F60",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "整数与CryptInt不等",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Read_401EC0"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4483A0",
+            "Sub_448A50",
+            "Sub_448BF0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原从第二参数取得CryptInt，单次读取后与第一整数不等比较；三处caller的当前Read != floor内联保留读取次数。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
+    },
+    {
+      "original_entry": "0x401FA0",
+      "inventory_id": "F:00001FA0",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "整数小于CryptInt",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Read_401EC0",
+            "Greater_401D40"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4417E0"
+          ]
+        },
+        {
+          "path": "src/LoginInput.cpp",
+          "symbols": [
+            "ProcessCapability4SavedSlotSelector_465430",
+            "ReadLegacyMouseX",
+            "ReadLegacyMouseY"
+          ]
+        },
+        {
+          "path": "src/LoginInputController.cpp",
+          "symbols": [
+            "ProcessCapability4Input_464E30",
+            "ReadLegacyMouseX",
+            "ReadLegacyMouseY"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
+    },
+    {
+      "original_entry": "0x402000",
+      "inventory_id": "F:00002000",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "整数与CryptInt相等",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Equal_401D00"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43E490",
+            "Sub_4417E0",
+            "Sub_444410"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46B370"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原单次读取第二参数CryptInt并与整数相等比较，十处直接callsite只判AL；有S32返回的43E490各退出显式生产0/1，不透传该比较的高位。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
+    },
+    {
+      "original_entry": "0x438230",
+      "inventory_id": "F:00038230",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "战斗状态模式1与类型比较",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BattleActorPayload",
+            "value13D8",
+            "value13DC"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原10指令：先比较首W32==1，命中后才读次W32与参数相等。已按既有裁决内联为角色载荷13D8/13DC条件，不另增简单包装或同义状态。"
+    },
+    {
+      "original_entry": "0x438250",
+      "inventory_id": "F:00038250",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "战斗状态模式3与类型比较",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "BattleActorPayload",
+            "value13D8",
+            "value13DC"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原10指令：先比较首W32==3，命中后才读次W32与参数相等。既有技能段直接表达同序短路条件，不能当作CryptInt解密或扩宽为指针。"
+    },
+    {
+      "original_entry": "0x477160",
+      "inventory_id": "F:00077160",
+      "status": "已有调用点内联或尾跳映射，运行未验",
+      "original_role": "数字间距CRT尾跳入口",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WindowNumberSpacingStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeNumberSpacing_477170"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。"
     }
   ]
 }

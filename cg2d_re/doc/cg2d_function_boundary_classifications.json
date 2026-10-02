@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "inventory": "doc/cg2d_ida_inventory.json",
+  "scope": "原元数据中的函数边界片段与填充分项；不修改数据库或既有分母，不推断其他条目。",
+  "evidence_document": "doc/cg2d_function_boundary_classifications.md",
+  "records": [
+    {
+      "original_entry": "0x4C2634",
+      "original_end": "0x4C26AF",
+      "inventory_id": "F:000C2634",
+      "status": "已并入含入口前缀的页面回调",
+      "actual_entry": "0x4C2630",
+      "source": {
+        "path": "src/ui/WindowRuntime.cpp",
+        "symbols": [
+          "Sub_4C2630"
+        ]
+      },
+      "boundary": "4C2630先从栈参数读取index到ECX，再落入元数据4C2634正文；原元素表指向4C2630。现有两参数回调覆盖前缀和整段，不为4C2634另造丢失索引的包装。"
+    },
+    {
+      "original_entry": "0x4D6650",
+      "original_end": "0x4D6651",
+      "inventory_id": "F:000D6650",
+      "status": "已并入动作分配失败路径",
+      "parent_entry": "0x4D6640",
+      "source": {
+        "path": "src/YobiRuntime.cpp",
+        "symbols": [
+          "Sub_4D6640"
+        ]
+      },
+      "boundary": "4D6644分配后test EAX，非零跳4D6651，零落入本条C3返回。现有工厂空分配直接return nullptr；不是可独立补空体的业务函数。"
+    },
+    {
+      "original_entry": "0x4C48EB",
+      "original_end": "0x4C48F0",
+      "inventory_id": "F:000C48EB",
+      "status": "已确认五字节NOP填充区间",
+      "bytes": [
+        144,
+        144,
+        144,
+        144,
+        144
+      ],
+      "preceding_return": "0x4C48E9",
+      "next_entry": "0x4C48F0",
+      "boundary": "该元数据条目没有独立返回或业务指令，前方回调已经retn，后接4C48F0真实入口；当前直接xref为空。仅分类这五字节，不修改IDA，不以无xref证明全程序不可达，也不为其生成空函数。"
+    }
+  ]
+}

@@ -416,13 +416,15 @@ LRESULT CALLBACK WindowProcedure(
         return 0;
 
     case WM_IME_NOTIFY: {
-        const HIMC context = reinterpret_cast<HIMC>(gImeContext);
+        HIMC context = reinterpret_cast<HIMC>(gImeContext);
         if (context != nullptr) {
             static_assert(sizeof(DWORD) == sizeof(std::uint32_t));
             ImmGetConversionStatus(
                 context,
                 reinterpret_cast<DWORD*>(&gImeConversionMode),
                 reinterpret_cast<DWORD*>(&gImeSentenceMode));
+            // 原467809：外部调用后重取共享上下文，不沿用调用前快照。
+            context = reinterpret_cast<HIMC>(gImeContext);
         }
 
         if (wParam32 == IMN_OPENCANDIDATE
@@ -433,11 +435,20 @@ LRESULT CALLBACK WindowProcedure(
                 std::free(gImeCandidateList);
             }
             if (requiredSize != 0) {
-                gImeCandidateList = std::calloc(1, requiredSize);
+                void* const candidates = std::calloc(1, requiredSize);
+                if (wParam32 == IMN_CHANGECANDIDATE) {
+                    // 原4678B5/4678BE：变化通知先重取上下文，再发布候选表。
+                    context = reinterpret_cast<HIMC>(gImeContext);
+                    gImeCandidateList = candidates;
+                } else {
+                    // 原467849/467850：打开通知先发布候选表，再重取上下文。
+                    gImeCandidateList = candidates;
+                    context = reinterpret_cast<HIMC>(gImeContext);
+                }
                 ImmGetCandidateListA(
-                    reinterpret_cast<HIMC>(gImeContext),
+                    context,
                     0,
-                    reinterpret_cast<LPCANDIDATELIST>(gImeCandidateList),
+                    reinterpret_cast<LPCANDIDATELIST>(candidates),
                     requiredSize);
                 return 0;
             }

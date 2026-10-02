@@ -124,11 +124,22 @@ std::uint32_t Sub_4E28F0(); // 旧72宠物子页，点击费用检查与提示�
 std::uint32_t Sub_4E2D90(); // 旧72存入金额，草稿别名CC4B2C末4B，确认只登记。
 std::uint32_t Sub_4E3750(); // 旧72取出金额，先登记旧草稿再处理键盘/上限。
 std::uint32_t Sub_4E4460(std::int32_t opened); // 旧78物品目标属性页，只读借用nFV的同源值记录。
+std::uint32_t Sub_4E5E40(std::int32_t opened); // 旧52六页分派、报价与确认；关闭透传取消请求返回。
 std::int32_t Sub_4E6CC0(std::int32_t side); // 旧52交易格命中，两组各20格。
 void Sub_4E6D70(std::int32_t side, std::int32_t item, std::uint32_t color);
 std::int32_t Sub_4E6E10(std::int32_t side); // 借C4C展示记录，正常返回行数4。
+std::int32_t Sub_4E70B0(std::int32_t side); // 旧52五行宠物首命中。
+void Sub_4E7140(std::int32_t side, std::int32_t pet, std::uint32_t color);
+void Sub_4E71A0(std::int32_t side); // 同源5FC宠物名称与正选择框，无负选择覆盖图。
+std::int32_t Sub_4E7290(std::int32_t x, std::int32_t y, std::int32_t item, std::int32_t page);
+std::int32_t Sub_4E7380(std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t pet);
+std::int32_t Sub_4E7740(std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t pet);
 std::int32_t Sub_4E7870(std::int32_t x, std::int32_t y); // 旧52内嵌拆分，使用独立来源/目标/数量。
+std::int32_t Sub_4E7FC0(); // 对方物品详情，翻页上限依原指令借玩家背包页数。
+std::int32_t Sub_4E81B0(); // 对方宠物属性/技能双页。
+std::int32_t Sub_4E82F0(); // 对方金额及悬停提示。
 std::int32_t Sub_4E83D0(); // 己方背包，选择/拖动撤回已公开报价。
+std::int32_t Sub_4E8920(); // 己方宠物选择/撤回及双页详情。
 std::int32_t Sub_4E8AD0(); // 己方金额，键盘实际变化才撤回，裁剪不撤回。
 void Sub_4E9280(); // 旧79详情页/目标初始化，不重置上次悬停或来源参数。
 std::uint32_t Sub_4E92A0(std::int32_t opened); // 旧79刻印选择，发送后仍保留绘制/提示公共尾。

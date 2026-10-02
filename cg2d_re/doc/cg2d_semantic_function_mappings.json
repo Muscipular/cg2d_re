@@ -12531,6 +12531,90 @@
         "doc/ui_windows/window_49.md"
       ],
       "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。原六组十八个可能同址点已有门禁；新增三组使用内部模板按sizeof(T)完整字节、先读右后读左交换，原生指针和未消费字节一起移动。九算法覆盖原十个qsort调用点的算法位置，不将任意重叠区间、完整父链或运行验收计为通过。"
+    },
+    {
+      "original_entry": "0x541A43",
+      "inventory_id": "F:00141A43",
+      "status": "原PE链接器版本读取叶已取证；旧堆选择私有依赖未单独实现",
+      "original_end_exclusive": "0x541A70",
+      "instruction_count": 17,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "先清输出W32，再取本模块；MZ和非零e_lfanew满足时读取NT头+1A/+1B到输出低两字节。唯一caller541A70；不新增运行期自读PE解析器或将其当业务版本。"
+    },
+    {
+      "original_entry": "0x541A70",
+      "inventory_id": "F:00141A70",
+      "status": "原OS/环境/链接器版本三层堆模式选择已取证；宿主对应未验",
+      "original_end_exclusive": "0x541BB8",
+      "instruction_count": 115,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "GetVersionExA成功且NT主版本>=5直接返回1；否则读取__MSVCRT_HEAP_SELECT、ASCII大写并按全局前缀或模块路径查选项，仅接受1/2/3；未选择时链接器主版本小于6取2，否则3。唯一541BB8调用；不按当前机器推断原所有环境路径不可达。"
+    },
+    {
+      "original_entry": "0x541BB8",
+      "inventory_id": "F:00141BB8",
+      "status": "原私有堆创建及模式分派已取证；宿主进程堆职责关联不等价",
+      "original_end_exclusive": "0x541C15",
+      "instruction_count": 30,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer",
+            "FreeLegacyByteBuffer"
+          ],
+          "relationship": "既有裸字节适配借_get_heap_handle，不是原HeapCreate/模式初始化的直接实现"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "start@53DE0F实际传0，HeapCreate flags=1、initial=1000H、maximum=0并发布10869A4；成功后选择并发布10869A8。模式3调541C15(3F8H)，模式2调54275C，初始化失败HeapDestroy后返回0但未清共享堆槽；成功返1。原调用失败进入fast_error_exit(1CH)。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
+        "symbol": "__acrt_initialize_heap / __acrt_uninitialize_heap / _get_heap_handle"
+      }
+    },
+    {
+      "original_entry": "0x541C15",
+      "inventory_id": "F:00141C15",
+      "status": "原模式3小块池头初始化已取证；未实现旧内部池",
+      "original_end_exclusive": "0x541C5D",
+      "instruction_count": 17,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "唯一541BB8调用；HeapAlloc(140H,flags0)后先发布108699C，失败返0；成功清1086994/98，发布1086990、阈值10869A0=实参3F8H及1086988=10H，返回1。未把头块未清内容擅自置零。"
+    },
+    {
+      "original_entry": "0x54275C",
+      "inventory_id": "F:0014275C",
+      "status": "原模式2区域初始化及运行期扩池调用已取证；未实现旧内部池",
+      "original_end_exclusive": "0x5428A0",
+      "instruction_count": 102,
+      "original_direct_reference_count": 2,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "541BB8与542A54各一调用，不能只当启动代码。选静态头或分配2020H描述区，VirtualAlloc保留400000H并提交10000H，发布链/区域/1024元数据项，清已提交区并初始化16页。失败按原路径释放保留区和动态描述区，静态头不HeapFree。"
     }
   ]
 }

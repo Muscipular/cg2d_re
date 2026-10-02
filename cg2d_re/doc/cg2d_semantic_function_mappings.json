@@ -11646,7 +11646,7 @@
     {
       "original_entry": "0x543D0C",
       "inventory_id": "F:00143D0C",
-      "status": "原有界计数本体已实现，NLS小写转换窄域已接；其他父链与运行未验",
+      "status": "原有界计数本体及NLS小写窄域已接；环境比较私有调用随GetEnv承接，运行未验",
       "original_end_exclusive": "0x543D37",
       "instruction_count": 20,
       "original_direct_reference_count": 3,
@@ -11672,7 +11672,42 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原543D29在数量耗尽/数量0也读取当前字节，提前遇NUL则复读；使用非拥有const volatile char*保留读取，数量/返回U32。固定256字符表域原末端读越出source[256]，按RPLAN.24不新增模拟/哨兵，保留现有有界返回256表达式且不称故障等价；不据此阻塞已证可读窄域。547C0D两调用尚未接线，未声称三引用全部完成。"
+      "boundary": "原543D29在数量耗尽/数量0也读取当前字节，提前遇NUL则复读；使用非拥有const volatile char*保留读取，数量/返回U32。固定256字符表域原末端读越出source[256]，按RPLAN.24不新增模拟/哨兵，保留现有有界返回256表达式且不称故障等价；不据此阻塞已证可读窄域。547C0D的两处旧计数调用只属GetEnv已批准整体承接的私有链，不再列为必须接入旧计数本体的独立缺口；该归属不是三处原访问/故障等价。"
+    },
+    {
+      "original_entry": "0x547C0D",
+      "inventory_id": "F:00147C0D",
+      "status": "按既有GetEnv裁决整体标准库承接；原私有NLS依赖归属不作原体等价",
+      "original_end_exclusive": "0x547E8A",
+      "instruction_count": 239,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "原环境变量名比较私有依赖随std::getenv整体承接；本文件不是原CompareString包装直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/env/getenv.cpp",
+        "symbol": "common_getenv_nolock"
+      },
+      "original_incoming": [
+        {
+          "site": "0x547362",
+          "parent": "0x54733B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一直接caller54733B仅由54518B与548011调用，均为既有GetEnv私有链；只在此范围沿用户整体std替代，不推广其他NLS或业务比较。原108630C是本helper独占A/W探测槽，两个strncnt调用与转换/空串/lead-byte/SEH分支归属已核，不新建旧缓存或重复比较器。宿主getenv按traits::_strnicoll比较环境名，锁/locale/编码及失败行为不称原等价，也不声称它仍调用这个旧helper。"
     }
   ]
 }

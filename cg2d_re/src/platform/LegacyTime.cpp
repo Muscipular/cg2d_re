@@ -14,7 +14,7 @@ namespace cg::platform {
 SYSTEMTIME gUtcTimeCache_1085FD0 {};
 std::int32_t gDaylightCache_1085FC8 = 0;
 
-// 原 CRT 错误槽；本文件的文件时间边界与 542F44 共用，不绑定现代 CRT errno。
+// 原 CRT 错误槽；文件时间、目录创建及截图共用，不绑定现代 CRT errno。
 std::int32_t gLegacyErrno_1085FE0 = 0;
 std::uint32_t gLegacyDosError_1085FE4 = 0;
 
@@ -762,6 +762,17 @@ std::int32_t __cdecl ConvertLocalTime_541160(
         return result + gDstBias_58FB80;
     }
     return result;
+}
+
+std::int32_t CreateLegacyDirectory_53C654(const char* const path)
+{
+    const DWORD error = ::CreateDirectoryA(path, nullptr) != FALSE
+        ? ERROR_SUCCESS : ::GetLastError();
+    if (error != ERROR_SUCCESS) {
+        static_cast<void>(MapLegacyFileError_542F44(error));
+        return -1;
+    }
+    return 0;
 }
 
 std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* const output)

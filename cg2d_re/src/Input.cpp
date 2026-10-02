@@ -17,7 +17,6 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
-#include <direct.h>
 #include <type_traits>
 
 namespace cg {
@@ -1299,7 +1298,7 @@ void __cdecl Sub_449DA0()
         return;
     }
 
-    ::_mkdir(kLogDirectory_554658);
+    platform::CreateLegacyDirectory_53C654(kLogDirectory_554658);
     platform::ReadLegacyTime32_53BA26(&timeValue);
     const platform::LegacyTm53B8C6* const legacyTime =
         platform::LocalTime_53B8C6(&timeValue);

@@ -41,7 +41,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <direct.h>
 #include <new>
 #include <utility>
 #include <vector>
@@ -4412,13 +4411,13 @@ std::int32_t __cdecl Sub_468570(
     Sub_468520(path, a2, a1, a3);
     std::FILE* const file = std::fopen(path, kMapReadMode);
     if (file == nullptr) {
-        ::_mkdir(kMapPathPrefix);
+        platform::CreateLegacyDirectory_53C654(kMapPathPrefix);
         char directory[256];
         std::sprintf(directory, kMapDirectoryOne, kMapPathPrefix, a2);
-        ::_mkdir(directory);
+        platform::CreateLegacyDirectory_53C654(directory);
         if (a2 > 0) {
             std::sprintf(directory, kMapDirectoryTwo, kMapPathPrefix, a2, a1);
-            ::_mkdir(directory);
+            platform::CreateLegacyDirectory_53C654(directory);
         }
         return Sub_4687B0(path, a6, a7, a4, a5) >= 0 ? 1 : -1;
     }

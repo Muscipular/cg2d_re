@@ -21,11 +21,9 @@
 
 #include <atomic>
 #include <cstddef>
-#include <cerrno>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <direct.h>
 #include <exception>
 #include <limits>
 #include <new>
@@ -455,8 +453,8 @@ void TakeScreenshot_453760()
 {
     POINT origin {0, 0};
     static_cast<void>(ClientToScreen(reinterpret_cast<HWND>(platform::gLegacyWindow), &origin));
-    static_assert(EEXIST == 17);
-    if (_mkdir(kScreenshotDirectory556738) != 0 && errno != EEXIST) {
+    if (platform::CreateLegacyDirectory_53C654(kScreenshotDirectory556738) != 0
+        && platform::gLegacyErrno_1085FE0 != 17) {
         return;
     }
     std::int32_t time;

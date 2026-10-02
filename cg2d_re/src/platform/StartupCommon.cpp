@@ -1,6 +1,7 @@
 #include "StartupNative.hpp"
 
 #include "cg/platform/Startup.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <cstdio>
 #include <direct.h>
@@ -25,7 +26,7 @@ int CreateSaveDirectories()
     _chdir("data");
     for (int i = 0; i < 10; ++i) {
         std::sprintf(directory, "%d", i);
-        _mkdir(directory);
+        CreateLegacyDirectory_53C654(directory);
     }
     _chdir("..");
     return 1;

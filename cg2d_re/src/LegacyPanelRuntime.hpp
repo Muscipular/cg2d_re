@@ -37,20 +37,20 @@ static_assert(offsetof(LegacyPetSkillCatalogRecord, value04) == 4);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, price08) == 8);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, text0C) == 12);
 
-// 以下四项仅为已证外部数据依赖，尚无定义；不得用猜测容量或默认图号/页数补接。
+// 以下三项仅为已证外部数据依赖，尚无定义；不得用猜测容量或默认图号/页数补接。
 extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];
 extern std::int32_t gLegacyPetSkillCatalogImageCC3E64;
-extern std::int32_t gLegacyPetSkillCatalogPageD45F74;
 extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
+extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 唯一存储在LegacyUiRecord；旧58翻页写入。
 extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
 
-// 原旧51的真实外部数据依赖；名单总容量、初始页号及生产尚缺，不提供猜测定义。
+// 原旧51尚缺的三项外部数据依赖；名单总容量及完整生产未定，不提供猜测定义。
 extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
 extern std::int32_t gLegacyTradeTargetCountD30134;
-extern std::int32_t gLegacyTradeTargetPageCC3208;
 extern std::int32_t gLegacyTradeTargetPageCountCF46D0;
+extern std::int32_t gLegacyTradeTargetPageCC3208; // 唯一存储在LegacyUiRecord；旧51翻页写入。
 
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {

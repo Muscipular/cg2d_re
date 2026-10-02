@@ -78,6 +78,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacySignal.cpp
     src/platform/LegacyLowIo.cpp
     src/platform/LegacyStdio.cpp
+    src/platform/LegacyFormat.cpp
     src/platform/LegacyMultibyte.cpp
     src/platform/LegacyNetworkAdapter.cpp
     src/platform/SdlAudioBackend.cpp

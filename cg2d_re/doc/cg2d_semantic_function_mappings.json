@@ -12745,7 +12745,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先采样descriptor；82H/非40H门禁，读转写先清count且仅EOF允许。设置写方向，标准stdout/stderr设备可跳getbuf；108H先发布current=base+1/count=size-1，再写旧缓冲或追加seek。即使失败仍重读base存新低U8，再按旧长度比较成功；非缓冲一次写参数低字节。真实getbuf/isatty/write/seek及fwrite/fputc父链已接，其余调用仍待。",
+      "boundary": "先82H/非40H门禁，拒绝路径不消费fd，正常路径在其后、任何可变调用前采样descriptor；读转写先清count且仅EOF允许。设置写方向，标准stdout/stderr设备可跳getbuf；108H先发布current=base+1/count=size-1，再写旧缓冲或追加seek。即使失败仍重读base存新低U8，再按旧长度比较成功；非缓冲一次写参数低字节。真实getbuf/isatty/write/seek及全部七个直接父调用已接，业务根迁移仍待。",
       "function_chunks": [
         {
           "start": "0x53F8C0",
@@ -12866,7 +12866,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仍有1000H则flush，started=0也执行；started非零才在flush后清1100H/size/current/base，失败不阻止拆除，不额外清count或释放两槽缓存。真实fputs调用已接，格式输出父链仍待；void表达原caller均不消费非合同残留寄存器。",
+      "boundary": "仍有1000H则flush，started=0也执行；started非零才在flush后清1100H/size/current/base，失败不阻止拆除，不额外清count或释放两槽缓存。真实fputs及fprintf调用已接，业务根迁移仍待；void表达原caller均不消费非合同残留寄存器。",
       "function_chunks": [
         {
           "start": "0x53EAEB",
@@ -14345,7 +14345,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空目标返0；C locale只接W16<=255并写低U8，否则errno42/-1。非C用flags220H、共享最大宽度及先置0的usedDefault，API0/替代均失败，其他返回API值；失败不清目的区，成功不清errno。fputwc/ungetwc父链已接，output仍待。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "boundary": "空目标返0；C locale只接W16<=255并写低U8，否则errno42/-1。非C用flags220H、共享最大宽度及先置0的usedDefault，API0/替代均失败，其他返回API值；失败不清目的区，成功不清errno。fputwc/ungetwc及output父链已接，业务根迁移仍待。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
       "native_references": [
         {
           "component": "UCRT 10.0.26100.0",
@@ -14486,69 +14486,120 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "现有路径格式化消费域已关联；其余格式/引用及完整引擎未验",
+      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "原449FBB/44A0B5的路径拼接消费，仅这两处128B目标/弃返回顺序关联"
+            "FormatLegacyString_53B304"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "FormatLegacyString_53B304"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
-        "symbol": "__stdio_common_vsprintf"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时流flags42h/count7FFFFFFFh，输出核心53EB28返回保存后再写NUL，不用尾NUL写失败覆盖返回。宿主格式化职责关联只限两条已证路径，1022引用不计全验；变参ABI/locale/动态格式/宽浮点及私有状态未验，不新建旧FILE。"
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。1022应用引用尚未整体迁移。",
+      "function_chunks": [
+        {
+          "start": "0x53B304",
+          "end_exclusive": "0x53B356"
+        }
+      ],
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "__stdio_common_vsprintf",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53D21D",
       "inventory_id": "F:0013D21D",
-      "status": "九处原有界标题消费已关联；完整格式化引擎及运行未验",
+      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
       "original_end_exclusive": "0x53D26E",
       "instruction_count": 33,
       "original_direct_reference_count": 9,
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_48B560",
-            "Sub_4B8310",
-            "Sub_4B8780",
-            "Sub_4B8C90",
-            "Sub_4C17B0",
-            "Sub_4C3A50"
-          ],
-          "relationship": "八处_snprintf实际调用，容量256/100及三种原窄格式，均弃返回"
+            "FormatLegacyBoundedString_53D21D"
+          ]
         },
         {
-          "path": "src/LegacyUiRecord.cpp",
+          "path": "src/platform/LegacyFormat.hpp",
           "symbols": [
-            "Sub_4DA400"
-          ],
-          "relationship": "第九处_snprintf，原32B局部传28，不强制补尾零"
+            "FormatLegacyBoundedString_53D21D"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
-        "symbol": "common_vsprintf"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原flags42h/count传入W32，核心返回不被尾NUL尝试覆盖。当前九处均使用带legacy NUL选项的_snprintf，未误换标准snprintf；数量/格式/弃返回及已有缓冲初始化边界保持。只关联正容量窄%s/%d实际消费，不宣称全部输出核心或截断后绘制安全/完整父链已验收。"
+      "boundary": "原临时FILE四字段，容量以W32位型作为S32 remaining；真实53EB28后再尝试NUL，恰满不强制覆盖最后字节，尾写失败不覆盖核心结果。九处标题仍用现有宿主调用，未因本体存在计迁移完成；不新增容量/空指针校验。",
+      "function_chunks": [
+        {
+          "start": "0x53D21D",
+          "end_exclusive": "0x53D26E"
+        }
+      ],
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "inbound_evidence": [
+        {
+          "address": "0x48B68C",
+          "parent_entry": "0x48B560"
+        },
+        {
+          "address": "0x4B8430",
+          "parent_entry": "0x4B8310"
+        },
+        {
+          "address": "0x4B88A4",
+          "parent_entry": "0x4B8780"
+        },
+        {
+          "address": "0x4B8DB0",
+          "parent_entry": "0x4B8C90"
+        },
+        {
+          "address": "0x4C18DD",
+          "parent_entry": "0x4C17B0"
+        },
+        {
+          "address": "0x4C18FF",
+          "parent_entry": "0x4C17B0"
+        },
+        {
+          "address": "0x4C3B7D",
+          "parent_entry": "0x4C3A50"
+        },
+        {
+          "address": "0x4C3B9F",
+          "parent_entry": "0x4C3A50"
+        },
+        {
+          "address": "0x4DA457",
+          "parent_entry": "0x4DA400"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "common_vsprintf",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53CADC",
@@ -14602,7 +14653,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "逐项同序的现有fputc本体承担count先减、低U8写/游标重读或完整S32交flsbuf；返回完整-1才写计数-1，否则读取计数加1。入口计数=-1也不提前跳过写。repeat/string两父已接，输出核心两原调用待实现。",
+      "boundary": "逐项同序的现有fputc本体承担count先减、低U8写/游标重读或完整S32交flsbuf；返回完整-1才写计数-1，否则读取计数加1。入口计数=-1也不提前跳过写。repeat/string及输出核心两原调用已接，业务根迁移仍待。",
       "function_chunks": [
         {
           "start": "0x53F2C6",
@@ -14660,7 +14711,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅S32数量>0逐次调用真实write_char，每次写后才检查调用者计数恰-1；输入计数已负不提前阻止第一次写，非正重复量不读取FILE/计数。三个输出核心父调用仍待。",
+      "boundary": "仅S32数量>0逐次调用真实write_char，每次写后才检查调用者计数恰-1；输入计数已负不提前阻止第一次写，非正重复量不读取FILE/计数。三个输出核心父调用已接，业务根迁移仍待。",
       "function_chunks": [
         {
           "start": "0x53F2FB",
@@ -14714,7 +14765,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅正S32数量逐字节读取S8并前移源游标，再真实write_char，写后计数恰-1才停。保持源/目标重叠逐次效果，不批量复制、预取全串或撤回已写前缀。三个输出核心父调用仍待。",
+      "boundary": "仅正S32数量逐字节读取S8并前移源游标，再真实write_char，写后计数恰-1才停。保持源/目标重叠逐次效果，不批量复制、预取全串或撤回已写前缀。三个输出核心父调用已接，业务根迁移仍待。",
       "function_chunks": [
         {
           "start": "0x53F32C",
@@ -14746,110 +14797,108 @@
     {
       "original_entry": "0x53F364",
       "inventory_id": "F:0013F364",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原取参语义已在输出父核心按原生ABI承接；非独立x86物理槽实现",
       "original_end_exclusive": "0x53F371",
       "instruction_count": 5,
       "original_direct_reference_count": 10,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
+            "FormatLegacyOutput_53EB28"
           ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+          "relationship": "父核心内联类型化va_arg承接，不是同名物理槽函数"
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "read_va_arg"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原先将参数游标加4再读前W32，父既消费数值也消费实际地址/写回指针。宿主按T/va_list取值，不在x64复制4B步长或统一扩大业务整数；父层53F06A/76/8B/93才决定S16/U16/S32/U32扩展。"
+      "boundary": "原W32槽同时承载数值与地址；真实53EB28父核心现按原生va_list分别取int/long、原生字符串/Z/n/p指针，再按h和有符号标志截取或扩展数值。保留S16/U16/S32/U32，不在x64照搬4B参数步长或定义会截地址的统一函数。此为父核心内联语义承接，原x86物理helper不单独复建。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F371",
       "inventory_id": "F:0013F371",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原取参语义已在输出父核心按原生ABI承接；非独立x86物理槽实现",
       "original_end_exclusive": "0x53F381",
       "instruction_count": 6,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
+            "FormatLegacyOutput_53EB28"
           ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+          "relationship": "父核心内联类型化va_arg承接，不是同名物理槽函数"
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "read_va_arg"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原游标先加8，前槽低/高W32返回EAX/EDX；唯一父53F052。宿主按64位参数类型取值，x64 ABI不同但不扩为两个指针或丢高W32；完整格式消费未验。"
+      "boundary": "唯一53F052已在真实53EB28按I64及符号标志通过va_arg读取S64/U64，保持完整数值；参数游标遵循x64原生ABI，不将数值当两个地址。原x86八字节取槽helper由父核心内联语义承接，未单独复建。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F381",
       "inventory_id": "F:0013F381",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原取参语义已在输出父核心按原生ABI承接；非独立x86物理槽实现",
       "original_end_exclusive": "0x53F38F",
       "instruction_count": 5,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
+            "FormatLegacyOutput_53EB28"
           ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+          "relationship": "父核心内联类型化va_arg承接，不是同名物理槽函数"
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "read_va_arg"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原游标先加4，仅前槽低W16写AX，未清EAX高位；唯一父53EE05转交wctomb只消费W16。不能误记完整EAX为符号扩展S16；宿主typed参数只关联已证低W16职责，未消费地址残值不模拟。"
+      "boundary": "唯一53EE05已在真实53EB28按int提升取参数后截低W16给wctomb；原未消费EAX高位不模拟为指针残值，不扩为S16完整返回。原x86四字节取槽helper由父核心内联语义承接。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53EB28",
       "inventory_id": "F:0013EB28",
-      "status": "格式输出核心已取证并关联宿主职责；全语义与运行未完成",
+      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
       "original_end_exclusive": "0x53F2A6",
       "instruction_count": 623,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090",
-            "Sub_449DA0"
-          ],
-          "relationship": "既有路径sprintf及日志fprintf消费根，仅传递关联宿主引擎"
+            "FormatLegacyOutput_53EB28"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "FormatLegacyOutput_53EB28"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "output_processor"
-      },
       "dispatch_evidence": {
         "instruction": "0x53EBA4",
         "table_start": "0x53F2A6",
@@ -14872,37 +14921,122 @@
       },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_function_boundary_classifications.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "三个实际包装caller明确；623条不包含末尾32B跳表。原精度163/512、直接n写回、宽串转换失败计数及浮点槽初始化与宿主不同，不把现有sprintf当全核心实现。仅地址按x64原生va_list拓宽，不扩数值、不新建旧FILE/变参栈/浮点槽，不擅启用宿主n选项。"
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；转换器/六槽安装仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x53EB28",
+          "end_exclusive": "0x53F2A6"
+        }
+      ],
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "inbound_evidence": [
+        {
+          "address": "0x53B32D",
+          "parent_entry": "0x53B304"
+        },
+        {
+          "address": "0x53BC28",
+          "parent_entry": "0x53BC0F"
+        },
+        {
+          "address": "0x53D245",
+          "parent_entry": "0x53D21D"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "output_processor",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53BC0F",
       "inventory_id": "F:0013BC0F",
-      "status": "现有日志fprintf消费域及宿主缓冲职责已关联；完整父链未验",
+      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
       "original_end_exclusive": "0x53BC41",
       "instruction_count": 22,
       "original_direct_reference_count": 11,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyFormat.cpp",
           "symbols": [
-            "Sub_449DA0"
-          ],
-          "relationship": "原449ECA/449EF3/449F06/449F3C/449F70/449F83六处日志输出，保留弃返回顺序"
+            "FormatLegacyStream_53BC0F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "FormatLegacyStream_53BC0F"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
-        "symbol": "common_vfprintf"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原先stbuf，再output，最后ftbuf，返回保存的核心结果；宿主流锁/参数校验和临时缓冲guard职责已定位，原stbuf/ftbuf差异继续保留。仅六处现有日志消费关联，不覆盖另五引用、4021A0待批数据、所有输入/网络日志或持久化验收。"
+      "boundary": "真实stbuf→53EB28→ftbuf，使用原生va_list位置，保存/返回核心结果，不以收尾失败覆盖，也不添加RAII、流锁或宿主参数检查。11个应用调用仍待迁移；4021A0待批补值保持。",
+      "function_chunks": [
+        {
+          "start": "0x53BC0F",
+          "end_exclusive": "0x53BC41"
+        }
+      ],
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "inbound_evidence": [
+        {
+          "address": "0x402790",
+          "parent_entry": "0x4021A0"
+        },
+        {
+          "address": "0x449ECA",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x449EF3",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x449F06",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x449F3C",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x449F70",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x449F83",
+          "parent_entry": "0x449DA0"
+        },
+        {
+          "address": "0x44B0FB",
+          "parent_entry": "0x44B050"
+        },
+        {
+          "address": "0x44B5E4",
+          "parent_entry": "0x44B5C0"
+        },
+        {
+          "address": "0x5173F1",
+          "parent_entry": "0x5173B0"
+        },
+        {
+          "address": "0x5174AE",
+          "parent_entry": "0x517480"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "common_vfprintf",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53B447",
@@ -21486,6 +21620,82 @@
         }
       ],
       "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行"
+    },
+    {
+      "original_entry": "0x545031",
+      "inventory_id": "F:00145031",
+      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "original_end_exclusive": "0x545038",
+      "instruction_count": 2,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "LegacyFloatingPointTrap_545031"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "LegacyFloatingPointTrap_545031"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理槽初值的调用。三个输出槽已按加载值初始化，六槽完整安装与转换本体仍待，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
+      "function_chunks": [
+        {
+          "start": "0x545031",
+          "end_exclusive": "0x545038"
+        }
+      ],
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "inbound_evidence": [
+        {
+          "address": "0x53E324",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53EF18",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53EF33",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53EF44",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x58FB50",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB54",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB58",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB5C",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB60",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB64",
+          "reference_kind": "data"
+        }
+      ]
     }
   ]
 }

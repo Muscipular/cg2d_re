@@ -331,11 +331,12 @@ std::int32_t FlushAndWriteLegacyStreamByte_53F8C0(
     const std::int32_t character, LegacyFile* const stream)
 {
     std::uint32_t flags = stream->flags;
-    const std::int32_t descriptor = stream->descriptor;
     if ((flags & 0x82u) == 0 || (flags & 0x40u) != 0) {
         stream->flags = flags | 0x20u;
         return -1;
     }
+    // 拒绝路径不消费fd；原格式化临时FILE并未初始化该字段。
+    const std::int32_t descriptor = stream->descriptor;
     if ((flags & 1u) != 0) {
         stream->remaining = 0;
         if ((flags & 0x10u) == 0) {

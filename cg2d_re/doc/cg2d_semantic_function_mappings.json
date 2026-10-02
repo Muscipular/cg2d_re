@@ -9304,11 +9304,23 @@
     {
       "original_entry": "0x53FD5C",
       "inventory_id": "F:0013FD5C",
-      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x53FD6E",
       "instruction_count": 6,
       "sources": [
         {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "SetLegacyDefaultPrecision_53FD5C"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "SetLegacyDefaultPrecision_53FD5C"
+          ]
+        },
+        {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "RenderChara_521F20"
@@ -9334,16 +9346,42 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原固定newValue10000h/mask30000h，仅调用54488E。已批准PC53数值域由现有double原位运算承接，不新增全局控制字设置；宿主_initialize_default_precision仅x86，不能记作x64实际提供者。"
+      "boundary": "固定newValue10000H/mask30000H交真实54488E；上游53B447已接。本体现在设置x87控制字，仍不改既有已批准的局部PC53数值实现；宿主x64未调用_initialize_default_precision只作背景，不作为提供者。",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x53FD5C",
+          "end_exclusive": "0x53FD6E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B456",
+          "parent_entry": "0x53B447"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
     },
     {
       "original_entry": "0x54488E",
       "inventory_id": "F:0014488E",
-      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x5448A4",
       "instruction_count": 8,
       "sources": [
         {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ControlLegacyFloatingPoint_54488E"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ControlLegacyFloatingPoint_54488E"
+          ]
+        },
+        {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "RenderChara_521F20"
@@ -9369,15 +9407,48 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅53FD5C调用，清mask的80000h位后交544859；固定PC53调用域的前置证据关联，非通用_controlfp接口实现或任意舍入/异常状态等价。"
+      "boundary": "只清mask的80000H后交真实544859，value仍完整U32；不借宿主_controlfp扩展SSE/MXCSR行为，53FD5C已接。",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x54488E",
+          "end_exclusive": "0x5448A4"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FD66",
+          "parent_entry": "0x53FD5C"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
     },
     {
       "original_entry": "0x544859",
       "inventory_id": "F:00144859",
-      "status": "仅已批准PC53数值域的前置证据关联；非通用控制字API实现",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x54488E",
       "instruction_count": 24,
       "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ControlLegacyX87_544859"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ControlLegacyX87_544859"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dReadLegacyX87Control",
+            "Cg2dWriteLegacyX87Control"
+          ]
+        },
         {
           "path": "src/YobiRuntime.cpp",
           "symbols": [
@@ -9404,7 +9475,21 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅54488E调用，读控制字、抽象位合并、回转写入并返回抽象值。当前只关联已批准的double PC53数值域，不复制x87硬件接口，不声称FNCLEX/Pentium/任意控制字状态已验。"
+      "boundary": "带等待的FSTCW读W16→原抽象位映射→(old&~mask)|(new&mask)→原硬件位回转→FLDCW，返回合并抽象值，不再读回规范化。未消费的临时高16位不复制；不改变MXCSR。54488E与默认精度父链已接，未执行硬件环境操作。",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x544859",
+          "end_exclusive": "0x54488E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54489C",
+          "parent_entry": "0x54488E"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
     },
     {
       "original_entry": "0x54AB30",
@@ -15536,21 +15621,66 @@
     {
       "original_entry": "0x53B447",
       "inventory_id": "F:0013B447",
-      "status": "原浮点启动组合已取证；P5/FNCLEX等行为未实现、未接线、未排除",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x53B45E",
       "instruction_count": 6,
       "original_direct_reference_count": 2,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "InitializeLegacyFloatingPoint_53B447",
+            "gLegacyFdivBug1085FC0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "InitializeLegacyFloatingPoint_53B447"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dClearLegacyX87Exceptions"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先发布槽，再探测并写1085FC0，后设置精度及FNCLEX；不能因既有PC53域已批准而计全部启动等价。两引用为53C8CD调用及58F864数据槽。",
+      "boundary": "顺序调用六槽安装→系统/原x87除法探测并发布1085FC0 W32→默认精度→FNCLEX，不增加门禁或恢复旧控制字。全部内部依赖已接，真实CRT父53C8CD/58F864时点仍待接，不提前插入WinMain或全局构造。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作x64启动编译条件参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/exe_common.inl",
         "symbol": "__scrt_common_main_seh"
+      },
+      "function_chunks": [
+        {
+          "start": "0x53B447",
+          "end_exclusive": "0x53B45E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53C8D6",
+          "parent_entry": "0x53C8CD"
+        },
+        {
+          "address": "0x58F864",
+          "parent_entry": null,
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行",
+      "flag_evidence": {
+        "address": "0x1085FC0",
+        "initial_value": 0,
+        "initialization": "沿既有虚拟零区合同；不读取未加载数据值",
+        "writer": "0x53B451",
+        "remaining_consumer": "0x542FE2数学片段尚待接线"
       }
     },
     {
@@ -15609,7 +15739,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按58FB54/58FB50/58FB58/58FB5C/58FB60/58FB64次序安装六个真实目标，主格式和别名同指54019A；六槽原初值均545031，以精确类型适配同一trap。全部依赖已有实现，但唯一53B447启动父尚未接线，不在全局初始化自动执行；原父不消费返回。",
+      "boundary": "按58FB54/58FB50/58FB58/58FB5C/58FB60/58FB64次序安装六个真实目标，主格式和别名同指54019A；六槽原初值均545031，以精确类型适配同一trap。全部依赖已有实现，唯一53B447初始化组合已接本体调用，CRT上游53C8CD仍待接线，不在全局初始化自动执行；原父不消费返回。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作直接浮点格式调用参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
@@ -15684,32 +15814,114 @@
     {
       "original_entry": "0x53FD6E",
       "inventory_id": "F:0013FD6E",
-      "status": "原x87除法回退探测已取证；未实现、未运行、未排除",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x53FDAC",
       "instruction_count": 24,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "TestLegacyFloatingPointDivision_53FD6E"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "TestLegacyFloatingPointDivision_53FD6E"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dTestLegacyFdiv"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一入向为53FDAC的尾跳；读取常量4195835.0/3145727.0/1.0并按原x87状态分支返回。未以现代double重算冒充原精度/异常/硬件行为；探测结果1085FC0仍有542FE2数学片段消费者。"
+      "boundary": "MASM叶按原QWORD位型、两次输入落栈、除法/乘回/反减、结果落栈及重载比较执行；FNSTSW后C0/C3判断等价原JBE。保留当前控制字和净x87栈深度，不用宿主double重算；53FDAC回退已接，未实际执行探测。",
+      "function_chunks": [
+        {
+          "start": "0x53FD6E",
+          "end_exclusive": "0x53FDAC"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FDD0",
+          "parent_entry": "0x53FDAC"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行",
+      "constant_evidence": [
+        {
+          "address": "0x54F9E8",
+          "bytes": "00000080ffff4741"
+        },
+        {
+          "address": "0x54F9E0",
+          "bytes": "000000c07e015041"
+        },
+        {
+          "address": "0x54D5C0",
+          "bytes": "000000000000f03f"
+        }
+      ]
     },
     {
       "original_entry": "0x53FDAC",
       "inventory_id": "F:0013FDAC",
-      "status": "原系统查询与x87回退分派已取证；未实现、未接线、未排除",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
       "original_end_exclusive": "0x53FDD5",
       "instruction_count": 13,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "ProbeLegacyFloatingPointDivision_53FDAC"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "ProbeLegacyFloatingPointDivision_53FDAC"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一caller53B447；KERNEL32模块与IsProcessorFeaturePresent可用时传0并原样返值，任一步不可用尾跳53FD6E。不新增现代固定结果或把探测放到精度设置之后。"
+      "boundary": "按原KERNEL32模块和IsProcessorFeaturePresent名称查询，成功传0并返回完整BOOL W32；模块或导出不存在均调用真实53FD6E回退。不固定现代CPU结果，不把探测移到精度设置之后，父53B447已接。",
+      "function_chunks": [
+        {
+          "start": "0x53FDAC",
+          "end_exclusive": "0x53FDD5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B44C",
+          "parent_entry": "0x53B447"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行",
+      "name_evidence": [
+        {
+          "address": "0x553634",
+          "bytes": "4b45524e454c333200"
+        },
+        {
+          "address": "0x54F9F0",
+          "bytes": "497350726f636573736f724665617475726550726573656e7400"
+        }
+      ]
     },
     {
       "original_entry": "0x53CB10",
@@ -23926,12 +24138,25 @@
           "symbols": [
             "IsLegacyFloatNonnegative_53FE7D"
           ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.asm",
+          "symbols": [
+            "Cg2dLegacyFloatNonnegative"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "Cg2dLegacyFloatNonnegative"
+          ]
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原double与加载零常量比较，非负含正负零返1，负或无序返0；以相应C++比较表达数值结果，未模拟/运行验证x87状态字及信令NaN异常传送。已作为58FB60真实安装目标，原端无已识别的读取该槽直接引用。",
+      "boundary": "原double地址通过RCX完整传递，MASM叶执行FLD/FCOMP原零/FNSTSW并以C0判断负值或无序，返回0/1；替换此前C++比较并保留x87状态/栈作用，不宣称实际异常环境已验。已为58FB60安装目标，初始化组合53B447已接，CRT上游仍待。",
       "function_chunks": [
         {
           "start": "0x53FE7D",
@@ -23945,7 +24170,7 @@
           "reference_kind": "address"
         }
       ],
-      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行",
+      "verification_level": "原11条、零常量及新增MASM比较/原生ABI静态核对；未编译执行",
       "comparison_constant": {
         "address": "0x54D5D0",
         "bytes": "0000000000000000"
@@ -24039,6 +24264,84 @@
         }
       ],
       "verification_level": "906条原指令、字符集字节、位宽/读写/回推/EOF及新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x5448A4",
+      "inventory_id": "F:001448A4",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
+      "original_end_exclusive": "0x544936",
+      "instruction_count": 58,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "AbstractLegacyControlWord_5448A4"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "AbstractLegacyControlWord_5448A4"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "按原六异常屏蔽位、舍入、精度及无穷控制位组合U32抽象值。硬件PC00→20000H、PC10→10000H、PC01/11→0；只消费低W16已定义位，544859真实读控制字父已接。",
+      "function_chunks": [
+        {
+          "start": "0x5448A4",
+          "end_exclusive": "0x544936"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544865",
+          "parent_entry": "0x544859"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
+    },
+    {
+      "original_entry": "0x544936",
+      "inventory_id": "F:00144936",
+      "status": "原浮点控制/探测/初始化本体及内部链已实现；真实CRT上游和运行环境验收仍待",
+      "original_end_exclusive": "0x5449BF",
+      "instruction_count": 53,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatEnvironment.cpp",
+          "symbols": [
+            "HardwareLegacyControlWord_544936"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatEnvironment.hpp",
+          "symbols": [
+            "HardwareLegacyControlWord_544936"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "按原异常屏蔽/舍入/无穷控制位生成硬件值；抽象精度0→300H、10000H→200H、20000H/30000H不置精度位。不添加保留位或宿主规则，544859真实写控制字父已接。",
+      "function_chunks": [
+        {
+          "start": "0x544936",
+          "end_exclusive": "0x5449BF"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54487C",
+          "parent_entry": "0x544859"
+        }
+      ],
+      "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
     }
   ]
 }

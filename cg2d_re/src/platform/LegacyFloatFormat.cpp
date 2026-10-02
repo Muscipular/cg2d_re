@@ -1,4 +1,5 @@
 #include "LegacyFloatFormat.hpp"
+#include "LegacyFloatEnvironment.hpp"
 #include "LegacyFormat.hpp"
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
@@ -618,8 +619,7 @@ void AssignLegacyFloatText_53FE95(const std::int32_t useDouble, void* const outp
 
 std::int32_t IsLegacyFloatNonnegative_53FE7D(double* const value)
 {
-    // 原无序比较也返回0；本体不模拟x87状态字及浮点异常传送。
-    return *value >= 0.0 ? 1 : 0;
+    return detail::Cg2dLegacyFloatNonnegative(value);
 }
 
 void InstallLegacyFloatCallbacks_53B45F()

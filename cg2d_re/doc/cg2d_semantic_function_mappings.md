@@ -281,3 +281,29 @@ WinMain确有本体且仍编入启动静态库；当前没有完整客户端链�
 尾部才检查已消费字节，剩余预算1仍加入完整双字节宽度。
 两者均无尾字节解码/校验。异常沿RPLAN.24，不仿真原故障、不记异常验收通过；
 映射与静态分支修正不等于完整字体绘制、输入生命周期或运行验收完成。
+
+## 登录状态、消息、黑名单与游戏时间
+
+2026-10-02，登记七个已有命名本体，并把已批准的newest五入口单列为范围排除。
+[登录合同](cg2d_login_state_controller.md)、[黑名单合同](cg2d_blacklist_state.md)、
+[游戏时间合同](cg2d_game_time.md)继续分别约束各模块；不以名称或数量推定全链完成。
+
+| 原入口 | 当前对应 | 保留边界 |
+|---|---|---|
+| 45D990 | LoginState.cpp：UpdateServerConnection | 原连接阶段、非零结果的对象清理与黑名单加载；newest沿已批排除 |
+| 45EA50 | LoginState.cpp：ResetLoginProgress | 仅清W16阶段，不清请求或计时状态 |
+| 45EA60 | LoginState.cpp：UpdateLoginProgress | 创建后重读阶段，同帧启动；非零轮询结果先清对象再返回 |
+| 45CE00 | LoginMessage.cpp：ResetLoginMessage | 仅清W16消息阶段，不清结果或共享正文 |
+| 45CE10 | LoginMessage.cpp：UpdateLoginMessage | 原字节含NUL复制、仅LF分行、测宽与特殊文本分支 |
+| 401030 | Blacklist.cpp：LoadBlacklistFile | 清路径/记录不清游标；feof循环；打开失败仍发布fileId并返回W8的1 |
+| 458DE0 | world/GameTime.cpp：UpdateGameTime | U32时间分解；minutes先于sTick写，返回phase/192商 |
+
+50FC30、50FE30、50FF10、50FF70、510120按2026-09-21用户裁决仅排除
+newest HTTP/raw-socket请求链。JSON的sources为空，scope_control_sources指向
+落实排除的UpdateServerConnection；该字段是范围控制位置，不是被排除函数的替代本体。
+五条不能计为已实现，不能外推排除510140、常规登录请求、网络队列或取消加密后的帧处理。
+
+本轮没有修改上述业务代码或恢复音频。窗口报告4589A0/4589B0/4589C0
+本体各只有读取73ECF4、清73ECF4、读取73ED08，唯一caller均为待决403E50；
+现有MainLoop共享owner已承载原W32状态。本轮未重复造无消费者包装，
+也未把这三入口或网络父回调登记为已有实现。

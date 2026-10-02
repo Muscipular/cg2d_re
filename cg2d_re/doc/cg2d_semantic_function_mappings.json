@@ -4697,6 +4697,215 @@
         "doc/cg2d_input_caret.md"
       ],
       "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。"
+    },
+    {
+      "original_entry": "0x45D990",
+      "inventory_id": "F:0005D990",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿已批准newest排除跳至实际连接阶段，保留初始化/轮询、非零结果才死亡标记并清提示对象、随后加载黑名单及共享S32返回；不把发送回调与完整收发记为已闭合。"
+    },
+    {
+      "original_entry": "0x45EA50",
+      "inventory_id": "F:0005EA50",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "ResetLoginProgress"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "仅以W16清gLoginProgressPhase，不清布局、提示对象、请求状态或计时器。"
+    },
+    {
+      "original_entry": "0x45EA60",
+      "inventory_id": "F:0005EA60",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateLoginProgress"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "阶段0创建提示后重读阶段，同帧阶段1启动请求；阶段2轮询非零时清对象并返回，等待才按readiness绘制。保留W16阶段与S32轮询结果。"
+    },
+    {
+      "original_entry": "0x45CE00",
+      "inventory_id": "F:0005CE00",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginMessage.cpp",
+          "symbols": [
+            "ResetLoginMessage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "仅以W16清gMessageState；不清gMessageResult、共享12×256字节槽或提示对象。"
+    },
+    {
+      "original_entry": "0x45CE10",
+      "inventory_id": "F:0005CE10",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginMessage.cpp",
+          "symbols": [
+            "UpdateLoginMessage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "复制含NUL原文本，只按LF原地分行并测宽，特殊文本分支继续比较原输入；复用唯一消息状态/布局/对象和共享正文槽。完整输入、绘制及暂缓音频不因本体已有而完成验收。"
+    },
+    {
+      "original_entry": "0x401030",
+      "inventory_id": "F:00001030",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md"
+      ],
+      "boundary": "先清512B路径和100×17B记录表，不清游标；rb+打开并沿feof驱动，fgets返回不作新门禁。失败也发布fileId并返回W8的1，不能解释为文件加载成功。"
+    },
+    {
+      "original_entry": "0x458DE0",
+      "inventory_id": "F:00058DE0",
+      "status": "已有命名本体映射，完整依赖及运行未验",
+      "sources": [
+        {
+          "path": "src/world/GameTime.cpp",
+          "symbols": [
+            "UpdateGameTime"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md"
+      ],
+      "boundary": "读取既有W32时间边界，保留U32时间分解及year/month/day/hours/minutes/sTick写序；24B输出中minutes先于低地址sTick写，返回最后phase/192的商，非成功布尔值。"
+    },
+    {
+      "original_entry": "0x50FC30",
+      "inventory_id": "F:0010FC30",
+      "status": "用户范围排除：newest五函数链，不计为已实现",
+      "sources": [],
+      "scope_control_sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
+    },
+    {
+      "original_entry": "0x50FE30",
+      "inventory_id": "F:0010FE30",
+      "status": "用户范围排除：newest五函数链，不计为已实现",
+      "sources": [],
+      "scope_control_sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
+    },
+    {
+      "original_entry": "0x50FF10",
+      "inventory_id": "F:0010FF10",
+      "status": "用户范围排除：newest五函数链，不计为已实现",
+      "sources": [],
+      "scope_control_sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
+    },
+    {
+      "original_entry": "0x50FF70",
+      "inventory_id": "F:0010FF70",
+      "status": "用户范围排除：newest五函数链，不计为已实现",
+      "sources": [],
+      "scope_control_sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
+    },
+    {
+      "original_entry": "0x510120",
+      "inventory_id": "F:00110120",
+      "status": "用户范围排除：newest五函数链，不计为已实现",
+      "sources": [],
+      "scope_control_sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateServerConnection"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
     }
   ]
 }

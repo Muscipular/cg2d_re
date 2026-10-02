@@ -3,6 +3,8 @@
 #include "LegacyRuntimeError.hpp"
 #include "cg/platform/LegacyMemory.hpp"
 
+#include <bit>
+
 namespace cg::platform {
 
 // 原53BFF8，原calloc依赖尚未实现；不擅自扩大Malloc的std替代范围。
@@ -112,6 +114,100 @@ void FreeLegacyStreamBuffer_53F38F(LegacyFile* const stream)
         stream->base = nullptr;
         stream->remaining = 0;
     }
+}
+
+std::int32_t FillLegacyStreamBuffer_53F3BA(LegacyFile* const stream)
+{
+    std::uint32_t flags = stream->flags;
+    if ((flags & 0x83u) == 0 || (flags & 0x40u) != 0) {
+        return -1;
+    }
+    if ((flags & 2u) != 0) {
+        stream->flags = flags | 0x20u;
+        return -1;
+    }
+    flags |= 1u;
+    stream->flags = flags;
+    if ((flags & 0x10Cu) == 0) {
+        static_cast<void>(AllocateLegacyStreamBuffer_544815(stream));
+    } else {
+        stream->current = stream->base;
+    }
+    const std::int32_t read = ReadLegacyDescriptor_541426(stream->descriptor,
+        stream->base, static_cast<std::uint32_t>(stream->bufferSize));
+    stream->remaining = read;
+    if (read == 0 || read == -1) {
+        stream->flags |= read == 0 ? 0x10u : 0x20u;
+        stream->remaining = 0;
+        return -1;
+    }
+
+    flags = stream->flags;
+    if ((flags & 0x82u) == 0) {
+        const std::int32_t descriptor = stream->descriptor;
+        const auto* const record = descriptor == -1 ? &gLegacyInvalidDescriptor58FB40
+            : &gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31];
+        if ((record->flags & 0x82u) == 0x82u) {
+            stream->flags = flags | 0x2000u;
+        }
+    }
+    if (stream->bufferSize == 512) {
+        const std::uint32_t currentFlags = stream->flags;
+        if ((currentFlags & 8u) != 0 && (currentFlags & 0x400u) == 0) {
+            stream->bufferSize = 4096;
+        }
+    }
+    char* const current = stream->current;
+    stream->remaining = read - 1;
+    const auto value = static_cast<std::uint8_t>(*current);
+    stream->current = current + 1;
+    return value;
+}
+
+std::int32_t ReadLegacyStreamByte_53C8B3(LegacyFile* const stream)
+{
+    --stream->remaining;
+    if (stream->remaining < 0) {
+        return FillLegacyStreamBuffer_53F3BA(stream);
+    }
+    char* const current = stream->current;
+    const auto value = static_cast<std::uint8_t>(*current);
+    stream->current = current + 1;
+    return value;
+}
+
+char* ReadLegacyStreamLine_53B226(char* const buffer,
+    const std::int32_t maxCount, LegacyFile* const stream)
+{
+    if (maxCount <= 0) {
+        return nullptr;
+    }
+    char* output = buffer;
+    std::int32_t remaining = maxCount - 1;
+    while (remaining != 0) {
+        std::int32_t value;
+        --stream->remaining;
+        if (stream->remaining < 0) {
+            value = FillLegacyStreamBuffer_53F3BA(stream);
+        } else {
+            char* const current = stream->current;
+            value = static_cast<std::uint8_t>(*current);
+            stream->current = current + 1;
+        }
+        if (value == -1) {
+            if (output == buffer) {
+                return nullptr;
+            }
+            break;
+        }
+        *output++ = std::bit_cast<char>(static_cast<std::uint8_t>(value));
+        if (static_cast<std::uint8_t>(value) == '\n') {
+            break;
+        }
+        --remaining;
+    }
+    *output = '\0';
+    return buffer;
 }
 
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* const stream)

@@ -10973,36 +10973,76 @@
     {
       "original_entry": "0x53B226",
       "inventory_id": "F:0013B226",
-      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x53B27D",
       "instruction_count": 43,
       "original_direct_reference_count": 8,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile"
-          ],
-          "relationship": "黑名单读取的真实std文件流调用"
+            "ReadLegacyStreamLine_53B226"
+          ]
         },
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "argument.ini真实文件流消费"
+            "ReadLegacyStreamLine_53B226"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fgets.cpp",
-        "symbol": "common_fgets"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "count<=0原直接null；count1写NUL并返buffer；换行保留，部分EOF补NUL返buffer，立即EOF不写目标且返null。宿主参数/流校验与锁有差异，不以本记录批准402020/4021A0补零或全部八个caller完成。"
+      "boundary": "保留原内联逐字节路径：count<=0不写目标/不读流，count1仅首NUL，最多count-1并保留LF。首EOF返空且不写目标，已有字节后EOF才补NUL；直接filbuf已接，不把内联误记为原fgetc调用，既有日志未写局部待批项不补值。",
+      "function_chunks": [
+        {
+          "start": "0x53B226",
+          "end_exclusive": "0x53B27D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4010AA",
+          "parent_entry": "0x401030"
+        },
+        {
+          "address": "0x40211C",
+          "parent_entry": "0x402020"
+        },
+        {
+          "address": "0x4024BF",
+          "parent_entry": "0x4021A0"
+        },
+        {
+          "address": "0x402529",
+          "parent_entry": "0x4021A0"
+        },
+        {
+          "address": "0x46583B",
+          "parent_entry": "0x465790"
+        },
+        {
+          "address": "0x4CC3E0",
+          "parent_entry": "0x4CC340"
+        },
+        {
+          "address": "0x4CC643",
+          "parent_entry": "0x4CC540"
+        },
+        {
+          "address": "0x5240B9",
+          "parent_entry": "0x524060"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fgets.cpp",
+        "symbol": "common_fgets",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53B27D",
@@ -11292,38 +11332,200 @@
     {
       "original_entry": "0x53C8B3",
       "inventory_id": "F:0013C8B3",
-      "status": "现有文件读写/定位消费域已关联；内部状态差异及完整文件验收未完成",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x53C8CD",
       "instruction_count": 12,
       "original_direct_reference_count": 39,
       "sources": [
         {
-          "path": "src/Palette.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "InitPalette32",
-            "ReadPalette",
-            "UpdatePalette_450BB0"
-          ],
-          "relationship": "三个调色板入口的逐字节颜色读取"
+            "ReadLegacyStreamByte_53C8B3"
+          ]
         },
         {
-          "path": "src/world/SceneState.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "Sub_468570"
-          ],
-          "relationship": "现有地图头字节读取"
+            "ReadLegacyStreamByte_53C8B3"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/fgetc.cpp",
-        "symbol": "fgetc"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先减剩余数量，缓冲分支取U8并推进，否则filbuf；宿主正常U8/EOF承接。调色板保留EOF转低U8，不新增拒绝/补零；音频及其他caller不借此恢复，流校验/锁/失败内部状态未判等。"
+      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。",
+      "function_chunks": [
+        {
+          "start": "0x53C8B3",
+          "end_exclusive": "0x53C8CD"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4507F6",
+          "parent_entry": "0x450470"
+        },
+        {
+          "address": "0x4507FF",
+          "parent_entry": "0x450470"
+        },
+        {
+          "address": "0x450807",
+          "parent_entry": "0x450470"
+        },
+        {
+          "address": "0x450AFC",
+          "parent_entry": "0x450A80"
+        },
+        {
+          "address": "0x450B05",
+          "parent_entry": "0x450A80"
+        },
+        {
+          "address": "0x450B0D",
+          "parent_entry": "0x450A80"
+        },
+        {
+          "address": "0x450C4D",
+          "parent_entry": "0x450BB0"
+        },
+        {
+          "address": "0x450C5A",
+          "parent_entry": "0x450BB0"
+        },
+        {
+          "address": "0x450C67",
+          "parent_entry": "0x450BB0"
+        },
+        {
+          "address": "0x46866D",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x468677",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x468681",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x468690",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x4688E9",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x4688EF",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x4688F5",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x4688FB",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468CC6",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468CCC",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468CD2",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x468CD8",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x52B2F7",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B2FF",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B30A",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B315",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52BF96",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BF9E",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFC5",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFCD",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFD8",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFE3",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFF6",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52BFFE",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52C009",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x52C014",
+          "parent_entry": "0x52BE60"
+        },
+        {
+          "address": "0x548A97",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x548AC3",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x549186",
+          "parent_entry": "0x549147"
+        },
+        {
+          "address": "0x549C40",
+          "parent_entry": "0x549BC7"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fgetc.cpp",
+        "symbol": "fgetc",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53CB78",
@@ -11593,39 +11795,68 @@
     {
       "original_entry": "0x53F3BA",
       "inventory_id": "F:0013F3BA",
-      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x53F493",
       "instruction_count": 78,
       "original_direct_reference_count": 6,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "LoadBlacklistFile",
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+            "FillLegacyStreamBuffer_53F3BA"
+          ]
         },
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.hpp",
           "symbols": [
-            "Sub_44A090",
-            "Sub_449FA0",
-            "Sub_449DA0"
-          ],
-          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+            "FillLegacyStreamBuffer_53F3BA"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "stdio/_filbuf.cpp",
-        "symbol": "__acrt_stdio_refill_and_read_narrow_nolock"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原拒绝非活动/字符串/写流，切读模式，必要分配缓冲再read；0置EOF、-1置ERROR，成功取首U8。宿主仅窄字节职责关联，锁/校验/内部状态不逐项判等，宽字符路径不借此完成。"
+      "boundary": "原活动/字符串/写方向门禁；置读位后按10CH选择getbuf或重置current，再调真实read。先发布remaining，仅0/-1置EOF/错误并清count。成功按低层82H状态置FILE2000H，fd=-1用已加载58FB40原生回退记录；条件恢复512→4096尺寸，不重分配。末尾count-1、U8取字节及指针推进顺序保持；fgetc/fgets已接。",
+      "function_chunks": [
+        {
+          "start": "0x53F3BA",
+          "end_exclusive": "0x53F493"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B253",
+          "parent_entry": "0x53B226"
+        },
+        {
+          "address": "0x53BD76",
+          "parent_entry": "0x53BCCD"
+        },
+        {
+          "address": "0x53C8C6",
+          "parent_entry": "0x53C8B3"
+        },
+        {
+          "address": "0x53E963",
+          "parent_entry": "0x53E950"
+        },
+        {
+          "address": "0x54AFC1",
+          "parent_entry": "0x54AF70"
+        },
+        {
+          "address": "0x54AFF8",
+          "parent_entry": "0x54AF70"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_filbuf.cpp",
+        "symbol": "__acrt_stdio_refill_and_read_narrow_nolock",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F8C0",
@@ -11861,29 +12092,48 @@
     {
       "original_entry": "0x53D3BD",
       "inventory_id": "F:0013D3BD",
-      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x53D435",
       "instruction_count": 45,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "Sub_4C9060"
-          ],
-          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+            "GetLegacyDescriptorLength_53D3BD"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "GetLegacyDescriptorLength_53D3BD"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "lowio/filelength.cpp",
-        "symbol": "common_filelength"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一4C90A8：先CUR，成功后END，不同才恢复，返回END结果且忽略恢复失败；现有_filelength保持long/S32写CC4238，不新增-1门禁或改成i64。依赖宿主定位范围与锁，异常/大文件状态未判等。"
+      "boundary": "原范围/FOPEN门禁，先lseek(CUR,0)，-1立即结束；否则lseek(END,0)，位置不同时尝试恢复并忽略恢复结果，返回END查询值。使用真实低W32定位及其状态副作用；窗口存档业务父调用尚未迁移，不改64位长度或恢复失败覆盖返回。",
+      "function_chunks": [
+        {
+          "start": "0x53D3BD",
+          "end_exclusive": "0x53D435"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4C90A8",
+          "parent_entry": "0x4C9060"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/filelength.cpp",
+        "symbol": "common_filelength",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53D435",
@@ -12110,30 +12360,56 @@
     {
       "original_entry": "0x544705",
       "inventory_id": "F:00144705",
-      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x54472B",
       "instruction_count": 12,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/Blacklist.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "LoadBlacklistFile",
-            "PersistBlacklistFile_4011A0"
-          ],
-          "relationship": "现有stdio根的低层传递职责，不是私有CRT直接定义"
+            "IsLegacyDescriptorTty_544705"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "IsLegacyDescriptorTty_544705"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "lowio/isatty.cpp",
-        "symbol": "_isatty"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原fd超范围直接0且不写errno；有效返40h位。宿主有效同FDEV消费，非法参数校验写errno；原三个来源均为CRT内部，当前只关联stdio缓冲消费，按宿主职责关联，非应用独立tty API。"
+      "boundary": "仅U32范围检查，返回当前低层FDEV的0/40H，不检查FOPEN、不写错误槽；stbuf/flsbuf及宽输出三父调用尚未接，不以布尔1或宿主isatty代替。",
+      "function_chunks": [
+        {
+          "start": "0x544705",
+          "end_exclusive": "0x54472B"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53EA66",
+          "parent_entry": "0x53EA5E"
+        },
+        {
+          "address": "0x53F921",
+          "parent_entry": "0x53F8C0"
+        },
+        {
+          "address": "0x54B4B4",
+          "parent_entry": "0x54B450"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/isatty.cpp",
+        "symbol": "_isatty",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53CCD0",
@@ -12700,29 +12976,60 @@
     {
       "original_entry": "0x541426",
       "inventory_id": "F:00141426",
-      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
       "original_end_exclusive": "0x54161C",
       "instruction_count": 174,
       "original_direct_reference_count": 4,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "Sub_44A090"
-          ],
-          "relationship": "已有fread文件根的低层读取传递职责，不是原_read直接定义"
+            "ReadLegacyDescriptor_541426"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "ReadLegacyDescriptor_541426"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/read.cpp",
-        "symbol": "_read"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原四入向均CRT；零数量/EOF返0，管道/设备先消费lookahead，ReadFile后原地CRLF转换；Ctrl-Z停止，非设备置EOF，设备不复制该字节。宿主设备Ctrl-Z会复制、peek失败门禁/内部64位回退/数量校验不同；只关联既有文件读根，完整设备/父链未验。"
+      "boundary": "先验证fd/FOPEN，count0或EOF位返0。设备/管道暂存字节先写入且复位，再调用ReadFile；失败5特设错误，109直接0而不回滚预写字节。成功二进制返累计；文本原位CRLF/CTRL-Z、首LF位及末CR额外读一字节，保留同一read计数槽和设备暂存/普通文件回退-1差异。peek失败且错误0的未写局部不补值，特殊失败未验；filbuf已接，fread/sopen及其他父链未接。",
+      "function_chunks": [
+        {
+          "start": "0x541426",
+          "end_exclusive": "0x54161C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53BD5D",
+          "parent_entry": "0x53BCCD"
+        },
+        {
+          "address": "0x53D6A7",
+          "parent_entry": "0x53D44C"
+        },
+        {
+          "address": "0x53F402",
+          "parent_entry": "0x53F3BA"
+        },
+        {
+          "address": "0x54B5BC",
+          "parent_entry": "0x54B574"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/read.cpp",
+        "symbol": "_read",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53D26E",

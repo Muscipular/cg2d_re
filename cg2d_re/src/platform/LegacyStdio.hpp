@@ -37,6 +37,10 @@ void InitializeLegacyStdio_53E9A5();
 LegacyFile* AcquireLegacyStream_53F848();
 char* AllocateLegacyStreamBuffer_544815(LegacyFile* stream);
 void FreeLegacyStreamBuffer_53F38F(LegacyFile* stream);
+// 原读取本体；读行count<=0/首EOF不写目标，count1不读取流。
+std::int32_t FillLegacyStreamBuffer_53F3BA(LegacyFile* stream);
+std::int32_t ReadLegacyStreamByte_53C8B3(LegacyFile* stream);
+char* ReadLegacyStreamLine_53B226(char* buffer, std::int32_t maxCount, LegacyFile* stream);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

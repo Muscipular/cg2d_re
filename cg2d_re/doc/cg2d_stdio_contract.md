@@ -972,3 +972,59 @@ HANDLE=-1只写errno9。SetFilePointer仅S32低偏移、无高字输出，不预
 
 仅静态核原指令、分支、字节/参数宽度和新增差异；不执行实际初始化、
 句柄继承、定位、写入、客户端、编译、测试或哈希校验。
+
+## 低层文本读取、缓冲填充与读行实施 SPEC（2026-10-03）
+
+本步实现541426/53F3BA/53C8B3/53B226，并补同组544705/53D3BD。
+使用原描述符、FILE、缓冲和错误槽，不接宿主_read/fgetc/fgets；
+原业务FILE迁移及打开/calloc链仍待，不将暂未迁移的调用者记作已接。
+
+### 低层read与CR/LF边界
+
+541426先U32范围/FOPEN校验，无效DOS0/errno9/-1；有效count0或低层EOF位2置位返0。
+设备/管道48H且pipeByte不是LF时，先把暂存字节写到输出、请求量减1，
+累计设1，再重读组将pipeByte复位LF。即使剩余请求0也继续原ReadFile。
+主ReadFile失败：错误5特设errno9/DOS5，断管109直接0，其他走旧错误映射/-1。
+不返回此前暂存的累计数、不回滚已写输出，也不恢复已消费的pipeByte。
+
+主ReadFile成功后把API读数加累计；二进制直接返回W32位型。
+文本位80H时，标志4只按本次API读数非0且输出首字节LF决定，不按累计是否非0。
+随后原位压缩：内部CRLF写LF，其他CR保留；Ctrl-Z停止扫描，只有非设备才置EOF2。
+设备Ctrl-Z同样不复制该字节。未消费的原缓冲尾不补零、不回写到系统文件。
+
+末尾CR先推进源指针，再用同一个NumberOfBytesRead槽额外ReadFile一字节；
+失败仅GetLastError非0才直接输出CR，错误0继续按原计数槽/局部字节处理。
+不在peek前清计数或局部字节，不擅自给API未写内容补默认值；该特殊失败仍未验。
+设备/管道：peek为LF输出LF，否则输出CR并把peek存回pipeByte。
+普通文件：只有当前输出为空且peek LF才直接输出LF；其他先lseek(fd,-1,CUR)，
+忽略定位返回，peek非LF才输出CR，peek LF本次不输出，留待下次读取。
+保留API之后重读组/flags及原位源/目标先后，返回压缩后的S32字节数。
+
+### filbuf、fgetc与fgets
+
+原无效描述符回退58FB40的8字节已加载为FFFFFFFF/00/0A/0000，
+映射到唯一原生LegacyDescriptorRecord，不能把回退flags猜成文本位80H。
+53F3BA非活动或字符串流直接-1；写方向置FILE错误20H后-1。
+其他先置读位1；无10CH缓冲标志才调用已有getbuf，有缓冲只把current重置base。
+read结果先发布remaining，只有0/-1分别置EOF10H/错误20H并清remaining；
+不扩大成所有负数都走同一失败门禁。
+
+成功后，FILE flags&82H为0且底层flags&82H为82H时置FILE 2000H，
+descriptor=-1使用上述真实回退记录。缓冲尺寸512且自有8、无400H才改4096，
+不重新分配；之后按原序采样current、发布count-1、读U8、推进current。
+53C8B3先S32减remaining，负才filbuf，否则取U8并推进，不提前判EOF位。
+
+53B226保持原内联逐字节逻辑，不把原调用证据误写成fgetc调用。
+count<=0不写目标且不读流；count=1只补首NUL。最多读count-1，保留LF；
+第一次即EOF返回空且不写目标，已有字节后EOF才补NUL并返回原buffer。
+既有402020/4021A0未写局部待批项不因本步自动补值。
+
+### isatty与filelength
+
+544705只检U32范围，不额外检FOPEN，返回低层FDEV的0/40H，不写错误槽。
+53D3BD先检原范围/FOPEN；查询CUR失败-1直接结束，否则查询END，
+仅位置不同才尝试恢复CUR，返回END查询值、不用恢复失败覆盖。
+全部使用已实现原低W32 lseek，保留其EOF/错误槽副作用。
+
+仅静态核原指令、回退字节、别名/先后和新增差异；不运行读取样例、
+文件操作、编译、测试、客户端或哈希校验，不恢复暂停音频。

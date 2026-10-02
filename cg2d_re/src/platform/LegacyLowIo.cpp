@@ -10,6 +10,9 @@ namespace cg::platform {
 
 LegacyDescriptorRecord* gLegacyDescriptorBlocks10869C0[64] {};
 std::uint32_t gLegacyDescriptorCapacity1086AC0 = 0;
+LegacyDescriptorRecord gLegacyInvalidDescriptor58FB40 {
+    INVALID_HANDLE_VALUE, 0, '\n', {0, 0}
+};
 
 std::uint32_t InitializeLegacyDescriptors_53F52D()
 {
@@ -217,6 +220,146 @@ std::int32_t WriteLegacyDescriptor_541279(const std::int32_t descriptor,
     gLegacyErrno_1085FE0 = 28;
     gLegacyDosError_1085FE4 = 0;
     return -1;
+}
+
+std::int32_t ReadLegacyDescriptor_541426(const std::int32_t descriptor,
+    void* const buffer, std::uint32_t count)
+{
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const std::int32_t group = descriptor >> 5;
+    const std::int32_t slot = descriptor & 31;
+    const std::uint8_t initialFlags = gLegacyDescriptorBlocks10869C0[group][slot].flags;
+    if ((initialFlags & 1u) == 0) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    if (count == 0 || (initialFlags & 2u) != 0) {
+        return 0;
+    }
+    auto* const bytes = static_cast<std::uint8_t*>(buffer);
+    auto* destination = bytes;
+    std::uint32_t total = 0;
+    if ((initialFlags & 0x48u) != 0) {
+        const std::uint8_t pending = gLegacyDescriptorBlocks10869C0[group][slot].pipeByte;
+        if (pending != '\n') {
+            --count;
+            *bytes = pending;
+            destination = bytes + 1;
+            total = 1;
+            gLegacyDescriptorBlocks10869C0[group][slot].pipeByte = '\n';
+        }
+    }
+    DWORD read;
+    if (::ReadFile(gLegacyDescriptorBlocks10869C0[group][slot].handle,
+            destination, count, &read, nullptr) == 0) {
+        const DWORD error = ::GetLastError();
+        if (error == 5) {
+            gLegacyErrno_1085FE0 = 9;
+            gLegacyDosError_1085FE4 = 5;
+        } else if (error == 109) {
+            return 0;
+        } else {
+            static_cast<void>(MapLegacyFileError_542F44(error));
+        }
+        return -1;
+    }
+    total += read;
+    auto& record = gLegacyDescriptorBlocks10869C0[group][slot];
+    const std::uint8_t flags = record.flags;
+    if ((flags & 0x80u) == 0) {
+        return std::bit_cast<std::int32_t>(total);
+    }
+    record.flags = read != 0 && bytes[0] == '\n'
+        ? static_cast<std::uint8_t>(flags | 4u)
+        : static_cast<std::uint8_t>(flags & 0xFBu);
+
+    auto* cursor = bytes;
+    auto* output = bytes;
+    auto* const end = bytes + total;
+    while (cursor < end) {
+        const std::uint8_t value = *cursor;
+        if (value == 0x1A) {
+            auto& current = gLegacyDescriptorBlocks10869C0[group][slot];
+            if ((current.flags & 0x40u) == 0) {
+                current.flags |= 2u;
+            }
+            break;
+        }
+        if (value != '\r') {
+            *output++ = value;
+            ++cursor;
+            continue;
+        }
+        if (cursor < end - 1) {
+            if (cursor[1] == '\n') {
+                cursor += 2;
+                *output++ = '\n';
+            } else {
+                *output++ = '\r';
+                ++cursor;
+            }
+            continue;
+        }
+
+        ++cursor;
+        std::uint8_t lookahead;
+        const BOOL succeeded = ::ReadFile(gLegacyDescriptorBlocks10869C0[group][slot].handle,
+            &lookahead, 1, &read, nullptr);
+        // 原复用read槽，不在peek前清零；失败且LastError==0仍继续检查原槽。
+        if ((succeeded == 0 && ::GetLastError() != 0) || read == 0) {
+            *output++ = '\r';
+            continue;
+        }
+        if ((gLegacyDescriptorBlocks10869C0[group][slot].flags & 0x48u) != 0) {
+            const std::uint8_t pending = lookahead;
+            if (pending == '\n') {
+                *output++ = '\n';
+            } else {
+                *output++ = '\r';
+                gLegacyDescriptorBlocks10869C0[group][slot].pipeByte = pending;
+            }
+        } else if (output == bytes && lookahead == '\n') {
+            *output++ = '\n';
+        } else {
+            static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, -1, 1));
+            if (lookahead != '\n') {
+                *output++ = '\r';
+            }
+        }
+    }
+    return static_cast<std::int32_t>(output - bytes);
+}
+
+std::int32_t IsLegacyDescriptorTty_544705(const std::int32_t descriptor)
+{
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
+        return 0;
+    }
+    return gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 0x40u;
+}
+
+std::int32_t GetLegacyDescriptorLength_53D3BD(const std::int32_t descriptor)
+{
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
+        || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const std::int32_t current = SeekLegacyDescriptor_53F493(descriptor, 0, 1);
+    if (current == -1) {
+        return -1;
+    }
+    const std::int32_t end = SeekLegacyDescriptor_53F493(descriptor, 0, 2);
+    if (current != end) {
+        static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, current, 0));
+    }
+    return end;
 }
 
 HANDLE GetLegacyDescriptorHandle_543897(const std::int32_t descriptor)

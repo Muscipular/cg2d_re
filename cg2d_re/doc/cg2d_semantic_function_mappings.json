@@ -14580,86 +14580,168 @@
     {
       "original_entry": "0x53F2C6",
       "inventory_id": "F:0013F2C6",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
       "original_end_exclusive": "0x53F2FB",
       "instruction_count": 25,
       "original_direct_reference_count": 4,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+            "WriteLegacyFormatByte_53F2C6"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyFormatByte_53F2C6"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "write_character"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原低U8写出/完整参数交flsbuf，计数失败置-1否则递增。宿主string/stream adapter提供对应职责，但缓冲状态/调用序及EILSEQ恢复不同，不改现代errno到原槽。"
+      "boundary": "逐项同序的现有fputc本体承担count先减、低U8写/游标重读或完整S32交flsbuf；返回完整-1才写计数-1，否则读取计数加1。入口计数=-1也不提前跳过写。repeat/string两父已接，输出核心两原调用待实现。",
+      "function_chunks": [
+        {
+          "start": "0x53F2C6",
+          "end_exclusive": "0x53F2FB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53ECFA",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53ED13",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F315",
+          "parent_entry": "0x53F2FB"
+        },
+        {
+          "address": "0x53F34C",
+          "parent_entry": "0x53F32C"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_character",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F2FB",
       "inventory_id": "F:0013F2FB",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
       "original_end_exclusive": "0x53F32C",
       "instruction_count": 22,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+            "RepeatLegacyFormatByte_53F2FB"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "RepeatLegacyFormatByte_53F2FB"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "write_multiple_characters"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原S32数量<=0不写，正数量逐次write_char，计数等于-1则停；原三caller均输出核心。宿主同有重复写职责，格式状态机和失败时点未全部验收。"
+      "boundary": "仅S32数量>0逐次调用真实write_char，每次写后才检查调用者计数恰-1；输入计数已负不提前阻止第一次写，非正重复量不读取FILE/计数。三个输出核心父调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53F2FB",
+          "end_exclusive": "0x53F32C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53F1CC",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F1FE",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F272",
+          "parent_entry": "0x53EB28"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_multiple_characters",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F32C",
       "inventory_id": "F:0013F32C",
-      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
       "original_end_exclusive": "0x53F364",
       "instruction_count": 27,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyStdio.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+            "WriteLegacyFormatString_53F32C"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyFormatString_53F32C"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
-        "symbol": "write_string"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原S32数量正才写，逐次有符号W8读取后先前移游标，再写低U8/失败停；宿主字符串输出可批量memcpy，流输出有EILSEQ恢复，不称任意别名或编码失败等价。"
+      "boundary": "仅正S32数量逐字节读取S8并前移源游标，再真实write_char，写后计数恰-1才停。保持源/目标重叠逐次效果，不批量复制、预取全串或撤回已写前缀。三个输出核心父调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53F32C",
+          "end_exclusive": "0x53F364"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53F1E2",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F23C",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F25A",
+          "parent_entry": "0x53EB28"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_string",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      }
     },
     {
       "original_entry": "0x53F364",
@@ -21176,6 +21258,234 @@
         }
       ],
       "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行"
+    },
+    {
+      "original_entry": "0x53E950",
+      "inventory_id": "F:0013E950",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
+      "original_end_exclusive": "0x53E96A",
+      "instruction_count": 12,
+      "original_direct_reference_count": 18,
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyFormatByte_53E950"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyFormatByte_53E950"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原12条与现有fgetc本体同序，复用真实ReadLegacyStreamByte：先减count，非负取U8/推进，否则filbuf。skipspace内部已接，17个输入核心原调用未因包装存在计为已迁移。",
+      "function_chunks": [
+        {
+          "start": "0x53E950",
+          "end_exclusive": "0x53E96A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53E0D5",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E17D",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E1DB",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E1FE",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E249",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E280",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E2AD",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E3E3",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E3FD",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E442",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E531",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E580",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E631",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E715",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E7F3",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E86A",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E894",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E98D",
+          "parent_entry": "0x53E981"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行"
+    },
+    {
+      "original_entry": "0x53E96A",
+      "inventory_id": "F:0013E96A",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
+      "original_end_exclusive": "0x53E981",
+      "instruction_count": 8,
+      "original_direct_reference_count": 10,
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyFormatByte_53E96A"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyFormatByte_53E96A"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "完整S32字符等于-1直接无操作且不读FILE，其余交真实ungetc并忽略返回。十个输入核心caller不消费返回，void不伪造EOF路径残留寄存器；输入核心仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53E96A",
+          "end_exclusive": "0x53E981"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DF5F",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E2F3",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E42D",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E512",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E5C2",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E72C",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E80A",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E8DA",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E8E8",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E8F2",
+          "parent_entry": "0x53DEF4"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行"
+    },
+    {
+      "original_entry": "0x53E981",
+      "inventory_id": "F:0013E981",
+      "status": "原格式化字节依赖本体及FILE接线已实现；完整格式核心与业务迁移未闭合",
+      "original_end_exclusive": "0x53E9A5",
+      "instruction_count": 17,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SkipLegacyFormatSpace_53E981"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SkipLegacyFormatSpace_53E981"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "每轮先递增调用者S32计数，再真实取字节，然后原53BDEF分类；空白继续，非空白直接返回。EOF也先计数再分类，不补回推或提前失败门禁；两个输入核心父调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53E981",
+          "end_exclusive": "0x53E9A5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DF57",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E0C7",
+          "parent_entry": "0x53DEF4"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、字节/计数/游标及失败次序；新增源码静态核对，未执行"
     }
   ]
 }

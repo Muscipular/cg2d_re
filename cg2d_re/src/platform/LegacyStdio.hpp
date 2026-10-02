@@ -98,6 +98,17 @@ std::uint16_t FillLegacyStreamWideBuffer_54B574(LegacyFile* stream);
 std::uint16_t WriteLegacyStreamWide_54AD92(std::uint16_t character, LegacyFile* stream);
 std::uint16_t ReadLegacyStreamWide_54AF70(LegacyFile* stream);
 std::uint16_t UnreadLegacyStreamWide_54AE87(std::uint16_t character, LegacyFile* stream);
+// 原格式化核心的逐字节依赖；计数指针由caller持有，失败写-1不撤销已写前缀。
+void WriteLegacyFormatByte_53F2C6(
+    std::int32_t character, LegacyFile* stream, std::int32_t* written);
+void RepeatLegacyFormatByte_53F2FB(std::int32_t character,
+    std::int32_t count, LegacyFile* stream, std::int32_t* written);
+void WriteLegacyFormatString_53F32C(const char* source,
+    std::int32_t count, LegacyFile* stream, std::int32_t* written);
+// 原扫描核心读取/回推/跳空白；跳空白在每次读取前计数，包括EOF尝试。
+std::int32_t ReadLegacyFormatByte_53E950(LegacyFile* stream);
+void UnreadLegacyFormatByte_53E96A(std::int32_t character, LegacyFile* stream);
+std::int32_t SkipLegacyFormatSpace_53E981(std::int32_t* consumed, LegacyFile* stream);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

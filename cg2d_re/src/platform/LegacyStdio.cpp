@@ -1135,6 +1135,67 @@ std::uint16_t UnreadLegacyStreamWide_54AE87(
     return value;
 }
 
+void WriteLegacyFormatByte_53F2C6(const std::int32_t character,
+    LegacyFile* const stream, std::int32_t* const written)
+{
+    if (WriteLegacyStreamByte_53CFDC(character, stream) == -1) {
+        *written = -1;
+    } else {
+        ++*written;
+    }
+}
+
+void RepeatLegacyFormatByte_53F2FB(const std::int32_t character,
+    std::int32_t count, LegacyFile* const stream, std::int32_t* const written)
+{
+    while (count > 0) {
+        --count;
+        WriteLegacyFormatByte_53F2C6(character, stream, written);
+        if (*written == -1) {
+            break;
+        }
+    }
+}
+
+void WriteLegacyFormatString_53F32C(const char* source,
+    std::int32_t count, LegacyFile* const stream, std::int32_t* const written)
+{
+    while (count > 0) {
+        --count;
+        const auto character =
+            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(*source));
+        ++source;
+        WriteLegacyFormatByte_53F2C6(character, stream, written);
+        if (*written == -1) {
+            break;
+        }
+    }
+}
+
+std::int32_t ReadLegacyFormatByte_53E950(LegacyFile* const stream)
+{
+    return ReadLegacyStreamByte_53C8B3(stream);
+}
+
+void UnreadLegacyFormatByte_53E96A(
+    const std::int32_t character, LegacyFile* const stream)
+{
+    if (character != -1) {
+        static_cast<void>(UnreadLegacyStreamByte_54463F(character, stream));
+    }
+}
+
+std::int32_t SkipLegacyFormatSpace_53E981(
+    std::int32_t* const consumed, LegacyFile* const stream)
+{
+    std::int32_t character;
+    do {
+        ++*consumed;
+        character = ReadLegacyFormatByte_53E950(stream);
+    } while (ClassifyLegacySpace_53BDEF(character) != 0);
+    return character;
+}
+
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* const stream)
 {
     std::int32_t result = 0;

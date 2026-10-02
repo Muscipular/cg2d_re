@@ -1252,3 +1252,10 @@ hover框、返回按钮及关闭/返回/行提示按原序，每次绘制重取�
 - 宿主env/getenv.cpp及窄traits::_strnicoll来源明确；不宣称宿主仍调用旧helper或旧A/W/locale/lead-byte/失败时点等价。
 - 纠正上一轮543D0C两个比较调用的独立缺口记录：二者随GetEnv整体承接，不要求重接旧计数本体；已实现的小写转换计数路径保持。其他NLS路径不随此批准。
 - semantic records440、pending_records18、分类引用4；仅更新既有543D0C状态/边界，源码/CMake不改。静态核239条/唯一caller链/私有槽与宿主根、旧数据和UTF-8/LF；未构建、查产物、新增/执行测试、运行或哈希校验。总PLAN继续。
+
+### 2026-10-02：单字符转换与宽标准流私有职责归属
+
+- 核mbtowc/wctomb/Mbrtowc/btowc四入口247条及八个直接引用，均在CRT内部；[局部合同](../doc/cg2d_legacy_multibyte.md#crt单字符转换与宽标准流职责2026-10-02)关联已有宽流owner与UCRT实际源，不把同名函数或应用窄格式化源码当宽转换已运行证明。
+- 明确旧lead-byte失败尾、宽转窄flags220h、W32续接状态和宿主UTF-8/清零/locale/错误槽差异；现代STL同名_Mbrtowc不读pst，不误并为旧helper。没有新建状态表或改动业务编码/缓冲。
+- mbstowcs@53C9DD唯一caller455100属暂停音频，仅确认归属，不推进本体/接线或算排除。
+- semantic records444、pending_records18、分类引用4；源码/CMake未改。静态核四项合计/入向/宿主符号、旧记录及UTF-8/LF；未构建、查产物、新增/执行测试、运行客户端或哈希校验。格式化/宽流父链和总PLAN仍未完成。

@@ -1232,3 +1232,18 @@ records438增至439，pending_records18、分类引用4保持；仅静态核新�
 
 records439增至440，仅更新既有543D0C的状态/边界；pending_records18、分类引用4保持。
 源码/CMake未改，静态核新增范围及旧数据保持，未构建、测试、运行或哈希校验。
+
+## CRT单字符转换与宽流依赖归属（2026-10-02）
+
+按[局部合同](cg2d_legacy_multibyte.md#crt单字符转换与宽标准流职责2026-10-02)
+新增mbtowc/wctomb/Mbrtowc/btowc四项247条。八个直接引用全部来自CRT格式化、
+宽流读写或宽basic_ios初始化；只关联现有WideStandardStreamsStaticInitializer
+及宿主提供者，不伪造应用直接转换调用。
+
+明确旧mbtowc lead-byte失败尾、wctomb flags220h对宿主flags0、
+Mbrtowc的W32待续状态和btowc的局部转换；宿主locale/UTF-8/清零/错误槽不同。
+现代STL同名_Mbrtowc不使用pst，只列为差异参考，不误作旧状态的直接实现。
+
+records440增至444，pending_records18、分类引用4保持。音频mbstowcs唯一caller455100
+继续暂停，未登记完成或排除。源码/CMake未改，静态核新增关联和文件格式；
+未构建、测试、运行或哈希校验，不计全部格式化/宽流/启动退出验收。

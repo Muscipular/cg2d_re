@@ -122,3 +122,73 @@ LegacyTime实现ChangeLegacyDirectory_53DD2F并复用542F44，StartupCommon两�
 本步集中静态核对实际生产/消费、共享状态、常量/偏移、调用顺序、失败出口、
 源登记和限定差异。不执行NLS初始化、目录改变或文件创建，不构建、查产物、
 新增/执行测试、运行客户端或进行哈希校验。
+
+## CRT单字符转换与宽标准流职责（2026-10-02）
+
+本组只整理现有宿主宽标准流和格式化器的私有转换依赖；
+保持LegacyMouse.cpp内WideStandardStreamsStaticInitializer及宿主流owner，
+不新增旧FILE、mbstate或locale副本。宿主已有职责不等于旧字节状态和失败语义相同。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 原调用范围 |
+|---|---|---|---|
+| mbtowc 544552 | 54461A | 74 / 2 | input@53DEF4、fgetwc@54AF70 |
+| wctomb 54472B | 544793 | 37 / 4 | output@53EB28两处、fputwc@54AD92、ungetwc@54AE87 |
+| Mbrtowc 54A9C3 | 54AAD5 | 108 / 1 | btowc@54AAD5 |
+| btowc 54AAD5 | 54AB16 | 28 / 1 | 宽basic_ios初始化@549DBE |
+
+共247条。没有应用直接调用这四入口；关联的是现有宽标准流owner的传递职责，
+不能把LegacyMouse.cpp当作四个原函数的源码定义，也不宣称最终静态初始化已链接执行。
+
+### 原单字符转换
+
+mbtowc源空或数量0返回0；首字节NUL时仅目标非空才写W16零，然后返回0。
+ctypeLocale为0时把首U8写为W16并返回1。非零locale读旧ctype lead-byte位、
+MB_CUR_MAX和代码页，调用MultiByteToWideChar(flags9)。
+lead-byte分支的API失败未必最终返回-1：原5445DA..5445E2继续检查数量和第二字节，
+满足条件仍返回MB_CUR_MAX；失败路径写旧errno42。不凭API失败直接改返回合同。
+
+wctomb目标空直接返回0；C locale只允许W16<=255，写低U8并返回1，
+更大值直接errno42/-1。非C locale使用WideCharToMultiByte(flags220h)，
+目标长度为旧MB_CUR_MAX，并检查usedDefault；API0或发生替代均errno42/-1。
+失败路径没有现代安全接口式的主动清空整个目标。
+
+Mbrtowc的locale参数非空则从其+0/+4取locale/代码页，否则读共享旧槽；
+但MB_CUR_MAX和lead-byte表仍从原共享位置读取，不把它猜成完整自包含locale对象。
+源空/数量0返回0且不清待续状态，NUL仅按目标是否为空写W16零。
+待续状态按原W32非零判断，把新字节写到+1后尝试两字节转换；
+完成或失败清该W32，失败写errno42/-1。
+未待续且遇lead-byte时，数量不足只写状态低W8并返回-2；
+其他路径沿原长度/次字节条件和单字节转换，不新增UTF-8状态机。
+
+btowc参数为-1直接返回W16 FFFF；否则取低U8，清局部状态W32，
+传长度1、locale空到上述Mbrtowc。返回值负数变WEOF，否则返回目标W16。
+不因同名函数存在就把其局部状态布局解释为现代mbstate_t。
+
+### 宿主提供者及明确差异
+
+本机UCRT convert/mbtowc.cpp、wctomb.cpp、mbrtowc.cpp提供这些公共职责。
+mbtowc使用宿主locale并另有UTF-8内部状态，源空/数量0会清该内部状态；
+旧mbtowc没有这份状态。两者的非UTF-8 lead-byte失败尾都有继续判断，
+但状态来源和错误槽仍不同，不自动同步gLegacyErrno_1085FE0。
+
+宿主wctomb经_wctomb_internal，非C转换使用flags0，原为220h；
+目标容量校验及部分错误会清目标，另有UTF-8路径。这里只记录差异，
+不在应用中补清零、严格门槛或统一代码页来追随宿主。
+
+现代btowc直接使用UCRT _mbrtowc_internal：状态和目标预先初始化，
+helper入口也会给非空目标写0，另有UTF-8处理；旧helper并非入口无条件清目标。
+该职责链可定位，但不称旧4B待续状态、输出未写区域或失败时点等价。
+
+MSVC STL另有crt/src/stl/xmbtowc.cpp::_Mbrtowc：当前代码明确不使用pst，
+通过_Cvtvec的代码页/最大长度/lead表转换，且包括UTF-8分支。
+因此不能仅按名称把它等同于旧54A9C3的共享状态/可空locale合同；
+本组把它列为参考，旧btowc的宿主对应职责仍落在UCRT mbrtowc.cpp内。
+
+### 范围与剩余
+
+mbstowcs@53C9DD共94条的唯一直接caller是455100@4551A6，属于暂停中的音频链；
+本轮只确认归属，不推进其本体、接线或变更暂停状态，不登记为已完成/范围排除。
+
+现有命令行sscanf多为窄字符串/整数，不能据其源码存在宣称已执行这些宽转换分支。
+格式化扫描/输出父链、宽流读写与完整启动退出仍单独验收。
+本步新增四项限定记录，不改业务源码/CMake，不构建、测试、运行或哈希校验。

@@ -11708,6 +11708,123 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "唯一直接caller54733B仅由54518B与548011调用，均为既有GetEnv私有链；只在此范围沿用户整体std替代，不推广其他NLS或业务比较。原108630C是本helper独占A/W探测槽，两个strncnt调用与转换/空串/lead-byte/SEH分支归属已核，不新建旧缓存或重复比较器。宿主getenv按traits::_strnicoll比较环境名，锁/locale/编码及失败行为不称原等价，也不声称它仍调用这个旧helper。"
+    },
+    {
+      "original_entry": "0x544552",
+      "inventory_id": "F:00144552",
+      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "original_end_exclusive": "0x54461A",
+      "instruction_count": 74,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbtowc.cpp",
+        "symbol": "mbtowc"
+      },
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原input及fgetwc两个CRT调用；空源/数量0/NUL、C locale U8到W16和非C lead-byte分支已核。原API失败后仍有长度/次字节判定，不改成统一失败。宿主locale/UTF-8内部状态和错误槽不同，当前宽流owner只是传递关联。"
+    },
+    {
+      "original_entry": "0x54472B",
+      "inventory_id": "F:0014472B",
+      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "original_end_exclusive": "0x544793",
+      "instruction_count": 37,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/wctomb.cpp",
+        "symbol": "wctomb"
+      },
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原output两处及fputwc/ungetwc两处CRT调用；空目标0、C locale W16<=255写低字节，否则errno42/-1。原非C flags220h及usedDefault检查；宿主flags0、容量校验/部分失败清目标和UTF-8分支不同，不自动同步原errno。"
+    },
+    {
+      "original_entry": "0x54A9C3",
+      "inventory_id": "F:0014A9C3",
+      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "original_end_exclusive": "0x54AAD5",
+      "instruction_count": 108,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
+        "symbol": "_mbrtowc_internal"
+      },
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一btowc父调用；可空locale+0/+4、共享MB_CUR_MAX/ctype、W32待续状态和低W8保存/-2已核。宿主btowc内部helper入口清目标且有UTF-8状态；MSVC STL同名_Mbrtowc不使用pst，不能同名判等。不新增旧状态或声称全父链已接。",
+      "native_reference": {
+        "component": "MSVC STL 14.50.35717，仅作同名差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/stl/xmbtowc.cpp",
+        "symbol": "_Mbrtowc"
+      }
+    },
+    {
+      "original_entry": "0x54AAD5",
+      "inventory_id": "F:0014AAD5",
+      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "original_end_exclusive": "0x54AB16",
+      "instruction_count": 28,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
+        "symbol": "btowc"
+      },
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原宽basic_ios初始化唯一直接调用；-1转W16 WEOF，其他取低U8、局部W32状态清零，Mbrtowc返回负数则WEOF，否则返回输出W16。宿主公共btowc的职责来源已定位，局部状态/输出初始化和最终宽流运行仍不称原等价。"
     }
   ]
 }

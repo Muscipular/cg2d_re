@@ -59,6 +59,7 @@ InputContext gInputContextD2E130 {};
 InputContext gInputContextD2E2E0 {};
 InputContext gInputContextCB01F8 {};
 InputContext gInputContextCF47E0 {};
+InputContext gInputContext1050B80 {};
 InputContext* gCurrentInputData = nullptr;
 std::int32_t gValueC9A96C = 0;
 std::int32_t gValue626C0C = 0;

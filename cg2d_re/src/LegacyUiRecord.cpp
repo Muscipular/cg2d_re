@@ -1160,6 +1160,10 @@ std::int32_t gLegacyGuildGiftSelected1050DA8 = 0; // 旧86生产、旧87消费�
 std::int32_t gLegacyGuildGiftColumn1050F10 = 0;
 std::int32_t gLegacyGuildGiftRow1050DC8 = 0;
 constexpr char kLegacyGuildGift58F224[] = "\x82\xB1\x82\xCC\x83\x41\x83\x43\x83\x65\x3F\x82\xF0\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
+LegacyPanelRecord gLegacyGuildComposePanel58EA18 {
+    0, 0, 272, 438, 87, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyGuildSendMail58F288[] = "\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xA2\x82\xE9\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE8\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8947,6 +8951,128 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
     const std::uint32_t result = Sub_503440(&gLegacyGuildGiftPanel58E950, 1);
     gLegacyGuildGiftHover58EA14 = hovered;
     return result;
+}
+
+void Sub_52DC60()
+{
+    char preserved[400];
+    std::strcpy(preserved, input::gInputContext1050B80.text);
+    const std::int32_t y = gLegacyGuildComposePanel58EA18.y;
+    const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
+    input::InitializeContext_449CF0(&input::gInputContext1050B80,
+        x + 10, y + 219, 2, 0, 0, preserved, 10, 28, 20, 0);
+    input::SetContext_44B330(&input::gInputContext1050B80);
+}
+
+std::uint32_t Sub_52DCE0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildComposePanel58EA18.x;
+    const std::int32_t y = gLegacyGuildComposePanel58EA18.y;
+    std::array<LegacyPanelButtonRecord, 2> buttons {{
+        {x + 80, y + 197, x + 40, y + 187, 80, 20, 23196, 23197},
+        {x + 192, y + 197, x + 152, y + 187, 80, 20, 22710, 22711},
+    }};
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildComposePanel58EA18, Sub_52DC60, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        // 原52DDC7关闭86，先恢复聊天焦点，沿原顺序保留。
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(86));
+    }
+    if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
+        if (input::gInputContext1050B80.text[0] != '\0') {
+            std::int32_t timeValue;
+            static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
+            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
+            const std::int32_t minutes = calendar->minutes;
+            const std::int32_t hours = calendar->hours;
+            const std::int32_t day = calendar->day;
+            const std::int32_t month = calendar->month0based + 1;
+            const std::int32_t year = calendar->yearMinus1900 + 1900;
+            char timestamp[64];
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            char source[512];
+            std::strcpy(source, input::gInputContext1050B80.text);
+            char escaped[600];
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
+            const std::int32_t value = gLegacyGuildPetIndex1050DB0;
+            const std::int32_t contact = gLegacyGuildMailTarget1050DCC;
+            const auto socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_5110B0(socket, contact, value, gift, escaped, 0));
+            const std::int32_t savedContact = gLegacyGuildMailTarget1050DCC;
+            static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, input::gInputContext1050B80.text));
+            static_cast<void>(world::detail::Sub_519300());
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::Sub_504180(94));
+            input::gInputContext1050B80.text[0] = '\0';
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((QueryPanelButtonState(&buttons[1]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(94));
+    }
+    const std::int32_t imageContact = gLegacyGuildMailTarget1050DCC;
+    const std::int32_t contactY = gLegacyGuildComposePanel58EA18.y + 84;
+    const std::int32_t contactImage = gOrderedRecords1051B14[imageContact].value14;
+    const std::int32_t contactX = gLegacyGuildComposePanel58EA18.x + 52;
+    static_cast<void>(DrawGraphic(contactX, contactY, 212, contactImage, 0, &descriptor));
+    const std::int32_t measureContact = gLegacyGuildMailTarget1050DCC;
+    const std::int32_t contactWidth = TextMeasure(gOrderedRecords1051B14[measureContact].text18, 0);
+    const std::int32_t textContact = gLegacyGuildMailTarget1050DCC;
+    const char* const contactName = gOrderedRecords1051B14[textContact].text18;
+    const std::int32_t contactNameY = gLegacyGuildComposePanel58EA18.y + 62;
+    const std::int32_t contactNameX = gLegacyGuildComposePanel58EA18.x - contactWidth / 2 + 176;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(contactNameX),
+        static_cast<std::int16_t>(contactNameY), 2, 0, 0, contactName, 0, 0));
+    const std::int32_t gift = gLegacyGuildGiftSelected1050DA8;
+    if (gift > 0) {
+        const std::int32_t giftY = gLegacyGuildComposePanel58EA18.y + 120;
+        const std::int32_t image = world::detail::gPlayerItemsFDA8A4[gift].imageNo;
+        const std::int32_t giftX = gLegacyGuildComposePanel58EA18.x + 216;
+        static_cast<void>(DrawGraphic(giftX, giftY, 212, image, 0, &descriptor));
+        std::int32_t nameGift = gLegacyGuildGiftSelected1050DA8;
+        const std::int32_t count = world::detail::gPlayerItemsFDA8A4[nameGift].count;
+        if (count > 0) {
+            char buffer[128];
+            std::sprintf(buffer, "%3d", count);
+            const std::int32_t countY = gLegacyGuildComposePanel58EA18.y + 127;
+            const std::int32_t countX = gLegacyGuildComposePanel58EA18.x + 213;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+            nameGift = gLegacyGuildGiftSelected1050DA8;
+        }
+        const std::int32_t width = TextMeasure(world::detail::gPlayerItemsFDA8A4[nameGift].name.data(), 0);
+        const std::int32_t textGift = gLegacyGuildGiftSelected1050DA8;
+        const char* const name = world::detail::gPlayerItemsFDA8A4[textGift].name.data();
+        const std::int32_t nameY = gLegacyGuildComposePanel58EA18.y + 152;
+        const std::int32_t nameX = gLegacyGuildComposePanel58EA18.x - width / 2 + 136;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+            static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
+    }
+    Sub_5035E0(&buttons[0], 212, 1, gValueD69768, 0);
+    Sub_5035E0(&buttons[1], 212, 1, gValueD69768, 0);
+    render::DrawInputText_4568A0(&input::gInputContext1050B80);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyGuildComposePanel58EA18) != 0) {
+        hint = kLegacyGuildClose58F248;
+    } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
+        hint = kLegacyGuildSendMail58F288;
+    } else if ((QueryPanelButtonState(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacyGuildReturn58F264;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGuildComposePanel58EA18, 1);
 }
 
 std::uint32_t Sub_52E240(const std::int32_t opened)

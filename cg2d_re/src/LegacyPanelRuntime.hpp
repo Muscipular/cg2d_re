@@ -211,6 +211,8 @@ std::uintptr_t Sub_4EB1C0(std::int32_t opened); // 旧46按排序表批量发信
 std::uint32_t Sub_4EBD20(std::int32_t opened); // 旧43三类排序，共用D67CD0并保存后打开42，不提前排序。
 void Sub_52D790(); // 旧86清详情页并将同源赠品选择置-1，不清上次悬停/行列。
 std::uint32_t Sub_52D7B0(std::int32_t opened); // 旧86公会赠品，鼠标10H选择，关闭保持原常量49。
+void Sub_52DC60(); // 旧87保留公会草稿后初始化并发布同源1050B80输入。
+std::uint32_t Sub_52DCE0(std::int32_t opened); // 旧87消费宠物/赠品发送，原只保存普通组，关闭86。
 std::uint32_t Sub_52E240(std::int32_t opened); // 旧88公会送信宠物，发布同源1050DB0后依序打开87/86。
 std::uint32_t Sub_52F460(std::int32_t opened); // 旧91公会邮件方式，普通/宠物/返回依序开90/88/94。
 std::uint32_t Sub_52F670(std::int32_t opened); // 旧92成员删除确认，低W8权限bit2、原索引清理/普通组保存。

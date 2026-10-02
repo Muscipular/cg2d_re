@@ -452,6 +452,22 @@ std::int32_t gLegacyGemElapsedD68ABC = 0;
 constexpr char kLegacyGemMissing58AC7C[] = "\xAF\xC0\xA7\xF7\xA8\x53\xA6\xB3\xB3\x51\xB5\x6E\xBF\xFD\xA1\x43";
 constexpr char kLegacyGemExecute58ACB0[] = "\xC6\x5E\xA4\x4A\xC4\x5F\xA5\xDB\xA1\x43";
 constexpr char kLegacyGemBack5871F0[] = "\xAA\xF0\xA6\x5E\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+LegacyPanelRecord gLegacyGemMaterialsPanel58AA60 {
+    368, 0, 272, 380, 30, {23352, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyGemMaterialHoverD68A84 = 0;
+std::int32_t gLegacyGemDragImageD68AA4 = 0;
+std::int32_t gLegacyGemDragSlotD68AA8 = 0;
+std::int32_t gLegacyGemMaterialPageD68AAC = 0;
+constexpr char kLegacyGemTooFew58ACA4[] = "\xAF\xC0\xA7\xF7\xA4\xA3\xA8\xAC\xA1\x43";
+constexpr char kLegacyGemInvalid58AC90[] = "\xBF\xEF\xBE\xDC\xAA\xBA\xAF\xC0\xA7\xF7\xA4\xA3\xA5\xBF\xBD\x54\xA1\x43";
+constexpr char kLegacyGemRegistered58AC6C[] = "\xAF\xC0\xA7\xF7\xA4\x77\xB5\x6E\xBF\xFD\xA1\x43";
+constexpr char kLegacyGemWorking58AC58[] = "\xA5\x5B\xA4\x75\xA4\xA4\xA1\x45\xA1\x45\xA1\x45\xA1\x45\xA1\x45\xA1\x45";
+constexpr char kLegacyGemNone58AC28[] = "\xA8\x53\xA6\xB3\xBF\xEF\xBE\xDC\xA8\xEC\xAF\xC0\xA7\xF7\xA1\x43";
+constexpr char kLegacyGemRegister58AC3C[] = "\xB1\x4E\xBF\xEF\xA8\xEC\xAA\xBA\xB9\x44\xA8\xE3\xB5\x6E\xBF\xFD\xAC\xB0\xAF\xC0\xA7\xF7\xA1\x43";
+constexpr char kLegacyGemSelected58AC10[] = "\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xA4\x77\xB8\x67\xB3\x51\xBF\xEF\xBE\xDC\xA1\x43";
+constexpr char kLegacyGemSelect58AC00[] = "\xBF\xEF\xBE\xDC\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xA1\x43";
+constexpr char kLegacyGemReject58ABEC[] = "\xB5\x4C\xAA\x6B\xBF\xEF\xBE\xDC\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xA1\x43";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -3124,6 +3140,275 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyCraftBack58A084);
     }
     return Sub_503440(&gLegacyCraftExecutionPanel584530, 1);
+}
+
+std::int32_t Sub_504EE0()
+{
+    gLegacyGemDragSlotD68AA8 = -1;
+    ui::detail::gItemMarksD68A90.fill(0);
+    gLegacyGemPhaseD68A8C = 0;
+    gLegacyGemDragImageD68AA4 = 0;
+    return 0;
+}
+
+std::int32_t Sub_504FA0()
+{
+    bool foundNormal = false;
+    bool foundSpecial = false;
+    for (std::int32_t slot = 0; slot < 20; ++slot) {
+        if (ui::detail::gItemMarksD68A90[slot] == 0) {
+            continue;
+        }
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+        const std::int32_t type = item->itemType;
+        if ((type == 38 || type == 25 || type == 39) && item->hasDescription != 0) {
+            if (foundSpecial) {
+                return 2;
+            }
+            foundSpecial = true;
+        } else {
+            if ((world::detail::Sub_504F10(item->itemId, 0) == 0
+                    && world::detail::Sub_504F10(item->itemId, 1) == 0)
+                || foundNormal || (item->flags & 0x800u) == 0) {
+                return 2;
+            }
+            foundNormal = true;
+        }
+    }
+    return foundNormal && foundSpecial ? 4 : 2;
+}
+
+std::uint32_t Sub_505170(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGemMaterialsPanel58AA60.x;
+    const std::int32_t y = gLegacyGemMaterialsPanel58AA60.y;
+    LegacyPanelButtonRecord confirm {x + 140, y + 357, x + 100, y + 347, 80, 20, 23363, 23365};
+    LegacyPanelButtonRecord disabled {x + 140, y + 357, x + 100, y + 347, 80, 20, 23364, 0};
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyGemMaterialsPanel58AA60,
+        [] { static_cast<void>(Sub_504EE0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(29));
+    }
+    std::int32_t markedCount = 0;
+    for (const std::uint8_t mark : ui::detail::gItemMarksD68A90) {
+        markedCount += std::bit_cast<std::int8_t>(mark);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 48, top + 48, -1) != 0) {
+                hovered = row * 5 + column;
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyGemMaterialHoverD68A84) {
+        gLegacyGemMaterialPageD68AAC = 0;
+    }
+    const std::int32_t initialDrag = gLegacyGemDragSlotD68AA8;
+    const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+    bool skipDrag = false;
+    if (initialDrag >= 0 && (clicks & 2u) != 0) {
+        gLegacyGemDragSlotD68AA8 = -1;
+        gLegacyGemDragImageD68AA4 = 0;
+        skipDrag = true;
+    } else if (hovered >= 0 && (clicks & 2u) != 0
+               && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        const std::int32_t page = gLegacyGemMaterialPageD68AAC;
+        const std::int32_t pages = world::detail::gPlayerItemsFDA8A4[hovered + 8].pages;
+        gLegacyGemMaterialPageD68AAC = page + 1;
+        if (gLegacyGemMaterialPageD68AAC >= pages) {
+            gLegacyGemMaterialPageD68AAC = 0;
+        }
+    } else if (gLegacyGemPhaseD68A8C < 4) {
+        if ((clicks & 0x10u) != 0 && hovered >= 0
+            && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+            if (world::detail::Sub_505040(hovered + 8) != 0
+                && world::detail::Sub_5050B0(hovered + 8) != 0) {
+                if (ui::detail::gItemMarksD68A90[hovered] != 0) {
+                    ui::detail::gItemMarksD68A90[hovered] = 0;
+                    static_cast<void>(audio::PlaySe_52C450(54, 320));
+                } else if (markedCount < 2) {
+                    ui::detail::gItemMarksD68A90[hovered] = 1;
+                    static_cast<void>(audio::PlaySe_52C450(79, 320));
+                }
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+            gLegacyGemDragSlotD68AA8 = -1;
+            gLegacyGemDragImageD68AA4 = 0;
+            skipDrag = true;
+        } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+            if (markedCount > 2) {
+                gLegacyGemPhaseD68A8C = 2;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else if (markedCount < 2) {
+                gLegacyGemPhaseD68A8C = 1;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            } else {
+                gLegacyGemPhaseD68A8C = Sub_504FA0();
+            }
+            if (gLegacyGemPhaseD68A8C == 4) {
+                std::int32_t normalCount = 0;
+                for (std::int32_t slot = 0; slot < 20; ++slot) {
+                    if (ui::detail::gItemMarksD68A90[slot] != 0) {
+                        const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+                        const std::int32_t type = item->itemType;
+                        const bool special = type == 38 || type == 25 || type == 39;
+                        const std::int32_t image = item->imageNo;
+                        const std::int32_t target = special ? 5 : normalCount;
+                        ui::detail::gSelectionCountsD66E0C[target] = 1;
+                        ui::detail::gSelectionImagesCF3FF4[target] = image;
+                        ui::detail::gSelectedSlotsCA0A90[target] = slot;
+                        if (!special) {
+                            ++normalCount;
+                        }
+                        if (normalCount >= 6) {
+                            break;
+                        }
+                    }
+                }
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        } else if (hovered >= 0) {
+            const std::int32_t source = gLegacyGemDragSlotD68AA8;
+            const std::uint8_t dragClicks = static_cast<std::uint8_t>(gValueD68D9C);
+            if (source >= 0 && (dragClicks & 1u) != 0) {
+                if (source != hovered) {
+                    static_cast<void>(network::Sub_510EC0(platform::gConnectionSocket, source + 8, hovered + 8, 0));
+                    const std::int32_t currentSource = gLegacyGemDragSlotD68AA8;
+                    ui::detail::gItemMarksD68A90[currentSource] = 0;
+                    ui::detail::gItemMarksD68A90[hovered] = 0;
+                }
+                gLegacyGemDragSlotD68AA8 = -1;
+                gLegacyGemDragImageD68AA4 = 0;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else if (world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0
+                       && source < 0 && (dragClicks & 1u) != 0) {
+                const std::int32_t image = world::detail::gPlayerItemsFDA8A4[hovered + 8].imageNo;
+                gLegacyGemDragSlotD68AA8 = hovered;
+                gLegacyGemDragImageD68AA4 = image;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+    }
+    if (!skipDrag && gLegacyGemDragSlotD68AA8 >= 0) {
+        const std::int32_t image = gLegacyGemDragImageD68AA4;
+        const std::int32_t mouseY = platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseY);
+        const std::int32_t mouseX = platform::legacy_crypt_int::Read_401EC0(&platform::gLegacyMouseState.mouseX);
+        static_cast<void>(DrawGraphic(mouseX, mouseY, 221, image, 0, nullptr));
+    }
+    char buffer[256];
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t slot = row * 5 + column;
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[slot + 8];
+            if (item->used != 0) {
+                const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 60 + 53 * row;
+                const std::int32_t image = item->imageNo;
+                const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x + 32 + 52 * column;
+                static_cast<void>(DrawGraphic(left, top, 212, image, 0, &descriptor));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyGemMaterialsPanel58AA60.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyGemMaterialsPanel58AA60.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+                if (world::detail::Sub_505040(slot + 8) == 0 || world::detail::Sub_5050B0(slot + 8) == 0) {
+                    const std::int32_t coverY = gLegacyGemMaterialsPanel58AA60.y + 153 + 53 * row;
+                    const std::int32_t coverX = gLegacyGemMaterialsPanel58AA60.x + 137 + 52 * column;
+                    static_cast<void>(DrawGraphic(coverX, coverY, 213, 22739, 0, nullptr));
+                }
+            }
+            if (hovered == slot) {
+                const std::uint32_t hoverImage = gValueD69768;
+                const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 53 * row;
+                const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x + 52 * column;
+                DrawGraphicHover(Low16(left + 8), Low16(top + 36), Low16(left + 56), Low16(top + 84),
+                    212, hoverImage, 0);
+            }
+            const bool dragged = gLegacyGemDragSlotD68AA8 == slot;
+            if (dragged || ui::detail::gItemMarksD68A90[slot] != 0) {
+                const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x + 52 * column;
+                const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 53 * row;
+                DrawGraphicHover(Low16(left + 10), Low16(top + 38), Low16(left + 54), Low16(top + 82),
+                    212, dragged ? 254 : 251, 0);
+            }
+        }
+    }
+    if (hovered >= 0 && world::detail::gPlayerItemsFDA8A4[hovered + 8].used != 0) {
+        const std::int32_t page = gLegacyGemMaterialPageD68AAC;
+        const std::int32_t height = gLegacyGemMaterialsPanel58AA60.height;
+        const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y;
+        const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x;
+        Sub_4FB940(left, top + height / 2 + 54, hovered + 8, page);
+    }
+    if (gLegacyGemPhaseD68A8C >= 4) {
+        Sub_5035E0(&disabled, 212, 1, gValueD69768, 1);
+    } else {
+        Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    }
+    const std::int32_t phase = gLegacyGemPhaseD68A8C;
+    if (phase != 0) {
+        switch (phase) {
+        case 1: std::strcpy(buffer, kLegacyGemTooFew58ACA4); break;
+        case 2: std::strcpy(buffer, kLegacyGemInvalid58AC90); break;
+        case 3: std::strcpy(buffer, kLegacyGemMissing58AC7C); break;
+        case 4: std::strcpy(buffer, kLegacyGemRegistered58AC6C); break;
+        case 5: std::strcpy(buffer, kLegacyGatherNoFp5864F0); break;
+        case 6: case 7: std::strcpy(buffer, kLegacyGemWorking58AC58); break;
+        default: break;
+        }
+        const std::int32_t textWidth = TextMeasure(buffer, 0);
+        const std::int32_t top = gLegacyGemMaterialsPanel58AA60.y + 278;
+        const std::int32_t width = gLegacyGemMaterialsPanel58AA60.width;
+        const std::int32_t left = gLegacyGemMaterialsPanel58AA60.x + width / 2 - textWidth / 2;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, buffer, 0, 0));
+    }
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (Sub_503590(&gLegacyGemMaterialsPanel58AA60) != 0) {
+        std::strcpy(hint, kLegacySkillClose55331C);
+    }
+    if ((QueryPanelButtonState(&confirm) & 0x40) != 0 && gLegacyGemPhaseD68A8C <= 4) {
+        std::strcpy(hint, markedCount > 0 ? kLegacyGemRegister58AC3C : kLegacyGemNone58AC28);
+    } else if (hovered >= 0) {
+        const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered + 8];
+        if (item->used != 0) {
+            const std::uint16_t flags = item->flags;
+            if ((flags & 0x100u) != 0) {
+                std::strcpy(hint, item->name.data());
+                std::strcat(hint, "[kok]");
+            } else if ((flags & 0x200u) != 0) {
+                std::strcpy(hint, item->memo.data());
+                std::strcat(hint, "[han]");
+            } else if (ui::detail::gItemMarksD68A90[hovered] != 0) {
+                std::strcpy(hint, kLegacyGemSelected58AC10);
+            } else {
+                const bool selectable = world::detail::Sub_505040(hovered + 8) != 0
+                    || world::detail::Sub_5050B0(hovered + 8) != 0;
+                std::strcpy(hint, selectable ? kLegacyGemSelect58AC00 : kLegacyGemReject58ABEC);
+            }
+        }
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyGemMaterialsPanel58AA60, 1);
+    gLegacyGemMaterialHoverD68A84 = hovered;
+    return result;
 }
 
 std::int32_t Sub_505BC0()

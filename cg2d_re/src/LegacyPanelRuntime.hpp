@@ -174,6 +174,9 @@ std::int32_t Sub_502930(); // 原CRT 5530C8入口，尾跳旧地图面板构造�
 std::int32_t Sub_502940(); // D68868同源面板初始化，不触碰玩家坐标或地图数据。
 std::uint32_t Sub_5029B0(std::int32_t opened); // 旧地图面板；正常尾返回D046C0而非绘图结果。
 std::int32_t Sub_502B80(std::int32_t* value, std::int32_t digits); // 旧数字键输入，位数门槛先于退格。
+std::int32_t Sub_504EE0(); // 旧30清同源20B标记与拖动/阶段，不清六槽输出。
+std::int32_t Sub_504FA0(); // 旧30普通/特殊各一项校验，返回2或4。
+std::uint32_t Sub_505170(std::int32_t opened); // 旧30完整材料选择、注册、拖放和绘制。
 std::int32_t Sub_505BC0(); // 旧29初始化，预览置2位后透传4F5170材料重置。
 std::uint32_t Sub_505C20(std::int32_t opened); // 旧29镶嵌执行，八秒有符号计时及第0/5材料载荷。
 std::int32_t Sub_5062A0(); // 旧29动作16/6与重置，空对象仍调用FrameMove。

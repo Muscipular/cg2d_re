@@ -20,9 +20,19 @@
       "additional_callback_ranges": 7,
       "selector_table_misidentified_as_code_ranges": 1,
       "method": "只读检查区间内每个已有item head的代码标志及指令名，不创建指令/函数；七个补充入口已有源码和原型绑定。4723B4起的代码标记经父分发指令证实属于选择数据，另见边界分类。小于40B区间、未标成代码的字节及535000之后本轮未扫描。"
+    },
+    {
+      "selection": "不属于上一轮start<535000且长度>=40B的其余元数据区间",
+      "checked_ranges": 2965,
+      "pure_90_cc_ranges": 2878,
+      "unreadable_ranges": 0,
+      "mixed_ranges_with_marked_code": 18,
+      "already_listed_callback_ranges": 1,
+      "new_later_candidates": 17,
+      "method": "只读检查剩余每段字节及已有item head；完全90/CC段仅记录字节候选，不自动范围排除，其余寻找已标代码且非nop/int3项。已有503BB0不重复增加。未标成代码的内容、纯填充区间用途和完整传递调用仍待分类。"
     }
   ],
-  "verification": "候选仅确认当前源码定义和已有证据绑定；未重新核全部函数语义。整个元数据区间及运行验收仍待，不以代码标志或无xref决定范围。",
+  "verification": "records中的回调仅确认当前源码定义和已有证据绑定；later_code_candidates分别记录已证归属或待分析状态。未重新核全部语义，整个区间及运行验收仍待，不以代码标志或无xref决定范围。",
   "records": [
     {
       "range_start": "0x46FC0D",
@@ -242,6 +252,164 @@
       "evidence_document": "doc/ui_windows/window_65.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
       "candidate_reason": "区间内首个已标非NOP代码位于前置数据/填充之后，首个非90/CC位置筛选未包含此入口"
+    }
+  ],
+  "later_code_candidates": [
+    {
+      "range_start": "0x537F15",
+      "range_end": "0x537F40",
+      "candidate_entry": "0x537F20",
+      "last_marked_instruction": "0x537F3B",
+      "marked_instruction_count": 11,
+      "status": "代码本体归于已排除屏幕键盘链；整个区间仍含未单列对齐",
+      "code_end": "0x537F3E",
+      "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
+      "virtual_table": "0x54F890",
+      "destructor": "0x537F40",
+      "constructor": "0x537E60"
+    },
+    {
+      "range_start": "0x538EDE",
+      "range_end": "0x538F00",
+      "candidate_entry": "0x538EE0",
+      "last_marked_instruction": "0x538EFB",
+      "marked_instruction_count": 11,
+      "status": "代码本体归于已排除屏幕键盘链；整个区间仍含未单列对齐",
+      "code_end": "0x538EFE",
+      "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
+      "virtual_table": "0x54F8C4",
+      "destructor": "0x538F60",
+      "constructor": "0x538D40"
+    },
+    {
+      "range_start": "0x53A34F",
+      "range_end": "0x53A370",
+      "candidate_entry": "0x53A350",
+      "last_marked_instruction": "0x53A36B",
+      "marked_instruction_count": 11,
+      "status": "代码本体归于已排除屏幕键盘链；整个区间仍含未单列对齐",
+      "code_end": "0x53A36E",
+      "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
+      "virtual_table": "0x54F8F8",
+      "destructor": "0x53A3D0",
+      "constructor": "0x53A220"
+    },
+    {
+      "range_start": "0x53B51F",
+      "range_end": "0x53B526",
+      "candidate_entry": "0x53B51F",
+      "last_marked_instruction": "0x53B523",
+      "marked_instruction_count": 5,
+      "status": "运行库相邻尾部候选，归属及可达性待核",
+      "preceding_function": "0x53B4F2"
+    },
+    {
+      "range_start": "0x53DECD",
+      "range_end": "0x53DED0",
+      "candidate_entry": "0x53DECD",
+      "last_marked_instruction": "0x53DECF",
+      "marked_instruction_count": 3,
+      "status": "运行库相邻尾部候选，归属及可达性待核",
+      "preceding_function": "0x53DEAB"
+    },
+    {
+      "range_start": "0x542E29",
+      "range_end": "0x542E34",
+      "candidate_entry": "0x542E2C",
+      "last_marked_instruction": "0x542E32",
+      "marked_instruction_count": 6,
+      "status": "八字节标记候选，实际用途待核",
+      "bytes": "5643323058433030",
+      "ascii_observation": "VC20XC00，未据可打印字节断言文本/标识用途"
+    },
+    {
+      "range_start": "0x542FAB",
+      "range_end": "0x543097",
+      "candidate_entry": "0x542FB0",
+      "last_marked_instruction": "0x543095",
+      "marked_instruction_count": 81,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x543098",
+      "range_end": "0x5430C0",
+      "candidate_entry": "0x543098",
+      "last_marked_instruction": "0x5430BB",
+      "marked_instruction_count": 12,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x5430EF",
+      "range_end": "0x54310E",
+      "candidate_entry": "0x5430EF",
+      "last_marked_instruction": "0x54310D",
+      "marked_instruction_count": 10,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x543383",
+      "range_end": "0x543390",
+      "candidate_entry": "0x543383",
+      "last_marked_instruction": "0x543389",
+      "marked_instruction_count": 4,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x54341C",
+      "range_end": "0x543435",
+      "candidate_entry": "0x54341C",
+      "last_marked_instruction": "0x543434",
+      "marked_instruction_count": 7,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x543478",
+      "range_end": "0x543489",
+      "candidate_entry": "0x543478",
+      "last_marked_instruction": "0x543488",
+      "marked_instruction_count": 5,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x54349B",
+      "range_end": "0x5434C5",
+      "candidate_entry": "0x54349B",
+      "last_marked_instruction": "0x5434C4",
+      "marked_instruction_count": 15,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x545038",
+      "range_end": "0x54503A",
+      "candidate_entry": "0x545038",
+      "last_marked_instruction": "0x545039",
+      "marked_instruction_count": 2,
+      "status": "运行库相邻尾部候选，归属及可达性待核",
+      "preceding_function": "0x545031"
+    },
+    {
+      "range_start": "0x54593C",
+      "range_end": "0x545A65",
+      "candidate_entry": "0x54593C",
+      "last_marked_instruction": "0x545A63",
+      "marked_instruction_count": 99,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x545A80",
+      "range_end": "0x545B3C",
+      "candidate_entry": "0x545A80",
+      "last_marked_instruction": "0x545B39",
+      "marked_instruction_count": 64,
+      "status": "后段代码片段候选，父链及适配待核"
+    },
+    {
+      "range_start": "0x5460D9",
+      "range_end": "0x5460EB",
+      "candidate_entry": "0x5460D9",
+      "last_marked_instruction": "0x5460EA",
+      "marked_instruction_count": 8,
+      "status": "后段代码片段候选，父链及适配待核"
     }
   ]
 }

@@ -41,4 +41,10 @@ std::int32_t FormatLegacyBoundedString_53D21D(
     char* buffer, std::uint32_t capacity, const char* format, ...);
 std::int32_t FormatLegacyStream_53BC0F(LegacyFile* stream, const char* format, ...);
 
+
+// 原输入核心/字符串包装；目标地址按Win64 va_list传递，数值写入保持原宽度。
+std::int32_t ScanLegacyInput_53DEF4(
+    LegacyFile* stream, const char* format, std::va_list arguments);
+std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);
+
 } // namespace cg::platform

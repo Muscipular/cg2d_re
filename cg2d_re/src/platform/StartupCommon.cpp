@@ -1,4 +1,5 @@
 #include "StartupNative.hpp"
+#include "LegacyFormat.hpp"
 
 #include "cg/platform/Startup.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -9,7 +10,7 @@ namespace cg::platform {
 
 int ParseClientVersion()
 {
-    return std::sscanf("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
+    return ScanLegacyString_53CADC("Ver 1.02.02", "Ver %d.%d.%d", &gVersionMajor, &gVersionMinor, &gVersionPatch);
 }
 
 std::uint32_t CaptureDesktopColor()

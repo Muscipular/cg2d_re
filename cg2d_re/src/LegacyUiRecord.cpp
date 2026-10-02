@@ -2805,7 +2805,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
     const std::int32_t cancelState = character_select::detail::Sub_503990(cancel);
     const std::int32_t pageState = manyPages
         ? character_select::detail::Sub_503990(&pages[gLegacyTradeTargetPageCC3208]) : 0;
-    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1U) != 0) {
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
         const auto socket = platform::gConnectionSocket;
         const std::int32_t selected = hovered + 5 * currentPage;
@@ -2972,7 +2972,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             break;
         }
     }
-    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
         const std::int32_t index = hovered + 8 * gLegacyPetSkillCatalogPageD45F74;
         if (world::detail::ReadPlayerValueFC() < gLegacyPetSkillCatalogCA0478[index].price08) {
             gLegacyPetSkillCatalogMessageD2E818 = 1;
@@ -3130,7 +3130,7 @@ std::uint32_t Sub_4D7C20(const std::int32_t opened)
             break;
         }
     }
-    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
         char buffer[16];
         char escaped[16];
         std::sprintf(buffer, "%d", hovered);
@@ -3273,7 +3273,7 @@ std::uint32_t Sub_4D8230(const std::int32_t opened)
         }
         selected = gLegacyPetSkillPetSelectionC8A94C;
     }
-    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1) != 0) {
         gLegacyPetSkillSlotCF4B64 = hovered;
         static_cast<void>(audio::Sub_504180(61));
         static_cast<void>(audio::PlaySe_52C450(79, 320));
@@ -14066,7 +14066,7 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         }
     }
     if (nameHovered >= 0 && world::detail::gPetPairsDE0B08[nameHovered].used != 0) {
-        const auto clicks = static_cast<std::uint8_t>(gValueD68D98);
+        const auto clicks = static_cast<std::uint8_t>(gValueD68D9C);
         if ((clicks & 1) != 0) {
             static_cast<void>(audio::Sub_504180(21));
             gLegacyPetDetailPanel584918.selected = 0;

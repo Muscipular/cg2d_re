@@ -178,6 +178,11 @@ std::uintptr_t Sub_4F6220(std::int32_t opened); // 旧24图鉴详情，关闭保
 void Sub_4F6BF0(std::int32_t x, std::int32_t y, std::int32_t rating, std::uint8_t layer);
 std::uint32_t Sub_4F6C60(); // 旧23返回时页=选中/15，返回原商修正符号而非页号。
 std::uint32_t Sub_4F6CA0(std::int32_t opened); // 旧23十五行列表，used才命中，切页后仍共同绘制。
+YobiAction* Sub_4F8340(); // 旧21空预览创建并设方向6。
+std::uintptr_t Sub_4F83B0(std::int32_t opened); // 旧21三页外层，selected借面板S8，关闭返回原生预览地址。
+std::int32_t Sub_4F8550(std::int32_t x, std::int32_t y); // 基本资料，导航后才固定宠物。
+std::int32_t Sub_4F8E40(std::int32_t x, std::int32_t y); // 属性/加点，导航前固定本帧宠物及上限快照。
+std::int32_t Sub_4F9B10(std::int32_t x, std::int32_t y); // 技能行，空槽仍绘底图，说明步长19。
 std::int32_t Sub_519640(std::int32_t skill); // 连续非负配方每8项一页，空表仍1页。
 std::int32_t Sub_4FAED0(); // 旧14重置既有物品拖动及本页详情/悬停。
 std::uintptr_t Sub_4FAEF0(std::int32_t opened); // 旧14完整物品页，关闭返回非拥有预览地址。

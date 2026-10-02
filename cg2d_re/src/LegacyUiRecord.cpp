@@ -227,6 +227,49 @@ constexpr char kLegacyAlbumSkipTen58A0F0[] = "\xB8\xF5\xB9\x4C\x31\x30\xAD\xB6\x
 constexpr char kLegacyAlbumBack58A0FC[] = "\xA6\x5E\xA8\xEC\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyAlbumOpen58A114[] = "\xA5\xB4\xB6\x7D\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xB9\xCF\xC5\xB2\xB5\xF8\xB5\xA1\xA1\x43";
 
+constexpr char kLegacyPetBasicTab585958[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xAF\xE0\xA4\x4F\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyPetAttributeTab58593C[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xB8\xD4\xB2\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyPetSkillTab585920[] = "\xA4\xC1\xB4\xAB\xA6\xDC\xA6\xB9\xC3\x64\xAA\xAB\xAA\xBA\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyPetBack58A204[] = "\xA6\x5E\xA8\xEC\xC3\x64\xAA\xAB\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacyPetRename586D38[] = "\xC5\xDC\xA7\xF3\xC3\x64\xAA\xAB\xA6\x57\xA6\x72\xA1\x43";
+constexpr char kLegacyPetLevelLimit58A214[] = "   ---   ";
+constexpr char kLegacyPetVitality58A288[] = "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xA5\xCD\xA9\x52\xA1\x43";
+constexpr char kLegacyPetToughness58A260[] = "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xA8\xBE\xBF\x6D\xA1\x43";
+constexpr char kLegacyPetMagic58A238[] = "\xB1\x4E\xC2\x49\xBC\xC6\xA4\xC0\xB0\x74\xA6\xDC\xC5\x5D\xAA\x6B\xA1\x43";
+LegacyPanelRecord gLegacyPetDetailPanel584918 {
+    0, 0, 272, 438, 21, {22800, 22810, 22824, 0, 0},
+    {{{1, 6, 415, 78, 17, kLegacyPetBasicTab585958},
+      {1, 97, 415, 78, 17, kLegacyPetAttributeTab58593C},
+      {1, 187, 415, 78, 17, kLegacyPetSkillTab585920}, {}, {}}},
+    0, 0, {}, {},
+};
+std::int32_t gLegacyPetSelectionD67ADC = 0; // 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
+YobiAction* gLegacyPetDetailActionD67AE0 = nullptr;
+
+bool HandleLegacyPetNavigation(const LegacyPanelButtonRecord* const back,
+    const LegacyPanelButtonRecord* const previous, const LegacyPanelButtonRecord* const next)
+{
+    if ((QueryPanelButtonState(back) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyPetDetailPanel584918.id));
+        static_cast<void>(audio::Sub_504180(20));
+    } else if ((QueryPanelButtonState(previous) & 0x10) != 0) {
+        --gLegacyPetSelectionD67ADC;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyPetSelectionD67ADC < 0) {
+            gLegacyPetSelectionD67ADC = world::detail::gPetCountDE0B00 - 1;
+        }
+    } else if ((QueryPanelButtonState(next) & 0x10) != 0) {
+        ++gLegacyPetSelectionD67ADC;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        if (gLegacyPetSelectionD67ADC >= world::detail::gPetCountDE0B00) {
+            gLegacyPetSelectionD67ADC = 0;
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
 // 旧52独立面板/拆分参数；交易展示、金额和公开阶段借WindowRuntime原owner。
 LegacyPanelRecord gLegacyTradePanel582F00 {
     40, 0, 560, 364, 52, {23230, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -6431,6 +6474,377 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyAlbumListPanel584788, 1);
+}
+
+YobiAction* Sub_4F8340()
+{
+    YobiAction* action = gLegacyPetDetailActionD67AE0;
+    if (action == nullptr) {
+        const std::int32_t y = gLegacyPetDetailPanel584918.y + 160;
+        const std::int32_t position = gLegacyPetSelectionD67ADC;
+        const std::int32_t x = gLegacyPetDetailPanel584918.x + 202;
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[position].index);
+        const std::int32_t image = world::detail::gPetRuntimeF633F8[index].imageNo6A0;
+        action = Sub_4F9FF0(image, x, y, 221);
+        gLegacyPetDetailActionD67AE0 = action;
+        if (action != nullptr) {
+            SetYobiActionField2B8(action, 6);
+        }
+    }
+    return action;
+}
+
+std::uintptr_t Sub_4F83B0(const std::int32_t opened)
+{
+    using PageCallback = std::int32_t (*)(std::int32_t, std::int32_t);
+    constexpr std::array<PageCallback, 3> pages {Sub_4F8550, Sub_4F8E40, Sub_4F9B10};
+    if (gLegacyPetDetailPanel584918.selected < 0 || gLegacyPetDetailPanel584918.selected > 2) {
+        gLegacyPetDetailPanel584918.selected = 0;
+    }
+    const std::int32_t state = Sub_503160(opened, &gLegacyPetDetailPanel584918,
+        +[] { static_cast<void>(Sub_4F8340()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    YobiAction* action = gLegacyPetDetailActionD67AE0;
+    if (state == 2) {
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyPetDetailActionD67AE0 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, true);
+    }
+    if (platform::ReadControlKeyPressFlag_4597C0(9) != 0) {
+        const auto next = static_cast<std::int8_t>(gLegacyPetDetailPanel584918.selected + 1);
+        gLegacyPetDetailPanel584918.selected = next;
+        if (next >= 3) {
+            gLegacyPetDetailPanel584918.selected = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(52, 320));
+    }
+    const auto page = pages[gLegacyPetDetailPanel584918.selected];
+    if (page != nullptr) {
+        const std::int32_t y = gLegacyPetDetailPanel584918.y;
+        const std::int32_t x = gLegacyPetDetailPanel584918.x;
+        static_cast<void>(page(x, y));
+    }
+    const auto index = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
+    const auto& pet = world::detail::gPetRuntimeF633F8[index];
+    const char* name = pet.name6BD.data();
+    if (std::strlen(name) == 0) {
+        name = pet.name6AC.data();
+    }
+    const std::int32_t width = TextMeasure(name, 0);
+    const std::int32_t y = gLegacyPetDetailPanel584918.y + 9;
+    const std::int32_t x = gLegacyPetDetailPanel584918.x - width / 2 + 116;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x),
+        static_cast<std::int16_t>(y), 2, 0, 0, name, 0, 0));
+    if (Sub_503590(&gLegacyPetDetailPanel584918) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyLogout553FD0);
+    }
+    return Sub_503440(&gLegacyPetDetailPanel584918, 1);
+}
+
+std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
+    const std::int32_t panelX = gLegacyPetDetailPanel584918.x;
+    LegacyPanelButtonRecord back {panelX + 70, panelY + 389, panelX + 30, panelY + 379, 80, 20, 22830, 22831};
+    LegacyPanelButtonRecord previous {panelX + 155, panelY + 389, panelX + 141, panelY + 379, 28, 20, 22832, 22833};
+    LegacyPanelButtonRecord next {panelX + 229, panelY + 389, panelX + 215, panelY + 379, 28, 20, 22834, 22835};
+    LegacyPanelButtonRecord rename {panelX + 70, panelY + 356, panelX + 30, panelY + 346, 80, 20, 22807, 22808};
+    if (Sub_5049A0(panelX + 136, panelY + 32, panelX + 267, panelY + 203, -1) != 0
+        && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+        YobiAction* action = gLegacyPetDetailActionD67AE0;
+        if (action != nullptr) {
+            SetYobiActionField2B8(action, GetYobiActionField2B8(action) + 1);
+            action = gLegacyPetDetailActionD67AE0;
+            if (GetYobiActionField2B8(action) >= 8) {
+                SetYobiActionField2B8(action, 0);
+            }
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (!HandleLegacyPetNavigation(&back, &previous, &next) && (QueryPanelButtonState(&rename) & 1) != 0) {
+        if (input::IsChatContext_503E60() == 0) {
+            static_cast<void>(audio::Sub_504380(22));
+        }
+        static_cast<void>(audio::Sub_504180(22));
+    }
+    const auto index = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
+    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    YobiAction* action = gLegacyPetDetailActionD67AE0;
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, false);
+        action = gLegacyPetDetailActionD67AE0;
+        const std::int32_t currentImage = GetYobiActionField2A8(action);
+        const std::int32_t image = pet.imageNo6A0;
+        if (currentImage != image) {
+            SetYobiActionField2A8(action, image);
+            SetYobiActionField2B8(gLegacyPetDetailActionD67AE0, 6);
+        }
+    }
+    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY) {
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
+            static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
+    };
+    char buffer[256];
+    std::sprintf(buffer, "%3d", pet.value08);
+    drawAt(buffer, 62, 44);
+    std::sprintf(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[4]));
+    drawAt(buffer, 55, 66);
+    if (pet.value08 < 130) {
+        std::sprintf(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[5]));
+        drawAt(buffer, 55, 89);
+    } else {
+        drawAt(kLegacyPetLevelLimit58A214, 55, 89);
+    }
+    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    drawAt(buffer, 55, 113);
+    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    drawAt(buffer, 55, 136);
+    for (std::int32_t field = 0; field < 6; ++field) {
+        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
+        drawAt(buffer, 62, 159 + 23 * field);
+    }
+    std::sprintf(buffer, "%2d", pet.value6A4);
+    drawAt(buffer, 70, 297);
+    std::strcpy(buffer, ui::detail::gTribeNames57CB54[std::bit_cast<std::int16_t>(pet.value04)]);
+    const std::int32_t width = TextMeasure(buffer, 1);
+    drawAt(buffer, 218 - width / 2, 239);
+    for (std::int32_t element = 0; element < 4; ++element) {
+        const std::int32_t right = x + 183 + 7 * (pet.values70[21 + element] / 10);
+        const std::int32_t top = y + 286 + 20 * element;
+        DrawGraphicHover(Low16(x + 183), Low16(top), Low16(right), Low16(top + 9),
+            215, kLegacyAttributeBars57CBB8[element][0], 1);
+        DrawGraphicHover(Low16(x + 184), Low16(top + 1), Low16(right + 1), Low16(top + 10),
+            214, kLegacyAttributeBars57CBB8[element][1], 0);
+        DrawGraphicHover(Low16(x + 185), Low16(top + 2), Low16(right + 2), Low16(top + 11),
+            214, kLegacyAttributeBars57CBB8[element][1], 0);
+    }
+    const std::int32_t position = gLegacyPetSelectionD67ADC;
+    const std::int32_t count = world::detail::gPetCountDE0B00;
+    std::sprintf(buffer, "%d/%d", position + 1, count);
+    const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 382;
+    const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
+    const std::int32_t healthImage = ui::detail::ReadLegacyHealthImage(pet.values70[25]);
+    const std::int32_t healthY = gLegacyPetDetailPanel584918.y + 222;
+    const std::int32_t healthX = gLegacyPetDetailPanel584918.x + 184;
+    static_cast<void>(DrawGraphic(healthX, healthY, 212, healthImage, 0, nullptr));
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&rename, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyPetBack58A204;
+    } else if ((QueryPanelButtonState(&rename) & 0x40) != 0) {
+        hint = kLegacyPetRename586D38;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return 0;
+}
+
+std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
+    const std::int32_t panelX = gLegacyPetDetailPanel584918.x;
+    std::array<LegacyPanelButtonRecord, 5> attributes;
+    for (std::int32_t field = 0; field < 5; ++field) {
+        attributes[field] = {panelX + 242, panelY + 90 + 23 * field, panelX + 226,
+            panelY + 80 + 23 * field, 32, 20, 22812, 22813};
+    }
+    LegacyPanelButtonRecord back {panelX + 70, panelY + 395, panelX + 30, panelY + 385, 80, 20, 22830, 22831};
+    LegacyPanelButtonRecord previous {panelX + 155, panelY + 395, panelX + 141, panelY + 385, 28, 20, 22832, 22833};
+    LegacyPanelButtonRecord next {panelX + 229, panelY + 395, panelX + 215, panelY + 385, 28, 20, 22834, 22835};
+    const auto index = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
+    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    std::array<std::int32_t, 6> points;
+    for (std::int32_t field = 0; field < 5; ++field) {
+        points[field] = pet.values70[field];
+    }
+    points[5] = pet.lvFlag6C;
+    std::int32_t total = 0;
+    for (const std::int32_t value : points) {
+        total += value;
+    }
+    const std::int32_t maximum = total / 2;
+    static_cast<void>(HandleLegacyPetNavigation(&back, &previous, &next));
+    // 原页导航后仍对入口宠物操作；资格与提示使用导航前六值快照。
+    std::int32_t hovered = -1;
+    if (pet.lvFlag6C != 0) {
+        for (std::int32_t field = 0; field < 5; ++field) {
+            if ((QueryPanelButtonState(&attributes[field]) & 0x40) != 0) {
+                hovered = field;
+            }
+            if ((QueryPanelButtonState(&attributes[field]) & 1) != 0 && points[field] < maximum) {
+                static_cast<void>(network::Sub_512400(platform::gConnectionSocket, index, field));
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                break;
+            }
+        }
+    }
+    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY) {
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
+            static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
+    };
+    char buffer[256];
+    std::sprintf(buffer, "%3d", pet.value08);
+    drawAt(buffer, 62, 36);
+    const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
+    const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    drawAt(buffer, 55, 59);
+    const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
+    const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    drawAt(buffer, 55, 82);
+    for (std::int32_t field = 0; field < 5; ++field) {
+        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
+        drawAt(buffer, 62, 105 + 23 * field);
+    }
+    for (std::int32_t field = 0; field < 6; ++field) {
+        std::sprintf(buffer, "%+4d", pet.values70[11 + field]);
+        drawAt(buffer, 69, 243 + 23 * field);
+    }
+    for (std::int32_t field = 0; field < 5; ++field) {
+        std::sprintf(buffer, "%3d", pet.values70[field]);
+        drawAt(buffer, 192, 82 + 23 * field);
+    }
+    std::sprintf(buffer, "%3d", pet.values70[10]);
+    drawAt(buffer, 186, 202);
+    std::sprintf(buffer, "%2d", pet.value6A4);
+    drawAt(buffer, 194, 227);
+    for (std::int32_t field = 0; field < 4; ++field) {
+        std::sprintf(buffer, "%+4d", pet.values70[17 + field]);
+        drawAt(buffer, 193, 273 + 23 * field);
+    }
+    const std::int32_t position = gLegacyPetSelectionD67ADC;
+    const std::int32_t count = world::detail::gPetCountDE0B00;
+    std::sprintf(buffer, "%d/%d", position + 1, count);
+    const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 388;
+    const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
+    std::sprintf(buffer, "%3d", pet.lvFlag6C);
+    drawAt(buffer, 220, 59);
+    if (pet.lvFlag6C != 0) {
+        static_cast<void>(DrawGraphic(x + 178, y + 68, 212, 22811, 1, nullptr));
+        for (auto& attribute : attributes) {
+            Sub_5035E0(&attribute, 212, 1, gValueD69768, 0);
+        }
+    }
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyPetBack58A204;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if (hovered >= 0) {
+        if (points[hovered] >= maximum) {
+            hint = kLegacyAttributeLimit58A220;
+        } else {
+            switch (hovered) {
+            case 0: hint = kLegacyPetVitality58A288; break;
+            case 1: hint = kLegacyAttributeHint58A274; break;
+            case 2: hint = kLegacyPetToughness58A260; break;
+            case 3: hint = kLegacyAttributeHint58A24C; break;
+            case 4: hint = kLegacyPetMagic58A238; break;
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return 0;
+}
+
+std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
+{
+    const std::int32_t panelX = gLegacyPetDetailPanel584918.x;
+    const std::int32_t panelY = gLegacyPetDetailPanel584918.y;
+    LegacyPanelButtonRecord back {panelX + 70, panelY + 393, panelX + 30, panelY + 383, 80, 20, 22830, 22831};
+    LegacyPanelButtonRecord previous {panelX + 155, panelY + 393, panelX + 141, panelY + 383, 28, 20, 22832, 22833};
+    LegacyPanelButtonRecord next {panelX + 229, panelY + 393, panelX + 215, panelY + 383, 28, 20, 22834, 22835};
+    const auto index = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
+    const auto& pet = world::detail::gPetRuntimeF633F8[index];
+    std::int32_t slots = pet.value6A4;
+    if (slots < 1 || slots > 10) {
+        slots = 0;
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < slots; ++row) {
+        if (Sub_5049A0(x + 37, y + 36 + 24 * row, x + 257, y + 54 + 24 * row, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    static_cast<void>(HandleLegacyPetNavigation(&back, &previous, &next));
+    char buffer[256];
+    for (std::int32_t row = 0; row < slots; ++row) {
+        const auto& pair = pet.techniquePairs650[row];
+        if (pair.used != 0) {
+            const auto skill = std::bit_cast<std::int16_t>(pair.index);
+            const auto& technique = pet.techniquesD8[skill];
+            static_cast<void>(DrawText(static_cast<std::int16_t>(x + 39),
+                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, technique.name.data(), 0, 0));
+            std::sprintf(buffer, "%4d", technique.fp);
+            static_cast<void>(DrawText(static_cast<std::int16_t>(x + 211),
+                static_cast<std::int16_t>(y + 37 + 24 * row), 2, 1, 0, buffer, 0, 0));
+        }
+        static_cast<void>(DrawGraphic(x + 136, y + 46 + 24 * row, 212, 22825, 0, nullptr));
+    }
+    if (hovered >= 0 && pet.techniquePairs650[hovered].used != 0) {
+        const auto skill = std::bit_cast<std::int16_t>(pet.techniquePairs650[hovered].index);
+        const char* const description = pet.techniquesD8[skill].description.data();
+        for (std::int32_t line = 0; line < 4; ++line) {
+            if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 26) != 0) {
+                static_cast<void>(DrawText(static_cast<std::int16_t>(x + 19),
+                    static_cast<std::int16_t>(y + 294 + 19 * line), 2, 0, 0, buffer, 0, 0));
+            }
+        }
+    }
+    const std::int32_t position = gLegacyPetSelectionD67ADC;
+    const std::int32_t count = world::detail::gPetCountDE0B00;
+    std::sprintf(buffer, "%d/%d", position + 1, count);
+    const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 386;
+    const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyPetBack58A204;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return 0;
 }
 
 std::int32_t Sub_4FAED0()

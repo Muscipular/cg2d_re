@@ -302,6 +302,17 @@ LegacyPanelRecord gLegacyItemTargetPanel582D40 {
     160, 132, 320, 192, 77, {}, {}, 0, 0, {}, {},
 };
 
+LegacyPanelRecord gLegacyTextNoticePanel583EE8 {
+    130, 180, 336, 96, 81, {}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyTextNoticePanel583FB0 {
+    130, 180, 336, 96, 82, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyTextNotice589C24[] = "\xA5\x5D\xA7\x74\x20\x5C\x20\xA9\x4D\x20\x7C\x20\xA1\x43\x20";
+constexpr char kLegacyTextNotice589C08[] = "\xA8\xE8\xA6\x4C\xA4\xA3\xAF\xE0\xA8\xCF\xA5\xCE\x20\x5C\x20\xA9\x4D\x20\x7C\x20\xAA\xBA\xA6\x72\xA1\x43";
+constexpr char kLegacyTextNotice589C4C[] = "\xA4\xA3\xA5\x5D\xAC\x41\xAA\xC5\xA5\xD5\xA5\x48\xA5\x7E\xAA\xBA\xA4\xE5\xA6\x72\xA1\x43";
+constexpr char kLegacyTextNotice589C34[] = "\xA8\xE8\xA6\x4C\xA6\x57\xA4\xA3\xAF\xE0\xAC\x4F\xAA\xC5\xA5\xD5\xAA\xBA\xA1\x43";
+
 LegacyPanelRecord gLegacyBuyPanel5823A0 {
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -2434,6 +2445,70 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
         DrawGraphicHover(Low16(left), Low16(top), Low16(left + 148), Low16(top + 20), 218, image, 0);
     }
     return Sub_503440(&gLegacyItemTargetPanel582D40, 0);
+}
+
+std::uint32_t Sub_4F0CD0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyTextNoticePanel583EE8.x;
+    const std::int32_t y = gLegacyTextNoticePanel583EE8.y;
+    const character_select::detail::CharacterModalUiRecord confirm {
+        x + 162, y + 64, x + 160, y + 64, 36, 18, kLegacyFpConfirm55C5D4,
+    };
+    const std::uint32_t state = static_cast<std::uint32_t>(
+        Sub_503160(opened, &gLegacyTextNoticePanel583EE8, nullptr, 0));
+    if (state == 0 || state == 2) {
+        return state;
+    }
+    if ((character_select::detail::Sub_503990(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583EE8.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[256];
+    std::sprintf(buffer, kLegacyTextNotice589C24);
+    const std::int32_t firstY = gLegacyTextNoticePanel583EE8.y + 24;
+    const std::int32_t firstX = gLegacyTextNoticePanel583EE8.x + 16;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
+        static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
+    // 原D2F798额外变参不被无25H的格式消费；不制造未知值或默认owner。
+    std::sprintf(buffer, kLegacyTextNotice589C08);
+    const std::int32_t secondY = gLegacyTextNoticePanel583EE8.y + 44;
+    const std::int32_t secondX = gLegacyTextNoticePanel583EE8.x + 16;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
+        static_cast<std::int16_t>(secondY), 2, 0, 0, buffer, 0, 0));
+    static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
+    return Sub_503440(&gLegacyTextNoticePanel583EE8, 0);
+}
+
+std::uint32_t Sub_4F0E20(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyTextNoticePanel583FB0.x;
+    const std::int32_t y = gLegacyTextNoticePanel583FB0.y;
+    const character_select::detail::CharacterModalUiRecord confirm {
+        x + 162, y + 64, x + 160, y + 64, 36, 18, kLegacyFpConfirm55C5D4,
+    };
+    const std::uint32_t state = static_cast<std::uint32_t>(
+        Sub_503160(opened, &gLegacyTextNoticePanel583FB0, nullptr, 0));
+    if (state == 0 || state == 2) {
+        return state;
+    }
+    if ((character_select::detail::Sub_503990(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyTextNoticePanel583FB0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[256];
+    std::sprintf(buffer, kLegacyTextNotice589C4C);
+    const std::int32_t firstY = gLegacyTextNoticePanel583FB0.y + 24;
+    const std::int32_t firstX = gLegacyTextNoticePanel583FB0.x + 16;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(firstX),
+        static_cast<std::int16_t>(firstY), 2, 0, 0, buffer, 0, 0));
+    // 原CF3B08额外变参不被固定格式消费；仅消去无可观察结果的普通读。
+    std::sprintf(buffer, kLegacyTextNotice589C34);
+    const std::int32_t secondY = gLegacyTextNoticePanel583FB0.y + 44;
+    const std::int32_t secondX = gLegacyTextNoticePanel583FB0.x + 16;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(secondX),
+        static_cast<std::int16_t>(secondY), 2, 0, 0, buffer, 0, 0));
+    static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
+    return Sub_503440(&gLegacyTextNoticePanel583FB0, 0);
 }
 
 YobiAction* Sub_4D91E0()

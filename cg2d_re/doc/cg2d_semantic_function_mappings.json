@@ -10547,7 +10547,7 @@
     {
       "original_entry": "0x53B1D0",
       "inventory_id": "F:0013B1D0",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53B226",
       "instruction_count": 35,
       "original_direct_reference_count": 96,
@@ -10569,7 +10569,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11141,7 +11141,7 @@
     {
       "original_entry": "0x53BB02",
       "inventory_id": "F:0013BB02",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53BB3D",
       "instruction_count": 29,
       "original_direct_reference_count": 5,
@@ -11163,7 +11163,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空流交flsall(0)；非空flush非0返-1，成功且4000H才commit，返回归一0/-1。仅旧流链已接，原业务及标准库文件对象未混用。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "空流交flsall(0)；非空flush非0返-1，成功且4000H才commit，返回归一0/-1。仅旧流链已接，原业务及标准库文件对象未混用。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53BB02",
@@ -11382,7 +11382,7 @@
     {
       "original_entry": "0x53BB3D",
       "inventory_id": "F:0013BB3D",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53BB99",
       "instruction_count": 40,
       "original_direct_reference_count": 9,
@@ -11404,7 +11404,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "写方向且108H缓冲、current-base的S32数量>0才write；短写置20H/-1，写满且80H才清写位2。公共尾重读base、清count、重置current。底层541279仍准确声明，未借宿主_write。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "写方向且108H缓冲、current-base的S32数量>0才write；短写置20H/-1，写满且80H才清写位2。公共尾重读base、清count、重置current。底层541279已真实接线，未借宿主_write。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53BB3D",
@@ -11460,7 +11460,7 @@
     {
       "original_entry": "0x53F38F",
       "inventory_id": "F:0013F38F",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53F3BA",
       "instruction_count": 17,
       "original_direct_reference_count": 2,
@@ -11482,7 +11482,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "活动且8位缓冲才经已批准Free释放base；之后只清flags 8/400位和current/base/count，保留bufferSize及其他flags，不释放用户缓冲。fclose已接，其他父链仍待。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "活动且8位缓冲才经已批准Free释放base；之后只清flags 8/400位和current/base/count，保留bufferSize及其他flags，不释放用户缓冲。fclose已接，其他父链仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53F38F",
@@ -11510,7 +11510,7 @@
     {
       "original_entry": "0x53F848",
       "inventory_id": "F:0013F848",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53F8C0",
       "instruction_count": 50,
       "original_direct_reference_count": 1,
@@ -11532,7 +11532,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "一次采样S32上限和表，从0扫描非活动或空槽；空槽以已批准Malloc分配48B原生FILE，API后重读全局表发布/取回，失败空。只按原序写fd=-1、count/flags/base/current/tempName，不补charbuf/bufsize。fopen/openfile父链仍待。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "一次采样S32上限和表，从0扫描非活动或空槽；空槽以已批准Malloc分配48B原生FILE，API后重读全局表发布/取回，失败空。只按原序写fd=-1、count/flags/base/current/tempName，不补charbuf/bufsize。fopen/openfile父链仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53F848",
@@ -11741,7 +11741,7 @@
     {
       "original_entry": "0x544815",
       "inventory_id": "F:00144815",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x544859",
       "instruction_count": 19,
       "original_direct_reference_count": 6,
@@ -11763,7 +11763,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。读写父链仍待。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。读写父链仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x544815",
@@ -11807,7 +11807,7 @@
     {
       "original_entry": "0x53D30A",
       "inventory_id": "F:0013D30A",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53D3BD",
       "instruction_count": 66,
       "original_direct_reference_count": 3,
@@ -11829,7 +11829,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原表按U32范围/FOPEN验证；stdout/stderr依序取2再1，句柄相同跳CloseHandle；其他再次get后关。成功失败均free_osfhnd并重读组指针清flags，保存的系统错误非0才映射/-1。保留非法errno9/DOS0；不借宿主fd表。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "原表按U32范围/FOPEN验证；stdout/stderr依序取2再1，句柄相同跳CloseHandle；其他再次get后关。成功失败均free_osfhnd并重读组指针清flags，保存的系统错误非0才映射/-1。保留非法errno9/DOS0；不借宿主fd表。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53D30A",
@@ -11950,34 +11950,121 @@
     {
       "original_entry": "0x53F493",
       "inventory_id": "F:0013F493",
-      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "status": "原描述符生产/定位/写入本体已实现；完整启动及业务FILE迁移未验",
       "original_end_exclusive": "0x53F52D",
       "instruction_count": 51,
       "original_direct_reference_count": 18,
       "sources": [
         {
-          "path": "src/ui/WindowRuntime.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "Sub_4C9060"
-          ],
-          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+            "SeekLegacyDescriptor_53F493"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "SeekLegacyDescriptor_53F493"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "lowio/lseek.cpp",
-        "symbol": "common_lseek_do_seek_nolock"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原SetFilePointer低W32，FFFFFFFF时才读系统错误，成功清底层EOF；宿主long分支SetFilePointerEx保存位置，超过LONG_MAX恢复并失败。通过_filelength真实传递关联，原18处调用的其余父链及大文件/故障不一并验收。"
+      "boundary": "按原容量/FOPEN及getter验证；SetFilePointer使用S32低偏移/无高字，不预清LastError，仅FFFFFFFF才查询错误。错误非0沿旧映射，成功重读组清EOF并返回W32位型。当前write追加定位已接，其余FILE/应用调用待迁移，不加宿主64位位置校验。",
+      "function_chunks": [
+        {
+          "start": "0x53F493",
+          "end_exclusive": "0x53F52D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B2C6",
+          "parent_entry": "0x53B27D"
+        },
+        {
+          "address": "0x53BCA8",
+          "parent_entry": "0x53BC41"
+        },
+        {
+          "address": "0x53CB98",
+          "parent_entry": "0x53CB78"
+        },
+        {
+          "address": "0x53CC5A",
+          "parent_entry": "0x53CB78"
+        },
+        {
+          "address": "0x53CC8C",
+          "parent_entry": "0x53CB78"
+        },
+        {
+          "address": "0x53D3E9",
+          "parent_entry": "0x53D3BD"
+        },
+        {
+          "address": "0x53D3FF",
+          "parent_entry": "0x53D3BD"
+        },
+        {
+          "address": "0x53D411",
+          "parent_entry": "0x53D3BD"
+        },
+        {
+          "address": "0x53D67E",
+          "parent_entry": "0x53D44C"
+        },
+        {
+          "address": "0x53D6CE",
+          "parent_entry": "0x53D44C"
+        },
+        {
+          "address": "0x53F98D",
+          "parent_entry": "0x53F8C0"
+        },
+        {
+          "address": "0x5412D2",
+          "parent_entry": "0x541279"
+        },
+        {
+          "address": "0x5415C8",
+          "parent_entry": "0x541426"
+        },
+        {
+          "address": "0x543914",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x54392C",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x5439BE",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x5439FC",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x54B523",
+          "parent_entry": "0x54B450"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、局部布局及本机继承ABI参考；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/lseek.cpp",
+        "symbol": "common_lseek_do_seek_nolock",
+        "relationship": "宿主差异或原生继承ABI参考，不作为本体提供者"
+      }
     },
     {
       "original_entry": "0x541222",
       "inventory_id": "F:00141222",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x541279",
       "instruction_count": 26,
       "original_direct_reference_count": 1,
@@ -11999,7 +12086,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "验证原容量/FOPEN后get句柄、FlushFileBuffers；失败GetLastError为0仍返回0，否则写DOS错误/errno9/-1。非法路径只写errno9，不清DOS旧值，不统一成关闭错误映射。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "验证原容量/FOPEN后get句柄、FlushFileBuffers；失败GetLastError为0仍返回0，否则写DOS错误/errno9/-1。非法路径只写errno9，不清DOS旧值，不统一成关闭错误映射。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x541222",
@@ -12083,7 +12170,7 @@
     {
       "original_entry": "0x53BB99",
       "inventory_id": "F:0013BB99",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53BBA2",
       "instruction_count": 4,
       "original_direct_reference_count": 1,
@@ -12106,7 +12193,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定mode1转真实53BBA2，返回成功刷新数；退出53EA4A已接，不借宿主_flushall表。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "固定mode1转真实53BBA2，返回成功刷新数；退出53EA4A已接，不借宿主_flushall表。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53BB99",
@@ -12130,7 +12217,7 @@
     {
       "original_entry": "0x53BBA2",
       "inventory_id": "F:0013BBA2",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53BC0F",
       "instruction_count": 45,
       "original_direct_reference_count": 2,
@@ -12153,7 +12240,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "从0逐轮重读原流表及S32上限，flags&83H活动；mode1逐流fflush非-1累计成功，mode0只刷写流并记录任一-1，其他0。两父调用已接，不快照全表/加流锁。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "从0逐轮重读原流表及S32上限，flags&83H活动；mode1逐流fflush非-1累计成功，mode0只刷写流并记录任一-1，其他0。两父调用已接，不快照全表/加流锁。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53BBA2",
@@ -12181,7 +12268,7 @@
     {
       "original_entry": "0x5446AD",
       "inventory_id": "F:001446AD",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x544705",
       "instruction_count": 34,
       "original_direct_reference_count": 1,
@@ -12204,7 +12291,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "从3扫描原流表，每轮重读上限；活动流fclose非-1才计成功，索引>=20非空槽无论关闭成败均Free，并在返回后重读表指针清槽。保留静态3..19存储，退出已接。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "从3扫描原流表，每轮重读上限；活动流fclose非-1才计成功，索引>=20非空槽无论关闭成败均Free，并在返回后重读表指针清槽。保留静态3..19存储，退出已接。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x5446AD",
@@ -12228,7 +12315,7 @@
     {
       "original_entry": "0x53E9A5",
       "inventory_id": "F:0013E9A5",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x53EA4A",
       "instruction_count": 59,
       "original_direct_reference_count": 1,
@@ -12251,7 +12338,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc和lowio生产尚缺，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc尚缺，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -12298,7 +12385,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先调用真实53BB99全流刷新，之后重读1086020，非零才调5446AD关闭全部流；两本体及内部FILE链已接。底层write/calloc、描述符生产与业务迁移仍未完成，不使用宿主FILE表或空回调，完整资源生命周期未验。",
+      "boundary": "先调用真实53BB99全流刷新，之后重读1086020，非零才调5446AD关闭全部流；两本体及内部FILE链已接。底层write/描述符生产本体已实现，calloc、完整启动与业务迁移仍未完成，不使用宿主FILE表或空回调，完整资源生命周期未验。",
       "function_chunks": [
         {
           "start": "0x53EA4A",
@@ -12322,30 +12409,49 @@
     {
       "original_entry": "0x53F52D",
       "inventory_id": "F:0013F52D",
-      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "status": "原描述符生产/定位/写入本体已实现；完整启动及业务FILE迁移未验",
       "original_end_exclusive": "0x53F6D8",
       "instruction_count": 143,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+            "InitializeLegacyDescriptors_53F52D"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "InitializeLegacyDescriptors_53F52D"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "本机UCRT生命周期职责参考",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/ioinit.cpp",
-        "symbol": "__acrt_initialize_lowio"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原start53DDB5@53DE24调用，32项8B起步/上限2048，继承N为S32、flags为W8、HANDLE为W32；宿主GetStartupInfoW及intptr_t句柄、64项分组/上限8192，失效标准句柄-2，初始化bool失败和清理对已定位。仅已证句柄按地址拓宽，不扩N/flags，不增加旧32位父进程继承解析器；最终接线和跨位宽继承未验。"
+      "boundary": "按32项原生记录分配/发布并仅写flags、HANDLE和pipeByte；继承块S32 N/W8 flags保持，HANDLE按x64拓宽且未对齐读取。句柄区用未裁N定位，继承数S32裁2048，扩容失败只缩到已分配容量。FPIPE绕过GetFileType，API后重读继承字段；fd0..2保留原标准句柄/类型分支，不加句柄0提前拒绝。返回SetHandleCount；原start调用时点及跨位宽父块未验。",
+      "function_chunks": [
+        {
+          "start": "0x53F52D",
+          "end_exclusive": "0x53F6D8"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DE24",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、局部布局及本机继承ABI参考；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/ioinit.cpp",
+        "symbol": "__acrt_initialize_lowio",
+        "relationship": "宿主差异或原生继承ABI参考，不作为本体提供者"
+      }
     },
     {
       "original_entry": "0x543711",
@@ -12404,7 +12510,7 @@
     {
       "original_entry": "0x54381D",
       "inventory_id": "F:0014381D",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x543897",
       "instruction_count": 45,
       "original_direct_reference_count": 1,
@@ -12426,7 +12532,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32范围/FOPEN且句柄非-1；应用类型1且fd0..2才SetStdHandle(null)，返回不检，随后重读组指针设HANDLE -1但保留flags。非法清DOS错误、errno9/-1；close已接。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "U32范围/FOPEN且句柄非-1；应用类型1且fd0..2才SetStdHandle(null)，返回不检，随后重读组指针设HANDLE -1但保留flags。非法清DOS错误、errno9/-1；close已接。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x54381D",
@@ -12450,7 +12556,7 @@
     {
       "original_entry": "0x543897",
       "inventory_id": "F:00143897",
-      "status": "原FILE清理或描述符本体已实现；分配/写入/生产及业务迁移未闭合",
+      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
       "original_end_exclusive": "0x5438D4",
       "instruction_count": 16,
       "original_direct_reference_count": 8,
@@ -12472,7 +12578,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32 fd<容量且FOPEN才返回原生HANDLE；其他清DOS错误、errno9、HANDLE -1。读原64组每组32槽，只有地址/句柄拓宽，无宿主_get_osfhandle或默认句柄。 原FILE/低层表只各有一个新端存储；calloc、write、描述符生产和现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "U32 fd<容量且FOPEN才返回原生HANDLE；其他清DOS错误、errno9、HANDLE -1。读原64组每组32槽，只有地址/句柄拓宽，无宿主_get_osfhandle或默认句柄。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x543897",
@@ -12524,30 +12630,72 @@
     {
       "original_entry": "0x541279",
       "inventory_id": "F:00141279",
-      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "status": "原描述符生产/定位/写入本体已实现；完整启动及业务FILE迁移未验",
       "original_end_exclusive": "0x541426",
       "instruction_count": 139,
       "original_direct_reference_count": 7,
       "sources": [
         {
-          "path": "src/Input.cpp",
+          "path": "src/platform/LegacyLowIo.cpp",
           "symbols": [
-            "Sub_449FA0",
-            "Sub_44A090"
-          ],
-          "relationship": "已有fwrite文件根的低层写入传递职责，不是原_write直接定义"
+            "WriteLegacyDescriptor_541279"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "WriteLegacyDescriptor_541279"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/write.cpp",
-        "symbol": "_write"
-      },
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原七入向均CRT；追加lseek失败忽略，二进制直接WriteFile，文本LF扩CRLF并扣新增CR数，部分写后返回累计值。原400h分块阈值、宿主5KiB/控制台转换/锁/错误槽不同；只关联既有文件写根，不称所有短写故障等价。"
+      "boundary": "验证描述符早于零请求；追加定位忽略失败后重读文本位。二进制一次WriteFile，文本1028B局部区按输出1024阈值分块，LF先CR后LF、单块可1025B；短写为S32判断。部分写出返回物理累计减全部已生成CR，含失败/短写块，不钳制。零写错误5特设errno9/DOS5，其他映射；无错误仅FDEV首Ctrl-Z返0，否则errno28/DOS0。FILE flush已实际接线，未执行写入。",
+      "function_chunks": [
+        {
+          "start": "0x541279",
+          "end_exclusive": "0x541426"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53BB69",
+          "parent_entry": "0x53BB3D"
+        },
+        {
+          "address": "0x53C722",
+          "parent_entry": "0x53C680"
+        },
+        {
+          "address": "0x53F955",
+          "parent_entry": "0x53F8C0"
+        },
+        {
+          "address": "0x53F9A8",
+          "parent_entry": "0x53F8C0"
+        },
+        {
+          "address": "0x54397E",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x54B4EC",
+          "parent_entry": "0x54B450"
+        },
+        {
+          "address": "0x54B546",
+          "parent_entry": "0x54B450"
+        }
+      ],
+      "verification_level": "完整原指令、直接入向、局部布局及本机继承ABI参考；新增源码静态核对，未执行",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/write.cpp",
+        "symbol": "_write",
+        "relationship": "宿主差异或原生继承ABI参考，不作为本体提供者"
+      }
     },
     {
       "original_entry": "0x541426",

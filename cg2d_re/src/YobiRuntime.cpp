@@ -31473,6 +31473,15 @@ std::int32_t ReadYobiGraphicOffsetY(const YobiAction* const action) noexcept
     return action->graphicOffsetY;
 }
 
+void SetYobiActionFlag2(YobiAction* const action, const bool enabled) noexcept
+{
+    if (enabled) {
+        action->flags |= 2u;
+    } else {
+        action->flags &= ~2u;
+    }
+}
+
 std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 {
     return action->flags;

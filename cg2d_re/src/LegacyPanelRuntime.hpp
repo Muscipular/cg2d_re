@@ -75,6 +75,7 @@ extern std::int32_t gLegacyItemWorkSelection584394; // 旧物品加工槽号，�
 extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定64B复制目标。
 extern std::int32_t gLegacyItemWorkImageCC320C;
 extern std::int32_t gLegacyCraftPhaseD67D00; // 旧选择26/27共享，不是现代窗口11状态。
+extern std::int32_t gLegacyGemPhaseD68A8C; // 旧29/30共享阶段，独立于D68A7C字符串探针。
 extern std::int32_t gLegacyRecipePageD67D0C; // 旧25页号；4FF650待实现的复位须写同一槽。
 extern std::int32_t gLegacyInventoryValueC8B388; // 旧14特殊使用只见写0，不猜其他用途。
 extern std::int32_t gLegacySpecialUseItemC8A96C; // 旧79的原物品槽/列/行。
@@ -173,6 +174,9 @@ std::int32_t Sub_502930(); // 原CRT 5530C8入口，尾跳旧地图面板构造�
 std::int32_t Sub_502940(); // D68868同源面板初始化，不触碰玩家坐标或地图数据。
 std::uint32_t Sub_5029B0(std::int32_t opened); // 旧地图面板；正常尾返回D046C0而非绘图结果。
 std::int32_t Sub_502B80(std::int32_t* value, std::int32_t digits); // 旧数字键输入，位数门槛先于退格。
+std::int32_t Sub_505BC0(); // 旧29初始化，预览置2位后透传4F5170材料重置。
+std::uint32_t Sub_505C20(std::int32_t opened); // 旧29镶嵌执行，八秒有符号计时及第0/5材料载荷。
+std::int32_t Sub_5062A0(); // 旧29动作16/6与重置，空对象仍调用FrameMove。
 // 原CRT 5530CC..5530F4；底部栏初始化值，不公开未证的完整记录布局。
 std::int32_t Sub_502C30();
 std::int32_t Sub_502C40(); // CB1DD8=480-5858A4，返回写入值。

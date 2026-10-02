@@ -779,6 +779,7 @@ float GetYobiActionScaleY(const YobiAction* action) noexcept;
 std::int32_t ReadYobiGraphicOffsetX(const YobiAction* action) noexcept;
 std::int32_t ReadYobiGraphicOffsetY(const YobiAction* action) noexcept;
 std::uint32_t ReadYobiActionFlags(const YobiAction* action) noexcept;
+void SetYobiActionFlag2(YobiAction* action, bool enabled) noexcept; // 旧29初始化/显示只改原+24的2位。
 // 原5076E4..507BE4：完整对象描述阶段，按原位置重取队列中的非拥有对象。
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* graphic);
 

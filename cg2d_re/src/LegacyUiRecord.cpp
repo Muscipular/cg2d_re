@@ -1139,6 +1139,12 @@ constexpr char kLegacyGuildDeleteLead58F3B8[] = "\x83\x4D\x3F\x83\x68\x83\x75\x8
 constexpr char kLegacyGuildDeleteEnd58F3AC[] = "\x82\xF0\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7";
 constexpr char kLegacyGuildDeleteHint58F3A0[] = "\x8D\xED\x3F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildKeepHint58F38C[] = "\x8D\xED\x3F\x82\xF0\x8E\xE6\x82\xE8\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
+LegacyPanelRecord gLegacyGuildDeliveryPanel58ED38 {
+    0, 0, 192, 174, 91, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyGuildNormalMode58F374[] = "\x92\xCA\x8F\xED\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildPetMode58F358[] = "\x3F\x3F\x83\x58\x83\x5E\x81\x5B\x3F\x81\x5B\x3F\x82\xC5\x3F\x90\x4D\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildReturn58F264[] = "\x83\x4D\x3F\x83\x68\x83\x75\x83\x62\x83\x4E\x83\x45\x83\x43\x3F\x83\x68\x83\x45\x82\xC9\x96\xDF\x82\xE8\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8800,6 +8806,45 @@ std::uint32_t Sub_4EBD20(const std::int32_t opened)
     drawAt(kLegacyMailSortThird58972C, 103);
     Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
     return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
+}
+
+std::uint32_t Sub_52F460(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildDeliveryPanel58ED38.x;
+    const std::int32_t y = gLegacyGuildDeliveryPanel58ED38.y;
+    std::array<LegacyPanelButtonRecord, 3> buttons {{
+        {x + 95, y + 55, x + 25, y + 43, 140, 24, 23185, 23186},
+        {x + 95, y + 95, x + 25, y + 83, 140, 24, 23187, 23188},
+        {x + 96, y + 137, x + 56, y + 127, 80, 20, 22710, 22711},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildDeliveryPanel58ED38, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(90));
+    } else if ((QueryPanelButtonState(&buttons[1]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(88));
+    } else if ((QueryPanelButtonState(&buttons[2]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(94));
+    }
+    for (auto& button : buttons) {
+        Sub_5035E0(&button, 212, 1, gValueD69768, 0);
+    }
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyGuildDeliveryPanel58ED38) != 0) {
+        hint = kLegacyGuildClose58F248;
+    } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
+        hint = kLegacyGuildNormalMode58F374;
+    } else if ((QueryPanelButtonState(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacyGuildPetMode58F358;
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0) {
+        hint = kLegacyGuildReturn58F264;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGuildDeliveryPanel58ED38, 1);
 }
 
 std::uint32_t Sub_52F670(const std::int32_t opened)

@@ -10558,6 +10558,339 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "先减缓冲数量，有空间写参数低W8并返回U8，否则flsbuf。四应用caller按原顺序已接，两CRT内部caller不据此完成；宿主无效流校验与锁保持差异，不新增写失败门禁。"
+    },
+    {
+      "original_entry": "0x53BB3D",
+      "inventory_id": "F:0013BB3D",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53BB99",
+      "instruction_count": 40,
+      "original_direct_reference_count": 9,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fflush.cpp",
+        "symbol": "__acrt_stdio_flush_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原写缓冲后公共尾总重置ptr/count，短写置错误并返回-1；宿主不可刷新流提前返回且写前重置，时序/失败私有状态未判等。"
+    },
+    {
+      "original_entry": "0x53F38F",
+      "inventory_id": "F:0013F38F",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53F3BA",
+      "instruction_count": 17,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_freebuf.cpp",
+        "symbol": "__acrt_stdio_free_buffer_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原活动且CRT缓冲才free，清8/400标志和ptr/base/count，不释放用户缓冲；宿主相应职责关联，其他fstream调用者和流槽生命周期另验。"
+    },
+    {
+      "original_entry": "0x53F848",
+      "inventory_id": "F:0013F848",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53F8C0",
+      "instruction_count": 50,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/stream.cpp",
+        "symbol": "__acrt_stdio_allocate_stream"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原从0扫共享表，空槽malloc32B后只初始化部分字段；宿主从_IOB_ENTRIES后扫描，calloc新结构并加锁，不重建原表/32B布局，不称槽身份及分配失败时点等价。"
+    },
+    {
+      "original_entry": "0x53F6D8",
+      "inventory_id": "F:0013F6D8",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53F848",
+      "instruction_count": 124,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/openfile.cpp",
+        "symbol": "common_openfile"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原首字节r/w/a，重复/未知后缀停止解析后仍以累计flags调用sopen；成功再发布FILE字段。宿主模式校验及扩展不同，仅随现有原模式stdio消费关联，不扩大模式接受范围。"
+    },
+    {
+      "original_entry": "0x53F3BA",
+      "inventory_id": "F:0013F3BA",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53F493",
+      "instruction_count": 78,
+      "original_direct_reference_count": 6,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_filbuf.cpp",
+        "symbol": "__acrt_stdio_refill_and_read_narrow_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原拒绝非活动/字符串/写流，切读模式，必要分配缓冲再read；0置EOF、-1置ERROR，成功取首U8。宿主仅窄字节职责关联，锁/校验/内部状态不逐项判等，宽字符路径不借此完成。"
+    },
+    {
+      "original_entry": "0x53F8C0",
+      "inventory_id": "F:0013F8C0",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53F9D5",
+      "instruction_count": 105,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_flsbuf.cpp",
+        "symbol": "__acrt_stdio_flush_and_write_narrow_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原读转写只认EOF，写缓冲后存新低W8，追加定位失败被忽略；宿主额外查询文件末尾，追加定位失败设IOERROR且不存新字节。宿主内部bool返回EOF的实际转换另见合同，不能按注释推断该分支外层必返EOF；失败状态未判等。"
+    },
+    {
+      "original_entry": "0x53EA5E",
+      "inventory_id": "F:0013EA5E",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53EAEB",
+      "instruction_count": 53,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_sftbuf.cpp",
+        "symbol": "__acrt_stdio_begin_temporary_buffering_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原isatty且stdout/stderr才临时缓冲，失败用2B槽；宿主stderr非tty也可启用。通过既有fputs的临时缓冲guard关联，不建立旧1086040缓存或推广标准流重入等价。"
+    },
+    {
+      "original_entry": "0x53EAEB",
+      "inventory_id": "F:0013EAEB",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x53EB28",
+      "instruction_count": 23,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_sftbuf.cpp",
+        "symbol": "__acrt_stdio_end_temporary_buffering_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原flag非0且临时标志时flush并拆除，flag0且仍有临时标志也flush；宿主flagfalse直接返回。现有调用的宿主清理职责定位，嵌套/重入/错误与旧标志生命周期未验。"
+    },
+    {
+      "original_entry": "0x544815",
+      "inventory_id": "F:00144815",
+      "status": "宿主私有文件流职责已关联；原流状态/失败差异及完整父链未验",
+      "original_end_exclusive": "0x544859",
+      "instruction_count": 19,
+      "original_direct_reference_count": 6,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "真实stdio根调用的传递职责，不是原私有helper的应用定义"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090",
+            "Sub_449FA0",
+            "Sub_449DA0"
+          ],
+          "relationship": "现有文件流读写/打开/关闭/刷新消费；未引入旧FILE副本"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/_getbuf.cpp",
+        "symbol": "__acrt_stdio_allocate_buffer_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先增计数、malloc4096，失败转FILE内部2B缓冲；宿主calloc大缓冲且同有2B后备。原全局计数、未写字节、大小/分配时点不重建或判等，不新增失败返回门禁。"
     }
   ]
 }

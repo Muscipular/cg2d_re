@@ -119,3 +119,63 @@ fputc.cpp、fflush.cpp的相关实现已核。正常非溢出数量下，读写�
 已由宿主errno自动写入本线gLegacyErrno；本组消费者未以该槽读取这些调用结果。
 
 源码/CMake保持；只补映射与上述边界，未运行文件读写、构建、测试或哈希校验。
+
+## 私有流与缓冲依赖组 SPEC（2026-10-02）
+
+按工程委托，继续由现有宿主FILE及对应stdio实现持有流表、文件描述符与缓冲，
+不在应用层重建旧32B FILE、旧全局表、缓存指针或第二份计数。
+以下九入口均已查全部直接入向，来源均在CRT范围；本步通过既有真实fopen/
+fclose/fread/fwrite/fgetc/fputc/fputs/fflush消费路径关联，不伪装为应用直接定义。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 原职责 |
+|---|---|---|---|
+| flush 53BB3D | 53BB99 | 40 / 9 | 写流且有大缓冲才写累计数据；短写置错误，公共尾总会ptr=base、count=0 |
+| freebuf 53F38F | 53F3BA | 17 / 2 | 活动且CRT缓冲才释放base，清8/400标志和ptr/base/count |
+| getstream 53F848 | 53F8C0 | 50 / 1 | 从槽0找非活动流或空槽，空槽分配32B；选中后只初始化已证字段 |
+| openfile 53F6D8 | 53F848 | 124 / 1 | 解析原mode并调用sopen，成功增加108603C并发布FILE字段 |
+| filbuf 53F3BA | 53F493 | 78 / 6 | 转读模式、必要时getbuf、read；EOF/失败置不同位，成功返回首U8 |
+| flsbuf 53F8C0 | 53F9D5 | 105 / 7 | 转写门禁、必要时getbuf、写旧缓冲后放新低W8，失败EOF |
+| stbuf 53EA5E | 53EAEB | 53 / 2 | 仅isatty且stdout/stderr，无缓冲时借两槽临时缓冲；分配失败用2B内部槽 |
+| ftbuf 53EAEB | 53EB28 | 23 / 2 | 标志非0且临时缓冲时flush并拆除；标志0但仍有临时缓冲时也flush |
+| getbuf 544815 | 544859 | 19 / 6 | 先增108603C、malloc(4096)，失败用FILE+14内部2B槽，最后ptr=base/count=0 |
+
+合计509条。getstream的原共享表1086AC4/上限1087AE0、stbuf两槽1086040、
+计数108603C均只记录职责；它们不是新端需要额外定义的应用共享owner。
+低层read/write/sopen/isatty/lseek、全流初始化/退出和其他C++流caller仍独立处理。
+
+### 关键失败与状态次序
+
+原flush即使没有写数据，公共尾仍清count并重置ptr；失败后也走同一尾。
+原freebuf不释放用户自带缓冲，不额外清bufsiz。原getbuf分配失败不返回失败码，
+而是切入2B备用缓冲；不新增“malloc失败则整次文件操作必然失败”的应用分支。
+
+原openfile首字节只接受r/w/a；有效前缀之后，重复或未支持的模式字符会停止后缀
+解析，然后仍以已累计flags进入sopen。不能将这个行为误写成所有未知后缀都返回null。
+宿主parse_mode会校验未知后缀、支持前导空格和额外编码/创建模式；
+当前已关联调用继续使用既有原模式，不扩大接受范围或新改应用模式。
+
+原flsbuf从读转写只检查已置EOF；宿主还会查询当前位置和文件长度判定EOF，
+因此混合更新流的状态转换并非逐项相同。追加且旧缓冲为空时，原lseek失败被忽略，
+随后仍写新字节进base；宿主内部先设IOERROR并提前离开write_buffer_nolock。
+该宿主helper返回bool，而该分支写return eof(-1)，会转为true，
+外层可能仍返回输入字符；本步按实际源码记录，不按注释推断必返EOF。
+不修改宿主库，也不把这些差异记成原失败行为已等价。
+
+### 宿主提供者与边界
+
+本机UCRT的stdio/stream.cpp、openfile.cpp、_getbuf.cpp、_freebuf.cpp、
+_filbuf.cpp、_flsbuf.cpp、_sftbuf.cpp及fflush.cpp对应上述职责：
+
+- 流分配从_IOB_ENTRIES之后扫描，使用calloc和锁；区别于原从槽0起、32B malloc及选择性初始化。
+- 普通缓冲用calloc，原用malloc；两者失败都有2B内部缓冲，但分配时点、大小宏、
+  原未写字节和指针复用不据此判等。
+- 宿主flush在不可刷新流上提前返回，且写前重置缓冲；原公共尾在写后执行。
+  fseek/rewind等宿主caller另有reset_buffer，不能只看同名helper推全链时序相同。
+- 宿主stderr即使非tty也可临时缓冲；原先要求isatty。宿主ftbuf标志为false直接返回，
+  原flag0且保有临时标志仍flush。当前文件流消费不因此自动覆盖标准流重入/退出行为。
+- 宿主filbuf窄字符路径保留U8/EOF、备用缓冲和读错误职责；额外校验、锁和共享状态
+  与原不逐项等价，不将宽字符分支一并列作本线需求已完成。
+
+只补九项限定职责映射，源码/CMake和原分母保持。全部旧caller的传递依赖、
+标准流生命周期、系统调用失败与最终文件验收仍未完成。
+不执行文件操作、构建、测试、客户端或哈希校验。

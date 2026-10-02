@@ -4,28 +4,17 @@
 
 ## 当前对齐摘要
 
-- 71槽窗口承载、70个主原型（36/37共享）、拖动表、通用创建/展开、生命周期、输入/绘制与启动/保存已有本体。
-- 窗口10的七模式、五开窗入口、三主回调及30元素/18载荷来源已齐；13种初始元素回调均有唯一本体，完整合同与四组静态回映摘要见[窗口10](ui_windows/window_10.md)。
-- 窗口26的五模式创建、三主回调及完整14元素/12载荷来源已齐；十种元素回调均有本体，七补充按钮见[窗口26](ui_windows/window_26.md)。D6976C有唯一承载，但507140生产仍缺。
-- 三技能命令4974C0/497E30/497FF0、两关闭496AE0/496F10、快捷497000及按钮4975A0/498160已有本体并传入真实回调；窗口28的更新/交互/绘制、两个快照生产者及完整8元素已落位，见[窗口28](ui_windows/window_28.md)。
-- 43C4E0初始化、43C040清对象标志、4982C0倒计时、498520分派、入场/附加效果/血条依赖及窗口32已有本体；M读取/退出、队列/就绪、预扫描、事件收尾、附件/特效、相册匹配、技能目标队列、效果消费及动作73/74/208至216/218至223/235/237已有本体。[41CD00完整特效工厂](ui_windows/shared_battle.md#battle-effect-factory)、五初始化与十三回调已有本体；48类、25个原调用点实参与公共尾已核，第三槽采用S32 Y/原生T*联合类型。工厂内部递归已接；[214/215](ui_windows/shared_battle.md#battle-actions-214-215)两完整动作已接真实特效与动作推进，308/30F复用既有颜色字段。[216与重播种/平铺依赖](ui_windows/shared_battle.md#battle-action-216)已有本体，保留20槽计数、同源随机种子、六型图号和共享相位；[218与对象克隆](ui_windows/shared_battle.md#battle-action-218)已落位，97成员覆盖原730B复制范围、联合槽保留原生指针，1060/13AC/13B0接入渐变完成路径。[219/220与居中跟随特效](ui_windows/shared_battle.md#battle-actions-219-220)已有本体，保留原图恢复/同步终帧、完成尾差异及1064发布后跟随。[221至223](ui_windows/shared_battle.md#battle-actions-221-223)已有本体，保留HP写回差异、追踪移动及窗口28的41402E快照接线。404DB0父分派及1028/1030/13E4生产仍缺，不以动作本体存在代表完整战斗链闭合。[424620](ui_windows/shared_battle.md#battle-skill-dispatch-evidence)未写入值的可达性仍待核，补零待确认。旧常规视图仍20槽；424620/427470分派、438290/404DB0角色生产与完整动作播放、四W16/1080及其他载荷/59F9E0配置生产、43CBB0、M父调度/初始化、快照上游、D64E13的4FF650生产仍未闭合。
-- [动作224所需状态特效恢复链](ui_windows/shared_battle.md#battle-state-effect-restore)七入口已有本体：4062A0坐标距离、1054/105C/1068三个创建入口、两个真实回调及422370恢复；599条指令已静态核对。保留失败前状态写入、成对清位与缩放比较差异。224本体、1060专用载荷和404DB0父回调仍未完成，不记为动作224已实现。
-- [404DB0基础依赖](ui_windows/shared_battle.md#battle-core-actions-0-6)的0至6/236与残影、[7至13及对象平铺](ui_windows/shared_battle.md#battle-actions-7-13)、[14完整命中](ui_windows/shared_battle.md#battle-action-14)、[26至31受击动作](ui_windows/shared_battle.md#battle-actions-26-31)、[16/17投射命中、退场与事件探测](ui_windows/shared_battle.md#battle-actions-16-17)已有本体，骑乘双T*前缀已有生产证据。总更新257表项对应200个不同动作入口，重复映射及公共尾已取证；15、18/19等其他动作、224及父分派仍缺，投射物创建所需完整404DB0不以部分回调替代。
-- [投射物投影与相对方向](ui_windows/shared_battle.md#battle-projection-dependencies)三依赖已有本体，创建绑定完整418D80回调；244指令/16处原调用、四坐标源及五常量已核，保留先截目标再转向、两次额外位移、父死亡后帧尾及负基准两次相减。419390/4195F0及其完整404DB0依赖仍缺。
-- [20至25投射/回旋动作与两个角度依赖](ui_windows/shared_battle.md#battle-actions-20-25)已有本体，1232指令/97处原调用、20B图号表及三个F32常量已核；保留20/22免疫门禁差异、22效果推进及3/7帧延迟、23固定caster/动态other与动作追加、25坐标分别重取。19的4083AA仍依赖419390，不记创建链或父分派完成。
-- [32至40动作与散射特效](ui_windows/shared_battle.md#battle-actions-32-40)十一入口已有本体，660指令/51处原调用及五F32常量已核；保留34四边反弹/完成循环、35每帧尾迹、36至38播放后计时、39三次播放及散射失败/RNG顺序。散射回调已接，不表示完整404DB0已接。
-- [41至56动作与FP扣减](ui_windows/shared_battle.md#battle-actions-41-56)十七入口已有本体，592指令/58处原调用、64B分派表及两个F32常量已核；保留倒地/附件收尾、两设备退场、宠物目标重取、缩放比较和HP/FP三字段写序。完整404DB0及其余动作/创建链仍缺。
-- [57至69、71/72动作及70依赖取证](ui_windows/shared_battle.md#battle-actions-57-72)十五入口已有本体，335指令/36处原调用与64B分派表已核；保留动画完成尾、旧FF0判断、单圈方向修正及哨兵后额外推进。1014只新增S32承载，生产父链仍缺；70的418B70绑定完整404DB0，仅取证未实现。
-- [75至82与偏移跟随特效](ui_windows/shared_battle.md#battle-actions-75-82)十入口已有本体，218指令/24处原调用与32B分派表已核。106C经生产/标死证据修正为原生T*，三附属槽同样使用T*；窗口26借用接口同步，保留刷新后重取。完整发布父链及404DB0仍缺，不记完整转生流程完成。
-- [83至90与屏幕坐标特效](ui_windows/shared_battle.md#battle-actions-83-90)九入口已有本体，594指令/53处原调用、696B名称图号表及五F32常量已核；保留缩放未舍入比较、固定/重取载荷差异、动态目标、十位置随机顺序及延迟/越界效果推进。完整404DB0与创建父链仍缺。
-- [91至98显隐、位移与施法平铺](ui_windows/shared_battle.md#battle-actions-91-98)八入口已有本体，280指令/23处原调用与32B分派已核；保留目标坐标分别重取、旧FF0门禁、推进后目标HP清零及98事件/完成双效果与独立平铺尾。完整404DB0及创建父链仍缺。
-- [99至106与复制体创建依赖](ui_windows/shared_battle.md#battle-actions-99-106)中七入口已有本体，814指令/64处原调用、200B序列表及原格式字节已核；保留共享游标-1、逐效果重读、原始CryptInt格式实参及绕目标定位。103/4205F0因绑定完整404DB0仅取证，父分派与创建链仍缺。
-- [107至114与抛物线效果消费](ui_windows/shared_battle.md#battle-actions-107-114)中六入口已有本体，1298指令/98处原调用、1025项位置缓存和六型减益表已核；保留旧计数/事件门禁、抛物线原字节槽及动态源对象，已接40F2B1共享表消费。109/112依赖完整创建仍只取证，父分派未闭合。
-- [工厂动作、状态与场地特效](ui_windows/shared_battle.md#battle-factory-actions-115-162)及[139/140与背景淡变](ui_windows/shared_battle.md#battle-actions-139-140)已有本体；[154至156/159/160与数值比较](ui_windows/shared_battle.md#battle-actions-154-160)补齐缩放链和两种不同数值收尾，七入口822指令/90处原调用已核。115至162动作本体现已齐，仍不等于完整404DB0或场景父链闭合；163及其他未列动作仍缺。
-- 当前仍缺**36组元素、53个主回调**，网络另余**1个murD回复随音频暂缓**；数量不是全客户端完成率。音频暂缓不等于排除。
-- 文档拆分已提交9438fac2；本轮只静态核对上述新增指令/字节、源码与差异，未重验全部历史实现，不构建、不新增或执行测试、不运行客户端、不检查产物。实际创建、交互、文本、像素、完整技能发送及整体SPEC仍未运行验收。
+2026-10-02按用户要求对齐，压缩前总览与完整进度固定于 `c53a6de1`。以下是当前状态；明细中的“仍缺/仅声明/未接”按各自提交时点理解，不批量删除原证据。
 
-当前结论与后续任务以[唯一进度](../plan/cg2d_full_reconstruction_progress.md)为准。原端证据和验收标准不因拆分或压缩而删除；各明细中的早期“未实现open”“主表仅extern”等仅描述原提交时点。
+- 现代窗口承载71槽，主原型记录70条（含0号空记录，36/37共享）。window id 1..70的69组去重元素、133个去重主回调均有唯一定义，直接缺口为**0组/0个**。这不是旧选择表覆盖数、传递依赖数或全客户端完成率。
+- 通用创建/展开、生命周期、输入/绘制、启动/保存，以及504120→473F80→4C7AE0窗口更新/快捷链已有本体。507140完整命中已接MainLoop与加载caller，相关命中索引/颜色已有真实生产，不再列为缺失本体。
+- 窗口10七模式/30元素、26五模式/14元素、28八元素/快照、32入场提示及其他现代窗口的专属合同见下表。窗口24音量依赖52C3D0仍随音频暂缓；主回调存在不等于传递依赖齐全。
+- 战斗404DB0完整257表项/200动作入口及其创建/恢复依赖已有本体；43CBB0→4383F0→4383B0→43B360→43B610→427470已接真实调用与回调，25消息与193个非默认技能分派已有入口。424620仍只有真实声明，其var_50未写值待决，不能据此称完整战斗可运行。[战斗合同](ui_windows/shared_battle.md)
+- 旧面板公共层及多条人物、设置、制造/加工、交易/存放、图鉴/宠物、商店内部链已有本体，见独立旧选择索引。57C368 handlerToken仍是原地址证据编号，实际外层调用尚待；D64E13的4FF650生产、旧20/62/85及旧日志等未决项保持。
+- 网络108路分发已有本体，直接回复尚余**1个murD随音频暂缓**；音频不是范围排除。0/0/1仅表示上述三类直接缺口，不含旧UI、所有数据生产、真实流程或完整链接缺口。
+- 本次只复点源码定义/接线、文档链接与差异；不重新验证历史算法，不构建、不新增或执行测试、不运行客户端、不检查产物。整体SPEC、完整输入/收发、画面及资源生命周期均未完成验收。
+
+当前任务与六项未写值边界见[唯一进度](../plan/cg2d_full_reconstruction_progress.md)和[总SPEC待决项](../plan/cg2d_full_reconstruction_plan.md#43-当前未闭合与明确待决)。文档索引不替代原端合同，旧选择ID也不等同现代window id。
 
 ## 按窗口ID索引
 
@@ -119,6 +108,61 @@
 - [窗口62/63资料按钮与迷你发信链](ui_windows/shared_62_63.md)
 - [窗口67/68共享摆摊合同](ui_windows/shared_67_68.md)
 - [窗口69/70共享晶石商店合同](ui_windows/shared_69_70.md)
+
+## 旧选择ID索引
+
+本表列已有明细的57C368旧选择编号，不是全99条handler完成清单，也不映射同号现代窗口。共享明细保留单一来源；“完整本体已有”只指该页或明确列出的内部链，旧表外层分派及运行验收仍待。旧64卖出列表及真实确认依赖是当前下一步，不从买入页外推其合同。
+
+| 旧选择ID | 明细 | 当前本体状态 |
+|---|---|---|
+| 1 | [地图](ui_windows/legacy_map_panel.md) | 本体/构造已接 |
+| 2 | [人物三页](ui_windows/legacy_profile_panels.md) | 三页及外层已有本体 |
+| 3 | [设置主菜单](ui_windows/legacy_settings_menu.md) | 本体/构造已接 |
+| 4 | [退出](ui_windows/legacy_logout_panel.md) | 完整本体已有 |
+| 5 | [聊天设置](ui_windows/legacy_chat_settings.md) | 本体/构造已接 |
+| 9 | [鼠标设置](ui_windows/legacy_mouse_settings.md) | 本体/构造已接 |
+| 10 | [快捷键说明](ui_windows/legacy_hotkey_help.md) | 本体/构造已接 |
+| 11 | [扫描线设置](ui_windows/legacy_scanline_settings.md) | 本体/构造已接 |
+| 12 | [按钮设置](ui_windows/legacy_button_settings.md) | 本体/构造已接 |
+| 14 | [物品](ui_windows/legacy_inventory.md) | 完整本体/初始化已有 |
+| 15 | [金钱](ui_windows/legacy_money.md) | 完整本体/初始化已有 |
+| 16 | [拆分数量](ui_windows/legacy_item_split.md) | 完整本体/键盘依赖已有 |
+| 18、19 | [技能列表与详情](ui_windows/legacy_skill_panels.md) | 18列表已有；19详情4FF650待决 |
+| 20 | [宠物列表](ui_windows/legacy_pet_list.md) | 未写局部的跨调用命中稳定性待证 |
+| 21 | [宠物资料](ui_windows/legacy_pet_detail.md) | 三页/初始化/外层已有 |
+| 22 | [宠物改名](ui_windows/legacy_pet_rename.md) | 完整本体已有 |
+| 23 | [图鉴列表](ui_windows/legacy_album_list.md) | 完整本体/初始化已有 |
+| 24 | [图鉴详情](ui_windows/legacy_album_detail.md) | 完整本体/预览已有 |
+| 25 | [制造配方](ui_windows/legacy_craft_recipes.md) | 完整本体/页数查询已有 |
+| 26 | [制造执行](ui_windows/legacy_craft_execution.md) | 完整本体/初始化/动作已有 |
+| 27 | [制造材料](ui_windows/legacy_craft_materials.md) | 完整本体/材料生产已有 |
+| 28 | [制造结果](ui_windows/legacy_craft_result.md) | 完整本体已有 |
+| 29 | [镶嵌执行](ui_windows/legacy_gem_execution.md) | 完整本体/初始化/动作已有 |
+| 30 | [镶嵌材料](ui_windows/legacy_gem_materials.md) | 完整本体/初始化/校验已有 |
+| 31 | [加工选择](ui_windows/legacy_item_work_selection.md) | 完整本体/资格/预览已有 |
+| 32 | [加工名称](ui_windows/legacy_item_work_name.md) | 完整本体/名称生产/发送已有 |
+| 33 | [加工结果](ui_windows/legacy_item_work_result.md) | 完整本体已有 |
+| 34 | [FP不足提示](ui_windows/legacy_fp_notice.md) | 完整本体已有 |
+| 37 | [技能结果](ui_windows/legacy_skill_result.md) | 完整本体/再次使用已有 |
+| 38 | [采集](ui_windows/legacy_gather_panel.md) | 完整本体/动画依赖已有 |
+| 39 | [采集结果](ui_windows/legacy_gather_result.md) | 完整本体/预览依赖已有 |
+| 40、41 | [战斗与点数结果](ui_windows/legacy_result_panels.md) | 完整本体/计时初始化已有 |
+| 52 | [交易](ui_windows/legacy_trade_panel.md) | 六页/外层/预览已有 |
+| 62 | [买卖选择](ui_windows/legacy_shop_choice.md) | mode0第二命令未写，尚未实现 |
+| 63 | [买入列表](ui_windows/legacy_buy_list.md) | 完整本体/初始化/共享详情已有 |
+| 65 | [买入确认](ui_windows/legacy_buy_confirmation.md) | 完整本体已有 |
+| 72 | [存放](ui_windows/legacy_storage_items.md) | 四页/外层已有；容量及展示生产仍待 |
+| 74 | [交易选择](ui_windows/legacy_exchange_dialog.md) | 完整本体/初始化已有 |
+| 75 | [交换列表](ui_windows/legacy_barter_list.md) | 完整本体/初始化/详情已有 |
+| 76 | [交换确认](ui_windows/legacy_barter_confirmation.md) | 完整本体/固定字体测宽已有 |
+| 78 | [物品目标属性](ui_windows/legacy_item_use_status.md) | 完整本体/同源借用已有 |
+| 79 | [物品刻印](ui_windows/legacy_item_engraving.md) | 完整本体/初始化已有 |
+| 83 | [交出/接受对话](ui_windows/legacy_give_receive_dialog.md) | 完整本体/初始化已有；模式生产仍待 |
+| 84 | [交出/接受数量](ui_windows/legacy_give_receive_quantity.md) | 完整本体/初始化/详情已有 |
+| 85 | [交出/接受确认](ui_windows/legacy_give_receive_confirmation.md) | 首次分行读未写文本，尚未实现 |
+| 98 | [旧日志](ui_windows/legacy_log_viewer.md) | 402020补零待批；4021A0仍待完整取证 |
+
+旧公共机制与无单独选择ID的初始化：[旧面板公共运行期](ui_windows/shared_legacy_panels.md)、[455490组初始化](ui_windows/legacy_455490_initialization.md)、[底部栏初始化](ui_windows/legacy_bottom_bar_initialization.md)。音乐/音效设置继续随音频暂缓，不因未列明细而排除。
 
 ## 迁移基线
 

@@ -10139,6 +10139,219 @@
         ]
       ],
       "shared_return_entry": "0x54B1AC"
+    },
+    {
+      "original_entry": "0x53B1D0",
+      "inventory_id": "F:0013B1D0",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B226",
+      "instruction_count": 35,
+      "original_direct_reference_count": 96,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "黑名单读取/持久化的真实调用，不把父AL=1当落盘成功"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0",
+            "Sub_449FA0",
+            "Sub_44A090",
+            "Sub_44B050"
+          ],
+          "relationship": "聊天历史/日志的现有打开和关闭消费，不计其全部文件路径验收"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "argument.ini真实文件流消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fclose.cpp",
+        "symbol": "fclose"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原字符串流/非活动流返-1，其他先flush/freebuf/close，关闭失败-1，成功才释放临时文件名，最终清flags。仅关联所列应用消费；宿主锁/校验/free_stream/errno/文件表生命周期不称原体等价，原96处直接引用中的其余父链仍各自验收。"
+    },
+    {
+      "original_entry": "0x53B226",
+      "inventory_id": "F:0013B226",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B27D",
+      "instruction_count": 43,
+      "original_direct_reference_count": 8,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile"
+          ],
+          "relationship": "黑名单读取的真实std文件流调用"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "argument.ini真实文件流消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fgets.cpp",
+        "symbol": "common_fgets"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "count<=0原直接null；count1写NUL并返buffer；换行保留，部分EOF补NUL返buffer，立即EOF不写目标且返null。宿主参数/流校验与锁有差异，不以本记录批准402020/4021A0补零或全部八个caller完成。"
+    },
+    {
+      "original_entry": "0x53B27D",
+      "inventory_id": "F:0013B27D",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B2D1",
+      "instruction_count": 32,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile"
+          ],
+          "relationship": "黑名单读取的真实std文件流调用"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/rewind.cpp",
+        "symbol": "_rewind_internal"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一401081不消费原残留EAX，只读EOF位。原flush、清流/低层EOF、更新方向后lseek0；宿主另有显式缓冲重置及seek失败设IOERROR。保留既有std::rewind，不声称文件内部状态/失败路径全等价。"
+    },
+    {
+      "original_entry": "0x53B2D1",
+      "inventory_id": "F:0013B2D1",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B2F1",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "黑名单读取/持久化的真实调用，不把父AL=1当落盘成功"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "argument.ini真实文件流消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fopen.cpp",
+        "symbol": "common_fsopen"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一53B2F1调用，先getstream、成功再openfile，share实际40h。通过真实宿主fopen私有common_fsopen承接，不是应用直接调用_fsopen；宿主校验、锁、流释放及分配失败不同，其他openfile/底层父链不随之完成。"
+    },
+    {
+      "original_entry": "0x53B2F1",
+      "inventory_id": "F:0013B2F1",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B304",
+      "instruction_count": 6,
+      "original_direct_reference_count": 67,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "黑名单读取/持久化的真实调用，不把父AL=1当落盘成功"
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0",
+            "Sub_449FA0",
+            "Sub_44A090",
+            "Sub_44B050"
+          ],
+          "relationship": "聊天历史/日志的现有打开和关闭消费，不计其全部文件路径验收"
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "argument.ini真实文件流消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fopen.cpp",
+        "symbol": "fopen"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "固定40h=_SH_DENYNO；宿主fopen也使用该共享方式，不能改成_SH_SECURE的fopen_s。路径/mode保持当前原字节与文本/二进制模式；指针/null返回正常消费关联，67处全部父链及流内部失败状态未验。"
+    },
+    {
+      "original_entry": "0x53B356",
+      "inventory_id": "F:0013B356",
+      "status": "现有宿主文件流消费域已关联；私有状态差异与完整文件验收未完成",
+      "original_end_exclusive": "0x53B399",
+      "instruction_count": 30,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "401236/401241两处写记录/换行，均弃返回"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "stdio/fputs.cpp",
+        "symbol": "_fputs_internal"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原strlen→临时缓冲→fwrite大小1及长度→恢复缓冲，写满0否则-1；当前宿主同样写满0/失败EOF。父不检查fopen/fputs/fclose，保持原顺序且不以其返回1宣称成功；无效流校验/故障不称等价。"
     }
   ]
 }

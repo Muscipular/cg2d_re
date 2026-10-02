@@ -1069,3 +1069,20 @@ Input标准库消费域、其他CRT父链与运行未验边界保持。
 records388增至392，pending_records18、分类引用4保持；边界分类records3增至4，
 既有unassigned_ranges保持。源码/CMake未改；本次数量不代表新实现函数数量。
 仅静态核当前源码/引用/精确返回与边界及旧记录保持，未构建、测试、运行或哈希校验。
+
+## 文件流打开、读行、回卷、写串与关闭（2026-10-02）
+
+按[文件流基础合同](cg2d_stdio_contract.md)新增53B1D0/53B226/53B27D/
+53B2D1/53B2F1/53B356六项，共157条；来源为Blacklist、Input、ClientEntry
+真实既有调用，provider指向本机UCRT五份实际stdio源码，不新增重复包装。
+
+fopen固定40h=_SH_DENYNO，与宿主fopen一致，不改用不同共享策略的fopen_s。
+fgets立即EOF不写目标、count1写NUL，保留旧日志待批补值；fputs两处原caller
+均在黑名单持久化且弃返回，不能把父返回1当文件写成功。
+rewind只一个原caller、不消费EAX，宿主seek失败额外设IOERROR等差异明确保留；
+FILE内部字段、锁、校验、errno和全量父链不据此验收。
+
+records392增至398，pending_records18、分类引用4保持。按当前直接定位、
+语义记录、待决和分类引用合并去重，六项原均未归属；已知归属不等于已完成。
+源码/CMake不改，音频文件调用不借此恢复；静态核合同/来源/原边界和旧记录，
+未构建、测试、运行、操作实际游戏文件或校验哈希。

@@ -12615,6 +12615,322 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "541BB8与542A54各一调用，不能只当启动代码。选静态头或分配2020H描述区，VirtualAlloc保留400000H并提交10000H，发布链/区域/1024元数据项，清已提交区并初始化16页。失败按原路径释放保留区和动态描述区，静态头不HeapFree。"
+    },
+    {
+      "original_entry": "0x541C5D",
+      "inventory_id": "F:00141C5D",
+      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "original_end_exclusive": "0x541C88",
+      "instruction_count": 14,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及全部直接入向/调用位置",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C0C0",
+          "parent_entry": "0x53C0A9"
+        },
+        {
+          "address": "0x53FAA7",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FAF4",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FD0F",
+          "parent_entry": "0x53FCFB"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3查区域：按1086998个14H记录扫描，U32(pointer-base)<100000H命中返回该头；未命中返回0。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x541C88",
+      "inventory_id": "F:00141C88",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x541FB1",
+      "instruction_count": 265,
+      "original_direct_reference_count": 3,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C0CC",
+          "parent_entry": "0x53C0A9"
+        },
+        {
+          "address": "0x53FAFF",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FB46",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x541FB1",
+      "inventory_id": "F:00141FB1",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x5422BA",
+      "instruction_count": 275,
+      "original_direct_reference_count": 3,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C036",
+          "parent_entry": "0x53BFF8"
+        },
+        {
+          "address": "0x53C402",
+          "parent_entry": "0x53C3EA"
+        },
+        {
+          "address": "0x53FAD2",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3分配入口：calloc、malloc内部叶和realloc各一调用；内部调5422BA新区域及54236B新组。完整空闲链/位图算法未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x5422BA",
+      "inventory_id": "F:001422BA",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x54236B",
+      "instruction_count": 53,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x54207D",
+          "parent_entry": "0x541FB1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3区域创建私有依赖：仅541FB1调用；调用HeapReAlloc、带清零HeapAlloc、VirtualAlloc保留和失败HeapFree。容量/发布/全部失败细节仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x54236B",
+      "inventory_id": "F:0014236B",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x542466",
+      "instruction_count": 85,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x54208C",
+          "parent_entry": "0x541FB1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3组创建私有依赖：仅541FB1调用；含VirtualAlloc提交。完整组布局与位图初始化仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x542466",
+      "inventory_id": "F:00142466",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x54275C",
+      "instruction_count": 259,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53FAC5",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x5428A0",
+      "inventory_id": "F:001428A0",
+      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "original_end_exclusive": "0x5428F6",
+      "instruction_count": 27,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向/调用位置",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x54299B",
+          "parent_entry": "0x5428F6"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2区域释放：先VirtualFree(MEM_RELEASE)，当前区域指针命中则退到前链；动态描述符解除双链后HeapFree，静态58FE58只将58FE68写FFFFFFFF，不释放静态头。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x5428F6",
+      "inventory_id": "F:001428F6",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x5429B8",
+      "instruction_count": 66,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x542A4D",
+          "parent_entry": "0x542A0F"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2回收私有依赖：仅542A0F调用；含VirtualFree(MEM_DECOMMIT)及5428A0整区域释放。完整选择/回收计数仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x5429B8",
+      "inventory_id": "F:001429B8",
+      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "original_end_exclusive": "0x542A0F",
+      "instruction_count": 34,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向/调用位置",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C0E3",
+          "parent_entry": "0x53C0A9"
+        },
+        {
+          "address": "0x53FBCE",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FD34",
+          "parent_entry": "0x53FCFB"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2查块：区域开区间内、16B对齐、页内偏移>=100H才写两输出为区域/页首，并返回页内分配标记地址；失败返回0且不写两输出。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x542A0F",
+      "inventory_id": "F:00142A0F",
+      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "original_end_exclusive": "0x542A54",
+      "instruction_count": 19,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向/调用位置",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C0F6",
+          "parent_entry": "0x53C0A9"
+        },
+        {
+          "address": "0x53FC30",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FC72",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2释放记账：将分配标记U8加回对应页计数，清标记并把另一元数据写F1H；页计数恰F0H才增1086154，其恰20H时调用5428F6(10H)，不改为大于等于。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x542A54",
+      "inventory_id": "F:00142A54",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x542C5C",
+      "instruction_count": 180,
+      "original_direct_reference_count": 3,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53C057",
+          "parent_entry": "0x53BFF8"
+        },
+        {
+          "address": "0x53C434",
+          "parent_entry": "0x53C3EA"
+        },
+        {
+          "address": "0x53FC07",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2分配入口：calloc、malloc内部叶和realloc各一调用；内部两次调用542C5C，含VirtualAlloc提交、memset及54275C新区域。完整搜索和失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x542C5C",
+      "inventory_id": "F:00142C5C",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x542D80",
+      "instruction_count": 125,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x542A9E",
+          "parent_entry": "0x542A54"
+        },
+        {
+          "address": "0x542AED",
+          "parent_entry": "0x542A54"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2页内分配私有依赖：只有542A54两个调用；本体无call，返回值及详细扫描/标记更新仍待逐条核定。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x542D80",
+      "inventory_id": "F:00142D80",
+      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "original_end_exclusive": "0x542E29",
+      "instruction_count": 69,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
+      "sources": [],
+      "inbound_evidence": [
+        {
+          "address": "0x53FBF5",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "模式2原位调整大小私有依赖：唯一realloc@53FBF5调用，成功复用原块；本体无call，详细扩展/收缩与失败门禁仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
     }
   ]
 }

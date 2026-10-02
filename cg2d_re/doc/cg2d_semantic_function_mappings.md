@@ -1247,3 +1247,15 @@ Mbrtowc的W32待续状态和btowc的局部转换；宿主locale/UTF-8/清零/错
 records440增至444，pending_records18、分类引用4保持。音频mbstowcs唯一caller455100
 继续暂停，未登记完成或排除。源码/CMake未改，静态核新增关联和文件格式；
 未构建、测试、运行或哈希校验，不计全部格式化/宽流/启动退出验收。
+
+## 格式化包装与有界标题消费（2026-10-02）
+
+按[局部合同](cg2d_stdio_contract.md#格式化公共入口与有界标题消费2026-10-02)
+新增sprintf/_snprintf/sscanf三个原包装，共84条。
+九处原有界标题调用均已使用_snprintf，正容量256/100/28及窄%s/%d格式一致，
+不强制改用标准snprintf或补尾零；原/宿主legacy结束符分支与弃返回合同已明确。
+
+sprintf只关联两处Input路径拼接，sscanf只关联ParseClientVersion固定版本格式；
+1022/22引用数不是完整父链验收数，私有输出/扫描引擎、其他格式与locale仍待。
+records444增至447，pending_records18、分类引用4保持。源码/CMake不变，
+静态核本步边界/真实调用和宿主选项、旧记录/UTF-8/LF；未构建、测试、运行或哈希校验。

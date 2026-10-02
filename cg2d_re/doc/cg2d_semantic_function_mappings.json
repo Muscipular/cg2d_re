@@ -11825,6 +11825,100 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原宽basic_ios初始化唯一直接调用；-1转W16 WEOF，其他取低U8、局部W32状态清零，Mbrtowc返回负数则WEOF，否则返回输出W16。宿主公共btowc的职责来源已定位，局部状态/输出初始化和最终宽流运行仍不称原等价。"
+    },
+    {
+      "original_entry": "0x53B304",
+      "inventory_id": "F:0013B304",
+      "status": "现有路径格式化消费域已关联；其余格式/引用及完整引擎未验",
+      "original_end_exclusive": "0x53B356",
+      "instruction_count": 32,
+      "original_direct_reference_count": 1022,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "原449FBB/44A0B5的路径拼接消费，仅这两处128B目标/弃返回顺序关联"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "__stdio_common_vsprintf"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原临时流flags42h/count7FFFFFFFh，输出核心53EB28返回保存后再写NUL，不用尾NUL写失败覆盖返回。宿主格式化职责关联只限两条已证路径，1022引用不计全验；变参ABI/locale/动态格式/宽浮点及私有状态未验，不新建旧FILE。"
+    },
+    {
+      "original_entry": "0x53D21D",
+      "inventory_id": "F:0013D21D",
+      "status": "九处原有界标题消费已关联；完整格式化引擎及运行未验",
+      "original_end_exclusive": "0x53D26E",
+      "instruction_count": 33,
+      "original_direct_reference_count": 9,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48B560",
+            "Sub_4B8310",
+            "Sub_4B8780",
+            "Sub_4B8C90",
+            "Sub_4C17B0",
+            "Sub_4C3A50"
+          ],
+          "relationship": "八处_snprintf实际调用，容量256/100及三种原窄格式，均弃返回"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DA400"
+          ],
+          "relationship": "第九处_snprintf，原32B局部传28，不强制补尾零"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
+        "symbol": "common_vsprintf"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原flags42h/count传入W32，核心返回不被尾NUL尝试覆盖。当前九处均使用带legacy NUL选项的_snprintf，未误换标准snprintf；数量/格式/弃返回及已有缓冲初始化边界保持。只关联正容量窄%s/%d实际消费，不宣称全部输出核心或截断后绘制安全/完整父链已验收。"
+    },
+    {
+      "original_entry": "0x53CADC",
+      "inventory_id": "F:0013CADC",
+      "status": "固定版本号扫描消费已关联；其余扫描语法/父链未验",
+      "original_end_exclusive": "0x53CB10",
+      "instruction_count": 19,
+      "original_direct_reference_count": 22,
+      "sources": [
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "ParseClientVersion"
+          ],
+          "relationship": "原4659F0@465A09固定Ver 1.02.02/三S32输出，保留返回传递"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/input.cpp",
+        "symbol": "__stdio_common_vsscanf"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先strlen给flags49h临时FILE的W32计数，再调53DEF4；宿主string adapter/locale及非空校验不同。只关联固定版本格式，不借其源码完成其他21引用、全部输入引擎或音频/newest范围，未改业务目标/默认值或模拟旧FILE。"
     }
   ]
 }

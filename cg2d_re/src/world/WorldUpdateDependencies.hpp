@@ -1026,7 +1026,8 @@ void Sub_470270(); // 组队请求，保留跟随分支和静默返回。
 void Sub_4703C0(); // 名片请求，无跟随门禁。
 void Sub_4704A0(); // 交易请求，两格查询均执行。
 void Sub_470670(); // 家族邀请，读取同源职级权限低U8。
-void Sub_4FA8E0(std::int32_t index); // 动作命令副作用；旧随机包装的混合EAX返回合同见窗口34明细。
+void Sub_4FA8E0(std::int32_t index); // 既有弃返回调用的动作命令接口。
+std::uintptr_t RequestEmoteWithResult_4FA8E0(std::int32_t index); // 旧随机快捷键需要的原生action地址/完整W32混合返回。
 void Sub_446470(); // 原只清引用的全表重置；调用者均弃用原表外返回地址。
 void Sub_446610(); // 全表仅对占用项清action、写value34=-1。
 void* __cdecl Sub_46ADA0();               // 原 [0x46ADA0,0x46AE53)，仅透传 51D5B0 的返回位型。

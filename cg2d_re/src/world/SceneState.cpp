@@ -8803,17 +8803,23 @@ void Sub_470670()
     static_cast<void>(audio::PlaySe_52C450(51, 320));
 }
 
-void Sub_4FA8E0(const std::int32_t index)
+std::uintptr_t RequestEmoteWithResult_4FA8E0(const std::int32_t index)
 {
-    if (gPlayerRuntime.action == nullptr || gCurrentSceneType == 10
-        || gValue9A86D8 != 0 || gValue9FB92E != 0
-        || !platform::legacy_crypt_int::Equal_401D00(&gValueC821D8, 0)
-        || index < 0) {
-        return;
+    login::YobiAction* const initialAction = gPlayerRuntime.action;
+    if (initialAction == nullptr || gCurrentSceneType == 10
+        || gValue9A86D8 != 0 || gValue9FB92E != 0) {
+        return reinterpret_cast<std::uintptr_t>(initialAction);
+    }
+    // 原401D00仅改AL，保留读取值高24位；只能读取一次，避免额外计数/RNG。
+    const std::int32_t comparisonValue = platform::legacy_crypt_int::Read_401EC0(&gValueC821D8);
+    const std::uint32_t comparisonResult = (std::bit_cast<std::uint32_t>(comparisonValue) & 0xFFFFFF00u)
+        | static_cast<std::uint32_t>(comparisonValue == 0);
+    if (comparisonValue != 0 || index < 0) {
+        return static_cast<std::uintptr_t>(comparisonResult);
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (gEmoteRequestTickD67D20 + 500u >= now) {
-        return;
+        return static_cast<std::uintptr_t>(now);
     }
     login::YobiAction* const action = gPlayerRuntime.action;
     bool useLimitedActions = login::detail::ReadMapActorAttachment44(action) != nullptr;
@@ -8840,7 +8846,14 @@ void Sub_4FA8E0(const std::int32_t index)
         platform::gConnectionSocket, x, y, protocolAction));
     const std::int32_t localAction = kEmoteLocalActions584B6C[selected];
     Sub_51A060(localAction);
-    gEmoteRequestTickD67D20 = platform::ReadTickCount32();
+    const std::uint32_t completedAt = platform::ReadTickCount32();
+    gEmoteRequestTickD67D20 = completedAt;
+    return static_cast<std::uintptr_t>(completedAt);
+}
+
+void Sub_4FA8E0(const std::int32_t index)
+{
+    static_cast<void>(RequestEmoteWithResult_4FA8E0(index));
 }
 
 std::uint32_t Sub_51B3E0()

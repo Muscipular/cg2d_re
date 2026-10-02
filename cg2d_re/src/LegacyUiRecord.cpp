@@ -13688,6 +13688,115 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+std::int32_t Sub_503BB0()
+{
+    return audio::Sub_504460(2);
+}
+
+std::int32_t Sub_503D00()
+{
+    world::detail::Sub_4FA8E0(0);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D10()
+{
+    world::detail::Sub_4FA8E0(2);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D20()
+{
+    world::detail::Sub_4FA8E0(4);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D30()
+{
+    world::detail::Sub_4FA8E0(6);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D40()
+{
+    world::detail::Sub_4FA8E0(8);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D50()
+{
+    world::detail::Sub_4FA8E0(10);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D60()
+{
+    world::detail::Sub_4FA8E0(1);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D70()
+{
+    world::detail::Sub_4FA8E0(3);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D80()
+{
+    world::detail::Sub_4FA8E0(7);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503D90()
+{
+    world::detail::Sub_4FA8E0(5);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503DA0()
+{
+    world::detail::Sub_4FA8E0(9);
+    return platform::NextRandom_53B4C9();
+}
+
+std::int32_t Sub_503DB0()
+{
+    world::detail::Sub_4FA8E0(12);
+    return platform::NextRandom_53B4C9();
+}
+
+std::uintptr_t Sub_503DC0()
+{
+    const std::int32_t selected = platform::NextRandom_53B4C9() % 3;
+    if (selected == 0) {
+        return world::detail::RequestEmoteWithResult_4FA8E0(14);
+    }
+    if (selected == 1) {
+        return world::detail::RequestEmoteWithResult_4FA8E0(16);
+    }
+    return world::detail::RequestEmoteWithResult_4FA8E0(17);
+}
+
+std::int32_t Sub_503E00()
+{
+    return Sub_4FD4C0();
+}
+
+std::int32_t Sub_503E10()
+{
+    return Sub_4FD510();
+}
+
+std::int32_t Sub_503E20()
+{
+    return Sub_4FD5F0();
+}
+
+std::int32_t Sub_503E30()
+{
+    return Sub_4FD640();
+}
+
 std::int32_t Sub_503B70()
 {
     if (audio::Sub_5043D0(2) != 0) {

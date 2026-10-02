@@ -12,12 +12,12 @@
   "counts": {
     "inventory_functions": 3680,
     "source_files": 187,
-    "direct_inventory_entries": 2763,
-    "direct_definitions": 2780,
+    "direct_inventory_entries": 2762,
+    "direct_definitions": 2779,
     "multiple_definition_entries": 13,
     "shared_tag_definitions": 1,
     "non_inventory_definitions": 58,
-    "without_direct_definition": 917
+    "without_direct_definition": 918
   },
   "records": [
     {
@@ -125,18 +125,6 @@
           "symbol": "Sub_4014B0",
           "definition_line": 14698,
           "namespace": "cg::login::detail"
-        }
-      ]
-    },
-    {
-      "inventory_id": "F:00001960",
-      "original_entry": "0x401960",
-      "definitions": [
-        {
-          "path": "src/network/NetworkRuntime.cpp",
-          "symbol": "EncryptPrivatePacket_401960",
-          "definition_line": 143,
-          "namespace": "cg::network::(匿名)"
         }
       ]
     },
@@ -33819,6 +33807,7 @@
   ],
   "without_direct_definition": [
     "F:00001030",
+    "F:00001960",
     "F:00001AB0",
     "F:00001C10",
     "F:00001D10",

@@ -18,7 +18,9 @@ namespace cg::login {
 
 namespace {
 
-constexpr char kMissingCredentials[] = "請輸入ＩＤ和ＰＡＳＳＷＯＲＤ";
+// 原55C59C「請輸入ＩＤ和ＰＡＳＳＷＯＲＤ」；28B正文，字面量隐式追加NUL。
+constexpr char kMissingCredentials[] = "\xBD\xD0\xBF\xE9\xA4\x4A\xA2\xD7\xA2\xD2\xA9\x4D\xA2\xDE\xA2\xCF\xA2\xE1\xA2\xE1\xA2\xE5\xA2\xDD\xA2\xE0\xA2\xD2";
+static_assert(sizeof(kMissingCredentials) == 29);
 
 // 原 0x9A5FE0：本函数私有的 256 字节消息缓冲，映像初值为零。
 char gLoginModeMessage[256] {};

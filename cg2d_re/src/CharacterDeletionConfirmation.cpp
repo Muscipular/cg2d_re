@@ -9,12 +9,24 @@
 namespace cg::character_select {
 namespace {
 
-constexpr char kConfirmText[] = "  確  定 ";
-constexpr char kCancelText[] = "  取  消 ";
-constexpr char kWarningTitle[] = "＊＊＊ 警  告 ＊＊＊";
-constexpr char kDeletionCannotRecoverLine1[] = "所選擇的人物一經刪除";
-constexpr char kDeletionCannotRecoverLine2[] = "將無法恢復";
-constexpr char kDeletionQuestion[] = "確定要刪除嗎？";
+// 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。
+constexpr char kConfirmText[] = "\x20\x20\xBD\x54\x20\x20\xA9\x77\x20";
+static_assert(sizeof(kConfirmText) == 10);
+// 原55C8C8「  取  消 」；9B正文，字面量隐式追加NUL。
+constexpr char kCancelText[] = "\x20\x20\xA8\xFA\x20\x20\xAE\xF8\x20";
+static_assert(sizeof(kCancelText) == 10);
+// 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。
+constexpr char kWarningTitle[] = "\xA1\xAF\xA1\xAF\xA1\xAF\x20\xC4\xB5\x20\x20\xA7\x69\x20\xA1\xAF\xA1\xAF\xA1\xAF";
+static_assert(sizeof(kWarningTitle) == 21);
+// 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。
+constexpr char kDeletionCannotRecoverLine1[] = "\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xA4\x48\xAA\xAB\xA4\x40\xB8\x67\xA7\x52\xB0\xA3";
+static_assert(sizeof(kDeletionCannotRecoverLine1) == 21);
+// 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。
+constexpr char kDeletionCannotRecoverLine2[] = "\xB1\x4E\xB5\x4C\xAA\x6B\xAB\xEC\xB4\x5F";
+static_assert(sizeof(kDeletionCannotRecoverLine2) == 11);
+// 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。
+constexpr char kDeletionQuestion[] = "\xBD\x54\xA9\x77\xAD\x6E\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48";
+static_assert(sizeof(kDeletionQuestion) == 15);
 
 } // namespace
 

@@ -730,3 +730,47 @@ NUL/长度/LF、25项顺序、实际使用位置和源码限定差异；不执�
 本文早期“新端标题文本使用UTF-8”描述的是修复前状态，此增量覆盖该状态描述。
 本轮不证明目标系统ANSI显示一致，也不将标题与说明修复算完整登录运行验收。
 不构建、检查产物、新增或执行测试、计算或比对哈希；总SPEC和总索引不例行刷新。
+
+## 登录分支与删除角色提示原字节 SPEC（2026-10-03）
+
+沿已批准文本编码合同，补齐五份现有源码的12处常量定义（11个唯一原地址）。
+本轮用已打开IDA读取原始字节及父函数数据引用，不从解码显示或源码中文反向转码。
+两种能力页的凭据提示同源55CA8C；保留两份既有静态常量，不为了合并常量重构模块。
+
+| 源文件 / 常量 | 原地址 / 引用指令 | 含NUL字节数 | 原正文 |
+|---|---|---:|---|
+| CharacterDeletionConfirmation.cpp / kConfirmText | 55C8D4 / 45E134 | 10 | 20 20 BD 54 20 20 A9 77 20 |
+| CharacterDeletionConfirmation.cpp / kCancelText | 55C8C8 / 45E148 | 10 | 20 20 A8 FA 20 20 AE F8 20 |
+| CharacterDeletionConfirmation.cpp / kWarningTitle | 55C8B0 / 45E234 | 21 | A1 AF A1 AF A1 AF 20 C4 B5 20 20 A7 69 20 A1 AF A1 AF A1 AF |
+| CharacterDeletionConfirmation.cpp / kDeletionCannotRecoverLine1 | 55C898 / 45E295 | 21 | A9 D2 BF EF BE DC AA BA A4 48 AA AB A4 40 B8 67 A7 52 B0 A3 |
+| CharacterDeletionConfirmation.cpp / kDeletionCannotRecoverLine2 | 55C88C / 45E2F3 | 11 | B1 4E B5 4C AA 6B AB EC B4 5F |
+| CharacterDeletionConfirmation.cpp / kDeletionQuestion | 55C87C / 45E351 | 15 | BD 54 A9 77 AD 6E A7 52 B0 A3 B6 DC A1 48 |
+| LoginCapability3Scene.cpp / kCredentialsPrompt | 55CA8C / 45F84D | 21 | BD D0 B3 5D A9 77 49 44 A1 42 50 41 53 53 57 4F 52 44 A1 43 |
+| LoginCapability4Scene.cpp / kCapability4CredentialsPrompt | 55CA8C / 464C4F | 21 | BD D0 B3 5D A9 77 49 44 A1 42 50 41 53 53 57 4F 52 44 A1 43 |
+| LoginCapability4Scene.cpp / kCapability4DeletePrompt | 55CE4C / 464CC8 | 25 | BD 54 A9 77 AD 6E A7 52 B0 A3 B3 6F B1 62 B8 B9 B0 4F BF FD B6 DC A1 48 |
+| LoginCapability4Scene.cpp / kCapability4DeleteSucceeded | 55CE34 / 464D64 | 21 | B1 62 B8 B9 B0 4F BF FD A4 77 A6 A8 A5 5C A7 52 B0 A3 A1 43 |
+| LoginModeScene.cpp / kMissingCredentials | 55C59C / 45C78B | 29 | BD D0 BF E9 A4 4A A2 D7 A2 D2 A9 4D A2 DE A2 CF A2 E1 A2 E1 A2 E5 A2 DD A2 E0 A2 D2 |
+| LoginOuterScene.cpp / kIncorrectAccountOrPassword | 55C584 / 45C534 | 21 | A4 A3 A5 BF BD 54 AA BA B1 62 B8 B9 A9 4D B1 4B BD 58 A1 43 |
+
+### 原缓冲与消费者
+
+1. 45E0C0删除角色警告的确认/取消静态指针仍进入两个CharacterModalUiRecord，
+   分别沿503990命中和503A20绘制；保留文字中的空格、全角星号及标点。
+   其余四段仍依序复制到同一256B局部缓冲，TextMeasure再DrawText；保持384像素窗口宽、
+   原坐标和四次测宽/绘制顺序，不硬编码修复后的测宽结果，不清复制以外的尾部。
+2. 45F190的提示按sizeof复制到既有9A50E8消息区；464840的三段按各自sizeof复制
+   到既有9A4A78消息区。两区仍各256B，状态/写序不改；删除确认继续交464450，
+   其他提示继续交UpdateLoginMessage，不混用两个模态入口。
+3. 45C5A0的全角ID/PASSWORD提示保留原全角字节，复制到既有256B的9A5FE0消息区，
+   随后沿UpdateLoginMessage分行、测宽和入队；不替换成半角文字或另定编码。
+4. 45C2D0的错误提示继续只覆盖正文与NUL。9A4BA0已有“按唯一已知正文建立最窄缓冲”
+   的局部适配保持，其sizeof来源改为原21B文本，并纠正源码中的UTF-8注释；
+   这不是证明原整个缓冲容量为21B，也不扩大到未知间接写者或周边地址布局。
+
+所有常量均以十六进制转义明确正文，由字面量追加唯一NUL，并添加精确sizeof断言。
+现有memcpy/strcpy、动态strlen、界面/状态/焦点/返回行为原样保持，不改编码消费者算法。
+
+本步集中核对12处常量的原字节、唯一NUL、长度、原地址/实际使用位置及源码限定差异；
+不运行测宽或格式化样例，不把源码断言写成已编译通过。各文件历史UTF-8描述仅代表
+修复前状态；本增量覆盖本表常量的状态，不重审已过文本和其他业务实现。
+不构建、检查产物、新增或执行测试、运行客户端或哈希校验；真实显示/交互仍未验收。

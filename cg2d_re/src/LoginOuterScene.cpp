@@ -18,13 +18,15 @@ namespace cg::login {
 
 namespace {
 
-constexpr char kIncorrectAccountOrPassword[] = "不正確的帳號和密碼。";
+// 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。
+constexpr char kIncorrectAccountOrPassword[] = "\xA4\xA3\xA5\xBF\xBD\x54\xAA\xBA\xB1\x62\xB8\xB9\xA9\x4D\xB1\x4B\xBD\x58\xA1\x43";
+static_assert(sizeof(kIncorrectAccountOrPassword) == 21);
 
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。
 YobiAction* gValue9A6E24 = nullptr;
 
 // 原 0x9A4BA0 只有本函数的消息读取与固定文本写入，原容量未获证。
-// 新端只为同一文本的 UTF-8 字节及末尾 NUL 建立最窄唯一缓冲。
+// 新端只为同一文本的原字节及末尾 NUL 建立最窄唯一缓冲，不据此推定原总容量。
 char gValue9A4BA0[sizeof(kIncorrectAccountOrPassword)] {};
 
 } // namespace

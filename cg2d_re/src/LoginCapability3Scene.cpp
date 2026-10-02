@@ -23,7 +23,9 @@ constexpr std::int32_t kWhiteColor = 0x00FFFFFF;
 constexpr std::uint64_t kFrameGateIncrementBits = 0x4030AAAAAAAAAAABULL;
 constexpr double kFrameGateIncrement =
     std::bit_cast<double>(kFrameGateIncrementBits);
-constexpr char kCredentialsPrompt[] = "請設定ID、PASSWORD。";
+// 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
+constexpr char kCredentialsPrompt[] = "\xBD\xD0\xB3\x5D\xA9\x77\x49\x44\xA1\x42\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\x43";
+static_assert(sizeof(kCredentialsPrompt) == 21);
 
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gPhaseValue9A5550 = 0;

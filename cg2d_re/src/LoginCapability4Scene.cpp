@@ -19,12 +19,15 @@
 
 namespace {
 
-constexpr char kCapability4CredentialsPrompt[] =
-    "請設定ID、PASSWORD。";
-constexpr char kCapability4DeletePrompt[] =
-    "確定要刪除這帳號記錄嗎？";
-constexpr char kCapability4DeleteSucceeded[] =
-    "帳號記錄已成功刪除。";
+// 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
+constexpr char kCapability4CredentialsPrompt[] = "\xBD\xD0\xB3\x5D\xA9\x77\x49\x44\xA1\x42\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\x43";
+static_assert(sizeof(kCapability4CredentialsPrompt) == 21);
+// 原55CE4C「確定要刪除這帳號記錄嗎？」；24B正文，字面量隐式追加NUL。
+constexpr char kCapability4DeletePrompt[] = "\xBD\x54\xA9\x77\xAD\x6E\xA7\x52\xB0\xA3\xB3\x6F\xB1\x62\xB8\xB9\xB0\x4F\xBF\xFD\xB6\xDC\xA1\x48";
+static_assert(sizeof(kCapability4DeletePrompt) == 25);
+// 原55CE34「帳號記錄已成功刪除。」；20B正文，字面量隐式追加NUL。
+constexpr char kCapability4DeleteSucceeded[] = "\xB1\x62\xB8\xB9\xB0\x4F\xBF\xFD\xA4\x77\xA6\xA8\xA5\x5C\xA7\x52\xB0\xA3\xA1\x43";
+static_assert(sizeof(kCapability4DeleteSucceeded) == 21);
 
 // sub_464840 的五个唯一私有 owner；原映像均为 virtual-only 零填充。
 std::int32_t gValue9A4F2C = 0;

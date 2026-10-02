@@ -44469,18 +44469,18 @@ void Sub_50E570(const std::uintptr_t, const std::int32_t value)
     }
 }
 
-void ConstructItemSelectors()
+void InitializeItemSelectors()
 {
     detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);
     static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorCF3B10));
+    static_cast<void>(std::atexit([] { // 原488410登记488420。
+        login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorCF3B10.preview);
+    }));
     detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);
     static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorD2F338));
-}
-
-void DestroyItemSelectors()
-{
-    login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorD2F338.preview);
-    login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorCF3B10.preview);
+    static_cast<void>(std::atexit([] { // 原499910登记499920。
+        login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorD2F338.preview);
+    }));
 }
 
 void ConstructStallBrowsePetValues()

@@ -140,14 +140,14 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "DestroyItemSelectors"
+            "InitializeItemSelectors"
           ]
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md"
       ],
-      "boundary": "由DestroyItemSelectors对CF3B10预览调用，十槽逆序析构；不free或清UI选择。"
+      "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。"
     },
     {
       "original_entry": "0x5219C0",
@@ -2633,6 +2633,137 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。"
+    },
+    {
+      "original_entry": "0x4883F0",
+      "inventory_id": "F:000883F0",
+      "status": "已修复逐项登记并映射，完整退出未验",
+      "original_role": "首个物品选择器CRT及独立退出登记",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeItemSelectors"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ItemSelectorsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原55309C调用488400构造CF3B10后在488410登记488420；InitializeItemSelectors先完成第一对象构造、立即登记，忽略登记失败后继续第二项。"
+    },
+    {
+      "original_entry": "0x488400",
+      "inventory_id": "F:00088400",
+      "status": "已修复逐项登记并映射，完整退出未验",
+      "original_role": "首个物品选择器构造包装",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeItemSelectors"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ItemSelectorsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原设置ECX=CF3B10后尾跳4C61B0；由InitializeItemSelectors借用第0项唯一静态预览并调用完整Sub_4C61B0承接，不新建owner。"
+    },
+    {
+      "original_entry": "0x4998F0",
+      "inventory_id": "F:000998F0",
+      "status": "已修复逐项登记并映射，完整退出未验",
+      "original_role": "第二物品选择器CRT及独立退出登记",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeItemSelectors"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ItemSelectorsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原5530A0调用499900构造D2F338后在499910登记499920；InitializeItemSelectors在第一项登记后构造第二项并独立登记，明确忽略返回，不补重试。"
+    },
+    {
+      "original_entry": "0x499900",
+      "inventory_id": "F:00099900",
+      "status": "已修复逐项登记并映射，完整退出未验",
+      "original_role": "第二物品选择器构造包装",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeItemSelectors"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ItemSelectorsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原设置ECX=D2F338后尾跳同一4C61B0；InitializeItemSelectors借用第1项唯一静态预览再调用完整构造，保留与第一对象的独立存储。"
+    },
+    {
+      "original_entry": "0x499920",
+      "inventory_id": "F:00099920",
+      "status": "已修复逐项登记并映射，完整退出未验",
+      "original_role": "第二物品选择器退出包装",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeItemSelectors"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ItemSelectorsStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DestroyWindowSelectorPreview"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。"
     }
   ]
 }

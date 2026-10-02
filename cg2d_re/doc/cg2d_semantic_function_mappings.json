@@ -15976,6 +15976,539 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "宽uflow：无转换器fgetwc；转换路径却以fgetc逐U8累计到窄字符串，结果1继续，结果3需累计至少2B后memcpy_0取W16。保持入口备份、每次调用前恢复及失败残留。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。"
+    },
+    {
+      "original_entry": "0x5485FE",
+      "inventory_id": "F:001485FE",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54865E",
+      "instruction_count": 37,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x5485FE",
+          "end_exclusive": "0x54865E"
+        },
+        {
+          "start": "0x54C170",
+          "end_exclusive": "0x54C198"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548327",
+          "parent_entry": "0x5482DD"
+        },
+        {
+          "address": "0x548342",
+          "parent_entry": "0x5482DD"
+        },
+        {
+          "address": "0x5483B5",
+          "parent_entry": "0x5482DD"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄filebuf完整构造：先+34 locale、基类虚表/reset，再+4C locale、派生虚表和_Init(FILE,0)，返回this；分离异常块有按阶段清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5487DE",
+      "inventory_id": "F:001487DE",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x548843",
+      "instruction_count": 39,
+      "original_direct_reference_count": 4,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x5487DE",
+          "end_exclusive": "0x548843"
+        },
+        {
+          "start": "0x54C198",
+          "end_exclusive": "0x54C1B5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548198",
+          "parent_entry": "0x548193"
+        },
+        {
+          "address": "0x5481C5",
+          "parent_entry": "0x5481C0"
+        },
+        {
+          "address": "0x54827A",
+          "parent_entry": "0x548275"
+        },
+        {
+          "address": "0x548D50",
+          "parent_entry": "0x548D4D"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄filebuf析构：先恢复派生虚表；+48非零才close，弃返回；+44非空则Tidy(true)及delete，再+4C locale、基类虚表、+34 locale，不清+44槽。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x54859F",
+      "inventory_id": "F:0014859F",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5485FE",
+      "instruction_count": 39,
+      "original_direct_reference_count": 1,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x54859F",
+          "end_exclusive": "0x5485FE"
+        },
+        {
+          "start": "0x54C14C",
+          "end_exclusive": "0x54C170"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5481DD",
+          "parent_entry": "0x5481D4"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄输入流登记构造：第二参控制虚基初始化，按虚基偏移写istream虚表并_Addstd；不读取第一参来绑定新的filebuf，返回this。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x54970A",
+      "inventory_id": "F:0014970A",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54976A",
+      "instruction_count": 37,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x54970A",
+          "end_exclusive": "0x54976A"
+        },
+        {
+          "start": "0x54C2D0",
+          "end_exclusive": "0x54C2F8"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5493E1",
+          "parent_entry": "0x549397"
+        },
+        {
+          "address": "0x5493FC",
+          "parent_entry": "0x549397"
+        },
+        {
+          "address": "0x54941B",
+          "parent_entry": "0x549397"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽filebuf完整构造：先+34 locale与基类reset，再+4C locale及_Init(FILE,0)；虚表为宽字符版本，保留阶段异常清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x549935",
+      "inventory_id": "F:00149935",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54999A",
+      "instruction_count": 39,
+      "original_direct_reference_count": 4,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x549935",
+          "end_exclusive": "0x54999A"
+        },
+        {
+          "start": "0x54C2F8",
+          "end_exclusive": "0x54C315"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549252",
+          "parent_entry": "0x54924D"
+        },
+        {
+          "address": "0x54927F",
+          "parent_entry": "0x54927A"
+        },
+        {
+          "address": "0x5492AC",
+          "parent_entry": "0x5492A7"
+        },
+        {
+          "address": "0x549DA5",
+          "parent_entry": "0x549DA2"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽filebuf析构：条件close、旧窄字符串Tidy/delete、+4C后+34 locale的次序保持，不能将字符串改成宽存储。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5496AB",
+      "inventory_id": "F:001496AB",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54970A",
+      "instruction_count": 39,
+      "original_direct_reference_count": 1,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "function_chunks": [
+        {
+          "start": "0x5496AB",
+          "end_exclusive": "0x54970A"
+        },
+        {
+          "start": "0x54C2AC",
+          "end_exclusive": "0x54C2D0"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5492C4",
+          "parent_entry": "0x5492BB"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽输入流登记构造：第二参控制虚基初始化，通过虚基偏移发布虚表并_Addstd；不作流数据绑定。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5486B1",
+      "inventory_id": "F:001486B1",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5486BF",
+      "instruction_count": 3,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x548D34",
+          "parent_entry": "0x548D31"
+        },
+        {
+          "address": "0x54C17E",
+          "parent_entry": "0x5485FE"
+        },
+        {
+          "address": "0x54C19B",
+          "parent_entry": "0x5487DE"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄基类析构只重写streambuf虚表，this+34尾调locale析构；不关闭FILE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x54976A",
+      "inventory_id": "F:0014976A",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x549778",
+      "instruction_count": 3,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x549D89",
+          "parent_entry": "0x549D86"
+        },
+        {
+          "address": "0x54C2DE",
+          "parent_entry": "0x54970A"
+        },
+        {
+          "address": "0x54C2FB",
+          "parent_entry": "0x549935"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽基类析构同职责但使用宽虚表，this+34尾调locale析构。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5487D0",
+      "inventory_id": "F:001487D0",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5487D3",
+      "instruction_count": 1,
+      "original_direct_reference_count": 4,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x550004",
+          "parent_entry": null
+        },
+        {
+          "address": "0x55003C",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500A0",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500D8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "四个虚表槽引用；本体只有ret4，未规定EAX，不包装成固定成功或固定0。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x54977F",
+      "inventory_id": "F:0014977F",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x549782",
+      "instruction_count": 2,
+      "original_direct_reference_count": 6,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFE0",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550018",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550038",
+          "parent_entry": null
+        },
+        {
+          "address": "0x55007C",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500B4",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500D4",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "六个虚表槽引用；xor eax,eax后ret，真实返回完整0，不能泛化到其他读写入口。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5486BF",
+      "inventory_id": "F:001486BF",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5486C5",
+      "instruction_count": 2,
+      "original_direct_reference_count": 2,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x550010",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550014",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄基类两个默认槽共享，返回完整FFFFFFFF且ret4。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5486C5",
+      "inventory_id": "F:001486C5",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5486C9",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x55001C",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄基类默认读取返回完整FFFFFFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x549778",
+      "inventory_id": "F:00149778",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54977F",
+      "instruction_count": 2,
+      "original_direct_reference_count": 2,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x5500AC",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500B0",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽基类两个默认槽共享，只将AX置FFFF且ret4，不假设高W16清零。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x549782",
+      "inventory_id": "F:00149782",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x549787",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x5500B8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽基类默认读取只将AX置FFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x549925",
+      "inventory_id": "F:00149925",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x54992A",
+      "instruction_count": 2,
+      "original_direct_reference_count": 2,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x550034",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500D0",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄宽基类setbuf默认槽共享：EAX=this，ret8；不调用setvbuf或绑定缓冲。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x54992A",
+      "inventory_id": "F:0014992A",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x549935",
+      "instruction_count": 3,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x54923B",
+          "parent_entry": "0x549234"
+        },
+        {
+          "address": "0x549268",
+          "parent_entry": "0x549261"
+        },
+        {
+          "address": "0x549295",
+          "parent_entry": "0x54928E"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽晚段构造只写filebuf虚表并返回this，ret4；不重新打开FILE或重建locale。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x5487D3",
+      "inventory_id": "F:001487D3",
+      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "original_end_exclusive": "0x5487DE",
+      "instruction_count": 3,
+      "original_direct_reference_count": 3,
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "inbound_evidence": [
+        {
+          "address": "0x548181",
+          "parent_entry": "0x54817A"
+        },
+        {
+          "address": "0x5481AE",
+          "parent_entry": "0x5481A7"
+        },
+        {
+          "address": "0x548263",
+          "parent_entry": "0x54825C"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄晚段构造只写filebuf虚表并返回this，ret4；独立于完整构造5485FE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
     }
   ]
 }

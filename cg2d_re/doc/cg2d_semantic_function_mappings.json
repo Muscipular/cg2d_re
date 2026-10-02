@@ -8297,7 +8297,7 @@
     {
       "original_entry": "0x53B418",
       "inventory_id": "F:0013B418",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53B447",
       "instruction_count": 14,
       "sources": [
@@ -8343,7 +8343,7 @@
     {
       "original_entry": "0x53C8FA",
       "inventory_id": "F:0013C8FA",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53C90B",
       "instruction_count": 6,
       "sources": [
@@ -8389,7 +8389,7 @@
     {
       "original_entry": "0x53C90B",
       "inventory_id": "F:0013C90B",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53C91C",
       "instruction_count": 6,
       "sources": [
@@ -8410,7 +8410,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "真实调用53C91C(code,1,0)，跳普通表但仍执行第二终止表；58F8A0初始指向本函数，53DEAB已接。不换成std::quick_exit或直接ExitProcess；过滤器叶和完整启动/运行未闭合。",
+      "boundary": "真实调用53C91C(code,1,0)，跳普通表但仍执行第二终止表；58F8A0初始指向本函数，53DEAB已接。不换成std::quick_exit或直接ExitProcess；过滤器本体及恢复已接，完整启动、FILE/登记及运行仍未闭合；callable固定0的已证非返回路径标注noreturn。",
       "original_direct_reference_count": 5,
       "function_chunks": [
         {
@@ -8451,7 +8451,7 @@
     {
       "original_entry": "0x53C91C",
       "inventory_id": "F:0013C91C",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53C9B5",
       "instruction_count": 49,
       "sources": [
@@ -8472,7 +8472,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "1086028恰为1才先TerminateProcess；随后写W32开始标志及第三参数低U8。普通表逆序调用，末只采样一次、首每次重读，不清槽；快速模式跳普通表和第一终止表。七个原生回调连续槽保留，两组范围[0,3)/[4,6)。第三参数完整S32为0才置完成并ExitProcess；FILE、过滤器、登记及完整启动未闭合。",
+      "boundary": "1086028恰为1才先TerminateProcess；随后写W32开始标志及第三参数低U8。普通表逆序调用，末只采样一次、首每次重读，不清槽；快速模式跳普通表和第一终止表。七个原生回调连续槽保留，两组范围[0,3)/[4,6)。第三参数完整S32为0才置完成并ExitProcess；过滤器本体及恢复已接，FILE、登记及完整启动未闭合。",
       "original_direct_reference_count": 2,
       "function_chunks": [
         {
@@ -8501,7 +8501,7 @@
     {
       "original_entry": "0x53C9B5",
       "inventory_id": "F:0013C9B5",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53C9CF",
       "instruction_count": 12,
       "sources": [
@@ -10013,7 +10013,7 @@
     {
       "original_entry": "0x53DEAB",
       "inventory_id": "F:0013DEAB",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53DECD",
       "instruction_count": 7,
       "sources": [
@@ -10291,56 +10291,126 @@
     {
       "original_entry": "0x545174",
       "inventory_id": "F:00145174",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
       "original_end_exclusive": "0x54518B",
       "instruction_count": 8,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "AbortLegacyRuntime_545174"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "AbortLegacyRuntime_545174"
+          ]
         }
       ],
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "startup/abort.cpp",
         "symbol": "abort",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异背景，不作为当前原合同本体提供者"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原报告10、无条件raise22、返回后_exit3；宿主按行为标志、处理器和ReportFault/fastfail决定路径，不称消息/信号/退出码等价。原唯一直接来源540A5C终止尾。"
+      "boundary": "严格报告10、raise22、若返回再快速退出3；不加行为标志、默认信号跳过、ReportFault或fastfail。错误报告/raise/退出调度真实调用已接；外层完整CRT启动与运行仍未验。",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x545174",
+          "end_exclusive": "0x54518B"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x540AAD",
+          "parent_entry": "0x540A5C"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行"
     },
     {
       "original_entry": "0x540A5C",
       "inventory_id": "F:00140A5C",
-      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
       "original_end_exclusive": "0x540AB2",
       "instruction_count": 29,
       "sources": [
         {
-          "path": "src/platform/ClientEntry.cpp",
+          "path": "src/platform/LegacyRuntimeError.cpp",
           "symbols": [
-            "WinMain"
-          ],
-          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+            "TerminateLegacyRuntime_540A5C"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.hpp",
+          "symbols": [
+            "TerminateLegacyRuntime_540A5C"
+          ]
         }
       ],
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "misc/terminate.cpp",
         "symbol": "terminate",
-        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+        "relationship": "宿主差异背景，不作为当前原合同本体提供者"
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原共享1086064非空才调用，SEH捕获处理器异常后进入abort；宿主用线程处理器，捕获异常后abort。原异常传播/SEH/最终退出仍未验，不恢复旧异常处理表。"
+      "boundary": "共享1086064非空时调用；原scope表外层finally进入abort，内层恒1过滤吞钩子SEH异常。用MSVC原生嵌套__try/__except/__finally实现，不切换宿主线程terminate槽，不重建x86注册链；已接原abort，未执行异常/终止或验证编译器异常框架。",
+      "original_direct_reference_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x540A5C",
+          "end_exclusive": "0x540AB2"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54044D",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x540606",
+          "parent_entry": "0x5405F5"
+        },
+        {
+          "address": "0x54097B",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5409E2",
+          "parent_entry": "0x540980"
+        },
+        {
+          "address": "0x540AEB",
+          "parent_entry": "0x540AB2"
+        },
+        {
+          "address": "0x540B03",
+          "parent_entry": "0x540AB2"
+        },
+        {
+          "address": "0x545058",
+          "parent_entry": "0x54503A"
+        },
+        {
+          "address": "0x58FB70",
+          "reference_kind": "data"
+        },
+        {
+          "address": "0x58FB74",
+          "reference_kind": "data"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行"
     },
     {
       "original_entry": "0x548143",
@@ -11579,7 +11649,7 @@
     {
       "original_entry": "0x53EA4A",
       "inventory_id": "F:0013EA4A",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x53EA5E",
       "instruction_count": 5,
       "original_direct_reference_count": 1,
@@ -14361,7 +14431,7 @@
     {
       "original_entry": "0x54503A",
       "inventory_id": "F:0014503A",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
       "original_end_exclusive": "0x545080",
       "instruction_count": 24,
       "original_direct_reference_count": 3,
@@ -14372,28 +14442,43 @@
         },
         {
           "address": "0x58FB68",
-          "parent_entry": null
+          "reference_kind": "data"
         },
         {
           "address": "0x592F98",
-          "parent_entry": null
+          "reference_kind": "data"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "FilterLegacyUnhandledException_54503A"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "代码E06D7363、参数数3和魔数19930520命中即转540A5C终止；否则旧过滤器10862E0非空且5450D6验证通过才转调并返回其结果，其他返回0。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "boundary": "原生Windows异常指针字段，异常码E06D7363/参数数3/参数0低W32魔数19930520全命中进入原terminate；否则旧过滤器非空且IsBadCodePtr验证通过才重读共享槽转调并透传返回，其他0。安装/恢复接同槽；原三参数合同不等于宿主x64四参数C++记录已适配，未实际安装/运行。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
-        "symbol": "__scrt_unhandled_exception_filter / __scrt_set_unhandled_exception_filter"
-      }
+        "symbol": "__scrt_unhandled_exception_filter / __scrt_set_unhandled_exception_filter",
+        "relationship": "宿主差异背景，不作为当前原合同本体提供者"
+      },
+      "function_chunks": [
+        {
+          "start": "0x54503A",
+          "end_exclusive": "0x545080"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行"
     },
     {
       "original_entry": "0x545080",
       "inventory_id": "F:00145080",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x545091",
       "instruction_count": 4,
       "original_direct_reference_count": 1,
@@ -14420,7 +14505,7 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "将准确Win32声明54503A交SetUnhandledExceptionFilter，发布返回值到唯一10862E0；未新增静态对象主动安装。54503A本体及CRT55317C调用未实现/接入，声明不等于过滤器已提供。",
+      "boundary": "将真实54503A交SetUnhandledExceptionFilter并保存返回到唯一10862E0；未新增静态对象主动安装。过滤器本体及恢复调用已接，原CRT55317C初始化时点和宿主x64四参数记录适配仍未验。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
@@ -14438,7 +14523,7 @@
     {
       "original_entry": "0x545091",
       "inventory_id": "F:00145091",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x54509E",
       "instruction_count": 3,
       "original_direct_reference_count": 1,
@@ -14465,7 +14550,7 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "从545080共享10862E0槽调用SetUnhandledExceptionFilter，不加空值门禁或清槽；第二终止表已接，54503A本体和初始化时点尚未接通，未安装/恢复或运行。",
+      "boundary": "从545080共享10862E0槽调用SetUnhandledExceptionFilter，不加空值门禁或清槽；第二终止表及54503A本体已接，原启动安装时点尚未接通，未安装/恢复或运行。",
       "function_chunks": [
         {
           "start": "0x545091",
@@ -14543,7 +14628,7 @@
     {
       "original_entry": "0x5450D6",
       "inventory_id": "F:001450D6",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
       "original_end_exclusive": "0x5450EE",
       "instruction_count": 11,
       "original_direct_reference_count": 2,
@@ -14557,11 +14642,25 @@
           "parent_entry": "0x54503A"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "ValidateLegacyExecutablePointer_5450D6"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "对象构造及顶层过滤各一入向；调用IsBadCodePtr并返回反向0/1，验证与随后间接调用不合并。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+      "boundary": "调用真实IsBadCodePtr并取反为S32 0/1；54503A已接，5407BC异常分派父链仍未实现。不以指针非空代替校验，不执行指针探测。",
+      "function_chunks": [
+        {
+          "start": "0x5450D6",
+          "end_exclusive": "0x5450EE"
+        }
+      ],
+      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行"
     },
     {
       "original_entry": "0x54AC66",
@@ -18310,7 +18409,7 @@
     {
       "original_entry": "0x544047",
       "inventory_id": "F:00144047",
-      "status": "原退出或argv本体及内部调用已实现；FILE/过滤器/登记依赖和完整启动未闭合",
+      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
       "original_end_exclusive": "0x5440E0",
       "instruction_count": 62,
       "original_direct_reference_count": 1,
@@ -18420,6 +18519,150 @@
         }
       ],
       "verification_level": "完整原指令、数据槽入向与句柄初值；新增源码静态核对，未执行",
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ]
+    },
+    {
+      "original_entry": "0x543EF3",
+      "inventory_id": "F:00143EF3",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
+      "original_end_exclusive": "0x543F36",
+      "instruction_count": 22,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x543EF3",
+          "end_exclusive": "0x543F36"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x543DB9",
+          "parent_entry": "0x543DB2"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacySignal.cpp",
+          "symbols": [
+            "LookupLegacyException_543EF3"
+          ]
+        }
+      ],
+      "boundary": "按W32异常码搜索与5472F6共用的5920A0表，保留先首项读取、一次表数采样及最终边界/字段检查；返回借用原记录或空。原12B记录仅函数指针拓宽为新16B步长，不复制表或补缺项；543DB2调用已接。",
+      "verification_level": "完整原指令、全部直接入向、共享表及初值；新增源码静态核对，未执行",
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ]
+    },
+    {
+      "original_entry": "0x5471C9",
+      "inventory_id": "F:001471C9",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
+      "original_end_exclusive": "0x5472F6",
+      "instruction_count": 109,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x5471C9",
+          "end_exclusive": "0x5472F6"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54517D",
+          "parent_entry": "0x545174"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacySignal.cpp",
+          "symbols": [
+            "RaiseLegacySignal_5471C9"
+          ]
+        },
+        {
+          "path": "src/platform/LegacySignal.hpp",
+          "symbols": [
+            "RaiseLegacySignal_5471C9"
+          ]
+        }
+      ],
+      "boundary": "七个信号2/4/8/11/15/21/22合法，其他-1不写errno；处理器1忽略、0快速退出3，调用前清原槽。4/8/11保存并清异常上下文，8另设子类型8CH及清浮点段全部槽。FPE按两S32参数调用；正常返回后先恢复上下文再恢复子类型，无RAII/catch。与543DB2共用唯一原表，不调用宿主raise。",
+      "verification_level": "完整原指令、全部直接入向、共享表及初值；新增源码静态核对，未执行",
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ]
+    },
+    {
+      "original_entry": "0x5472F6",
+      "inventory_id": "F:001472F6",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
+      "original_end_exclusive": "0x54733B",
+      "instruction_count": 22,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x5472F6",
+          "end_exclusive": "0x54733B"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x547222",
+          "parent_entry": "0x5471C9"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacySignal.cpp",
+          "symbols": [
+            "LookupLegacySignal_5472F6"
+          ]
+        }
+      ],
+      "boundary": "按信号号搜索唯一5920A0表，先读首项，再依一次采样W32表数及原生槽步长前进，末尾重复边界/字段判断；返回原表借用记录或空。只被5471C9调用，不加空结果保护或容量兜底；未运行。",
+      "verification_level": "完整原指令、全部直接入向、共享表及初值；新增源码静态核对，未执行",
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ]
+    },
+    {
+      "original_entry": "0x543DB2",
+      "inventory_id": "F:00143DB2",
+      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
+      "original_end_exclusive": "0x543EF3",
+      "instruction_count": 89,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x543DB2",
+          "end_exclusive": "0x543EF3"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DE98",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacySignal.cpp",
+          "symbols": [
+            "FilterLegacyRuntimeException_543DB2"
+          ]
+        },
+        {
+          "path": "src/platform/LegacySignal.hpp",
+          "symbols": [
+            "FilterLegacyRuntimeException_543DB2"
+          ]
+        }
+      ],
+      "boundary": "按异常码查同一10项表：缺项/空处理器交UnhandledExceptionFilter，5清槽返1，1返-1。自定义发布当前异常上下文，清相关处理器后调用；FPE按原七异常码设置子类型，正常返回先恢复子类型再恢复上下文，与raise恢复顺序不同。所有回调异常直接传播，不用宿主信号表；原start父调用未接。",
+      "verification_level": "完整原指令、全部直接入向、共享表及初值；新增源码静态核对，未执行",
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ]

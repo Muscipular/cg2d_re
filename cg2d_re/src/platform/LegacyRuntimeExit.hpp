@@ -23,7 +23,7 @@ void RunLegacyInitializers_53C9B5(
 void DispatchLegacyExit_53C91C(
     std::int32_t code, std::int32_t quick, std::int32_t callable);
 void ExitLegacyRuntime_53C8FA(std::int32_t code);
-void QuickExitLegacyRuntime_53C90B(std::int32_t code);
+[[noreturn]] void QuickExitLegacyRuntime_53C90B(std::int32_t code);
 
 // 原两个终止表中的真实叶；stdio底层刷新/关闭尚未实现，不能空置。
 void FinishLegacyStdio_53EA4A();

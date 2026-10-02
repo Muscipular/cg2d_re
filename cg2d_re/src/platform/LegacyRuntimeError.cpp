@@ -1,5 +1,6 @@
 #include "LegacyRuntimeError.hpp"
 #include "LegacyRuntimeExit.hpp"
+#include "LegacySignal.hpp"
 
 #include <cstddef>
 #include <cstring>
@@ -18,6 +19,7 @@ std::int32_t gLegacyRuntimeErrorMode1086038 = 0;
 std::int32_t gLegacyRuntimeApplicationType58F8A4 = 2;
 LegacyRuntimeBannerHook gLegacyRuntimeBannerHook10862A8 = nullptr;
 LegacyRuntimeProcessExit gLegacyRuntimeProcessExit58F8A0 = QuickExitLegacyRuntime_53C90B;
+void (*gLegacyRuntimeTerminateHook1086064)() = nullptr;
 
 namespace {
 
@@ -158,6 +160,29 @@ void ReportLegacyRuntimeBanner_5443C6()
         hook();
     }
     ReportLegacyRuntimeError_5443FF(255);
+}
+
+[[noreturn]] void AbortLegacyRuntime_545174()
+{
+    ReportLegacyRuntimeError_5443FF(10);
+    static_cast<void>(RaiseLegacySignal_5471C9(22));
+    QuickExitLegacyRuntime_53C90B(3);
+}
+
+[[noreturn]] void TerminateLegacyRuntime_540A5C()
+{
+    // 原54FA60外层finally与54FA6C内层catch-all；不使用宿主terminate状态。
+    __try {
+        const auto hook = gLegacyRuntimeTerminateHook1086064;
+        if (hook != nullptr) {
+            __try {
+                hook();
+            } __except (EXCEPTION_EXECUTE_HANDLER) {
+            }
+        }
+    } __finally {
+        AbortLegacyRuntime_545174();
+    }
 }
 
 void ExitLegacyRuntimeError_53DEAB(const std::int32_t errorCode)

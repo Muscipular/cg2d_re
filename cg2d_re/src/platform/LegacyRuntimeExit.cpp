@@ -7,10 +7,9 @@
 
 namespace cg::platform {
 
-// 原真实依赖，尚无本体；不以宿主FILE清理或固定过滤结果代替。
+// 原FILE依赖尚无本体；不以宿主FILE清理代替。
 std::int32_t FlushAllLegacyStreams_53BB99();
 std::int32_t CloseAllLegacyStreams_5446AD();
-LONG WINAPI FilterLegacyUnhandledException_54503A(EXCEPTION_POINTERS* information);
 
 std::uint8_t gLegacyRuntimeExitCallable1086020 = 0;
 std::int32_t gLegacyRuntimeExitStarted1086024 = 0;
@@ -107,9 +106,11 @@ void ExitLegacyRuntime_53C8FA(const std::int32_t code)
     DispatchLegacyExit_53C91C(code, 0, 0);
 }
 
-void QuickExitLegacyRuntime_53C90B(const std::int32_t code)
+[[noreturn]] void QuickExitLegacyRuntime_53C90B(const std::int32_t code)
 {
     DispatchLegacyExit_53C91C(code, 1, 0);
+    // callable固定0，调度末尾必经ExitProcess；这里只向MSVC表达已证非返回路径。
+    __assume(0);
 }
 
 void FinishLegacyStdio_53EA4A()
@@ -133,6 +134,30 @@ void CloseLegacyConsole_54B20C()
         && handle != reinterpret_cast<HANDLE>(std::intptr_t{-2})) {
         static_cast<void>(closeHandle(handle));
     }
+}
+
+// 原5450D6；保留API检查及0/1结果，不按指针非空直接判有效。
+std::int32_t ValidateLegacyExecutablePointer_5450D6(FARPROC const function)
+{
+    return ::IsBadCodePtr(function) == 0 ? 1 : 0;
+}
+
+LONG WINAPI FilterLegacyUnhandledException_54503A(EXCEPTION_POINTERS* const information)
+{
+    const auto* const record = information->ExceptionRecord;
+    if (record->ExceptionCode == 0xE06D7363u
+        && record->NumberParameters == 3
+        && static_cast<std::uint32_t>(record->ExceptionInformation[0]) == 0x19930520u) {
+        TerminateLegacyRuntime_540A5C();
+    }
+    const auto previous = gLegacyPreviousExceptionFilter10862E0;
+    if (previous != nullptr
+        && ValidateLegacyExecutablePointer_5450D6(
+            reinterpret_cast<FARPROC>(previous)) != 0) {
+        // 原545072在验证API之后重新读取共享槽。
+        return gLegacyPreviousExceptionFilter10862E0(information);
+    }
+    return 0;
 }
 
 void InstallLegacyExceptionFilter_545080()

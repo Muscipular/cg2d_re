@@ -23,6 +23,11 @@ std::int32_t ShowLegacyRuntimeMessage_546D0C(
 void ReportLegacyRuntimeError_5443FF(std::int32_t errorCode);
 void ReportLegacyRuntimeBanner_5443C6();
 
+// 原1086064共享无参终止钩子；异常处理后进入原abort，不使用宿主terminate槽。
+extern void (*gLegacyRuntimeTerminateHook1086064)();
+[[noreturn]] void TerminateLegacyRuntime_540A5C();
+[[noreturn]] void AbortLegacyRuntime_545174();
+
 // 原53DED0；报告后直接ExitProcess(255)，不是经退出表的53DEAB。
 [[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(std::int32_t errorCode);
 

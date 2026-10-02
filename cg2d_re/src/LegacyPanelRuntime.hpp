@@ -195,6 +195,8 @@ void Sub_4E9280(); // 旧79详情页/目标初始化，不重置上次悬停或�
 std::uint32_t Sub_4E92A0(std::int32_t opened); // 旧79刻印选择，发送后仍保留绘制/提示公共尾。
 void Sub_4E97C0(); // 旧80详情页/选择初始化，不改排除三槽或上次悬停。
 std::uint32_t Sub_4E97E0(std::int32_t opened); // 旧80埋起物品；发送后清类型并继续本帧绘制/提示。
+void Sub_4E9C60(); // 旧50详情页/赠送选择初始化，不清选择坐标。
+std::uint32_t Sub_4E9C80(std::int32_t opened); // 旧50赠送物品，鼠标10H选择；关闭原常量49。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。

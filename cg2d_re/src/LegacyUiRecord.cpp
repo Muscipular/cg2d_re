@@ -1026,6 +1026,16 @@ std::int32_t gLegacyBurialExcludedRowD671D0 = 0;
 constexpr char kLegacyBurialSelect5895FC[] = "\xAE\x49\xB0\x5F\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kLegacyBurialReject5895E4[] = "\xB3\x6F\xAD\xD3\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xAE\x49\xB0\x5F\xA8\xD3\xA1\x43";
 constexpr char kLegacyBurialChoose5895D0[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xAE\x49\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
+// 旧50赠送页；CC1A2C与后续旧49共用唯一选择，不复制邮件草稿。
+LegacyPanelRecord gLegacyMailGiftPanel583168 {
+    368, 0, 272, 252, 50, {23205, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyMailGiftHover58322C = -1;
+std::int32_t gLegacyMailGiftPageCC2E58 = 0;
+std::int32_t gLegacyMailGiftSelectedCC1A2C = 0;
+std::int32_t gLegacyMailGiftColumnD2D498 = 0;
+std::int32_t gLegacyMailGiftRowCC3E6C = 0;
+constexpr char kLegacyMailGift58960C[] = "\xB1\x4E\xA6\xB9\xAA\xAB\xAB\x7E\xB0\x65\xB5\xB9\xA6\x57\xA4\xF9\xA4\x57\xAA\xBA\xA6\x6E\xA4\xCD\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -7693,6 +7703,132 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     const std::uint32_t result = Sub_503440(&gLegacyBurialPanel5830A0, 1);
     gLegacyBurialHover583164 = hovered;
+    return result;
+}
+
+void Sub_4E9C60()
+{
+    gLegacyMailGiftPageCC2E58 = 0;
+    gLegacyMailGiftSelectedCC1A2C = -1;
+}
+
+std::uint32_t Sub_4E9C80(const std::int32_t opened)
+{
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailGiftPanel583168, Sub_4E9C60, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        // 原4E9CD7关闭49，与本页id50不同，不擅自修正。
+        return static_cast<std::uint32_t>(audio::Sub_5042D0(49));
+    }
+    std::int32_t hovered = -1;
+    std::int32_t giftHovered = -1;
+    std::int32_t hoverRow;
+    std::int32_t hoverColumn;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyMailGiftPanel583168.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyMailGiftPanel583168.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
+                hoverRow = row;
+                hoverColumn = column;
+                hovered = 8 + row * 5 + column;
+                const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+                if (item->used != 0 && (static_cast<std::uint8_t>(item->flags) & 1u) != 0) {
+                    giftHovered = hovered;
+                }
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyMailGiftHover58322C) {
+        gLegacyMailGiftPageCC2E58 = 0;
+    }
+    const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+    if (giftHovered >= 0 && (clicks & 0x10u) != 0) {
+        const std::int32_t selected = gLegacyMailGiftSelectedCC1A2C;
+        if (selected >= 0 && selected == giftHovered) {
+            gLegacyMailGiftSelectedCC1A2C = -1;
+            static_cast<void>(audio::PlaySe_52C450(54, 320));
+        } else {
+            gLegacyMailGiftSelectedCC1A2C = giftHovered;
+            gLegacyMailGiftColumnD2D498 = hoverColumn;
+            gLegacyMailGiftRowCC3E6C = hoverRow;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    } else if (hovered >= 0 && (clicks & 2u) != 0) {
+        gLegacyMailGiftPageCC2E58 ^= 1;
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            if (item->used != 0) {
+                const std::int32_t image = item->imageNo;
+                const std::int32_t top = gLegacyMailGiftPanel583168.y + 60 + 53 * row;
+                const std::int32_t left = gLegacyMailGiftPanel583168.x + 32 + 52 * column;
+                static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyMailGiftPanel583168.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyMailGiftPanel583168.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+            }
+        }
+    }
+    if (hovered >= 0) {
+        const std::int32_t x = gLegacyMailGiftPanel583168.x;
+        const std::int32_t top = gLegacyMailGiftPanel583168.y + 53 * hoverRow;
+        const std::int32_t left = x + 52 * hoverColumn;
+        const std::uint32_t image = gValueD69768;
+        DrawGraphicHover(Low16(left + 8), Low16(top + 36), Low16(left + 55), Low16(top + 83),
+            212, image, 0);
+        const std::int32_t page = gLegacyMailGiftPageCC2E58;
+        const std::int32_t y = gLegacyMailGiftPanel583168.y;
+        const std::int32_t height = gLegacyMailGiftPanel583168.height;
+        const std::int32_t detailX = gLegacyMailGiftPanel583168.x;
+        Sub_4FB940(detailX, y + height, hovered, page);
+    }
+    if (gLegacyMailGiftSelectedCC1A2C >= 0) {
+        const std::int32_t row = gLegacyMailGiftRowCC3E6C;
+        const std::int32_t top = gLegacyMailGiftPanel583168.y + 53 * row;
+        const std::int32_t column = gLegacyMailGiftColumnD2D498;
+        const std::int32_t left = gLegacyMailGiftPanel583168.x + 52 * column;
+        DrawGraphicHover(Low16(left + 10), Low16(top + 38), Low16(left + 53), Low16(top + 81),
+            212, 251, 0);
+    }
+    // 原4E9FD8直接访问同源Items[hovered]，按RPLAN.24不补记录或保护。
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (item->used != 0) {
+        const std::uint16_t flags = item->flags;
+        if ((flags & 0x100u) != 0) {
+            std::strcpy(hint, item->name.data());
+            std::strcat(hint, "[kok]");
+        } else if ((flags & 0x200u) != 0) {
+            std::strcpy(hint, item->memo.data());
+            std::strcat(hint, "[han]");
+        }
+    } else if (Sub_503590(&gLegacyMailGiftPanel583168) != 0) {
+        std::strcpy(hint, kLegacyLogout553FD0);
+    } else {
+        const std::int32_t selected = gLegacyMailGiftSelectedCC1A2C;
+        if (selected >= 0 && selected == hovered) {
+            std::strcpy(hint, kLegacyMailGift58960C);
+        }
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyMailGiftPanel583168, 1);
+    gLegacyMailGiftHover58322C = hovered;
     return result;
 }
 

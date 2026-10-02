@@ -7715,6 +7715,357 @@
           "0x549525"
         ]
       ]
+    },
+    {
+      "original_entry": "0x54A3E3",
+      "inventory_id": "F:0014A3E3",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A3ED",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "crt/src/stl/locale0.cpp",
+        "symbol": "classic_locale(_Noinit)"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54A3E3",
+          "0x54A3ED"
+        ],
+        [
+          "0x54A3EE",
+          "0x54A3FA"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54A3ED",
+      "inventory_id": "F:0014A3ED",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A3EE",
+      "instruction_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "locale(_Uninitialized) {}"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x54A3FA",
+      "inventory_id": "F:0014A3FA",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A404",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "crt/src/stl/locale0.cpp",
+        "symbol": "classic_locale"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x54A404",
+      "inventory_id": "F:0014A404",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A4BD",
+      "instruction_count": 65,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "crt/src/stl/locale0.cpp",
+        "symbol": "locale::_Init(bool _Do_incref)"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "首次建立全局实现1086730：原分配0x28并构造、登记54A4BD、类别3F/名称C、再增加经典引用并写108672C/1086728；已有全局直接返回。宿主_Init按真实原生布局承载惰性全局与经典对象，不沿用原x86大小。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54A404",
+          "0x54A4BD"
+        ],
+        [
+          "0x54C394",
+          "0x54C3B0"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54A4BD",
+      "inventory_id": "F:0014A4BD",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A505",
+      "instruction_count": 30,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "crt/src/stl/locale0.cpp",
+        "symbol": "tidy_global()"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "全局指针非空时按原0/FFFFFFFF门禁减少引用，计数零才调用删除析构；原不将1086730置空。宿主tidy_global具有释放职责但会清全局指针，此差异未记为等价。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54A4BD",
+          "0x54A505"
+        ],
+        [
+          "0x54C3B0",
+          "0x54C3C2"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54865E",
+      "inventory_id": "F:0014865E",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54867D",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "locale() noexcept"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "默认locale构造先54A404，再给当前全局增加一份引用并保存实现；七个直接调用来自窄/宽filebuf及ios_base初始化。宿主默认locale通过_Init(true)取得同源共享实现，应用无需再建对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x54867D",
+      "inventory_id": "F:0014867D",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x548695",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "~locale() noexcept"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x548695",
+      "inventory_id": "F:00148695",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x5486B1",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "_Decref() noexcept"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原W32计数仅0<count<FFFFFFFF时递减，最后为零才返回this；宿主facet::_Decref采用原子递减，没有相同0/FFFFFFFF门禁。本条仅关联正常引用释放职责，不作为该原叶所有计数输入的替代实现或完整通过。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x54A505",
+      "inventory_id": "F:0014A505",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A57E",
+      "instruction_count": 46,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "_Locimp(bool _Transparent)"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原引用1，facet向量/数量/类别为0，透明标记取低字节，名称整理为*后改_Locimp虚表；宿主_Locimp(bool)有相同默认职责，内部布局/字符串和异常过程未判等。原清理尾包含54A577，不新增函数ID。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54A505",
+          "0x54A57E"
+        ],
+        [
+          "0x54C3C4",
+          "0x54C3D6"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54A59B",
+      "inventory_id": "F:0014A59B",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A5B7",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "include/xlocale",
+        "symbol": "~_Locimp() noexcept"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先54A5B7析构、flags bit0为1才释放对象，再返回原指针；宿主虚析构/delete承担资源释放。原flags独立调用域和返回地址不由本机公开API直接提供，不据此声称ABI一致。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+    },
+    {
+      "original_entry": "0x54A5B7",
+      "inventory_id": "F:0014A5B7",
+      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "original_end_exclusive": "0x54A638",
+      "instruction_count": 60,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "WideStandardStreamsStaticInitializer"
+          ],
+          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC STL 14.50.35717",
+        "source_path": "crt/src/stl/locale0.cpp",
+        "symbol": "locale::_Locimp::_Locimp_dtor"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原反序遍历facet非空项、按计数减引用及零时删除，随后释放向量和名称；宿主_Locimp_dtor加成员自然析构承担此职责。包括54A30D共享名称清理和异常尾，特殊计数与异常展开仍有未验差异。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54A5B7",
+          "0x54A638"
+        ],
+        [
+          "0x54A30D",
+          "0x54A315"
+        ],
+        [
+          "0x54C3D8",
+          "0x54C3FD"
+        ]
+      ]
     }
   ]
 }

@@ -1069,6 +1069,17 @@ std::int32_t IsChatContext_503E60()
     return gCurrentInputData == &gInputContext626AA0 ? 1 : 0;
 }
 
+InputContext* BorrowLegacyPresetContext5F9758(const std::int32_t index) noexcept
+{
+    if (index < 24) {
+        return &gInputContexts5F9758[index];
+    }
+    // 原5FB7F8紧随24项预设；旧6后续15CH视图必须与真实聊天字节共用，不能复制。
+    static_assert(54 * sizeof(InputContext) <= sizeof(world::detail::gRecords5FB7F8));
+    auto* const chatBytes = reinterpret_cast<std::byte*>(world::detail::gRecords5FB7F8);
+    return reinterpret_cast<InputContext*>(chatBytes + static_cast<std::ptrdiff_t>(index - 24) * sizeof(InputContext));
+}
+
 void InitializeContext_449CF0(
     InputContext* const context,
     const std::int32_t field130,

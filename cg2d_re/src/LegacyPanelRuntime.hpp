@@ -263,6 +263,8 @@ std::uintptr_t Sub_4F83B0(std::int32_t opened); // 旧21三页外层，selected�
 std::int32_t Sub_4F8550(std::int32_t x, std::int32_t y); // 基本资料，导航后才固定宠物。
 std::int32_t Sub_4F8E40(std::int32_t x, std::int32_t y); // 属性/加点，导航前固定本帧宠物及上限快照。
 std::int32_t Sub_4F9B10(std::int32_t x, std::int32_t y); // 技能行，空槽仍绘底图，说明步长19。
+std::int32_t Sub_4FD690(); // 旧6清面板selected别名和独立行号，返回零。
+std::uintptr_t Sub_4FD6A0(std::int32_t opened); // 旧6按原26行/三页借输入及聊天别名，关闭仅归还自身焦点。
 std::uint32_t Sub_4FA350(std::int32_t opened); // 旧17十八动作菜单，首点击停止查询，无点击仍传-1。
 std::uintptr_t Sub_4FA050(std::int32_t opened); // 旧22改名；关闭仅归还自身焦点，名称不同才发送。
 std::int32_t Sub_519640(std::int32_t skill); // 连续非负配方每8项一页，空表仍1页。

@@ -66,6 +66,8 @@ extern InputContext* gCurrentInputData;
 extern InputContext gInputContext626AA0;
 // 原连续区间 [0x5F9758,0x5FB7F8)：24 项 InputContext 的唯一 owner。
 extern InputContext gInputContexts5F9758[24];
+// 旧6的15CH*(行+26*页)地址视图；24以后的原地址落入既有聊天存储，不创建额外预设。
+InputContext* BorrowLegacyPresetContext5F9758(std::int32_t index) noexcept;
 // 原回车分派按地址比较的七个独立 InputContext；各自保留原地址身份。
 extern InputContext gInputContextD66CA8;
 extern InputContext gInputContextCB03F0;

@@ -1246,6 +1246,21 @@ constexpr const char* kLegacyEmoteHints5871B0[18] {
     "\xB0\xB5\xA1\x75\xA5\x58\xA5\xAC\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43", // 原5870F0
     "\xB0\xB5\xA1\x75\xA5\x58\xA5\xDB\xC0\x59\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43", // 原587018
 };
+constexpr char kLegacyPresetConfirm58A6C0[] = "\xB5\xB2\xA7\xF4\xB3\x5D\xA9\x77\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
+constexpr char kLegacyPresetCtrl58A68C[] = "\xB1\x4E\x43\x74\x72\x6C\x2B\xA2\xD4\x25\x64\xC1\xE4\xB3\x5D\xA9\x77\xAC\xB0\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
+constexpr char kLegacyPresetShift58A66C[] = "\xB1\x4E\x53\x68\x69\x66\x74\x2B\xA2\xD4\x25\x64\xC1\xE4\xB3\x5D\xA9\x77\xAC\xB0\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
+constexpr char kLegacyPresetNormal58A6A8[] = "\xB1\x4E\xA2\xD4\x25\x64\xC1\xE4\xB3\x5D\xA9\x77\xAC\xB0\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
+constexpr char kLegacyPresetTab585910[] = "\xA4\xC1\xB4\xAB\xA8\xEC\xB2\xC4\xA4\x40\xAD\xB6\xA1\x43";
+constexpr char kLegacyPresetTab585900[] = "\xA4\xC1\xB4\xAB\xA8\xEC\xB2\xC4\xA4\x47\xAD\xB6\xA1\x43";
+constexpr char kLegacyPresetTab5858F0[] = "\xA4\xC1\xB4\xAB\xA8\xEC\xB2\xC4\xA4\x54\xAD\xB6\xA1\x43";
+LegacyPanelRecord gLegacyPresetPanel5850C8 {
+    0, 0, 272, 438, 6, {22950, 22951, 22952, 0, 0},
+    {{{22953, 24, 43, 52, 18, kLegacyPresetTab585910},
+      {22954, 110, 43, 52, 18, kLegacyPresetTab585900},
+      {22955, 196, 43, 52, 18, kLegacyPresetTab5858F0}, {}, {}}},
+    0, 0, {}, {},
+};
+std::int32_t gLegacyPresetRowD30408 = 0; // 页号直接借面板selected，只有行号是独立S32。
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -13656,6 +13671,93 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return 0;
+}
+
+std::int32_t Sub_4FD690()
+{
+    gLegacyPresetPanel5850C8.selected = 0;
+    gLegacyPresetRowD30408 = 0;
+    return 0;
+}
+
+std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyPresetPanel5850C8.x;
+    const std::int32_t y = gLegacyPresetPanel5850C8.y;
+    LegacyPanelButtonRecord confirm {x + 136, y + 420, x + 96, y + 410, 80, 20, 22712, 22713};
+    const std::int32_t state = Sub_503160(opened, &gLegacyPresetPanel5850C8,
+        [] { static_cast<void>(Sub_4FD690()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::int32_t page = gLegacyPresetPanel5850C8.selected;
+        const std::int32_t row = gLegacyPresetRowD30408;
+        input::InputContext* const context = input::BorrowLegacyPresetContext5F9758(row + 26 * page);
+        if (input::IsCurrentContext_503E40(context) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            return reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        return 0;
+    }
+    if (platform::ReadControlKeyPressFlag_4597C0(9) != 0) {
+        gLegacyPresetPanel5850C8.selected = static_cast<std::int8_t>(gLegacyPresetPanel5850C8.selected + 1);
+        if (gLegacyPresetPanel5850C8.selected >= 3) {
+            gLegacyPresetPanel5850C8.selected = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(52, 320));
+    } else if (platform::ReadKeyPressFlag_4597B0(9) != 0 || platform::ReadKeyPressFlag_4597B0(13) != 0) {
+        ++gLegacyPresetRowD30408;
+        if (gLegacyPresetRowD30408 >= 26) {
+            gLegacyPresetRowD30408 = 0;
+        }
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 26; ++row) {
+        const std::int32_t top = gLegacyPresetPanel5850C8.y + 42 * row;
+        const std::int32_t left = gLegacyPresetPanel5850C8.x;
+        if (Sub_5049A0(left + 19, top + 91, left + 255, top + 111, -1) != 0) {
+            if ((static_cast<std::uint8_t>(gValueD68DA0) & 1u) != 0) {
+                gLegacyPresetRowD30408 = row;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+            hovered = row;
+            break;
+        }
+    }
+    const std::int32_t page = gLegacyPresetPanel5850C8.selected;
+    const std::int32_t row = gLegacyPresetRowD30408;
+    input::SetContext_44B330(input::BorrowLegacyPresetContext5F9758(row + 26 * page));
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(5));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyPresetPanel5850C8.y + 42 * hovered;
+        const std::uint32_t image = gValueD69768;
+        const std::int32_t left = gLegacyPresetPanel5850C8.x;
+        DrawGraphicHover(Low16(left + 18), Low16(top + 90), Low16(left + 256), Low16(top + 112), 214, image, 0);
+    }
+    for (std::int32_t index = 0; index < 26; ++index) {
+        const std::int32_t currentPage = gLegacyPresetPanel5850C8.selected;
+        render::DrawInputText_4568A0(input::BorrowLegacyPresetContext5F9758(index + 26 * currentPage));
+    }
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (Sub_503590(&gLegacyPresetPanel5850C8) != 0) {
+        std::strcpy(hint, kLegacySkillClose55331C);
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        std::strcpy(hint, kLegacyPresetConfirm58A6C0);
+    } else if (hovered >= 0) {
+        const std::int8_t currentPage = gLegacyPresetPanel5850C8.selected;
+        if (currentPage == 0) {
+            std::sprintf(hint, kLegacyPresetNormal58A6A8, hovered + 1);
+        } else if (currentPage == 1) {
+            std::sprintf(hint, kLegacyPresetCtrl58A68C, hovered + 1);
+        } else if (currentPage == 2) {
+            std::sprintf(hint, kLegacyPresetShift58A66C, hovered + 1);
+        }
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyPresetPanel5850C8, 1));
 }
 
 std::uint32_t Sub_4FA350(const std::int32_t opened)

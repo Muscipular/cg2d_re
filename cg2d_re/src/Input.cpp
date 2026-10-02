@@ -2,6 +2,7 @@
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
@@ -12,7 +13,6 @@
 
 #include <array>
 #include <bit>
-#include <cctype>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -650,10 +650,10 @@ bool IsRejectedInputText_404060(const char* const legacyText)
         if (firstByte == static_cast<std::uint8_t>('/')) {
             return true;
         }
-        if (std::isspace(static_cast<unsigned char>(firstByte)) != 0) {
+        if (platform::ClassifyLegacyByte(firstByte, 0x0008u) != 0) {
             return true;
         }
-        if (std::iscntrl(static_cast<unsigned char>(firstByte)) != 0) {
+        if (platform::ClassifyLegacyByte(firstByte, 0x0020u) != 0) {
             return true;
         }
     }

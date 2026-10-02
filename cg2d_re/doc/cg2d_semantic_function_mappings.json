@@ -8424,6 +8424,109 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原按[first,last)地址正序逐槽调用非空void函数，不读返回值。宿主_initterm承担该职责，不用会按非零返回提前停止的_initterm_e替代；原全部初始化/终止表与最终链接次序未验。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53BDEF",
+      "inventory_id": "F:0013BDEF",
+      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "original_end_exclusive": "0x53BE17",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "IsRejectedInputText_404060"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "ClassifyLegacyByte",
+            "gCtypePointer58FC30"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyStringCompare.hpp",
+          "symbols": [
+            "ClassifyLegacyByte"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_text_validation.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原空白分类：53BDEF在单字节模式读取共享表低字节与8，多字节模式传541955。只映射404060的0..127域，两路径均同表同mask；其他CRT caller及其输入域未在本项承接。"
+    },
+    {
+      "original_entry": "0x53BE17",
+      "inventory_id": "F:0013BE17",
+      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "original_end_exclusive": "0x53BE3F",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "IsRejectedInputText_404060"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "ClassifyLegacyByte",
+            "gCtypePointer58FC30"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyStringCompare.hpp",
+          "symbols": [
+            "ClassifyLegacyByte"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_text_validation.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原控制字符分类：53BE17在单字节模式读取共享表低字节与20h，多字节模式传541955。唯一直接caller404060仅传0..127；保留空白检查之后的调用顺序，不依赖宿主locale。"
+    },
+    {
+      "original_entry": "0x541955",
+      "inventory_id": "F:00141955",
+      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "original_end_exclusive": "0x5419CA",
+      "instruction_count": 46,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "IsRejectedInputText_404060"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "ClassifyLegacyByte",
+            "gCtypePointer58FC30",
+            "LowerCompareValue_53DC64"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyStringCompare.hpp",
+          "symbols": [
+            "ClassifyLegacyByte"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_text_validation.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "只承接U8输入域的表项与mask，覆盖本轮输入校验及既有比较器的小于256分类。原-1..255分支还包含EOF，但新接口不接收负值；其余输入的lead判断/NLS调用没有实现为通用接口，不把整函数视为全部语义完成。"
     }
   ]
 }

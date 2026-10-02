@@ -136,6 +136,11 @@ std::uint32_t LowerCompareValue_53DC64(const std::uint32_t value)
 
 } // namespace
 
+std::uint16_t ClassifyLegacyByte(const std::uint8_t value, const std::uint16_t mask)
+{
+    return gCtypePointer58FC30[value] & mask;
+}
+
 std::int32_t CompareInsensitive_53CF50(const char* left, const char* right)
 {
     if (gLegacyTextLocale1086160.ctypeLocale == 0) {

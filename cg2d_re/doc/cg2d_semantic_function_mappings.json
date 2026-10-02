@@ -9302,6 +9302,107 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原count0直接0，有限U8比较返回严格-1/0/1；已核12处直接调用均只使用零/非零，现有std::strncmp据此承接相等判定，不声称非零幅值或无效缓冲故障等价。对应原应用11处由这些实际源码消费；541A70库内一处父入口未在本项重建，不算整个CRT完成。"
+    },
+    {
+      "original_entry": "0x53BE40",
+      "inventory_id": "F:0013BE40",
+      "status": "已有标准库字节操作的限定语义关联；父链和运行边界仍独立验收",
+      "original_end_exclusive": "0x53BEC0",
+      "instruction_count": 66,
+      "original_chunks": [
+        [
+          "0x53BE40",
+          "0x53BEC0"
+        ]
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "IsRejectedInputText_404060"
+          ]
+        },
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseCommandOptions"
+          ]
+        },
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "空needle返回原源，单字节needle跳53C2F6共用字符查找，多字节查找返回首个完整匹配的借用指针或空。当前std::strstr按原始字节承接，不做编码/大小写转换；记录source为实际消费者，不是原函数直接定义，也不宣称各父链全部通过。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
+    },
+    {
+      "original_entry": "0x53C2F0",
+      "inventory_id": "F:0013C2F0",
+      "status": "已有标准库字节操作的限定语义关联；父链和运行边界仍独立验收",
+      "original_end_exclusive": "0x53C3AC",
+      "instruction_count": 89,
+      "original_chunks": [
+        [
+          "0x53C2F0",
+          "0x53C3AC"
+        ],
+        [
+          "0x53C2E0",
+          "0x53C2E5"
+        ]
+      ],
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseCommandOptions"
+          ]
+        },
+        {
+          "path": "src/LoginMessage.cpp",
+          "symbols": [
+            "UpdateLoginMessage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "低W8目标，首匹配原指针或空，目标0可命中终止NUL。除主范围外包含53C2E0..53C2E5共享返回chunk；后续align不算该函数。已有std::strchr调用承接原字节查找，向量/对齐实现和无效缓冲故障时点不据此判等。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
+    },
+    {
+      "original_entry": "0x53C790",
+      "inventory_id": "F:0013C790",
+      "status": "已有标准库字节操作的限定语义关联；父链和运行边界仍独立验收",
+      "original_end_exclusive": "0x53C8B3",
+      "instruction_count": 123,
+      "original_chunks": [
+        [
+          "0x53C790",
+          "0x53C8B3"
+        ]
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "AppendChar_44ADB0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_login_state_controller.md"
+      ],
+      "boundary": "count0直接返回目的；非0寻找目的尾，最多追加count源字节，遇源NUL或数量耗尽终止并保持目的指针返回。现有44ADB0以独立tail源std::strncat承接；另两原caller来自已排除50FF70，不恢复。只映射已证非重叠调用域，父输入流程其他边界不由此验收。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
     }
   ]
 }

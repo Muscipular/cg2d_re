@@ -299,6 +299,19 @@ std::int32_t gLegacySellDetailPageD67C78 = 0;
 std::int32_t gLegacySellPreviousHover5825F4 = -1;
 std::int32_t gLegacySellTotalCF3FCC = 0; // 旧64入口统计，旧66借读。
 std::int32_t gLegacySellLimitMessageCB0A88 = 0; // 增量金额失败写1，数量成功后清0。
+LegacyPanelRecord gLegacyHealingPanel5826C0 {
+    96, 86, 448, 288, 67, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyHealingPrompt588FF8[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAA\x76\xC0\xF8\xB9\xEF\xB6\x48";
+constexpr char kLegacyHealingHeader588FD0[] = "\xB0\xB7\xB1\x64\x20\xB5\xA5\xAF\xC5\x20\x20\x20\x20\x20\xA9\x6D\x20\x20\x20\xA6\x57\x20\x20\x20\x20\x20\x20\x20\x20\xA9\xD2\xBB\xDD\xAA\xE1\xB6\x4F";
+constexpr char kLegacyHealingTotal588FA8[] = "\xA5\xFE\xB3\xA1\xA4\x40\xB0\x5F\xAA\x76\xC0\xF8\x20\x20\x20\x20\x20\x25\x38\x64\x20\xAA\xF7\xB9\xF4";
+constexpr char kLegacyHealingGold588F94[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
+constexpr char kLegacyHealingCancel588F34[] = "\xA8\xFA\xAE\xF8\xAA\x76\xC0\xF8\xA1\x43";
+constexpr char kLegacyHealingOne588F40[] = "\xAA\x76\xC0\xF8\xB3\x6F\xAD\xD3\xA8\xA4\xA6\xE2\xAA\xBA\xB6\xCB\xA1\x43";
+constexpr char kLegacyHealingHealthy588F54[] = "\xB3\x6F\xAD\xD3\xA8\xA4\xA6\xE2\xA8\xC3\xA8\x53\xA6\xB3\xA8\xFC\xB6\xCB\xA1\x43";
+constexpr char kLegacyHealingAllHealthy588F6C[] = "\xA8\x53\xA6\xB3\xA5\xF4\xA6\xF3\xA8\xA4\xA6\xE2\xA8\xFC\xB6\xCB\xA1\x43";
+constexpr char kLegacyHealingAll588F80[] = "\xAA\x76\xC0\xF8\xA9\xD2\xA6\xB3\xA8\xFC\xB6\xCB\xA8\xA4\xA6\xE2\xA1\x43";
+
 LegacyPanelRecord gLegacyRepairPanel582788 {
     32, 12, 576, 432, 70, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -2766,6 +2779,112 @@ std::uint32_t Sub_4DBD30(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacySellConfirmPanel5825F8, 0);
+}
+
+std::uint32_t Sub_4DC290(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyHealingPanel5826C0.x;
+    const std::int32_t y = gLegacyHealingPanel5826C0.y;
+    const character_select::detail::CharacterModalUiRecord cancel {
+        x + 202, y + 250, x + 200, y + 250, 57, 18, kLegacyItemUseCancel589008,
+    };
+    const std::int32_t state = Sub_503160(opened, &gLegacyHealingPanel5826C0, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        return 2;
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const std::byte* const records = ui::detail::BorrowLegacyHealingRecordsD672F0();
+    std::int32_t hovered = -1;
+    for (std::int32_t index = 0; index < 7; ++index) {
+        const std::int32_t top = gLegacyHealingPanel5826C0.y + 20 * index + 74;
+        const std::int32_t left = gLegacyHealingPanel5826C0.x + 52;
+        if (Sub_5049A0(left, top, left + 335, top + 20, -1) != 0
+            && ReadRecordW32(records + 32 * index, 0) > 0) {
+            hovered = index;
+            break;
+        }
+    }
+    const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
+    char buffer[128];
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
+        char escaped[16];
+        std::sprintf(buffer, "%d", hovered + 1);
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
+        static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((cancelState & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyHealingPanel5826C0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacyHealingPanel5826C0.y + offsetY;
+        const std::int32_t left = gLegacyHealingPanel5826C0.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
+    };
+    drawAt(kLegacyHealingPrompt588FF8, 96, 24, 4);
+    drawAt(kLegacyHealingHeader588FD0, 52, 50, 0);
+    std::int32_t totalCost = 0;
+    std::int32_t totalHealth = 0;
+    for (std::int32_t index = 0; index < 6; ++index) {
+        const std::byte* const record = records + 32 * index;
+        const std::int32_t level = ReadRecordW32(record, 0);
+        if (level <= 0) {
+            continue;
+        }
+        std::sprintf(buffer, "%3d", level);
+        drawAt(buffer, 100, 76 + 20 * index, 0);
+        std::sprintf(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
+        drawAt(buffer, 141, 76 + 20 * index, 0);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
+        drawAt(buffer, 290, 76 + 20 * index, 0);
+        const std::int32_t image = ui::detail::ReadLegacyHealthImage(ReadRecordW32(record, 4));
+        const std::int32_t imageY = gLegacyHealingPanel5826C0.y + 20 * index + 84;
+        const std::int32_t imageX = gLegacyHealingPanel5826C0.x + 73;
+        static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
+        const std::int32_t cost = ReadRecordW32(record, 8);
+        const std::int32_t health = ReadRecordW32(record, 4);
+        totalCost += cost;
+        totalHealth += health;
+    }
+    std::sprintf(buffer, kLegacyHealingTotal588FA8, totalCost);
+    drawAt(buffer, 114, 196, 0);
+    std::sprintf(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
+    drawAt(buffer, 151, 224, 0);
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    const char* hint = nullptr;
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyHealingPanel5826C0.y + 20 * hovered + 74;
+        const std::uint32_t image = gValueD69768;
+        const std::int32_t left = gLegacyHealingPanel5826C0.x + 52;
+        DrawGraphicHover(Low16(left), Low16(top), Low16(left + 350), Low16(top + 20), 218, image, 0);
+        if (hovered == 6) {
+            hint = totalHealth != 0 ? kLegacyHealingAll588F80 : kLegacyHealingAllHealthy588F6C;
+        } else {
+            hint = ReadRecordW32(records + 32 * hovered, 4) != 0
+                ? kLegacyHealingOne588F40 : kLegacyHealingHealthy588F54;
+        }
+    } else if ((cancelState & 0x40) != 0) {
+        hint = kLegacyHealingCancel588F34;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyHealingPanel5826C0, 0);
 }
 
 YobiAction* Sub_4DC7A0()

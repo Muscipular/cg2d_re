@@ -139,6 +139,7 @@ std::uint32_t Sub_4DA580(std::int32_t opened); // 旧65确认购买，取消打�
 YobiAction* Sub_4DAA00(); // 旧64独立CC3EFC图号，创建后发布D67C74。
 std::uintptr_t Sub_4DAA40(std::int32_t opened); // 旧64完整卖出列表，正常W32/关闭T*返回。
 std::uint32_t Sub_4DBD30(std::int32_t opened); // 旧66卖出确认，按原物品索引发送，取消打开旧64。
+std::uint32_t Sub_4DC290(std::int32_t opened); // 旧67治疗，七行命中/六行绘制与已有记录同源。
 YobiAction* Sub_4DC7A0(); // 旧70独立D673E8图号，发布预览后清提示。
 std::uintptr_t Sub_4DC7E0(std::int32_t opened); // 旧70修理列表，正常W32/关闭T*返回。
 void Sub_4DDA30(std::int32_t x, std::int32_t y, std::int32_t index,

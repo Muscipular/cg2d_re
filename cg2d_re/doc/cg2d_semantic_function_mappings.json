@@ -8582,6 +8582,93 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "直接CreateDirectoryA(path,nullptr)，失败才取GetLastError；错误非0经原542F44写同一DOS/errno后返回-1，错误0返回0，成功不清共享错误。六处源码调用保持原顺序和返回消费，截图读取共享errno==17。路径仍为ANSI旧字节，不引入预检查或重试；宿主_chdir及其驱动器环境处理未由此宣称原等价。未执行目录创建、构建、测试或运行。"
+    },
+    {
+      "original_entry": "0x546ACD",
+      "inventory_id": "F:00146ACD",
+      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "original_end_exclusive": "0x546B00",
+      "instruction_count": 19,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "MultibyteCodePageToLocale_546ACD",
+            "gLegacyMultibyte1086764"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "MultibyteCodePageToLocale_546ACD",
+            "LegacyMultibyteStorage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原四代码页映射完整承接，其余包括1361返回0；不是统一当前系统locale。启动生产尚未接入。"
+    },
+    {
+      "original_entry": "0x546B00",
+      "inventory_id": "F:00146B00",
+      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "original_end_exclusive": "0x546B29",
+      "instruction_count": 17,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ResetLegacySingleByte_546B00",
+            "gLegacyMultibyte1086764"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "ResetLegacySingleByte_546B00",
+            "LegacyMultibyteStorage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先清257B分类表，再按原顺序清代码页、多字节标记、locale和三个U32参数；保留caseMap及未解释间隔，不把SBCS重置当整对象清零。启动生产尚未接入。"
+    },
+    {
+      "original_entry": "0x543D37",
+      "inventory_id": "F:00143D37",
+      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "original_end_exclusive": "0x543DB2",
+      "instruction_count": 43,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "UpperLegacyDirectoryByte_543D37",
+            "gLegacyMultibyte1086764"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "UpperLegacyDirectoryByte_543D37",
+            "LegacyMultibyteStorage"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "只承接唯一直接caller 53DD2F经movzx传入的U8域：classification[value+1] bit20命中取caseMap，否则原值，返回U32。大于255的NLS分支未实现；共享表初始化与目录接线尚未完成，不能使用初始零表宣称正常路径可用。"
     }
   ]
 }

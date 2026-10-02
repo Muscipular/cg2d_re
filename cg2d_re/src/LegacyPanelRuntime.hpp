@@ -126,6 +126,9 @@ std::uintptr_t Sub_4D9220(std::int32_t opened); // 旧63买入列表，正常返
 void Sub_4DA400(std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t page, std::int32_t mode); // 旧63/64同源商品七行详情。
 std::uint32_t Sub_4DA580(std::int32_t opened); // 旧65确认购买，取消打开旧63。
+YobiAction* Sub_4DAA00(); // 旧64独立CC3EFC图号，创建后发布D67C74。
+std::uintptr_t Sub_4DAA40(std::int32_t opened); // 旧64完整卖出列表，正常W32/关闭T*返回。
+std::uint32_t Sub_4DBD30(std::int32_t opened); // 旧66卖出确认，按原物品索引发送，取消打开旧64。
 std::uintptr_t Sub_4E0380(std::int32_t opened); // 旧72四页分派/确认发送，关闭可返回原生预览地址。
 char* Sub_4E0270(std::int32_t side); // 旧72统计展示区空槽，返回第20项末端原生指针。
 std::int32_t Sub_4E0BC0(std::int32_t side); // 旧72物品格命中，每行首命中而非全表首命中。

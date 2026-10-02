@@ -106,6 +106,7 @@ std::int32_t Sub_455840();
 std::int32_t Sub_455850(); // 62B4A8起三组交错写入。
 std::int32_t Sub_455930();
 std::int32_t Sub_455940(); // 62B508起五组交错写入。
+std::uintptr_t Sub_4E0380(std::int32_t opened); // 旧72四页分派/确认发送，关闭可返回原生预览地址。
 char* Sub_4E0270(std::int32_t side); // 旧72统计展示区空槽，返回第20项末端原生指针。
 std::int32_t Sub_4E0BC0(std::int32_t side); // 旧72物品格命中，每行首命中而非全表首命中。
 void Sub_4E0C70(std::int32_t side, std::int32_t item, std::uint32_t color);
@@ -113,7 +114,13 @@ std::int32_t Sub_4E0D10(std::int32_t side); // 旧72两组物品绘制，状态-
 std::int32_t Sub_4E0FF0(
     std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t item, std::int32_t page);
 std::int32_t Sub_4E10F0(std::int32_t x, std::int32_t y); // 旧72内嵌数量层，不关闭面板。
-std::uint32_t Sub_4E2030(); // 旧72物品存放子页；外层4E0380切页仍待接入。
+std::int32_t Sub_4E18F0(std::int32_t side);
+void Sub_4E1980(std::int32_t side, std::int32_t pet, std::uint32_t color);
+void Sub_4E19E0(std::int32_t side); // 五条同源154H宠物记录，负状态图不以used门禁。
+std::int32_t Sub_4E1B10(std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t pet);
+std::int32_t Sub_4E1EE0(std::int32_t x, std::int32_t y, std::int32_t side, std::int32_t pet);
+std::uint32_t Sub_4E2030(); // 旧72物品存放子页，外层4E0380调用。
+std::uint32_t Sub_4E28F0(); // 旧72宠物子页，点击费用检查与提示容量检查分开。
 std::uint32_t Sub_4E2D90(); // 旧72存入金额，草稿别名CC4B2C末4B，确认只登记。
 std::uint32_t Sub_4E3750(); // 旧72取出金额，先登记旧草稿再处理键盘/上限。
 std::uint32_t Sub_4E4460(std::int32_t opened); // 旧78物品目标属性页，只读借用nFV的同源值记录。

@@ -240,6 +240,18 @@ std::int32_t gLegacyStorageWithdrawDraftD2EA98 = 0;
 std::int32_t gLegacyStorageWithdrawAmountCF49B8 = 0;
 std::int32_t gLegacyStorageDepositMessageD67CAC = 0;
 std::uint32_t gLegacyStorageDepositTickD67CB0 = 0;
+constexpr std::array<std::array<std::int32_t, 2>, 2> kLegacyStoragePetRows582C54 {{
+    {70, 123}, {348, 123},
+}};
+std::int32_t gLegacyStoragePetPreviousLeft582C6C = -1;
+std::int32_t gLegacyStoragePetPreviousRight582C70 = -1;
+std::int32_t gLegacyStoragePetPageD67CA0 = 0;
+std::int32_t gLegacyStoragePetMessageD67CA4 = 0;
+std::uint32_t gLegacyStoragePetTickD67CA8 = 0;
+std::int32_t gLegacyStoragePetPutCountD2D600 = 0;
+std::int32_t gLegacyStoragePetTakeCountD2D824 = 0;
+std::int32_t gLegacyStoragePetCapacityCB1DDC = 0;
+YobiAction* gLegacyStoragePetActionD67C90 = nullptr;
 constexpr char kLegacyStorageNoMoney58906C[] = "\xA7\x41\xAA\xBA\xBF\xFA\xA4\xA3\xB0\xF7\xA1\x49";
 constexpr char kLegacyStorageFee589284[] = "\xA4\xE2\xC4\xF2\xB6\x4F";
 constexpr char kLegacyStorageGold589278[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42";
@@ -255,10 +267,27 @@ constexpr char kLegacyStorageDeposit5892F4[] = "\xA6\x73\xA4\x4A\xAB\xFC\xA9\x77
 constexpr char kLegacyStorageCannotDeposit5892E8[] = "\xB5\x4C\xAA\x6B\xA6\x73\xA4\x4A\xA1\x43";
 constexpr char kLegacyStorageBalance589314[] = "\xA6\x73\xB4\xDA";
 constexpr char kLegacyStorageWithdraw589304[] = "\xA8\xFA\xA5\x58\xAB\xFC\xA9\x77\xAA\xF7\xC3\x42\xA1\x43";
+constexpr char kLegacyStoragePetTake5892C4[] = "\xA8\xFA\xA5\x58\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA1\x43";
+constexpr char kLegacyStoragePetPut5892B4[] = "\xA6\x73\xA9\xF1\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA1\x43";
+constexpr char kLegacyStoragePetCanPut5892A0[] = "\xA6\xB9\xC3\x64\xAA\xAB\xA5\x69\xA5\x48\xA6\x73\xA9\xF1\xA1\x43";
+constexpr char kLegacyStoragePetFull58928C[] = "\xB5\x4C\xAA\x6B\xA6\x41\xA6\x73\xA9\xF1\xC3\x64\xAA\xAB\xA1\x43";
+constexpr char kLegacyStorageItemTab589214[] = "\xAA\xAB\xAB\x7E\xA6\x73\xA9\xF1\xBB\x50\xA8\xFA\xA5\x58\xA1\x43";
+constexpr char kLegacyStoragePetTab589200[] = "\xC3\x64\xAA\xAB\xA6\x73\xA9\xF1\xBB\x50\xA8\xFA\xA5\x58\xA1\x43";
+constexpr char kLegacyStorageDepositTab5891F8[] = "\xA6\x73\xBF\xFA\xA1\x43";
+constexpr char kLegacyStorageWithdrawTab5891F0[] = "\xBB\xE2\xBF\xFA\xA1\x43";
+constexpr char kLegacyStorageConfirm5891C4[] = "\xBD\x54\xA9\x77\xA1\x43";
+constexpr char kLegacyStorageCancel5891BC[] = "\xA8\xFA\xAE\xF8\xA1\x43";
+constexpr char kLegacyStorageItemCount5891D4[] = "%2d \xAD\xD3";
+constexpr char kLegacyStoragePetCount5891CC[] = "%d \xB0\xA6";
 
 char* BorrowLegacyStorageItem(const std::int32_t side, const std::int32_t item)
 {
     return ui::detail::gItemDetailStorageCC4D58.data() + side * 0xFBF8 + item * 0xC44;
+}
+
+char* BorrowLegacyStoragePet(const std::int32_t side, const std::int32_t pet)
+{
+    return ui::detail::gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xF550 + pet * 0x154;
 }
 
 std::int16_t ReadLegacyStorageW16(const char* const record, const std::size_t offset)
@@ -1040,6 +1069,195 @@ std::int32_t Sub_455940()
     return centerY;
 }
 
+std::uintptr_t Sub_4E0380(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyStoragePanel582B70.x;
+    const std::int32_t y = gLegacyStoragePanel582B70.y;
+    LegacyPanelButtonRecord confirm {x + 167, y + 345, x + 105, y + 334, 124, 22, 23345, 23346};
+    LegacyPanelButtonRecord cancel {x + 394, y + 345, x + 332, y + 334, 124, 22, 23272, 23273};
+    const std::array<std::uint32_t (*)(), 4> pages {
+        &Sub_4E2030, &Sub_4E28F0, &Sub_4E2D90, &Sub_4E3750,
+    };
+    constexpr std::array<std::array<std::int32_t, 4>, 4> tabs {{
+        {14, 64, 134, 82}, {151, 64, 271, 82}, {289, 64, 409, 82}, {426, 64, 546, 82},
+    }};
+    const std::array<const char*, 4> hints {kLegacyStorageItemTab589214, kLegacyStoragePetTab589200,
+        kLegacyStorageDepositTab5891F8, kLegacyStorageWithdrawTab5891F0};
+    const std::int32_t state = Sub_503160(opened, &gLegacyStoragePanel582B70, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        if (input::IsCurrentContext_503E40(nullptr) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+        }
+        YobiAction* action = gLegacyStoragePetActionD67C90;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyStoragePetActionD67C90 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    YobiAction* action = gLegacyStoragePetActionD67C90;
+    if (action == nullptr) {
+        const std::int32_t top = gLegacyStoragePanel582B70.y;
+        const std::int32_t left = gLegacyStoragePanel582B70.x;
+        action = Sub_4F9FF0(0, left + 74, top + 247, 228);
+        gLegacyStoragePetActionD67C90 = action;
+    }
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, true);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t tab = 0; tab < 4; ++tab) {
+        const std::int32_t top = gLegacyStoragePanel582B70.y;
+        const std::int32_t left = gLegacyStoragePanel582B70.x;
+        if (Sub_5049A0(left + tabs[tab][0], top + tabs[tab][1],
+                left + tabs[tab][2], top + tabs[tab][3], -1) != 0
+            && ReadRecordW32(ui::detail::gShopValueTextCF4A28.data(), 12) != tab) {
+            hovered = tab;
+            break;
+        }
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[64];
+    if (gLegacyStorageSplitModeCA0AA8 != 0) {
+        hovered = -1;
+    } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        std::int32_t takeItems = 0;
+        std::int32_t putItems = 0;
+        for (std::int32_t item = 0; item < 20; ++item) {
+            if (ReadLegacyStorageW16(BorrowLegacyStorageItem(0, item), 2) > 0) {
+                takeItems |= 1 << item;
+            }
+            if (ReadLegacyStorageW16(BorrowLegacyStorageItem(1, item), 2) > 0) {
+                putItems |= 1 << item;
+            }
+        }
+        std::int32_t takePets = 0;
+        std::int32_t putPets = 0;
+        for (std::int32_t pet = 0; pet < 5; ++pet) {
+            if (ReadLegacyStorageW16(BorrowLegacyStoragePet(0, pet), 2) > 0) {
+                takePets |= 1 << pet;
+            }
+            if (ReadLegacyStorageW16(BorrowLegacyStoragePet(1, pet), 2) > 0) {
+                putPets |= 1 << pet;
+            }
+        }
+        const std::int32_t deposit = gLegacyStorageMoneyD2F79C;
+        const std::int32_t withdraw = gLegacyStorageWithdrawAmountCF49B8;
+        std::sprintf(buffer, "%d|%d|%d|%d|%d|%d", takeItems, putItems, takePets, putPets, withdraw, deposit);
+        char escaped[128];
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 127));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+            request, target, 0, escaped));
+        static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyStoragePanel582B70.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if (hovered >= 0 && (gValueD68D9C & 1) != 0) {
+        std::memcpy(ui::detail::gShopValueTextCF4A28.data() + 12, &hovered, sizeof(hovered));
+        input::SetContext_44B330(hovered == 2 || hovered == 3 ? nullptr : &input::gInputContext626AA0);
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    const auto update = pages[ReadRecordW32(ui::detail::gShopValueTextCF4A28.data(), 12)];
+    if (update != nullptr) {
+        static_cast<void>(update());
+    }
+    // 确认掩码不查used；逐帧汇总则只统计used且正选择的记录。
+    std::int32_t fee = 0;
+    std::int32_t takeItems = 0;
+    std::int32_t putItems = 0;
+    gLegacyStorageFeeD40B04 = 0;
+    gLegacyStorageTakeCountCF4A04 = 0;
+    gLegacyStoragePutCountD2DAD4 = 0;
+    for (std::int32_t item = 0; item < 20; ++item) {
+        const char* const left = BorrowLegacyStorageItem(0, item);
+        const char* const right = BorrowLegacyStorageItem(1, item);
+        if (ReadLegacyStorageW16(left, 0) != 0 && ReadLegacyStorageW16(left, 2) > 0) {
+            ++takeItems;
+        }
+        if (ReadLegacyStorageW16(right, 0) != 0 && ReadLegacyStorageW16(right, 2) > 0) {
+            ++putItems;
+            ++fee;
+        }
+    }
+    gLegacyStoragePutCountD2DAD4 = putItems;
+    gLegacyStorageTakeCountCF4A04 = takeItems;
+    const std::int32_t level = world::detail::ReadPlayerLevel();
+    gLegacyStorageFeeD40B04 = fee;
+    gLegacyStoragePetTakeCountD2D824 = 0;
+    gLegacyStoragePetPutCountD2D600 = 0;
+    std::int32_t takePets = 0;
+    std::int32_t putPets = 0;
+    for (std::int32_t pet = 0; pet < 5; ++pet) {
+        const char* const left = BorrowLegacyStoragePet(0, pet);
+        const char* const right = BorrowLegacyStoragePet(1, pet);
+        if (ReadLegacyStorageW16(left, 0) != 0 && ReadLegacyStorageW16(left, 2) > 0) {
+            ++takePets;
+        }
+        if (ReadLegacyStorageW16(right, 0) != 0 && ReadLegacyStorageW16(right, 2) > 0) {
+            ++putPets;
+            fee += level;
+        }
+    }
+    gLegacyStorageFeeD40B04 = fee;
+    gLegacyStoragePetPutCountD2D600 = putPets;
+    gLegacyStoragePetTakeCountD2D824 = takePets;
+    if (hovered >= 0) {
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t top = gLegacyStoragePanel582B70.y;
+        const std::int32_t left = gLegacyStoragePanel582B70.x;
+        DrawGraphicHover(Low16(left + tabs[hovered][0]), Low16(top + tabs[hovered][1]),
+            Low16(left + tabs[hovered][2]), Low16(top + tabs[hovered][3]), 214, color, 0);
+    }
+    const std::int32_t nameWidth = TextMeasure(world::detail::BorrowPlayerDisplayText(1), 0);
+    const std::int32_t nameY = gLegacyStoragePanel582B70.y + 9;
+    const std::int32_t nameX = gLegacyStoragePanel582B70.x - nameWidth / 2 + 431;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX), static_cast<std::int16_t>(nameY),
+        2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
+    const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
+        const std::int32_t offsetX, const std::uint8_t color) {
+        std::sprintf(buffer, format, value);
+        const std::int32_t top = gLegacyStoragePanel582B70.y + 38;
+        const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 1, color, buffer, 0, 0));
+    };
+    drawCount(gLegacyStorageTakeCountCF4A04, kLegacyStorageItemCount5891D4, 37, 1);
+    drawCount(gLegacyStoragePetTakeCountD2D824, kLegacyStoragePetCount5891CC, 131, 1);
+    drawCount(gLegacyStorageWithdrawAmountCF49B8, kLegacyStorageAmount588FC4, 180, 1);
+    drawCount(gLegacyStoragePutCountD2DAD4, kLegacyStorageItemCount5891D4, 311, 5);
+    drawCount(gLegacyStoragePetPutCountD2D600, kLegacyStoragePetCount5891CC, 405, 5);
+    drawCount(gLegacyStorageMoneyD2F79C, kLegacyStorageAmount588FC4, 455, 5);
+    const std::int32_t style = gLegacyStorageSplitModeCA0AA8 != 0 ? 1 : 0;
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, style);
+    Sub_5035E0(&cancel, 212, 1, gValueD69768, style);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyStoragePanel582B70) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if (hovered >= 0) {
+        hint = hints[hovered];
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = kLegacyStorageConfirm5891C4;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyStorageCancel5891BC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyStoragePanel582B70, 1);
+}
+
 char* Sub_4E0270(const std::int32_t side)
 {
     gLegacyStorageEmptySlotsCF49BC = 0;
@@ -1266,6 +1484,142 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
     Sub_5035E0(&all, 223, 1, gValueD69768, 0);
     Sub_5035E0(&clear, 223, 1, gValueD69768, 0);
     return DrawGraphic(centerX, centerY, 222, 23310, 0, nullptr);
+}
+
+std::int32_t Sub_4E18F0(const std::int32_t side)
+{
+    if (side < 0 || side > 1) {
+        return -1;
+    }
+    const auto& origin = kLegacyStoragePetRows582C54[side];
+    for (std::int32_t pet = 0; pet < 5; ++pet) {
+        const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
+        const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0];
+        if (Sub_5049A0(x - 3, y - 2, x + 146, y + 16, -1) != 0) {
+            return pet;
+        }
+    }
+    return -1;
+}
+
+void Sub_4E1980(const std::int32_t side, const std::int32_t pet, const std::uint32_t color)
+{
+    if (side < 0 || side > 1) {
+        return;
+    }
+    const auto& origin = kLegacyStoragePetRows582C54[side];
+    const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
+    const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0];
+    DrawGraphicHover(Low16(x - 3), Low16(y - 2), Low16(x + 146), Low16(y + 16), 213, color, 0);
+}
+
+void Sub_4E19E0(const std::int32_t side)
+{
+    const auto& origin = kLegacyStoragePetRows582C54[side];
+    for (std::int32_t pet = 0; pet < 5; ++pet) {
+        const char* const record = BorrowLegacyStoragePet(side, pet);
+        if (ReadLegacyStorageW16(record, 0) != 0) {
+            if (ReadLegacyStorageW16(record, 2) > 0) {
+                const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
+                const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0];
+                DrawGraphicHover(Low16(x - 3), Low16(y - 2), Low16(x + 146),
+                    Low16(y + 16), 213, 251, 0);
+            }
+            const char* const name = record + 0x142;
+            const std::int32_t width = TextMeasure(name, 0);
+            const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet;
+            const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0] - width / 2 + 72;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(x),
+                static_cast<std::int16_t>(y), 2, 1, 0, name, 0, 0));
+        }
+        if (ReadLegacyStorageW16(record, 2) < 0) {
+            const std::int32_t y = gLegacyStoragePanel582B70.y + origin[1] + 22 * pet + 8;
+            const std::int32_t x = gLegacyStoragePanel582B70.x + origin[0] + 72;
+            static_cast<void>(DrawGraphic(x, y, 218, 23348, 0, nullptr));
+        }
+    }
+}
+
+std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
+    const std::int32_t side, const std::int32_t pet)
+{
+    const char* const record = BorrowLegacyStoragePet(side, pet);
+    if (ReadLegacyStorageW16(record, 0) == 0) {
+        return 0x154 * pet;
+    }
+    YobiAction* action = gLegacyStoragePetActionD67C90;
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, false);
+        SetYobiActionField30(gLegacyStoragePetActionD67C90, x + 74);
+        SetYobiActionField34(gLegacyStoragePetActionD67C90, y + 220);
+        action = gLegacyStoragePetActionD67C90;
+        const std::int32_t image = ReadRecordW32(record, 8);
+        if (GetYobiActionField2A8(action) != image) {
+            const std::int32_t mapped = character_select::detail::Sub_51B740(image);
+            SetYobiActionField2A8(gLegacyStoragePetActionD67C90, mapped);
+        }
+    }
+    for (std::int32_t element = 0; element < 4; ++element) {
+        const std::uint32_t color = kLegacyAttributeBars57CBB8[element][0];
+        const std::int32_t value = ReadRecordW32(record, 0x34 + 4 * element);
+        DrawGraphicHover(Low16(x + 191), Low16(y + 70 + 4 * element),
+            Low16(x + 191 + 7 * (value / 10)), Low16(y + 73 + 4 * element), 229, color, 1);
+    }
+    const auto drawAt = [x, y](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
+            static_cast<std::int16_t>(y + offsetY), 4, font, 0, text, 0, 0));
+    };
+    const char* const name = record + 0x142;
+    const std::int32_t width = TextMeasure(name, 0);
+    drawAt(name, 136 - width / 2, 5, 0);
+    char buffer[128];
+    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    drawAt(buffer, 191, 30, 1);
+    const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 1);
+    drawAt(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
+    const std::int32_t maxHp = ReadRecordW32(record, 0x14);
+    const std::int32_t hp = ReadRecordW32(record, 0x10);
+    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    drawAt(buffer, 191, 90, 1);
+    const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
+    const std::int32_t fp = ReadRecordW32(record, 0x18);
+    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    drawAt(buffer, 191, 110, 1);
+    for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
+        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
+        drawAt(buffer, 191, 130 + 20 * attribute, 1);
+    }
+    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x44));
+    drawAt(buffer, 191, 230, 1);
+    drawAt("1/2", 240, 9, 1);
+    return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
+}
+
+std::int32_t Sub_4E1EE0(const std::int32_t x, const std::int32_t y,
+    const std::int32_t side, const std::int32_t pet)
+{
+    const char* const record = BorrowLegacyStoragePet(side, pet);
+    if (ReadLegacyStorageW16(record, 0) == 0) {
+        return 0x154 * pet;
+    }
+    std::int32_t row = 0;
+    for (std::int32_t skill = 0; skill < 10; ++skill) {
+        const char* const text = record + 0x48 + 25 * skill;
+        if (std::strlen(text) != 0) {
+            static_cast<void>(DrawText(static_cast<std::int16_t>(x + 75),
+                static_cast<std::int16_t>(y + 22 * row + 29), 4, 0, 0, text, 0, 0));
+            static_cast<void>(DrawGraphic(x + 137, y + 22 * row + 38, 223, 23281, 0, nullptr));
+            ++row;
+        }
+    }
+    const char* const name = record + 0x142;
+    const std::int32_t width = TextMeasure(name, 0);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, name, 0, 0));
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x + 240),
+        static_cast<std::int16_t>(y + 9), 4, 1, 0, "2/2", 0, 0));
+    return DrawGraphic(x + 136, y + 126, 222, 23280, 0, nullptr);
 }
 
 std::uint32_t Sub_4E2030()
@@ -1508,6 +1862,138 @@ std::uint32_t Sub_4E2030()
     }
     gLegacyStoragePreviousRight582C68 = right;
     gLegacyStoragePreviousLeft582C64 = left;
+    return result;
+}
+
+std::uint32_t Sub_4E28F0()
+{
+    if (gLegacyStoragePetMessageD67CA4 > 0 && gLegacyStoragePetTickD67CA8 != 0) {
+        const std::uint32_t now = platform::ReadTickCount32();
+        if (gLegacyStoragePetTickD67CA8 + 2000u < now) {
+            gLegacyStoragePetMessageD67CA4 = 0;
+            gLegacyStoragePetTickD67CA8 = 0;
+        }
+    }
+    const std::int32_t left = Sub_4E18F0(0);
+    const std::int32_t right = Sub_4E18F0(1);
+    if (left != gLegacyStoragePetPreviousLeft582C6C || right != gLegacyStoragePetPreviousRight582C70) {
+        gLegacyStoragePetPageD67CA0 = 0;
+    }
+    const std::uint8_t mouse = static_cast<std::uint8_t>(gValueD68D9C);
+    if (left >= 0 && (mouse & 0x10) != 0) {
+        char* const record = BorrowLegacyStoragePet(0, left);
+        if (ReadLegacyStorageW16(record, 0) != 0) {
+            const std::int16_t selection = ReadLegacyStorageW16(record, 2);
+            if (selection >= 0) {
+                WriteLegacyStorageSelection(record, selection == 1 ? 0 : static_cast<std::int16_t>(selection ^ 1));
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            }
+        }
+    } else if (right >= 0 && (mouse & 0x10) != 0) {
+        char* const record = BorrowLegacyStoragePet(1, right);
+        if (ReadLegacyStorageW16(record, 0) != 0) {
+            const std::int16_t selection = ReadLegacyStorageW16(record, 2);
+            if (selection >= 0) {
+                if (selection == 1) {
+                    WriteLegacyStorageSelection(record, 0);
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                } else {
+                    const std::int32_t available = world::detail::ReadPlayerValueFC()
+                        - gLegacyStorageFeeD40B04 - gLegacyStorageMoneyD2F79C;
+                    if (available < world::detail::ReadPlayerLevel()) {
+                        gLegacyStoragePetMessageD67CA4 = 1;
+                        gLegacyStoragePetTickD67CA8 = platform::ReadTickCount32();
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else {
+                        WriteLegacyStorageSelection(record, static_cast<std::int16_t>(selection ^ 1));
+                        static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    }
+                }
+            }
+        }
+    } else if ((left >= 0 || right >= 0) && (mouse & 2) != 0) {
+        gLegacyStoragePetPageD67CA0 ^= 1;
+    }
+    if (left >= 0) {
+        Sub_4E1980(0, left, gValueD69768);
+        const std::int32_t page = gLegacyStoragePetPageD67CA0;
+        const std::int32_t y = gLegacyStoragePanel582B70.y + 50;
+        const std::int32_t x = gLegacyStoragePanel582B70.x + 283;
+        if (page == 0) {
+            static_cast<void>(Sub_4E1B10(x, y, 0, left));
+        } else {
+            static_cast<void>(Sub_4E1EE0(x, y, 0, left));
+        }
+    } else if (right >= 0) {
+        Sub_4E1980(1, right, gValueD69768);
+        const std::int32_t page = gLegacyStoragePetPageD67CA0;
+        const std::int32_t y = gLegacyStoragePanel582B70.y + 50;
+        const std::int32_t x = gLegacyStoragePanel582B70.x + 5;
+        if (page == 0) {
+            static_cast<void>(Sub_4E1B10(x, y, 1, right));
+        } else {
+            static_cast<void>(Sub_4E1EE0(x, y, 1, right));
+        }
+    }
+    Sub_4E19E0(0);
+    Sub_4E19E0(1);
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t font) {
+        const std::int32_t y = gLegacyStoragePanel582B70.y + offsetY;
+        const std::int32_t x = gLegacyStoragePanel582B70.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x),
+            static_cast<std::int16_t>(y), 2, font, 0, text, 0, 0));
+    };
+    char buffer[64];
+    const std::int32_t message = gLegacyStoragePetMessageD67CA4;
+    if (message == 1) {
+        drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
+    } else if (message == 0) {
+        drawAt(kLegacyStorageFee589284, 80, 305, 0);
+        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        drawAt(buffer, 139, 306, 1);
+    }
+    drawAt(kLegacyStorageGold589278, 358, 305, 0);
+    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    drawAt(buffer, 417, 306, 1);
+    const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
+    const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
+    std::uint32_t result = static_cast<std::uint32_t>(
+        DrawGraphic(backgroundX, backgroundY, 212, 23342, 0, nullptr));
+    const char* hint = nullptr;
+    if (left >= 0) {
+        result = static_cast<std::uint32_t>(0x154 * left);
+        const char* const record = BorrowLegacyStoragePet(0, left);
+        if (ReadLegacyStorageW16(record, 0) != 0 && ReadLegacyStorageW16(record, 2) >= 0) {
+            hint = kLegacyStoragePetTake5892C4;
+            result = 0;
+        }
+    }
+    if (hint == nullptr && right >= 0) {
+        result = static_cast<std::uint32_t>(0x154 * right);
+        const char* const record = BorrowLegacyStoragePet(1, right);
+        if (ReadLegacyStorageW16(record, 0) != 0) {
+            const std::int16_t selection = ReadLegacyStorageW16(record, 2);
+            result = (result & 0xFFFF0000u) | static_cast<std::uint16_t>(selection);
+            if (selection > 0) {
+                hint = kLegacyStoragePetPut5892B4;
+                result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+            } else if (selection == 0) {
+                if (gLegacyStoragePetPutCountD2D600 < gLegacyStoragePetCapacityCB1DDC) {
+                    hint = kLegacyStoragePetCanPut5892A0;
+                    result = 0;
+                } else {
+                    hint = kLegacyStoragePetFull58928C;
+                    result = static_cast<std::uint32_t>(std::strlen(hint) + 1);
+                }
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    gLegacyStoragePetPreviousRight582C70 = right;
+    gLegacyStoragePetPreviousLeft582C6C = left;
     return result;
 }
 

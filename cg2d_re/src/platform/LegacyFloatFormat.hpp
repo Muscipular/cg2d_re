@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LegacyFloatNumeric.hpp"
+
 #include <cstddef>
 #include <cstdint>
 
@@ -21,7 +23,11 @@ extern std::int32_t gLegacyFloatExponent1086050;
 extern std::uint8_t gLegacyFloatCarry1086054;
 extern std::uint8_t gLegacyDecimalPoint58FE40;
 
-// 原生产者尚待dtold/I10_OUTPUT依赖实现；准确声明，不用宿主十进制结果替代。
+// 原两份共享结果；生产者覆盖当前内容，不分配或返回私有副本。
+extern LegacyFloatDecimalText gLegacyDecimalText10862B0;
+extern LegacyFloatDigits gLegacyProducedFloatDigits10862D0;
+
+// 原生产者已接dtold/I10_OUTPUT，仍须按真实启动顺序安装浮点回调。
 LegacyFloatDigits* ProduceLegacyFloatDigits_544F17(double value);
 void RoundLegacyFloatDigits_544EA0(char* output, std::int32_t precision, LegacyFloatDigits* digits);
 void ShiftLegacyFloatText_5401EB(char* text, std::int32_t distance);

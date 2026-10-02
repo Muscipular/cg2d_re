@@ -12,6 +12,21 @@ std::uint8_t gLegacyFloatReuse108604C = 0;
 std::int32_t gLegacyFloatExponent1086050 = 0;
 std::uint8_t gLegacyFloatCarry1086054 = 0;
 std::uint8_t gLegacyDecimalPoint58FE40 = '.';
+LegacyFloatDecimalText gLegacyDecimalText10862B0 {};
+LegacyFloatDigits gLegacyProducedFloatDigits10862D0 {};
+
+LegacyFloatDigits* ProduceLegacyFloatDigits_544F17(const double value)
+{
+    LegacyFloat80 extended;
+    ConvertLegacyDoubleTo80_544F7B(&extended, &value);
+    const std::int32_t result = GenerateLegacyFloatDecimal_546F36(
+        extended, 17, 0, &gLegacyDecimalText10862B0);
+    gLegacyProducedFloatDigits10862D0.result = result;
+    gLegacyProducedFloatDigits10862D0.sign = gLegacyDecimalText10862B0.sign;
+    gLegacyProducedFloatDigits10862D0.decimal = gLegacyDecimalText10862B0.decimal;
+    gLegacyProducedFloatDigits10862D0.digits = gLegacyDecimalText10862B0.digits;
+    return &gLegacyProducedFloatDigits10862D0;
+}
 
 void ShiftLegacyFloatText_5401EB(char* const text, const std::int32_t distance)
 {

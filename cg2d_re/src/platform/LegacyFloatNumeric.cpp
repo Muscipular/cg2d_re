@@ -328,4 +328,127 @@ void ConvertLegacyDoubleTo80_544F7B(
     StoreFloat16(output->bytes + 8, static_cast<std::uint16_t>(exponent | sign));
 }
 
+std::int32_t GenerateLegacyFloatDecimal_546F36(const LegacyFloat80 value,
+    std::int32_t precision, const std::uint32_t flags, LegacyFloatDecimalText* const output)
+{
+    const std::uint16_t signExponent = LoadFloat16(value.bytes + 8);
+    const std::uint32_t exponent = signExponent & 0x7FFFu;
+    const bool negative = (signExponent & 0x8000u) != 0;
+    output->sign = negative ? '-' : ' ';
+    const std::uint32_t high = LoadFloat32(value.bytes + 4);
+    const std::uint32_t low = LoadFloat32(value.bytes);
+    const auto writeZero = [output]() -> std::int32_t {
+        output->decimal = 0;
+        output->sign = ' ';
+        output->count = 1;
+        output->digits[0] = '0';
+        output->digits[1] = '\0';
+        return 1;
+    };
+    if (exponent == 0 && high == 0 && low == 0) {
+        return writeZero();
+    }
+    if (exponent == 0x7FFFu) {
+        output->decimal = 1;
+        const char* text;
+        std::uint8_t count;
+        if ((high != 0x80000000u || low != 0) && (high & 0x40000000u) == 0) {
+            text = "1#SNAN";
+            count = 6;
+        } else if (negative && high == 0xC0000000u && low == 0) {
+            text = "1#IND";
+            count = 5;
+        } else if (high == 0x80000000u && low == 0) {
+            text = "1#INF";
+            count = 5;
+        } else {
+            text = "1#QNAN";
+            count = 6;
+        }
+        std::strcpy(output->digits, text);
+        output->count = count;
+        return 0;
+    }
+
+    const std::uint32_t estimateBits = exponent * 0x4D10u
+        + ((exponent >> 8) + (high >> 24) * 2u) * 0x4Du - 0x134312F4u;
+    std::int32_t decimal = std::bit_cast<std::int32_t>(estimateBits) >> 16;
+    LegacyFloat96 scaled;
+    StoreFloat16(scaled.bytes, 0);
+    StoreFloat16(scaled.bytes + 10, static_cast<std::uint16_t>(exponent));
+    StoreFloat32(scaled.bytes + 6, high);
+    StoreFloat32(scaled.bytes + 2, low);
+    ScaleLegacyFloat96_547B91(&scaled,
+        -static_cast<std::int32_t>(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(decimal))), 1);
+    if (LoadFloat16(scaled.bytes + 10) >= 0x3FFFu) {
+        const LegacyFloat96 tenth {{
+            0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC,
+            0xCC, 0xCC, 0xCC, 0xCC, 0xFB, 0x3F
+        }};
+        ++decimal;
+        MultiplyLegacyFloat96_547971(&scaled, &tenth);
+    }
+    output->decimal = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(decimal));
+    if ((flags & 1u) != 0) {
+        precision += static_cast<std::int32_t>(
+            std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(decimal)));
+        if (precision <= 0) {
+            return writeZero();
+        }
+    }
+    if (precision > 21) {
+        precision = 21;
+    }
+    std::int32_t shifts = static_cast<std::int32_t>(LoadFloat16(scaled.bytes + 10)) - 0x3FFE;
+    StoreFloat16(scaled.bytes + 10, 0);
+    for (std::int32_t index = 0; index < 8; ++index) {
+        ShiftLegacyFloat96Left_546E14(&scaled);
+    }
+    if (shifts < 0) {
+        shifts = (-shifts) & 0xFF;
+        while (shifts > 0) {
+            ShiftLegacyFloat96Right_546E42(&scaled);
+            --shifts;
+        }
+    }
+
+    auto* const bytes = reinterpret_cast<std::uint8_t*>(output);
+    std::int32_t cursor = 4;
+    for (std::int32_t remaining = precision + 1; remaining > 0; --remaining) {
+        // 原参数槽在此复用为12B副本，只用于本位的乘十运算。
+        const LegacyFloat96 saved = scaled;
+        ShiftLegacyFloat96Left_546E14(&scaled);
+        ShiftLegacyFloat96Left_546E14(&scaled);
+        static_cast<void>(AddLegacyFloat96_546DB6(&scaled, &saved));
+        ShiftLegacyFloat96Left_546E14(&scaled);
+        const std::uint8_t digit = scaled.bytes[11];
+        scaled.bytes[11] = 0;
+        bytes[cursor++] = static_cast<std::uint8_t>(digit + '0');
+    }
+    const auto rounding = std::bit_cast<std::int8_t>(bytes[cursor - 1]);
+    cursor -= 2;
+    if (rounding >= '5') {
+        while (cursor >= 4 && bytes[cursor] == '9') {
+            bytes[cursor--] = '0';
+        }
+        if (cursor < 4) {
+            ++cursor;
+            StoreFloat16(bytes, static_cast<std::uint16_t>(LoadFloat16(bytes) + 1u));
+        }
+        ++bytes[cursor];
+    } else {
+        while (cursor >= 4 && bytes[cursor] == '0') {
+            --cursor;
+        }
+        if (cursor < 4) {
+            return writeZero();
+        }
+    }
+    // 原AL只保留相对地址差低U8，再按S8扩展定位终止字节。
+    output->count = static_cast<std::uint8_t>(cursor - 3);
+    bytes[4 + std::bit_cast<std::int8_t>(output->count)] = 0;
+    return 1;
+}
+
 } // namespace cg::platform

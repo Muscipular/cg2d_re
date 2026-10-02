@@ -13858,6 +13858,386 @@
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/throw.cpp",
         "symbol": "_CxxThrowException"
       }
+    },
+    {
+      "original_entry": "0x54503A",
+      "inventory_id": "F:0014503A",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x545080",
+      "instruction_count": 24,
+      "original_direct_reference_count": 3,
+      "inbound_evidence": [
+        {
+          "address": "0x545080",
+          "parent_entry": "0x545080"
+        },
+        {
+          "address": "0x58FB68",
+          "parent_entry": null
+        },
+        {
+          "address": "0x592F98",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "代码E06D7363、参数数3和魔数19930520命中即转540A5C终止；否则旧过滤器10862E0非空且5450D6验证通过才转调并返回其结果，其他返回0。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
+        "symbol": "__scrt_unhandled_exception_filter / __scrt_set_unhandled_exception_filter"
+      }
+    },
+    {
+      "original_entry": "0x545080",
+      "inventory_id": "F:00145080",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x545091",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55317C",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "CRT槽55317C引用；SetUnhandledExceptionFilter(54503A)返回的旧过滤器写10862E0，不能省略保存或只当无效初始化。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
+        "symbol": "__scrt_unhandled_exception_filter / __scrt_set_unhandled_exception_filter"
+      }
+    },
+    {
+      "original_entry": "0x545091",
+      "inventory_id": "F:00145091",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54509E",
+      "instruction_count": 3,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553198",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "CRT槽553198引用；以10862E0恢复SetUnhandledExceptionFilter，不清该槽；不因只有三条指令排除。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54509E",
+      "inventory_id": "F:0014509E",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x5450BA",
+      "instruction_count": 12,
+      "original_direct_reference_count": 5,
+      "inbound_evidence": [
+        {
+          "address": "0x540316",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x54081D",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x540869",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5408C1",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5408FB",
+          "parent_entry": "0x5407BC"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "五入向为异常查找/捕获对象构造；调用IsBadReadPtr后将结果取反为完整0/1，不是恒真验证。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5450BA",
+      "inventory_id": "F:001450BA",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x5450D6",
+      "instruction_count": 12,
+      "original_direct_reference_count": 4,
+      "inbound_evidence": [
+        {
+          "address": "0x54082F",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x54087B",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5408D3",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x540909",
+          "parent_entry": "0x5407BC"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "四入向均为捕获对象构造；调用IsBadWritePtr后返回完整0/1，不新增平台探测到业务。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5450D6",
+      "inventory_id": "F:001450D6",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x5450EE",
+      "instruction_count": 11,
+      "original_direct_reference_count": 2,
+      "inbound_evidence": [
+        {
+          "address": "0x540917",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x545067",
+          "parent_entry": "0x54503A"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "对象构造及顶层过滤各一入向；调用IsBadCodePtr并返回反向0/1，验证与随后间接调用不合并。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54AC66",
+      "inventory_id": "F:0014AC66",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54AC7B",
+      "instruction_count": 8,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x54AC7E",
+          "parent_entry": "0x54AC7B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "type_info析构先恢复vft，再取+4指针，非空才free；不清被释放指针槽，非空析构不是无操作。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54AC7B",
+      "inventory_id": "F:0014AC7B",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54AC97",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x5501C0",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "type_info虚表数据引用；先完整析构，再按标志低位1决定delete对象，返回保存的原对象地址，即使已释放也不改返空。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B05D",
+      "inventory_id": "F:0014B05D",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54B079",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x5501C8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "exception虚表数据引用；先54B100清理文本，再按标志低位1决定delete对象，返回原对象地址。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B079",
+      "inventory_id": "F:0014B079",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54B0B6",
+      "instruction_count": 25,
+      "original_direct_reference_count": 2,
+      "inbound_evidence": [
+        {
+          "address": "0x54A01D",
+          "parent_entry": "0x549FFE"
+        },
+        {
+          "address": "0x54A6F3",
+          "parent_entry": "0x54A6D4"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
+        "symbol": "__std_exception_copy / __std_exception_destroy"
+      }
+    },
+    {
+      "original_entry": "0x54B0B6",
+      "inventory_id": "F:0014B0B6",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54B100",
+      "instruction_count": 31,
+      "original_direct_reference_count": 3,
+      "inbound_evidence": [
+        {
+          "address": "0x54A0FC",
+          "parent_entry": "0x54A0E5"
+        },
+        {
+          "address": "0x54A7C5",
+          "parent_entry": "0x54A7AE"
+        },
+        {
+          "address": "0x551590",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
+        "symbol": "__std_exception_copy / __std_exception_destroy"
+      }
+    },
+    {
+      "original_entry": "0x54B100",
+      "inventory_id": "F:0014B100",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54B116",
+      "instruction_count": 7,
+      "original_direct_reference_count": 15,
+      "inbound_evidence": [
+        {
+          "address": "0x54A0B7",
+          "parent_entry": "0x54A08C"
+        },
+        {
+          "address": "0x54A16D",
+          "parent_entry": "0x54A142"
+        },
+        {
+          "address": "0x54A780",
+          "parent_entry": "0x54A755"
+        },
+        {
+          "address": "0x54A836",
+          "parent_entry": "0x54A80B"
+        },
+        {
+          "address": "0x54A91E",
+          "parent_entry": "0x54A8F3"
+        },
+        {
+          "address": "0x54B060",
+          "parent_entry": "0x54B05D"
+        },
+        {
+          "address": "0x54C32F",
+          "parent_entry": "0x549FFE"
+        },
+        {
+          "address": "0x54C343",
+          "parent_entry": "0x54A08C"
+        },
+        {
+          "address": "0x54C357",
+          "parent_entry": "0x54A0E5"
+        },
+        {
+          "address": "0x54C36B",
+          "parent_entry": "0x54A142"
+        },
+        {
+          "address": "0x54C417",
+          "parent_entry": "0x54A6D4"
+        },
+        {
+          "address": "0x54C42B",
+          "parent_entry": "0x54A755"
+        },
+        {
+          "address": "0x54C43F",
+          "parent_entry": "0x54A7AE"
+        },
+        {
+          "address": "0x54C453",
+          "parent_entry": "0x54A80B"
+        },
+        {
+          "address": "0x54C47B",
+          "parent_entry": "0x54A8F3"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
+        "symbol": "__std_exception_copy / __std_exception_destroy"
+      }
+    },
+    {
+      "original_entry": "0x54B116",
+      "inventory_id": "F:0014B116",
+      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "original_end_exclusive": "0x54B123",
+      "instruction_count": 5,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x5501CC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
     }
   ]
 }

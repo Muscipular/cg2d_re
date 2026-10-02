@@ -1577,6 +1577,12 @@ const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept
     return reinterpret_cast<const std::byte*>(gHealingDialogRecordsD672F0.data());
 }
 
+LegacyItemUseTargetView BorrowLegacyItemUseTargetView() noexcept
+{
+    return {&gItemUseTargetCountCC40CC, &gItemUsePageCC46DC, &gItemUsePageCountCC3E70, &gItemUseTargetCB0A48,
+        reinterpret_cast<const std::byte*>(gItemUseTargetsCB0EA8.data())};
+}
+
 LegacySkillStatusView BorrowLegacySkillStatusView() noexcept
 {
     return {&gSkillStatusCountC8AA94, gSkillStatusNamesCC4670.data(), gSkillStatusLevelsCC31C0.data(),

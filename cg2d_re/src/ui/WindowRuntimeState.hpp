@@ -1334,6 +1334,16 @@ extern const std::array<std::array<std::int32_t, 3>, 14> gNumericKeyImages54F030
 extern const std::array<const char*, 6> gTradeNumberHints5805FC; // 原字节提示的借用指针表。
 extern const std::array<const char*, 20> gTribeNames57CB54; // 后八项共用585C50原字节串。
 const std::byte* BorrowLegacyHealingRecordsD672F0() noexcept; // 借既有七条32B治疗记录，不扩到D673D0。
+// 原LY十条20B记录及分立S32状态的非拥有视图；只借页号/选择写权，不复制名单。
+struct LegacyItemUseTargetView {
+    const std::int32_t* count; // CC40CC。
+    std::int32_t* page; // CC46DC。
+    const std::int32_t* pageCount; // CC3E70。
+    std::int32_t* selected; // CB0A48。
+    const std::byte* records; // CB0EA8，kind S16/+2名称，步长20。
+};
+LegacyItemUseTargetView BorrowLegacyItemUseTargetView() noexcept;
+
 // 原ND六行分立列的只读非拥有视图；count必须在原循环边界重读，不复制成新记录。
 struct LegacySkillStatusView {
     const std::int32_t* count; // C8AA94。

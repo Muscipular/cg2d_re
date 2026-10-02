@@ -4541,7 +4541,7 @@ std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
     gNetworkRuntimeState.receiveLengthD69790 = remaining;
     std::uint8_t* const receive =
         gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
-    std::memmove(receive, receive + size, static_cast<std::size_t>(remaining));
+    std::memmove(receive, receive + size, static_cast<std::uint32_t>(remaining));
     return 0;
 }
 
@@ -4560,7 +4560,7 @@ std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
     const std::int32_t remaining = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(previous) - static_cast<std::uint32_t>(size));
     std::memcpy(send + kSendLengthOffset, &remaining, sizeof(remaining));
-    std::memmove(send, send + size, static_cast<std::size_t>(remaining));
+    std::memmove(send, send + size, static_cast<std::uint32_t>(remaining));
     return 0;
 }
 

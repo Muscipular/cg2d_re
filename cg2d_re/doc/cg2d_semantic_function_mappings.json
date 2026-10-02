@@ -9642,6 +9642,163 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "Shift优先、否则Ctrl，F1..F8依次调用4597B0，最后非零命中决定0/8/16组索引；未命中保留最后一次按键查询返回。命中先装载再调用52C450。原压栈51/320/240，现有音频窄接口接前两项；音频模块保持暂停，不以本项宣称播放已验收。"
+    },
+    {
+      "original_entry": "0x508230",
+      "inventory_id": "F:00108230",
+      "status": "现有接收队列消耗已修复复制数量U32边界；运行未验",
+      "original_end_exclusive": "0x508274",
+      "instruction_count": 21,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ConsumeReceiveQueue_508230"
+          ],
+          "relationship": "真实现有本体，使用唯一队列与长度owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "入口活动门禁0返回-100，参数S32>=16384返回-1；先发布剩余W32长度，再按U32数量调用重叠移动，返回0。无新增负参数/超过当前长度门禁；真实帧格式与全网络收发仍待。"
+    },
+    {
+      "original_entry": "0x508280",
+      "inventory_id": "F:00108280",
+      "status": "现有发送队列消耗已修复复制数量U32边界；运行未验",
+      "original_end_exclusive": "0x5082C4",
+      "instruction_count": 21,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ConsumeSendQueue_508280"
+          ],
+          "relationship": "真实现有本体，发送长度保持既有队列字节别名"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "门禁和返回同508230；从原发送长度别名读取，先发布新长度再移动发送区，数量保持U32。没有建立新长度副本或改变队列布局；不称异常地址/故障时点等价。"
+    },
+    {
+      "original_entry": "0x53D710",
+      "inventory_id": "F:0013D710",
+      "status": "原重叠复制及内嵌分发表已证；仅两个应用队列消费者显式关联",
+      "original_end_exclusive": "0x53DA45",
+      "instruction_count": 231,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ConsumeReceiveQueue_508230",
+            "ConsumeSendQueue_508280"
+          ],
+          "relationship": "std::memmove真实承接两个原直接调用；其余六处CRT父链不据此完成"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "有效源目标范围内，dest>src且dest<src+count时逆向，否则正向，返回原dest。用std::memmove保留重叠复制后字节，不重建对齐跳表或异常现场。237个元数据item中53D8FC..53D908的六个伪指令为三个W32目标，代码计231；原分母/数据库不改。",
+      "metadata_item_count": 237,
+      "embedded_dispatch_tables": [
+        {
+          "start": "0x53D774",
+          "end_exclusive": "0x53D780",
+          "entry_count": 3,
+          "entry_width": 4
+        },
+        {
+          "start": "0x53D7EC",
+          "end_exclusive": "0x53D80C",
+          "entry_count": 8,
+          "entry_width": 4
+        },
+        {
+          "start": "0x53D858",
+          "end_exclusive": "0x53D868",
+          "entry_count": 4,
+          "entry_width": 4
+        },
+        {
+          "start": "0x53D8FC",
+          "end_exclusive": "0x53D908",
+          "entry_count": 3,
+          "entry_width": 4
+        },
+        {
+          "start": "0x53D984",
+          "end_exclusive": "0x53D9A4",
+          "entry_count": 8,
+          "entry_width": 4
+        },
+        {
+          "start": "0x53D9F0",
+          "end_exclusive": "0x53DA00",
+          "entry_count": 4,
+          "entry_width": 4
+        }
+      ]
+    },
+    {
+      "original_entry": "0x53BEC0",
+      "inventory_id": "F:0013BEC0",
+      "status": "现有输入有界复制消费域已关联；其他直接caller及运行未验",
+      "original_end_exclusive": "0x53BFBE",
+      "instruction_count": 109,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "ClassifyAnsiBoundary_44B1D0",
+            "AppendChar_44ADB0"
+          ],
+          "relationship": "四处std::strncpy表达式对应44B1EC/44AE01/44AE16/44AFF7"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "count0不读源；最多复制Count字节，遇NUL后目标剩余补零，源前Count字节无NUL则不额外补终止。仅关联原39处直接引用中的四处输入调用，不计其他父链全部完成；既有局部预清零和额外门禁差异保持。"
+    },
+    {
+      "original_entry": "0x544DB0",
+      "inventory_id": "F:00144DB0",
+      "status": "仅共享复制尾关系已确立；CRT父链及宿主承接待收口",
+      "original_end_exclusive": "0x544DB7",
+      "instruction_count": 3,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "三条入口在544DB5跳544E21，共用544DC0名下的复制至含NUL并返回原dest路径。11处直接引用均在CRT范围，应用源码里的strcpy表达式不等于这些原caller已接线；不造共享尾函数或扩大已实现数量。",
+      "shared_code": {
+        "entry": "0x544E21",
+        "end_exclusive": "0x544EA0",
+        "owner_entry": "0x544DC0",
+        "relationship": "直接跳转至另一函数元数据范围内的公共复制尾，非本函数新增chunk"
+      }
+    },
+    {
+      "original_entry": "0x544DC0",
+      "inventory_id": "F:00144DC0",
+      "status": "仅共享复制尾关系已确立；CRT父链及宿主承接待收口",
+      "original_end_exclusive": "0x544EA0",
+      "instruction_count": 84,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先扫描目标NUL，进入544E21共享复制尾。三个直接调用5444E5/5444F6/544508均属5443FF，该父链不借此完成；Input退格的原复制为内联，同名std::strcat不能作为原直接调用证据。"
     }
   ]
 }

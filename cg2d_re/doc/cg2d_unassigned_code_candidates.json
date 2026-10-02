@@ -32,7 +32,15 @@
       "method": "只读检查剩余每段字节及已有item head；完全90/CC段仅记录字节候选，不自动范围排除，其余寻找已标代码且非nop/int3项。已有503BB0不重复增加。未标成代码的内容、纯填充区间用途和完整传递调用仍待分类。"
     }
   ],
-  "verification": "records中的回调仅确认当前源码定义和已有证据绑定；later_code_candidates分别记录已证归属或待分析状态。未重新核全部语义，整个区间及运行验收仍待，不以代码标志或无xref决定范围。",
+  "verification": "records及source_entries中的回调仅确认当前源码定义和已有证据绑定；later_code_candidates分别记录已证归属或待分析状态。未重新核全部语义，整个区间及运行验收仍待，不以代码标志或无xref决定范围。",
+  "source_entry_index": {
+    "date": "2026-10-02",
+    "known_ranges": 23,
+    "source_entries": 46,
+    "additional_entries_beyond_first": 23,
+    "ranges_with_multiple_entries": 5,
+    "method": "将既有直接定位清单的非元数据地址定义投影到本文件23个已知回调区间，逐项确认当前源码唯一定义及原入口为已标代码且无IDA函数归属；不发现或创建新IDA函数，不更改3680原入口分母，不据源码候选宣称区间已无遗漏。"
+  },
   "records": [
     {
       "range_start": "0x46FC0D",
@@ -40,6 +48,14 @@
       "first_code_candidate": "0x46FC10",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_46FC10",
+      "source_entries": [
+        {
+          "original_entry": "0x46FC10",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_46FC10",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -48,6 +64,32 @@
       "first_code_candidate": "0x471CD0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_471CD0",
+      "source_entries": [
+        {
+          "original_entry": "0x471CD0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_471CD0",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x471D10",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_471D10",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x471D60",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_471D60",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x471DD0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_471DD0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -56,6 +98,14 @@
       "first_code_candidate": "0x474BE0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_474BE0",
+      "source_entries": [
+        {
+          "original_entry": "0x474BE0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_474BE0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -64,6 +114,20 @@
       "first_code_candidate": "0x4782A0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4782A0",
+      "source_entries": [
+        {
+          "original_entry": "0x4782A0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4782A0",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x4782E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4782E0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -72,6 +136,14 @@
       "first_code_candidate": "0x485030",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_485030",
+      "source_entries": [
+        {
+          "original_entry": "0x485030",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_485030",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -80,6 +152,14 @@
       "first_code_candidate": "0x4876B0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4876B0",
+      "source_entries": [
+        {
+          "original_entry": "0x4876B0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4876B0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -88,6 +168,14 @@
       "first_code_candidate": "0x4950D0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4950D0",
+      "source_entries": [
+        {
+          "original_entry": "0x4950D0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4950D0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -96,6 +184,14 @@
       "first_code_candidate": "0x495750",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_495750",
+      "source_entries": [
+        {
+          "original_entry": "0x495750",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_495750",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -104,6 +200,32 @@
       "first_code_candidate": "0x495E10",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_495E10",
+      "source_entries": [
+        {
+          "original_entry": "0x495E10",
+          "original_end_exclusive": "0x495E56",
+          "instruction_count": 25,
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_495E10",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x495E60",
+          "original_end_exclusive": "0x495EA8",
+          "instruction_count": 25,
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_495E60",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x495EB0",
+          "original_end_exclusive": "0x495EF8",
+          "instruction_count": 25,
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_495EB0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -112,6 +234,14 @@
       "first_code_candidate": "0x4CE0F0",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4CE0F0",
+      "source_entries": [
+        {
+          "original_entry": "0x4CE0F0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CE0F0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -120,6 +250,14 @@
       "first_code_candidate": "0x4CE370",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4CE370",
+      "source_entries": [
+        {
+          "original_entry": "0x4CE370",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CE370",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -128,6 +266,20 @@
       "first_code_candidate": "0x4D2080",
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4D2080",
+      "source_entries": [
+        {
+          "original_entry": "0x4D2080",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4D2080",
+          "namespace": "cg::ui::detail"
+        },
+        {
+          "original_entry": "0x4D2170",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4D2170",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -136,6 +288,14 @@
       "first_code_candidate": "0x4FAAA0",
       "source": "src/YobiRuntime.cpp",
       "symbol": "Sub_4FAAA0",
+      "source_entries": [
+        {
+          "original_entry": "0x4FAAA0",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "Sub_4FAAA0",
+          "namespace": "cg::login::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -144,6 +304,14 @@
       "first_code_candidate": "0x4FC730",
       "source": "src/LegacyUiRecord.cpp",
       "symbol": "Sub_4FC730",
+      "source_entries": [
+        {
+          "original_entry": "0x4FC730",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FC730",
+          "namespace": "cg::login::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -152,6 +320,14 @@
       "first_code_candidate": "0x503BB0",
       "source": "src/LegacyUiRecord.cpp",
       "symbol": "Sub_503BB0",
+      "source_entries": [
+        {
+          "original_entry": "0x503BB0",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503BB0",
+          "namespace": "cg::login::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -160,6 +336,110 @@
       "first_code_candidate": "0x503D00",
       "source": "src/LegacyUiRecord.cpp",
       "symbol": "Sub_503D00",
+      "source_entries": [
+        {
+          "original_entry": "0x503D00",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D00",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D10",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D10",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D20",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D20",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D30",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D30",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D40",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D40",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D50",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D50",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D60",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D60",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D70",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D70",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D80",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D80",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503D90",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503D90",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503DA0",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503DA0",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503DB0",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503DB0",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503DC0",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503DC0",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503E00",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503E00",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503E10",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503E10",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503E20",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503E20",
+          "namespace": "cg::login::detail"
+        },
+        {
+          "original_entry": "0x503E30",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503E30",
+          "namespace": "cg::login::detail"
+        }
+      ],
       "status": "已定位现有本体；整段范围未作完成分类"
     },
     {
@@ -170,6 +450,14 @@
       "instruction_count": 12,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_47B0E0",
+      "source_entries": [
+        {
+          "original_entry": "0x47B0E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_47B0E0",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_10.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -183,6 +471,14 @@
       "instruction_count": 30,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_485690",
+      "source_entries": [
+        {
+          "original_entry": "0x485690",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_485690",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_12.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -196,6 +492,14 @@
       "instruction_count": 21,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_492800",
+      "source_entries": [
+        {
+          "original_entry": "0x492800",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_492800",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_19.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -209,6 +513,14 @@
       "instruction_count": 76,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4A2530",
+      "source_entries": [
+        {
+          "original_entry": "0x4A2530",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A2530",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_21.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -222,6 +534,14 @@
       "instruction_count": 34,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4BB130",
+      "source_entries": [
+        {
+          "original_entry": "0x4BB130",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4BB130",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_53.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -235,6 +555,14 @@
       "instruction_count": 32,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4C9B80",
+      "source_entries": [
+        {
+          "original_entry": "0x4C9B80",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9B80",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_59.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",
@@ -248,6 +576,14 @@
       "instruction_count": 21,
       "source": "src/ui/WindowRuntime.cpp",
       "symbol": "Sub_4CCE90",
+      "source_entries": [
+        {
+          "original_entry": "0x4CCE90",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CCE90",
+          "namespace": "cg::ui::detail"
+        }
+      ],
       "binding_source": "src/ui/WindowPrototypes.cpp",
       "evidence_document": "doc/ui_windows/window_65.md",
       "status": "已定位现有本体与绑定；整个元数据区间未作完成分类",

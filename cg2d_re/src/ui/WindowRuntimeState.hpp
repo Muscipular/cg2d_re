@@ -1141,7 +1141,7 @@ extern std::int32_t gShopScrollCC488C;
 extern std::array<char, 55> gShopPriceTextsD673EC; // 五行、11B步长；type7原型借用。
 extern std::array<char, 55> gShopCountTextsD2D988; // 五行所选数量文本，与价格区分离。
 extern std::array<char, 48> gShopTotalTextCC4B2C; // 金额或模式相关数值的共用显示文本。
-extern std::array<char, 16> gShopMoneyTextCC1A00; // 玩家金额独立文本，573D18 type7借用。
+extern std::array<char, 16> gShopMoneyTextCC1A00; // 玩家金额文本，573D18 type7借用；尾4B别名旧63页号CC1A0C。
 extern std::int32_t gShopAvailableCF4A24; // 模式2指定物品数量，装载0，窗口初始化再写-1。
 extern std::array<char, 20> gShopValueTextCF4A28; // 模式2/3数值显示，573D20借用。
 extern std::array<std::int32_t, 5> gShopRowKeysC9A954; // 多窗口共用的行编号缓存，非地址。

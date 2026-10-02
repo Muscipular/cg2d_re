@@ -25,7 +25,7 @@ int CreateSaveDirectories()
     char directory[256];
     ChangeLegacyDirectory_53DD2F("data");
     for (int i = 0; i < 10; ++i) {
-        std::sprintf(directory, "%d", i);
+        FormatLegacyString_53B304(directory, "%d", i);
         CreateLegacyDirectory_53C654(directory);
     }
     ChangeLegacyDirectory_53DD2F("..");

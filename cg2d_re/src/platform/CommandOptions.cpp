@@ -86,7 +86,7 @@ int ParseCommandOptions()
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
-    std::sprintf(gTextFF4E30, "data\\0\\%s", "save.dat");
+    FormatLegacyString_53B304(gTextFF4E30, "data\\0\\%s", "save.dat");
 
     const char* const graphicKeys[9] = {
         "graphicbin:", "graphicbinex:", "graphicbinv2:",
@@ -159,23 +159,23 @@ int ParseCommandOptions()
     for (int slot = 0; slot < 9; ++slot) {
         if (char* match = std::strstr(gCommandLine, graphicKeys[slot])) {
             ScanLegacyString_53CADC(match + std::strlen(graphicKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            FormatLegacyString_53B304(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, graphicOverrideKeys[slot])) {
             ScanLegacyString_53CADC(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
+            FormatLegacyString_53B304(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, graphicInfoKeys[slot])) {
             ScanLegacyString_53CADC(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
+            FormatLegacyString_53B304(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, animeKeys[slot])) {
             ScanLegacyString_53CADC(match + std::strlen(animeKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
+            FormatLegacyString_53B304(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, animeInfoKeys[slot])) {
             ScanLegacyString_53CADC(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
-            std::sprintf(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
+            FormatLegacyString_53B304(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
         }
     }
 
@@ -183,13 +183,13 @@ int ParseCommandOptions()
         if (!std::strchr(gResourceNames[CoordinateNames][slot], '*')) {
             if (char* match = std::strstr(gCommandLine, coordinateKeys[slot])) {
                 ScanLegacyString_53CADC(match + std::strlen(coordinateKeys[slot]), "%d", &value);
-                std::sprintf(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
+                FormatLegacyString_53B304(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
             }
         }
         if (!std::strchr(gResourceNames[CoordinateInfoNames][slot], '*')) {
             if (char* match = std::strstr(gCommandLine, coordinateInfoKeys[slot])) {
                 ScanLegacyString_53CADC(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
-                std::sprintf(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
+                FormatLegacyString_53B304(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
             }
         }
     }

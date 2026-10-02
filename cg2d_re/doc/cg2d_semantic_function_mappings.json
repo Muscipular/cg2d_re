@@ -4678,7 +4678,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "本体及ParseIpOptions_507C80已有；命令选项16个原扫描点和IP的1点已迁到真实53CADC/53DEF4，保留字节查找、共享字段、局部复用和末次507C80的0/解析返回，入口弃置结果。newest参数仍保留，不恢复排除更新链；音效/音乐开关和后处理未改，完整启动及网络流程未验。"
+      "boundary": "本体及ParseIpOptions_507C80已有；命令选项16个原扫描点和IP的1点已迁到真实53CADC/53DEF4，保留字节查找、共享字段、局部复用和末次507C80的0/解析返回，入口弃置结果。newest参数仍保留，不恢复排除更新链；音效/音乐开关和后处理未改，完整启动及网络流程未验。 8处资源名/保存路径输出已接真实53B304，原格式表、目标及扫描后value复用不变。"
     },
     {
       "original_entry": "0x4669F0",
@@ -4752,9 +4752,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "依次chdir到data、格式化并mkdir目录0至9、chdir到上级；忽略API结果，最终返回1。仅登记现有本体，本轮不执行目录操作。"
+      "boundary": "依次chdir到data、格式化并mkdir目录0至9、chdir到上级；目录名的原532E91调用已接真实53B304，格式%d、256B局部及API结果忽略/最终返回1保持；未执行目录操作或运行验收。"
     },
     {
       "original_entry": "0x456050",
@@ -14510,7 +14511,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "status": "原字符串输出包装及14个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -14526,13 +14527,38 @@
           "symbols": [
             "FormatLegacyString_53B304"
           ]
+        },
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseCommandOptions"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4B8310",
+            "Sub_4B8780",
+            "Sub_4B8C90",
+            "Sub_4C17B0",
+            "Sub_4C3A50"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "CreateSaveDirectories"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。1022应用引用尚未整体迁移。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5共14点已接，其他1008点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -14545,12 +14571,112 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
         "symbol": "__stdio_common_vsprintf",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46606B",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46653B",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466590",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4665E8",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46663D",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466692",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46670F",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466775",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions"
+        },
+        {
+          "parent_entry": "0x4B8310",
+          "call_site": "0x4B8395",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8310"
+        },
+        {
+          "parent_entry": "0x4B8780",
+          "call_site": "0x4B8804",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8780"
+        },
+        {
+          "parent_entry": "0x4B8C90",
+          "call_site": "0x4B8D15",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8C90"
+        },
+        {
+          "parent_entry": "0x4C17B0",
+          "call_site": "0x4C1839",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C17B0"
+        },
+        {
+          "parent_entry": "0x4C3A50",
+          "call_site": "0x4C3AD9",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C3A50"
+        },
+        {
+          "parent_entry": "0x532E70",
+          "call_site": "0x532E91",
+          "source": "src/platform/StartupCommon.cpp",
+          "symbol": "CreateSaveDirectories"
+        }
+      ],
+      "business_format_evidence": [
+        {
+          "address": "0x55D974",
+          "bytes": "646174615c305c257300"
+        },
+        {
+          "address": "0x586BBC",
+          "bytes": "2531306400"
+        },
+        {
+          "address": "0x5531A4",
+          "bytes": "256400"
+        }
+      ]
     },
     {
       "original_entry": "0x53D21D",
       "inventory_id": "F:0013D21D",
-      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "status": "原有界字符串输出包装及全部9个原标题调用点已接；运行/视觉和异常验收未完成",
       "original_end_exclusive": "0x53D26E",
       "instruction_count": 33,
       "original_direct_reference_count": 9,
@@ -14566,13 +14692,32 @@
           "symbols": [
             "FormatLegacyBoundedString_53D21D"
           ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48B560",
+            "Sub_4B8310",
+            "Sub_4B8780",
+            "Sub_4B8C90",
+            "Sub_4C17B0",
+            "Sub_4C3A50"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DA400"
+          ],
+          "relationship": "本步只迁移已证格式化调用，不据此宣布整段父本体通过验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE四字段，容量以W32位型作为S32 remaining；真实53EB28后再尝试NUL，恰满不强制覆盖最后字节，尾写失败不覆盖核心结果。九处标题仍用现有宿主调用，未因本体存在计迁移完成；不新增容量/空指针校验。",
+      "boundary": "原临时FILE四字段，容量以W32位型作为S32 remaining；真实53EB28后再尝试NUL，恰满不强制覆盖最后字节，尾写失败不覆盖核心结果。九处原标题调用均已接真实包装，容量256/100/28及原格式/提示字节保持，不补截断终止符，也不改后续strlen/分行/提示行为；不新增容量/空指针校验。",
       "function_chunks": [
         {
           "start": "0x53D21D",
@@ -14623,7 +14768,94 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
         "symbol": "common_vsprintf",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x48B560",
+          "call_site": "0x48B68C",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_48B560",
+          "capacity": 256
+        },
+        {
+          "parent_entry": "0x4B8310",
+          "call_site": "0x4B8430",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8310",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4B8780",
+          "call_site": "0x4B88A4",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8780",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4B8C90",
+          "call_site": "0x4B8DB0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4B8C90",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4C17B0",
+          "call_site": "0x4C18DD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C17B0",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4C17B0",
+          "call_site": "0x4C18FF",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C17B0",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4C3A50",
+          "call_site": "0x4C3B7D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C3A50",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4C3A50",
+          "call_site": "0x4C3B9F",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C3A50",
+          "capacity": 100
+        },
+        {
+          "parent_entry": "0x4DA400",
+          "call_site": "0x4DA457",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA400",
+          "capacity": 28
+        }
+      ],
+      "business_format_evidence": [
+        {
+          "address": "0x586C04",
+          "bytes": "25732825642900"
+        },
+        {
+          "address": "0x588364",
+          "bytes": "257328257325642900"
+        },
+        {
+          "address": "0x588350",
+          "bytes": "25732825732900"
+        },
+        {
+          "address": "0x588370",
+          "bytes": "b0efc57cbcc600"
+        },
+        {
+          "address": "0x588358",
+          "bytes": "a4a3a569b0efc57c00"
+        }
+      ]
     },
     {
       "original_entry": "0x53CADC",
@@ -15186,7 +15418,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。",
       "function_chunks": [
         {
           "start": "0x53EB28",

@@ -3,6 +3,7 @@
 #include "LegacyPanelRuntime.hpp"
 #include "LoginSceneDependencies.hpp"
 #include "platform/MainLoopDependencies.hpp"
+#include "platform/LegacyFormat.hpp"
 #include "ui/WindowRuntimeState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -3744,7 +3745,7 @@ void Sub_4DA400(const std::int32_t x, const std::int32_t y,
     if (count <= 1) {
         std::strcpy(title, item + 1);
     } else {
-        _snprintf(title, 28, "%s(%d)", item + 1, count);
+        platform::FormatLegacyBoundedString_53D21D(title, 28, "%s(%d)", item + 1, count);
     }
     const std::int32_t flags = ReadRecordW32(item, 0xC40);
     Sub_504BA0(x, y, 272, 4, 0, title, item + 0xC44, 0, 0,

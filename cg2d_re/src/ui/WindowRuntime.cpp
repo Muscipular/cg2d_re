@@ -6,6 +6,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "../platform/LegacyFormat.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
@@ -11883,7 +11884,7 @@ std::int32_t Sub_48B560(
         if (count <= 1) {
             std::strcpy(buffer.data(), record + 1);
         } else {
-            static_cast<void>(_snprintf(buffer.data(), 256, "%s(%d)", record + 1, count));
+            static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 256, "%s(%d)", record + 1, count));
             key = gTooltipSourceD303FC;
         }
         record = gShopItemsCF4FE0.data() + (key - 300) * 0xC58;
@@ -18466,7 +18467,7 @@ void Sub_4B8310()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        platform::FormatLegacyString_53B304(priceText, "%10d", price);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -18482,7 +18483,7 @@ void Sub_4B8310()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -18595,7 +18596,7 @@ void Sub_4B8780()
         const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        platform::FormatLegacyString_53B304(priceText, "%10d", price);
         index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
         record = gShopItemsCF4FE0.data() + index * 0xC58;
         std::uint32_t flags;
@@ -18612,7 +18613,7 @@ void Sub_4B8780()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = gShopItemsCF4FE0.data() + index * 0xC58;
@@ -18732,7 +18733,7 @@ void Sub_4B8C90()
         }
         std::int32_t price;
         std::memcpy(&price, record + 0xC24, sizeof(price));
-        std::sprintf(priceText, "%10d", price);
+        platform::FormatLegacyString_53B304(priceText, "%10d", price);
         record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
         std::uint32_t flags;
         std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -18748,7 +18749,7 @@ void Sub_4B8C90()
             if (count <= 1) {
                 std::strcpy(buffer.data(), record + 1);
             } else {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%d)", record + 1, count));
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%d)", record + 1, count));
             }
             record = gShopItemsCF4FE0.data() + (gShopScrollCC488C + row) * 0xC58;
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
@@ -22482,7 +22483,7 @@ void Sub_4C17B0()
         if (item->used == 0) {
             continue;
         }
-        std::sprintf(price, "%10d", item->valueC24);
+        platform::FormatLegacyString_53B304(price, "%10d", item->valueC24);
         item = &gWindow69ItemsCB2230[gWindow69ScrollD2D604 + row];
         if ((item->flags & 0x100u) != 0) {
             std::strcpy(buffer.data(), item->tips.data());
@@ -22493,10 +22494,10 @@ void Sub_4C17B0()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s%d)",
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s%d)",
                     item->name.data(), "\xB0\xEF\xC5\x7C\xBC\xC6", stack));
             } else {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s)",
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s)",
                     item->name.data(), "\xA4\xA3\xA5\x69\xB0\xEF\xC5\x7C"));
             }
             const std::uint32_t flags =
@@ -23431,7 +23432,7 @@ void Sub_4C3A50()
         if (item->used == 0) {
             continue;
         }
-        std::sprintf(price, "%10d", item->valueC24);
+        platform::FormatLegacyString_53B304(price, "%10d", item->valueC24);
         item = &gWindow70ItemsD30428[gWindow70ScrollCC4B68 + row];
         if ((item->flags & 0x100u) != 0) {
             std::strcpy(buffer.data(), item->tips.data());
@@ -23442,10 +23443,10 @@ void Sub_4C3A50()
         } else {
             const std::int32_t stack = item->valueC2C;
             if (stack > 1) {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s%d)",
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s%d)",
                     item->name.data(), "\xB0\xEF\xC5\x7C\xBC\xC6", stack));
             } else {
-                static_cast<void>(_snprintf(buffer.data(), 100, "%s(%s)",
+                static_cast<void>(platform::FormatLegacyBoundedString_53D21D(buffer.data(), 100, "%s(%s)",
                     item->name.data(), "\xA4\xA3\xA5\x69\xB0\xEF\xC5\x7C"));
             }
             const std::uint32_t flags =

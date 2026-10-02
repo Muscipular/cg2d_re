@@ -1552,6 +1552,21 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 
 } // namespace
 
+const WindowDialogTextLine* BorrowNpcDialogLinesCC24D4() noexcept
+{
+    return gNpcDialogLinesCC24D4.data();
+}
+
+std::int32_t ReadLegacyChoiceImageC9A99C() noexcept
+{
+    return gChoiceImageC9A99C;
+}
+
+std::int32_t ReadLegacyChoiceImageD2EA74() noexcept
+{
+    return gChoiceImageD2EA74;
+}
+
 std::int32_t ReadLegacyHealthImage(const std::int32_t health)
 {
     return gHealthImages57CBA4[Sub_519680(health)];

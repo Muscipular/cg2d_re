@@ -213,6 +213,42 @@ std::int32_t gLegacyLastUsedItemCB01EC = 0;
 
 namespace {
 
+LegacyPanelRecord gLegacyExchangePanel581A40 {
+    0, 0, 292, 260, 74, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyGiveReceivePanel581B08 {
+    0, 0, 292, 260, 83, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyExchangeActionCF4B5C = nullptr;
+YobiAction* gLegacyGiveReceiveActionCB2228 = nullptr;
+std::int32_t gLegacyGiveReceiveModeC8AA98 = 0; // 独立原状态，非4A0850的receive局部；非零生产待证。
+constexpr char kLegacyExchangeChoice588A40[] = "\x20\xB7\x51\x20\xA5\xE6\x20\xA9\xF6";
+constexpr char kLegacyExchangeCancel588A34[] = "\x20\x20\x20\xA8\x53\x20\xA8\xC6";
+constexpr char kLegacyExchangeHint588A20[] = "\xBB\x50\xA6\xB9\xA9\xB1\xA5\xE6\xA9\xF6\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyExchangeCancelHint588A10[] = "\xA4\xA3\xB7\x51\xA5\xE6\xA9\xF6\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyGiveReceiveCancel588A70[] = "\xA1\x40\xA1\x40\xA8\xFA\xAE\xF8\xA1\x40\xA1\x40";
+constexpr char kLegacyGiveChoice588A64[] = "\xA1\x40\xA5\xE6\xA5\x58\xAA\xAB\xAB\x7E";
+constexpr char kLegacyReceiveChoice585A40[] = "\xB1\xB5\xA8\xFC\xAA\xAB\xAB\x7E";
+constexpr char kLegacyGiveHint588A58[] = "\xA5\xE6\xA5\x58\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyGiveReceiveCancelHint588A4C[] = "\xA8\xFA\xAE\xF8\xA5\xE6\xA9\xF6\xA1\x43";
+
+// 旧74/83完全同构的标题及五行正文；每次绘制后仍重读面板坐标。
+void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
+{
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
+    const std::int32_t titleY = panel->y + 8;
+    const std::int32_t titleX = panel->x - width / 2 + 142;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),
+        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t y = panel->y + 16 * (row + 3);
+        const std::int32_t x = panel->x + 90;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(x),
+            static_cast<std::int16_t>(y), 2, 0, 0, lines[row + 1].text.data(), 0, 0));
+    }
+}
+
 LegacyPanelRecord gLegacyAlbumDetailPanel5846C0 {
     0, 0, 272, 438, 24, {22890, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1207,6 +1243,153 @@ std::int32_t Sub_455940()
     records[4][6] = 22998;
     records[4][7] = 22999;
     return centerY;
+}
+
+YobiAction* Sub_4D4ED0()
+{
+    const std::int32_t y = gLegacyExchangePanel581A40.y + 133;
+    const std::int32_t x = gLegacyExchangePanel581A40.x + 45;
+    const std::int32_t image = ui::detail::ReadLegacyChoiceImageC9A99C();
+    YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
+    gLegacyExchangeActionCF4B5C = action;
+    return action;
+}
+
+std::uintptr_t Sub_4D4F00(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyExchangePanel581A40.x;
+    const std::int32_t y = gLegacyExchangePanel581A40.y;
+    const character_select::detail::CharacterModalUiRecord accept {
+        x + 137, y + 172, x + 120, y + 172, 120, 18, kLegacyExchangeChoice588A40,
+    };
+    const character_select::detail::CharacterModalUiRecord cancel {
+        x + 129, y + 206, x + 120, y + 206, 120, 18, kLegacyExchangeCancel588A34,
+    };
+    const std::int32_t state = Sub_503160(opened, &gLegacyExchangePanel581A40,
+        +[] { static_cast<void>(Sub_4D4ED0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    YobiAction* action = gLegacyExchangeActionCF4B5C;
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyExchangeActionCF4B5C = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, false);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyExchangePanel581A40.id));
+    }
+    if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
+        char response[16];
+        char escaped[16];
+        std::strcpy(response, "1");
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+            request, target, 0, escaped));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+        static_cast<void>(audio::Sub_5042D0(gLegacyExchangePanel581A40.id));
+    } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+        static_cast<void>(audio::Sub_5042D0(gLegacyExchangePanel581A40.id));
+    }
+    DrawLegacySmallNpcBody(&gLegacyExchangePanel581A40);
+    static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 0, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyExchangePanel581A40) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
+        hint = kLegacyExchangeHint588A20;
+    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
+        hint = kLegacyExchangeCancelHint588A10;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyExchangePanel581A40, 1);
+}
+
+YobiAction* Sub_4D5220()
+{
+    const std::int32_t y = gLegacyGiveReceivePanel581B08.y + 133;
+    const std::int32_t x = gLegacyGiveReceivePanel581B08.x + 45;
+    const std::int32_t image = ui::detail::ReadLegacyChoiceImageD2EA74();
+    YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
+    gLegacyGiveReceiveActionCB2228 = action;
+    return action;
+}
+
+std::uintptr_t Sub_4D5250(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGiveReceivePanel581B08.x;
+    const std::int32_t y = gLegacyGiveReceivePanel581B08.y;
+    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
+        {x + 122, y + 164, x + 112, y + 164, 124, 18, input::LegacyText593850()},
+        {x + 122, y + 190, x + 112, y + 190, 124, 18, kLegacyGiveReceiveCancel588A70},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGiveReceivePanel581B08,
+        +[] { static_cast<void>(Sub_4D5220()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    YobiAction* action = gLegacyGiveReceiveActionCB2228;
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyGiveReceiveActionCB2228 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (action != nullptr) {
+        SetYobiActionFlag2(action, false);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGiveReceivePanel581B08.id));
+    }
+    buttons[0].text = gLegacyGiveReceiveModeC8AA98 != 0
+        ? kLegacyReceiveChoice585A40 : kLegacyGiveChoice588A64;
+    char response[16];
+    char escaped[16];
+    for (std::int32_t choice = 0; choice < 2; ++choice) {
+        if ((character_select::detail::Sub_503990(&buttons[choice]) & 1) != 0) {
+            std::sprintf(response, "%d", choice + 1);
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+                request, target, 0, escaped));
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::Sub_5042D0(gLegacyGiveReceivePanel581B08.id));
+        }
+    }
+    DrawLegacySmallNpcBody(&gLegacyGiveReceivePanel581B08);
+    for (const auto& button : buttons) {
+        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));
+    }
+    if (Sub_503590(&gLegacyGiveReceivePanel581B08) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyEngravingClose5868EC);
+    }
+    if (character_select::detail::Sub_503990(&buttons[0]) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(),
+            gLegacyGiveReceiveModeC8AA98 != 0 ? kLegacyReceiveChoice585A40 : kLegacyGiveHint588A58);
+    }
+    if (character_select::detail::Sub_503990(&buttons[1]) != 0) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyGiveReceiveCancelHint588A4C);
+    }
+    return Sub_503440(&gLegacyGiveReceivePanel581B08, 1);
 }
 
 std::uintptr_t Sub_4E0380(const std::int32_t opened)

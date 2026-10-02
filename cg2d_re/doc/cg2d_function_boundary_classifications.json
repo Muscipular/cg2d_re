@@ -128,6 +128,1353 @@
         "indirect_jump": "0x472315：按零扩展选择值索引4723A4"
       },
       "boundary": "4723B4..4723C3虽有八项现存指令标记，但实际位于受上界约束的U8选择表内；其逐项语义已由父函数switch承接。代码标志不能替代用途证据。保留原函数与未归属区间分母，不造新F编号，不修改IDA，也不据此排除其他区间。"
+    },
+    {
+      "range_start": "0x40573C",
+      "range_end": "0x405B40",
+      "parent_entry": "0x404DB0",
+      "parts": [
+        {
+          "start": "0x40573C",
+          "end": "0x405B40",
+          "size": 1028,
+          "references": [
+            {
+              "instruction": "0x404DD5",
+              "owner": "0x404DB0",
+              "display": "jmp     ds:jpt_404DD5[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x404DE7",
+            "0x404DF2",
+            "0x404DFD",
+            "0x404E34",
+            "0x404E4A",
+            "0x4051F1",
+            "0x404E3F",
+            "0x404ED9",
+            "0x404EE4",
+            "0x404EEF",
+            "0x404EFA",
+            "0x404E08",
+            "0x404E13",
+            "0x404E1E",
+            "0x404F05",
+            "0x404E55",
+            "0x404E76",
+            "0x404ECE",
+            "0x404E81",
+            "0x404E8C",
+            "0x404E97",
+            "0x404EA2",
+            "0x404EAD",
+            "0x404EB8",
+            "0x404EC3",
+            "0x404E29",
+            "0x404F10",
+            "0x404F1B",
+            "0x404F26",
+            "0x404F31",
+            "0x404F3C",
+            "0x404F47",
+            "0x404F89",
+            "0x404F94",
+            "0x404FB5",
+            "0x404FC0",
+            "0x404FCB",
+            "0x404FD6",
+            "0x404FE1",
+            "0x404FEC",
+            "0x404FF7",
+            "0x405002",
+            "0x40500D",
+            "0x405023",
+            "0x405018",
+            "0x404F52",
+            "0x404F68",
+            "0x404F7E",
+            "0x404F9F",
+            "0x404FAA",
+            "0x404F73",
+            "0x40502E",
+            "0x405039",
+            "0x405044",
+            "0x40504F",
+            "0x40505A",
+            "0x40507B",
+            "0x405086",
+            "0x405091",
+            "0x4050A7",
+            "0x40509C",
+            "0x4050B2",
+            "0x4050BD",
+            "0x4050C8",
+            "0x405178",
+            "0x4050D3",
+            "0x4050DE",
+            "0x40535C",
+            "0x405065",
+            "0x405070",
+            "0x404E60",
+            "0x4050E9",
+            "0x40512B",
+            "0x405136",
+            "0x405141",
+            "0x40514C",
+            "0x405157",
+            "0x405162",
+            "0x40516D",
+            "0x405183",
+            "0x40518E",
+            "0x405199",
+            "0x4051A4",
+            "0x4051AF",
+            "0x4051BA",
+            "0x4051C5",
+            "0x4050F4",
+            "0x4050FF",
+            "0x40510A",
+            "0x405115",
+            "0x405120",
+            "0x4051D0",
+            "0x4051DB",
+            "0x4051E6",
+            "0x4051FC",
+            "0x405207",
+            "0x405212",
+            "0x40521D",
+            "0x405228",
+            "0x405233",
+            "0x40523E",
+            "0x405249",
+            "0x405254",
+            "0x40525F",
+            "0x40526A",
+            "0x405275",
+            "0x405280",
+            "0x40528B",
+            "0x405296",
+            "0x4052A1",
+            "0x4052AC",
+            "0x4052B7",
+            "0x4052C2",
+            "0x4052CD",
+            "0x4052D8",
+            "0x405304",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x405346",
+            "0x405346",
+            "0x405346",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40533B",
+            "0x405351",
+            "0x405367",
+            "0x405393",
+            "0x40539E",
+            "0x4053A9",
+            "0x4053B4",
+            "0x4053BF",
+            "0x40530F",
+            "0x4053CA",
+            "0x405330",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x40530F",
+            "0x4052E3",
+            "0x4052EE",
+            "0x4052F9",
+            "0x40530F",
+            "0x40530F",
+            "0x405372",
+            "0x40537D",
+            "0x40530F",
+            "0x405388",
+            "0x4053D5",
+            "0x4053E0",
+            "0x4053F6",
+            "0x4053EB",
+            "0x405401",
+            "0x40540C",
+            "0x405417",
+            "0x405422",
+            "0x40542D",
+            "0x405438",
+            "0x405438",
+            "0x405443",
+            "0x40544E",
+            "0x405459",
+            "0x405464",
+            "0x40546F",
+            "0x40547A",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405485",
+            "0x405490",
+            "0x40549B",
+            "0x4054A6",
+            "0x4054B1",
+            "0x4054BC",
+            "0x4054C7",
+            "0x4054D2",
+            "0x4054DD",
+            "0x4054E8",
+            "0x4054F3",
+            "0x4054FE",
+            "0x405509",
+            "0x405514",
+            "0x40530F",
+            "0x40551F",
+            "0x40552A",
+            "0x405535",
+            "0x405540",
+            "0x40554B",
+            "0x405556",
+            "0x405561",
+            "0x40556C",
+            "0x405577",
+            "0x405582",
+            "0x40558D",
+            "0x405598",
+            "0x4055A3",
+            "0x4055AE",
+            "0x4055B9",
+            "0x4055C1",
+            "0x4055C9",
+            "0x4055D1",
+            "0x404DDC",
+            "0x4055D9",
+            "0x4055E1",
+            "0x4055E1",
+            "0x4055E9",
+            "0x4055F1",
+            "0x4055F9",
+            "0x405601",
+            "0x405609",
+            "0x405611",
+            "0x405619",
+            "0x405621",
+            "0x405629",
+            "0x404E6B",
+            "0x40530F",
+            "0x404F5D",
+            "0x40530F",
+            "0x40531A",
+            "0x405325",
+            "0x405631",
+            "0x405639"
+          ],
+          "all_targets_in_parent": true
+        }
+      ],
+      "status": "父函数分派数据及对齐用途已确认；不等于父链或运行验收完成",
+      "parent_inventory_id": "F:00004DB0",
+      "source": {
+        "path": "src/YobiRuntime.cpp",
+        "symbols": [
+          "UpdateBattleActor_404DB0"
+        ]
+      },
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_function_boundary_classifications.md"
+      ],
+      "boundary": "完整1028B为404DB0的257项W32跳表，所有目标仍位于原父函数内；源switch承接分派，不产生257个新入口。"
+    },
+    {
+      "range_start": "0x437AD3",
+      "range_end": "0x438230",
+      "parent_entry": "0x427470",
+      "parts": [
+        {
+          "start": "0x437AD3",
+          "end": "0x437AD4",
+          "size": 1,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "90"
+        },
+        {
+          "start": "0x437AD4",
+          "end": "0x437B38",
+          "size": 100,
+          "references": [
+            {
+              "instruction": "0x427817",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_427817[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x42A768",
+            "0x427F98",
+            "0x428209",
+            "0x4282CD",
+            "0x428441",
+            "0x4288F7",
+            "0x4299AD",
+            "0x4369F9",
+            "0x42781E",
+            "0x429AC2",
+            "0x429E77",
+            "0x429FCD",
+            "0x42A12D",
+            "0x42A166",
+            "0x42A22A",
+            "0x42A34B",
+            "0x42A3D8",
+            "0x42A520",
+            "0x4283B4",
+            "0x436FD8",
+            "0x437104",
+            "0x437203",
+            "0x428EF3",
+            "0x43797B",
+            "0x437A06"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437B38",
+          "end": "0x437B48",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x42782E",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42782E[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x427835",
+            "0x427EC7",
+            "0x427EEA",
+            "0x427F5A"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437B48",
+          "end": "0x437B54",
+          "size": 12,
+          "references": [
+            {
+              "instruction": "0x42A7B3",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42A7B3[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x42A8C1",
+            "0x42A81D",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437B54",
+          "end": "0x437B81",
+          "size": 45,
+          "references": [
+            {
+              "instruction": "0x42A7AD",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437B54[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000000000000000000000000000202020202020202020202020202020202020202020202020202020202010101",
+          "minimum": 0,
+          "maximum": 2
+        },
+        {
+          "start": "0x437B81",
+          "end": "0x437B84",
+          "size": 3,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8d4900"
+        },
+        {
+          "start": "0x437B84",
+          "end": "0x437BAC",
+          "size": 40,
+          "references": [
+            {
+              "instruction": "0x42A972",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42A972[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x42AC5F",
+            "0x4379D9",
+            "0x437248",
+            "0x42AC1B",
+            "0x42ABEB",
+            "0x429E8A",
+            "0x42A9DA",
+            "0x42AB0C",
+            "0x42A979",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437BAC",
+          "end": "0x437C22",
+          "size": 118,
+          "references": [
+            {
+              "instruction": "0x42A96C",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437BAC[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "00000900010000090909090902090909090909030303030303030303030303030404040404040404040404040404040404040101010104040404040404010101040404040409090900000900000000000000030100000400010909090901000000050604040404040400070202020007080002090902",
+          "minimum": 0,
+          "maximum": 9
+        },
+        {
+          "start": "0x437C22",
+          "end": "0x437C24",
+          "size": 2,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8bff"
+        },
+        {
+          "start": "0x437C24",
+          "end": "0x437C3C",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x42AA98",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42AA98[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x42AC5F",
+            "0x429E8A",
+            "0x42AC1B",
+            "0x42AA9F",
+            "0x437248",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437C3C",
+          "end": "0x437CCD",
+          "size": 145,
+          "references": [
+            {
+              "instruction": "0x42AA92",
+              "owner": "0x427470",
+              "display": "mov     al, ds:byte_437C3C[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "00010505000205050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050502020205030403",
+          "minimum": 0,
+          "maximum": 5
+        },
+        {
+          "start": "0x437CCD",
+          "end": "0x437CD0",
+          "size": 3,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8d4900"
+        },
+        {
+          "start": "0x437CD0",
+          "end": "0x437CE0",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x42ABB6",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42ABB6[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x42ACC9",
+            "0x42ABEB",
+            "0x42AC5F",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437CE0",
+          "end": "0x437CF2",
+          "size": 18,
+          "references": [
+            {
+              "instruction": "0x42ABB0",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437CE0[eax]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000102020301010101010102020301030202",
+          "minimum": 0,
+          "maximum": 3
+        },
+        {
+          "start": "0x437CF2",
+          "end": "0x437CF4",
+          "size": 2,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8bff"
+        },
+        {
+          "start": "0x437CF4",
+          "end": "0x437D08",
+          "size": 20,
+          "references": [
+            {
+              "instruction": "0x42ABE4",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42ABE4[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x4379D9",
+            "0x42ABEB",
+            "0x42AC1B",
+            "0x42AC5F",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437D08",
+          "end": "0x437D52",
+          "size": 74,
+          "references": [
+            {
+              "instruction": "0x42ABDE",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437D08[eax]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "0004040404040404040404040404040404040404040401010104040202020101010101010101010102020202020202020202020204040404040404040401010101010101030303030303",
+          "minimum": 0,
+          "maximum": 4
+        },
+        {
+          "start": "0x437D52",
+          "end": "0x437D54",
+          "size": 2,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8bff"
+        },
+        {
+          "start": "0x437D54",
+          "end": "0x437DA8",
+          "size": 84,
+          "references": [
+            {
+              "instruction": "0x42AE60",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42AE60[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x435B25",
+            "0x42B282",
+            "0x42C053",
+            "0x43412E",
+            "0x432ECE",
+            "0x42BEAC",
+            "0x42B600",
+            "0x42AE67",
+            "0x42C241",
+            "0x42CB5E",
+            "0x42C736",
+            "0x42CF66",
+            "0x432867",
+            "0x431CBA",
+            "0x42EB32",
+            "0x42EC95",
+            "0x42F035",
+            "0x42F3F2",
+            "0x42F739",
+            "0x42F9BF",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437DA8",
+          "end": "0x437E1E",
+          "size": 118,
+          "references": [
+            {
+              "instruction": "0x42AE5A",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437DA8[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000014000100001414141414021414141414140303030303030303030303030304040404040404040404040404040404040405050505040404040404040606060404040404141414000714000000000000000806000004000514141414090000000a0b0c0c0c0c0c0c000d0e0f10000d110012141413",
+          "minimum": 0,
+          "maximum": 20
+        },
+        {
+          "start": "0x437E1E",
+          "end": "0x437E20",
+          "size": 2,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8bff"
+        },
+        {
+          "start": "0x437E20",
+          "end": "0x437E44",
+          "size": 36,
+          "references": [
+            {
+              "instruction": "0x42FC32",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_42FC32[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x435B25",
+            "0x42FC39",
+            "0x434EDF",
+            "0x42FDCF",
+            "0x430162",
+            "0x430463",
+            "0x43097A",
+            "0x43062E",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437E44",
+          "end": "0x437ED4",
+          "size": 144,
+          "references": [
+            {
+              "instruction": "0x42FC2C",
+              "owner": "0x427470",
+              "display": "mov     al, ds:byte_437E44[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000108080002080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808030405080607",
+          "minimum": 0,
+          "maximum": 8
+        },
+        {
+          "start": "0x437ED4",
+          "end": "0x437EEC",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x431CB3",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_431CB3[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x431CBA",
+            "0x4357BA",
+            "0x432ECE",
+            "0x435B25",
+            "0x432867",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437EEC",
+          "end": "0x437F01",
+          "size": 21,
+          "references": [
+            {
+              "instruction": "0x431CAD",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437EEC[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000505010203030502020202020203030504050303",
+          "minimum": 0,
+          "maximum": 5
+        },
+        {
+          "start": "0x437F01",
+          "end": "0x437F04",
+          "size": 3,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8d4900"
+        },
+        {
+          "start": "0x437F04",
+          "end": "0x437F14",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x432276",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_432276[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x43227D",
+            "0x432ECE",
+            "0x43412E",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437F14",
+          "end": "0x437F3C",
+          "size": 40,
+          "references": [
+            {
+              "instruction": "0x432270",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437F14[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "00030303030303030303030303030303030303030303010101030302020201010101010101010101",
+          "minimum": 0,
+          "maximum": 3
+        },
+        {
+          "start": "0x437F3C",
+          "end": "0x437F54",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x432B7D",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_432B7D[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x432B84",
+            "0x432B8B",
+            "0x432B92",
+            "0x432B99",
+            "0x432BA0",
+            "0x432BA7"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437F54",
+          "end": "0x437F60",
+          "size": 12,
+          "references": [
+            {
+              "instruction": "0x432F9E",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_432F9E[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x432FF5",
+            "0x432FA5",
+            "0x43303F"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437F60",
+          "end": "0x437F77",
+          "size": 23,
+          "references": [
+            {
+              "instruction": "0x432F98",
+              "owner": "0x427470",
+              "display": "mov     cl, ds:byte_437F60[eax]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "0000000200020202020202020202020202020202020201",
+          "minimum": 0,
+          "maximum": 2
+        },
+        {
+          "start": "0x437F77",
+          "end": "0x437F78",
+          "size": 1,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "90"
+        },
+        {
+          "start": "0x437F78",
+          "end": "0x437F90",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x4331CB",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_4331CB[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433265",
+            "0x4333B5",
+            "0x4331D2",
+            "0x433210",
+            "0x433343",
+            "0x4330C2"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437F90",
+          "end": "0x437FB4",
+          "size": 36,
+          "references": [
+            {
+              "instruction": "0x4331C5",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_437F90[eax]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000000000000000000000000000000000000050505050102020202020205050503030304",
+          "minimum": 0,
+          "maximum": 5
+        },
+        {
+          "start": "0x437FB4",
+          "end": "0x437FFC",
+          "size": 72,
+          "references": [
+            {
+              "instruction": "0x4332B3",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_4332B3[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x4332BA",
+            "0x4332C1",
+            "0x4332C8",
+            "0x4332CF",
+            "0x4332D6",
+            "0x4332DD",
+            "0x4332BA",
+            "0x4332C1",
+            "0x4332C8",
+            "0x4332CF",
+            "0x4332D6",
+            "0x4332DD",
+            "0x4332BA",
+            "0x4332C1",
+            "0x4332C8",
+            "0x4332CF",
+            "0x4332D6",
+            "0x4332DD"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x437FFC",
+          "end": "0x43801C",
+          "size": 32,
+          "references": [
+            {
+              "instruction": "0x43354F",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_43354F[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433556",
+            "0x433560",
+            "0x43356A",
+            "0x433574",
+            "0x43357E",
+            "0x433588",
+            "0x433592",
+            "0x43359A"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x43801C",
+          "end": "0x43802C",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x433549",
+              "owner": "0x427470",
+              "display": "mov     cl, ds:byte_43801C[eax]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "00010203040507070707070707070706",
+          "minimum": 0,
+          "maximum": 7
+        },
+        {
+          "start": "0x43802C",
+          "end": "0x43803C",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x433858",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433858[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x43385F",
+            "0x4338FB",
+            "0x433A10",
+            "0x43397C"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x43803C",
+          "end": "0x438044",
+          "size": 8,
+          "references": [
+            {
+              "instruction": "0x433BA2",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433BA2[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433BBF",
+            "0x4330C2"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438044",
+          "end": "0x438056",
+          "size": 18,
+          "references": [
+            {
+              "instruction": "0x433B9C",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_438044[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "000000010101010100000000000000000000",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "start": "0x438056",
+          "end": "0x438058",
+          "size": 2,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8bff"
+        },
+        {
+          "start": "0x438058",
+          "end": "0x4380A0",
+          "size": 72,
+          "references": [
+            {
+              "instruction": "0x433BE3",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433BE3[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433C9E",
+            "0x433CB0",
+            "0x433CC2",
+            "0x433E8B",
+            "0x433E8B",
+            "0x433E8B",
+            "0x433E8B",
+            "0x433E8B",
+            "0x433BEA",
+            "0x433BFC",
+            "0x433C0E",
+            "0x433C20",
+            "0x433C32",
+            "0x433C44",
+            "0x433C56",
+            "0x433C68",
+            "0x433C7A",
+            "0x433C8C"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x4380A0",
+          "end": "0x4380B8",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x433D0D",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433D0D[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433D6E",
+            "0x433D14",
+            "0x433D26",
+            "0x433D38",
+            "0x433D4A",
+            "0x433D5C"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x4380B8",
+          "end": "0x4380F0",
+          "size": 56,
+          "references": [
+            {
+              "instruction": "0x433DA5",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433DA5[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433DAC",
+            "0x433DBE",
+            "0x433DD0",
+            "0x433DE2",
+            "0x433DF4",
+            "0x433E06",
+            "0x433E15",
+            "0x433E24",
+            "0x433E33",
+            "0x433E42",
+            "0x433E51",
+            "0x433E60",
+            "0x433E6F",
+            "0x433E7E"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x4380F0",
+          "end": "0x438138",
+          "size": 72,
+          "references": [
+            {
+              "instruction": "0x433EA6",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433EA6[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433EDF",
+            "0x433EE9",
+            "0x433EF3",
+            "0x433FB9",
+            "0x433FB9",
+            "0x433FB9",
+            "0x433FB9",
+            "0x433FB9",
+            "0x433EAD",
+            "0x433EAD",
+            "0x433EB7",
+            "0x433EB7",
+            "0x433EC1",
+            "0x433EC1",
+            "0x433ECB",
+            "0x433ECB",
+            "0x433ED5",
+            "0x433ED5"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438138",
+          "end": "0x438150",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x433F18",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433F18[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433F29",
+            "0x433F1F",
+            "0x433F35",
+            "0x433F35",
+            "0x433F3F",
+            "0x433F3F"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438150",
+          "end": "0x438188",
+          "size": 56,
+          "references": [
+            {
+              "instruction": "0x433F50",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_433F50[eax*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x433F57",
+            "0x433F5E",
+            "0x433F65",
+            "0x433F6C",
+            "0x433F73",
+            "0x433F7A",
+            "0x433F81",
+            "0x433F88",
+            "0x433F8F",
+            "0x433F96",
+            "0x433F9D",
+            "0x433FA4",
+            "0x433FAB",
+            "0x433FB2"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438188",
+          "end": "0x438198",
+          "size": 16,
+          "references": [
+            {
+              "instruction": "0x434127",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_434127[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x435B25",
+            "0x434EDF",
+            "0x434130",
+            "0x437A29"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438198",
+          "end": "0x4381AC",
+          "size": 20,
+          "references": [
+            {
+              "instruction": "0x434121",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_438198[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "0003030303030303030301030303030303030200",
+          "minimum": 0,
+          "maximum": 3
+        },
+        {
+          "start": "0x4381AC",
+          "end": "0x4381E0",
+          "size": 52,
+          "references": [
+            {
+              "instruction": "0x4342AE",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_4342AE[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x4342B5",
+            "0x4342E0",
+            "0x43430B",
+            "0x434336",
+            "0x4342B5",
+            "0x4342E0",
+            "0x43430B",
+            "0x434336",
+            "0x4342B5",
+            "0x4342E0",
+            "0x43430B",
+            "0x434336",
+            "0x43440D"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x4381E0",
+          "end": "0x4381FC",
+          "size": 28,
+          "references": [
+            {
+              "instruction": "0x43438C",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_43438C[edx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x4343B9",
+            "0x4343C1",
+            "0x434393",
+            "0x43439E",
+            "0x4343A9",
+            "0x4343B1",
+            "0x43442F"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x4381FC",
+          "end": "0x43820D",
+          "size": 17,
+          "references": [
+            {
+              "instruction": "0x434386",
+              "owner": "0x427470",
+              "display": "mov     dl, ds:byte_4381FC[ecx]"
+            }
+          ],
+          "kind": "U8间接选择表",
+          "bytes": "0001060606060606060606060203020405",
+          "minimum": 0,
+          "maximum": 6
+        },
+        {
+          "start": "0x43820D",
+          "end": "0x438210",
+          "size": 3,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "8d4900"
+        },
+        {
+          "start": "0x438210",
+          "end": "0x438228",
+          "size": 24,
+          "references": [
+            {
+              "instruction": "0x4343E6",
+              "owner": "0x427470",
+              "display": "jmp     ds:jpt_4343E6[ecx*4]; switch jump"
+            }
+          ],
+          "kind": "W32跳表",
+          "targets": [
+            "0x4343ED",
+            "0x4343F5",
+            "0x4343ED",
+            "0x434405",
+            "0x4343FD",
+            "0x434405"
+          ],
+          "all_targets_in_parent": true
+        },
+        {
+          "start": "0x438228",
+          "end": "0x438230",
+          "size": 8,
+          "references": [],
+          "kind": "align填充",
+          "bytes": "9090909090909090"
+        }
+      ],
+      "status": "父函数分派数据及对齐用途已确认；不等于父链或运行验收完成",
+      "parent_inventory_id": "F:00027470",
+      "source": {
+        "path": "src/YobiRuntime.cpp",
+        "symbols": [
+          "UpdateBattleEvent_427470"
+        ]
+      },
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_function_boundary_classifications.md"
+      ],
+      "boundary": "完整1885B包含28张W32跳表、15张U8选择表和12段对齐，共250个目标、853B选择值及32B填充；所有表读/间接跳转引用及目标位于427470内。父链424620等未闭合项不因数据归属确认而消失。"
     }
   ]
 }

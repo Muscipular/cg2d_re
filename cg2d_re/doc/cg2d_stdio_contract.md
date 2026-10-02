@@ -459,3 +459,61 @@ sscanf仅关联StartupCommon::ParseClientVersion原4659F0@465A09：
 
 本步新增三项限定记录，源码/CMake不改；不新增包装、失败门禁或缓冲清零。
 未构建、测试、运行格式化样例、客户端或哈希校验，格式化整板块仍未完成。
+
+## 格式化字符写出与变参取值依赖（2026-10-02）
+
+本组承接前述sprintf/_snprintf的宿主输出引擎，定位六个原私有辅助入口，
+共90条、22个直接引用。不把x86变参栈布局复制到x64，不新建临时旧FILE或参数影子表。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 原职责 |
+|---|---|---|---|
+| write_char 53F2C6 | 53F2FB | 25 / 4 | 写低U8或调flsbuf，更新S32输出计数 |
+| write_multi_char 53F2FB | 53F32C | 22 / 3 | S32正数量重复写，失败即停 |
+| write_string 53F32C | 53F364 | 27 / 3 | 按数量逐字节读取/写出，失败即停 |
+| get_int_arg 53F364 | 53F371 | 5 / 10 | 参数游标先加4，再取前一W32槽 |
+| get_int64_arg 53F371 | 53F381 | 6 / 1 | 游标先加8，低W32到EAX、高W32到EDX |
+| get_short_arg 53F381 | 53F38F | 5 / 1 | 游标先加4，只读前槽低W16到AX |
+
+### 写出与失败传播
+
+write_char先减FILE.count；非负则写参数低U8、递增FILE.ptr，
+否则把完整参数交flsbuf。返回EOF时将调用方计数写-1，否则递增计数。
+它不以输入字节FF直接判失败，也不先因传入计数已-1而跳过写操作。
+
+write_multi_char和write_string只有初始S32数量>0才开始；
+每次调用write_char后检查计数是否恰为-1，再决定继续。
+字符串按有符号char扩展传给write_char，但落盘/写缓冲仍取低U8；
+每轮先取该字节并前移局部源游标，然后才尝试写出。失败不会回滚已写前缀。
+
+UCRT corecrt_internal_stdio_output.h提供output_adapter_common、
+string_output_adapter以及write_multiple_characters。
+字符串adapter会在可用容量内批量memcpy，再更新位置/计数；
+标准snprintf可启用continue_count，legacy路径不因满缓冲继续计全部需要量。
+原逐字节读取/修改和宿主批量复制不是任意源目标别名下的等价证明，
+本步只延续前述实际路径/标题消费，不扩大成所有重叠或负长度输入都已验。
+
+宿主stream adapter的write_string_impl对EILSEQ存在写'?'后继续的恢复分支，
+原三个helper没有这个恢复分支。该宿主分支不作为本线允许替换/丢字的新增裁决，
+宽流及编码错误路径仍保持未验；不改应用错误槽来掩盖差异。
+
+### 变参物理槽不等于业务类型
+
+get_int_arg十个调用都在53EB28：53EC1D/53EC5D用于宽度/精度；
+53ED7B及53EE65取得后作为地址使用；53F017的返回用于写回W16或W32计数。
+因此W32取槽helper不能统一命名为“业务有符号整数”，更不能把实际指针截断成W32。
+
+数值分支53F06A后movsx AX，53F076后movzx AX，再决定高W32；
+53F08B走S32符号扩展，53F093清高W32；53F052读取完整64位槽。
+符号/无符号与短值选择发生在父引擎，不由get_int_arg擅自决定。
+
+get_short_arg唯一53EE05调用后，把返回交wctomb，后者只取W16。
+原helper没有movsx/movzx EAX，其高位仍来自参数游标，不能凭函数名写成
+返回“已符号扩展S16”的完整EAX合同，也无需对未消费的高位造地址残值。
+
+宿主使用read_va_arg<T>及extract_argument_from_va_list，宽度/精度为int，
+字符串/写回分别取char*/void*，整数按格式选择相应宽度和符号。
+x64参数位置由宿主va_list/ABI负责；只拓宽真实地址，数值语义不随之扩为64位。
+这里只定位实际实现及类型边界，不宣称所有旧格式/ABI/错误和父引擎已验收。
+
+本步仅补六项限定映射；既有应用源码/CMake不改。
+未构建、测试、运行格式化样例或哈希校验，53EB28完整状态机仍待独立收口。

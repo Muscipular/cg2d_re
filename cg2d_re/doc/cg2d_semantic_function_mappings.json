@@ -11919,6 +11919,174 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原先strlen给flags49h临时FILE的W32计数，再调53DEF4；宿主string adapter/locale及非空校验不同。只关联固定版本格式，不借其源码完成其他21引用、全部输入引擎或音频/newest范围，未改业务目标/默认值或模拟旧FILE。"
+    },
+    {
+      "original_entry": "0x53F2C6",
+      "inventory_id": "F:0013F2C6",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F2FB",
+      "instruction_count": 25,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_character"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原低U8写出/完整参数交flsbuf，计数失败置-1否则递增。宿主string/stream adapter提供对应职责，但缓冲状态/调用序及EILSEQ恢复不同，不改现代errno到原槽。"
+    },
+    {
+      "original_entry": "0x53F2FB",
+      "inventory_id": "F:0013F2FB",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F32C",
+      "instruction_count": 22,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_multiple_characters"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原S32数量<=0不写，正数量逐次write_char，计数等于-1则停；原三caller均输出核心。宿主同有重复写职责，格式状态机和失败时点未全部验收。"
+    },
+    {
+      "original_entry": "0x53F32C",
+      "inventory_id": "F:0013F32C",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F364",
+      "instruction_count": 27,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "write_string"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原S32数量正才写，逐次有符号W8读取后先前移游标，再写低U8/失败停；宿主字符串输出可批量memcpy，流输出有EILSEQ恢复，不称任意别名或编码失败等价。"
+    },
+    {
+      "original_entry": "0x53F364",
+      "inventory_id": "F:0013F364",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F371",
+      "instruction_count": 5,
+      "original_direct_reference_count": 10,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原先将参数游标加4再读前W32，父既消费数值也消费实际地址/写回指针。宿主按T/va_list取值，不在x64复制4B步长或统一扩大业务整数；父层53F06A/76/8B/93才决定S16/U16/S32/U32扩展。"
+    },
+    {
+      "original_entry": "0x53F371",
+      "inventory_id": "F:0013F371",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F381",
+      "instruction_count": 6,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原游标先加8，前槽低/高W32返回EAX/EDX；唯一父53F052。宿主按64位参数类型取值，x64 ABI不同但不扩为两个指针或丢高W32；完整格式消费未验。"
+    },
+    {
+      "original_entry": "0x53F381",
+      "inventory_id": "F:0013F381",
+      "status": "宿主格式化私有写出或取参职责已定位；完整引擎及运行未验",
+      "original_end_exclusive": "0x53F38F",
+      "instruction_count": 5,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "既有sprintf根的传递职责位置，不表示这些路径格式覆盖宽字符、64位或全部变参分支"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
+        "symbol": "read_va_arg"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原游标先加4，仅前槽低W16写AX，未清EAX高位；唯一父53EE05转交wctomb只消费W16。不能误记完整EAX为符号扩展S16；宿主typed参数只关联已证低W16职责，未消费地址残值不模拟。"
     }
   ]
 }

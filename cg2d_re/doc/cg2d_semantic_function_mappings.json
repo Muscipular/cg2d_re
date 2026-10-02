@@ -12931,6 +12931,528 @@
         "doc/cg2d_crt_memory_contract.md"
       ],
       "boundary": "模式2原位调整大小私有依赖：唯一realloc@53FBF5调用，成功复用原块；本体无call，详细扩展/收缩与失败门禁仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+    },
+    {
+      "original_entry": "0x53B4F2",
+      "inventory_id": "F:0013B4F2",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B51F",
+      "instruction_count": 17,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x54067C",
+          "parent_entry": "0x54060B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "从FS:0解除一层注册，按传入节点恢复ESP/EBP后跳到传入续行地址，不是普通返回函数。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B526",
+      "inventory_id": "F:0013B526",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B52D",
+      "instruction_count": 4,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540955",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5409BE",
+          "parent_entry": "0x540980"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "POP/POP/XCHG/JMP四条，重排栈并把this放ECX后尾跳；由5407BC和540980调用，不能以空包装替代。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B52D",
+      "inventory_id": "F:0013B52D",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B534",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x54093B",
+          "parent_entry": "0x5407BC"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "与53B526同形但为独立四条入口；唯一5407BC调用，不因同形取消身份。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B534",
+      "inventory_id": "F:0013B534",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B583",
+      "instruction_count": 29,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B742",
+          "parent_entry": "0x53B6E6"
+        },
+        {
+          "address": "0x54063C",
+          "parent_entry": "0x54060B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保存FS链，调用RtlUnwind，再清异常标志低位02H并接回先前节点；两父属于异常嵌套处理链。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B583",
+      "inventory_id": "F:0013B583",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B5B9",
+      "instruction_count": 27,
+      "original_direct_reference_count": 71,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": false,
+      "inbound_evidence": [
+        {
+          "address": "0x54B715",
+          "parent_entry": "0x401EC0"
+        },
+        {
+          "address": "0x54B843",
+          "parent_entry": "0x427470"
+        },
+        {
+          "address": "0x54B860",
+          "parent_entry": "0x43D7C0"
+        },
+        {
+          "address": "0x54B880",
+          "parent_entry": "0x43D810"
+        },
+        {
+          "address": "0x54B8A5",
+          "parent_entry": "0x467F30"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "EAX携带FuncInfo，补三个0参数后以八参数调540210并透传返回；71入向仅取样5项，不把样本当全业务覆盖。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B5B9",
+      "inventory_id": "F:0013B5B9",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B60D",
+      "instruction_count": 26,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x5406F9",
+          "parent_entry": "0x540686"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "由540686调用，在53B5F9调540A10设置帧后执行处理块；完整寄存器/保护帧语义待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B60D",
+      "inventory_id": "F:0013B60D",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B632",
+      "instruction_count": 16,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B5CF",
+          "parent_entry": "0x53B5B9"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "地址由53B5B9引用，在53B628调540210；其guard处理完整分支未核，不以名称当已实现。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B632",
+      "inventory_id": "F:0013B632",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B6E6",
+      "instruction_count": 56,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540477",
+          "parent_entry": "0x540452"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "由540452调用，53B6AC经1086060间接调用转换回调；原注册/失败/返回语义继续待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B6E6",
+      "inventory_id": "F:0013B6E6",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B75B",
+      "instruction_count": 47,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B63F",
+          "parent_entry": "0x53B632"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "由53B632引用，调用540210、53B534并有[ebx+18H]间接尾跳；完整保护逻辑待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B75B",
+      "inventory_id": "F:0013B75B",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B7D6",
+      "instruction_count": 51,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540371",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x540495",
+          "parent_entry": "0x540452"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "两父5402AB/540452，两处调用540AB2；具体try范围及负索引语义未逐条核定。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B7D8",
+      "inventory_id": "F:0013B7D8",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B7F8",
+      "instruction_count": 18,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x542E8E",
+          "parent_entry": "0x542E34"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "向RtlUnwind传目标帧、固定续行地址和两个0，再恢复寄存器；唯一542E34调用。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B7F8",
+      "inventory_id": "F:0013B7F8",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B81A",
+      "instruction_count": 9,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B824",
+          "parent_entry": "0x53B81A"
+        },
+        {
+          "address": "0x53B88B",
+          "parent_entry": "0x53B882"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "异常标志与6相交为0返回1；否则把帧写入调度输出并返回3；地址由局部展开与异常终止检查引用。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B81A",
+      "inventory_id": "F:0013B81A",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x53B882",
+      "instruction_count": 33,
+      "original_direct_reference_count": 4,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540739",
+          "parent_entry": "0x540686"
+        },
+        {
+          "address": "0x542E9B",
+          "parent_entry": "0x542E34"
+        },
+        {
+          "address": "0x542EDB",
+          "parent_entry": "0x542E34"
+        },
+        {
+          "address": "0x542F00",
+          "parent_entry": "0x542EF1"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "来自540686、542E34两处和542EF1，内部调NLG通知及scope表函数指针；完整状态更新/清理顺序待核。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B882",
+      "inventory_id": "F:0013B882",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B8A5",
+      "instruction_count": 10,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540783",
+          "parent_entry": "0x540686"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "读FS:0，只有handler身份及嵌套状态一致才返1，否则0；不是固定返回的无操作入口。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B8A5",
+      "inventory_id": "F:0013B8A5",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B8AE",
+      "instruction_count": 4,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x540A2E",
+          "parent_entry": "0x540A10"
+        },
+        {
+          "address": "0x540A50",
+          "parent_entry": "0x540A10"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "四条前缀保存EBX/ECX并选择58F874，尾跳共享NLG正文；该独立入口不当成无效填充。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x53B8AE",
+      "inventory_id": "F:0013B8AE",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x53B8C6",
+      "instruction_count": 10,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B869",
+          "parent_entry": "0x53B81A"
+        },
+        {
+          "address": "0x542EAC",
+          "parent_entry": "0x542E34"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "经EBP读取通知参数，按+8/+4/+0C向58F874发布ECX/EAX/EBP，恢复寄存器并ret4；不创建新端影子通知槽。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x542E34",
+      "inventory_id": "F:00142E34",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x542EF1",
+      "instruction_count": 73,
+      "original_direct_reference_count": 14,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": false,
+      "inbound_evidence": [
+        {
+          "address": "0x542E32"
+        },
+        {
+          "address": "0x53C468",
+          "parent_entry": "0x53C45E"
+        },
+        {
+          "address": "0x53C4EA",
+          "parent_entry": "0x53C4E0"
+        },
+        {
+          "address": "0x53C56A",
+          "parent_entry": "0x53C560"
+        },
+        {
+          "address": "0x53DDBF",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原SEH handler入口，内部执行scope表过滤/清理并调用全局展开、局部展开及NLG通知；14引用只输出5个样本，完整分派未验。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x542EF1",
+      "inventory_id": "F:00142EF1",
+      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "original_end_exclusive": "0x542F0C",
+      "instruction_count": 11,
+      "original_direct_reference_count": 0,
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "调用53B81A的展开辅助，当前直接入向为0；不能据此判不可达或排除，完整调用方式继续待。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x54AC98",
+      "inventory_id": "F:0014AC98",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x54ACB7",
+      "instruction_count": 10,
+      "original_direct_reference_count": 32,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": false,
+      "inbound_evidence": [
+        {
+          "address": "0x5482E2",
+          "parent_entry": "0x5482DD"
+        },
+        {
+          "address": "0x548468",
+          "parent_entry": "0x548463"
+        },
+        {
+          "address": "0x5484D2",
+          "parent_entry": "0x5484CD"
+        },
+        {
+          "address": "0x54853C",
+          "parent_entry": "0x548537"
+        },
+        {
+          "address": "0x5485A4",
+          "parent_entry": "0x54859F"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以栈和EAX建立FS:0异常注册及EBP，重新压返回地址再ret；32引用只取样5项，不把它实现成普通C++函数。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x54AB1C",
+      "inventory_id": "F:0014AB1C",
+      "status": "原异常ABI叶全本体已取证；新端承接及等价验收未完成",
+      "original_end_exclusive": "0x54AB22",
+      "instruction_count": 1,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令；入向是否完整见inbound_evidence_complete",
+      "inbound_evidence_complete": true,
+      "inbound_evidence": [
+        {
+          "address": "0x53B557",
+          "parent_entry": "0x53B534"
+        },
+        {
+          "address": "0x53B7EB",
+          "parent_entry": "0x53B7D8"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "单条间接尾跳__imp_RtlUnwind，两调用来自53B534/53B7D8；仅确认系统导入转发，未承诺新端x64异常现场等价。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
     }
   ]
 }

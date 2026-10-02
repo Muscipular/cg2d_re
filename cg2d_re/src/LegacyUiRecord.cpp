@@ -222,6 +222,12 @@ LegacyPanelRecord gLegacyGiveReceivePanel581B08 {
 YobiAction* gLegacyExchangeActionCF4B5C = nullptr;
 YobiAction* gLegacyGiveReceiveActionCB2228 = nullptr;
 std::int32_t gLegacyGiveReceiveModeC8AA98 = 0; // 独立原状态，非4A0850的receive局部；非零生产待证。
+LegacyPanelRecord gLegacyGiveReceiveQuantityPanel581BD0 {
+    0, 0, 576, 432, 84, {23330, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr;
+std::int32_t gLegacyGiveReceiveImageD2D814 = 0; // 独立图号，生产待证，不借现代D2DAD0。
+std::int32_t gLegacyGiveReceiveDetailPageD2EAB0 = 0;
 constexpr char kLegacyExchangeChoice588A40[] = "\x20\xB7\x51\x20\xA5\xE6\x20\xA9\xF6";
 constexpr char kLegacyExchangeCancel588A34[] = "\x20\x20\x20\xA8\x53\x20\xA8\xC6";
 constexpr char kLegacyExchangeHint588A20[] = "\xBB\x50\xA6\xB9\xA9\xB1\xA5\xE6\xA9\xF6\xAA\xAB\xAB\x7E\xA1\x43";
@@ -231,6 +237,16 @@ constexpr char kLegacyGiveChoice588A64[] = "\xA1\x40\xA5\xE6\xA5\x58\xAA\xAB\xAB
 constexpr char kLegacyReceiveChoice585A40[] = "\xB1\xB5\xA8\xFC\xAA\xAB\xAB\x7E";
 constexpr char kLegacyGiveHint588A58[] = "\xA5\xE6\xA5\x58\xAA\xAB\xAB\x7E\xA1\x43";
 constexpr char kLegacyGiveReceiveCancelHint588A4C[] = "\xA8\xFA\xAE\xF8\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kLegacyQuantityUnit5889A4[] = "\xAD\xD3";
+constexpr char kLegacyQuantityIncreaseLimit588ABC[] = "\xB5\x4C\xAA\x6B\xA6\x41\xBC\x57\xA5\x5B\xA1\x43";
+constexpr char kLegacyReceiveIncrease588AA8[] = "\xBC\x57\xA5\x5B\xB1\xB5\xA8\xFC\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyGiveIncrease588ACC[] = "\xBC\x57\xA5\x5B\xA5\xE6\xA5\x58\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyQuantityDecreaseLimit588944[] = "\xB5\x4C\xAA\x6B\xA6\x41\xB4\xEE\xA4\xD6\xA1\x43";
+constexpr char kLegacyReceiveDecrease588A80[] = "\xB4\xEE\xA4\xD6\xB1\xB5\xA8\xFC\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyGiveDecrease588A94[] = "\xB4\xEE\xA4\xD6\xA5\xE6\xA5\x58\xAA\xBA\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyReceiveCancel588AEC[] = "\xA8\xFA\xAE\xF8\xB1\xB5\xA6\xAC\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyGiveCancel588AFC[] = "\xA8\xFA\xAE\xF8\xA5\xE6\xA5\x58\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyReceiveHint588AE0[] = "\xB1\xB5\xA8\xFC\xAA\xAB\xAB\x7E\xA1\x43";
 
 // 旧74/83完全同构的标题及五行正文；每次绘制后仍重读面板坐标。
 void DrawLegacySmallNpcBody(const LegacyPanelRecord* const panel)
@@ -1390,6 +1406,263 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyGiveReceiveCancelHint588A4C);
     }
     return Sub_503440(&gLegacyGiveReceivePanel581B08, 1);
+}
+
+YobiAction* Sub_4D5580()
+{
+    const std::int32_t y = gLegacyGiveReceiveQuantityPanel581BD0.y + 245;
+    const std::int32_t x = gLegacyGiveReceiveQuantityPanel581BD0.x + 469;
+    const std::int32_t image = gLegacyGiveReceiveImageD2D814;
+    YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
+    gLegacyGiveReceiveQuantityActionCB1DD4 = action;
+    return action;
+}
+
+std::uintptr_t Sub_4D55C0(const std::int32_t opened)
+{
+    const std::int32_t y = gLegacyGiveReceiveQuantityPanel581BD0.y;
+    const std::int32_t x = gLegacyGiveReceiveQuantityPanel581BD0.x;
+    LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23331, 23332};
+    LegacyPanelButtonRecord disabled {x + 418, y + 396, x + 378, y + 380, 80, 32, 23333, 0};
+    LegacyPanelButtonRecord cancel {x + 514, y + 396, x + 474, y + 380, 80, 32, 23076, 23077};
+    LegacyPanelButtonRecord previous {x + 136, y + 51, x + 122, y + 39, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 226, y + 51, x + 212, y + 39, 28, 24, 23023, 23027};
+    LegacyPanelButtonRecord increase {x + 128, y + 100, x + 114, y + 88, 28, 24, 23020, 23024};
+    LegacyPanelButtonRecord decrease {x + 162, y + 100, x + 148, y + 88, 28, 24, 23021, 23025};
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyGiveReceiveQuantityPanel581BD0,
+        +[] { static_cast<void>(Sub_4D5580()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (audio::Sub_504410(85) == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        YobiAction* action = gLegacyGiveReceiveQuantityActionCB1DD4;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (gLegacyGiveReceiveQuantityActionCB1DD4 != nullptr) {
+        SetYobiActionFlag2(gLegacyGiveReceiveQuantityActionCB1DD4, false);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGiveReceiveQuantityPanel581BD0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const char* const detail = ui::detail::gShopDetailCC3210.data();
+    const auto value = [detail](const std::size_t offset) { return ReadRecordW32(detail, offset); };
+    std::int32_t available = 0;
+    if (ui::detail::gShopValueCAFEA4 == 0) {
+        available = value(0xC24);
+    } else {
+        const std::int32_t itemId = value(0xC28);
+        for (const auto& item : world::detail::gPlayerItemsFDA8A4) {
+            if (item.used != 0 && item.itemId == itemId) {
+                available += item.count;
+            }
+        }
+    }
+    const std::int32_t hitY = gLegacyGiveReceiveQuantityPanel581BD0.y;
+    const std::int32_t price = value(0xC2C);
+    const std::int32_t total = price * ui::detail::gShopValueD046C4;
+    const std::int32_t hitX = gLegacyGiveReceiveQuantityPanel581BD0.x;
+    const bool hovered = Sub_5049A0(hitX + 20, hitY + 92, hitX + 67, hitY + 139, -1) != 0;
+    if (!hovered) {
+        gLegacyGiveReceiveDetailPageD2EAB0 = 0;
+    }
+    if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGiveReceiveQuantityPanel581BD0.id));
+    } else if (ui::detail::gShopValueD046C4 > 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(85));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if (hovered && (static_cast<std::uint8_t>(gValueD68D9C) & 2) != 0) {
+        ++gLegacyGiveReceiveDetailPageD2EAB0;
+        if (gLegacyGiveReceiveDetailPageD2EAB0 >= 4) {
+            gLegacyGiveReceiveDetailPageD2EAB0 = 0;
+        }
+    } else if ((QueryPanelButtonState(&increase) & 0x10) != 0) {
+        if (ui::detail::gShopValueCAFEA4 == 0) {
+            const std::int32_t selected = ui::detail::gShopValueD046C4;
+            const std::int32_t capacity = value(0xC30);
+            const std::int32_t current = value(0xC34);
+            const std::int32_t remaining = available - selected;
+            if (remaining > 0 && current + selected < capacity && selected < ui::detail::gQuantityLimit581C94) {
+                ui::detail::gShopValueD672D4 = 0;
+                ui::detail::gShopValueD046C4 = selected + 1;
+                static_cast<void>(audio::PlaySe_52C450(51, 320));
+            } else {
+                if (remaining <= 0) {
+                    ui::detail::gShopValueD672D4 = 1;
+                } else if (current + selected >= capacity) {
+                    ui::detail::gShopValueD672D4 = 2;
+                }
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                ui::detail::gShopValueD046C4 = 0;
+            }
+        } else {
+            const std::int32_t selected = ui::detail::gShopValueD046C4;
+            const std::int32_t quantity = value(0xC24);
+            if (selected >= quantity) {
+                ui::detail::gShopValueD672D4 = 1;
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                ui::detail::gShopValueD046C4 = 0;
+            } else {
+                const std::int32_t current = value(0xC34);
+                const std::int32_t money = world::detail::ReadPlayerValueFC();
+                const std::int32_t remaining = current - selected;
+                if (remaining > 0 && total < money && selected < ui::detail::gQuantityLimit581C94) {
+                    ui::detail::gShopValueD672D4 = 0;
+                    ui::detail::gShopValueD046C4 = selected + 1;
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                } else {
+                    if (remaining <= 0) {
+                        ui::detail::gShopValueD672D4 = 2;
+                    } else if (total >= money) {
+                        ui::detail::gShopValueD672D4 = 3;
+                    }
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    ui::detail::gShopValueD046C4 = 0;
+                }
+            }
+        }
+    } else if ((QueryPanelButtonState(&decrease) & 0x10) != 0) {
+        const std::int32_t selected = ui::detail::gShopValueD046C4;
+        if (selected > 0) {
+            ui::detail::gShopValueD672D4 = 0;
+            ui::detail::gShopValueD046C4 = selected - 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+            const std::int32_t capacity = value(0xC30);
+            const std::int32_t current = value(0xC34);
+            std::int32_t amount = capacity - current;
+            if (amount >= available) {
+                amount = available;
+            }
+            const std::int32_t limit = ui::detail::gQuantityLimit581C94;
+            ui::detail::gShopValueD046C4 = amount;
+            if (amount >= limit) {
+                ui::detail::gShopValueD046C4 = limit;
+            }
+        }
+    }
+    if (hovered) {
+        const std::int32_t top = gLegacyGiveReceiveQuantityPanel581BD0.y;
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t left = gLegacyGiveReceiveQuantityPanel581BD0.x;
+        DrawGraphicHover(Low16(left + 20), Low16(top + 92), Low16(left + 67), Low16(top + 139), 213, color, 0);
+        const std::int32_t detailY = gLegacyGiveReceiveQuantityPanel581BD0.y + 32;
+        const std::int32_t page = gLegacyGiveReceiveDetailPageD2EAB0;
+        const std::int32_t detailX = gLegacyGiveReceiveQuantityPanel581BD0.x + 298;
+        static_cast<void>(Sub_4D61E0(detailX, detailY, page));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacyGiveReceiveQuantityPanel581BD0.y + offsetY;
+        const std::int32_t left = gLegacyGiveReceiveQuantityPanel581BD0.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
+    };
+    const std::int32_t image = value(0xC20);
+    const std::int32_t imageY = gLegacyGiveReceiveQuantityPanel581BD0.y + 116;
+    const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
+    static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
+    char buffer[128];
+    std::sprintf(buffer, "%7d", value(0xC34));
+    drawAt(buffer, 87, 120, 0);
+    std::sprintf(buffer, "%2d", ui::detail::gShopValueD046C4);
+    drawAt(buffer, 82, 92, 0);
+    drawAt(kLegacyQuantityUnit5889A4, 155, 120, 4);
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
+    drawAt(lines[0].text.data(), 288 - titleWidth / 2, 8, 0);
+    if (ui::detail::gShopValueCAFEA4 == 0 && available <= 0) {
+        ui::detail::gShopValueD672D4 = 3;
+    }
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t group = ui::detail::gShopValueD672D4;
+        drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
+    }
+    std::sprintf(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
+    drawAt(buffer, 463, 286, 0);
+    drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
+    std::sprintf(buffer, "%7d", ui::detail::gShopValueD046C4);
+    drawAt(buffer, 463, 338, 0);
+    drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
+    std::sprintf(buffer, "1/1");
+    drawAt(buffer, 168, 43, 0);
+    Sub_5035E0(&increase, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&decrease, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+    if (ui::detail::gShopValueD046C4 != 0) {
+        Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
+    } else {
+        Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
+    }
+    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyGiveReceiveQuantityPanel581BD0) != 0) {
+        hint = kLegacyEngravingClose5868EC;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = ui::detail::gShopValueCAFEA4 != 0 ? kLegacyReceiveCancel588AEC : kLegacyGiveCancel588AFC;
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = ui::detail::gShopValueCAFEA4 != 0 ? kLegacyReceiveHint588AE0 : kLegacyGiveHint588A58;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    if ((QueryPanelButtonState(&increase) & 0x40) != 0) {
+        const std::int32_t mode = ui::detail::gShopValueCAFEA4;
+        const std::int32_t selected = ui::detail::gShopValueD046C4;
+        bool canIncrease = false;
+        if (mode == 0) {
+            if (available - selected > 0) {
+                const std::int32_t current = value(0xC34);
+                const std::int32_t capacity = value(0xC30);
+                canIncrease = current + selected < capacity && selected < ui::detail::gQuantityLimit581C94;
+            }
+            hint = canIncrease ? kLegacyGiveIncrease588ACC : kLegacyQuantityIncreaseLimit588ABC;
+        } else {
+            canIncrease = selected < value(0xC24) && value(0xC34) - selected > 0
+                && total < world::detail::ReadPlayerValueFC() && selected < ui::detail::gQuantityLimit581C94;
+            hint = canIncrease ? kLegacyReceiveIncrease588AA8 : kLegacyQuantityIncreaseLimit588ABC;
+        }
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    if ((QueryPanelButtonState(&decrease) & 0x40) != 0) {
+        hint = ui::detail::gShopValueD046C4 <= 0 ? kLegacyQuantityDecreaseLimit588944
+            : (ui::detail::gShopValueCAFEA4 != 0 ? kLegacyReceiveDecrease588A80 : kLegacyGiveDecrease588A94);
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGiveReceiveQuantityPanel581BD0, 1);
+}
+
+std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::int32_t page)
+{
+    const char* const name = ui::detail::gShopDetailCC3210.data();
+    const std::int32_t width = TextMeasure(name, 0);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, name, 0, 0));
+    const char* const description = ui::detail::gShopDetailCC3210.data() + 0x1D + 768 * page;
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const char* const line = description + 96 * row;
+        if (std::strlen(line) != 0) {
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+        }
+    }
+    return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
 }
 
 std::uintptr_t Sub_4E0380(const std::int32_t opened)

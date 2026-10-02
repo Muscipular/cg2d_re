@@ -114,6 +114,9 @@ YobiAction* Sub_4D4ED0(); // 旧74预览，始终创建并发布T*。
 std::uintptr_t Sub_4D4F00(std::int32_t opened); // 旧74交易选择，取消不发送。
 YobiAction* Sub_4D5220(); // 旧83预览，图号借4A0850同源状态。
 std::uintptr_t Sub_4D5250(std::int32_t opened); // 旧83交出/接受，取消也发送且继续扫描。
+YobiAction* Sub_4D5580(); // 旧84独立D2D814图号，创建后发布CB1DD4。
+std::uintptr_t Sub_4D55C0(std::int32_t opened); // 旧84完整数量交互，详情/数量复用商店owner。
+std::int32_t Sub_4D61E0(std::int32_t x, std::int32_t y, std::int32_t page); // CC3210八行详情及背景。
 std::uintptr_t Sub_4E0380(std::int32_t opened); // 旧72四页分派/确认发送，关闭可返回原生预览地址。
 char* Sub_4E0270(std::int32_t side); // 旧72统计展示区空槽，返回第20项末端原生指针。
 std::int32_t Sub_4E0BC0(std::int32_t side); // 旧72物品格命中，每行首命中而非全表首命中。

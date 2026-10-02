@@ -3803,6 +3803,272 @@
         "doc/cg2d_audio_update.md"
       ],
       "boundary": "原52B007引用此DSOUND序号1跳板；本条只分类原导入，不恢复DirectSound、murD、52C3D0或完整音频，不把既有局部SDL音频视为该入口完整替代验收。"
+    },
+    {
+      "original_entry": "0x508910",
+      "inventory_id": "F:00108910",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "角色列表请求启动",
+      "reference_sites": [
+        "0x45DE16"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterListRequest.cpp",
+          "symbols": [
+            "StartCharacterListRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterListProgress.cpp",
+          "symbols": [
+            "UpdateCharacterListProgress_45DD60"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先按0/1两次清角色记录，再采socket、清列表回复码、发送512B90、置共享请求状态1并发布/返回完整U32起始tick；不将两记录清理合并为新私有存储。"
+    },
+    {
+      "original_entry": "0x508950",
+      "inventory_id": "F:00108950",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "角色列表请求轮询",
+      "reference_sites": [
+        "0x45DEA9"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterListRequest.cpp",
+          "symbols": [
+            "PollCharacterListRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterListProgress.cpp",
+          "symbols": [
+            "UpdateCharacterListProgress_45DD60"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "完成时先采独立W16列表回复码再清共享状态：1返回1、2返回-3、其他返回-2；非完成时按U32差值严格大于600000才写原字节超时正文并返回-1，不套登录轮询门禁。"
+    },
+    {
+      "original_entry": "0x508AF0",
+      "inventory_id": "F:00108AF0",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "选中角色登录请求启动",
+      "reference_sites": [
+        "0x45EAEB"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "StartLoginRequest"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateLoginProgress"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留S16选择及已证有效输入前提，清回复码后依序读取记录+18/+50/+4C，按既有512B00参数序发送，再置状态和发布/返回U32 tick；不加范围钳制。"
+    },
+    {
+      "original_entry": "0x508B50",
+      "inventory_id": "F:00108B50",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "选中角色登录请求轮询",
+      "reference_sites": [
+        "0x45EB75"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "PollLoginRequest"
+          ]
+        },
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "UpdateLoginProgress"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "首先采一次共享轮询开关，零直接返回0；状态2先清状态，仅回复1写结果标志1并返回1，其他返回-2；超时沿独立原文案，不与列表/删除轮询合并。"
+    },
+    {
+      "original_entry": "0x508E00",
+      "inventory_id": "F:00108E00",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "角色创建请求启动",
+      "reference_sites": [
+        "0x45E88C"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterCreationRequest.cpp",
+          "symbols": [
+            "StartCharacterCreationRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_45E7D0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按既有创建属性/元素/图号/动作/选择/socket取样顺序，清创建回复码，发送5128C0后置状态和发布tick；字段均复用实际创建状态owner。内层调用已有，不因此关闭4626A0外层入口门禁待决。"
+    },
+    {
+      "original_entry": "0x508E90",
+      "inventory_id": "F:00108E90",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "角色创建请求轮询",
+      "reference_sites": [
+        "0x45E8A0"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterCreationRequest.cpp",
+          "symbols": [
+            "PollCharacterCreationRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_45E7D0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "完成时读取独立W16创建回复码后清状态，恰好1返回1，其他返回-2；未完成则严格大于600000时写创建超时原字节并返回-1，外层创建接线及实际收发仍未验。"
+    },
+    {
+      "original_entry": "0x508F70",
+      "inventory_id": "F:00108F70",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "选中角色删除请求启动",
+      "reference_sites": [
+        "0x45DC8B"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "StartCharacterDeletionRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "采S16选择、清删除回复码，再采socket及对应记录+4C编号；512AB0发送后置状态并发布/返回完整U32 tick，不重采选择或新建记录owner。"
+    },
+    {
+      "original_entry": "0x508FC0",
+      "inventory_id": "F:00108FC0",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "选中角色删除请求轮询",
+      "reference_sites": [
+        "0x45DD15"
+      ],
+      "sources": [
+        {
+          "path": "src/CharacterDeletionRequest.cpp",
+          "symbols": [
+            "PollCharacterDeletionRequest"
+          ]
+        },
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "状态2时先采删除W16回复码再清状态，任意非零返回1、零返回-2，不能误套创建/登录的恰好1判定；超时正文/阈值与原返回保持。"
+    },
+    {
+      "original_entry": "0x510140",
+      "inventory_id": "F:00110140",
+      "status": "已有请求本体与调用映射，完整收发未验",
+      "original_role": "共享请求结果读取",
+      "reference_sites": [
+        "0x403EBC",
+        "0x457257",
+        "0x45727C",
+        "0x4573C1",
+        "0x4573F9",
+        "0x457447"
+      ],
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "ReadRequestOutcomeFlag"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoop.cpp",
+          "symbols": [
+            "MainLoop"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "只返回同源DA3B30完整S32，不归一化为bool；主循环五个独立调用点保留。403EBC位于403E50待决发送链，getter已有不代表该链完成，也不把本函数归入相邻newest五函数排除。"
     }
   ]
 }

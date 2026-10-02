@@ -196,3 +196,21 @@ IME继续沿现有IMM32 A接口旧字节合同；HIMC/HKL/HWND和原生返回在
 快照/模块/进程枚举沿MainLoopSupport当前原生结构，将dwSize赋为sizeof整个宿主记录；没有运行这些API，也没有改为固定成功或复制原x86结构尺寸。
 
 DirectDraw两处原创建尝试按[SDL呈现合同](cg2d_sdl_presenter.md)已有替代，不声称GUID、HRESULT或重试次数逐项相同。DirectSound仅登记暂缓状态，既有局部SDL音频并不使完整音频或murD/52C3D0自动完成。本轮不改任何业务、API调用、CMake依赖或源码文件，只补导入位置分类；全部父流程和真实运行仍以各自验收证据为准。
+
+## 登录及角色请求的命名入口映射
+
+2026-10-02，沿直接定义定位清单补九条不在名称中保留地址的现有本体映射。只核当前入口/调用位置、已保存合同及必要元数据，不无差别重做已完成的原算法验证；四组请求启动/轮询和共享结果读取均有真实唯一本体，不新增包装或假返回。
+
+| 原入口 | 现有本体 | 实际直接调用侧 |
+|---|---|---|
+| 508910/508950 | CharacterListRequest.cpp：StartCharacterListRequest/PollCharacterListRequest | CharacterListProgress.cpp：UpdateCharacterListProgress_45DD60 |
+| 508AF0/508B50 | LoginRequest.cpp：StartLoginRequest/PollLoginRequest | LoginState.cpp：UpdateLoginProgress |
+| 508E00/508E90 | CharacterCreationRequest.cpp：StartCharacterCreationRequest/PollCharacterCreationRequest | CharacterSelectScene.cpp：Sub_45E7D0 |
+| 508F70/508FC0 | CharacterDeletionRequest.cpp：StartCharacterDeletionRequest/PollCharacterDeletionRequest | CharacterDeletionProgress.cpp：UpdateCharacterDeletionProgress_45DC00 |
+| 510140 | LoginRequest.cpp：ReadRequestOutcomeFlag | MainLoop.cpp五个静态调用点；另一个原引用403EBC仍随403E50发送接线待决 |
+
+四组启动均在各自真实发送后发布共享请求状态和起始tick，但取样和清理顺序独立：列表先清两条记录；登录按+18/+50/+4C采样；创建沿共享属性/元素/图号/动作及名称；删除采对应记录+4C。原socket为地址边界，新端保持本机宽度；选择值仍按原S16解释，其他协议数值不扩宽。
+
+轮询不能合并为一种通用成功判定：列表回复1/2/其他分别为1/-3/-2；登录先有轮询开关，回复恰好1才设置共享结果并成功；创建恰好1成功；删除任意非零回复成功。各自未完成时保留U32经过时间严格大于600000的超时条件和独立原字节文案。510140原样返回完整共享S32，主循环仍保留五处独立读取；它不属于newest五函数范围排除。
+
+本轮未改请求业务或发送/回复生产者；内层请求调用已有不代表创建场景入口门禁、取消加密后的wire接线或完整收发已闭合。新增映射只消除命名造成的定位遗漏，不将源码、历史验证或函数数量转换为整体完成率。

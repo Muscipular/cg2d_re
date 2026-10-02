@@ -182,6 +182,1029 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
       "boundary": "公共图形入队已由DrawGraphic承接；本项只建立地址映射，不重新宣布所有caller或队列运行验收通过。"
+    },
+    {
+      "original_entry": "0x467B90",
+      "inventory_id": "F:00067B90",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "PlayerCoordinatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializePlayerCoordinates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553064",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9EE8A8",
+        "0x9EE8C0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553064先调用0x467BA0，再登记0x467BD0；InitializePlayerCoordinates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467BA0",
+      "inventory_id": "F:00067BA0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializePlayerCoordinates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553064",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9EE8A8",
+        "0x9EE8C0"
+      ],
+      "instruction_count": 4,
+      "boundary": "原构造目标按列示顺序由InitializePlayerCoordinates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467BD0",
+      "inventory_id": "F:00067BD0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializePlayerCoordinates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553064",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9EE8C0",
+        "0x9EE8A8"
+      ],
+      "instruction_count": 4,
+      "boundary": "原析构目标按列示顺序由InitializePlayerCoordinates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467BF0",
+      "inventory_id": "F:00067BF0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldCoordinateStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553068",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xC751C0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467C00",
+      "inventory_id": "F:00067C00",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553068",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xC751C0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467C20",
+      "inventory_id": "F:00067C20",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553068",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xC751C0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467C30",
+      "inventory_id": "F:00067C30",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldCoordinateStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55306C",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xC751B0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467C40",
+      "inventory_id": "F:00067C40",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55306C",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xC751B0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467C60",
+      "inventory_id": "F:00067C60",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55306C",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xC751B0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467C70",
+      "inventory_id": "F:00067C70",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldCoordinateStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553070",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9EE8D0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553070先调用0x467C80，再登记0x467CA0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467C80",
+      "inventory_id": "F:00067C80",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553070",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9EE8D0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467CA0",
+      "inventory_id": "F:00067CA0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553070",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9EE8D0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467CB0",
+      "inventory_id": "F:00067CB0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldCoordinateStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553074",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9EE8E0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553074先调用0x467CC0，再登记0x467CE0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467CC0",
+      "inventory_id": "F:00067CC0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553074",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9EE8E0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467CE0",
+      "inventory_id": "F:00067CE0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553074",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9EE8E0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467CF0",
+      "inventory_id": "F:00067CF0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldCoordinateStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553078",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xC27FF8",
+        "0xC27FE8"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553078先调用0x467D00，再登记0x467D30；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467D00",
+      "inventory_id": "F:00067D00",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553078",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xC27FF8",
+        "0xC27FE8"
+      ],
+      "instruction_count": 4,
+      "boundary": "原构造目标按列示顺序由InitializeWorldCoordinateStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467D30",
+      "inventory_id": "F:00067D30",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldCoordinateStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553078",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xC27FE8",
+        "0xC27FF8"
+      ],
+      "instruction_count": 4,
+      "boundary": "原析构目标按列示顺序由InitializeWorldCoordinateStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467D50",
+      "inventory_id": "F:00067D50",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55307C",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9A7F88",
+        "0x9A7F98"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x55307C先调用0x467D60，再登记0x467D90；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467D60",
+      "inventory_id": "F:00067D60",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55307C",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9A7F88",
+        "0x9A7F98"
+      ],
+      "instruction_count": 4,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467D90",
+      "inventory_id": "F:00067D90",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55307C",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9A7F98",
+        "0x9A7F88"
+      ],
+      "instruction_count": 4,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467DB0",
+      "inventory_id": "F:00067DB0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553080",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xC821E8"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553080先调用0x467DC0，再登记0x467DE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467DC0",
+      "inventory_id": "F:00067DC0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553080",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xC821E8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467DE0",
+      "inventory_id": "F:00067DE0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553080",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xC821E8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467DF0",
+      "inventory_id": "F:00067DF0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553084",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9E03C0"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553084先调用0x467E00，再登记0x467E20；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467E00",
+      "inventory_id": "F:00067E00",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553084",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9E03C0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467E20",
+      "inventory_id": "F:00067E20",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553084",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9E03C0"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467E30",
+      "inventory_id": "F:00067E30",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553088",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9FB918"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553088先调用0x467E40，再登记0x467E60；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467E40",
+      "inventory_id": "F:00067E40",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553088",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9FB918"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467E60",
+      "inventory_id": "F:00067E60",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553088",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9FB918"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467E70",
+      "inventory_id": "F:00067E70",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55308C",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xAF0FE8"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x55308C先调用0x467E80，再登记0x467EA0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467E80",
+      "inventory_id": "F:00067E80",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55308C",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xAF0FE8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467EA0",
+      "inventory_id": "F:00067EA0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x55308C",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xAF0FE8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467EB0",
+      "inventory_id": "F:00067EB0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldMoveStatesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553090",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0xC821D8"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553090先调用0x467EC0，再登记0x467EE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467EC0",
+      "inventory_id": "F:00067EC0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553090",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0xC821D8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeWorldMoveStates中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467EE0",
+      "inventory_id": "F:00067EE0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeWorldMoveStates"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553090",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0xC821D8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeWorldMoveStates为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x467EF0",
+      "inventory_id": "F:00067EF0",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RippleGateStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeRippleGate"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553094",
+      "original_role": "构造并登记退出",
+      "original_targets": [
+        "0x9A7FA8"
+      ],
+      "instruction_count": 6,
+      "boundary": "原0x553094先调用0x467F00，再登记0x467F20；InitializeRippleGate在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。"
+    },
+    {
+      "original_entry": "0x467F00",
+      "inventory_id": "F:00067F00",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeRippleGate"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553094",
+      "original_role": "构造叶",
+      "original_targets": [
+        "0x9A7FA8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原构造目标按列示顺序由InitializeRippleGate中的本表项承接；该项全部构造完成后才登记退出，不新增owner或随机调用。"
+    },
+    {
+      "original_entry": "0x467F20",
+      "inventory_id": "F:00067F20",
+      "status": "已按原表项接线，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeRippleGate"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "crt_slot": "0x553094",
+      "original_role": "退出回调",
+      "original_targets": [
+        "0x9A7FA8"
+      ],
+      "instruction_count": 2,
+      "boundary": "原析构目标按列示顺序由InitializeRippleGate为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
     }
   ]
 }

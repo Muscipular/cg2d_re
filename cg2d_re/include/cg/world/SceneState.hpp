@@ -49,25 +49,21 @@ extern volatile std::uint32_t gWorldProjectionReferenceXBits; // 原 0xC751A8，
 extern volatile std::uint32_t gWorldProjectionReferenceYBits; // 原 0xC751A4，F32。
 
 // 原 0x9A7FA8 CryptInt 的唯一私有存储由 SceneState.cpp 持有。
-void ConstructRippleGate();
-void DestroyRippleGate();
+void InitializeRippleGate(); // 原553094：构造后独立登记退出，登记失败不重试。
 std::int32_t ReadRippleGateOnce();
 
 // 原456FE0/457000，73ECD0场景共享CryptInt；CRT排在World表后、玩家坐标前。
 void ConstructSceneTransitionValue();
 void DestroySceneTransitionValue();
 
-// 原 467BA0/467BD0；先构造 X/Y，退出时按 Y/X 逆序析构。
-void ConstructPlayerCoordinates();
-void DestroyPlayerCoordinates();
+// 原553064：先构造X/Y，再登记按Y/X逆序析构的一个退出回调。
+void InitializePlayerCoordinates();
 
-// 原 467C00–467D3F；六个后续 CryptInt 依 CRT 表顺序构造、逆序析构。
-void ConstructWorldCoordinateStates();
-void DestroyWorldCoordinateStates();
+// 原553068..553078：六对象按五个表项逐项构造并登记退出，不合并登记。
+void InitializeWorldCoordinateStates();
 
-// 原 467D60–467EE5；七个相邻 CRT 表项的构造与逆序析构。
-void ConstructWorldMoveStates();
-void DestroyWorldMoveStates();
+// 原55307C..553090：七对象按六个表项逐项构造并登记退出，不合并登记。
+void InitializeWorldMoveStates();
 
 // 原5184A0/518410，玩家六组CryptInt；排在鼠标构造之后。
 void ConstructPlayerRuntimeValues();

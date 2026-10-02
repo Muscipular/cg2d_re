@@ -188,12 +188,7 @@ const AnimationSharedValueStaticInitializer gAnimationSharedValueStaticInitializ
 struct PlayerCoordinatesStaticInitializer {
     PlayerCoordinatesStaticInitializer()
     {
-        cg::world::ConstructPlayerCoordinates();
-    }
-
-    ~PlayerCoordinatesStaticInitializer()
-    {
-        cg::world::DestroyPlayerCoordinates();
+        cg::world::InitializePlayerCoordinates();
     }
 };
 
@@ -202,12 +197,7 @@ const PlayerCoordinatesStaticInitializer gPlayerCoordinatesStaticInitializer;
 struct WorldCoordinateStatesStaticInitializer {
     WorldCoordinateStatesStaticInitializer()
     {
-        cg::world::ConstructWorldCoordinateStates();
-    }
-
-    ~WorldCoordinateStatesStaticInitializer()
-    {
-        cg::world::DestroyWorldCoordinateStates();
+        cg::world::InitializeWorldCoordinateStates();
     }
 };
 
@@ -216,12 +206,7 @@ const WorldCoordinateStatesStaticInitializer gWorldCoordinateStatesStaticInitial
 struct WorldMoveStatesStaticInitializer {
     WorldMoveStatesStaticInitializer()
     {
-        cg::world::ConstructWorldMoveStates();
-    }
-
-    ~WorldMoveStatesStaticInitializer()
-    {
-        cg::world::DestroyWorldMoveStates();
+        cg::world::InitializeWorldMoveStates();
     }
 };
 
@@ -230,12 +215,7 @@ const WorldMoveStatesStaticInitializer gWorldMoveStatesStaticInitializer;
 struct RippleGateStaticInitializer {
     RippleGateStaticInitializer()
     {
-        cg::world::ConstructRippleGate();
-    }
-
-    ~RippleGateStaticInitializer()
-    {
-        cg::world::DestroyRippleGate();
+        cg::world::InitializeRippleGate();
     }
 };
 

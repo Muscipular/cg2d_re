@@ -26,3 +26,35 @@
 [候选定位清单](cg2d_unassigned_code_candidates.json)记录本轮对元数据中起点小于535000、长度至少5B的2154段所作只读筛选。157段并非纯90/CC；其中16段的首个非90/CC地址显示为指令，均定位到当前源码已有本体。记录按原区间起止保存，不伪造IDA函数ID、不修改数据库。
 该筛选不是完备反汇编：多字节NOP、首项为数据或align但后面有代码、长度不足5B，以及535000之后范围均不能据此排除；157也不是未实现函数数。每条只证明列出的首入口有源码定位，不把整段范围、所有回调或所有跳表标为完成。
 本轮结果用于后续R1按区间继续分类；不重复生成已存在的现代窗口回调或以无直接xref证明不可达。旧F9的402B30另按完整17条原指令补齐，其日志父页待批边界仍独立保留。
+
+## 玩家坐标至 Ripple 的 CRT 整组映射
+
+2026-10-02，当前 cg2d.exe 会话串行只读核十三个表槽 `553064..553094`，逐一读取实际指针，查看每条启动入口及其构造叶、退出叶的全部函数块，共39个函数、142条指令。新记录沿既有元数据稳定ID增加，不将原IDA的“库函数”标签当作自动排除依据。
+
+| CRT槽 | 启动/构造/析构入口 | 构造目标顺序 | 现有适配组 |
+| --- | --- | --- | --- |
+| 0x553064 | 0x467B90/0x467BA0/0x467BD0 | 0x9EE8A8→0x9EE8C0 | PlayerCoordinates |
+| 0x553068 | 0x467BF0/0x467C00/0x467C20 | 0xC751C0 | WorldCoordinateStates |
+| 0x55306C | 0x467C30/0x467C40/0x467C60 | 0xC751B0 | WorldCoordinateStates |
+| 0x553070 | 0x467C70/0x467C80/0x467CA0 | 0x9EE8D0 | WorldCoordinateStates |
+| 0x553074 | 0x467CB0/0x467CC0/0x467CE0 | 0x9EE8E0 | WorldCoordinateStates |
+| 0x553078 | 0x467CF0/0x467D00/0x467D30 | 0xC27FF8→0xC27FE8 | WorldCoordinateStates |
+| 0x55307C | 0x467D50/0x467D60/0x467D90 | 0x9A7F88→0x9A7F98 | WorldMoveStates |
+| 0x553080 | 0x467DB0/0x467DC0/0x467DE0 | 0xC821E8 | WorldMoveStates |
+| 0x553084 | 0x467DF0/0x467E00/0x467E20 | 0x9E03C0 | WorldMoveStates |
+| 0x553088 | 0x467E30/0x467E40/0x467E60 | 0x9FB918 | WorldMoveStates |
+| 0x55308C | 0x467E70/0x467E80/0x467EA0 | 0xAF0FE8 | WorldMoveStates |
+| 0x553090 | 0x467EB0/0x467EC0/0x467EE0 | 0xC821D8 | WorldMoveStates |
+| 0x553094 | 0x467EF0/0x467F00/0x467F20 | 0x9A7FA8 | RippleGate |
+
+构造叶均按表中顺序调用 `ConstructZero_401C70`；两对象组析构反序，其余析构同一对象。`SceneState.cpp` 的四组Initialize入口覆盖这些唯一owner；`LegacyMouse.cpp` 的四个静态适配对象按 PlayerCoordinates、WorldCoordinateStates、WorldMoveStates、RippleGate 顺序定义，只触发初始化，不再提供聚合析构。
+
+**本轮发现并修复的差异：** 原十三个入口各自先完成本条构造、再调用 `atexit` 登记本条析构；先前新端将快照等五条和移动状态六条分别合并登记。现按下述SPEC改为十三次显式登记，构造和回调目标次序不变，丢弃每次登记返回后继续；不再依靠聚合析构覆盖登记失败。本轮补齐39个原函数的映射与本组接线，不把它们记作39个新写的函数本体。宿主CRT实际退出与其他初始化项仍未验收。
+
+### 本组退出登记修复 SPEC
+
+上述差异由原十三组完整指令及当前源码直接证明，在既有初始化位置闭合。按用户工程委托采用并实现以下方案：四组公开入口改为InitializePlayerCoordinates、InitializeWorldCoordinateStates、InitializeWorldMoveStates、InitializeRippleGate；各组按原表顺序构造，每完成一个原表项就以无捕获回调调用std::atexit，明确丢弃返回值，继续下一项。两对象组只在两对象均构造后登记一次，回调中先析构后者。前缀退出回调在对应原表项完成后即已登记，不再等待整个聚合组完成；不据此声称未运行的异常退出路径已经验收。
+
+LegacyMouse.cpp仍按四组原有次序触发初始化，移除四个适配对象的聚合析构，避免再次登记或双重销毁。SceneState.cpp保持唯一存储和既有CryptInt构造/析构叶；不扩展状态、不重复构造、不增加随机调用或登记失败补救，不引入依赖。原八个纯构造/聚合析构接口只在这四个适配对象使用，现已由四个完整生命周期入口替代。
+
+集中核对本组13次登记的位置、忽略失败的继续路径、三对双对象的逆序析构、四组启动次序和旧入口引用清理。此修复不证明宿主CRT完整运行、其他静态初始化项或客户端启动/退出验收完成；仍遵守不构建、不运行、不执行测试及不做哈希校验的限制。

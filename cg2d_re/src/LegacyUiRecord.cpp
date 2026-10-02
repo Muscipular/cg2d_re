@@ -1065,6 +1065,11 @@ constexpr char kLegacyMailGroup589798[] = "\xC5\xE3\xA5\xDC\xAE\x61\xB1\xDA\xB3\
 constexpr char kLegacyMailContactSend589780[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB3\x6F\xA6\x57\xA4\xF9\xA4\x57\xAA\xBA\xA6\x6E\xA4\xCD";
 constexpr char kLegacyMailContactRead589760[] = "\xAC\xDD\xB3\x6F\xA6\x57\xA4\xF9\xA4\x57\xA6\x6E\xA4\xCD\xAA\xBA\xB6\x6C\xA5\xF3\xB3\x71\xAB\x48\xAC\xF6\xBF\xFD\xA1\x43";
 constexpr char kLegacyMailContactDelete589750[] = "\xA7\x52\xB0\xA3\xB3\x6F\xB1\x69\xA6\x57\xA4\xF9\xA1\x43";
+LegacyPanelRecord gLegacyMailDeliveryPanel583550 {
+    0, 0, 192, 174, 45, {23184, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyMailNormalMode5896E0[] = "\xA5\x48\xB4\xB6\xB3\x71\xBC\xD2\xA6\xA1\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+constexpr char kLegacyMailPetMode5896D0[] = "\xA5\x48\xC3\x64\xAA\xAB\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8279,6 +8284,45 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMailContactPanel5837A8, 1);
+}
+
+std::uint32_t Sub_4EB890(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMailDeliveryPanel583550.x;
+    const std::int32_t y = gLegacyMailDeliveryPanel583550.y;
+    std::array<LegacyPanelButtonRecord, 3> buttons {{
+        {x + 95, y + 55, x + 25, y + 43, 140, 24, 23185, 23186},
+        {x + 95, y + 95, x + 25, y + 83, 140, 24, 23187, 23188},
+        {x + 96, y + 137, x + 56, y + 127, 80, 20, 22710, 22711},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailDeliveryPanel583550, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(46));
+    } else if ((QueryPanelButtonState(&buttons[1]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(48));
+    } else if ((QueryPanelButtonState(&buttons[2]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(42));
+    }
+    for (auto& button : buttons) {
+        Sub_5035E0(&button, 212, 1, gValueD69768, 0);
+    }
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMailDeliveryPanel583550) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
+        hint = kLegacyMailNormalMode5896E0;
+    } else if ((QueryPanelButtonState(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacyMailPetMode5896D0;
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0) {
+        hint = kLegacyMailReturn589628;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMailDeliveryPanel583550, 1);
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

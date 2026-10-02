@@ -199,6 +199,7 @@ void Sub_4E9C60(); // 旧50详情页/赠送选择初始化，不清选择坐标�
 std::uint32_t Sub_4E9C80(std::int32_t opened); // 旧50赠送物品，鼠标10H选择；关闭原常量49。
 void Sub_4EA130(); // 旧49保留草稿后初始化并发布同源CB03F0输入。
 std::uint32_t Sub_4EA1B0(std::int32_t opened); // 旧49邮件发送/赠送消费；原关闭50，正常完整W32。
+std::uint32_t Sub_4EA690(std::int32_t opened); // 旧48送信宠物，写同源CC2E60后依序打开49/50。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。

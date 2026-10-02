@@ -1036,7 +1036,7 @@ std::int32_t gLegacyMailGiftSelectedCC1A2C = 0;
 std::int32_t gLegacyMailGiftColumnD2D498 = 0;
 std::int32_t gLegacyMailGiftRowCC3E6C = 0;
 constexpr char kLegacyMailGift58960C[] = "\xB1\x4E\xA6\xB9\xAA\xAB\xAB\x7E\xB0\x65\xB5\xB9\xA6\x57\xA4\xF9\xA4\x57\xAA\xBA\xA6\x6E\xA4\xCD\xA1\x43";
-// 旧49独立联系人/协议数值；实际上游写者分别为旧42/旧48，仍待接线。
+// 旧49联系人/协议值唯一承载；联系人旧42仍待，邮件宠物由旧48生产。
 LegacyPanelRecord gLegacyMailComposePanel583230 {
     0, 0, 272, 438, 49, {23200, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1044,6 +1044,10 @@ std::int32_t gLegacyMailContactCC4228 = 0;
 std::int32_t gLegacyMailValueCC2E60 = 0;
 constexpr char kLegacyMailSend589640[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xBF\xEF\xBE\xDC\xAA\xBA\xA6\x57\xA4\xF9\xA4\x57\xAA\xBA\xA6\x6E\xA4\xCD\xA1\x43";
 constexpr char kLegacyMailReturn589628[] = "\xA6\x5E\xA8\xEC\xA6\x57\xA4\xF9\xB5\x6E\xBF\xFD\xA5\xBB\xAA\xBA\xB5\xF8\xB5\xA1\xA1\x43";
+LegacyPanelRecord gLegacyMailPetPanel5832F8 {
+    0, 0, 272, 238, 48, {23189, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyMailPet589660[] = "\xC5\xFD\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB9\x42\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -7961,6 +7965,81 @@ std::uint32_t Sub_4EA1B0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMailComposePanel583230, 1);
+}
+
+std::uint32_t Sub_4EA690(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMailPetPanel5832F8.x;
+    const std::int32_t y = gLegacyMailPetPanel5832F8.y;
+    LegacyPanelButtonRecord back {x + 136, y + 206, x + 96, y + 196, 80, 20, 22710, 22711};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailPetPanel5832F8, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::array<std::int32_t, 5> availability;
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        const std::int32_t available = world::detail::Sub_52E1D0(index);
+        availability[row] = available;
+        const std::int32_t top = gLegacyMailPetPanel5832F8.y + 41 + 28 * row;
+        const std::int32_t left = gLegacyMailPetPanel5832F8.x + 12;
+        if (Sub_5049A0(left, top, left + 249, top + 20, -1) != 0
+            && world::detail::gPetRuntimeF633F8[index].used != 0 && available != 0) {
+            hovered = row;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hovered].index);
+        gLegacyMailValueCC2E60 = index;
+        static_cast<void>(audio::Sub_504180(49));
+        static_cast<void>(audio::Sub_504180(50));
+    } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(42));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyMailPetPanel5832F8.y + 28 * hovered;
+        const std::uint32_t image = gValueD69768;
+        const std::int32_t left = gLegacyMailPetPanel5832F8.x;
+        DrawGraphicHover(Low16(left + 12), Low16(top + 41), Low16(left + 261), Low16(top + 61),
+            212, image, 0);
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        const auto* const pet = &world::detail::gPetRuntimeF633F8[index];
+        if (pet->used == 0) {
+            continue;
+        }
+        const char* const name = pet->name6BD[0] != '\0' ? pet->name6BD.data() : pet->name6AC.data();
+        const std::int8_t color = availability[row] != 0 ? 0 : 7;
+        std::strcpy(buffer, name);
+        const std::int32_t width = TextMeasure(buffer, 0);
+        const std::int32_t nameY = gLegacyMailPetPanel5832F8.y + 43 + 28 * row;
+        const std::int32_t nameX = gLegacyMailPetPanel5832F8.x - width / 2 + 90;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+            static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
+        // 原4EA912实际F63400，即宠物+08；不借反编译lv名改成+6C。
+        const std::int32_t value = pet->value08;
+        std::sprintf(buffer, "%3d", value);
+        const std::int32_t valueY = gLegacyMailPetPanel5832F8.y + 45 + 28 * row;
+        const std::int32_t valueX = gLegacyMailPetPanel5832F8.x + 226;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),
+            static_cast<std::int16_t>(valueY), 2, 1, color, buffer, 0, 0));
+    }
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMailPetPanel5832F8) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+        hint = kLegacyMailReturn589628;
+    } else if (hovered >= 0) {
+        hint = kLegacyMailPet589660;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMailPetPanel5832F8, 1);
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

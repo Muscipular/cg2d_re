@@ -157,6 +157,9 @@ YobiAction* Sub_4D7440(); // 旧58预览初始化；图号仍为真实外部数�
 std::uint32_t Sub_4D7470(std::int32_t opened); // 旧58完整八行目录消费；记录/页数生产仍缺。
 YobiAction* Sub_4D7BF0(); // 旧59独立预览初始化，共享目录图号。
 std::uint32_t Sub_4D7C20(std::int32_t opened); // 旧59候选宠物选择，借D67448真实回复数据。
+YobiAction* Sub_4D8200(); // 旧60独立预览初始化，不重置技能槽选择。
+std::uint32_t Sub_4D8230(std::int32_t opened); // 旧60十技能槽选择，空槽按候选容量参与命中。
+std::uint32_t Sub_4D88C0(std::int32_t opened); // 旧61确认学习/覆盖，返回旧60或发送槽号。
 std::uint32_t Sub_4EFB70(std::int32_t opened); // 旧36属性目标，沿ND六行共享状态及原关闭请求。
 std::uint32_t Sub_4F0460(std::int32_t opened); // 旧35技能名单，五行两页、直接/属性请求及原关闭状态。
 std::uint32_t Sub_4E4A50(std::int32_t opened); // 旧77物品使用目标，LY十条20B同源记录，先写选择再发送。

@@ -4,6 +4,9 @@
 
 namespace cg::platform {
 
+// 原541A70；OS/环境/模块链接器版本选择1/2/3，不自动创建或切换堆。
+std::int32_t SelectLegacyHeapMode_541A70();
+
 // 原53C9CF/53C3BE的裸字节缓冲调用域；失败可返回空，处理器异常向外传播。
 // 数量保持U32；结果只能交FreeLegacyByteBuffer，不用于类型对象或标准容器分配。
 void* AllocateLegacyByteBuffer(std::uint32_t byteCount);

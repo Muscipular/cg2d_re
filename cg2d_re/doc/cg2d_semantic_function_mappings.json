@@ -12551,30 +12551,76 @@
     {
       "original_entry": "0x541A43",
       "inventory_id": "F:00141A43",
-      "status": "原PE链接器版本读取叶已取证；旧堆选择私有依赖未单独实现",
+      "status": "模块链接器版本读取本体已实现并接堆模式选择；未执行",
       "original_end_exclusive": "0x541A70",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "ReadLegacyModuleLinkerVersion_541A43"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先清输出W32，再取本模块；MZ和非零e_lfanew满足时读取NT头+1A/+1B到输出低两字节。唯一caller541A70；不新增运行期自读PE解析器或将其当业务版本。"
+      "boundary": "先清输出W32，再GetModuleHandleA(nullptr)借本模块；只核MZ与非零S32 e_lfanew，依序复制NT+1A/+1B到输出低两字节。模块地址用原生非拥有指针；唯一541A70调用已落位。不新增NT签名/空句柄保护，不执行模块读取，不代替完整堆启动。",
+      "function_chunks": [
+        {
+          "start": "0x541A43",
+          "end_exclusive": "0x541A70"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x541BA6",
+          "parent_entry": "0x541A70"
+        }
+      ],
+      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行"
     },
     {
       "original_entry": "0x541A70",
       "inventory_id": "F:00141A70",
-      "status": "原OS/环境/链接器版本三层堆模式选择已取证；宿主对应未验",
+      "status": "OS/环境/链接器版本选择本体及解析依赖已接；堆初始化/失败局部/运行未验",
       "original_end_exclusive": "0x541BB8",
       "instruction_count": 115,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "GetVersionExA成功且NT主版本>=5直接返回1；否则读取__MSVCRT_HEAP_SELECT、ASCII大写并按全局前缀或模块路径查选项，仅接受1/2/3；未选择时链接器主版本小于6取2，否则3。唯一541BB8调用；不按当前机器推断原所有环境路径不可达。"
+      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。",
+      "function_chunks": [
+        {
+          "start": "0x541A70",
+          "end_exclusive": "0x541BB8"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x541BD8",
+          "parent_entry": "0x541BB8"
+        }
+      ],
+      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行"
     },
     {
       "original_entry": "0x541BB8",
@@ -17533,7 +17579,7 @@
     {
       "original_entry": "0x53DA45",
       "inventory_id": "F:0013DA45",
-      "status": "原数值解析依赖本体已实现并内部接通；外层堆选择/运行未验",
+      "status": "原解析本体已由堆模式选择调用；完整启动/运行未验",
       "original_end_exclusive": "0x53DA5C",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
@@ -17556,12 +17602,20 @@
           "symbols": [
             "Strtol_53DA45"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ],
+          "relationship": "对应唯一原父调用541B8B，传(value,nullptr,10)"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "原有符号入口；固定flags=0进入53DA5C，S32返回位型、原生借用end指针。唯一外部父入口541A70仍未接线，不替换现有Atol/Atoi。 当前CRT宿主提案仍待确认；本体实现不代替完整启动或最终客户端验收。"
+      "boundary": "原有符号入口固定flags=0进入53DA5C，S32返回位型及原生借用end指针；541A70已调用本体，不替换现有Atol/Atoi。再外层541BB8堆初始化未接，API未写局部/完整启动与运行未验，CRT宿主提案仍待确认。"
     },
     {
       "original_entry": "0x53DA5C",

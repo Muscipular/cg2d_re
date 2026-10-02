@@ -38,6 +38,20 @@ std::int32_t ReadLegacyDescriptor_541426(
 std::int32_t IsLegacyDescriptorTty_544705(std::int32_t descriptor);
 std::int32_t GetLegacyDescriptorLength_53D3BD(std::int32_t descriptor);
 
+// 原默认模式/权限屏蔽为W32可变槽，初值沿映像虚拟零合同。
+extern std::uint32_t gLegacyDefaultOpenMode1086178;
+extern std::uint32_t gLegacyPermissionMask1085FE8;
+
+// 原打开链；申请只置handle=-1，set不提前置FOPEN，路径保持ANSI原字节。
+std::int32_t AllocateLegacyDescriptor_543711();
+std::int32_t SetLegacyDescriptorHandle_5437A6(std::int32_t descriptor, HANDLE handle);
+std::int32_t SetLegacyDescriptorMode_5463A3(std::int32_t descriptor, std::uint32_t mode);
+std::int32_t ResizeLegacyDescriptor_5438D4(std::int32_t descriptor, std::int32_t size);
+std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* filename,
+    std::uint32_t flags, std::uint32_t shareFlags, std::uint32_t permissions);
+std::int32_t OpenLegacyDescriptor_53D435(
+    const char* filename, std::uint32_t flags, std::uint32_t permissions);
+
 // 原句柄访问/释放及关闭/提交，不操作宿主CRT描述符表。
 HANDLE GetLegacyDescriptorHandle_543897(std::int32_t descriptor);
 std::int32_t ReleaseLegacyDescriptorHandle_54381D(std::int32_t descriptor);

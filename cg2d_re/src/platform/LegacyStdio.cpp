@@ -20,6 +20,7 @@ LegacyFile gLegacyStaticFiles58F8B8[20] = {
 LegacyFile** gLegacyStreamTable1086AC4 = nullptr;
 std::int32_t gLegacyStreamLimit1087AE0 = 0;
 std::uint32_t gLegacyStreamAllocationCount108603C = 0;
+std::uint32_t gLegacyDefaultStreamFlags10862AC = 0;
 
 void InitializeLegacyStdio_53E9A5()
 {
@@ -84,6 +85,117 @@ LegacyFile* AcquireLegacyStream_53F848()
         stream->temporaryName = nullptr;
     }
     return stream;
+}
+
+LegacyFile* OpenLegacyStreamInSlot_53F6D8(const char* const filename,
+    const char* const mode, const std::uint32_t shareFlags, LegacyFile* const stream)
+{
+    std::uint32_t streamFlags = gLegacyDefaultStreamFlags10862AC;
+    std::uint32_t openFlags;
+    std::int32_t commitSeen = 0;
+    std::int32_t hintSeen = 0;
+    switch (*mode) {
+    case 'r': openFlags = 0; streamFlags |= 1u; break;
+    case 'w': openFlags = 0x301; streamFlags |= 2u; break;
+    case 'a': openFlags = 0x109; streamFlags |= 2u; break;
+    default: return nullptr;
+    }
+    std::int32_t parsing = 1;
+    const char* cursor = mode;
+    for (;;) {
+        const auto value = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(*++cursor));
+        // 原先读取下一字节，再检查上一次后缀是否令解析停止。
+        if (value == 0 || parsing == 0) {
+            break;
+        }
+        switch (value) {
+        case '+':
+            if ((openFlags & 2u) != 0) {
+                parsing = 0;
+            } else {
+                openFlags &= ~1u;
+                streamFlags &= ~3u;
+                openFlags |= 2u;
+                streamFlags |= 0x80u;
+            }
+            break;
+        case 'b':
+        case 't':
+            if ((openFlags & 0xC000u) != 0) {
+                parsing = 0;
+            } else {
+                openFlags |= value == 'b' ? 0x8000u : 0x4000u;
+            }
+            break;
+        case 'c':
+        case 'n':
+            if (commitSeen != 0) {
+                parsing = 0;
+            } else {
+                commitSeen = 1;
+                if (value == 'c') {
+                    streamFlags |= 0x4000u;
+                } else {
+                    streamFlags &= ~0x4000u;
+                }
+            }
+            break;
+        case 'D':
+            if ((openFlags & 0x40u) != 0) {
+                parsing = 0;
+            } else {
+                openFlags |= 0x40u;
+            }
+            break;
+        case 'T':
+            if ((openFlags & 0x1000u) != 0) {
+                parsing = 0;
+            } else {
+                openFlags |= 0x1000u;
+            }
+            break;
+        case 'S':
+        case 'R':
+            if (hintSeen != 0) {
+                parsing = 0;
+            } else {
+                hintSeen = 1;
+                openFlags |= value == 'S' ? 0x20u : 0x10u;
+            }
+            break;
+        default:
+            parsing = 0;
+            break;
+        }
+    }
+    const std::int32_t descriptor =
+        OpenSharedLegacyDescriptor_53D44C(filename, openFlags, shareFlags, 0x1A4);
+    if (descriptor < 0) {
+        return nullptr;
+    }
+    ++gLegacyStreamAllocationCount108603C;
+    stream->flags = streamFlags;
+    stream->remaining = 0;
+    stream->current = nullptr;
+    stream->base = nullptr;
+    stream->temporaryName = nullptr;
+    stream->descriptor = descriptor;
+    return stream;
+}
+
+LegacyFile* OpenSharedLegacyStream_53B2D1(const char* const filename,
+    const char* const mode, const std::uint32_t shareFlags)
+{
+    LegacyFile* const stream = AcquireLegacyStream_53F848();
+    if (stream == nullptr) {
+        return nullptr;
+    }
+    return OpenLegacyStreamInSlot_53F6D8(filename, mode, shareFlags, stream);
+}
+
+LegacyFile* OpenLegacyStream_53B2F1(const char* const filename, const char* const mode)
+{
+    return OpenSharedLegacyStream_53B2D1(filename, mode, 0x40);
 }
 
 char* AllocateLegacyStreamBuffer_544815(LegacyFile* const stream)

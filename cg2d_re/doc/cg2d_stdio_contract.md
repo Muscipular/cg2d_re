@@ -1028,3 +1028,71 @@ count<=0不写目标且不读流；count=1只补首NUL。最多读count-1，保�
 
 仅静态核原指令、回退字节、别名/先后和新增差异；不运行读取样例、
 文件操作、编译、测试、客户端或哈希校验，不恢复暂停音频。
+
+## 描述符与FILE打开链实施 SPEC（2026-10-03）
+
+本步实现543711/5437A6/53D435/53D44C、5438D4/5463A3及
+53F6D8/53B2D1/53B2F1，复用同一描述符/FILE表、读写/定位及错误槽。
+1086178默认打开模式、1085FE8权限屏蔽、10862AC默认FILE标志三个W32
+均为无文件后备区，沿虚拟零合同；保持可变，不因无直接写者改为常量。
+路径、mode直接按原字节处理，不换CreateFileW或安全模式解析器。
+
+### 描述符申请与句柄发布
+
+543711按64组、每组32项找FOPEN未置项，只写HANDLE=-1并返回索引，不置FOPEN。
+遇首空组以已批准Malloc分配原生32项，失败立即-1；成功先容量+32、发布组，
+再按原序写flags0/handle-1/pipeByte LF，其他字节不清。无空位返回-1。
+5437A6只要求U32范围及当前handle=-1，不检查FOPEN；应用类型1且fd0/1/2
+先SetStdHandle(新handle)，不检查返回，随后重读组写handle并返0。
+失败DOS0/errno9/-1。不能把FOPEN提前到申请或句柄发布内。
+
+53D435固定share40H转53D44C。后者SECURITY_ATTRIBUTES用SDK原生尺寸，
+仅指针字段/结构ABI适配，继承BOOL及原标志保持。oflag80H禁止继承并带10H低层位；
+无binary8000H且显式text4000H或默认模式非8000H才带text80H。
+访问低2位只接受0/1/2；share只接受10/20/30/40H，对应0/读共享/写共享/两者。
+创建组合oflag&700H逐项保留：0/400→OPEN_EXISTING，100→OPEN_ALWAYS，
+200/600→TRUNCATE_EXISTING，300→CREATE_ALWAYS，500/700→CREATE_NEW。
+访问/share非法先errno22再DOS0；申请失败DOS0/errno24。
+
+create100H时依据(~umask & pmode)&80H选择NORMAL/READONLY；
+temporary40H加DELETE_ON_CLOSE及DELETE权限，short-lived1000H加TEMPORARY，
+顺序提示20H优先于随机10H。CreateFileA失败按GetLastError映射；
+GetFileType为0时先CloseHandle，再取GetLastError，不先保存类型查询错误。
+这里GetFileType比较完整DWORD的2/3，不套初始化路径的低U8比较。
+
+调用set_osfhnd后忽略返回，再发布含FOPEN的flags。非设备/管道、文本且读写位2
+才检查文件末字节：seek(-1,END)若-1且DOS错误131则跳过，其余失败close后-1。
+先清原临时字节，再read1；只有返回0且字节为Ctrl-Z才chsize(先前末位置)。
+之后seek(0,BEGIN)，失败同样close/-1。只对非设备/管道且oflag8H设置追加20H。
+原参数栈高字节仅在路径/共享参数最后消费后改作临时标志/字节；
+新端使用对应U8局部，不截断或改写借用路径指针，不造额外全局状态。
+
+### 长度调整与setmode
+
+5463A3先范围/FOPEN检查，失败errno9；mode只接受8000/4000H，否则errno22。
+两失败都不清DOS错误；只切换低层text80H并返回先前8000/4000H模式。
+
+5438D4使用原4096B局部块。先查询CUR，再查询END，任一步-1立即返回且不新增恢复。
+S32目标长度减END为正时，清局部4096B、setmode(binary)，按min(剩余,4096)写零；
+写-1时仅DOS5转errno13，结果-1，仍按原序恢复模式并最终恢复原位置。
+不增加零写重试上限、额外负长度门禁或异常RAII清理。
+差值负时seek(目标,BEGIN)返回被忽略，随后getter/SetEndOfFile；
+失败errno13并取系统错误到DOS槽；差值0不改长度。
+后两路径及扩展路径最终都尝试恢复原位置，忽略恢复返回，返回原调整结果。
+
+### FILE模式与打开入口
+
+53F6D8先采样10862AC，首字符只接受r/w/a，对应原open flags0/301/109H及读/写标志。
+后缀支持+、b/t、c/n、D、T、S/R，按各自原互斥/重复门禁累计；
+未知或重复仅令解析标志0，下次循环仍先读下一字节，再停止并尝试打开，
+不是整个mode判无效。+清访问位1并置2，同时FILE清读写方向并置80H；
+c/n独占提交选项，S/R独占访问提示，b/t独占文本模式。
+首前缀无效直接空，不新增errno；sopen固定pmode=1A4H，失败保留getstream的选中槽状态。
+成功先累计计数+1，再依序flags/count/current/base/tempName/fd发布，不清charbuf/bufsize。
+
+53B2D1先getstream，空直接返空；否则交原四参openfile。
+53B2F1固定share40H转fsopen。67个原fopen引用仅作为消费范围证据，
+当前业务std::FILE还未整体迁移；不将这些新本体等同已接所有调用者。
+
+只静态核原指令、字段/分支/生命周期及新增差异；不创建或截断文件、
+执行打开/写零/模式切换、构建、测试、客户端或哈希校验。calloc及完整启动仍待。

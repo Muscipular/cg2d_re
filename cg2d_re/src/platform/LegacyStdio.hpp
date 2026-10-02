@@ -32,6 +32,16 @@ extern LegacyFile** gLegacyStreamTable1086AC4;
 extern std::int32_t gLegacyStreamLimit1087AE0;
 extern std::uint32_t gLegacyStreamAllocationCount108603C;
 
+// 原10862AC默认FILE标志；打开模式c/n只修改本次采样，不回写该全局。
+extern std::uint32_t gLegacyDefaultStreamFlags10862AC;
+
+// 原模式解析及两层打开；返回唯一原FILE槽，不能与std::FILE混用。
+LegacyFile* OpenLegacyStreamInSlot_53F6D8(const char* filename, const char* mode,
+    std::uint32_t shareFlags, LegacyFile* stream);
+LegacyFile* OpenSharedLegacyStream_53B2D1(
+    const char* filename, const char* mode, std::uint32_t shareFlags);
+LegacyFile* OpenLegacyStream_53B2F1(const char* filename, const char* mode);
+
 // 原CRT553174初始化；必须已有底层描述符生产，不主动调用或借宿主FILE。
 void InitializeLegacyStdio_53E9A5();
 LegacyFile* AcquireLegacyStream_53F848();

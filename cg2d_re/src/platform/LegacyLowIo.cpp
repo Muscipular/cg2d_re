@@ -10,6 +10,8 @@ namespace cg::platform {
 
 LegacyDescriptorRecord* gLegacyDescriptorBlocks10869C0[64] {};
 std::uint32_t gLegacyDescriptorCapacity1086AC0 = 0;
+std::uint32_t gLegacyDefaultOpenMode1086178 = 0;
+std::uint32_t gLegacyPermissionMask1085FE8 = 0;
 LegacyDescriptorRecord gLegacyInvalidDescriptor58FB40 {
     INVALID_HANDLE_VALUE, 0, '\n', {0, 0}
 };
@@ -360,6 +362,265 @@ std::int32_t GetLegacyDescriptorLength_53D3BD(const std::int32_t descriptor)
         static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, current, 0));
     }
     return end;
+}
+
+std::int32_t AllocateLegacyDescriptor_543711()
+{
+    for (std::int32_t group = 0; group < 64; ++group) {
+        auto* const block = gLegacyDescriptorBlocks10869C0[group];
+        if (block != nullptr) {
+            for (auto* record = block; record < block + 32; ++record) {
+                if ((record->flags & 1u) == 0) {
+                    record->handle = INVALID_HANDLE_VALUE;
+                    return group * 32 + static_cast<std::int32_t>(
+                        record - gLegacyDescriptorBlocks10869C0[group]);
+                }
+            }
+            continue;
+        }
+        auto* const allocated = static_cast<LegacyDescriptorRecord*>(
+            Malloc_53C3AC(32 * static_cast<std::uint32_t>(sizeof(LegacyDescriptorRecord))));
+        if (allocated == nullptr) {
+            return -1;
+        }
+        gLegacyDescriptorCapacity1086AC0 += 32;
+        gLegacyDescriptorBlocks10869C0[group] = allocated;
+        auto* cursor = allocated;
+        auto* end = allocated + 32;
+        while (cursor < end) {
+            cursor->flags = 0;
+            cursor->handle = INVALID_HANDLE_VALUE;
+            cursor->pipeByte = '\n';
+            ++cursor;
+            end = gLegacyDescriptorBlocks10869C0[group] + 32;
+        }
+        return group * 32;
+    }
+    return -1;
+}
+
+std::int32_t SetLegacyDescriptorHandle_5437A6(
+    const std::int32_t descriptor, const HANDLE handle)
+{
+    if (static_cast<std::uint32_t>(descriptor) < gLegacyDescriptorCapacity1086AC0
+        && gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].handle
+            == INVALID_HANDLE_VALUE) {
+        if (gLegacyRuntimeApplicationType58F8A4 == 1) {
+            switch (descriptor) {
+            case 0: static_cast<void>(::SetStdHandle(STD_INPUT_HANDLE, handle)); break;
+            case 1: static_cast<void>(::SetStdHandle(STD_OUTPUT_HANDLE, handle)); break;
+            case 2: static_cast<void>(::SetStdHandle(STD_ERROR_HANDLE, handle)); break;
+            }
+        }
+        gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].handle = handle;
+        return 0;
+    }
+    gLegacyDosError_1085FE4 = 0;
+    gLegacyErrno_1085FE0 = 9;
+    return -1;
+}
+
+std::int32_t SetLegacyDescriptorMode_5463A3(
+    const std::int32_t descriptor, const std::uint32_t mode)
+{
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
+        || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    auto& record = gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31];
+    const std::uint8_t flags = record.flags;
+    if (mode == 0x8000u) {
+        record.flags = flags & 0x7Fu;
+    } else if (mode == 0x4000u) {
+        record.flags = flags | 0x80u;
+    } else {
+        gLegacyErrno_1085FE0 = 22;
+        return -1;
+    }
+    return (flags & 0x80u) != 0 ? 0x4000 : 0x8000;
+}
+
+std::int32_t ResizeLegacyDescriptor_5438D4(
+    const std::int32_t descriptor, const std::int32_t size)
+{
+    char zeros[4096];
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0
+        || (gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags & 1u) == 0) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const std::int32_t originalPosition = SeekLegacyDescriptor_53F493(descriptor, 0, 1);
+    if (originalPosition == -1) {
+        return -1;
+    }
+    const std::int32_t end = SeekLegacyDescriptor_53F493(descriptor, 0, 2);
+    if (end == -1) {
+        return -1;
+    }
+    std::int32_t result = 0;
+    std::int32_t remaining = size - end;
+    if (remaining > 0) {
+        std::memset(zeros, 0, sizeof(zeros));
+        const std::int32_t previousMode = SetLegacyDescriptorMode_5463A3(descriptor, 0x8000);
+        do {
+            const auto count = static_cast<std::uint32_t>(remaining < 4096 ? remaining : 4096);
+            const std::int32_t written = WriteLegacyDescriptor_541279(descriptor, zeros, count);
+            if (written == -1) {
+                if (gLegacyDosError_1085FE4 == 5) {
+                    gLegacyErrno_1085FE0 = 13;
+                }
+                result = -1;
+                break;
+            }
+            remaining -= written;
+        } while (remaining > 0);
+        static_cast<void>(SetLegacyDescriptorMode_5463A3(
+            descriptor, static_cast<std::uint32_t>(previousMode)));
+    } else if (remaining < 0) {
+        static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, size, 0));
+        const HANDLE handle = GetLegacyDescriptorHandle_543897(descriptor);
+        if (::SetEndOfFile(handle) == 0) {
+            result = -1;
+            gLegacyErrno_1085FE0 = 13;
+            gLegacyDosError_1085FE4 = ::GetLastError();
+        }
+    }
+    static_cast<void>(SeekLegacyDescriptor_53F493(descriptor, originalPosition, 0));
+    return result;
+}
+
+std::int32_t OpenSharedLegacyDescriptor_53D44C(const char* const filename,
+    const std::uint32_t openFlags, const std::uint32_t shareFlags,
+    const std::uint32_t permissions)
+{
+    SECURITY_ATTRIBUTES security;
+    security.nLength = sizeof(security);
+    security.lpSecurityDescriptor = nullptr;
+    std::uint8_t descriptorFlags;
+    if ((openFlags & 0x80u) != 0) {
+        security.bInheritHandle = FALSE;
+        descriptorFlags = 0x10;
+    } else {
+        descriptorFlags = 0;
+        security.bInheritHandle = TRUE;
+    }
+    if ((openFlags & 0x8000u) == 0
+        && ((openFlags & 0x4000u) != 0 || gLegacyDefaultOpenMode1086178 != 0x8000u)) {
+        descriptorFlags |= 0x80u;
+    }
+    DWORD access;
+    switch (openFlags & 3u) {
+    case 0: access = GENERIC_READ; break;
+    case 1: access = GENERIC_WRITE; break;
+    case 2: access = GENERIC_READ | GENERIC_WRITE; break;
+    default:
+        gLegacyErrno_1085FE0 = 22;
+        gLegacyDosError_1085FE4 = 0;
+        return -1;
+    }
+    DWORD sharing;
+    switch (shareFlags) {
+    case 0x10: sharing = 0; break;
+    case 0x20: sharing = FILE_SHARE_READ; break;
+    case 0x30: sharing = FILE_SHARE_WRITE; break;
+    case 0x40: sharing = FILE_SHARE_READ | FILE_SHARE_WRITE; break;
+    default:
+        gLegacyErrno_1085FE0 = 22;
+        gLegacyDosError_1085FE4 = 0;
+        return -1;
+    }
+    DWORD creation;
+    switch (openFlags & 0x700u) {
+    case 0:
+    case 0x400: creation = OPEN_EXISTING; break;
+    case 0x100: creation = OPEN_ALWAYS; break;
+    case 0x200:
+    case 0x600: creation = TRUNCATE_EXISTING; break;
+    case 0x300: creation = CREATE_ALWAYS; break;
+    case 0x500:
+    case 0x700: creation = CREATE_NEW; break;
+    default:
+        gLegacyErrno_1085FE0 = 22;
+        gLegacyDosError_1085FE4 = 0;
+        return -1;
+    }
+    DWORD attributes = FILE_ATTRIBUTE_NORMAL;
+    if ((openFlags & 0x100u) != 0
+        && ((~gLegacyPermissionMask1085FE8 & permissions) & 0x80u) == 0) {
+        attributes = FILE_ATTRIBUTE_READONLY;
+    }
+    if ((openFlags & 0x40u) != 0) {
+        attributes |= FILE_FLAG_DELETE_ON_CLOSE;
+        access |= DELETE;
+    }
+    if ((openFlags & 0x1000u) != 0) {
+        attributes |= FILE_ATTRIBUTE_TEMPORARY;
+    }
+    if ((openFlags & 0x20u) != 0) {
+        attributes |= FILE_FLAG_SEQUENTIAL_SCAN;
+    } else if ((openFlags & 0x10u) != 0) {
+        attributes |= FILE_FLAG_RANDOM_ACCESS;
+    }
+    const std::int32_t descriptor = AllocateLegacyDescriptor_543711();
+    if (descriptor == -1) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 24;
+        return -1;
+    }
+    const HANDLE handle = ::CreateFileA(
+        filename, access, sharing, &security, creation, attributes, nullptr);
+    if (handle == INVALID_HANDLE_VALUE) {
+        static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
+        return -1;
+    }
+    const DWORD type = ::GetFileType(handle);
+    if (type == 0) {
+        static_cast<void>(::CloseHandle(handle));
+        static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
+        return -1;
+    }
+    if (type == FILE_TYPE_CHAR) {
+        descriptorFlags |= 0x40u;
+    } else if (type == FILE_TYPE_PIPE) {
+        descriptorFlags |= 8u;
+    }
+    static_cast<void>(SetLegacyDescriptorHandle_5437A6(descriptor, handle));
+    descriptorFlags |= 1u;
+    const std::uint8_t deviceOrPipe = descriptorFlags & 0x48u;
+    gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags = descriptorFlags;
+
+    if (deviceOrPipe == 0 && (descriptorFlags & 0x80u) != 0 && (openFlags & 2u) != 0) {
+        const std::int32_t lastPosition = SeekLegacyDescriptor_53F493(descriptor, -1, 2);
+        if (lastPosition == -1) {
+            if (gLegacyDosError_1085FE4 != 131) {
+                static_cast<void>(CloseLegacyDescriptor_53D30A(descriptor));
+                return -1;
+            }
+        } else {
+            std::uint8_t lastByte = 0;
+            const std::int32_t read = ReadLegacyDescriptor_541426(descriptor, &lastByte, 1);
+            if (read == 0 && lastByte == 0x1A
+                && ResizeLegacyDescriptor_5438D4(descriptor, lastPosition) == -1) {
+                static_cast<void>(CloseLegacyDescriptor_53D30A(descriptor));
+                return -1;
+            }
+            if (SeekLegacyDescriptor_53F493(descriptor, 0, 0) == -1) {
+                static_cast<void>(CloseLegacyDescriptor_53D30A(descriptor));
+                return -1;
+            }
+        }
+    }
+    if (deviceOrPipe == 0 && (openFlags & 8u) != 0) {
+        gLegacyDescriptorBlocks10869C0[descriptor >> 5][descriptor & 31].flags |= 0x20u;
+    }
+    return descriptor;
+}
+
+std::int32_t OpenLegacyDescriptor_53D435(const char* const filename,
+    const std::uint32_t flags, const std::uint32_t permissions)
+{
+    return OpenSharedLegacyDescriptor_53D44C(filename, flags, 0x40, permissions);
 }
 
 HANDLE GetLegacyDescriptorHandle_543897(const std::int32_t descriptor)

@@ -1078,6 +1078,15 @@ constexpr char kLegacyMailDeleteLead589714[] = "\xA6\xDB\xA6\x57\xA4\xF9\xB5\x6E
 constexpr char kLegacyMailDeleteEnd589708[] = "\xAA\xBA\xA6\x57\xA4\xF9\xB6\xDC\xA1\x48";
 constexpr char kLegacyMailDeleteHint589700[] = "\xA7\x52\xB0\xA3\xA1\x43";
 constexpr char kLegacyMailKeepHint5896F4[] = "\xA4\xA3\xA7\x52\xB0\xA3\xA1\x43";
+// 旧46普通邮件；CB0AA8的60个U8由本页初始化生产，与旧42共享目标和页号。
+LegacyPanelRecord gLegacyMailNormalPanel583488 {
+    0, 0, 272, 438, 46, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<std::uint8_t, 60> gLegacyMailSelectedFlagsCB0AA8 {};
+constexpr char kLegacyMailChooseRecipients5896A4[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xB0\x65\xAB\x48\xAA\xBA\xB9\xEF\xB6\x48\xA1\x43";
+constexpr char kLegacyMailSendSelected5896B8[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xBF\xEF\xBE\xDC\xAA\xBA\xA6\x6E\xA4\xCD\xA1\x43";
+constexpr char kLegacyMailUnselect58968C[] = "\xB0\xB1\xA4\xEE\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB3\x6F\xA6\xEC\xA6\x6E\xA4\xCD\xA1\x43";
+constexpr char kLegacyMailSelect589678[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB3\x6F\xA6\xEC\xA6\x6E\xA4\xCD\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8383,6 +8392,170 @@ std::uint32_t Sub_4EBAA0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMailDeletePanel583618, 0);
+}
+
+std::int32_t Sub_4EB120()
+{
+    char preserved[400];
+    std::strcpy(preserved, input::gInputContextD66CA8.text);
+    const std::int32_t y = gLegacyMailNormalPanel583488.y;
+    const std::int32_t x = gLegacyMailNormalPanel583488.x;
+    input::InitializeContext_449CF0(&input::gInputContextD66CA8,
+        x + 10, y + 219, 2, 0, 0, preserved, 10, 28, 20, 0);
+    input::SetContext_44B330(&input::gInputContextD66CA8);
+    gLegacyMailSelectedFlagsCB0AA8.fill(0);
+    const std::int32_t selected = gLegacyMailSelectedD30410;
+    gLegacyMailSelectedFlagsCB0AA8[selected] = 1;
+    return 0;
+}
+
+std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMailNormalPanel583488.x;
+    const std::int32_t y = gLegacyMailNormalPanel583488.y;
+    std::array<LegacyPanelButtonRecord, 4> buttons {{
+        {x + 80, y + 197, x + 40, y + 187, 80, 20, 23196, 23197},
+        {x + 192, y + 197, x + 152, y + 187, 80, 20, 22710, 22711},
+        {x + 89, y + 159, x + 75, y + 149, 28, 20, 22832, 22833},
+        {x + 189, y + 159, x + 175, y + 149, 28, 20, 22834, 22835},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailNormalPanel583488,
+        [] { static_cast<void>(Sub_4EB120()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        return reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+    }
+    // 原4EB320在行点击前统计，本帧绘制后的发送提示仍使用该计数。
+    std::int32_t selectedCount = 0;
+    for (const std::uint8_t selected : gLegacyMailSelectedFlagsCB0AA8) {
+        if (selected != 0) {
+            ++selectedCount;
+        }
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t top = gLegacyMailNormalPanel583488.y + 27 * row;
+        const std::int32_t left = gLegacyMailNormalPanel583488.x;
+        if (Sub_5049A0(left + 64, top + 38, left + 213, top + 58, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        const std::int32_t page = gLegacyMailPreviousPageD2DACC;
+        const std::int32_t contact = world::detail::gContactIndicesFDA608[hovered + 4 * page];
+        // 原4EB4E7命中空联系人仍跳到公共尾，不继续查询四个按钮。
+        if (world::detail::gContactsF19FB0[contact].used != 0) {
+            gLegacyMailSelectedFlagsCB0AA8[contact] ^= 1u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    } else if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
+        if (input::gInputContextD66CA8.text[0] != '\0' && selectedCount > 0) {
+            std::int32_t timeValue;
+            static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
+            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
+            const std::int32_t minutes = calendar->minutes;
+            const std::int32_t hours = calendar->hours;
+            const std::int32_t day = calendar->day;
+            const std::int32_t month = calendar->month0based + 1;
+            const std::int32_t year = calendar->yearMinus1900 + 1900;
+            char timestamp[64];
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            char source[512];
+            std::strcpy(source, input::gInputContextD66CA8.text);
+            char escaped[600];
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            for (std::int32_t position = 0; position < 60; ++position) {
+                const std::int32_t contact = world::detail::gContactIndicesFDA608[position];
+                if (gLegacyMailSelectedFlagsCB0AA8[contact] != 0) {
+                    const auto socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_510FA0(socket, contact, escaped, 0));
+                    const std::int32_t savedContact = world::detail::gContactIndicesFDA608[position];
+                    world::detail::Sub_5191C0(savedContact, 1, timestamp, input::gInputContextD66CA8.text);
+                }
+            }
+            static_cast<void>(world::detail::Sub_519300());
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::Sub_504180(42));
+            input::gInputContextD66CA8.text[0] = '\0';
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((QueryPanelButtonState(&buttons[1]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(42));
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x10) != 0) {
+        --gLegacyMailPreviousPageD2DACC;
+        if (gLegacyMailPreviousPageD2DACC < 0) {
+            gLegacyMailPreviousPageD2DACC = 14;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&buttons[3]) & 0x10) != 0) {
+        ++gLegacyMailPreviousPageD2DACC;
+        if (gLegacyMailPreviousPageD2DACC >= 15) {
+            gLegacyMailPreviousPageD2DACC = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyMailNormalPanel583488.y + 27 * hovered;
+        const std::int32_t image = gValueD69768;
+        const std::int32_t left = gLegacyMailNormalPanel583488.x;
+        static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(left + 64),
+            static_cast<std::int16_t>(top + 38), static_cast<std::int16_t>(left + 209),
+            static_cast<std::int16_t>(top + 58), 212, image, 0));
+    }
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t page = gLegacyMailPreviousPageD2DACC;
+        const std::int32_t position = row + 4 * page;
+        const std::int32_t contact = world::detail::gContactIndicesFDA608[position];
+        const auto* const record = &world::detail::gContactsF19FB0[contact];
+        if (record->used == 0) {
+            continue;
+        }
+        const std::int8_t color = gLegacyMailSelectedFlagsCB0AA8[contact] != 0
+            ? 1 : (record->value02 != 0 ? 0 : 7);
+        const std::int32_t width = TextMeasure(record->name10.data(), 0);
+        const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
+        const char* const name = world::detail::gContactsF19FB0[nameContact].name10.data();
+        const std::int32_t top = gLegacyMailNormalPanel583488.y + 40 + 27 * row;
+        const std::int32_t left = gLegacyMailNormalPanel583488.x - width / 2 + 136;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
+    }
+    char pageText[128];
+    std::sprintf(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
+    const std::int32_t pageY = gLegacyMailNormalPanel583488.y + 152;
+    const std::int32_t pageX = gLegacyMailNormalPanel583488.x + 119;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, pageText, 0, 0));
+    for (auto& button : buttons) {
+        Sub_5035E0(&button, 212, 1, gValueD69768, 0);
+    }
+    render::DrawInputText_4568A0(&input::gInputContextD66CA8);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyMailNormalPanel583488) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0
+        || (QueryPanelButtonState(&buttons[3]) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
+        hint = selectedCount != 0 ? kLegacyMailSendSelected5896B8 : kLegacyMailChooseRecipients5896A4;
+    } else if ((QueryPanelButtonState(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacyMailReturn589628;
+    } else if (hovered >= 0) {
+        const std::int32_t page = gLegacyMailPreviousPageD2DACC;
+        const std::int32_t contact = world::detail::gContactIndicesFDA608[hovered + 4 * page];
+        hint = world::detail::gContactsF19FB0[contact].used != 0
+            && gLegacyMailSelectedFlagsCB0AA8[contact] != 0
+            ? kLegacyMailUnselect58968C : kLegacyMailSelect589678;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyMailNormalPanel583488, 1));
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

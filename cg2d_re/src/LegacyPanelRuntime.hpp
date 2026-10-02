@@ -204,6 +204,8 @@ std::uintptr_t Sub_4EC1D0(); // 旧42排序/未读扫描/补四空动画，返�
 std::uintptr_t Sub_4EC240(std::int32_t opened); // 旧42联系人登记本，关闭返末槽处理T*、正常返完整W32。
 std::uint32_t Sub_4EB890(std::int32_t opened); // 旧45普通/宠物送信模式，依序打开46/48/42，不重置目标。
 std::uint32_t Sub_4EBAA0(std::int32_t opened); // 旧44联系人删除确认，发送后重取同源删除索引，只保存第一邮件组。
+std::int32_t Sub_4EB120(); // 旧46保留同源D66CA8草稿，清60选择后按旧42目标置1。
+std::uintptr_t Sub_4EB1C0(std::int32_t opened); // 旧46按排序表批量发信，关闭返聊天T*、正常返完整W32。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。

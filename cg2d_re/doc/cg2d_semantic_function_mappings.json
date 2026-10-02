@@ -2076,6 +2076,390 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。"
+    },
+    {
+      "original_entry": "0x401C10",
+      "inventory_id": "F:00001C10",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553004启动双CryptInt登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "StartupCryptValuesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "ConstructStartupValues_401C20",
+            "DestroyStartupValues_401C50"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。"
+    },
+    {
+      "original_entry": "0x404120",
+      "inventory_id": "F:00004120",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553008第一保护校验值登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ProtectionChecksum1StaticInitializer"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionChecksum1_404130",
+            "DestroyProtectionChecksum1_404150"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。"
+    },
+    {
+      "original_entry": "0x404160",
+      "inventory_id": "F:00004160",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT55300C第二保护校验值登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ProtectionChecksum2StaticInitializer"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionChecksum2_404170",
+            "DestroyProtectionChecksum2_404190"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。"
+    },
+    {
+      "original_entry": "0x4041A0",
+      "inventory_id": "F:000041A0",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553010进程保护状态登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ProtectionProcessStateStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionProcessState_4041B0",
+            "DestroyProtectionProcessState_4041D0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。"
+    },
+    {
+      "original_entry": "0x43D760",
+      "inventory_id": "F:0003D760",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553014世界对象表登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldObjectsStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects",
+            "DestroyWorldObjects"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用43D770后登记43D7A0；既有世界对象正序构造/逆序析构承接，逐项两成员叶另有既存映射。"
+    },
+    {
+      "original_entry": "0x44CC20",
+      "inventory_id": "F:0004CC20",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553018第一变换缓存树登记",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms629300"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先44CC30构造629300树，再登记44CC60；按既有std::map适配承接生命周期，跨模块CRT及异常时机未验。"
+    },
+    {
+      "original_entry": "0x44CC30",
+      "inventory_id": "F:0004CC30",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "第一变换缓存树构造入口",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms629300",
+            "SurfaceTransformCache"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原以629300为this调用453FB0；当前类型化map默认构造，不复制局部allocator残值。"
+    },
+    {
+      "original_entry": "0x44CC60",
+      "inventory_id": "F:0004CC60",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "变换缓存树公共析构",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "入口选629300，44CC70是两树共用销毁段；原释放树节点/表头及共享哨兵，不逐值释放surface。当前map保持非拥有值，业务释放仍由44D490承接。"
+    },
+    {
+      "original_entry": "0x44CD30",
+      "inventory_id": "F:0004CD30",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT55301C第二变换缓存树登记",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先44CD40构造62A630树，再登记44CD70；和第一缓存保持两个独立容器，不用共用影子树。"
+    },
+    {
+      "original_entry": "0x44CD40",
+      "inventory_id": "F:0004CD40",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "第二变换缓存树构造入口",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms62A630",
+            "SurfaceTransformCache"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原以62A630为this调用453FB0，当前由第二个类型化map构造承接。"
+    },
+    {
+      "original_entry": "0x44CD70",
+      "inventory_id": "F:0004CD70",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "第二变换缓存树析构尾跳",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原两指令设置第二树地址并跳44CC70公共段，不能把unknown_libname标签当空叶；当前第二map析构承接。"
+    },
+    {
+      "original_entry": "0x453FB0",
+      "inventory_id": "F:00053FB0",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "双变换缓存空树构造叶",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_455490_initialization.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原为两树建立48B节点表头/共享哨兵及引用计数，目标指针字段由原生map拓宽；原节点字节、allocator、树形和分配时机沿既有容器适配边界。"
+    },
+    {
+      "original_entry": "0x453E00",
+      "inventory_id": "F:00053E00",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553020窄标准流登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原构造628FE9控制器再登记453E30；现有应用侧标准流配置/退出对象承接，实际标准流与运行期计数由本机CRT持有。"
+    },
+    {
+      "original_entry": "0x453E10",
+      "inventory_id": "F:00053E10",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "窄标准流控制器构造尾跳",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原尾跳5482DD，现有适配配置cin/cerr/clog到cout的tie与cerr unitbuf，不新造FILE缓冲或旧私有计数。"
+    },
+    {
+      "original_entry": "0x453E30",
+      "inventory_id": "F:00053E30",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "窄标准流退出控制器",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "FlushLegacyStandardStream"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原含54843C共享尾块，计数归零后按cout/cerr/clog顺序同步；本机CRT管理计数，应用侧按既有标准流SPEC保持同步顺序，不额外调用flush或刷新tie。"
+    },
+    {
+      "original_entry": "0x453E40",
+      "inventory_id": "F:00053E40",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "CRT553024宽标准流登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原构造628FE8控制器再登记453E70；当前应用侧宽流适配位于窄流之后，退出反序，后继音频553028仍暂缓。"
+    },
+    {
+      "original_entry": "0x453E50",
+      "inventory_id": "F:00053E50",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "宽标准流控制器构造尾跳",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原尾跳549397；当前配置wcin/wcerr/wclog到wcout的tie与wcerr unitbuf，不声明或仿造私有_Winit。"
+    },
+    {
+      "original_entry": "0x453E70",
+      "inventory_id": "F:00053E70",
+      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "original_role": "宽标准流退出控制器",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "FlushLegacyStandardStream"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原含5494FE共享尾块，计数归零后按wcout/wcerr/wclog顺序同步；按已确认原生流适配承接，不把完整宿主退出或旧私有计数逐次行为计为已验。"
     }
   ]
 }

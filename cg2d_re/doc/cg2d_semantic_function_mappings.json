@@ -9799,6 +9799,234 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "先扫描目标NUL，进入544E21共享复制尾。三个直接调用5444E5/5444F6/544508均属5443FF，该父链不借此完成；Input退格的原复制为内联，同名std::strcat不能作为原直接调用证据。"
+    },
+    {
+      "original_entry": "0x53DEAB",
+      "inventory_id": "F:0013DEAB",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x53DECD",
+      "instruction_count": 7,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "MSVC 14.50.35717",
+        "source_path": "crt/src/vcruntime/exe_common.inl",
+        "symbol": "__scrt_common_main_seh",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "模式1先banner，报告后经58F8A0（原初始53C90B）退出255；宿主启动部分失败为fastfail、部分返回255，不称该间接退出路径等价。"
+    },
+    {
+      "original_entry": "0x53DED0",
+      "inventory_id": "F:0013DED0",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x53DEF3",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "MSVC 14.50.35717",
+        "source_path": "crt/src/vcruntime/exe_common.inl",
+        "symbol": "__scrt_common_main_seh",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原启动失败报告后直接ExitProcess(255)，不并作经旧退出表的53DEAB；宿主启动失败/异常路径不同，实际exe接线未验。"
+    },
+    {
+      "original_entry": "0x5443C6",
+      "inventory_id": "F:001443C6",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x5443FF",
+      "instruction_count": 18,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "internal/report_runtime_error.cpp",
+        "symbol": "__acrt_report_runtime_error",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅模式1或默认且控制台类型时报告252、调非空10862A8、报告255；宿主没有以本记录证明同一旧banner/钩子序列，职责关联不等价于原体实现。"
+    },
+    {
+      "original_entry": "0x5443FF",
+      "inventory_id": "F:001443FF",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x544552",
+      "instruction_count": 100,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "internal/report_runtime_error.cpp",
+        "symbol": "__acrt_report_runtime_error",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "18项错误表及零哨兵；stderr直写，GUI跳252、取程序名/截长/拼接后弹窗。宿主宽字符、受限复制和调试通知不同；共享544DB0/544DC0复制尾的原父职责已定位，具体错误消息/输出仍未验。"
+    },
+    {
+      "original_entry": "0x546D0C",
+      "inventory_id": "F:00146D0C",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x546D95",
+      "instruction_count": 50,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "misc/crtmbox.cpp",
+        "symbol": "common_show_message_box",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅5443FF调用，缓存USER32的MessageBoxA/GetActiveWindow/GetLastActivePopup，加载失败返0；宿主调试器/窗口模型/交互策略及IDRETRY/IDABORT返回不同，不新建旧缓存。"
+    },
+    {
+      "original_entry": "0x545174",
+      "inventory_id": "F:00145174",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x54518B",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "startup/abort.cpp",
+        "symbol": "abort",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原报告10、无条件raise22、返回后_exit3；宿主按行为标志、处理器和ReportFault/fastfail决定路径，不称消息/信号/退出码等价。原唯一直接来源540A5C终止尾。"
+    },
+    {
+      "original_entry": "0x540A5C",
+      "inventory_id": "F:00140A5C",
+      "status": "宿主CRT职责已定位；原故障差异与最终入口接线未验",
+      "original_end_exclusive": "0x540AB2",
+      "instruction_count": 29,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主运行库职责关联；不是原CRT直接定义，当前没有最终可执行目标"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "misc/terminate.cpp",
+        "symbol": "terminate",
+        "relationship": "宿主源码职责参考，不宣称与原体完全等价或当前已链接运行"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原共享1086064非空才调用，SEH捕获处理器异常后进入abort；宿主用线程处理器，捕获异常后abort。原异常传播/SEH/最终退出仍未验，不恢复旧异常处理表。"
+    },
+    {
+      "original_entry": "0x548143",
+      "inventory_id": "F:00148143",
+      "status": "仅已证GetEnv私有caller随整体标准库承接；不推广通用strdup",
+      "original_end_exclusive": "0x54816E",
+      "instruction_count": 23,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "随既有用户GetEnv裁决承接的环境复制叶；应用文件无本叶直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "env/getenv.cpp",
+        "symbol": "common_getenv"
+      },
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "string/strdup.cpp",
+        "symbol": "_strdup",
+        "relationship": "仅语义参考，不断言getenv实际调用该函数"
+      },
+      "original_incoming": [
+        {
+          "site": "0x5480B7",
+          "parent": "0x548069"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "空源null；strlen+1分配失败null，成功复制返回分配指针。唯一直接caller在已批旧环境补表链，按新增证据限定归属，不以通用函数名扩大std替代范围；原堆/复制入口本身不随之排除。"
     }
   ]
 }

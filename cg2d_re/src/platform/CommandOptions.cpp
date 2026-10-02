@@ -7,6 +7,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "StartupNative.hpp"
 #include "LegacyMultibyte.hpp"
+#include "LegacyFormat.hpp"
 #include "LegacyRuntimeError.hpp"
 
 #include <bit>
@@ -69,19 +70,19 @@ int ParseCommandOptions()
 {
     char savedata[128] {};
     if (char* match = std::strstr(gCommandLine, "newest:")) {
-        std::sscanf(match + std::strlen("newest:"), "%s", gNewestText);
+        ScanLegacyString_53CADC(match + std::strlen("newest:"), "%s", gNewestText);
     }
     if (char* match = std::strstr(gCommandLine, "savedata:")) {
-        std::sscanf(match + std::strlen("savedata:"), "%s", savedata);
+        ScanLegacyString_53CADC(match + std::strlen("savedata:"), "%s", savedata);
     }
     if (char* match = std::strstr(gCommandLine, "datafolder:")) {
-        std::sscanf(match + std::strlen("datafolder:"), "%s", gDataPath);
+        ScanLegacyString_53CADC(match + std::strlen("datafolder:"), "%s", gDataPath);
     }
     if (char* match = std::strstr(gCommandLine, "binfolder:")) {
-        std::sscanf(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
+        ScanLegacyString_53CADC(match + std::strlen("binfolder:"), "%s", resource::gBinPath);
     }
     if (char* match = std::strstr(gCommandLine, "mapfolder:")) {
-        std::sscanf(match + std::strlen("mapfolder:"), "%s", gMapPath);
+        ScanLegacyString_53CADC(match + std::strlen("mapfolder:"), "%s", gMapPath);
     }
 
     // 原 0x46605C-0x46606B 不使用 savedata 或 gDataPath，固定拼接该路径。
@@ -157,23 +158,23 @@ int ParseCommandOptions()
     int value;
     for (int slot = 0; slot < 9; ++slot) {
         if (char* match = std::strstr(gCommandLine, graphicKeys[slot])) {
-            std::sscanf(match + std::strlen(graphicKeys[slot]), "%d", &value);
+            ScanLegacyString_53CADC(match + std::strlen(graphicKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, graphicOverrideKeys[slot])) {
-            std::sscanf(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
+            ScanLegacyString_53CADC(match + std::strlen(graphicOverrideKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicNames][slot], graphicFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, graphicInfoKeys[slot])) {
-            std::sscanf(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
+            ScanLegacyString_53CADC(match + std::strlen(graphicInfoKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[GraphicInfoNames][slot], graphicInfoFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, animeKeys[slot])) {
-            std::sscanf(match + std::strlen(animeKeys[slot]), "%d", &value);
+            ScanLegacyString_53CADC(match + std::strlen(animeKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[AnimeNames][slot], animeFormats[slot], value);
         }
         if (char* match = std::strstr(gCommandLine, animeInfoKeys[slot])) {
-            std::sscanf(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
+            ScanLegacyString_53CADC(match + std::strlen(animeInfoKeys[slot]), "%d", &value);
             std::sprintf(gResourceNames[AnimeInfoNames][slot], animeInfoFormats[slot], value);
         }
     }
@@ -181,13 +182,13 @@ int ParseCommandOptions()
     for (int slot = 0; slot < 9; ++slot) {
         if (!std::strchr(gResourceNames[CoordinateNames][slot], '*')) {
             if (char* match = std::strstr(gCommandLine, coordinateKeys[slot])) {
-                std::sscanf(match + std::strlen(coordinateKeys[slot]), "%d", &value);
+                ScanLegacyString_53CADC(match + std::strlen(coordinateKeys[slot]), "%d", &value);
                 std::sprintf(gResourceNames[CoordinateNames][slot], coordinateFormats[slot], value);
             }
         }
         if (!std::strchr(gResourceNames[CoordinateInfoNames][slot], '*')) {
             if (char* match = std::strstr(gCommandLine, coordinateInfoKeys[slot])) {
-                std::sscanf(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
+                ScanLegacyString_53CADC(match + std::strlen(coordinateInfoKeys[slot]), "%d", &value);
                 std::sprintf(gResourceNames[CoordinateInfoNames][slot], coordinateInfoFormats[slot], value);
             }
         }
@@ -198,7 +199,7 @@ int ParseCommandOptions()
         for (int table = CoordinateNames; table <= CoordinateInfoNames; ++table) {
             char* destination = gResourceNames[table][slot];
             if (std::strchr(destination, '*')) {
-                std::sscanf(destination, "*%d", &value);
+                ScanLegacyString_53CADC(destination, "*%d", &value);
                 const char* source = gResourceNames[table][value];
                 const std::size_t length = std::strlen(source) + 1;
 
@@ -229,7 +230,7 @@ int ParseCommandOptions()
     if (char* match = std::strstr(gCommandLine, "winpos:")) {
         int x;
         int y;
-        std::sscanf(match + std::strlen("winpos:"), "%d,%d", &x, &y);
+        ScanLegacyString_53CADC(match + std::strlen("winpos:"), "%d,%d", &x, &y);
         if (x >= 0 && y >= 0) {
             gStartX = x;
             gStartY = y;
@@ -239,7 +240,7 @@ int ParseCommandOptions()
     gRendererFlags = 0;
     gRendererMode = 1;
     if (char* match = std::strstr(gCommandLine, "3Ddevice:")) {
-        std::sscanf(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
+        ScanLegacyString_53CADC(match + std::strlen("3Ddevice:"), "%d", &gRendererModeStorage);
     }
     if (std::strstr(gCommandLine, "soundoff")) {
         gEnableSound = 0;
@@ -272,7 +273,7 @@ int ParseIpOptions_507C80(const char* const commandLine)
     const char* cursor = commandLine;
     while (const char* const match = std::strstr(cursor, "IP:")) {
         const char* const number = match + 3;
-        const int parsed = std::sscanf(number, "%d:", &index);
+        const int parsed = ScanLegacyString_53CADC(number, "%d:", &index);
         if (static_cast<std::uint32_t>(index)
             >= login::gValueD69798.size()) {
             return parsed;

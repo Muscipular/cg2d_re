@@ -4668,15 +4668,17 @@
         {
           "path": "src/platform/CommandOptions.cpp",
           "symbols": [
-            "ParseCommandOptions"
+            "ParseCommandOptions",
+            "ParseIpOptions_507C80"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "本体及ParseIpOptions_507C80已有；保留字节查找、原共享字段和末次507C80的0/sscanf返回，入口弃置结果。完整启动及网络流程未验。"
+      "boundary": "本体及ParseIpOptions_507C80已有；命令选项16个原扫描点和IP的1点已迁到真实53CADC/53DEF4，保留字节查找、共享字段、局部复用和末次507C80的0/解析返回，入口弃置结果。newest参数仍保留，不恢复排除更新链；音效/音乐开关和后处理未改，完整启动及网络流程未验。"
     },
     {
       "original_entry": "0x4669F0",
@@ -14626,7 +14628,7 @@
     {
       "original_entry": "0x53CADC",
       "inventory_id": "F:0013CADC",
-      "status": "原字符串扫描包装及输入核心已实现，固定版本调用已迁移；其他调用/运行未验",
+      "status": "原字符串扫描包装/核心及21个原业务调用点已接；1个音频调用暂停，完整运行未验",
       "original_end_exclusive": "0x53CB10",
       "instruction_count": 19,
       "original_direct_reference_count": 22,
@@ -14649,6 +14651,22 @@
           "symbols": [
             "ScanLegacyString_53CADC"
           ]
+        },
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseCommandOptions",
+            "ParseIpOptions_507C80"
+          ],
+          "relationship": "17个原扫描点由现有16处源码调用承接，坐标双表循环对应原两别名点"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50CE10",
+            "Sub_50D3C0"
+          ],
+          "relationship": "仅迁移3个已证扫描调用，其他网络/战斗/音效后处理不变"
         }
       ],
       "native_provider": {
@@ -14660,7 +14678,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。固定版本4659F0已迁移，其余21个原引用未批量接线；音频/newest范围保持，未构建/运行。",
+      "boundary": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。原22个入向中版本1、命令16、IP1、网络字段1和战斗字段2已接；524060的BGM配置扫描仍属暂停音频，未迁移且不计排除。原格式字节、目标/返回消费和其他父逻辑保持，未构建/运行。",
       "function_chunks": [
         {
           "start": "0x53CADC",
@@ -14757,7 +14775,121 @@
           "parent_entry": "0x524060"
         }
       ],
-      "verification_level": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行"
+      "verification_level": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行",
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4659F0",
+          "call_sites": [
+            "0x465A09"
+          ],
+          "source": "src/platform/StartupCommon.cpp",
+          "symbol": "ParseClientVersion",
+          "status": "上一轮已接真实扫描包装"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_sites": [
+            "0x465F5A",
+            "0x465F9B",
+            "0x465FD9",
+            "0x466017",
+            "0x466054",
+            "0x466522",
+            "0x466577",
+            "0x4665CC",
+            "0x466621",
+            "0x466676",
+            "0x4666F9",
+            "0x46675F",
+            "0x4667B1",
+            "0x466803",
+            "0x4668F2",
+            "0x466957"
+          ],
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "status": "本轮已接真实扫描包装"
+        },
+        {
+          "parent_entry": "0x507C80",
+          "call_sites": [
+            "0x507CC4"
+          ],
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseIpOptions_507C80",
+          "status": "本轮已接真实扫描包装"
+        },
+        {
+          "parent_entry": "0x50CE10",
+          "call_sites": [
+            "0x50CE9A"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_50CE10",
+          "status": "本轮已接真实扫描包装"
+        },
+        {
+          "parent_entry": "0x50D3C0",
+          "call_sites": [
+            "0x50D444",
+            "0x50D467"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_50D3C0",
+          "status": "本轮已接真实扫描包装"
+        },
+        {
+          "parent_entry": "0x524060",
+          "call_sites": [
+            "0x524108"
+          ],
+          "source": "src/LegacyAudio.cpp",
+          "symbol": "LoadBgmConfig_524060",
+          "status": "音频暂停，扫描调用未迁移"
+        }
+      ],
+      "business_format_evidence": [
+        {
+          "instruction": "0x465F52",
+          "address": "0x5535F8",
+          "bytes": "257300"
+        },
+        {
+          "instruction": "0x46651A",
+          "address": "0x5531A4",
+          "bytes": "256400"
+        },
+        {
+          "instruction": "0x4667AB",
+          "address": "0x55D1A0",
+          "bytes": "2a256400"
+        },
+        {
+          "instruction": "0x4668E5",
+          "address": "0x55D188",
+          "bytes": "25642c256400"
+        },
+        {
+          "instruction": "0x507CBE",
+          "address": "0x58AD6C",
+          "bytes": "25643a00"
+        },
+        {
+          "instruction": "0x50CE94",
+          "address": "0x58B020",
+          "bytes": "4046494e445f4c56314053453a256400"
+        },
+        {
+          "instruction": "0x50D43E",
+          "address": "0x58B050",
+          "bytes": "25587c25587c25587c25587c25587c255800"
+        },
+        {
+          "instruction": "0x50D461",
+          "address": "0x58B048",
+          "bytes": "25587c255800"
+        }
+      ]
     },
     {
       "original_entry": "0x53F2C6",
@@ -23630,7 +23762,7 @@
     {
       "original_entry": "0x53DEF4",
       "inventory_id": "F:0013DEF4",
-      "status": "原格式化输入核心及唯一包装已实现，固定版本调用已接；其他业务/启动与完整运行未验",
+      "status": "原格式化输入核心及唯一包装已实现，21个原业务调用点已接；音频1点暂停，启动/完整运行未验",
       "original_end_exclusive": "0x53E919",
       "instruction_count": 906,
       "original_direct_reference_count": 1,
@@ -23651,7 +23783,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "完整输入分派、h/l/L/w/F/N/*/I64修饰、S32宽度/计数/U8完成标记、整数/浮点/c/s/[/n/字面匹配及原EOF规则已表达。保留i/x预读回推、I64n清零值、字符集倒序范围和缺失]无保护、宽转换失败沿旧DstCh、浮点349宽度/读取/回推次序；全局ctype/小数点/58FB58继续真实共享。仅p地址累计/目标写入拓宽至uintptr_t/void*，其他数值W16/W32/W64不扩；Win64原生va_list不复制x86槽。未消费的未知字面目标预取被省略，抑制字符串用U32单位计数保持成功判断；原C/DstCh未初始化域不补零、不宣称故障等价。唯一字符串包装及版本调用已接，未构建执行，实际浮点启动仍待。",
+      "boundary": "完整输入分派、h/l/L/w/F/N/*/I64修饰、S32宽度/计数/U8完成标记、整数/浮点/c/s/[/n/字面匹配及原EOF规则已表达。保留i/x预读回推、I64n清零值、字符集倒序范围和缺失]无保护、宽转换失败沿旧DstCh、浮点349宽度/读取/回推次序；全局ctype/小数点/58FB58继续真实共享。仅p地址累计/目标写入拓宽至uintptr_t/void*，其他数值W16/W32/W64不扩；Win64原生va_list不复制x86槽。未消费的未知字面目标预取被省略，抑制字符串用U32单位计数保持成功判断；原C/DstCh未初始化域不补零、不宣称故障等价。唯一字符串包装及版本、命令、IP、网络/战斗扫描调用已接；524060音频调用仍暂停，未构建执行，实际浮点启动仍待。",
       "function_chunks": [
         {
           "start": "0x53DEF4",

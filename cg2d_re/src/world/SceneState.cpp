@@ -32,6 +32,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 #include "cg/world/GameTime.hpp"
 #include "../platform/MainLoopDependencies.hpp"
+#include "../platform/LegacyFormat.hpp"
 #include "../platform/MapEffectMath.hpp"
 #include "WorldUpdateDependencies.hpp"
 
@@ -2549,7 +2550,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     if (std::strncmp(source, "@FIND_LV1", 9) == 0) {
         std::int32_t sound = 0;
         std::strncpy(command, source, sizeof(command));
-        std::sscanf(command, "@FIND_LV1@SE:%d", &sound);
+        platform::ScanLegacyString_53CADC(command, "@FIND_LV1@SE:%d", &sound);
         const char* const message = std::strstr(command, "@MSG:");
         std::strncpy(source, message + 5, sizeof(source));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
@@ -5655,14 +5656,14 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
         return;
     }
     if (kind == 'P') {
-        static_cast<void>(std::sscanf(text + 2, "%X|%X|%X|%X|%X|%X",
+        static_cast<void>(platform::ScanLegacyString_53CADC(text + 2, "%X|%X|%X|%X|%X|%X",
             &gBattlePosition5ABCA8, &gBattlePlayerFlags5ABCAC,
             &gBattleSkillFlags5ABC04, &gBattlePetSkillFlags5ABB78,
             &gBattleRebirthLevel5ABB7C, &gBattleRidePet5ABC38));
         return;
     }
     if (kind == 'A') {
-        static_cast<void>(std::sscanf(text + 2, "%X|%X",
+        static_cast<void>(platform::ScanLegacyString_53CADC(text + 2, "%X|%X",
             &gBattleEndBits5ABBC0, &gBattleTurn5ABB74));
         if (gBattleFirstTurnPending5ABC6C == 1) {
             const std::uint32_t turn = gBattleTurn5ABB74;

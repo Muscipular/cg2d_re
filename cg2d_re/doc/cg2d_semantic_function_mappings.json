@@ -12477,7 +12477,7 @@
     {
       "original_entry": "0x53C2B4",
       "inventory_id": "F:0013C2B4",
-      "status": "六组既有排序特化已补同址免交换；通用字节接口与完整父链未验收",
+      "status": "九组排序特化的同址免交换已落实；新增三组按完整对象字节交换，父链未运行验收",
       "original_end_exclusive": "0x53C2E0",
       "instruction_count": 23,
       "original_direct_reference_count": 4,
@@ -12513,6 +12513,14 @@
             "SortBattleDrawPointers_53C112",
             "ShortSortBattleDrawActions_53C266"
           ]
+        },
+        {
+          "path": "src/LegacySort.hpp",
+          "symbols": [
+            "SwapLegacyRecord_53C2B4",
+            "SortLegacyRecords_53C112"
+          ],
+          "relationship": "45BB20动画、520790渲染索引和52FCC0公会索引共用的原分区与完整对象表示交换"
         }
       ],
       "evidence_documents": [
@@ -12522,7 +12530,7 @@
         "doc/ui_windows/shared_battle.md",
         "doc/ui_windows/window_49.md"
       ],
-      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。本步六算法十八个可能同址点加地址不等条件，中点换首在length>8时必异而保持原调用。不同元素沿既有完整原生值交换，非通用任意字节/重叠区间实现；比较/分区/栈顺序与其他源码逐字保持。"
+      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。原六组十八个可能同址点已有门禁；新增三组使用内部模板按sizeof(T)完整字节、先读右后读左交换，原生指针和未消费字节一起移动。九算法覆盖原十个qsort调用点的算法位置，不将任意重叠区间、完整父链或运行验收计为通过。"
     }
   ]
 }

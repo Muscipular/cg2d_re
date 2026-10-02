@@ -10,6 +10,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include "../LoginMessageDependencies.hpp"
+#include "../LegacySort.hpp"
 
 #include <algorithm>
 #include <bit>
@@ -381,10 +382,9 @@ void SortTextures_520790()
     AppendReservedGraphic(platform::gPendingGraphicCount, 6, 7);
     AppendReservedGraphic(platform::gPendingGraphicCount, 20, 9);
 
-    std::qsort(
+    cg::detail::SortLegacyRecords_53C112(
         gLegacyPendingStorage.cache3.data(),
-        static_cast<std::size_t>(platform::gPendingGraphicCount),
-        sizeof(GraphicCache3),
+        static_cast<std::uint32_t>(platform::gPendingGraphicCount),
         CompareGraphicCache3_5222A0);
 }
 

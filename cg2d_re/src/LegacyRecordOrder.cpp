@@ -8,6 +8,7 @@
 #include "cg/world/SceneState.hpp"
 
 #include "world/MailState.hpp"
+#include "LegacySort.hpp"
 
 #include <bit>
 #include <cstdlib>
@@ -304,8 +305,8 @@ void BuildOrderedRecordIndices_52FCC0()
     for (std::uint32_t index = 0; index < gOrderedRecords1051B14.size(); ++index) {
         indices[index] = index;
     }
-    std::qsort(
-        indices, gOrderedRecords1051B14.size(), sizeof(std::uint32_t),
+    cg::detail::SortLegacyRecords_53C112(
+        indices, static_cast<std::uint32_t>(gOrderedRecords1051B14.size()),
         &CompareOrderedRecords_52FB60);
 }
 

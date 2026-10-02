@@ -33,4 +33,8 @@ extern char gNlsProbeD68A7C;
 // 原543D0C；按U32限制计数，结束时仍读取当前字节；仅接已证末端可读的NLS消费域。
 std::uint32_t CountLegacyBytes_543D0C(const char* source, std::uint32_t limit);
 
+// 原543AE8的小范围大小写调用域；flags仅接100H/200H，目标长3、CP0、strict1。
+std::int32_t MapLegacyCase_543AE8(std::uint32_t locale, std::uint32_t flags,
+    const char* source, std::int32_t sourceSize, char* destination);
+
 } // namespace cg::platform

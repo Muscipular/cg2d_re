@@ -28,9 +28,14 @@ static_assert(offsetof(LegacyMultibyteStorage, locale) == 0x220);
 static_assert(sizeof(LegacyMultibyteStorage) == 0x224);
 
 extern LegacyMultibyteStorage gLegacyMultibyte1086764;
+extern std::int32_t gLegacyCtypeMaxBytes58FE3C; // 原MB_CUR_MAX；543A1A决定分类分支。
 extern std::uint32_t gLegacyMultibyteTypeBackend10862E4;   // 分类A/W探测，独立于LCMap后端。
 extern std::uint32_t gLegacyMultibyteSystemCodePage10862E8; // 原getSystemCP的回退标记。
 extern std::uint32_t gLegacyMultibyteInitGuard1087AEC;     // 初始化调用后置1，不按失败重试。
+
+// 原545208的CT_CTYPE1调用域；复用共享A/W后端，types按实际字符数写出。
+std::int32_t GetLegacyCharacterTypes_545208(const char* source, std::int32_t sourceCount,
+    std::uint16_t* types, std::uint32_t codePage, std::uint32_t locale, bool strict);
 
 // 原546A83/5468EA；保留特殊U32代码页参数、固定表和系统CPINFO路径。
 std::uint32_t ResolveLegacyMultibyteCodePage_546A83(std::uint32_t requested);
@@ -47,6 +52,9 @@ std::uint32_t MultibyteCodePageToLocale_546ACD(std::uint32_t codePage);
 
 // 原546B00；清分类及代码页状态，保留大小写映射和间隔字节，返回0。
 std::int32_t ResetLegacySingleByte_546B00();
+
+// 原543A1A；S32输入，供53DA5C解析字母数字，保留旧ctype/NLS分支。
+std::int32_t UpperLegacyCharacter_543A1A(std::int32_t value);
 
 // 原543D37在唯一caller 53DD2F的U8输入域；不公开一般宽字符转换。
 std::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);

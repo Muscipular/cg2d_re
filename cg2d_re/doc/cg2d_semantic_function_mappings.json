@@ -8496,7 +8496,7 @@
     {
       "original_entry": "0x541955",
       "inventory_id": "F:00141955",
-      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "status": "已实现完整分类辅助并接toupper；既有U8调用保留，其他CRT接线/运行未验",
       "original_end_exclusive": "0x5419CA",
       "instruction_count": 46,
       "sources": [
@@ -8519,6 +8519,12 @@
           "symbols": [
             "ClassifyLegacyByte"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ClassifyLegacyCharacter_541955"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8526,7 +8532,7 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "只承接U8输入域的表项与mask，覆盖本轮输入校验及既有比较器的小于256分类。原-1..255分支还包含EOF，但新接口不接收负值；其余输入的lead判断/NLS调用没有实现为通用接口，不把整函数视为全部语义完成。"
+      "boundary": "既有ClassifyLegacyByte保持U8直接查表。新增完整ClassifyLegacyCharacter_541955承接-1..255表域与其余lead/NLS域，供543A1A调用；复用545208的info1/strict1/1或2字节域。连续W16局部保留原C高半字与mask的API输出别名。其他CRT调用未因此自动接通，不新增非法表下标保护或故障模拟，未构建/执行。"
     },
     {
       "original_entry": "0x53C654",
@@ -8679,23 +8685,24 @@
     {
       "original_entry": "0x545208",
       "inventory_id": "F:00145208",
-      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "status": "已接多字节表生产及解析字符分类；限定NLS域及运行未验",
       "original_end_exclusive": "0x545351",
       "instruction_count": 123,
       "sources": [
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "GetLegacyTableCharacterTypes_545208"
+            "GetLegacyCharacterTypes_545208"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "只承接546B29的256字节/info1/strict0域；独立10862E4 A/W探测，代码页和locale按原回退，栈宽缓冲清零后转换，使用第二次转换的实际返回长度。其他一般调用参数不在此映射。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+      "boundary": "既有546B29仍传256字节/info1/strict0；新增541955传1或2字节/info1/strict1。独立10862E4 A/W探测、代码页/locale回退、首转换flags1或9、次转换flags1、同栈宽缓冲清零与实际转换长度保持。只拓展这两个已证调用域，不声称任意infoType等完整接口已承接；未执行NLS/目录操作、构建、测试或客户端。"
     },
     {
       "original_entry": "0x543AE8",
@@ -8707,16 +8714,25 @@
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "MapLegacyCaseTable_543AE8"
+            "MapLegacyCaseTable_543AE8",
+            "UpperLegacyCharacter_543A1A"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "MapLegacyCase_543AE8",
+            "LowerCompareValue_53DC64"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "新增546B29固定256项lower/upper、strict0域，与既有比较器共享1086198后端及1086170代码页；缩源、两次栈申请/宽映射及flags220回转保持。未实现SORTKEY/其他通用域，既有小范围MapLowercase保持。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+      "boundary": "546B29固定256项lower/upper、strict0域保持；原小范围MapLowercase扩为MapLegacyCase，既有53DC64显式传LOWERCASE、新543A1A传UPPERCASE，均目的长3/codePage0/strict1。复用1086198后端/1086170代码页，探测仍固定LOWERCASE，缩源、栈申请/宽映射及flags220回转保持。未实现SORTKEY/其他通用域，未构建或执行。"
     },
     {
       "original_entry": "0x546A83",
@@ -17513,6 +17529,105 @@
         "doc/cg2d_crt_memory_contract.md"
       ],
       "boundary": "21应用调用分布于Yobi对象/载荷、战斗文本、IME、窗口与两类输入/行表；另2调用属于53E9A5静态FILE表初始化。W32乘积、零请求按1/16B对齐、模式3按原请求清零、模式2按对齐容量清零、系统HeapAlloc(flags8)分别保留证据。失败重读1086150，处理器接收当前ESI对齐容量，返回非零重试；本体不显式写旧errno。现有业务calloc及sizeof原生指针承载保持，不添加保护或重试包装；完整内部合同不由宿主calloc存在直接判完成，CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x53DA45",
+      "inventory_id": "F:0013DA45",
+      "status": "原数值解析依赖本体已实现并内部接通；外层堆选择/运行未验",
+      "original_end_exclusive": "0x53DA5C",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令及全部直接入向；新增源码静态核对，未编译或执行",
+      "function_chunks": [
+        {
+          "start": "0x53DA45",
+          "end_exclusive": "0x53DA5C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x541B8B",
+          "parent_entry": "0x541A70"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Strtol_53DA45"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "boundary": "原有符号入口；固定flags=0进入53DA5C，S32返回位型、原生借用end指针。唯一外部父入口541A70仍未接线，不替换现有Atol/Atoi。 当前CRT宿主提案仍待确认；本体实现不代替完整启动或最终客户端验收。"
+    },
+    {
+      "original_entry": "0x53DA5C",
+      "inventory_id": "F:0013DA5C",
+      "status": "原数值解析依赖本体已实现并内部接通；外层堆选择/运行未验",
+      "original_end_exclusive": "0x53DC64",
+      "instruction_count": 194,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令及全部直接入向；新增源码静态核对，未编译或执行",
+      "function_chunks": [
+        {
+          "start": "0x53DA5C",
+          "end_exclusive": "0x53DC64"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DA53",
+          "parent_entry": "0x53DA45"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrToXl_53DA5C"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "boundary": "完整空白/符号/进制/0x前缀与字符扫描；U32累计、继续扫描溢出数字、errno34、符号/unsigned标志和结束指针按原顺序。使用原共享ctype和错误槽，不使用宿主strtol。 当前CRT宿主提案仍待确认；本体实现不代替完整启动或最终客户端验收。"
+    },
+    {
+      "original_entry": "0x543A1A",
+      "inventory_id": "F:00143A1A",
+      "status": "原数值解析依赖本体已实现并内部接通；外层堆选择/运行未验",
+      "original_end_exclusive": "0x543AE6",
+      "instruction_count": 71,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令及全部直接入向；新增源码静态核对，未编译或执行",
+      "function_chunks": [
+        {
+          "start": "0x543A1A",
+          "end_exclusive": "0x543AE6"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DB87",
+          "parent_entry": "0x53DA5C"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "UpperLegacyCharacter_543A1A"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "boundary": "S32 ASCII/C locale及非C分支；复用58FE3C、ctype、NLS后端，按原门禁/源字节宽度调用UPPERCASE映射，失败返回输入，成功按原两U8组合。非法原表下标按RPLAN.24不专项模拟或补保护。 当前CRT宿主提案仍待确认；本体实现不代替完整启动或最终客户端验收。"
     }
   ]
 }

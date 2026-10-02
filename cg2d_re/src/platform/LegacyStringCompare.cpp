@@ -56,11 +56,9 @@ std::uint32_t CountLegacyBytes_543D0C(const char* const source, const std::uint3
     return *cursor == '\0' ? static_cast<std::uint32_t>(cursor - source) : limit;
 }
 
-namespace {
-
-// 仅 53DC64 调用域：固定 LOWERCASE、目的长 3、代码页参数 0、strict=1。
-int MapLowercase_543AE8(const std::uint32_t locale, const char* source,
-    const int sourceSize, char* destination)
+// 53DC64/543A1A调用域：LOWERCASE/UPPERCASE、目的长3、代码页参数0、strict=1。
+std::int32_t MapLegacyCase_543AE8(const std::uint32_t locale, const std::uint32_t flags,
+    const char* source, const int sourceSize, char* destination)
 {
     if (gLegacyTextLocale1086160.mapBackend == 0) {
         if (LCMapStringW(0, LCMAP_LOWERCASE, L"", 1, nullptr, 0) != 0) {
@@ -75,7 +73,7 @@ int MapLowercase_543AE8(const std::uint32_t locale, const char* source,
     const int length = static_cast<int>(CountLegacyBytes_543D0C(
         source, static_cast<std::uint32_t>(sourceSize)));
     if (gLegacyTextLocale1086160.mapBackend == 2) {
-        return LCMapStringA(locale, LCMAP_LOWERCASE, source, length, destination, 3);
+        return LCMapStringA(locale, flags, source, length, destination, 3);
     }
     if (gLegacyTextLocale1086160.mapBackend != 1) {
         return 0;
@@ -96,7 +94,7 @@ int MapLowercase_543AE8(const std::uint32_t locale, const char* source,
         || MultiByteToWideChar(codePage, MB_PRECOMPOSED, source, length, wide, wideCount) == 0) {
         return 0;
     }
-    const int mappedCount = LCMapStringW(locale, LCMAP_LOWERCASE, wide, wideCount, nullptr, 0);
+    const int mappedCount = LCMapStringW(locale, flags, wide, wideCount, nullptr, 0);
     if (mappedCount == 0) {
         return 0;
     }
@@ -107,12 +105,14 @@ int MapLowercase_543AE8(const std::uint32_t locale, const char* source,
         mapped = nullptr;
     }
     if (mapped == nullptr
-        || LCMapStringW(locale, LCMAP_LOWERCASE, wide, wideCount, mapped, mappedCount) == 0) {
+        || LCMapStringW(locale, flags, wide, wideCount, mapped, mappedCount) == 0) {
         return 0;
     }
     return WideCharToMultiByte(codePage, WC_COMPOSITECHECK | WC_SEPCHARS,
         mapped, mappedCount, destination, 3, nullptr, nullptr);
 }
+
+namespace {
 
 // 本比较器输入仅 0..65535；小于 256 时原 isctype 同样直接读取此表。
 std::uint32_t LowerCompareValue_53DC64(const std::uint32_t value)
@@ -138,8 +138,9 @@ std::uint32_t LowerCompareValue_53DC64(const std::uint32_t value)
         sourceSize = 1;
     }
     char destination[4];
-    const int result = MapLowercase_543AE8(
-        gLegacyTextLocale1086160.ctypeLocale, source, sourceSize, destination);
+    const int result = MapLegacyCase_543AE8(
+        gLegacyTextLocale1086160.ctypeLocale, LCMAP_LOWERCASE,
+        source, sourceSize, destination);
     if (result == 0) {
         return value;
     }

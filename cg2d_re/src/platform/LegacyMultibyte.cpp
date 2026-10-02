@@ -18,6 +18,9 @@ namespace cg::platform {
 
 static_assert(sizeof(wchar_t) == 2);
 
+// 原58FE3C已加载S32初值1；不是多字节代码页对象108677C的标志。
+std::int32_t gLegacyCtypeMaxBytes58FE3C = 1;
+
 LegacyMultibyteStorage gLegacyMultibyte1086764 {};
 
 std::uint32_t gLegacyMultibyteTypeBackend10862E4 = 0;
@@ -63,9 +66,12 @@ constexpr MultibyteCodePageDefinition kMultibyteCodePages5923F0[] {
 };
 constexpr std::uint8_t kMultibyteRangeMasks5923E8[] {1, 2, 4, 8};
 
-// 原545208在546B29的固定域：infoType=1、sourceCount=256、strict=0。
-int GetLegacyTableCharacterTypes_545208(const char* const source,
-    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale)
+} // namespace
+
+// 原545208：infoType=1；表生产用256/false，541955字符分类用1或2/true。
+int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t sourceCount,
+    std::uint16_t* const types, std::uint32_t codePage, std::uint32_t locale,
+    const bool strict)
 {
     std::uint32_t backend = gLegacyMultibyteTypeBackend10862E4;
     if (backend == 0) {
@@ -84,7 +90,7 @@ int GetLegacyTableCharacterTypes_545208(const char* const source,
         if (locale == 0) {
             locale = gLegacyTextLocale1086160.ctypeLocale;
         }
-        return ::GetStringTypeA(locale, CT_CTYPE1, source, 256, types);
+        return ::GetStringTypeA(locale, CT_CTYPE1, source, sourceCount, types);
     }
     if (backend != 1) {
         return 0;
@@ -93,7 +99,8 @@ int GetLegacyTableCharacterTypes_545208(const char* const source,
         codePage = gConversionCodePage_1086170;
     }
     const int wideCount = ::MultiByteToWideChar(
-        codePage, MB_PRECOMPOSED, source, 256, nullptr, 0);
+        codePage, MB_PRECOMPOSED | (strict ? MB_ERR_INVALID_CHARS : 0),
+        source, sourceCount, nullptr, 0);
     if (wideCount == 0) {
         return 0;
     }
@@ -108,8 +115,45 @@ int GetLegacyTableCharacterTypes_545208(const char* const source,
         return 0;
     }
     const int converted = ::MultiByteToWideChar(
-        codePage, MB_PRECOMPOSED, source, 256, wide, wideCount);
+        codePage, MB_PRECOMPOSED, source, sourceCount, wide, wideCount);
     return converted == 0 ? 0 : ::GetStringTypeW(CT_CTYPE1, wide, converted, types);
+}
+
+namespace {
+
+// 原541955：-1..255直接查表；其余输入按原高字节lead位构造NLS源。
+std::uint32_t ClassifyLegacyCharacter_541955(
+    const std::int32_t value, const std::uint32_t mask)
+{
+    if (static_cast<std::uint32_t>(value) + 1u <= 256u) {
+        return gCtypePointer58FC30[value] & mask;
+    }
+    const auto highByte = static_cast<std::uint8_t>(
+        static_cast<std::uint32_t>(value) >> 8);
+    const auto lowByte = static_cast<std::uint8_t>(value);
+    char source[3];
+    int sourceSize;
+    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {
+        source[0] = std::bit_cast<char>(highByte);
+        source[1] = std::bit_cast<char>(lowByte);
+        source[2] = '\0';
+        sourceSize = 2;
+    } else {
+        source[0] = std::bit_cast<char>(lowByte);
+        source[1] = '\0';
+        sourceSize = 1;
+    }
+    // 原lpCharType指向参数C的高W16，随后紧邻mask；保留两个输出时的别名。
+    std::uint16_t types[3];
+    types[0] = static_cast<std::uint16_t>(static_cast<std::uint32_t>(value) >> 16);
+    types[1] = static_cast<std::uint16_t>(mask);
+    types[2] = static_cast<std::uint16_t>(mask >> 16);
+    if (GetLegacyCharacterTypes_545208(source, sourceSize, types, 0, 0, true) == 0) {
+        return 0;
+    }
+    const std::uint32_t resultingMask = types[1]
+        | (static_cast<std::uint32_t>(types[2]) << 16);
+    return types[0] & resultingMask;
 }
 
 // 原543AE8的256项生产域；仅LOWERCASE/UPPERCASE，不进入SORTKEY分支。
@@ -175,6 +219,48 @@ int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
 
 } // namespace
 
+
+// 原543A1A：保留S32比较、分类门禁、共享NLS状态及失败时返回原值。
+std::int32_t UpperLegacyCharacter_543A1A(const std::int32_t value)
+{
+    if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+        return value >= 'a' && value <= 'z' ? value - 32 : value;
+    }
+    if (value < 256) {
+        const std::uint32_t lowerCase = gLegacyCtypeMaxBytes58FE3C > 1
+            ? ClassifyLegacyCharacter_541955(value, 2)
+            : gCtypePointer58FC30[value] & 2u;
+        if (lowerCase == 0) {
+            return value;
+        }
+    }
+    const auto highByte = static_cast<std::uint8_t>(
+        static_cast<std::uint32_t>(value) >> 8);
+    const auto lowByte = static_cast<std::uint8_t>(value);
+    char source[3];
+    int sourceSize;
+    if ((gCtypePointer58FC30[highByte] & 0x8000u) != 0) {
+        source[0] = std::bit_cast<char>(highByte);
+        source[1] = std::bit_cast<char>(lowByte);
+        source[2] = '\0';
+        sourceSize = 2;
+    } else {
+        source[0] = std::bit_cast<char>(lowByte);
+        source[1] = '\0';
+        sourceSize = 1;
+    }
+    char destination[4];
+    const int count = MapLegacyCase_543AE8(
+        gLegacyTextLocale1086160.ctypeLocale, LCMAP_UPPERCASE,
+        source, sourceSize, destination);
+    if (count == 0) {
+        return value;
+    }
+    const std::uint32_t first = static_cast<std::uint8_t>(destination[0]);
+    return static_cast<std::int32_t>(count == 1 ? first
+        : first | (static_cast<std::uint32_t>(
+            static_cast<std::uint8_t>(destination[1])) << 8));
+}
 
 std::uint32_t MultibyteCodePageToLocale_546ACD(const std::uint32_t codePage)
 {
@@ -250,8 +336,8 @@ std::uint32_t RefreshLegacySingleByteCase_546B29()
         std::uint16_t types[256];
         char lower[256];
         char upper[256];
-        static_cast<void>(GetLegacyTableCharacterTypes_545208(source, types,
-            gLegacyMultibyte1086764.codePage, gLegacyMultibyte1086764.locale));
+        static_cast<void>(GetLegacyCharacterTypes_545208(source, 256, types,
+            gLegacyMultibyte1086764.codePage, gLegacyMultibyte1086764.locale, false));
         static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,
             LCMAP_LOWERCASE, source, lower, gLegacyMultibyte1086764.codePage));
         static_cast<void>(MapLegacyCaseTable_543AE8(gLegacyMultibyte1086764.locale,

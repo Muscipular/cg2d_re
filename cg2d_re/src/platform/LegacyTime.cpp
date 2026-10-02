@@ -1,4 +1,5 @@
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 #include "StartupNative.hpp"
 #include "LegacyStringCompareState.hpp"
 #include "LegacyMultibyte.hpp"
@@ -41,6 +42,100 @@ char* __cdecl GetEnv_54518B(const char* name)
 std::int32_t __cdecl Atol_53C5BE(const char* text)
 {
     return static_cast<std::int32_t>(std::atol(text));
+}
+
+// 原53DA5C；指针仅表达原字节游标，数值和状态标志保持W32。
+static std::uint32_t StrToXl_53DA5C(const char* const text, char** const endPointer,
+    std::int32_t radix, std::uint32_t flags)
+{
+    enum : std::uint32_t {
+        unsignedResult = 1u,
+        negative = 2u,
+        overflow = 4u,
+        digitsSeen = 8u
+    };
+    std::uint32_t value = 0;
+    const char* cursor = text;
+    auto current = static_cast<std::uint8_t>(*cursor++);
+    // 此处参数始终U8，原MB_CUR_MAX两支最终都读取同一ctype槽。
+    while (ClassifyLegacyByte(current, 8) != 0) {
+        current = static_cast<std::uint8_t>(*cursor++);
+    }
+    if (current == '-') {
+        flags |= negative;
+        current = static_cast<std::uint8_t>(*cursor++);
+    } else if (current == '+') {
+        current = static_cast<std::uint8_t>(*cursor++);
+    }
+    if (radix < 0 || radix == 1 || radix > 36) {
+        if (endPointer != nullptr) {
+            *endPointer = const_cast<char*>(text);
+        }
+        return 0;
+    }
+    if (radix == 0) {
+        if (current != '0') {
+            radix = 10;
+        } else {
+            const char nextByte = *cursor;
+            radix = nextByte == 'x' || nextByte == 'X' ? 16 : 8;
+        }
+    }
+    if (radix == 16 && current == '0') {
+        const char nextByte = *cursor;
+        if (nextByte == 'x' || nextByte == 'X') {
+            current = static_cast<std::uint8_t>(cursor[1]);
+            cursor += 2;
+        }
+    }
+    const auto base = static_cast<std::uint32_t>(radix);
+    const std::uint32_t cutoff = 0xFFFFFFFFu / base;
+    for (;;) {
+        std::uint32_t digit;
+        if (ClassifyLegacyByte(current, 4) != 0) {
+            digit = static_cast<std::uint32_t>(
+                static_cast<std::int32_t>(std::bit_cast<std::int8_t>(current)) - '0');
+        } else if (ClassifyLegacyByte(current, 0x103) != 0) {
+            digit = static_cast<std::uint32_t>(
+                UpperLegacyCharacter_543A1A(std::bit_cast<std::int8_t>(current)) - '7');
+        } else {
+            break;
+        }
+        if (digit >= base) {
+            break;
+        }
+        flags |= digitsSeen;
+        if (value < cutoff || (value == cutoff && digit <= 0xFFFFFFFFu % base)) {
+            value = value * base + digit;
+        } else {
+            flags |= overflow;
+        }
+        current = static_cast<std::uint8_t>(*cursor++);
+    }
+    const char* end = cursor - 1;
+    if ((flags & digitsSeen) == 0) {
+        if (endPointer != nullptr) {
+            end = text;
+        }
+        value = 0;
+    } else if ((flags & overflow) != 0
+        || ((flags & unsignedResult) == 0
+            && value > ((flags & negative) != 0 ? 0x80000000u : 0x7FFFFFFFu))) {
+        gLegacyErrno_1085FE0 = 34;
+        value = (flags & unsignedResult) != 0 ? 0xFFFFFFFFu
+            : ((flags & negative) != 0 ? 0x80000000u : 0x7FFFFFFFu);
+    }
+    if (endPointer != nullptr) {
+        *endPointer = const_cast<char*>(end);
+    }
+    return (flags & negative) != 0 ? 0u - value : value;
+}
+
+// 原53DA45只把flags=0交53DA5C；返回有符号32位位型。
+std::int32_t Strtol_53DA45(
+    const char* const text, char** const endPointer, const std::int32_t radix)
+{
+    return std::bit_cast<std::int32_t>(StrToXl_53DA5C(text, endPointer, radix, 0));
 }
 
 // 原[53C649,53C654)：只转调53C5BE，沿用该入口已批准的std替代边界。

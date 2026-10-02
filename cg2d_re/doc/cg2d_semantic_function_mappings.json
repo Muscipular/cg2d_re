@@ -17376,6 +17376,143 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "宽basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x53BFF8",
+      "inventory_id": "F:0013BFF8",
+      "status": "已有应用calloc调用映射；原内部堆、重试与错误合同未完整承接",
+      "original_end_exclusive": "0x53C0A9",
+      "instruction_count": 72,
+      "original_direct_reference_count": 23,
+      "verification_level": "完整72条指令及23处直接入向；应用分配参数与发布位置静态对应",
+      "function_chunks": [
+        {
+          "start": "0x53BFF8",
+          "end_exclusive": "0x53C0A9"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404A48",
+          "parent_entry": "0x404A40"
+        },
+        {
+          "address": "0x404A59",
+          "parent_entry": "0x404A40"
+        },
+        {
+          "address": "0x404AEB",
+          "parent_entry": "0x404AE0"
+        },
+        {
+          "address": "0x404B3A",
+          "parent_entry": "0x404AE0"
+        },
+        {
+          "address": "0x421880",
+          "parent_entry": "0x4217F0"
+        },
+        {
+          "address": "0x4218DA",
+          "parent_entry": "0x4217F0"
+        },
+        {
+          "address": "0x467841",
+          "parent_entry": "0x466DC0"
+        },
+        {
+          "address": "0x4678B0",
+          "parent_entry": "0x466DC0"
+        },
+        {
+          "address": "0x4714DE",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x471546",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x4715C6",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x471607",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x47165B",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x47167F",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x471737",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x471753",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x471768",
+          "parent_entry": "0x471440"
+        },
+        {
+          "address": "0x49C8AF",
+          "parent_entry": "0x49C710"
+        },
+        {
+          "address": "0x49C8DA",
+          "parent_entry": "0x49C710"
+        },
+        {
+          "address": "0x4AD2D1",
+          "parent_entry": "0x4AD180"
+        },
+        {
+          "address": "0x4AD5DA",
+          "parent_entry": "0x4AD470"
+        },
+        {
+          "address": "0x53E9C7",
+          "parent_entry": "0x53E9A5"
+        },
+        {
+          "address": "0x53E9E0",
+          "parent_entry": "0x53E9A5"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_404A40",
+            "NewYobiAction_404AE0",
+            "NewBattleText_4217F0"
+          ]
+        },
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "WindowProcedure"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "OpenWindow_471440",
+            "Sub_49C710",
+            "RebuildWindowLines51"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "21应用调用分布于Yobi对象/载荷、战斗文本、IME、窗口与两类输入/行表；另2调用属于53E9A5静态FILE表初始化。W32乘积、零请求按1/16B对齐、模式3按原请求清零、模式2按对齐容量清零、系统HeapAlloc(flags8)分别保留证据。失败重读1086150，处理器接收当前ESI对齐容量，返回非零重试；本体不显式写旧errno。现有业务calloc及sizeof原生指针承载保持，不添加保护或重试包装；完整内部合同不由宿主calloc存在直接判完成，CRT提案仍待确认。"
     }
   ]
 }

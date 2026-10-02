@@ -16509,6 +16509,304 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "窄晚段构造只写filebuf虚表并返回this，ret4；独立于完整构造5485FE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+    },
+    {
+      "original_entry": "0x548E65",
+      "inventory_id": "F:00148E65",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x548EA5",
+      "instruction_count": 22,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x548E65",
+          "end_exclusive": "0x548EA5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5484B7",
+          "parent_entry": "0x548463"
+        },
+        {
+          "address": "0x548589",
+          "parent_entry": "0x548537"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄basic_ios初始化：先清tie槽+2C、写buffer+28、填充U8空格到+30，再base Init；buffer空时沿clear设置bit4，第二参数非零才_Addstd。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549DBE",
+      "inventory_id": "F:00149DBE",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x549E08",
+      "instruction_count": 26,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549DBE",
+          "end_exclusive": "0x549E08"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549579",
+          "parent_entry": "0x549525"
+        },
+        {
+          "address": "0x549695",
+          "parent_entry": "0x549643"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽basic_ios初始化：先清tie/写buffer，实际btowc(20H)的AX写+30，再base Init；空buffer和登记门禁同窄入口，不用固定宽空格替代btowc。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549F62",
+      "inventory_id": "F:00149F62",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x549FFE",
+      "instruction_count": 60,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549F62",
+          "end_exclusive": "0x549FFE"
+        },
+        {
+          "start": "0x54A30D",
+          "end_exclusive": "0x54A315"
+        },
+        {
+          "start": "0x54C318",
+          "end_exclusive": "0x54C32A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548E8E",
+          "parent_entry": "0x548E65"
+        },
+        {
+          "address": "0x54962E",
+          "parent_entry": "0x5495EE"
+        },
+        {
+          "address": "0x549DF1",
+          "parent_entry": "0x549DBE"
+        },
+        {
+          "address": "0x54A2C3",
+          "parent_entry": "0x54A293"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A1D0",
+      "inventory_id": "F:0014A1D0",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A220",
+      "instruction_count": 29,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A1D0",
+          "end_exclusive": "0x54A220"
+        },
+        {
+          "start": "0x54C37C",
+          "end_exclusive": "0x54C391"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548532",
+          "parent_entry": "0x54852C"
+        },
+        {
+          "address": "0x54963E",
+          "parent_entry": "0x549638"
+        },
+        {
+          "address": "0x54A223",
+          "parent_entry": "0x54A220"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "ios_base析构：恢复ios_base虚表；登记索引为0直接Tidy，非0先减共享U8计数，按有符号>0决定跳过Tidy；正常尾析构+20 locale。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A220",
+      "inventory_id": "F:0014A220",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A23C",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A220",
+          "end_exclusive": "0x54A23C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x550144",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "删除型析构包装：调真实ios_base析构，flag bit0才delete，返回保存的原地址。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A23C",
+      "inventory_id": "F:0014A23C",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A25E",
+      "instruction_count": 16,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A23C",
+          "end_exclusive": "0x54A25E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54A2D1",
+          "parent_entry": "0x54A2CB"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "退出回调遍历：从+1C节点开始，以(event,this,node+4)调用node+8函数指针，调用返回后才读当前节点next；不提前取next或重新读表头。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A25E",
+      "inventory_id": "F:0014A25E",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A293",
+      "instruction_count": 17,
+      "original_direct_reference_count": 6,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A25E",
+          "end_exclusive": "0x54A293"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548516",
+          "parent_entry": "0x5484CD"
+        },
+        {
+          "address": "0x5485E8",
+          "parent_entry": "0x54859F"
+        },
+        {
+          "address": "0x548E9C",
+          "parent_entry": "0x548E65"
+        },
+        {
+          "address": "0x5495D8",
+          "parent_entry": "0x54958F"
+        },
+        {
+          "address": "0x5496F4",
+          "parent_entry": "0x5496AB"
+        },
+        {
+          "address": "0x549DFF",
+          "parent_entry": "0x549DBE"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "标准流登记：从对象+24索引查登记槽，遇空或同this停止；扫至索引8仍写槽并增对应U8计数，不新增超界拒绝或容量推断。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A293",
+      "inventory_id": "F:0014A293",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A2CB",
+      "instruction_count": 21,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A293",
+          "end_exclusive": "0x54A2CB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548E77",
+          "parent_entry": "0x548E65"
+        },
+        {
+          "address": "0x549DDA",
+          "parent_entry": "0x549DBE"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "ios_base初始化：先构造+20 locale，清异常掩码，写flags=201H/precision=6/width=0/两链头=0，再clear(0,false)；不清整个对象或登记索引。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54A2CB",
+      "inventory_id": "F:0014A2CB",
+      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "original_end_exclusive": "0x54A30D",
+      "instruction_count": 30,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54A2CB",
+          "end_exclusive": "0x54A30D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54A206",
+          "parent_entry": "0x54A1D0"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "回调及链释放：先Callfns(event0)，再读并释放+18链，末尾清+18；随后释放+1C回调链再清头。delete之前保存当前next，回调阶段与释放阶段读序不可混用。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
     }
   ]
 }

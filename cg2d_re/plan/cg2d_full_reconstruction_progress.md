@@ -1455,3 +1455,10 @@ hover框、返回按钮及关闭/返回/行提示按原序，每次绘制重取�
 - 明确完整filebuf的两个locale构造与mode0重建、析构条件close后旧窄字符串Tidy/delete和locale清理顺序；两个晚段构造仅写虚表。54859F/5496AB是输入流登记构造，不能误作转换器安装。
 - 核两张filebuf虚表各13槽及默认ret/返回0/窄EAX EOF/宽AX EOF/返回this的独立合同；本轮只见构造清+38/+44，不外推转换分支全局不可达或删除原逻辑。既有公开标准流共享绑定未改。
 - semantic records621，pending_records18及分类引用4保持；sources为空，不计源码功能新增或待批CRT提案通过。inventory地址/ID、指令/引用/chunk、原604项及JSON/UTF-8无BOM/LF完成静态核对；未构建、查产物、新增/执行测试、运行初始化/析构样例、客户端或哈希校验。总PLAN继续。
+
+### 2026-10-03：流状态初始化、错误抛出与退出回调覆盖
+
+- 按[启动合同增量](../doc/cg2d_startup_flow.md#流状态初始化错误抛出与退出回调覆盖2026-10-03)完整取证九入口232条/22直接引用；clear包含两个分离清理块，ios_base析构包含独立异常尾，均按原函数保留。
+- 明确宽fill字符来自btowc、clear先写state&7再判异常掩码、重抛与bad/fail/eof消息优先级；初始化不清登记索引，不把原位掩码直接套入现代ios数值。
+- _Addstd到索引8仍写槽；析构索引0/非0分别处理共享U8计数。退出先回调后释放两链，回调返回后才取next，释放阶段才在delete前保存next，不用一轮遍历或预清链头替代。
+- semantic records630，pending_records18及分类引用4保持；sources为空，源码/CMake未改，CRT提案未自动通过。inventory地址/ID、指令/引用/chunk、原621项及JSON/UTF-8无BOM/LF经静态核对；未构建、查产物、新增/执行测试、运行初始化/异常/回调样例、客户端或哈希校验。总PLAN继续。

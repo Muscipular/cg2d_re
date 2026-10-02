@@ -248,3 +248,74 @@ _filbuf.cpp、_flsbuf.cpp、_sftbuf.cpp及fflush.cpp对应上述职责：
 没有略掉未作为最终返回的访问时间转换，也没有重做该本体。
 
 本步源码/CMake不变；只补八项限定记录，未操作真实文件、构建、测试或哈希校验。
+
+## 初始化与全流清理职责 SPEC（2026-10-02）
+
+本板块继续由宿主CRT持有FILE和描述符表；按既有工程委托，不另建原表或额外
+应用层清理器。这里确定六入口的生命周期职责及明确差异，当前WinMain只作应用
+入口定位，不能当作六个原CRT函数的直接实现或最终可执行目标的接线证明。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 宿主职责 |
+|---|---|---|---|
+| 全流刷新 53BB99 | 53BBA2 | 4 / 1 | _flushall |
+| flsall 53BBA2 | 53BC0F | 45 / 2 | common_flush_all |
+| fcloseall 5446AD | 544705 | 34 / 1 | _fcloseall |
+| initstdio 53E9A5 | 53EA4A | 59 / 1 | __acrt_initialize_stdio |
+| endstdio 53EA4A | 53EA5E | 5 / 1 | __acrt_uninitialize_stdio |
+| ioinit 53F52D | 53F6D8 | 143 / 1 | __acrt_initialize_lowio |
+
+共290条。initstdio/endstdio的引用是CRT数据槽553174/553188，
+不是业务call；ioinit唯一调用位于start@53DDB5的53DE24。
+其余入向分别是endstdio→53BB99→flsall、fflush(null)→flsall及endstdio→fcloseall。
+
+### 原全流刷新和关闭
+
+53BB99固定传1到flsall。flsall从0遍历1086AC4表，每轮重读1087AE0上限；
+非空且flags&83h才是活动流。mode1对每个活动流调用fflush，非EOF则计数；
+mode0仅处理flags&2写流，任一EOF令最终错误为-1，否则0。
+其他mode不刷新，返回0；宿主bool接口仅关联原已证的0/1两条调用。
+
+fcloseall从索引3起，活动流fclose非EOF才计数；非空槽索引>=20时，
+无论是否活动或关闭成功，都free槽并清空表项；3..19保留静态FILE存储。
+返回成功关闭数，不能按宿主注释推成任意失败就返回EOF。
+
+宿主stdio/fflush.cpp在全局锁内快照表尾，每流加锁前后重新判断；
+有效但无需flush/commit的流直接累加count并跳过实际刷新。
+宿主stdio/closeall.cpp从_IOB_ENTRIES=3起，对非空动态槽删除锁、free并置null。
+因此只关联刷新/关闭职责，不宣称原逐轮读上限、调用次数或槽释放时点相同。
+
+### 原stdio初始化和退出条件
+
+initstdio将0上限设512，低于20则设20；calloc(count,4)失败回退20再试，
+仍失败调用_amsg_exit(26)。20个表项指向58F8B8..58FB38的32B静态FILE。
+标准fd0/1/2的低层句柄为-1或0时，把对应FILE.fd写-1。
+
+endstdio先全流刷新，再检查byte1086020；仅非0才尾跳fcloseall。
+该字节的已证写者是53C91C内53C949，沿既有[退出合同](cg2d_startup_flow.md)
+处理，不重做退出算法或把清理条件改为常量。
+
+宿主stdio/_file.cpp只有3个静态流，表上限默认512、下限和回退均为3；
+二次分配失败返回-1，标准无控制台fd采用_NO_CONSOLE_FILENO。
+退出则无条件_flushall、_fcloseall，再释放标准缓冲/锁和整个指针表。
+initializers/stdio_initializer.cpp把初始化/退出注册到.CRT$XIC/.CRT$XPXA。
+这些是本机源代码证据，当前最终目标的链接、注册执行和退出顺序仍未验。
+
+### 低层句柄初始化与继承
+
+原ioinit先malloc256B，容纳32项8B记录，失败调用_amsg_exit(27)；
+每项置handle=-1、flags=0、+5字节为LF。GetStartupInfoA读取继承块：
+S32数量N、N个W8标志、N个W32句柄；最多2048，扩容失败只继承已分配容量。
+句柄非-1且FOPEN置位才接入；FPIPE绕过GetFileType，其余要求类型查询非0。
+标准0/1/2有继承句柄则补文本位，否则用GetStdHandle查询；
+无有效句柄时保留-1并标FDEV。最后调用SetHandleCount，EAX保留其结果。
+
+宿主lowio/ioinit.cpp用GetStartupInfoW，数量仍int、标志仍W8，句柄数组实际为
+intptr_t；不能按旧DWORD注释认定其仍是W32。分组64项、128组，上限8192。
+继承另外排除_NO_CONSOLE_FILENO；无有效控制台句柄采用-2。
+__acrt_initialize_lowio实际返回bool，不能按注释误写0/-1；
+internal/initialization.cpp将它与__acrt_uninitialize_lowio配对，
+后者释放句柄数组和锁。没有给未定位的原退出入口伪造映射。
+
+句柄按已证地址语义由宿主intptr_t承接，不拓宽N或flags，不额外实现旧32位父进程
+继承块解析。跨位宽继承、资源失效时点和初始化失败传播仍未验。
+本步只新增六项限定记录；源码/CMake不变，不构建、测试、运行客户端或校验哈希。

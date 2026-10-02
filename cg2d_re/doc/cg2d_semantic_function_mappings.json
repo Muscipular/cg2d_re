@@ -11129,6 +11129,174 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "沿既有完整取证/已实施合同，只映射六处已证ctime消费；不使用现代_fstat/time_t替换，不暴露mode/uid/size。修改、非零访问、创建三阶段转换及共享TZ/DST副作用、零creation回退mtime、设备/管道/错误映射保持；本次不重复时间算法审计或称通用_fstat全部还原。"
+    },
+    {
+      "original_entry": "0x53BB99",
+      "inventory_id": "F:0013BB99",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x53BBA2",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fflush.cpp",
+        "symbol": "_flushall"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原53EA4A退出清理唯一直接调用，传mode1到53BBA2，返回成功刷新计数；宿主全流锁/快照与无实际flush流计数处理不同。"
+    },
+    {
+      "original_entry": "0x53BBA2",
+      "inventory_id": "F:0013BBA2",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x53BC0F",
+      "instruction_count": 45,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fflush.cpp",
+        "symbol": "common_flush_all"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原mode1遍历全部活动流累计非EOF，mode0只刷新写流并累计0/-1；每轮重读原上限。宿主bool入口、锁、快照和跳过无flush/commit流不同，只关联已证mode0/1两caller。"
+    },
+    {
+      "original_entry": "0x5446AD",
+      "inventory_id": "F:001446AD",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x544705",
+      "instruction_count": 34,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/closeall.cpp",
+        "symbol": "_fcloseall"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原从3逐项fclose并数成功，索引>=20才释放FILE槽；宿主从3起动态槽均释放并删除锁。原唯一caller53EA4A有1086020非零门禁，不能据宿主函数存在称当前退出已接。"
+    },
+    {
+      "original_entry": "0x53E9A5",
+      "inventory_id": "F:0013E9A5",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x53EA4A",
+      "instruction_count": 59,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_file.cpp",
+        "symbol": "__acrt_initialize_stdio"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原CRT数据槽553174指向本入口，512默认/20下限和失败回退，二次失败amsg_exit26；宿主3静态流、回退3、失败返回-1，注册在initializers/stdio_initializer.cpp的.CRT$XIC；最终链接和初始化接线未验。"
+    },
+    {
+      "original_entry": "0x53EA4A",
+      "inventory_id": "F:0013EA4A",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x53EA5E",
+      "instruction_count": 5,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_file.cpp",
+        "symbol": "__acrt_uninitialize_stdio"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原CRT数据槽553188指向本入口，先全流刷新，仅byte1086020非零才尾跳fcloseall；宿主无条件刷新及关闭，还释放标准缓冲/锁和整个流表，注册在.CRT$XPXA。职责关联不等于退出时序或资源失效等价。"
+    },
+    {
+      "original_entry": "0x53F52D",
+      "inventory_id": "F:0013F52D",
+      "status": "宿主运行库生命周期职责已定位；原状态与最终启动退出接线未验",
+      "original_end_exclusive": "0x53F6D8",
+      "instruction_count": 143,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "现有应用入口的宿主CRT生命周期关联位置，不是该原CRT函数的源码定义或直接调用证明"
+        }
+      ],
+      "native_provider": {
+        "component": "本机UCRT生命周期职责参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/ioinit.cpp",
+        "symbol": "__acrt_initialize_lowio"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原start53DDB5@53DE24调用，32项8B起步/上限2048，继承N为S32、flags为W8、HANDLE为W32；宿主GetStartupInfoW及intptr_t句柄、64项分组/上限8192，失效标准句柄-2，初始化bool失败和清理对已定位。仅已证句柄按地址拓宽，不扩N/flags，不增加旧32位父进程继承解析器；最终接线和跨位宽继承未验。"
     }
   ]
 }

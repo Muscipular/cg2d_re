@@ -15,6 +15,7 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyCursor.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -870,12 +871,13 @@ const char* ClearAlbumNewFlagAndBorrowName(const std::int16_t selected, const st
 // 原[5186A0,518774)：完整快照交旧codec，但原目标容量仅4；短写不关闭文件。
 void Sub_5186A0()
 {
-    auto* const encoded = static_cast<std::uint8_t*>(::operator new(0x78018));
+    auto* const encoded = static_cast<std::uint8_t*>(
+        platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
     std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
     std::FILE* const stream = std::fopen(path, "wb");
     if (stream == nullptr) {
-        ::operator delete(encoded);
+        platform::FreeLegacyByteBuffer(encoded);
         return;
     }
     std::array<std::uint8_t, 0x3C00C> snapshot;
@@ -886,18 +888,20 @@ void Sub_5186A0()
     const std::size_t count = static_cast<std::uint32_t>(encodedBytes);
     const std::size_t written = std::fwrite(encoded, 1, count, stream);
     if (written < count) {
-        ::operator delete(encoded);
+        platform::FreeLegacyByteBuffer(encoded);
         return;
     }
     static_cast<void>(std::fclose(stream));
-    ::operator delete(encoded);
+    platform::FreeLegacyByteBuffer(encoded);
 }
 
 // 原[518780,518865)：只读4字节；错误先关闭，长度不符调用同源保存。
 void Sub_518780()
 {
-    auto* const encoded = static_cast<std::uint8_t*>(::operator new(0x78018));
-    auto* const decoded = static_cast<std::uint8_t*>(::operator new(0x78018));
+    auto* const encoded = static_cast<std::uint8_t*>(
+        platform::AllocateLegacyByteBuffer(0x78018));
+    auto* const decoded = static_cast<std::uint8_t*>(
+        platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
     std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
     std::FILE* const stream = std::fopen(path, "rb");
@@ -907,8 +911,8 @@ void Sub_518780()
         const std::size_t count = std::fread(encoded, 1, 4, stream);
         if (std::ferror(stream) != 0) {
             static_cast<void>(std::fclose(stream));
-            ::operator delete(encoded);
-            ::operator delete(decoded);
+            platform::FreeLegacyByteBuffer(encoded);
+            platform::FreeLegacyByteBuffer(decoded);
             return;
         }
         static_cast<void>(std::fclose(stream));
@@ -921,8 +925,8 @@ void Sub_518780()
             Sub_5186A0();
         }
     }
-    ::operator delete(encoded);
-    ::operator delete(decoded);
+    platform::FreeLegacyByteBuffer(encoded);
+    platform::FreeLegacyByteBuffer(decoded);
 }
 
 // 原[518BE0,518C12)：固定当前角色，清版本和整组记录后保存。

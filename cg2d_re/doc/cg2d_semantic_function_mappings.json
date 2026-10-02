@@ -8106,6 +8106,141 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原目的非空时顺序读写两W32并返回原目的，空目的直接返回；45AF97/523D57用于图形与DBF树节点键值。既有emplace、try_emplace及记录指针赋值承接父链键值职责，S32键保持，已证GraphicInfo*/uint8_t*用原生指针。其余四caller属已排除键盘树，不整体排除本叶；不声称独立空目的/重叠输入、内存ABI或分配失败等价。"
+    },
+    {
+      "original_entry": "0x53C9CF",
+      "inventory_id": "F:0013C9CF",
+      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "original_end_exclusive": "0x53C9DD",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+    },
+    {
+      "original_entry": "0x53C3BE",
+      "inventory_id": "F:0013C3BE",
+      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "original_end_exclusive": "0x53C3EA",
+      "instruction_count": 16,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+    },
+    {
+      "original_entry": "0x53C3EA",
+      "inventory_id": "F:0013C3EA",
+      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "original_end_exclusive": "0x53C45E",
+      "instruction_count": 46,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+    },
+    {
+      "original_entry": "0x53B4E7",
+      "inventory_id": "F:0013B4E7",
+      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "original_end_exclusive": "0x53B4F2",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "FreeLegacyByteBuffer"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "FreeLegacyByteBuffer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+    },
+    {
+      "original_entry": "0x541A28",
+      "inventory_id": "F:00141A28",
+      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "original_end_exclusive": "0x541A43",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "AllocateLegacyByteBuffer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
     }
   ]
 }

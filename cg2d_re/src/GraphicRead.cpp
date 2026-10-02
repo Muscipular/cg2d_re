@@ -3,6 +3,7 @@
 #include "cg/GraphicDecode.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/Startup.hpp"
 
 #include <array>
@@ -155,7 +156,7 @@ struct PaletteDbfState {
     {
         // 原 5226D0：先依装载序释放所有解压块，再销毁树及指针集合。
         for (std::uint8_t* block : decodedBlocks) {
-            ::operator delete(block);
+            platform::FreeLegacyByteBuffer(block);
         }
     }
 };
@@ -187,14 +188,14 @@ void LoadIndependentPaletteIndex_522900()
     }
 
     auto* compressed = static_cast<std::uint8_t*>(
-        ::operator new(gPaletteDbf.header.compressedLength));
+        platform::AllocateLegacyByteBuffer(gPaletteDbf.header.compressedLength));
     auto* decoded = static_cast<std::uint8_t*>(
-        ::operator new(gPaletteDbf.header.decodedLength));
+        platform::AllocateLegacyByteBuffer(gPaletteDbf.header.decodedLength));
     std::fread(compressed, 1, gPaletteDbf.header.compressedLength, file);
     static_cast<void>(DecompressDbf_53AF90(
         compressed, static_cast<std::int32_t>(gPaletteDbf.header.compressedLength),
         decoded, &gPaletteDbf.header.decodedLength));
-    ::operator delete(compressed);
+    platform::FreeLegacyByteBuffer(compressed);
     gPaletteDbf.decodedBlocks.push_back(decoded);
     gPaletteDbf.payload = decoded + 8;
 

@@ -209,6 +209,8 @@ std::uint32_t Sub_4EAAA0(std::int32_t opened); // 旧47清当前未读/完整十
 std::int32_t Sub_4EB120(); // 旧46保留同源D66CA8草稿，清60选择后按旧42目标置1。
 std::uintptr_t Sub_4EB1C0(std::int32_t opened); // 旧46按排序表批量发信，关闭返聊天T*、正常返完整W32。
 std::uint32_t Sub_4EBD20(std::int32_t opened); // 旧43三类排序，共用D67CD0并保存后打开42，不提前排序。
+std::uintptr_t Sub_52FCF0(); // 旧94排序/扫描/补四空动画，返回初始页W32或末次工厂T*。
+std::uintptr_t Sub_52FD60(std::int32_t opened); // 旧94公会通讯录，发布真实导航目标；关闭返末槽T*、正常W32。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。

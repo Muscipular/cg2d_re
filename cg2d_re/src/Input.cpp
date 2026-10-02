@@ -118,6 +118,11 @@ const char* LegacyText593850() noexcept
     return reinterpret_cast<const char*>(&gLegacyInput593850);
 }
 
+InputContext* BorrowLegacyBlacklistContext593858() noexcept
+{
+    return &gLegacyInput593850.context;
+}
+
 InputContext* Sub_45D720(
     InputContext* const context, const std::int32_t x, const std::int32_t y,
     [[maybe_unused]] const std::int32_t unused,

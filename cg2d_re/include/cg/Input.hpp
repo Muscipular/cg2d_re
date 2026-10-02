@@ -109,6 +109,8 @@ extern std::int32_t gValueC9A96C;
 
 // 原 [593850,5939B4) 的前缀文本；紧邻独立 InputContext@593858。
 const char* LegacyText593850() noexcept;
+// 旧99借同一连续owner内的593858上下文，保留前缀与上下文的原地址关系。
+InputContext* BorrowLegacyBlacklistContext593858() noexcept;
 
 // 下列状态只保留当前已取证的读写语义，不扩展业务命名。
 extern std::int32_t gValue626C0C; // 输入相位计数；接受字符后写 20。

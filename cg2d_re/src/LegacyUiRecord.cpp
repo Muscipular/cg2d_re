@@ -13,6 +13,7 @@
 #include "cg/GraphicAlloc.hpp"
 #include "cg/LegacyRecordOrder.hpp"
 #include "cg/Input.hpp"
+#include "cg/Blacklist.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/CommandOptions.hpp"
@@ -1246,6 +1247,20 @@ constexpr const char* kLegacyEmoteHints5871B0[18] {
     "\xB0\xB5\xA1\x75\xA5\x58\xA5\xAC\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43", // 原5870F0
     "\xB0\xB5\xA1\x75\xA5\x58\xA5\xDB\xC0\x59\xA1\x76\xB3\x6F\xAD\xD3\xB0\xCA\xA7\x40\xA1\x43", // 原587018
 };
+constexpr char kLegacyBlacklistText5533F4[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\xBC\xF6\xC1\xE4\xA8\xCF\xA5\xCE\xBB\xA1\xA9\xFA\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D";
+constexpr char kLegacyBlacklistText5533B4[] = "\xB7\xC6\xB9\xAB\xAE\xD8\xAE\xD8\xB9\xEF\xB7\xC7\xAD\x6E\xA5\x5B\xA4\x4A\xAA\xBA\xA4\x48\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x49\x6E\x73\x65\x72\x74\x5D\x20\x3D\x20\xA7\xE2\xA8\xBA\xAD\xD3\xA4\x48\xA9\xF1\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6";
+constexpr char kLegacyBlacklistText553370[] = "\xB7\xC6\xB9\xAB\xAE\xD8\xAE\xD8\xB9\xEF\xB7\xC7\xAD\x6E\xB2\xBE\xB0\xA3\xAA\xBA\xA4\x48\x20\x2B\x20\x5B\x43\x54\x52\x4C\x5D\x20\x2B\x20\x5B\x44\x65\x6C\x65\x74\x65\x5D\x20\x3D\x20\xA7\xE2\xA8\xBA\xAD\xD3\xA4\x48\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xB2\xBE\xB0\xA3";
+constexpr char kLegacyBlacklistText55332C[] = "\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\xA5\xD8\xAB\x65\xA6\x40\xA6\xB3\x25\x32\x64\xA4\x48\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D";
+constexpr char kLegacyBlacklistText553304[] = "\xB7\x73\xBC\x57\xA1\xFE\xB2\xBE\xB0\xA3\xB6\xC2\xA6\x57\xB3\xE6\xAA\xBA\xA4\xBA\xAE\x65";
+constexpr char kLegacyBlacklistText5532EC[] = "\xA4\x77\xB1\x4E\x25\x73\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4\xB2\xBE\xB0\xA3";
+constexpr char kLegacyBlacklistText5532D8[] = "\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xB2\xBE\xB0\xA3\x25\x73\xA5\xA2\xB1\xD1";
+constexpr char kLegacyBlacklistText553294[] = "\xA7\x41\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA4\x77\xBA\xA1\xA1\x41\xB5\x4C\xAA\x6B\xA6\x41\xA5\x5B\xA4\x4A";
+constexpr char kLegacyBlacklistText5532C4[] = "\xA4\x77\xB1\x4E\x25\x73\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6";
+constexpr char kLegacyBlacklistText5532B0[] = "\x25\x73\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6\xA5\xA2\xB1\xD1";
+LegacyPanelRecord gLegacyBlacklistPanel5531D0 {
+    20, 10, 600, 438, 99, {99100, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+input::InputContext* gLegacyBlacklistInput5939B8 = nullptr; // 旧99借用槽，独立于当前输入焦点。
 constexpr char kLegacyPresetConfirm58A6C0[] = "\xB5\xB2\xA7\xF4\xB3\x5D\xA9\x77\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
 constexpr char kLegacyPresetCtrl58A68C[] = "\xB1\x4E\x43\x74\x72\x6C\x2B\xA2\xD4\x25\x64\xC1\xE4\xB3\x5D\xA9\x77\xAC\xB0\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
 constexpr char kLegacyPresetShift58A66C[] = "\xB1\x4E\x53\x68\x69\x66\x74\x2B\xA2\xD4\x25\x64\xC1\xE4\xB3\x5D\xA9\x77\xAC\xB0\xB1\x60\xA5\xCE\xA5\x79\xA1\x43";
@@ -13671,6 +13686,108 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return 0;
+}
+
+std::uintptr_t Sub_4014B0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyBlacklistPanel5531D0.x;
+    const std::int32_t y = gLegacyBlacklistPanel5531D0.y;
+    LegacyPanelButtonRecord confirm {x + 522, y + 416, x + 451, y + 404, 140, 24, 99101, 99102};
+    const std::int32_t state = Sub_503160(opened, &gLegacyBlacklistPanel5531D0, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        std::uintptr_t result = 0;
+        if (input::IsCurrentContext_503E40(gLegacyBlacklistInput5939B8) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyBlacklistInput5939B8 = nullptr;
+        return result;
+    }
+    if (gLegacyBlacklistInput5939B8 == nullptr) {
+        const std::int32_t inputY = gLegacyBlacklistPanel5531D0.y;
+        const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
+        input::InputContext* const context = input::BorrowLegacyBlacklistContext593858();
+        gLegacyBlacklistInput5939B8 = context;
+        context->text[0] = 0;
+        context->totalByteLength = 0;
+        context->caretByteOffset = 0;
+        input::InitializeContext_449CF0(context, inputX + 21, inputY + 408, 2, 0, 0, nullptr, 1, 16, 18, 0);
+        input::SetContext_44B330(gLegacyBlacklistInput5939B8);
+    }
+    constexpr const char* instructions[3] {
+        kLegacyBlacklistText5533F4, kLegacyBlacklistText5533B4, kLegacyBlacklistText553370,
+    };
+    for (std::int32_t index = 0; index < 3; ++index) {
+        const std::int32_t textY = gLegacyBlacklistPanel5531D0.y;
+        const std::int32_t textX = gLegacyBlacklistPanel5531D0.x;
+        DrawText(Low16(textX + 10), Low16(textY + 35 + 20 * index), 2, 0,
+            static_cast<std::int8_t>(index == 0 ? 8 : 5), instructions[index], 0, 0);
+    }
+    const std::int32_t count = blacklist::GetBlacklistCount_401190();
+    char countText[512];
+    std::sprintf(countText, kLegacyBlacklistText55332C, count);
+    const std::int32_t countY = gLegacyBlacklistPanel5531D0.y;
+    const std::int32_t countX = gLegacyBlacklistPanel5531D0.x;
+    DrawText(Low16(countX + 10), Low16(countY + 95), 2, 0, 8, countText, 0, 0);
+    std::int32_t column = 0;
+    std::int32_t row = 0;
+    for (std::int32_t index = 0; index < count; ++index) {
+        const char* const name = blacklist::BlacklistRecordAt_401170(index);
+        if (std::strlen(name) != 0) {
+            // 原端先取记录并扫字符串，只有非空记录才检查72项显示边界。
+            if (index >= 72) {
+                break;
+            }
+            if (index / 18 > column) {
+                row = 0;
+                column = index / 18;
+            }
+            const std::int32_t nameY = gLegacyBlacklistPanel5531D0.y;
+            const std::int32_t nameX = gLegacyBlacklistPanel5531D0.x;
+            DrawText(Low16(nameX + 148 * column + 10), Low16(nameY + 15 * row + 115),
+                2, 1, 0, name, 0, 0);
+            ++row;
+        }
+    }
+    render::DrawInputText_4568A0(gLegacyBlacklistInput5939B8);
+    Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (Sub_503590(&gLegacyBlacklistPanel5531D0) != 0) {
+        std::strcpy(hint, kLegacySkillClose55331C);
+    } else if ((QueryPanelButtonState(&confirm) & 1) == 0 && (platform::gKeyStates[13] & 4u) == 0) {
+        if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+            std::strcpy(hint, kLegacyBlacklistText553304);
+        }
+    } else if (gLegacyBlacklistInput5939B8->text[0] != 0) {
+        char message[128];
+        if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->text) != 0) {
+            const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->text) != 0;
+            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
+                gLegacyBlacklistInput5939B8->text);
+        } else {
+            if (blacklist::GetBlacklistCount_401190() >= 72) {
+                world::detail::Sub_44B050(kLegacyBlacklistText553294, 4, 3);
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+                return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
+            }
+            const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->text) != 0;
+            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
+                gLegacyBlacklistInput5939B8->text);
+        }
+        gLegacyBlacklistInput5939B8->text[0] = 0;
+        gLegacyBlacklistInput5939B8->totalByteLength = 0;
+        gLegacyBlacklistInput5939B8->caretByteOffset = 0;
+        const std::int32_t inputY = gLegacyBlacklistPanel5531D0.y;
+        const std::int32_t inputX = gLegacyBlacklistPanel5531D0.x;
+        input::InitializeContext_449CF0(gLegacyBlacklistInput5939B8, inputX + 21, inputY + 408,
+            2, 0, 0, nullptr, 1, 16, 18, 0);
+        world::detail::Sub_44B050(message, 4, 3);
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
 }
 
 std::int32_t Sub_4FD690()

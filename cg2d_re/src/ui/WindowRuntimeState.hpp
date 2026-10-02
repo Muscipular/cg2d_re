@@ -339,6 +339,27 @@ login::YobiAction* Sub_4E4860(const char* text); // LY完整目标名单生产�
 std::int32_t Sub_48B010(std::int32_t index, const char* unusedText); // 用物品/请求回退/释放通知。
 login::YobiAction* Sub_48B0A0(); // 属性展示源及46创建成功后的引用计数。
 login::YobiAction* Sub_4E4020(const char* text); // nFV完整属性值生产，不清旧表或替换宠物状态owner。
+// 原CB10D8的52B值记录；旧78只读借用，实际六行存储仍由WindowRuntime私有持有。
+struct ItemUseStatusRecord {
+    std::array<char, 20> name;
+    std::int32_t level;
+    std::int32_t injury;
+    std::int32_t hp;
+    std::int32_t maxHp;
+    std::int32_t fp;
+    std::int32_t maxFp;
+    std::int32_t kind;
+    std::int32_t target;
+};
+static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
+static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
+static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
+static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
+static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
+static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
+static_assert(sizeof(ItemUseStatusRecord) == 52);
+const ItemUseStatusRecord& ReadLegacyItemUseStatus(std::int32_t index) noexcept;
+std::int32_t ReadLegacyItemUseStatusCount() noexcept; // 原CC4D44，不固定为六行或复制数量。
 login::YobiAction* Sub_49F000(
     const char* const* names, const std::uint8_t* colors,
     std::int32_t count, WindowTextChoiceCallback callback);

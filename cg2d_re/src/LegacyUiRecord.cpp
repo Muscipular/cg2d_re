@@ -432,6 +432,15 @@ constexpr char kLegacyEngravingSelect5895C0[] = "\xA8\xE8\xA6\x4C\xA6\xB9\xB9\x4
 constexpr char kLegacyEngravingReject5895AC[] = "\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA1\x43";
 constexpr char kLegacyEngravingClose5868EC[] = "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1";
 constexpr char kLegacyEngravingChoose589594[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xA8\xE8\xA6\x4C\xAA\xBA\xB9\x44\xA8\xE3\xA1\x43";
+LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
+    64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyItemUseCancel589008[] = "\xA8\xFA\x20\x20\xAE\xF8";
+constexpr char kLegacyItemUsePrevious58597C[] = "\xA4\x57\xA4\x40\xAD\xB6";
+constexpr char kLegacyItemUseTitle585F54[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48\xA1\x43";
+constexpr char kLegacyItemUseHeader58932C[] =
+    "\xB0\xB7\xB1\x64\x20\x20\xB5\xA5\xAF\xC5\x20\xA9\x6D\xA6\x57\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
+    "\xA5\xCD\xA9\x52\xA4\x4F\x20\x20\x20\x20\xC5\x5D\xA4\x4F";
 constexpr char kLegacyCraftAdd589FC8[] = "\xA6\x5E\xA8\xEC\xB0\x6C\xA5\x5B\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacyCraftChoose589FD8[] =
     "\xA6\x5E\xA8\xEC\xA5\xCD\xA6\xA8\xBF\xEF\xBE\xDC\xB5\xF8\xB5\xA1\xA1\x43";
@@ -941,6 +950,95 @@ std::int32_t Sub_455940()
     records[4][6] = 22998;
     records[4][7] = 22999;
     return centerY;
+}
+
+std::uint32_t Sub_4E4460(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyItemUseStatusPanel582C78.x;
+    const std::int32_t y = gLegacyItemUseStatusPanel582C78.y;
+    character_select::detail::CharacterModalUiRecord cancel {
+        x + 169, y + 202, x + 167, y + 202, 57, 18, kLegacyItemUseCancel589008,
+    };
+    character_select::detail::CharacterModalUiRecord previous {
+        x + 289, y + 202, x + 287, y + 202, 57, 18, kLegacyItemUsePrevious58597C,
+    };
+    const std::array<std::int32_t, 7> colors {5, 1, 0, 0, 0, 0, 0};
+    const std::int32_t state = Sub_503160(opened, &gLegacyItemUseStatusPanel582C78, nullptr, 0);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
+        const std::int32_t top = gLegacyItemUseStatusPanel582C78.y + 20 * index;
+        const std::int32_t left = gLegacyItemUseStatusPanel582C78.x;
+        if (Sub_5049A0(left + 44, top + 74, left + 468, top + 94, -1) != 0) {
+            hovered = index;
+            break;
+        }
+    }
+    const std::int32_t cancelState = character_select::detail::Sub_503990(&cancel);
+    const std::int32_t previousState = character_select::detail::Sub_503990(&previous);
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        const std::int32_t item = gLegacyLastUsedItemCB01EC;
+        const std::int32_t target = ui::detail::ReadLegacyItemUseStatus(hovered).target;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_510AC0(platform::gConnectionSocket, playerX, playerY, item, target));
+        static_cast<void>(audio::Sub_504180(14));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((cancelState & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyItemUseStatusPanel582C78.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if ((previousState & 1) != 0) {
+        static_cast<void>(network::Sub_511CD0(platform::gConnectionSocket));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const std::int32_t titleY = gLegacyItemUseStatusPanel582C78.y + 24;
+    const std::int32_t titleX = gLegacyItemUseStatusPanel582C78.x + 172;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),
+        static_cast<std::int16_t>(titleY), 2, 0, 4, kLegacyItemUseTitle585F54, 0, 0));
+    const std::int32_t headerY = gLegacyItemUseStatusPanel582C78.y + 50;
+    const std::int32_t headerX = gLegacyItemUseStatusPanel582C78.x + 44;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(headerX),
+        static_cast<std::int16_t>(headerY), 2, 0, 0, kLegacyItemUseHeader58932C, 0, 0));
+    char buffer[128];
+    for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
+        const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
+        std::sprintf(buffer, "%3d", record.level);
+        const std::int32_t levelY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
+        const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(levelX),
+            static_cast<std::int16_t>(levelY), 2, 0, 0, buffer, 0, 0));
+        std::sprintf(buffer, "%-16s", record.name.data());
+        const std::uint8_t color = static_cast<std::uint8_t>(colors[record.kind]);
+        const std::int32_t nameY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
+        const std::int32_t nameX = gLegacyItemUseStatusPanel582C78.x + 143;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+            static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
+        const std::int32_t maxFp = record.maxFp;
+        const std::int32_t fp = record.fp;
+        const std::int32_t maxHp = record.maxHp;
+        const std::int32_t hp = record.hp;
+        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        const std::int32_t valuesY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
+        const std::int32_t valuesX = gLegacyItemUseStatusPanel582C78.x + 296;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(valuesX),
+            static_cast<std::int16_t>(valuesY), 2, 0, 0, buffer, 0, 0));
+        const std::int32_t image = ui::detail::ReadLegacyHealthImage(record.injury);
+        const std::int32_t imageY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 84;
+        const std::int32_t imageX = gLegacyItemUseStatusPanel582C78.x + 70;
+        static_cast<void>(DrawGraphic(imageX, imageY, 213, image, 0, nullptr));
+    }
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&previous, 2, 4, 1, gValueD69768, 218));
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyItemUseStatusPanel582C78.y + 20 * hovered;
+        const std::uint32_t hoverImage = gValueD69768;
+        const std::int32_t left = gLegacyItemUseStatusPanel582C78.x;
+        DrawGraphicHover(Low16(left + 44), Low16(top + 74), Low16(left + 468), Low16(top + 94),
+            218, hoverImage, 0);
+    }
+    return Sub_503440(&gLegacyItemUseStatusPanel582C78, 0);
 }
 
 void Sub_4E9280()

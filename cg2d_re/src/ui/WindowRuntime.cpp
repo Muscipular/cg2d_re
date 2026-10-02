@@ -549,25 +549,7 @@ std::int32_t gItemUseTargetCB0A48 = 0;
 std::array<const char*, 10> gItemUseNamesCB0A1C {};
 std::array<std::uint8_t, 10> gItemUseColorsD2E91C {};
 
-// 原CB10D8的52B值记录，仅映射已证最多六行，不冻结相邻未消费容量。
-struct ItemUseStatusRecord {
-    std::array<char, 20> name;
-    std::int32_t level;
-    std::int32_t injury;
-    std::int32_t hp;
-    std::int32_t maxHp;
-    std::int32_t fp;
-    std::int32_t maxFp;
-    std::int32_t kind;
-    std::int32_t target;
-};
-static_assert(offsetof(ItemUseStatusRecord, level) == 0x14);
-static_assert(offsetof(ItemUseStatusRecord, injury) == 0x18);
-static_assert(offsetof(ItemUseStatusRecord, hp) == 0x1C);
-static_assert(offsetof(ItemUseStatusRecord, maxFp) == 0x28);
-static_assert(offsetof(ItemUseStatusRecord, kind) == 0x2C);
-static_assert(offsetof(ItemUseStatusRecord, target) == 0x30);
-static_assert(sizeof(ItemUseStatusRecord) == 52);
+// 仅映射已证最多六行，不冻结相邻未消费容量；旧78借用同源记录。
 std::array<ItemUseStatusRecord, 6> gItemUseStatusRecordsCB10D8 {};
 std::int32_t gItemUseStatusCountCC4D44 = 0;
 std::array<WindowStatusChoiceRecord, 6> gItemUseStatusViewsCB1278 {};
@@ -1573,6 +1555,16 @@ void ScrollInputAndDraw(input::InputContext* const context, const std::int32_t w
 std::int32_t ReadLegacyHealthImage(const std::int32_t health)
 {
     return gHealthImages57CBA4[Sub_519680(health)];
+}
+
+const ItemUseStatusRecord& ReadLegacyItemUseStatus(const std::int32_t index) noexcept
+{
+    return gItemUseStatusRecordsCB10D8[index];
+}
+
+std::int32_t ReadLegacyItemUseStatusCount() noexcept
+{
+    return gItemUseStatusCountCC4D44;
 }
 
 std::int32_t ReadSkillRequestD64E13() noexcept

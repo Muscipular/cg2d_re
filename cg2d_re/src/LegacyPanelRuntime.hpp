@@ -105,6 +105,7 @@ std::int32_t Sub_455840();
 std::int32_t Sub_455850(); // 62B4A8起三组交错写入。
 std::int32_t Sub_455930();
 std::int32_t Sub_455940(); // 62B508起五组交错写入。
+std::uint32_t Sub_4E4460(std::int32_t opened); // 旧78物品目标属性页，只读借用nFV的同源值记录。
 void Sub_4E9280(); // 旧79详情页/目标初始化，不重置上次悬停或来源参数。
 std::uint32_t Sub_4E92A0(std::int32_t opened); // 旧79刻印选择，发送后仍保留绘制/提示公共尾。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。

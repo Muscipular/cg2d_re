@@ -59,4 +59,27 @@ std::int32_t UpperLegacyCharacter_543A1A(std::int32_t value);
 // 原543D37在唯一caller 53DD2F的U8输入域；不公开一般宽字符转换。
 std::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);
 
+// 原54A9C3可空locale参数只读取两个W32；不包含MB_CUR_MAX或lead-byte表。
+struct LegacyConversionLocale54A9C3 final {
+    std::uint32_t ctypeLocale; // +0，非零进入系统转换。
+    std::uint32_t codePage;    // +4，直接传给MultiByteToWideChar。
+};
+static_assert(sizeof(LegacyConversionLocale54A9C3) == 8);
+static_assert(offsetof(LegacyConversionLocale54A9C3, codePage) == 4);
+
+// 原544552；数量保留W32，目标可空；失败沿原共享errno，不预清目标。
+std::int32_t Mbtowc_544552(wchar_t* destination, const char* source,
+    std::uint32_t sourceCount);
+
+// 原54472B；一个W16到旧字节串，容量取共享MB_CUR_MAX，目标可空。
+std::int32_t Wctomb_54472B(char* destination, std::uint16_t character);
+
+// 原54A9C3；调用者持有W32待续状态，可空locale只覆盖locale/代码页两个值。
+std::int32_t Mbrtowc_54A9C3(wchar_t* destination, const char* source,
+    std::uint32_t sourceCount, std::uint32_t* state,
+    const LegacyConversionLocale54A9C3* locale);
+
+// 原54AAD5；S32仅-1作EOF，其余取低U8，负转换结果返回W16 FFFF。
+std::uint16_t Btowc_54AAD5(std::int32_t character);
+
 } // namespace cg::platform

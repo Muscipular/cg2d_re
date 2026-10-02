@@ -1,6 +1,7 @@
 #include "LegacyMultibyte.hpp"
 
 #include "LegacyStringCompareState.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -451,6 +452,157 @@ void InitializeLegacyMultibyte_546CAE()
         static_cast<void>(SetLegacyMultibyteCodePage_5468EA(0xFFFFFFFDu));
         gLegacyMultibyteInitGuard1087AEC = 1;
     }
+}
+
+// 原544552；保留lead分支中先有符号、后无符号的两个数量判断。
+std::int32_t Mbtowc_544552(wchar_t* const destination, const char* const source,
+    const std::uint32_t sourceCount)
+{
+    if (source == nullptr || sourceCount == 0) {
+        return 0;
+    }
+    const auto first = static_cast<std::uint8_t>(source[0]);
+    if (first == 0) {
+        if (destination != nullptr) {
+            *destination = 0;
+        }
+        return 0;
+    }
+    if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+        if (destination != nullptr) {
+            *destination = static_cast<wchar_t>(first);
+        }
+        return 1;
+    }
+    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {
+        std::int32_t width = gLegacyCtypeMaxBytes58FE3C;
+        if (width > 1) {
+            if (std::bit_cast<std::int32_t>(sourceCount) < width) {
+                gLegacyErrno_1085FE0 = 42;
+                return -1;
+            }
+            const int converted = ::MultiByteToWideChar(gConversionCodePage_1086170,
+                MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, width,
+                destination, destination != nullptr ? 1 : 0);
+            width = gLegacyCtypeMaxBytes58FE3C;
+            if (converted != 0) {
+                return width;
+            }
+        }
+        if (sourceCount >= static_cast<std::uint32_t>(width) && source[1] != '\0') {
+            return width;
+        }
+    } else if (::MultiByteToWideChar(gConversionCodePage_1086170,
+            MB_PRECOMPOSED | MB_ERR_INVALID_CHARS, source, 1,
+            destination, destination != nullptr ? 1 : 0) != 0) {
+        return 1;
+    }
+    gLegacyErrno_1085FE0 = 42;
+    return -1;
+}
+
+// 原54472B；真实API写入和默认字符标志均保留，不在失败时清目的区。
+std::int32_t Wctomb_54472B(char* const destination, const std::uint16_t character)
+{
+    if (destination == nullptr) {
+        return 0;
+    }
+    if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+        if (character <= 0xFFu) {
+            destination[0] = std::bit_cast<char>(static_cast<std::uint8_t>(character));
+            return 1;
+        }
+    } else {
+        const wchar_t wideCharacter = static_cast<wchar_t>(character);
+        BOOL usedDefault = FALSE;
+        const int converted = ::WideCharToMultiByte(gConversionCodePage_1086170,
+            WC_COMPOSITECHECK | WC_SEPCHARS, &wideCharacter, 1, destination,
+            gLegacyCtypeMaxBytes58FE3C, nullptr, &usedDefault);
+        if (converted != 0 && usedDefault == FALSE) {
+            return converted;
+        }
+    }
+    gLegacyErrno_1085FE0 = 42;
+    return -1;
+}
+
+// 原54A9C3；state按W32判断，低U8续接写和整个W32清理分别执行。
+std::int32_t Mbrtowc_54A9C3(wchar_t* const destination, const char* const source,
+    const std::uint32_t sourceCount, std::uint32_t* const state,
+    const LegacyConversionLocale54A9C3* const locale)
+{
+    if (source == nullptr || sourceCount == 0) {
+        return 0;
+    }
+    const auto first = static_cast<std::uint8_t>(source[0]);
+    if (first == 0) {
+        if (destination != nullptr) {
+            *destination = 0;
+        }
+        return 0;
+    }
+    std::uint32_t ctypeLocale;
+    std::uint32_t codePage;
+    if (locale == nullptr) {
+        ctypeLocale = gLegacyTextLocale1086160.ctypeLocale;
+        codePage = gConversionCodePage_1086170;
+    } else {
+        ctypeLocale = locale->ctypeLocale;
+        codePage = locale->codePage;
+    }
+    if (ctypeLocale == 0) {
+        if (destination != nullptr) {
+            *destination = static_cast<wchar_t>(first);
+        }
+        return 1;
+    }
+    if (*state != 0) {
+        reinterpret_cast<unsigned char*>(state)[1] = first;
+        if (gLegacyCtypeMaxBytes58FE3C > 1
+            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
+                reinterpret_cast<const char*>(state), 2, destination,
+                destination != nullptr ? 1 : 0) != 0) {
+            *state = 0;
+            return gLegacyCtypeMaxBytes58FE3C;
+        }
+        *state = 0;
+        gLegacyErrno_1085FE0 = 42;
+        return -1;
+    }
+    if ((gCtypePointer58FC30[first] & 0x8000u) != 0) {
+        const std::int32_t width = gLegacyCtypeMaxBytes58FE3C;
+        if (sourceCount < static_cast<std::uint32_t>(width)) {
+            reinterpret_cast<unsigned char*>(state)[0] = first;
+            return -2;
+        }
+        if (width > 1
+            && ::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
+                source, width, destination, destination != nullptr ? 1 : 0) != 0) {
+            return gLegacyCtypeMaxBytes58FE3C;
+        }
+        if (source[1] != '\0') {
+            return gLegacyCtypeMaxBytes58FE3C;
+        }
+        *state = 0;
+    } else if (::MultiByteToWideChar(codePage, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
+            source, 1, destination, destination != nullptr ? 1 : 0) != 0) {
+        return 1;
+    }
+    gLegacyErrno_1085FE0 = 42;
+    return -1;
+}
+
+// 原54AAD5；只初始化原W32状态，输出沿被调函数真实写入。
+std::uint16_t Btowc_54AAD5(const std::int32_t character)
+{
+    if (character == -1) {
+        return 0xFFFFu;
+    }
+    const char byte = std::bit_cast<char>(static_cast<std::uint8_t>(character));
+    std::uint32_t state = 0;
+    wchar_t converted;
+    const std::int32_t result = Mbrtowc_54A9C3(&converted, &byte, 1, &state, nullptr);
+    return result < 0 ? 0xFFFFu : static_cast<std::uint16_t>(converted);
 }
 
 } // namespace cg::platform

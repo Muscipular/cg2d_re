@@ -11728,119 +11728,219 @@
     {
       "original_entry": "0x544552",
       "inventory_id": "F:00144552",
-      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "status": "原单字符转换本体已实现；外层父链及特殊失败/运行未验",
       "original_end_exclusive": "0x54461A",
       "instruction_count": 74,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "WideStandardStreamsStaticInitializer"
-          ],
-          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+            "Mbtowc_544552"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "Mbtowc_544552"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbtowc.cpp",
-        "symbol": "mbtowc"
-      },
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原input及fgetwc两个CRT调用；空源/数量0/NUL、C locale U8到W16和非C lead-byte分支已核。原API失败后仍有长度/次字节判定，不改成统一失败。宿主locale/UTF-8内部状态和错误槽不同，当前宽流owner只是传递关联。"
+      "boundary": "空源/数量0不写目标，NUL有目标才写零；C locale写首U8。非C用flags9，lead前置数量比较为S32，API后重读最大宽度，失败尾数量比较为U32，数量够且次字节非零仍返回宽度。否则原errno42/-1，不补目标。input/fgetwc外层仍未接；API失败后未写目标的后续消费未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "native_references": [
+        {
+          "component": "UCRT 10.0.26100.0",
+          "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbtowc.cpp",
+          "symbol": "mbtowc",
+          "relationship": "历史宿主实现差异参考，不是新增旧转换本体的调用提供者"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x544552",
+          "end_exclusive": "0x54461A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53E597",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x54B021",
+          "parent_entry": "0x54AF70"
+        }
+      ],
+      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行"
     },
     {
       "original_entry": "0x54472B",
       "inventory_id": "F:0014472B",
-      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "status": "原单字符转换本体已实现；外层父链及特殊失败/运行未验",
       "original_end_exclusive": "0x544793",
       "instruction_count": 37,
       "original_direct_reference_count": 4,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "WideStandardStreamsStaticInitializer"
-          ],
-          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+            "Wctomb_54472B"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "Wctomb_54472B"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/wctomb.cpp",
-        "symbol": "wctomb"
-      },
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原output两处及fputwc/ungetwc两处CRT调用；空目标0、C locale W16<=255写低字节，否则errno42/-1。原非C flags220h及usedDefault检查；宿主flags0、容量校验/部分失败清目标和UTF-8分支不同，不自动同步原errno。"
+      "boundary": "空目标返0；C locale只接W16<=255并写低U8，否则errno42/-1。非C用flags220H、共享最大宽度及先置0的usedDefault，API0/替代均失败，其他返回API值；失败不清目的区，成功不清errno。output/fputwc/ungetwc父链尚未接。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "native_references": [
+        {
+          "component": "UCRT 10.0.26100.0",
+          "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/wctomb.cpp",
+          "symbol": "wctomb",
+          "relationship": "历史宿主实现差异参考，不是新增旧转换本体的调用提供者"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x54472B",
+          "end_exclusive": "0x544793"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53EE12",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F225",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x54ADD5",
+          "parent_entry": "0x54AD92"
+        },
+        {
+          "address": "0x54AEEC",
+          "parent_entry": "0x54AE87"
+        }
+      ],
+      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行"
     },
     {
       "original_entry": "0x54A9C3",
       "inventory_id": "F:0014A9C3",
-      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "status": "原单字符转换本体已实现；外层父链及特殊失败/运行未验",
       "original_end_exclusive": "0x54AAD5",
       "instruction_count": 108,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "WideStandardStreamsStaticInitializer"
-          ],
-          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+            "Mbrtowc_54A9C3"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "Mbrtowc_54A9C3"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
-        "symbol": "_mbrtowc_internal"
-      },
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原唯一btowc父调用；可空locale+0/+4、共享MB_CUR_MAX/ctype、W32待续状态和低W8保存/-2已核。宿主btowc内部helper入口清目标且有UTF-8状态；MSVC STL同名_Mbrtowc不使用pst，不能同名判等。不新增旧状态或声称全父链已接。",
-      "native_reference": {
-        "component": "MSVC STL 14.50.35717，仅作同名差异参考",
-        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/stl/xmbtowc.cpp",
-        "symbol": "_Mbrtowc"
-      }
+      "boundary": "复用共享ctype/最大宽度和可空双W32 locale视图，调用者提供W32状态。空源/数量0/NUL/C locale不清状态；待续先写+1U8，两字节API后整W32清理，成功再读宽度。首lead数量不足只写低U8/-2，数量够的API失败仍检查次字节。非lead失败不附加清状态；BTOWC内部调用已接，未写输出及外层运行未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "native_references": [
+        {
+          "component": "UCRT 10.0.26100.0",
+          "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
+          "symbol": "_mbrtowc_internal",
+          "relationship": "历史宿主实现差异参考，不是新增旧转换本体的调用提供者"
+        },
+        {
+          "component": "MSVC STL 14.50.35717，仅作同名差异参考",
+          "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/stl/xmbtowc.cpp",
+          "symbol": "_Mbrtowc"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x54A9C3",
+          "end_exclusive": "0x54AAD5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54AAFF",
+          "parent_entry": "0x54AAD5"
+        }
+      ],
+      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行"
     },
     {
       "original_entry": "0x54AAD5",
       "inventory_id": "F:0014AAD5",
-      "status": "现有宿主宽标准流私有转换职责已定位；原状态差异及完整父链未验",
+      "status": "原单字符转换本体已实现；外层父链及特殊失败/运行未验",
       "original_end_exclusive": "0x54AB16",
       "instruction_count": 28,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "WideStandardStreamsStaticInitializer"
-          ],
-          "relationship": "既有宿主宽流owner的传递职责位置，不是原转换helper的直接定义或运行调用证明"
+            "Btowc_54AAD5"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "Btowc_54AAD5"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "UCRT 10.0.26100.0",
-        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
-        "symbol": "btowc"
-      },
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原宽basic_ios初始化唯一直接调用；-1转W16 WEOF，其他取低U8、局部W32状态清零，Mbrtowc返回负数则WEOF，否则返回输出W16。宿主公共btowc的职责来源已定位，局部状态/输出初始化和最终宽流运行仍不称原等价。"
+      "boundary": "S32输入仅-1立即返W16 FFFF，其他只取低U8。局部W32状态按原清零，W16目标不预清，长度1/空locale实际调用Mbrtowc_54A9C3；负返回转WEOF，否则取真实目标。549DBE父入口未接，不将宿主宽流默认行为判为已调用本体；未写局部的特殊失败语义未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "native_references": [
+        {
+          "component": "UCRT 10.0.26100.0",
+          "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/convert/mbrtowc.cpp",
+          "symbol": "btowc",
+          "relationship": "历史宿主实现差异参考，不是新增旧转换本体的调用提供者"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x54AAD5",
+          "end_exclusive": "0x54AB16"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549DCE",
+          "parent_entry": "0x549DBE"
+        }
+      ],
+      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行"
     },
     {
       "original_entry": "0x53B304",

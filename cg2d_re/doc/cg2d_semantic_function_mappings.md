@@ -307,3 +307,25 @@ newest HTTP/raw-socket请求链。JSON的sources为空，scope_control_sources�
 本体各只有读取73ECF4、清73ECF4、读取73ED08，唯一caller均为待决403E50；
 现有MainLoop共享owner已承载原W32状态。本轮未重复造无消费者包装，
 也未把这三入口或网络父回调登记为已有实现。
+
+## 变换缓存的单节点删除与键查找
+
+2026-10-02，补454050和454420两个既有容器适配的入口映射，
+当前完整原指令分别为350条和80条。
+454050三处直接caller为44CCDB、44D4C2、44D4FD：
+先取迭代后继、删除/平衡节点、释放节点并减计数，最后向输出迭代器写后继。
+现有两个SurfaceTransformCache的std::map节点生命周期承接此语义，
+ClearSurfaceTransformCache_44D490仍先释放表面、清值再erase；
+不能把树节点释放当作自动释放TextureSurface，也不把成员析构等同完整业务清理。
+
+454420唯一直接caller为44CE05：先用44D3F0比较器找下界，
+随后比较查询键与候选以确定相等，否则发布end表头。
+TransformTextureSurface_44CD80的cache.find(key)沿同一键关系。
+首地址分量按既定x64适配使用完整地址；后续S32图号、S16调色板和
+left/right/top/bottom顺序不变。原返回的迭代器地址不作为新端外部地址契约。
+
+此处沿已批准的[DX x64方案](cg2d_graphic_dx_cache_x64_spec.md)，不重写树节点、
+不恢复原32位地址排序，也不宣称节点地址、树形、分配异常或完整生命周期等价。
+另一个本轮实际新增入口401CA0直接登记在源码定义定位清单，
+其[标量删除析构合同](cg2d_legacy_cryptint.md#标量删除析构401ca02026-10-02)
+与这两项容器映射分别记录。

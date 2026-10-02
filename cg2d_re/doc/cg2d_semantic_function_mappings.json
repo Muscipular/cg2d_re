@@ -4906,6 +4906,47 @@
         "doc/cg2d_login_state_controller.md"
       ],
       "boundary": "沿2026-09-21用户明确取消newest HTTP/raw-socket请求的裁决；只排除此五函数链，原入口及稳定ID保留，不扩展到510140共享结果读取、正常登录请求或未定网络帧接线。"
+    },
+    {
+      "original_entry": "0x454050",
+      "inventory_id": "F:00054050",
+      "status": "既有变换缓存容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "ClearSurfaceTransformCache_44D490",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原350条指令先保存迭代后继，再摘除/平衡并释放单节点、计数减1、发布后继。现有map::erase及map成员析构承接节点生命周期；值的表面释放仍由父清理调用，不把树节点delete等同TextureSurface释放。树形、节点地址与分配异常不据此宣称等价。"
+    },
+    {
+      "original_entry": "0x454420",
+      "inventory_id": "F:00054420",
+      "status": "既有变换缓存查找适配映射，运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80",
+            "SurfaceTransformKeyLess"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原80条指令先按44D3F0寻找下界，再反向比较查询键以判相等，未命中返回表头end。现有map::find沿同一比较关系；地址分量按已批x64拓宽，图号S32/调色板S16和RECT left/right/top/bottom顺序保留。"
     }
   ]
 }

@@ -12,12 +12,12 @@
   "counts": {
     "inventory_functions": 3680,
     "source_files": 187,
-    "direct_inventory_entries": 2751,
-    "direct_definitions": 2768,
+    "direct_inventory_entries": 2752,
+    "direct_definitions": 2769,
     "multiple_definition_entries": 13,
     "shared_tag_definitions": 1,
     "non_inventory_definitions": 58,
-    "without_direct_definition": 929
+    "without_direct_definition": 928
   },
   "records": [
     {
@@ -147,7 +147,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "ConstructStartupValues_401C20",
-          "definition_line": 31,
+          "definition_line": 32,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -159,7 +159,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "DestroyStartupValues_401C50",
-          "definition_line": 37,
+          "definition_line": 38,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -171,7 +171,19 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "ConstructZero_401C70",
-          "definition_line": 43,
+          "definition_line": 44,
+          "namespace": "cg::platform::legacy_crypt_int"
+        }
+      ]
+    },
+    {
+      "inventory_id": "F:00001CA0",
+      "original_entry": "0x401CA0",
+      "definitions": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "DestroyAndFree_401CA0",
+          "definition_line": 220,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -183,7 +195,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "ConstructFromInt_401CC0",
-          "definition_line": 52,
+          "definition_line": 53,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -195,7 +207,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Destroy_401CF0",
-          "definition_line": 63,
+          "definition_line": 64,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -207,7 +219,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Equal_401D00",
-          "definition_line": 154,
+          "definition_line": 155,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -219,7 +231,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "NotEqual_401D20",
-          "definition_line": 159,
+          "definition_line": 160,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -231,7 +243,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Greater_401D40",
-          "definition_line": 165,
+          "definition_line": 166,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -243,7 +255,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "GreaterCrypt_401D50",
-          "definition_line": 170,
+          "definition_line": 171,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -255,7 +267,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "GreaterEqual_401D70",
-          "definition_line": 176,
+          "definition_line": 177,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -267,7 +279,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "GreaterEqualCrypt_401D80",
-          "definition_line": 181,
+          "definition_line": 182,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -279,7 +291,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "LessEqual_401DA0",
-          "definition_line": 187,
+          "definition_line": 188,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -291,7 +303,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Less_401DB0",
-          "definition_line": 192,
+          "definition_line": 193,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -303,7 +315,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "LessCrypt_401DC0",
-          "definition_line": 197,
+          "definition_line": 198,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -315,7 +327,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Increment_401DE0",
-          "definition_line": 105,
+          "definition_line": 106,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -327,7 +339,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Add_401E10",
-          "definition_line": 113,
+          "definition_line": 114,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -339,7 +351,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "AddAssign_401E20",
-          "definition_line": 120,
+          "definition_line": 121,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -351,7 +363,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "SubtractAssign_401E40",
-          "definition_line": 126,
+          "definition_line": 127,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -363,7 +375,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Subtract_401E60",
-          "definition_line": 132,
+          "definition_line": 133,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -375,7 +387,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Difference_401E70",
-          "definition_line": 140,
+          "definition_line": 141,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -387,7 +399,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Multiply_401E90",
-          "definition_line": 146,
+          "definition_line": 147,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -399,7 +411,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "Read_401EC0",
-          "definition_line": 88,
+          "definition_line": 89,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -411,7 +423,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "SetNorVal_401F50",
-          "definition_line": 68,
+          "definition_line": 69,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -423,7 +435,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "IntGreaterCrypt_401F80",
-          "definition_line": 203,
+          "definition_line": 204,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -435,7 +447,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "IntLessEqualCrypt_401FC0",
-          "definition_line": 208,
+          "definition_line": 209,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -447,7 +459,7 @@
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbol": "IntMinusCrypt_401FE0",
-          "definition_line": 213,
+          "definition_line": 214,
           "namespace": "cg::platform::legacy_crypt_int"
         }
       ]
@@ -33677,7 +33689,6 @@
     "F:00001030",
     "F:00001AB0",
     "F:00001C10",
-    "F:00001CA0",
     "F:00001D10",
     "F:00001E00",
     "F:00001EA0",

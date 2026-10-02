@@ -3,6 +3,7 @@
 #include "MainLoopDependencies.hpp"
 
 #include <bit>
+#include <cstdlib>
 
 namespace cg::platform::legacy_crypt_int {
 namespace {
@@ -214,6 +215,15 @@ std::int32_t IntMinusCrypt_401FE0(
     const std::int32_t lhs, LegacyCryptInt* const rhs)
 {
     return FromBits(ToBits(lhs) - ToBits(Read_401EC0(rhs)));
+}
+
+LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags)
+{
+    Destroy_401CF0(value);
+    if ((flags & 1u) != 0) {
+        std::free(value);
+    }
+    return value;
 }
 
 } // namespace cg::platform::legacy_crypt_int

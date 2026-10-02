@@ -40,6 +40,9 @@ LegacyCryptInt* ConstructFromInt_401CC0(
 // 原 CryptInt_delete@[0x401CF0,0x401CF7)，只恢复 legacyVftToken。
 void Destroy_401CF0(LegacyCryptInt* value);
 
+// 原401CA0：先析构，flags bit0置位才free；返回原指针，不表示释放后仍可访问。
+LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags);
+
 // 原 CryptInt::SetNorVal@[0x401F50,0x401F5F)，不更新 mask 或 readCount。
 void SetNorVal_401F50(LegacyCryptInt* target, std::int32_t value);
 

@@ -110,6 +110,10 @@ std::int32_t Sub_455840();
 std::int32_t Sub_455850(); // 62B4A8起三组交错写入。
 std::int32_t Sub_455930();
 std::int32_t Sub_455940(); // 62B508起五组交错写入。
+YobiAction* Sub_4D36B0(); // 旧75独立图号预览，发布D67C50。
+std::uintptr_t Sub_4D36F0(std::int32_t opened); // 旧75十项交换列表，入口统计与逐项调整分离。
+void Sub_4D4960(std::int32_t x, std::int32_t y, std::int32_t index, std::int32_t page);
+std::uint32_t Sub_4D4A50(std::int32_t opened); // 旧76二十项确认，非零数量原序发送。
 YobiAction* Sub_4D4ED0(); // 旧74预览，始终创建并发布T*。
 std::uintptr_t Sub_4D4F00(std::int32_t opened); // 旧74交易选择，取消不发送。
 YobiAction* Sub_4D5220(); // 旧83预览，图号借4A0850同源状态。

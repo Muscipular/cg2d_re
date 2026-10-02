@@ -261,6 +261,29 @@ std::int32_t Font::measure(
 
 namespace cg::login::detail {
 
+std::int32_t MeasureDefaultText_44B260(const char* const text)
+{
+    const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
+    std::uint8_t first = *cursor;
+    if (first == 0) {
+        return 0;
+    }
+    const std::int32_t doubleWidth = cg::render::gFontMetrics[0].doubleWidth;
+    const std::int32_t singleWidth = cg::render::gFontMetrics[0].sWidth;
+    std::int32_t width = 0;
+    do {
+        if ((first & 0x80u) != 0) {
+            cursor += 2;
+            width += doubleWidth;
+        } else {
+            ++cursor;
+            width += singleWidth;
+        }
+        first = *cursor;
+    } while (first != 0);
+    return width;
+}
+
 // 原 TextMeasure@[0x44B2A0,0x44B2DC)：无字节预算的旧编码文本测宽。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType)
 {

@@ -213,6 +213,49 @@ std::int32_t gLegacyLastUsedItemCB01EC = 0;
 
 namespace {
 
+// 原CA0B30二十条C2CH记录，物理末端CAFEA0不含相邻状态。
+struct LegacyBarterItemRecord {
+    std::uint8_t used;
+    std::array<char, 29> name;
+    std::array<std::array<char, 96>, 32> descriptions;
+    std::array<std::byte, 2> reservedC1E;
+    std::int32_t image;
+    std::int32_t cost;
+    std::int32_t selected;
+};
+static_assert(sizeof(LegacyBarterItemRecord) == 0xC2C);
+static_assert(offsetof(LegacyBarterItemRecord, name) == 1);
+static_assert(offsetof(LegacyBarterItemRecord, descriptions) == 0x1E);
+static_assert(offsetof(LegacyBarterItemRecord, image) == 0xC20);
+static_assert(offsetof(LegacyBarterItemRecord, cost) == 0xC24);
+static_assert(offsetof(LegacyBarterItemRecord, selected) == 0xC28);
+std::array<LegacyBarterItemRecord, 20> gLegacyBarterItemsCA0B30 {};
+LegacyPanelRecord gLegacyBarterPanel5818B0 {
+    0, 0, 576, 432, 75, {23330, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyBarterConfirmPanel581978 {
+    0, 36, 640, 384, 76, {}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyBarterActionD67C50 = nullptr;
+std::int32_t gLegacyBarterImageCF4A0C = 0; // 独立图号，原生产待证。
+std::int32_t gLegacyBarterDetailPageD67C54 = 0;
+std::int32_t gLegacyBarterPreviousHover581974 = -1;
+std::int32_t gLegacyBarterPageCB10D0 = 0;
+std::int32_t gLegacyBarterPageCountC8A954 = 0; // 原生产待证，不以初值替代实际页数。
+std::int32_t gLegacyBarterTotalD2F334 = 0; // 旧75统计，旧76借读。
+std::int32_t gLegacyBarterMessageCC2E54 = 0;
+constexpr char kLegacyBarterCancel588994[] = "\xA8\xFA\xAE\xF8\xA5\xE6\xA9\xF6\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyBarterConfirm588984[] = "\xA5\xE6\xA9\xF6\xAB\xFC\xA9\x77\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyBarterIncrease58896C[] = "\xBC\x57\xA5\x5B\xA6\xB9\xAA\xAB\xAB\x7E\xA5\xE6\xA9\xF6\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyBarterDecrease588954[] = "\xB4\xEE\xA4\xD6\xA6\xB9\xAA\xAB\xAB\x7E\xA5\xE6\xA9\xF6\xBC\xC6\xB6\x71\xA1\x43";
+constexpr char kLegacyBarterYes588A08[] = "\x20\x20\xAC\x4F";
+constexpr char kLegacyBarterNo588A00[] = "\x20\x20\xA7\x5F";
+constexpr char kLegacyBarterQuestion5889C0[] = "\xA5\xE6\xA9\xF6\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
+constexpr char kLegacyBarterAcceptHint5889B8[] = "\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kLegacyBarterStopHint5889AC[] = "\xB0\xB1\xA4\xEE\xA5\xE6\xA9\xF6\xA1\x43";
+constexpr char kLegacyBarterSummary5889D8[] =
+    "%s  %7d \xAD\xD3   \xA5\xE6\xB4\xAB\xAD\xD3\xBC\xC6  %7d \xAD\xD3";
+
 LegacyPanelRecord gLegacyExchangePanel581A40 {
     0, 0, 292, 260, 74, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1259,6 +1302,397 @@ std::int32_t Sub_455940()
     records[4][6] = 22998;
     records[4][7] = 22999;
     return centerY;
+}
+
+YobiAction* Sub_4D36B0()
+{
+    const std::int32_t y = gLegacyBarterPanel5818B0.y + 245;
+    const std::int32_t x = gLegacyBarterPanel5818B0.x + 469;
+    const std::int32_t image = gLegacyBarterImageCF4A0C;
+    YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
+    gLegacyBarterActionD67C50 = action;
+    return action;
+}
+
+std::uintptr_t Sub_4D36F0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyBarterPanel5818B0.x;
+    const std::int32_t y = gLegacyBarterPanel5818B0.y;
+    LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23331, 23332};
+    LegacyPanelButtonRecord disabled {x + 418, y + 396, x + 378, y + 380, 80, 32, 23333, 0};
+    LegacyPanelButtonRecord cancel {x + 514, y + 396, x + 474, y + 380, 80, 32, 23076, 23077};
+    LegacyPanelButtonRecord previous {x + 136, y + 51, x + 122, y + 39, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 226, y + 51, x + 212, y + 39, 28, 24, 23023, 23027};
+    std::array<LegacyPanelButtonRecord, 10> increases;
+    std::array<LegacyPanelButtonRecord, 10> decreases;
+    for (std::int32_t index = 0; index < 10; ++index) {
+        const std::int32_t dx = 176 * (index / 5);
+        const std::int32_t dy = 68 * (index % 5);
+        increases[index] = {x + 128 + dx, y + 100 + dy, x + 114 + dx, y + 88 + dy, 28, 24, 23020, 23024};
+        decreases[index] = {x + 162 + dx, y + 100 + dy, x + 148 + dx, y + 88 + dy, 28, 24, 23021, 23025};
+    }
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    std::int32_t increaseHovered = -1;
+    std::int32_t decreaseHovered = -1;
+    const std::int32_t state = Sub_503160(opened, &gLegacyBarterPanel5818B0,
+        +[] { static_cast<void>(Sub_4D36B0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (audio::Sub_504410(76) == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        YobiAction* action = gLegacyBarterActionD67C50;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyBarterActionD67C50 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (gLegacyBarterActionD67C50 != nullptr) {
+        SetYobiActionFlag2(gLegacyBarterActionD67C50, false);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyBarterPanel5818B0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    const std::int32_t itemId = ui::detail::gValueD2D608;
+    std::int32_t available = 0;
+    ui::detail::gShopAvailableCF4A24 = 0;
+    for (const auto& item : world::detail::gPlayerItemsFDA8A4) {
+        if (item.used != 0 && item.itemId == itemId) {
+            available += item.count;
+        }
+    }
+    ui::detail::gShopAvailableCF4A24 = available;
+    gLegacyBarterTotalD2F334 = 0;
+    std::int32_t total = 0;
+    std::int32_t selectedTotal = 0;
+    for (const auto& item : gLegacyBarterItemsCA0B30) {
+        if (item.used != 0) {
+            const std::int32_t selected = item.selected;
+            selectedTotal += selected;
+            total += selected * item.cost;
+        }
+    }
+    std::int32_t hitPage = gLegacyBarterPageCB10D0;
+    gLegacyBarterTotalD2F334 = total;
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 10; ++row) {
+        if (gLegacyBarterItemsCA0B30[10 * hitPage + row].used == 0) {
+            continue;
+        }
+        const std::int32_t top = gLegacyBarterPanel5818B0.y + 68 * (row % 5);
+        const std::int32_t left = gLegacyBarterPanel5818B0.x + 176 * (row / 5);
+        if (Sub_5049A0(left + 20, top + 92, left + 67, top + 139, -1) != 0) {
+            hovered = row;
+            break;
+        }
+        hitPage = gLegacyBarterPageCB10D0;
+    }
+    if (hovered != gLegacyBarterPreviousHover581974) {
+        gLegacyBarterDetailPageD67C54 = 0;
+    }
+    if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+            request, target, 2, input::LegacyText593850()));
+        static_cast<void>(audio::Sub_5042D0(gLegacyBarterPanel5818B0.id));
+    } else if (selectedTotal > 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(76));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+        --gLegacyBarterPageCB10D0;
+        if (gLegacyBarterPageCB10D0 < 0) {
+            gLegacyBarterPageCB10D0 = gLegacyBarterPageCountC8A954 - 1;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+        const std::int32_t page = gLegacyBarterPageCB10D0;
+        const std::int32_t count = gLegacyBarterPageCountC8A954;
+        gLegacyBarterPageCB10D0 = page + 1;
+        if (page + 1 >= count) {
+            gLegacyBarterPageCB10D0 = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 2) != 0) {
+        ++gLegacyBarterDetailPageD67C54;
+        if (gLegacyBarterDetailPageD67C54 >= 4) {
+            gLegacyBarterDetailPageD67C54 = 0;
+        }
+    } else {
+        for (std::int32_t row = 0; row < 10; ++row) {
+            const std::int32_t index = row + 10 * gLegacyBarterPageCB10D0;
+            auto& item = gLegacyBarterItemsCA0B30[index];
+            if (item.used == 0) {
+                continue;
+            }
+            if ((QueryPanelButtonState(&increases[row]) & 0x40) != 0) {
+                increaseHovered = index;
+            } else if ((QueryPanelButtonState(&decreases[row]) & 0x40) != 0) {
+                decreaseHovered = index;
+            }
+            if ((QueryPanelButtonState(&increases[row]) & 0x10) != 0) {
+                std::int32_t remaining = item.cost;
+                remaining += gLegacyBarterTotalD2F334;
+                const std::int32_t material = ui::detail::gValueD2D608;
+                std::int32_t released = 0;
+                for (std::int32_t slot = 8; slot < 28; ++slot) {
+                    const auto& inventory = world::detail::gPlayerItemsFDA8A4[slot];
+                    if (inventory.used != 0 && inventory.itemId == material) {
+                        remaining -= inventory.count;
+                        if (remaining < 0) {
+                            break;
+                        }
+                        ++released;
+                    }
+                }
+                const std::int32_t empty = world::detail::Sub_518C60();
+                const std::int32_t cost = item.cost;
+                const std::int32_t currentTotal = gLegacyBarterTotalD2F334;
+                const std::int32_t currentAvailable = ui::detail::gShopAvailableCF4A24;
+                if (currentAvailable < cost + currentTotal) {
+                    gLegacyBarterMessageCC2E54 = 1;
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else if (empty + released <= selectedTotal) {
+                    gLegacyBarterMessageCC2E54 = 2;
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                } else {
+                    const std::int32_t selected = item.selected;
+                    if (selected < 20) {
+                        gLegacyBarterMessageCC2E54 = 0;
+                        item.selected = selected + 1;
+                        static_cast<void>(audio::PlaySe_52C450(51, 320));
+                    }
+                }
+            } else if ((QueryPanelButtonState(&decreases[row]) & 0x10) != 0) {
+                const std::int32_t selected = item.selected;
+                if (selected > 0) {
+                    item.selected = selected - 1;
+                    gLegacyBarterMessageCC2E54 = 0;
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                } else {
+                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                }
+            }
+        }
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyBarterPanel5818B0.y + 68 * (hovered % 5);
+        const std::int32_t left = gLegacyBarterPanel5818B0.x + 176 * (hovered / 5);
+        DrawGraphicHover(Low16(left + 20), Low16(top + 92), Low16(left + 67), Low16(top + 139),
+            213, gValueD69768, 0);
+        const std::int32_t page = gLegacyBarterDetailPageD67C54;
+        const std::int32_t listPage = gLegacyBarterPageCB10D0;
+        const std::int32_t detailY = gLegacyBarterPanel5818B0.y + 32;
+        const std::int32_t detailX = gLegacyBarterPanel5818B0.x + 298;
+        Sub_4D4960(detailX, detailY, hovered + 10 * listPage, page);
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacyBarterPanel5818B0.y + offsetY;
+        const std::int32_t left = gLegacyBarterPanel5818B0.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
+    };
+    char buffer[128];
+    for (std::int32_t row = 0; row < 10; ++row) {
+        const auto& item = gLegacyBarterItemsCA0B30[row + 10 * gLegacyBarterPageCB10D0];
+        if (item.used == 0) {
+            continue;
+        }
+        const std::int32_t dx = 176 * (row / 5);
+        const std::int32_t dy = 68 * (row % 5);
+        const std::int32_t image = item.image;
+        const std::int32_t top = gLegacyBarterPanel5818B0.y + dy + 116;
+        const std::int32_t left = gLegacyBarterPanel5818B0.x + dx + 44;
+        static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
+        const std::int32_t cost = item.cost;
+        const std::int32_t currentTotal = gLegacyBarterTotalD2F334;
+        const std::int32_t currentAvailable = ui::detail::gShopAvailableCF4A24;
+        const std::int8_t color = currentAvailable < cost + currentTotal ? 7 : 0;
+        std::sprintf(buffer, "%7d", cost);
+        drawAt(buffer, dx + 87, dy + 120, color);
+        std::sprintf(buffer, "%2d", item.selected);
+        drawAt(buffer, dx + 82, dy + 92, 0);
+        drawAt(kLegacyQuantityUnit5889A4, dx + 155, dy + 120, 4);
+        Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
+        Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
+    }
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
+    drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t group = gLegacyBarterMessageCC2E54;
+        drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
+    }
+    std::sprintf(buffer, "%7d", ui::detail::gShopAvailableCF4A24);
+    drawAt(buffer, 463, 286, 0);
+    drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
+    std::sprintf(buffer, "%7d", gLegacyBarterTotalD2F334);
+    drawAt(buffer, 463, 338, 0);
+    drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
+    const std::int32_t page = gLegacyBarterPageCB10D0;
+    const std::int32_t pageCount = gLegacyBarterPageCountC8A954;
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    drawAt(buffer, 168, 43, 0);
+    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+    if (selectedTotal > 0) {
+        Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
+    } else {
+        Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
+    }
+    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyBarterPanel5818B0) != 0) {
+        hint = kLegacyEngravingClose5868EC;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
+               && (QueryPanelButtonState(&previous) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyBarterCancel588994;
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = kLegacyBarterConfirm588984;
+    } else if (increaseHovered >= 0) {
+        hint = kLegacyBarterIncrease58896C;
+    } else if (decreaseHovered >= 0) {
+        hint = gLegacyBarterItemsCA0B30[decreaseHovered].selected > 0
+            ? kLegacyBarterDecrease588954 : kLegacyQuantityDecreaseLimit588944;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyBarterPanel5818B0, 1);
+    gLegacyBarterPreviousHover581974 = hovered;
+    return result;
+}
+
+void Sub_4D4960(const std::int32_t x, const std::int32_t y,
+    const std::int32_t index, const std::int32_t page)
+{
+    if (index < 0 || index >= 20) {
+        return;
+    }
+    const auto& item = gLegacyBarterItemsCA0B30[index];
+    if (item.used == 0) {
+        return;
+    }
+    const std::int32_t width = TextMeasure(item.name.data(), 0);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(x - width / 2 + 136),
+        static_cast<std::int16_t>(y + 5), 4, 0, 0, item.name.data(), 0, 0));
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const char* const line = item.descriptions[8 * page + row].data();
+        if (std::strlen(line) != 0) {
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+        }
+    }
+    static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
+}
+
+std::uint32_t Sub_4D4A50(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyBarterConfirmPanel581978.x;
+    const std::int32_t y = gLegacyBarterConfirmPanel581978.y;
+    const character_select::detail::CharacterModalUiRecord accept {
+        x + 190, y + 334, x + 188, y + 334, 54, 18, kLegacyBarterYes588A08,
+    };
+    const character_select::detail::CharacterModalUiRecord cancel {
+        x + 403, y + 334, x + 401, y + 334, 54, 18, kLegacyBarterNo588A00,
+    };
+    const std::int32_t state = Sub_503160(opened, &gLegacyBarterConfirmPanel581978, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::int32_t result = audio::Sub_504410(75);
+        if (result == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        return static_cast<std::uint32_t>(result);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[512];
+    char entry[32];
+    if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
+        buffer[0] = '\0';
+        std::int32_t count = 0;
+        for (std::int32_t index = 0; index < 20; ++index) {
+            const auto& item = gLegacyBarterItemsCA0B30[index];
+            if (item.used != 0) {
+                const std::int32_t selected = item.selected;
+                if (selected != 0) {
+                    if (count > 0) {
+                        std::strcat(buffer, "|");
+                    }
+                    std::sprintf(entry, "%d|%d", index, selected);
+                    std::strcat(buffer, entry);
+                    ++count;
+                }
+            }
+        }
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+            request, target, 0, buffer + 256));
+        static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyBarterConfirmPanel581978.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyBarterConfirmPanel581978.y + offsetY;
+        const std::int32_t left = gLegacyBarterConfirmPanel581978.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    std::int32_t shown = 0;
+    for (const auto& item : gLegacyBarterItemsCA0B30) {
+        if (item.used != 0 && item.selected != 0) {
+            const std::int32_t dx = 302 * (shown % 2);
+            const std::int32_t dy = 20 * (shown / 2);
+            drawAt(item.name.data(), dx + 24, dy + 34);
+            std::sprintf(buffer, "x%2d", item.selected);
+            drawAt(buffer, dx + 280, dy + 34);
+            ++shown;
+        }
+    }
+    const std::int32_t total = gLegacyBarterTotalD2F334;
+    const std::int32_t available = ui::detail::gShopAvailableCF4A24;
+    std::sprintf(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
+    const std::int32_t width = MeasureDefaultText_44B260(buffer);
+    const std::int32_t summaryY = gLegacyBarterConfirmPanel581978.y + 254;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(320 - width / 2),
+        static_cast<std::int16_t>(summaryY), 2, 0, 0, buffer, 0, 0));
+    drawAt(kLegacyBarterQuestion5889C0, 178, 294);
+    static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    const char* hint = nullptr;
+    if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
+        hint = kLegacyBarterAcceptHint5889B8;
+    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
+        hint = kLegacyBarterStopHint5889AC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyBarterConfirmPanel581978, 0);
 }
 
 YobiAction* Sub_4D4ED0()

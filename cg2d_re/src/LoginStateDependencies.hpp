@@ -10,6 +10,7 @@ namespace cg::login::detail {
 
 // sub_45D990@0x45D990 的直接目标。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType);
+std::int32_t MeasureDefaultText_44B260(const char* text); // 非空入口快照字体0双宽/单宽，无字节预算。
 
 // sub_508360@0x508360 的直接目标；只声明真实调用契约。
 std::int32_t GetServerAddressInfo_507D90(

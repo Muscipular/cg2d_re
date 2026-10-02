@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "inventory": "doc/cg2d_ida_inventory.json",
+  "scope": "R1未归属区间的首个非90/CC候选定位，不是函数发现的完整结果或范围排除清单。",
+  "query": {
+    "start_below": "0x535000",
+    "minimum_range_bytes": 5,
+    "checked_ranges": 2154,
+    "ranges_not_entirely_90_or_cc": 157,
+    "first_position_with_instruction_display": 16,
+    "method": "只读已打开IDA中元数据区间的字节；先剔除完全由90/CC组成的候选，再仅检查首个非90/CC地址的显示行是否非align/dd/db/dw/dq/dt。多字节NOP、后续代码、内嵌数据和短于5B区间不由本筛选判定。"
+  },
+  "verification": "当前源码仅确认符号定义定位；未重新核全部函数语义。整段范围、回调可达性与运行验收仍待。",
+  "records": [
+    {
+      "range_start": "0x46FC0D",
+      "range_end": "0x46FC60",
+      "first_code_candidate": "0x46FC10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_46FC10",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x471CC7",
+      "range_end": "0x471DF0",
+      "first_code_candidate": "0x471CD0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_471CD0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x474BDB",
+      "range_end": "0x474FB0",
+      "first_code_candidate": "0x474BE0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_474BE0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x478293",
+      "range_end": "0x478320",
+      "first_code_candidate": "0x4782A0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4782A0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x48502D",
+      "range_end": "0x485110",
+      "first_code_candidate": "0x485030",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_485030",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4876A7",
+      "range_end": "0x487AE0",
+      "first_code_candidate": "0x4876B0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4876B0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4950CE",
+      "range_end": "0x495130",
+      "first_code_candidate": "0x4950D0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4950D0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x495750",
+      "range_end": "0x4957B0",
+      "first_code_candidate": "0x495750",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_495750",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x495E02",
+      "range_end": "0x495F00",
+      "first_code_candidate": "0x495E10",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_495E10",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4CE0E7",
+      "range_end": "0x4CE1F0",
+      "first_code_candidate": "0x4CE0F0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4CE0F0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4CE364",
+      "range_end": "0x4CE3F0",
+      "first_code_candidate": "0x4CE370",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4CE370",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4D207D",
+      "range_end": "0x4D2260",
+      "first_code_candidate": "0x4D2080",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4D2080",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4FAA95",
+      "range_end": "0x4FACE0",
+      "first_code_candidate": "0x4FAAA0",
+      "source": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4FAAA0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x4FC724",
+      "range_end": "0x4FC7F0",
+      "first_code_candidate": "0x4FC730",
+      "source": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_4FC730",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x503BA3",
+      "range_end": "0x503BC0",
+      "first_code_candidate": "0x503BB0",
+      "source": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_503BB0",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    },
+    {
+      "range_start": "0x503CF7",
+      "range_end": "0x503E40",
+      "first_code_candidate": "0x503D00",
+      "source": "src/LegacyUiRecord.cpp",
+      "symbol": "Sub_503D00",
+      "status": "已定位现有本体；整段范围未作完成分类"
+    }
+  ]
+}

@@ -13797,6 +13797,15 @@ std::int32_t Sub_503E30()
     return Sub_4FD640();
 }
 
+std::int32_t Sub_402B30()
+{
+    if (audio::Sub_5043D0(2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(100));
+        return audio::PlaySe_52C450(57, 320);
+    }
+    return audio::Sub_504180(98);
+}
+
 std::int32_t Sub_503B70()
 {
     if (audio::Sub_5043D0(2) != 0) {

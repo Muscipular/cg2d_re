@@ -9238,6 +9238,70 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "count0不读指针/locale；C路径左后右读U8、非零才折叠并减count。非C两U32槽初始0，每轮仅覆盖低W8，完整U32判零；先转换右侧再左侧，完整U32比较，相等后才减count，返回严格-1/0/1。唯一40499D窗口前缀调用已从宿主_strnicmp改接，保留其他回调逻辑；不扩大为一般NLS失败或全部窗口枚举/客户端运行通过。"
+    },
+    {
+      "original_entry": "0x404940",
+      "inventory_id": "F:00004940",
+      "status": "窗口枚举回调已修复长度/计数采样；实际枚举与并发行为未验",
+      "original_end_exclusive": "0x404A3B",
+      "instruction_count": 97,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckWindowsCallback_404940",
+            "ProtectionAuxiliaryRecord",
+            "gProtectionAuxiliaryRecords",
+            "gProtectionAuxiliaryRecordCount"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原128B标题无预清零，先取U32长度；名单数按S32判定并在每次未命中后重读。flag0原有界忽略大小写前缀，flag1先strncmp后重取记录长度与入口标题长度比较，其余flag跳过。命中发布当前number并返回FALSE，不命中返回TRUE；40B记录及number/flagA偏移保持，不新增锁、输入保护或名单容量。"
+    },
+    {
+      "original_entry": "0x53BFC0",
+      "inventory_id": "F:0013BFC0",
+      "status": "现有标准库有界相等判定关联；仅零/非零消费域",
+      "original_end_exclusive": "0x53BFF8",
+      "instruction_count": 31,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckWindowsCallback_404940"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopWindowEnumeration.cpp",
+          "symbols": [
+            "EnumerateWindowsCallback_458840"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AllocateActorChatText",
+            "Sub_442DC0",
+            "Sub_51A6A0"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50CAE0",
+            "Sub_50CE10"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原count0直接0，有限U8比较返回严格-1/0/1；已核12处直接调用均只使用零/非零，现有std::strncmp据此承接相等判定，不声称非零幅值或无效缓冲故障等价。对应原应用11处由这些实际源码消费；541A70库内一处父入口未在本项重建，不算整个CRT完成。"
     }
   ]
 }

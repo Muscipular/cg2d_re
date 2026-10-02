@@ -10,6 +10,7 @@
 #include "cg/render/SurfaceState.hpp"
 
 #include <bit>
+#include <cstddef>
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
@@ -59,6 +60,8 @@ struct ProtectionAuxiliaryRecord {
     std::uint16_t flagA;
     std::uint16_t flagB;
 };
+static_assert(offsetof(ProtectionAuxiliaryRecord, number) == 0x20);
+static_assert(offsetof(ProtectionAuxiliaryRecord, flagA) == 0x24);
 
 ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
 std::uint32_t gProtectionAuxiliaryRecordCount = 0;
@@ -192,14 +195,13 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
         window,
         title,
         static_cast<int>(sizeof(title))));
-    if (title[0] == '\0') {
+    const std::uint32_t titleLength = static_cast<std::uint32_t>(std::strlen(title));
+    if (titleLength == 0) {
         return TRUE;
     }
 
-    const std::uint32_t recordCountBits =
-        gProtectionAuxiliaryRecordCount;
-    const std::int32_t recordCount =
-        std::bit_cast<std::int32_t>(recordCountBits);
+    std::int32_t recordCount =
+        std::bit_cast<std::int32_t>(gProtectionAuxiliaryRecordCount);
     if (recordCount <= 0) {
         return TRUE;
     }
@@ -207,19 +209,22 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
     for (std::int32_t index = 0; index < recordCount; ++index) {
         const ProtectionAuxiliaryRecord& record =
             gProtectionAuxiliaryRecords[index];
+        const std::uint16_t flag = record.flagA;
         bool matched = false;
-        if (record.flagA == 0) {
-            const std::size_t length = std::strlen(record.text);
-            matched = CompareInsensitiveN_54AB30(
-                title, record.text, static_cast<std::uint32_t>(length)) == 0;
-        } else if (record.flagA == 1) {
-            matched = std::strcmp(title, record.text) == 0;
+        if (flag == 0) {
+            const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
+            matched = CompareInsensitiveN_54AB30(title, record.text, length) == 0;
+        } else if (flag == 1) {
+            const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
+            matched = std::strncmp(title, record.text, length) == 0
+                && static_cast<std::uint32_t>(std::strlen(record.text)) == titleLength;
         }
 
         if (matched) {
             gValue59E544 = record.number;
             return FALSE;
         }
+        recordCount = std::bit_cast<std::int32_t>(gProtectionAuxiliaryRecordCount);
     }
 
     return TRUE;

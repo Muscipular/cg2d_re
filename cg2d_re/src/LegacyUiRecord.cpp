@@ -1174,6 +1174,19 @@ LegacyPanelRecord gLegacyGuildNormalPanel58EC70 {
 std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 旧90多人选择，不包含1050DA4。
 constexpr char kLegacyGuildUnselect58F310[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildChooseRecipients58F33C[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42";
+LegacyPanelRecord gLegacyGuildRankPanel58F160 {
+    0, 0, 272, 411, 96, {238556, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyGuildRankReady1057C8C = 0;
+std::int32_t gLegacyGuildRankPage1051334 = 0;
+std::int32_t gLegacyGuildRankPageCount105133C = 0;
+std::int32_t gLegacyGuildRankSelected1051338 = 0;
+std::array<std::int32_t, 8> gLegacyGuildRankHighlights1050ED8 {};
+std::uint32_t gLegacyGuildRankTick1057C90 = 0;
+std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 旧95/96共享资格，532430按本人职级是否0生产。
+constexpr char kLegacyGuildRankRequired58F584[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9";
+constexpr char kLegacyGuildRankRemove58F568[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildRankSelect58F4FC[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -9853,6 +9866,167 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildContactPanel58EF90, 1));
 }
 
+
+std::int32_t Sub_532430()
+{
+    const std::int32_t rank = ReadGuildTextIndex10514B0();
+    const std::int32_t allowed = rank == 0 ? 1 : 0;
+    gLegacyGuildEditAllowed1050F14 = allowed;
+    return allowed;
+}
+
+std::uint32_t Sub_532450(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildRankPanel58F160.x;
+    const std::int32_t y = gLegacyGuildRankPanel58F160.y;
+    LegacyPanelButtonRecord previous {x + 139, y + 109, x + 125, y + 97, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 239, y + 109, x + 225, y + 97, 28, 24, 23023, 23027};
+    LegacyPanelButtonRecord remove {x + 81, y + 384, x + 41, y + 374, 80, 20, 22983, 22984};
+    // 原修改按钮中心99/526与命中矩形165/372不一致，保留真实八字段。
+    LegacyPanelButtonRecord change {x + 99, y + 526, x + 165, y + 372, 64, 24, 22981, 22982};
+    std::array<LegacyPanelButtonRecord, 8> rows;
+    for (std::int32_t row = 0; row < 8; ++row) {
+        rows[row] = {x + 229, y + 155 + 30 * row, x + 41, y + 133 + 30 * row, 376, 44, 0, 0};
+    }
+    std::int32_t nextState = 0;
+    std::int32_t removeState = 0;
+    std::int32_t changeState = 0;
+    std::array<std::int32_t, 8> rowStates {};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildRankPanel58F160,
+        [] { static_cast<void>(Sub_532430()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        gLegacyGuildRankReady1057C8C = 0;
+        return 2;
+    }
+    if (gLegacyGuildRankReady1057C8C == 0) {
+        gLegacyGuildRankPage1051334 = 0;
+        gLegacyGuildRankPageCount105133C = 4;
+        gLegacyGuildRankReady1057C8C = 1;
+        gLegacyGuildRankHighlights1050ED8.fill(0);
+        gLegacyGuildRankSelected1051338 = -1;
+    }
+    bool pageChanged = false;
+    const std::int32_t previousState = QueryPanelButtonState(&previous);
+    if ((previousState & 1) != 0 || platform::ReadControlKeyPressFlag_4597C0(90) != 0) {
+        --gLegacyGuildRankPage1051334;
+        if (gLegacyGuildRankPage1051334 < 0) {
+            gLegacyGuildRankPage1051334 = gLegacyGuildRankPageCount105133C - 1;
+        }
+        pageChanged = true;
+    } else {
+        nextState = QueryPanelButtonState(&next);
+        if ((nextState & 1) != 0 || platform::ReadControlKeyPressFlag_4597C0(88) != 0) {
+            gLegacyGuildRankPage1051334 = (gLegacyGuildRankPage1051334 + 1) % gLegacyGuildRankPageCount105133C;
+            pageChanged = true;
+        } else if (gLegacyGuildEditAllowed1050F14 != 0) {
+            for (std::int32_t row = 0; row < 8; ++row) {
+                const std::int32_t top = gLegacyGuildRankPanel58F160.y + 30 * row;
+                const std::int32_t left = gLegacyGuildRankPanel58F160.x;
+                if (Sub_5049A0(left + 41, top + 133, left + 229, top + 155, -1) == 0) {
+                    continue;
+                }
+                const std::int32_t page = gLegacyGuildRankPage1051334;
+                if (BorrowGuildRankText1051518(row + 8 * page)[0] == '\0') {
+                    continue;
+                }
+                const std::int32_t hoverY = gLegacyGuildRankPanel58F160.y + 30 * row;
+                const std::uint32_t image = gValueD69768;
+                const std::int32_t hoverX = gLegacyGuildRankPanel58F160.x;
+                DrawGraphicHover(Low16(hoverX + 41), Low16(hoverY + 132),
+                    Low16(hoverX + 229), Low16(hoverY + 154), 214, image, 0);
+                rowStates[row] = QueryPanelButtonState(&rows[row]);
+                if ((rowStates[row] & 1) != 0) {
+                    const std::int32_t selectedPage = gLegacyGuildRankPage1051334;
+                    gLegacyGuildRankHighlights1050ED8.fill(0);
+                    gLegacyGuildRankHighlights1050ED8[row] = 1;
+                    gLegacyGuildRankSelected1051338 = row + 8 * selectedPage;
+                }
+            }
+            const std::uint32_t now = platform::ReadTickCount32();
+            const std::uint32_t deadline = gLegacyGuildRankTick1057C90 + 500u;
+            if (deadline < now) {
+                removeState = QueryPanelButtonState(&remove);
+                if ((removeState & 1) != 0) {
+                    const std::int32_t target = gLegacyGuildRankTarget1057C70;
+                    const auto socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_511350(socket, target, -1));
+                    gLegacyGuildRankTick1057C90 = platform::ReadTickCount32();
+                } else {
+                    changeState = QueryPanelButtonState(&change);
+                    if ((changeState & 1) != 0) {
+                        const std::int32_t rank = gLegacyGuildRankSelected1051338;
+                        if (rank == -1) {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                            world::detail::Sub_44B050(kLegacyGuildRankRequired58F584, 4, 0);
+                        } else {
+                            const auto socket = platform::gConnectionSocket;
+                            const std::int32_t target = gLegacyGuildRankTarget1057C70;
+                            static_cast<void>(network::Sub_511350(socket, target, rank));
+                            static_cast<void>(audio::PlaySe_52C450(79, 320));
+                        }
+                        gLegacyGuildRankTick1057C90 = platform::ReadTickCount32();
+                    }
+                }
+            }
+        }
+    }
+    if (pageChanged) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        gLegacyGuildRankHighlights1050ED8.fill(0);
+        gLegacyGuildRankSelected1051338 = -1;
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+        const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacyGuildRankPanel58F160.y + offsetY;
+        const std::int32_t left = gLegacyGuildRankPanel58F160.x + offsetX;
+        static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, text, 0, 0));
+    };
+    const std::int32_t nameTarget = gLegacyGuildRankTarget1057C70;
+    drawAt(gOrderedRecords1051B14[nameTarget].text18, 30, 8, 0);
+    const std::int32_t rankTarget = gLegacyGuildRankTarget1057C70;
+    const std::int32_t currentRank = gOrderedRecords1051B14[rankTarget].value00;
+    if (currentRank != -1) {
+        drawAt(BorrowGuildRankText1051518(currentRank), 8, 58, 0);
+    }
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t page = gLegacyGuildRankPage1051334;
+        const std::int8_t color = gLegacyGuildRankHighlights1050ED8[row] != 0 ? 1 : 0;
+        drawAt(BorrowGuildRankText1051518(row + 8 * page), 41, 133 + 30 * row, color);
+    }
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const std::int32_t page = gLegacyGuildRankPage1051334;
+    const std::int32_t pageCount = gLegacyGuildRankPageCount105133C;
+    char buffer[128];
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    drawAt(buffer, 161, 100, 0);
+    if (gLegacyGuildEditAllowed1050F14 != 0) {
+        Sub_5035E0(&remove, 212, 1, gValueD69768, 0);
+        Sub_5035E0(&change, 212, 1, gValueD69768, 0);
+    }
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
+        std::strcpy(hint, kLegacyGuildPage58F2D4);
+    }
+    if (gLegacyGuildEditAllowed1050F14 != 0) {
+        if ((removeState & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildRankRemove58F568);
+        }
+        if ((changeState & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildRank58F410);
+        }
+        for (const std::int32_t rowState : rowStates) {
+            if ((rowState & 0x40) != 0) {
+                std::strcpy(hint, kLegacyGuildRankSelect58F4FC);
+                break;
+            }
+        }
+    }
+    return Sub_503440(&gLegacyGuildRankPanel58F160, 1);
+}
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)
 {

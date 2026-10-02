@@ -223,6 +223,8 @@ std::uint32_t Sub_52F670(std::int32_t opened); // 旧92成员删除确认，低W
 std::uint32_t Sub_52F910(std::int32_t opened); // 旧93写公会排序，原保存链仍读普通排序，确认后打开94。
 std::uintptr_t Sub_52FCF0(); // 旧94排序/扫描/补四空动画，返回初始页W32或末次工厂T*。
 std::uintptr_t Sub_52FD60(std::int32_t opened); // 旧94公会通讯录，发布真实导航目标；关闭返末槽T*、正常W32。
+std::int32_t Sub_532430(); // 旧96按同源本人职级是否0发布共享编辑资格，返完整W32。
+std::uint32_t Sub_532450(std::int32_t opened); // 旧96四页职级选择与500毫秒发送门禁，保持原控件布局。
 std::uint32_t Sub_4ECE00(std::int32_t opened); // 旧点数结果页，选择编号41。
 std::uint32_t Sub_4ED020(std::int32_t opened); // 旧战斗结果页，选择编号40。
 std::uintptr_t Sub_4EDB20(std::int32_t opened); // 旧选择39采集结果；关闭返回非拥有对象地址。

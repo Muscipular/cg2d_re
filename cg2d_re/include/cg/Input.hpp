@@ -98,6 +98,7 @@ extern InputContext gInputContextCA02E0;
 extern InputContext gInputContextD2E130; // 窗口48九个输入原型共用的唯一上下文。
 extern InputContext gInputContextD2E2E0; // 旧人物501FD0称号编辑，独立于现代窗口9。
 extern InputContext gInputContextCB01F8; // 旧选择32物品名称输入；CB0320/24为本对象字段别名。
+extern InputContext gInputContextCF47E0; // 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

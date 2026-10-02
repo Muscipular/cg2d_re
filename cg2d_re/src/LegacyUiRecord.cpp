@@ -214,6 +214,30 @@ std::int32_t gLegacyLastUsedItemCB01EC = 0;
 
 namespace {
 
+// 原旧53/54共享状态；虚拟零仅承载映像初值，布局/文本/输入生产仍待。
+LegacyPanelRecord gLegacyDialogPanelD2D9C8 {};
+LegacyPanelRecord gLegacyLineDialogPanelCC4150 {};
+std::int32_t gLegacyDialogLineCountCA043C = 0;
+std::int32_t gLegacyDialogOffsetXCAFEAC = 0;
+std::int32_t gLegacyDialogOffsetYCAFEA8 = 0;
+std::int32_t gLegacyDialogColumnsCA0010 = 0;
+std::int32_t gLegacyDialogFirstLineD673D4 = 0;
+input::InputContext* gLegacyDialogInputD67C4C = nullptr;
+constexpr char kLegacyDialogButton58599C[] = "\x20\xBD\x54\xA9\x77\x20";
+constexpr char kLegacyDialogButton585994[] = "\x20\xA8\xFA\xAE\xF8\x20";
+constexpr char kLegacyDialogButton58598C[] = "\x20\x20\xAC\x4F\x20\x20";
+constexpr char kLegacyDialogButton585984[] = "\x20\x20\xA7\x5F\x20\x20";
+constexpr char kLegacyDialogButton58597C[] = "\xA4\x57\xA4\x40\xAD\xB6";
+constexpr char kLegacyDialogButton585974[] = "\xA4\x55\xA4\x40\xAD\xB6";
+std::array<character_select::detail::CharacterModalUiRecord, 6> gLegacyDialogButtons581808 {{
+    {0, 0, 0, 0, 54, 16, kLegacyDialogButton58599C},
+    {0, 0, 0, 0, 54, 16, kLegacyDialogButton585994},
+    {0, 0, 0, 0, 51, 16, kLegacyDialogButton58598C},
+    {0, 0, 0, 0, 51, 16, kLegacyDialogButton585984},
+    {0, 0, 0, 0, 52, 16, kLegacyDialogButton58597C},
+    {0, 0, 0, 0, 52, 16, kLegacyDialogButton585974},
+}};
+
 LegacyPanelRecord gLegacyBuyPanel5823A0 {
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1445,6 +1469,163 @@ std::int32_t Sub_455940()
     records[4][6] = 22998;
     records[4][7] = 22999;
     return centerY;
+}
+
+void Sub_4D3180()
+{
+    std::int32_t mask = 1;
+    for (std::int32_t index = 0; index < 6; ++index, mask *= 2) {
+        if ((ui::detail::gDialogValueCF4E5C & mask) != 0) {
+            static_cast<void>(character_select::detail::Sub_503A20(
+                &gLegacyDialogButtons581808[index], 2, 4, 1, gValueD69768, 218));
+        }
+    }
+}
+
+std::int32_t Sub_4D31C0()
+{
+    std::int32_t mask = 1;
+    for (std::int32_t index = 0; index < 6; ++index, mask *= 2) {
+        if ((ui::detail::gDialogValueCF4E5C & mask) != 0
+            && (character_select::detail::Sub_503990(&gLegacyDialogButtons581808[index]) & 1) != 0) {
+            return mask;
+        }
+    }
+    return 0;
+}
+
+std::uintptr_t Sub_4D3210(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyDialogPanelD2D9C8, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        std::uintptr_t result = static_cast<std::uint32_t>(
+            input::IsCurrentContext_503E40(gLegacyDialogInputD67C4C));
+        if (result != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            // 原44B330返回输入指针；焦点归还先于类型/借用槽清理。
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        world::detail::gValue581800 = -1;
+        gLegacyDialogInputD67C4C = nullptr;
+        return result;
+    }
+    if ((world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11)
+        && gLegacyDialogInputD67C4C == nullptr) {
+        gLegacyDialogInputD67C4C = &input::gInputContextCF47E0;
+        input::SetContext_44B330(&input::gInputContextCF47E0);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyDialogPanelD2D9C8.id));
+    }
+    const std::int32_t buttonMask = Sub_4D31C0();
+    if (buttonMask != 0) {
+        const char* const source = world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11
+            ? gLegacyDialogInputD67C4C->text : input::LegacyText593850();
+        char buffer[256];
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, buffer, 255));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer));
+        static_cast<void>(audio::Sub_5042D0(gLegacyDialogPanelD2D9C8.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    }
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    for (std::int32_t index = 0; index < gLegacyDialogLineCountCA043C; ++index) {
+        if (std::strlen(lines[index].text.data()) != 0) {
+            const std::int8_t hoverByte = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gValueD69768));
+            const std::int32_t top = gLegacyDialogPanelD2D9C8.y + gLegacyDialogOffsetYCAFEA8 + 16 * index;
+            const std::int32_t left = gLegacyDialogPanelD2D9C8.x + gLegacyDialogOffsetXCAFEAC;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+                static_cast<std::int16_t>(top), 2, 0, 0, lines[index].text.data(), 0, hoverByte));
+        }
+    }
+    Sub_4D3180();
+    if (world::detail::gValue581800 == 1 || world::detail::gValue581800 == 11) {
+        render::DrawInputText_4568A0(gLegacyDialogInputD67C4C);
+    }
+    return Sub_503440(&gLegacyDialogPanelD2D9C8, 0);
+}
+
+std::uint32_t Sub_4D3410(const std::int32_t opened)
+{
+    const std::int32_t state = Sub_503160(opened, &gLegacyLineDialogPanelCC4150, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        world::detail::gValue581800 = -1;
+        return 2;
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyLineDialogPanelCC4150.id));
+    }
+    std::int32_t chosen = -1;
+    std::int32_t hovered = -1;
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    for (std::int32_t index = 0, rowOffset = 0; index < gLegacyDialogLineCountCA043C;
+         ++index, rowOffset += 20) {
+        if (index < gLegacyDialogFirstLineD673D4) {
+            continue;
+        }
+        const std::int32_t y = rowOffset + gLegacyDialogOffsetYCAFEA8 + gLegacyLineDialogPanelCC4150.y;
+        const std::int32_t columns = gLegacyDialogColumnsCA0010;
+        const std::int32_t x = gLegacyDialogOffsetXCAFEAC + gLegacyLineDialogPanelCC4150.x;
+        if (Sub_5049A0(x - 2, y - 2, x + 9 * columns - 2, y + 18, -1) == 0) {
+            continue;
+        }
+        hovered = index;
+        if ((static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0
+            && std::strlen(lines[index].text.data()) != 0) {
+            chosen = index;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+        break;
+    }
+    const std::int32_t buttonMask = Sub_4D31C0();
+    if (buttonMask != 0 || chosen >= 0) {
+        char buffer[512];
+        std::sprintf(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, buttonMask, buffer + 256));
+        static_cast<void>(audio::Sub_5042D0(gLegacyLineDialogPanelCC4150.id));
+        if (buttonMask != 0) {
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    }
+    for (std::int32_t index = 0, rowOffset = 0; index < gLegacyDialogLineCountCA043C;
+         ++index, rowOffset += 20) {
+        if (std::strlen(lines[index].text.data()) == 0) {
+            continue;
+        }
+        const std::int8_t hoverByte = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gValueD69768));
+        const std::int32_t top = gLegacyLineDialogPanelCC4150.y + gLegacyDialogOffsetYCAFEA8 + 20 * index;
+        const std::int32_t left = gLegacyLineDialogPanelCC4150.x + gLegacyDialogOffsetXCAFEAC;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, lines[index].text.data(), 0, hoverByte));
+        if (hovered == index) {
+            // 文字入队后重读布局；rowOffset原为完整S32，不采用反编译的S16。
+            const std::int32_t y = gLegacyDialogOffsetYCAFEA8 + rowOffset + gLegacyLineDialogPanelCC4150.y;
+            const std::uint32_t image = gValueD69768;
+            const std::int32_t offsetX = gLegacyDialogOffsetXCAFEAC;
+            const std::int32_t columns = gLegacyDialogColumnsCA0010;
+            const std::int32_t x = offsetX + gLegacyLineDialogPanelCC4150.x;
+            DrawGraphicHover(Low16(x - 2), Low16(y - 2), Low16(x + 9 * columns - 2), Low16(y + 18),
+                214, image, 0);
+        }
+    }
+    Sub_4D3180();
+    return Sub_503440(&gLegacyLineDialogPanelCC4150, 0);
 }
 
 YobiAction* Sub_4D91E0()

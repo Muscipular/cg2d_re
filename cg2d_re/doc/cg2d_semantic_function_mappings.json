@@ -16807,6 +16807,575 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "回调及链释放：先Callfns(event0)，再读并释放+18链，末尾清+18；随后释放+1C回调链再清头。delete之前保存当前next，回调阶段与释放阶段读序不可混用。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+    },
+    {
+      "original_entry": "0x5482DD",
+      "inventory_id": "F:001482DD",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x54843B",
+      "instruction_count": 156,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x5482DD",
+          "end_exclusive": "0x54843B"
+        },
+        {
+          "start": "0x54C064",
+          "end_exclusive": "0x54C0DE"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x453E15",
+          "parent_entry": "0x453E10"
+        },
+        {
+          "address": "0x5491E5",
+          "parent_entry": "0x5491E0"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄标准流控制器：592894为S32，已加载初值-1；非负只递增并返回this，负值先写1再按stdin/stdout缓冲、输入/输出、stderr缓冲、错误/日志流顺序构造。输入/错误/日志tie输出，错误flags或2，错误和日志共用10863D8。保留54C064..54C0DE异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x549397",
+      "inventory_id": "F:00149397",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x5494FE",
+      "instruction_count": 155,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549397",
+          "end_exclusive": "0x5494FE"
+        },
+        {
+          "start": "0x54C1C4",
+          "end_exclusive": "0x54C23E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x453E55",
+          "parent_entry": "0x453E50"
+        },
+        {
+          "address": "0x54920F",
+          "parent_entry": "0x54920A"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽标准流控制器：独立5929EC为S32，已加载初值-1；非负只递增，负值先写1。先构造stdin/stdout/stderr三个缓冲，再输入/输出/错误/日志；错误与日志共用10866A0，tie及unitbuf保持。保留54C1C4..54C23E异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x548463",
+      "inventory_id": "F:00148463",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x5484CD",
+      "instruction_count": 43,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x548463",
+          "end_exclusive": "0x5484CD"
+        },
+        {
+          "start": "0x54C0E0",
+          "end_exclusive": "0x54C104"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548386",
+          "parent_entry": "0x5482DD"
+        },
+        {
+          "address": "0x5483D8",
+          "parent_entry": "0x5482DD"
+        },
+        {
+          "address": "0x548417",
+          "parent_entry": "0x5482DD"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄输出流完整构造：第四W32决定虚基初始化，写vbtable54FFC0、清+28及basic_ios虚表；第三参数只判低U8，非零才以首参缓冲和第二参数调用548E65。返回this、ret10H；异常尾只在虚基已初始化bit0非零时清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x5484CD",
+      "inventory_id": "F:001484CD",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x54852C",
+      "instruction_count": 39,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x5484CD",
+          "end_exclusive": "0x54852C"
+        },
+        {
+          "start": "0x54C104",
+          "end_exclusive": "0x54C128"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548221",
+          "parent_entry": "0x548218"
+        },
+        {
+          "address": "0x548292",
+          "parent_entry": "0x548289"
+        },
+        {
+          "address": "0x5482C1",
+          "parent_entry": "0x5482B8"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x548537",
+      "inventory_id": "F:00148537",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x54859F",
+      "instruction_count": 42,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x548537",
+          "end_exclusive": "0x54859F"
+        },
+        {
+          "start": "0x54C128",
+          "end_exclusive": "0x54C14C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548362",
+          "parent_entry": "0x5482DD"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄输入流完整构造：第三W32控制虚基初始化，写vbtable54FFC8、清+2C及this+8虚表；所有正常路径写this+4=0，再以首参/第二参调用548E65。返回this、retCH；异常尾条件清理this+8。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x549525",
+      "inventory_id": "F:00149525",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x54958F",
+      "instruction_count": 43,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549525",
+          "end_exclusive": "0x54958F"
+        },
+        {
+          "start": "0x54C240",
+          "end_exclusive": "0x54C264"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549462",
+          "parent_entry": "0x549397"
+        },
+        {
+          "address": "0x549498",
+          "parent_entry": "0x549397"
+        },
+        {
+          "address": "0x5494DA",
+          "parent_entry": "0x549397"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽输出流完整构造：第四W32决定虚基初始化，写vbtable55005C、清+28及basic_ios虚表；第三参数只判低U8，非零才以首参缓冲和第二参数调用549DBE。返回this、ret10H；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x54958F",
+      "inventory_id": "F:0014958F",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x5495EE",
+      "instruction_count": 39,
+      "original_direct_reference_count": 3,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54958F",
+          "end_exclusive": "0x5495EE"
+        },
+        {
+          "start": "0x54C264",
+          "end_exclusive": "0x54C288"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549308",
+          "parent_entry": "0x5492FF"
+        },
+        {
+          "address": "0x54934C",
+          "parent_entry": "0x549343"
+        },
+        {
+          "address": "0x54937B",
+          "parent_entry": "0x549372"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x549643",
+      "inventory_id": "F:00149643",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x5496AB",
+      "instruction_count": 42,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549643",
+          "end_exclusive": "0x5496AB"
+        },
+        {
+          "start": "0x54C288",
+          "end_exclusive": "0x54C2AC"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54943B",
+          "parent_entry": "0x549397"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽输入流完整构造：第三W32控制虚基初始化，写vbtable550064、清+2C及this+8虚表；所有正常路径写this+4=0，再以首参/第二参调用549DBE。返回this、retCH；异常尾条件清理this+8。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x5495EE",
+      "inventory_id": "F:001495EE",
+      "status": "已有应用侧刷新适配；原缓冲/异常及完整退出未验",
+      "original_end_exclusive": "0x549638",
+      "instruction_count": 34,
+      "original_direct_reference_count": 6,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x5495EE",
+          "end_exclusive": "0x549638"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548449",
+          "parent_entry": "0x5491F6"
+        },
+        {
+          "address": "0x548453",
+          "parent_entry": "0x5491F6"
+        },
+        {
+          "address": "0x54845D",
+          "parent_entry": "0x5491F6"
+        },
+        {
+          "address": "0x54950B",
+          "parent_entry": "0x549220"
+        },
+        {
+          "address": "0x549515",
+          "parent_entry": "0x549220"
+        },
+        {
+          "address": "0x54951F",
+          "parent_entry": "0x549220"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "FlushLegacyStandardStream"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄宽共同刷新：原state低U8与6相交为0才调用缓冲虚表+2C；返回-1时重读state并或4后clear(false)，返回原this。不创建sentry、不刷新tie、失败前不额外清状态。已有FlushLegacyStandardStream沿!fail/pubsync/setstate承接当前六个丢弃返回值caller；不声明宿主缓冲/异常合同与原端全部等价。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x5481F9",
+      "inventory_id": "F:001481F9",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x54820E",
+      "instruction_count": 5,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x5481F9",
+          "end_exclusive": "0x54820E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5481F4",
+          "parent_entry": "0x5481EF"
+        },
+        {
+          "address": "0x548D18",
+          "parent_entry": "0x548D12"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x54823D",
+      "inventory_id": "F:0014823D",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x548252",
+      "instruction_count": 5,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54823D",
+          "end_exclusive": "0x548252"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548238",
+          "parent_entry": "0x548233"
+        },
+        {
+          "address": "0x5482A9",
+          "parent_entry": "0x5482A4"
+        },
+        {
+          "address": "0x5482D8",
+          "parent_entry": "0x5482D3"
+        },
+        {
+          "address": "0x548CDD",
+          "parent_entry": "0x548CD7"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x5492E0",
+      "inventory_id": "F:001492E0",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x5492F5",
+      "instruction_count": 5,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x5492E0",
+          "end_exclusive": "0x5492F5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5492DB",
+          "parent_entry": "0x5492D6"
+        },
+        {
+          "address": "0x549D6D",
+          "parent_entry": "0x549D67"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x549324",
+      "inventory_id": "F:00149324",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x549339",
+      "instruction_count": 5,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549324",
+          "end_exclusive": "0x549339"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54931F",
+          "parent_entry": "0x54931A"
+        },
+        {
+          "address": "0x549363",
+          "parent_entry": "0x54935E"
+        },
+        {
+          "address": "0x549392",
+          "parent_entry": "0x54938D"
+        },
+        {
+          "address": "0x549D32",
+          "parent_entry": "0x549D2C"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x54852C",
+      "inventory_id": "F:0014852C",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x548537",
+      "instruction_count": 2,
+      "original_direct_reference_count": 7,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x54852C",
+          "end_exclusive": "0x548537"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x548209",
+          "parent_entry": "0x5481F9"
+        },
+        {
+          "address": "0x54824D",
+          "parent_entry": "0x54823D"
+        },
+        {
+          "address": "0x548CF9",
+          "parent_entry": "0x548CF6"
+        },
+        {
+          "address": "0x54C0F4",
+          "parent_entry": "0x548463"
+        },
+        {
+          "address": "0x54C118",
+          "parent_entry": "0x5484CD"
+        },
+        {
+          "address": "0x54C13C",
+          "parent_entry": "0x548537"
+        },
+        {
+          "address": "0x54C160",
+          "parent_entry": "0x54859F"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "窄basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+    },
+    {
+      "original_entry": "0x549638",
+      "inventory_id": "F:00149638",
+      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "original_end_exclusive": "0x549643",
+      "instruction_count": 2,
+      "original_direct_reference_count": 7,
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "function_chunks": [
+        {
+          "start": "0x549638",
+          "end_exclusive": "0x549643"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5492F0",
+          "parent_entry": "0x5492E0"
+        },
+        {
+          "address": "0x549334",
+          "parent_entry": "0x549324"
+        },
+        {
+          "address": "0x549D4E",
+          "parent_entry": "0x549D4B"
+        },
+        {
+          "address": "0x54C254",
+          "parent_entry": "0x549525"
+        },
+        {
+          "address": "0x54C278",
+          "parent_entry": "0x54958F"
+        },
+        {
+          "address": "0x54C29C",
+          "parent_entry": "0x549643"
+        },
+        {
+          "address": "0x54C2C0",
+          "parent_entry": "0x5496AB"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "宽basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
     }
   ]
 }

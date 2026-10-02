@@ -9403,6 +9403,93 @@
         "doc/cg2d_login_state_controller.md"
       ],
       "boundary": "count0直接返回目的；非0寻找目的尾，最多追加count源字节，遇源NUL或数量耗尽终止并保持目的指针返回。现有44ADB0以独立tail源std::strncat承接；另两原caller来自已排除50FF70，不恢复。只映射已证非重叠调用域，父输入流程其他边界不由此验收。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
+    },
+    {
+      "original_entry": "0x4589A0",
+      "inventory_id": "F:000589A0",
+      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "original_end_exclusive": "0x4589A6",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopState.cpp",
+          "symbols": [
+            "gWindowReportValue"
+          ],
+          "relationship": "唯一数据owner；不是原读写包装定义，初始零不等于发送期间清零"
+        },
+        {
+          "path": "include/cg/platform/MainLoop.hpp",
+          "symbols": [
+            "gWindowReportValue"
+          ],
+          "relationship": "原S32/U32状态的既有公开声明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_exclusion_wiring_spec.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一403EB3调用读取73ECF4完整W32，父发送随后按S32>0判定；对应现有S32 owner。父403E50仍因真实帧格式待决，不把已有状态声明当getter调用已经接入。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+    },
+    {
+      "original_entry": "0x4589B0",
+      "inventory_id": "F:000589B0",
+      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "original_end_exclusive": "0x4589BB",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopState.cpp",
+          "symbols": [
+            "gWindowReportValue"
+          ],
+          "relationship": "唯一数据owner；不是原读写包装定义，初始零不等于发送期间清零"
+        },
+        {
+          "path": "include/cg/platform/MainLoop.hpp",
+          "symbols": [
+            "gWindowReportValue"
+          ],
+          "relationship": "原S32/U32状态的既有公开声明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_exclusion_wiring_spec.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一403ED4调用把73ECF4写0；无规定EAX，caller不消费返回。共享槽已存在，但发送期间这一清零动作尚未接入；不能将其初始零或其他操作冒充原运行时清零。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+    },
+    {
+      "original_entry": "0x4589C0",
+      "inventory_id": "F:000589C0",
+      "status": "仅共享存储对应已确立；发送caller及其状态读写接线未完成",
+      "original_end_exclusive": "0x4589C6",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopState.cpp",
+          "symbols": [
+            "gWindowReportDeadline"
+          ],
+          "relationship": "唯一数据owner；不是原读写包装定义，初始零不等于发送期间清零"
+        },
+        {
+          "path": "include/cg/platform/MainLoop.hpp",
+          "symbols": [
+            "gWindowReportDeadline"
+          ],
+          "relationship": "原S32/U32状态的既有公开声明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_exclusion_wiring_spec.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一403EC6读取73ED08完整W32；owner保持U32，父发送把其位型按S32<0判定。不得混同double枚举截止73ED00或扩宽字段；父403E50及读取时点仍待接线。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
     }
   ]
 }

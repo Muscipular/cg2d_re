@@ -22186,6 +22186,378 @@
         }
       ],
       "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x546E14",
+      "inventory_id": "F:00146E14",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x546E42",
+      "instruction_count": 21,
+      "original_direct_reference_count": 9,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ShiftLegacyFloat96Left_546E14"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ShiftLegacyFloat96Left_546E14",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "读取低/中W32，先写低，之后读高再写中/高，逐位进位并返回原目标。乘法内部已接，数字生成及其他父链仍待；96位表示为12B，不借宿主浮点算术。",
+      "function_chunks": [
+        {
+          "start": "0x546E14",
+          "end_exclusive": "0x546E42"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x546E9F",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x546EA5",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x546EB5",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x546F1B",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x5470E1",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x547124",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x54712D",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x547143",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x547AAD",
+          "parent_entry": "0x547971"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x546E42",
+      "inventory_id": "F:00146E42",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x546E6F",
+      "instruction_count": 21,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ShiftLegacyFloat96Right_546E42"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ShiftLegacyFloat96Right_546E42",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先读取高/中W32，写中，再读低并按原高/低次序写回；返回原目标。乘法次正规移位已接，数字生成父仍待，输入是固定12B原字节区。",
+      "function_chunks": [
+        {
+          "start": "0x546E42",
+          "end_exclusive": "0x546E6F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5470FE",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x547AEE",
+          "parent_entry": "0x547971"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x546DB6",
+      "inventory_id": "F:00146DB6",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x546E14",
+      "instruction_count": 38,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "AddLegacyFloat96_546DB6"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "AddLegacyFloat96_546DB6",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按原addl调用顺序处理低进位、中间加1再加源中间、高进位和最终高字；源中/高字在前面写入后才读，保留同址参数的动态读取。返回最后高字carry，其他父调用仍待。",
+      "function_chunks": [
+        {
+          "start": "0x546DB6",
+          "end_exclusive": "0x546E14"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x546EAF",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x546ED0",
+          "parent_entry": "0x546E6F"
+        },
+        {
+          "address": "0x54713A",
+          "parent_entry": "0x546F36"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x547B91",
+      "inventory_id": "F:00147B91",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x547C0D",
+      "instruction_count": 52,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ScaleLegacyFloat96_547B91"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ScaleLegacyFloat96_547B91",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "指数0无操作，负指数选负表，preserveExtra0清低W16；按八进制位及每组7项选原29条12B因子。因子低W16>=8000H复制后将+2未对齐W32递减，已核547BF0字节FF4DF6；其他借原只读表。调用真实ld12mul，未新增范围保护或负指数异常模拟。",
+      "function_chunks": [
+        {
+          "start": "0x547B91",
+          "end_exclusive": "0x547C0D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x546859",
+          "parent_entry": "0x546419"
+        },
+        {
+          "address": "0x547082",
+          "parent_entry": "0x546F36"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行",
+      "power_table_evidence": [
+        {
+          "start": "0x5925D8",
+          "end_exclusive": "0x592734",
+          "entry_count": 29,
+          "entry_bytes": 12,
+          "bytes": "000000000000000000a00240000000000000000000c80540000000000000000000fa08400000000000000000409c0c40000000000000000050c30f40000000000000000024f412400000000000000080969816400000000000000020bcbe1940000000000004bfc91b8e3440000000a1edccce1bc2d34e4020f09eb5702ba8adc59d6940d05dfd25e51a8e4f19eb83407196d795430e058d29af9e40f9bfa044ed81128f8182b940bf3cd5a6cfff491f78c2d3406fc6e08ce980c947ba93a841bc856b5527398df770e07c42bcdd8edef99dfbeb7eaa5143a1e676e3ccf2292f84812644281017aaf8ae10e3c5c4fa44eba7d4f3f7ebe14a7a95cf4565ccc7910ea6aea019e3a3460d65170c7581867576c9484d5842e4a793393b35b8b2ed534da7e55d3dc55d3b8b9e925aff5da6f0a120c054a58c3761d1fd8b5a8bd8255d89f9db67aa95f8f327bfa2c85ddd806e4cc99b97208a025260c42575"
+        },
+        {
+          "start": "0x592738",
+          "end_exclusive": "0x592894",
+          "entry_count": 29,
+          "entry_bytes": 12,
+          "bytes": "cdcccdccccccccccccccfb3f713d0ad7a3703d0ad7a3f83f5a643bdf4f8d976e1283f53fc3d32c6519e25817b7d1f13fd00f2384471b47acc5a7ee3f40a6b6696caf05bd3786eb3f333dbc427ae5d594bfd6e73fc2fdfdce61841177ccabe43f2f4c5be14dc4be9495e6c93f92c4533b7544cd14be9aaf3fde67ba943945ad1eb1cf943f2423c6e2bcba3b31618b7a3f615559c17eb1537c12bb5f3fd7ee2f8d06be928515fb443f243fa5e939a527ea7fa82a3f7daca1e4bc647c46d0dd553e637b06cc23547783ff91813d91fa3a197a63254331c0ac3c2189d138824797b800fdd73bdc8858081bb1e8e386a6033bc684454207b6997537db2e3a33711cd223db32ee49905a39a687bec057daa582a6a2b532e268b211a7529f4459b7102c2549e42d36344f53aece6b258f5904a4c0dec27dfbe8c61e9ee7885a57913cbf508322184e4b6562fd838faf06947d11e42dde9fced2c804dda6d80a"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x547971",
+      "inventory_id": "F:00147971",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x547B91",
+      "instruction_count": 177,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "MultiplyLegacyFloat96_547971"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "MultiplyLegacyFloat96_547971",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按双方W16符号/指数保留过小、零值、饱和次序；五轮递减项数W16乘积累加交叠W32，carry仅增下一W16。规范化、次正规逐位移位/粘滞位、低16/17位舍入门禁及+2/+6 W32、+10 W16进位保持。最后分段写回与饱和表示保持，源可同址；已接幂缩放，数字生成仍待。",
+      "function_chunks": [
+        {
+          "start": "0x547971",
+          "end_exclusive": "0x547B91"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54709B",
+          "parent_entry": "0x546F36"
+        },
+        {
+          "address": "0x547BFA",
+          "parent_entry": "0x547B91"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x546D95",
+      "inventory_id": "F:00146D95",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x546DB6",
+      "instruction_count": 15,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "AddLegacyFloatWord_546D95"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "AddLegacyFloatWord_546D95",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "W32相加结果小于任一输入则carry1，否则0；最后写目标4B（可未对齐），返回carry。已由96位加法及乘法实际调用，其余两个数值转换caller仍待。",
+      "function_chunks": [
+        {
+          "start": "0x546D95",
+          "end_exclusive": "0x546DB6"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544A33",
+          "parent_entry": "0x544A08"
+        },
+        {
+          "address": "0x544A4A",
+          "parent_entry": "0x544A08"
+        },
+        {
+          "address": "0x546DC5",
+          "parent_entry": "0x546DB6"
+        },
+        {
+          "address": "0x546DD9",
+          "parent_entry": "0x546DB6"
+        },
+        {
+          "address": "0x546DF1",
+          "parent_entry": "0x546DB6"
+        },
+        {
+          "address": "0x546E09",
+          "parent_entry": "0x546DB6"
+        },
+        {
+          "address": "0x547A66",
+          "parent_entry": "0x547971"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544F7B",
+      "inventory_id": "F:00144F7B",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成和安装链未闭合",
+      "original_end_exclusive": "0x545031",
+      "instruction_count": 70,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ConvertLegacyDoubleTo80_544F7B"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ConvertLegacyDoubleTo80_544F7B",
+            "LegacyFloat80"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "按源double的高W16及高/低W32读取符号/指数/尾数；正常偏置、特殊7FFF、次正规移位与显式整数位保持。正负零都写全零10B，其他先高/低尾数、规范化后最后符号指数。唯一fltout父仍待；不使用宿主long double，不模拟未消费寄存器返回。",
+      "function_chunks": [
+        {
+          "start": "0x544F7B",
+          "end_exclusive": "0x545031"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544F27",
+          "parent_entry": "0x544F17"
+        }
+      ],
+      "verification_level": "完整原指令、位宽字节核对、原幂表及新源码静态核对；未编译执行"
     }
   ]
 }

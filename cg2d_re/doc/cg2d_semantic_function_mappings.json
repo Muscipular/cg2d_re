@@ -15312,6 +15312,510 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "宽Pninc：输出侧先减所指余量，保存旧游标再发布+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x548CAC",
+      "inventory_id": "F:00148CAC",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548CD7",
+      "instruction_count": 18,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFFC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄setbuf：FILE+50非空才setvbuf(buffer,mode0,size)，返回0才返回this，否则返回空。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548CD7",
+      "inventory_id": "F:00148CD7",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548CF6",
+      "instruction_count": 12,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFB4",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄析构包装this-4：this先减4调54823D，flag低位1才delete该地址；返回调整后的原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548CF6",
+      "inventory_id": "F:00148CF6",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548D12",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFBC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄析构包装this：this调54852C，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548D12",
+      "inventory_id": "F:00148D12",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548D31",
+      "instruction_count": 12,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFAC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄析构包装this-8：this先减8调5481F9，flag低位1才delete；返回调整后的原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548D31",
+      "inventory_id": "F:00148D31",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548D4D",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x55000C",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄streambuf析构包装：this调5486B1，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548D4D",
+      "inventory_id": "F:00148D4D",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548D69",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFD4",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄filebuf析构包装：this调5487DE，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548ED5",
+      "inventory_id": "F:00148ED5",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548EFC",
+      "instruction_count": 20,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x548803",
+          "parent_entry": "0x5487DE"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，不能失败后仍清绑定。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548EFC",
+      "inventory_id": "F:00148EFC",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548F74",
+      "instruction_count": 40,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x548648",
+          "parent_entry": "0x5485FE"
+        },
+        {
+          "address": "0x548EEF",
+          "parent_entry": "0x548ED5"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄_Init：先写+48=(mode==1)；mode0重建+4C locale并清+44。共同reset后，FILE非空且+48为0才把六间接槽绑定FILE字段；最后发布FILE和转换状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549147",
+      "inventory_id": "F:00149147",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549194",
+      "instruction_count": 36,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5489F5",
+          "parent_entry": "0x548979"
+        },
+        {
+          "address": "0x549B66",
+          "parent_entry": "0x549AE2"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "反向字节回推：从末字节向前ungetc，遇FFFFFFFF停止；只规定AL成功/失败，保留失败后的原条件fgetc路径，不添加通用回滚。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549CE5",
+      "inventory_id": "F:00149CE5",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549D13",
+      "instruction_count": 20,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550098",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽setbuf：FILE非空才setvbuf(buffer,mode0,2*字符数)，返回0才返回this；数量是原W32计算，不增加钳制。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549D13",
+      "inventory_id": "F:00149D13",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549D2C",
+      "instruction_count": 12,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550000",
+          "parent_entry": null
+        },
+        {
+          "address": "0x55009C",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄宽共享sync：FILE为空返回0；非空fflush仅负返回映射-1，其余返回0；同一入口被窄宽两虚表使用。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549D2C",
+      "inventory_id": "F:00149D2C",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549D4B",
+      "instruction_count": 12,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550050",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽析构包装this-4：this先减4调549324，flag低位1才delete；返回调整后的原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549D4B",
+      "inventory_id": "F:00149D4B",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549D67",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550058",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽析构包装this：this调549638，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549D67",
+      "inventory_id": "F:00149D67",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549D86",
+      "instruction_count": 12,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550048",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽析构包装this-8：this先减8调5492E0，flag低位1才delete；返回调整后的原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549D86",
+      "inventory_id": "F:00149D86",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549DA2",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5500A8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽streambuf析构包装：this调54976A，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549DA2",
+      "inventory_id": "F:00149DA2",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549DBE",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550070",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽filebuf析构包装：this调549935，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549E61",
+      "inventory_id": "F:00149E61",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E88",
+      "instruction_count": 20,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54995A",
+          "parent_entry": "0x549935"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，保留失败时对象状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549E88",
+      "inventory_id": "F:00149E88",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549EDE",
+      "instruction_count": 28,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x549754",
+          "parent_entry": "0x54970A"
+        },
+        {
+          "address": "0x549E7B",
+          "parent_entry": "0x549E61"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽_Init：模式/locale/reset顺序同窄入口，但不把内部游标/计数链接到FILE字段；发布FILE后两次取1087AF8到+40/+3C并清+38。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x549EDE",
+      "inventory_id": "F:00149EDE",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549F20",
+      "instruction_count": 25,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x548623",
+          "parent_entry": "0x5485FE"
+        },
+        {
+          "address": "0x548F2E",
+          "parent_entry": "0x548EFC"
+        },
+        {
+          "address": "0x54972F",
+          "parent_entry": "0x54970A"
+        },
+        {
+          "address": "0x549EBA",
+          "parent_entry": "0x549E88"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "缓冲槽重绑定：把六间接槽重绑到对象自身，再依次清写侧基址/游标/余量、读侧基址/游标/余量；不整对象清零。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548B68",
+      "inventory_id": "F:00148B68",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548BEA",
+      "instruction_count": 52,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFF4",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550090",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "filebuf相对定位：FILE存在时先fseek(offset,origin)，再重新取FILE作fgetpos；成功和失败均复制24B位置结果，部分W32未在本体写入。返回输出地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548BEA",
+      "inventory_id": "F:00148BEA",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x548CAC",
+      "instruction_count": 78,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFF8",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550094",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "filebuf位置恢复：先fsetpos恢复64位位置，额外偏移非0才fseek(CUR)，再fgetpos；成功且+44非空才恢复+40并erase关联旧字符串。复制24B结果，保留输入其余槽。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5498B7",
+      "inventory_id": "F:001498B7",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x5498EE",
+      "instruction_count": 22,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x55002C",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500C8",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "基类相对定位失败：默认失败位置入口：写首W32=FFFFFFFF、位置两半取5500E0/E4、状态取1087B04，整24B复制并返回输出地址；其余两W32不补值，ret10H。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5498EE",
+      "inventory_id": "F:001498EE",
+      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "original_end_exclusive": "0x549925",
+      "instruction_count": 22,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550030",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500CC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "基类位置恢复失败：同默认失败位置形成，但独立入口及虚表槽，ret20H；不因形同而归为填充。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
     }
   ]
 }

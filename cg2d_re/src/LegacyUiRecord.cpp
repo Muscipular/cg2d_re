@@ -1168,6 +1168,12 @@ LegacyPanelRecord gLegacyGuildReadPanel58EBA8 {
     0, 0, 272, 428, 89, {23190, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 std::int32_t gLegacyGuildReadPage1050EF8 = 0; // 旧89独立页号，读取同源公会十条邮件。
+LegacyPanelRecord gLegacyGuildNormalPanel58EC70 {
+    0, 0, 272, 438, 90, {23195, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::array<std::uint8_t, 200> gLegacyGuildSelectedFlags1050CDC {}; // 旧90多人选择，不包含1050DA4。
+constexpr char kLegacyGuildUnselect58F310[] = "\x82\xB1\x82\xCC\x83\x4D\x3F\x83\x68\x3F\x3F\x83\x6F\x81\x5B\x82\xC9\x3F\x81\x5B\x3F\x82\xF0\x3F\x82\xE9\x82\xCC\x82\xF0\x82\xE2\x82\xDF\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildChooseRecipients58F33C[] = "\x3F\x90\x4D\x3F\x8E\xE8\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xC4\x82\xAD\x82\xBE\x82\xB3\x82\xA2\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -9292,6 +9298,172 @@ std::uint32_t Sub_52E650(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyGuildReadPanel58EBA8, 1);
+}
+
+std::int32_t Sub_52ECB0()
+{
+    char preserved[400];
+    std::strcpy(preserved, input::gInputContext1051348.text);
+    const std::int32_t y = gLegacyGuildNormalPanel58EC70.y;
+    const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
+    input::InitializeContext_449CF0(&input::gInputContext1051348,
+        x + 10, y + 219, 2, 0, 0, preserved, 10, 28, 20, 0);
+    input::SetContext_44B330(&input::gInputContext1051348);
+    gLegacyGuildSelectedFlags1050CDC.fill(0);
+    const std::int32_t selected = gLegacyGuildComposeTarget1051340;
+    gLegacyGuildSelectedFlags1050CDC[selected] = 1;
+    return 0;
+}
+
+std::uintptr_t Sub_52ED50(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildNormalPanel58EC70.x;
+    const std::int32_t y = gLegacyGuildNormalPanel58EC70.y;
+    std::array<LegacyPanelButtonRecord, 4> buttons {{
+        {x + 80, y + 197, x + 40, y + 187, 80, 20, 23196, 23197},
+        {x + 192, y + 197, x + 152, y + 187, 80, 20, 22710, 22711},
+        {x + 89, y + 159, x + 75, y + 149, 28, 20, 22832, 22833},
+        {x + 189, y + 159, x + 175, y + 149, 28, 20, 22834, 22835},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildNormalPanel58EC70,
+        [] { static_cast<void>(Sub_52ECB0()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        input::SetContext_44B330(&input::gInputContext626AA0);
+        return reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+    }
+    // 原52EEB8在行点击前统计，本帧绘制后的发送提示仍使用该计数。
+    std::int32_t selectedCount = 0;
+    for (const std::uint8_t selected : gLegacyGuildSelectedFlags1050CDC) {
+        if (selected != 0) {
+            ++selectedCount;
+        }
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t top = gLegacyGuildNormalPanel58EC70.y + 27 * row;
+        const std::int32_t left = gLegacyGuildNormalPanel58EC70.x;
+        if (Sub_5049A0(left + 64, top + 38, left + 213, top + 58, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        const std::int32_t page = gLegacyGuildComposePage1051330;
+        const std::int32_t contact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[hovered + 4 * page]);
+        // 原52F06B命中空联系人仍跳到公共尾，不继续查询四个按钮。
+        if (gOrderedRecords1051B14[contact].value08 != 0) {
+            gLegacyGuildSelectedFlags1050CDC[contact] ^= 1u;
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+        }
+    } else if ((QueryPanelButtonState(&buttons[0]) & 1) != 0) {
+        if (input::gInputContext1051348.text[0] != '\0' && selectedCount > 0) {
+            std::int32_t timeValue;
+            static_cast<void>(platform::ReadLegacyTime32_53BA26(&timeValue));
+            const platform::LegacyTm53B8C6* const calendar = platform::LocalTime_53B8C6(&timeValue);
+            const std::int32_t minutes = calendar->minutes;
+            const std::int32_t hours = calendar->hours;
+            const std::int32_t day = calendar->day;
+            const std::int32_t month = calendar->month0based + 1;
+            const std::int32_t year = calendar->yearMinus1900 + 1900;
+            char timestamp[64];
+            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            char source[512];
+            std::strcpy(source, input::gInputContext1051348.text);
+            char escaped[600];
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(source, escaped, 600));
+            for (std::int32_t position = 0; position < 200; ++position) {
+                const std::int32_t contact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
+                if (gLegacyGuildSelectedFlags1050CDC[contact] != 0) {
+                    const auto socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_511480(socket, contact, escaped, 0));
+                    const std::int32_t savedContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
+                    static_cast<void>(world::detail::Sub_519370(savedContact, 1, timestamp, input::gInputContext1051348.text));
+                }
+            }
+            static_cast<void>(world::detail::Sub_519550());
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+            static_cast<void>(audio::Sub_504180(94));
+            input::gInputContext1051348.text[0] = '\0';
+        } else {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        }
+    } else if ((QueryPanelButtonState(&buttons[1]) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(94));
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x10) != 0
+        || platform::ReadControlKeyPressFlag_4597C0(90) != 0) {
+        --gLegacyGuildComposePage1051330;
+        if (gLegacyGuildComposePage1051330 < 0) {
+            gLegacyGuildComposePage1051330 = 49;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&buttons[3]) & 0x10) != 0
+        || platform::ReadControlKeyPressFlag_4597C0(88) != 0) {
+        ++gLegacyGuildComposePage1051330;
+        if (gLegacyGuildComposePage1051330 >= 50) {
+            gLegacyGuildComposePage1051330 = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyGuildNormalPanel58EC70.y + 27 * hovered;
+        const std::int32_t image = gValueD69768;
+        const std::int32_t left = gLegacyGuildNormalPanel58EC70.x;
+        static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(left + 64),
+            static_cast<std::int16_t>(top + 38), static_cast<std::int16_t>(left + 209),
+            static_cast<std::int16_t>(top + 58), 212, image, 0));
+    }
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const std::int32_t page = gLegacyGuildComposePage1051330;
+        const std::int32_t position = row + 4 * page;
+        const std::int32_t contact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
+        const auto* const record = &gOrderedRecords1051B14[contact];
+        if (record->value08 == 0) {
+            continue;
+        }
+        const std::int8_t color = gLegacyGuildSelectedFlags1050CDC[contact] != 0
+            ? 1 : (record->value0A != 0 ? 0 : 7);
+        const std::int32_t width = TextMeasure(record->text18, 0);
+        const std::int32_t nameContact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
+        const char* const name = gOrderedRecords1051B14[nameContact].text18;
+        const std::int32_t top = gLegacyGuildNormalPanel58EC70.y + 40 + 27 * row;
+        const std::int32_t left = gLegacyGuildNormalPanel58EC70.x - width / 2 + 136;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
+    }
+    char pageText[128];
+    std::sprintf(pageText, "%2d/%2d", gLegacyGuildComposePage1051330 + 1, 50);
+    const std::int32_t pageY = gLegacyGuildNormalPanel58EC70.y + 152;
+    const std::int32_t pageX = gLegacyGuildNormalPanel58EC70.x + 119;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
+        static_cast<std::int16_t>(pageY), 2, 1, 0, pageText, 0, 0));
+    for (auto& button : buttons) {
+        Sub_5035E0(&button, 212, 1, gValueD69768, 0);
+    }
+    render::DrawInputText_4568A0(&input::gInputContext1051348);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyGuildNormalPanel58EC70) != 0) {
+        hint = kLegacyGuildClose58F248;
+    } else if ((QueryPanelButtonState(&buttons[2]) & 0x40) != 0
+        || (QueryPanelButtonState(&buttons[3]) & 0x40) != 0) {
+        hint = kLegacyGuildPage58F2D4;
+    } else if ((QueryPanelButtonState(&buttons[0]) & 0x40) != 0) {
+        hint = selectedCount != 0 ? kLegacyGuildSendMail58F288 : kLegacyGuildChooseRecipients58F33C;
+    } else if ((QueryPanelButtonState(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacyGuildReturn58F264;
+    } else if (hovered >= 0) {
+        const std::int32_t page = gLegacyGuildComposePage1051330;
+        const std::int32_t contact = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[hovered + 4 * page]);
+        hint = gOrderedRecords1051B14[contact].value08 != 0
+            && gLegacyGuildSelectedFlags1050CDC[contact] != 0
+            ? kLegacyGuildUnselect58F310 : kLegacyGuildSend58F2EC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildNormalPanel58EC70, 1));
 }
 
 std::uint32_t Sub_52F460(const std::int32_t opened)

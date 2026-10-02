@@ -216,6 +216,8 @@ std::uint32_t Sub_52DCE0(std::int32_t opened); // 旧87消费宠物/赠品发送
 std::uint32_t Sub_52E240(std::int32_t opened); // 旧88公会送信宠物，发布同源1050DB0后依序打开87/86。
 std::byte* Sub_52E600(); // 旧89倒扫十条公会未读，返回非拥有字节游标。
 std::uint32_t Sub_52E650(std::int32_t opened); // 旧89阅读/翻页/回复导航，关闭保存公会组并扫描未读。
+std::int32_t Sub_52ECB0(); // 旧90保留独立公会草稿，清200选择后按旧94目标置1。
+std::uintptr_t Sub_52ED50(std::int32_t opened); // 旧90按共享排序批量发信，关闭返聊天T*、正常返完整W32。
 std::uint32_t Sub_52F460(std::int32_t opened); // 旧91公会邮件方式，普通/宠物/返回依序开90/88/94。
 std::uint32_t Sub_52F670(std::int32_t opened); // 旧92成员删除确认，低W8权限bit2、原索引清理/普通组保存。
 std::uint32_t Sub_52F910(std::int32_t opened); // 旧93写公会排序，原保存链仍读普通排序，确认后打开94。

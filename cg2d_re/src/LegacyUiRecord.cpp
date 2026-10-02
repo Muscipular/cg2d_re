@@ -213,6 +213,8 @@ std::int32_t gLegacySplitSourceCC3E60 = 0;
 std::int32_t gLegacySplitTargetCC21DC = 0;
 std::int32_t gLegacySplitAmountC8A948 = 0;
 std::int32_t gLegacyLastUsedItemCB01EC = 0;
+std::int32_t gLegacyPetSkillCatalogSelectionC8AF70 = 0;
+std::int32_t gLegacyPetSkillCatalogMessageD2E818 = 0;
 
 namespace {
 
@@ -388,6 +390,13 @@ LegacyPanelRecord gLegacyShopChoicePanel5822D8 {
     0, 0, 292, 260, 62, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
 YobiAction* gLegacyShopChoiceActionD67C68 = nullptr;
+
+LegacyPanelRecord gLegacyPetSkillCatalogPanel581FB8 {
+    0, 0, 576, 432, 58, {23090, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyPetSkillCatalogActionD67C5C = nullptr; // 4D7440发布，4D7470关闭时标死/清槽。
+constexpr char kLegacyPetSkillCatalogCancel588CD0[] = "\xA8\xFA\xAE\xF8\xC5\xFD\xC3\x64\xAA\xAB\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kLegacyPetSkillCatalogLearn588268[] = "\xC5\xFD\xC3\x64\xAA\xAB\xBE\xC7\xB2\xDF\xA6\xB9\xA7\xDE\xAF\xE0\xA1\x43";
 
 LegacyPanelRecord gLegacyIdentifyPanel582918 {
     32, 12, 576, 432, 68, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
@@ -2790,6 +2799,166 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
         static_cast<std::int16_t>(secondY), 2, 0, 0, buffer, 0, 0));
     static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
     return Sub_503440(&gLegacyTextNoticePanel583FB0, 0);
+}
+
+YobiAction* Sub_4D7440()
+{
+    const std::int32_t y = gLegacyPetSkillCatalogPanel581FB8.y;
+    const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;
+    const std::int32_t image = gLegacyPetSkillCatalogImageCC3E64;
+    YobiAction* const action = Sub_4D6640(image, x + 468, y + 245);
+    gLegacyPetSkillCatalogActionD67C5C = action;
+    return action;
+}
+
+// 原旧58完整消费路径；四个外部数据定义/生产尚缺，不提前注册页面。
+std::uint32_t Sub_4D7470(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;
+    const std::int32_t y = gLegacyPetSkillCatalogPanel581FB8.y;
+    LegacyPanelButtonRecord cancel {x + 465, y + 390, x + 425, y + 374, 80, 32, 23076, 23077};
+    LegacyPanelButtonRecord previous {x + 140, y + 52, x + 126, y + 40, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 230, y + 52, x + 216, y + 40, 28, 24, 23023, 23027};
+    const std::int32_t state = Sub_503160(opened, &gLegacyPetSkillCatalogPanel581FB8,
+        +[] { static_cast<void>(Sub_4D7440()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        YobiAction* const action = gLegacyPetSkillCatalogActionD67C5C;
+        world::detail::gValue581800 = -1;
+        if (action != nullptr) {
+            static_cast<void>(MarkDeath(action));
+            gLegacyPetSkillCatalogActionD67C5C = nullptr;
+        }
+        return static_cast<std::uint32_t>(audio::PlaySe_52C450(57, 320));
+    }
+    if (gLegacyPetSkillCatalogActionD67C5C != nullptr) {
+        gLegacyPetSkillCatalogActionD67C5C->flags &= ~2U;
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 8; ++row) {
+        if (gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].used != 0
+            && Sub_5049A0(gLegacyPetSkillCatalogPanel581FB8.x + 18,
+                gLegacyPetSkillCatalogPanel581FB8.y + 84 + 32 * row,
+                gLegacyPetSkillCatalogPanel581FB8.x + 345,
+                gLegacyPetSkillCatalogPanel581FB8.y + 105 + 32 * row, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+        const std::int32_t index = hovered + 8 * gLegacyPetSkillCatalogPageD45F74;
+        if (world::detail::ReadPlayerValueFC() < gLegacyPetSkillCatalogCA0478[index].price08) {
+            gLegacyPetSkillCatalogMessageD2E818 = 1;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else if (world::detail::gPetCountDE0B00 == 0) {
+            gLegacyPetSkillCatalogMessageD2E818 = 2;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            char buffer[16];
+            char escaped[16];
+            gLegacyPetSkillCatalogSelectionC8AF70 = hovered;
+            std::sprintf(buffer, "%d", index);
+            static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+            const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+            const std::int32_t request = world::detail::gDialogRequestCC21E0;
+            const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            const auto socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
+            static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+            static_cast<void>(audio::PlaySe_52C450(57, 320));
+        }
+    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyPetSkillCatalogPanel581FB8.id));
+    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+        --gLegacyPetSkillCatalogPageD45F74;
+        if (gLegacyPetSkillCatalogPageD45F74 < 0) {
+            gLegacyPetSkillCatalogPageD45F74 = gLegacyPetSkillCatalogPageCountC8AF84 - 1;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+        ++gLegacyPetSkillCatalogPageD45F74;
+        if (gLegacyPetSkillCatalogPageD45F74 >= gLegacyPetSkillCatalogPageCountC8AF84) {
+            gLegacyPetSkillCatalogPageD45F74 = 0;
+        }
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    }
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 288 - titleWidth / 2),
+        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 8),
+        2, 0, 0, lines[0].text.data(), 0, 0));
+    for (std::int32_t row = 0; row < 4; ++row) {
+        const char* const text = lines[1 + 4 * gLegacyPetSkillCatalogMessageD2E818 + row].text.data();
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 377),
+            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 59 + 20 * row),
+            2, 0, 0, text, 0, 0));
+    }
+    char buffer[256];
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),
+        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));
+    std::sprintf(buffer, "%d/%d", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);
+    static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 172),
+        static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 44), 2, 0, 0, buffer, 0, 0));
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const std::int32_t index = row + 8 * gLegacyPetSkillCatalogPageD45F74;
+        if (gLegacyPetSkillCatalogCA0478[index].used == 0) {
+            continue;
+        }
+        const std::int32_t nameWidth = TextMeasure(gLegacyPetSkillCatalogCA0478[index].text0C.data(), 0);
+        const char* const name = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
+            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));
+        const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
+        std::sprintf(buffer, "%4d", value);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),
+            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, 0, buffer, 0, 0));
+        const std::int32_t page = gLegacyPetSkillCatalogPageD45F74;
+        const std::int32_t gold = world::detail::ReadPlayerValueFC();
+        const std::int32_t price = gLegacyPetSkillCatalogCA0478[row + 8 * page].price08;
+        const std::uint8_t color = gold >= price ? 0 : 6;
+        std::sprintf(buffer, "%7d", price);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 261),
+            static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, color, buffer, 0, 0));
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyPetSkillCatalogPanel581FB8.y + 32 * hovered;
+        const std::uint32_t color = gValueD69768;
+        const std::int32_t left = gLegacyPetSkillCatalogPanel581FB8.x;
+        DrawGraphicHover(Low16(left + 18), Low16(top + 84), Low16(left + 345),
+            Low16(top + 105), 214, color, 0);
+        for (std::int32_t row = 0; row < 2; ++row) {
+            const char* const text = gLegacyPetSkillCatalogCA0478[
+                hovered + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data() + 25 + 29 * row;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 70),
+                static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 359 + 32 * row),
+                2, 0, 0, text, 0, 0));
+        }
+    }
+    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyPetSkillCatalogPanel581FB8) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyPetSkillCatalogCancel588CD0;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0 || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if (hovered >= 0) {
+        hint = kLegacyPetSkillCatalogLearn588268;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyPetSkillCatalogPanel581FB8, 1);
 }
 
 YobiAction* Sub_4D8D70()

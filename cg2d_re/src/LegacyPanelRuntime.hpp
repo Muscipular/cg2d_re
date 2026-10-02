@@ -24,6 +24,27 @@ struct LegacyPanelButtonRecord {
     std::int32_t pressedImage;
 };
 
+// 原CA0478目录的单条96B消费布局；文本保持原字节，数组总容量/生产尚未确定。
+struct LegacyPetSkillCatalogRecord {
+    std::uint16_t used; // +00：非零才参与旧58行命中/绘制。
+    std::array<std::byte, 2> reserved02;
+    std::int32_t value04; // +04：原S32显示值。
+    std::int32_t price08; // +08：原S32费用。
+    std::array<char, 84> text0C; // +0C名称、+25H/+42H说明，不限定字符串长度。
+};
+static_assert(sizeof(LegacyPetSkillCatalogRecord) == 96);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, value04) == 4);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, price08) == 8);
+static_assert(offsetof(LegacyPetSkillCatalogRecord, text0C) == 12);
+
+// 以下四项仅为已证外部数据依赖，尚无定义；不得用猜测容量或默认图号/页数补接。
+extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];
+extern std::int32_t gLegacyPetSkillCatalogImageCC3E64;
+extern std::int32_t gLegacyPetSkillCatalogPageD45F74;
+extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
+extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
+extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
+
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {
     std::int32_t image;
@@ -131,6 +152,8 @@ YobiAction* Sub_4D6A30(); // 旧56预览初始化，沿旧55同源图号/预览�
 std::uintptr_t Sub_4D6A60(std::int32_t opened); // 旧56技能学习，两个按钮均发送，关闭返回T*。
 YobiAction* Sub_4D6E70(); // 旧57预览初始化，沿旧55/56同源工厂与T*槽。
 std::uintptr_t Sub_4D6EA0(std::int32_t opened); // 旧57技能遗忘，十五行/99取消及相邻页号门禁。
+YobiAction* Sub_4D7440(); // 旧58预览初始化；图号仍为真实外部数据依赖。
+std::uint32_t Sub_4D7470(std::int32_t opened); // 旧58完整八行目录消费；记录/页数生产仍缺。
 std::uint32_t Sub_4EFB70(std::int32_t opened); // 旧36属性目标，沿ND六行共享状态及原关闭请求。
 std::uint32_t Sub_4F0460(std::int32_t opened); // 旧35技能名单，五行两页、直接/属性请求及原关闭状态。
 std::uint32_t Sub_4E4A50(std::int32_t opened); // 旧77物品使用目标，LY十条20B同源记录，先写选择再发送。

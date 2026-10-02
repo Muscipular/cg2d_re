@@ -136,6 +136,7 @@ std::uint32_t Sub_4F0460(std::int32_t opened); // 旧35技能名单，五行两�
 std::uint32_t Sub_4E4A50(std::int32_t opened); // 旧77物品使用目标，LY十条20B同源记录，先写选择再发送。
 std::uint32_t Sub_4F0CD0(std::int32_t opened); // 旧81固定文字提示；无格式指令的额外值不产生业务状态。
 std::uint32_t Sub_4F0E20(std::int32_t opened); // 旧82固定文字提示，完整确认/关闭及W32返回。
+YobiAction* Sub_4D8D70(); // 旧62预览初始化：借同源图号，发布并返回工厂结果。
 YobiAction* Sub_4D91E0(); // 旧63独立图号预览，发布D67C6C。
 std::uintptr_t Sub_4D9220(std::int32_t opened); // 旧63买入列表，正常返回相对悬停W32，关闭返回预览指针。
 void Sub_4DA400(std::int32_t x, std::int32_t y, std::int32_t index,

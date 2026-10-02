@@ -383,6 +383,12 @@ constexpr char kLegacyRepairAcceptHint589084[] = "\xAD\xD7\xB2\x7A\xA1\x43";
 constexpr char kLegacyRepairQuestion58908C[] = "\xAD\xD7\xB2\x7A\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
 constexpr char kLegacyRepairSummary5890A4[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xAD\xD7\xB2\x7A\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
 
+// 原旧62的独立面板与非拥有预览槽；父入口4D8DA0的模式边界仍待决。
+LegacyPanelRecord gLegacyShopChoicePanel5822D8 {
+    0, 0, 292, 260, 62, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+YobiAction* gLegacyShopChoiceActionD67C68 = nullptr;
+
 LegacyPanelRecord gLegacyIdentifyPanel582918 {
     32, 12, 576, 432, 68, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -2784,6 +2790,16 @@ std::uint32_t Sub_4F0E20(const std::int32_t opened)
         static_cast<std::int16_t>(secondY), 2, 0, 0, buffer, 0, 0));
     static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
     return Sub_503440(&gLegacyTextNoticePanel583FB0, 0);
+}
+
+YobiAction* Sub_4D8D70()
+{
+    const std::int32_t y = gLegacyShopChoicePanel5822D8.y;
+    const std::int32_t x = gLegacyShopChoicePanel5822D8.x;
+    const std::int32_t image = ui::detail::ReadLegacyShopImageC9A9A0();
+    YobiAction* const action = Sub_4F9FF0(image, x + 45, y + 133, 213);
+    gLegacyShopChoiceActionD67C68 = action;
+    return action;
 }
 
 YobiAction* Sub_4D91E0()

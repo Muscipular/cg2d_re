@@ -1567,6 +1567,11 @@ std::int32_t ReadLegacyChoiceImageC9A99C() noexcept
     return gChoiceImageC9A99C;
 }
 
+std::int32_t ReadLegacyShopImageC9A9A0() noexcept
+{
+    return gShopImageC9A9A0;
+}
+
 std::int32_t ReadLegacyChoiceImageD2EA74() noexcept
 {
     return gChoiceImageD2EA74;

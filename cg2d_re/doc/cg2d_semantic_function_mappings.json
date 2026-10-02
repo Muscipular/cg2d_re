@@ -4947,6 +4947,236 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原80条指令先按44D3F0寻找下界，再反向比较查询键以判相等，未命中返回表头end。现有map::find沿同一比较关系；地址分量按已批x64拓宽，图号S32/调色板S16和RECT left/right/top/bottom顺序保留。"
+    },
+    {
+      "original_entry": "0x4544F0",
+      "inventory_id": "F:000544F0",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "唯一键插入与结果发布",
+      "original_end_exclusive": "0x454729",
+      "instruction_count": 207,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先按44D3F0定位；+8为零时相等键复用并返回插入标志0，缺键插入并返回1。两棵原树由453FB0@453FCA固定+8为0；有重复键分支保留原事实，不将其列为当前两树可达业务。map下标取得或插入同键值承接父调用。"
+    },
+    {
+      "original_entry": "0x454730",
+      "inventory_id": "F:00054730",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "有序键下界",
+      "original_end_exclusive": "0x45477D",
+      "instruction_count": 32,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "44CEF2调用后由44CF05..44CF14反向比较判相等，父查找整体由map::find承接；不能将独立lower_bound误称为find。"
+    },
+    {
+      "original_entry": "0x454780",
+      "inventory_id": "F:00054780",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "递归释放树节点",
+      "original_end_exclusive": "0x4547BB",
+      "instruction_count": 25,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "右子树递归、左子树迭代，delete只释放节点，不释放+28表面值。仅44CC60公共销毁段及自身直接调用；map成员析构承接，不代替44D490业务表面释放。"
+    },
+    {
+      "original_entry": "0x4547C0",
+      "inventory_id": "F:000547C0",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "树左旋",
+      "original_end_exclusive": "0x454812",
+      "instruction_count": 32,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅4544F0调用，调整左右/父/根链接；由容器平衡机制承接，不仿制原节点地址、树形或旋转次数。"
+    },
+    {
+      "original_entry": "0x454820",
+      "inventory_id": "F:00054820",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "树右旋",
+      "original_end_exclusive": "0x454876",
+      "instruction_count": 32,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅4544F0调用，调整左右/父/根链接；由容器平衡机制承接，不仿制原节点地址、树形或旋转次数。"
+    },
+    {
+      "original_entry": "0x4548A0",
+      "inventory_id": "F:000548A0",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "唯一插入分配与平衡",
+      "original_end_exclusive": "0x454B0B",
+      "instruction_count": 212,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅4544F0@4546FA调用；分配原48B节点、设置parent/红色/空子链、复制载荷并递增计数，再链接并平衡、根置黑、发布新节点。现有map插入承接；原节点布局和分配异常时机不作等价声明。"
+    },
+    {
+      "original_entry": "0x454B10",
+      "inventory_id": "F:00054B10",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "原节点分配叶",
+      "original_end_exclusive": "0x454B2B",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "分配48B并仅写parent与color；唯一直接caller4544F0@45453E属于允许重复键分支，而两棵原树构造固定禁用重复键。登记为容器内部机制映射，不新增原布局分配或表面资源。"
+    },
+    {
+      "original_entry": "0x454B30",
+      "inventory_id": "F:00054B30",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "迭代器前驱",
+      "original_end_exclusive": "0x454B81",
+      "instruction_count": 38,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一直接caller4544F0@4546DA；处理红色表头、左子树最右项及沿父链上行，用于唯一键插入判定，现有有序容器插入整体承接。"
+    },
+    {
+      "original_entry": "0x454B90",
+      "inventory_id": "F:00054B90",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "迭代器后继",
+      "original_end_exclusive": "0x454BD3",
+      "instruction_count": 31,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "ClearSurfaceTransformCache_44D490",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "44CC60@44CCCE和454050@45405F调用；右子树最左项或沿父链上行，含表头分支。map::erase返回后继和成员析构承接；不把残留EAX节点值暴露为业务返回。"
+    },
+    {
+      "original_entry": "0x454BE0",
+      "inventory_id": "F:00054BE0",
+      "status": "已批准变换缓存容器适配映射，运行未验",
+      "original_role": "节点键值载荷复制",
+      "original_end_exclusive": "0x454BF8",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "4544F0/4548A0调用；目标非空才rep movsd八次复制原32B键值，含28B键与4B表面指针。新端使用类型化键和TextureSurface*值复制，不能保留原32B memcpy截断拓宽指针；未比较的旧键填充字节不成为身份分量。"
     }
   ]
 }

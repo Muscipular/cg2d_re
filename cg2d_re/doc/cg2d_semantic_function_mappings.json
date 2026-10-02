@@ -4069,6 +4069,295 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "只返回同源DA3B30完整S32，不归一化为bool；主循环五个独立调用点保留。403EBC位于403E50待决发送链，getter已有不代表该链完成，也不把本函数归入相邻newest五函数排除。"
+    },
+    {
+      "original_entry": "0x44D3F0",
+      "inventory_id": "F:0004D3F0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "变换缓存类型化键比较",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformKeyLess"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅surface身份不等时在比较边界转uintptr_t作完整地址数值排序；随后按S32图号、S16调色板、S32矩形left/right/top/bottom比较。沿已批T*拓宽，不把翻转或调色板版本新增为键，不保证原x86树形/地址/释放序逐项相同。"
+    },
+    {
+      "original_entry": "0x45A6C0",
+      "inventory_id": "F:0005A6C0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形文件与mapNo索引清理",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "CloseGraphicFiles"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先free并清mapNo索引，再按九槽顺序关闭非空FILE*并清槽；不释放图形主表、共享读/解码区或其他缓存。唯一直接caller457A6D随后调用457670，其首指令覆盖EAX；当前void接口不把残留寄存器值发布为业务返回。"
+    },
+    {
+      "original_entry": "0x45A710",
+      "inventory_id": "F:0005A710",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形x/y查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicXY"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按U32索引/上界比较；成功先写S16 x后重新读表写S16 y，失败按参数序清零并返回0。保留输出别名下的重读位置，不预取两字段。"
+    },
+    {
+      "original_entry": "0x45A760",
+      "inventory_id": "F:0005A760",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形w/h查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicWH"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按U32索引比较，先写S16 w后重新读表写S16 h；成功1，失败按序清零并返回0。此处尺寸不同于资源头W32解码尺寸。"
+    },
+    {
+      "original_entry": "0x45A7B0",
+      "inventory_id": "F:0005A7B0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形sx/sy查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicSxSy"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按U32索引比较；两个源U8分别零扩展到U16输出，第一输出写入后再读第二字段；失败按序清零。"
+    },
+    {
+      "original_entry": "0x45A810",
+      "inventory_id": "F:0005A810",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形标志模100查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicFlag1"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原标志零扩展后取十进制模100，写U16；沿原无符号索引检查及失败清零/返回0，不误作bit掩码。"
+    },
+    {
+      "original_entry": "0x45A860",
+      "inventory_id": "F:0005A860",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形标志除100查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicFlag2"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原标志零扩展后除以100，写U16；沿原无符号索引检查，失败清零并返回0，不把有符号负值当原输入解释。"
+    },
+    {
+      "original_entry": "0x45A8B0",
+      "inventory_id": "F:0005A8B0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "mapNo索引表直接读取",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicMapNoIndex"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "直接写唯一gGraphicMapNoIndex[index]并返回1；不借图形数量新增检查，不改变调用者的原有效存储前提。"
+    },
+    {
+      "original_entry": "0x45A8D0",
+      "inventory_id": "F:0005A8D0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形索引到mapNo查询",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GetGraphicMapNo"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按S32拒绝负索引或不小于有符号数量，失败-1，否则返回mapNo完整W32；不与前述U32检查或无检查查表合并。"
+    },
+    {
+      "original_entry": "0x45A900",
+      "inventory_id": "F:0005A900",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "按图号读资源并调用解码",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "ReadGraphicDataByIndex"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_graphic_decode.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "使用同源元信息、九文件槽与共享读/解码区；图号/句柄/短读失败不提前清输出，fseek保留S32宽度并弃返回。成功读入后先发布目标解码区指针，核心失败仍保留该发布；paletteLength可由局部槽承接，最终返回0/1。"
+    },
+    {
+      "original_entry": "0x52D5C0",
+      "inventory_id": "F:0012D5C0",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "图形资源解码核心",
+      "sources": [
+        {
+          "path": "src/GraphicDecode.cpp",
+          "symbols": [
+            "ReadGraphicData"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_decode.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "沿六参数原生指针接口；目标为空或RD签名失败不写输出，成功返回初始目标地址。资源头宽高/长度/调色板长度保持W32，完整原始/RLE路径与写序沿既有合同，不新增格式猜测或短读恢复。"
+    },
+    {
+      "original_entry": "0x450470",
+      "inventory_id": "F:00050470",
+      "status": "共享逻辑及32位分支已映射，低色深目标沿既定排除",
+      "original_role": "调色板共享初始化与32位目标",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "InitPalette32"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "只映射已确认共享逻辑及32位分支：固定色、首次672字节消费、168号置黑前备份、CPU调色板绑定与原错误返回。8/16/24位目标按既有用户排除，不把8位源索引或调色板资源一并排除。"
+    },
+    {
+      "original_entry": "0x450A80",
+      "inventory_id": "F:00050A80",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "调色板文件读取",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "ReadPalette"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "打开失败沿原提示返回0；逐项按B/G/R读中间224色并设flags=5，EOF窄化为FF而非新失败；关闭后从当前调色板复制首尾16项。不额外置黑168、改活动编号或重建查色表。"
+    },
+    {
+      "original_entry": "0x450B70",
+      "inventory_id": "F:00050B70",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "调色板选择与过渡步数发布",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "SelectPalette"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留上界39及门槛判定；拒绝返回原index，接受发布活动编号/steps，steps非正只把全局步数改为1，仍返回原steps。不是成功布尔值，不另加负索引修复。"
+    },
+    {
+      "original_entry": "0x451220",
+      "inventory_id": "F:00051220",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "32位查色表重建",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "RebuildPalette32"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "生成00RRGGBB，所有纯黑先改1，最后仅第0项清零；返回原循环最终值400H。flags不是alpha，保留非零索引黑色与透明索引0的区别。"
     }
   ]
 }

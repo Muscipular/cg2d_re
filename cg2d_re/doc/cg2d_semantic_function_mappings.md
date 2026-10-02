@@ -214,3 +214,29 @@ DirectDraw两处原创建尝试按[SDL呈现合同](cg2d_sdl_presenter.md)已有
 轮询不能合并为一种通用成功判定：列表回复1/2/其他分别为1/-3/-2；登录先有轮询开关，回复恰好1才设置共享结果并成功；创建恰好1成功；删除任意非零回复成功。各自未完成时保留U32经过时间严格大于600000的超时条件和独立原字节文案。510140原样返回完整共享S32，主循环仍保留五处独立读取；它不属于newest五函数范围排除。
 
 本轮未改请求业务或发送/回复生产者；内层请求调用已有不代表创建场景入口门禁、取消加密后的wire接线或完整收发已闭合。新增映射只消除命名造成的定位遗漏，不将源码、历史验证或函数数量转换为整体完成率。
+
+## 图形查询、资源读取及调色板命名入口
+
+2026-10-02，沿直接定位清单补十五条现有实现映射。原合同分别沿[图形元信息](cg2d_graphic_info.md)、[资源实现](cg2d_resource_implementation.md)、[解码核心](cg2d_graphic_decode.md)及[变换缓存](cg2d_graphic_dx_cache.md)；本轮核当前源符号、关键数据/返回边界及必要调用证据，不重复编译或全量复检原算法。
+
+| 原入口 | 当前源码/符号 | 必须保留的边界 |
+|---|---|---|
+| 44D3F0 | GraphicDxCache.cpp：SurfaceTransformKeyLess | 非拥有T*只在比较时转完整uintptr_t；后续S32图号、S16调色板、矩形left/right/top/bottom有符号顺序 |
+| 45A6C0 | GraphicRead.cpp：CloseGraphicFiles | 先释放/清mapNo索引，再依九槽关闭/清文件；不释放主表或共享缓冲 |
+| 45A710/45A760 | GraphicInfo.cpp：GetGraphicXY/GetGraphicWH | 无符号索引比较，首个S16输出写完后重读第二字段；失败按序清零 |
+| 45A7B0 | GraphicInfo.cpp：GetGraphicSxSy | 源U8零扩展到两个U16输出，保留写入与重读顺序 |
+| 45A810/45A860 | GraphicInfo.cpp：GetGraphicFlag1/GetGraphicFlag2 | 零扩展后分别模100/除100，不是位掩码 |
+| 45A8B0 | GraphicInfo.cpp：GetGraphicMapNoIndex | 原无索引检查，写查表结果并返回1 |
+| 45A8D0 | GraphicInfo.cpp：GetGraphicMapNo | 独立S32负数/上界判断，失败-1，否则原mapNo位型 |
+| 45A900 | GraphicRead.cpp：ReadGraphicDataByIndex | 图号/文件/短读失败不清输出；成功读后先发布共享目标，再解码 |
+| 52D5C0 | GraphicDecode.cpp：ReadGraphicData | 六参数指针边界、资源头W32宽高/长度、原始及RLE分支，成功返回初始目标 |
+| 450470 | Palette.cpp：InitPalette32 | 共享逻辑及32位目标已承接；低色深目标按既定排除，8位源索引/调色板继续保留 |
+| 450A80 | Palette.cpp：ReadPalette | 先读中间224色并关闭，再复制当前首尾16色；EOF字节处理不改为新失败 |
+| 450B70 | Palette.cpp：SelectPalette | 拒绝返回原index，接受返回原steps；仅发布的非正步数改为1 |
+| 451220 | Palette.cpp：RebuildPalette32 | 00RRGGBB纯黑先改1，最后仅索引0清零；返回400H，flags不是alpha |
+
+补核45A6C0完整21条指令与唯一直接caller457A6D：其后立即调用457670，后者首指令重新写EAX。现有void清理接口不发布残留寄存器值；清理范围仍限mapNo索引和九文件槽，不因此扩大至GraphicInfo主表、CPU表面或其他资源。
+
+图形元信息的S16宽高不能替代资源头W32解码宽高；共享读/解码区也不能改为每调用私有副本。ReadGraphicDataByIndex的核心失败仍保留已发布的目标指针，省略paletteLength时沿原局部槽，不新增重试、预清输出或容量修复。变换比较沿既定x64地址适配，不承诺原地址、树形或逐项释放序相同。
+
+本轮只登记已有本体，未修改业务、存储、图形格式、CMake或色深范围。十五条映射不等同于完整加载、像素、设备重建、资源生命周期或运行验收完成；其余R1条目继续独立处理。

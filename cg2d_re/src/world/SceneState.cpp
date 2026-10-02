@@ -9803,6 +9803,76 @@ void Sub_5199A0()
     gPlayerRuntime.direction = -1;
 }
 
+void Sub_455AC0()
+{
+    gValue62B2F8 = 1;
+}
+
+void Sub_455AD0()
+{
+    gValue62B324 = 1;
+}
+
+void Sub_455AE0()
+{
+    gValue62B30C = 1;
+}
+
+void Sub_455AF0()
+{
+    gValue62B388 = 1;
+}
+
+void Sub_455B00()
+{
+    gValue62B3A0 = 1;
+}
+
+void Sub_455B10()
+{
+    gValue62B38C = 1;
+}
+
+void Sub_455B20()
+{
+    if (gCurrentSceneType != 10) {
+        gValue62B358 = 1;
+    }
+}
+
+void Sub_455B40()
+{
+    gValue62B384 = 1;
+}
+
+void Sub_455B50()
+{
+    if (gCurrentSceneType != 10) {
+        gValue62B310 = 1;
+    }
+}
+
+void Sub_455B70()
+{
+    if (gCurrentSceneType != 10) {
+        gValue62B364 = 1;
+    }
+}
+
+void Sub_455B90()
+{
+    if (gCurrentSceneType != 10) {
+        gValue62B338 = 1;
+    }
+}
+
+void Sub_455BB0()
+{
+    if (gCurrentSceneType != 10) {
+        gValue62B36C = 1;
+    }
+}
+
 // 原 [0x455BD0,0x455C56)：按指令顺序写 23 个独立槽，返回完整 EAX32 零。
 std::int32_t Sub_455BD0()
 {

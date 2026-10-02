@@ -2,12 +2,12 @@
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyAudio.hpp"
 #include "cg/platform/KeyState.hpp"
-#include "cg/platform/LegacyStringCompare.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 
 #include "InputKeyDispatchDependencies.hpp"
+#include "platform/LegacyMultibyte.hpp"
 #include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
 
@@ -650,10 +650,10 @@ bool IsRejectedInputText_404060(const char* const legacyText)
         if (firstByte == static_cast<std::uint8_t>('/')) {
             return true;
         }
-        if (platform::ClassifyLegacyByte(firstByte, 0x0008u) != 0) {
+        if (platform::ClassifyLegacySpace_53BDEF(firstByte) != 0) {
             return true;
         }
-        if (platform::ClassifyLegacyByte(firstByte, 0x0020u) != 0) {
+        if (platform::ClassifyLegacyControl_53BE17(firstByte) != 0) {
             return true;
         }
     }

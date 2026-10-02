@@ -157,6 +157,21 @@ std::uint32_t ClassifyLegacyCharacter_541955(
     return types[0] & resultingMask;
 }
 
+// 原546CDB；mb分类和固定ctype表独立，后者不能改读可变58FC30指针。
+std::int32_t ClassifyMultibyteType_546CDB(const std::uint32_t character,
+    const std::uint32_t ctypeMask, const std::uint32_t multibyteMask)
+{
+    const auto byte = static_cast<std::uint8_t>(character);
+    if ((gLegacyMultibyte1086764.classification[byte + 1]
+            & static_cast<std::uint8_t>(multibyteMask)) != 0) {
+        return 1;
+    }
+    if (ctypeMask != 0 && (gCtypeTable58FC38[byte + 1] & ctypeMask) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
 // 原543AE8的256项生产域；仅LOWERCASE/UPPERCASE，不进入SORTKEY分支。
 int MapLegacyCaseTable_543AE8(const std::uint32_t locale, const DWORD flags,
     const char* const source, char* const destination, std::uint32_t codePage)
@@ -603,6 +618,43 @@ std::uint16_t Btowc_54AAD5(const std::int32_t character)
     wchar_t converted;
     const std::int32_t result = Mbrtowc_54A9C3(&converted, &byte, 1, &state, nullptr);
     return result < 0 ? 0xFFFFu : static_cast<std::uint16_t>(converted);
+}
+
+// 原53BDEF；完整入口保留共享最大宽度门禁，0..255/EOF域沿同一分类表。
+std::int32_t ClassifyLegacySpace_53BDEF(const std::int32_t character)
+{
+    if (gLegacyCtypeMaxBytes58FE3C > 1) {
+        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 8));
+    }
+    return gCtypePointer58FC30[character] & 8;
+}
+
+// 原53BE17；控制字符mask20H，在输入校验中位于空白分类之后。
+std::int32_t ClassifyLegacyControl_53BE17(const std::int32_t character)
+{
+    if (gLegacyCtypeMaxBytes58FE3C > 1) {
+        return static_cast<std::int32_t>(ClassifyLegacyCharacter_541955(character, 0x20));
+    }
+    return gCtypePointer58FC30[character] & 0x20;
+}
+
+// 原53E919；仅数字类别保持输入，其余照原位运算，不替caller减去字符0。
+std::int32_t NormalizeLegacyHexCharacter_53E919(const std::int32_t character)
+{
+    const std::uint32_t digit = gLegacyCtypeMaxBytes58FE3C > 1
+        ? ClassifyLegacyCharacter_541955(character, 4)
+        : gCtypePointer58FC30[character] & 4u;
+    if (digit != 0) {
+        return character;
+    }
+    return std::bit_cast<std::int32_t>(
+        (static_cast<std::uint32_t>(character) & 0xFFFFFFDFu) - 7u);
+}
+
+// 原546CCA只有546CDB委托；保持固定mask及0/1返回。
+std::int32_t IsLegacyMultibyteLead_546CCA(const std::uint32_t character)
+{
+    return ClassifyMultibyteType_546CDB(character, 0, 4);
 }
 
 } // namespace cg::platform

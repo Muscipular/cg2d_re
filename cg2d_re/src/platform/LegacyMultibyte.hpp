@@ -82,4 +82,14 @@ std::int32_t Mbrtowc_54A9C3(wchar_t* destination, const char* source,
 // 原54AAD5；S32仅-1作EOF，其余取低U8，负转换结果返回W16 FFFF。
 std::uint16_t Btowc_54AAD5(std::int32_t character);
 
+// 原53BDEF/53BE17；保留S32输入和mask8/20H返回，不使用宿主ctype。
+std::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);
+std::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);
+
+// 原53E919；数字不变，其他作W32位变换，不是直接返回0..15。
+std::int32_t NormalizeLegacyHexCharacter_53E919(std::int32_t character);
+
+// 原546CCA；读取现有多字节分类表的lead位，仅输入低U8参与。
+std::int32_t IsLegacyMultibyteLead_546CCA(std::uint32_t character);
+
 } // namespace cg::platform

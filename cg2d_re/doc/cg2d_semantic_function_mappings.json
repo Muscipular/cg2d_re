@@ -8428,75 +8428,115 @@
     {
       "original_entry": "0x53BDEF",
       "inventory_id": "F:0013BDEF",
-      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "status": "完整分类包装已实现并接应用输入校验；其余CRT父链/运行未验",
       "original_end_exclusive": "0x53BE17",
       "instruction_count": 13,
       "sources": [
         {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ClassifyLegacySpace_53BDEF"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "ClassifyLegacySpace_53BDEF"
+          ]
+        },
+        {
           "path": "src/Input.cpp",
           "symbols": [
             "IsRejectedInputText_404060"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyStringCompare.cpp",
-          "symbols": [
-            "ClassifyLegacyByte",
-            "gCtypePointer58FC30"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyStringCompare.hpp",
-          "symbols": [
-            "ClassifyLegacyByte"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_text_validation.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_multibyte.md"
       ],
-      "boundary": "原空白分类：53BDEF在单字节模式读取共享表低字节与8，多字节模式传541955。只映射404060的0..127域，两路径均同表同mask；其他CRT caller及其输入域未在本项承接。"
+      "boundary": "空白mask8；原四caller中404060已接，扫描器两调用与53E981父链仍未接。每次按58FE3C>1决定调用完整541955或读取58FC30表；返回0/原mask，不布尔化。输入仍是既有0..127域，拒绝结果和其他输入逻辑保持；不补非法下标保护或故障模拟。",
+      "original_direct_reference_count": 4,
+      "function_chunks": [
+        {
+          "start": "0x53BDEF",
+          "end_exclusive": "0x53BE17"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4040E5",
+          "parent_entry": "0x404060"
+        },
+        {
+          "address": "0x53DF6A",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53DF7C",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E995",
+          "parent_entry": "0x53E981"
+        }
+      ],
+      "verification_level": "完整原指令/全部直接入向及应用两调用静态核对，未执行"
     },
     {
       "original_entry": "0x53BE17",
       "inventory_id": "F:0013BE17",
-      "status": "已接原共享分类表的限定字节调用域；其他CRT输入域未验",
+      "status": "完整分类包装已实现并接应用输入校验；其余CRT父链/运行未验",
       "original_end_exclusive": "0x53BE3F",
       "instruction_count": 13,
       "sources": [
         {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ClassifyLegacyControl_53BE17"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "ClassifyLegacyControl_53BE17"
+          ]
+        },
+        {
           "path": "src/Input.cpp",
           "symbols": [
             "IsRejectedInputText_404060"
-          ]
-        },
-        {
-          "path": "src/platform/LegacyStringCompare.cpp",
-          "symbols": [
-            "ClassifyLegacyByte",
-            "gCtypePointer58FC30"
-          ]
-        },
-        {
-          "path": "include/cg/platform/LegacyStringCompare.hpp",
-          "symbols": [
-            "ClassifyLegacyByte"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_text_validation.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_multibyte.md"
       ],
-      "boundary": "原控制字符分类：53BE17在单字节模式读取共享表低字节与20h，多字节模式传541955。唯一直接caller404060仅传0..127；保留空白检查之后的调用顺序，不依赖宿主locale。"
+      "boundary": "控制字符mask20H；唯一原caller404060已接且位于空白分类之后。每次按58FE3C>1决定调用完整541955或读取58FC30表；返回0/原mask，不布尔化。输入仍是既有0..127域，拒绝结果和其他输入逻辑保持；不补非法下标保护或故障模拟。",
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x53BE17",
+          "end_exclusive": "0x53BE3F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4040F6",
+          "parent_entry": "0x404060"
+        }
+      ],
+      "verification_level": "完整原指令/全部直接入向及应用两调用静态核对，未执行"
     },
     {
       "original_entry": "0x541955",
       "inventory_id": "F:00141955",
-      "status": "已实现完整分类辅助并接toupper；既有U8调用保留，其他CRT接线/运行未验",
+      "status": "已实现完整分类并接输入/字符包装；其余CRT接线和运行未验",
       "original_end_exclusive": "0x5419CA",
       "instruction_count": 46,
       "sources": [
@@ -8523,16 +8563,20 @@
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
-            "ClassifyLegacyCharacter_541955"
+            "ClassifyLegacyCharacter_541955",
+            "ClassifyLegacySpace_53BDEF",
+            "ClassifyLegacyControl_53BE17",
+            "NormalizeLegacyHexCharacter_53E919"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_text_validation.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_multibyte.md"
       ],
-      "boundary": "既有ClassifyLegacyByte保持U8直接查表。新增完整ClassifyLegacyCharacter_541955承接-1..255表域与其余lead/NLS域，供543A1A调用；复用545208的info1/strict1/1或2字节域。连续W16局部保留原C高半字与mask的API输出别名。其他CRT调用未因此自动接通，不新增非法表下标保护或故障模拟，未构建/执行。"
+      "boundary": "ClassifyLegacyByte仍承接既有U8比较/解析域。完整ClassifyLegacyCharacter_541955处理-1..255表域及其余lead/NLS域，已由543A1A及新增53BDEF/53BE17/53E919调用；输入404060实际接到空白/控制包装。复用545208及原C高W16/mask的输出别名。其他CRT父入口未自动接通，非法原表下标不专项模拟或增加保护，未构建/执行。"
     },
     {
       "original_entry": "0x53C654",
@@ -17782,6 +17826,109 @@
         "doc/cg2d_legacy_string_compare.md"
       ],
       "boundary": "S32 ASCII/C locale及非C分支；复用58FE3C、ctype、NLS后端，按原门禁/源字节宽度调用UPPERCASE映射，失败返回输入，成功按原两U8组合。非法原表下标按RPLAN.24不专项模拟或补保护。 当前CRT宿主提案仍待确认；本体实现不代替完整启动或最终客户端验收。"
+    },
+    {
+      "original_entry": "0x546CCA",
+      "inventory_id": "F:00146CCA",
+      "status": "原字节分类本体已实现；外层CRT父链/运行未验",
+      "original_end_exclusive": "0x546CDB",
+      "instruction_count": 6,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令与全部直接入向；新增源码静态核对，未执行",
+      "function_chunks": [
+        {
+          "start": "0x546CCA",
+          "end_exclusive": "0x546CDB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x543F61",
+          "parent_entry": "0x543F36"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "IsLegacyMultibyteLead_546CCA"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md"
+      ],
+      "boundary": "仅将原参数与固定ctypeMask0、multibyteMask4交546CDB，返回其0/1；唯一543F36命令行父入口尚未接，不新建原命令行或初始化状态副本。 CRT宿主提案仍待确认；不恢复暂停音频、不构建/测试或运行。"
+    },
+    {
+      "original_entry": "0x546CDB",
+      "inventory_id": "F:00146CDB",
+      "status": "原字节分类本体已实现；外层CRT父链/运行未验",
+      "original_end_exclusive": "0x546D0C",
+      "instruction_count": 16,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令与全部直接入向；新增源码静态核对，未执行",
+      "function_chunks": [
+        {
+          "start": "0x546CDB",
+          "end_exclusive": "0x546D0C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x546CD2",
+          "parent_entry": "0x546CCA"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ClassifyMultibyteType_546CDB"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md"
+      ],
+      "boundary": "取输入及第三参数的低U8，先读现有1086880分类数组[value+1]；未命中且第二参数W32非零才读固定58FC38数组[value+1]与完整ctypeMask。固定58FC3A地址不替换为可变58FC30指针。任一命中返1，否则0；仅546CCA调用。 CRT宿主提案仍待确认；不恢复暂停音频、不构建/测试或运行。"
+    },
+    {
+      "original_entry": "0x53E919",
+      "inventory_id": "F:0013E919",
+      "status": "原字节分类本体已实现；外层CRT父链/运行未验",
+      "original_end_exclusive": "0x53E950",
+      "instruction_count": 21,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整原指令与全部直接入向；新增源码静态核对，未执行",
+      "function_chunks": [
+        {
+          "start": "0x53E919",
+          "end_exclusive": "0x53E950"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53E697",
+          "parent_entry": "0x53DEF4"
+        },
+        {
+          "address": "0x53E7D0",
+          "parent_entry": "0x53DEF4"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "NormalizeLegacyHexCharacter_53E919"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md"
+      ],
+      "boundary": "数字mask4命中返回原S32；否则原W32与FFFFFFDFH后减7，不再减30H，不添加十六进制有效性判断。按58FE3C分流完整541955/58FC30表；只有53DEF4内两处调用，扫描器父本体仍未接，未执行。 CRT宿主提案仍待确认；不恢复暂停音频、不构建/测试或运行。"
     }
   ]
 }

@@ -11297,6 +11297,176 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原start53DDB5@53DE24调用，32项8B起步/上限2048，继承N为S32、flags为W8、HANDLE为W32；宿主GetStartupInfoW及intptr_t句柄、64项分组/上限8192，失效标准句柄-2，初始化bool失败和清理对已定位。仅已证句柄按地址拓宽，不扩N/flags，不增加旧32位父进程继承解析器；最终接线和跨位宽继承未验。"
+    },
+    {
+      "original_entry": "0x543711",
+      "inventory_id": "F:00143711",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x5437A6",
+      "instruction_count": 56,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "已有_open/_filelength/_close消费的低层句柄分配职责，不是原私有helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/osfinfo.cpp",
+        "symbol": "_alloc_osfhnd"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一sopen@53D5C4调用；首个FOPEN清零槽仅handle=-1，不置FOPEN、不清全部旧字段，空组malloc256B/32项；宿主calloc、锁及提前置FOPEN。只关联既有_open/stdio传递职责，不创建第二套句柄表。"
+    },
+    {
+      "original_entry": "0x5437A6",
+      "inventory_id": "F:001437A6",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x54381D",
+      "instruction_count": 44,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "已有_open/_filelength/_close消费的低层句柄发布职责，不是原私有helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/osfinfo.cpp",
+        "symbol": "__acrt_lowio_set_os_handle"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一sopen@53D640调用；unsigned fd上限及原handle=-1校验，应用类型1且fd0/1/2才SetStdHandle，忽略其返回后发布handle并返回0。FOPEN由父随后置位；宿主句柄为intptr_t，errno归属不同。"
+    },
+    {
+      "original_entry": "0x54381D",
+      "inventory_id": "F:0014381D",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x543897",
+      "instruction_count": 45,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "已有_open/_filelength/_close消费的低层句柄释放职责，不是原私有helper直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/osfinfo.cpp",
+        "symbol": "_free_osfhnd"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一close@53D386调用；校验范围/FOPEN/handle!=-1，控制台标准槽SetStdHandle(null)后置handle=-1，成功0；不CloseHandle也不清FOPEN。父close随后清flags，不能重复关系统句柄或私自释放宿主槽。"
+    },
+    {
+      "original_entry": "0x543897",
+      "inventory_id": "F:00143897",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x5438D4",
+      "instruction_count": 16,
+      "original_direct_reference_count": 8,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "已有_open/_filelength/_close消费的低层句柄借用职责，不是原私有helper直接定义"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "ReadLegacyFileCreationTime32"
+          ],
+          "relationship": "现有x64资源时间窄适配通过宿主_get_osfhandle借用句柄；原53CCD0实际直接读取旧句柄表"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/osfinfo.cpp",
+        "symbol": "_get_osfhandle"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原八入向均CRT；无效fd/FOPEN清零写旧DOS0/errno9，成功返回W32句柄，不额外拒绝有效槽中的-1。宿主intptr_t借用加校验策略；LegacyTime现有调用属于x64窄适配，不是原fstat直接callee。"
+    },
+    {
+      "original_entry": "0x541279",
+      "inventory_id": "F:00141279",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x541426",
+      "instruction_count": 139,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0",
+            "Sub_44A090"
+          ],
+          "relationship": "已有fwrite文件根的低层写入传递职责，不是原_write直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/write.cpp",
+        "symbol": "_write"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原七入向均CRT；追加lseek失败忽略，二进制直接WriteFile，文本LF扩CRLF并扣新增CR数，部分写后返回累计值。原400h分块阈值、宿主5KiB/控制台转换/锁/错误槽不同；只关联既有文件写根，不称所有短写故障等价。"
+    },
+    {
+      "original_entry": "0x541426",
+      "inventory_id": "F:00141426",
+      "status": "现有文件消费的宿主低层职责已关联；私有状态和完整文件验收未完成",
+      "original_end_exclusive": "0x54161C",
+      "instruction_count": 174,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090"
+          ],
+          "relationship": "已有fread文件根的低层读取传递职责，不是原_read直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/read.cpp",
+        "symbol": "_read"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原四入向均CRT；零数量/EOF返0，管道/设备先消费lookahead，ReadFile后原地CRLF转换；Ctrl-Z停止，非设备置EOF，设备不复制该字节。宿主设备Ctrl-Z会复制、peek失败门禁/内部64位回退/数量校验不同；只关联既有文件读根，完整设备/父链未验。"
     }
   ]
 }

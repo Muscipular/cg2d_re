@@ -319,3 +319,90 @@ internal/initialization.cpp将它与__acrt_uninitialize_lowio配对，
 句柄按已证地址语义由宿主intptr_t承接，不拓宽N或flags，不额外实现旧32位父进程
 继承块解析。跨位宽继承、资源失效时点和初始化失败传播仍未验。
 本步只新增六项限定记录；源码/CMake不变，不构建、测试、运行客户端或校验哈希。
+
+## 描述符管理与低层读写 SPEC（2026-10-02）
+
+继续现有宿主FILE/描述符owner，按工程委托只关联实际文件消费所需职责，
+不混用原10869C0表、宿主__pioinfo和独立Win32句柄，也不添加第二套槽管理器。
+下列六入口474条的全部22个直接引用都在CRT范围，应用源码只作传递消费根。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 宿主提供者 |
+|---|---|---|---|
+| alloc_osfhnd 543711 | 5437A6 | 56 / 1 | lowio/osfinfo.cpp::_alloc_osfhnd |
+| set_osfhnd 5437A6 | 54381D | 44 / 1 | lowio/osfinfo.cpp::__acrt_lowio_set_os_handle |
+| free_osfhnd 54381D | 543897 | 45 / 1 | lowio/osfinfo.cpp::_free_osfhnd |
+| get_osfhandle 543897 | 5438D4 | 16 / 8 | lowio/osfinfo.cpp::_get_osfhandle |
+| write 541279 | 541426 | 139 / 7 | lowio/write.cpp::_write |
+| read 541426 | 54161C | 174 / 4 | lowio/read.cpp::_read |
+
+### 原槽分配、发布和释放顺序
+
+alloc仅由sopen@53D5C4调用。依序扫描组及组内32项，找到FOPEN清零项只把
+handle置-1并返回索引；不会在此设置FOPEN或重置全部其他字段。
+遇首个空组malloc256B，失败返回-1；成功先增加uNumber32、发布组指针，
+逐项写flags0、handle-1、lookahead LF，再返回组首索引。组内每项8B，最多64组。
+
+set仅由sopen@53D640调用。unsigned fd必须低于uNumber且原handle为-1；
+当58F8A4为1，fd0/1/2先SetStdHandle，对其返回不设门禁，随后写入新handle并返0。
+原sopen在5437A6返回后才于53D669发布含FOPEN的flags；不能提前到alloc中。
+
+free仅由close@53D386调用。校验范围、FOPEN及handle!=-1；
+控制台标准槽先SetStdHandle(null)，再将handle置-1并返0。
+它不关闭系统句柄、不清flags；原close在53D38E随后清flags。
+set/free/get失败写原DOS错误0、errno9并返回-1。
+get校验范围和FOPEN后直接取W32 handle，不另校验该值是否-1。
+
+宿主alloc在全局索引锁内分配/搜索，成功时槽锁仍持有，已把FOPEN置位；
+新组calloc并初始化额外字段/锁。set/free具有对应标准句柄更新职责，
+但使用宿主应用类型和intptr_t句柄；get还经过宿主无控制台/参数校验策略。
+这些时序和错误状态不宣称等价，不用宿主errno自动填充本线旧错误槽。
+
+原get的八入向来自close四处、lseek、commit、5438D4和54B658。
+原fstat53CCD0直接读旧表，不是get调用者；当前ReadLegacyFileCreationTime32
+的_get_osfhandle是既有x64句柄借用适配，不能反写成原调用证据。
+
+### 原低层write及宿主差异
+
+七入向来自flush、fwrite、flsbuf两处、5438D4及54B450两处。
+原先校验fd/FOPEN，数量0返回0；追加位置位时先lseek(END,0)，忽略定位失败。
+二进制直接WriteFile；文本逐字节将LF扩成CRLF，写入后以已写总量减已增加CR数返回。
+原转换缓冲在输出字符后检查400h阈值，末字符为LF时该轮可达到401h，
+不是按输入字符固定1024切块，也不能把新增CR计数改为仅成功写出部分。
+
+累计已写非0时保留部分结果；尚无写出而有系统错误时，错误5映射旧errno9/DOS5，
+其余走542F44。无写出也无系统错误时，仅设备首字节Ctrl-Z返回0，
+否则errno28/DOS0返回-1。
+
+宿主ANSI文本helper同有LF扩展及累计计数职责，但BUF_SIZE实际为5*1024，
+不能照其“4K”注释记录；预留末字节后填充，系统调用分块和短写时点不同。
+追加使用内部64位定位，同样忽略定位失败；另有锁、空指针校验、Unicode模式、
+控制台编码转换与现代错误槽。现有Input的fwrite根只关联其文件传递路径，
+不因此将其他C++流、设备或控制台行为验收。
+
+### 原低层read及宿主差异
+
+四入向来自fread、sopen文本尾检查、filbuf及54B574。
+原先校验fd/FOPEN，数量0或低层EOF位已置返回0。管道/设备lookahead非LF时，
+先把该字节写入目标、减剩余数量并将槽回置LF，再调用ReadFile。
+错误5写errno9/DOS5；错误109返回0；其他错误走542F44。
+这些失败不撤销先前已写入的lookahead字节。
+
+二进制返回已取字节数；文本原地压缩CRLF，首字节LF的FCRLF判断还要求
+本次ReadFile数量非0。Ctrl-Z立即停止：非设备置FEOFLAG，设备不置位，
+两者都不把这个Ctrl-Z复制到结果区。原5415E8..5415F8为直接依据。
+
+缓冲末尾CR再读1字节：设备/管道的非LF预读保存回lookahead，输出CR；
+LF则输出LF。可定位文件在当前结果为空且预读LF时直接输出LF，
+否则lseek(CUR,-1)退回预读字节并忽略返回，仅预读非LF才输出CR。
+原peek ReadFile失败还取GetLastError，非0才直接走保留CR分支；
+错误0继续检查数量，不把它简化成“系统调用失败必定直接返回”。
+
+宿主read及translate_text_mode_nolock另有INT_MAX数量门禁、锁、模式处理和内部
+64位回退；设备Ctrl-Z分支会复制该字节后停止，与原明确不同。
+宿主peek只要ReadFile失败就保留CR，不走原错误0路径。
+FCRLF使用传入转换数量；lookahead、控制台及扩展模式仍有独立状态差异，
+本步不以同名API或代码注释消除这些差异。
+
+本组只归属现有Sub_4C9060的打开/取长/关闭、Input历史文件读写等真实依赖。
+完整文本/设备、短读短写故障、其他C++流父链和最终文件板块验收仍未完成。
+源码/CMake不变；不构建、测试、运行客户端、实际游戏文件操作或哈希校验。

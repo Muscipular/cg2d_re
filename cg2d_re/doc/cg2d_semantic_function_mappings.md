@@ -1151,3 +1151,18 @@ WinMain仅关联宿主生命周期，不伪装为这些原函数的直接定义�
 records422增至428，pending_records18、分类引用4保持；源码/CMake不变。
 仅静态核新增证据/关联、旧记录保持和文件格式；未构建、查产物、测试、
 运行客户端或哈希校验，不计文件板块或总PLAN完成。
+
+## 描述符管理与低层读写职责（2026-10-02）
+
+按[局部SPEC](cg2d_stdio_contract.md#描述符管理与低层读写-spec2026-10-02)
+新增alloc/set/free/get_osfhandle及read/write六项474条；22个直接引用均在CRT范围。
+只关联Sub_4C9060和Input现有文件消费的传递依赖，LegacyTime的句柄借用属于
+x64窄适配，不伪称原fstat直接调用get_osfhandle。
+
+原alloc不置FOPEN、set后由sopen发布标志、free后由close清标志的顺序已明确；
+宿主提前置FOPEN及锁不视为同序。原文本读取设备Ctrl-Z不复制、peek失败错误0分支，
+以及原约1KiB/宿主5KiB写块和短写计数差异均单列，未新增私有句柄表。
+
+records428增至434，pending_records18、分类引用4保持。源码/CMake未改；
+静态核新增边界/调用/宿主代码与来源、旧数据和UTF-8/LF，未构建、查产物、测试、
+客户端运行或哈希校验，不计完整低层文件/设备链通过。

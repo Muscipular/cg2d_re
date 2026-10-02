@@ -8,6 +8,11 @@
       "path": "doc/cg2d_render_depth_scope.json",
       "evidence_document": "doc/cg2d_render_depth_scope.md",
       "scope": "九个完整低色深入口排除及两个混合色深入口；以该文件逐项状态为准，不把混合入口整体排除。"
+    },
+    {
+      "path": "doc/cg2d_function_boundary_classifications.json",
+      "evidence_document": "doc/cg2d_function_boundary_classifications.md",
+      "scope": "三个函数边界条目及已登记未归属区间用途；4C2634与本文件映射重叠时按稳定ID去重，4D6650并入工厂失败返回，4C48EB只分类为指定五字节NOP填充，不扩大为其他代码排除。"
     }
   ],
   "pending_record_policy": "pending_records仅登记已知未完成门禁，不计作已有实现或范围排除。自动续行、普通工程委托、静态定位或音频已有局部代码都不解除这些要求；其余未列项仍待分类。",
@@ -6091,6 +6096,144 @@
         "doc/cg2d_login_module_digest.md"
       ],
       "boundary": "16字节逐项先高半字节后低半字节，使用小写十六字符表并补NUL；原就地复制结果，新端返回33B数组由父复制。原局部首字节种子在编码中完全覆盖，不混同5202E0打开失败的动态共享文本。"
+    },
+    {
+      "original_entry": "0x456FD0",
+      "inventory_id": "F:00056FD0",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x456FDA",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "SceneTransitionValueStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructSceneTransitionValue",
+            "DestroySceneTransitionValue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。",
+      "original_chunks": [
+        [
+          "0x456FD0",
+          "0x456FDA"
+        ],
+        [
+          "0x456FF0",
+          "0x456FFC"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x456FE0",
+      "inventory_id": "F:00056FE0",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x456FEA",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructSceneTransitionValue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "把唯一73ECD0对象交401C70零值构造，保留该次RNG消费；不是静态零存储或场景内懒构造。"
+    },
+    {
+      "original_entry": "0x457000",
+      "inventory_id": "F:00057000",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x45700A",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroySceneTransitionValue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "将同一73ECD0对象交401CF0析构；不释放外部内存或额外清业务状态，退出顺序沿原包装登记。"
+    },
+    {
+      "original_entry": "0x51985F",
+      "inventory_id": "F:0011985F",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x519863",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_519840"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅将EAX置-1并返回，供519840负id及扫描未命中共用。现有两个return -1承接，不按自动streambuf::underflow名称实现流读取。"
+    },
+    {
+      "original_entry": "0x522180",
+      "inventory_id": "F:00122180",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x52220B",
+      "instruction_count": 41,
+      "sources": [
+        {
+          "path": "src/DrawGraphicHover.cpp",
+          "symbols": [
+            "DrawGraphicHover"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "四个低W16坐标分别打包为两个W32，step0/1/2分别OR A0000000/90000000/C0000000，其余不改图号；调用DrawGraphic后无条件将原返回索引项batchType写2。沿既有合同，不新增入队失败保护或跳过写入。"
+    },
+    {
+      "original_entry": "0x5234B0",
+      "inventory_id": "F:001234B0",
+      "status": "已有命名或父链合并映射，运行未验",
+      "original_end_exclusive": "0x5234B3",
+      "instruction_count": 1,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "decodedBlocks"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原只有retn 8，不读取参数、不写数据；5226A0父容器中的空钩子由现有成员生命周期自然省略，522745继续发布迭代结果且不消费其返回。其余六处caller属于已批屏幕键盘链，不把共享叶整项排除或用空实现替代未实现业务。"
     }
   ]
 }

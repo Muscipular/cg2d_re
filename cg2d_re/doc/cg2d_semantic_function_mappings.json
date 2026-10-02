@@ -11574,6 +11574,74 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原四指令只转调53C5BE，无独立扫描/校验。复用用户已批准Atol的std::atol边界，不扩批其他CRT或宣称原locale/异常等价。原10父函数45调用在当前五源中一一对应，只改调用入口与必要头引用；参数、返回宽度、后续截断/丢弃及共享状态次序不变。仅静态核新增差异，完整业务与运行验收未完成。"
+    },
+    {
+      "original_entry": "0x54ABDD",
+      "inventory_id": "F:0014ABDD",
+      "status": "原整数格式化入口及两个实际调用已实现接通；父流程运行未验",
+      "original_end_exclusive": "0x54AC0A",
+      "instruction_count": 18,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Itoa_54ABDD"
+          ],
+          "relationship": "radix10且S32负值才传负号标志，转调唯一Xtoa核心，返回原buffer"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "Itoa_54ABDD"
+          ],
+          "relationship": "原S32/进制及借用输出指针接口"
+        },
+        {
+          "path": "src/world/RenderInput.cpp",
+          "symbols": [
+            "RenderInput_4590E0",
+            "FormatDecimalW32"
+          ],
+          "relationship": "原4593E7候选序号十进制调用，通过既有助手接入同一原入口"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "BuildProtocolCommand_517510"
+          ],
+          "relationship": "原517625校验值十六进制调用，替换宿主_itoa，其余状态/复制序保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_render.md",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "保留原两种进制参数、S32/W32解释与返回目标身份。候选原已有外层12B清零和字体门禁不在本步增删；网络的目标栈槽、后续strlen与复制不改。未新增进制/容量/空指针检查，不借此批准其他CRT、wire格式或加密接线。"
+    },
+    {
+      "original_entry": "0x54AC0A",
+      "inventory_id": "F:0014AC0A",
+      "status": "原整数格式化核心已实现并由唯一已证父入口调用；异常与运行未验",
+      "original_end_exclusive": "0x54AC66",
+      "instruction_count": 47,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Xtoa_54AC0A",
+            "Itoa_54ABDD"
+          ],
+          "relationship": "内部唯一转换核心，先写符号和逆序U8数字/NUL，再按原读写序就地反转"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_render.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "value/radix保留U32除法及低U8字符，负号标志保留S32非零判断；不使用64位数值、宿主格式化或第二缓冲。S32左右索引保持原do交换含单数字的两次同位置写，避免正常单数字路径形成数组前指针。唯一直接caller54ABFD不消费机器返回残值，内部void；公开Itoa另返原buffer。无新增非法进制/容量保护，RPLAN.24不称异常等价。"
     }
   ]
 }

@@ -11,6 +11,9 @@ extern std::int32_t gLegacyErrno_1085FE0;
 // 原53C649；转发到既有Atol_53C5BE，返回原S32数值，不新增转换或校验。
 std::int32_t Atoi_53C649(const char* text);
 
+// 原54ABDD；按原W32/进制写数字文本并返回buffer，十进制负数才添加负号。
+char* Itoa_54ABDD(std::int32_t value, char* buffer, std::int32_t radix);
+
 // 原53D26E；原字节分词并就地截断，空text续用同一进程共享借用位置。
 char* StrTok_53D26E(char* text, const char* delimiters);
 

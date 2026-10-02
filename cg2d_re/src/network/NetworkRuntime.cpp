@@ -931,7 +931,7 @@ std::int32_t BuildProtocolCommand_517510(
     }
     WriteProtocolStateW16(0, checksum);
 
-    static_cast<void>(::_itoa(
+    static_cast<void>(platform::Itoa_54ABDD(
         static_cast<int>(ReadProtocolStateW16(0)),
         checksumSlot.data(),
         16));

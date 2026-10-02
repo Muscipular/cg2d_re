@@ -6,6 +6,7 @@
 #include "../platform/WindowProcedureState.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
@@ -188,25 +189,8 @@ void FormatDecimalW32(
     const std::uint32_t valueBits,
     std::array<char, 12>& destination) noexcept
 {
-    std::size_t outputLength = 0;
-    std::uint32_t magnitude = valueBits;
-    if (std::bit_cast<std::int32_t>(valueBits) < 0) {
-        destination[outputLength++] = '-';
-        magnitude = 0U - valueBits;
-    }
-
-    std::array<char, 10> reversed {};
-    std::size_t digitCount = 0;
-    do {
-        reversed[digitCount++] = static_cast<char>(
-            '0' + static_cast<char>(magnitude % 10U));
-        magnitude /= 10U;
-    } while (magnitude != 0U);
-
-    while (digitCount != 0U) {
-        destination[outputLength++] = reversed[--digitCount];
-    }
-    destination[outputLength] = '\0';
+    static_cast<void>(platform::Itoa_54ABDD(
+        std::bit_cast<std::int32_t>(valueBits), destination.data(), 10));
 }
 
 void DrawCandidateEntry(

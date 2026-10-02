@@ -59,6 +59,51 @@ void __cdecl Free_53C0A9(void* memory)
     std::free(memory);
 }
 
+// 原[54AC0A,54AC66)：U32除法产生低U8数字，先写NUL再在目标内反转数字区。
+static void Xtoa_54AC0A(
+    std::uint32_t value,
+    char* const buffer,
+    const std::uint32_t radix,
+    const std::int32_t negative)
+{
+    char* cursor = buffer;
+    if (negative != 0) {
+        *cursor++ = '-';
+        value = 0u - value;
+    }
+
+    char* const digits = cursor;
+    do {
+        const std::uint32_t digit = value % radix;
+        value /= radix;
+        const std::uint32_t byte = digit > 9u ? digit + 0x57u : digit + 0x30u;
+        *cursor++ = std::bit_cast<char>(static_cast<std::uint8_t>(byte));
+    } while (value != 0);
+    *cursor = '\0';
+
+    std::int32_t first = 0;
+    std::int32_t last = static_cast<std::int32_t>(cursor - digits) - 1;
+    do {
+        const char firstByte = digits[first];
+        const char lastByte = digits[last];
+        digits[last] = firstByte;
+        digits[first] = lastByte;
+        --last;
+        ++first;
+    } while (first < last);
+}
+
+// 原54ABDD：只有十进制负S32添加负号，其他进制按原W32位模式转换。
+char* Itoa_54ABDD(const std::int32_t value, char* const buffer, const std::int32_t radix)
+{
+    Xtoa_54AC0A(
+        std::bit_cast<std::uint32_t>(value),
+        buffer,
+        std::bit_cast<std::uint32_t>(radix),
+        radix == 10 && value < 0 ? 1 : 0);
+    return buffer;
+}
+
 // 原108602C：StrTok_53D26E独占的进程共享续读位置，不拥有输入文本。
 static char* gLegacyTokenCursor_108602C = nullptr;
 

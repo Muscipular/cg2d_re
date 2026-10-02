@@ -5973,6 +5973,124 @@
         "doc/cg2d_login_module_digest.md"
       ],
       "boundary": "保留原文件访问/共享/顺序扫描参数、低DWORD剩余量、固定0x8000读取、忽略ReadFile返回及先更新再扣长度。0x8080缓冲首字节借593850、余字节清零，bytesRead仅循环前初始化。只静态核对，不执行摘要或文件哈希；5202E0路径预清零另列待决。"
+    },
+    {
+      "original_entry": "0x402B70",
+      "inventory_id": "F:00002B70",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x402B9B",
+      "instruction_count": 10,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "Initialize"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "四个state初值及+10/+14字节计数、+18待处理数量清零；由Initialize承接。原仅返回context且调用者不使用返回，当前私有buffer额外初始化不作为原共享数据。"
+    },
+    {
+      "original_entry": "0x402BA0",
+      "inventory_id": "F:00002BA0",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x402BBF",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "Finalize",
+            "StoreLittleEndian32"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "把四个state依次复制到16B输出，原返回输出指针；当前Finalize尾部逐W32显式小端写入。只在402BC0内消费，不新增单独指针返回包装。"
+    },
+    {
+      "original_entry": "0x402BC0",
+      "inventory_id": "F:00002BC0",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x402C45",
+      "instruction_count": 53,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "Finalize"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "原先将待处理字节并入已压缩字节计数，再乘8编码长度并补一/两块；新端用追加填充前保存的总位数承接最终消息长度。仅整链对应，不宣称内部计数或独立入口返回逐字段一致。"
+    },
+    {
+      "original_entry": "0x402C50",
+      "inventory_id": "F:00002C50",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x402D28",
+      "instruction_count": 88,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "Update"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "原128B暂存区严格大于64才压缩，可保留整块64B；当前64B缓冲在完整块时立即Transform。调用只来自ComputeFileDigest，按输入流与最终输出映射，不把中间context快照或分块时机计为一致。"
+    },
+    {
+      "original_entry": "0x402D30",
+      "inventory_id": "F:00002D30",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x40365B",
+      "instruction_count": 839,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "Transform",
+            "Update",
+            "Finalize"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "原一次处理若干64B块并累加已压缩字节计数；新端Transform一次一块，计数移到Update。沿既有64轮常量/索引合同，当前仅复点首尾73条及调用边界，不冒称本轮重新核完839条或执行结果验证。"
+    },
+    {
+      "original_entry": "0x403750",
+      "inventory_id": "F:00003750",
+      "status": "已有私有摘要链级映射，中间上下文不同，运行未验",
+      "original_end_exclusive": "0x4037CD",
+      "instruction_count": 47,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "EncodeLowerHex",
+            "ComputeExecutableDigest_5202E0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "16字节逐项先高半字节后低半字节，使用小写十六字符表并补NUL；原就地复制结果，新端返回33B数组由父复制。原局部首字节种子在编码中完全覆盖，不混同5202E0打开失败的动态共享文本。"
     }
   ]
 }

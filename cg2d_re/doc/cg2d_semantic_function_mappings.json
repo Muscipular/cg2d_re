@@ -14582,6 +14582,432 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "拒绝EOF及不满足读状态的流；必要时getbuf，字符串流只允许回推同字节，否则还原指针返EOF；成功增加count、清EOF/设读并返低U8。四caller跨输入核心、窄filebuf与宽读取。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x548D69",
+      "inventory_id": "F:00148D69",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x548DC2",
+      "instruction_count": 36,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x5488C2",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x548AD4",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x549A21",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549C51",
+          "parent_entry": "0x549BC7"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "append(count,char)：先按550040减旧长度作上限门禁；数量非零才Grow，成功后memset追加并发布长度/NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x548DC2",
+      "inventory_id": "F:00148DC2",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x548E29",
+      "instruction_count": 43,
+      "original_direct_reference_count": 9,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x5488B7",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x548A0C",
+          "parent_entry": "0x548979"
+        },
+        {
+          "address": "0x548ABB",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x548C5A",
+          "parent_entry": "0x548BEA"
+        },
+        {
+          "address": "0x549A16",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549B7D",
+          "parent_entry": "0x549AE2"
+        },
+        {
+          "address": "0x549C38",
+          "parent_entry": "0x549BC7"
+        },
+        {
+          "address": "0x54A34E",
+          "parent_entry": "0x54A315"
+        },
+        {
+          "address": "0x54A35A",
+          "parent_entry": "0x54A315"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "erase：位置门禁后先Split，重新读取长度并缩减删除数；有删除才以53D710移动后缀，再Grow并发布长度/NUL。不能把原_memcpy标签误作不支持重叠。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x548E29",
+      "inventory_id": "F:00148E29",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x548E65",
+      "instruction_count": 24,
+      "original_direct_reference_count": 22,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x548813",
+          "parent_entry": "0x5487DE"
+        },
+        {
+          "address": "0x548FD2",
+          "parent_entry": "0x548FA0"
+        },
+        {
+          "address": "0x54900A",
+          "parent_entry": "0x548FA0"
+        },
+        {
+          "address": "0x54903D",
+          "parent_entry": "0x549025"
+        },
+        {
+          "address": "0x549113",
+          "parent_entry": "0x54908A"
+        },
+        {
+          "address": "0x54996A",
+          "parent_entry": "0x549935"
+        },
+        {
+          "address": "0x549FB4",
+          "parent_entry": "0x549F62"
+        },
+        {
+          "address": "0x54A034",
+          "parent_entry": "0x549FFE"
+        },
+        {
+          "address": "0x54A0AC",
+          "parent_entry": "0x54A08C"
+        },
+        {
+          "address": "0x54A114",
+          "parent_entry": "0x54A0E5"
+        },
+        {
+          "address": "0x54A162",
+          "parent_entry": "0x54A142"
+        },
+        {
+          "address": "0x54A30F",
+          "parent_entry": "0x549F62"
+        },
+        {
+          "address": "0x54A37F",
+          "parent_entry": "0x54A315"
+        },
+        {
+          "address": "0x54A544",
+          "parent_entry": "0x54A505"
+        },
+        {
+          "address": "0x54A61F",
+          "parent_entry": "0x54A5B7"
+        },
+        {
+          "address": "0x54A693",
+          "parent_entry": "0x54A67A"
+        },
+        {
+          "address": "0x54A70A",
+          "parent_entry": "0x54A6D4"
+        },
+        {
+          "address": "0x54A775",
+          "parent_entry": "0x54A755"
+        },
+        {
+          "address": "0x54A7DD",
+          "parent_entry": "0x54A7AE"
+        },
+        {
+          "address": "0x54A82B",
+          "parent_entry": "0x54A80B"
+        },
+        {
+          "address": "0x54A8B2",
+          "parent_entry": "0x54A899"
+        },
+        {
+          "address": "0x54A913",
+          "parent_entry": "0x54A8F3"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x548F74",
+      "inventory_id": "F:00148F74",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x548FA0",
+      "instruction_count": 19,
+      "original_direct_reference_count": 16,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x5488CC",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x5488DC",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x54893F",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x54894F",
+          "parent_entry": "0x548843"
+        },
+        {
+          "address": "0x5489E8",
+          "parent_entry": "0x548979"
+        },
+        {
+          "address": "0x548AE4",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x548AF4",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x548B49",
+          "parent_entry": "0x548A53"
+        },
+        {
+          "address": "0x549A2B",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549A3B",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549AA8",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549AB8",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549B59",
+          "parent_entry": "0x549AE2"
+        },
+        {
+          "address": "0x549C61",
+          "parent_entry": "0x549BC7"
+        },
+        {
+          "address": "0x549C71",
+          "parent_entry": "0x549BC7"
+        },
+        {
+          "address": "0x549CC6",
+          "parent_entry": "0x549BC7"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "Freeze：共享标记非0/FF先Grow(length,false)，随后重取buffer，非空才将buffer[-1]置FF。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x548FA0",
+      "inventory_id": "F:00148FA0",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x549025",
+      "instruction_count": 56,
+      "original_direct_reference_count": 5,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x548D91",
+          "parent_entry": "0x548D69"
+        },
+        {
+          "address": "0x548E0E",
+          "parent_entry": "0x548DC2"
+        },
+        {
+          "address": "0x548F8E",
+          "parent_entry": "0x548F74"
+        },
+        {
+          "address": "0x549060",
+          "parent_entry": "0x549055"
+        },
+        {
+          "address": "0x54A3A9",
+          "parent_entry": "0x54A315"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "Grow：U32请求上限FFFFFFFD；共享零请求先减引用再Tidy(false)。非共享零请求依trim释放或只清长度/首NUL；非零trim路径保留或重建，返回只规定AL。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x549025",
+      "inventory_id": "F:00149025",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x549055",
+      "instruction_count": 23,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x548DD7",
+          "parent_entry": "0x548DC2"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "Split：仅共享标记非0/FF时保存旧buffer，Tidy(true)后strlen(saved)再assign；不能用旧长度替换strlen。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x549055",
+      "inventory_id": "F:00149055",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x54908A",
+      "instruction_count": 21,
+      "original_direct_reference_count": 6,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x54904D",
+          "parent_entry": "0x549025"
+        },
+        {
+          "address": "0x549FC5",
+          "parent_entry": "0x549F62"
+        },
+        {
+          "address": "0x54A47A",
+          "parent_entry": "0x54A404"
+        },
+        {
+          "address": "0x54A559",
+          "parent_entry": "0x54A505"
+        },
+        {
+          "address": "0x54A6A9",
+          "parent_entry": "0x54A67A"
+        },
+        {
+          "address": "0x54A8C8",
+          "parent_entry": "0x54A899"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x54908A",
+      "inventory_id": "F:0014908A",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x549147",
+      "instruction_count": 75,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x549019",
+          "parent_entry": "0x548FA0"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "Copy：请求先按1F位掩码扩容，分配capacity+2，复制旧前缀后Tidy旧块并发布新buffer+1、标记0、容量/长度/NUL。5490C9为异常处理片段，不是普通空返回重试；捕获合同仍待。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。",
+      "function_chunks": [
+        {
+          "start": "0x54908A",
+          "end_exclusive": "0x549147"
+        },
+        {
+          "start": "0x54C1B8",
+          "end_exclusive": "0x54C1C2"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x54A315",
+      "inventory_id": "F:0014A315",
+      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "original_end_exclusive": "0x54A3E3",
+      "instruction_count": 80,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "inbound_evidence": [
+        {
+          "address": "0x54A044",
+          "parent_entry": "0x549FFE"
+        },
+        {
+          "address": "0x54A124",
+          "parent_entry": "0x54A0E5"
+        },
+        {
+          "address": "0x54A71A",
+          "parent_entry": "0x54A6D4"
+        },
+        {
+          "address": "0x54A7ED",
+          "parent_entry": "0x54A7AE"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
     }
   ]
 }

@@ -12249,6 +12249,70 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "唯一caller53B447；KERNEL32模块与IsProcessorFeaturePresent可用时传0并原样返值，任一步不可用尾跳53FD6E。不新增现代固定结果或把探测放到精度设置之后。"
+    },
+    {
+      "original_entry": "0x53CB10",
+      "inventory_id": "F:0013CB10",
+      "status": "系统时间消费域已由无符号64位除法承接；格式输出消费域仍待父链验收",
+      "original_end_exclusive": "0x53CB78",
+      "instruction_count": 43,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ReadSystemSeconds_4589D0"
+          ],
+          "relationship": "4589FF调用的除数高W32为0、低W32为10000000；当前uint64_t表达式保留完整商"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原为U64/U64整数商，EDX:EAX返回；现有时间源不增加符号扩展、浮点换算或W32截断。第二引用53F134属于53EB28格式输出，不随时间域记为全部实现。除零异常不专项模拟，不擅加保护。"
+    },
+    {
+      "original_entry": "0x5447A0",
+      "inventory_id": "F:001447A0",
+      "status": "原无符号64位余数及唯一格式输出消费者已取证；完整父链未实现等价验收",
+      "original_end_exclusive": "0x544815",
+      "instruction_count": 44,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一调用53F122@53EB28，原先余数后商，取余数低W32加30h产生字符，随后保存完整U64商。仅确认整数运算合同，不据此批准CRT宿主承接或称格式输出实现完成。"
+    },
+    {
+      "original_entry": "0x544620",
+      "inventory_id": "F:00144620",
+      "status": "原64位左移及输入核心两处固定移位已取证；完整父链未实现等价验收",
+      "original_end_exclusive": "0x54463F",
+      "instruction_count": 15,
+      "original_direct_reference_count": 2,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "原接收EDX:EAX与CL；CL>=64返回0，32..63把低半部移到高半部，0..31双字移位。实际53DEF4两调用53E68B/53E6DB分别固定4/3；普通C++任意计数左移不能直接宣称覆盖原所有计数。未新增越界移位模拟或通用兼容包装。"
+    },
+    {
+      "original_entry": "0x542F10",
+      "inventory_id": "F:00142F10",
+      "status": "原64位乘法及输入核心十进制累积已取证；完整父链未实现等价验收",
+      "original_end_exclusive": "0x542F44",
+      "instruction_count": 19,
+      "original_direct_reference_count": 1,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一53E6EC@53DEF4以高W32为0、低W32为10作乘数；原合成乘积低64位，不因__allmul命名推断有符号输入验证。乘后按53E6FA..53E701扩展并加字符减30h；输入扫描、符号、越界和失败语义不由此局部运算取证覆盖。"
     }
   ]
 }

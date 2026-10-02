@@ -101,6 +101,7 @@ extern InputContext gInputContextCB01F8; // 旧选择32物品名称输入；CB03
 extern InputContext gInputContextCF47E0; // 旧53输入；只承载15CH虚拟零，完整初始化生产仍待。
 extern InputContext gInputContext1050B80; // 旧87公会宠物邮件草稿，独立15CH虚拟零对象。
 extern InputContext gInputContext1051348; // 旧90公会普通邮件草稿，独立于宠物邮件输入。
+extern InputContext gInputContexts1050F18[3]; // 旧95三项资料输入，原15CH步长，末界不含105132C。
 // 原 dword_C9A96C@0xC9A96C：该特殊上下文的外部控制值，映像初值为零。
 extern std::int32_t gValueC9A96C;
 

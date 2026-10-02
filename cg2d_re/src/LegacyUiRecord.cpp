@@ -1187,6 +1187,22 @@ std::int32_t gLegacyGuildEditAllowed1050F14 = 0; // 旧95/96共享资格，53243
 constexpr char kLegacyGuildRankRequired58F584[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9";
 constexpr char kLegacyGuildRankRemove58F568[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x8A\x4F\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 constexpr char kLegacyGuildRankSelect58F4FC[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x91\x49\x91\xF0\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+LegacyPanelRecord gLegacyGuildDetailsPanel58F098 {
+    0, 0, 300, 438, 95, {238535, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyGuildDetailsSelected58F15C = -1;
+std::array<input::InputContext*, 3> gLegacyGuildDetailsInputs1057C7C {}; // 原三T*缓存，只借1050F18实体。
+std::uint32_t gLegacyGuildDetailsTick1057C88 = 0;
+std::array<char, 128> gLegacyGuildNameCache1050DD0 {};
+std::array<char, 128> gLegacyGuildSecondCache1050E50 {};
+std::int32_t gLegacyGuildDetailsPageCount1050ED0 = 0;
+std::int32_t gLegacyGuildDetailsPage1050ED4 = 0;
+std::array<std::int32_t, 5> gLegacyGuildDetailsHighlights1050EFC {};
+constexpr char kLegacyGuildNameEdit58F550[] = "\x83\x4D\x3F\x83\x68\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildSecondEdit58F534[] = "\x83\x4D\x3F\x83\x68\x83\x6E\x83\x45\x83\x58\x96\xBC\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildRankEdit58F518[] = "\x83\x4D\x3F\x83\x68\x83\x5E\x83\x43\x83\x67\x3F\x82\xF0\x93\xFC\x97\xCD\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildPermissionFirst58F4E4[] = "\x89\xC1\x93\xFC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
+constexpr char kLegacyGuildPermissionSecond58F4D0[] = "\x3F\x96\xBC\x3F\x8C\xC0\x82\xF0\x3F\x89\xC2\x82\xB5\x82\xDC\x82\xB7\x81\x42";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -9866,6 +9882,358 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildContactPanel58EF90, 1));
 }
 
+
+void Sub_530B70()
+{
+    if (ReadGuildKey10514A8() == -1) {
+        gLegacyGuildEditAllowed1050F14 = 0;
+        return;
+    }
+    gLegacyGuildEditAllowed1050F14 = ReadGuildTextIndex10514B0() == 0 ? 1 : 0;
+}
+
+std::uintptr_t Sub_530BA0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyGuildDetailsPanel58F098.x;
+    const std::int32_t y = gLegacyGuildDetailsPanel58F098.y;
+    std::array<LegacyPanelButtonRecord, 3> changes {{
+        {x + 139, y + 212, x + 205, y + 58, 64, 24, 22981, 22982},
+        {x + 139, y + 272, x + 205, y + 118, 64, 24, 22981, 22982},
+        {x + 139, y + 334, x + 205, y + 180, 64, 24, 22981, 22982},
+    }};
+    LegacyPanelButtonRecord previous {x + 120, y + 233, x + 112, y + 225, 17, 17, 238538, 238539};
+    LegacyPanelButtonRecord next {x + 197, y + 233, x + 189, y + 225, 17, 17, 238536, 238537};
+    std::array<std::array<LegacyPanelButtonRecord, 5>, 2> permissions;
+    std::array<std::array<LegacyPanelButtonRecord, 5>, 2> marks;
+    std::array<LegacyPanelButtonRecord, 5> rows;
+    for (std::int32_t row = 0; row < 5; ++row) {
+        permissions[0][row] = {x + 216, y + 268 + 30 * row, x + 208, y + 261 + 30 * row, 14, 14, 0, 0};
+        permissions[1][row] = {x + 232, y + 268 + 30 * row, x + 224, y + 261 + 30 * row, 14, 14, 0, 0};
+        marks[0][row] = {x + 216, y + 268 + 30 * row, x + 208, y + 261 + 30 * row, 14, 14, 238540, 0};
+        marks[1][row] = {x + 233, y + 268 + 30 * row, x + 224, y + 261 + 30 * row, 14, 14, 238540, 0};
+        rows[row] = {x + 199, y + 280 + 30 * row, x + 11, y + 258 + 30 * row, 376, 44, 0, 0};
+    }
+    std::array<std::int32_t, 3> changeStates {};
+    std::int32_t nextState = 0;
+    std::array<std::int32_t, 5> rowStates {};
+    std::array<std::array<std::int32_t, 5>, 2> permissionStates {};
+    const std::int32_t state = Sub_503160(opened, &gLegacyGuildDetailsPanel58F098, Sub_530B70, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        std::int32_t currentCount = 0;
+        for (input::InputContext* const context : gLegacyGuildDetailsInputs1057C7C) {
+            if (input::IsCurrentContext_503E40(context) != 0) {
+                ++currentCount;
+            }
+        }
+        std::uintptr_t result = 0;
+        if (currentCount != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyGuildDetailsInputs1057C7C.fill(nullptr);
+        return result;
+    }
+    // 原末尾384B为三个128B串区，不能按反编译InputContext解释。
+    char temporary[384];
+    char* const first = temporary;
+    char* const second = temporary + 128;
+    char* const buffer = temporary + 256;
+    if (gLegacyGuildDetailsInputs1057C7C[0] == nullptr) {
+        for (std::int32_t index = 0; index < 3; ++index) {
+            gLegacyGuildDetailsInputs1057C7C[index] = &input::gInputContexts1050F18[index];
+            gLegacyGuildDetailsInputs1057C7C[index]->text[0] = '\0';
+            gLegacyGuildDetailsInputs1057C7C[index]->totalByteLength = 0;
+            gLegacyGuildDetailsInputs1057C7C[index]->caretByteOffset = 0;
+            const char* const initial = index == 0 ? BorrowGuildName10514BC()
+                : (index == 1 ? BorrowGuildSecondText10514E5() : input::LegacyText593850());
+            std::strcpy(buffer, initial);
+            const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y + 60 * (index + 1);
+            input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[index];
+            const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x + 13;
+            input::InitializeContext_449CF0(context, inputX, inputY, 2, 0, 0, buffer, 1, 16, 0, 0);
+        }
+        std::strcpy(gLegacyGuildNameCache1050DD0.data(), BorrowGuildName10514BC());
+        input::InputContext* const focus = gLegacyGuildDetailsInputs1057C7C[0];
+        std::strcpy(gLegacyGuildSecondCache1050E50.data(), BorrowGuildSecondText10514E5());
+        input::SetContext_44B330(focus);
+        gLegacyGuildDetailsHighlights1050EFC[0] = 0;
+        gLegacyGuildDetailsPage1050ED4 = 0;
+        gLegacyGuildDetailsHighlights1050EFC[1] = 0;
+        gLegacyGuildDetailsPageCount1050ED0 = 7;
+        gLegacyGuildDetailsHighlights1050EFC[2] = 0;
+        gLegacyGuildDetailsSelected58F15C = -1;
+        gLegacyGuildDetailsHighlights1050EFC[3] = 0;
+        gLegacyGuildDetailsHighlights1050EFC[4] = 0;
+    }
+    if (std::strcmp(gLegacyGuildNameCache1050DD0.data(), BorrowGuildName10514BC()) != 0) {
+        const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
+        std::strcpy(gLegacyGuildNameCache1050DD0.data(), BorrowGuildName10514BC());
+        input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
+        const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
+        input::InitializeContext_449CF0(context, inputX + 13, inputY + 60, 2, 0, 0,
+            gLegacyGuildNameCache1050DD0.data(), 1, 16, 0, 0);
+    }
+    if (std::strcmp(gLegacyGuildSecondCache1050E50.data(), BorrowGuildSecondText10514E5()) != 0) {
+        const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
+        std::strcpy(gLegacyGuildSecondCache1050E50.data(), BorrowGuildSecondText10514E5());
+        input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
+        const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
+        input::InitializeContext_449CF0(context, inputX + 13, inputY + 120, 2, 0, 0,
+            gLegacyGuildSecondCache1050E50.data(), 1, 16, 0, 0);
+    }
+    const std::int32_t previousState = QueryPanelButtonState(&previous);
+    bool pageChanged = false;
+    if ((previousState & 1) != 0 || platform::ReadControlKeyPressFlag_4597C0(90) != 0) {
+        --gLegacyGuildDetailsPage1050ED4;
+        if (gLegacyGuildDetailsPage1050ED4 < 0) {
+            gLegacyGuildDetailsPage1050ED4 = gLegacyGuildDetailsPageCount1050ED0 - 1;
+        }
+        pageChanged = true;
+    } else {
+        nextState = QueryPanelButtonState(&next);
+        if ((nextState & 1) != 0 || platform::ReadControlKeyPressFlag_4597C0(88) != 0) {
+            gLegacyGuildDetailsPage1050ED4 = (gLegacyGuildDetailsPage1050ED4 + 1) % gLegacyGuildDetailsPageCount1050ED0;
+            pageChanged = true;
+        }
+    }
+    if (pageChanged) {
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+        gLegacyGuildDetailsHighlights1050EFC.fill(0);
+        gLegacyGuildDetailsSelected58F15C = -1;
+    }
+    std::int32_t drawPage;
+    if (gLegacyGuildEditAllowed1050F14 != 0) {
+        for (std::int32_t index = 0; index < 3; ++index) {
+            const std::int32_t top = gLegacyGuildDetailsPanel58F098.y + 60 * index;
+            const std::int32_t left = gLegacyGuildDetailsPanel58F098.x;
+            if (Sub_5049A0(left + 8, top + 58, left + 196, top + 80, -1) != 0) {
+                const std::int32_t hoverY = gLegacyGuildDetailsPanel58F098.y + 60 * index;
+                const std::uint32_t image = gValueD69768;
+                const std::int32_t hoverX = gLegacyGuildDetailsPanel58F098.x;
+                DrawGraphicHover(Low16(hoverX + 8), Low16(hoverY + 58),
+                    Low16(hoverX + 196), Low16(hoverY + 80), 214, image, 0);
+                input::SetContext_44B330(gLegacyGuildDetailsInputs1057C7C[index]);
+            }
+        }
+        const std::uint32_t now = platform::ReadTickCount32();
+        const std::uint32_t deadline = gLegacyGuildDetailsTick1057C88 + 500u;
+        if (deadline < now) {
+            changeStates[0] = QueryPanelButtonState(&changes[0]);
+            bool changeClicked = (changeStates[0] & 1) != 0;
+            if (changeClicked) {
+                input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[0];
+                if (std::strcmp(context->text, BorrowGuildName10514BC()) != 0) {
+                    std::strcpy(second, context->text);
+                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(second, first, 128));
+                    const auto socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_511250(socket, 2, first));
+                    static_cast<void>(audio::PlaySe_52C450(79, 320));
+                }
+            } else {
+                changeStates[1] = QueryPanelButtonState(&changes[1]);
+                changeClicked = (changeStates[1] & 1) != 0;
+                if (changeClicked) {
+                    input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[1];
+                    if (std::strcmp(context->text, BorrowGuildSecondText10514E5()) != 0) {
+                        std::strcpy(first, context->text);
+                        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                        const auto socket = platform::gConnectionSocket;
+                        static_cast<void>(network::Sub_511250(socket, 3, second));
+                        static_cast<void>(audio::PlaySe_52C450(79, 320));
+                    }
+                } else {
+                    changeStates[2] = QueryPanelButtonState(&changes[2]);
+                    changeClicked = (changeStates[2] & 1) != 0;
+                    if (changeClicked) {
+                        input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[2];
+                        if (context->text[0] != '\0') {
+                            std::int32_t selectedRow = 0;
+                            while (selectedRow < 5 && gLegacyGuildDetailsHighlights1050EFC[selectedRow] == 0) {
+                                ++selectedRow;
+                            }
+                            if (selectedRow < 5) {
+                                std::strcpy(first, context->text);
+                                static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                                const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
+                                const std::int32_t index = selectedRow + 5 * page;
+                                const std::int32_t flags = ReadGuildRankFlags1051514(index);
+                                const auto socket = platform::gConnectionSocket;
+                                static_cast<void>(network::Sub_5112C0(socket, index, flags, second));
+                                static_cast<void>(audio::PlaySe_52C450(79, 320));
+                                const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
+                                const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
+                                gLegacyGuildDetailsHighlights1050EFC.fill(0);
+                                input::InputContext* const resetContext = gLegacyGuildDetailsInputs1057C7C[2];
+                                gLegacyGuildDetailsSelected58F15C = -1;
+                                input::InitializeContext_449CF0(resetContext, inputX + 13, inputY + 180,
+                                    2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+                            } else {
+                                std::int32_t emptyRank = 0;
+                                while (emptyRank < 32 && BorrowGuildRankText1051518(emptyRank)[0] != '\0') {
+                                    ++emptyRank;
+                                }
+                                if (emptyRank < 32) {
+                                    std::strcpy(first, context->text);
+                                    static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                                    const auto socket = platform::gConnectionSocket;
+                                    const std::int32_t flags = ReadGuildRankFlags1051514(emptyRank);
+                                    static_cast<void>(network::Sub_5112C0(socket, -1, flags, second));
+                                    static_cast<void>(audio::PlaySe_52C450(79, 320));
+                                    const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
+                                    const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
+                                    input::InputContext* const resetContext = gLegacyGuildDetailsInputs1057C7C[2];
+                                    input::InitializeContext_449CF0(resetContext, inputX + 13, inputY + 180,
+                                        2, 0, 0, input::LegacyText593850(), 1, 16, 0, 0);
+                                } else {
+                                    static_cast<void>(audio::PlaySe_52C450(55, 320));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (changeClicked) {
+                gLegacyGuildDetailsTick1057C88 = platform::ReadTickCount32();
+            }
+            // 原531D03/531E06仍继续各组，不因前面已发送或更新时间而重判门槛。
+            for (std::int32_t group = 0; group < 2; ++group) {
+                for (std::int32_t row = 0; row < 5; ++row) {
+                    permissionStates[group][row] = QueryPanelButtonState(&permissions[group][row]);
+                    if ((permissionStates[group][row] & 1) == 0) {
+                        continue;
+                    }
+                    const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
+                    const std::int32_t index = row + 5 * page;
+                    if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
+                        std::strcpy(first, BorrowGuildRankText1051518(index));
+                        BorrowGuildRankFlags1051514(index) ^= (1 << group);
+                        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(first, second, 128));
+                        const std::int32_t sendPage = gLegacyGuildDetailsPage1050ED4;
+                        const std::int32_t sendIndex = row + 5 * sendPage;
+                        const std::int32_t flags = ReadGuildRankFlags1051514(sendIndex);
+                        const auto socket = platform::gConnectionSocket;
+                        static_cast<void>(network::Sub_5112C0(socket, sendIndex, flags, second));
+                        static_cast<void>(audio::PlaySe_52C450(79, 320));
+                        gLegacyGuildDetailsTick1057C88 = platform::ReadTickCount32();
+                    }
+                    break;
+                }
+            }
+        }
+        for (auto& button : changes) {
+            Sub_5035E0(&button, 212, 1, gValueD69768, 0);
+        }
+        drawPage = gLegacyGuildDetailsPage1050ED4;
+        for (std::int32_t row = 0; row < 5; ++row) {
+            const std::int32_t index = row + 5 * drawPage;
+            if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
+                Sub_5035E0(&permissions[0][row], 212, 1, gValueD69768, 0);
+                Sub_5035E0(&permissions[1][row], 212, 1, gValueD69768, 0);
+                drawPage = gLegacyGuildDetailsPage1050ED4;
+                if ((ReadGuildRankFlagsByte1051514(row + 5 * drawPage) & 1u) != 0) {
+                    Sub_5035E0(&marks[0][row], 212, 0, gValueD69768, 1);
+                    drawPage = gLegacyGuildDetailsPage1050ED4;
+                }
+                if ((ReadGuildRankFlagsByte1051514(row + 5 * drawPage) & 2u) != 0) {
+                    Sub_5035E0(&marks[1][row], 212, 0, gValueD69768, 1);
+                    drawPage = gLegacyGuildDetailsPage1050ED4;
+                }
+            }
+        }
+        for (std::int32_t row = 0; row < 5; ++row) {
+            if (row + 5 * drawPage < 32) {
+                const std::int32_t top = gLegacyGuildDetailsPanel58F098.y + 30 * row;
+                const std::int32_t left = gLegacyGuildDetailsPanel58F098.x;
+                const bool hit = Sub_5049A0(left + 11, top + 258, left + 199, top + 280, -1) != 0;
+                drawPage = gLegacyGuildDetailsPage1050ED4;
+                if (hit && BorrowGuildRankText1051518(row + 5 * drawPage)[0] != '\0') {
+                    const std::int32_t hoverY = gLegacyGuildDetailsPanel58F098.y + 30 * row;
+                    const std::uint32_t image = gValueD69768;
+                    const std::int32_t hoverX = gLegacyGuildDetailsPanel58F098.x;
+                    DrawGraphicHover(Low16(hoverX + 11), Low16(hoverY + 257),
+                        Low16(hoverX + 199), Low16(hoverY + 279), 214, image, 0);
+                    rowStates[row] = QueryPanelButtonState(&rows[row]);
+                    if ((rowStates[row] & 1) != 0) {
+                        const std::int32_t selectedPage = gLegacyGuildDetailsPage1050ED4;
+                        gLegacyGuildDetailsHighlights1050EFC[0] = 0;
+                        gLegacyGuildDetailsHighlights1050EFC[1] = 0;
+                        const std::int32_t inputX = gLegacyGuildDetailsPanel58F098.x;
+                        gLegacyGuildDetailsSelected58F15C = row + 5 * selectedPage;
+                        gLegacyGuildDetailsHighlights1050EFC[2] = 0;
+                        gLegacyGuildDetailsHighlights1050EFC[3] = 0;
+                        gLegacyGuildDetailsHighlights1050EFC[4] = 0;
+                        const char* const initial = BorrowGuildRankText1051518(gLegacyGuildDetailsSelected58F15C);
+                        const std::int32_t inputY = gLegacyGuildDetailsPanel58F098.y;
+                        input::InputContext* const context = gLegacyGuildDetailsInputs1057C7C[2];
+                        gLegacyGuildDetailsHighlights1050EFC[row] = 1;
+                        input::InitializeContext_449CF0(context, inputX + 15, inputY + 182,
+                            2, 0, 0, initial, 1, 16, 0, 0);
+                    }
+                    drawPage = gLegacyGuildDetailsPage1050ED4;
+                }
+            }
+        }
+    } else {
+        drawPage = gLegacyGuildDetailsPage1050ED4;
+    }
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int8_t color = gLegacyGuildDetailsHighlights1050EFC[row] != 0 ? 1 : 0;
+        const std::int32_t index = row + 5 * drawPage;
+        if (index < 32) {
+            const char* const text = BorrowGuildRankText1051518(index);
+            const std::int32_t top = gLegacyGuildDetailsPanel58F098.y + 260 + 30 * row;
+            const std::int32_t left = gLegacyGuildDetailsPanel58F098.x + 13;
+            static_cast<void>(DrawText(Low16(left), Low16(top), 2, 0, color, text, 0, 0));
+            drawPage = gLegacyGuildDetailsPage1050ED4;
+        }
+    }
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
+    const std::int32_t pageCount = gLegacyGuildDetailsPageCount1050ED0;
+    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    const std::int32_t pageY = gLegacyGuildDetailsPanel58F098.y + 225;
+    const std::int32_t pageX = gLegacyGuildDetailsPanel58F098.x + 132;
+    static_cast<void>(DrawText(Low16(pageX), Low16(pageY), 2, 0, 0, buffer, 0, 0));
+    for (input::InputContext* const context : gLegacyGuildDetailsInputs1057C7C) {
+        render::DrawInputText_4568A0(context);
+    }
+    char* const hint = ui::detail::gHoverTextD68AE8.data();
+    if (gLegacyGuildEditAllowed1050F14 != 0) {
+        if ((changeStates[0] & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildNameEdit58F550);
+        } else if ((changeStates[1] & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildSecondEdit58F534);
+        } else if ((changeStates[2] & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildRankEdit58F518);
+        }
+    }
+    if ((previousState & 0x40) != 0 || (nextState & 0x40) != 0) {
+        std::strcpy(hint, kLegacyGuildPage58F2D4);
+    }
+    for (const std::int32_t rowState : rowStates) {
+        if ((rowState & 0x40) != 0) {
+            std::strcpy(hint, kLegacyGuildRankSelect58F4FC);
+            break;
+        }
+    }
+    const std::int32_t hintPage = gLegacyGuildDetailsPage1050ED4;
+    for (std::int32_t group = 0; group < 2; ++group) {
+        for (std::int32_t row = 0; row < 5; ++row) {
+            if ((permissionStates[group][row] & 0x40) != 0) {
+                const std::int32_t index = row + 5 * hintPage;
+                if (index < 32 && BorrowGuildRankText1051518(index)[0] != '\0') {
+                    std::strcpy(hint, group == 0 ? kLegacyGuildPermissionFirst58F4E4 : kLegacyGuildPermissionSecond58F4D0);
+                    break;
+                }
+            }
+        }
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyGuildDetailsPanel58F098, 1));
+}
 
 std::int32_t Sub_532430()
 {

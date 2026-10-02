@@ -36,6 +36,8 @@ void Sub_50EB40(std::uintptr_t unusedSocket, const char* text); // 三字段批�
 void Sub_50F280(std::uintptr_t unusedSocket, std::int32_t key); // 编号相等才重置、清邮件/保存并请求关窗。
 std::int32_t Sub_532D80(); // 登录窄重置，不清邮件；返回窗口48关闭请求的音效结果。
 std::int32_t ReadGuildValue10514B4() noexcept; // 窗口51权限读取，共用回复写入的value0C。
+std::int32_t ReadGuildKey10514A8() noexcept; // 旧95初始化资格读取同源公会key，-1表示无公会。
+std::int32_t& BorrowGuildRankFlags1051514(std::int32_t index) noexcept; // 旧95借真实flags异或，协议/读取者共用。
 std::int32_t ReadGuildTextIndex10514B0() noexcept; // 窗口7分支与索引各自读取value08。
 std::int32_t ReadGuildRankFlags1051514(std::int32_t index) noexcept; // 窗口21权限，借同源职级记录value00。
 std::uint8_t ReadGuildRankFlagsByte1051514(std::int32_t index) noexcept; // 窗口21三行按钮只读权限首字节。

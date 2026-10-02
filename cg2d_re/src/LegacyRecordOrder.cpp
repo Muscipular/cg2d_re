@@ -86,6 +86,16 @@ std::int32_t ReadGuildValue10514B4() noexcept
     return gGuildHeader10514A8.value0C;
 }
 
+std::int32_t ReadGuildKey10514A8() noexcept
+{
+    return gGuildHeader10514A8.key00;
+}
+
+std::int32_t& BorrowGuildRankFlags1051514(const std::int32_t index) noexcept
+{
+    return gGuildTextRecords1051514[index].value00;
+}
+
 std::int32_t ReadGuildTextIndex10514B0() noexcept
 {
     return gGuildHeader10514A8.value08;

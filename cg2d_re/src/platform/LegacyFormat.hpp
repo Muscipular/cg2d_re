@@ -19,13 +19,18 @@ static_assert(sizeof(LegacyCountedFormatString) == 16);
 extern const char* gLegacyFormatNullText58FB38;
 extern const wchar_t* gLegacyFormatNullWide58FB3C;
 
-// 原三个浮点输出槽；初值为545031错误出口，转换器安装另有真实启动链。
+// 原六个浮点槽；初值均为545031，53B45F按原序安装，启动父仍另行接线。
 using LegacyFloatFormatCallback = char* (*)(
     double*, char*, std::int32_t, std::int32_t, std::int32_t);
 using LegacyFloatTextCallback = void (*)(char*);
+using LegacyFloatAssignCallback = void (*)(std::int32_t, void*, const char*);
+using LegacyFloatNonnegativeCallback = std::int32_t (*)(double*);
 extern LegacyFloatFormatCallback gLegacyFloatFormat58FB50;
 extern LegacyFloatTextCallback gLegacyFloatCropZeros58FB54;
+extern LegacyFloatAssignCallback gLegacyFloatAssign58FB58;
 extern LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C;
+extern LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60;
+extern LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64;
 [[noreturn]] void LegacyFloatingPointTrap_545031();
 
 // 原核心及三公共包装；原生va_list只承接参数位置，不使用宿主格式引擎。

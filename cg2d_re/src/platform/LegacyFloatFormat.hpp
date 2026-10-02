@@ -47,4 +47,17 @@ char* FormatLegacyFloatFixedCached_540177(
 char* ConvertLegacyFloatText_54019A(double* value, char* output,
     std::int32_t format, std::int32_t precision, std::int32_t uppercase);
 
+
+// 原546419；结束指针先发布，后四个参数保留原S32控制/十进制尺度语义。
+std::int32_t ParseLegacyFloat96_546419(LegacyFloat96* output, const char** end,
+    const char* source, std::int32_t preserveExtra, std::int32_t exponentAdjustment,
+    std::int32_t fractionDigits, std::int32_t allowImplicitExponent);
+std::int32_t ParseLegacyDouble_544D51(double* output, const char* source);
+std::int32_t ParseLegacySingle_544D7E(float* output, const char* source);
+
+// 原输入赋值/符号判断及六槽安装；安装只提供本体，真实启动父另行接线。
+void AssignLegacyFloatText_53FE95(std::int32_t useDouble, void* output, const char* source);
+std::int32_t IsLegacyFloatNonnegative_53FE7D(double* value);
+void InstallLegacyFloatCallbacks_53B45F();
+
 } // namespace cg::platform

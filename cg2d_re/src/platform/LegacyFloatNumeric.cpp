@@ -641,4 +641,41 @@ std::int32_t ConvertLegacyFloat96ToSingle_544D3B(
     return ConvertLegacyFloat96ToBinary_544BB9(source, output, &gLegacySingleFormat5921D8);
 }
 
+
+void ConvertLegacyDecimalMantissa_546E6F(const std::uint8_t* digits,
+    std::uint32_t count, LegacyFloat96* const output)
+{
+    std::uint32_t exponent = 0x404Eu;
+    StoreFloat32(output->bytes, 0);
+    StoreFloat32(output->bytes + 4, 0);
+    StoreFloat32(output->bytes + 8, 0);
+    while (count != 0) {
+        LegacyFloat96 saved = *output;
+        ShiftLegacyFloat96Left_546E14(output);
+        ShiftLegacyFloat96Left_546E14(output);
+        static_cast<void>(AddLegacyFloat96_546DB6(output, &saved));
+        ShiftLegacyFloat96Left_546E14(output);
+        StoreFloat32(saved.bytes + 4, 0);
+        StoreFloat32(saved.bytes + 8, 0);
+        const auto digit = static_cast<std::int32_t>(std::bit_cast<std::int8_t>(*digits));
+        StoreFloat32(saved.bytes, static_cast<std::uint32_t>(digit));
+        static_cast<void>(AddLegacyFloat96_546DB6(output, &saved));
+        ++digits;
+        --count;
+    }
+    while (LoadFloat32(output->bytes + 8) == 0) {
+        const std::uint32_t middle = LoadFloat32(output->bytes + 4);
+        StoreFloat32(output->bytes + 8, middle >> 16);
+        const std::uint32_t low = LoadFloat32(output->bytes);
+        exponent += 0xFFF0u;
+        StoreFloat32(output->bytes + 4, (low >> 16) | (middle << 16));
+        StoreFloat32(output->bytes, low << 16);
+    }
+    while ((LoadFloat32(output->bytes + 8) & 0x8000u) == 0) {
+        ShiftLegacyFloat96Left_546E14(output);
+        exponent += 0xFFFFu;
+    }
+    StoreFloat16(output->bytes + 10, static_cast<std::uint16_t>(exponent));
+}
+
 } // namespace cg::platform

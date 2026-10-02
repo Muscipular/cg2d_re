@@ -33,13 +33,26 @@ void TrapFloatText(char*)
     LegacyFloatingPointTrap_545031();
 }
 
+void TrapFloatAssign(std::int32_t, void*, const char*)
+{
+    LegacyFloatingPointTrap_545031();
+}
+
+std::int32_t TrapFloatNonnegative(double*)
+{
+    LegacyFloatingPointTrap_545031();
+}
+
 } // namespace
 
 const char* gLegacyFormatNullText58FB38 = "(null)";
 const wchar_t* gLegacyFormatNullWide58FB3C = L"(null)";
 LegacyFloatFormatCallback gLegacyFloatFormat58FB50 = TrapFloatFormat;
 LegacyFloatTextCallback gLegacyFloatCropZeros58FB54 = TrapFloatText;
+LegacyFloatAssignCallback gLegacyFloatAssign58FB58 = TrapFloatAssign;
 LegacyFloatTextCallback gLegacyFloatForcePoint58FB5C = TrapFloatText;
+LegacyFloatNonnegativeCallback gLegacyFloatNonnegative58FB60 = TrapFloatNonnegative;
+LegacyFloatFormatCallback gLegacyFloatFormatAlias58FB64 = TrapFloatFormat;
 
 [[noreturn]] void LegacyFloatingPointTrap_545031()
 {

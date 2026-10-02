@@ -91,4 +91,9 @@ std::int32_t ConvertLegacyFloat96ToBinary_544BB9(const LegacyFloat96* source,
 std::int32_t ConvertLegacyFloat96ToDouble_544D25(const LegacyFloat96* source, double* output);
 std::int32_t ConvertLegacyFloat96ToSingle_544D3B(const LegacyFloat96* source, float* output);
 
+
+// 原546E6F；将原数值数字字节（不是ASCII）累加并规范化为12B扩展值。
+void ConvertLegacyDecimalMantissa_546E6F(
+    const std::uint8_t* digits, std::uint32_t count, LegacyFloat96* output);
+
 } // namespace cg::platform

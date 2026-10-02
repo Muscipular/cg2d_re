@@ -8713,7 +8713,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_legacy_multibyte.md"
       ],
-      "boundary": "ClassifyLegacyByte仍承接既有U8比较/解析域。完整ClassifyLegacyCharacter_541955处理-1..255表域及其余lead/NLS域，已由543A1A及新增53BDEF/53BE17/53E919调用；输入404060实际接到空白/控制包装。复用545208及原C高W16/mask的输出别名。其他CRT父入口未自动接通，非法原表下标不专项模拟或增加保护，未构建/执行。 既有完整本体仅改为内部可链接声明，新增53DC64/53FDD5真实调用，函数正文保持。"
+      "boundary": "ClassifyLegacyByte仍承接既有U8比较/解析域。完整ClassifyLegacyCharacter_541955处理-1..255表域及其余lead/NLS域，已由543A1A及新增53BDEF/53BE17/53E919调用；输入404060实际接到空白/控制包装。复用545208及原C高W16/mask的输出别名。其他CRT父入口未自动接通，非法原表下标不专项模拟或增加保护，未构建/执行。 既有完整本体仅改为内部可链接声明，新增53DC64/53FDD5真实调用，函数正文保持。 新增546419五处原数字分类调用，继续重读共享MB_CUR_MAX/ctype，原函数正文未变。"
     },
     {
       "original_entry": "0x53C654",
@@ -14895,7 +14895,7 @@
     {
       "original_entry": "0x53EB28",
       "inventory_id": "F:0013EB28",
-      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "status": "原输出核心/包装或初始浮点trap已实现；六槽安装本体齐备，真实启动及业务迁移未闭合",
       "original_end_exclusive": "0x53F2A6",
       "instruction_count": 623,
       "original_direct_reference_count": 3,
@@ -14937,7 +14937,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
       "function_chunks": [
         {
           "start": "0x53EB28",
@@ -15090,22 +15090,115 @@
     {
       "original_entry": "0x53B45F",
       "inventory_id": "F:0013B45F",
-      "status": "原六浮点槽注册已取证；旧发布时序和宿主启动对应未验",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
       "original_end_exclusive": "0x53B497",
       "instruction_count": 8,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "InstallLegacyFloatCallbacks_53B45F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "InstallLegacyFloatCallbacks_53B45F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "gLegacyFloatAssign58FB58",
+            "gLegacyFloatNonnegative58FB60",
+            "gLegacyFloatFormatAlias58FB64"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "LegacyFloatAssignCallback",
+            "LegacyFloatNonnegativeCallback"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一caller53B447；内存写序58FB54/50/58/5C/60/64，六槽初值均545031。宿主直接浮点格式调用仅作职责参考，未实施旧槽/生命周期等价。",
+      "boundary": "按58FB54/58FB50/58FB58/58FB5C/58FB60/58FB64次序安装六个真实目标，主格式和别名同指54019A；六槽原初值均545031，以精确类型适配同一trap。全部依赖已有实现，但唯一53B447启动父尚未接线，不在全局初始化自动执行；原父不消费返回。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作直接浮点格式调用参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
         "symbol": "__acrt_fp_format"
-      }
+      },
+      "function_chunks": [
+        {
+          "start": "0x53B45F",
+          "end_exclusive": "0x53B497"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B447",
+          "parent_entry": "0x53B447"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行",
+      "initial_slot_evidence": [
+        {
+          "address": "0x58FB50",
+          "target": "0x545031"
+        },
+        {
+          "address": "0x58FB54",
+          "target": "0x545031"
+        },
+        {
+          "address": "0x58FB58",
+          "target": "0x545031"
+        },
+        {
+          "address": "0x58FB5C",
+          "target": "0x545031"
+        },
+        {
+          "address": "0x58FB60",
+          "target": "0x545031"
+        },
+        {
+          "address": "0x58FB64",
+          "target": "0x545031"
+        }
+      ],
+      "install_order": [
+        [
+          "0x58FB54",
+          "0x53FE2F"
+        ],
+        [
+          "0x58FB50",
+          "0x54019A"
+        ],
+        [
+          "0x58FB58",
+          "0x53FE95"
+        ],
+        [
+          "0x58FB5C",
+          "0x53FDD5"
+        ],
+        [
+          "0x58FB60",
+          "0x53FE7D"
+        ],
+        [
+          "0x58FB64",
+          "0x54019A"
+        ]
+      ]
     },
     {
       "original_entry": "0x53FD6E",
@@ -21638,7 +21731,7 @@
     {
       "original_entry": "0x545031",
       "inventory_id": "F:00145031",
-      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "status": "原输出核心/包装或初始浮点trap已实现；六槽安装本体齐备，真实启动及业务迁移未闭合",
       "original_end_exclusive": "0x545038",
       "instruction_count": 2,
       "original_direct_reference_count": 4,
@@ -21660,7 +21753,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理槽初值的调用。三个输出槽已按加载值初始化，六槽完整安装仍待，e/f/g排版分发和底层数字生产已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
+      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理/输入赋值/非负判断槽初值的调用。六槽均按加载值初始化，完整安装本体已实现，真实启动父仍待，e/f/g排版分发和底层数字生产已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
       "function_chunks": [
         {
           "start": "0x545031",
@@ -21714,7 +21807,7 @@
     {
       "original_entry": "0x54019A",
       "inventory_id": "F:0014019A",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x5401EB",
       "instruction_count": 29,
       "original_direct_reference_count": 0,
@@ -21735,7 +21828,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "原e/E分派到科学格式，f到定点，其余到通用格式；S32参数及char*原目标返回保持。上层58FB50回调改为准确char*类型但继续弃返回；六槽安装未执行，初始trap保持。",
+      "boundary": "原e/E分派到科学格式，f到定点，其余到通用格式；S32参数及char*原目标返回保持。上层58FB50回调改为准确char*类型但继续弃返回；53B45F已实现六槽安装本体并指向本函数，真实启动父尚未调用，初始trap保持。",
       "function_chunks": [
         {
           "start": "0x54019A",
@@ -21754,7 +21847,7 @@
     {
       "original_entry": "0x53FDD5",
       "inventory_id": "F:0013FDD5",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x53FE2F",
       "instruction_count": 37,
       "original_direct_reference_count": 0,
@@ -21775,7 +21868,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先原tolower首S8判e，否则前移后按共享MB_CUR_MAX和真实ctype/NLS的数字位推进。插入唯一原小数点字节后逐字节交换搬移到NUL，不预查空串/负号、不批量快照；58FB5C安装仍待。",
+      "boundary": "先原tolower首S8判e，否则前移后按共享MB_CUR_MAX和真实ctype/NLS的数字位推进。插入唯一原小数点字节后逐字节交换搬移到NUL，不预查空串/负号、不批量快照；53B45F安装本体已接58FB5C，真实启动父仍待。",
       "function_chunks": [
         {
           "start": "0x53FDD5",
@@ -21794,7 +21887,7 @@
     {
       "original_entry": "0x53FE2F",
       "inventory_id": "F:0013FE2F",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x53FE7D",
       "instruction_count": 38,
       "original_direct_reference_count": 0,
@@ -21815,7 +21908,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先找共享小数点或NUL；存在小数点才找e/E/NUL，倒退去尾0及可能的小数点，逐字节搬回后缀含NUL。只采样一次小数点，不改变源目标别名读序；58FB54安装仍待。",
+      "boundary": "先找共享小数点或NUL；存在小数点才找e/E/NUL，倒退去尾0及可能的小数点，逐字节搬回后缀含NUL。只采样一次小数点，不改变源目标别名读序；53B45F安装本体已接58FB54，真实启动父仍待。",
       "function_chunks": [
         {
           "start": "0x53FE2F",
@@ -21834,7 +21927,7 @@
     {
       "original_entry": "0x53FED3",
       "inventory_id": "F:0013FED3",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x53FFD7",
       "instruction_count": 115,
       "original_direct_reference_count": 2,
@@ -21855,7 +21948,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "正常fltout→fptostr(precision+1)，缓存分支读唯一1086048并按precision>0移位。保留符号、小数点插入、API后重读缓存标志决定后缀位置、原e+000模板、数字串首非0才计算decimal-1三位指数。顶层分派、缓存父及544F17数字生产已接；六槽安装和完整运行仍待。",
+      "boundary": "正常fltout→fptostr(precision+1)，缓存分支读唯一1086048并按precision>0移位。保留符号、小数点插入、API后重读缓存标志决定后缀位置、原e+000模板、数字串首非0才计算decimal-1三位指数。顶层分派、缓存父及544F17数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。",
       "function_chunks": [
         {
           "start": "0x53FED3",
@@ -21877,7 +21970,7 @@
     {
       "original_entry": "0x53FFD7",
       "inventory_id": "F:0013FFD7",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x5400B5",
       "instruction_count": 92,
       "original_direct_reference_count": 2,
@@ -21898,7 +21991,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "正常按decimal+precision舍入，缓存且先前指数等于precision补0/NUL；保留符号、decimal<=0的前导0、小数点移位和负decimal补零。缓存模式不裁precision，非缓存才取较小补零数。顶层/缓存父、移位/舍入及数字生产已接；六槽安装和完整运行仍待。",
+      "boundary": "正常按decimal+precision舍入，缓存且先前指数等于precision补0/NUL；保留符号、decimal<=0的前导0、小数点移位和负decimal补零。缓存模式不裁precision，非缓存才取较小补零数。顶层/缓存父、移位/舍入及数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。",
       "function_chunks": [
         {
           "start": "0x53FFD7",
@@ -21920,7 +22013,7 @@
     {
       "original_entry": "0x5400B5",
       "inventory_id": "F:001400B5",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x540150",
       "instruction_count": 63,
       "original_direct_reference_count": 1,
@@ -21941,7 +22034,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "调用数字生产后发布唯一结果指针/舍入前指数，舍入后重读全局记录更新进位U8和指数S32；指数<-4或>=precision转缓存e，否则缓存f，进位转f时先删除数字尾字节。真实E/F复用同一记录，不做独立第二次数值转换；数字生产者已接，六槽安装仍待。",
+      "boundary": "调用数字生产后发布唯一结果指针/舍入前指数，舍入后重读全局记录更新进位U8和指数S32；指数<-4或>=precision转缓存e，否则缓存f，进位转f时先删除数字尾字节。真实E/F复用同一记录，不做独立第二次数值转换；数字生产者已接，六槽安装本体已实现，真实启动调用仍待。",
       "function_chunks": [
         {
           "start": "0x5400B5",
@@ -21959,7 +22052,7 @@
     {
       "original_entry": "0x53DC64",
       "inventory_id": "F:0013DC64",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x53DD2F",
       "instruction_count": 78,
       "original_direct_reference_count": 5,
@@ -22014,7 +22107,7 @@
     {
       "original_entry": "0x5401EB",
       "inventory_id": "F:001401EB",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x540210",
       "instruction_count": 18,
       "original_direct_reference_count": 4,
@@ -22065,7 +22158,7 @@
     {
       "original_entry": "0x544EA0",
       "inventory_id": "F:00144EA0",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x544F17",
       "instruction_count": 57,
       "original_direct_reference_count": 3,
@@ -22086,7 +22179,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先采样digits指针再写首0，正S32精度逐次读取源，源NUL后补0，末尾NUL；精度非负且下个源S8>=5才逆向9→0进位。首位1增加同一record.decimal，否则按53D710正常重叠合同移除预留0。三个e/f/g父及底层数字生产已接，六槽安装仍待。",
+      "boundary": "先采样digits指针再写首0，正S32精度逐次读取源，源NUL后补0，末尾NUL；精度非负且下个源S8>=5才逆向9→0进位。首位1增加同一record.decimal，否则按53D710正常重叠合同移除预留0。三个e/f/g父及底层数字生产已接，六槽安装本体已实现，真实启动调用仍待。",
       "function_chunks": [
         {
           "start": "0x544EA0",
@@ -22112,7 +22205,7 @@
     {
       "original_entry": "0x540150",
       "inventory_id": "F:00140150",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x540177",
       "instruction_count": 9,
       "original_direct_reference_count": 1,
@@ -22151,7 +22244,7 @@
     {
       "original_entry": "0x540177",
       "inventory_id": "F:00140177",
-      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装与完整运行未闭合",
+      "status": "原浮点排版或字符转换本体已实现；数字生产已接；六槽安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x54019A",
       "instruction_count": 8,
       "original_direct_reference_count": 1,
@@ -22190,7 +22283,7 @@
     {
       "original_entry": "0x546E14",
       "inventory_id": "F:00146E14",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x546E42",
       "instruction_count": 21,
       "original_direct_reference_count": 9,
@@ -22212,7 +22305,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "读取低/中W32，先写低，之后读高再写中/高，逐位进位并返回原目标。乘法内部和数字生成已接，其他父链仍待；96位表示为12B，不借宿主浮点算术。",
+      "boundary": "读取低/中W32，先写低，之后读高再写中/高，逐位进位并返回原目标。乘法、数字生成及546E6F十进制输入尾数父已接；96位表示为12B，不借宿主浮点算术。",
       "function_chunks": [
         {
           "start": "0x546E14",
@@ -22262,7 +22355,7 @@
     {
       "original_entry": "0x546E42",
       "inventory_id": "F:00146E42",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x546E6F",
       "instruction_count": 21,
       "original_direct_reference_count": 2,
@@ -22306,7 +22399,7 @@
     {
       "original_entry": "0x546DB6",
       "inventory_id": "F:00146DB6",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x546E14",
       "instruction_count": 38,
       "original_direct_reference_count": 3,
@@ -22328,7 +22421,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "按原addl调用顺序处理低进位、中间加1再加源中间、高进位和最终高字；源中/高字在前面写入后才读，保留同址参数的动态读取。返回最后高字carry，数字生成父已接，其他父调用仍待。",
+      "boundary": "按原addl调用顺序处理低进位、中间加1再加源中间、高进位和最终高字；源中/高字在前面写入后才读，保留同址参数的动态读取。返回最后高字carry，数字生成与546E6F十进制输入尾数父已接。",
       "function_chunks": [
         {
           "start": "0x546DB6",
@@ -22354,7 +22447,7 @@
     {
       "original_entry": "0x547B91",
       "inventory_id": "F:00147B91",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x547C0D",
       "instruction_count": 52,
       "original_direct_reference_count": 2,
@@ -22376,7 +22469,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "指数0无操作，负指数选负表，preserveExtra0清低W16；按八进制位及每组7项选原29条12B因子。因子低W16>=8000H复制后将+2未对齐W32递减，已核547BF0字节FF4DF6；其他借原只读表。调用真实ld12mul，未新增范围保护或负指数异常模拟。",
+      "boundary": "指数0无操作，负指数选负表，preserveExtra0清低W16；按八进制位及每组7项选原29条12B因子。因子低W16>=8000H复制后将+2未对齐W32递减，已核547BF0字节FF4DF6；其他借原只读表。调用真实ld12mul，未新增范围保护或负指数异常模拟。 546419文本解析父已接。",
       "function_chunks": [
         {
           "start": "0x547B91",
@@ -22414,7 +22507,7 @@
     {
       "original_entry": "0x547971",
       "inventory_id": "F:00147971",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x547B91",
       "instruction_count": 177,
       "original_direct_reference_count": 2,
@@ -22458,7 +22551,7 @@
     {
       "original_entry": "0x546D95",
       "inventory_id": "F:00146D95",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x546DB6",
       "instruction_count": 15,
       "original_direct_reference_count": 7,
@@ -22480,7 +22573,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "W32相加结果小于任一输入则carry1，否则0；最后写目标4B（可未对齐），返回carry。已由96位加法、乘法及544A08尾数进位两处实际调用；数字生成和二进制表示转换内部依赖已接，完整安装仍待。",
+      "boundary": "W32相加结果小于任一输入则carry1，否则0；最后写目标4B（可未对齐），返回carry。已由96位加法、乘法及544A08尾数进位两处实际调用；数字生成和二进制表示转换内部依赖已接，六槽安装本体已实现，真实启动仍待。",
       "function_chunks": [
         {
           "start": "0x546D95",
@@ -22522,7 +22615,7 @@
     {
       "original_entry": "0x544F7B",
       "inventory_id": "F:00144F7B",
-      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装与完整运行未闭合",
+      "status": "原扩展浮点字节运算本体及内部依赖已实现；数字生成已接；安装本体齐备，真实启动与完整运行未闭合",
       "original_end_exclusive": "0x545031",
       "instruction_count": 70,
       "original_direct_reference_count": 1,
@@ -22562,7 +22655,7 @@
     {
       "original_entry": "0x546F36",
       "inventory_id": "F:00146F36",
-      "status": "原十进制数字生成与共享结果发布已实现并接e/f/g；六槽安装及完整运行未闭合",
+      "status": "原十进制数字生成与共享结果发布已实现并接e/f/g；六槽安装本体齐备，真实启动及完整运行未闭合",
       "original_end_exclusive": "0x5471C9",
       "instruction_count": 232,
       "original_direct_reference_count": 1,
@@ -22626,7 +22719,7 @@
     {
       "original_entry": "0x544F17",
       "inventory_id": "F:00144F17",
-      "status": "原十进制数字生成与共享结果发布已实现并接e/f/g；六槽安装及完整运行未闭合",
+      "status": "原十进制数字生成与共享结果发布已实现并接e/f/g；六槽安装本体齐备，真实启动及完整运行未闭合",
       "original_end_exclusive": "0x544F7B",
       "instruction_count": 34,
       "original_direct_reference_count": 3,
@@ -22650,7 +22743,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "按dtold→I10_OUTPUT(17,0)生产唯一10862B0记录，依序发布返回W32、符号S8扩S32、小数点S16扩S32、共享数字串原生指针到10862D0结果；返回同一结果地址，覆盖生命周期不变。e/f/g三个父均已接，不分配私有结果；六槽安装和真实启动仍待。",
+      "boundary": "按dtold→I10_OUTPUT(17,0)生产唯一10862B0记录，依序发布返回W32、符号S8扩S32、小数点S16扩S32、共享数字串原生指针到10862D0结果；返回同一结果地址，覆盖生命周期不变。e/f/g三个父均已接，不分配私有结果；六槽安装本体已实现，真实启动仍待。",
       "function_chunks": [
         {
           "start": "0x544F17",
@@ -22676,7 +22769,7 @@
     {
       "original_entry": "0x5449BF",
       "inventory_id": "F:001449BF",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544A08",
       "instruction_count": 36,
       "original_direct_reference_count": 1,
@@ -22716,7 +22809,7 @@
     {
       "original_entry": "0x544A08",
       "inventory_id": "F:00144A08",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544A5E",
       "instruction_count": 43,
       "original_direct_reference_count": 1,
@@ -22756,7 +22849,7 @@
     {
       "original_entry": "0x544B11",
       "inventory_id": "F:00144B11",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544B2C",
       "instruction_count": 13,
       "original_direct_reference_count": 1,
@@ -22796,7 +22889,7 @@
     {
       "original_entry": "0x544B05",
       "inventory_id": "F:00144B05",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544B11",
       "instruction_count": 8,
       "original_direct_reference_count": 3,
@@ -22844,7 +22937,7 @@
     {
       "original_entry": "0x544AEA",
       "inventory_id": "F:00144AEA",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544B05",
       "instruction_count": 13,
       "original_direct_reference_count": 2,
@@ -22888,7 +22981,7 @@
     {
       "original_entry": "0x544A5E",
       "inventory_id": "F:00144A5E",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544AEA",
       "instruction_count": 71,
       "original_direct_reference_count": 2,
@@ -22932,7 +23025,7 @@
     {
       "original_entry": "0x544B2C",
       "inventory_id": "F:00144B2C",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544BB9",
       "instruction_count": 64,
       "original_direct_reference_count": 4,
@@ -22984,7 +23077,7 @@
     {
       "original_entry": "0x544BB9",
       "inventory_id": "F:00144BB9",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544D25",
       "instruction_count": 138,
       "original_direct_reference_count": 2,
@@ -23006,7 +23099,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先采样输入符号/指数和高/中/低尾数，零指数保留符号并按是否全零返回0或2；其他保存尾数、原舍入carry增指数后判断下界/次正规/上界/正常。次正规恢复原尾数再移位/舍入/移位并返2，上界按原置位/移位/指数拼接返1，正常清显式首位返0。64位先高W32再低W32写，32位写一个W32，其他位数不写；无宿主数值强转或新增NaN特殊规则。两个包装已接，文本解析及输入赋值仍待。",
+      "boundary": "先采样输入符号/指数和高/中/低尾数，零指数保留符号并按是否全零返回0或2；其他保存尾数、原舍入carry增指数后判断下界/次正规/上界/正常。次正规恢复原尾数再移位/舍入/移位并返2，上界按原置位/移位/指数拼接返1，正常清显式首位返0。64位先高W32再低W32写，32位写一个W32，其他位数不写；无宿主数值强转或新增NaN特殊规则。两个包装、文本解析及输入赋值已接，扫描核心/真实启动仍待。",
       "function_chunks": [
         {
           "start": "0x544BB9",
@@ -23028,7 +23121,7 @@
     {
       "original_entry": "0x544D25",
       "inventory_id": "F:00144D25",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544D3B",
       "instruction_count": 6,
       "original_direct_reference_count": 1,
@@ -23050,7 +23143,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "传入原5921C0六S32参数到真实ld12cvt并返回状态；输出double对象表示由核心按原高低W32写序生成。544D51文本转换父仍待，不使用宿主long double转换。",
+      "boundary": "传入原5921C0六S32参数到真实ld12cvt并返回状态；输出double对象表示由核心按原高低W32写序生成。544D51文本转换父已接，不使用宿主long double转换。",
       "function_chunks": [
         {
           "start": "0x544D25",
@@ -23080,7 +23173,7 @@
     {
       "original_entry": "0x544D3B",
       "inventory_id": "F:00144D3B",
-      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值和完整安装仍待",
+      "status": "原扩展数到浮点表示转换及尾数依赖已实现；文本解析/输入赋值与六槽安装本体已接，扫描核心/真实启动仍待",
       "original_end_exclusive": "0x544D51",
       "instruction_count": 6,
       "original_direct_reference_count": 1,
@@ -23102,7 +23195,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "传入原5921D8六S32参数到真实ld12cvt并返回状态；输出float对象表示由核心写W32。544D7E文本转换父仍待；不据5921EC额外索引引用推测相邻数据表。",
+      "boundary": "传入原5921D8六S32参数到真实ld12cvt并返回状态；输出float对象表示由核心写W32。544D7E文本转换父已接；不据5921EC额外索引引用推测相邻数据表。",
       "function_chunks": [
         {
           "start": "0x544D3B",
@@ -23128,6 +23221,278 @@
           127
         ]
       }
+    },
+    {
+      "original_entry": "0x546419",
+      "inventory_id": "F:00146419",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x5468BA",
+      "instruction_count": 417,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ParseLegacyFloat96_546419"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ParseLegacyFloat96_546419",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "原12态解析保留四种首空白、ASCII起始门禁与共享ctype/NLS数字分类区别、唯一小数点、D/E/d/e及可选无标记指数。25B数值字节暂存，整数/小数超位的调整差异、指数5201截累积后继续扫描、缓冲+23 S8>=5时U8自增再保留24位、去尾0保持。结束指针先发布，失败按原始/指数起点回退；默认尺度/小数位仅在无相应标记时作用。超范围返2/1、无有效数字返4、其他返0，最终+6/+2/+10/+0写序与符号保持；两个文本父已接，扫描核心仍待。",
+      "function_chunks": [
+        {
+          "start": "0x546419",
+          "end_exclusive": "0x5468BA"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x544D68",
+          "parent_entry": "0x544D51"
+        },
+        {
+          "address": "0x544D95",
+          "parent_entry": "0x544D7E"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行",
+      "dispatch_evidence": {
+        "table_address": "0x5468BA",
+        "targets": [
+          "0x546483",
+          "0x5464D2",
+          "0x546529",
+          "0x546553",
+          "0x5465AE",
+          "0x546625",
+          "0x54665B",
+          "0x5466A5",
+          "0x546684",
+          "0x546709",
+          "0x5466F3",
+          "0x5466BF"
+        ]
+      },
+      "digit23_evidence": {
+        "compare_address": "0x5467A8",
+        "compare_bytes": "807dbb05",
+        "increment_address": "0x5467AE",
+        "increment_bytes": "fe45bb",
+        "buffer_byte_offset": 23
+      }
+    },
+    {
+      "original_entry": "0x546E6F",
+      "inventory_id": "F:00146E6F",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x546F36",
+      "instruction_count": 76,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "ConvertLegacyDecimalMantissa_546E6F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.hpp",
+          "symbols": [
+            "ConvertLegacyDecimalMantissa_546E6F",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先清三W32，每位先96位乘十再读取原数字S8符号扩展到低W32相加；输入不是ASCII。规范化先高W32为0时逐16位搬移，再按8000H位逐次左移，W32指数累加FFF0/FFFF，最终写低W16。保持读写/正常carry，不增加count0或全零返回保护；唯一文本解析父在有效数字去尾0后调用。",
+      "function_chunks": [
+        {
+          "start": "0x546E6F",
+          "end_exclusive": "0x546F36"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5467E3",
+          "parent_entry": "0x546419"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544D51",
+      "inventory_id": "F:00144D51",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x544D7E",
+      "instruction_count": 21,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ParseLegacyDouble_544D51"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ParseLegacyDouble_544D51",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先strgtold12至12B局部，结束指针覆盖本地source槽，后四控制参数均0；忽略解析返回，调用真实544D25写double并返回转换状态。输入赋值父已接，不用宿主strtod替代。",
+      "function_chunks": [
+        {
+          "start": "0x544D51",
+          "end_exclusive": "0x544D7E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FEA7",
+          "parent_entry": "0x53FE95"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544D7E",
+      "inventory_id": "F:00144D7E",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x544DAB",
+      "instruction_count": 21,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ParseLegacySingle_544D7E"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ParseLegacySingle_544D7E",
+            "LegacyFloat96"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先strgtold12至12B局部并发布本地source结束指针，后四参数均0；忽略解析返回，调用真实544D3B写float并返回其状态。输入赋值父已接，不新增格式/失败门禁。",
+      "function_chunks": [
+        {
+          "start": "0x544D7E",
+          "end_exclusive": "0x544DAB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FEC2",
+          "parent_entry": "0x53FE95"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53FE7D",
+      "inventory_id": "F:0013FE7D",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x53FE95",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "IsLegacyFloatNonnegative_53FE7D"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "IsLegacyFloatNonnegative_53FE7D"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "原double与加载零常量比较，非负含正负零返1，负或无序返0；以相应C++比较表达数值结果，未模拟/运行验证x87状态字及信令NaN异常传送。已作为58FB60真实安装目标，原端无已识别的读取该槽直接引用。",
+      "function_chunks": [
+        {
+          "start": "0x53FE7D",
+          "end_exclusive": "0x53FE95"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B487",
+          "parent_entry": "0x53B45F",
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行",
+      "comparison_constant": {
+        "address": "0x54D5D0",
+        "bytes": "0000000000000000"
+      }
+    },
+    {
+      "original_entry": "0x53FE95",
+      "inventory_id": "F:0013FE95",
+      "status": "原浮点文本解析/输入赋值及六槽安装本体已实现；扫描核心和真实启动未闭合",
+      "original_end_exclusive": "0x53FED3",
+      "instruction_count": 29,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "AssignLegacyFloatText_53FE95"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "AssignLegacyFloatText_53FE95"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "mode非0先ParseLegacyDouble至局部，再低W32/高W32写目标；mode0先ParseLegacySingle再W32写目标。均忽略包装返回，原复用source参数槽的全W32覆盖改用float局部，保持source原生指针完整且不补初值。已接58FB58安装目标，53DEF4扫描父的间接调用仍待接线。",
+      "function_chunks": [
+        {
+          "start": "0x53FE95",
+          "end_exclusive": "0x53FED3"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B473",
+          "parent_entry": "0x53B45F",
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令、跳表/实际字段字节/共享槽及新增源码静态核对；未编译执行"
     }
   ]
 }

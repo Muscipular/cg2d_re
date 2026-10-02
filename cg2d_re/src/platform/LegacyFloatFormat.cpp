@@ -1,4 +1,5 @@
 #include "LegacyFloatFormat.hpp"
+#include "LegacyFormat.hpp"
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
 
@@ -263,6 +264,372 @@ char* ConvertLegacyFloatText_54019A(double* const value, char* const output,
         return FormatLegacyFloatFixed_53FFD7(value, output, precision);
     }
     return FormatLegacyFloatGeneral_5400B5(value, output, precision, uppercase);
+}
+
+
+std::int32_t ParseLegacyFloat96_546419(LegacyFloat96* const output, const char** const end,
+    const char* const source, const std::int32_t preserveExtra,
+    const std::int32_t exponentAdjustment, const std::int32_t fractionDigits,
+    const std::int32_t allowImplicitExponent)
+{
+    // 原5468BA跳表的状态值；D/E及无标记指数各自保留回退起点。
+    enum class ParseState : std::int32_t {
+        Start = 0, LeadingZeros = 1, AfterSign = 2, Integer = 3,
+        Fraction = 4, RequireFraction = 5, ExponentStart = 6,
+        ExponentSign = 7, ExponentZeros = 8, ExponentDigits = 9,
+        Done = 10, ImplicitExponent = 11
+    };
+    const char* cursor = source;
+    const char* rollback = source;
+    std::uint8_t digits[25];
+    auto* digitEnd = digits;
+    std::uint32_t digitCount = 0;
+    std::uint16_t sign = 0;
+    std::int32_t exponentSign = 1;
+    std::int32_t exponent = 0;
+    std::int32_t decimalAdjustment = 0;
+    bool haveNumber = false;
+    bool havePoint = false;
+    bool haveExponent = false;
+    ParseState state = ParseState::Start;
+    const auto readByte = [&cursor]() {
+        return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(*cursor++));
+    };
+    const auto isDigit = [](const std::int8_t character) {
+        const auto value = static_cast<std::uint8_t>(character);
+        if (gLegacyCtypeMaxBytes58FE3C > 1) {
+            return ClassifyLegacyCharacter_541955(value, 4) != 0;
+        }
+        const auto* const types = reinterpret_cast<const std::uint8_t*>(gCtypePointer58FC30);
+        return (types[value * 2] & 4u) != 0;
+    };
+    for (;;) {
+        const auto character = static_cast<std::uint8_t>(*cursor);
+        if (character != ' ' && character != '\t' && character != '\n' && character != '\r') {
+            break;
+        }
+        ++cursor;
+    }
+    for (;;) {
+        std::int8_t character = readByte();
+        switch (state) {
+        case ParseState::Start:
+            if (character >= '1' && character <= '9') {
+                state = ParseState::Integer;
+                --cursor;
+                continue;
+            }
+            if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {
+                state = ParseState::RequireFraction;
+                continue;
+            }
+            if (character == '+') {
+                sign = 0;
+                state = ParseState::AfterSign;
+                continue;
+            }
+            if (character == '-') {
+                sign = 0x8000u;
+                state = ParseState::AfterSign;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseState::LeadingZeros;
+                continue;
+            }
+            --cursor;
+            goto finish;
+        case ParseState::LeadingZeros:
+            haveNumber = true;
+            if (character >= '1' && character <= '9') {
+                state = ParseState::Integer;
+                --cursor;
+                continue;
+            }
+            if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {
+                state = ParseState::Fraction;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseState::LeadingZeros;
+                continue;
+            }
+            goto suffix;
+        case ParseState::AfterSign:
+            if (character >= '1' && character <= '9') {
+                state = ParseState::Integer;
+                --cursor;
+                continue;
+            }
+            if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {
+                state = ParseState::RequireFraction;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseState::LeadingZeros;
+                continue;
+            }
+            cursor = rollback;
+            goto finish;
+        case ParseState::Integer:
+            haveNumber = true;
+            while (isDigit(character)) {
+                if (digitCount < 25) {
+                    ++digitCount;
+                    *digitEnd++ = static_cast<std::uint8_t>(character - '0');
+                } else {
+                    ++decimalAdjustment;
+                }
+                character = readByte();
+            }
+            if (static_cast<std::uint8_t>(character) == gLegacyDecimalPoint58FE40) {
+                state = ParseState::Fraction;
+                continue;
+            }
+            goto suffix;
+        case ParseState::Fraction:
+            haveNumber = true;
+            havePoint = true;
+            if (digitCount == 0) {
+                while (character == '0') {
+                    --decimalAdjustment;
+                    character = readByte();
+                }
+            }
+            while (isDigit(character)) {
+                if (digitCount < 25) {
+                    ++digitCount;
+                    --decimalAdjustment;
+                    *digitEnd++ = static_cast<std::uint8_t>(character - '0');
+                }
+                character = readByte();
+            }
+            goto suffix;
+        case ParseState::RequireFraction:
+            havePoint = true;
+            if (!isDigit(character)) {
+                cursor = rollback;
+                goto finish;
+            }
+            state = ParseState::Fraction;
+            --cursor;
+            continue;
+        case ParseState::ExponentStart:
+            rollback = cursor - 2;
+            if (character >= '1' && character <= '9') {
+                state = ParseState::ExponentDigits;
+                --cursor;
+                continue;
+            }
+            if (character == '+') {
+                state = ParseState::ExponentSign;
+                continue;
+            }
+            if (character == '-') {
+                exponentSign = -1;
+                state = ParseState::ExponentSign;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseState::ExponentZeros;
+                continue;
+            }
+            cursor = rollback;
+            goto finish;
+        case ParseState::ExponentSign:
+            if (character >= '1' && character <= '9') {
+                state = ParseState::ExponentDigits;
+                --cursor;
+                continue;
+            }
+            if (character == '0') {
+                state = ParseState::ExponentZeros;
+                continue;
+            }
+            cursor = rollback;
+            goto finish;
+        case ParseState::ExponentZeros:
+            haveExponent = true;
+            while (character == '0') {
+                character = readByte();
+            }
+            if (character >= '1' && character <= '9') {
+                state = ParseState::ExponentDigits;
+                --cursor;
+                continue;
+            }
+            --cursor;
+            goto finish;
+        case ParseState::ExponentDigits:
+            haveExponent = true;
+            exponent = 0;
+            while (isDigit(character)) {
+                exponent = character + exponent * 10 - '0';
+                if (exponent > 5200) {
+                    exponent = 5201;
+                    break;
+                }
+                character = readByte();
+            }
+            // 原停止累计后再次分类当前字节，再继续消费剩余指数数字。
+            while (isDigit(character)) {
+                character = readByte();
+            }
+            --cursor;
+            goto finish;
+        case ParseState::ImplicitExponent:
+            if (allowImplicitExponent == 0) {
+                --cursor;
+                goto finish;
+            }
+            rollback = cursor - 1;
+            if (character == '+') {
+                state = ParseState::ExponentSign;
+                continue;
+            }
+            if (character == '-') {
+                exponentSign = -1;
+                state = ParseState::ExponentSign;
+                continue;
+            }
+            cursor = rollback;
+            goto finish;
+        case ParseState::Done:
+            goto finish;
+        default:
+            continue;
+        }
+    suffix:
+        if (character == '+' || character == '-') {
+            --cursor;
+            state = ParseState::ImplicitExponent;
+            continue;
+        }
+        if ((character > 'C' && character <= 'E') || (character > 'c' && character <= 'e')) {
+            state = ParseState::ExponentStart;
+            continue;
+        }
+        --cursor;
+        goto finish;
+    }
+finish:
+    *end = cursor;
+    std::uint16_t extra;
+    std::uint16_t binaryExponent;
+    std::uint32_t low;
+    std::uint32_t high;
+    std::int32_t result = 0;
+    if (!haveNumber) {
+        extra = 0;
+        binaryExponent = 0;
+        high = 0;
+        low = 0;
+        result = 4;
+    } else {
+        if (digitCount > 24) {
+            // 原缓冲+23（var_45），不是第25位；只增加该U8，不传播十进制进位。
+            if (std::bit_cast<std::int8_t>(digits[23]) >= 5) {
+                ++digits[23];
+            }
+            digitCount = 24;
+            --digitEnd;
+            ++decimalAdjustment;
+        }
+        if (digitCount != 0) {
+            while (*--digitEnd == 0) {
+                --digitCount;
+                ++decimalAdjustment;
+            }
+            LegacyFloat96 value;
+            ConvertLegacyDecimalMantissa_546E6F(digits, digitCount, &value);
+            if (exponentSign < 0) {
+                exponent = -exponent;
+            }
+            exponent += decimalAdjustment;
+            if (!haveExponent) {
+                exponent += exponentAdjustment;
+            }
+            if (!havePoint) {
+                exponent -= fractionDigits;
+            }
+            if (exponent > 5200) {
+                low = 0;
+                binaryExponent = 0x7FFFu;
+                high = 0x80000000u;
+                extra = 0;
+                result = 2;
+            } else if (exponent < -5200) {
+                extra = 0;
+                binaryExponent = 0;
+                high = 0;
+                low = 0;
+                result = 1;
+            } else {
+                ScaleLegacyFloat96_547B91(&value, exponent, preserveExtra);
+                std::memcpy(&extra, value.bytes, sizeof(extra));
+                std::memcpy(&low, value.bytes + 2, sizeof(low));
+                std::memcpy(&high, value.bytes + 6, sizeof(high));
+                std::memcpy(&binaryExponent, value.bytes + 10, sizeof(binaryExponent));
+            }
+        } else {
+            extra = 0;
+            binaryExponent = 0;
+            high = 0;
+            low = 0;
+        }
+    }
+    binaryExponent = static_cast<std::uint16_t>(binaryExponent | sign);
+    std::memcpy(output->bytes + 6, &high, sizeof(high));
+    std::memcpy(output->bytes + 2, &low, sizeof(low));
+    std::memcpy(output->bytes + 10, &binaryExponent, sizeof(binaryExponent));
+    std::memcpy(output->bytes, &extra, sizeof(extra));
+    return result;
+}
+
+std::int32_t ParseLegacyDouble_544D51(double* const output, const char* source)
+{
+    LegacyFloat96 value;
+    static_cast<void>(ParseLegacyFloat96_546419(&value, &source, source, 0, 0, 0, 0));
+    return ConvertLegacyFloat96ToDouble_544D25(&value, output);
+}
+
+std::int32_t ParseLegacySingle_544D7E(float* const output, const char* source)
+{
+    LegacyFloat96 value;
+    static_cast<void>(ParseLegacyFloat96_546419(&value, &source, source, 0, 0, 0, 0));
+    return ConvertLegacyFloat96ToSingle_544D3B(&value, output);
+}
+
+void AssignLegacyFloatText_53FE95(const std::int32_t useDouble, void* const output,
+    const char* const source)
+{
+    if (useDouble != 0) {
+        double value;
+        static_cast<void>(ParseLegacyDouble_544D51(&value, source));
+        const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&value);
+        std::memcpy(output, bytes, 4);
+        std::memcpy(static_cast<std::uint8_t*>(output) + 4, bytes + 4, 4);
+    } else {
+        float value;
+        static_cast<void>(ParseLegacySingle_544D7E(&value, source));
+        std::memcpy(output, &value, 4);
+    }
+}
+
+std::int32_t IsLegacyFloatNonnegative_53FE7D(double* const value)
+{
+    // 原无序比较也返回0；本体不模拟x87状态字及浮点异常传送。
+    return *value >= 0.0 ? 1 : 0;
+}
+
+void InstallLegacyFloatCallbacks_53B45F()
+{
+    gLegacyFloatCropZeros58FB54 = CropLegacyFloatZeros_53FE2F;
+    gLegacyFloatFormat58FB50 = ConvertLegacyFloatText_54019A;
+    gLegacyFloatAssign58FB58 = AssignLegacyFloatText_53FE95;
+    gLegacyFloatForcePoint58FB5C = ForceLegacyDecimalPoint_53FDD5;
+    gLegacyFloatNonnegative58FB60 = IsLegacyFloatNonnegative_53FE7D;
+    gLegacyFloatFormatAlias58FB64 = ConvertLegacyFloatText_54019A;
 }
 
 } // namespace cg::platform

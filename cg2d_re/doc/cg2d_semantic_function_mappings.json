@@ -1,8 +1,188 @@
 {
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
-  "scope": "R1显式语义映射增量；未列函数仍须单独分类，不能按此计算总完成率。",
+  "scope": "R1显式语义映射、已知待决状态与独立分类引用；未列函数仍须单独分类，不能按此计算总完成率。",
   "verification": "仅地址与当前源码/既有取证文档的静态映射，不新增构建、测试、运行或哈希校验。",
+  "classification_references": [
+    {
+      "path": "doc/cg2d_render_depth_scope.json",
+      "evidence_document": "doc/cg2d_render_depth_scope.md",
+      "scope": "九个完整低色深入口排除及两个混合色深入口；以该文件逐项状态为准，不把混合入口整体排除。"
+    }
+  ],
+  "pending_record_policy": "pending_records仅登记已知未完成门禁，不计作已有实现或范围排除。自动续行、普通工程委托、静态定位或音频已有局部代码都不解除这些要求；其余未列项仍待分类。",
+  "pending_records": [
+    {
+      "original_entry": "0x424620",
+      "inventory_id": "F:00024620",
+      "status": "行为适配待明确批准",
+      "implementation_state": "仅真实声明，攻击目标生产本体未完成",
+      "remaining_requirement": "入口var_50对应S32补0的窄适配仍待确认；不得仅跳过三条首读路径。",
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md"
+      ]
+    },
+    {
+      "original_entry": "0x4FF650",
+      "inventory_id": "F:000FF650",
+      "status": "行为适配待明确批准",
+      "implementation_state": "旧19详情本体未完成",
+      "remaining_requirement": "第四个32B局部按钮入口补0仍待确认；不能只遍历前三按钮。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_skill_panels.md"
+      ]
+    },
+    {
+      "original_entry": "0x402020",
+      "inventory_id": "F:00002020",
+      "status": "行为适配待明确批准",
+      "implementation_state": "日志读取本体未完成",
+      "remaining_requirement": "1000B行缓冲仅入口清零一次仍待确认；不改成每轮清零。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_log_viewer.md"
+      ]
+    },
+    {
+      "original_entry": "0x4021A0",
+      "inventory_id": "F:000021A0",
+      "status": "行为适配待明确批准",
+      "implementation_state": "旧98日志页面本体未完成",
+      "remaining_requirement": "独立1000B跳页缓冲入口清零仍待确认，不能由402020方案自动授权。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_log_viewer.md"
+      ]
+    },
+    {
+      "original_entry": "0x4D62A0",
+      "inventory_id": "F:000D62A0",
+      "status": "行为适配待明确批准",
+      "implementation_state": "旧85确认本体未完成",
+      "remaining_requirement": "原格式化第二缓冲而首次门禁读未写第一缓冲；首门禁前Buffer[0]=1方案仍待确认。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_give_receive_confirmation.md"
+      ]
+    },
+    {
+      "original_entry": "0x4F7870",
+      "inventory_id": "F:000F7870",
+      "status": "行为适配待明确批准",
+      "implementation_state": "旧20内嵌选择器本体未完成",
+      "remaining_requirement": "确认/取消绕过两个悬停局部赋值；入口两个S32置-1方案仍待确认。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_pet_list.md"
+      ]
+    },
+    {
+      "original_entry": "0x4D8DA0",
+      "inventory_id": "F:000D8DA0",
+      "status": "原端事实待证",
+      "implementation_state": "旧62初始化已有，父页面未完成",
+      "remaining_requirement": "mode0只写commands[0]却扫描两按钮，第二命令及模式实际生产待证；不补命令或缩减按钮。",
+      "evidence_documents": [
+        "doc/ui_windows/legacy_shop_choice.md"
+      ]
+    },
+    {
+      "original_entry": "0x4626A0",
+      "inventory_id": "F:000626A0",
+      "status": "入口适配待明确批准",
+      "implementation_state": "显式entryGate完整本体已有，WorldUpdate无参接线未完成",
+      "remaining_requirement": "固定entryGate=1建议仍待确认；外部接口失败后的原ECX残留不是已知常量。",
+      "evidence_documents": [
+        "doc/cg2d_creation_gate_adaptation_spec.md"
+      ]
+    },
+    {
+      "original_entry": "0x403C50",
+      "inventory_id": "F:00003C50",
+      "status": "传输协议待确认",
+      "implementation_state": "接收取包接线未完成",
+      "remaining_requirement": "取消解密后的实际帧格式、队列消耗与首次CR/LF状态仍须明确；不能整体删除非加密副作用。",
+      "evidence_documents": [
+        "doc/cg2d_network_exclusion_wiring_spec.md"
+      ]
+    },
+    {
+      "original_entry": "0x403E50",
+      "inventory_id": "F:00003E50",
+      "status": "传输协议待确认",
+      "implementation_state": "发送回调接线未完成",
+      "remaining_requirement": "取消加密后的帧格式和发送区/长度生产待明确；不以空回调或固定成功补缺口。",
+      "evidence_documents": [
+        "doc/cg2d_network_exclusion_wiring_spec.md"
+      ]
+    },
+    {
+      "original_entry": "0x454C30",
+      "inventory_id": "F:00054C30",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "音乐初始化真实依赖尚缺",
+      "remaining_requirement": "继续暂停本入口实施；已有SDL设备或局部音频能力不代表初始化全链完成。",
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ]
+    },
+    {
+      "original_entry": "0x454EE0",
+      "inventory_id": "F:00054EE0",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "退出清理真实依赖尚缺",
+      "remaining_requirement": "ClientShutdown仍有真实清理调用；不以空析构消除缺口，不恢复暂停的音频工作。",
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ]
+    },
+    {
+      "original_entry": "0x458AE0",
+      "inventory_id": "F:00058AE0",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "平台能力探测真实依赖尚缺",
+      "remaining_requirement": "458DC0包装已有但底层探测未实现；不返回固定版本码伪造原探测。",
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ]
+    },
+    {
+      "original_entry": "0x4FDBD0",
+      "inventory_id": "F:000FDBD0",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "旧7页面本体暂缓",
+      "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md"
+      ]
+    },
+    {
+      "original_entry": "0x4FE0E0",
+      "inventory_id": "F:000FE0E0",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "旧8页面本体暂缓",
+      "remaining_requirement": "57C368旧表保留该handler证据编号；不注册部分设置页或把音频暂缓记作范围排除。",
+      "evidence_documents": [
+        "doc/cg2d_display_settings.md"
+      ]
+    },
+    {
+      "original_entry": "0x50E680",
+      "inventory_id": "F:0010E680",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "murD回复本体暂缓",
+      "remaining_requirement": "现有NetworkRuntime保留真实三参回复声明/调用；不提供空处理器，也不恢复暂停范围。",
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ]
+    },
+    {
+      "original_entry": "0x52C3D0",
+      "inventory_id": "F:0012C3D0",
+      "status": "用户要求暂缓音频",
+      "implementation_state": "应用BGM音量本体暂缓",
+      "remaining_requirement": "窗口设置已有四个真实消费点；不新增固定返回或只写表值代替实际应用。",
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md"
+      ]
+    }
+  ],
   "records": [
     {
       "original_entry": "0x43D7C0",

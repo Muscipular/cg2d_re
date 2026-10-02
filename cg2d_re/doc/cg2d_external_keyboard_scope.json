@@ -1,0 +1,1409 @@
+{
+  "schema_version": 1,
+  "inventory": "doc/cg2d_ida_inventory.json",
+  "authorization": "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring：用户已明确排除屏幕键盘及其专用对象链，普通输入/IME与共享函数保留。",
+  "scope": "43个已由专用构造、四张虚表及三组消息登记证明归属的原入口；不是整个相邻地址区间或所有下游函数的排除。",
+  "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
+  "verification": "本轮核52个虚表槽、14条消息登记及入向引用；构造来源及三个无独立元数据删除包装沿既有取证。不将范围分类表述为全部函数语义复验或已实现。",
+  "shared_nonexcluded_entries": [
+    {
+      "original_entry": "0x509080",
+      "inventory_id": "F:00109080",
+      "keyboard_table_slot": "0x54F8BC",
+      "other_call_sites": [
+        "0x438544",
+        "0x513ACC",
+        "0x51506E"
+      ],
+      "boundary": "单条RET但被战斗、网络等多链复用，只排除键盘对它的消费，绝不排除函数整体或其他caller。"
+    }
+  ],
+  "unassigned_entries": [
+    {
+      "start": "0x537F20",
+      "end_exclusive": "0x537F3E",
+      "table_slot": "0x54F890",
+      "destructor": "0x537F40"
+    },
+    {
+      "start": "0x538EE0",
+      "end_exclusive": "0x538EFE",
+      "table_slot": "0x54F8C4",
+      "destructor": "0x538F60"
+    },
+    {
+      "start": "0x53A350",
+      "end_exclusive": "0x53A36E",
+      "table_slot": "0x54F8F8",
+      "destructor": "0x53A3D0"
+    }
+  ],
+  "virtual_tables": [
+    {
+      "address": "0x54F85C",
+      "owner_evidence": "535090/535310根键盘对象",
+      "slots": [
+        {
+          "address": "0x54F85C",
+          "target": "0x535290"
+        },
+        {
+          "address": "0x54F860",
+          "target": "0x537D30"
+        },
+        {
+          "address": "0x54F864",
+          "target": "0x537D40"
+        },
+        {
+          "address": "0x54F868",
+          "target": "0x537D50"
+        },
+        {
+          "address": "0x54F86C",
+          "target": "0x537D60"
+        },
+        {
+          "address": "0x54F870",
+          "target": "0x537D90"
+        },
+        {
+          "address": "0x54F874",
+          "target": "0x537D70"
+        },
+        {
+          "address": "0x54F878",
+          "target": "0x537DA0"
+        },
+        {
+          "address": "0x54F87C",
+          "target": "0x537DC0"
+        },
+        {
+          "address": "0x54F880",
+          "target": "0x537DE0"
+        },
+        {
+          "address": "0x54F884",
+          "target": "0x537E40"
+        },
+        {
+          "address": "0x54F888",
+          "target": "0x536FD0"
+        },
+        {
+          "address": "0x54F88C",
+          "target": "0x5371A0"
+        }
+      ]
+    },
+    {
+      "address": "0x54F890",
+      "owner_evidence": "537E60/537F40窗口基对象",
+      "slots": [
+        {
+          "address": "0x54F890",
+          "target": "0x537F20"
+        },
+        {
+          "address": "0x54F894",
+          "target": "0x537D30"
+        },
+        {
+          "address": "0x54F898",
+          "target": "0x537D40"
+        },
+        {
+          "address": "0x54F89C",
+          "target": "0x537D50"
+        },
+        {
+          "address": "0x54F8A0",
+          "target": "0x537D60"
+        },
+        {
+          "address": "0x54F8A4",
+          "target": "0x537D90"
+        },
+        {
+          "address": "0x54F8A8",
+          "target": "0x537D70"
+        },
+        {
+          "address": "0x54F8AC",
+          "target": "0x537DA0"
+        },
+        {
+          "address": "0x54F8B0",
+          "target": "0x537DC0"
+        },
+        {
+          "address": "0x54F8B4",
+          "target": "0x537DE0"
+        },
+        {
+          "address": "0x54F8B8",
+          "target": "0x537E40"
+        },
+        {
+          "address": "0x54F8BC",
+          "target": "0x509080"
+        },
+        {
+          "address": "0x54F8C0",
+          "target": "0x537FC0"
+        }
+      ]
+    },
+    {
+      "address": "0x54F8C4",
+      "owner_evidence": "538D40/538F60按键对象",
+      "slots": [
+        {
+          "address": "0x54F8C4",
+          "target": "0x538EE0"
+        },
+        {
+          "address": "0x54F8C8",
+          "target": "0x537D30"
+        },
+        {
+          "address": "0x54F8CC",
+          "target": "0x537D40"
+        },
+        {
+          "address": "0x54F8D0",
+          "target": "0x537D50"
+        },
+        {
+          "address": "0x54F8D4",
+          "target": "0x537D60"
+        },
+        {
+          "address": "0x54F8D8",
+          "target": "0x537D90"
+        },
+        {
+          "address": "0x54F8DC",
+          "target": "0x537D70"
+        },
+        {
+          "address": "0x54F8E0",
+          "target": "0x537DA0"
+        },
+        {
+          "address": "0x54F8E4",
+          "target": "0x537DC0"
+        },
+        {
+          "address": "0x54F8E8",
+          "target": "0x537DE0"
+        },
+        {
+          "address": "0x54F8EC",
+          "target": "0x537E40"
+        },
+        {
+          "address": "0x54F8F0",
+          "target": "0x5396A0"
+        },
+        {
+          "address": "0x54F8F4",
+          "target": "0x5397F0"
+        }
+      ]
+    },
+    {
+      "address": "0x54F8F8",
+      "owner_evidence": "53A220/53A3D0容器对象",
+      "slots": [
+        {
+          "address": "0x54F8F8",
+          "target": "0x53A350"
+        },
+        {
+          "address": "0x54F8FC",
+          "target": "0x537D30"
+        },
+        {
+          "address": "0x54F900",
+          "target": "0x537D40"
+        },
+        {
+          "address": "0x54F904",
+          "target": "0x537D50"
+        },
+        {
+          "address": "0x54F908",
+          "target": "0x537D60"
+        },
+        {
+          "address": "0x54F90C",
+          "target": "0x537D90"
+        },
+        {
+          "address": "0x54F910",
+          "target": "0x537D70"
+        },
+        {
+          "address": "0x54F914",
+          "target": "0x537DA0"
+        },
+        {
+          "address": "0x54F918",
+          "target": "0x537DC0"
+        },
+        {
+          "address": "0x54F91C",
+          "target": "0x537DE0"
+        },
+        {
+          "address": "0x54F920",
+          "target": "0x537E40"
+        },
+        {
+          "address": "0x54F924",
+          "target": "0x53A9A0"
+        },
+        {
+          "address": "0x54F928",
+          "target": "0x53AB30"
+        }
+      ]
+    }
+  ],
+  "message_registrations": [
+    {
+      "register_entry": "0x536FD0",
+      "message": "0x0087",
+      "handler": "0x536EA0",
+      "message_write": "0x536FE6",
+      "handler_write": "0x536FEE"
+    },
+    {
+      "register_entry": "0x536FD0",
+      "message": "0x0100",
+      "handler": "0x536C30",
+      "message_write": "0x537007",
+      "handler_write": "0x53700F"
+    },
+    {
+      "register_entry": "0x536FD0",
+      "message": "0x0001",
+      "handler": "0x535540",
+      "message_write": "0x537028",
+      "handler_write": "0x537030"
+    },
+    {
+      "register_entry": "0x536FD0",
+      "message": "0x000F",
+      "handler": "0x53A490",
+      "message_write": "0x537049",
+      "handler_write": "0x537051"
+    },
+    {
+      "register_entry": "0x536FD0",
+      "message": "0x0111",
+      "handler": "0x536970",
+      "message_write": "0x53706A",
+      "handler_write": "0x537072"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x0001",
+      "handler": "0x539120",
+      "message_write": "0x5396B6",
+      "handler_write": "0x5396BE"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x000F",
+      "handler": "0x539270",
+      "message_write": "0x5396D7",
+      "handler_write": "0x5396DF"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x0201",
+      "handler": "0x539450",
+      "message_write": "0x5396F8",
+      "handler_write": "0x539700"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x0202",
+      "handler": "0x539490",
+      "message_write": "0x539719",
+      "handler_write": "0x539721"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x0200",
+      "handler": "0x539540",
+      "message_write": "0x53975A",
+      "handler_write": "0x539762"
+    },
+    {
+      "register_entry": "0x5396A0",
+      "message": "0x02A3",
+      "handler": "0x539630",
+      "message_write": "0x53979B",
+      "handler_write": "0x5397A3"
+    },
+    {
+      "register_entry": "0x53A9A0",
+      "message": "0x0001",
+      "handler": "0x53A470",
+      "message_write": "0x53A9B6",
+      "handler_write": "0x53A9BE"
+    },
+    {
+      "register_entry": "0x53A9A0",
+      "message": "0x000F",
+      "handler": "0x53A490",
+      "message_write": "0x53A9D7",
+      "handler_write": "0x53A9DF"
+    },
+    {
+      "register_entry": "0x53A9A0",
+      "message": "0x0111",
+      "handler": "0x53A4D0",
+      "message_write": "0x53A9F8",
+      "handler_write": "0x53AA00"
+    }
+  ],
+  "records": [
+    {
+      "original_entry": "0x534AB0",
+      "original_end_exclusive": "0x534B7E",
+      "inventory_id": "F:00134AB0",
+      "name": "外部屏幕键盘包装",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x45FCCA",
+          "reference_type": 17,
+          "function_entry": "0x45FA70"
+        },
+        {
+          "address": "0x465077",
+          "reference_type": 17,
+          "function_entry": "0x464E30"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x534B80",
+      "original_end_exclusive": "0x534EEA",
+      "inventory_id": "F:00134B80",
+      "name": "外部键盘对话框回调",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x534B02",
+          "reference_type": 1,
+          "function_entry": "0x534AB0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x534B80",
+          "0x534EEA"
+        ],
+        [
+          "0x54BC30",
+          "0x54BC45"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x535090",
+      "original_end_exclusive": "0x535284",
+      "inventory_id": "F:00135090",
+      "name": "根键盘构造",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x534D81",
+          "reference_type": 17,
+          "function_entry": "0x534B80"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x535090",
+          "0x535284"
+        ],
+        [
+          "0x5352B0",
+          "0x53530A"
+        ],
+        [
+          "0x536EB0",
+          "0x536ED2"
+        ],
+        [
+          "0x54BC50",
+          "0x54BC94"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x535290",
+      "original_end_exclusive": "0x5352AE",
+      "inventory_id": "F:00135290",
+      "name": "根键盘删除析构包装",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F85C",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x535310",
+      "original_end_exclusive": "0x5354C0",
+      "inventory_id": "F:00135310",
+      "name": "根键盘析构",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x535293",
+          "reference_type": 17,
+          "function_entry": "0x535290"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x535310",
+          "0x5354C0"
+        ],
+        [
+          "0x5352B0",
+          "0x53530A"
+        ],
+        [
+          "0x536EB0",
+          "0x536ED2"
+        ],
+        [
+          "0x54BCA0",
+          "0x54BCDC"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5354C0",
+      "original_end_exclusive": "0x5354C7",
+      "inventory_id": "F:001354C0",
+      "name": "根键盘结果地址",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x534CB8",
+          "reference_type": 17,
+          "function_entry": "0x534B80"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x535540",
+      "original_end_exclusive": "0x536918",
+      "inventory_id": "F:00135540",
+      "name": "根键盘创建消息",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x537030",
+          "reference_type": 1,
+          "function_entry": "0x536FD0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x535540",
+          "0x536918"
+        ],
+        [
+          "0x54BCE0",
+          "0x54BDE6"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x536970",
+      "original_end_exclusive": "0x536C08",
+      "inventory_id": "F:00136970",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x537072",
+          "reference_type": 1,
+          "function_entry": "0x536FD0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x536C30",
+      "original_end_exclusive": "0x536E73",
+      "inventory_id": "F:00136C30",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x53700F",
+          "reference_type": 1,
+          "function_entry": "0x536FD0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x536EA0",
+      "original_end_exclusive": "0x536EA8",
+      "inventory_id": "F:00136EA0",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x536FEE",
+          "reference_type": 1,
+          "function_entry": "0x536FD0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x536FD0",
+      "original_end_exclusive": "0x537084",
+      "inventory_id": "F:00136FD0",
+      "name": "根键盘消息登记",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F888",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x5371A0",
+      "original_end_exclusive": "0x537220",
+      "inventory_id": "F:001371A0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F88C",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537B80",
+      "original_end_exclusive": "0x537D16",
+      "inventory_id": "F:00137B80",
+      "name": "专用窗口创建",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x535266",
+          "reference_type": 17,
+          "function_entry": "0x535090"
+        },
+        {
+          "address": "0x538EBF",
+          "reference_type": 17,
+          "function_entry": "0x538D40"
+        },
+        {
+          "address": "0x53A331",
+          "reference_type": 17,
+          "function_entry": "0x53A220"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x537B80",
+          "0x537D16"
+        ],
+        [
+          "0x537D20",
+          "0x537D2C"
+        ],
+        [
+          "0x54BE50",
+          "0x54BE62"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x537D30",
+      "original_end_exclusive": "0x537D34",
+      "inventory_id": "F:00137D30",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F860",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F894",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8C8",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8FC",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537D40",
+      "original_end_exclusive": "0x537D47",
+      "inventory_id": "F:00137D40",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F864",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F898",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8CC",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F900",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537D50",
+      "original_end_exclusive": "0x537D57",
+      "inventory_id": "F:00137D50",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F868",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F89C",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8D0",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F904",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537D60",
+      "original_end_exclusive": "0x537D67",
+      "inventory_id": "F:00137D60",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F86C",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8A0",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8D4",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F908",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537D70",
+      "original_end_exclusive": "0x537D85",
+      "inventory_id": "F:00137D70",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F874",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8A8",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8DC",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F910",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537D90",
+      "original_end_exclusive": "0x537D97",
+      "inventory_id": "F:00137D90",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F870",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8A4",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8D8",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F90C",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537DA0",
+      "original_end_exclusive": "0x537DB8",
+      "inventory_id": "F:00137DA0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F878",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8AC",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8E0",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F914",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537DC0",
+      "original_end_exclusive": "0x537DD8",
+      "inventory_id": "F:00137DC0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F87C",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8B0",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8E4",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F918",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537DE0",
+      "original_end_exclusive": "0x537E33",
+      "inventory_id": "F:00137DE0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F880",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8B4",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8E8",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F91C",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537E40",
+      "original_end_exclusive": "0x537E52",
+      "inventory_id": "F:00137E40",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F884",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8B8",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F8EC",
+          "reference_type": 1
+        },
+        {
+          "address": "0x54F920",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537E60",
+      "original_end_exclusive": "0x537F15",
+      "inventory_id": "F:00137E60",
+      "name": "键盘窗口基类构造",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5350C0",
+          "reference_type": 17,
+          "function_entry": "0x535090"
+        },
+        {
+          "address": "0x538D71",
+          "reference_type": 17,
+          "function_entry": "0x538D40"
+        },
+        {
+          "address": "0x53A250",
+          "reference_type": 17,
+          "function_entry": "0x53A220"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537F40",
+      "original_end_exclusive": "0x537FBB",
+      "inventory_id": "F:00137F40",
+      "name": "键盘窗口基类析构",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5354A8",
+          "reference_type": 17,
+          "function_entry": "0x535310"
+        },
+        {
+          "address": "0x537F23",
+          "reference_type": 17
+        },
+        {
+          "address": "0x53904C",
+          "reference_type": 17,
+          "function_entry": "0x538F60"
+        },
+        {
+          "address": "0x53A457",
+          "reference_type": 17,
+          "function_entry": "0x53A3D0"
+        },
+        {
+          "address": "0x54BC53",
+          "reference_type": 19,
+          "function_entry": "0x535090"
+        },
+        {
+          "address": "0x54BCA3",
+          "reference_type": 19,
+          "function_entry": "0x535310"
+        },
+        {
+          "address": "0x54BF13",
+          "reference_type": 19,
+          "function_entry": "0x538D40"
+        },
+        {
+          "address": "0x54BF43",
+          "reference_type": 19,
+          "function_entry": "0x538F60"
+        },
+        {
+          "address": "0x54BFC3",
+          "reference_type": 19,
+          "function_entry": "0x53A220"
+        },
+        {
+          "address": "0x54BFF3",
+          "reference_type": 19,
+          "function_entry": "0x53A3D0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x537FC0",
+      "original_end_exclusive": "0x537FDF",
+      "inventory_id": "F:00137FC0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x537213",
+          "reference_type": 17,
+          "function_entry": "0x5371A0"
+        },
+        {
+          "address": "0x539863",
+          "reference_type": 17,
+          "function_entry": "0x5397F0"
+        },
+        {
+          "address": "0x53ABA3",
+          "reference_type": 17,
+          "function_entry": "0x53AB30"
+        },
+        {
+          "address": "0x54F8C0",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x538D40",
+      "original_end_exclusive": "0x538EDE",
+      "inventory_id": "F:00138D40",
+      "name": "按键构造",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5357E7",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535853",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5358BF",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53592B",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535997",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535A03",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535A6C",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535C7A",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53611A",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536186",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5361F2",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53625E",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5362CA",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536336",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53639F",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5365B7",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x538D40",
+          "0x538EDE"
+        ],
+        [
+          "0x538F00",
+          "0x538F5A"
+        ],
+        [
+          "0x54BF10",
+          "0x54BF38"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x538F60",
+      "original_end_exclusive": "0x539063",
+      "inventory_id": "F:00138F60",
+      "name": "按键析构",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x538EE3",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x538F60",
+          "0x539063"
+        ],
+        [
+          "0x54BF40",
+          "0x54BF52"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x539120",
+      "original_end_exclusive": "0x539262",
+      "inventory_id": "F:00139120",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5396BE",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x539270",
+      "original_end_exclusive": "0x539432",
+      "inventory_id": "F:00139270",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5396DF",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x539450",
+      "original_end_exclusive": "0x539488",
+      "inventory_id": "F:00139450",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x539700",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x539490",
+      "original_end_exclusive": "0x539537",
+      "inventory_id": "F:00139490",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x539721",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x539540",
+      "original_end_exclusive": "0x53962C",
+      "inventory_id": "F:00139540",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x539762",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x539630",
+      "original_end_exclusive": "0x53969B",
+      "inventory_id": "F:00139630",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5397A3",
+          "reference_type": 1,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x5396A0",
+      "original_end_exclusive": "0x5397B5",
+      "inventory_id": "F:001396A0",
+      "name": "按键消息登记",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F8F0",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x5397F0",
+      "original_end_exclusive": "0x539870",
+      "inventory_id": "F:001397F0",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F8F4",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x53A220",
+      "original_end_exclusive": "0x53A34F",
+      "inventory_id": "F:0013A220",
+      "name": "lower/upper容器构造",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x5355A0",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535EFB",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x53A220",
+          "0x53A34F"
+        ],
+        [
+          "0x53A370",
+          "0x53A3CA"
+        ],
+        [
+          "0x54BFC0",
+          "0x54BFE8"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53A3D0",
+      "original_end_exclusive": "0x53A46E",
+      "inventory_id": "F:0013A3D0",
+      "name": "lower/upper容器析构",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A353",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。",
+      "original_chunks": [
+        [
+          "0x53A3D0",
+          "0x53A46E"
+        ],
+        [
+          "0x54BFF0",
+          "0x54C002"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53A470",
+      "original_end_exclusive": "0x53A486",
+      "inventory_id": "F:0013A470",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A9BE",
+          "reference_type": 1,
+          "function_entry": "0x53A9A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x53A490",
+      "original_end_exclusive": "0x53A4C3",
+      "inventory_id": "F:0013A490",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x537051",
+          "reference_type": 1,
+          "function_entry": "0x536FD0"
+        },
+        {
+          "address": "0x53A9DF",
+          "reference_type": 1,
+          "function_entry": "0x53A9A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x53A4D0",
+      "original_end_exclusive": "0x53A4F1",
+      "inventory_id": "F:0013A4D0",
+      "name": "已登记键盘消息处理",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x53AA00",
+          "reference_type": 1,
+          "function_entry": "0x53A9A0"
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x53A9A0",
+      "original_end_exclusive": "0x53AA12",
+      "inventory_id": "F:0013A9A0",
+      "name": "容器消息登记",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F924",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    },
+    {
+      "original_entry": "0x53AB30",
+      "original_end_exclusive": "0x53ABB0",
+      "inventory_id": "F:0013AB30",
+      "name": "已证键盘对象虚方法",
+      "status": "用户范围排除：屏幕键盘专用链",
+      "inbound_evidence": [
+        {
+          "address": "0x54F928",
+          "reference_type": 1
+        }
+      ],
+      "boundary": "归属仅由本文件具体构造/虚表/消息登记及既有链证据支撑；不沿相邻地址或通用callee扩张。历史源码如存在则保留，不计生产功能已实现或已运行。"
+    }
+  ]
+}

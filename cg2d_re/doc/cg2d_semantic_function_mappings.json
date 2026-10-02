@@ -5,6 +5,11 @@
   "verification": "仅地址与当前源码/既有取证文档的静态映射，不新增构建、测试、运行或哈希校验。",
   "classification_references": [
     {
+      "path": "doc/cg2d_external_keyboard_scope.json",
+      "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
+      "scope": "43个已证屏幕键盘专用入口及三段无独立ID删除包装；509080作为共享例外保留，不按相邻地址或通用callee扩大排除。"
+    },
+    {
       "path": "doc/cg2d_network_cipher_scope.json",
       "evidence_document": "doc/cg2d_network_exclusion_wiring_spec.md",
       "scope": "401960与401AB0两个网络包加解密叶的明确排除；父入口403E50/403C50和非加密队列/组包/状态不随之排除，仍保持待决。"

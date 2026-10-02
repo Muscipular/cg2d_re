@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "inventory": "doc/cg2d_ida_inventory.json",
+  "scope": "R1显式语义映射增量；未列函数仍须单独分类，不能按此计算总完成率。",
+  "verification": "仅地址与当前源码/既有取证文档的静态映射，不新增构建、测试、运行或哈希校验。",
+  "records": [
+    {
+      "original_entry": "0x43D7C0",
+      "inventory_id": "F:0003D7C0",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_objects.md"
+      ],
+      "boundary": "每项按coordinate0C、coordinate1C构造；由统一CRT组按1000项正序调用。"
+    },
+    {
+      "original_entry": "0x43D810",
+      "inventory_id": "F:0003D810",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "DestroyWorldObjects"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_objects.md"
+      ],
+      "boundary": "每项按coordinate1C、coordinate0C析构；表逆序，不释放action。"
+    },
+    {
+      "original_entry": "0x4CD250",
+      "inventory_id": "F:000CD250",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues",
+            "DestroyStallBrowsePetValues"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_68.md"
+      ],
+      "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。"
+    },
+    {
+      "original_entry": "0x4CD2D0",
+      "inventory_id": "F:000CD2D0",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyPetRuntimeValues"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DestroyStallBrowsePetValues"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_68.md"
+      ],
+      "boundary": "共享六成员析构叶；主宠物和浏览宠物各复用自身唯一owner，记录与字段均逆序。"
+    },
+    {
+      "original_entry": "0x4CD360",
+      "inventory_id": "F:000CD360",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_68.md"
+      ],
+      "boundary": "共享六成员构造叶；主宠物与浏览宠物均按+0C..+5C构造，不合并实体或RNG调用。"
+    },
+    {
+      "original_entry": "0x488420",
+      "inventory_id": "F:00088420",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DestroyWindowSelectorPreview"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": []
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "DestroyItemSelectors"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_items.md"
+      ],
+      "boundary": "由DestroyItemSelectors对CF3B10预览调用，十槽逆序析构；不free或清UI选择。"
+    },
+    {
+      "original_entry": "0x5219C0",
+      "inventory_id": "F:001219C0",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "CalculateRippleScreenDelta"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "前帧与当前坐标先后投影，保留F32落点后乘0.125；唯一直接caller521870弃原outY指针返回，现有内部void适配保持调用语义。"
+    },
+    {
+      "original_entry": "0x521B10",
+      "inventory_id": "F:00121B10",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbols": [
+            "DrawGraphic"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "boundary": "公共图形入队已由DrawGraphic承接；本项只建立地址映射，不重新宣布所有caller或队列运行验收通过。"
+    }
+  ]
+}

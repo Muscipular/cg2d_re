@@ -1087,6 +1087,12 @@ constexpr char kLegacyMailChooseRecipients5896A4[] = "\xBD\xD0\xBF\xEF\xBE\xDC\x
 constexpr char kLegacyMailSendSelected5896B8[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xBF\xEF\xBE\xDC\xAA\xBA\xA6\x6E\xA4\xCD\xA1\x43";
 constexpr char kLegacyMailUnselect58968C[] = "\xB0\xB1\xA4\xEE\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB3\x6F\xA6\xEC\xA6\x6E\xA4\xCD\xA1\x43";
 constexpr char kLegacyMailSelect589678[] = "\xB0\x65\xB6\x6C\xA5\xF3\xB5\xB9\xB3\x6F\xA6\xEC\xA6\x6E\xA4\xCD\xA1\x43";
+LegacyPanelRecord gLegacyMailSortPanel5836E0 {
+    0, 0, 192, 254, 43, {23170, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyMailSortFirst589744[] = "\xB5\x6E\xBF\xFD\xB6\xB6\xA7\xC7";
+constexpr char kLegacyMailSortSecond589738[] = "\xAB\xF7\xAD\xB5\xB6\xB6\xA7\xC7";
+constexpr char kLegacyMailSortThird58972C[] = "\xA4\x57\xBD\x75\xB6\xB6\xA7\xC7";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8556,6 +8562,61 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyMailNormalPanel583488, 1));
+}
+
+std::uint32_t Sub_4EBD20(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMailSortPanel5836E0.x;
+    const std::int32_t y = gLegacyMailSortPanel5836E0.y;
+    LegacyPanelButtonRecord confirm {x + 96, y + 220, x + 56, y + 210, 80, 20, 22712, 22713};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailSortPanel5836E0, nullptr, 1);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 3; ++row) {
+        const std::int32_t top = gLegacyMailSortPanel5836E0.y + 30 * row;
+        const std::int32_t left = gLegacyMailSortPanel5836E0.x;
+        if (Sub_5049A0(left + 19, top + 38, left + 173, top + 64, -1) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1u) != 0) {
+        platform::gValueD67CD0 = static_cast<std::uint32_t>(hovered);
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        static_cast<void>(Sub_5206F0());
+        static_cast<void>(Sub_520200());
+        static_cast<void>(audio::Sub_504180(42));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    }
+    if (hovered >= 0) {
+        const std::int32_t image = gValueD69768;
+        const std::int32_t left = gLegacyMailSortPanel5836E0.x;
+        const std::int32_t top = gLegacyMailSortPanel5836E0.y + 30 * hovered;
+        static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(left + 19),
+            static_cast<std::int16_t>(top + 38), static_cast<std::int16_t>(left + 173),
+            static_cast<std::int16_t>(top + 64), 212, image, 0));
+    }
+    // D67CD0借既有W32 owner；原框坐标按完整S32解释，不新增范围钳制。
+    const std::int32_t selected = std::bit_cast<std::int32_t>(platform::gValueD67CD0);
+    const std::int32_t selectedTop = gLegacyMailSortPanel5836E0.y + 30 * selected;
+    const std::int32_t selectedLeft = gLegacyMailSortPanel5836E0.x;
+    static_cast<void>(DrawGraphicHover(static_cast<std::int16_t>(selectedLeft + 19),
+        static_cast<std::int16_t>(selectedTop + 38), static_cast<std::int16_t>(selectedLeft + 173),
+        static_cast<std::int16_t>(selectedTop + 64), 212, 254, 0));
+    const auto drawAt = [](const char* const text, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyMailSortPanel5836E0.y + offsetY;
+        const std::int32_t left = gLegacyMailSortPanel5836E0.x + 62;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    drawAt(kLegacyMailSortFirst589744, 43);
+    drawAt(kLegacyMailSortSecond589738, 73);
+    drawAt(kLegacyMailSortThird58972C, 103);
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    return Sub_503440(&gLegacyMailSortPanel5836E0, 1);
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

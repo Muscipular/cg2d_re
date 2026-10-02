@@ -10891,6 +10891,244 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原先增计数、malloc4096，失败转FILE内部2B缓冲；宿主calloc大缓冲且同有2B后备。原全局计数、未写字节、大小/分配时点不重建或判等，不新增失败返回门禁。"
+    },
+    {
+      "original_entry": "0x53D30A",
+      "inventory_id": "F:0013D30A",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x53D3BD",
+      "instruction_count": 66,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+        },
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "现有stdio根的低层传递职责，不是私有CRT直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/close.cpp",
+        "symbol": "_close"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原CloseHandle失败后仍释放描述符槽/清flags，按保存错误返回；标准1/2句柄相同特例与宿主另验对方打开状态不同。窗口caller丢弃返回；宿主errno不自动同步旧槽，全部低层失败未验。"
+    },
+    {
+      "original_entry": "0x53D3BD",
+      "inventory_id": "F:0013D3BD",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x53D435",
+      "instruction_count": 45,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/filelength.cpp",
+        "symbol": "common_filelength"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一4C90A8：先CUR，成功后END，不同才恢复，返回END结果且忽略恢复失败；现有_filelength保持long/S32写CC4238，不新增-1门禁或改成i64。依赖宿主定位范围与锁，异常/大文件状态未判等。"
+    },
+    {
+      "original_entry": "0x53D435",
+      "inventory_id": "F:0013D435",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x53D44C",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/open.cpp",
+        "symbol": "common_open"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一4C9098传oflag102h/pmode180h；包装share固定40h。现有_O_RDWR|_O_CREAT、_S_IREAD|_S_IWRITE准确，返回fd/-1，不合并FILE*和独立fd。"
+    },
+    {
+      "original_entry": "0x53D44C",
+      "inventory_id": "F:0013D44C",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x53D705",
+      "instruction_count": 230,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+        },
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "现有stdio根的低层传递职责，不是私有CRT直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/open.cpp",
+        "symbol": "_sopen_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原open/openfile私有目标；继承/文本/访问/共享/创建/属性、描述符分配及CreateFileA后类型/文本尾处理已证。宿主宽路径、参数/扩展模式/锁/清理存在差异；仅现有调用域归属，不新增旧表或改路径编码。"
+    },
+    {
+      "original_entry": "0x53F493",
+      "inventory_id": "F:0013F493",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x53F52D",
+      "instruction_count": 51,
+      "original_direct_reference_count": 18,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ],
+          "relationship": "原窗口存档独立descriptor的实际_open/_filelength/_close消费"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/lseek.cpp",
+        "symbol": "common_lseek_do_seek_nolock"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原SetFilePointer低W32，FFFFFFFF时才读系统错误，成功清底层EOF；宿主long分支SetFilePointerEx保存位置，超过LONG_MAX恢复并失败。通过_filelength真实传递关联，原18处调用的其余父链及大文件/故障不一并验收。"
+    },
+    {
+      "original_entry": "0x541222",
+      "inventory_id": "F:00141222",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x541279",
+      "instruction_count": 26,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0"
+          ],
+          "relationship": "fflush按commit标志的传递职责，未新增直接_commit调用"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/commit.cpp",
+        "symbol": "_commit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原唯一fflush内部调用；FlushFileBuffers失败但GetLastError0仍返回0，非0写DOS错误/errno9再-1；宿主失败最终-1。只记录职责，不承诺失败等价、持久化成功或原错误槽同步。"
+    },
+    {
+      "original_entry": "0x544705",
+      "inventory_id": "F:00144705",
+      "status": "现有低层文件消费/宿主职责已关联；失败状态及完整父链未验",
+      "original_end_exclusive": "0x54472B",
+      "instruction_count": 12,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "LoadBlacklistFile",
+            "PersistBlacklistFile_4011A0"
+          ],
+          "relationship": "现有stdio根的低层传递职责，不是私有CRT直接定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "lowio/isatty.cpp",
+        "symbol": "_isatty"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原fd超范围直接0且不写errno；有效返40h位。宿主有效同FDEV消费，非法参数校验写errno；原三个来源均为CRT内部，当前只关联stdio缓冲消费，按宿主职责关联，非应用独立tty API。"
+    },
+    {
+      "original_entry": "0x53CCD0",
+      "inventory_id": "F:0013CCD0",
+      "status": "既有创建时间消费域实现已关联；不是通用stat接口或完整文件验收",
+      "original_end_exclusive": "0x53CF48",
+      "instruction_count": 210,
+      "original_direct_reference_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "ReadLegacyFileCreationTime32"
+          ],
+          "relationship": "已有Win32借用句柄与原S32创建时间窄实现，保留错误槽和转换副作用"
+        },
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "ReadAutoMapFileTimes",
+            "Sub_45A290",
+            "Sub_45A420"
+          ],
+          "relationship": "两父入口六个原stat调用仅消费返回和+20h创建时间，共用现有采样helper"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "沿既有完整取证/已实施合同，只映射六处已证ctime消费；不使用现代_fstat/time_t替换，不暴露mode/uid/size。修改、非零访问、创建三阶段转换及共享TZ/DST副作用、零creation回退mtime、设备/管道/错误映射保持；本次不重复时间算法审计或称通用_fstat全部还原。"
     }
   ]
 }

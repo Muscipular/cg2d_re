@@ -1192,3 +1192,11 @@ hover框、返回按钮及关闭/返回/行提示按原序，每次绘制重取�
 - 宿主追加定位失败在bool helper返回EOF的实际转换、外层返回与未写新字符状态已明确；未改宿主库/业务失败分支，也未声称原异常时点等价。低层read/write/sopen、其他C++流父链及全流退出继续独立处理。
 - semantic records414、pending_records18、分类引用4。源码/CMake不改，暂停音频及明确待批事项保持。
 - 静态核九边界/入向/实际宿主源码、应用根来源、旧记录保持和UTF-8/LF；未执行文件操作、构建、查产物、新增/执行测试、客户端或哈希校验。总PLAN继续。
+
+### 2026-10-02：低层句柄职责与已有资源创建时间映射
+
+- 按[局部合同](../doc/cg2d_stdio_contract.md#低层句柄与创建时间消费域2026-10-02)核close/filelength/open/sopen/lseek/commit/isatty七入口437条；WindowRuntime::Sub_4C9060实际_open102h/pmode180h、S32长度写CC4238及关闭顺序保持，不扩大为64位文件长度API。
+- 对照宿主lowio实际源，明确标准句柄共享关闭门禁、long定位/超范围恢复、原commit失败但系统错误0返回0及isatty不写错误槽的差异；不新建旧描述符表、不把现代errno当gLegacyErrno写者。
+- 53CCD0的六处原调用只用返回和+20h创建时间；当前ReadLegacyFileCreationTime32/ReadAutoMapFileTimes已沿旧合同实现。新增其限定映射，保留修改/访问/创建时间转换顺序和共享TZ/DST副作用，不调用现代_fstat/time_t，不重写已过本体。
+- 新增八项，records422、pending_records18、分类引用4；本轮元数据总647条包含已取证fstat210条，并非全部重新实现。源码/CMake不改，全流刷新/退出及其他低层依赖继续保留。
+- 静态核真实应用参数/消费者、原边界/引用和宿主实际实现、旧记录保持及UTF-8/LF；未文件操作、构建、查产物、新增/执行测试、客户端或哈希校验。音频暂停及待批事项保持，总PLAN继续。

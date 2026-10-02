@@ -179,3 +179,72 @@ _filbuf.cpp、_flsbuf.cpp、_sftbuf.cpp及fflush.cpp对应上述职责：
 只补九项限定职责映射，源码/CMake和原分母保持。全部旧caller的传递依赖、
 标准流生命周期、系统调用失败与最终文件验收仍未完成。
 不执行文件操作、构建、测试、客户端或哈希校验。
+
+## 低层句柄与创建时间消费域（2026-10-02）
+
+按现有工程委托，窗口存档继续使用宿主CRT描述符；stdio的低层句柄表也由宿主持有。
+原资源时间窄适配则保持已实现的Win32句柄借用和旧时间计算，不改成现代_fstat/time_t。
+
+| 原入口 | 结束地址（不含） | 指令数 / 直接引用数 | 本次归属 |
+|---|---|---|---|
+| close 53D30A | 53D3BD | 66 / 3 | 窗口存档直接_close及既有stdio关闭职责 |
+| filelength 53D3BD | 53D435 | 45 / 1 | 窗口存档直接_filelength |
+| open 53D435 | 53D44C | 7 / 1 | 窗口存档直接_open，share固定40h |
+| sopen 53D44C | 53D705 | 230 / 2 | open/openfile的宿主私有打开职责 |
+| lseek 53F493 | 53F52D | 51 / 18 | 文件定位/取长的低层职责 |
+| commit 541222 | 541279 | 26 / 1 | fflush按commit标志调用的低层职责 |
+| isatty 544705 | 54472B | 12 / 3 | stdio临时/普通缓冲选择职责 |
+| fstat 53CCD0 | 53CF48 | 210 / 6 | 仅既有ReadLegacyFileCreationTime32创建时间消费域 |
+
+前七项共437条为本轮指令核对；fstat沿[已有完整取证与实施合同](cg2d_resource_sources.md)
+核当前源码和六处直接消费，不重复执行时间算法审计。合计元数据647条不等于全部重新实现。
+
+### 窗口存档与低层结果
+
+4C9089..4C90B3依次传pmode=180h、oflag=102h和原路径；
+现有Sub_4C9060准确使用_O_RDWR|_O_CREAT及_S_IREAD|_S_IWRITE。
+只有fd!=-1才调用_filelength，把完整S32结果写CC4238，再_close并忽略其返回。
+不增加长度失败门禁，不把FILE*与独立fd合并，不扩为_filelengthi64。
+
+原filelength先lseek(CUR,0)，失败-1直接结束；否则lseek(END,0)，
+位置不同才尝试恢复，返回末尾查询结果、不以恢复失败覆盖它。宿主同有这一顺序，
+但依赖宿主long定位与锁。原lseek用SetFilePointer/低W32及GetLastError判断，
+成功后清低层EOF；宿主long路径用SetFilePointerEx、先保存位置，
+超过LONG_MAX会恢复并返回-1。当前大文件/故障时点不宣称等价，不新增模拟回绕。
+
+原close比较stdout/stderr底层句柄相同则跳CloseHandle，无论系统关闭是否成功，
+随后都释放原描述符槽并清flags，再按保存错误返回。宿主还先要求另一个标准
+描述符处于打开状态才走共享句柄特例；锁、校验与错误槽不同，原流状态不复制。
+原isatty超范围直接0，不写错误槽；有效返回FDEV的40h位，不是固定布尔1。
+宿主无效参数校验会写errno，不能把它视为本线旧错误槽同步。
+
+原commit校验后FlushFileBuffers：系统调用失败取GetLastError，
+只有错误非0才写旧DOS错误/errno9并返-1，错误0仍返回0；
+宿主失败分支会最终返回-1。这里仅关联既有fflush的传递职责，不记失败完全等价。
+
+### 打开及原状态归属
+
+原sopen处理继承、二进制/默认文本、访问/共享/创建、只读属性、临时/访问提示，
+分配描述符后CreateFileA，取类型、发布借用句柄与flags，再处理文本更新尾Ctrl-Z
+及追加位。访问位或共享值非法写旧errno22/DOS0，分配槽失败errno24/DOS0；
+系统失败沿542F44。其实际两个caller分别为open与openfile，没有应用直接_sopen调用。
+
+宿主lowio/open.cpp由窄路径转换后进入宽路径CreateFileW，具有锁、参数校验、
+扩展文本模式和失败清理；仍不以此批准改写应用路径编码/模式或创建第二套旧句柄表。
+本文只关联真实窗口常量参数及既有stdio路径，完整低层打开/读写/关闭失败状态未验。
+原末尾Ctrl-Z分支保留证据，不用常识改写原read返回值判定。
+宿主errno/_doserrno不自动写回gLegacyErrno/gLegacyDosError。
+
+### fstat创建时间窄域
+
+全部六处直接调用来自45A290/45A420，每次只用返回及stat+20h创建时间。
+当前ResourcePaths::ReadAutoMapFileTimes循环承接六逻辑点，
+调用platform::ReadLegacyFileCreationTime32，再按原首文件/后续文件失败差异处理。
+公开接口不提供mode/uid/size等其他stat字段，不称通用_fstat已实现。
+
+句柄仅由_fileno/_get_osfhandle借用，时间仍依次转换修改、非零访问、创建时间，
+保留ConvertLocalTime_541160的共享时区/DST副作用；creation为零回退已转换mtime。
+既有设备/管道、PeekNamedPipe、原错误映射及失败不改。没有改成宿主64位time_t，
+没有略掉未作为最终返回的访问时间转换，也没有重做该本体。
+
+本步源码/CMake不变；只补八项限定记录，未操作真实文件、构建、测试或哈希校验。

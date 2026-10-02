@@ -151,7 +151,7 @@ void UpdateProtectionChecksum(
             if (moduleName[0] == '\0') {
                 break;
             }
-            if (_stricmp(moduleEntry.szModule, moduleName) == 0) {
+            if (CompareInsensitive_53CF50(moduleEntry.szModule, moduleName) == 0) {
                 result = 1;
                 break;
             }

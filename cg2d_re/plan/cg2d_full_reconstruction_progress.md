@@ -1392,3 +1392,10 @@ hover框、返回按钮及关闭/返回/行提示按原序，每次绘制重取�
 - NetworkRuntime改用ReadLegacyTime32_53BA26直接写原S32槽，随后以同址调用LocalTime_53B8C6；返回槽改为LegacyTm53B8C6*借用已有共享九槽对象。不加失败门禁、时间副本、owner或宽数值。
 - 原请求/回复状态、协议模式、whV分派、文字/保护表处理及失败busy分支保持；复用已有头声明和真实定义，时间层本体/CMake不改，不应用待批CRT宿主提案。
 - 集中静态检查确认源码仅三处预期差异（移除ctime、指针类型、两调用），同址/顺序及分派保持；当前src/include已无std::time/localtime/gmtime或std::tm消费。UTF-8无BOM/LF及差异检查通过；未构建、查产物、新增或执行测试、运行客户端或哈希校验，完整网络和总PLAN未验收。
+
+### 2026-10-03：模块名检查接回旧共享大小写比较
+
+- 按[局部SPEC](../doc/cg2d_legacy_string_compare.md#模块名检查接回共享比较器-spec2026-10-03)核4042D0完整76条代码指令；404343/40436E两处均调用53CF50，返回完整EAX为0才命中。
+- MainLoopSupport表循环中的宿主_stricmp改接CompareInsensitive_53CF50，复用既有locale/ctype/NLS与非C返回合同；保留两表选择、20槽/空槽门禁、模块推进及快照关闭，比较器内部不改。
+- 集中静态检查确认源码只替换一个调用，真实声明/定义已存在；当前src/include无_stricmp/_strcmpi/_strnicmp调用残留，UTF-8无BOM/LF和差异检查通过。
+- 未实际枚举进程/模块或执行保护检查，未构建、检查产物、新增或执行测试、运行客户端或校验哈希；主循环及总PLAN继续，CRT提案仍待确认。

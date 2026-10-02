@@ -5177,6 +5177,92 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "4544F0/4548A0调用；目标非空才rep movsd八次复制原32B键值，含28B键与4B表面指针。新端使用类型化键和TextureSurface*值复制，不能保留原32B memcpy截断拓宽指针；未比较的旧键填充字节不成为身份分量。"
+    },
+    {
+      "original_entry": "0x454880",
+      "inventory_id": "F:00054880",
+      "status": "共享容器结果复制适配映射，键盘调用沿已批排除，运行未验",
+      "original_end_exclusive": "0x454896",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80",
+            "SurfaceTransformCache"
+          ]
+        },
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "boundary": "按顺序复制节点引用与W8插入标志；图形变换44CD80六处、图号索引459960两处由现有有序容器操作结果承接。5396A0两处属于已批屏幕键盘链排除，不据此排除共享叶或其他调用。原结果结构的32位引用布局不套用于x64。",
+      "evidence_documents": [
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_external_keyboard_wrapper.md"
+      ]
+    },
+    {
+      "original_entry": "0x5235B0",
+      "inventory_id": "F:001235B0",
+      "status": "共享树首迭代器适配映射，键盘调用沿已批排除，完整退出未验",
+      "original_end_exclusive": "0x5235BE",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "SurfaceTransformCache"
+          ]
+        },
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords",
+            "GraphicInit_459960"
+          ]
+        },
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "gPaletteDbf"
+          ]
+        }
+      ],
+      "boundary": "读取this+4表头的+0首节点，写输出迭代器并返回输出地址；44CC60、459890、459960、5226A0两处、523390由现有容器首项/插入/清理生命周期整体承接。535310一处属于已批键盘链排除；不独立模拟旧表头地址或将清理临时begin读取当作新增业务循环。",
+      "evidence_documents": [
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_external_keyboard_wrapper.md"
+      ]
+    },
+    {
+      "original_entry": "0x523FB0",
+      "inventory_id": "F:00123FB0",
+      "status": "共享树节点分配适配映射，键盘调用沿已批排除，分配时机未验",
+      "original_end_exclusive": "0x523FCB",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "PaletteDbfState",
+            "gPaletteDbf"
+          ]
+        }
+      ],
+      "boundary": "分配原24B节点并仅写+4 parent和+14 color；5226A0函数块内522880/5228C5分别建立共享哨兵/表头，由既有map构造承接。535090一处属已批屏幕键盘链排除。不把原分配布局或失败时机当作已保真，不新增固定成功包装。",
+      "evidence_documents": [
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_external_keyboard_wrapper.md"
+      ]
     }
   ]
 }

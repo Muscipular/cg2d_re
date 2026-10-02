@@ -2934,7 +2934,7 @@ YobiAction* Sub_4D7440()
     return action;
 }
 
-// 原旧58完整消费路径；四个外部数据定义/生产尚缺，不提前注册页面。
+// 原旧58完整消费路径；目录、图号、页数三项定义/生产尚缺，不提前注册页面。
 std::uint32_t Sub_4D7470(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyPetSkillCatalogPanel581FB8.x;

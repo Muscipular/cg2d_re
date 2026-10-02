@@ -14235,7 +14235,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     LegacyPanelButtonRecord next {panelX + 229, panelY + 389, panelX + 215, panelY + 379, 28, 20, 22834, 22835};
     LegacyPanelButtonRecord rename {panelX + 70, panelY + 356, panelX + 30, panelY + 346, 80, 20, 22807, 22808};
     if (Sub_5049A0(panelX + 136, panelY + 32, panelX + 267, panelY + 203, -1) != 0
-        && (static_cast<std::uint8_t>(gValueD68D98) & 1) != 0) {
+        && (static_cast<std::uint8_t>(gValueD68DA0) & 1) != 0) {
         YobiAction* action = gLegacyPetDetailActionD67AE0;
         if (action != nullptr) {
             SetYobiActionField2B8(action, GetYobiActionField2B8(action) + 1);

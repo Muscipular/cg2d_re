@@ -12473,6 +12473,56 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "原mode3命中小块读block-4减9；mode2命中读单字节乘16；其他直接HeapSize并返回W32，不加空指针保护。宿主以first/last/end跟踪槽容量，不由本函数查旧块。仅职责归属，不伪造旧块头或将两种容量策略视为等价。"
+    },
+    {
+      "original_entry": "0x53C2B4",
+      "inventory_id": "F:0013C2B4",
+      "status": "六组既有排序特化已补同址免交换；通用字节接口与完整父链未验收",
+      "original_end_exclusive": "0x53C2E0",
+      "instruction_count": 23,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "SortMapPrimary_46C420"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_518600",
+            "Sub_5198D0"
+          ]
+        },
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_4EC1A0"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "SortMailIndicesLegacy"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SortBattleDrawPointers_53C112",
+            "ShortSortBattleDrawActions_53C266"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_battle.md",
+        "doc/ui_windows/window_49.md"
+      ],
+      "boundary": "原先判两地址相同则不读长度或元素，不同地址且长度非零才逐字节交换；四引用为53C112三处及53C266一处。本步六算法十八个可能同址点加地址不等条件，中点换首在length>8时必异而保持原调用。不同元素沿既有完整原生值交换，非通用任意字节/重叠区间实现；比较/分区/栈顺序与其他源码逐字保持。"
     }
   ]
 }

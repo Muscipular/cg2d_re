@@ -186,7 +186,9 @@ void SortMapPrimary_46C420()
                         maximum = item;
                     }
                 }
-                std::swap(*maximum, *last);
+                if (maximum != last) {
+                    std::swap(*maximum, *last);
+                }
                 --last;
             }
         } else {
@@ -203,9 +205,13 @@ void SortMapPrimary_46C420()
                 if (right < left) {
                     break;
                 }
-                std::swap(*left, *right);
+                if (left != right) {
+                    std::swap(*left, *right);
+                }
             }
-            std::swap(*first, *right);
+            if (first != right) {
+                std::swap(*first, *right);
+            }
             // 原比较 (right-first 的字节数)-1 >= (last-left 的字节数)。
             if (right - first > last - left) {
                 if (first + 1 < right) {

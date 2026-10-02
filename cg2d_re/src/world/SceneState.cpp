@@ -3243,7 +3243,9 @@ void Sub_518600(
                         maximum = item;
                     }
                 }
-                std::swap(*maximum, *last);
+                if (maximum != last) {
+                    std::swap(*maximum, *last);
+                }
                 --last;
             }
         } else {
@@ -3260,9 +3262,13 @@ void Sub_518600(
                 if (right < left) {
                     break;
                 }
-                std::swap(*left, *right);
+                if (left != right) {
+                    std::swap(*left, *right);
+                }
             }
-            std::swap(*first, *right);
+            if (first != right) {
+                std::swap(*first, *right);
+            }
             if (right - first > last - left) {
                 if (first + 1 < right) {
                     firstStack[stackSize] = first;
@@ -4023,7 +4029,9 @@ void Sub_5198D0(TitleRecord* const records, const std::uint32_t count)
                         maximum = item;
                     }
                 }
-                std::swap(*maximum, *last);
+                if (maximum != last) {
+                    std::swap(*maximum, *last);
+                }
                 --last;
             }
         } else {
@@ -4040,9 +4048,13 @@ void Sub_5198D0(TitleRecord* const records, const std::uint32_t count)
                 if (right < left) {
                     break;
                 }
-                std::swap(*left, *right);
+                if (left != right) {
+                    std::swap(*left, *right);
+                }
             }
-            std::swap(*first, *right);
+            if (first != right) {
+                std::swap(*first, *right);
+            }
             // 原按字节比较(right-first)-1 >= last-left，整项距离等价为严格大于。
             if (right - first > last - left) {
                 if (first + 1 < right) {

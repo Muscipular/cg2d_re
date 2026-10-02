@@ -307,7 +307,9 @@ void Sub_4EC1A0()
                         maximum = item;
                     }
                 }
-                std::swap(*maximum, *last);
+                if (maximum != last) {
+                    std::swap(*maximum, *last);
+                }
                 --last;
             }
         } else {
@@ -324,9 +326,13 @@ void Sub_4EC1A0()
                 if (right < left) {
                     break;
                 }
-                std::swap(*left, *right);
+                if (left != right) {
+                    std::swap(*left, *right);
+                }
             }
-            std::swap(*first, *right);
+            if (first != right) {
+                std::swap(*first, *right);
+            }
             if (right - first > last - left) {
                 if (first + 1 < right) {
                     firstStack[stackSize] = first;

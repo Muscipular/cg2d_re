@@ -20094,7 +20094,9 @@ void ShortSortBattleDrawActions_53C266(YobiAction** const low, YobiAction** high
                 maximum = current;
             }
         }
-        std::swap(*maximum, *high);
+        if (maximum != high) {
+            std::swap(*maximum, *high);
+        }
         --high;
     }
 }
@@ -20128,9 +20130,13 @@ void SortBattleDrawPointers_53C112(YobiAction** const base, const std::uint32_t 
                 if (right < left) {
                     break;
                 }
-                std::swap(*left, *right);
+                if (left != right) {
+                    std::swap(*left, *right);
+                }
             }
-            std::swap(*low, *right);
+            if (low != right) {
+                std::swap(*low, *right);
+            }
             // 原按4B槽差减1后比较；整槽化必须用严格>，不能改变等长分区的选择。
             if (right - low > high - left) {
                 if (low + 1 < right) {

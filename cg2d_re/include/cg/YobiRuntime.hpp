@@ -829,6 +829,10 @@ std::int32_t Sub_45E6E0(YobiAction* action);
 YobiAction* Sub_4D6640(std::int32_t image, std::int32_t x, std::int32_t y); // 旧对话固定DD层预览，失败返回空T*。
 YobiAction* Sub_4F9FF0(
     std::int32_t image, std::int32_t x, std::int32_t y, std::uint8_t displayPriority);
+// 旧42未读提示专用预览；方向0/flags14H，包含动作5的八动作循环集合。
+YobiAction* Sub_4EBF70(
+    std::int32_t image, std::int32_t x, std::int32_t y, std::uint8_t displayPriority);
+std::int32_t Sub_4EBFD0(YobiAction* action); // 原回调返回完整517880结果，注册时显式弃返回。
 std::int32_t Sub_4D6690(YobiAction* action); // 旧UI通用预览，指定七动作循环播放。
 // 旧技能/采集结果面板共用预览；保留100900/100901和原图号分类，不套普通对象创建。
 YobiAction* Sub_4FAAA0(std::int32_t image, std::int32_t x, std::int32_t y);

@@ -8586,7 +8586,7 @@
     {
       "original_entry": "0x546ACD",
       "inventory_id": "F:00146ACD",
-      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "status": "基础本体已由多字节初始化/目录链实际调用；失败与运行边界未验",
       "original_end_exclusive": "0x546B00",
       "instruction_count": 19,
       "sources": [
@@ -8610,12 +8610,12 @@
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原四代码页映射完整承接，其余包括1361返回0；不是统一当前系统locale。启动生产尚未接入。"
+      "boundary": "原四代码页映射完整承接，其余包括1361返回0；不是统一当前系统locale。已接5468EA生产链，NLS失败与完整运行未验。"
     },
     {
       "original_entry": "0x546B00",
       "inventory_id": "F:00146B00",
-      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "status": "基础本体已由多字节初始化/目录链实际调用；失败与运行边界未验",
       "original_end_exclusive": "0x546B29",
       "instruction_count": 17,
       "sources": [
@@ -8639,12 +8639,12 @@
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先清257B分类表，再按原顺序清代码页、多字节标记、locale和三个U32参数；保留caseMap及未解释间隔，不把SBCS重置当整对象清零。启动生产尚未接入。"
+      "boundary": "先清257B分类表，再按原顺序清代码页、多字节标记、locale和三个U32参数；保留caseMap及未解释间隔，不把SBCS重置当整对象清零。已接5468EA生产链，NLS失败与完整运行未验。"
     },
     {
       "original_entry": "0x543D37",
       "inventory_id": "F:00143D37",
-      "status": "基础本体与共享存储已实现；多字节初始化及目录调用未接线",
+      "status": "基础本体已由多字节初始化/目录链实际调用；失败与运行边界未验",
       "original_end_exclusive": "0x543DB2",
       "instruction_count": 43,
       "sources": [
@@ -8661,6 +8661,12 @@
             "UpperLegacyDirectoryByte_543D37",
             "LegacyMultibyteStorage"
           ]
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "ChangeLegacyDirectory_53DD2F"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8668,7 +8674,166 @@
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "只承接唯一直接caller 53DD2F经movzx传入的U8域：classification[value+1] bit20命中取caseMap，否则原值，返回U32。大于255的NLS分支未实现；共享表初始化与目录接线尚未完成，不能使用初始零表宣称正常路径可用。"
+      "boundary": "只承接唯一直接caller 53DD2F经movzx传入的U8域：classification[value+1] bit20命中取caseMap，否则原值，返回U32。大于255的NLS分支未实现；共享表已由546CAE/5468EA/546B29生产，目录53DD2F实际读取；NLS失败局部内容、全启动顺序及运行仍未验。"
+    },
+    {
+      "original_entry": "0x545208",
+      "inventory_id": "F:00145208",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x545351",
+      "instruction_count": 123,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "GetLegacyTableCharacterTypes_545208"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "只承接546B29的256字节/info1/strict0域；独立10862E4 A/W探测，代码页和locale按原回退，栈宽缓冲清零后转换，使用第二次转换的实际返回长度。其他一般调用参数不在此映射。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x543AE8",
+      "inventory_id": "F:00143AE8",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x543D0C",
+      "instruction_count": 193,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "MapLegacyCaseTable_543AE8"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "新增546B29固定256项lower/upper、strict0域，与既有比较器共享1086198后端及1086170代码页；缩源、两次栈申请/宽映射及flags220回转保持。未实现SORTKEY/其他通用域，既有小范围MapLowercase保持。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x546A83",
+      "inventory_id": "F:00146A83",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x546ACD",
+      "instruction_count": 15,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "ResolveLegacyMultibyteCodePage_546A83"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先清系统CP标志，-2/-3/-4按原置标志并取OEMCP/ACP/共享1086170，其他原值返回；参数保留U32位型。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x5468EA",
+      "inventory_id": "F:001468EA",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x546A83",
+      "instruction_count": 135,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "SetLegacyMultibyteCodePage_5468EA"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "相同CP早退，零CP走SBCS；五组原48B常量/四mask，其他CPINFO精确返回1路径和系统标志失败回退均保留；分类/参数/locale按原序发布，成功更新再进入546B29。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x546B29",
+      "inventory_id": "F:00146B29",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x546CAE",
+      "instruction_count": 124,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "RefreshLegacySingleByteCase_546B29"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "GetCPInfo==1后构造256字节源并屏蔽lead，依次分类/lower/upper，再更新同一分类及大小写表；三次返回原样忽略，局部输出不补零。失败未写局部内容不能证明旧栈等价，明确未验；CPINFO不等于1才原ASCII分支。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x546CAE",
+      "inventory_id": "F:00146CAE",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x546CCA",
+      "instruction_count": 7,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "InitializeLegacyMultibyte_546CAE"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553178实际调用，门禁0时setmbcp(-3)，随后置1，不按失败重试；当前调用不消费返回，用void承接，不伪造原门禁非零时未定义EAX。三个旧环境/参数辅助本体不因这项接线计为已重建。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+    },
+    {
+      "original_entry": "0x53DD2F",
+      "inventory_id": "F:0013DD2F",
+      "status": "多字节生产及目录调用已接；限定NLS域、失败局部内容和运行未验",
+      "original_end_exclusive": "0x53DDB5",
+      "instruction_count": 45,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "ChangeLegacyDirectory_53DD2F"
+          ]
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "CreateSaveDirectories"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_multibyte.md",
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "两处存档调用已接：SetCurrentDirectoryA后GetCurrentDirectoryA(261)，仅返回0失败；相同双斜杠前缀早退，否则原U8表构造=X:并设置环境。失败映射共享错误、不回滚CWD；未补缓冲零值/长度门禁，路径过长及未写局部内容不称故障等价。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
     }
   ]
 }

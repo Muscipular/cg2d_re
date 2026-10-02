@@ -4,7 +4,6 @@
 #include "cg/platform/LegacyTime.hpp"
 
 #include <cstdio>
-#include <direct.h>
 
 namespace cg::platform {
 
@@ -23,12 +22,12 @@ std::uint32_t CaptureDesktopColor()
 int CreateSaveDirectories()
 {
     char directory[256];
-    _chdir("data");
+    ChangeLegacyDirectory_53DD2F("data");
     for (int i = 0; i < 10; ++i) {
         std::sprintf(directory, "%d", i);
         CreateLegacyDirectory_53C654(directory);
     }
-    _chdir("..");
+    ChangeLegacyDirectory_53DD2F("..");
     return 1;
 }
 

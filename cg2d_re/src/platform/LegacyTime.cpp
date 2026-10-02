@@ -1,7 +1,9 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "StartupNative.hpp"
 #include "LegacyStringCompareState.hpp"
+#include "LegacyMultibyte.hpp"
 
+#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
@@ -773,6 +775,30 @@ std::int32_t CreateLegacyDirectory_53C654(const char* const path)
         return -1;
     }
     return 0;
+}
+
+std::int32_t ChangeLegacyDirectory_53DD2F(const char* const path)
+{
+    char directory[261];
+    if (::SetCurrentDirectoryA(path) != 0
+        && ::GetCurrentDirectoryA(261, directory) != 0) {
+        const char first = directory[0];
+        if ((first == '\\' || first == '/') && first == directory[1]) {
+            return 0;
+        }
+        char driveEnvironment[4];
+        driveEnvironment[0] = '=';
+        const std::uint32_t upper = UpperLegacyDirectoryByte_543D37(
+            static_cast<std::uint8_t>(first));
+        driveEnvironment[3] = '\0';
+        driveEnvironment[1] = std::bit_cast<char>(static_cast<std::uint8_t>(upper));
+        driveEnvironment[2] = ':';
+        if (::SetEnvironmentVariableA(driveEnvironment, directory) != 0) {
+            return 0;
+        }
+    }
+    static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
+    return -1;
 }
 
 std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* const output)

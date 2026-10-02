@@ -5,11 +5,14 @@
 
 namespace cg::platform {
 
-// 原1085FE0共享S32错误槽；文件查询/目录创建写入，截图读取17判断目录已存在。
+// 原1085FE0共享S32错误槽；文件查询/目录创建或切换写入，截图读取17判断目录已存在。
 extern std::int32_t gLegacyErrno_1085FE0;
 
 // 原53C654；旧字节路径交CreateDirectoryA，非零错误经542F44写共享槽，返回0/-1。
 std::int32_t CreateLegacyDirectory_53C654(const char* path);
+
+// 原53DD2F；切目录后更新驱动器环境项，失败沿542F44，不回滚已发生的目录改变。
+std::int32_t ChangeLegacyDirectory_53DD2F(const char* path);
 
 // 原0x1086128的九个S32值槽；多个调用方借用同一可变对象，不是现代CRT tm。
 struct LegacyTm53B8C6 {

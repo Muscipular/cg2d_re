@@ -363,3 +363,15 @@ StartupCommon仍使用_chdir，保留其direct.h。六处源码调用全部替�
 
 集中静态核对17条入口、六处接线、同一错误owner和截图短路条件；
 不实际创建目录、改变CWD、写截图、运行客户端、编译、测试或进行哈希校验。
+
+## 存档目录切换接线（2026-10-02）
+
+前节未完成的53DD2F现已按[多字节生产SPEC](cg2d_legacy_multibyte.md#启动生产与目录接线实施-spec2026-10-02)
+实现并替换CreateSaveDirectories两处_chdir。仍先进入data、依次创建0至9、
+最后切到..，全部返回仍忽略；不新增工作目录保存/恢复或失败门禁。
+
+新端调用原SetCurrentDirectoryA/GetCurrentDirectoryA(261)/SetEnvironmentVariableA，
+用CRT553178实际初始化的原多字节表转换驱动器首字节；
+目录改变后查询或环境更新失败均经既有542F44，已发生的CWD改变不回滚。
+该修复不代表实际改过目录。NLS失败未写局部内容、长路径异常、全启动次序和运行
+仍未验；旧环境/参数入口本身不因初始化职责接线算已实现。

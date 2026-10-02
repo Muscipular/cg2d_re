@@ -28,6 +28,19 @@ static_assert(offsetof(LegacyMultibyteStorage, locale) == 0x220);
 static_assert(sizeof(LegacyMultibyteStorage) == 0x224);
 
 extern LegacyMultibyteStorage gLegacyMultibyte1086764;
+extern std::uint32_t gLegacyMultibyteTypeBackend10862E4;   // 分类A/W探测，独立于LCMap后端。
+extern std::uint32_t gLegacyMultibyteSystemCodePage10862E8; // 原getSystemCP的回退标记。
+extern std::uint32_t gLegacyMultibyteInitGuard1087AEC;     // 初始化调用后置1，不按失败重试。
+
+// 原546A83/5468EA；保留特殊U32代码页参数、固定表和系统CPINFO路径。
+std::uint32_t ResolveLegacyMultibyteCodePage_546A83(std::uint32_t requested);
+std::int32_t SetLegacyMultibyteCodePage_5468EA(std::uint32_t requested);
+
+// 原546B29；生产分类/大小写表，原NLS返回不检查，失败未写局部内容仍未验。
+std::uint32_t RefreshLegacySingleByteCase_546B29();
+
+// 原546CAE；当前CRT553178调用不消费返回，不伪造门禁已置时的未定义EAX。
+void InitializeLegacyMultibyte_546CAE();
 
 // 原546ACD；只有原四种代码页返回特定locale，其他均0。
 std::uint32_t MultibyteCodePageToLocale_546ACD(std::uint32_t codePage);

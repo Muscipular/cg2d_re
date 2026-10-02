@@ -3,6 +3,7 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
 #include "MainLoopDependencies.hpp"
+#include "LegacyMultibyte.hpp"
 #include "cg/AnimationRuntime.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -456,6 +457,16 @@ const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164;
+
+// 原CRT553178；仅生产多字节共享表，无析构或额外退出登记。
+struct LegacyMultibyteStaticInitializer {
+    LegacyMultibyteStaticInitializer()
+    {
+        InitializeLegacyMultibyte_546CAE();
+    }
+};
+
+const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;
 
 } // namespace
 

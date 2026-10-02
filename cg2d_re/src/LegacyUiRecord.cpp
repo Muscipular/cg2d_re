@@ -245,6 +245,10 @@ LegacyPanelRecord gLegacyPetDetailPanel584918 {
 };
 std::int32_t gLegacyPetSelectionD67ADC = 0; // 旧20生产，旧21/22共用位置，不是PetPair中的槽号。
 YobiAction* gLegacyPetDetailActionD67AE0 = nullptr;
+LegacyPanelRecord gLegacyPetRenamePanel5849E0 {
+    0, 0, 272, 200, 22, {22809, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+input::InputContext* gLegacyPetRenameInputD67D1C = nullptr; // 借用独立D2DFD0，不复用现代宠物输入。
 
 bool HandleLegacyPetNavigation(const LegacyPanelButtonRecord* const back,
     const LegacyPanelButtonRecord* const previous, const LegacyPanelButtonRecord* const next)
@@ -6845,6 +6849,65 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return 0;
+}
+
+std::uintptr_t Sub_4FA050(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyPetRenamePanel5849E0.x;
+    const std::int32_t y = gLegacyPetRenamePanel5849E0.y;
+    LegacyPanelButtonRecord confirm {x + 90, y + 172, x + 50, y + 162, 80, 20, 22712, 22713};
+    LegacyPanelButtonRecord cancel {x + 182, y + 172, x + 142, y + 162, 80, 20, 22710, 22711};
+    const std::int32_t state = Sub_503160(opened, &gLegacyPetRenamePanel5849E0, NullSub_509080, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        std::uintptr_t result = 0;
+        if (input::IsCurrentContext_503E40(gLegacyPetRenameInputD67D1C) != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyPetRenameInputD67D1C = nullptr;
+        return result;
+    }
+    const auto index = std::bit_cast<std::int16_t>(
+        world::detail::gPetPairsDE0B08[gLegacyPetSelectionD67ADC].index);
+    auto& pet = world::detail::gPetRuntimeF633F8[index];
+    char buffer[256];
+    if (gLegacyPetRenameInputD67D1C == nullptr) {
+        const std::int32_t top = gLegacyPetRenamePanel5849E0.y;
+        std::strcpy(buffer, pet.name6BD.data());
+        const std::int32_t left = gLegacyPetRenamePanel5849E0.x;
+        gLegacyPetRenameInputD67D1C = &input::gInputContextD2DFD0;
+        input::gInputContextD2DFD0.text[0] = '\0';
+        input::gInputContextD2DFD0.totalByteLength = 0;
+        input::gInputContextD2DFD0.caretByteOffset = 0;
+        input::InitializeContext_449CF0(&input::gInputContextD2DFD0,
+            left + 94, top + 93, 2, 0, 0, buffer, 1, 16, 0, 0);
+        input::SetContext_44B330(gLegacyPetRenameInputD67D1C);
+    }
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        if (std::strcmp(pet.name6BD.data(), gLegacyPetRenameInputD67D1C->text) != 0) {
+            std::strcpy(buffer, gLegacyPetRenameInputD67D1C->text);
+            NullSub_509080();
+            const std::uintptr_t socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_5125B0(socket, index, buffer));
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+        static_cast<void>(audio::Sub_5042D0(gLegacyPetRenamePanel5849E0.id));
+        static_cast<void>(audio::Sub_504180(21));
+    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyPetRenamePanel5849E0.id));
+        static_cast<void>(audio::Sub_504180(21));
+    }
+    const std::int32_t nameY = gLegacyPetRenamePanel5849E0.y + 51;
+    const std::int32_t nameX = gLegacyPetRenamePanel5849E0.x + 94;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+        static_cast<std::int16_t>(nameY), 2, 0, 0, pet.name6BD.data(), 0, 0));
+    render::DrawInputText_4568A0(gLegacyPetRenameInputD67D1C);
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&cancel, 212, 1, gValueD69768, 0);
+    return Sub_503440(&gLegacyPetRenamePanel5849E0, 1);
 }
 
 std::int32_t Sub_4FAED0()

@@ -5568,6 +5568,376 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token/reserved；不读明文、不调用RNG。原返回目标引用，427470内30处调用按既有父合同弃返回，使用void CopyPayload承接；不以此替换count先写等不同内联复制序。"
+    },
+    {
+      "original_entry": "0x404D00",
+      "inventory_id": "F:00004D00",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "Yobi死亡标记",
+      "original_end_exclusive": "0x404D10",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "MarkDeath"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "空指针直接返回空；非空只把deathFlag原+1C的W32写1并返回原指针，不释放、不摘链、不改flags。当前原引用统计仅用于定位，不以叶对应声称所有对象生命周期已验。"
+    },
+    {
+      "original_entry": "0x43D770",
+      "inventory_id": "F:0003D770",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "世界对象数组构造",
+      "original_end_exclusive": "0x43D78F",
+      "instruction_count": 7,
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldObjectsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原向量构造器对1000项按正序调用43D7C0，每项先+0C后+1C构造CryptInt；现有唯一数组构造保留顺序与2000次RNG。原13C步长不复制为x64布局，原SEH及完整跨模块CRT时序不据此宣称等价。"
+    },
+    {
+      "original_entry": "0x43D7A0",
+      "inventory_id": "F:0003D7A0",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "世界对象数组析构",
+      "original_end_exclusive": "0x43D7BA",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "DestroyWorldObjects"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WorldObjectsStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原43D760登记的退出入口以1000项调用向量析构器；现有999至0逆序且每项先coordinate1C后coordinate0C，不释放YobiAction借用值，不把重置入口当作析构。"
+    },
+    {
+      "original_entry": "0x44B250",
+      "inventory_id": "F:0004B250",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "旧编码单字节宽度分类",
+      "original_end_exclusive": "0x44B25E",
+      "instruction_count": 7,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A580",
+            "Sub_44AA90",
+            "Sub_476740"
+          ]
+        },
+        {
+          "path": "src/world/RenderInput.cpp",
+          "symbols": [
+            "RenderInput_4590E0"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A7590",
+            "Sub_4A7640"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_render.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "仅读实参低W8的bit7，置位返回2否则1；六caller七调用点在原位置使用同一位判定。不是Unicode长度、合法双字节验证或NUL检查，不额外读取后续字节。"
+    },
+    {
+      "original_entry": "0x44B600",
+      "inventory_id": "F:0004B600",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "支持渲染模式低字节读取",
+      "original_end_exclusive": "0x44B606",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_493CB0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_24.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一原caller493D40取AL后按S8消费；现有Sub_493CB0从platform::gSupportedRenderMode同源取低字节并bit_cast<int8_t>，不创建能力影子状态或把高EAX残值作为返回合同。"
+    },
+    {
+      "original_entry": "0x470A9F",
+      "inventory_id": "F:00070A9F",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x470AAA",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_470A80"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_1.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用470AC0后置EAX=1并返回；已并入Sub_470A80共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x47752C",
+      "inventory_id": "F:0007752C",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x477537",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4774C0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_9.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用478010后置EAX=1并返回；已并入Sub_4774C0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x48C1CF",
+      "inventory_id": "F:0008C1CF",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x48C1DA",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_48C1B0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_15.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用48C920后置EAX=1并返回；已并入Sub_48C1B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x493DF9",
+      "inventory_id": "F:00093DF9",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x493E04",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_493DB0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_24.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用DrawCurrentWindow后置EAX=1并返回；已并入Sub_493DB0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4AC1EC",
+      "inventory_id": "F:000AC1EC",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x4AC1F7",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AC1B0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_38_41.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用DrawCurrentWindow后置EAX=1并返回；已并入Sub_4AC1B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4C94D6",
+      "inventory_id": "F:000C94D6",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x4C94E1",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C94B0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_59.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用4C9C70后置EAX=1并返回；已并入Sub_4C94B0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4C9F08",
+      "inventory_id": "F:000C9F08",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x4C9F13",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9EE0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_60.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用已证空叶nullsub_1后置EAX=1并返回；已并入Sub_4C9EE0共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4CA438",
+      "inventory_id": "F:000CA438",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x4CA443",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CA410"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_61.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用4CA450后置EAX=1并返回；已并入Sub_4CA410共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4CAF88",
+      "inventory_id": "F:000CAF88",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "父窗口更新公共尾",
+      "original_end_exclusive": "0x4CAF93",
+      "instruction_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CAF60"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_62.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原仅调用4CAFA0后置EAX=1并返回；已并入Sub_4CAF60共同尾，空叶不产生业务副作用。不按IDA误标的库函数名引入locale功能，不遗漏父分支汇合后的刷新/返回。"
+    },
+    {
+      "original_entry": "0x4C2634",
+      "inventory_id": "F:000C2634",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "分页按钮入口后的主体",
+      "original_end_exclusive": "0x4C26AF",
+      "instruction_count": 36,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C2630"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_69_70.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "真实元素入口4C2630先从栈取index到ECX，随即落入本36指令主体；当前Sub_4C2630保留数据对象快照、SE后重读页位、减5及原有归零、三种按钮图覆盖。不将分段主体独立调用或漏掉首条索引读取。"
+    },
+    {
+      "original_entry": "0x4CD240",
+      "inventory_id": "F:000CD240",
+      "status": "已有命名或父函数合并映射，运行未验",
+      "original_role": "浏览宠物CRT包装",
+      "original_end_exclusive": "0x4CD24A",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "StallBrowsePetsStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues",
+            "DestroyStallBrowsePetValues"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。"
     }
   ]
 }

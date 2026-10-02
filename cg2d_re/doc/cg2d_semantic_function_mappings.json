@@ -4662,6 +4662,41 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "先清待提交状态，再写待提交类型，返回输入S32类型；不立即改当前场景。"
+    },
+    {
+      "original_entry": "0x44B2A0",
+      "inventory_id": "F:0004B2A0",
+      "status": "已有测宽本体，额外返回分支已修正，运行未验",
+      "sources": [
+        {
+          "path": "src/render/Font.cpp",
+          "symbols": [
+            "cg::login::detail::TextMeasure"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_font_measure.md"
+      ],
+      "boundary": "直接读首字节，NUL返回0；否则按高位逐次推进1/2字节并读取当前字体度量。推进后先读新首字节再累加，没有字节预算、空指针/字体范围固定0返回或尾字节校验。异常不专项模拟。"
+    },
+    {
+      "original_entry": "0x44B2E0",
+      "inventory_id": "F:0004B2E0",
+      "status": "已有测宽本体，额外返回分支已修正，运行未验",
+      "sources": [
+        {
+          "path": "src/render/Font.cpp",
+          "symbols": [
+            "cg::render::Font::measure"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_font_measure.md",
+        "doc/cg2d_input_caret.md"
+      ],
+      "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。"
     }
   ]
 }

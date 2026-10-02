@@ -7191,7 +7191,7 @@
         {
           "path": "src/render/Font.cpp",
           "symbol": "MeasureDefaultText_44B260",
-          "definition_line": 264,
+          "definition_line": 259,
           "namespace": "cg::login::detail"
         }
       ]

@@ -220,11 +220,6 @@ std::int32_t Font::measure(
     if (maxBytes <= 0) {
         return 0;
     }
-    if (text == nullptr
-        || fontType < 0
-        || fontType >= static_cast<std::int32_t>(kFontTypeCount)) {
-        return 0;
-    }
 
     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
     std::uint32_t totalWidth = 0;
@@ -287,17 +282,9 @@ std::int32_t MeasureDefaultText_44B260(const char* const text)
 // 原 TextMeasure@[0x44B2A0,0x44B2DC)：无字节预算的旧编码文本测宽。
 std::int32_t TextMeasure(const char* text, std::int32_t fontType)
 {
-    if (text == nullptr) {
-        return 0;
-    }
-
     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
     std::uint8_t firstByte = *cursor;
     if (firstByte == 0) {
-        return 0;
-    }
-    if (fontType < 0
-        || fontType >= static_cast<std::int32_t>(cg::render::kFontTypeCount)) {
         return 0;
     }
 

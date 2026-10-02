@@ -508,6 +508,7 @@ struct WindowDialogTextLine {
 static_assert(sizeof(WindowDialogTextLine) == 81);
 
 const WindowDialogTextLine* BorrowNpcDialogLinesCC24D4() noexcept; // 借用标题及正文，旧/现代对话同源。
+std::int32_t ReadLegacyChoiceImageCC4890() noexcept; // 4A0640生产，旧55/56/57共享预览消费。
 std::int32_t ReadLegacyChoiceImageC9A99C() noexcept; // 4A0790生产，旧74预览消费。
 std::int32_t ReadLegacyChoiceImageD2EA74() noexcept; // 4A0850生产，旧83预览消费。
 

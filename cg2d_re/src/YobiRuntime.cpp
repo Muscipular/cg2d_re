@@ -32206,6 +32206,23 @@ std::int32_t Sub_504C50(const std::int32_t currentImage, const std::int32_t requ
     return currentImage;
 }
 
+YobiAction* Sub_4D6640(const std::int32_t image, const std::int32_t x, const std::int32_t y)
+{
+    YobiAction* const action = NewYobiAction_404AE0(2, 0);
+    if (action == nullptr) {
+        return nullptr;
+    }
+    action->imageNo = image;
+    action->callback = [](YobiAction* const value) { static_cast<void>(Sub_4D6690(value)); };
+    action->characterAction = 0;
+    action->direction = 5;
+    action->displayPriority = 0xDD;
+    action->flags = 0x16;
+    action->x = x;
+    action->y = y;
+    return action;
+}
+
 YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,
     const std::int32_t y, const std::uint8_t displayPriority)
 {

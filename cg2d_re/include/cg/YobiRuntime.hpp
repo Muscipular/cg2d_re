@@ -826,6 +826,7 @@ void SetYobiActionField30F(YobiAction* action, std::uint8_t value);
 std::int32_t Sub_45E6E0(YobiAction* action);
 
 // 旧UI通用预览；工厂直写图号，详情页自行决定是否做51B740转换。
+YobiAction* Sub_4D6640(std::int32_t image, std::int32_t x, std::int32_t y); // 旧对话固定DD层预览，失败返回空T*。
 YobiAction* Sub_4F9FF0(
     std::int32_t image, std::int32_t x, std::int32_t y, std::uint8_t displayPriority);
 std::int32_t Sub_4D6690(YobiAction* action); // 旧UI通用预览，指定七动作循环播放。

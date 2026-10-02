@@ -1557,6 +1557,11 @@ const WindowDialogTextLine* BorrowNpcDialogLinesCC24D4() noexcept
     return gNpcDialogLinesCC24D4.data();
 }
 
+std::int32_t ReadLegacyChoiceImageCC4890() noexcept
+{
+    return gChoiceImageCC4890;
+}
+
 std::int32_t ReadLegacyChoiceImageC9A99C() noexcept
 {
     return gChoiceImageC9A99C;

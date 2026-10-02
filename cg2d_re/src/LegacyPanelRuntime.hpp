@@ -263,6 +263,14 @@ std::uintptr_t Sub_4F83B0(std::int32_t opened); // 旧21三页外层，selected�
 std::int32_t Sub_4F8550(std::int32_t x, std::int32_t y); // 基本资料，导航后才固定宠物。
 std::int32_t Sub_4F8E40(std::int32_t x, std::int32_t y); // 属性/加点，导航前固定本帧宠物及上限快照。
 std::int32_t Sub_4F9B10(std::int32_t x, std::int32_t y); // 技能行，空槽仍绘底图，说明步长19。
+std::int32_t Sub_503B70(); // 旧快捷设置：类别2有选择则关闭100/SE57，否则打开3。
+std::int32_t Sub_503BC0(); // 旧快捷技能：切换18后关闭31，返回关闭结果。
+std::int32_t Sub_503BE0(); // 旧快捷物品：依序关闭16或15，否则切换14。
+std::int32_t Sub_503C30(); // 旧快捷联系人：切换42。
+std::int32_t Sub_503C40(); // 旧快捷图鉴：切换23。
+std::int32_t Sub_503C50(); // 旧快捷地图：切换1。
+std::int32_t Sub_503C60(); // 旧快捷宠物：切换20。
+std::int32_t Sub_503C70(); // 旧快捷动作：切换17。
 std::uintptr_t Sub_4014B0(std::int32_t opened); // 旧99黑名单编辑，复用既有名单与输入owner，保留关闭焦点返回。
 std::int32_t Sub_4FD690(); // 旧6清面板selected别名和独立行号，返回零。
 std::uintptr_t Sub_4FD6A0(std::int32_t opened); // 旧6按原26行/三页借输入及聊天别名，关闭仅归还自身焦点。

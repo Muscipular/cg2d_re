@@ -13688,6 +13688,59 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     return 0;
 }
 
+std::int32_t Sub_503B70()
+{
+    if (audio::Sub_5043D0(2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(100));
+        return audio::PlaySe_52C450(57, 320);
+    }
+    return audio::Sub_504180(3);
+}
+
+std::int32_t Sub_503BC0()
+{
+    static_cast<void>(audio::Sub_504460(18));
+    return audio::Sub_5042D0(31);
+}
+
+std::int32_t Sub_503BE0()
+{
+    if (audio::Sub_504410(16) != 0) {
+        static_cast<void>(audio::Sub_5042D0(16));
+        return audio::PlaySe_52C450(57, 320);
+    }
+    if (audio::Sub_504410(15) != 0) {
+        static_cast<void>(audio::Sub_5042D0(15));
+        return audio::PlaySe_52C450(57, 320);
+    }
+    return audio::Sub_504460(14);
+}
+
+std::int32_t Sub_503C30()
+{
+    return audio::Sub_504460(42);
+}
+
+std::int32_t Sub_503C40()
+{
+    return audio::Sub_504460(23);
+}
+
+std::int32_t Sub_503C50()
+{
+    return audio::Sub_504460(1);
+}
+
+std::int32_t Sub_503C60()
+{
+    return audio::Sub_504460(20);
+}
+
+std::int32_t Sub_503C70()
+{
+    return audio::Sub_504460(17);
+}
+
 std::uintptr_t Sub_4014B0(const std::int32_t opened)
 {
     const std::int32_t x = gLegacyBlacklistPanel5531D0.x;

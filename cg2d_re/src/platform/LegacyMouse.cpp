@@ -110,6 +110,8 @@ struct NarrowStandardStreamsStaticInitializer {
         std::cin.tie(&std::cout);
         std::cerr.tie(&std::cout);
         std::cerr.setf(std::ios_base::unitbuf);
+        // 原10864C8/1086310共用10863D8；只借用错误流缓冲，各流状态仍独立。
+        std::clog.rdbuf(std::cerr.rdbuf());
         std::clog.tie(&std::cout);
     }
 
@@ -129,6 +131,8 @@ struct WideStandardStreamsStaticInitializer {
         std::wcin.tie(&std::wcout);
         std::wcerr.tie(&std::wcout);
         std::wcerr.setf(std::ios_base::unitbuf);
+        // 原1086500/1086540共用10866A0；所有权保留在本机标准库。
+        std::wclog.rdbuf(std::wcerr.rdbuf());
         std::wclog.tie(&std::wcout);
     }
 

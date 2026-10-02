@@ -6503,6 +6503,1218 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原push536960/call atexit/pop ecx/ret，共四指令；四个相同登记叶合并同一内部实现，每次实际登记并返回结果。父包装不以其失败跳过后续第二登记，不缓存成功状态。"
+    },
+    {
+      "original_entry": "0x548170",
+      "inventory_id": "F:00148170",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54817A",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553114先调用54817A处理1086470的窄输入缓冲，再登记548193退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x548170",
+          "0x54817A"
+        ],
+        [
+          "0x548187",
+          "0x548193"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54817A",
+      "inventory_id": "F:0014817A",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548187",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086470传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x548193",
+      "inventory_id": "F:00148193",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54819D",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086470为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54819D",
+      "inventory_id": "F:0014819D",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481A7",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553118先调用5481A7处理1086348的窄输出缓冲，再登记5481C0退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54819D",
+          "0x5481A7"
+        ],
+        [
+          "0x5481B4",
+          "0x5481C0"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5481A7",
+      "inventory_id": "F:001481A7",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481B4",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086348传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5481C0",
+      "inventory_id": "F:001481C0",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481CA",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086348为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5481CA",
+      "inventory_id": "F:001481CA",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481D4",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT55311C先调用5481D4处理1086430的窄输入流，再登记5481EF退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5481CA",
+          "0x5481D4"
+        ],
+        [
+          "0x5481E3",
+          "0x5481EF"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5481D4",
+      "inventory_id": "F:001481D4",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481E3",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086430传0、1并调用54859F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5481EF",
+      "inventory_id": "F:001481EF",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5481F9",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086430为this进入5481F9，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54820E",
+      "inventory_id": "F:0014820E",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548218",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553120先调用548218处理10863A0的窄输出流，再登记548233退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54820E",
+          "0x548218"
+        ],
+        [
+          "0x548227",
+          "0x548233"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x548218",
+      "inventory_id": "F:00148218",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548227",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给10863A0传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x548233",
+      "inventory_id": "F:00148233",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54823D",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以10863A0为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x548252",
+      "inventory_id": "F:00148252",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54825C",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553124先调用54825C处理10863D8的窄错误/日志共享缓冲，再登记548275退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x548252",
+          "0x54825C"
+        ],
+        [
+          "0x548269",
+          "0x548275"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54825C",
+      "inventory_id": "F:0014825C",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548269",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给10863D8传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x548275",
+      "inventory_id": "F:00148275",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54827F",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以10863D8为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54827F",
+      "inventory_id": "F:0014827F",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548289",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553128先调用548289处理10864C8的窄错误流，再登记5482A4退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54827F",
+          "0x548289"
+        ],
+        [
+          "0x548298",
+          "0x5482A4"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x548289",
+      "inventory_id": "F:00148289",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x548298",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给10864C8传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5482A4",
+      "inventory_id": "F:001482A4",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5482AE",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以10864C8为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5482AE",
+      "inventory_id": "F:001482AE",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5482B8",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT55312C先调用5482B8处理1086310的窄日志流，再登记5482D3退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5482AE",
+          "0x5482B8"
+        ],
+        [
+          "0x5482C7",
+          "0x5482D3"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5482B8",
+      "inventory_id": "F:001482B8",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5482C7",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086310传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5482D3",
+      "inventory_id": "F:001482D3",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5482DD",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086310为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54922A",
+      "inventory_id": "F:0014922A",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549234",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT55313C先调用549234处理1086610的宽输入缓冲，再登记54924D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x54922A",
+          "0x549234"
+        ],
+        [
+          "0x549241",
+          "0x54924D"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549234",
+      "inventory_id": "F:00149234",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549241",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086610传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54924D",
+      "inventory_id": "F:0014924D",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549257",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086610为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x549257",
+      "inventory_id": "F:00149257",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549261",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553140先调用549261处理10865B8的宽输出缓冲，再登记54927A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549257",
+          "0x549261"
+        ],
+        [
+          "0x54926E",
+          "0x54927A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549261",
+      "inventory_id": "F:00149261",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54926E",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给10865B8传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54927A",
+      "inventory_id": "F:0014927A",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549284",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以10865B8为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x549284",
+      "inventory_id": "F:00149284",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54928E",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553144先调用54928E处理10866A0的宽错误/日志共享缓冲，再登记5492A7退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549284",
+          "0x54928E"
+        ],
+        [
+          "0x54929B",
+          "0x5492A7"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54928E",
+      "inventory_id": "F:0014928E",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54929B",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给10866A0传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5492A7",
+      "inventory_id": "F:001492A7",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5492B1",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以10866A0为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5492B1",
+      "inventory_id": "F:001492B1",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5492BB",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553148先调用5492BB处理1086578的宽输入流，再登记5492D6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5492B1",
+          "0x5492BB"
+        ],
+        [
+          "0x5492CA",
+          "0x5492D6"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5492BB",
+      "inventory_id": "F:001492BB",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5492CA",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086578传0、1并调用5496AB，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5492D6",
+      "inventory_id": "F:001492D6",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5492E0",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086578为this进入5492E0，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5492F5",
+      "inventory_id": "F:001492F5",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5492FF",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT55314C先调用5492FF处理1086668的宽输出流，再登记54931A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5492F5",
+          "0x5492FF"
+        ],
+        [
+          "0x54930E",
+          "0x54931A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5492FF",
+      "inventory_id": "F:001492FF",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54930E",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086668传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54931A",
+      "inventory_id": "F:0014931A",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549324",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcout"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086668为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x549339",
+      "inventory_id": "F:00149339",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549343",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553150先调用549343处理1086500的宽错误流，再登记54935E退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549339",
+          "0x549343"
+        ],
+        [
+          "0x549352",
+          "0x54935E"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549343",
+      "inventory_id": "F:00149343",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549352",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086500传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54935E",
+      "inventory_id": "F:0014935E",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549368",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcerr"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086500为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x549368",
+      "inventory_id": "F:00149368",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549372",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553154先调用549372处理1086540的宽日志流，再登记54938D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549368",
+          "0x549372"
+        ],
+        [
+          "0x549381",
+          "0x54938D"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549372",
+      "inventory_id": "F:00149372",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549381",
+      "instruction_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "给1086540传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x54938D",
+      "inventory_id": "F:0014938D",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549397",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086540为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5491D6",
+      "inventory_id": "F:001491D6",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5491E0",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin",
+            "std::cout",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553134先调用5491E0处理1086539的窄共享控制器，再登记5491F6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5491D6",
+          "0x5491E0"
+        ],
+        [
+          "0x5491EA",
+          "0x5491F6"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5491E0",
+      "inventory_id": "F:001491E0",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x5491EA",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin",
+            "std::cout",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086539为this进入5482DD窄侧共享控制器；复用592894计数，不建立第二套业务流。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x5491F6",
+      "inventory_id": "F:001491F6",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549200",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "NarrowStandardStreamsStaticInitializer",
+            "std::cin",
+            "std::cout",
+            "std::cerr",
+            "std::clog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086539为this跳入共享54843C退出尾；先减592894，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x5491F6",
+          "0x549200"
+        ],
+        [
+          "0x54843C",
+          "0x548463"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549200",
+      "inventory_id": "F:00149200",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54920A",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin",
+            "std::wcout",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553138先调用54920A处理1086538的宽共享控制器，再登记549220退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549200",
+          "0x54920A"
+        ],
+        [
+          "0x549214",
+          "0x549220"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54920A",
+      "inventory_id": "F:0014920A",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x549214",
+      "instruction_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin",
+            "std::wcout",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086538为this进入549397宽侧共享控制器；复用5929EC计数，不建立第二套业务流。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+    },
+    {
+      "original_entry": "0x549220",
+      "inventory_id": "F:00149220",
+      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "original_end_exclusive": "0x54922A",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "WideStandardStreamsStaticInitializer",
+            "std::wcin",
+            "std::wcout",
+            "std::wcerr",
+            "std::wclog"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "以1086538为this跳入共享5494FE退出尾；先减5929EC，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "original_chunks": [
+        [
+          "0x549220",
+          "0x54922A"
+        ],
+        [
+          "0x5494FE",
+          "0x549525"
+        ]
+      ]
     }
   ]
 }

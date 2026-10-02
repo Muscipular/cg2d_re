@@ -15008,6 +15008,310 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+    },
+    {
+      "original_entry": "0x5486C9",
+      "inventory_id": "F:001486C9",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x5486E6",
+      "instruction_count": 14,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550020",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄uflow：先调虚表+10的underflow，完整EAX为FFFFFFFF即返回；否则Gninc后从旧游标读U8并零扩展。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x5486E6",
+      "inventory_id": "F:001486E6",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x54875A",
+      "instruction_count": 52,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFEC",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550024",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄xsgetn：S32请求非正返回0；有游标且余量正时取较小数量交541620，随后重读余量/游标槽再更新；否则虚调+14，遇FFFFFFFF停止并返回已复制数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54875A",
+      "inventory_id": "F:0014875A",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x5487D0",
+      "instruction_count": 53,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54FFF0",
+          "parent_entry": null
+        },
+        {
+          "address": "0x550028",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄xsputn：正请求按可用余量批量541620复制后重读写槽，或零扩展源U8调用虚表+4；完整FFFFFFFF停止，返回完成数量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x548EA5",
+      "inventory_id": "F:00148EA5",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x548EB5",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5489A1",
+          "parent_entry": "0x548979"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄Gndec：先递增所指余量，再递减所指游标1B，重读游标槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x548EB5",
+      "inventory_id": "F:00148EB5",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x548EC5",
+      "instruction_count": 7,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5486DC",
+          "parent_entry": "0x5486C9"
+        },
+        {
+          "address": "0x548A74",
+          "parent_entry": "0x548A53"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄Gninc：先递减所指余量，再保存旧游标并发布旧值+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x548EC5",
+      "inventory_id": "F:00148EC5",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x548ED5",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x548875",
+          "parent_entry": "0x548843"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "窄Pninc：输出侧先减所指余量，保存旧游标后发布+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549787",
+      "inventory_id": "F:00149787",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x5497A8",
+      "instruction_count": 14,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5500BC",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽uflow：先虚调underflow并仅比较AX与FFFF；EOF路径返回0000FFFF，成功Gninc后读取W16到AX，不能泛化为完整W32字符返回。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x5497A8",
+      "inventory_id": "F:001497A8",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x54982F",
+      "instruction_count": 61,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x550088",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500C0",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽xsgetn：S32请求非正返回0；余量先shl1/sar1，再按较小数逐W16正向复制，之后gbump；无可用块则虚调+14，仅AX==FFFF时停止。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x54982F",
+      "inventory_id": "F:0014982F",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x5498B7",
+      "instruction_count": 62,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x55008C",
+          "parent_entry": null
+        },
+        {
+          "address": "0x5500C4",
+          "parent_entry": null
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽xsputn：可用余量经shl1/sar1后逐W16正向复制并pbump；无块时源W16到AX后虚调+4，仅AX==FFFF停止，返回已完成字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549E08",
+      "inventory_id": "F:00149E08",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E1C",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x549800",
+          "parent_entry": "0x5497A8"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽gbump：所指余量先减S32字符数，再重取游标槽并加2*字符数，不按字节数直接减余量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549E1C",
+      "inventory_id": "F:00149E1C",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E2D",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x549B0A",
+          "parent_entry": "0x549AE2"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽Gndec：先增所指余量，再将游标减2B，重读槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549E2D",
+      "inventory_id": "F:00149E2D",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E3D",
+      "instruction_count": 7,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x54979E",
+          "parent_entry": "0x549787"
+        },
+        {
+          "address": "0x549BE9",
+          "parent_entry": "0x549BC7"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽Gninc：先减所指余量，保存旧游标并发布旧值+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549E3D",
+      "inventory_id": "F:00149E3D",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E51",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x549887",
+          "parent_entry": "0x54982F"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽pbump：输出侧先从余量减S32字符数，再重取游标槽并加2*字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+    },
+    {
+      "original_entry": "0x549E51",
+      "inventory_id": "F:00149E51",
+      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "original_end_exclusive": "0x549E61",
+      "instruction_count": 7,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "inbound_evidence": [
+        {
+          "address": "0x5499D0",
+          "parent_entry": "0x54999A"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "宽Pninc：输出侧先减所指余量，保存旧游标再发布+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
     }
   ]
 }

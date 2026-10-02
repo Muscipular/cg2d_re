@@ -43,6 +43,26 @@ struct TextureSurface {
 
 namespace {
 
+// 原5536B8「確認」；正文4B，字面量隐式追加唯一NUL。
+constexpr char kSurfaceFailureCaption[] =
+    "\xBD\x54\xBB\x7B";
+static_assert(sizeof(kSurfaceFailureCaption) == 5);
+
+// 原58D398「AutoMap作業用Surface產生失敗。」；正文30B，字面量隐式追加唯一NUL。
+constexpr char kAutoMapCreateFailed[] =
+    "\x41\x75\x74\x6F\x4D\x61\x70\xA7\x40\xB7\x7E\xA5\xCE\x53\x75\x72\x66\x61\x63\x65\xB2\xA3\xA5\xCD\xA5\xA2\xB1\xD1\xA1\x43";
+static_assert(sizeof(kAutoMapCreateFailed) == 31);
+
+// 原58D384「建立戰鬥畫面錯誤」；正文16B，字面量隐式追加唯一NUL。
+constexpr char kTempSurfaceCreateFailed[] =
+    "\xAB\xD8\xA5\xDF\xBE\xD4\xB0\xAB\xB5\x65\xAD\xB1\xBF\xF9\xBB\x7E";
+static_assert(sizeof(kTempSurfaceCreateFailed) == 17);
+
+// 原58D374「建立繪圖頁失敗」；正文14B，字面量隐式追加唯一NUL。
+constexpr char kTextureNodeCreateFailed[] =
+    "\xAB\xD8\xA5\xDF\xC3\xB8\xB9\xCF\xAD\xB6\xA5\xA2\xB1\xD1";
+static_assert(sizeof(kTextureNodeCreateFailed) == 15);
+
 class TextureSurfaceOwner final {
 public:
     ~TextureSurfaceOwner()
@@ -522,13 +542,13 @@ std::int32_t BuildSurfaceCache_5231A0()
 
     if (!CreateCpuAutoMapSurface()) {
         platform::ShowLegacyMessage(
-            "AutoMap作業用Surface產生失敗。", "確認", 0x10);
+            kAutoMapCreateFailed, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
     if (!CreateCpuTempSurface() && !CreateCpuTempSurfaceFallback()) {
         platform::ShowLegacyMessage(
-            "建立戰鬥畫面錯誤", "確認", 0x10);
+            kTempSurfaceCreateFailed, kSurfaceFailureCaption, 0x10);
         return 0;
     }
 
@@ -550,7 +570,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         gTextureNodes[index].surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
         if (gTextureNodes[index].surface == nullptr) {
             platform::ShowLegacyMessage(
-                "建立繪圖頁失敗", "確認", 0x10);
+                kTextureNodeCreateFailed, kSurfaceFailureCaption, 0x10);
             return 0;
         }
         ++gTextureFallbackCount;

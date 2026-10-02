@@ -9749,10 +9749,18 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "现有输入有界复制消费域已关联；其他直接caller及运行未验",
+      "status": "已有地址化直接本体及TZ调用；另有四处输入标准库消费关联，运行未验",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrNCpy_53BEC0",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "真实直接实现及两处TZ名称复制调用，保留原分块读取/补零次序"
+        },
         {
           "path": "src/Input.cpp",
           "symbols": [
@@ -9763,23 +9771,34 @@
         }
       ],
       "evidence_documents": [
+        "doc/cg2d_game_time.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "count0不读源；最多复制Count字节，遇NUL后目标剩余补零，源前Count字节无NUL则不额外补终止。仅关联原39处直接引用中的四处输入调用，不计其他父链全部完成；既有局部预清零和额外门禁差异保持。"
+      "boundary": "LegacyTime已有原U32计数、源对齐块读取、候选后复读及分段补零直接本体；540CA1/540D5A两个TZ调用已接。另四处Input标准库消费仍保持限定域，其他父链不因本体存在一并验收。count0返回原target，满count且无NUL不额外写终止。"
     },
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "仅共享复制尾关系已确立；CRT父链及宿主承接待收口",
+      "status": "已有地址化入口与共享复制尾完整本体及TZ调用；其他父链/运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrCpy_544DB0",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "真实直接实现及540C93对应TZ缓存复制调用；不是Input同名标准库表达式"
+        }
+      ],
       "evidence_documents": [
+        "doc/cg2d_game_time.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "三条入口在544DB5跳544E21，共用544DC0名下的复制至含NUL并返回原dest路径。11处直接引用均在CRT范围，应用源码里的strcpy表达式不等于这些原caller已接线；不造共享尾函数或扩大已实现数量。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处已接，其余CRT父链和故障行为不据此验收。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
@@ -10027,6 +10046,99 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "空源null；strlen+1分配失败null，成功复制返回分配指针。唯一直接caller在已批旧环境补表链，按新增证据限定归属，不以通用函数名扩大std替代范围；原堆/复制入口本身不随之排除。"
+    },
+    {
+      "original_entry": "0x5450F0",
+      "inventory_id": "F:001450F0",
+      "status": "现有地址化比较本体及TZ消费已关联；其余caller/运行未验",
+      "original_end_exclusive": "0x545174",
+      "instruction_count": 54,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrCmp_5450F0",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "已有实际实现及540C5A缓存相等比较"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "左1/2/4字节块读取、右逐字节按需，U8先比较后NUL，精确返回-1/0/+1。另一原caller5404FA也只判零但其父链不据此完成，不以宿主strcmp不规定的非零幅值替代本体。"
+    },
+    {
+      "original_entry": "0x53F9E0",
+      "inventory_id": "F:0013F9E0",
+      "status": "现有地址化长度本体及TZ消费已关联；其余caller/运行未验",
+      "original_end_exclusive": "0x53FA5B",
+      "instruction_count": 44,
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrLen_53F9E0",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "已有实际实现及540C75缓存分配前长度读取"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处显式关联；应用大量内联扫描不冒充原函数直接xref。"
+    },
+    {
+      "original_entry": "0x5419D0",
+      "inventory_id": "F:001419D0",
+      "status": "限定多字节表生产清零域的标准库关联；其他CRT父链/运行未验",
+      "original_end_exclusive": "0x541A28",
+      "instruction_count": 40,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "GetLegacyTableCharacterTypes_545208"
+          ],
+          "relationship": "5452F7的原宽字符局部区清零已由std::memset承接"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_game_time.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；仅关联545208固定256输入域的2*wideCount清零，不扩为原八caller全部完成，不改父SEH/API返回处理。"
+    },
+    {
+      "original_entry": "0x54B160",
+      "inventory_id": "F:0014B160",
+      "status": "仅内存比较本体/分离返回边界已证；当前无已证caller，承接未判定",
+      "original_end_exclusive": "0x54B1AC",
+      "instruction_count": 77,
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_function_boundary_classifications.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原无直接入向；不能因未查到xref判定全局不可达或排除。Count0返回0；非零按U8首差异返回-1/+1，相等返回0。两chunk共77条，Count0及主段相等落向独立元数据54B1AC的RET；其一条另在边界分类登记，不生成假空函数。当前音频std::memcmp不作为原调用证据，音频保持暂停。",
+      "original_chunks": [
+        [
+          "0x54B160",
+          "0x54B1AC"
+        ],
+        [
+          "0x54B1AD",
+          "0x54B20C"
+        ]
+      ],
+      "shared_return_entry": "0x54B1AC"
     }
   ]
 }

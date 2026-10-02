@@ -47,6 +47,27 @@
       "preceding_return": "0x4C48E9",
       "next_entry": "0x4C48F0",
       "boundary": "该元数据条目没有独立返回或业务指令，前方回调已经retn，后接4C48F0真实入口；当前直接xref为空。仅分类这五字节，不修改IDA，不以无xref证明全程序不可达，也不为其生成空函数。"
+    },
+    {
+      "original_entry": "0x54B1AC",
+      "original_end": "0x54B1AD",
+      "inventory_id": "F:0014B1AC",
+      "status": "已确认属于内存比较的共享返回片段；父入口承接未判定",
+      "parent_entry": "0x54B160",
+      "bytes": [
+        195
+      ],
+      "incoming": [
+        {
+          "site": "0x54B166",
+          "kind": "count零条件跳转"
+        },
+        {
+          "site": "0x54B1AB",
+          "kind": "主段相等路径pop esi后顺序落入"
+        }
+      ],
+      "boundary": "一字节RET由54B160的count0及主段相等路径共用；独立元数据ID保留，不将其做成空函数、不额外计业务。父函数另含54B1AD..54B20C尾块，无直接caller不证明全局不可达；本条只分类边界，不称memcmp已经实现或排除。"
     }
   ],
   "unassigned_ranges": [

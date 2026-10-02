@@ -9490,6 +9490,27 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原唯一403EC6读取73ED08完整W32；owner保持U32，父发送把其位型按S32<0判定。不得混同double枚举截止73ED00或扩宽字段；父403E50及读取时点仍待接线。 不新增重复包装/影子状态，不计发送链完成或范围排除。"
+    },
+    {
+      "original_entry": "0x44ADB0",
+      "inventory_id": "F:0004ADB0",
+      "status": "已修复有效状态内上下文取样及回写顺序；既有额外安全边界保留，运行未验",
+      "original_end_exclusive": "0x44B044",
+      "instruction_count": 182,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "AppendChar_44ADB0"
+          ],
+          "relationship": "现有输入追加本体；本次修正上下文重取、原W32数量与保存/恢复顺序"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类helper、共享owner与输入容量，不计输入全链及客户端运行通过。"
     }
   ]
 }

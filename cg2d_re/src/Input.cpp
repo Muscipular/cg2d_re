@@ -923,7 +923,7 @@ char RemoveLegacyBytes_52D570(
 
 void AppendChar_44ADB0(const char character)
 {
-    InputContext* const context = gCurrentInputData;
+    InputContext* context = gCurrentInputData;
     if (context == nullptr) {
         return;
     }
@@ -944,20 +944,27 @@ void AppendChar_44ADB0(const char character)
         tail.data(),
         context->text + context->caretByteOffset,
         tail.size());
+    context = gCurrentInputData;
     std::strncpy(oldText.data(), context->text, oldText.size());
 
-    const std::int32_t oldCaretByteOffset = context->caretByteOffset;
+    // 当前对象按原阶段重取，保存/回写次序见doc/cg2d_input_append.md。
+    context = gCurrentInputData;
     const std::int32_t oldTotalByteLength = context->totalByteLength;
+    const std::int32_t oldCaretByteOffset = context->caretByteOffset;
     context->text[context->caretByteOffset] = character;
+    context = gCurrentInputData;
     context->text[context->caretByteOffset + 1] = '\0';
+    context = gCurrentInputData;
     ++context->totalByteLength;
+    context = gCurrentInputData;
     ++context->caretByteOffset;
 
-    const std::size_t insertedLength = std::strlen(context->text);
-    std::strncat(
-        context->text,
-        tail.data(),
-        InputTextCapacity - 1 - insertedLength);
+    context = gCurrentInputData;
+    const std::uint32_t insertedLength = static_cast<std::uint32_t>(std::strlen(context->text));
+    const std::uint32_t remainingCapacity =
+        static_cast<std::uint32_t>(InputTextCapacity - 1) - insertedLength;
+    std::strncat(context->text, tail.data(), remainingCapacity);
+    context = gCurrentInputData;
 
     std::int32_t lineStart = 0;
     std::int32_t lineCount = 0;
@@ -984,18 +991,21 @@ void AppendChar_44ADB0(const char character)
         }
 
         if (!foundCarriageReturn) {
-            if (std::strlen(context->text + lineStart)
-                <= static_cast<std::size_t>(context->maxCharPerLine)) {
+            const std::int32_t lineBudget = context->maxCharPerLine;
+            const std::uint32_t remainingLength =
+                static_cast<std::uint32_t>(std::strlen(context->text + lineStart));
+            if (remainingLength <= static_cast<std::uint32_t>(lineBudget)) {
                 break;
             }
 
             const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + lineStart,
-                context->maxCharPerLine);
+                context->text + lineStart, lineBudget);
+            context = gCurrentInputData;
+            const std::int32_t nextLineBudget = context->maxCharPerLine;
             if (boundary == 3) {
-                lineStart += context->maxCharPerLine - 1;
+                lineStart = nextLineBudget + lineStart - 1;
             } else {
-                lineStart += context->maxCharPerLine;
+                lineStart += nextLineBudget;
             }
             lineEndedWithCarriageReturn = 0;
             ++lineCount;
@@ -1006,29 +1016,39 @@ void AppendChar_44ADB0(const char character)
         }
     }
 
+    const std::int32_t maximumLines = context->maxLine;
     const std::int32_t overflowControl = gValue626C20;
-    if (lineCount >= context->maxLine && overflowControl == 0) {
+    if (lineCount >= maximumLines && overflowControl == 0) {
         const std::int32_t truncateOffset =
             lineStart - lineEndedWithCarriageReturn;
         context->totalByteLength -= static_cast<std::int32_t>(
             std::strlen(context->text + truncateOffset));
+        context = gCurrentInputData;
         context->text[truncateOffset] = '\0';
 
+        context = gCurrentInputData;
         if (ClassifyLastAnsiUnit_44B190(context->text) == 3) {
+            context = gCurrentInputData;
             --context->totalByteLength;
+            context = gCurrentInputData;
             context->text[context->totalByteLength] = '\0';
         }
-        if (context->totalByteLength < context->caretByteOffset) {
-            context->caretByteOffset = context->totalByteLength;
+        context = gCurrentInputData;
+        const std::int32_t totalByteLength = context->totalByteLength;
+        if (totalByteLength < context->caretByteOffset) {
+            context->caretByteOffset = totalByteLength;
         }
-    } else if (lineCount >= context->maxLine
-               && overflowControl != 0
-               && context->caretByteOffset
-                   == context->totalByteLength - 1) {
-        std::strncpy(context->text, oldText.data(), oldText.size());
-        context->totalByteLength = oldTotalByteLength;
-        context->caretByteOffset = oldCaretByteOffset;
-        gValue626C28 = 1;
+    } else if (lineCount >= maximumLines && overflowControl != 0) {
+        const std::int32_t totalByteLength = context->totalByteLength;
+        const std::int32_t caretByteOffset = context->caretByteOffset;
+        if (caretByteOffset == totalByteLength - 1) {
+            std::strncpy(context->text, oldText.data(), oldText.size());
+            context = gCurrentInputData;
+            context->totalByteLength = oldTotalByteLength;
+            context = gCurrentInputData;
+            context->caretByteOffset = oldCaretByteOffset;
+            gValue626C28 = 1;
+        }
     }
 
     gValue626C0C = 20;

@@ -14,6 +14,8 @@
 
 namespace cg::platform {
 
+char* gLegacyRawCommandLine1087AE4;
+
 char gNewestText[128] = "/update/newestV2.txt";
 char gMapPath[128] = "map";
 std::int32_t gDeviceBitsPerPixel = 8;
@@ -296,6 +298,43 @@ int ParseIpOptions_507C80(const char* const commandLine)
         cursor = port;
     }
     return 0;
+}
+
+// 原53DE29..53DE34；只实现真实启动中的API获取与发布片段。
+void CaptureLegacyCommandLine_53DE29()
+{
+    gLegacyRawCommandLine1087AE4 = ::GetCommandLineA();
+}
+
+// 原543F36；返回借用的WinMain命令行尾部，不复制或改变底层文本。
+char* SliceLegacyWinMainCommandLine_543F36()
+{
+    if (gLegacyMultibyteInitGuard1087AEC == 0) {
+        InitializeLegacyMultibyte_546CAE();
+    }
+    char* cursor = gLegacyRawCommandLine1087AE4;
+    if (*cursor == '"') {
+        for (;;) {
+            const auto value = static_cast<std::uint8_t>(*++cursor);
+            if (value == '"' || value == 0) {
+                break;
+            }
+            if (IsLegacyMultibyteLead_546CCA(value) != 0) {
+                ++cursor;
+            }
+        }
+        if (*cursor == '"') {
+            ++cursor;
+        }
+    } else {
+        while (static_cast<std::uint8_t>(*cursor) > 0x20u) {
+            ++cursor;
+        }
+    }
+    while (*cursor != '\0' && static_cast<std::uint8_t>(*cursor) <= 0x20u) {
+        ++cursor;
+    }
+    return cursor;
 }
 
 // 原5440E0；argv0与后续参数分开，保留计数遍/写入遍各自的源推进。

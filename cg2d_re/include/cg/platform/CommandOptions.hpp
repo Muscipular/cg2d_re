@@ -47,6 +47,15 @@ extern int ParseIpOptions_507C80(const char* commandLine);
 
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 
+// 原1087AE4；借用GetCommandLineA结果，必须先完成原启动的生产片段。
+extern char* gLegacyRawCommandLine1087AE4;
+
+// 原53DDB5内53DE29..53DE34，仅获取并发布，不代表完整CRT启动入口。
+void CaptureLegacyCommandLine_53DE29();
+
+// 原543F36；初始化多字节表后切片，返回原命令行内的借用指针。
+char* SliceLegacyWinMainCommandLine_543F36();
+
 // 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。
 // 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。
 std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,

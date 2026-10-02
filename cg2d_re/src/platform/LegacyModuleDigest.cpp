@@ -1,5 +1,7 @@
 #include "cg/platform/LegacyModuleDigest.hpp"
 
+#include "cg/Input.hpp"
+
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <Windows.h>
@@ -204,9 +206,12 @@ bool ComputeFileDigest(const char* path, std::array<std::uint8_t, 16>& digest)
 
     DWORD fileSizeHigh = 0;
     DWORD remaining = ::GetFileSize(file, &fileSizeHigh);
-    std::array<std::uint8_t, 0x8000> buffer {};
+    // 原4036C1..4036DF：首字节借共享文本，余0x807F字节清零；请求长度仍为0x8000。
+    std::array<std::uint8_t, 0x8080> buffer;
+    buffer[0] = static_cast<std::uint8_t>(input::LegacyText593850()[0]);
+    std::memset(buffer.data() + 1, 0, buffer.size() - 1);
+    DWORD bytesRead = 0; // 原4036E6只在循环前写零，后续ReadFile沿用同一输出槽。
     do {
-        DWORD bytesRead = 0;
         static_cast<void>(::ReadFile(
             file,
             buffer.data(),
@@ -247,7 +252,7 @@ char* ComputeExecutableDigest_5202E0(char* output)
 
     std::array<std::uint8_t, 16> digest {};
     if (!ComputeFileDigest(path, digest)) {
-        output[0] = '\0';
+        std::strcpy(output, input::LegacyText593850());
         return nullptr;
     }
 

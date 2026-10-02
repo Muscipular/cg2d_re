@@ -181,6 +181,16 @@
       "evidence_documents": [
         "doc/cg2d_audio_update.md"
       ]
+    },
+    {
+      "original_entry": "0x5202E0",
+      "inventory_id": "F:001202E0",
+      "status": "既存路径缓冲适配待明确批准",
+      "implementation_state": "本体已有，失败共享文本已修正；原不存在的路径预清零保留待决",
+      "remaining_requirement": "Filename[256]原未预写，现有补零影响API失败/未终止路径；建议明确保留一次补零，尚待针对性确认，不将正常成功域一致当作失败等价。",
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ]
     }
   ],
   "records": [
@@ -5938,6 +5948,31 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。"
+    },
+    {
+      "original_entry": "0x403660",
+      "inventory_id": "F:00003660",
+      "status": "文件读取包装已有实现，状态初始化偏差已修正，运行未验",
+      "original_end_exclusive": "0x40374F",
+      "instruction_count": 74,
+      "sources": [
+        {
+          "path": "src/platform/LegacyModuleDigest.cpp",
+          "symbols": [
+            "ComputeFileDigest"
+          ]
+        },
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "LegacyText593850"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_module_digest.md"
+      ],
+      "boundary": "保留原文件访问/共享/顺序扫描参数、低DWORD剩余量、固定0x8000读取、忽略ReadFile返回及先更新再扣长度。0x8080缓冲首字节借593850、余字节清零，bytesRead仅循环前初始化。只静态核对，不执行摘要或文件哈希；5202E0路径预清零另列待决。"
     }
   ]
 }

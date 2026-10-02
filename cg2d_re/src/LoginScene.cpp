@@ -9,6 +9,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyModuleDigest.hpp"
 #include "cg/platform/LegacyWindow.hpp"
+#include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <array>
@@ -764,7 +765,7 @@ std::int32_t ProcessScene_45FEA0()
         }
     }
 
-    detail::HasIDirect3D7();
+    static_cast<void>(render::HasLegacy3DDevice_44B610());
     detail::Sub_45F090(49, 67, 3, 0x3BEA3, 0, -1);
     detail::Sub_45F090(0, 0, 3, 0x3BEA2, 0, -1);
     return detail::DrawText3(540, 424, 0, 0, kVersion, 0);

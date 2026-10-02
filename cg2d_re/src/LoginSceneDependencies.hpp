@@ -18,7 +18,6 @@ void Sub_45EFD0(
     std::int32_t overlayMode,
     std::int32_t overlayImageNo,
     std::int32_t style);
-std::int32_t HasIDirect3D7();
 using cg::render::Sub_45F090;
 
 // x64 安全兼容边界：原尾部在分类选择为 -1 时，以服务器表基址做负索引，

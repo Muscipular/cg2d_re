@@ -2,12 +2,27 @@
 
 #include "LoginMessageDependencies.hpp"
 
+#include "cg/LegacyAudio.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
 
 namespace cg::login {
+
+namespace detail {
+
+std::int32_t PlaySe(
+    const std::int32_t seNo,
+    const std::int32_t screenX,
+    const std::int32_t unused)
+{
+    static_cast<void>(unused);
+    return audio::PlaySe_52C450(seNo, screenX);
+}
+
+} // namespace detail
 
 namespace {
 

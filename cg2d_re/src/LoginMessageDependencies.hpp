@@ -10,11 +10,11 @@
 
 namespace cg::login::detail {
 
-// sub_45CE10@0x45CE10 尚未实现的直接目标。
+// 登录/消息共用音效边界：第三个原压栈值不被52C450读取，返回完整S32结果。
 std::int32_t PlaySe(
-    std::int32_t value0,
-    std::int32_t value1,
-    std::int32_t value2);
+    std::int32_t seNo,
+    std::int32_t screenX,
+    std::int32_t unused);
 
 // 原 mouseX@0xD68CF8 与 mouseY@0xD68D08 的单次 CryptInt 读取边界。
 std::int32_t ReadLegacyMouseX();

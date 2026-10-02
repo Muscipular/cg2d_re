@@ -1,4 +1,5 @@
 #include "cg/platform/CommandOptions.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 
 #include "cg/LoginScene.hpp"
 #include "cg/ResourceNames.hpp"
@@ -6,6 +7,7 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "StartupNative.hpp"
 #include "LegacyMultibyte.hpp"
+#include "LegacyRuntimeError.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -15,6 +17,11 @@
 namespace cg::platform {
 
 char* gLegacyRawCommandLine1087AE4;
+// 原argv发布槽和260字节程序路径；由544047写入，不借用宿主argv。
+char* gLegacyProgramName1086018 = nullptr;
+char** gLegacyArguments1086000 = nullptr;
+std::int32_t gLegacyArgumentCount1085FFC = 0;
+static char gLegacyArgumentFilename10861A0[260] {};
 
 char gNewestText[128] = "/update/newestV2.txt";
 char gMapPath[128] = "map";
@@ -335,6 +342,38 @@ char* SliceLegacyWinMainCommandLine_543F36()
         ++cursor;
     }
     return cursor;
+}
+
+std::int32_t InitializeLegacyArguments_544047()
+{
+    if (gLegacyMultibyteInitGuard1087AEC == 0) {
+        InitializeLegacyMultibyte_546CAE();
+    }
+    static_cast<void>(::GetModuleFileNameA(
+        nullptr, gLegacyArgumentFilename10861A0, 0x104));
+    char* const commandLine = gLegacyRawCommandLine1087AE4;
+    gLegacyProgramName1086018 = gLegacyArgumentFilename10861A0;
+    const char* source = gLegacyArgumentFilename10861A0;
+    if (*commandLine != '\0') {
+        source = commandLine;
+    }
+
+    std::int32_t slots;
+    std::int32_t bytes;
+    ParseLegacyCommandLine_5440E0(source, nullptr, nullptr, &slots, &bytes);
+    const std::uint32_t allocationBytes = static_cast<std::uint32_t>(bytes)
+        + static_cast<std::uint32_t>(slots)
+            * static_cast<std::uint32_t>(sizeof(char*));
+    auto** const arguments = static_cast<char**>(Malloc_53C3AC(allocationBytes));
+    if (arguments == nullptr) {
+        ExitLegacyRuntimeError_53DEAB(8);
+    }
+    ParseLegacyCommandLine_5440E0(source, arguments,
+        reinterpret_cast<char*>(arguments + slots), &slots, &bytes);
+    const std::int32_t count = slots - 1;
+    gLegacyArguments1086000 = arguments;
+    gLegacyArgumentCount1085FFC = count;
+    return count;
 }
 
 // 原5440E0；argv0与后续参数分开，保留计数遍/写入遍各自的源推进。

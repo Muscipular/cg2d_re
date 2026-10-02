@@ -4,6 +4,10 @@
 
 namespace cg::platform {
 
+// 原53C3AC/53C0A9；沿用户已批准的std::malloc/std::free合同，数量保持U32。
+void* __cdecl Malloc_53C3AC(std::uint32_t size);
+void __cdecl Free_53C0A9(void* memory);
+
 // 原541A70；OS/环境/模块链接器版本选择1/2/3，不自动创建或切换堆。
 std::int32_t SelectLegacyHeapMode_541A70();
 

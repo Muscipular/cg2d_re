@@ -1,4 +1,5 @@
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
 #include "StartupNative.hpp"
 #include "LegacyStringCompareState.hpp"

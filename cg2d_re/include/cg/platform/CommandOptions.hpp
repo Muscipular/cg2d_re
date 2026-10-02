@@ -56,6 +56,12 @@ void CaptureLegacyCommandLine_53DE29();
 // 原543F36；初始化多字节表后切片，返回原命令行内的借用指针。
 char* SliceLegacyWinMainCommandLine_543F36();
 
+// 原544047；原始命令行必须先生产，分配失败沿原间接退出链。
+std::int32_t InitializeLegacyArguments_544047();
+extern char* gLegacyProgramName1086018;
+extern char** gLegacyArguments1086000;
+extern std::int32_t gLegacyArgumentCount1085FFC;
+
 // 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。
 // 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。
 std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,

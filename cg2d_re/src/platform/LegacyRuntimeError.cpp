@@ -1,4 +1,5 @@
 #include "LegacyRuntimeError.hpp"
+#include "LegacyRuntimeExit.hpp"
 
 #include <cstddef>
 #include <cstring>
@@ -16,6 +17,7 @@ namespace cg::platform {
 std::int32_t gLegacyRuntimeErrorMode1086038 = 0;
 std::int32_t gLegacyRuntimeApplicationType58F8A4 = 2;
 LegacyRuntimeBannerHook gLegacyRuntimeBannerHook10862A8 = nullptr;
+LegacyRuntimeProcessExit gLegacyRuntimeProcessExit58F8A0 = QuickExitLegacyRuntime_53C90B;
 
 namespace {
 
@@ -156,6 +158,15 @@ void ReportLegacyRuntimeBanner_5443C6()
         hook();
     }
     ReportLegacyRuntimeError_5443FF(255);
+}
+
+void ExitLegacyRuntimeError_53DEAB(const std::int32_t errorCode)
+{
+    if (gLegacyRuntimeErrorMode1086038 == 1) {
+        ReportLegacyRuntimeBanner_5443C6();
+    }
+    ReportLegacyRuntimeError_5443FF(errorCode);
+    gLegacyRuntimeProcessExit58F8A0(255);
 }
 
 [[noreturn]] void FastLegacyRuntimeErrorExit_53DED0(const std::int32_t errorCode)

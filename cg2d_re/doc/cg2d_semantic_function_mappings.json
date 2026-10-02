@@ -2460,6 +2460,179 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原含5494FE共享尾块，计数归零后按wcout/wcerr/wclog顺序同步；按已确认原生流适配承接，不把完整宿主退出或旧私有计数逐次行为计为已验。"
+    },
+    {
+      "original_entry": "0x506340",
+      "inventory_id": "F:00106340",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "鼠标CRT启动入口",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMouseStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。"
+    },
+    {
+      "original_entry": "0x506350",
+      "inventory_id": "F:00106350",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "鼠标十个CryptInt的构造/析构与登记块",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMouseStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。"
+    },
+    {
+      "original_entry": "0x506530",
+      "inventory_id": "F:00106530",
+      "status": "基本析构操作已映射，原异常接线仍待",
+      "original_role": "鼠标双对象析构叶及异常清理",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMouseStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Destroy_401CF0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原+10后+00两次析构；直接引用来自506350的异常清理块。现有正常退出循环包含同顺序的基本操作，但原异常调用来源尚未由此闭合，不标完整实现。"
+    },
+    {
+      "original_entry": "0x5183D0",
+      "inventory_id": "F:001183D0",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "玩家CRT启动入口",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "PlayerRuntimeValuesStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。"
+    },
+    {
+      "original_entry": "0x5183E0",
+      "inventory_id": "F:001183E0",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "玩家六个CryptInt的构造/析构与登记块",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "PlayerRuntimeValuesStaticInitializer"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPlayerRuntimeValues",
+            "DestroyPlayerRuntimeValues"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "元数据同时含5183F0/518400/518410/5184A0及54BB50/54BBA0异常块；正常顺序+18/+28/+38/+48/+58/+68，退出反序，复用唯一玩家owner。异常展开与宿主完整退出未验。"
+    },
+    {
+      "original_entry": "0x518520",
+      "inventory_id": "F:00118520",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "五宠物CRT启动与退出登记",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "PetRuntimeValuesStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。"
+    },
+    {
+      "original_entry": "0x518530",
+      "inventory_id": "F:00118530",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "五宠物构造迭代",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原EH vector constructor以5110H步长正序构造五条，每条4CD360构造六个CryptInt；新端遍历唯一五记录及各六值，不按旧步长寻址新端。失败展开路径不由正常循环映射认定完成。"
+    },
+    {
+      "original_entry": "0x518560",
+      "inventory_id": "F:00118560",
+      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "original_role": "五宠物析构迭代",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyPetRuntimeValues"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。"
     }
   ]
 }

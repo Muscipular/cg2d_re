@@ -673,7 +673,7 @@ ReadNegativeSelectionAvailability仍须对20个真实宿主字节逐项确认own
 | D68AC6 | 尚未确认真实owner及生产；不能以无直接xref当作恒零 |
 | D68B87 | gHoverTextD68AE8的+9F字节 |
 | D68C48 | gHoverTitleD68BF4的+54字节 |
-| D68D09 | mouseY的原对象+1；涉及CryptInt原始布局，不能用Read()代替字节借读并额外消费RNG |
+| D68D09 | mouseY的原对象+1；现有platform::gLegacyMouseState.mouseY.legacyVftToken保存原W32位型，可直接提取其第1字节，不用Read()，不额外消费RNG |
 | D68DCA | gValueD68DC8的第2字节 |
 | D68E8B、D68F4C、D6900D、D690CE、D6918F | 固定鼠标池D68DD0的+187、380、573、766、959字节，依24B记录布局分别落在节点7的next第3字节、节点15/23/31/39的prev第0/1/2/3字节 |
 | D69250、D69311、D693D2、D69493、D69554、D69615、D696D6 | 同一固定池+1152、1345、1538、1731、1924、2117、2310字节，分别为节点48/56/64/72的x第0/1/2/3字节、节点80/88/96的y第0/1/2字节 |
@@ -681,4 +681,6 @@ ReadNegativeSelectionAvailability仍须对20个真实宿主字节逐项确认own
 
 现有LegacyMouseTracker.cpp的fixedPool确为100个24B节点，但next/prev已按[追踪器局部适配](cg2d_legacy_mouse_tracker.md#x64-handle-适配与安全边界)保存节点编号和哨兵值，原值则为进程指针。因此，上表五个链接字节不能直接读取当前handle并声称原端等价；也不能改读可能已切换的动态nativePool。暂不添加raw-byte接口、原地址反算表或第二份状态，不借本项重构已实现的追踪器。
 
-负分类读取继续保留独立缺口：至少D68AC6的owner、CryptInt原始字节和链接表示差异尚需闭合；不以补零、固定可用或当前链接编号替代。
+负分类读取继续保留独立缺口：D68AC6的owner和链接表示差异尚需闭合；不以补零、固定可用或当前链接编号替代。
+
+2026-10-02后续定位确认LegacyCryptInt.hpp将legacyVftToken显式保留为原W32数值，LegacyMouseState的mouseY偏移为10H，构造/析构写54D3A0，CopyPayload只写载荷，而ResetLegacyMouseState_506870会清零整个鼠标状态（包含token）。因此D68D09读取应取现有token第1字节，不应直接硬编码D3；本项仅闭合存储定位，暂不新增孤立借用接口。D68AC6位于D68ABC计时值之后、D68AC8伴随值之前；对D68A78..D68AE8的当前item及直接xref定位未发现其owner，不将邻近变量或无xref当作归属/恒零证明。

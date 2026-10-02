@@ -268,6 +268,32 @@ constexpr char kLegacyRepairAcceptHint589084[] = "\xAD\xD7\xB2\x7A\xA1\x43";
 constexpr char kLegacyRepairQuestion58908C[] = "\xAD\xD7\xB2\x7A\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
 constexpr char kLegacyRepairSummary5890A4[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xAD\xD7\xB2\x7A\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
 
+LegacyPanelRecord gLegacyIdentifyPanel582918 {
+    32, 12, 576, 432, 68, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+LegacyPanelRecord gLegacyIdentifyConfirmPanel5829E0 {
+    0, 36, 640, 384, 69, {}, {}, 0, 0, {}, {},
+};
+// 原C8B390独立二十条C48H记录，末端C9A930；原字段合同见legacy_identify_list.md。
+std::array<char, 20 * 0xC48> gLegacyIdentifyItemsC8B390 {};
+YobiAction* gLegacyIdentifyActionD67C84 = nullptr; // 旧68预览借用，关闭时标记死亡。
+std::int32_t gLegacyIdentifyImageCF4698 = 0; // 独立图号，原生产待证。
+std::int32_t gLegacyIdentifyPageCC3F00 = 0; // 独立页号，初始生产待证。
+std::int32_t gLegacyIdentifyPageCountC9A950 = 0; // 原生产待证，不用虚拟零推定页数。
+std::int32_t gLegacyIdentifyDetailPageD67C88 = 0;
+std::int32_t gLegacyIdentifyPreviousHover5829DC = -1;
+std::int32_t gLegacyIdentifyTotalCB1E3C = 0; // 入口统计，翻页/数量成功清0，旧69借读。
+std::int32_t gLegacyIdentifyMessageC9A948 = 0; // 初始化清0，金币不足写1；翻页/数量成功不清。
+constexpr char kLegacyIdentifyDecrease5890D0[] = "\xA8\xFA\xAE\xF8\xC5\xB2\xA9\x77\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyIdentifyIncrease5890E4[] = "\xC5\xB2\xA9\x77\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyIdentifyConfirm5890F4[] = "\xC5\xB2\xA9\x77\xAB\xFC\xA9\x77\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyIdentifyCancel589104[] = "\xA8\xFA\xAE\xF8\xC5\xB2\xA9\x77\xA1\x43";
+constexpr char kLegacyIdentifyPrompt589110[] = "\xAD\x6E\xC5\xB2\xA9\x77\xAD\xFE\xA4\x40\xAD\xD3\xAA\xAB\xAB\x7E\xA1\x48";
+constexpr char kLegacyIdentifyStopHint589124[] = "\xA4\xA3\xC5\xB2\xA9\x77\xA1\x43";
+constexpr char kLegacyIdentifyAcceptHint589130[] = "\xC5\xB2\xA9\x77\xA1\x43";
+constexpr char kLegacyIdentifyQuestion589138[] = "\xC5\xB2\xA9\x77\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
+constexpr char kLegacyIdentifySummary589150[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xC5\xB2\xA9\x77\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
+
 constexpr char kLegacySellDecrease588E74[] = "\xB4\xEE\xA4\xD6\xBD\xE6\xB1\xBC\xA6\xB9\xAA\xAB\xAB\x7E\xBC\xC6\xB6\x71\xA1\x43";
 constexpr char kLegacySellIncrease588E8C[] = "\xBC\x57\xA5\x5B\xBD\xE6\xB1\xBC\xA6\xB9\xAA\xAB\xAB\x7E\xBC\xC6\xB6\x71\xA1\x43";
 constexpr char kLegacySellConfirm588EA4[] = "\xBD\xE6\xB1\xBC\xAB\xFC\xA9\x77\xAA\xAB\xAB\x7E\xA1\x43";
@@ -311,6 +337,11 @@ char* BorrowLegacyShopItemCF4FE0(const std::int32_t index)
 char* BorrowLegacyRepairItemCE4548(const std::int32_t index)
 {
     return gLegacyRepairItemsCE4548.data() + index * 0xC48;
+}
+
+char* BorrowLegacyIdentifyItemC8B390(const std::int32_t index)
+{
+    return gLegacyIdentifyItemsC8B390.data() + index * 0xC48;
 }
 
 // 原CA0B30二十条C2CH记录，物理末端CAFEA0不含相邻状态。
@@ -2552,6 +2583,388 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyRepairConfirmPanel582850, 0);
+}
+
+YobiAction* Sub_4DDF80()
+{
+    const std::int32_t y = gLegacyIdentifyPanel582918.y + 245;
+    const std::int32_t x = gLegacyIdentifyPanel582918.x + 469;
+    const std::int32_t image = gLegacyIdentifyImageCF4698;
+    YobiAction* const action = Sub_4F9FF0(image, x, y, 213);
+    gLegacyIdentifyActionD67C84 = action;
+    gLegacyIdentifyMessageC9A948 = 0;
+    return action;
+}
+
+std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyIdentifyPanel582918.x;
+    const std::int32_t y = gLegacyIdentifyPanel582918.y;
+    LegacyPanelButtonRecord confirm {x + 418, y + 396, x + 378, y + 380, 80, 32, 23083, 23085};
+    LegacyPanelButtonRecord disabled {x + 418, y + 396, x + 378, y + 380, 80, 32, 23084, 0};
+    LegacyPanelButtonRecord cancel {x + 514, y + 396, x + 474, y + 380, 80, 32, 23076, 23077};
+    LegacyPanelButtonRecord previous {x + 140, y + 51, x + 126, y + 39, 28, 24, 23022, 23026};
+    LegacyPanelButtonRecord next {x + 230, y + 51, x + 216, y + 39, 28, 24, 23023, 23027};
+    std::array<LegacyPanelButtonRecord, 10> increases;
+    std::array<LegacyPanelButtonRecord, 10> decreases;
+    for (std::int32_t index = 0; index < 10; ++index) {
+        const std::int32_t dx = 176 * (index / 5);
+        const std::int32_t dy = 68 * (index % 5);
+        increases[index] = {x + 128 + dx, y + 100 + dy, x + 114 + dx, y + 88 + dy, 28, 24, 23020, 23024};
+        decreases[index] = {x + 162 + dx, y + 100 + dy, x + 148 + dx, y + 88 + dy, 28, 24, 23021, 23025};
+    }
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    std::int32_t increaseHovered = -1;
+    std::int32_t decreaseHovered = -1;
+    const std::int32_t state = Sub_503160(opened, &gLegacyIdentifyPanel582918,
+        +[] { static_cast<void>(Sub_4DDF80()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (audio::Sub_504410(69) == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        YobiAction* action = gLegacyIdentifyActionD67C84;
+        if (action != nullptr) {
+            action = MarkDeath(action);
+            gLegacyIdentifyActionD67C84 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(action);
+    }
+    if (gLegacyIdentifyActionD67C84 != nullptr) {
+        SetYobiActionFlag2(gLegacyIdentifyActionD67C84, false);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyPanel582918.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    gLegacyIdentifyTotalCB1E3C = 0;
+    std::int32_t total = 0;
+    std::int32_t selectedSum = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const item = BorrowLegacyIdentifyItemC8B390(index);
+        if (item[0] != 0) {
+            const std::int32_t selected = ReadRecordW32(item, 0xC28);
+            selectedSum += selected;
+            const std::int32_t price = ReadRecordW32(item, 0xC24);
+            total += price * selected;
+        }
+    }
+    gLegacyIdentifyTotalCB1E3C = total;
+    std::int32_t hitPage = gLegacyIdentifyPageCC3F00;
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 10; ++row) {
+        if (BorrowLegacyIdentifyItemC8B390(10 * hitPage + row)[0] == 0) {
+            continue;
+        }
+        const std::int32_t top = gLegacyIdentifyPanel582918.y + 68 * (row % 5);
+        const std::int32_t left = gLegacyIdentifyPanel582918.x + 176 * (row / 5);
+        if (Sub_5049A0(left + 20, top + 92, left + 67, top + 139, -1) != 0) {
+            hovered = row;
+            break;
+        }
+        hitPage = gLegacyIdentifyPageCC3F00;
+    }
+    if (hovered != gLegacyIdentifyPreviousHover5829DC) {
+        gLegacyIdentifyDetailPageD67C88 = 0;
+    }
+    if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyPanel582918.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else if (selectedSum > 0 && (QueryPanelButtonState(&confirm) & 1) != 0) {
+        const std::int32_t gold = world::detail::ReadPlayerValueFC();
+        const std::int32_t currentTotal = gLegacyIdentifyTotalCB1E3C;
+        if (gold < currentTotal) {
+            gLegacyIdentifyMessageC9A948 = 1;
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            static_cast<void>(audio::Sub_504180(69));
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+    } else if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+        const std::int32_t page = gLegacyIdentifyPageCC3F00 - 1;
+        gLegacyIdentifyPageCC3F00 = page;
+        if (page < 0) {
+            gLegacyIdentifyPageCC3F00 = gLegacyIdentifyPageCountC9A950 - 1;
+        }
+        // 原4DE9A5翻页清总价，不清C9A948提示；数量成功同样清总价。
+        gLegacyIdentifyTotalCB1E3C = 0;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+        const std::int32_t page = gLegacyIdentifyPageCC3F00;
+        const std::int32_t count = gLegacyIdentifyPageCountC9A950;
+        gLegacyIdentifyPageCC3F00 = page + 1;
+        if (page + 1 >= count) {
+            gLegacyIdentifyPageCC3F00 = 0;
+        }
+        gLegacyIdentifyTotalCB1E3C = 0;
+        static_cast<void>(audio::PlaySe_52C450(51, 320));
+    } else if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 2) != 0) {
+        ++gLegacyIdentifyDetailPageD67C88;
+        if (gLegacyIdentifyDetailPageD67C88 >= 4) {
+            gLegacyIdentifyDetailPageD67C88 = 0;
+        }
+    } else {
+        for (std::int32_t row = 0; row < 10; ++row) {
+            const std::int32_t index = row + 10 * gLegacyIdentifyPageCC3F00;
+            char* const item = BorrowLegacyIdentifyItemC8B390(index);
+            if (item[0] == 0) {
+                continue;
+            }
+            if ((QueryPanelButtonState(&increases[row]) & 0x40) != 0) {
+                increaseHovered = index;
+            } else if ((QueryPanelButtonState(&decreases[row]) & 0x40) != 0) {
+                decreaseHovered = index;
+            }
+            if ((QueryPanelButtonState(&increases[row]) & 0x10) != 0) {
+                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                if (selected < 1) {
+                    const std::int32_t updated = selected + 1;
+                    std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                    gLegacyIdentifyTotalCB1E3C = 0;
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                }
+            } else if ((QueryPanelButtonState(&decreases[row]) & 0x10) != 0) {
+                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                if (selected > 0) {
+                    const std::int32_t updated = selected - 1;
+                    std::memcpy(item + 0xC28, &updated, sizeof(updated));
+                    gLegacyIdentifyTotalCB1E3C = 0;
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                }
+            }
+        }
+    }
+    if (hovered >= 0) {
+        const std::int32_t top = gLegacyIdentifyPanel582918.y + 68 * (hovered % 5);
+        const std::int32_t left = gLegacyIdentifyPanel582918.x + 176 * (hovered / 5);
+        DrawGraphicHover(Low16(left + 20), Low16(top + 92), Low16(left + 67), Low16(top + 139),
+            213, gValueD69768, 0);
+        const std::int32_t page = gLegacyIdentifyDetailPageD67C88;
+        const std::int32_t listPage = gLegacyIdentifyPageCC3F00;
+        const std::int32_t detailY = gLegacyIdentifyPanel582918.y + 32;
+        const std::int32_t detailX = gLegacyIdentifyPanel582918.x + 298;
+        Sub_4DF210(detailX, detailY, hovered + 10 * listPage, page);
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX,
+                           const std::int32_t offsetY, const std::int8_t color) {
+        const std::int32_t top = gLegacyIdentifyPanel582918.y + offsetY;
+        const std::int32_t left = gLegacyIdentifyPanel582918.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, color, text, 0, 0));
+    };
+    char buffer[128];
+    for (std::int32_t row = 0; row < 10; ++row) {
+        const char* const item = BorrowLegacyIdentifyItemC8B390(row + 10 * gLegacyIdentifyPageCC3F00);
+        if (item[0] == 0) {
+            continue;
+        }
+        const std::int32_t dx = 176 * (row / 5);
+        const std::int32_t dy = 68 * (row % 5);
+        const std::int32_t image = ReadRecordW32(item, 0xC20);
+        const std::int32_t top = gLegacyIdentifyPanel582918.y + dy + 116;
+        const std::int32_t left = gLegacyIdentifyPanel582918.x + dx + 44;
+        static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
+        const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
+        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        drawAt(buffer, dx + 87, dy + 120, priceColor);
+        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        drawAt(buffer, dx + 82, dy + 92, 0);
+        Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
+        Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
+    }
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t width = TextMeasure(lines[0].text.data(), 0);
+    drawAt(lines[0].text.data(), 288 - width / 2, 8, 0);
+    if (gLegacyIdentifyMessageC9A948 == 0) {
+        drawAt(kLegacyRepairWelcome587D2C, 375, 79, 0);
+        drawAt(kLegacyIdentifyPrompt589110, 375, 99, 0);
+    } else if (gLegacyIdentifyMessageC9A948 == 1) {
+        drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
+    }
+    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    drawAt(buffer, 463, 286, 0);
+    std::sprintf(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
+    drawAt(buffer, 463, 338, 0);
+    const std::int32_t page = gLegacyIdentifyPageCC3F00;
+    const std::int32_t pageCount = gLegacyIdentifyPageCountC9A950;
+    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    drawAt(buffer, 172, 43, 0);
+    Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+    if (selectedSum > 0) {
+        Sub_5035E0(&confirm, 213, 1, gValueD69768, 0);
+    } else {
+        Sub_5035E0(&disabled, 213, 1, gValueD69768, 1);
+    }
+    Sub_5035E0(&cancel, 213, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyIdentifyPanel582918) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
+               || (QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyRecipePage586D2C;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyIdentifyCancel589104;
+    } else if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = kLegacyIdentifyConfirm5890F4;
+    } else if (increaseHovered >= 0) {
+        const char* const item = BorrowLegacyIdentifyItemC8B390(increaseHovered);
+        hint = ReadRecordW32(item, 0xC28) < 1
+            ? kLegacyIdentifyIncrease5890E4 : kLegacyQuantityIncreaseLimit588ABC;
+    } else if (decreaseHovered >= 0) {
+        hint = ReadRecordW32(BorrowLegacyIdentifyItemC8B390(decreaseHovered), 0xC28) > 0
+            ? kLegacyIdentifyDecrease5890D0 : kLegacyQuantityDecreaseLimit588944;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    } else if (increaseHovered < 0 && decreaseHovered < 0) {
+        // 原4DF10C直接读取备注，无悬停门禁；越界沿RPLAN.24，不另加保护。
+        const char* const item = BorrowLegacyIdentifyItemC8B390(hovered + 10 * gLegacyIdentifyPageCC3F00);
+        if (std::strlen(item + 0xC34) != 0) {
+            const std::int32_t flags = ReadRecordW32(item, 0xC30);
+            if ((flags & 0x100) != 0) {
+                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 1);
+                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[kok]");
+            } else {
+                std::strcpy(ui::detail::gHoverTextD68AE8.data(), item + 0xC34);
+                std::strcat(ui::detail::gHoverTextD68AE8.data(), "[han]");
+            }
+        }
+    }
+    const std::uint32_t result = Sub_503440(&gLegacyIdentifyPanel582918, 1);
+    gLegacyIdentifyPreviousHover5829DC = hovered;
+    return result;
+}
+
+void Sub_4DF210(const std::int32_t x, const std::int32_t y,
+    const std::int32_t index, const std::int32_t page)
+{
+    if (index < 0 || index >= 20) {
+        return;
+    }
+    const char* const item = BorrowLegacyIdentifyItemC8B390(index);
+    if (item[0] == 0) {
+        return;
+    }
+    const std::int32_t flags = ReadRecordW32(item, 0xC30);
+    Sub_504BA0(x, y, 272, 4, 0, item + 1, item + 0xC34, 0, 0,
+        std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(flags)));
+    for (std::int32_t row = 0; row < 8; ++row) {
+        const char* const line = item + 0x1E + page * 768 + row * 96;
+        if (std::strlen(line) != 0) {
+            static_cast<void>(ui::detail::Sub_4FBA30(x + 10, y + 34 + 18 * row, 4, 1, 0, line, 0, 0));
+        }
+    }
+    static_cast<void>(DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr));
+}
+
+std::uint32_t Sub_4DF300(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyIdentifyConfirmPanel5829E0.x;
+    const std::int32_t y = gLegacyIdentifyConfirmPanel5829E0.y;
+    const character_select::detail::CharacterModalUiRecord accept {
+        x + 190, y + 334, x + 188, y + 334, 54, 18, kLegacyBarterYes588A08,
+    };
+    const character_select::detail::CharacterModalUiRecord cancel {
+        x + 403, y + 334, x + 401, y + 334, 54, 18, kLegacyBarterNo588A00,
+    };
+    const std::int32_t state = Sub_503160(opened, &gLegacyIdentifyConfirmPanel5829E0, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::int32_t result = audio::Sub_504410(68);
+        if (result == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        return static_cast<std::uint32_t>(result);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyConfirmPanel5829E0.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[512];
+    char entry[32];
+    if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
+        buffer[0] = '\0';
+        std::int32_t count = 0;
+        for (std::int32_t index = 0; index < 20; ++index) {
+            const char* const item = BorrowLegacyIdentifyItemC8B390(index);
+            if (item[0] != 0) {
+                const std::int32_t selected = ReadRecordW32(item, 0xC28);
+                if (selected != 0) {
+                    if (count > 0) {
+                        std::strcat(buffer, "|");
+                    }
+                    const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
+                    std::sprintf(entry, "%d", inventoryIndex);
+                    std::strcat(buffer, entry);
+                    ++count;
+                }
+            }
+        }
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        static_cast<void>(network::Sub_512620(platform::gConnectionSocket, playerX, playerY,
+            request, target, 0, buffer + 256));
+        static_cast<void>(audio::Sub_5042D0(gLegacyIdentifyConfirmPanel5829E0.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(68));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyIdentifyConfirmPanel5829E0.y + offsetY;
+        const std::int32_t left = gLegacyIdentifyConfirmPanel5829E0.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    std::int32_t shown = 0;
+    for (std::int32_t index = 0; index < 20; ++index) {
+        const char* const item = BorrowLegacyIdentifyItemC8B390(index);
+        if (item[0] == 0) {
+            continue;
+        }
+        const std::int32_t selected = ReadRecordW32(item, 0xC28);
+        if (selected != 0) {
+            const std::int32_t dx = 302 * (shown % 2);
+            const std::int32_t dy = 20 * (shown / 2);
+            const std::int32_t flags = ReadRecordW32(item, 0xC30);
+            const char* const name = item + 1;
+            const std::int8_t color = (flags & 0x200) != 0 ? 1 : 0;
+            const std::int32_t nameY = gLegacyIdentifyConfirmPanel5829E0.y + dy + 34;
+            const std::int32_t nameX = gLegacyIdentifyConfirmPanel5829E0.x + dx + 24;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+                static_cast<std::int16_t>(nameY), 2, 0, color, name, 0, 0));
+            ++shown;
+        }
+    }
+    const std::int32_t total = gLegacyIdentifyTotalCB1E3C;
+    const std::int32_t gold = world::detail::ReadPlayerValueFC();
+    std::sprintf(buffer, kLegacyIdentifySummary589150, gold, total);
+    drawAt(buffer, 134, 254);
+    drawAt(kLegacyIdentifyQuestion589138, 214, 294);
+    static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    const char* hint = nullptr;
+    if ((character_select::detail::Sub_503990(&accept) & 0x40) != 0) {
+        hint = kLegacyIdentifyAcceptHint589130;
+    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
+        hint = kLegacyIdentifyStopHint589124;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyIdentifyConfirmPanel5829E0, 0);
 }
 
 YobiAction* Sub_4D36B0()

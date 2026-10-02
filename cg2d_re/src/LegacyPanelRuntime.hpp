@@ -134,6 +134,11 @@ std::uintptr_t Sub_4DC7E0(std::int32_t opened); // 旧70修理列表，正常W32
 void Sub_4DDA30(std::int32_t x, std::int32_t y, std::int32_t index,
     std::int32_t page); // 旧70独立CE4548详情，每页八行，已证caller弃AL返回。
 std::uint32_t Sub_4DDB20(std::int32_t opened); // 旧71修理确认，仅发送原物品索引，取消打开旧70。
+YobiAction* Sub_4DDF80(); // 旧68独立CF4698图号，发布预览后清提示。
+std::uintptr_t Sub_4DDFC0(std::int32_t opened); // 旧68鉴定列表，翻页/数量成功清总价而非提示。
+void Sub_4DF210(std::int32_t x, std::int32_t y, std::int32_t index,
+    std::int32_t page); // 旧68独立C8B390详情，每页八行，已证caller弃AL返回。
+std::uint32_t Sub_4DF300(std::int32_t opened); // 旧69鉴定确认，仅发送原物品索引，名称只看200H色。
 std::uintptr_t Sub_4E0380(std::int32_t opened); // 旧72四页分派/确认发送，关闭可返回原生预览地址。
 char* Sub_4E0270(std::int32_t side); // 旧72统计展示区空槽，返回第20项末端原生指针。
 std::int32_t Sub_4E0BC0(std::int32_t side); // 旧72物品格命中，每行首命中而非全表首命中。

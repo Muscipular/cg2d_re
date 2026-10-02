@@ -1013,6 +1013,19 @@ constexpr char kLegacyEngravingSelect5895C0[] = "\xA8\xE8\xA6\x4C\xA6\xB9\xB9\x4
 constexpr char kLegacyEngravingReject5895AC[] = "\xB3\x6F\xAD\xD3\xB9\x44\xA8\xE3\xB5\x4C\xAA\x6B\xA8\xE8\xA6\x4C\xA1\x43";
 constexpr char kLegacyEngravingClose5868EC[] = "\xC3\xF6\xB3\xAC\xA6\xB9\xB5\xF8\xB5\xA1";
 constexpr char kLegacyEngravingChoose589594[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xA8\xE8\xA6\x4C\xAA\xBA\xB9\x44\xA8\xE3\xA1\x43";
+// 旧80独立状态；583164为已加载-1，其余五槽按原虚拟零初始化。
+LegacyPanelRecord gLegacyBurialPanel5830A0 {
+    368, 0, 272, 252, 80, {23358, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyBurialHover583164 = -1;
+std::int32_t gLegacyBurialPageCC4B64 = 0;
+std::int32_t gLegacyBurialSelectedCC4214 = 0;
+std::int32_t gLegacyBurialExcludedCC48AC = 0;
+std::int32_t gLegacyBurialExcludedColumnD2E2B4 = 0;
+std::int32_t gLegacyBurialExcludedRowD671D0 = 0;
+constexpr char kLegacyBurialSelect5895FC[] = "\xAE\x49\xB0\x5F\xA6\xB9\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyBurialReject5895E4[] = "\xB3\x6F\xAD\xD3\xAA\xAB\xAB\x7E\xB5\x4C\xAA\x6B\xAE\x49\xB0\x5F\xA8\xD3\xA1\x43";
+constexpr char kLegacyBurialChoose5895D0[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xAD\x6E\xAE\x49\xAA\xBA\xAA\xAB\xAB\x7E\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -7547,6 +7560,139 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
     }
     const std::uint32_t result = Sub_503440(&gLegacyEngravingPanel582FD8, 1);
     gLegacyEngravingHover58309C = hovered;
+    return result;
+}
+
+void Sub_4E97C0()
+{
+    gLegacyBurialPageCC4B64 = 0;
+    gLegacyBurialSelectedCC4214 = -1;
+}
+
+std::uint32_t Sub_4E97E0(const std::int32_t opened)
+{
+    GraphicDescriptor16 descriptor {};
+    descriptor.bytes[8] = 0xFF;
+    descriptor.bytes[9] = 0xFF;
+    descriptor.bytes[10] = 0xFF;
+    descriptor.bytes[11] = 0xFF;
+    descriptor.bytes[13] = 4;
+    const std::int32_t state = Sub_503160(opened, &gLegacyBurialPanel5830A0, Sub_4E97C0, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::int32_t result = audio::Sub_5042D0(80);
+        world::detail::gValue581800 = -1;
+        return static_cast<std::uint32_t>(result);
+    }
+    std::int32_t hovered = -1;
+    std::int32_t usedHovered = -1;
+    std::int32_t hoverRow;
+    std::int32_t hoverColumn;
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const std::int32_t top = gLegacyBurialPanel5830A0.y + 36 + 53 * row;
+            const std::int32_t left = gLegacyBurialPanel5830A0.x + 8 + 52 * column;
+            if (Sub_5049A0(left, top, left + 47, top + 47, -1) != 0) {
+                hoverRow = row;
+                hoverColumn = column;
+                hovered = 8 + row * 5 + column;
+                if (world::detail::gPlayerItemsFDA8A4[hovered].used != 0) {
+                    usedHovered = hovered;
+                }
+                break;
+            }
+        }
+    }
+    if (hovered != gLegacyBurialHover583164) {
+        gLegacyBurialPageCC4B64 = 0;
+    }
+    const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+    if (usedHovered >= 0 && (clicks & 1u) != 0) {
+        const std::int32_t selected = gLegacyBurialSelectedCC4214;
+        bool rejected = (selected >= 0 && selected == usedHovered) || usedHovered == gLegacyBurialExcludedCC48AC;
+        if (!rejected) {
+            const std::uint8_t flags = static_cast<std::uint8_t>(world::detail::gPlayerItemsFDA8A4[hovered].flags);
+            rejected = (flags & 0x60u) != 0;
+        }
+        if (rejected) {
+            static_cast<void>(audio::PlaySe_52C450(55, 320));
+        } else {
+            gLegacyBurialSelectedCC4214 = usedHovered;
+        }
+    } else if (hovered >= 0 && (clicks & 2u) != 0) {
+        gLegacyBurialPageCC4B64 ^= 1;
+    }
+    char buffer[128];
+    for (std::int32_t row = 0; row < 4; ++row) {
+        for (std::int32_t column = 0; column < 5; ++column) {
+            const auto* const item = &world::detail::gPlayerItemsFDA8A4[8 + row * 5 + column];
+            if (item->used != 0) {
+                const std::int32_t image = item->imageNo;
+                const std::int32_t top = gLegacyBurialPanel5830A0.y + 60 + 53 * row;
+                const std::int32_t left = gLegacyBurialPanel5830A0.x + 32 + 52 * column;
+                static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
+                const std::int32_t count = item->count;
+                if (count > 0) {
+                    std::sprintf(buffer, "%3d", count);
+                    const std::int32_t countY = gLegacyBurialPanel5830A0.y + 67 + 53 * row;
+                    const std::int32_t countX = gLegacyBurialPanel5830A0.x + 29 + 52 * column;
+                    static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
+                        static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
+                }
+            }
+        }
+    }
+    if (hovered >= 0) {
+        const std::int32_t x = gLegacyBurialPanel5830A0.x;
+        const std::int32_t top = gLegacyBurialPanel5830A0.y + 53 * hoverRow;
+        const std::int32_t left = x + 52 * hoverColumn;
+        const std::uint32_t image = gValueD69768;
+        DrawGraphicHover(Low16(left + 8), Low16(top + 36), Low16(left + 55), Low16(top + 83),
+            212, image, 0);
+        const std::int32_t page = gLegacyBurialPageCC4B64;
+        const std::int32_t y = gLegacyBurialPanel5830A0.y;
+        const std::int32_t height = gLegacyBurialPanel5830A0.height;
+        const std::int32_t detailX = gLegacyBurialPanel5830A0.x;
+        Sub_4FB940(detailX, y + height, hovered, page);
+    }
+    const std::int32_t selected = gLegacyBurialSelectedCC4214;
+    if (selected >= 0) {
+        std::sprintf(buffer, "%d", selected);
+        char escaped[16];
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
+        static_cast<void>(audio::Sub_5042D0(80));
+        world::detail::gValue581800 = -1;
+    }
+    if (gLegacyBurialExcludedCC48AC >= 0) {
+        const std::int32_t row = gLegacyBurialExcludedRowD671D0;
+        const std::int32_t column = gLegacyBurialExcludedColumnD2E2B4;
+        const std::int32_t top = gLegacyBurialPanel5830A0.y + 53 * row;
+        const std::int32_t left = gLegacyBurialPanel5830A0.x + 52 * column;
+        DrawGraphicHover(Low16(left + 10), Low16(top + 38), Low16(left + 53), Low16(top + 81),
+            212, 251, 0);
+    }
+    // 原4E9B93无悬停非负门禁；异常索引按RPLAN.24，不补记录或保护。
+    const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
+    const char* hint;
+    if (item->used != 0) {
+        const std::uint8_t flags = static_cast<std::uint8_t>(item->flags);
+        hint = (flags & 0x60u) == 0 && usedHovered != gLegacyBurialExcludedCC48AC
+            ? kLegacyBurialSelect5895FC : kLegacyBurialReject5895E4;
+    } else {
+        hint = Sub_503590(&gLegacyBurialPanel5830A0) != 0
+            ? kLegacyEngravingClose5868EC : kLegacyBurialChoose5895D0;
+    }
+    std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    const std::uint32_t result = Sub_503440(&gLegacyBurialPanel5830A0, 1);
+    gLegacyBurialHover583164 = hovered;
     return result;
 }
 

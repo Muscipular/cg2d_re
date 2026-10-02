@@ -14238,6 +14238,350 @@
         "doc/cg2d_startup_flow.md"
       ],
       "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54ACB7",
+      "inventory_id": "F:0014ACB7",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54ACD9",
+      "instruction_count": 13,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x548B93",
+          "parent_entry": "0x548B68"
+        },
+        {
+          "address": "0x548C3A",
+          "parent_entry": "0x548BEA"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "调用64位tell后先写位置低W32再高W32，双字均FFFFFFFF才返回-1，否则0；两caller为548B68/548BEA。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fgetpos.cpp",
+        "symbol": "fgetpos"
+      }
+    },
+    {
+      "original_entry": "0x54ACD9",
+      "inventory_id": "F:0014ACD9",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54ACF1",
+      "instruction_count": 8,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x548C12",
+          "parent_entry": "0x548BEA"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "从位置指针取高/低W32，以origin0调用54B3C0，原样返回；唯一548BEA调用，fpos为数值64位不是新端指针。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54ACF1",
+      "inventory_id": "F:0014ACF1",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54AD92",
+      "instruction_count": 64,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x548CC1",
+          "parent_entry": "0x548CAC"
+        },
+        {
+          "address": "0x549CFD",
+          "parent_entry": "0x549CE5"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "允许mode4不校验size，其他只mode0/40H且U32 size在2..7FFFFFFF；容量取偶数。先flush/freebuf并清相关标志，再选2B内缓冲、用户缓冲或malloc；分配失败增108603C并返-1，不恢复旧缓冲。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/setvbuf.cpp",
+        "symbol": "_setvbuf_internal"
+      }
+    },
+    {
+      "original_entry": "0x54AD92",
+      "inventory_id": "F:0014AD92",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54AE87",
+      "instruction_count": 91,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x5499F7",
+          "parent_entry": "0x54999A"
+        },
+        {
+          "address": "0x549A85",
+          "parent_entry": "0x54999A"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "字符串/非文本流按W16直接写或flswbuf；文本流先wctomb，-1写errno42返WEOF，成功值1写一字节，其他写两字节；逐次失败检查，成功返回原W16。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54AE87",
+      "inventory_id": "F:0014AE87",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x54AF70",
+      "instruction_count": 90,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x549B37",
+          "parent_entry": "0x549AE2"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一549AE2调用，内部getbuf/wctomb；宽回推的全部容量/字符串限制及失败回滚尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54AF70",
+      "inventory_id": "F:0014AF70",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54B05D",
+      "instruction_count": 90,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x549C0D",
+          "parent_entry": "0x549BC7"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "文本流逐字节读并按旧ctype lead标志读第二字节；尾EOF尝试ungetc首字节后返WEOF，mbtowc失败写errno42；字符串/非文本流直接取W16或filwbuf。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B239",
+      "inventory_id": "F:0014B239",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x54B3C0",
+      "instruction_count": 144,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54ACBB",
+          "parent_entry": "0x54ACB7"
+        },
+        {
+          "address": "0x54B3EB",
+          "parent_entry": "0x54B3C0"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "fgetpos与fseeki64调用，内部三处lseeki64；完整缓冲/文本偏移与失败修正尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B3C0",
+      "inventory_id": "F:0014B3C0",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x54B450",
+      "instruction_count": 58,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54ACE8",
+          "parent_entry": "0x54ACD9"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一fsetpos调用，内部tell/flush/lseeki64；全部SEEK_CUR修正、标志与失败顺序尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B450",
+      "inventory_id": "F:0014B450",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x54B574",
+      "instruction_count": 112,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54AE7D",
+          "parent_entry": "0x54AD92"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一fputwc调用，内部isatty/getbuf/write及lseek；完整宽写缓冲、短写和错误状态未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B574",
+      "inventory_id": "F:0014B574",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x54B658",
+      "instruction_count": 80,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54B053",
+          "parent_entry": "0x54AF70"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一fgetwc调用，内部getbuf/read；宽缓冲补入和奇数字节/EOF边界未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B658",
+      "inventory_id": "F:0014B658",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x54B709",
+      "instruction_count": 59,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x54B25A",
+          "parent_entry": "0x54B239"
+        },
+        {
+          "address": "0x54B33B",
+          "parent_entry": "0x54B239"
+        },
+        {
+          "address": "0x54B375",
+          "parent_entry": "0x54B239"
+        },
+        {
+          "address": "0x54B42C",
+          "parent_entry": "0x54B3C0"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "四引用仅tell/seek；核fd有效后分离两半调用SetFilePointer，低返回FFFFFFFF才读GetLastError，非零经542F44映射错误；成功清fd标志02，失败返回两半FFFFFFFF。无效fd还清doserror写errno9。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/lseek.cpp",
+        "symbol": "_lseeki64_nolock_internal"
+      }
+    },
+    {
+      "original_entry": "0x5438D4",
+      "inventory_id": "F:001438D4",
+      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "original_end_exclusive": "0x543A1A",
+      "instruction_count": 107,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x53D6BD",
+          "parent_entry": "0x53D44C"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "唯一53D44C打开链调用；内部lseek、setmode、write、SetEndOfFile及位置恢复。完整扩展/截断和失败回滚未逐条核定，不当独立应用chsize已实现。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5463A3",
+      "inventory_id": "F:001463A3",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x546419",
+      "instruction_count": 35,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x54395F",
+          "parent_entry": "0x5438D4"
+        },
+        {
+          "address": "0x5439AD",
+          "parent_entry": "0x5438D4"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "两调用均来自5438D4；有效fd只接受8000H/4000H，改文本80H位并返旧模式；模式非法errno22、fd非法errno9，均返-1，不凭现代支持添加UTF模式。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/setmode.cpp",
+        "symbol": "_setmode"
+      }
+    },
+    {
+      "original_entry": "0x54463F",
+      "inventory_id": "F:0014463F",
+      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "original_end_exclusive": "0x5446AD",
+      "instruction_count": 48,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及直接入向",
+      "inbound_evidence": [
+        {
+          "address": "0x53E979",
+          "parent_entry": "0x53E96A"
+        },
+        {
+          "address": "0x5489CC",
+          "parent_entry": "0x548979"
+        },
+        {
+          "address": "0x549162",
+          "parent_entry": "0x549147"
+        },
+        {
+          "address": "0x54B009",
+          "parent_entry": "0x54AF70"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "拒绝EOF及不满足读状态的流；必要时getbuf，字符串流只允许回推同字节，否则还原指针返EOF；成功增加count、清EOF/设读并返低U8。四caller跨输入核心、窄filebuf与宽读取。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
     }
   ]
 }

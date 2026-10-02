@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "inventory": "doc/cg2d_ida_inventory.json",
+  "authorization": "plan/cg2d_full_reconstruction_plan.md：用户确认只复刻32位色，8/16/24位色渲染明确排除。",
+  "scope": "R1低色深渲染分类首批增量，不是全量函数分类或完整渲染验收。",
+  "evidence_document": "doc/cg2d_render_depth_scope.md",
+  "records": [
+    {
+      "original_entry": "0x44ED70",
+      "original_end": "0x44EFFC",
+      "inventory_id": "F:0004ED70",
+      "name": "索引小地图16位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        16
+      ],
+      "dispatch_evidence": {
+        "caller": "0x44F5C0",
+        "transfer_instruction": "0x44F640",
+        "condition": "BITSPIXEL == 16"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x44F000",
+      "original_end": "0x44F32D",
+      "inventory_id": "F:0004F000",
+      "name": "索引小地图24位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        24
+      ],
+      "dispatch_evidence": {
+        "caller": "0x44F5C0",
+        "transfer_instruction": "0x44F619",
+        "condition": "BITSPIXEL == 24"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x44F650",
+      "original_end": "0x44F91A",
+      "inventory_id": "F:0004F650",
+      "name": "已着色小地图16位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        16
+      ],
+      "dispatch_evidence": {
+        "caller": "0x44FEB0",
+        "transfer_instruction": "0x44FF30",
+        "condition": "BITSPIXEL == 16"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x44F920",
+      "original_end": "0x44FC1E",
+      "inventory_id": "F:0004F920",
+      "name": "已着色小地图24位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        24
+      ],
+      "dispatch_evidence": {
+        "caller": "0x44FEB0",
+        "transfer_instruction": "0x44FF09",
+        "condition": "BITSPIXEL == 24"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x451FA0",
+      "original_end": "0x4522EE",
+      "inventory_id": "F:00051FA0",
+      "name": "地图效果8位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        8
+      ],
+      "dispatch_evidence": {
+        "caller": "0x453580",
+        "transfer_instruction": "0x45358A",
+        "condition": "BITSPIXEL == 8"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x4522F0",
+      "original_end": "0x452833",
+      "inventory_id": "F:000522F0",
+      "name": "地图效果16位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        16
+      ],
+      "dispatch_evidence": {
+        "caller": "0x453580",
+        "transfer_instruction": "0x453594",
+        "condition": "BITSPIXEL == 16"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x452CF0",
+      "original_end": "0x453578",
+      "inventory_id": "F:00052CF0",
+      "name": "地图效果24位绘制",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        24
+      ],
+      "dispatch_evidence": {
+        "caller": "0x453580",
+        "transfer_instruction": "0x45359E",
+        "condition": "BITSPIXEL == 24"
+      },
+      "boundary": "排除原低色深目标渲染，不排除资源索引、调色板或32位路径；不计为已实现。"
+    },
+    {
+      "original_entry": "0x44FF40",
+      "original_end": "0x450160",
+      "inventory_id": "F:0004FF40",
+      "name": "AutoMap调色板索引像素上传",
+      "status": "混合范围：保留32位，排除低色深分支",
+      "excluded_bits_per_pixel": [
+        8,
+        16,
+        24
+      ],
+      "retained_bits_per_pixel": [
+        32
+      ],
+      "retained_branch": "0x4500FB",
+      "source": {
+        "path": "src/render/GraphicDxCache.cpp",
+        "symbol": "LoadTextureFromBuffer32_450400"
+      },
+      "boundary": "32位像素合同沿现有CPU节点面实现与既有适配文档；不宣称可选源/完整上传或运行验收完成。"
+    },
+    {
+      "original_entry": "0x450190",
+      "original_end": "0x4503CC",
+      "inventory_id": "F:00050190",
+      "name": "显式调色板索引像素上传",
+      "status": "混合范围：保留32位，排除低色深分支",
+      "excluded_bits_per_pixel": [
+        8,
+        16,
+        24
+      ],
+      "retained_bits_per_pixel": [
+        32
+      ],
+      "retained_branch": "0x450372",
+      "source": {
+        "path": "src/render/GraphicDxCache.cpp",
+        "symbol": "LoadTextureFromBuffer32_450400"
+      },
+      "boundary": "32位像素合同沿现有CPU节点面实现与既有适配文档；不宣称可选源/完整上传或运行验收完成。"
+    }
+  ]
+}

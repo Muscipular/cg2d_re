@@ -12411,6 +12411,68 @@
         "doc/ui_windows/window_68.md"
       ],
       "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。"
+    },
+    {
+      "original_entry": "0x53FA5B",
+      "inventory_id": "F:0013FA5B",
+      "status": "原扩容全本体及退出/环境两类父归属已取证；通用堆行为未验收",
+      "original_end_exclusive": "0x53FCFB",
+      "instruction_count": 246,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ],
+          "relationship": "现有宿主atexit根的私有增长职责，非本函数直接实现"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B"
+          ],
+          "relationship": "547E8A两个扩容调用属于已获批std::getenv补表整体承接"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作宿主扩容逻辑参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/realloc_base.cpp",
+        "symbol": "_realloc_base"
+      },
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_game_time.md"
+      ],
+      "boundary": "空指针先走malloc，非空且长度0才free并返回0；原mode2/3小块迁移与普通堆含不同长度、16B对齐和new-mode重试，未显式写errno。宿主直接size_t容量与错误写入不同；环境根既有批准不扩大到退出表或通用Realloc。未新建分配器或应用扩容接口。"
+    },
+    {
+      "original_entry": "0x53FCFB",
+      "inventory_id": "F:0013FCFB",
+      "status": "原块容量查询及退出表唯一父归属已取证；宿主退出表布局差异保留",
+      "original_end_exclusive": "0x53FD5C",
+      "instruction_count": 40,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ],
+          "relationship": "两调用53B3A0/53B3BF均在53B399退出登记，关联现有宿主退出表职责"
+        }
+      ],
+      "native_reference": {
+        "component": "UCRT 10.0.26100.0，仅作显式表容量管理参考",
+        "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/startup/onexit.cpp",
+        "symbol": "_register_onexit_function"
+      },
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "原mode3命中小块读block-4减9；mode2命中读单字节乘16；其他直接HeapSize并返回W32，不加空指针保护。宿主以first/last/end跟踪槽容量，不由本函数查旧块。仅职责归属，不伪造旧块头或将两种容量策略视为等价。"
     }
   ]
 }

@@ -158,6 +158,38 @@
         "symbol": "LoadTextureFromBuffer32_450400"
       },
       "boundary": "32位像素合同沿现有CPU节点面实现与既有适配文档；不宣称可选源/完整上传或运行验收完成。"
+    },
+    {
+      "original_entry": "0x451190",
+      "original_end": "0x451213",
+      "inventory_id": "F:00051190",
+      "name": "16位目标调色板动态颜色重建",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        16
+      ],
+      "dispatch_evidence": {
+        "caller": "0x450BB0",
+        "transfer_instruction": "0x450FF9",
+        "condition": "BITSPIXEL == 16"
+      },
+      "boundary": "只写16位目标色表62AE64的动态颜色区及透明项；不排除源gDxPalette、共享过渡状态与32位451220。"
+    },
+    {
+      "original_entry": "0x451270",
+      "original_end": "0x4512BE",
+      "inventory_id": "F:00051270",
+      "name": "24位目标BGR调色板重建",
+      "status": "用户范围排除：低色深渲染",
+      "excluded_bits_per_pixel": [
+        24
+      ],
+      "dispatch_evidence": {
+        "caller": "0x450BB0",
+        "transfer_instruction": "0x451021",
+        "condition": "BITSPIXEL == 24"
+      },
+      "boundary": "写62A32C的256组三字节BGR目标表及透明项；不同于资源源调色板读取，后者保持实现范围。32位451220及现有RebuildPalette32保留。"
     }
   ]
 }

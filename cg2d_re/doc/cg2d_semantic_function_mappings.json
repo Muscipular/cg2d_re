@@ -1205,6 +1205,245 @@
       ],
       "instruction_count": 2,
       "boundary": "原析构目标按列示顺序由InitializeRippleGate为本表项登记的无捕获退出回调承接；单独登记失败时不会由聚合析构补做，本组完整进程退出仍未运行验收。"
+    },
+    {
+      "original_entry": "0x4597E0",
+      "inventory_id": "F:000597E0",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicMapNumbers"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 6,
+      "boundary": "CRT553058：原先构造9A2960 vector，再登记459820；由进程期std::vector自动生命周期承接。跨模块初始化/退出先后未据此验收。"
+    },
+    {
+      "original_entry": "0x4597F0",
+      "inventory_id": "F:000597F0",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicMapNumbers"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 9,
+      "boundary": "原vector三个指针清零；未定义的allocator标签字节不复制为业务状态，空集合由默认构造承接。"
+    },
+    {
+      "original_entry": "0x459820",
+      "inventory_id": "F:00059820",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicMapNumbers"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 11,
+      "boundary": "原只释放vector储存并清三指针，元素是W32图号；std::vector销毁不触及图形主表。"
+    },
+    {
+      "original_entry": "0x459850",
+      "inventory_id": "F:00059850",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 6,
+      "boundary": "CRT55305C：原调用459860再登记459890；由进程期有序键表生命周期承接，跨模块CRT顺序仍未验。"
+    },
+    {
+      "original_entry": "0x459860",
+      "inventory_id": "F:00059860",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 9,
+      "boundary": "原将73F128交45A9E0构造；两个局部allocator字节不当业务输入。"
+    },
+    {
+      "original_entry": "0x459890",
+      "inventory_id": "F:00059890",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 71,
+      "boundary": "原释放树节点、表头及最后共享哨兵，不释放节点中借用的GraphicInfo。当前std::map销毁保持主表非拥有语义；不模拟原树形与分配细节。"
+    },
+    {
+      "original_entry": "0x45A9E0",
+      "inventory_id": "F:0005A9E0",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "gGraphicFirstRecords"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 50,
+      "boundary": "原构造共享空哨兵与表头并清记录数；现由std::map默认构造承接空索引，不另建旧哨兵或引用计数。"
+    },
+    {
+      "original_entry": "0x522620",
+      "inventory_id": "F:00122620",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "gIndependentPaletteQueue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 6,
+      "boundary": "CRT553104：原调用522630再登记522660；由独立mapNo队列的std::vector生命周期承接，和DBF载荷集合不是同一owner。"
+    },
+    {
+      "original_entry": "0x522630",
+      "inventory_id": "F:00122630",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "gIndependentPaletteQueue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 9,
+      "boundary": "原103CF88的vector起址/结束/容量清零；默认空vector承接，不预先插入静态调色板项。"
+    },
+    {
+      "original_entry": "0x522660",
+      "inventory_id": "F:00122660",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "gIndependentPaletteQueue"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 11,
+      "boundary": "原只销毁mapNo数值队列储存并清三指针；不释放DBF解压块、树或独立调色板双池。"
+    },
+    {
+      "original_entry": "0x522690",
+      "inventory_id": "F:00122690",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "gPaletteDbf",
+            "PaletteDbfState"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 2,
+      "boundary": "CRT553108：调用5226A0后跳5226B0登记5226C0；后两位置属于5226A0合并函数块，不伪造独立元数据ID。"
+    },
+    {
+      "original_entry": "0x5226A0",
+      "inventory_id": "F:001226A0",
+      "status": "已有标准容器适配映射，完整生命周期未验",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "gPaletteDbf",
+            "PaletteDbfState",
+            "decodedBlocks",
+            "records"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "instruction_count": 225,
+      "boundary": "该IDA条目含构造、登记、退出、异常清理等多块。PaletteDbfState按装载序释放解压块，随后容器管理节点/存储；释放池522C50不销毁本owner。节点/哨兵/指针数组的具体分配释放次数与时机按既有标准容器适配边界，不称逐指令或完整异常路径等价。"
     }
   ]
 }

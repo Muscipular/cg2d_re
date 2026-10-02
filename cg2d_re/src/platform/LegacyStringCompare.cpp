@@ -181,4 +181,56 @@ std::int32_t CompareInsensitive_53CF50(const char* left, const char* right)
     return static_cast<std::int32_t>(rhs);
 }
 
+std::int32_t CompareInsensitiveN_54AB30(
+    const char* left, const char* right, std::uint32_t count)
+{
+    if (count == 0) {
+        return 0;
+    }
+    if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+        for (;;) {
+            auto lhs = static_cast<std::uint8_t>(*left);
+            auto rhs = static_cast<std::uint8_t>(*right);
+            if (lhs == 0 || rhs == 0) {
+                return lhs == rhs ? 0 : (lhs < rhs ? -1 : 1);
+            }
+            ++left;
+            ++right;
+            if (lhs >= 'A' && lhs <= 'Z') {
+                lhs += 32;
+            }
+            if (rhs >= 'A' && rhs <= 'Z') {
+                rhs += 32;
+            }
+            if (lhs != rhs) {
+                return lhs < rhs ? -1 : 1;
+            }
+            if (--count == 0) {
+                return 0;
+            }
+        }
+    }
+
+    // 原每轮只写AL/BL，高位来自上轮转换；终止和比较均使用完整U32。
+    std::uint32_t lhs = 0;
+    std::uint32_t rhs = 0;
+    for (;;) {
+        lhs = (lhs & 0xFFFFFF00u) | static_cast<std::uint8_t>(*left);
+        rhs = (rhs & 0xFFFFFF00u) | static_cast<std::uint8_t>(*right);
+        if (lhs == 0 || rhs == 0) {
+            return lhs == rhs ? 0 : (lhs < rhs ? -1 : 1);
+        }
+        ++left;
+        ++right;
+        rhs = LowerCompareValue_53DC64(rhs);
+        lhs = LowerCompareValue_53DC64(lhs);
+        if (lhs != rhs) {
+            return lhs < rhs ? -1 : 1;
+        }
+        if (--count == 0) {
+            return 0;
+        }
+    }
+}
+
 } // namespace cg::platform

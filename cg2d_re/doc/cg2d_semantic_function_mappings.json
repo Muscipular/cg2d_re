@@ -9205,6 +9205,39 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原仅54488E调用，读控制字、抽象位合并、回转写入并返回抽象值。当前只关联已批准的double PC53数值域，不复制x87硬件接口，不声称FNCLEX/Pentium/任意控制字状态已验。"
+    },
+    {
+      "original_entry": "0x54AB30",
+      "inventory_id": "F:0014AB30",
+      "status": "有界比较完整本体及唯一窗口枚举调用已接；NLS/窗口运行未验",
+      "original_end_exclusive": "0x54ABDD",
+      "instruction_count": 82,
+      "sources": [
+        {
+          "path": "src/platform/LegacyStringCompare.cpp",
+          "symbols": [
+            "CompareInsensitiveN_54AB30",
+            "LowerCompareValue_53DC64"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyStringCompare.hpp",
+          "symbols": [
+            "CompareInsensitiveN_54AB30"
+          ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "CheckWindowsCallback_404940"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "count0不读指针/locale；C路径左后右读U8、非零才折叠并减count。非C两U32槽初始0，每轮仅覆盖低W8，完整U32判零；先转换右侧再左侧，完整U32比较，相等后才减count，返回严格-1/0/1。唯一40499D窗口前缀调用已从宿主_strnicmp改接，保留其他回调逻辑；不扩大为一般NLS失败或全部窗口枚举/客户端运行通过。"
     }
   ]
 }

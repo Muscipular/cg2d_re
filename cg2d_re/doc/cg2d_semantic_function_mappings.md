@@ -933,3 +933,18 @@ default_precision.cpp本身也仅x86可构建。三个记录用host_reference明
 records355增至359，pending_records18、分类引用4保持。记录属于限定证据/
 职责关联，不算四个原体全部完成。源码/CMake保持，仅静态核边界、入向、
 宿主编译条件及实际源符号；未操作浮点环境、编译、测试、运行或哈希校验。
+
+## 窗口标题有界比较回接原共享locale（2026-10-02）
+
+完整核54AB30..54ABDD共82条及唯一40499D调用，按
+[有界比较SPEC](cg2d_legacy_string_compare.md#有界忽略大小写比较54ab30实施-spec2026-10-02)
+实现CompareInsensitiveN_54AB30并替换CheckWindowsCallback的宿主_strnicmp。
+count保持U32，0时不读指针/locale；C分支逐字节折叠，
+非C每轮只写两个累积槽低W8、完整U32判零/比较，先转换右再左。
+复用已有lower和共享状态，未修改原无界比较器或NLS helper。
+
+记录新增一项，records359增至360，pending_records18、分类引用4不变。
+窗口回调的其他分支、循环和结果发布保持；不借本步声称整页或全客户端已验。
+此前六项UI入口补值已合并请求明确确认，尚无答复，不影响本次独立实现。
+只做新源码、唯一接线、原边界及限定差异静态核对；未窗口枚举/NLS运行、
+编译、测试、客户端运行或哈希校验。

@@ -5,6 +5,7 @@
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"
 
@@ -209,7 +210,8 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
         bool matched = false;
         if (record.flagA == 0) {
             const std::size_t length = std::strlen(record.text);
-            matched = _strnicmp(title, record.text, length) == 0;
+            matched = CompareInsensitiveN_54AB30(
+                title, record.text, static_cast<std::uint32_t>(length)) == 0;
         } else if (record.flagA == 1) {
             matched = std::strcmp(title, record.text) == 0;
         }

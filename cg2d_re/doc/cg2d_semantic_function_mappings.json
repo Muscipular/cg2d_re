@@ -8241,6 +8241,189 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+    },
+    {
+      "original_entry": "0x53B399",
+      "inventory_id": "F:0013B399",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53B406",
+      "instruction_count": 32,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ],
+          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/utility.cpp",
+        "symbol": "_onexit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原表空间不足按16字节增长，失败返回空且不发布新表；成功追加原函数并返回它。宿主委托真实退出表，增长策略、指针编码、锁及失败时点不同。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53B406",
+      "inventory_id": "F:0013B406",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53B418",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ],
+          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/utility.cpp",
+        "symbol": "atexit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原调用53B399，非空返回0，空返回-1；当前std::atexit实际登记点承接。null回调导致外层-1，不据此把内部登记失败和null参数混为一谈。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53B418",
+      "inventory_id": "F:0013B418",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53B447",
+      "instruction_count": 14,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ],
+          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+        }
+      ],
+      "native_provider": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/utility.cpp",
+        "symbol": "__scrt_initialize_onexit_tables"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原启动立即分配128字节，失败调用_amsg_exit(0x18)，成功发布首末指针并清首W32。宿主初始化模块退出表并在实际登记处分配，不称分配时点和失败路径等价。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53C8FA",
+      "inventory_id": "F:0013C8FA",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53C90B",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主终止职责；本文件不是原CRT函数定义，尚无可执行目标"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "startup/exit.cpp",
+        "symbol": "exit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原start@53DE87将WinMain结果传doexit(code,0,0)。宿主exe_common.inl在invoke_main后调用exit，当前只有WinMain源码与静态库目标，最终可执行入口接线仍未完成。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53C90B",
+      "inventory_id": "F:0013C90B",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53C91C",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主终止职责；本文件不是原CRT函数定义，尚无可执行目标"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "startup/exit.cpp",
+        "symbol": "_exit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原异常启动尾、_amsg_exit、abort、raise调用doexit(code,1,0)，跳过普通退出登记表但执行第二终止表。宿主非托管入口异常分支调用_exit；不得替换成会执行独立回调表的quick_exit。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53C91C",
+      "inventory_id": "F:0013C91C",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53C9B5",
+      "instruction_count": 49,
+      "sources": [
+        {
+          "path": "src/platform/ClientEntry.cpp",
+          "symbols": [
+            "WinMain"
+          ],
+          "relationship": "实际应用入口的宿主终止职责；本文件不是原CRT函数定义，尚无可执行目标"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "startup/exit.cpp",
+        "symbol": "common_exit"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原doexit正常模式从一次采样的末指针逆序调用，空项跳过，不清槽、不重新取末；快速模式跳过表及第一终止表，两种模式均执行第二终止表。宿主有锁、TLS清理、槽清除及退出中新增回调重取范围等差异，重入/异常/失败和静动态CRT终止时序未验。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+    },
+    {
+      "original_entry": "0x53C9B5",
+      "inventory_id": "F:0013C9B5",
+      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "original_end_exclusive": "0x53C9CF",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyPrimaryEmptyExitStaticInitializer",
+            "LegacyPairedEmptyExitStaticInitializer"
+          ],
+          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+        }
+      ],
+      "native_provider": {
+        "component": "UCRT 10.0.26100.0",
+        "source_path": "startup/initterm.cpp",
+        "symbol": "_initterm"
+      },
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原按[first,last)地址正序逐槽调用非空void函数，不读返回值。宿主_initterm承担该职责，不用会按非零返回提前停止的_initterm_e替代；原全部初始化/终止表与最终链接次序未验。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
     }
   ]
 }

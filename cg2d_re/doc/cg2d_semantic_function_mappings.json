@@ -5263,6 +5263,131 @@
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_external_keyboard_wrapper.md"
       ]
+    },
+    {
+      "original_entry": "0x401E00",
+      "inventory_id": "F:00001E00",
+      "status": "已有CryptInt语义映射，跨模块运行未验",
+      "original_end_exclusive": "0x401E0F",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Add_401E10"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_446B50"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469FC0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "先调用401EC0一次，再将实参低W16作S16扩展并相加，返回完整W32；当前四处调用由显式S16方向分量加Add_401E10承接，不将完整S32偏移误用到此叶。"
+    },
+    {
+      "original_entry": "0x401EA0",
+      "inventory_id": "F:00001EA0",
+      "status": "已有CryptInt语义映射，跨模块运行未验",
+      "original_end_exclusive": "0x401EA5",
+      "instruction_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Read_401EC0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "唯一指令jmp401EC0，复用同一读取入口，不再额外读取或复制readCount/RNG状态。当前611处直接引用中，609处归入230个IDA函数，另495E8D/495EDD是未归入函数的call指令；本轮没有重新验证全部调用时序或把未归属指令排除。"
+    },
+    {
+      "original_entry": "0x401EB0",
+      "inventory_id": "F:00001EB0",
+      "status": "已有CryptInt语义映射，跨模块运行未验",
+      "original_end_exclusive": "0x401EC0",
+      "instruction_count": 6,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Read_401EC0"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4424B0",
+            "Sub_442730",
+            "Sub_4428F0",
+            "Sub_449A00",
+            "Sub_46A190",
+            "Sub_46A5F0"
+          ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468330",
+            "Sub_469FC0",
+            "Sub_46A700",
+            "Sub_46AFE0",
+            "Sub_46F680"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4D3040"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "单次读取S32后fild返回浮点，不是先转F32。当前12个父入口28处原调用由各父单次Read及对应浮点表达式承接；F32落点按父合同保留，不把独立S32转换映射当作后续x87精度、舍入和完整路径验收。"
+    },
+    {
+      "original_entry": "0x438270",
+      "inventory_id": "F:00038270",
+      "status": "已有CryptInt语义映射，跨模块运行未验",
+      "original_end_exclusive": "0x43828B",
+      "instruction_count": 9,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "CopyPayload"
+          ]
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CopyPayload"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "依次复制+4 W32 encoded、+8 W32 mask、+C W8 readCount，保留目标token/reserved；不读明文、不调用RNG。原返回目标引用，427470内30处调用按既有父合同弃返回，使用void CopyPayload承接；不以此替换count先写等不同内联复制序。"
     }
   ]
 }

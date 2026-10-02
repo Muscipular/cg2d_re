@@ -1070,6 +1070,14 @@ LegacyPanelRecord gLegacyMailDeliveryPanel583550 {
 };
 constexpr char kLegacyMailNormalMode5896E0[] = "\xA5\x48\xB4\xB6\xB3\x71\xBC\xD2\xA6\xA1\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
 constexpr char kLegacyMailPetMode5896D0[] = "\xA5\x48\xC3\x64\xAA\xAB\xB0\x65\xB6\x6C\xA5\xF3\xA1\x43";
+LegacyPanelRecord gLegacyMailDeletePanel583618 {
+    0, 0, 320, 240, 44, {}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyMailDeleteYes589728[] = "\x20\xAC\x4F";
+constexpr char kLegacyMailDeleteLead589714[] = "\xA6\xDB\xA6\x57\xA4\xF9\xB5\x6E\xBF\xFD\xA5\xBB\xA7\x52\xB0\xA3";
+constexpr char kLegacyMailDeleteEnd589708[] = "\xAA\xBA\xA6\x57\xA4\xF9\xB6\xDC\xA1\x48";
+constexpr char kLegacyMailDeleteHint589700[] = "\xA7\x52\xB0\xA3\xA1\x43";
+constexpr char kLegacyMailKeepHint5896F4[] = "\xA4\xA3\xA7\x52\xB0\xA3\xA1\x43";
 LegacyPanelRecord gLegacyItemUseStatusPanel582C78 {
     64, 108, 512, 240, 78, {}, {}, 0, 0, {}, {},
 };
@@ -8323,6 +8331,58 @@ std::uint32_t Sub_4EB890(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMailDeliveryPanel583550, 1);
+}
+
+std::uint32_t Sub_4EBAA0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyMailDeletePanel583618.x;
+    const std::int32_t y = gLegacyMailDeletePanel583618.y;
+    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
+        {x + 89, y + 182, x + 79, y + 180, 55, 20, kLegacyMailDeleteYes589728},
+        {x + 187, y + 182, x + 185, y + 180, 55, 20, kLegacyBarterNo588A00},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacyMailDeletePanel583618, nullptr, 0);
+    if (state == 0 || state == 2) {
+        return static_cast<std::uint32_t>(state);
+    }
+    const std::uint8_t confirmState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[0]));
+    const std::uint8_t cancelState = static_cast<std::uint8_t>(character_select::detail::Sub_503990(&buttons[1]));
+    if ((confirmState & 1u) != 0) {
+        const std::int32_t index = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_511190(socket, index));
+        const std::int32_t currentIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+        static_cast<void>(world::detail::Sub_5192C0(currentIndex));
+        static_cast<void>(world::detail::Sub_519300());
+        static_cast<void>(audio::Sub_5042D0(gLegacyMailDeletePanel583618.id));
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((cancelState & 1u) != 0) {
+        static_cast<void>(audio::Sub_504180(42));
+    }
+    const auto drawAt = [](const char* const text, const std::int32_t offsetX, const std::int32_t offsetY) {
+        const std::int32_t top = gLegacyMailDeletePanel583618.y + offsetY;
+        const std::int32_t left = gLegacyMailDeletePanel583618.x + offsetX;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
+    };
+    drawAt(kLegacyMailDeleteLead589714, 84, 38);
+    const std::int32_t measureIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+    const std::int32_t width = TextMeasure(world::detail::gContactsF19FB0[measureIndex].name10.data(), 0);
+    const std::int32_t textIndex = ui::detail::BorrowLegacyMailDeleteIndexD2DA8C();
+    drawAt(world::detail::gContactsF19FB0[textIndex].name10.data(), 160 - width / 2, 86);
+    drawAt(kLegacyMailDeleteEnd589708, 109, 134);
+    Sub_503A20(&buttons[0], 2, 4, 1, gValueD69768, 218);
+    Sub_503A20(&buttons[1], 2, 4, 1, gValueD69768, 218);
+    const char* hint = nullptr;
+    if ((confirmState & 0x40u) != 0) {
+        hint = kLegacyMailDeleteHint589700;
+    } else if ((cancelState & 0x40u) != 0) {
+        hint = kLegacyMailKeepHint5896F4;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyMailDeletePanel583618, 0);
 }
 
 std::uint32_t Sub_4ECE00(const std::int32_t opened)

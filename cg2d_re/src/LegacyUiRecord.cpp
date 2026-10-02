@@ -249,6 +249,16 @@ constexpr char kLegacySkillChoiceLearnHint588BA8[] = "\xA6\x56\xA6\xB9\xA4\x48\x
 constexpr char kLegacySkillChoiceForgetHint588B90[] = "\xA7\xD1\xB0\x4F\xA6\xDB\xA4\x76\xA9\xD2\xAB\xF9\xA6\xB3\xAA\xBA\xA7\xDE\xAF\xE0\xA1\x43";
 constexpr char kLegacySkillChoiceCancelHint588B80[] = "\xB0\xB1\xA4\xEE\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0\xA1\x43";
 
+LegacyPanelRecord gLegacySkillLearningPanel581E28 {
+    0, 0, 576, 432, 56, {23301, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacySkillLearningAccept588C20[] = "\x20\xBE\xC7\x20\x20\xB2\xDF";
+constexpr char kLegacySkillLearningCancel588C18[] = "\x20\xA4\xA3\x20\x20\xBE\xC7";
+constexpr char kLegacySkillLearningSlots588C00[] = "\xA8\xCF\xA5\xCE\xA7\xDE\xAF\xE0\xC4\xE6\xA6\xEC\xBC\xC6\xA1\x47\x25\x64\x20\xC4\xE6";
+constexpr char kLegacySkillLearningCost588BEC[] = "\xBE\xC7\xB2\xDF\xB6\x4F\xA5\xCE\xA1\x47\x25\x64\x20\xAA\xF7\xB9\xF4";
+constexpr char kLegacySkillLearningAcceptHint588BE0[] = "\xBE\xC7\xB2\xDF\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kLegacySkillLearningCancelHint588BD4[] = "\xB0\xB1\xA4\xEE\xBE\xC7\xB2\xDF\xA1\x43";
+
 LegacyPanelRecord gLegacyBuyPanel5823A0 {
     0, 0, 576, 432, 63, {23055, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -1726,6 +1736,120 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacySkillChoicePanel581D60, 1);
+}
+
+YobiAction* Sub_4D6A30()
+{
+    const std::int32_t y = gLegacySkillLearningPanel581E28.y + 246;
+    const std::int32_t x = gLegacySkillLearningPanel581E28.x + 469;
+    const std::int32_t image = ui::detail::ReadLegacyChoiceImageCC4890();
+    YobiAction* const action = Sub_4D6640(image, x, y);
+    gLegacySkillChoiceActionD67C58 = action;
+    return action;
+}
+
+std::uintptr_t Sub_4D6A60(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacySkillLearningPanel581E28.x;
+    const std::int32_t y = gLegacySkillLearningPanel581E28.y;
+    std::array<character_select::detail::CharacterModalUiRecord, 2> buttons {{
+        {x + 432, y + 344, x + 430, y + 344, 72, 18, kLegacySkillLearningAccept588C20},
+        {x + 432, y + 380, x + 430, y + 380, 72, 18, kLegacySkillLearningCancel588C18},
+    }};
+    const std::int32_t state = Sub_503160(opened, &gLegacySkillLearningPanel581E28,
+        +[] { static_cast<void>(Sub_4D6A30()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        YobiAction* result = gLegacySkillChoiceActionD67C58;
+        world::detail::gValue581800 = -1;
+        if (result != nullptr) {
+            result = MarkDeath(result);
+            gLegacySkillChoiceActionD67C58 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(result);
+    }
+    if (gLegacySkillChoiceActionD67C58 != nullptr) {
+        gLegacySkillChoiceActionD67C58->flags &= ~2U;
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));
+    }
+    for (std::int32_t index = 0; index < 2; ++index) {
+        if ((character_select::detail::Sub_503990(&buttons[index]) & 1) == 0) {
+            continue;
+        }
+        char buffer[16];
+        char escaped[16];
+        std::sprintf(buffer, "%d", index + 1);
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const auto socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, escaped));
+        static_cast<void>(audio::Sub_5042D0(gLegacySkillLearningPanel581E28.id));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    }
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
+    const std::int32_t titleY = gLegacySkillLearningPanel581E28.y + 8;
+    const std::int32_t titleX = gLegacySkillLearningPanel581E28.x - titleWidth / 2 + 288;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),
+        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));
+    for (std::int32_t index = 0; index < 5; ++index) {
+        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 16 * index + 58;
+        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 379;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 1].text.data(), 0, 0));
+    }
+    char text[64];
+    const std::int32_t gold = world::detail::ReadPlayerValueFC();
+    std::sprintf(text, "%7d", gold);
+    const std::int32_t goldY = gLegacySkillLearningPanel581E28.y + 287;
+    const std::int32_t goldX = gLegacySkillLearningPanel581E28.x + 463;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(goldX),
+        static_cast<std::int16_t>(goldY), 2, 0, 0, text, 0, 0));
+    for (const auto& button : buttons) {
+        static_cast<void>(character_select::detail::Sub_503A20(&button, 2, 0, 1, gValueD69768, 218));
+    }
+    const std::int32_t nameWidth = TextMeasure(lines[9].text.data(), 0);
+    const std::int32_t nameY = gLegacySkillLearningPanel581E28.y + 41;
+    const std::int32_t nameX = gLegacySkillLearningPanel581E28.x - nameWidth / 2 + 182;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(nameX),
+        static_cast<std::int16_t>(nameY), 2, 0, 0, lines[9].text.data(), 0, 0));
+    for (std::int32_t index = 0; index < 8; ++index) {
+        const std::int32_t top = gLegacySkillLearningPanel581E28.y + 20 * index + 116;
+        const std::int32_t left = gLegacySkillLearningPanel581E28.x + 45;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 10].text.data(), 0, 0));
+    }
+    const std::int32_t slots = ui::detail::gWindow54ValueCC2E68;
+    std::sprintf(text, kLegacySkillLearningSlots588C00, slots);
+    const std::int32_t slotsY = gLegacySkillLearningPanel581E28.y + 324;
+    const std::int32_t slotsX = gLegacySkillLearningPanel581E28.x + 45;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(slotsX),
+        static_cast<std::int16_t>(slotsY), 2, 0, 0, text, 0, 0));
+    const std::int32_t cost = ui::detail::gWindow54ValueCF4A3C;
+    std::sprintf(text, kLegacySkillLearningCost588BEC, cost);
+    const std::int32_t costY = gLegacySkillLearningPanel581E28.y + 372;
+    const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
+        static_cast<std::int16_t>(costY), 2, 0, 0, text, 0, 0));
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacySkillLearningPanel581E28) != 0) {
+        hint = kLegacyLogout553FD0;
+    } else if ((character_select::detail::Sub_503990(&buttons[0]) & 0x40) != 0) {
+        hint = kLegacySkillLearningAcceptHint588BE0;
+    } else if ((character_select::detail::Sub_503990(&buttons[1]) & 0x40) != 0) {
+        hint = kLegacySkillLearningCancelHint588BD4;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacySkillLearningPanel581E28, 1);
 }
 
 YobiAction* Sub_4D91E0()

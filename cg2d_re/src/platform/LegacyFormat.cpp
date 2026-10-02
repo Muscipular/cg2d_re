@@ -23,7 +23,7 @@ enum FormatFlags : std::uint32_t {
 };
 
 // 原同一无参trap经不同参数形态调用；原生C++使用精确类型适配入口。
-void TrapFloatFormat(double*, char*, std::int32_t, std::int32_t, std::int32_t)
+char* TrapFloatFormat(double*, char*, std::int32_t, std::int32_t, std::int32_t)
 {
     LegacyFloatingPointTrap_545031();
 }

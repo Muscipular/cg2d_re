@@ -56,6 +56,12 @@ std::int32_t ResetLegacySingleByte_546B00();
 // 原543A1A；S32输入，供53DA5C解析字母数字，保留旧ctype/NLS分支。
 std::int32_t UpperLegacyCharacter_543A1A(std::int32_t value);
 
+// 原53DC64；与大写转换共用ctype/NLS状态，失败返回原S32输入。
+std::int32_t LowerLegacyCharacter_53DC64(std::int32_t value);
+
+// 原541955；供浮点数字分类复用既有本体，保留可变ctype及NLS输出别名。
+std::uint32_t ClassifyLegacyCharacter_541955(std::int32_t value, std::uint32_t mask);
+
 // 原543D37在唯一caller 53DD2F的U8输入域；不公开一般宽字符转换。
 std::uint32_t UpperLegacyDirectoryByte_543D37(std::uint8_t value);
 

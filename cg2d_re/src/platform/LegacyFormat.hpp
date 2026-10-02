@@ -20,7 +20,7 @@ extern const char* gLegacyFormatNullText58FB38;
 extern const wchar_t* gLegacyFormatNullWide58FB3C;
 
 // 原三个浮点输出槽；初值为545031错误出口，转换器安装另有真实启动链。
-using LegacyFloatFormatCallback = void (*)(
+using LegacyFloatFormatCallback = char* (*)(
     double*, char*, std::int32_t, std::int32_t, std::int32_t);
 using LegacyFloatTextCallback = void (*)(char*);
 extern LegacyFloatFormatCallback gLegacyFloatFormat58FB50;

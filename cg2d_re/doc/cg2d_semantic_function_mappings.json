@@ -8699,6 +8699,12 @@
             "ClassifyLegacyControl_53BE17",
             "NormalizeLegacyHexCharacter_53E919"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "ClassifyLegacyCharacter_541955"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8707,7 +8713,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_legacy_multibyte.md"
       ],
-      "boundary": "ClassifyLegacyByte仍承接既有U8比较/解析域。完整ClassifyLegacyCharacter_541955处理-1..255表域及其余lead/NLS域，已由543A1A及新增53BDEF/53BE17/53E919调用；输入404060实际接到空白/控制包装。复用545208及原C高W16/mask的输出别名。其他CRT父入口未自动接通，非法原表下标不专项模拟或增加保护，未构建/执行。"
+      "boundary": "ClassifyLegacyByte仍承接既有U8比较/解析域。完整ClassifyLegacyCharacter_541955处理-1..255表域及其余lead/NLS域，已由543A1A及新增53BDEF/53BE17/53E919调用；输入404060实际接到空白/控制包装。复用545208及原C高W16/mask的输出别名。其他CRT父入口未自动接通，非法原表下标不专项模拟或增加保护，未构建/执行。 既有完整本体仅改为内部可链接声明，新增53DC64/53FDD5真实调用，函数正文保持。"
     },
     {
       "original_entry": "0x53C654",
@@ -9879,7 +9885,7 @@
     {
       "original_entry": "0x53D710",
       "inventory_id": "F:0013D710",
-      "status": "原重叠复制及内嵌分发表已证；仅两个应用队列消费者显式关联",
+      "status": "原重叠复制已证；两个网络及两个浮点CRT消费者显式关联",
       "original_end_exclusive": "0x53DA45",
       "instruction_count": 231,
       "sources": [
@@ -9890,13 +9896,21 @@
             "ConsumeSendQueue_508280"
           ],
           "relationship": "std::memmove真实承接两个原直接调用；其余六处CRT父链不据此完成"
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ShiftLegacyFloatText_5401EB",
+            "RoundLegacyFloatDigits_544EA0"
+          ],
+          "relationship": "原540205/544F0A两处按正常重叠复制合同用std::memmove承接"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "有效源目标范围内，dest>src且dest<src+count时逆向，否则正向，返回原dest。用std::memmove保留重叠复制后字节，不重建对齐跳表或异常现场。237个元数据item中53D8FC..53D908的六个伪指令为三个W32目标，代码计231；原分母/数据库不改。",
+      "boundary": "有效源目标范围内，dest>src且dest<src+count时逆向，否则正向，返回原dest。用std::memmove保留重叠复制后字节，不重建对齐跳表或异常现场。237个元数据item中53D8FC..53D908的六个伪指令为三个W32目标，代码计231；原分母/数据库不改。 新增浮点shift/fptostr两处真实消费者，未改变既有网络调用，也未宣称其余CRT父链完成。",
       "metadata_item_count": 237,
       "embedded_dispatch_tables": [
         {
@@ -14923,7 +14937,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；转换器/六槽安装仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发已实现，底层数字生产/六槽安装仍待，不能将浮点计为完成。三包装已接，业务调用未迁移。",
       "function_chunks": [
         {
           "start": "0x53EB28",
@@ -21646,7 +21660,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理槽初值的调用。三个输出槽已按加载值初始化，六槽完整安装与转换本体仍待，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
+      "boundary": "原两指令调用真实53DEAB(error2)后不返回；类型精确适配函数承担同一trap作为浮点转换/文本处理槽初值的调用。三个输出槽已按加载值初始化，六槽完整安装与底层数字生产仍待，e/f/g排版分发已有本体，输入核心直接trap调用尚未接，不以固定成功或宿主浮点格式替代。",
       "function_chunks": [
         {
           "start": "0x545031",
@@ -21696,6 +21710,482 @@
           "reference_kind": "data"
         }
       ]
+    },
+    {
+      "original_entry": "0x54019A",
+      "inventory_id": "F:0014019A",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x5401EB",
+      "instruction_count": 29,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ConvertLegacyFloatText_54019A"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ConvertLegacyFloatText_54019A"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "原e/E分派到科学格式，f到定点，其余到通用格式；S32参数及char*原目标返回保持。上层58FB50回调改为准确char*类型但继续弃返回；六槽安装未执行，初始trap保持。",
+      "function_chunks": [
+        {
+          "start": "0x54019A",
+          "end_exclusive": "0x5401EB"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B45F",
+          "parent_entry": "0x53B45F",
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53FDD5",
+      "inventory_id": "F:0013FDD5",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x53FE2F",
+      "instruction_count": 37,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ForceLegacyDecimalPoint_53FDD5"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ForceLegacyDecimalPoint_53FDD5"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先原tolower首S8判e，否则前移后按共享MB_CUR_MAX和真实ctype/NLS的数字位推进。插入唯一原小数点字节后逐字节交换搬移到NUL，不预查空串/负号、不批量快照；58FB5C安装仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53FDD5",
+          "end_exclusive": "0x53FE2F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B47D",
+          "parent_entry": "0x53B45F",
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53FE2F",
+      "inventory_id": "F:0013FE2F",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x53FE7D",
+      "instruction_count": 38,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "CropLegacyFloatZeros_53FE2F"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "CropLegacyFloatZeros_53FE2F"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先找共享小数点或NUL；存在小数点才找e/E/NUL，倒退去尾0及可能的小数点，逐字节搬回后缀含NUL。只采样一次小数点，不改变源目标别名读序；58FB54安装仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53FE2F",
+          "end_exclusive": "0x53FE7D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53B464",
+          "parent_entry": "0x53B45F",
+          "reference_kind": "address"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53FED3",
+      "inventory_id": "F:0013FED3",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x53FFD7",
+      "instruction_count": 115,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatScientific_53FED3"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "FormatLegacyFloatScientific_53FED3"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "正常fltout→fptostr(precision+1)，缓存分支读唯一1086048并按precision>0移位。保留符号、小数点插入、API后重读缓存标志决定后缀位置、原e+000模板、数字串首非0才计算decimal-1三位指数。顶层分派及缓存父已接，544F17只准确声明，底层数字生产未实现。",
+      "function_chunks": [
+        {
+          "start": "0x53FED3",
+          "end_exclusive": "0x53FFD7"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x540167",
+          "parent_entry": "0x540150"
+        },
+        {
+          "address": "0x5401E1",
+          "parent_entry": "0x54019A"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53FFD7",
+      "inventory_id": "F:0013FFD7",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x5400B5",
+      "instruction_count": 92,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatFixed_53FFD7"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "FormatLegacyFloatFixed_53FFD7"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "正常按decimal+precision舍入，缓存且先前指数等于precision补0/NUL；保留符号、decimal<=0的前导0、小数点移位和负decimal补零。缓存模式不裁precision，非缓存才取较小补零数。顶层/缓存父及移位/舍入已接，数字生产仍待。",
+      "function_chunks": [
+        {
+          "start": "0x53FFD7",
+          "end_exclusive": "0x5400B5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54018A",
+          "parent_entry": "0x540177"
+        },
+        {
+          "address": "0x5401B8",
+          "parent_entry": "0x54019A"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x5400B5",
+      "inventory_id": "F:001400B5",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x540150",
+      "instruction_count": 63,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatGeneral_5400B5"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "FormatLegacyFloatGeneral_5400B5"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "调用数字生产后发布唯一结果指针/舍入前指数，舍入后重读全局记录更新进位U8和指数S32；指数<-4或>=precision转缓存e，否则缓存f，进位转f时先删除数字尾字节。真实E/F复用同一记录，不做独立第二次数值转换；生产者和安装仍待。",
+      "function_chunks": [
+        {
+          "start": "0x5400B5",
+          "end_exclusive": "0x540150"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5401CE",
+          "parent_entry": "0x54019A"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x53DC64",
+      "inventory_id": "F:0013DC64",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x53DD2F",
+      "instruction_count": 78,
+      "original_direct_reference_count": 5,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "LowerLegacyCharacter_53DC64"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "LowerLegacyCharacter_53DC64"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "C locale仅ASCII A..Z加32；非C保留S32<256分类门禁、MB_CUR_MAX/可变ctype大写位，再按高字节lead构造1/2B源，以LCMAP_LOWERCASE和既有共享NLS边界映射。失败原值，成功1B或低字节在前的两字节组合；forcepoint已接，其他原引用未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x53DC64",
+          "end_exclusive": "0x53DD2F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53CFBC",
+          "parent_entry": "0x53CF50"
+        },
+        {
+          "address": "0x53CFC6",
+          "parent_entry": "0x53CF50"
+        },
+        {
+          "address": "0x53FDDE",
+          "parent_entry": "0x53FDD5"
+        },
+        {
+          "address": "0x54ABAD",
+          "parent_entry": "0x54AB30"
+        },
+        {
+          "address": "0x54ABB7",
+          "parent_entry": "0x54AB30"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x5401EB",
+      "inventory_id": "F:001401EB",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x540210",
+      "instruction_count": 18,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ShiftLegacyFloatText_5401EB"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "ShiftLegacyFloatText_5401EB"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "distance非0才strlen取U32长度加NUL，按已证53D710正常重叠复制合同memmove(text+distance,text,count)；0不读文本。四个e/f原父调用已接，网络消费者保持。",
+      "function_chunks": [
+        {
+          "start": "0x5401EB",
+          "end_exclusive": "0x540210"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FEFF",
+          "parent_entry": "0x53FED3"
+        },
+        {
+          "address": "0x54005A",
+          "parent_entry": "0x53FFD7"
+        },
+        {
+          "address": "0x540070",
+          "parent_entry": "0x53FFD7"
+        },
+        {
+          "address": "0x54009D",
+          "parent_entry": "0x53FFD7"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x544EA0",
+      "inventory_id": "F:00144EA0",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x544F17",
+      "instruction_count": 57,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "RoundLegacyFloatDigits_544EA0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "RoundLegacyFloatDigits_544EA0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先采样digits指针再写首0，正S32精度逐次读取源，源NUL后补0，末尾NUL；精度非负且下个源S8>=5才逆向9→0进位。首位1增加同一record.decimal，否则按53D710正常重叠合同移除预留0。三个e/f/g父已接，底层数字生产仍待。",
+      "function_chunks": [
+        {
+          "start": "0x544EA0",
+          "end_exclusive": "0x544F17"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53FF38",
+          "parent_entry": "0x53FED3"
+        },
+        {
+          "address": "0x54003A",
+          "parent_entry": "0x53FFD7"
+        },
+        {
+          "address": "0x5400EC",
+          "parent_entry": "0x5400B5"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x540150",
+      "inventory_id": "F:00140150",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x540177",
+      "instruction_count": 9,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatScientificCached_540150"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "FormatLegacyFloatScientificCached_540150"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先置共享108604C=1，真实科学格式调用返回后清0并返回原目标；不恢复入口旧值，不加入异常RAII。唯一g父调用已接。",
+      "function_chunks": [
+        {
+          "start": "0x540150",
+          "end_exclusive": "0x540177"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x540143",
+          "parent_entry": "0x5400B5"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+    },
+    {
+      "original_entry": "0x540177",
+      "inventory_id": "F:00140177",
+      "status": "原浮点排版或字符转换本体已实现；数字生产/六槽安装与完整运行未闭合",
+      "original_end_exclusive": "0x54019A",
+      "instruction_count": 8,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatFixedCached_540177"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.hpp",
+          "symbols": [
+            "FormatLegacyFloatFixedCached_540177"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "先置共享108604C=1，真实定点格式返回后清0并返回原目标；保留全局复用生命周期。唯一g父调用已接。",
+      "function_chunks": [
+        {
+          "start": "0x540177",
+          "end_exclusive": "0x54019A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x540131",
+          "parent_entry": "0x5400B5"
+        }
+      ],
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
     }
   ]
 }

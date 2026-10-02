@@ -44,6 +44,7 @@ extern std::int32_t gLegacyPetSkillCatalogPageD45F74;
 extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
 extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
+extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
 
 // 原面板+28H起五条24B页签，只有末槽为地址。
 struct LegacyPanelTabRecord {
@@ -154,6 +155,8 @@ YobiAction* Sub_4D6E70(); // 旧57预览初始化，沿旧55/56同源工厂与T*
 std::uintptr_t Sub_4D6EA0(std::int32_t opened); // 旧57技能遗忘，十五行/99取消及相邻页号门禁。
 YobiAction* Sub_4D7440(); // 旧58预览初始化；图号仍为真实外部数据依赖。
 std::uint32_t Sub_4D7470(std::int32_t opened); // 旧58完整八行目录消费；记录/页数生产仍缺。
+YobiAction* Sub_4D7BF0(); // 旧59独立预览初始化，共享目录图号。
+std::uint32_t Sub_4D7C20(std::int32_t opened); // 旧59候选宠物选择，借D67448真实回复数据。
 std::uint32_t Sub_4EFB70(std::int32_t opened); // 旧36属性目标，沿ND六行共享状态及原关闭请求。
 std::uint32_t Sub_4F0460(std::int32_t opened); // 旧35技能名单，五行两页、直接/属性请求及原关闭状态。
 std::uint32_t Sub_4E4A50(std::int32_t opened); // 旧77物品使用目标，LY十条20B同源记录，先写选择再发送。

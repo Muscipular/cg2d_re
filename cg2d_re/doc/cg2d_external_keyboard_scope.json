@@ -2,9 +2,9 @@
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
   "authorization": "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring：用户已明确排除屏幕键盘及其专用对象链，普通输入/IME与共享函数保留。",
-  "scope": "64个已由专用构造、四张虚表、三组消息登记及HWND映射/线程钩子支撑链证明归属的原入口；不是整个相邻地址区间或所有下游函数的排除。",
+  "scope": "97个已由专用构造、四张虚表、三组消息登记、HWND映射/线程钩子及成员/消息树支撑链证明归属的原入口；不是整个相邻地址区间或所有下游函数的排除。",
   "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
-  "verification": "首批52个虚表槽、14条消息登记及入向引用已核；续补专用CRT、HWND映射、线程钩子及状态读写/全部直接引用。构造来源和三个无独立元数据删除包装沿既有证据，不将分类表述为全部本体语义复验或已实现。",
+  "verification": "首批52个虚表槽、14条消息登记及入向引用已核；续补专用CRT、HWND映射、线程钩子及三组消息树/成员的专用状态与全部直接引用。共享53A200另核完整九条指令并保留；构造来源和三个无独立元数据删除包装沿既有证据，不将分类表述为全部本体语义复验或已实现。",
   "support_context": {
     "crt_roots": [
       {
@@ -154,6 +154,21 @@
     ]
   },
   "shared_nonexcluded_entries": [
+    {
+      "original_entry": "0x53A200",
+      "inventory_id": "F:0013A200",
+      "keyboard_call_sites": [
+        "0x5376AE",
+        "0x538A1E",
+        "0x539EDE",
+        "0x53AC6E"
+      ],
+      "other_call_sites": [
+        "0x45AF97",
+        "0x523D57"
+      ],
+      "boundary": "有空目的门禁的两个W32顺序复制叶；同时服务图形首见树与DBF索引，只排除键盘消费场景，函数整体保留并关联现有容器实现。"
+    },
     {
       "original_entry": "0x509080",
       "inventory_id": "F:00109080",
@@ -1994,6 +2009,1118 @@
         }
       ],
       "boundary": "仅依据1085F68映射/专用钩子与临界区的实际owner、CRT根、回调接线及所有直接入向引用归属。不是相邻地址或所有通用容器callee的排除，也不计本体语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5354D0",
+      "original_end_exclusive": "0x53553D",
+      "inventory_id": "F:001354D0",
+      "name": "键盘lower/upper显隐选择",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536813",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536A52",
+          "reference_type": 17,
+          "function_entry": "0x536970"
+        },
+        {
+          "address": "0x536A60",
+          "reference_type": 17,
+          "function_entry": "0x536970"
+        },
+        {
+          "address": "0x536D5F",
+          "reference_type": 17,
+          "function_entry": "0x536C30"
+        },
+        {
+          "address": "0x536D6A",
+          "reference_type": 17,
+          "function_entry": "0x536C30"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x536EE0",
+      "original_end_exclusive": "0x536EF3",
+      "inventory_id": "F:00136EE0",
+      "name": "键盘子对象集合计数",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5355F6",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53566D",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535AEC",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535B63",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535CCB",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535D3E",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535F4C",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535FC3",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53649E",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53667C",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x536F00",
+      "original_end_exclusive": "0x536FCD",
+      "inventory_id": "F:00136F00",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5352C2",
+          "reference_type": 17,
+          "function_entry": "0x535090"
+        },
+        {
+          "address": "0x53542B",
+          "reference_type": 17,
+          "function_entry": "0x535310"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x536F00",
+          "0x536FCD"
+        ],
+        [
+          "0x54BDF0",
+          "0x54BE0A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x537090",
+      "original_end_exclusive": "0x537198",
+      "inventory_id": "F:00137090",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536FF6",
+          "reference_type": 17,
+          "function_entry": "0x536FD0"
+        },
+        {
+          "address": "0x537017",
+          "reference_type": 17,
+          "function_entry": "0x536FD0"
+        },
+        {
+          "address": "0x537038",
+          "reference_type": 17,
+          "function_entry": "0x536FD0"
+        },
+        {
+          "address": "0x537059",
+          "reference_type": 17,
+          "function_entry": "0x536FD0"
+        },
+        {
+          "address": "0x53707A",
+          "reference_type": 17,
+          "function_entry": "0x536FD0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537220",
+      "original_end_exclusive": "0x5375EF",
+      "inventory_id": "F:00137220",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536FA6",
+          "reference_type": 17,
+          "function_entry": "0x536F00"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5375F0",
+      "original_end_exclusive": "0x537656",
+      "inventory_id": "F:001375F0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536F55",
+          "reference_type": 17,
+          "function_entry": "0x536F00"
+        },
+        {
+          "address": "0x537627",
+          "reference_type": 17,
+          "function_entry": "0x5375F0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x5375F0",
+          "0x537656"
+        ],
+        [
+          "0x54BE10",
+          "0x54BE22"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x537660",
+      "original_end_exclusive": "0x5378EA",
+      "inventory_id": "F:00137660",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5370DB",
+          "reference_type": 17,
+          "function_entry": "0x537090"
+        },
+        {
+          "address": "0x537116",
+          "reference_type": 17,
+          "function_entry": "0x537090"
+        },
+        {
+          "address": "0x537159",
+          "reference_type": 17,
+          "function_entry": "0x537090"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x537660",
+          "0x5378EA"
+        ],
+        [
+          "0x54BE30",
+          "0x54BE42"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5378F0",
+      "original_end_exclusive": "0x53791E",
+      "inventory_id": "F:001378F0",
+      "name": "键盘子对象指针区间复制",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53561F",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535640",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535699",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5356DA",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535B15",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535B36",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535B8F",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535BD7",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535CF0",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535D11",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535D66",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535DAD",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535F75",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535F96",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535FEF",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536031",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536450",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536471",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5364CE",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536516",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536639",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53665A",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5366A8",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5366F0",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537920",
+      "original_end_exclusive": "0x537945",
+      "inventory_id": "F:00137920",
+      "name": "键盘子对象指针填充",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x535630",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5356B8",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535B26",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535BAE",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535D01",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535D85",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535F86",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53600E",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536461",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5364ED",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53664A",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5366C7",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537950",
+      "original_end_exclusive": "0x53797D",
+      "inventory_id": "F:00137950",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5371B4",
+          "reference_type": 17,
+          "function_entry": "0x5371A0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x537980",
+      "original_end_exclusive": "0x5379D1",
+      "inventory_id": "F:00137980",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53713D",
+          "reference_type": 17,
+          "function_entry": "0x537090"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5379E0",
+      "original_end_exclusive": "0x537A23",
+      "inventory_id": "F:001379E0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536F99",
+          "reference_type": 17,
+          "function_entry": "0x536F00"
+        },
+        {
+          "address": "0x53722F",
+          "reference_type": 17,
+          "function_entry": "0x537220"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085F64"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539070",
+      "original_end_exclusive": "0x5390C4",
+      "inventory_id": "F:00139070",
+      "name": "键盘按键显示文本设置",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x535806",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535872",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5358DE",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53594A",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5359B6",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535A22",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535A8B",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535E08",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536139",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5361A5",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536211",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53627D",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5362E9",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536355",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x5363BE",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536751",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5390D0",
+      "original_end_exclusive": "0x5390FE",
+      "inventory_id": "F:001390D0",
+      "name": "键盘按键附属文本设置",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x535C16",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x535E16",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x536555",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        },
+        {
+          "address": "0x53675F",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539100",
+      "original_end_exclusive": "0x539107",
+      "inventory_id": "F:00139100",
+      "name": "键盘按键附属文本访问",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5369ED",
+          "reference_type": 17,
+          "function_entry": "0x536970"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539110",
+      "original_end_exclusive": "0x539117",
+      "inventory_id": "F:00139110",
+      "name": "键盘按键成员访问",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x536858",
+          "reference_type": 17,
+          "function_entry": "0x535540"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x5397C0",
+      "original_end_exclusive": "0x5397EE",
+      "inventory_id": "F:001397C0",
+      "name": "键盘按键消息登记结果包装",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5397AB",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        }
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539870",
+      "original_end_exclusive": "0x539978",
+      "inventory_id": "F:00139870",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5396C6",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        },
+        {
+          "address": "0x5396E7",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        },
+        {
+          "address": "0x539708",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        },
+        {
+          "address": "0x539729",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        },
+        {
+          "address": "0x53976A",
+          "reference_type": 17,
+          "function_entry": "0x5396A0"
+        },
+        {
+          "address": "0x5397CD",
+          "reference_type": 17,
+          "function_entry": "0x5397C0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539980",
+      "original_end_exclusive": "0x539A4D",
+      "inventory_id": "F:00139980",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x538F12",
+          "reference_type": 17,
+          "function_entry": "0x538D40"
+        },
+        {
+          "address": "0x539009",
+          "reference_type": 17,
+          "function_entry": "0x538F60"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x539980",
+          "0x539A4D"
+        ],
+        [
+          "0x54BF60",
+          "0x54BF7A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x539A50",
+      "original_end_exclusive": "0x539E1F",
+      "inventory_id": "F:00139A50",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x539A26",
+          "reference_type": 17,
+          "function_entry": "0x539980"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x539E20",
+      "original_end_exclusive": "0x539E86",
+      "inventory_id": "F:00139E20",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5399D5",
+          "reference_type": 17,
+          "function_entry": "0x539980"
+        },
+        {
+          "address": "0x539E57",
+          "reference_type": 17,
+          "function_entry": "0x539E20"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x539E20",
+          "0x539E86"
+        ],
+        [
+          "0x54BF80",
+          "0x54BF92"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x539E90",
+      "original_end_exclusive": "0x53A11A",
+      "inventory_id": "F:00139E90",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x5398BB",
+          "reference_type": 17,
+          "function_entry": "0x539870"
+        },
+        {
+          "address": "0x5398F6",
+          "reference_type": 17,
+          "function_entry": "0x539870"
+        },
+        {
+          "address": "0x539939",
+          "reference_type": 17,
+          "function_entry": "0x539870"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x539E90",
+          "0x53A11A"
+        ],
+        [
+          "0x54BFA0",
+          "0x54BFB2"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53A120",
+      "original_end_exclusive": "0x53A14D",
+      "inventory_id": "F:0013A120",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x539804",
+          "reference_type": 17,
+          "function_entry": "0x5397F0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53A150",
+      "original_end_exclusive": "0x53A1A1",
+      "inventory_id": "F:0013A150",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53991D",
+          "reference_type": 17,
+          "function_entry": "0x539870"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53A1B0",
+      "original_end_exclusive": "0x53A1F3",
+      "inventory_id": "F:0013A1B0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x539A19",
+          "reference_type": 17,
+          "function_entry": "0x539980"
+        },
+        {
+          "address": "0x539A5F",
+          "reference_type": 17,
+          "function_entry": "0x539A50"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB0"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53A500",
+      "original_end_exclusive": "0x53A5CD",
+      "inventory_id": "F:0013A500",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A382",
+          "reference_type": 17,
+          "function_entry": "0x53A220"
+        },
+        {
+          "address": "0x53A414",
+          "reference_type": 17,
+          "function_entry": "0x53A3D0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x53A500",
+          "0x53A5CD"
+        ],
+        [
+          "0x54C010",
+          "0x54C02A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53A5D0",
+      "original_end_exclusive": "0x53A99F",
+      "inventory_id": "F:0013A5D0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A5A6",
+          "reference_type": 17,
+          "function_entry": "0x53A500"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53AA20",
+      "original_end_exclusive": "0x53AB28",
+      "inventory_id": "F:0013AA20",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A9C6",
+          "reference_type": 17,
+          "function_entry": "0x53A9A0"
+        },
+        {
+          "address": "0x53A9E7",
+          "reference_type": 17,
+          "function_entry": "0x53A9A0"
+        },
+        {
+          "address": "0x53AA08",
+          "reference_type": 17,
+          "function_entry": "0x53A9A0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53ABB0",
+      "original_end_exclusive": "0x53AC16",
+      "inventory_id": "F:0013ABB0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A555",
+          "reference_type": 17,
+          "function_entry": "0x53A500"
+        },
+        {
+          "address": "0x53ABE7",
+          "reference_type": 17,
+          "function_entry": "0x53ABB0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x53ABB0",
+          "0x53AC16"
+        ],
+        [
+          "0x54C030",
+          "0x54C042"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53AC20",
+      "original_end_exclusive": "0x53AEAA",
+      "inventory_id": "F:0013AC20",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53AA6B",
+          "reference_type": 17,
+          "function_entry": "0x53AA20"
+        },
+        {
+          "address": "0x53AAA6",
+          "reference_type": 17,
+          "function_entry": "0x53AA20"
+        },
+        {
+          "address": "0x53AAE9",
+          "reference_type": 17,
+          "function_entry": "0x53AA20"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。",
+      "original_chunks": [
+        [
+          "0x53AC20",
+          "0x53AEAA"
+        ],
+        [
+          "0x54C050",
+          "0x54C062"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x53AEB0",
+      "original_end_exclusive": "0x53AEDD",
+      "inventory_id": "F:0013AEB0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53AB44",
+          "reference_type": 17,
+          "function_entry": "0x53AB30"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53AEE0",
+      "original_end_exclusive": "0x53AF31",
+      "inventory_id": "F:0013AEE0",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53AACD",
+          "reference_type": 17,
+          "function_entry": "0x53AA20"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
+    },
+    {
+      "original_entry": "0x53AF40",
+      "original_end_exclusive": "0x53AF83",
+      "inventory_id": "F:0013AF40",
+      "name": "键盘专用消息树支撑",
+      "status": "用户范围排除：屏幕键盘专用支撑链",
+      "inbound_evidence": [
+        {
+          "address": "0x53A599",
+          "reference_type": 17,
+          "function_entry": "0x53A500"
+        },
+        {
+          "address": "0x53A5DF",
+          "reference_type": 17,
+          "function_entry": "0x53A5D0"
+        }
+      ],
+      "specialized_state_references": [
+        "0x1085FB8"
+      ],
+      "boundary": "按已证键盘成员/集合或三组专用消息树及全部实际入向引用分类；不扩大到其他树实例或共享53A200，不计全部算法语义复验或新端已实现。"
     }
   ]
 }

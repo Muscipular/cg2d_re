@@ -7,7 +7,7 @@
     {
       "path": "doc/cg2d_external_keyboard_scope.json",
       "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
-      "scope": "64个已证屏幕键盘对象/窗口映射/线程钩子专用入口及三段无独立ID删除包装；509080作为共享例外保留，不按相邻地址或通用callee扩大排除。"
+      "scope": "97个已证屏幕键盘对象/窗口映射/线程钩子/消息树专用入口及三段无独立ID删除包装；509080与53A200作为共享例外保留，不按相邻地址或通用callee扩大排除。"
     },
     {
       "path": "doc/cg2d_network_cipher_scope.json",
@@ -8076,6 +8076,36 @@
           "0x54C3FD"
         ]
       ]
+    },
+    {
+      "original_entry": "0x53A200",
+      "inventory_id": "F:0013A200",
+      "status": "已有调用链级键值构造映射；独立ABI、失败及运行未验",
+      "original_end_exclusive": "0x53A217",
+      "instruction_count": 9,
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960",
+            "gGraphicFirstRecords"
+          ]
+        },
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900",
+            "gPaletteDbf"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原目的非空时顺序读写两W32并返回原目的，空目的直接返回；45AF97/523D57用于图形与DBF树节点键值。既有emplace、try_emplace及记录指针赋值承接父链键值职责，S32键保持，已证GraphicInfo*/uint8_t*用原生指针。其余四caller属已排除键盘树，不整体排除本叶；不声称独立空目的/重叠输入、内存ABI或分配失败等价。"
     }
   ]
 }

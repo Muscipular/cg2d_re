@@ -73,6 +73,24 @@ void RewindLegacyStream_53B27D(LegacyFile* stream);
 std::int32_t SetLegacyStreamBuffer_54ACF1(
     LegacyFile* stream, char* buffer, std::uint32_t mode, std::uint32_t size);
 std::int32_t UnreadLegacyStreamByte_54463F(std::int32_t character, LegacyFile* stream);
+// 原fpos数值为8B的低/高W32，非地址；保留逐半发布及读取次序。
+struct LegacyFilePosition final {
+    std::uint32_t low;
+    std::uint32_t high;
+};
+static_assert(offsetof(LegacyFilePosition, low) == 0);
+static_assert(offsetof(LegacyFilePosition, high) == 4);
+static_assert(sizeof(LegacyFilePosition) == 8);
+static_assert(alignof(LegacyFilePosition) == 4);
+
+// 原64位位置链独立于S32接口；缓冲修正数量仍为W32。
+std::int64_t TellLegacyStream64_54B239(LegacyFile* stream);
+std::int32_t SeekLegacyStream64_54B3C0(
+    LegacyFile* stream, std::int64_t offset, std::uint32_t origin);
+std::int32_t GetLegacyStreamPosition_54ACB7(
+    LegacyFile* stream, LegacyFilePosition* position);
+std::int32_t SetLegacyStreamPosition_54ACD9(
+    LegacyFile* stream, const LegacyFilePosition* position);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

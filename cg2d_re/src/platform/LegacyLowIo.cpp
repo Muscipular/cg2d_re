@@ -16,6 +16,44 @@ LegacyDescriptorRecord gLegacyInvalidDescriptor58FB40 {
     INVALID_HANDLE_VALUE, 0, '\n', {0, 0}
 };
 
+std::int64_t SeekLegacyDescriptor64_54B658(const std::int32_t descriptor,
+    const std::int64_t offset, const std::uint32_t origin)
+{
+    if (static_cast<std::uint32_t>(descriptor) >= gLegacyDescriptorCapacity1086AC0) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    auto** const block = &gLegacyDescriptorBlocks10869C0[descriptor >> 5];
+    const std::int32_t slot = descriptor & 31;
+    if (((*block)[slot].flags & 1u) == 0) {
+        gLegacyDosError_1085FE4 = 0;
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const auto bits = static_cast<std::uint64_t>(offset);
+    const auto low = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(bits));
+    LONG high = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(bits >> 32));
+    const HANDLE handle = GetLegacyDescriptorHandle_543897(descriptor);
+    if (handle == INVALID_HANDLE_VALUE) {
+        gLegacyErrno_1085FE0 = 9;
+        return -1;
+    }
+    const DWORD positionLow = ::SetFilePointer(handle, low, &high, origin);
+    if (positionLow == INVALID_SET_FILE_POINTER) {
+        const DWORD error = ::GetLastError();
+        if (error != 0) {
+            static_cast<void>(MapLegacyFileError_542F44(error));
+            return -1;
+        }
+    }
+    (*block)[slot].flags &= static_cast<std::uint8_t>(~2u);
+    const std::uint64_t position =
+        (static_cast<std::uint64_t>(static_cast<std::uint32_t>(high)) << 32)
+        | positionLow;
+    return std::bit_cast<std::int64_t>(position);
+}
+
 std::uint32_t InitializeLegacyDescriptors_53F52D()
 {
     constexpr std::uint32_t kBlockBytes =

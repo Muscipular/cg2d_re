@@ -17015,11 +17015,11 @@
     {
       "original_entry": "0x54ACB7",
       "inventory_id": "F:0014ACB7",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原64位定位或位置保存本体及内部链已实现；业务filebuf与完整启动未闭合",
       "original_end_exclusive": "0x54ACD9",
       "instruction_count": 13,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、S64位置/W32修正及发布次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x548B93",
@@ -17030,36 +17030,79 @@
           "parent_entry": "0x548BEA"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "GetLegacyStreamPosition_54ACB7"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "GetLegacyStreamPosition_54ACB7",
+            "LegacyFilePosition"
+          ]
+        }
       ],
-      "boundary": "调用64位tell后先写位置低W32再高W32，双字均FFFFFFFF才返回-1，否则0；两caller为548B68/548BEA。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "真实ftelli64后依序发布位置low/high两个U32，即使失败仍写两半全1；随后重读两半，仅同时全1返-1，否则0。LegacyFilePosition保持8B/对齐4数值布局；两个窄filebuf父调用未迁移，不算全业务位置保存完成。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/fgetpos.cpp",
-        "symbol": "fgetpos"
-      }
+        "symbol": "fgetpos",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      },
+      "function_chunks": [
+        {
+          "start": "0x54ACB7",
+          "end_exclusive": "0x54ACD9"
+        }
+      ]
     },
     {
       "original_entry": "0x54ACD9",
       "inventory_id": "F:0014ACD9",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原64位定位或位置保存本体及内部链已实现；业务filebuf与完整启动未闭合",
       "original_end_exclusive": "0x54ACF1",
       "instruction_count": 8,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、S64位置/W32修正及发布次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x548C12",
           "parent_entry": "0x548BEA"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SetLegacyStreamPosition_54ACD9"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SetLegacyStreamPosition_54ACD9",
+            "LegacyFilePosition"
+          ]
+        }
       ],
-      "boundary": "从位置指针取高/低W32，以origin0调用54B3C0，原样返回；唯一548BEA调用，fpos为数值64位不是新端指针。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "从LegacyFilePosition先采样high再low，按位组合原S64数值，以BEGIN调用真实fseeki64并原样返回。位置不是地址，不借宿主fpos_t；唯一窄filebuf父调用未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x54ACD9",
+          "end_exclusive": "0x54ACF1"
+        }
+      ]
     },
     {
       "original_entry": "0x54ACF1",
@@ -17178,11 +17221,11 @@
     {
       "original_entry": "0x54B239",
       "inventory_id": "F:0014B239",
-      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "status": "原64位定位或位置保存本体及内部链已实现；业务filebuf与完整启动未闭合",
       "original_end_exclusive": "0x54B3C0",
       "instruction_count": 144,
       "original_direct_reference_count": 2,
-      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "verification_level": "完整原指令、全部直接入向、S64位置/W32修正及发布次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x54ACBB",
@@ -17193,31 +17236,71 @@
           "parent_entry": "0x54B3C0"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "TellLegacyStream64_54B239"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "TellLegacyStream64_54B239"
+          ]
+        }
       ],
-      "boundary": "fgetpos与fseeki64调用，内部三处lseeki64；完整缓冲/文本偏移与失败修正尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "完整144条独立实现；入口清负count，CUR位置S64<0失败，无108H缓冲扣S32符号扩展count。有缓冲的已消费量、LF累计和物理块长仍U32，返回及64位加减按零扩展；文本EOF扫描固定原块长，非EOF恢复旧位置后按512/当前尺寸及低层4H修正。FILE2000H、API后重读及忽略恢复失败保持；fgetpos/fseeki64已接，不借32位ftell或宿主64位FILE。",
+      "function_chunks": [
+        {
+          "start": "0x54B239",
+          "end_exclusive": "0x54B3C0"
+        }
+      ]
     },
     {
       "original_entry": "0x54B3C0",
       "inventory_id": "F:0014B3C0",
-      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "status": "原64位定位或位置保存本体及内部链已实现；业务filebuf与完整启动未闭合",
       "original_end_exclusive": "0x54B450",
       "instruction_count": 58,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "verification_level": "完整原指令、全部直接入向、S64位置/W32修正及发布次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x54ACE8",
           "parent_entry": "0x54ACD9"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "SeekLegacyStream64_54B3C0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "SeekLegacyStream64_54B3C0"
+          ]
+        }
       ],
-      "boundary": "唯一fsetpos调用，内部tell/flush/lseeki64；全部SEEK_CUR修正、标志与失败顺序尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "活动83H及origin0/1/2门禁，失败只errno22；清EOF后CUR将真实ftelli64结果加到S64偏移且改BEGIN，不新加-1早退。忽略flush失败后清update方向或调整自有读缓冲512，再lseeki64；仅完整64位全1返回-1，其余0。fsetpos内部调用已接，未改变32位fseek。",
+      "function_chunks": [
+        {
+          "start": "0x54B3C0",
+          "end_exclusive": "0x54B450"
+        }
+      ]
     },
     {
       "original_entry": "0x54B450",
@@ -17262,11 +17345,11 @@
     {
       "original_entry": "0x54B658",
       "inventory_id": "F:0014B658",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原64位定位或位置保存本体及内部链已实现；业务filebuf与完整启动未闭合",
       "original_end_exclusive": "0x54B709",
       "instruction_count": 59,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、S64位置/W32修正及发布次序；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x54B25A",
@@ -17285,16 +17368,37 @@
           "parent_entry": "0x54B3C0"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyLowIo.cpp",
+          "symbols": [
+            "SeekLegacyDescriptor64_54B658"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "SeekLegacyDescriptor64_54B658"
+          ]
+        }
       ],
-      "boundary": "四引用仅tell/seek；核fd有效后分离两半调用SetFilePointer，低返回FFFFFFFF才读GetLastError，非零经542F44映射错误；成功清fd标志02，失败返回两半FFFFFFFF。无效fd还清doserror写errno9。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。",
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原U32范围/FOPEN检查，失败DOS0/errno9；getter返回-1只errno9。S64参数拆低/高W32，沿SetFilePointer传高半输出槽，不预清LastError；仅低全1时GetLastError非0才错误映射。成功重读原组清EOF2H，高/低半合回S64。四个原tell/seek内部引用已真实接线，未执行定位。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作对应逻辑和差异参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/lseek.cpp",
-        "symbol": "_lseeki64_nolock_internal"
-      }
+        "symbol": "_lseeki64_nolock_internal",
+        "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
+      },
+      "function_chunks": [
+        {
+          "start": "0x54B658",
+          "end_exclusive": "0x54B709"
+        }
+      ]
     },
     {
       "original_entry": "0x5438D4",

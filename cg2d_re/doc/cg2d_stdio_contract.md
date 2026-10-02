@@ -1187,3 +1187,39 @@ base空才getbuf；current==base时count非零失败，否则先把current加1�
 GraphicInfo、Blacklist、输入日志、filebuf、格式输入与宽读取等父调用未迁移，
 不把本体存在当业务接线、链接或运行通过。CRT宿主提案与calloc/完整启动仍待；
 音频继续暂停，不构建、查产物、新增/执行测试或哈希校验。
+
+## 64位文件定位与位置保存实施 SPEC（2026-10-03）
+
+按第8条工程委托，补齐54B658 lseeki64、54B239 ftelli64、54B3C0 fseeki64、
+54ACB7 fgetpos、54ACD9 fsetpos五本体，复用唯一低层表、FILE及错误槽。
+原端本来即为S64文件位置；缓冲数量、已消费/物理块长仍保持W32，不因宿主x64扩大。
+内部LegacyFilePosition用两个U32字段low/high表达原8B数值布局（偏移0/4、对齐4）；
+参数是已证类型指针，不用宿主fpos_t，也不把位置误作地址。
+
+lseeki64先U32 fd范围/FOPEN检查，失败DOS0/errno9/-1；保存组槽和索引。
+拆原S64参数低/高W32，再get_osfhandle；handle=-1只errno9，不额外清DOS。
+SetFilePointer沿原API传低有符号LONG及高LONG指针，不提前清LastError。
+只有低返回FFFFFFFF才读GetLastError，非零映射失败；否则重读组清EOF2H，
+按API输出高/低W32合回S64。原-1完整结果不提前拆成仅低半失败。
+
+ftelli64保持与原完整144条指令一致的独立本体，不把32位ftell简单提升调用：
+入口采样fd并清负count，CUR结果S64<0才-1；无108H缓冲时count先S32符号扩展再相减。
+有缓冲的current-base、累计LF及物理块长均U32；位置0时已消费量零扩展为64位，
+最终扣物理块长、加已消费量同样零扩展（原sbb/adc高半使用0）。
+文本EOF/非EOF、固定原块长扫描、FILE2000H/低层4H、512B条件和忽略恢复失败
+保持原顺序；API之后重读组/FILE。原TEST后JB不可能成立，仅高半负值判S64负。
+
+fseeki64要求活动83H及origin0/1/2，失败只errno22。清EOF后CUR查询S64位置相加，
+不新增查询失败早退；忽略flush返回，再更新方向或512B缓冲尺寸，最后lseeki64。
+只有完整64位全1返回失败，其他位置成功0，不改既有32位fseek接口或数值域。
+
+fgetpos调用tell后依序写low再high，即使失败仍发布两半FFFFFFFF；
+随后重读位置两半，仅同时全1返-1，否则0。
+fsetpos先采样high再low，按位组合S64，以BEGIN交真实fseeki64并原样返回。
+不添加空指针检查、偏移钳制、文件长度预查询、回滚或额外状态。
+
+本步完成五本体及内部链；窄filebuf的548B68/548BEA父调用尚未迁移，
+不把内部链闭合当完整业务文件/启动或运行验收。此前32位定位和缓冲正文保持。
+仅静态核新增证据/分支/数值宽度/别名/声明与元数据；不实际定位/文件操作、
+构建、查产物、新增/执行测试或哈希校验。calloc、宽字符流、格式化、业务迁移
+及完整初始化仍待，音频暂停，CRT宿主总提案及既有补值待批保持。

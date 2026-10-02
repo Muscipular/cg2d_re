@@ -28,6 +28,10 @@ std::uint32_t InitializeLegacyDescriptors_53F52D();
 std::int32_t SeekLegacyDescriptor_53F493(
     std::int32_t descriptor, std::int32_t offset, std::uint32_t origin);
 
+// 原54B658；S64定位拆两半交SetFilePointer，仅低返回全1才查询系统错误。
+std::int64_t SeekLegacyDescriptor64_54B658(
+    std::int32_t descriptor, std::int64_t offset, std::uint32_t origin);
+
 // 原58FB40；描述符-1的静态回退记录，不作为有效描述符发布。
 extern LegacyDescriptorRecord gLegacyInvalidDescriptor58FB40;
 

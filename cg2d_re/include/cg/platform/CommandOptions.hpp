@@ -47,4 +47,9 @@ extern int ParseIpOptions_507C80(const char* commandLine);
 
 // ParseCommandOptions 的唯一函数声明复用 Startup.hpp，返回类型为 int。
 
+// 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。
+// 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。
+std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,
+    char* text, std::int32_t* argumentSlotCount, std::int32_t* byteCount);
+
 } // namespace cg::platform

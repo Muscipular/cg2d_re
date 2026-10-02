@@ -17929,6 +17929,75 @@
         "doc/cg2d_legacy_multibyte.md"
       ],
       "boundary": "数字mask4命中返回原S32；否则原W32与FFFFFFDFH后减7，不再减30H，不添加十六进制有效性判断。按58FE3C分流完整541955/58FC30表；只有53DEF4内两处调用，扫描器父本体仍未接，未执行。 CRT宿主提案仍待确认；不恢复暂停音频、不构建/测试或运行。"
+    },
+    {
+      "original_entry": "0x5440E0",
+      "inventory_id": "F:001440E0",
+      "status": "旧命令行两遍解析本体已实现；argv生产及启动接线/运行未验",
+      "original_end_exclusive": "0x544294",
+      "instruction_count": 187,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整原指令及全部直接入向；解析新增源码静态核对，未执行",
+      "function_chunks": [
+        {
+          "start": "0x5440E0",
+          "end_exclusive": "0x544294"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54408E",
+          "parent_entry": "0x544047"
+        },
+        {
+          "address": "0x5440C4",
+          "parent_entry": "0x544047"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseLegacyCommandLine_5440E0"
+          ]
+        },
+        {
+          "path": "include/cg/platform/CommandOptions.hpp",
+          "symbols": [
+            "ParseLegacyCommandLine_5440E0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "五参保持原计数/写入职责，仅指针拓宽；槽数含终止nullptr，字节数含NUL，返回原槽数指针。argv0只以首引号分支，带引号lead额外源推进只在输出区非空时执行；后续参数保留偶数反斜杠/连续双引号也切换状态和原逐字节复制顺序。复用现有1086880分类表；无分配/初始化/全局argv影子，两个544047调用点尚未接。"
+    },
+    {
+      "original_entry": "0x544047",
+      "inventory_id": "F:00144047",
+      "status": "argv两遍分配发布父链已取证；全局生产及失败终止未实现",
+      "original_end_exclusive": "0x5440E0",
+      "instruction_count": 62,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整原指令及全部直接入向；解析新增源码静态核对，未执行",
+      "function_chunks": [
+        {
+          "start": "0x544047",
+          "end_exclusive": "0x5440E0"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53DE3E",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "先按1087AEC初始化多字节表，GetModuleFileNameA以104H上限写静态文件名并发布1086018；1087AE4非空正文优先。第一次5440E0只计数，原malloc请求字节数+槽数×4，失败amsg_exit(8)，第二次写入后发布1086000及槽数减1至1085FFC。仅子解析本体已实现，不提供全局指针默认值/假分配或把宿主argv计为原生产，CRT提案仍待确认。"
     }
   ]
 }

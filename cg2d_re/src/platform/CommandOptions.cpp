@@ -5,6 +5,7 @@
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "StartupNative.hpp"
+#include "LegacyMultibyte.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -295,6 +296,143 @@ int ParseIpOptions_507C80(const char* const commandLine)
         cursor = port;
     }
     return 0;
+}
+
+// 原5440E0；argv0与后续参数分开，保留计数遍/写入遍各自的源推进。
+std::int32_t* ParseLegacyCommandLine_5440E0(const char* const commandLine,
+    char** arguments, char* text, std::int32_t* const argumentSlotCount,
+    std::int32_t* const byteCount)
+{
+    constexpr std::uint8_t kLeadByte = 4;
+    *byteCount = 0;
+    *argumentSlotCount = 1;
+    const char* cursor = commandLine;
+    if (arguments != nullptr) {
+        *arguments++ = text;
+    }
+
+    if (*cursor == '"') {
+        for (;;) {
+            const auto value = static_cast<std::uint8_t>(cursor[1]);
+            ++cursor;
+            if (value == '"' || value == 0) {
+                break;
+            }
+            if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {
+                ++*byteCount;
+                if (text != nullptr) {
+                    *text++ = *cursor++;
+                }
+            }
+            ++*byteCount;
+            if (text != nullptr) {
+                *text++ = *cursor;
+            }
+        }
+        ++*byteCount;
+        if (text != nullptr) {
+            *text++ = '\0';
+        }
+        if (*cursor == '"') {
+            ++cursor;
+        }
+    } else {
+        std::uint8_t value;
+        do {
+            ++*byteCount;
+            if (text != nullptr) {
+                *text++ = *cursor;
+            }
+            value = static_cast<std::uint8_t>(*cursor++);
+            if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {
+                ++*byteCount;
+                if (text != nullptr) {
+                    *text++ = *cursor;
+                }
+                ++cursor;
+            }
+        } while (value != ' ' && value != '\t' && value != 0);
+        if (value == 0) {
+            --cursor;
+        } else if (text != nullptr) {
+            text[-1] = '\0';
+        }
+    }
+
+    std::int32_t inQuotes = 0;
+    for (;;) {
+        if (*cursor == '\0') {
+            break;
+        }
+        while (*cursor == ' ' || *cursor == '\t') {
+            ++cursor;
+        }
+        if (*cursor == '\0') {
+            break;
+        }
+        if (arguments != nullptr) {
+            *arguments++ = text;
+        }
+        ++*argumentSlotCount;
+
+        for (;;) {
+            std::int32_t copyCharacter = 1;
+            std::uint32_t backslashCount = 0;
+            while (*cursor == '\\') {
+                ++cursor;
+                ++backslashCount;
+            }
+            if (*cursor == '"') {
+                if ((backslashCount & 1u) == 0) {
+                    if (inQuotes != 0 && cursor[1] == '"') {
+                        ++cursor;
+                    } else {
+                        copyCharacter = 0;
+                    }
+                    // 原544202..54420A：连续引号分支也切换状态。
+                    inQuotes = inQuotes == 0 ? 1 : 0;
+                }
+                backslashCount >>= 1;
+            }
+            while (backslashCount != 0) {
+                if (text != nullptr) {
+                    *text++ = '\\';
+                }
+                ++*byteCount;
+                --backslashCount;
+            }
+
+            const auto value = static_cast<std::uint8_t>(*cursor);
+            if (value == 0 || (inQuotes == 0 && (value == ' ' || value == '\t'))) {
+                break;
+            }
+            if (copyCharacter != 0) {
+                if (text != nullptr) {
+                    if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {
+                        *text++ = std::bit_cast<char>(value);
+                        ++cursor;
+                        ++*byteCount;
+                    }
+                    *text++ = *cursor;
+                } else if ((gLegacyMultibyte1086764.classification[value + 1] & kLeadByte) != 0) {
+                    ++cursor;
+                    ++*byteCount;
+                }
+                ++*byteCount;
+            }
+            ++cursor;
+        }
+        if (text != nullptr) {
+            *text++ = '\0';
+        }
+        ++*byteCount;
+    }
+
+    if (arguments != nullptr) {
+        *arguments = nullptr;
+    }
+    ++*argumentSlotCount;
+    return argumentSlotCount;
 }
 
 } // namespace cg::platform

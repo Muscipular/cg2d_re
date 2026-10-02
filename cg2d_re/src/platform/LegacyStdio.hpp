@@ -91,6 +91,13 @@ std::int32_t GetLegacyStreamPosition_54ACB7(
     LegacyFile* stream, LegacyFilePosition* position);
 std::int32_t SetLegacyStreamPosition_54ACD9(
     LegacyFile* stream, const LegacyFilePosition* position);
+// 原宽字符流以W16表示字符/FFFF失败，缓冲计数仍为字节数；文本沿旧locale转换。
+std::uint16_t FlushAndWriteLegacyStreamWide_54B450(
+    std::uint16_t character, LegacyFile* stream);
+std::uint16_t FillLegacyStreamWideBuffer_54B574(LegacyFile* stream);
+std::uint16_t WriteLegacyStreamWide_54AD92(std::uint16_t character, LegacyFile* stream);
+std::uint16_t ReadLegacyStreamWide_54AF70(LegacyFile* stream);
+std::uint16_t UnreadLegacyStreamWide_54AE87(std::uint16_t character, LegacyFile* stream);
 std::int32_t FlushLegacyStreamBuffer_53BB3D(LegacyFile* stream);
 std::int32_t FlushLegacyStream_53BB02(LegacyFile* stream);
 std::int32_t CloseLegacyStream_53B1D0(LegacyFile* stream);

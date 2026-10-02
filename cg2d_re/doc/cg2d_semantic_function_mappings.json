@@ -12916,7 +12916,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。filbuf/flsbuf及ungetc真实父链已接，其余caller仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "先增原W32计数再Malloc4096并发布base；成功OR8/容量4096，失败OR4并借本FILE字符槽前2B/容量2；尾count0/current=base并返回base，不预清或错误早退。filbuf/flsbuf/ungetc/ungetwc/flswbuf/filwbuf六个直接父调用已接，业务根迁移仍待。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x544815",
@@ -13338,7 +13338,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅U32范围检查，返回当前低层FDEV的0/40H，不检查FOPEN、不写错误槽；stbuf/flsbuf两窄输出父调用已接，宽输出父调用仍待，不以布尔1或宿主isatty代替。",
+      "boundary": "仅U32范围检查，返回当前低层FDEV的0/40H，不检查FOPEN、不写错误槽；stbuf/flsbuf/flswbuf三个直接父调用已接，不以布尔1或宿主isatty代替。",
       "function_chunks": [
         {
           "start": "0x544705",
@@ -13992,7 +13992,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先验证fd/FOPEN，count0或EOF位返0。设备/管道暂存字节先写入且复位，再调用ReadFile；失败5特设错误，109直接0而不回滚预写字节。成功二进制返累计；文本原位CRLF/CTRL-Z、首LF位及末CR额外读一字节，保留同一read计数槽和设备暂存/普通文件回退-1差异。peek失败且错误0的未写局部不补值，特殊失败未验；filbuf、sopen末字节检查及fread已接，其他父链仍待。",
+      "boundary": "先验证fd/FOPEN，count0或EOF位返0。设备/管道暂存字节先写入且复位，再调用ReadFile；失败5特设错误，109直接0而不回滚预写字节。成功二进制返累计；文本原位CRLF/CTRL-Z、首LF位及末CR额外读一字节，保留同一read计数槽和设备暂存/普通文件回退-1差异。peek失败且错误0的未写局部不补值，特殊失败未验；filbuf、sopen末字节检查、fread及filwbuf四个直接父调用已接，业务根迁移仍待。",
       "function_chunks": [
         {
           "start": "0x541426",
@@ -14292,7 +14292,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空源/数量0不写目标，NUL有目标才写零；C locale写首U8。非C用flags9，lead前置数量比较为S32，API后重读最大宽度，失败尾数量比较为U32，数量够且次字节非零仍返回宽度。否则原errno42/-1，不补目标。input/fgetwc外层仍未接；API失败后未写目标的后续消费未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "boundary": "空源/数量0不写目标，NUL有目标才写零；C locale写首U8。非C用flags9，lead前置数量比较为S32，API后重读最大宽度，失败尾数量比较为U32，数量够且次字节非零仍返回宽度。否则原errno42/-1，不补目标。fgetwc已接并按原参数+2字节复用保留输出初值，input仍待；API失败后未写目标的后续消费未运行验收。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
       "native_references": [
         {
           "component": "UCRT 10.0.26100.0",
@@ -14345,7 +14345,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空目标返0；C locale只接W16<=255并写低U8，否则errno42/-1。非C用flags220H、共享最大宽度及先置0的usedDefault，API0/替代均失败，其他返回API值；失败不清目的区，成功不清errno。output/fputwc/ungetwc父链尚未接。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "boundary": "空目标返0；C locale只接W16<=255并写低U8，否则errno42/-1。非C用flags220H、共享最大宽度及先置0的usedDefault，API0/替代均失败，其他返回API值；失败不清目的区，成功不清errno。fputwc/ungetwc父链已接，output仍待。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
       "native_references": [
         {
           "component": "UCRT 10.0.26100.0",
@@ -17157,11 +17157,11 @@
     {
       "original_entry": "0x54AD92",
       "inventory_id": "F:0014AD92",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原宽字符流本体及窄/宽缓冲依赖已实现；业务filebuf与完整初始化未闭合",
       "original_end_exclusive": "0x54AE87",
       "instruction_count": 91,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、W16访问/字节计数/参数槽复用；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x5499F7",
@@ -17172,51 +17172,111 @@
           "parent_entry": "0x54999A"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamWide_54AD92"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "WriteLegacyStreamWide_54AD92"
+          ]
+        }
       ],
-      "boundary": "字符串/非文本流按W16直接写或flswbuf；文本流先wctomb，-1写errno42返WEOF，成功值1写一字节，其他写两字节；逐次失败检查，成功返回原W16。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "字符串/非文本减count2，足够时W16存储后重读current加2，否则真实flswbuf。文本wctomb=-1设errno42/FFFF，结果1写1B，其余成功只写前2B；每字节count--、不足S8转flsbuf，逐次失败停止，成功返原W16。原参数复用以4B独立转换槽表达，不改输出字节数；两个宽filebuf父调用未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x54AD92",
+          "end_exclusive": "0x54AE87"
+        }
+      ]
     },
     {
       "original_entry": "0x54AE87",
       "inventory_id": "F:0014AE87",
-      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "status": "原宽字符流本体及窄/宽缓冲依赖已实现；业务filebuf与完整初始化未闭合",
       "original_end_exclusive": "0x54AF70",
       "instruction_count": 90,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "verification_level": "完整原指令、全部直接入向、W16访问/字节计数/参数槽复用；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x549B37",
           "parent_entry": "0x549AE2"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamWide_54AE87"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamWide_54AE87"
+          ]
+        }
       ],
-      "boundary": "唯一549AE2调用，内部getbuf/wctomb；宽回推的全部容量/字符串限制及失败回滚尚未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "低W16 FFFF拒绝；read或update非write门禁，base空getbuf。文本wctomb失败errno42；base处count0才按转换数量预推进，非1先退写第二字节，再退写第一，count加返回量后重读flags/清EOF置read。非文本及字符串直接count+2/current-2/flags发布/W16写入/重读current返回，不检查同字符。唯一宽filebuf父未迁移。",
+      "function_chunks": [
+        {
+          "start": "0x54AE87",
+          "end_exclusive": "0x54AF70"
+        }
+      ]
     },
     {
       "original_entry": "0x54AF70",
       "inventory_id": "F:0014AF70",
-      "status": "原FILE/宽流叶全本体已取证；新端承接和完整失败语义未验收",
+      "status": "原宽字符流本体及窄/宽缓冲依赖已实现；业务filebuf与完整初始化未闭合",
       "original_end_exclusive": "0x54B05D",
       "instruction_count": 90,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向",
+      "verification_level": "完整原指令、全部直接入向、W16访问/字节计数/参数槽复用；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x549C0D",
           "parent_entry": "0x549BC7"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "ReadLegacyStreamWide_54AF70"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "ReadLegacyStreamWide_54AF70"
+          ]
+        }
       ],
-      "boundary": "文本流逐字节读并按旧ctype lead标志读第二字节；尾EOF尝试ungetc首字节后返WEOF，mbtowc失败写errno42；字符串/非文本流直接取W16或filwbuf。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "文本按原ctype8000H取1/2字节，第二EOF时首字节S8交ungetc并忽略结果；mbtowc=-1设errno42/FFFF，其他返目标W16。原目标借stream参数+2，独立wchar_t以原生指针表示第2/3字节初始化，保持转换未写目标路径，不补零/未知局部；完整原生指针仍用于寻址。非文本count-2后W16取值/推进或filwbuf。宽filebuf父未接、特殊转换未运行验收。",
+      "function_chunks": [
+        {
+          "start": "0x54AF70",
+          "end_exclusive": "0x54B05D"
+        }
+      ]
     },
     {
       "original_entry": "0x54B239",
@@ -17305,42 +17365,82 @@
     {
       "original_entry": "0x54B450",
       "inventory_id": "F:0014B450",
-      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "status": "原宽字符流本体及窄/宽缓冲依赖已实现；业务filebuf与完整初始化未闭合",
       "original_end_exclusive": "0x54B574",
       "instruction_count": 112,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "verification_level": "完整原指令、全部直接入向、W16访问/字节计数/参数槽复用；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x54AE7D",
           "parent_entry": "0x54AD92"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FlushAndWriteLegacyStreamWide_54B450"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "FlushAndWriteLegacyStreamWide_54B450"
+          ]
+        }
       ],
-      "boundary": "唯一fputwc调用，内部isatty/getbuf/write及lseek；完整宽写缓冲、短写和错误状态未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原82H/40H及读转写EOF门禁，入口保存fd；无缓冲标准输出设备可跳getbuf。108H缓冲先发布base+2/count=size-2，再写旧缓冲或追加seek；失败仍重读base存W16，最后比原长度并返低W16/FFFF。无缓冲一次write2。真实fputwc父链及所有内部依赖已接。",
+      "function_chunks": [
+        {
+          "start": "0x54B450",
+          "end_exclusive": "0x54B574"
+        }
+      ]
     },
     {
       "original_entry": "0x54B574",
       "inventory_id": "F:0014B574",
-      "status": "原FILE/宽流调用边界已定位；完整本体语义与新端承接待核",
+      "status": "原宽字符流本体及窄/宽缓冲依赖已实现；业务filebuf与完整初始化未闭合",
       "original_end_exclusive": "0x54B658",
       "instruction_count": 80,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及全部call位置；不计完整语义通过",
+      "verification_level": "完整原指令、全部直接入向、W16访问/字节计数/参数槽复用；新增源码静态核对，未执行",
       "inbound_evidence": [
         {
           "address": "0x54B053",
           "parent_entry": "0x54AF70"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "FillLegacyStreamWideBuffer_54B574"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "FillLegacyStreamWideBuffer_54B574"
+          ]
+        }
       ],
-      "boundary": "唯一fgetwc调用，内部getbuf/read；宽缓冲补入和奇数字节/EOF边界未逐条核定。 本步不重建旧FILE或fd影子表，不添加失败保护；CRT宿主提案仍待确认。"
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原活动/字符串/写方向门禁，置read并getbuf或重置current；read先写count，仅0/1/-1失败，0置EOF、1/-1置ERROR，清count返FFFF。其余保留低层82H→FILE2000H、fd=-1回退、512→4096条件；count-2、W16加载、current+2次序保持。fgetwc父及read/getbuf依赖已接。",
+      "function_chunks": [
+        {
+          "start": "0x54B574",
+          "end_exclusive": "0x54B658"
+        }
+      ]
     },
     {
       "original_entry": "0x54B658",

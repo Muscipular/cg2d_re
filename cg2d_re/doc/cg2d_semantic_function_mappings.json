@@ -6234,6 +6234,275 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "原只有retn 8，不读取参数、不写数据；5226A0父容器中的空钩子由现有成员生命周期自然省略，522745继续发布迭代结果且不消费其返回。其余六处caller属于已批屏幕键盘链，不把共享叶整项排除或用空实现替代未实现业务。"
+    },
+    {
+      "original_entry": "0x454C00",
+      "inventory_id": "F:00054C00",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x454C2C",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "InitializeLegacyEmptyExit_454C00",
+            "LegacyPrimaryEmptyExitStaticInitializer"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553028先检查/置共享1086760的bit0，保留其他位；无论原标记是否已置都登记536960并返回真实结果，失败不回滚。当前放在宽标准流之后、旧UI初始化之前；原入口没有音频调用，不属暂停音频。"
+    },
+    {
+      "original_entry": "0x536960",
+      "inventory_id": "F:00136960",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x536961",
+      "instruction_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "EmptyLegacyExit_536960"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原体仅单字节RET，当前空回调具有完整指令依据；由真实std::atexit登记，不用空实现替代未知业务。当前映射仅覆盖CRT退出回调语义，不扩展到其他展开表消费者或已排除键盘链的实现验收。"
+    },
+    {
+      "original_entry": "0x54843B",
+      "inventory_id": "F:0014843B",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x54843C",
+      "instruction_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "EmptyLegacyExit_54843B"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原体仅单字节RET，当前空回调具有完整指令依据；由真实std::atexit登记，不用空实现替代未知业务。当前映射仅覆盖CRT退出回调语义，不扩展到其他展开表消费者或已排除键盘链的实现验收。"
+    },
+    {
+      "original_entry": "0x549194",
+      "inventory_id": "F:00149194",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x5491BE",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyEmptyExitPair",
+            "LegacyPairedEmptyExitStaticInitializer",
+            "gLegacyPairedEmptyExit553130"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553130：先检查/置共享1086760 bit0并无条件登记536960，忽略首次结果；再检查/置共享1087AFC bit0并无条件登记54843B，返回第二次结果。保留两槽其他位，首次失败仍继续；指令数含分离尾。四包装共用本体，各自独立初始化实例按原相对顺序接线，不宣称全部CRT时序已验。",
+      "original_chunks": [
+        [
+          "0x549194",
+          "0x5491BE"
+        ],
+        [
+          "0x5491CA",
+          "0x5491D6"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x5491BE",
+      "inventory_id": "F:001491BE",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x5491CA",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyPrimaryEmptyExit"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原push536960/call atexit/pop ecx/ret，共四指令；四个相同登记叶合并同一内部实现，每次实际登记并返回结果。父包装不以其失败跳过后续第二登记，不缓存成功状态。"
+    },
+    {
+      "original_entry": "0x549F20",
+      "inventory_id": "F:00149F20",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x549F4A",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyEmptyExitPair",
+            "LegacyPairedEmptyExitStaticInitializer",
+            "gLegacyPairedEmptyExit553158"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553158：先检查/置共享1086760 bit0并无条件登记536960，忽略首次结果；再检查/置共享1087AFC bit0并无条件登记54843B，返回第二次结果。保留两槽其他位，首次失败仍继续；指令数含分离尾。四包装共用本体，各自独立初始化实例按原相对顺序接线，不宣称全部CRT时序已验。",
+      "original_chunks": [
+        [
+          "0x549F20",
+          "0x549F4A"
+        ],
+        [
+          "0x549F56",
+          "0x549F62"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x549F4A",
+      "inventory_id": "F:00149F4A",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x549F56",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyPrimaryEmptyExit"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原push536960/call atexit/pop ecx/ret，共四指令；四个相同登记叶合并同一内部实现，每次实际登记并返回结果。父包装不以其失败跳过后续第二登记，不缓存成功状态。"
+    },
+    {
+      "original_entry": "0x54A638",
+      "inventory_id": "F:0014A638",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x54A662",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyEmptyExitPair",
+            "LegacyPairedEmptyExitStaticInitializer",
+            "gLegacyPairedEmptyExit553160"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553160：先检查/置共享1086760 bit0并无条件登记536960，忽略首次结果；再检查/置共享1087AFC bit0并无条件登记54843B，返回第二次结果。保留两槽其他位，首次失败仍继续；指令数含分离尾。四包装共用本体，各自独立初始化实例按原相对顺序接线，不宣称全部CRT时序已验。",
+      "original_chunks": [
+        [
+          "0x54A638",
+          "0x54A662"
+        ],
+        [
+          "0x54A66E",
+          "0x54A67A"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54A662",
+      "inventory_id": "F:0014A662",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x54A66E",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyPrimaryEmptyExit"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原push536960/call atexit/pop ecx/ret，共四指令；四个相同登记叶合并同一内部实现，每次实际登记并返回结果。父包装不以其失败跳过后续第二登记，不缓存成功状态。"
+    },
+    {
+      "original_entry": "0x54A981",
+      "inventory_id": "F:0014A981",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x54A9AB",
+      "instruction_count": 12,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyEmptyExitPair",
+            "LegacyPairedEmptyExitStaticInitializer",
+            "gLegacyPairedEmptyExit553164"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "CRT553164：先检查/置共享1086760 bit0并无条件登记536960，忽略首次结果；再检查/置共享1087AFC bit0并无条件登记54843B，返回第二次结果。保留两槽其他位，首次失败仍继续；指令数含分离尾。四包装共用本体，各自独立初始化实例按原相对顺序接线，不宣称全部CRT时序已验。",
+      "original_chunks": [
+        [
+          "0x54A981",
+          "0x54A9AB"
+        ],
+        [
+          "0x54A9B7",
+          "0x54A9C3"
+        ]
+      ]
+    },
+    {
+      "original_entry": "0x54A9AB",
+      "inventory_id": "F:0014A9AB",
+      "status": "已实现CRT退出登记及空回调，静态核对，运行未验",
+      "original_end_exclusive": "0x54A9B7",
+      "instruction_count": 4,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "RegisterLegacyPrimaryEmptyExit"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "原push536960/call atexit/pop ecx/ret，共四指令；四个相同登记叶合并同一内部实现，每次实际登记并返回结果。父包装不以其失败跳过后续第二登记，不缓存成功状态。"
     }
   ]
 }

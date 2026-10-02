@@ -11,6 +11,7 @@
 #include "cg/world/WorldObjects.hpp"
 #include "cg/ui/WindowRuntime.hpp"
 
+#include <cstdlib>
 #include <cstring>
 #include <iostream>
 
@@ -140,6 +141,56 @@ struct WideStandardStreamsStaticInitializer {
 };
 
 const WideStandardStreamsStaticInitializer gWideStandardStreamsStaticInitializer;
+
+// 原五个CRT入口共用的W8标记；保留其他位，不为各包装另建状态。
+std::uint8_t gLegacyPrimaryExitGuard1086760 = 0;
+std::uint8_t gLegacySecondaryExitGuard1087AFC = 0;
+
+// 原536960、54843B各只有RET；这两个回调确实不执行清理业务。
+void EmptyLegacyExit_536960()
+{
+}
+
+void EmptyLegacyExit_54843B()
+{
+}
+
+// 原5491BE/549F4A/54A662/54A9AB：各次均真实登记并返回结果。
+std::int32_t RegisterLegacyPrimaryEmptyExit()
+{
+    return std::atexit(EmptyLegacyExit_536960);
+}
+
+std::int32_t InitializeLegacyEmptyExit_454C00()
+{
+    if ((gLegacyPrimaryExitGuard1086760 & 1u) == 0) {
+        gLegacyPrimaryExitGuard1086760 |= 1u;
+    }
+    return RegisterLegacyPrimaryEmptyExit();
+}
+
+// 原549194/549F20/54A638/54A981：第一次登记失败也继续第二次，不回滚标记。
+std::int32_t RegisterLegacyEmptyExitPair()
+{
+    if ((gLegacyPrimaryExitGuard1086760 & 1u) == 0) {
+        gLegacyPrimaryExitGuard1086760 |= 1u;
+    }
+    static_cast<void>(RegisterLegacyPrimaryEmptyExit());
+    if ((gLegacySecondaryExitGuard1087AFC & 1u) == 0) {
+        gLegacySecondaryExitGuard1087AFC |= 1u;
+    }
+    return std::atexit(EmptyLegacyExit_54843B);
+}
+
+// 原CRT553028；没有对象析构，退出登记仅来自原入口中的atexit。
+struct LegacyPrimaryEmptyExitStaticInitializer {
+    LegacyPrimaryEmptyExitStaticInitializer()
+    {
+        static_cast<void>(InitializeLegacyEmptyExit_454C00());
+    }
+};
+
+const LegacyPrimaryEmptyExitStaticInitializer gLegacyPrimaryEmptyExitStaticInitializer;
 
 // 原CRT 55302C..553050；无析构登记，不能把十五组记录改为统一写序。
 struct LegacyUi455490StaticInitializer {
@@ -388,6 +439,19 @@ struct PetRuntimeValuesStaticInitializer {
 };
 
 const PetRuntimeValuesStaticInitializer gPetRuntimeValuesStaticInitializer;
+
+// 原后段CRT553130/553158/553160/553164；各自保留两次登记，按原相对顺序执行。
+struct LegacyPairedEmptyExitStaticInitializer {
+    LegacyPairedEmptyExitStaticInitializer()
+    {
+        static_cast<void>(RegisterLegacyEmptyExitPair());
+    }
+};
+
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160;
+const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164;
 
 } // namespace
 

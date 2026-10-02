@@ -13453,6 +13453,411 @@
         "doc/cg2d_semantic_function_mappings.md"
       ],
       "boundary": "单条间接尾跳__imp_RtlUnwind，两调用来自53B534/53B7D8；仅确认系统导入转发，未承诺新端x64异常现场等价。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+    },
+    {
+      "original_entry": "0x540210",
+      "inventory_id": "F:00140210",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x5402AB",
+      "instruction_count": 61,
+      "original_direct_reference_count": 3,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x53B5A4",
+          "parent_entry": "0x53B583"
+        },
+        {
+          "address": "0x53B628",
+          "parent_entry": "0x53B60D"
+        },
+        {
+          "address": "0x53B72B",
+          "parent_entry": "0x53B6E6"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "三入向来自帧处理器与两种guard，调用540AB2、540557、5402AB并含间接回调；完整异常码分派和FuncInfo状态仍待逐条核定。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5402AB",
+      "inventory_id": "F:001402AB",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x540452",
+      "instruction_count": 146,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54029C",
+          "parent_entry": "0x540210"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "唯一540210调用；经可读检查、try范围、类型匹配和捕获入口，另可进入外来异常处理或终止。完整查找循环/重抛和清理逻辑待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540452",
+      "inventory_id": "F:00140452",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x5404FA",
+      "instruction_count": 67,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x540443",
+          "parent_entry": "0x5402AB"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "唯一5402AB调用，调用转换器53B632、try范围53B75B及捕获54060B；外来异常门禁和返回语义未全验。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5404FA",
+      "inventory_id": "F:001404FA",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x540557",
+      "instruction_count": 42,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x5403BA",
+          "parent_entry": "0x5402AB"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540557",
+      "inventory_id": "F:00140557",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x5405F5",
+      "instruction_count": 56,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x540244",
+          "parent_entry": "0x540210"
+        },
+        {
+          "address": "0x54064D",
+          "parent_entry": "0x54060B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "来自540210/54060B；调540AB2、设置帧540A10及异常过滤5405F5。完整unwind状态推进和失败处理待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5405F5",
+      "inventory_id": "F:001405F5",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x54060B",
+      "instruction_count": 7,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x53C59F",
+          "parent_entry": "0x53C560"
+        },
+        {
+          "address": "0x5405C1",
+          "parent_entry": "0x540557"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "读取异常代码，非E06D7363返回0，命中尾跳已登记540A5C终止入口；不可改为普通catch后继续或重抛。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54060B",
+      "inventory_id": "F:0014060B",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x540686",
+      "instruction_count": 50,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x5403FC",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x5404E6",
+          "parent_entry": "0x540452"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "来自查找与外来异常处理；顺次出现BuildCatchObject、嵌套展开、状态展开、捕获块及续行跳转调用，完整条件/参数仍待。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540686",
+      "inventory_id": "F:00140686",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x540792",
+      "instruction_count": 89,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54066E",
+          "parent_entry": "0x54060B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "唯一54060B调用；调CallCatchBlock2、重抛过滤、局部展开、abnormal_termination及对象清理候选540980；完整嵌套与生命周期待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540792",
+      "inventory_id": "F:00140792",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x5407BC",
+      "instruction_count": 15,
+      "original_direct_reference_count": 1,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x540725",
+          "parent_entry": "0x540686"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "只有异常代码E06D7363、参数数3、魔数19930520、记录+1C为0同时满足才返1，否则0。不能仅按代码判重抛或照搬到x64四参数记录。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5407BC",
+      "inventory_id": "F:001407BC",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x540980",
+      "instruction_count": 169,
+      "original_direct_reference_count": 1,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x540625",
+          "parent_entry": "0x54060B"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "唯一54060B调用；含读/写/执行验证、地址调整、memcpy、两种成员调用包装与终止分支。捕获对象布局和全部失败路径尚未全验。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540980",
+      "inventory_id": "F:00140980",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x5409E7",
+      "instruction_count": 39,
+      "original_direct_reference_count": 2,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x54041B",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x54078A",
+          "parent_entry": "0x540686"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "来自5402AB/540686，间接成员调用经53B526并有终止尾跳；具体对象清理门禁与状态保持待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x5409E7",
+      "inventory_id": "F:001409E7",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x540A0A",
+      "instruction_count": 15,
+      "original_direct_reference_count": 4,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x54084B",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x5408E8",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x54092F",
+          "parent_entry": "0x5407BC"
+        },
+        {
+          "address": "0x540949",
+          "parent_entry": "0x5407BC"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "先以对象加PMD首位移；PMD第二位移非负时读对象内虚基表、加其第三位移查表值并叠加第二位移。原W32地址算法不可截断移植到x64。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540A10",
+      "inventory_id": "F:00140A10",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x540A5C",
+      "instruction_count": 34,
+      "original_direct_reference_count": 2,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x53B5F9",
+          "parent_entry": "0x53B5B9"
+        },
+        {
+          "address": "0x5405B3",
+          "parent_entry": "0x540557"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "切EBP到注册节点+0C、前后各作NLG通知、中间call传入地址并保留ESI/EDI；后通知代码100H转换为2。不能以普通函数调用表达旧帧访问。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x540AB2",
+      "inventory_id": "F:00140AB2",
+      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "original_end_exclusive": "0x540B08",
+      "instruction_count": 29,
+      "original_direct_reference_count": 8,
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "inbound_evidence": [
+        {
+          "address": "0x53B77E",
+          "parent_entry": "0x53B75B"
+        },
+        {
+          "address": "0x53B7C6",
+          "parent_entry": "0x53B75B"
+        },
+        {
+          "address": "0x540221",
+          "parent_entry": "0x540210"
+        },
+        {
+          "address": "0x5402CB",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x540321",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x54033F",
+          "parent_entry": "0x5402AB"
+        },
+        {
+          "address": "0x540598",
+          "parent_entry": "0x540557"
+        },
+        {
+          "address": "0x54095C",
+          "parent_entry": "0x5407BC"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "八入向属于try范围、匹配/构造与状态处理；含间接终止调用及540A5C尾跳，完整检查条件未核，不按名字推定断言合同。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+    },
+    {
+      "original_entry": "0x54B123",
+      "inventory_id": "F:0014B123",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "original_end_exclusive": "0x54B15D",
+      "instruction_count": 24,
+      "original_direct_reference_count": 9,
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "inbound_evidence": [
+        {
+          "address": "0x549F89",
+          "parent_entry": "0x549F62"
+        },
+        {
+          "address": "0x549FE9",
+          "parent_entry": "0x549F62"
+        },
+        {
+          "address": "0x54A087",
+          "parent_entry": "0x54A06F"
+        },
+        {
+          "address": "0x54A197",
+          "parent_entry": "0x54A17F"
+        },
+        {
+          "address": "0x54A6CE",
+          "parent_entry": "0x54A67A"
+        },
+        {
+          "address": "0x54A750",
+          "parent_entry": "0x54A738"
+        },
+        {
+          "address": "0x54A860",
+          "parent_entry": "0x54A848"
+        },
+        {
+          "address": "0x54A8ED",
+          "parent_entry": "0x54A899"
+        },
+        {
+          "address": "0x54A948",
+          "parent_entry": "0x54A930"
+        }
+      ],
+      "sources": [],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "boundary": "复制5501E8八W32模板，写本次对象/ThrowInfo后RaiseException；模板为E06D7363、flags1、参数数3和19930520魔数。宿主采用ULONG_PTR且可增加图像基址，未实施旧三参数包装。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。",
+      "native_reference": {
+        "component": "MSVC 14.50.35717，仅作原生异常记录对照",
+        "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/throw.cpp",
+        "symbol": "_CxxThrowException"
+      }
     }
   ]
 }

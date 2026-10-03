@@ -11317,7 +11317,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及三十六个业务复制调用已接；两原点按既有键盘分支排除，其他一引用及完整运行未闭合",
+      "status": "原直接本体及当前范围三十七处业务复制调用已接；两原点沿既有键盘分支排除，完整父链/运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11373,6 +11373,13 @@
             "HandleResponse_508800"
           ],
           "relationship": "508882原前缀复制交真实核心，保持先旧时间/查找/清区/复制/解析两表"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "ReportLegacyRuntimeError_5443FF"
+          ],
+          "relationship": "最后5444C4固定U32计数3原省略号覆盖接真实核心，借用尾59B及后续完整组串保持"
         }
       ],
       "evidence_documents": [
@@ -11385,9 +11392,10 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_external_keyboard_wrapper.md",
         "doc/ui_windows/window_53.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接三十六处，另两处随已批准屏幕键盘回填段排除，其他1处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；36已接+2范围排除+1未接对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中当前范围内三十七处已接，另两处随已批准屏幕键盘回填段排除，仅原入口引用在当前范围收口，完整父链未据此验收。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；37已接+2范围排除对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。 5444C4原3B省略号复制已接，原Filename尾59B借用/两次U32长度与后续前缀/三个追加次序保持，不添加末NUL、缓冲或保护；不是全部原父或CRT运行完成。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11786,9 +11794,20 @@
           "count_kind": "原separator-text地址差低W32/U32",
           "count_width": "U32",
           "relationship": "真实|定位后先清同一128B共享前缀区，再复制并将分隔符本身传入404600；无caller末NUL"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444C4",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "两次原U32长度确认后借用filename尾59B首部覆盖3B省略号，不添加末NUL或新缓冲"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行；分色父94条及查找89条完整取证，五原调用/Count U32/同源临时生命周期与整份源码限定差异静态核对，未执行；网络三父423条统计/203条读取、两个512E40原caller与三复制/一查找/两U32转换，整份限定源码及两新父/三共享项静态核对，未执行；商店238条统计/相邻40条和???原字节/单一原caller；两已排除键盘父651统计/66读取与既有实施SPEC/活动代码对齐，不改活动控制器或97分类；整份WindowRuntime仅一标识符及共享项/一新父限定差异静态核对，未执行；协议两父完整276条与|字节/四原标志写字节、真实whV→508800→404600及旧辅助消费、两源码限定差异/核心和头保持/两新父与两共享项增量静态核对，未构建或执行",
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行；分色父94条及查找89条完整取证，五原调用/Count U32/同源临时生命周期与整份源码限定差异静态核对，未执行；网络三父423条统计/203条读取、两个512E40原caller与三复制/一查找/两U32转换，整份限定源码及两新父/三共享项静态核对，未执行；商店238条统计/相邻40条和???原字节/单一原caller；两已排除键盘父651统计/66读取与既有实施SPEC/活动代码对齐，不改活动控制器或97分类；整份WindowRuntime仅一标识符及共享项/一新父限定差异静态核对，未执行；协议两父完整276条与|字节/四原标志写字节、真实whV→508800→404600及旧辅助消费、两源码限定差异/核心和头保持/两新父与两共享项增量静态核对，未构建或执行；错误父100条统计/77相邻读取和追加84条全文，共184统计/161读取，九原字符串调用与两常量字节/共享尾桥接、三源码头限定差异及五旧项增量静态核对，未执行",
       "excluded_call_connections": [
         {
           "parent_entry": "0x45FA70",
@@ -11821,7 +11840,7 @@
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "已有地址化入口与共享复制尾完整本体及TZ调用；其他父链/运行未验",
+      "status": "既有完整地址化入口/共享复制尾及TZ和两错误报告调用已接；其他八原引用/运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
       "sources": [
@@ -11832,33 +11851,156 @@
             "RefreshTz_540B1D"
           ],
           "relationship": "真实直接实现及540C93对应TZ缓存复制调用；不是Input同名标准库表达式"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrCpy_544DB0"
+          ],
+          "relationship": "已有直接本体的唯一共享声明"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "ReportLegacyRuntimeError_5443FF"
+          ],
+          "relationship": "544482/5444D8两个原完整复制点已接；追加内桥接不计新的原入口引用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_game_time.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处已接，其余CRT父链和故障行为不据此验收。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处共三处已接，其余八处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
         "owner_entry": "0x544DC0",
         "relationship": "直接跳转至另一函数元数据范围内的公共复制尾，非本函数新增chunk"
-      }
+      },
+      "original_direct_reference_count": 11,
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x540B1D",
+          "call_site": "0x540C93",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "RefreshTz_540B1D",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "relationship": "既有TZ缓存原复制调用保持，本步不重验"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544482",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "relationship": "GetModuleFileNameA返回0才复制原未知名至260B filename，不预清API未写部分"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444D8",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "relationship": "同一160B message复制原Runtime Error前缀，随后依序追加程序名/两LF/消息"
+        }
+      ],
+      "shared_tail_connection": {
+        "parent_entry": "0x544DC0",
+        "original_target_address": "0x544E21",
+        "source": "src/platform/LegacyTime.cpp",
+        "symbol": "StrCat_544DC0",
+        "target_symbol": "StrCpy_544DB0",
+        "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
+      },
+      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行"
     },
     {
       "original_entry": "0x544DC0",
       "inventory_id": "F:00144DC0",
-      "status": "仅共享复制尾关系已确立；CRT父链及宿主承接待收口",
+      "status": "原目的扫描35条/公共复制尾49条已实现并接三处实际错误报告调用；完整CRT/运行未验",
       "original_end_exclusive": "0x544EA0",
       "instruction_count": 84,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrCat_544DC0",
+            "StrCpy_544DB0"
+          ],
+          "relationship": "新增真实目的扫描并桥接既有544E21公共复制尾，返回原追加target"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrCat_544DC0"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "ReportLegacyRuntimeError_5443FF"
+          ],
+          "relationship": "原5444E5/5444F6/544508三实际入口调用全部已接"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先扫描目标NUL，进入544E21共享复制尾。三个直接调用5444E5/5444F6/544508均属5443FF，该父链不借此完成；Input退格的原复制为内联，同名std::strcat不能作为原直接调用证据。"
+      "boundary": "先目的NUL扫描35条，未对齐W8读后推进/NUL取cursor-1；对齐W32 probe后cursor+=4，以7EFEFEFF/81010100探零，候选才复读cursor-4并低到高四字节找首NUL、假候选继续。544DFF实际立即数FF0000/字节a90000ff00。找到NUL才沿原544E21公共源复制尾，新端用已有StrCpy内部桥接并返回原追加target；保留源对齐、probe/value两次读和四末块写宽/含NUL复制，桥接不记新原544DB0入口引用。三个原直接call均属5443FF且全已接，仍原程序名/两LF/原错误消息依次追加；Input退格内联不计本入口。无新限长、判空、保护、转码、状态、owner或故障模拟；完整CRT启动/失败/退出及跨板块运行未验。",
+      "original_direct_reference_count": 3,
+      "original_direct_call_reference_count": 3,
+      "append_call_connections": [
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444E5",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "同一message原前缀之后追加借用program"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444F6",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "随后追加原两LF字节0a0a00"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544508",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "最后重新取原错误表当前消息追加，再12010H显示"
+        }
+      ],
+      "shared_tail_connection": {
+        "parent_entry": "0x544DC0",
+        "original_target_address": "0x544E21",
+        "source": "src/platform/LegacyTime.cpp",
+        "symbol": "StrCat_544DC0",
+        "target_symbol": "StrCpy_544DB0",
+        "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
+      },
+      "destination_mask_evidence": {
+        "site": "0x544DFF",
+        "value": "0x00FF0000",
+        "bytes": "a90000ff00",
+        "relationship": "低到高首NUL第三字节检查，符号名不作为数值"
+      },
+      "verification_level": "原544DC0..544EA0完整84条/35目的扫描回映与49公共尾、三原入口call及掩码实际立即数；新核心精确插入/既有复制尾算法保持/唯一声明、三报告追加/原target返回与两个常量字节静态核对，未构建或执行"
     },
     {
       "original_entry": "0x53DEAB",
@@ -12033,7 +12175,7 @@
     {
       "original_entry": "0x5443FF",
       "inventory_id": "F:001443FF",
-      "status": "原错误报告链本体及内部调用已实现；外层CRT启动和运行未验",
+      "status": "原错误报告本体及九处真实字符串依赖和内部调用已接；外层CRT启动和运行未验",
       "original_end_exclusive": "0x544552",
       "instruction_count": 100,
       "sources": [
@@ -12058,10 +12200,11 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "原18条错误码/消息及零哨兵逐字保留，码0不加兜底。按原模式选择stderr WriteFile或GUI；Filename260/消息160局部连续420B不预清，模块名失败才写原未知文本，超过59字符截尾并覆盖前三字节省略号；原前缀/两LF/错误消息与12010H弹窗顺序保持。只有指针拓宽，API返回忽略；正常域使用字节复制/长度函数，不新增安全截断。已接banner、直接与间接退出；最终启动及退出叶未闭合，异常/运行未验。",
-      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
+      "boundary": "原18条错误码/消息及零哨兵逐字保留，码0不加兜底。按原模式选择stderr WriteFile或GUI；Filename260/消息160局部连续420B不预清，模块名失败才写原未知文本，超过59字符截尾并覆盖前三字节省略号；原前缀/两LF/错误消息与12010H弹窗顺序保持。只有指针拓宽，API返回忽略；正常域使用字节复制/长度函数，不新增安全截断。已接banner、直接与间接退出；最终启动及退出叶未闭合，异常/运行未验。 原544537/544497/5444AA三U32长度、544482/5444D8两完整复制、5444C4固定3B限长复制及5444E5/5444F6/544508三追加全部接真实本体；公开已有长度/复制和新增追加声明，不改变原表/模式/局部/标准错误和弹窗/上游退出职责。追加公共尾内部桥接不计新的原入口引用，原两次GUI长度与stderr消息重取次序保持，无新终止/截断/保护。",
+      "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行；本轮原100条统计中77相邻读取/不重验其余23条、原九字符串目标/两常量与五原caller、新增追加84全文/公共尾桥接及三整份源码头限定差异、五旧semantic项增量静态核对，未执行",
       "original_direct_reference_count": 5,
       "function_chunks": [
         {
@@ -12090,7 +12233,112 @@
           "address": "0x545176",
           "parent_entry": "0x545174"
         }
-      ]
+      ],
+      "original_direct_call_reference_count": 5,
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544482",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "relationship": "GetModuleFileNameA返回0才复制原未知名至260B filename，不预清API未写部分"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444D8",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "relationship": "同一160B message复制原Runtime Error前缀，随后依序追加程序名/两LF/消息"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444C4",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "两次原U32长度确认后借用filename尾59B首部覆盖3B省略号，不添加末NUL或新缓冲"
+        }
+      ],
+      "length_call_connections": [
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544537",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "标准错误分支先取原消息U32长度，再重取消息指针/句柄/WriteFile"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544497",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "GUI模块名完成后第一U32长度+1与60比较，不预算或缓存第二采样"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444AA",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "超过60时第二次取U32长度，借用filename尾59B后3B原省略号覆盖"
+        }
+      ],
+      "append_call_connections": [
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444E5",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "同一message原前缀之后追加借用program"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444F6",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "随后追加原两LF字节0a0a00"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544508",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x544DC0",
+          "target_symbol": "StrCat_544DC0",
+          "relationship": "最后重新取原错误表当前消息追加，再12010H显示"
+        }
+      ],
+      "runtime_text_evidence": {
+        "ellipsis": {
+          "address": "0x54FE54",
+          "bytes": "2e2e2e00",
+          "count": 3
+        },
+        "line_break": {
+          "address": "0x54FE34",
+          "bytes": "0a0a00"
+        },
+        "relationship": "原省略号只复制3B无caller尾NUL，两LF第三追加前沿原消息指针重取"
+      }
     },
     {
       "original_entry": "0x546D0C",
@@ -12327,7 +12575,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "现有地址化长度本体及TZ消费已关联；其余caller/运行未验",
+      "status": "既有地址化长度本体及TZ和三错误报告调用已接；其他二十原引用/运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -12338,14 +12586,73 @@
             "RefreshTz_540B1D"
           ],
           "relationship": "已有实际实现及540C75缓存分配前长度读取"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrLen_53F9E0"
+          ],
+          "relationship": "已有U32长度本体的唯一共享声明"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeError.cpp",
+          "symbols": [
+            "ReportLegacyRuntimeError_5443FF"
+          ],
+          "relationship": "544537/544497/5444AA三个原长度点已接，GUI两次独立采样与stderr顺序保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_game_time.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处显式关联；应用大量内联扫描不冒充原函数直接xref。"
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处共四处已接，其余二十处仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。",
+      "original_direct_reference_count": 24,
+      "length_call_connections": [
+        {
+          "parent_entry": "0x540B1D",
+          "call_site": "0x540C75",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "RefreshTz_540B1D",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "既有TZ缓存分配前长度调用保持，本步不重验"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544537",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "标准错误分支先取原消息U32长度，再重取消息指针/句柄/WriteFile"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x544497",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "GUI模块名完成后第一U32长度+1与60比较，不预算或缓存第二采样"
+        },
+        {
+          "parent_entry": "0x5443FF",
+          "call_site": "0x5444AA",
+          "source": "src/platform/LegacyRuntimeError.cpp",
+          "symbol": "ReportLegacyRuntimeError_5443FF",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "result_width": "U32",
+          "relationship": "超过60时第二次取U32长度，借用filename尾59B后3B原省略号覆盖"
+        }
+      ],
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行"
     },
     {
       "original_entry": "0x5419D0",

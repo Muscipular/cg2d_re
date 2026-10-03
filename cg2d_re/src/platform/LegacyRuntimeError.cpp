@@ -2,8 +2,9 @@
 #include "LegacyRuntimeExit.hpp"
 #include "LegacySignal.hpp"
 
+#include "cg/platform/LegacyTime.hpp"
+
 #include <cstddef>
-#include <cstring>
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -119,7 +120,7 @@ void ReportLegacyRuntimeError_5443FF(const std::int32_t errorCode)
         // 原API写入参数的W32槽；初值保持传入错误码位值，不预置零。
         DWORD bytesWritten = static_cast<DWORD>(errorCode);
         const DWORD length = static_cast<DWORD>(
-            std::strlen(gRuntimeErrorMessages592128[index].text));
+            StrLen_53F9E0(gRuntimeErrorMessages592128[index].text));
         const char* const text = gRuntimeErrorMessages592128[index].text;
         const HANDLE standardError = ::GetStdHandle(STD_ERROR_HANDLE);
         static_cast<void>(::WriteFile(
@@ -132,17 +133,17 @@ void ReportLegacyRuntimeError_5443FF(const std::int32_t errorCode)
 
     RuntimeErrorText buffers;
     if (::GetModuleFileNameA(nullptr, buffers.filename, 260) == 0) {
-        std::strcpy(buffers.filename, "<program name unknown>");
+        StrCpy_544DB0(buffers.filename, "<program name unknown>");
     }
     char* program = buffers.filename;
-    if (std::strlen(buffers.filename) + 1 > 60) {
-        program = buffers.filename + std::strlen(buffers.filename) - 59;
-        std::strncpy(program, "...", 3);
+    if (StrLen_53F9E0(buffers.filename) + 1 > 60) {
+        program = buffers.filename + StrLen_53F9E0(buffers.filename) - 59;
+        StrNCpy_53BEC0(program, "...", std::uint32_t{3});
     }
-    std::strcpy(buffers.message, "Runtime Error!\n\nProgram: ");
-    std::strcat(buffers.message, program);
-    std::strcat(buffers.message, "\n\n");
-    std::strcat(buffers.message, gRuntimeErrorMessages592128[index].text);
+    StrCpy_544DB0(buffers.message, "Runtime Error!\n\nProgram: ");
+    StrCat_544DC0(buffers.message, program);
+    StrCat_544DC0(buffers.message, "\n\n");
+    StrCat_544DC0(buffers.message, gRuntimeErrorMessages592128[index].text);
     static_cast<void>(ShowLegacyRuntimeMessage_546D0C(
         buffers.message, "Microsoft Visual C++ Runtime Library", 0x12010));
 }

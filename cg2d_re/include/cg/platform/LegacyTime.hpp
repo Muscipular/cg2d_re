@@ -24,6 +24,15 @@ char* Itoa_54ABDD(std::int32_t value, char* buffer, std::int32_t radix);
 // 原53D26E；原字节分词并就地截断，空text续用同一进程共享借用位置。
 char* StrTok_53D26E(char* text, const char* delimiters);
 
+// 原53F9E0；源对齐探零/候选复读定位首NUL，返回U32字节数。
+std::uint32_t __cdecl StrLen_53F9E0(const char* text);
+
+// 原544DB0；复用544E21源对齐复制尾，含NUL复制并返回原target。
+char* __cdecl StrCpy_544DB0(char* target, const char* source);
+
+// 原544DC0；先目的对齐扫描/候选复读找NUL，再共用复制尾，返回原target。
+char* __cdecl StrCat_544DC0(char* target, const char* source);
+
 // 原53BEC0；U32计数借用复制，遇NUL补至count，满count无NUL不加终止；返回原target。
 // 输入与交易载荷复用LegacyTime已有本体，源对齐读取/复读与分段补零次序保持。
 char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count);

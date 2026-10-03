@@ -344,6 +344,36 @@ char* __cdecl StrCpy_544DB0(char* target, const char* source)
     }
 }
 
+// 原544DC0：先找目的末NUL，再共用544E21复制尾；返回原target。
+char* __cdecl StrCat_544DC0(char* target, const char* source)
+{
+    auto* cursor = reinterpret_cast<unsigned char*>(target);
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor++;
+        if (value == 0) {
+            StrCpy_544DB0(reinterpret_cast<char*>(cursor - 1), source);
+            return target;
+        }
+    }
+
+    for (;;) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        cursor += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            std::uint32_t block;
+            std::memcpy(&block, cursor - 4, sizeof(block));
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) == 0) {
+                    StrCpy_544DB0(
+                        reinterpret_cast<char*>(cursor - 4 + index), source);
+                    return target;
+                }
+            }
+        }
+    }
+}
+
 // 原 [0x53BEC0,0x53BFBE)：保留源对齐块读取与遇 NUL 后的分段补零。
 char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count)
 {

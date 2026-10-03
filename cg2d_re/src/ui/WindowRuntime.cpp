@@ -2394,7 +2394,7 @@ void Sub_4CFCA0(const std::int32_t petIndex)
     for (std::int32_t slot = 0; slot < 6; ++slot) {
         if (slot < itemSlots && pet.items6E4[slot].used != 0) {
             char message[128];
-            std::sprintf(message,
+            platform::FormatLegacyString_53B304(message,
                 "\xBD\xD0\xA8\xF8\xA4\x55\xC3\x64\xAA\xAB\xA8\xAD\xA4\x57"
                 "\xAA\xBA\xB8\xCB\xB3\xC6\xAB\xE1\xA6\x41\xBE\xDE\xA7\x40\xA1\x43");
             world::detail::Sub_44B050(message, 4, 3);
@@ -4233,7 +4233,7 @@ void Sub_4CE700(const std::int32_t result)
     world::detail::SetPlayerActionFlags(0x1000u);
     std::memset(name + 9, 0, 24);
     if (std::strlen(gStallNameD67BE4.data()) != 0) {
-        std::sprintf(name, "%s", gStallNameD67BE4.data());
+        platform::FormatLegacyString_53B304(name, "%s", gStallNameD67BE4.data());
     }
     WindowInstance* const window = gWindowStates[67].window;
     std::strcpy(world::detail::BorrowPlayerStallName(), name);

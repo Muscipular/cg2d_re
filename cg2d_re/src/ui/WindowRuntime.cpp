@@ -5488,7 +5488,7 @@ std::int32_t Sub_48A950(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
         result = 1;
     }
-    std::sprintf(gNumberWindowTextCC4D1C.data(), "%9d",
+    platform::FormatLegacyString_53B304(gNumberWindowTextCC4D1C.data(), "%9d",
         std::bit_cast<std::int32_t>(window->elements[index].state));
     return result;
 }
@@ -42342,7 +42342,7 @@ std::int32_t Sub_4920F0()
     const std::int32_t costTechnique = gLoginWindowRuntime.petTechniqueD2D66C;
     const std::int32_t fp = world::detail::gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp;
     char buffer[12];
-    std::sprintf(buffer, "%3d", fp);
+    platform::FormatLegacyString_53B304(buffer, "%3d", fp);
     static_cast<void>(render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 187)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 2)),

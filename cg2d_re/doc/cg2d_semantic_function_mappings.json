@@ -10891,7 +10891,7 @@
     {
       "original_entry": "0x53C790",
       "inventory_id": "F:0013C790",
-      "status": "已有标准库字节操作的限定语义关联；父链和运行边界仍独立验收",
+      "status": "原123条限长追加直接本体及唯一范围内业务调用已接；另两newest入口引用沿既有排除，完整父链/运行未验",
       "original_end_exclusive": "0x53C8B3",
       "instruction_count": 123,
       "original_chunks": [
@@ -10905,15 +10905,79 @@
           "path": "src/Input.cpp",
           "symbols": [
             "AppendChar_44ADB0"
-          ]
+          ],
+          "relationship": "原44AE9A从标准库限长追加接真实StrNCat_53C790，现有U32 Count与当前对象重取保持"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrNCat_53C790"
+          ],
+          "relationship": "原目的候选复读、源对齐/双W32读取及四末写宽、tail/单个NUL与原target返回直接本体"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrNCat_53C790"
+          ],
+          "relationship": "真实直接本体唯一共享声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_input_append.md"
       ],
-      "boundary": "count0直接返回目的；非0寻找目的尾，最多追加count源字节，遇源NUL或数量耗尽终止并保持目的指针返回。现有44ADB0以独立tail源std::strncat承接；另两原caller来自已排除50FF70，不恢复。只映射已证非重叠调用域，父输入流程其他边界不由此验收。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
+      "boundary": "count0沿53C797→53C844返回原target，不读源/目的、不写NUL。非零先目的未对齐W8读后推进/NUL回退1，W32探零7EFEFEFF/81010100候选才复读并低到高定位，假候选继续。目的NUL后才源未对齐字节读/源推进/NUL原位写零，否则目的写/推进/减U32 count；耗尽单尾NUL。源对齐以剩余count>>2处理块，probe/value两次W32读后推进源4，候选首NUL分别W8/W16/W16再+2NUL/W32末写，假候选整块写/目的推进4/减块数；剩余count&3逐字节读/写/两游标推进后判NUL/减计数，耗尽只写一个NUL。53C7DD/53C87E实际FF0000，不按显示符号解释。原返回身份保持，不填剩余count零、不转码/新增上限/保护或模拟故障。44AE9A唯一范围内点按原287-长度低U32接现有remainingCapacity，独立tail源和text目标、调用后重取/既有预清与安全门禁/行扫描回滚保持；51007A/5100AE随既有newest五函数范围排除，不恢复、扩大排除或计实现，完整输入/CRT与运行未验。",
+      "original_direct_reference_count": 3,
+      "original_direct_call_reference_count": 3,
+      "append_call_connections": [
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE9A",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53C790",
+          "target_symbol": "StrNCat_53C790",
+          "count_kind": "原0x11F减当前文本长度低W32/U32，复用现有remainingCapacity",
+          "count_width": "U32",
+          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；不改现有预清或安全门禁"
+        }
+      ],
+      "excluded_call_connections": [
+        {
+          "parent_entry": "0x50FF70",
+          "call_site": "0x51007A",
+          "target_entry": "0x53C790",
+          "target_symbol": "StrNCat_53C790",
+          "status": "随既有newest五函数链明确范围排除，不计实现",
+          "evidence_document": "doc/cg2d_login_state_controller.md",
+          "relationship": "原直接引用保留分类；不恢复已排除父、增加新排除或推定未知Count"
+        },
+        {
+          "parent_entry": "0x50FF70",
+          "call_site": "0x5100AE",
+          "target_entry": "0x53C790",
+          "target_symbol": "StrNCat_53C790",
+          "status": "随既有newest五函数链明确范围排除，不计实现",
+          "evidence_document": "doc/cg2d_login_state_controller.md",
+          "relationship": "原直接引用保留分类；不恢复已排除父、增加新排除或推定未知Count"
+        }
+      ],
+      "mask_evidence": [
+        {
+          "site": "0x53C7DD",
+          "value": "0x00FF0000",
+          "bytes": "a90000ff00"
+        },
+        {
+          "site": "0x53C87E",
+          "value": "0x00FF0000",
+          "bytes": "f7c20000ff00"
+        }
+      ],
+      "verification_level": "原123条完整与53C797→53C844/全部关键跳转、双掩码实际立即数、三入口引用；44ADB0共182统计仅25条调用相邻读取，合305统计/148读取。新直接本体/唯一声明/一调用标识符、Count原U32与对象重取/旧核心正文保持、两旧JSON项限定增量静态核对，未构建或执行；非全父/故障等价验收"
     },
     {
       "original_entry": "0x4589A0",
@@ -11005,7 +11069,7 @@
     {
       "original_entry": "0x44ADB0",
       "inventory_id": "F:0004ADB0",
-      "status": "有效状态内三复制已接真实53BEC0；既有额外安全边界及预清零差异保留，运行未验",
+      "status": "有效状态内三复制及限长追加已接真实核心；既有额外安全边界及预清零差异保留，运行未验",
       "original_end_exclusive": "0x44B044",
       "instruction_count": 182,
       "sources": [
@@ -11014,7 +11078,7 @@
           "symbols": [
             "AppendChar_44ADB0"
           ],
-          "relationship": "已有输入追加本体、上下文重取及保存/恢复顺序保持；本步三限长复制接真实53BEC0"
+          "relationship": "已有输入追加本体、上下文重取及保存/恢复顺序保持；本步三限长复制接真实53BEC0；原44AE9A限长追加也接真实53C790，既有U32 remainingCapacity保持"
         }
       ],
       "evidence_documents": [
@@ -11022,7 +11086,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类规则、共享owner与输入容量，不计输入全链及客户端运行通过。 原44AE01/44AE16/44AFF7三复制已接StrNCpy_53BEC0，完整U32计数289/288/288和现有局部预清零保持；仅函数与固定容量转换变化，不改任何对象取样或回写。",
+      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类规则、共享owner与输入容量，不计输入全链及客户端运行通过。 原44AE01/44AE16/44AFF7三复制已接StrNCpy_53BEC0，完整U32计数289/288/288和现有局部预清零保持；仅函数与固定容量转换变化，不改任何对象取样或回写。 原44AE9A接真实StrNCat_53C790，Count为现有U32的287减当前文本长度，text/tail与弃返回、调用后对象重取及后续扫描/分类/回滚全部正文保持；本步只替换一个调用标识符，不将既有额外安全拒绝/预清差异或整个输入/CRT运行计等价。",
       "copy_call_connections": [
         {
           "parent_entry": "0x44ADB0",
@@ -11057,7 +11121,21 @@
           "count_width": "U32",
           "relationship": "条件回滚复制oldText至当前text，随后分别重取对象、先恢复总长再光标"
         }
-      ]
+      ],
+      "append_call_connections": [
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE9A",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53C790",
+          "target_symbol": "StrNCat_53C790",
+          "count_kind": "原0x11F减当前文本长度低W32/U32，复用现有remainingCapacity",
+          "count_width": "U32",
+          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；不改现有预清或安全门禁"
+        }
+      ],
+      "verification_level": "本轮原父182条统计仅44AE9A相邻25条读取；原Count/三参数/真实目标与调用后当前对象重取、整份Input仅一标识符/既有复制与所有其余正文保持、JSON两个旧项限定增量静态核对，未构建或执行"
     },
     {
       "original_entry": "0x44A160",

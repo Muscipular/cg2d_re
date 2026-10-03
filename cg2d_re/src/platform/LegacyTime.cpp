@@ -374,6 +374,99 @@ char* __cdecl StrCat_544DC0(char* target, const char* source)
     }
 }
 
+// 原53C790：U32限长追加，保留目的候选复读、源分块读写及原target返回。
+char* __cdecl StrNCat_53C790(char* target, const char* source, std::uint32_t count)
+{
+    if (count == 0) {
+        return target;
+    }
+
+    auto* destination = reinterpret_cast<unsigned char*>(target);
+    bool foundEnd = false;
+    while ((reinterpret_cast<std::uintptr_t>(destination) & 3u) != 0) {
+        const unsigned char value = *destination++;
+        if (value == 0) {
+            --destination;
+            foundEnd = true;
+            break;
+        }
+    }
+    while (!foundEnd) {
+        std::uint32_t probe;
+        std::memcpy(&probe, destination, sizeof(probe));
+        destination += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            std::uint32_t block;
+            std::memcpy(&block, destination - 4, sizeof(block));
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) == 0) {
+                    destination = destination - 4 + index;
+                    foundEnd = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    const auto* cursor = reinterpret_cast<const unsigned char*>(source);
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor++;
+        if (value == 0) {
+            *destination = 0;
+            return target;
+        }
+        *destination++ = value;
+        if (--count == 0) {
+            *destination = 0;
+            return target;
+        }
+    }
+
+    std::uint32_t blockCount = count >> 2;
+    std::uint32_t tailCount = count & 3u;
+    while (blockCount != 0) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        std::uint32_t block;
+        std::memcpy(&block, cursor, sizeof(block));
+        cursor += 4;
+        if (((probe + 0x7EFEFEFFu) ^ ~probe) & 0x81010100u) {
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                if (((block >> (index * 8)) & 0xFFu) != 0) {
+                    continue;
+                }
+                if (index == 0) {
+                    *destination = 0;
+                } else if (index == 1) {
+                    const std::uint16_t prefix = static_cast<std::uint16_t>(block);
+                    std::memcpy(destination, &prefix, sizeof(prefix));
+                } else if (index == 2) {
+                    const std::uint16_t prefix = static_cast<std::uint16_t>(block);
+                    std::memcpy(destination, &prefix, sizeof(prefix));
+                    destination[2] = 0;
+                } else {
+                    std::memcpy(destination, &block, sizeof(block));
+                }
+                return target;
+            }
+        }
+        std::memcpy(destination, &block, sizeof(block));
+        destination += 4;
+        --blockCount;
+    }
+
+    while (tailCount != 0) {
+        const unsigned char value = *cursor++;
+        *destination++ = value;
+        if (value == 0) {
+            return target;
+        }
+        --tailCount;
+    }
+    *destination = 0;
+    return target;
+}
+
 // 原 [0x53BEC0,0x53BFBE)：保留源对齐块读取与遇 NUL 后的分段补零。
 char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count)
 {

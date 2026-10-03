@@ -33,6 +33,9 @@ char* __cdecl StrCpy_544DB0(char* target, const char* source);
 // 原544DC0；先目的对齐扫描/候选复读找NUL，再共用复制尾，返回原target。
 char* __cdecl StrCat_544DC0(char* target, const char* source);
 
+// 原53C790；U32最多追加count源字节，耗尽补单个NUL，count0不访问文本；返回原target。
+char* __cdecl StrNCat_53C790(char* target, const char* source, std::uint32_t count);
+
 // 原53BEC0；U32计数借用复制，遇NUL补至count，满count无NUL不加终止；返回原target。
 // 输入与交易载荷复用LegacyTime已有本体，源对齐读取/复读与分段补零次序保持。
 char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count);

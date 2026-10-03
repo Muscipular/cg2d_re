@@ -965,7 +965,7 @@ void AppendChar_44ADB0(const char character)
     const std::uint32_t insertedLength = static_cast<std::uint32_t>(std::strlen(context->text));
     const std::uint32_t remainingCapacity =
         static_cast<std::uint32_t>(InputTextCapacity - 1) - insertedLength;
-    std::strncat(context->text, tail.data(), remainingCapacity);
+    platform::StrNCat_53C790(context->text, tail.data(), remainingCapacity);
     context = gCurrentInputData;
 
     std::int32_t lineStart = 0;

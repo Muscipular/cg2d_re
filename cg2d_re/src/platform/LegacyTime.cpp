@@ -4,13 +4,14 @@
 #include "StartupNative.hpp"
 #include "LegacyStringCompareState.hpp"
 #include "LegacyMultibyte.hpp"
+#include "LegacyLowIo.hpp"
+#include "LegacyStdio.hpp"
 
 #include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <io.h>
 
 namespace cg::platform {
 
@@ -988,25 +989,41 @@ std::int32_t ChangeLegacyDirectory_53DD2F(const char* const path)
     return -1;
 }
 
-std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* const output)
+std::int32_t ReadLegacyDescriptorStatus32_53CCD0(
+    const std::int32_t descriptor, LegacyFileStatus32* const status)
 {
-    const int descriptor = ::_fileno(file);
-    if (descriptor < 0) {
+    const auto descriptorIndex = static_cast<std::uint32_t>(descriptor);
+    if (descriptorIndex >= gLegacyDescriptorCapacity1086AC0) {
         gLegacyErrno_1085FE0 = 9;
         return -1;
     }
-    const std::intptr_t nativeHandle = ::_get_osfhandle(descriptor);
-    if (nativeHandle == -1) {
+    const std::uint32_t slot = descriptorIndex & 31u;
+    // 原var_8保存表块槽地址；各API前重新从同一块槽取得HANDLE。
+    LegacyDescriptorRecord*& block = gLegacyDescriptorBlocks10869C0[descriptorIndex >> 5];
+    if ((block[slot].flags & 1u) == 0) {
         gLegacyErrno_1085FE0 = 9;
         return -1;
     }
-    const HANDLE handle = reinterpret_cast<HANDLE>(nativeHandle);
-    const DWORD fileType = ::GetFileType(handle) & ~FILE_TYPE_REMOTE;
+
+    const DWORD fileType = ::GetFileType(block[slot].handle) & ~0x8000u;
     if (fileType == FILE_TYPE_CHAR || fileType == FILE_TYPE_PIPE) {
-        *output = 0;
-        if (fileType == FILE_TYPE_PIPE) {
+        status->mode = fileType == FILE_TYPE_CHAR ? 0x2000u : 0x1000u;
+        status->deviceBits = descriptorIndex;
+        status->relatedDeviceBits = descriptorIndex;
+        status->linkCount = 1;
+        status->inode = 0;
+        status->group = 0;
+        status->user = 0;
+        status->creationTime = 0;
+        status->modifiedTime = 0;
+        status->accessTime = 0;
+        if (fileType == FILE_TYPE_CHAR) {
+            status->sizeLowBits = 0;
+        } else {
             DWORD available;
-            static_cast<void>(::PeekNamedPipe(handle, nullptr, 0, nullptr, &available, nullptr));
+            const BOOL peeked = ::PeekNamedPipe(
+                block[slot].handle, nullptr, 0, nullptr, &available, nullptr);
+            status->sizeLowBits = peeked != FALSE ? available : 0;
         }
         return 0;
     }
@@ -1014,17 +1031,27 @@ std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* c
         gLegacyErrno_1085FE0 = 9;
         return -1;
     }
+
     BY_HANDLE_FILE_INFORMATION information;
-    if (fileType != FILE_TYPE_DISK || !::GetFileInformationByHandle(handle, &information)) {
+    if (fileType == FILE_TYPE_DISK) {
+        status->mode = 0;
+        status->group = 0;
+        status->user = 0;
+        status->inode = 0;
+        status->linkCount = 1;
+    }
+    if (fileType != FILE_TYPE_DISK
+        || ::GetFileInformationByHandle(block[slot].handle, &information) == FALSE) {
         static_cast<void>(MapLegacyFileError_542F44(::GetLastError()));
         return -1;
     }
+    status->mode |= (information.dwFileAttributes & 1u) != 0 ? 0x124u : 0x1B6u;
 
     const auto convert = [](const FILETIME& fileTime, std::int32_t& result) {
         FILETIME localTime;
         SYSTEMTIME fields;
-        if (!::FileTimeToLocalFileTime(&fileTime, &localTime)
-            || !::FileTimeToSystemTime(&localTime, &fields)) {
+        if (::FileTimeToLocalFileTime(&fileTime, &localTime) == FALSE
+            || ::FileTimeToSystemTime(&localTime, &fields) == FALSE) {
             return false;
         }
         result = ConvertLocalTime_541160(
@@ -1032,25 +1059,43 @@ std::int32_t ReadLegacyFileCreationTime32(std::FILE* const file, std::int32_t* c
             fields.wMinute, fields.wSecond, -1);
         return true;
     };
-    std::int32_t modified;
-    if (!convert(information.ftLastWriteTime, modified)) {
+    std::int32_t converted;
+    if (!convert(information.ftLastWriteTime, converted)) {
         return -1;
     }
+    status->modifiedTime = converted;
     if (information.ftLastAccessTime.dwLowDateTime != 0
         || information.ftLastAccessTime.dwHighDateTime != 0) {
-        // 原 ctime caller 不使用 atime，但转换会更新同一时区/DST 状态。
-        std::int32_t accessed;
-        if (!convert(information.ftLastAccessTime, accessed)) {
+        if (!convert(information.ftLastAccessTime, converted)) {
             return -1;
         }
     }
+    status->accessTime = converted;
     if (information.ftCreationTime.dwLowDateTime == 0
         && information.ftCreationTime.dwHighDateTime == 0) {
-        *output = modified;
-    } else if (!convert(information.ftCreationTime, *output)) {
+        converted = status->modifiedTime;
+    } else if (!convert(information.ftCreationTime, converted)) {
         return -1;
     }
+    status->mode |= 0x8000u;
+    status->creationTime = converted;
+    const std::uint32_t sizeLow = information.nFileSizeLow;
+    status->deviceBits = 0;
+    status->sizeLowBits = sizeLow;
+    status->relatedDeviceBits = 0;
     return 0;
+}
+
+std::int32_t ReadLegacyFileCreationTime32(
+    LegacyFile* const file, std::int32_t* const output)
+{
+    LegacyFileStatus32 status;
+    const std::int32_t result =
+        ReadLegacyDescriptorStatus32_53CCD0(file->descriptor, &status);
+    if (result >= 0) {
+        *output = status.creationTime;
+    }
+    return result;
 }
 
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output)

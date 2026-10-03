@@ -1,5 +1,8 @@
 #include "cg/ResourcePaths.hpp"
 
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
+
 #include "cg/GraphicInfo.hpp"
 #include "cg/GraphicRead.hpp"
 #include "cg/Palette.hpp"
@@ -8,7 +11,6 @@
 #include "cg/platform/Startup.hpp"
 
 #include <bit>
-#include <cstdio>
 #include <cstring>
 
 namespace cg::resource {
@@ -22,7 +24,7 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
 {
     constexpr std::int32_t kSlots[] {0, 1, 6};
     for (std::int32_t index = 0; index < 3; ++index) {
-        std::FILE* const file = std::fopen(paths[kSlots[index]], "rb");
+        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(paths[kSlots[index]], "rb");
         if (file == nullptr) {
             if (index == 0) {
                 return false;
@@ -34,7 +36,7 @@ bool ReadAutoMapFileTimes(char* const* const paths, std::int32_t (&times)[3])
         if (result >= 0) {
             times[index] = value;
         }
-        std::fclose(file);
+        platform::CloseLegacyStream_53B1D0(file);
         if (result < 0 && index == 0) {
             return false;
         }
@@ -56,29 +58,29 @@ std::int32_t Sub_45A420(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    std::FILE* const file = std::fopen(fileName, "rb");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(fileName, "rb");
     if (file == nullptr) {
         return 0;
     }
     std::uint16_t version;
-    if (std::fread(&version, 2, 1, file) != 1 || version != 2) {
-        std::fclose(file);
+    if (platform::ReadLegacyStream_53BCCD(&version, 2, 1, file) != 1 || version != 2) {
+        platform::CloseLegacyStream_53B1D0(file);
         return 0;
     }
     for (const std::int32_t expected : times) {
         std::int32_t stored;
-        if (std::fread(&stored, 4, 1, file) != 1 || stored != expected) {
-            std::fclose(file);
+        if (platform::ReadLegacyStream_53BCCD(&stored, 4, 1, file) != 1 || stored != expected) {
+            platform::CloseLegacyStream_53B1D0(file);
             return 0;
         }
     }
     std::uint32_t sentinel;
-    if (std::fread(&sentinel, 4, 1, file) != 1 || sentinel != 0
-        || std::fread(gAutoMapColors927F48, sizeof(gAutoMapColors927F48), 1, file) != 1) {
-        std::fclose(file);
+    if (platform::ReadLegacyStream_53BCCD(&sentinel, 4, 1, file) != 1 || sentinel != 0
+        || platform::ReadLegacyStream_53BCCD(gAutoMapColors927F48, 0x7A120u, 1, file) != 1) {
+        platform::CloseLegacyStream_53B1D0(file);
         return 0;
     }
-    std::fclose(file);
+    platform::CloseLegacyStream_53B1D0(file);
     return 1;
 }
 
@@ -89,19 +91,19 @@ std::int32_t Sub_45A290(const char* const fileName, char* const* const graphicIn
     if (!ReadAutoMapFileTimes(graphicInfoPaths, times)) {
         return 0;
     }
-    std::FILE* const file = std::fopen(fileName, "wb");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(fileName, "wb");
     if (file == nullptr) {
         return 0;
     }
     const std::uint16_t version = 2;
     const std::uint32_t sentinel = 0;
-    std::fwrite(&version, 2, 1, file);
+    platform::WriteLegacyStream_53C680(&version, 2, 1, file);
     for (const std::int32_t time : times) {
-        std::fwrite(&time, 4, 1, file);
+        platform::WriteLegacyStream_53C680(&time, 4, 1, file);
     }
-    std::fwrite(&sentinel, 4, 1, file);
-    std::fwrite(gAutoMapColors927F48, sizeof(gAutoMapColors927F48), 1, file);
-    std::fclose(file);
+    platform::WriteLegacyStream_53C680(&sentinel, 4, 1, file);
+    platform::WriteLegacyStream_53C680(gAutoMapColors927F48, 0x7A120u, 1, file);
+    platform::CloseLegacyStream_53B1D0(file);
     return 1;
 }
 
@@ -193,12 +195,12 @@ int BuildResourcePaths()
 
     int result = 0;
     for (int slot = 0; slot < 9; ++slot) {
-        std::sprintf(gGraphicPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicNames][slot]);
-        std::sprintf(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicInfoNames][slot]);
-        std::sprintf(gAnimePaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeNames][slot]);
-        std::sprintf(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeInfoNames][slot]);
-        std::sprintf(gCoordinatePaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateNames][slot]);
-        result = std::sprintf(
+        platform::FormatLegacyString_53B304(gGraphicPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicNames][slot]);
+        platform::FormatLegacyString_53B304(gGraphicInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[GraphicInfoNames][slot]);
+        platform::FormatLegacyString_53B304(gAnimePaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeNames][slot]);
+        platform::FormatLegacyString_53B304(gAnimeInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[AnimeInfoNames][slot]);
+        platform::FormatLegacyString_53B304(gCoordinatePaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateNames][slot]);
+        result = platform::FormatLegacyString_53B304(
             gCoordinateInfoPaths[slot], "%s\\%s", gBinPath, gResourceNames[CoordinateInfoNames][slot]);
     }
     return result;
@@ -207,7 +209,7 @@ int BuildResourcePaths()
 std::int32_t LoadAutoMapColor_45A130(char* const* const graphicInfoPaths)
 {
     char fileName[128];
-    std::sprintf(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
+    platform::FormatLegacyString_53B304(fileName, "%s\\%s", platform::gDataPath, "auto.dat");
 
     const std::int32_t loaded =
         detail::Sub_45A420(fileName, graphicInfoPaths);

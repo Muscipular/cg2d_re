@@ -1,9 +1,10 @@
 #pragma once
 
 #include <cstdint>
-#include <cstdio>
 
 namespace cg::platform {
+
+struct LegacyFile;
 
 // 原1085FE0共享S32错误槽；文件查询/目录创建或切换写入，截图读取17判断目录已存在。
 extern std::int32_t gLegacyErrno_1085FE0;
@@ -46,8 +47,8 @@ struct LegacyTm53B8C6 {
 // output 可以为 nullptr；其他值须指向可写 int32_t。未以本机 time64/time32 代替原函数。
 std::int32_t ReadLegacyTime32_53BA26(std::int32_t* output);
 
-// 原 53CCD0 在 auto.dat 两个 caller 中的时间合同；不代替通用 stat。
-// file 必须仍打开、output 可写；保留修改/访问/创建时间转换顺序，返回 0/-1。
-std::int32_t ReadLegacyFileCreationTime32(std::FILE* file, std::int32_t* output);
+// 原53CCD0在auto.dat六个点的创建时间投影；file借用仍打开的原FILE槽。
+// descriptor交同一完整文件状态本体，成功才发布ctime，失败不写output。
+std::int32_t ReadLegacyFileCreationTime32(LegacyFile* file, std::int32_t* output);
 
 } // namespace cg::platform

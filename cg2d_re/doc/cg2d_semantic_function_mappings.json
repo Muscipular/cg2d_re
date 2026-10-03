@@ -4976,7 +4976,7 @@
     {
       "original_entry": "0x456050",
       "inventory_id": "F:00056050",
-      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "status": "既有资源路径构造的六原格式调用已接；完整启动/运行未验",
       "original_role": "九槽资源路径构造",
       "sources": [
         {
@@ -4990,7 +4990,73 @@
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先绑定九槽六组路径指针到唯一本地存储，再逐槽依原顺序sprintf拼接目录与资源名；返回第8槽coordinateInfo末次sprintf结果，不展开资源名中的*3。"
+      "boundary": "先绑定九槽六组路径指针到唯一本地存储，再逐槽依原顺序sprintf拼接目录与资源名；返回第8槽coordinateInfo末次sprintf结果，不展开资源名中的*3。 六点已接真实53B304，既有资源名源槽/256B路径目标、六组九槽绑定、逐槽顺序及返回最后一次S32结果保持；其余源码逐字不变。",
+      "original_end_exclusive": "0x456189",
+      "instruction_count": 77,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x4659D0",
+          "parent_entry": "0x465790"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x4560C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x4560E9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456109",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456129",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456149",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456169",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        }
+      ],
+      "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行"
     },
     {
       "original_entry": "0x457020",
@@ -11323,7 +11389,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。 自动地图缓存两父二十一原关闭点已整链迁移，现有时间采样/失败合循环对应动态路径仍恰关闭一次；成功时间先发布再关闭、缓存每次失败关闭返0与写端忽略结果保持。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -12041,6 +12107,132 @@
           "call_site": "0x45BF34",
           "source": "src/AnimationCleanup.cpp",
           "symbol": "Sub_45BF20"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2EB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A304",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A33E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A37B",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A402",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A463",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A47A",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4B8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4F1",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A531",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A54C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A575",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A590",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5B9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5D8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A601",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A61C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A645",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A660",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A68C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A69E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
         }
       ]
     },
@@ -12251,7 +12443,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。 自动地图缓存八原打开点已与原descriptor/stat/读取写入/关闭整链迁移，采样0/1/6为rb，缓存写wb/读rb；首必需时间失败终止，后两失败保留0。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12787,6 +12979,54 @@
           "call_site": "0x45BF8E",
           "source": "src/AnimationRuntime.cpp",
           "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2C1",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A312",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A34F",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A38D",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A433",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A48C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A503",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
         }
       ]
     },
@@ -13187,7 +13427,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。 图形459CE2/45A966两原读取已整链迁移，(28H,1)未清记录及(length U32,1)共享读区保持；前者忽略返回继续消费，后者仅返回1才解码。 动画/坐标七个原读取已整链迁移，(0CH,1)、(20或12,1)、(10*frameCount U32,1)、(8,count U16零扩展U32)、(1,1)、(4,2)、(2,1)全部忽略返回，未清局部/部分覆盖及EOF消费时点保持。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。 图形459CE2/45A966两原读取已整链迁移，(28H,1)未清记录及(length U32,1)共享读区保持；前者忽略返回继续消费，后者仅返回1才解码。 动画/坐标七个原读取已整链迁移，(0CH,1)、(20或12,1)、(10*frameCount U32,1)、(8,count U16零扩展U32)、(1,1)、(4,2)、(2,1)全部忽略返回，未清局部/部分覆盖及EOF消费时点保持。 自动地图缓存六原读取点已整链迁移，W16版本/三W32时间/零哨兵和(7A120H U32,1)共享正文保持；三时间合循环动态次数不改，逐项读取后比较、失败关闭/已写前缀保持。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -13717,6 +13957,42 @@
           "call_site": "0x45BFD9",
           "source": "src/AnimationRuntime.cpp",
           "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A523",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A567",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5AB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5F3",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A637",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A67E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420"
         }
       ]
     },
@@ -13745,7 +14021,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。 地图八个原write点已整链迁移，四W32头/三平面WORD零值/逐行写均保持，既有tile/obj合循环对应七源码表达式，写返回忽略不加门禁。 相册518738的(1,U32编码长度)已整链迁移，恢复51873D写后重新读取长度比较；短写不关闭流，缓冲释放顺序及原capacity4不改。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。 地图八个原write点已整链迁移，四W32头/三平面WORD零值/逐行写均保持，既有tile/obj合循环对应七源码表达式，写返回忽略不加门禁。 相册518738的(1,U32编码长度)已整链迁移，恢复51873D写后重新读取长度比较；短写不关闭流，缓冲释放顺序及原capacity4不改。 自动地图缓存六原写入点已整链迁移，W16版本/三W32时间/零哨兵和(7A120H U32,1)正文依序，合循环动态次数/全部返回忽略/最终关闭返1保持。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -13997,6 +14273,42 @@
           "call_site": "0x518738",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_5186A0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3AB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3BA",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3D8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3EA",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3FC",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290"
         }
       ]
     },
@@ -15436,7 +15748,7 @@
     {
       "original_entry": "0x53CCD0",
       "inventory_id": "F:0013CCD0",
-      "status": "既有创建时间消费域实现已关联；不是通用stat接口或完整文件验收",
+      "status": "原36B文件状态完整本体及六处创建时间投影已接原描述符表；完整启动/运行未验",
       "original_end_exclusive": "0x53CF48",
       "instruction_count": 210,
       "original_direct_reference_count": 6,
@@ -15444,9 +15756,25 @@
         {
           "path": "src/platform/LegacyTime.cpp",
           "symbols": [
+            "ReadLegacyDescriptorStatus32_53CCD0",
             "ReadLegacyFileCreationTime32"
           ],
-          "relationship": "已有Win32借用句柄与原S32创建时间窄实现，保留错误槽和转换副作用"
+          "relationship": "完整53CCD0同表描述符/Win32状态与时间生产，窄接口只投影已产生ctime"
+        },
+        {
+          "path": "src/platform/LegacyLowIo.hpp",
+          "symbols": [
+            "LegacyFileStatus32",
+            "ReadLegacyDescriptorStatus32_53CCD0"
+          ],
+          "relationship": "固定36B无指针状态与内部声明，全部字段偏移/未写2B明确"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "ReadLegacyFileCreationTime32"
+          ],
+          "relationship": "仅前置声明LegacyFile，窄接口借用原FILE，无宿主FILE混接"
         },
         {
           "path": "src/ResourcePaths.cpp",
@@ -15455,7 +15783,7 @@
             "Sub_45A290",
             "Sub_45A420"
           ],
-          "relationship": "两父入口六个原stat调用仅消费返回和+20h创建时间，共用现有采样helper"
+          "relationship": "六原stat点经同一创建时间投影读取原FILE descriptor，保留0/1/6采样和关闭次序"
         }
       ],
       "evidence_documents": [
@@ -15463,7 +15791,211 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "沿既有完整取证/已实施合同，只映射六处已证ctime消费；不使用现代_fstat/time_t替换，不暴露mode/uid/size。修改、非零访问、创建三阶段转换及共享TZ/DST副作用、零creation回退mtime、设备/管道/错误映射保持；本次不重复时间算法审计或称通用_fstat全部还原。"
+      "boundary": "完整53CCD0按U32 descriptor/capacity与同表flags/1验证，失败只errno9/-1；保存块槽引用，各API前重读HANDLE，不额外检查句柄值。GetFileType清8000H；char/pipe按原序写mode2000H/1000H、descriptor设备字段/link1/inode/group/user/三个时间0，管道Peek失败size0仍成功。disk先逐字段清mode/group/user/inode/link1，再query/失败映射，仅readonly低位选择124H/1B6H；修改→非零访问→创建转换，零访问复用修改值，零创建最后重读输出mtime。OS转换失败无新errno，旧转换-1仍是S32值；最后mode或8000H/ctime/设备0/sizeLow/另一设备0，未知+0E两字节及失败后未写字段不清。原sizeHigh不消费；六ctime点通过LegacyFile descriptor同表接线，旧宿主_fileno/_get_osfhandle删除，其他时间/错误算法未改，完整运行未验。",
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2DE",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A329",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A366",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A456",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4A3",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4E0",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "relationship": "经ReadAutoMapFileTimes和ReadLegacyFileCreationTime32投影，实际调用同一完整53CCD0"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45A2DE",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A329",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A366",
+          "parent_entry": "0x45A290"
+        },
+        {
+          "address": "0x45A456",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A4A3",
+          "parent_entry": "0x45A420"
+        },
+        {
+          "address": "0x45A4E0",
+          "parent_entry": "0x45A420"
+        }
+      ],
+      "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行",
+      "outbound_call_connections": [
+        {
+          "call_site": "0x53CDE6",
+          "target_entry": "0x542F44",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "ReadLegacyDescriptorStatus32_53CCD0",
+          "target_symbol": "MapLegacyFileError_542F44"
+        },
+        {
+          "call_site": "0x53CE53",
+          "target_entry": "0x541160",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "ReadLegacyDescriptorStatus32_53CCD0",
+          "target_symbol": "ConvertLocalTime_541160"
+        },
+        {
+          "call_site": "0x53CEB3",
+          "target_entry": "0x541160",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "ReadLegacyDescriptorStatus32_53CCD0",
+          "target_symbol": "ConvertLocalTime_541160"
+        },
+        {
+          "call_site": "0x53CF10",
+          "target_entry": "0x541160",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "ReadLegacyDescriptorStatus32_53CCD0",
+          "target_symbol": "ConvertLocalTime_541160"
+        }
+      ],
+      "native_call_evidence": [
+        {
+          "call_site": "0x53CD12",
+          "import_address": "0x54D1BC",
+          "symbol": "GetFileType"
+        },
+        {
+          "call_site": "0x53CD9E",
+          "import_address": "0x54D1C0",
+          "symbol": "PeekNamedPipe"
+        },
+        {
+          "call_site": "0x53CDD5",
+          "import_address": "0x54D1C4",
+          "symbol": "GetFileInformationByHandle"
+        },
+        {
+          "call_site": "0x53CDDF",
+          "import_address": "0x54D214",
+          "symbol": "GetLastError"
+        },
+        {
+          "call_site": "0x53CE0D",
+          "import_address": "0x54D1C8",
+          "symbol": "FileTimeToLocalFileTime"
+        },
+        {
+          "call_site": "0x53CE23",
+          "import_address": "0x54D1CC",
+          "symbol": "FileTimeToSystemTime"
+        },
+        {
+          "call_site": "0x53CE70",
+          "import_address": "0x54D1C8",
+          "symbol": "FileTimeToLocalFileTime"
+        },
+        {
+          "call_site": "0x53CE86",
+          "import_address": "0x54D1CC",
+          "symbol": "FileTimeToSystemTime"
+        },
+        {
+          "call_site": "0x53CED5",
+          "import_address": "0x54D1C8",
+          "symbol": "FileTimeToLocalFileTime"
+        },
+        {
+          "call_site": "0x53CEE7",
+          "import_address": "0x54D1CC",
+          "symbol": "FileTimeToSystemTime"
+        }
+      ],
+      "field_layout": {
+        "size": 36,
+        "alignment": 4,
+        "device_bits": 0,
+        "inode": 4,
+        "mode": 6,
+        "link_count": 8,
+        "user": 10,
+        "group": 12,
+        "unwritten_range": [
+          14,
+          16
+        ],
+        "related_device_bits": 16,
+        "size_low_bits": 20,
+        "access_time": 24,
+        "modified_time": 28,
+        "creation_time": 32
+      },
+      "business_descriptor_read_evidence": [
+        {
+          "address": "0x45A2D5",
+          "call_site": "0x45A2DE",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        },
+        {
+          "address": "0x45A320",
+          "call_site": "0x45A329",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        },
+        {
+          "address": "0x45A35D",
+          "call_site": "0x45A366",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        },
+        {
+          "address": "0x45A44D",
+          "call_site": "0x45A456",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        },
+        {
+          "address": "0x45A49A",
+          "call_site": "0x45A4A3",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        },
+        {
+          "address": "0x45A4D7",
+          "call_site": "0x45A4E0",
+          "relationship": "父调用前采样原FILE+10 S32 descriptor"
+        }
+      ]
     },
     {
       "original_entry": "0x53BB99",
@@ -16552,7 +17084,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及45个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及52个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -16599,7 +17131,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处共45点已接，其他977点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处共52点已接，其他970点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -16883,6 +17415,48 @@
           "call_site": "0x45C1CF",
           "source": "src/AnimationRuntime.cpp",
           "symbol": "CoordInit_45C150"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x4560C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x4560E9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456109",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456129",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456149",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x456050",
+          "call_site": "0x456169",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "BuildResourcePaths"
+        },
+        {
+          "parent_entry": "0x45A130",
+          "call_site": "0x45A14B",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "LoadAutoMapColor_45A130"
         }
       ],
       "business_format_evidence": [
@@ -31457,6 +32031,508 @@
           "access_type": 2
         }
       ]
+    },
+    {
+      "original_entry": "0x45A130",
+      "inventory_id": "F:0005A130",
+      "status": "既有自动地图缓存父的真实FILE/格式/stat整链已接；完整资源/启动/运行未验",
+      "original_end_exclusive": "0x45A184",
+      "instruction_count": 25,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "LoadAutoMapColor_45A130"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4578D6",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A130",
+          "call_site": "0x45A14B",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "LoadAutoMapColor_45A130",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5598E4",
+          "bytes": "6175746f2e64617400"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行",
+      "boundary": "既有自动地图缓存包装的128B未清路径按gDataPath/auto.dat/%s反斜杠%s接真实53B304；原读取非零直接透传，零时重建然后写回的次序/结果保持，不因调色板失败或落盘结果增加门槛。唯一缓存表、路径/调用与所有重建/取色正文不变，完整初始化/资源内容/运行未验。"
+    },
+    {
+      "original_entry": "0x45A290",
+      "inventory_id": "F:0005A290",
+      "status": "既有自动地图缓存父的真实FILE/格式/stat整链已接；完整资源/启动/运行未验",
+      "original_end_exclusive": "0x45A415",
+      "instruction_count": 138,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "Sub_45A290",
+            "ReadAutoMapFileTimes"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45A174",
+          "parent_entry": "0x45A130"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2C1",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2DE",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A2EB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A304",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A312",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A329",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A33E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A34F",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A366",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A37B",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A38D",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3AB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3BA",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3D8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3EA",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A3FC",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x45A290",
+          "call_site": "0x45A402",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A290",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行",
+      "boundary": "既有缓存保存统一LegacyFile，先按0/1/6采样同表descriptor的原stat创建时间，首打开/查询失败终止，后两失败保持时间0，成功先发布时间再关流。wb打开失败0，成功按W16版本2、三W32时间、W32零哨兵、7A120H U32正文共500018B写入并关闭，全部返回忽略/最终返1；现有循环合并和动态关闭次数保持，共享表/路径与其他正文不改。"
+    },
+    {
+      "original_entry": "0x45A420",
+      "inventory_id": "F:0005A420",
+      "status": "既有自动地图缓存父的真实FILE/格式/stat整链已接；完整资源/启动/运行未验",
+      "original_end_exclusive": "0x45A6B3",
+      "instruction_count": 281,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "Sub_45A420",
+            "ReadAutoMapFileTimes"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45A15D",
+          "parent_entry": "0x45A130"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A433",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A456",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A463",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A47A",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A48C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4A3",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4B8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4C9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4E0",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53CCD0",
+          "target_symbol": "ReadLegacyDescriptorStatus32_53CCD0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A4F1",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A503",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A523",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A531",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A54C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A567",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A575",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A590",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5AB",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5B9",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5D8",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A5F3",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A601",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A61C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A637",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A645",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A660",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A67E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A68C",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45A420",
+          "call_site": "0x45A69E",
+          "source": "src/ResourcePaths.cpp",
+          "symbol": "Sub_45A420",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行",
+      "boundary": "既有缓存加载统一LegacyFile，0/1/6时间采样/失败门槛同保存，rb打开后依序读取版本/三个时间/零哨兵/7A120H U32正文，逐项读后比较，失败关闭返0。现有时间合循环及读/值失败关闭合路径动态次数保持；正文直接写唯一表，短读前缀保留、不补后缀、不查额外尾部，成功关闭返1，其他地图/资源正文未改。"
     }
   ]
 }

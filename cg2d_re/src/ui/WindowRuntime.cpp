@@ -26772,7 +26772,7 @@ std::uint32_t Sub_4A49B0()
     } else {
         const MailMessageView message = borrowCurrent();
         *message.unread00 = std::byte{0};
-        std::sprintf(buffer, "%s", message.text02);
+        platform::FormatLegacyString_53B304(buffer, "%s", message.text02);
         const char* const slash = platform::StrChr_53C2F0(buffer, '/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         std::strcpy(time->text, slash != nullptr ? slash + 1 : input::LegacyText593850());
@@ -26794,11 +26794,11 @@ std::uint32_t Sub_4A49B0()
         name = category == 0 ? gContactsF19FB0[contact].name10.data()
             : ReadMiniMailContact1075A90(contact).name10.data();
     }
-    std::sprintf(buffer, "%s", name);
+    platform::FormatLegacyString_53B304(buffer, "%s", name);
     auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[15].data);
     std::strcpy(nameData->text, buffer);
     const std::int32_t page = gValueD046D4 + 1;
-    std::sprintf(buffer, "%2d/%2d", page, 10);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page, 10);
     auto* const pageData = static_cast<WindowTextData*>(gCurrentWindow->elements[14].data);
     const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(buffer) + 1);
     std::memcpy(pageData->text, buffer, length);

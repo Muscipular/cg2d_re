@@ -16130,9 +16130,9 @@ void Sub_492F70()
         const std::int32_t direction = gLoginWindowRuntime.valueCF4A00;
         login::detail::SetYobiActionField2B8(directionData->action, direction);
 
-        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        platform::FormatLegacyString_53B304(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
         copyAfterScan(3, buffer);
-        std::sprintf(buffer, "%2d", readValue(selectedRecord(), 0x30));
+        platform::FormatLegacyString_53B304(buffer, "%2d", readValue(selectedRecord(), 0x30));
         copyAfterScan(4, buffer);
         const std::byte* const tribeRecord = selectedRecord();
         WindowInstance* const tribeWindow = gCurrentWindow;
@@ -16142,7 +16142,7 @@ void Sub_492F70()
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[5].data);
         const std::size_t tribeLength = std::strlen(tribeName) + 1;
         std::memcpy(tribeData->text, tribeName, tribeLength);
-        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        platform::FormatLegacyString_53B304(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
 
         const std::byte* const firstMarkRecord = selectedRecord();
@@ -16205,9 +16205,9 @@ void Sub_492F70()
             gCurrentWindow->elements[33 + slot].visible = 0;
             gCurrentWindow->elements[43 + slot].visible = 0;
         }
-        std::sprintf(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
+        platform::FormatLegacyString_53B304(buffer, "%3d", gLoginWindowRuntime.valueCB2200 + 1);
         copyBeforeScan(3, buffer);
-        std::sprintf(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
+        platform::FormatLegacyString_53B304(buffer, "%3d/%3d", gLoginWindowRuntime.valueCB2200 + 1, 960);
         copyBeforeScan(6, buffer);
     }
 }

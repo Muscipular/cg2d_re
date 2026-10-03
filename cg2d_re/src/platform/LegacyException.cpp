@@ -34,6 +34,28 @@ const LegacyExceptionRaiseMethodTable gLegacyLogicErrorMethods550184{
     RaiseLegacyLogicError_54A738
 };
 
+LegacyExceptionObject* DeleteLegacyStringLengthErrorFromBase(
+    LegacyExceptionObject* const storage, const std::uint32_t flags)
+{
+    DeleteLegacyStringLengthError_54A865(reinterpret_cast<LegacyStringLengthErrorObject*>(storage), flags);
+    return storage;
+}
+const LegacyExceptionRaiseMethodTable gLegacyStringLengthErrorMethods550164{
+    {DeleteLegacyStringLengthErrorFromBase, GetLegacyLogicErrorTextFromBase},
+    RaiseLegacyStringLengthError_54A848
+};
+
+LegacyExceptionObject* DeleteLegacyStringRangeErrorFromBase(
+    LegacyExceptionObject* const storage, const std::uint32_t flags)
+{
+    DeleteLegacyStringRangeError_54A94D(reinterpret_cast<LegacyStringRangeErrorObject*>(storage), flags);
+    return storage;
+}
+const LegacyExceptionRaiseMethodTable gLegacyStringRangeErrorMethods550194{
+    {DeleteLegacyStringRangeErrorFromBase, GetLegacyLogicErrorTextFromBase},
+    RaiseLegacyStringRangeError_54A930
+};
+
 } // namespace
 
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
@@ -164,6 +186,70 @@ const char* GetLegacyLogicErrorText_54A062(const LegacyLogicErrorObject* const s
 {
     const char* const text = storage->message.buffer;
     return text != nullptr ? text : gLegacyNarrowStringEmpty55013B + 1;
+}
+
+void DestroyLegacyStringLengthError_54A80B(LegacyStringLengthErrorObject* const storage)
+{
+    // 原析构都先写logic_error表，不能提前改成各自最派生表。
+    storage->base.methods = &gLegacyLogicErrorMethods550184.base;
+    try {
+        TidyLegacyNarrowString_548E29(&storage->message, true);
+    } catch (...) {
+        // 原54C450唯一state0动作只清基类。
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    DestroyLegacyException_54B100(&storage->base);
+}
+
+LegacyStringLengthErrorObject* DeleteLegacyStringLengthError_54A865(
+    LegacyStringLengthErrorObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyStringLengthError_54A80B(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyStringLengthErrorObject* CopyConstructLegacyStringLengthError_54A881(
+    LegacyStringLengthErrorObject* const storage, const LegacyStringLengthErrorObject* const source)
+{
+    CopyConstructLegacyLogicError_54A7AE(storage, source);
+    storage->base.methods = &gLegacyStringLengthErrorMethods550164.base;
+    return storage;
+}
+
+void DestroyLegacyStringRangeError_54A8F3(LegacyStringRangeErrorObject* const storage)
+{
+    // 原析构都先写logic_error表，不能提前改成各自最派生表。
+    storage->base.methods = &gLegacyLogicErrorMethods550184.base;
+    try {
+        TidyLegacyNarrowString_548E29(&storage->message, true);
+    } catch (...) {
+        // 原54C478唯一state0动作只清基类。
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    DestroyLegacyException_54B100(&storage->base);
+}
+
+LegacyStringRangeErrorObject* DeleteLegacyStringRangeError_54A94D(
+    LegacyStringRangeErrorObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyStringRangeError_54A8F3(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyStringRangeErrorObject* CopyConstructLegacyStringRangeError_54A969(
+    LegacyStringRangeErrorObject* const storage, const LegacyStringRangeErrorObject* const source)
+{
+    CopyConstructLegacyLogicError_54A7AE(storage, source);
+    storage->base.methods = &gLegacyStringRangeErrorMethods550194.base;
+    return storage;
 }
 
 } // namespace cg::platform

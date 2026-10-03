@@ -69,4 +69,23 @@ const char* GetLegacyLogicErrorText_54A062(const LegacyLogicErrorObject* storage
 // 原54A738：实际复制后CxxThrowException入口，仅声明；不补固定异常或返回。
 void RaiseLegacyLogicError_54A738(LegacyExceptionObject* storage);
 
+// 只复用已证48B存储视图；原方法表/ThrowInfo身份各自独立，不是C++抛出类型合并。
+using LegacyStringLengthErrorObject = LegacyLogicErrorObject;
+void DestroyLegacyStringLengthError_54A80B(LegacyStringLengthErrorObject* storage);
+LegacyStringLengthErrorObject* DeleteLegacyStringLengthError_54A865(
+    LegacyStringLengthErrorObject* storage, std::uint32_t flags);
+LegacyStringLengthErrorObject* CopyConstructLegacyStringLengthError_54A881(
+    LegacyStringLengthErrorObject* storage, const LegacyStringLengthErrorObject* source);
+// 原54A848实际拷贝后抛出；仅真实声明，不补固定异常或空槽。
+void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* storage);
+
+using LegacyStringRangeErrorObject = LegacyLogicErrorObject;
+void DestroyLegacyStringRangeError_54A8F3(LegacyStringRangeErrorObject* storage);
+LegacyStringRangeErrorObject* DeleteLegacyStringRangeError_54A94D(
+    LegacyStringRangeErrorObject* storage, std::uint32_t flags);
+LegacyStringRangeErrorObject* CopyConstructLegacyStringRangeError_54A969(
+    LegacyStringRangeErrorObject* storage, const LegacyStringRangeErrorObject* source);
+// 原54A930实际拷贝后抛出；仅真实声明，不补固定异常或空槽。
+void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* storage);
+
 } // namespace cg::platform

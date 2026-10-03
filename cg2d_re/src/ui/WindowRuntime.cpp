@@ -3457,7 +3457,7 @@ std::int32_t Sub_4D2260(const std::int32_t, const std::int32_t state)
             x + 75, y + 114, 227, gNumericKeyImages54F030[13][imageState], 0, &descriptor));
     }
     char buffer[20];
-    std::sprintf(buffer, "%d", gStallPriceD67C40);
+    platform::FormatLegacyString_53B304(buffer, "%d", gStallPriceD67C40);
     Sub_4771B0(x + 105, y + 29, buffer, 3, 0, 1, 227);
     static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98855, 0, 1, 0, &descriptor));
     return state & 1;
@@ -3555,11 +3555,11 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
             static_cast<std::int16_t>(x + 74), static_cast<std::int16_t>(y + 72),
             4, 8, 0, buffer, 0, 0));
         static_cast<void>(login::detail::DrawGraphic(x + 46, y + 82, 227, item->imageNo, 0, &descriptor));
-        std::sprintf(buffer, "%d", gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124 - 20]);
+        platform::FormatLegacyString_53B304(buffer, "%d", gStallBrowseD046D8.itemValuesD13E74[gStallItemSelection581124 - 20]);
         Sub_4771B0(x + 127, y + 93, buffer, 3, 0, 1, 227);
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(details, "%3d", count);
+            platform::FormatLegacyString_53B304(details, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 43), static_cast<std::int16_t>(y + 90),
                 4, 1, 1, details, 0, 0));
@@ -3583,38 +3583,38 @@ std::int32_t Sub_4D2840(const std::int32_t, const std::int32_t state)
                 static_cast<std::int16_t>(x + dx), static_cast<std::int16_t>(y + dy),
                 4, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), details, 0, 0));
         };
-        std::sprintf(details, "%s", pet->name6AC.data());
+        platform::FormatLegacyString_53B304(details, "%s", pet->name6AC.data());
         drawPetText(75, 61);
-        std::sprintf(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+        platform::FormatLegacyString_53B304(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
         drawPetText(225, 61);
-        std::sprintf(details, "%3d", pet->value08);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->value08);
         drawPetText(51, 78);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
         if (tribe >= 0 && tribe < 20) {
-            std::sprintf(details, "%s", gTribeNames57CB54[tribe]);
+            platform::FormatLegacyString_53B304(details, "%s", gTribeNames57CB54[tribe]);
         } else {
             details[0] = '\0';
         }
         drawPetText(118, 78);
-        std::sprintf(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+        platform::FormatLegacyString_53B304(details, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
         drawPetText(225, 78);
-        std::sprintf(details, "%3d", pet->values70[0]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[0]);
         drawPetText(115, 96);
-        std::sprintf(details, "%3d", pet->values70[1]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[1]);
         drawPetText(174, 96);
-        std::sprintf(details, "%3d", pet->values70[2]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[2]);
         drawPetText(232, 96);
-        std::sprintf(details, "%3d", pet->value6A4);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->value6A4);
         drawPetText(51, 114);
-        std::sprintf(details, "%3d", pet->values70[3]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[3]);
         drawPetText(115, 114);
-        std::sprintf(details, "%3d", pet->values70[4]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[4]);
         drawPetText(174, 114);
-        std::sprintf(details, "%3d", pet->values70[10]);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->values70[10]);
         drawPetText(232, 114);
-        std::sprintf(details, "%3d", pet->lvFlag6C);
+        platform::FormatLegacyString_53B304(details, "%3d", pet->lvFlag6C);
         drawPetText(89, 132);
-        std::sprintf(details, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128 - 5]);
+        platform::FormatLegacyString_53B304(details, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetSelection581128 - 5]);
         Sub_4771B0(x + 241, y + 131, details, 3, 0, 1, 227);
         static_cast<void>(render::DrawGraphic3_520970(x, y, 226, 98860, 0, 1, 0, &descriptor));
     }

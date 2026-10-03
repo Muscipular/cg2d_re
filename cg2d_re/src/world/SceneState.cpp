@@ -2559,10 +2559,10 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     input::UnescapeLegacyTextAndNotify_52D2F0(source);
     if (std::strncmp(source, "@FIND_LV1", 9) == 0) {
         std::int32_t sound = 0;
-        std::strncpy(command, source, sizeof(command));
+        platform::StrNCpy_53BEC0(command, source, static_cast<std::uint32_t>(sizeof(command)));
         platform::ScanLegacyString_53CADC(command, "@FIND_LV1@SE:%d", &sound);
-        const char* const message = std::strstr(command, "@MSG:");
-        std::strncpy(source, message + 5, sizeof(source));
+        const char* const message = platform::StrStr_53BE40(command, "@MSG:");
+        platform::StrNCpy_53BEC0(source, message + 5, static_cast<std::uint32_t>(sizeof(source)));
         static_cast<void>(audio::PlaySe_52C450(sound, 320));
     }
     Sub_44B050(source, 4, 3);
@@ -2714,7 +2714,7 @@ void Sub_50CAE0(
             std::uint32_t cursor = 0;
             for (;;) {
                 if (source[cursor] == ':' && source[cursor + 1] == ' ') {
-                    std::strncpy(name, source, cursor);
+                    platform::StrNCpy_53BEC0(name, source, cursor);
                     name[cursor] = '\0';
                     break;
                 }

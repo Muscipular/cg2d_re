@@ -31,6 +31,9 @@ char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t cou
 // 原53C2F0；低W8目标按源对齐/候选复读搜索，返回借用首匹配或空，目标0可命中NUL。
 char* __cdecl StrChr_53C2F0(const char* text, std::int32_t target);
 
+// 原53BE40；空needle返回原源，单字节复用StrChr，按原两字节比对返回借用首匹配或空。
+char* __cdecl StrStr_53BE40(const char* text, const char* substring);
+
 // 原53C654；旧字节路径交CreateDirectoryA，非零错误经542F44写共享槽，返回0/-1。
 std::int32_t CreateLegacyDirectory_53C654(const char* path);
 

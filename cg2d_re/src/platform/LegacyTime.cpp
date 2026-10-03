@@ -487,6 +487,62 @@ char* __cdecl StrChr_53C2F0(const char* text, const std::int32_t target)
     }
 }
 
+// 原53BE40：空串/单字节共用查找，多字节保留候选复用及两字节比对顺序。
+char* __cdecl StrStr_53BE40(const char* text, const char* substring)
+{
+    const auto* const needle = reinterpret_cast<const unsigned char*>(substring);
+    const unsigned char first = needle[0];
+    if (first == 0) {
+        return const_cast<char*>(text);
+    }
+    const unsigned char second = needle[1];
+    if (second == 0) {
+        return StrChr_53C2F0(text, first);
+    }
+
+    const auto* cursor = reinterpret_cast<const unsigned char*>(text);
+    unsigned char value = *cursor++;
+    for (;;) {
+        while (value != first) {
+            if (value == 0) {
+                return nullptr;
+            }
+            value = *cursor++;
+        }
+        value = *cursor++;
+        if (value != second) {
+            // 原53BE7F回到53BE6C，复用该字节，不直接跳过它。
+            continue;
+        }
+
+        const auto* const candidate = cursor - 2;
+        const auto* needleCursor = needle;
+        for (;;) {
+            const unsigned char expected = needleCursor[2];
+            if (expected == 0) {
+                return const_cast<char*>(reinterpret_cast<const char*>(candidate));
+            }
+            const unsigned char actual = *cursor;
+            cursor += 2;
+            if (actual != expected) {
+                break;
+            }
+            const unsigned char tail = needleCursor[3];
+            if (tail == 0) {
+                return const_cast<char*>(reinterpret_cast<const char*>(candidate));
+            }
+            const unsigned char actualTail = cursor[-1];
+            needleCursor += 2;
+            if (tail != actualTail) {
+                break;
+            }
+        }
+        // 原53BE58从第二个已匹配源字节重新候选，needle也重置至首部。
+        cursor = candidate + 1;
+        value = *cursor++;
+    }
+}
+
 namespace {
 
 struct LegacyFileErrorEntry {

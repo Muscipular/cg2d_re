@@ -2367,7 +2367,7 @@ void Sub_50B380(const std::uintptr_t /*socket*/, const char* const payload)
             const std::int32_t y = platform::Atoi_53C649(field);
             network::ExtractDelimitedField_52CED0(row, '|', 4, 2047, field);
             const std::int32_t count = platform::Atoi_53C649(field);
-            std::sprintf(label, "%d \xAA\xF7\xB9\xF4", count);
+            platform::FormatLegacyString_53B304(label, "%d \xAA\xF7\xB9\xF4", count);
             std::int32_t imageNo;
             if (count < 50) {
                 imageNo = 0x6B08;
@@ -2668,7 +2668,7 @@ std::int32_t Sub_50C940(
     char escaped[1024];
     char packet[1024];
     input::EscapeInputText_52D2D0(context, escaped, 1024);
-    std::sprintf(packet, "P|%s", escaped);
+    platform::FormatLegacyString_53B304(packet, "P|%s", escaped);
     const std::int32_t mode = platform::gValue73ECBC;
     const std::int32_t range = platform::gValue554640;
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);

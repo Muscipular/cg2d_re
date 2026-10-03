@@ -2,6 +2,7 @@
 
 #include "../LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
+#include "../platform/LegacyFormat.hpp"
 #include "WorldUpdateDependencies.hpp"
 
 #include "cg/CharacterSelectScene.hpp"
@@ -281,7 +282,7 @@ std::int32_t Sub_455C90()
     const char* thirdText;
     char errorText[256];
     if (login::gValue593FC0 != 0) {
-        std::sprintf(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
+        platform::FormatLegacyString_53B304(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
         thirdText = kTryOtherServer;
     } else {

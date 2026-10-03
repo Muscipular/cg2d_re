@@ -4977,7 +4977,7 @@
     {
       "original_entry": "0x465A80",
       "inventory_id": "F:00065A80",
-      "status": "既有配置父的全部四处格式已接真实核心；完整配置/启动运行未验",
+      "status": "配置父四格式及八子串查找点已接真实核心；完整配置/启动运行未验",
       "original_role": "配置读取及命令行改写",
       "sources": [
         {
@@ -4992,7 +4992,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "保留A接口、固定容量及索引255判断，命令行前缀分支保持原指针/复制顺序，最终复制到唯一共享存储并返回sprintf结果。屏幕键盘按已批排除固定为普通输入，仍读配置。 四个宿主sprintf已改接真实53B304，原三%s路径参数、两个前缀借用当前指针、末次%s持久化/指针发布及S32计数返回保持。仅改格式及内部头，其余配置/API/字符串分支逐字保持；原缓冲容量/预清差异、固定255判断、从复制头跳过11B及屏幕→活动指针采样顺序不改，不新增保护/补值或恢复屏幕键盘。只静态核新增差异，不记完整配置或启动运行已验收。",
+      "boundary": "保留A接口、固定容量及索引255判断，命令行前缀分支保持原指针/复制顺序，最终复制到唯一共享存储并返回sprintf结果。屏幕键盘按已批排除固定为普通输入，仍读配置。 四个宿主sprintf已改接真实53B304，原三%s路径参数、两个前缀借用当前指针、末次%s持久化/指针发布及S32计数返回保持。仅改格式及内部头，其余配置/API/字符串分支逐字保持；原缓冲容量/预清差异、固定255判断、从复制头跳过11B及屏幕→活动指针采样顺序不改，不新增保护/补值或恢复屏幕键盘。只静态核新增差异，不记完整配置或启动运行已验收。 本步八原点接53BE40，当前gCommandLine两窗口门禁/屏幕后commandAfterScreen两活动门禁/同一effect四效果首命中次序保持。整份SetupIni仅八标识符/唯一已有头；仍从复制头跳过长度而非匹配指针，不修改屏幕/活动指针快照、已存预清或其他字符串依赖。",
       "original_end_exclusive": "0x465EFC",
       "instruction_count": 347,
       "original_direct_reference_count": 1,
@@ -5089,7 +5089,171 @@
           "relationship": "末次%s复制当前共享指针后再发布唯一持久化指针；核心S32返回计数保留至ret，不变成配置成功标志"
         }
       ],
-      "verification_level": "完整347条原指令/唯一入向、四格式/五原字节组及参数借用/格式后指针发布/最终S32返回、全源码五项限定替换/两文档追加/JSON限定差异静态核对；不重新验API/字符串工具内部，未执行"
+      "verification_level": "完整347条原指令/唯一入向、四格式/五原字节组及参数借用/格式后指针发布/最终S32返回、全源码五项限定替换/两文档追加/JSON限定差异静态核对；不重新验API/字符串工具内部，未执行；本步347统计/八点邻112读取、八push/六不同含NUL字节与唯一入向、整份源码限定差异静态核对，余235条及原核心/四格式正文不重验，未执行",
+      "search_byte_evidence": [
+        {
+          "call_site": "0x465C1F",
+          "push_site": "0x465C19",
+          "address": "0x55D108",
+          "bytes": "77696e646f776d6f646500"
+        },
+        {
+          "call_site": "0x465C9E",
+          "push_site": "0x465C98",
+          "address": "0x55D108",
+          "bytes": "77696e646f776d6f646500"
+        },
+        {
+          "call_site": "0x465D37",
+          "push_site": "0x465D31",
+          "address": "0x55D0C8",
+          "bytes": "6f6e6c7961637469766500"
+        },
+        {
+          "call_site": "0x465DB3",
+          "push_site": "0x465DAD",
+          "address": "0x55D0C8",
+          "bytes": "6f6e6c7961637469766500"
+        },
+        {
+          "call_site": "0x465E18",
+          "push_site": "0x465E0C",
+          "address": "0x55D094",
+          "bytes": "47454e4552414c45464600"
+        },
+        {
+          "call_site": "0x465E3A",
+          "push_site": "0x465E34",
+          "address": "0x55D088",
+          "bytes": "53494d554c41544545464600"
+        },
+        {
+          "call_site": "0x465E5C",
+          "push_site": "0x465E56",
+          "address": "0x55D07C",
+          "bytes": "414c50484145464600"
+        },
+        {
+          "call_site": "0x465E7E",
+          "push_site": "0x465E78",
+          "address": "0x55D074",
+          "bytes": "4841524445464600"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C1F",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x465C19",
+          "relationship": "NORMAL且未命中时才接原前缀格式/发布"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C9E",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x465C98",
+          "relationship": "FULLSCREEN且命中时原复制后从缓冲头跳过长度"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465D37",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandAfterScreen",
+          "needle_expression": "\"onlyactive\"",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x465D31",
+          "relationship": "原屏幕后EDI快照；ONLYACTIVE未命中时原前缀格式/发布"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465DB3",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandAfterScreen",
+          "needle_expression": "\"onlyactive\"",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x465DAD",
+          "relationship": "同一EDI快照；NOACTIVE命中时原复制后从缓冲头跳过长度"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E18",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"GENERALEFF\"",
+          "needle_bytes": "47454e4552414c45464600",
+          "needle_address": "0x55D094",
+          "needle_push_site": "0x465E0C",
+          "relationship": "原模式先清0，首命中写1并跳过其余效果"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E3A",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"SIMULATEEFF\"",
+          "needle_bytes": "53494d554c41544545464600",
+          "needle_address": "0x55D088",
+          "needle_push_site": "0x465E34",
+          "relationship": "前项未命中才查，命中写2并跳过其余效果"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E5C",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"ALPHAEFF\"",
+          "needle_bytes": "414c50484145464600",
+          "needle_address": "0x55D07C",
+          "needle_push_site": "0x465E56",
+          "relationship": "前两项未命中才查，命中写3并跳过末项"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E7E",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"HARDEFF\"",
+          "needle_bytes": "4841524445464600",
+          "needle_address": "0x55D074",
+          "needle_push_site": "0x465E78",
+          "relationship": "前三项未命中才查，命中写4，否则保留0"
+        }
+      ]
     },
     {
       "original_entry": "0x465F00",
@@ -10897,7 +11061,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及33个业务调用已接；其他20原引用及完整运行未闭合",
+      "status": "原66条子串查找直接本体及41个业务调用已接；其他12原引用及完整运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -10969,6 +11133,13 @@
             "HandleResponse_508800"
           ],
           "relationship": "原50885B真实|分隔符定位，借用返回连接前缀复制和共享防护表解析"
+        },
+        {
+          "path": "src/platform/SetupIni.cpp",
+          "symbols": [
+            "ReadSetupIni"
+          ],
+          "relationship": "原465A80八窗口/活动/效果点直接53BE40，同一当前命令/屏幕后快照/效果局部与门禁次序保持"
         }
       ],
       "evidence_documents": [
@@ -10978,9 +11149,10 @@
         "doc/ui_windows/shared_battle.md",
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_command_options.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_setup_ini.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53，其他20原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53；本步配置八处再接，合41/53，其他12原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。 配置八处只将返回用于原零/非零门禁，原窗口/活动前缀与四效果发布保持；整份父其余API/复制/比较/长度/预清/四格式逐字不动，不扩大配置或启动验收。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -11387,6 +11559,118 @@
           "needle_bytes": "49503a00",
           "needle_address": "0x55D060",
           "needle_push_site": "0x507C9E"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C1F",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x465C19",
+          "relationship": "NORMAL且未命中时才接原前缀格式/发布"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C9E",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x465C98",
+          "relationship": "FULLSCREEN且命中时原复制后从缓冲头跳过长度"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465D37",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandAfterScreen",
+          "needle_expression": "\"onlyactive\"",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x465D31",
+          "relationship": "原屏幕后EDI快照；ONLYACTIVE未命中时原前缀格式/发布"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465DB3",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandAfterScreen",
+          "needle_expression": "\"onlyactive\"",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x465DAD",
+          "relationship": "同一EDI快照；NOACTIVE命中时原复制后从缓冲头跳过长度"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E18",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"GENERALEFF\"",
+          "needle_bytes": "47454e4552414c45464600",
+          "needle_address": "0x55D094",
+          "needle_push_site": "0x465E0C",
+          "relationship": "原模式先清0，首命中写1并跳过其余效果"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E3A",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"SIMULATEEFF\"",
+          "needle_bytes": "53494d554c41544545464600",
+          "needle_address": "0x55D088",
+          "needle_push_site": "0x465E34",
+          "relationship": "前项未命中才查，命中写2并跳过其余效果"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E5C",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"ALPHAEFF\"",
+          "needle_bytes": "414c50484145464600",
+          "needle_address": "0x55D07C",
+          "needle_push_site": "0x465E56",
+          "relationship": "前两项未命中才查，命中写3并跳过末项"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465E7E",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "effect",
+          "needle_expression": "\"HARDEFF\"",
+          "needle_bytes": "4841524445464600",
+          "needle_address": "0x55D074",
+          "needle_push_site": "0x465E78",
+          "relationship": "前三项未命中才查，命中写4，否则保留0"
         }
       ],
       "single_byte_tail_connection": {
@@ -11399,7 +11683,7 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行",
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行；配置465A80八真实call/六不同字节与源快照/效果顺序、347统计112邻读取/唯一入向、父仅八标识符和已有头增量静态核对，原核心/声明保持，不重验其余235条或API/配置运行",
       "battle_header_table_evidence": {
         "address": "0x553E94",
         "entry_count": 25,

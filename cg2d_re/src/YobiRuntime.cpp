@@ -17471,7 +17471,7 @@ static_assert(sizeof(kBattleMStatusBandImages) + sizeof(kBattleMStatusImages54D7
         } else if (skill == 2006 || (skill >= 2010 && skill <= 2015) || skill == 2027) {
             if (skill == 2013) {
                 std::array<char, 64> output;
-                std::sprintf(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
+                platform::FormatLegacyString_53B304(output.data(), "performIndex = %d", gBattleMSkillLevelIndex5A3A18);
                 platform::WriteLegacyDebugString(output.data());
                 if ((gBattleMResultFlags5A4A20 & 0x80000u) == 0) {
                     continue;

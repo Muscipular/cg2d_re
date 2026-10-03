@@ -26135,7 +26135,7 @@ login::YobiAction* Sub_4A33C0(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3600);
     char buffer[1024];
-    std::sprintf(buffer, kMailDeleteContactFormat58759C, world::detail::gContactsF19FB0[index].name10.data());
+    platform::FormatLegacyString_53B304(buffer, kMailDeleteContactFormat58759C, world::detail::gContactsF19FB0[index].name10.data());
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
@@ -26144,7 +26144,7 @@ login::YobiAction* Sub_4A3480(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A3660);
     char buffer[1024];
-    std::sprintf(buffer, kMailDeleteGuildFormat5875F4, login::detail::gOrderedRecords1051B14[index].text18);
+    platform::FormatLegacyString_53B304(buffer, kMailDeleteGuildFormat5875F4, login::detail::gOrderedRecords1051B14[index].text18);
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }
@@ -26153,7 +26153,7 @@ login::YobiAction* Sub_4A3540(const std::int32_t index)
 {
     InitializeMailDeleteConfirmation(&Sub_4A36B0);
     char buffer[1024];
-    std::sprintf(buffer, kMailDeleteMiniFormat587654, world::detail::ReadMiniMailContact1075A90(index).name10.data());
+    platform::FormatLegacyString_53B304(buffer, kMailDeleteMiniFormat587654, world::detail::ReadMiniMailContact1075A90(index).name10.data());
     std::strcpy(gWindow47Runtime.textCC426C.data(), buffer);
     return CreateWindowAnimation_475AA0(47, 1, 0, nullptr);
 }

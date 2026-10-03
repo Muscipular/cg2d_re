@@ -782,3 +782,14 @@ D67840鼠标原型仅W32 flags，未加载区不以FF初始化；实例12B仍由
 [窗口22](window_22.md)已补初始化、草稿释放、输入聚焦、六条发送路径及九元素，
 继续复用本窗口生产的D2F0B8。群发所需窗口49选人生产、窗口23宠物邮件和
 其他邮件父链仍待，不能把22的静态本体齐备转记为完整发信流程验收。
+
+
+## RPLAN.24 三删除确认真实格式（2026-10-04）
+
+局部 SPEC 与裁决：0x4A33C0：仅一现格式callee接一原点；S32 index/真实YobiAction*返回、原InitializeMailDeleteConfirmation(&Sub_4A3600)及全部初始化正文保持。借既有普通联系人F19FB0名字T* world::detail::gContactsF19FB0[index].name10.data()，以0x58759C原旧编码字节格式/%s写未清1024B，再含NUL复制唯一CC426C文本区，返回CreateWindowAnimation_475AA0(47,1,0,nullptr)真实对象。不改变确认/取消回调与载荷、合并三源、预清、扩容、保护、转义或翻译原文本。
+
+0x4A3480：仅一现格式callee接一原点；S32 index/真实YobiAction*返回、原InitializeMailDeleteConfirmation(&Sub_4A3660)及全部初始化正文保持。借既有公会1051B14既有有序记录名字T* login::detail::gOrderedRecords1051B14[index].text18，以0x5875F4原旧编码字节格式/%s写未清1024B，再含NUL复制唯一CC426C文本区，返回CreateWindowAnimation_475AA0(47,1,0,nullptr)真实对象。不改变确认/取消回调与载荷、合并三源、预清、扩容、保护、转义或翻译原文本。
+
+0x4A3540：仅一现格式callee接一原点；S32 index/真实YobiAction*返回、原InitializeMailDeleteConfirmation(&Sub_4A36B0)及全部初始化正文保持。借既有迷你邮件1075A90名字T* world::detail::ReadMiniMailContact1075A90(index).name10.data()，以0x587654原旧编码字节格式/%s写未清1024B，再含NUL复制唯一CC426C文本区，返回CreateWindowAnimation_475AA0(47,1,0,nullptr)真实对象。不改变确认/取消回调与载荷、合并三源、预清、扩容、保护、转义或翻译原文本。
+
+三原51各40新T*来源/回调字段/格式/含NUL消费及建窗返回邻窗仅读，余各11及已过初始化/核心不重验；三加载格式原旧字节与现constexpr静态对应，三个T*/1024B及同源CC426C/真实YobiAction*返回限定静态核。各普通call1/data0只登记；完整删除父/确认/生产/CRT/画面/运行未据本步验收。

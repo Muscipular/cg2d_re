@@ -6611,10 +6611,10 @@ void Sub_4B1940(
             const std::size_t memoLength = std::strlen(item.memo.data());
             gTradePreviewCC2E64 = hovered;
             if (memoLength != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer, "%s[kok]", item.name.data());
+                platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer, "%s[han]", item.memo.data());
+                platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -6653,7 +6653,7 @@ void Sub_4B1940(
         static_cast<void>(login::detail::DrawGraphic(centerX, centerY, 223, item.imageNo, 0, mode));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            platform::FormatLegacyString_53B304(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -7066,10 +7066,10 @@ void Sub_4B2730(
             if (item.used != 0) {
                 gTradePreviewCC2E64 = slot;
                 if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                    std::sprintf(buffer, "%s[kok]", item.name.data());
+                    platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 } else if ((item.flags & 0x200u) != 0) {
-                    std::sprintf(buffer, "%s[han]", item.memo.data());
+                    platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 }
             }
@@ -7105,7 +7105,7 @@ void Sub_4B2730(
             centerX, centerY, 223, item.imageNo, 0, descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            platform::FormatLegacyString_53B304(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),
@@ -7387,13 +7387,13 @@ void Sub_4B3610(
                     showName = (flags & 0x100u) != 0;
                 }
                 if (showName) {
-                    std::sprintf(buffer, "%s[kok]", record + 0x10);
+                    platform::FormatLegacyString_53B304(buffer, "%s[kok]", record + 0x10);
                     std::strcpy(gHoverTextD68AE8.data(), buffer);
                 } else {
                     std::uint32_t flags;
                     std::memcpy(&flags, record + 0xC34, sizeof(flags));
                     if ((flags & 0x200u) != 0) {
-                        std::sprintf(buffer, "%s[han]", memo);
+                        platform::FormatLegacyString_53B304(buffer, "%s[han]", memo);
                         std::strcpy(gHoverTextD68AE8.data(), buffer);
                     }
                 }
@@ -7425,7 +7425,7 @@ void Sub_4B3610(
             std::int32_t count;
             std::memcpy(&count, record + 8, sizeof(count));
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerX - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(centerY + 7)),

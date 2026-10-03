@@ -10607,7 +10607,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         const std::int32_t statusX = gLegacyGuildContactPanel58EF90.x + 105;
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, &descriptor));
         const std::int32_t valueIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
-        std::sprintf(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
+        platform::FormatLegacyString_53B304(buffer, "%3d", gOrderedRecords1051B14[valueIndex].value10);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameIndex = std::bit_cast<std::int32_t>(platform::BgmRuntimeOrderWords()[position]);
         drawAt(gOrderedRecords1051B14[nameIndex].text18, 77, 68 + 90 * row, color);
@@ -10621,7 +10621,7 @@ std::uintptr_t Sub_52FD60(const std::int32_t opened)
         Sub_5035E0(&removes[row], 212, 1, gValueD69768, 0);
         Sub_5035E0(&ranks[row], 212, 1, gValueD69768, 0);
     }
-    std::sprintf(buffer, "%2d/%2d", gLegacyGuildPage1050B78 + 1, 50);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", gLegacyGuildPage1050B78 + 1, 50);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&sort, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);

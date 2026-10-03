@@ -2003,7 +2003,7 @@ std::uint32_t Sub_4D3410(const std::int32_t opened)
     const std::int32_t buttonMask = Sub_4D31C0();
     if (buttonMask != 0 || chosen >= 0) {
         char buffer[512];
-        std::sprintf(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
+        platform::FormatLegacyString_53B304(buffer, "%d", chosen - gLegacyDialogFirstLineD673D4 + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 256, 255));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;

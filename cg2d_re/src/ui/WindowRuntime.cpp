@@ -18302,7 +18302,7 @@ login::YobiAction* Sub_4B77E0(const char* const text)
     WriteTradeValue(detail, 0xC28, network::ParseDelimitedInteger_52CFA0(text, '|', 9));
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 10, 768, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
-    std::strncpy(detail, std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), 29);
+    platform::StrNCpy_53BEC0(detail, std::strlen(buffer.data()) > 28 ? "???" : buffer.data(), 29);
     static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 11, 767, buffer.data()));
     input::UnescapeLegacyTextAndNotify_52D2F0(buffer.data());
     for (std::int32_t row = 0; row < 32; ++row) {

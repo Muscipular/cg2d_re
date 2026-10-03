@@ -19016,7 +19016,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
             break;
         }
     }
-    std::sprintf(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(gShopMoneyTextCC1A00.data(), "%10d", world::detail::ReadPlayerValueFC());
     if (gMaterialOccupancyCC4894[20] == 0) {
         const std::int32_t total = gShopTotalD2DAFC;
         const std::int32_t money = world::detail::ReadPlayerValueFC();
@@ -19036,7 +19036,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         gShopAvailableCF4A24 = total;
         if (total != previous) {
             Sub_4B8C90();
-            std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
+            platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", gShopAvailableCF4A24);
         }
     }
     if (gShopMessage580848 >= 0) {
@@ -19051,7 +19051,7 @@ std::int32_t Sub_4B9310(const std::int32_t value)
         } else {
             std::memcpy(&amount, gShopDetailCC3210.data() + 0xC24, sizeof(amount));
         }
-        std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", amount);
+        platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", amount);
     }
     return 1;
 }
@@ -19070,7 +19070,7 @@ void Sub_4B9B10(const std::int32_t selection)
     char* const text = textBuffer.data();
     char* const escaped = text + 256;
     if (mode == 3) {
-        std::sprintf(text, "1|%d", gShopValueD046C4);
+        platform::FormatLegacyString_53B304(text, "1|%d", gShopValueD046C4);
     } else {
         text[0] = '\0';
         std::int32_t count = 0;
@@ -19090,13 +19090,13 @@ void Sub_4B9B10(const std::int32_t selection)
             if (mode == 4 || mode == 5) {
                 std::int32_t inventoryIndex;
                 std::memcpy(&inventoryIndex, record + 0xC2C, sizeof(inventoryIndex));
-                std::sprintf(fragment, "%d", inventoryIndex);
+                platform::FormatLegacyString_53B304(fragment, "%d", inventoryIndex);
             } else {
                 std::int32_t itemIndex = index;
                 if (mode == 1) {
                     std::memcpy(&itemIndex, record + 0xC2C, sizeof(itemIndex));
                 }
-                std::sprintf(fragment, "%d|%d", itemIndex, selected);
+                platform::FormatLegacyString_53B304(fragment, "%d|%d", itemIndex, selected);
             }
             std::strcat(text, fragment);
             ++count;
@@ -19350,12 +19350,12 @@ std::int32_t Sub_4B9F40(const std::int32_t index, const std::int32_t state)
         }
         if (overlayReady) {
             if (mode == 2) {
-                std::sprintf(gConfirmationLineCB1320.data(),
+                platform::FormatLegacyString_53B304(gConfirmationLineCB1320.data(),
                     kShopConfirmHeadings[textMode], gShopTextCB0184.data());
             } else {
-                std::sprintf(gConfirmationLineCB1320.data(), kShopConfirmHeadings[textMode]);
+                platform::FormatLegacyString_53B304(gConfirmationLineCB1320.data(), kShopConfirmHeadings[textMode]);
             }
-            std::sprintf(gConfirmationLineCB1210.data(), kShopConfirmQuestions[textMode]);
+            platform::FormatLegacyString_53B304(gConfirmationLineCB1210.data(), kShopConfirmQuestions[textMode]);
             std::strcpy(gConfirmationAcceptHintCC3FCC.data(), kShopConfirmAcceptHints[textMode]);
             const char* const cancelHint = kShopHints57E6C4[2];
             if (mode == 2) {

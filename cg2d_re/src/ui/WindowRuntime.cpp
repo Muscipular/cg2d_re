@@ -27534,7 +27534,7 @@ std::uint8_t Sub_4A6AC0()
         const std::int32_t count = world::detail::gPlayerItemsFDA8A4[countSlot].count;
         if (count > 0) {
             char buffer[64];
-            std::sprintf(buffer, "%3d", count);
+            platform::FormatLegacyString_53B304(buffer, "%3d", count);
             const WindowInstance* const textWindow = gCurrentWindow;
             const auto textY = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->y + 232));
             const auto textX = std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(textWindow->x + 174));

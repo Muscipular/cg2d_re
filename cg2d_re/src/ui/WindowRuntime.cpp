@@ -9869,7 +9869,7 @@ std::int32_t Sub_49E1D0(
     std::array<char, 64> buffer;
     for (std::int32_t index = 0; index < 7; ++index) {
         if (gHealingDialogRecordsD672F0[index].level != 0) {
-            std::sprintf(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
+            platform::FormatLegacyString_53B304(buffer.data(), "%7d G", gHealingDialogRecordsD672F0[index].cost);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(window->x + 336),
                 static_cast<std::int16_t>(window->y + index * 16 + 52),
@@ -9882,7 +9882,7 @@ std::int32_t Sub_49E1D0(
             }
         }
     }
-    std::sprintf(buffer.data(), "               \xA9\xD2\xAB\xF9\xAA\xF7 %7d \xAA\xF7\xB9\xF4",
+    platform::FormatLegacyString_53B304(buffer.data(), "               \xA9\xD2\xAB\xF9\xAA\xF7 %7d \xAA\xF7\xB9\xF4",
         world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(window->x + 24),
@@ -9952,22 +9952,22 @@ login::YobiAction* Sub_49E400(
     }
     gHealingDialogRecordsD672F0[6].level = 1;
     gHealingDialogRecordsD672F0[6].cost = totalCost;
-    std::sprintf(buffer.data(), "         \xBD\xD0\xBF\xEF\xBE\xDC\xAA\x76\xC0\xF8\xB9\xEF\xB6\x48");
+    platform::FormatLegacyString_53B304(buffer.data(), "         \xBD\xD0\xBF\xEF\xBE\xDC\xAA\x76\xC0\xF8\xB9\xEF\xB6\x48");
     std::strcpy(gDialogLinesCB1398[0].text.data(), buffer.data());
-    std::sprintf(buffer.data(), "   Health   LV        Name             Gold");
+    platform::FormatLegacyString_53B304(buffer.data(), "   Health   LV        Name             Gold");
     std::strcpy(gDialogLinesCB1398[1].text.data(), buffer.data());
     for (std::int32_t index = 0; index < 6; ++index) {
         const auto& record = gHealingDialogRecordsD672F0[index];
         if (record.level != 0) {
-            std::sprintf(buffer.data(), "           %3d  %-16s", record.level, record.name.data());
+            platform::FormatLegacyString_53B304(buffer.data(), "           %3d  %-16s", record.level, record.name.data());
             std::strcpy(gDialogLinesCB1398[index + 2].text.data(), buffer.data());
         } else {
             gDialogLinesCB1398[index + 2].text[0] = '\0';
         }
     }
-    std::sprintf(buffer.data(), "           \xA7\xB9\xBE\xE3\xAA\x76\xC0\xF8");
+    platform::FormatLegacyString_53B304(buffer.data(), "           \xA7\xB9\xBE\xE3\xAA\x76\xC0\xF8");
     std::strcpy(gDialogLinesCB1398[8].text.data(), buffer.data());
-    buffer[0] = '\0'; // 原String1@D68A7C空格式的结果，不借用593850。
+    platform::FormatLegacyString_53B304(buffer.data(), ""); // 原String1@D68A7C虚拟零空格式，不借用593850。
     std::strcpy(gDialogLinesCB1398[9].text.data(), buffer.data());
     std::strcpy(gDialogLinesCB1398[10].text.data(), input::LegacyText593850());
     gDialogReply.firstLine = 2;

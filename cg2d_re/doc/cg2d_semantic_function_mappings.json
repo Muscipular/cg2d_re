@@ -10973,7 +10973,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及十六个业务复制调用已接；其他二十三引用及完整运行未闭合",
+      "status": "原直接本体及二十个业务复制调用已接；其他十九引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11026,7 +11026,7 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接十六处，其他23处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十处，其他19处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11203,9 +11203,53 @@
           "count_value": 112,
           "count_width": "U32",
           "relationship": "说明转义后复制escaped至description；先采样socket再写description[112]NUL并发送"
+        },
+        {
+          "parent_entry": "0x423960",
+          "call_site": "0x4239AF",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMObjectHeader_423960",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "对象S32 +64H逐次扫描，三字节复制后caller写[3]NUL，再重读原偏移加4；首两字节/循环NUL返回1保持"
+        },
+        {
+          "parent_entry": "0x439070",
+          "call_site": "0x4390C3",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMHeader_439070",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "独立5A8A3C扫描位置先发布，再复制3B/[3]NUL/重读加4；循环NUL发布位置再返回1"
+        },
+        {
+          "parent_entry": "0x439700",
+          "call_site": "0x439753",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMPreviewHeader_439700",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "独立5AAA60扫描位置先发布，再复制3B/[3]NUL/重读加4；不与5A8A3C合并，循环NUL发布后返回1"
+        },
+        {
+          "parent_entry": "0x43B6C0",
+          "call_site": "0x43B70D",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "FinishBattleEvent_43B6C0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异"
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行"
     },
     {
       "original_entry": "0x544DB0",
@@ -41572,6 +41616,220 @@
           "target_entry": "0x5120D0",
           "target_symbol": "Sub_5120D0",
           "relationship": "三串按name/description/offers参数回传，共享socket先于最终说明NUL采样；发送后存档/提示/显隐保持"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x423960",
+      "inventory_id": "F:00023960",
+      "status": "既有战斗M取头三字节复制已接真实核心；其余依赖及完整运行未验",
+      "original_end_exclusive": "0x4239D0",
+      "instruction_count": 41,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetBattleMObjectHeader_423960"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x423960",
+          "call_site": "0x4239AF",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMObjectHeader_423960",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "对象S32 +64H逐次扫描，三字节复制后caller写[3]NUL，再重读原偏移加4；首两字节/循环NUL返回1保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "完整41条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行",
+      "boundary": "对象S32 +64H逐次扫描，三字节复制后caller写[3]NUL，再重读原偏移加4；首两字节/循环NUL返回1保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。",
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x4239D0",
+          "reference_site": "0x4239F5",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        },
+        {
+          "parent_entry": "0x427470",
+          "reference_site": "0x4275FE",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x439070",
+      "inventory_id": "F:00039070",
+      "status": "既有战斗M取头三字节复制已接真实核心；其余依赖及完整运行未验",
+      "original_end_exclusive": "0x4390E0",
+      "instruction_count": 35,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetBattleMHeader_439070"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x439070",
+          "call_site": "0x4390C3",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMHeader_439070",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "独立5A8A3C扫描位置先发布，再复制3B/[3]NUL/重读加4；循环NUL发布位置再返回1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "完整35条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行",
+      "boundary": "独立5A8A3C扫描位置先发布，再复制3B/[3]NUL/重读加4；循环NUL发布位置再返回1。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。",
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x43B360",
+          "reference_site": "0x43B4D2",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        },
+        {
+          "parent_entry": "0x43BAA0",
+          "reference_site": "0x43BAB6",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x439700",
+      "inventory_id": "F:00039700",
+      "status": "既有战斗M取头三字节复制已接真实核心；其余依赖及完整运行未验",
+      "original_end_exclusive": "0x439770",
+      "instruction_count": 35,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetBattleMPreviewHeader_439700"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x439700",
+          "call_site": "0x439753",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "GetBattleMPreviewHeader_439700",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "独立5AAA60扫描位置先发布，再复制3B/[3]NUL/重读加4；不与5A8A3C合并，循环NUL发布后返回1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "完整35条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行",
+      "boundary": "独立5AAA60扫描位置先发布，再复制3B/[3]NUL/重读加4；不与5A8A3C合并，循环NUL发布后返回1。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。",
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x439770",
+          "reference_site": "0x43978B",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        },
+        {
+          "parent_entry": "0x43B290",
+          "reference_site": "0x43B2A5",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x43B6C0",
+      "inventory_id": "F:0003B6C0",
+      "status": "既有事件推进三字节复制已接真实核心；其余依赖及完整运行未验",
+      "original_end_exclusive": "0x43B7EB",
+      "instruction_count": 109,
+      "original_direct_reference_count": 94,
+      "original_direct_call_reference_count": 94,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "FinishBattleEvent_43B6C0"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x43B6C0",
+          "call_site": "0x43B70D",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "FinishBattleEvent_43B6C0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "完整109条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行",
+      "boundary": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。",
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x4239D0",
+          "reference_count": 1,
+          "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
+        },
+        {
+          "parent_entry": "0x424620",
+          "reference_count": 4,
+          "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
+        },
+        {
+          "parent_entry": "0x426FC0",
+          "reference_count": 1,
+          "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
+        },
+        {
+          "parent_entry": "0x427470",
+          "reference_count": 88,
+          "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
         }
       ]
     }

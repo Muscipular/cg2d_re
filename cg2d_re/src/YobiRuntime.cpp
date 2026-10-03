@@ -11444,7 +11444,7 @@ std::int32_t GetBattleMHeader_439070(char* const destination)
         ++offset;
     }
     gBattleMScanOffset5A8A3C = offset;
-    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, 3);
+    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + offset, 3);
     destination[3] = '\0';
     gBattleMScanOffset5A8A3C += 4;
     return 0;
@@ -11614,7 +11614,7 @@ std::int32_t GetBattleMPreviewHeader_439700(char* const destination)
         ++offset;
     }
     gBattleMPreviewOffset5AAA60 = offset;
-    std::strncpy(destination, gBattleMText5AAA7C.data() + offset, 3);
+    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + offset, 3);
     destination[3] = '\0';
     gBattleMPreviewOffset5AAA60 += 4;
     return 0;
@@ -12513,7 +12513,7 @@ std::int32_t GetBattleMObjectHeader_423960(YobiAction* const action, char* const
         }
         payload->packetOffset64 = offset + 1;
     }
-    std::strncpy(destination, gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
+    platform::StrNCpy_53BEC0(destination, gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
     destination[3] = '\0';
     payload->packetOffset64 += 4;
     return 0;
@@ -19744,7 +19744,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         }
         // 原43B6FD在NUL处也复制并推进，不复用带NUL早退的423960。
         std::array<char, 4> header;
-        std::strncpy(header.data(), gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
+        platform::StrNCpy_53BEC0(header.data(), gBattleMText5AAA7C.data() + payload->packetOffset64, 3);
         const std::int32_t next = payload->packetOffset64 + 4;
         header[3] = '\0';
         payload->packetOffset64 = next;

@@ -6401,8 +6401,8 @@ YobiAction* NewBattleText_4217F0(
     const char* current = text;
     payload->remaining10 = duration;
     payload->fontType0C = fontType;
-    for (const char* newline = std::strchr(current, '\n'); newline != nullptr;
-         newline = std::strchr(newline + 1, '\n')) {
+    for (const char* newline = platform::StrChr_53C2F0(current, '\n'); newline != nullptr;
+         newline = platform::StrChr_53C2F0(newline + 1, '\n')) {
         ++payload->lineCount08;
     }
     ++payload->lineCount08;
@@ -6413,7 +6413,7 @@ YobiAction* NewBattleText_4217F0(
     std::int32_t index = 0;
     if (current != nullptr) {
         do {
-            const char* const newline = std::strchr(current, '\n');
+            const char* const newline = platform::StrChr_53C2F0(current, '\n');
             const std::int32_t length = newline != nullptr
                 ? static_cast<std::int32_t>(newline - current)
                 : static_cast<std::int32_t>(std::strlen(current));

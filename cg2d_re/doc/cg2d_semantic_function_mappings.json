@@ -12187,7 +12187,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符核心及21业务调用点已接；其他4原引用及完整运行未闭合",
+      "status": "原89条字符核心及24业务调用点已接；5480D0一原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -12261,6 +12261,13 @@
             "UpdateCapability4Modal_464450"
           ],
           "relationship": "4644C5/4644F4两实际原LF点由currentLine同一循环表达式直接53C2F0承接，W32行数与布局正文保持"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleText_4217F0"
+          ],
+          "relationship": "原421851/421868/42189E三LF点直接53C2F0，计数与生产源/借用推进保持"
         }
       ],
       "evidence_documents": [
@@ -12270,9 +12277,10 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_login_state_controller.md",
         "doc/cg2d_capability4_modal_update.md",
-        "doc/ui_windows/window_51.md"
+        "doc/ui_windows/window_51.md",
+        "doc/cg2d_yobi_runtime.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处/窗口文本十处共21处已接，其他4未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他4原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩4原引用待接线分类。 本步坐标括号两点/对话LF一处/邮件三个斜线点/两51生产入口四LF点，共十原点由六源码表达式承接，源/借用返回/目标低W8和现共用helper链保持；只替换标识符，不重写解析、状态/分配、字段布局或父运行验收。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处/窗口文本十处/战斗文本三处共24处已接，其他1未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，5480D0一原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩5480D0一原引用待接线分类。 本步坐标括号两点/对话LF一处/邮件三个斜线点/两51生产入口四LF点，共十原点由六源码表达式承接，源/借用返回/目标低W8和现共用helper链保持；只替换标识符，不重写解析、状态/分配、字段布局或父运行验收。 战斗文本三处LF查找的首源/借用newline+1/逐行current保持，整份YobiRuntime仅三个标识符；原计数/分配复制/布局/payload与音效正文不改，不新增内部tail入口计数或称完整动作/CRT运行通过。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -12552,9 +12560,45 @@
             "RebuildWindowLines51"
           ],
           "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
+        },
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x421851",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "current",
+          "target_byte": 10,
+          "target_push_site": "0x421848",
+          "relationship": "计数首次"
+        },
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x421868",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "newline + 1",
+          "target_byte": 10,
+          "target_push_site": "0x421860",
+          "relationship": "计数回边，原行数+1后借用地址推进"
+        },
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x42189E",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "current",
+          "target_byte": 10,
+          "target_push_site": "0x42189B",
+          "relationship": "逐行生产，原长度/分配/复制/推进保持"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验；五父1358统计160查找邻读取、十真实call/目标push及原六入向/六源码表达式与三组共用关系、单文件仅六标识符和两51入口helper链静态核对，余1198条及既有核心不重验",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验；五父1358统计160查找邻读取、十真实call/目标push及原六入向/六源码表达式与三组共用关系、单文件仅六标识符和两51入口helper链静态核对，余1198条及既有核心不重验；4217F0原169统计44查找邻读取、三真实点/0AH push及计数/生产借用源/唯一43758A入向、整份源仅三个标识符静态核对，余125条及已过核心不重验",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -46660,6 +46704,76 @@
       ],
       "verification_level": "本步原256条统计/34查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余222条/所有上游与完整父不重验，未构建或执行",
       "boundary": "原更新入口字段提取/反转义/既有窗口标题/清理后直接RebuildWindowLines51；同一预计数/生产两LF表达式与创建入口共用，1024B局部、双遍边界/30推进/分配复制释放及更新后重取窗口实例/原后处理保持，不加保护或假数据，完整旧51流程仍待。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
+    },
+    {
+      "original_entry": "0x4217F0",
+      "inventory_id": "F:000217F0",
+      "status": "已有战斗文字生产父正文，三LF查找依赖已接；完整动作/战斗/绘制与运行未验",
+      "original_role": "战斗文字分行/动作生产",
+      "original_end_exclusive": "0x4219C6",
+      "instruction_count": 169,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleText_4217F0"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x421851",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "current",
+          "target_byte": 10,
+          "target_push_site": "0x421848",
+          "relationship": "计数首次"
+        },
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x421868",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "newline + 1",
+          "target_byte": 10,
+          "target_push_site": "0x421860",
+          "relationship": "计数回边，原行数+1后借用地址推进"
+        },
+        {
+          "parent_entry": "0x4217F0",
+          "call_site": "0x42189E",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "NewBattleText_4217F0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "current",
+          "target_byte": 10,
+          "target_push_site": "0x42189B",
+          "relationship": "逐行生产，原长度/分配/复制/推进保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x43758A",
+          "parent_entry": "0x427470",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "原169统计/44查找邻读取、三真实call/低W8 LF push与计数首查/回边/生产源、唯一43758A/427470入向及现真实符号静态核对；整份YobiRuntime只三个标识符，余125条/全部事件上游/动作布局和生命周期不重验，未构建或执行",
+      "boundary": "本步只接真实查找：原text计数首查、newline+1回边和current逐行生产同一LF 0AH。原行数初始化/每命中+1/计数后+1、原生行指针数组和逐行calloc/长度/最长行/复制/末NUL/current推进、动作payload/回调/布局/返回与现音效正文逐字保持，不新增保护/默认/私有状态或转码，不恢复暂停音频；新记录不转记完整父/动作失败等价/CRT或跨板块运行验收。"
     }
   ]
 }

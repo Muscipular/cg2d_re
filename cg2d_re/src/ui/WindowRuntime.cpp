@@ -22513,7 +22513,7 @@ void Sub_4C1AA0()
         text[0] = '\0';
         const WindowCrystalItem& item = gWindow69ItemsCB2230[scroll + row];
         if (item.used != 0) {
-            std::sprintf(text, "%2d", item.selectedCount);
+            platform::FormatLegacyString_53B304(text, "%2d", item.selectedCount);
         }
     }
 }
@@ -22529,7 +22529,7 @@ void Sub_4C1B00()
         }
     }
     gWindow69TotalD45E70 = total;
-    std::sprintf(gWindow69TotalTextCC48B0.data(), "%10d", total);
+    platform::FormatLegacyString_53B304(gWindow69TotalTextCC48B0.data(), "%10d", total);
     const std::int32_t currentTotal = gWindow69TotalD45E70;
     const std::int32_t owned = world::detail::ReadPlayerValue15BCC();
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -22692,7 +22692,7 @@ void Sub_4C2060(const std::int32_t value)
                 if (count > 0) {
                     std::strcat(text.data(), "|");
                 }
-                std::sprintf(fragment.data(), "%d|%d", index, quantity);
+                platform::FormatLegacyString_53B304(fragment.data(), "%d|%d", index, quantity);
                 std::strcat(text.data(), fragment.data());
                 ++count;
             }
@@ -23395,7 +23395,7 @@ void Sub_4C39A0()
             const std::int32_t index = gWindow70ScrollCC4B68 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow70ItemsD30428[index].remainingC50;
-            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
                 "\xB3\xD1\xBE\x6C %2d \xAD\xD3", remaining);
         }
     }
@@ -23462,7 +23462,7 @@ void Sub_4C3D40()
         text[0] = '\0';
         const WindowCrystalItem& item = gWindow70ItemsD30428[scroll + row];
         if (item.used != 0) {
-            std::sprintf(text, "%2d", item.selectedCount);
+            platform::FormatLegacyString_53B304(text, "%2d", item.selectedCount);
         }
     }
 }
@@ -23478,7 +23478,7 @@ void Sub_4C3DA0()
         }
     }
     gWindow70TotalCB0F74 = total;
-    std::sprintf(gWindow70TotalTextD2D804.data(), "%10d", total);
+    platform::FormatLegacyString_53B304(gWindow70TotalTextD2D804.data(), "%10d", total);
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
     const std::int32_t currentTotal = gWindow70TotalCB0F74;
     auto* const number = static_cast<WindowNumberData*>(gCurrentWindow->elements[6].data);
@@ -23642,7 +23642,7 @@ void Sub_4C4270(const std::int32_t value)
                 if (count > 0) {
                     std::strcat(text.data(), "|");
                 }
-                std::sprintf(fragment.data(), "%d|%d", index, quantity);
+                platform::FormatLegacyString_53B304(fragment.data(), "%d|%d", index, quantity);
                 std::strcat(text.data(), fragment.data());
                 ++count;
             }

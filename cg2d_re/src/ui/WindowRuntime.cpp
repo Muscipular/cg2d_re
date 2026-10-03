@@ -42095,7 +42095,7 @@ std::uint32_t Sub_490780()
     };
     char buffer[256];
     const auto writeNumber = [&](const std::int32_t element, const std::int32_t value) {
-        std::sprintf(buffer, "%3d", value);
+        platform::FormatLegacyString_53B304(buffer, "%3d", value);
         static_cast<void>(copyTextBeforeScan(element, buffer));
     };
     if (selectedPet().used != 0) {
@@ -42141,11 +42141,11 @@ std::uint32_t Sub_490780()
         writeNumber(15, selectedPet().value08);
         const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
         const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
-        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
         copyTextAfterScan(16, buffer);
         const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
         const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
-        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
         copyTextAfterScan(17, buffer);
         writeNumber(19, selectedPet().lvFlag6C);
         for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
@@ -42186,7 +42186,7 @@ std::uint32_t Sub_490780()
             gCurrentWindow->elements[element].visible = 0;
         }
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(18, buffer));
 }
 

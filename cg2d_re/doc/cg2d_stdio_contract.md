@@ -3779,3 +3779,21 @@ RPLAN.24不专项模拟越界/溢出，也不称异常/故障等价。
 仅静态核对新五叶、唯一声明、W32字段/返回/源重取/发布/析构次序、两个实际方法槽/18B常量、两原点各依赖和两新源码/一行清单/九记录及合同进度限定差异、UTF-8无BOM/LF。不编译、运行或做SHA/hash校验；静态sizeof/offsetof声明不计为已执行的ABI验证。
 
 真实派生logic_error/string成员、各异常复制/析构/ThrowInfo、x64编译器传播与SDK catch类型映射、对象上游生产及原堆模式3/完整生命周期和运行仍未闭。length/range/failure不改成宿主直接throw，不因此完成整条异常链或放行既有待批CRT提案。
+
+
+## 2026-10-04 logic_error 对象父链局部 SPEC 与实施裁决
+
+本板块沿原54A6D4构造、54A7AE拷贝、54A755析构、54A792删除析构、54A062 what落地五本体，共115条（含三分离清理/handler chunk）。原54A738 Raise的10条另取证并仅真实声明，不能计本体实现。本线程依既有工程委托裁决用显式this、真实首成员base与共享窄字符串成员；不改变宿主异常提案的待批范围。
+
+原对象28B（1CH）：exception占0CH，string成员从+0C开始；新端真实base24B、string24B，整体48B、成员24、buffer32、length40、capacity44。仅已证指针拓宽；首prefix字节是U8，只复制这一字节，其他前缀不预清/补值，数值仍W32。原550184三槽已加载，对应54A792、54A062、54A738；新表真实两槽经首成员this适配调用五叶，第三槽保留Raise真实声明引用，不置空/固定抛出，不生成SDK/编译器vft、RTTI或ThrowInfo。
+
+- 构造先以既有input::LegacyText593850()实际共享地址写局部源槽，调54B079；可写593850未加载的IDA FF不当原字节，不新增初值，也不换固定空串。再读源prefix[0]→Tidy(false)→assign(source,0,当时npos)→装logic表→返this。
+- 拷贝先54B0B6真实base复制；完成后才读取源成员首U8，并按Tidy(false)/assign/npos生产成员，最后装表。不得提前快照成员、用宿主string复制或改变原共享标记。
+- 三FuncInfo551848/551890/5518B8：magic19930520、state1、try表0、唯一prev=FFFFFFFF动作分别54C414/54C428/54C43C，均只清54B100。成员构造/复制失败只清基类并重抛，不额外回滚成员；析构先装logic表/Tidy(true)，成员失败沿同一基类清理，正常基类析构在保护区外。仅以源级catch(...)表达C++清理，不模拟x86 FS/prolog/FrameHandler或称SEH/全x64运行等价。
+- 删除型先真实54A755，flags bit0才经原53B4E7→53C0A9同域释放对象，返回原地址且不再访问对象。what先取实际成员buffer；只有空时才借原55013B+1同背板，已证五原虚表入向不等于五owner都接完。
+
+源码只扩充既有LegacyException.cpp/.hpp；两显式this适配只转换真实首成员地址，不另计原函数、不分配、不自动析构。新增五本体与一Raise声明六原身份，语义1086→1092；六既有依赖根登记12个实际原调用点（含jmp展开），不改旧本体。strlen14/复制9等计数保持，因base内部调用早已记入，不重复统计。
+
+新增声明/本体、base与成员顺序、三清理作用域/原元数据、三槽真实绑定及声明边界、首成员地址适配、当前共享文本/空串别名和五文件限定差异/UTF-8无BOM/LF静态核对；旧依赖核心/已接点不复检。不构建、执行、加测或SHA/hash校验，sizeof/offsetof只留静态声明。
+
+Raise实际复制后CxxThrowException、length/range/failure各对象、ThrowInfo与SDK catch类型/x64传播、完整原堆模式3、上游调用和运行仍未闭；不以本板块代替整条异常链或整体总PLAN验收。

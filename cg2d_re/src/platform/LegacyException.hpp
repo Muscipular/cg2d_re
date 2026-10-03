@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <cstdint>
 
+#include "LegacyNarrowString.hpp"
+
 namespace cg::platform {
 
 struct LegacyExceptionObject;
@@ -34,5 +36,37 @@ void DestroyLegacyException_54B100(LegacyExceptionObject* storage);
 LegacyExceptionObject* DeleteLegacyException_54B05D(
     LegacyExceptionObject* storage, std::uint32_t flags);
 const char* GetLegacyExceptionText_54B116(const LegacyExceptionObject* storage);
+
+// 原logic_error在基类两槽后还有Raise槽；不与宿主C++异常元数据互换。
+struct LegacyExceptionRaiseMethodTable final {
+    LegacyExceptionMethodTable base;
+    void (*raise)(LegacyExceptionObject* storage);
+};
+static_assert(offsetof(LegacyExceptionRaiseMethodTable, base) == 0);
+static_assert(offsetof(LegacyExceptionRaiseMethodTable, raise) == 16);
+static_assert(sizeof(LegacyExceptionRaiseMethodTable) == 24);
+
+// 原28B（1CH）对象：exception+0C的string；地址拓宽后24B基类+24B成员。
+struct LegacyLogicErrorObject final {
+    LegacyExceptionObject base; // 原+00；实际首成员，方法槽显式this按此地址适配。
+    LegacyNarrowString message;  // 原+0C；只按原写首前缀字节及Tidy/assign。
+};
+static_assert(offsetof(LegacyLogicErrorObject, base) == 0);
+static_assert(offsetof(LegacyLogicErrorObject, message) == 24);
+static_assert(offsetof(LegacyLogicErrorObject, message)
+    + offsetof(LegacyNarrowString, buffer) == 32);
+static_assert(sizeof(LegacyLogicErrorObject) == 48);
+
+LegacyLogicErrorObject* ConstructLegacyLogicError_54A6D4(
+    LegacyLogicErrorObject* storage, const LegacyNarrowString* source);
+LegacyLogicErrorObject* CopyConstructLegacyLogicError_54A7AE(
+    LegacyLogicErrorObject* storage, const LegacyLogicErrorObject* source);
+void DestroyLegacyLogicError_54A755(LegacyLogicErrorObject* storage);
+LegacyLogicErrorObject* DeleteLegacyLogicError_54A792(
+    LegacyLogicErrorObject* storage, std::uint32_t flags);
+const char* GetLegacyLogicErrorText_54A062(const LegacyLogicErrorObject* storage);
+
+// 原54A738：实际复制后CxxThrowException入口，仅声明；不补固定异常或返回。
+void RaiseLegacyLogicError_54A738(LegacyExceptionObject* storage);
 
 } // namespace cg::platform

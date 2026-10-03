@@ -35106,7 +35106,7 @@ void Sub_47C240(
     const auto* const record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t cost = record->recipes8E8[recipe].value04 * record->fpReduce / 100;
     char buffer[20];
-    std::sprintf(buffer, "%3d", cost);
+    platform::FormatLegacyString_53B304(buffer, "%3d", cost);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth;
     const std::int32_t imageNo = kSkillRecipeImages54F40C[kind * 3 + visualState];
@@ -37174,7 +37174,7 @@ void Sub_47CB00(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
     char buffer[20];
-    std::sprintf(buffer, "%3d", record->fp);
+    platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));
@@ -37210,7 +37210,7 @@ void Sub_47CE70(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, record->name.data(), 0, 0));
     char buffer[20];
-    std::sprintf(buffer, "%3d", record->fp);
+    platform::FormatLegacyString_53B304(buffer, "%3d", record->fp);
     Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     static_cast<void>(login::detail::DrawGraphic(
         x + 105, y + 8, graphicLayer, kPetSkillImages54F454[visualState], 0, &descriptor));

@@ -21924,7 +21924,7 @@ std::int32_t Sub_4BFCB0(const std::int32_t index, const std::int32_t state)
         case 1: {
             std::array<char, 16> text;
             std::array<char, 16> escaped;
-            std::sprintf(text.data(), "%d", 99);
+            platform::FormatLegacyString_53B304(text.data(), "%d", 99);
             input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;

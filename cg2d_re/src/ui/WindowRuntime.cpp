@@ -21283,7 +21283,7 @@ void Sub_4BE3F0(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
     gWindow54ValueCB01E4 = count;
-    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", usedSlots, totalSlots);
     std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
     if (freeSlots < 0) {
@@ -21303,11 +21303,11 @@ void Sub_4BE3F0(WindowInstance* const window)
             gNpcDialogLinesCC24D4[row + 10].text.data());
     }
     window->elements[33].visible = 1;
-    std::sprintf(static_cast<WindowTextData*>(window->elements[33].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[33].data)->text,
         "\xA9\xD2\xBB\xDD\xAA\xBA\xA7\xDE\xAF\xE0\xC4\xE6\xA6\xEC\xBC\xC6\xB6\x71"
         "\xA1\x47\x25\x32\x64\xC4\xE6", gWindow54ValueCC2E68);
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
+    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", gWindow54ValueCF4A3C);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4B0F10;
     }
@@ -21545,7 +21545,7 @@ void Sub_4BEF30(WindowInstance* const window)
             ++used;
         }
     }
-    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", used, capacity);
     for (std::int32_t index = 9; index <= 16; ++index) {
         window->elements[index].visible = 0;
@@ -21555,7 +21555,7 @@ void Sub_4BEF30(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
+    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d",
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         window->elements[row + 69].visible = 1;
@@ -21701,7 +21701,7 @@ void Sub_4BF620(WindowInstance* const window, const std::int32_t scroll)
             if (used) {
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     slot.name.data());
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
+                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%3d", slot.value04);
             }
             ++row;
         } while (row < gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].slots - scroll);
@@ -21754,7 +21754,7 @@ std::int32_t Sub_4BF7C0(const std::int32_t value)
     if (dialogType != -2 && gWindow54DialogTypeCB2224 != dialogType) {
         gCurrentWindow->state |= 0x8000u;
     }
-    std::sprintf(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(gWindow54MoneyTextC9A9A4.data(), "%10d", world::detail::ReadPlayerValueFC());
     if (gWindow54MessageC9FCE0 >= 0) {
         gWindow54MessageC9FCE0 = -1;
     }

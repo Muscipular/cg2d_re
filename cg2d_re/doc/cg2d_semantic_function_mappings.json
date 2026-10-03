@@ -9427,7 +9427,7 @@
     {
       "original_entry": "0x54867D",
       "inventory_id": "F:0014867D",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
       "original_end_exclusive": "0x548695",
       "instruction_count": 11,
       "sources": [
@@ -9438,6 +9438,23 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DestroyLegacyLocale_54867D"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "DestroyLegacyLocale_54867D",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
         }
       ],
       "native_provider": {
@@ -9449,12 +9466,99 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54867D",
+          "call_site": "0x548683",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocale_54867D",
+          "target_entry": "0x548695",
+          "target_symbol": "DecrementLegacyLocaleFacet_548695",
+          "arguments": "&implementation->facet",
+          "relationship": "实际原实现先查空/递减门禁，零返地址再虚删"
+        }
+      ]
     },
     {
       "original_entry": "0x548695",
       "inventory_id": "F:00148695",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
       "original_end_exclusive": "0x5486B1",
       "instruction_count": 13,
       "sources": [
@@ -9465,6 +9569,23 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DecrementLegacyLocaleFacet_548695"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "DecrementLegacyLocaleFacet_548695",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
         }
       ],
       "native_provider": {
@@ -9476,12 +9597,88 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原W32计数仅0<count<FFFFFFFF时递减，最后为零才返回this；宿主facet::_Decref采用原子递减，没有相同0/FFFFFFFF门禁。本条仅关联正常引用释放职责，不作为该原叶所有计数输入的替代实现或完整通过。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+      "boundary": "原W32计数仅0<count<FFFFFFFF时递减，最后为零才返回this；宿主facet::_Decref采用原子递减，没有相同0/FFFFFFFF门禁。本条仅关联正常引用释放职责，不作为该原叶所有计数输入的替代实现或完整通过。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "internal_call_connections": []
     },
     {
       "original_entry": "0x54A505",
       "inventory_id": "F:0014A505",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
       "original_end_exclusive": "0x54A57E",
       "instruction_count": 46,
       "sources": [
@@ -9492,6 +9689,23 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "ConstructLegacyLocaleImplementation_54A505"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "ConstructLegacyLocaleImplementation_54A505",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
         }
       ],
       "native_provider": {
@@ -9503,7 +9717,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原引用1，facet向量/数量/类别为0，透明标记取低字节，名称整理为*后改_Locimp虚表；宿主_Locimp(bool)有相同默认职责，内部布局/字符串和异常过程未判等。原清理尾包含54A577，不新增函数ID。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "boundary": "原引用1，facet向量/数量/类别为0，透明标记取低字节，名称整理为*后改_Locimp虚表；宿主_Locimp(bool)有相同默认职责，内部布局/字符串和异常过程未判等。原清理尾包含54A577，不新增函数ID。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
       "original_chunks": [
         [
           "0x54A505",
@@ -9513,12 +9727,144 @@
           "0x54C3C4",
           "0x54C3D6"
         ]
+      ],
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "unwind_contract": {
+        "original_func_info": "0x551760",
+        "magic": "0x19930520",
+        "states": [
+          {
+            "previous_state": 4294967295,
+            "action": "0x54c3c4",
+            "loaded": true
+          }
+        ],
+        "source_scope": "名称Tidy/长度/assign失败只54A577复位facet表，无成员回滚",
+        "argument_contract": {
+          "original_stack_word_bytes": 4,
+          "transparency_byte": 0,
+          "name_prefix_byte": 3,
+          "proof_site": "0x54A52D",
+          "instruction_bytes": [
+            138,
+            77,
+            11
+          ],
+          "source_type": "U32完整原位型，唯一原caller54A404推0"
+        },
+        "boundary": "54A577为本函数共用尾，不新增函数ID；源级C++清理，不模拟x86 FS/handler/SDK ABI"
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A544",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, false",
+          "relationship": "字段/prefix后名称Tidyfalse"
+        },
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A54F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "arguments": "gLegacyLocaleStar55014C",
+          "relationship": "真实已加载星字节长度，不直接固定1"
+        },
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A559",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x549055",
+          "target_symbol": "AssignLegacyNarrowString_549055",
+          "arguments": "&storage->name, gLegacyLocaleStar55014C, length",
+          "relationship": "名称实际原共享字符串分配/复制叶"
+        }
       ]
     },
     {
       "original_entry": "0x54A59B",
       "inventory_id": "F:0014A59B",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
       "original_end_exclusive": "0x54A5B7",
       "instruction_count": 11,
       "sources": [
@@ -9529,6 +9875,23 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DeleteLegacyLocaleImplementation_54A59B"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "DeleteLegacyLocaleImplementation_54A59B",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
         }
       ],
       "native_provider": {
@@ -9540,12 +9903,109 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原先54A5B7析构、flags bit0为1才释放对象，再返回原指针；宿主虚析构/delete承担资源释放。原flags独立调用域和返回地址不由本机公开API直接提供，不据此声称ABI一致。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+      "boundary": "原先54A5B7析构、flags bit0为1才释放对象，再返回原指针；宿主虚析构/delete承担资源释放。原flags独立调用域和返回地址不由本机公开API直接提供，不据此声称ABI一致。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A59B",
+          "call_site": "0x54A59E",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "target_entry": "0x54A5B7",
+          "target_symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "arguments": "storage",
+          "relationship": "先实际Locimp析构"
+        },
+        {
+          "parent_entry": "0x54A59B",
+          "call_site": "0x54A5AB",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "析构后flags bit0原堆对象delete"
+        }
+      ]
     },
     {
       "original_entry": "0x54A5B7",
       "inventory_id": "F:0014A5B7",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
       "original_end_exclusive": "0x54A638",
       "instruction_count": 60,
       "sources": [
@@ -9556,6 +10016,23 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DestroyLegacyLocaleImplementation_54A5B7"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "DestroyLegacyLocaleImplementation_54A5B7",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
         }
       ],
       "native_provider": {
@@ -9567,7 +10044,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原反序遍历facet非空项、按计数减引用及零时删除，随后释放向量和名称；宿主_Locimp_dtor加成员自然析构承担此职责。包括54A30D共享名称清理和异常尾，特殊计数与异常展开仍有未验差异。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "boundary": "原反序遍历facet非空项、按计数减引用及零时删除，随后释放向量和名称；宿主_Locimp_dtor加成员自然析构承担此职责。包括54A30D共享名称清理和异常尾，特殊计数与异常展开仍有未验差异。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
       "original_chunks": [
         [
           "0x54A5B7",
@@ -9581,6 +10058,137 @@
           "0x54C3D8",
           "0x54C3FD"
         ]
+      ],
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "unwind_contract": {
+        "original_func_info": "0x551788",
+        "magic": "0x19930520",
+        "states": [
+          {
+            "state": 0,
+            "previous_state": 4294967295,
+            "action": "0x54c3d8"
+          },
+          {
+            "state": 1,
+            "previous_state": 0,
+            "action": "0x54c3e0"
+          },
+          {
+            "state": 2,
+            "previous_state": 1,
+            "action": "0x54c3eb"
+          }
+        ],
+        "source_scope": "逆序facet/向量free保护区失败→名称Tidy→facet表；名称正常析构前已state0，失败只facet表",
+        "shared_name_cleanup_tail": "0x54A30D",
+        "boundary": "共享chunk不新增函数ID，不模拟原nullsub4/FS/handler或称SEH/全x64运行等价"
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A610",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x53C0A9",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage->facets",
+          "relationship": "逆序facet完成后读取当时向量，直接原free含空"
+        },
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A61F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, true",
+          "relationship": "state0下正常名称析构，失败不二次析构名称"
+        },
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A30F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, true",
+          "relationship": "原共享名称清理尾状态1→0，不新增原函数ID"
+        }
       ]
     },
     {
@@ -9840,6 +10448,14 @@
             "TidyLegacyIos_54A2CB"
           ],
           "relationship": "54A2E0/54A2FA两个原值/回调链delete点，next先读/同域原堆释放；不混宿主节点或改六裸适配"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DeleteLegacyLocaleFacet_54A57E",
+            "DeleteLegacyLocaleImplementation_54A59B"
+          ],
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
         }
       ],
       "evidence_documents": [
@@ -9847,7 +10463,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -9946,6 +10562,28 @@
           "target_leaf": "FreeLegacyHeapMemory_53C0A9",
           "memory": "callback",
           "relationship": "值链结束先缓存回调头再清值头；callback.next在delete前读，末清回调头"
+        }
+      ],
+      "locale_core_parent_call_connections": [
+        {
+          "parent_entry": "0x54A57E",
+          "call_site": "0x54A58F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DeleteLegacyLocaleFacet_54A57E",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "原flags判定先于方法表写，后同域delete"
+        },
+        {
+          "parent_entry": "0x54A59B",
+          "call_site": "0x54A5AB",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "析构后flags bit0原堆对象delete"
         }
       ]
     },
@@ -15023,7 +15661,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及14原调用已接；4原引用已批宿主承接，其他6原引用/完整父与运行未验",
+      "status": "既有长度核心及15原调用已接；4原引用已批宿主承接，其他5原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -15099,6 +15737,13 @@
             "CopyConstructLegacyException_54B0B6"
           ],
           "relationship": "54B079/54B0B6两个实际长度原点，异常文本与原堆配对；不改旧本体/已批宿主范围"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "ConstructLegacyLocaleImplementation_54A505"
+          ],
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
         }
       ],
       "evidence_documents": [
@@ -15108,7 +15753,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。；2026-10-04新增locale构析原点0x54A54F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -15264,6 +15909,17 @@
           "source_expression": "source->text",
           "relationship": "拥有文本路径真实U32长度+1先于原堆分配与目标发布，不猜空源或增保护",
           "result_width": "U32"
+        },
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A54F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "gLegacyLocaleStar55014C",
+          "result_width": "U32",
+          "relationship": "Tidy(false)后真实星字节长度，再原assign名称，不以固定1替代"
         }
       ],
       "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行；新54B079/54B0B6两个异常对象真实调用点与源重取/目标发布/原堆域和限定新增静态核对，核心/已接点未复检，未构建或执行",
@@ -15303,6 +15959,18 @@
           "source": "src/platform/LegacyTime.cpp",
           "host_root_symbol": "GetEnv_54518B",
           "relationship": "原长度+1分配，空源/分配失败null；唯一548069@5480B7的已批环境表链，非通用strdup授权"
+        }
+      ],
+      "locale_core_parent_call_connections": [
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A54F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "arguments": "gLegacyLocaleStar55014C",
+          "relationship": "真实已加载星字节长度，不直接固定1"
         }
       ]
     },
@@ -34004,12 +34672,20 @@
             "DestroyLegacyStreamFailure_54A142"
           ],
           "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "ConstructLegacyLocaleImplementation_54A505",
+            "DestroyLegacyLocaleImplementation_54A5B7"
+          ],
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04新增locale构析原点0x54A544/0x54A61F/0x54A30F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -34141,6 +34817,38 @@
           "target_symbol": "TidyLegacyNarrowString_548E29",
           "arguments": "&storage->message, true",
           "relationship": "先恢复runtime表，不装failure最派生表"
+        }
+      ],
+      "locale_core_parent_call_connections": [
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A544",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, false",
+          "relationship": "字段/prefix后名称Tidyfalse"
+        },
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A61F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, true",
+          "relationship": "state0下正常名称析构，失败不二次析构名称"
+        },
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A30F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->name, true",
+          "relationship": "原共享名称清理尾状态1→0，不新增原函数ID"
         }
       ]
     },
@@ -34513,12 +35221,19 @@
             "LegacyNarrowString"
           ],
           "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "ConstructLegacyLocaleImplementation_54A505"
+          ],
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增locale构析原点0x54A559，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -34559,6 +35274,18 @@
           "call_site": "0x549071",
           "instruction": "call    _memcpy_0",
           "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ],
+      "locale_core_parent_call_connections": [
+        {
+          "parent_entry": "0x54A505",
+          "call_site": "0x54A559",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "ConstructLegacyLocaleImplementation_54A505",
+          "target_entry": "0x549055",
+          "target_symbol": "AssignLegacyNarrowString_549055",
+          "arguments": "&storage->name, gLegacyLocaleStar55014C, length",
+          "relationship": "名称实际原共享字符串分配/复制叶"
         }
       ]
     },
@@ -41629,6 +42356,13 @@
             "Sub_4FBA30"
           ],
           "relationship": "限定分色临时块已批准宿主窄合同，真实原堆接口和模式3不改"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DestroyLegacyLocaleImplementation_54A5B7"
+          ],
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
         }
       ],
       "inbound_evidence": [
@@ -41999,7 +42733,7 @@
         "doc/cg2d_legacy_string_compare.md"
       ],
       "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
-      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。",
+      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。；2026-10-04新增locale构析原点0x54A610，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -42009,6 +42743,18 @@
           "target_entry": "0x53C0A9",
           "target_symbol": "Free_53C0A9",
           "contract": "消费同源Malloc_53C3AC宿主块；绘制/测宽/X推进/源切换后释放，不混原堆"
+        }
+      ],
+      "locale_core_parent_call_connections": [
+        {
+          "parent_entry": "0x54A5B7",
+          "call_site": "0x54A610",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DestroyLegacyLocaleImplementation_54A5B7",
+          "target_entry": "0x53C0A9",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage->facets",
+          "relationship": "逆序facet完成后读取当时向量，直接原free含空"
         }
       ]
     },
@@ -90037,6 +90783,131 @@
         "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
       },
       "boundary": "原54A17F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。"
+    },
+    {
+      "original_entry": "0x54A57E",
+      "inventory_id": "F:0014A57E",
+      "original_end_exclusive": "0x54A59B",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55015c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "DeleteLegacyLocaleFacet_54A57E"
+          ],
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "DeleteLegacyLocaleFacet_54A57E",
+            "LegacyLocaleFacet",
+            "LegacyLocaleImplementation",
+            "LegacyLocaleFacetMethods"
+          ],
+          "relationship": "真实首成员facet/40B→64B只地址拓宽，W32数值/原参数位型，不互转SDK对象"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
+      "boundary": "；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleImplementation",
+        "original_size": 40,
+        "native_size": 64,
+        "fields": {
+          "facetMethods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "已证槽0真实原生方法表"
+          },
+          "references": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "U32/0与FFFFFFFF原门禁"
+          },
+          "facets": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "LegacyLocaleFacet**，每轮重取地址"
+          },
+          "facetCount": {
+            "original_offset": 12,
+            "native_offset": 24,
+            "type": "U32，入口采样一次"
+          },
+          "categories": {
+            "original_offset": 16,
+            "native_offset": 28,
+            "type": "U32"
+          },
+          "transparent": {
+            "original_offset": 20,
+            "native_offset": 32,
+            "type": "U8原参数低字节"
+          },
+          "name": {
+            "original_offset": 24,
+            "native_offset": 40,
+            "type": "LegacyNarrowString/首prefix为参数高U8"
+          }
+        },
+        "boundary": "仅地址拓宽/真实对象存储，不自动构析/全局生产、不互转宿主std::locale或facets，未接其他未知方法槽/类型"
+      },
+      "facet_prefix": {
+        "source": "src/platform/LegacyLocale.hpp",
+        "type": "LegacyLocaleFacet",
+        "original_consumed_range": "+00..+07",
+        "native_size": 16,
+        "references_original_offset": 4,
+        "references_native_offset": 8,
+        "method_slot": "vft+00，当前原生一槽视图"
+      },
+      "method_tables": [
+        {
+          "original_address": "0x55015C",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleFacetMethods55015C",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A57E",
+          "target_symbol": "DeleteLegacyLocaleFacet_54A57E"
+        },
+        {
+          "original_address": "0x550154",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "gLegacyLocaleImplementationMethods550154",
+          "original_consumed_slot": 0,
+          "native_slot": 0,
+          "target_entry": "0x54A59B",
+          "target_symbol": "DeleteLegacyLocaleImplementation_54A59B",
+          "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
+        }
+      ],
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A57E",
+          "call_site": "0x54A58F",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "DeleteLegacyLocaleFacet_54A57E",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "原flags判定先于方法表写，后同域delete"
+        }
+      ]
     }
   ]
 }

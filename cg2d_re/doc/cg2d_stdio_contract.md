@@ -3847,3 +3847,22 @@ length/range原抛出父仍仅声明，三族Raise均未实现；ThrowInfo/SDK c
 新LegacyIos.cpp/.hpp两叶及唯一接口，构建清单单行；两个现有记录提升为本体实现，另登记原堆两delete接线，语义仍1109，其他核心/既有点与18pending/4引用不改。仅静态核对新对象/节点布局声明与参数/返回边界、回调前后读序/原堆释放前next、回调头取与值头清的次序、三原依赖目标及六文件三记录限定差异/UTF-8无BOM/LF。
 
 未构建、运行、加测或SHA/hash校验，offsetof/sizeof静态声明不计已执行ABI证明。真实节点生产、完整值节点字段/分配、实际owner/登记表与locale/异常/退出父、SDK互操作及运行仍未闭；不据此放行CRT宿主提案或完成标准流生命周期/总PLAN。
+
+
+## 2026-10-04 locale对象六叶局部 SPEC 与实施裁决
+
+本板块实现54A505实现构造、548695 facet递减、54867D locale析构、54A57E facet删除型、54A5B7实现析构、54A59B实现删除型，六原体152条统计含共用清理chunk；本线程按已受托工程方案采用真实原生对象/字段与方法槽。全局54A404/54A4BD、默认54865E和宿主标准流接线继续保留，不在本板块创建全局locale或双执行宿主对象。
+
+原_Locimp分配40B且字段实际0方法表/4 U32refs/8 vector/C U32count/10 U32categories/14 U8transparent/18 string；新64B，仅地址拓宽，refs8/vector16/count24/categories28/transparent32/name40。facet首成员前缀16B，已证槽0原55015C→54A57E、550154→54A59B，实际原生方法指针及首成员this适配，不接其他未知facet类型或宿主SDK vft/RTTI。
+
+- 构造先ref1/facet表，transparent取同W32参数低U8；原8A4D0B/EBP+0B读取同一个4B实参的第4字节，名称首prefix必须取高U8，不改bool归一化/新实参/固定0。唯一原caller推完整0。vector/count/categories清0，名称Tidy(false)→原55014C已加载2B星字节strlen→assign；完成才实现表。FuncInfo551760 state0只54A577回facet表，不补名称回滚；54A577是共用尾不新增ID。
+- 548695仅0<count<FFFFFFFF时递减，随后真实重读count，零返this（含初始零），其余空；不转原子计数/补零值保护或假成功。locale析构实现非空才递减，返回非空才原槽0(flags1)，不清实现槽。
+- facet删除型原第一条先test flags bit0，先保存此判定、再写facet表，才决定同域对象释放；实现删除型先实际54A5B7后flags bit0，返回原地址且不再访问已释放对象。
+- 实现析构入口取count一次，U32逆序；每轮 **先重取当时向量地址，再退index**，非空facet按原内联门禁递减/重读，零才原槽0(flags1)。遍历完成直接原53C0A9 free当时vector（含空），不清原vector/count字段，再名称Tidy(true)与facet表。
+- FuncInfo551788三状态：2→1动作是原空清理，1→0名称共享54A30D/54A30F尾，0→−1复位facet表。源级嵌套C++清理保持facet/向量阶段失败→名称→基类表；正常名称析构前已state0，名称失败只基类表、不二次析构。共用chunk不新增ID，不模拟FS/handler/SEH或称x64运行等价。
+
+新LegacyLocale.cpp/.hpp与构建清单单行；五现有原体记录提升并保留既有宿主职责关联，新54A57E真实身份1个，语义1109→1110。五依赖根接8原点，另两本组内部点，共10；新54A505@54A54F使strlen15/24（4已批宿主、5仍待），其他字符串/既有点与18pending/4引用不改。
+
+仅新六本体/唯一声明、原字段/参数两U8、两方法槽/2B常量、原引用门禁与重读、逆序/向量重取/三状态清理、10目标及六文件限定差异/UTF-8无BOM/LF静态核对；旧核心不复检。未构建、运行、加测或SHA/hash校验，静态布局声明不算已执行ABI证明。
+
+全局/经典locale生产与退出登记、默认构造、其他facets/向量生产、宿主对象迁移和异常类型/完整原堆模式3及运行仍待；不把原生视图互转SDK，不代批CRT宿主提案或提前完成生命周期/总PLAN。

@@ -20613,12 +20613,12 @@ std::int32_t Sub_4BC230(const std::int32_t index, const std::int32_t state)
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
         }
         if ((flags & 0x100u) != 0) {
-            std::sprintf(buffer, "%s[kok]", record + 1);
+            platform::FormatLegacyString_53B304(buffer, "%s[kok]", record + 1);
             std::strcpy(gHoverTextD68AE8.data(), buffer);
         } else {
             std::memcpy(&flags, record + 0xC40, sizeof(flags));
             if ((flags & 0x200u) != 0) {
-                std::sprintf(buffer, "%s[han]", record + 0xC44);
+                platform::FormatLegacyString_53B304(buffer, "%s[han]", record + 0xC44);
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -20798,10 +20798,10 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
                 gShopTooltipIndex580844 = hovered + 8;
             }
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer, "%s[kok]", item.name.data());
+                platform::FormatLegacyString_53B304(buffer, "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer, "%s[han]", item.memo.data());
+                platform::FormatLegacyString_53B304(buffer, "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer);
             }
         }
@@ -20831,7 +20831,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -20864,7 +20864,7 @@ std::int32_t Sub_4BC660(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
             const std::int32_t count = item.count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 static_cast<void>(render::DrawText_456780(
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                     std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -20937,9 +20937,9 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer, "%2d X %2d", factor, item.quantity);
+                    platform::FormatLegacyString_53B304(buffer, "%2d X %2d", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer, "X %2d", item.quantity);
+                    platform::FormatLegacyString_53B304(buffer, "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -20963,7 +20963,7 @@ std::int32_t Sub_4BD100(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gConfirmationAmountsCB0F90) {
         if (amount.visible != 0) {
-            std::sprintf(buffer, "%d", amount.value);
+            platform::FormatLegacyString_53B304(buffer, "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer, 0, 4, 1, 226);

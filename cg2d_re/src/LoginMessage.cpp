@@ -1,6 +1,7 @@
 #include "cg/LoginMessage.hpp"
 
 #include "LoginMessageDependencies.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include "cg/LegacyAudio.hpp"
 
@@ -87,7 +88,7 @@ std::int32_t UpdateLoginMessage(const char* text)
     lines[0] = currentLine;
 
     for (;;) {
-        char* const newline = std::strchr(currentLine, '\n');
+        char* const newline = platform::StrChr_53C2F0(currentLine, '\n');
         if (newline == nullptr) {
             const std::int32_t width = detail::TextMeasure(currentLine, 0);
             if (width > maximumTextWidth) {

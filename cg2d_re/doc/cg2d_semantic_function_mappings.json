@@ -6019,7 +6019,7 @@
     {
       "original_entry": "0x45CE10",
       "inventory_id": "F:0005CE10",
-      "status": "已有命名本体映射，完整依赖及运行未验",
+      "status": "已有登录消息父本体，两原点由一循环表达式接真实字符查找；完整输入/绘制/运行未验",
       "sources": [
         {
           "path": "src/LoginMessage.cpp",
@@ -6031,7 +6031,198 @@
       "evidence_documents": [
         "doc/cg2d_login_state_controller.md"
       ],
-      "boundary": "复制含NUL原文本，只按LF原地分行并测宽，特殊文本分支继续比较原输入；复用唯一消息状态/布局/对象和共享正文槽。完整输入、绘制及暂缓音频不因本体已有而完成验收。"
+      "boundary": "复制含NUL原文本，只按LF原地分行并测宽，特殊文本分支继续比较原输入；复用唯一消息状态/布局/对象和共享正文槽。完整输入、绘制及暂缓音频不因本体已有而完成验收。 本步45CE80/45CEA9的LF目标0AH由currentLine同一循环表达式接53C2F0；原复制后首查/写NUL测宽/newline+1与行数/再查/末行测宽时点保持，整份仅一标识符/已有公开头，其他正文和既有预清保持，不添CR或保护。",
+      "original_end_exclusive": "0x45D714",
+      "instruction_count": 723,
+      "original_direct_reference_count": 26,
+      "original_direct_call_reference_count": 26,
+      "inbound_evidence": [
+        {
+          "reference_site": "0x458156",
+          "parent_entry": "0x457B10",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45C42D",
+          "parent_entry": "0x45C2D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45C76E",
+          "parent_entry": "0x45C5A0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45E54A",
+          "parent_entry": "0x45E3D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45E580",
+          "parent_entry": "0x45E3D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45E5AE",
+          "parent_entry": "0x45E3D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45E9C3",
+          "parent_entry": "0x45E960",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45EC31",
+          "parent_entry": "0x45EBB0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45EC71",
+          "parent_entry": "0x45EBB0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x45F7B2",
+          "parent_entry": "0x45F190",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x460911",
+          "parent_entry": "0x45FEA0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x460994",
+          "parent_entry": "0x45FEA0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4613BE",
+          "parent_entry": "0x460FF0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x46142C",
+          "parent_entry": "0x460FF0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4624CE",
+          "parent_entry": "0x462330",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x46250B",
+          "parent_entry": "0x462330",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x46255A",
+          "parent_entry": "0x462330",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x462826",
+          "parent_entry": "0x4626A0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463BF3",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463C40",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463C8D",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463CDA",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463D27",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x463D70",
+          "parent_entry": "0x4631D0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x464C79",
+          "parent_entry": "0x464840",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x464D8E",
+          "parent_entry": "0x464840",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "verification_level": "本步原723统计/38查找邻读取、两实际入口点/两个目标push及原借用推进/26代码入向，整份LoginMessage只一标识符/已有头静态核对；余685条与所有上游/布局/绘制/音频不重验，未构建或执行",
+      "search_call_connections": [
+        {
+          "parent_entry": "0x45CE10",
+          "call_site": "0x45CE80",
+          "source": "src/LoginMessage.cpp",
+          "symbol": "UpdateLoginMessage",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x45CE5C",
+          "source_expression_group": "login_message_newline_loop",
+          "relationship": "原首次复制后查LF，由现同一循环表达式承接，返回借用局部源"
+        },
+        {
+          "parent_entry": "0x45CE10",
+          "call_site": "0x45CEA9",
+          "source": "src/LoginMessage.cpp",
+          "symbol": "UpdateLoginMessage",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x45CEA5",
+          "source_expression_group": "login_message_newline_loop",
+          "relationship": "原写NUL/测宽后newline+1及行数推进再查LF，同一现循环表达式承接"
+        }
+      ]
     },
     {
       "original_entry": "0x401030",
@@ -11996,7 +12187,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符核心及七业务点已接；其他18原引用及完整运行未闭合",
+      "status": "原89条字符核心及11业务调用点已接；其他14原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -12021,7 +12212,8 @@
           "path": "src/LoginMessage.cpp",
           "symbols": [
             "UpdateLoginMessage"
-          ]
+          ],
+          "relationship": "45CE80/45CEA9两实际原LF点由currentLine同一循环表达式直接53C2F0承接，复制/测宽与借用推进保持"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -12056,15 +12248,24 @@
             "SelectLegacyHeapMode_541A70"
           ],
           "relationship": "原541B67在借用selection查逗号低W8真实入口点，+1推进和原解析保持"
+        },
+        {
+          "path": "src/LoginCapability4Modal.cpp",
+          "symbols": [
+            "UpdateCapability4Modal_464450"
+          ],
+          "relationship": "4644C5/4644F4两实际原LF点由currentLine同一循环表达式直接53C2F0承接，W32行数与布局正文保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_command_options.md",
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_capability4_modal_update.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处共七处已接，其他18未计完成；既有LoginMessage的std::strchr仍仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他18原引用待接线分类，不扩大堆/CRT/运行验收。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处共11处已接，其他14未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他14原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩14原引用待接线分类。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -12145,9 +12346,61 @@
           "target_byte": 44,
           "target_push_site": "0x541B64",
           "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
+        },
+        {
+          "parent_entry": "0x45CE10",
+          "call_site": "0x45CE80",
+          "source": "src/LoginMessage.cpp",
+          "symbol": "UpdateLoginMessage",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x45CE5C",
+          "source_expression_group": "login_message_newline_loop",
+          "relationship": "原首次复制后查LF，由现同一循环表达式承接，返回借用局部源"
+        },
+        {
+          "parent_entry": "0x45CE10",
+          "call_site": "0x45CEA9",
+          "source": "src/LoginMessage.cpp",
+          "symbol": "UpdateLoginMessage",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x45CEA5",
+          "source_expression_group": "login_message_newline_loop",
+          "relationship": "原写NUL/测宽后newline+1及行数推进再查LF，同一现循环表达式承接"
+        },
+        {
+          "parent_entry": "0x464450",
+          "call_site": "0x4644C5",
+          "source": "src/LoginCapability4Modal.cpp",
+          "symbol": "UpdateCapability4Modal_464450",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x4644AB",
+          "source_expression_group": "capability4_modal_newline_loop",
+          "relationship": "原首次复制后查LF，由现同一循环表达式承接，返回借用局部源"
+        },
+        {
+          "parent_entry": "0x464450",
+          "call_site": "0x4644F4",
+          "source": "src/LoginCapability4Modal.cpp",
+          "symbol": "UpdateCapability4Modal_464450",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x4644F0",
+          "source_expression_group": "capability4_modal_newline_loop",
+          "relationship": "原写NUL/测宽后newline+1及行数推进再查LF，同一现循环表达式承接"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -45871,6 +46124,66 @@
       ],
       "verification_level": "原799条统计/33查找邻读取、507BEE/507C26实际call/两复用字节与45712E/457020、4581A7/457B10真实入向静态核对；整份GraphicHitTest仅两标识符/一个已有公开头，余766条/完整MainLoop加载循环/描述和命中算法不重验，未执行",
       "boundary": "现MainLoop/LoadingScreen调用既有Sub_507140不改；命中/排序/门禁后借用同一graphic作DescribeHoveredYobi_507140生产，再同址D68AE8先han后kok查找。仅标准库查找转53BE40，原字段1/5、返回及层字节写入/命中流程/描述生产/共享owner/生命周期正文逐字保持，不新增状态/保护或演示生产者，不把本步接线算完整图像/悬停/显示/资源/CRT运行通过。"
+    },
+    {
+      "original_entry": "0x464450",
+      "inventory_id": "F:00064450",
+      "status": "已有能力4提示父正文，四原点中的本父两点由一循环表达式接真实字符查找；完整提示/caller/运行未验",
+      "original_role": "能力4双按钮多行提示更新",
+      "original_end_exclusive": "0x464831",
+      "instruction_count": 321,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginCapability4Modal.cpp",
+          "symbols": [
+            "UpdateCapability4Modal_464450"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x464450",
+          "call_site": "0x4644C5",
+          "source": "src/LoginCapability4Modal.cpp",
+          "symbol": "UpdateCapability4Modal_464450",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x4644AB",
+          "source_expression_group": "capability4_modal_newline_loop",
+          "relationship": "原首次复制后查LF，由现同一循环表达式承接，返回借用局部源"
+        },
+        {
+          "parent_entry": "0x464450",
+          "call_site": "0x4644F4",
+          "source": "src/LoginCapability4Modal.cpp",
+          "symbol": "UpdateCapability4Modal_464450",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "currentLine",
+          "target_byte": 10,
+          "target_push_site": "0x4644F0",
+          "source_expression_group": "capability4_modal_newline_loop",
+          "relationship": "原写NUL/测宽后newline+1及行数推进再查LF，同一现循环表达式承接"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x464CF2",
+          "parent_entry": "0x464840",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability4_modal_update.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "原321统计/34查找邻读取、4644C5/4644F4实际call/两个0AH push、局部源/写NUL测宽与newline+1/原唯一464CF2入向及当前清晰源符号静态核对；整份源仅一标识符/已有头，余287条与布局/按钮/caller/输入文本转换不重验，未构建或执行",
+      "boundary": "本步仅真实查找依赖：原含NUL复制后的同一局部currentLine，首次/回边两点由一个现循环表达式承接，LF低W8 0AH。既有命中写NUL/测宽/最大值/newline+1/AddW32行数/末行测宽及256B复制/预清、全部W32 helper/原生action指针/布局/按钮/结果与清理正文逐字保持，不添CR、容量拒绝、默认值、Unicode转换或新状态；新增记录不意味着整个父/caller/完整能力4提示画面验收。"
     }
   ]
 }

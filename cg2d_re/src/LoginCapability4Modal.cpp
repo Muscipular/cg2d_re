@@ -1,6 +1,7 @@
 #include "LoginCapability4Modal.hpp"
 
 #include "LoginMessageDependencies.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstddef>
@@ -84,7 +85,7 @@ std::int32_t UpdateCapability4Modal_464450(const char* const text)
     std::int32_t maximumTextWidth = 0;
     char* currentLine = splitText;
     for (;;) {
-        char* const newline = std::strchr(currentLine, '\n');
+        char* const newline = platform::StrChr_53C2F0(currentLine, '\n');
         if (newline == nullptr) {
             const std::int32_t width = TextMeasure(currentLine, 0);
             if (width > maximumTextWidth) {

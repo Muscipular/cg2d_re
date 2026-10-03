@@ -41743,19 +41743,19 @@ void Sub_48C920()
         const std::int32_t colorState = gLoginWindowRuntime.valuesCC1A18[colorIndex];
         static_cast<WindowTextData*>(colorWindow->elements[textBase].data)->bytes00[0] =
             colorState == 3 ? std::byte{7} : std::byte{0};
-        std::sprintf(buffer, "%3d", world::detail::gPetRuntimeF633F8[petIndex()].value08);
+        platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[petIndex()].value08);
         copyNumber(textBase + 1);
         const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
             &world::detail::gPetRuntimeF633F8[petIndex()].values0C[1]);
         const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
             &world::detail::gPetRuntimeF633F8[petIndex()].values0C[0]);
-        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
         copyNumber(textBase + 2);
         const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
             &world::detail::gPetRuntimeF633F8[petIndex()].values0C[3]);
         const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
             &world::detail::gPetRuntimeF633F8[petIndex()].values0C[2]);
-        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
         copyNumber(textBase + 3);
 
         const std::int16_t tribeIndex = petIndex();

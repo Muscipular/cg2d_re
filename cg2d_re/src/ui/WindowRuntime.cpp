@@ -35423,7 +35423,7 @@ void Sub_4966B0(
             world::detail::gBattleCurrentPosition5ABCA4);
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
             "%4d/%4d", current, maximum);
         break;
     }
@@ -35448,7 +35448,7 @@ void Sub_4966B0(
         const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t current = login::detail::ReadYobiActionFpOnce(
             world::detail::gBattleEntries59E980[currentPosition]);
-        std::sprintf(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gWindowStates[26].window->elements[11].data)->text,
             "%4d/%4d", current, maximum);
         break;
     }
@@ -36119,7 +36119,7 @@ void Sub_4974C0(const std::int32_t skillIndex, const std::int32_t technique)
     const std::int32_t currentTechnique = world::detail::gBattleSelectedTechnique5ABC78;
     const std::int32_t currentSkill = world::detail::gBattleSelectedSkill5ABB5C;
     std::array<char, 256> buffer;
-    std::sprintf(buffer.data(), "S|%X|%X|%X",
+    platform::FormatLegacyString_53B304(buffer.data(), "S|%X|%X|%X",
         static_cast<std::uint32_t>(currentSkill),
         static_cast<std::uint32_t>(currentTechnique),
         static_cast<std::uint32_t>(currentPosition));
@@ -36232,7 +36232,7 @@ void Sub_497E30(const std::int32_t technique)
             : world::detail::Sub_43C4B0();
         const std::int32_t currentTechnique = world::detail::gValue553F84;
         std::array<char, 256> buffer;
-        std::sprintf(buffer.data(), "W|%X|%X",
+        platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), static_cast<std::uint32_t>(targetIndex));
         static_cast<void>(network::SendBattlePacket_5109B0(
             platform::gConnectionSocket, buffer.data()));
@@ -36279,7 +36279,7 @@ void Sub_497FF0(const std::int32_t technique)
         const std::uint32_t pet = world::detail::gBattleRidePet5ABC38;
         const std::int32_t currentTechnique = world::detail::gValue553F84;
         std::array<char, 256> buffer;
-        std::sprintf(buffer.data(), "W|%X|%X",
+        platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
             static_cast<std::uint32_t>(currentTechnique), pet);
         static_cast<void>(network::SendBattlePacket_5109B0(
             platform::gConnectionSocket, buffer.data()));

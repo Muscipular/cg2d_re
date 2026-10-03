@@ -12187,7 +12187,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符核心及11业务调用点已接；其他14原引用及完整运行未闭合",
+      "status": "原89条字符核心及21业务调用点已接；其他4原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -12231,9 +12231,15 @@
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
-            "Sub_4FBA30"
+            "Sub_4FBA30",
+            "Sub_49DDB0",
+            "Sub_49DF30",
+            "Sub_4A49B0",
+            "Sub_4AD180",
+            "Sub_4AD470",
+            "RebuildWindowLines51"
           ],
-          "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接"
+          "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接；本步五父十实际原点由六表达式真实承接，坐标/对话/邮件/双遍生产正文保持"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -12263,9 +12269,10 @@
         "doc/cg2d_command_options.md",
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_login_state_controller.md",
-        "doc/cg2d_capability4_modal_update.md"
+        "doc/cg2d_capability4_modal_update.md",
+        "doc/ui_windows/window_51.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处共11处已接，其他14未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他14原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩14原引用待接线分类。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处/窗口文本十处共21处已接，其他4未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他4原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩4原引用待接线分类。 本步坐标括号两点/对话LF一处/邮件三个斜线点/两51生产入口四LF点，共十原点由六源码表达式承接，源/借用返回/目标低W8和现共用helper链保持；只替换标识符，不重写解析、状态/分配、字段布局或父运行验收。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -12398,9 +12405,156 @@
           "target_push_site": "0x4644F0",
           "source_expression_group": "capability4_modal_newline_loop",
           "relationship": "原写NUL/测宽后newline+1及行数推进再查LF，同一现循环表达式承接"
+        },
+        {
+          "parent_entry": "0x49DDB0",
+          "call_site": "0x49DE77",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DDB0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "cursor",
+          "target_byte": 40,
+          "target_push_site": "0x49DE74",
+          "relationship": "左括号定位，返回+1后才查右括号"
+        },
+        {
+          "parent_entry": "0x49DDB0",
+          "call_site": "0x49DE8D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DDB0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "cursor",
+          "target_byte": 41,
+          "target_push_site": "0x49DE8A",
+          "relationship": "借用左括号后游标查右括号门禁，原数字解析/fallback保持"
+        },
+        {
+          "parent_entry": "0x49DF30",
+          "call_site": "0x49DFFA",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DF30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "text",
+          "target_byte": 10,
+          "target_push_site": "0x49DFF2",
+          "relationship": "type2原数值扫描后查LF，仍无保护+1推进"
+        },
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4A11",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4A0E",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第一邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        },
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4BC4",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4BC1",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第二邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        },
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4DEE",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4DEB",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第三邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        },
+        {
+          "parent_entry": "0x4AD180",
+          "call_site": "0x4AD24D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD248",
+          "source_expression_group": "window51_count_lf",
+          "entry_symbol": "Sub_4AD180",
+          "source_call_chain": [
+            "Sub_4AD180",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
+        },
+        {
+          "parent_entry": "0x4AD180",
+          "call_site": "0x4AD2FE",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD2FB",
+          "source_expression_group": "window51_production_lf",
+          "entry_symbol": "Sub_4AD180",
+          "source_call_chain": [
+            "Sub_4AD180",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
+        },
+        {
+          "parent_entry": "0x4AD470",
+          "call_site": "0x4AD555",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD550",
+          "source_expression_group": "window51_count_lf",
+          "entry_symbol": "Sub_4AD470",
+          "source_call_chain": [
+            "Sub_4AD470",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
+        },
+        {
+          "parent_entry": "0x4AD470",
+          "call_site": "0x4AD607",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD604",
+          "source_expression_group": "window51_production_lf",
+          "entry_symbol": "Sub_4AD470",
+          "source_call_chain": [
+            "Sub_4AD470",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验；五父1358统计160查找邻读取、十真实call/目标push及原六入向/六源码表达式与三组共用关系、单文件仅六标识符和两51入口helper链静态核对，余1198条及既有核心不重验",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -46184,6 +46338,328 @@
       ],
       "verification_level": "原321统计/34查找邻读取、4644C5/4644F4实际call/两个0AH push、局部源/写NUL测宽与newline+1/原唯一464CF2入向及当前清晰源符号静态核对；整份源仅一标识符/已有头，余287条与布局/按钮/caller/输入文本转换不重验，未构建或执行",
       "boundary": "本步仅真实查找依赖：原含NUL复制后的同一局部currentLine，首次/回边两点由一个现循环表达式承接，LF低W8 0AH。既有命中写NUL/测宽/最大值/newline+1/AddW32行数/末行测宽及256B复制/预清、全部W32 helper/原生action指针/布局/按钮/结果与清理正文逐字保持，不添CR、容量拒绝、默认值、Unicode转换或新状态；新增记录不意味着整个父/caller/完整能力4提示画面验收。"
+    },
+    {
+      "original_entry": "0x49DDB0",
+      "inventory_id": "F:0009DDB0",
+      "status": "已有父正文，本步真实字符查找依赖已接；完整父/布局/运行未验",
+      "original_role": "坐标标记与方向/数字解析",
+      "original_end_exclusive": "0x49DF2F",
+      "instruction_count": 148,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_49DDB0"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x49DDB0",
+          "call_site": "0x49DE77",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DDB0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "cursor",
+          "target_byte": 40,
+          "target_push_site": "0x49DE74",
+          "relationship": "左括号定位，返回+1后才查右括号"
+        },
+        {
+          "parent_entry": "0x49DDB0",
+          "call_site": "0x49DE8D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DDB0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "cursor",
+          "target_byte": 41,
+          "target_push_site": "0x49DE8A",
+          "relationship": "借用左括号后游标查右括号门禁，原数字解析/fallback保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x49E089",
+          "parent_entry": "0x49DF30",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "本步原148条统计/24查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余124条/所有上游与完整父不重验，未构建或执行",
+      "boundary": "同一cursor先查28H左括号，命中+1后查29H右括号，仅门禁而不按匹配位置替代数字扫描。原32B局部跨字段复用、空格跳写不压缩索引、不初始化残留，方向/坐标与fallback及对象/绘制正文逐字保持，不补数字或新增保护。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
+    },
+    {
+      "original_entry": "0x49DF30",
+      "inventory_id": "F:0009DF30",
+      "status": "已有父正文，本步真实字符查找依赖已接；完整父/布局/运行未验",
+      "original_role": "服务器对话文本及窗口创建",
+      "original_end_exclusive": "0x49E1CB",
+      "instruction_count": 241,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_49DF30"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x49DF30",
+          "call_site": "0x49DFFA",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49DF30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "text",
+          "target_byte": 10,
+          "target_push_site": "0x49DFF2",
+          "relationship": "type2原数值扫描后查LF，仍无保护+1推进"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x49D50B",
+          "parent_entry": "0x49D2E0",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x49D530",
+          "parent_entry": "0x49D2E0",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "本步原241条统计/17查找邻读取，真实入口点/低W8目标及2原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余224条/所有上游与完整父不重验，未构建或执行",
+      "boundary": "type2真实分隔整数扫描后LF查找返回+1，现text同一借用源，不加NULL检查；其他类型/标记处理/嵌入坐标/布局/共享回复字段及窗口创建正文逐字保持，异常缺LF不新增故障模拟或拒绝策略。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
+    },
+    {
+      "original_entry": "0x4A49B0",
+      "inventory_id": "F:000A49B0",
+      "status": "已有父正文，本步真实字符查找依赖已接；完整父/布局/运行未验",
+      "original_role": "邮件分类详情与时间文本消费",
+      "original_end_exclusive": "0x4A4FBD",
+      "instruction_count": 466,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A49B0"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4A11",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4A0E",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第一邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        },
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4BC4",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4BC1",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第二邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        },
+        {
+          "parent_entry": "0x4A49B0",
+          "call_site": "0x4A4DEE",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A49B0",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "buffer",
+          "target_byte": 47,
+          "target_push_site": "0x4A4DEB",
+          "source_expression_group": "mail_timestamp_slash",
+          "relationship": "原第三邮件分类的格式后斜线定位，现同一buffer表达式承接"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x4A4650",
+          "parent_entry": "0x4A4650",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "本步原466条统计/51查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余415条/所有上游与完整父不重验，未构建或执行",
+      "boundary": "现三个邮件分类借用同一owner视图，原三分类斜线点由一个buffer表达式承接；格式后查2FH，命中+1、失配既有空文本供时间槽。未读/逐次kind与正文重取/十行字段/全部复制、格式、图号和返回正文逐字保持，不扩大owner或完整邮件/画面验收。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
+    },
+    {
+      "original_entry": "0x4AD180",
+      "inventory_id": "F:000AD180",
+      "status": "已有父正文，本步真实字符查找依赖已接；完整父/布局/运行未验",
+      "original_role": "窗口51标题和双遍行生产创建",
+      "original_end_exclusive": "0x4AD46C",
+      "instruction_count": 247,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AD180",
+            "RebuildWindowLines51"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4AD180",
+          "call_site": "0x4AD24D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD248",
+          "source_expression_group": "window51_count_lf",
+          "entry_symbol": "Sub_4AD180",
+          "source_call_chain": [
+            "Sub_4AD180",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "创建入口原预计数遍查LF，失配用end，原边界/行数保持"
+        },
+        {
+          "parent_entry": "0x4AD180",
+          "call_site": "0x4AD2FE",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD2FB",
+          "source_expression_group": "window51_production_lf",
+          "entry_symbol": "Sub_4AD180",
+          "source_call_chain": [
+            "Sub_4AD180",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "创建入口原实际生产遍查LF，命中写NUL，失配用end，原分配/复制保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x49D6E0",
+          "parent_entry": "0x49D2E0",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/window_51.md"
+      ],
+      "verification_level": "本步原247条统计/34查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余213条/所有上游与完整父不重验，未构建或执行",
+      "boundary": "原创建入口字段提取/反转义/标题/清理后直接RebuildWindowLines51；本步只其预计数/生产两LF表达式，局部1024B、双遍边界与末段30推进/行数/指针数组/分配复制/释放、原CreateWindowAnimation(51)及返回正文保持，未知旧51数据/布局与完整开窗仍待。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
+    },
+    {
+      "original_entry": "0x4AD470",
+      "inventory_id": "F:000AD470",
+      "status": "已有父正文，本步真实字符查找依赖已接；完整父/布局/运行未验",
+      "original_role": "窗口51标题和双遍行生产更新",
+      "original_end_exclusive": "0x4AD77A",
+      "instruction_count": 256,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4AD470",
+            "RebuildWindowLines51"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4AD470",
+          "call_site": "0x4AD555",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD550",
+          "source_expression_group": "window51_count_lf",
+          "entry_symbol": "Sub_4AD470",
+          "source_call_chain": [
+            "Sub_4AD470",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "更新入口共用预计数表达式，原行数/末段30推进不改"
+        },
+        {
+          "parent_entry": "0x4AD470",
+          "call_site": "0x4AD607",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "RebuildWindowLines51",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "segment",
+          "target_byte": 10,
+          "target_push_site": "0x4AD604",
+          "source_expression_group": "window51_production_lf",
+          "entry_symbol": "Sub_4AD470",
+          "source_call_chain": [
+            "Sub_4AD470",
+            "RebuildWindowLines51"
+          ],
+          "relationship": "更新入口共用生产表达式，原NUL/分配/复制与窗口实例取样保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x49D492",
+          "parent_entry": "0x49D2E0",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/window_51.md"
+      ],
+      "verification_level": "本步原256条统计/34查找邻读取，真实入口点/低W8目标及1原call入向、现源码符号/共用表达式与单文件六标识符限定差异静态核对；其余222条/所有上游与完整父不重验，未构建或执行",
+      "boundary": "原更新入口字段提取/反转义/既有窗口标题/清理后直接RebuildWindowLines51；同一预计数/生产两LF表达式与创建入口共用，1024B局部、双遍边界/30推进/分配复制释放及更新后重取窗口实例/原后处理保持，不加保护或假数据，完整旧51流程仍待。 本记录仅登记本步查找及准确剩余边界，不称其他CRT依赖/完整字段/资源/协议或跨板块验收已完成。"
     }
   ]
 }

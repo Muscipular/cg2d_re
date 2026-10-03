@@ -9472,10 +9472,10 @@ void Sub_49DDB0(const char* const text, std::int16_t x, std::int16_t y)
         cursor += index + 1;
         direction = static_cast<std::uint8_t>(platform::Atoi_53C649(number.data()));
     }
-    const char* const coordinates = std::strchr(cursor, '(');
+    const char* const coordinates = platform::StrChr_53C2F0(cursor, '(');
     if (coordinates != nullptr) {
         cursor = coordinates + 1;
-        if (std::strchr(cursor, ')') != nullptr) {
+        if (platform::StrChr_53C2F0(cursor, ')') != nullptr) {
             index = 0;
             while (cursor[index] != '\0' && cursor[index] != ',') {
                 if (cursor[index] != ' ') {
@@ -9805,7 +9805,7 @@ login::YobiAction* Sub_49DF30(
     if (type == 2) {
         lineHeight = 20;
         gDialogReply.firstLine = network::ParseDelimitedInteger_52CFA0(text, '\n', 1);
-        text = std::strchr(text, '\n') + 1;
+        text = platform::StrChr_53C2F0(text, '\n') + 1;
     }
     const std::int32_t columns = login::detail::Sub_49C5C0(static_cast<std::int16_t>(width));
     const std::int32_t lines = login::detail::Sub_49C5E0(
@@ -12616,7 +12616,7 @@ void RebuildWindowLines51(char* const text)
     gWindowLineCountD67B74 = 0;
     char* segment = text;
     for (;;) {
-        char* separator = std::strchr(segment, '\n');
+        char* separator = platform::StrChr_53C2F0(segment, '\n');
         if (separator == nullptr) {
             separator = end;
         }
@@ -12643,7 +12643,7 @@ void RebuildWindowLines51(char* const text)
 
     segment = text;
     for (std::int32_t line = 0; line < gWindowLineCountD67B74; ++line) {
-        char* separator = std::strchr(segment, '\n');
+        char* separator = platform::StrChr_53C2F0(segment, '\n');
         if (separator != nullptr) {
             *separator = '\0';
         } else {
@@ -26773,7 +26773,7 @@ std::uint32_t Sub_4A49B0()
         const MailMessageView message = borrowCurrent();
         *message.unread00 = std::byte{0};
         std::sprintf(buffer, "%s", message.text02);
-        const char* const slash = std::strchr(buffer, '/');
+        const char* const slash = platform::StrChr_53C2F0(buffer, '/');
         auto* const time = static_cast<WindowTextData*>(gCurrentWindow->elements[16].data);
         std::strcpy(time->text, slash != nullptr ? slash + 1 : input::LegacyText593850());
         for (std::int32_t row = 0; row < 10; ++row) {

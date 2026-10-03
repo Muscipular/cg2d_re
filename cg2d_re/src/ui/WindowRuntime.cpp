@@ -43858,7 +43858,7 @@ void Sub_4740F0(char* const destination)
         }
     }
     char text[256];
-    std::sprintf(text, "%2d/10", count);
+    platform::FormatLegacyString_53B304(text, "%2d/10", count);
     std::strcpy(destination, text);
 }
 

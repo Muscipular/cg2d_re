@@ -3016,26 +3016,26 @@ std::int32_t Sub_4D16F0(const std::int32_t index, const std::int32_t state)
         const auto x = static_cast<std::int16_t>(window->x + dx);
         static_cast<void>(render::DrawText_456780(x, y, 3, 12, 0, buffer, 0, 0));
     };
-    std::sprintf(buffer, "%s", initialPet->name6AC.data());
+    platform::FormatLegacyString_53B304(buffer, "%s", initialPet->name6AC.data());
     drawText(298, 132);
-    std::sprintf(buffer, "%3d", world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value08);
     drawText(425, 132);
     const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(
         &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[1]);
     const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(
         &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[0]);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawText(333, 146);
     const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(
         &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[3]);
     const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(
         &world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].values0C[2]);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawText(333, 160);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(
         world::detail::gPetRuntimeF633F8[gStallPetCandidatePageD67BD8 + row].value04);
     if (tribe >= 0 && tribe < 20) {
-        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+        platform::FormatLegacyString_53B304(buffer, "%s", gTribeNames57CB54[tribe]);
     } else {
         buffer[0] = '\0';
     }

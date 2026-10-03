@@ -20,7 +20,7 @@
 
 namespace cg::resource {
 
-std::FILE* gGraphicFiles[9] {};
+platform::LegacyFile* gGraphicFiles[9] {};
 std::uint8_t gGraphicReadBuffer[GraphicScratchCapacity] {};
 std::uint8_t gGraphicDecodeBuffer[GraphicScratchCapacity] {};
 std::uint8_t* gGraphicDataPtr = nullptr;
@@ -465,10 +465,9 @@ int ReadGraphicDataByIndex(
         return 0;
     }
 
-    // Windows x64 的 long 仍为 32 位，保留原 fseek 偏移宽度及忽略返回值的顺序。
-    static_assert(sizeof(long) == 4);
-    std::fseek(gGraphicFiles[fileIndex], info.offset, SEEK_SET);
-    if (std::fread(gGraphicReadBuffer, info.length, 1, gGraphicFiles[fileIndex]) != 1) {
+    // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
+    platform::SeekLegacyStream_53BC41(gGraphicFiles[fileIndex], info.offset, 0);
+    if (platform::ReadLegacyStream_53BCCD(gGraphicReadBuffer, info.length, 1, gGraphicFiles[fileIndex]) != 1) {
         return 0;
     }
 
@@ -535,9 +534,9 @@ void CloseGraphicFiles()
         std::free(gGraphicMapNoIndex);
         gGraphicMapNoIndex = nullptr;
     }
-    for (std::FILE*& file : gGraphicFiles) {
+    for (platform::LegacyFile*& file : gGraphicFiles) {
         if (file != nullptr) {
-            std::fclose(file);
+            platform::CloseLegacyStream_53B1D0(file);
             file = nullptr;
         }
     }

@@ -2,7 +2,10 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
+
+namespace cg::platform {
+struct LegacyFile;
+} // namespace cg::platform
 
 namespace cg::render {
 struct PaletteEntry;
@@ -10,8 +13,8 @@ struct PaletteEntry;
 
 namespace cg::resource {
 
-// 原 0x927EF4 的九个 Graphic 文件句柄，所有权属于资源初始化/关闭链。
-extern std::FILE* gGraphicFiles[9];
+// 原 0x927EF4 的九个 Graphic 文件槽，统一由资源初始化/关闭链接原FILE核心。
+extern platform::LegacyFile* gGraphicFiles[9];
 
 // 新端选定读取承载范围为原 0x833CB0..0x927EF0，解压承载范围为 0x73F138..0x833378。
 // 两段彼此独立，不证明原数组声明或跨界行为；读盘复用前者，实际解码写入才修改后者。

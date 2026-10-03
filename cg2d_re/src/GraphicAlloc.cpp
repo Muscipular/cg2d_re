@@ -1,11 +1,12 @@
 #include "cg/GraphicAlloc.hpp"
 
+#include "platform/LegacyStdio.hpp"
+
 #include "cg/AnimationRuntime.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/ResourcePaths.hpp"
 #include "render/GraphicDxCacheState.hpp"
 
-#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
@@ -18,9 +19,9 @@ std::uint32_t gValueCC3E68 = 0;
 std::int32_t GraphicAlloc_4574E0()
 {
     for (const char* path : gGraphicInfoPaths) {
-        std::FILE* file = std::fopen(path, "rb");
+        platform::LegacyFile* file = platform::OpenLegacyStream_53B2F1(path, "rb");
         if (file != nullptr) {
-            std::fclose(file);
+            platform::CloseLegacyStream_53B1D0(file);
         }
     }
 

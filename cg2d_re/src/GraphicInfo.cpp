@@ -1,10 +1,12 @@
 #include "cg/GraphicInfo.hpp"
 
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
+
 #include "cg/GraphicRead.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 
 #include <algorithm>
-#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <map>
@@ -22,7 +24,7 @@ namespace {
 // 原 9A2068/83339C；与 ResourcePaths 的 256B 路径槽不同，缓存步长仍是 255B。
 char gGraphicCachedPaths[9][255] {};
 char gGraphicInfoCachedPaths[9][255] {};
-std::FILE* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
+platform::LegacyFile* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
 std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10。
 
 // 原 9A2960/73F128：本次初始化的去重值集合与首见记录引用；两者进程期持有。
@@ -34,15 +36,15 @@ std::map<std::int32_t, GraphicInfo*> gGraphicFirstRecords;
 std::int32_t GraphicInit_459960(
     const char* const* graphicPaths, const char* const* graphicInfoPaths)
 {
-    for (std::FILE*& file : gGraphicFiles) {
+    for (platform::LegacyFile*& file : gGraphicFiles) {
         file = nullptr;
     }
 
     // 原 459B5B 的共用错误出口只关闭数据文件，不释放旧 mapNo 索引或主表。
     const auto failAndCloseData = [](const std::int32_t slot) {
-        for (std::FILE*& file : gGraphicFiles) {
+        for (platform::LegacyFile*& file : gGraphicFiles) {
             if (file != nullptr) {
-                std::fclose(file);
+                platform::CloseLegacyStream_53B1D0(file);
                 file = nullptr;
             }
         }
@@ -57,7 +59,7 @@ std::int32_t GraphicInit_459960(
 
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         std::strcpy(gGraphicCachedPaths[slot], graphicPaths[slot]);
-        gGraphicFiles[slot] = std::fopen(gGraphicCachedPaths[slot], "rb");
+        gGraphicFiles[slot] = platform::OpenLegacyStream_53B2F1(gGraphicCachedPaths[slot], "rb");
         if (gGraphicFiles[slot] == nullptr
             && (slot == 0 || slot == 3 || slot == 6 || slot == 7 || slot == 8)) {
             return failAndCloseData(slot);
@@ -67,11 +69,11 @@ std::int32_t GraphicInit_459960(
     std::uint32_t totalInfoBytes = 0;
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         std::strcpy(gGraphicInfoCachedPaths[slot], graphicInfoPaths[slot]);
-        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
+        gGraphicInfoFile = platform::OpenLegacyStream_53B2F1(gGraphicInfoCachedPaths[slot], "rb");
         if (gGraphicInfoFile != nullptr) {
-            std::fseek(gGraphicInfoFile, 0, SEEK_END);
-            totalInfoBytes += static_cast<std::uint32_t>(std::ftell(gGraphicInfoFile));
-            std::fclose(gGraphicInfoFile);
+            platform::SeekLegacyStream_53BC41(gGraphicInfoFile, 0, 2);
+            totalInfoBytes += static_cast<std::uint32_t>(platform::TellLegacyStream_53CB78(gGraphicInfoFile));
+            platform::CloseLegacyStream_53B1D0(gGraphicInfoFile);
         } else {
             if (slot == 0) {
                 return 1;
@@ -87,7 +89,7 @@ std::int32_t GraphicInit_459960(
     gGraphicRequiredCount = static_cast<std::int32_t>(totalInfoBytes / 40u + 10u);
     if (gGraphicRequiredCount >= gMaxGraphicCount) {
         char message[256];
-        std::sprintf(message, "MAX_GRAPHICS=%d,Need=%d",
+        platform::FormatLegacyString_53B304(message, "MAX_GRAPHICS=%d,Need=%d",
             gMaxGraphicCount, gGraphicRequiredCount);
         platform::ShowLegacyMessage(
             message, "sprmgr: MAX_GRAPHICS \xA4\xA3\xB0\xF7\xA1\x43", 0);
@@ -110,7 +112,7 @@ std::int32_t GraphicInit_459960(
     std::int32_t base = 0;
     for (std::int32_t slot = 0; slot < 9; ++slot) {
         gGraphicStartIndices[slot] = base;
-        gGraphicInfoFile = std::fopen(gGraphicInfoCachedPaths[slot], "rb");
+        gGraphicInfoFile = platform::OpenLegacyStream_53B2F1(gGraphicInfoCachedPaths[slot], "rb");
         if (gGraphicInfoFile == nullptr) {
             if (slot == 0) {
                 return 1;
@@ -123,8 +125,9 @@ std::int32_t GraphicInit_459960(
             }
             continue;
         }
-        while (std::feof(gGraphicInfoFile) == 0) {
-            std::fread(&record, 0x28, 1, gGraphicInfoFile);
+        // 原459CCE/459F1D只检查flags低U8的EOF位，短读仍消费同一记录。
+        while ((static_cast<std::uint8_t>(gGraphicInfoFile->flags) & 0x10u) == 0) {
+            platform::ReadLegacyStream_53BCCD(&record, 0x28, 1, gGraphicInfoFile);
             ++processed;
             const std::uint32_t index = record.seqNo + static_cast<std::uint32_t>(base);
             gGraphicInfo[index].seqNo = index;
@@ -154,7 +157,7 @@ std::int32_t GraphicInit_459960(
             }
         }
         std::sort(gGraphicMapNumbers.begin(), gGraphicMapNumbers.end());
-        std::fclose(gGraphicInfoFile);
+        platform::CloseLegacyStream_53B1D0(gGraphicInfoFile);
         base = processed;
     }
     return 0;

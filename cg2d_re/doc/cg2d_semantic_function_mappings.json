@@ -4298,7 +4298,7 @@
     {
       "original_entry": "0x45A6C0",
       "inventory_id": "F:0005A6C0",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "既有图形资源本体的真实FILE完整链已接；完整运行未验",
       "original_role": "图形文件与mapNo索引清理",
       "sources": [
         {
@@ -4310,9 +4310,30 @@
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_info.md"
       ],
-      "boundary": "先free并清mapNo索引，再按九槽顺序关闭非空FILE*并清槽；不释放图形主表、共享读/解码区或其他缓存。唯一直接caller457A6D随后调用457670，其首指令覆盖EAX；当前void接口不把残留寄存器值发布为业务返回。"
+      "boundary": "先free并清mapNo索引，再按九槽顺序关闭非空FILE*并清槽；不释放图形主表、共享读/解码区或其他缓存。唯一直接caller457A6D随后调用457670，其首指令覆盖EAX；当前void接口不把残留寄存器值发布为业务返回。 45A6E9已与九数据槽生产/读取整链接真实LegacyFile，关闭后逐槽清空的时序保持，原分配适配未改。",
+      "original_end_exclusive": "0x45A704",
+      "instruction_count": 21,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x457A6D",
+          "parent_entry": "0x457A40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A6C0",
+          "call_site": "0x45A6E9",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "CloseGraphicFiles",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行"
     },
     {
       "original_entry": "0x45A710",
@@ -4450,7 +4471,7 @@
     {
       "original_entry": "0x45A900",
       "inventory_id": "F:0005A900",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "既有图形资源本体的真实FILE完整链已接；完整运行未验",
       "original_role": "按图号读资源并调用解码",
       "sources": [
         {
@@ -4463,9 +4484,50 @@
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_graphic_decode.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_info.md"
       ],
-      "boundary": "使用同源元信息、九文件槽与共享读/解码区；图号/句柄/短读失败不提前清输出，fseek保留S32宽度并弃返回。成功读入后先发布目标解码区指针，核心失败仍保留该发布；paletteLength可由局部槽承接，最终返回0/1。"
+      "boundary": "使用同源元信息、九文件槽与共享读/解码区；图号/句柄/短读失败不提前清输出，fseek保留S32宽度并弃返回。成功读入后先发布目标解码区指针，核心失败仍保留该发布；paletteLength可由局部槽承接，最终返回0/1。 45A94D/45A966已整链接真实LegacyFile，BEGIN0与S32偏移/length U32/元素数1保持；seek后重取同一共享槽，读取返回仅1才继续，未新增输出清理或短读恢复。",
+      "original_end_exclusive": "0x45A9DE",
+      "instruction_count": 75,
+      "original_direct_reference_count": 4,
+      "inbound_evidence": [
+        {
+          "address": "0x451DA6",
+          "parent_entry": "0x451D80"
+        },
+        {
+          "address": "0x520BDF",
+          "parent_entry": "0x520B10"
+        },
+        {
+          "address": "0x5225A9",
+          "parent_entry": "0x522570"
+        },
+        {
+          "address": "0x522D0D",
+          "parent_entry": "0x522CB0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45A900",
+          "call_site": "0x45A94D",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "ReadGraphicDataByIndex",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x45A900",
+          "call_site": "0x45A966",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "ReadGraphicDataByIndex",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        }
+      ],
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行"
     },
     {
       "original_entry": "0x52D5C0",
@@ -11261,7 +11323,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11907,6 +11969,36 @@
           "call_site": "0x46DD25",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC90"
+        },
+        {
+          "parent_entry": "0x4574E0",
+          "call_site": "0x4574FC",
+          "source": "src/GraphicAlloc.cpp",
+          "symbol": "GraphicAlloc_4574E0"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AE6",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459B67",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x45A101",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x45A6C0",
+          "call_site": "0x45A6E9",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "CloseGraphicFiles"
         }
       ]
     },
@@ -12117,7 +12209,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12605,6 +12697,30 @@
           "call_site": "0x46DCB5",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC90"
+        },
+        {
+          "parent_entry": "0x4574E0",
+          "call_site": "0x4574EF",
+          "source": "src/GraphicAlloc.cpp",
+          "symbol": "GraphicAlloc_4574E0"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x4599CF",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459A70",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459C8C",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
         }
       ]
     },
@@ -12759,7 +12875,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。",
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。 图形459AC4的END2/S32零偏移与45A94D的BEGIN0/S32记录偏移已整链接真实LegacyFile，忽略结果、之后重取Info/数据共享槽的时序保持。",
       "function_chunks": [
         {
           "start": "0x53BC41",
@@ -12953,6 +13069,18 @@
           "call_site": "0x46CB0B",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AC4",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x45A900",
+          "call_site": "0x45A94D",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "ReadGraphicDataByIndex"
         }
       ]
     },
@@ -12981,7 +13109,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。 图形459CE2/45A966两原读取已整链迁移，(28H,1)未清记录及(length U32,1)共享读区保持；前者忽略返回继续消费，后者仅返回1才解码。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -13457,6 +13585,18 @@
           "call_site": "0x46DD1F",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC90"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459CE2",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x45A900",
+          "call_site": "0x45A966",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "ReadGraphicDataByIndex"
         }
       ]
     },
@@ -14091,7 +14231,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "入口保存fd，负count清0；底层CUR为S32负直接-1，无108H缓冲返位置-count。有缓冲按current-base及已消费LF修正；无读写方向且非update才errno22。读流剩余量非零时，文本END相同则重读base扫描固定原块长并按FILE2000H加1，否则恢复旧位置后按512/当前尺寸及低层4H修正；恢复失败被忽略。内部fseek已接，GraphicInit仍待迁移，不扩为64位位置。",
+      "boundary": "入口保存fd，负count清0；底层CUR为S32负直接-1，无108H缓冲返位置-count。有缓冲按current-base及已消费LF修正；无读写方向且非update才errno22。读流剩余量非零时，文本END相同则重读base扫描固定原块长并按FILE2000H加1，否则恢复旧位置后按512/当前尺寸及低层4H修正；恢复失败被忽略。内部fseek已接，不扩为64位位置。 459AD0已整链接共享Info LegacyFile，seek END2之后重取流，S32结果的位模式累加到U32，返回-1也不增加失败门槛；关闭后指针保留。",
       "function_chunks": [
         {
           "start": "0x53CB78",
@@ -14114,7 +14254,15 @@
         "source_path": "stdio/ftell.cpp",
         "symbol": "ftell",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AD0",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
+        }
+      ]
     },
     {
       "original_entry": "0x53CFDC",
@@ -16284,7 +16432,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及42个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及43个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -16331,7 +16479,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处共42点已接，其他980点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处共43点已接，其他979点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -16597,6 +16745,12 @@
           "call_site": "0x46DCA6",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46DC90"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459B3A",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960"
         }
       ],
       "business_format_evidence": [
@@ -16647,6 +16801,10 @@
         {
           "address": "0x55DE7C",
           "bytes": "62696e5c50554b325c6375746461745c25642e61757400"
+        },
+        {
+          "address": "0x5598CC",
+          "bytes": "4d41585f47524150484943533d25642c4e6565643d256400"
         }
       ]
     },
@@ -30356,6 +30514,278 @@
       ],
       "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
       "boundary": "256B path/selected/rb，不清AUT表；失败两既有消息，第二结果!=1透传，==1透传窗口消息10H返回。成功单次(1,749A3H=477603)读取且忽略数，返回关闭S32结果；原159201×3B布局/失败保留/短读后缀/消费者保持，不补零、回滚或新增检查；完整CRT/内容/运行未验。"
+    },
+    {
+      "original_entry": "0x4574E0",
+      "inventory_id": "F:000574E0",
+      "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x457667",
+      "instruction_count": 116,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/GraphicAlloc.cpp",
+          "symbols": [
+            "GraphicAlloc_4574E0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x457782",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4574E0",
+          "call_site": "0x4574EF",
+          "source": "src/GraphicAlloc.cpp",
+          "symbol": "GraphicAlloc_4574E0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4574E0",
+          "call_site": "0x4574FC",
+          "source": "src/GraphicAlloc.cpp",
+          "symbol": "GraphicAlloc_4574E0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行",
+      "boundary": "既有资源分配父先按九Info路径rb逐项探测，成功立即关闭、失败继续；探测后容量发布、四次分配及原清理/清零正文不变。局部流统一LegacyFile，不以探测失败新增返回或扩大当前堆迁移；完整CRT/资源内容/运行未验。"
+    },
+    {
+      "original_entry": "0x459960",
+      "inventory_id": "F:00059960",
+      "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45A12C",
+      "instruction_count": 634,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/GraphicInfo.cpp",
+          "symbols": [
+            "GraphicInit_459960"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4577B9",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x4599CF",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459A70",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AC4",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AD0",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53CB78",
+          "target_symbol": "TellLegacyStream_53CB78"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459AE6",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459B3A",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459B67",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459C8C",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x459CE2",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x459960",
+          "call_site": "0x45A101",
+          "source": "src/GraphicInfo.cpp",
+          "symbol": "GraphicInit_459960",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x5598CC",
+          "bytes": "4d41585f47524150484943533d25642c4e6565643d256400"
+        },
+        {
+          "address": "0x5598B0",
+          "bytes": "7370726d67723a204d41585f475241504849435320a4a3b0f7a14300"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行",
+      "boundary": "既有完整图形初始化父的九数据槽和唯一Info槽统一LegacyFile，rb生产/END2定位/tell S32位模式累计U32/28H读取/关闭与容量提示整链已接。数据必需槽失败关闭清槽；Info必需槽失败直接返回保留数据流，关闭Info不清指针。459CCE/459F1D直接读flags低U8/10H，短读仍消费同一未清40B记录；磁盘40B/运行32B、基址/索引/首见树/排序与分配适配正文保持，完整启动/内容/运行未验。",
+      "business_flag_read_evidence": [
+        {
+          "address": "0x459CCE",
+          "relationship": "读取前直接检查FILE flags低U8/10H"
+        },
+        {
+          "address": "0x459F1D",
+          "relationship": "消费记录后重新取共享Info流并检查flags低U8/10H"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0x927EF0",
+          "from": "0x459A78",
+          "parent_entry": "0x459960",
+          "access_type": 2
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x459AC9",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x459ADF",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x459C94",
+          "parent_entry": "0x459960",
+          "access_type": 2
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x459F18",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x45A071",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x45A0C7",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF0",
+          "from": "0x45A0FB",
+          "parent_entry": "0x459960",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x459971",
+          "parent_entry": "0x459960",
+          "access_type": 1
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x459976",
+          "parent_entry": "0x459960",
+          "access_type": 1
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x459B5B",
+          "parent_entry": "0x459960",
+          "access_type": 1
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x45A6DD",
+          "parent_entry": "0x45A6C0",
+          "access_type": 1
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x45A93A",
+          "parent_entry": "0x45A900",
+          "access_type": 3
+        },
+        {
+          "address": "0x927EF4",
+          "from": "0x45A952",
+          "parent_entry": "0x45A900",
+          "access_type": 3
+        }
+      ]
     }
   ]
 }

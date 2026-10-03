@@ -8453,7 +8453,7 @@ std::uint32_t Sub_4E92A0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, nullptr));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyEngravingPanel582FD8.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyEngravingPanel582FD8.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8585,7 +8585,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyBurialPanel5830A0.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyBurialPanel5830A0.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -8609,7 +8609,7 @@ std::uint32_t Sub_4E97E0(const std::int32_t opened)
     }
     const std::int32_t selected = gLegacyBurialSelectedCC4214;
     if (selected >= 0) {
-        std::sprintf(buffer, "%d", selected);
+        platform::FormatLegacyString_53B304(buffer, "%d", selected);
         char escaped[16];
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -8717,7 +8717,7 @@ std::uint32_t Sub_4E9C80(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyMailGiftPanel583168.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyMailGiftPanel583168.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),

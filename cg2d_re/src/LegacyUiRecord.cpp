@@ -14490,7 +14490,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
             const auto& technique = pet.techniquesD8[skill];
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 39),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 0, 0, technique.name.data(), 0, 0));
-            std::sprintf(buffer, "%4d", technique.fp);
+            platform::FormatLegacyString_53B304(buffer, "%4d", technique.fp);
             static_cast<void>(DrawText(static_cast<std::int16_t>(x + 211),
                 static_cast<std::int16_t>(y + 37 + 24 * row), 2, 1, 0, buffer, 0, 0));
         }
@@ -14508,7 +14508,7 @@ std::int32_t Sub_4F9B10(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    std::sprintf(buffer, "%d/%d", position + 1, count);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 386;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),

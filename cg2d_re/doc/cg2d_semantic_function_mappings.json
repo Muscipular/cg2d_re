@@ -13690,7 +13690,7 @@
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "既有完整地址化入口/共享复制尾及TZ和两错误报告调用已接；其他八原引用/运行未验",
+      "status": "既有复制入口/共享尾及6原调用已接；其他五原引用/完整父与运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
       "sources": [
@@ -13715,15 +13715,30 @@
             "ReportLegacyRuntimeError_5443FF"
           ],
           "relationship": "544482/5444D8两个原完整复制点已接；追加内桥接不计新的原入口引用"
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatScientific_53FED3"
+          ],
+          "relationship": "原53FF79的e+000含NUL六字节复制真实接线"
+        },
+        {
+          "path": "src/platform/LegacyFloatNumeric.cpp",
+          "symbols": [
+            "GenerateLegacyFloatDecimal_546F36"
+          ],
+          "relationship": "原547017/547034由现特殊值同一text复制表达式承接，count5/6发布保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_game_time.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处共三处已接，其余八处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
@@ -13758,6 +13773,44 @@
           "target_entry": "0x544DB0",
           "target_symbol": "StrCpy_544DB0",
           "relationship": "同一160B message复制原Runtime Error前缀，随后依序追加程序名/两LF/消息"
+        },
+        {
+          "parent_entry": "0x53FED3",
+          "call_site": "0x53FF79",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "FormatLegacyFloatScientific_53FED3",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "\"e+000\"",
+          "destination_expression": "cursor",
+          "source_bytes": "652b30303000",
+          "source_address": "0x54FA0C",
+          "source_push_site": "0x53FF66",
+          "relationship": "六字节含NUL尾模板复制后才按原大写/三位指数继续，原target身份保持"
+        },
+        {
+          "parent_entry": "0x546F36",
+          "call_site": "0x547017",
+          "source": "src/platform/LegacyFloatNumeric.cpp",
+          "symbol": "GenerateLegacyFloatDecimal_546F36",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "text",
+          "destination_expression": "output->digits",
+          "source_expression_group": "float_special_value_copy",
+          "relationship": "IND/INF原复制后count5；现共用text表达式，分类/四字节输入及发布次序保持"
+        },
+        {
+          "parent_entry": "0x546F36",
+          "call_site": "0x547034",
+          "source": "src/platform/LegacyFloatNumeric.cpp",
+          "symbol": "GenerateLegacyFloatDecimal_546F36",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "text",
+          "destination_expression": "output->digits",
+          "source_expression_group": "float_special_value_copy",
+          "relationship": "SNAN/QNAN原复制后count6；现同一text表达式承接另一原点，零值路径不变"
         }
       ],
       "shared_tail_connection": {
@@ -13768,7 +13821,7 @@
         "target_symbol": "StrCpy_544DB0",
         "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
       },
-      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行"
+      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持"
     },
     {
       "original_entry": "0x544DC0",
@@ -14425,7 +14478,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及六原调用已接；其他18原引用/完整父与运行未验",
+      "status": "既有长度核心及9原调用已接；其他15原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14464,6 +14517,21 @@
             "ScanLegacyString_53CADC"
           ],
           "relationship": "原53CAF3长度低U32按S32位型写FILE remaining，原字段/扫描次序保持"
+        },
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "FormatLegacyOutput_53EB28"
+          ],
+          "relationship": "Z空源/浮点两表达式承接原53EF59一长度点"
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "ShiftLegacyFloatText_5401EB",
+            "RoundLegacyFloatDigits_544EA0"
+          ],
+          "relationship": "移位/舍入的两实际长度+NUL计数点，原U32和重叠移动保持"
         }
       ],
       "evidence_documents": [
@@ -14473,7 +14541,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处共六处已接，其余18原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -14537,9 +14605,46 @@
           "source_expression": "buffer",
           "result_width": "U32",
           "relationship": "原flags49/base/current后取长度低U32按S32位型写remaining，再真实va_list/input与返回"
+        },
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53EF59",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expressions": [
+            "text (Z-null)",
+            "output (float)"
+          ],
+          "source_expression_group": "format_shared_full_length",
+          "result_width": "U32",
+          "relationship": "原Z空源push后直跳同一长度call，浮点后缀/符号后普通入口；现两个表达式承接一原点，原S32 textLength保持"
+        },
+        {
+          "parent_entry": "0x5401EB",
+          "call_site": "0x5401FA",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "ShiftLegacyFloatText_5401EB",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "text",
+          "result_width": "U32",
+          "relationship": "distance非0才取低U32长度+1，再现正常重叠memmove；0不读文本"
+        },
+        {
+          "parent_entry": "0x544EA0",
+          "call_site": "0x544F01",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "RoundLegacyFloatDigits_544EA0",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "output + 1",
+          "result_width": "U32",
+          "relationship": "原进位后首字符非1才取剩余串低U32长度+1，随后正常重叠移动保持"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验"
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变"
     },
     {
       "original_entry": "0x5419D0",
@@ -22723,14 +22828,14 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。",
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。 原Z空源53EEAA直跳53EF59与普通浮点push共一原长度点，现两个表达式均承接且只计一个原点。",
       "function_chunks": [
         {
           "start": "0x53EB28",
           "end_exclusive": "0x53F2A6"
         }
       ],
-      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行",
+      "verification_level": "完整原核心/包装指令、原表值与回调加载值、源声明和新增静态核对；未构建/执行；本步原623统计/87限定读取、实际新原点/目标与3代码入向、源仅标识符/已有头及共用控制来源静态核对；余536条不重验，未执行",
       "inbound_evidence": [
         {
           "address": "0x53B32D",
@@ -22750,7 +22855,24 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/inc/corecrt_internal_stdio_output.h",
         "symbol": "output_processor",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "length_call_connections": [
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53EF59",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expressions": [
+            "text (Z-null)",
+            "output (float)"
+          ],
+          "source_expression_group": "format_shared_full_length",
+          "result_width": "U32",
+          "relationship": "原Z空源push后直跳同一长度call，浮点后缀/符号后普通入口；现两个表达式承接一原点，原S32 textLength保持"
+        }
+      ]
     },
     {
       "original_entry": "0x53BC0F",
@@ -30193,7 +30315,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "正常fltout→fptostr(precision+1)，缓存分支读唯一1086048并按precision>0移位。保留符号、小数点插入、API后重读缓存标志决定后缀位置、原e+000模板、数字串首非0才计算decimal-1三位指数。顶层分派、缓存父及544F17数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。",
+      "boundary": "正常fltout→fptostr(precision+1)，缓存分支读唯一1086048并按precision>0移位。保留符号、小数点插入、API后重读缓存标志决定后缀位置、原e+000模板、数字串首非0才计算decimal-1三位指数。顶层分派、缓存父及544F17数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。",
       "function_chunks": [
         {
           "start": "0x53FED3",
@@ -30210,7 +30332,23 @@
           "parent_entry": "0x54019A"
         }
       ],
-      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行；本步原115统计/19限定读取、实际新原点/目标与2代码入向、源仅标识符/已有头及共用控制来源静态核对；余96条不重验，未执行",
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x53FED3",
+          "call_site": "0x53FF79",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "FormatLegacyFloatScientific_53FED3",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "\"e+000\"",
+          "destination_expression": "cursor",
+          "source_bytes": "652b30303000",
+          "source_address": "0x54FA0C",
+          "source_push_site": "0x53FF66",
+          "relationship": "六字节含NUL尾模板复制后才按原大写/三位指数继续，原target身份保持"
+        }
+      ]
     },
     {
       "original_entry": "0x53FFD7",
@@ -30373,7 +30511,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "distance非0才strlen取U32长度加NUL，按已证53D710正常重叠复制合同memmove(text+distance,text,count)；0不读文本。四个e/f原父调用已接，网络消费者保持。",
+      "boundary": "distance非0才strlen取U32长度加NUL，按已证53D710正常重叠复制合同memmove(text+distance,text,count)；0不读文本。四个e/f原父调用已接，网络消费者保持。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。",
       "function_chunks": [
         {
           "start": "0x5401EB",
@@ -30398,7 +30536,20 @@
           "parent_entry": "0x53FFD7"
         }
       ],
-      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行；本步原18统计/17限定读取、实际新原点/目标与4代码入向、源仅标识符/已有头及共用控制来源静态核对；余1条不重验，未执行",
+      "length_call_connections": [
+        {
+          "parent_entry": "0x5401EB",
+          "call_site": "0x5401FA",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "ShiftLegacyFloatText_5401EB",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "text",
+          "result_width": "U32",
+          "relationship": "distance非0才取低U32长度+1，再现正常重叠memmove；0不读文本"
+        }
+      ]
     },
     {
       "original_entry": "0x544EA0",
@@ -30424,7 +30575,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先采样digits指针再写首0，正S32精度逐次读取源，源NUL后补0，末尾NUL；精度非负且下个源S8>=5才逆向9→0进位。首位1增加同一record.decimal，否则按53D710正常重叠合同移除预留0。三个e/f/g父及底层数字生产已接，六槽安装本体已实现，真实启动调用仍待。",
+      "boundary": "先采样digits指针再写首0，正S32精度逐次读取源，源NUL后补0，末尾NUL；精度非负且下个源S8>=5才逆向9→0进位。首位1增加同一record.decimal，否则按53D710正常重叠合同移除预留0。三个e/f/g父及底层数字生产已接，六槽安装本体已实现，真实启动调用仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。",
       "function_chunks": [
         {
           "start": "0x544EA0",
@@ -30445,7 +30596,20 @@
           "parent_entry": "0x5400B5"
         }
       ],
-      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行；本步原57统计/19限定读取、实际新原点/目标与3代码入向、源仅标识符/已有头及共用控制来源静态核对；余38条不重验，未执行",
+      "length_call_connections": [
+        {
+          "parent_entry": "0x544EA0",
+          "call_site": "0x544F01",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "RoundLegacyFloatDigits_544EA0",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "output + 1",
+          "result_width": "U32",
+          "relationship": "原进位后首字符非1才取剩余串低U32长度+1，随后正常重叠移动保持"
+        }
+      ]
     },
     {
       "original_entry": "0x540150",
@@ -30923,7 +31087,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "原80位值按值消费；先写符号，再分零值/7FFF特殊值/有限值。整数常数估算十进制指数，接原96位幂缩放和局部0.1因子；模式位、21位上限、移位及逐位乘十保持。保留S8舍入比较、末尾9进位/零裁剪、指数W16增加、长度低U8及S8定位NUL，三个归零路径写序一致；不新增精度下限或补零。唯一fltout父已接，未运行验证x87异常环境。",
+      "boundary": "原80位值按值消费；先写符号，再分零值/7FFF特殊值/有限值。整数常数估算十进制指数，接原96位幂缩放和局部0.1因子；模式位、21位上限、移位及逐位乘十保持。保留S8舍入比较、末尾9进位/零裁剪、指数W16增加、长度低U8及S8定位NUL，三个归零路径写序一致；不新增精度下限或补零。唯一fltout父已接，未运行验证x87异常环境。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。 特殊四串IND/INF在547017后写count5，SNAN/QNAN在547034后写count6，现同一text复制表达式承接两原点；三个归零路径完整保持。",
       "function_chunks": [
         {
           "start": "0x546F36",
@@ -30936,7 +31100,7 @@
           "parent_entry": "0x544F17"
         }
       ],
-      "verification_level": "完整原指令、特殊值字符串及共享字段/新增源码静态核对；未编译执行",
+      "verification_level": "完整原指令、特殊值字符串及共享字段/新增源码静态核对；未编译执行；本步原232统计/48限定读取、实际新原点/目标与1代码入向、源仅标识符/已有头及共用控制来源静态核对；余184条不重验，未执行",
       "special_text_evidence": [
         {
           "address": "0x54FED0",
@@ -30959,7 +31123,33 @@
           "bytes": "3123514e414e00"
         }
       ],
-      "local_tenth_bytes": "ccccccccccccccccccccfb3f"
+      "local_tenth_bytes": "ccccccccccccccccccccfb3f",
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x546F36",
+          "call_site": "0x547017",
+          "source": "src/platform/LegacyFloatNumeric.cpp",
+          "symbol": "GenerateLegacyFloatDecimal_546F36",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "text",
+          "destination_expression": "output->digits",
+          "source_expression_group": "float_special_value_copy",
+          "relationship": "IND/INF原复制后count5；现共用text表达式，分类/四字节输入及发布次序保持"
+        },
+        {
+          "parent_entry": "0x546F36",
+          "call_site": "0x547034",
+          "source": "src/platform/LegacyFloatNumeric.cpp",
+          "symbol": "GenerateLegacyFloatDecimal_546F36",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "text",
+          "destination_expression": "output->digits",
+          "source_expression_group": "float_special_value_copy",
+          "relationship": "SNAN/QNAN原复制后count6；现同一text表达式承接另一原点，零值路径不变"
+        }
+      ]
     },
     {
       "original_entry": "0x544F17",

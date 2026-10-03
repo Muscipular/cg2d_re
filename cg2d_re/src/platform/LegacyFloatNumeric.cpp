@@ -1,4 +1,5 @@
 #include "LegacyFloatNumeric.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -365,7 +366,7 @@ std::int32_t GenerateLegacyFloatDecimal_546F36(const LegacyFloat80 value,
             text = "1#QNAN";
             count = 6;
         }
-        std::strcpy(output->digits, text);
+        StrCpy_544DB0(output->digits, text);
         output->count = count;
         return 0;
     }

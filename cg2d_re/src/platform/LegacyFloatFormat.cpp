@@ -3,6 +3,7 @@
 #include "LegacyFormat.hpp"
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -33,7 +34,7 @@ LegacyFloatDigits* ProduceLegacyFloatDigits_544F17(const double value)
 void ShiftLegacyFloatText_5401EB(char* const text, const std::int32_t distance)
 {
     if (distance != 0) {
-        const auto count = static_cast<std::uint32_t>(std::strlen(text)) + 1u;
+        const auto count = static_cast<std::uint32_t>(StrLen_53F9E0(text)) + 1u;
         static_cast<void>(std::memmove(text + distance, text, count));
     }
 }
@@ -64,7 +65,7 @@ void RoundLegacyFloatDigits_544EA0(char* const output,
     if (*output == '1') {
         ++digits->decimal;
     } else {
-        const auto count = static_cast<std::uint32_t>(std::strlen(output + 1)) + 1u;
+        const auto count = static_cast<std::uint32_t>(StrLen_53F9E0(output + 1)) + 1u;
         static_cast<void>(std::memmove(output, output + 1, count));
     }
 }
@@ -142,7 +143,7 @@ char* FormatLegacyFloatScientific_53FED3(double* const value, char* const output
     }
     cursor += (gLegacyFloatReuse108604C == 0 ? 1 : 0) + precision;
     // 原54FA0C的6B模板，含三位指数和终止字节。
-    std::strcpy(cursor, "e+000");
+    StrCpy_544DB0(cursor, "e+000");
     if (uppercase != 0) {
         *cursor = 'E';
     }

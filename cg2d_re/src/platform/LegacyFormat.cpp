@@ -3,6 +3,7 @@
 #include "LegacyRuntimeError.hpp"
 #include "LegacyStringCompareState.hpp"
 #include "cg/platform/LegacyMemory.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -228,7 +229,7 @@ std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,
                 const void* source = value != nullptr ? value->text : nullptr;
                 if (source == nullptr) {
                     text = gLegacyFormatNullText58FB38;
-                    textLength = static_cast<std::int32_t>(std::strlen(text));
+                    textLength = static_cast<std::int32_t>(StrLen_53F9E0(text));
                 } else {
                     text = static_cast<const char*>(source);
                     textLength = value->length;
@@ -302,7 +303,7 @@ std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,
                     ++output;
                     text = output;
                 }
-                textLength = static_cast<std::int32_t>(std::strlen(output));
+                textLength = static_cast<std::int32_t>(StrLen_53F9E0(output));
                 break;
             }
             case 'd':

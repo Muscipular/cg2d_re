@@ -32781,18 +32781,18 @@ std::int32_t Sub_4810A0(const std::int32_t value)
     if (gSelectionModeD2D650 == 1 && expired()) {
         const std::int32_t skill = gCraftSkillIndexCC2368;
         const std::int32_t recipe = gCraftRecipeIndexD2D638;
-        std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+        platform::FormatLegacyString_53B304(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                std::sprintf(temporary, "|%d", slot + 8);
+                platform::FormatLegacyString_53B304(temporary, "|%d", slot + 8);
                 std::strcat(buffer, temporary);
             }
         }
         for (std::int32_t index = 0; index < 6; ++index) {
             const std::int32_t slot = gSelectedSlotsCA0A90[index];
             if (slot >= 0 && gMaterialIndicesCA0458[index] < 0) {
-                std::sprintf(temporary, "|%d", slot + 8);
+                platform::FormatLegacyString_53B304(temporary, "|%d", slot + 8);
                 std::strcat(buffer, temporary);
             }
         }
@@ -32829,7 +32829,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     ordinarySlot = slot + 8;
                 }
             }
-            std::sprintf(buffer, "%d|%d", ordinarySlot, specialSlot);
+            platform::FormatLegacyString_53B304(buffer, "%d|%d", ordinarySlot, specialSlot);
             NullSub_509080();
             sendRequest(false, false);
             const char* const name = world::detail::gPlayerItemsFDA8A4[ordinarySlot].name.data();
@@ -32852,7 +32852,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
                     break;
                 }
             }
-            std::sprintf(buffer, "%d", selected);
+            platform::FormatLegacyString_53B304(buffer, "%d", selected);
             NullSub_509080();
             sendRequest(false, false);
             gSelectionModeD2D650 = 11;
@@ -32867,7 +32867,7 @@ std::int32_t Sub_4810A0(const std::int32_t value)
             for (std::int32_t index = 0; index < 6; ++index) {
                 const std::int32_t slot = gSelectedSlotsCA0A90[index];
                 if (slot >= 0 && gMaterialIndicesCA0458[index] >= 0) {
-                    std::sprintf(temporary, "%d|", slot + 8);
+                    platform::FormatLegacyString_53B304(temporary, "%d|", slot + 8);
                     std::strcat(buffer, temporary);
                     if (gMaterialIndicesCA0458[index] == 0) {
                         const std::int32_t selected = gSelectedSlotsCA0A90[index];

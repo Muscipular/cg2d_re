@@ -2087,7 +2087,7 @@ std::uintptr_t Sub_4D6710(const std::int32_t opened)
         if (index <= 1) {
             char buffer[16];
             char escaped[16];
-            std::sprintf(buffer, "%d", index + 1);
+            platform::FormatLegacyString_53B304(buffer, "%d", index + 1);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2174,7 +2174,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
         }
         char buffer[16];
         char escaped[16];
-        std::sprintf(buffer, "%d", index + 1);
+        platform::FormatLegacyString_53B304(buffer, "%d", index + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2199,7 +2199,7 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
     }
     char text[64];
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    std::sprintf(text, "%7d", gold);
+    platform::FormatLegacyString_53B304(text, "%7d", gold);
     const std::int32_t goldY = gLegacySkillLearningPanel581E28.y + 287;
     const std::int32_t goldX = gLegacySkillLearningPanel581E28.x + 463;
     static_cast<void>(DrawText(static_cast<std::int16_t>(goldX),
@@ -2219,13 +2219,13 @@ std::uintptr_t Sub_4D6A60(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, 0, 0, lines[index + 10].text.data(), 0, 0));
     }
     const std::int32_t slots = ui::detail::gWindow54ValueCC2E68;
-    std::sprintf(text, kLegacySkillLearningSlots588C00, slots);
+    platform::FormatLegacyString_53B304(text, kLegacySkillLearningSlots588C00, slots);
     const std::int32_t slotsY = gLegacySkillLearningPanel581E28.y + 324;
     const std::int32_t slotsX = gLegacySkillLearningPanel581E28.x + 45;
     static_cast<void>(DrawText(static_cast<std::int16_t>(slotsX),
         static_cast<std::int16_t>(slotsY), 2, 0, 0, text, 0, 0));
     const std::int32_t cost = ui::detail::gWindow54ValueCF4A3C;
-    std::sprintf(text, kLegacySkillLearningCost588BEC, cost);
+    platform::FormatLegacyString_53B304(text, kLegacySkillLearningCost588BEC, cost);
     const std::int32_t costY = gLegacySkillLearningPanel581E28.y + 372;
     const std::int32_t costX = gLegacySkillLearningPanel581E28.x + 96;
     static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
@@ -2308,7 +2308,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         if (value >= 0) {
             char buffer[16];
             char escaped[16];
-            std::sprintf(buffer, "%d", selection);
+            platform::FormatLegacyString_53B304(buffer, "%d", selection);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -2345,9 +2345,9 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
         }
         total += ui::detail::gWindow54ValuesCB09D8[index];
         drawAt(lines[index + 10].text.data(), 78, 145 + rowOffset);
-        std::sprintf(text, "%2d", ui::detail::gWindow54ValuesCB01A4[index]);
+        platform::FormatLegacyString_53B304(text, "%2d", ui::detail::gWindow54ValuesCB01A4[index]);
         drawAt(text, 245, 145 + rowOffset);
-        std::sprintf(text, "%d", ui::detail::gWindow54ValuesCB09D8[index]);
+        platform::FormatLegacyString_53B304(text, "%d", ui::detail::gWindow54ValuesCB09D8[index]);
         drawAt(text, 292, 145 + rowOffset);
         const std::int32_t imageY = gLegacySkillForgetPanel581EF0.y + rowOffset + 154;
         const std::int32_t imageX = gLegacySkillForgetPanel581EF0.x + 176;
@@ -2360,7 +2360,7 @@ std::uintptr_t Sub_4D6EA0(const std::int32_t opened)
                 214, image, 0);
         }
     }
-    std::sprintf(text, kLegacySkillForgetTotal588C48, total);
+    platform::FormatLegacyString_53B304(text, kLegacySkillForgetTotal588C48, total);
     drawAt(text, 14, 42);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 0, 1, gValueD69768, 218));
     const char* hint = nullptr;

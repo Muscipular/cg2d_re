@@ -9664,7 +9664,7 @@ std::int32_t NewBattleNumber_41F1A0(
     const std::int32_t style, const std::int32_t fontType, const std::uint32_t flags)
 {
     char buffer[256];
-    std::sprintf(buffer, "%d", value);
+    platform::FormatLegacyString_53B304(buffer, "%d", value);
     if (world::detail::gBattleModeFlag5ABFCC == 0) {
         if ((flags & 0x40000000u) != 0) {
             std::strcat(buffer, "+");
@@ -9731,7 +9731,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const std::int32_t magnitude = seconds < 0 ? -seconds : seconds;
     const char* const prefix = seconds < 0 ? "-" : input::LegacyText593850();
     char buffer[256];
-    std::sprintf(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
+    platform::FormatLegacyString_53B304(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
     const std::int32_t halfWidth = TextMeasure(buffer, 0) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {

@@ -6171,7 +6171,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         }
         const std::int32_t deposit = gLegacyStorageMoneyD2F79C;
         const std::int32_t withdraw = gLegacyStorageWithdrawAmountCF49B8;
-        std::sprintf(buffer, "%d|%d|%d|%d|%d|%d", takeItems, putItems, takePets, putPets, withdraw, deposit);
+        platform::FormatLegacyString_53B304(buffer, "%d|%d|%d|%d|%d|%d", takeItems, putItems, takePets, putPets, withdraw, deposit);
         char escaped[128];
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 127));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -6248,7 +6248,7 @@ std::uintptr_t Sub_4E0380(const std::int32_t opened)
         2, 0, 0, world::detail::BorrowPlayerDisplayText(1), 0, 0));
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX, const std::uint8_t color) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         const std::int32_t top = gLegacyStoragePanel582B70.y + 38;
         const std::int32_t left = gLegacyStoragePanel582B70.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -6374,7 +6374,7 @@ std::int32_t Sub_4E0D10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyStoragePanel582B70.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyStoragePanel582B70.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -6482,11 +6482,11 @@ std::int32_t Sub_4E10F0(const std::int32_t x, const std::int32_t y)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    std::sprintf(buffer, "%7d",
+    platform::FormatLegacyString_53B304(buffer, "%7d",
         world::detail::gPlayerItemsFDA8A4[gLegacyStorageSplitSourceD3FACC + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%7d", gLegacyStorageSplitAmountCB2220);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyStorageSplitAmountCB2220);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 86), 4, 1, 0, buffer, 0, 0));
     for (auto& digit : digits) {
@@ -6595,23 +6595,23 @@ std::int32_t Sub_4E1B10(const std::int32_t x, const std::int32_t y,
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 136 - width / 2, 5, 0);
     char buffer[128];
-    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyStorageW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
+        platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x20 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x44));
+    platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(record, 0x44));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -6815,11 +6815,11 @@ std::uint32_t Sub_4E2030()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;
@@ -6971,11 +6971,11 @@ std::uint32_t Sub_4E28F0()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const std::int32_t backgroundY = gLegacyStoragePanel582B70.y + 180;
     const std::int32_t backgroundX = gLegacyStoragePanel582B70.x + 280;

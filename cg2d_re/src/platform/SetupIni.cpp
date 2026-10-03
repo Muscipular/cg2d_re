@@ -1,6 +1,7 @@
 #include "cg/platform/Startup.hpp"
 
-#include <cstdio>
+#include "LegacyFormat.hpp"
+
 #include <cstring>
 
 #define WIN32_LEAN_AND_MEAN
@@ -28,7 +29,7 @@ int ReadSetupIni()
     if (buffer[255] != '\\') {
         std::strcat(buffer, "\\");
     }
-    std::sprintf(fileName, "%s%s\\%s", buffer, gDataPath, "CG-Setup.ini");
+    FormatLegacyString_53B304(fileName, "%s%s\\%s", buffer, gDataPath, "CG-Setup.ini");
 
     GetPrivateProfileStringA("DISPLAY", "ScreenMode", nullptr, screenMode, 128, fileName);
     GetPrivateProfileStringA("DISPLAY", "Effect", nullptr, effect, 256, fileName);
@@ -38,7 +39,7 @@ int ReadSetupIni()
 
     if (std::strcmp(screenMode, "NORMAL") == 0) {
         if (std::strstr(gCommandLine, "windowmode") == nullptr) {
-            std::sprintf(screenCommandLine, "windowmode %s", gCommandLine);
+            FormatLegacyString_53B304(screenCommandLine, "windowmode %s", gCommandLine);
             gCommandLine = screenCommandLine;
         }
     } else if (std::strcmp(screenMode, "FULLSCREEN") == 0
@@ -52,7 +53,7 @@ int ReadSetupIni()
     char* const commandAfterScreen = gCommandLine;
     if (std::strcmp(activeMode, "ONLYACTIVE") == 0) {
         if (std::strstr(commandAfterScreen, "onlyactive") == nullptr) {
-            std::sprintf(activeCommandLine, "onlyactive %s", gCommandLine);
+            FormatLegacyString_53B304(activeCommandLine, "onlyactive %s", gCommandLine);
             gCommandLine = activeCommandLine;
         }
     } else if (std::strcmp(activeMode, "NOACTIVE") == 0
@@ -77,7 +78,7 @@ int ReadSetupIni()
         gMonitorKeyboard = 0;
     }
 
-    const int result = std::sprintf(gCommandLineStorage, "%s", gCommandLine);
+    const int result = FormatLegacyString_53B304(gCommandLineStorage, "%s", gCommandLine);
     gCommandLine = gCommandLineStorage;
     return result;
 }

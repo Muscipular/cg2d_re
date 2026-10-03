@@ -4933,7 +4933,7 @@
     {
       "original_entry": "0x465A80",
       "inventory_id": "F:00065A80",
-      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "status": "既有配置父的全部四处格式已接真实核心；完整配置/启动运行未验",
       "original_role": "配置读取及命令行改写",
       "sources": [
         {
@@ -4945,9 +4945,107 @@
       ],
       "evidence_documents": [
         "doc/cg2d_setup_ini.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "保留A接口、固定容量及索引255判断，命令行前缀分支保持原指针/复制顺序，最终复制到唯一共享存储并返回sprintf结果。屏幕键盘按已批排除固定为普通输入，仍读配置。"
+      "boundary": "保留A接口、固定容量及索引255判断，命令行前缀分支保持原指针/复制顺序，最终复制到唯一共享存储并返回sprintf结果。屏幕键盘按已批排除固定为普通输入，仍读配置。 四个宿主sprintf已改接真实53B304，原三%s路径参数、两个前缀借用当前指针、末次%s持久化/指针发布及S32计数返回保持。仅改格式及内部头，其余配置/API/字符串分支逐字保持；原缓冲容量/预清差异、固定255判断、从复制头跳过11B及屏幕→活动指针采样顺序不改，不新增保护/补值或恢复屏幕键盘。只静态核新增差异，不记完整配置或启动运行已验收。",
+      "original_end_exclusive": "0x465EFC",
+      "instruction_count": 347,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x4659B7",
+          "parent_entry": "0x465790"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465B49",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C43",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465D5A",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465EE0",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 4,
+      "business_byte_evidence": [
+        {
+          "address": "0x55D064",
+          "push_site": "0x465B43",
+          "bytes": "257325735c257300"
+        },
+        {
+          "address": "0x55D0F8",
+          "push_site": "0x465C3D",
+          "bytes": "77696e646f776d6f646520257300"
+        },
+        {
+          "address": "0x55D0B8",
+          "push_site": "0x465D54",
+          "bytes": "6f6e6c7961637469766520257300"
+        },
+        {
+          "address": "0x5535F8",
+          "push_site": "0x465ED6",
+          "bytes": "257300"
+        },
+        {
+          "address": "0x55D154",
+          "push_site": "0x465B2A",
+          "bytes": "43472d53657475702e696e6900"
+        }
+      ],
+      "business_output_connections": [
+        {
+          "call_site": "0x465B49",
+          "destination": "fileName[256]",
+          "relationship": "目录buffer、共享gDataPath及CG-Setup.ini三个借用字节串按原序传入；原四次GetPrivateProfileStringA依次消费同一fileName"
+        },
+        {
+          "call_site": "0x465C43",
+          "destination": "screenCommandLine[4096]",
+          "publish_site": "0x465C52",
+          "relationship": "NORMAL且windowmode未命中时格式后发布局部指针；屏幕后指针为活动判定输入，原预清保持"
+        },
+        {
+          "call_site": "0x465D5A",
+          "destination": "activeCommandLine[4096]",
+          "publish_site": "0x465D69",
+          "relationship": "ONLYACTIVE且onlyactive未命中时借用当前命令指针，格式后发布活动局部；原不预清保持"
+        },
+        {
+          "call_site": "0x465EE0",
+          "destination": "gCommandLineStorage[4096]",
+          "publish_site": "0x465EE8",
+          "relationship": "末次%s复制当前共享指针后再发布唯一持久化指针；核心S32返回计数保留至ret，不变成配置成功标志"
+        }
+      ],
+      "verification_level": "完整347条原指令/唯一入向、四格式/五原字节组及参数借用/格式后指针发布/最终S32返回、全源码五项限定替换/两文档追加/JSON限定差异静态核对；不重新验API/字符串工具内部，未执行"
     },
     {
       "original_entry": "0x465F00",
@@ -17334,7 +17432,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及83个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及87个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17381,7 +17479,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处共83点已接，其他939点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处共87点已接，其他935点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17893,6 +17991,30 @@
           "call_site": "0x461F48",
           "source": "src/CharacterSelectSlot.cpp",
           "symbol": "ProcessCharacterSlot_461B30"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465B49",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465C43",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465D5A",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni"
+        },
+        {
+          "parent_entry": "0x465A80",
+          "call_site": "0x465EE0",
+          "source": "src/platform/SetupIni.cpp",
+          "symbol": "ReadSetupIni"
         }
       ],
       "business_format_evidence": [
@@ -17963,6 +18085,14 @@
         {
           "address": "0x5535F8",
           "bytes": "257300"
+        },
+        {
+          "address": "0x55D0F8",
+          "bytes": "77696e646f776d6f646520257300"
+        },
+        {
+          "address": "0x55D0B8",
+          "bytes": "6f6e6c7961637469766520257300"
         }
       ]
     },

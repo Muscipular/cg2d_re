@@ -1,6 +1,7 @@
 #include "cg/render/TextPendingQueue.hpp"
 
 #include "cg/Input.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/GraphicCacheState.hpp"
@@ -169,10 +170,10 @@ void DrawInputText_4568A0(input::InputContext* const context)
                     if (scan > kMaximumDestinationBytes) {
                         return;
                     }
-                    std::memcpy(
+                    platform::StrNCpy_53BEC0(
                         destination.data(),
                         context->text + lineStartIndex,
-                        static_cast<std::size_t>(scan));
+                        scan);
                     destination[static_cast<std::size_t>(scan)] = '\0';
                     nextStart = AddW32(
                         AddW32(lineStart, static_cast<std::int32_t>(scan)),
@@ -201,10 +202,10 @@ void DrawInputText_4568A0(input::InputContext* const context)
 
                 const std::size_t copyLength =
                     static_cast<std::size_t>(maxCharBits);
-                std::memcpy(
+                platform::StrNCpy_53BEC0(
                     destination.data(),
                     context->text + lineStartIndex,
-                    copyLength);
+                    maxCharBits);
                 destination[copyLength] = '\0';
 
                 std::int32_t advance = static_cast<std::int32_t>(

@@ -102,3 +102,22 @@
 
 输入光标闪烁与排队已由 [sub_44A410](cg2d_input_caret.md) 独立实现。本项不实现
 `World::RenderInput`、`sub_45CA20` 或最终图形消费器。
+
+
+## 2026-10-03 多行段限长复制真实接线增量 SPEC
+
+既有多行两memcpy段复制接StrNCpy_53BEC0，对应456914/456955，
+原Count分别扫描ESI和+148H低W32的U32值；
+现有scan/maxCharBits直接传入，不把复制计数提升到size_t。
+同一256B destination、caller末NUL、定长分类/删孤立高位字节/
+推进与后续逐段DrawText2/光标所属行/Y顺序保持；
+字段138H模式读取的memcpy、单行队列和末锚点正文不改。
+仅两标识符/两Count表达式及既有LegacyTime.hpp包含，核心/声明不动。
+
+destination预清、局部门禁及maxCharBits/textLength快照保持，
+不将这些既有差异记为原拒绝、原重复取样全等或故障等价。
+工程裁决见[字符串合同](cg2d_legacy_string_compare.md)；
+332条统计中只读相邻55条，32代码引用/25父仅登记，不重验各父。
+集中静态核对限定接线，JSON一个既有父及共享项增量，
+两合同/唯一进度仅追加，未构建、测试、模拟输入或校验哈希；
+完整输入/渲染/跨板块运行验收仍待，音频继续暂停。

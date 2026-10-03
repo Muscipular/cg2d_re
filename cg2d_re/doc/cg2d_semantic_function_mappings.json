@@ -10973,7 +10973,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及二十四个业务复制调用已接；其他十五引用及完整运行未闭合",
+      "status": "原直接本体及二十六个业务复制调用已接；其他十三引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11026,7 +11026,7 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十四处，其他15处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十六处，其他13处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11293,9 +11293,31 @@
           "count_value": 1024,
           "count_width": "U32",
           "relationship": "5宠物扫描/格式拼接后，petSource复制至独立petCopy，再先金额后socket取样并512040发送；不追加终止或转义"
+        },
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456914",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
+          "count_width": "U32",
+          "relationship": "回车段复制至同一256B destination，caller末NUL及现有行推进/绘制保持；原标准memcpy交真实限长复制，不改变预清或门禁"
+        },
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456955",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原+148H低W32/U32，现有maxCharBits直接传入",
+          "count_width": "U32",
+          "relationship": "定长段复制至同一256B destination，caller末NUL/44B190分类/删孤立高位字节及推进保持；既有快照和保护差异不称原等价"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行"
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行"
     },
     {
       "original_entry": "0x544DB0",
@@ -42079,6 +42101,263 @@
       ],
       "verification_level": "完整212条/两格式第二参数及原字节/两U32复制计数和实际元素回调槽；整份源码仅四标识符、两个核心/声明/原型保持、三合同追加及JSON一个新父/两共享项限定差异静态核对；未构建或执行",
       "boundary": "仅公开载荷两格式/两复制接真实53B304/53BEC0；52B未清buffer/四1024B区仅源首字节清零、20物品后5宠物且slot>=0、S32 slot/position原%d|%d、第二项起竖线及即时拼接/计数保持。两U32复制1024原序，金额先于socket、512040消费两复制区、发送后当前窗口/共享状态/元素13/原音效及末图号覆盖保持。不追加数量/转义/终止/保护或改owner/生命周期，其他正文及核心/声明/原型表逐字不变；完整数据生产/交易收发/画面/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x4568A0",
+      "inventory_id": "F:000568A0",
+      "status": "既有输入多行两限长复制已接真实核心；既有边界差异及完整运行未验",
+      "original_end_exclusive": "0x456D27",
+      "instruction_count": 332,
+      "original_direct_reference_count": 32,
+      "original_direct_call_reference_count": 32,
+      "original_inbound_parent_count": 25,
+      "sources": [
+        {
+          "path": "src/render/InputText.cpp",
+          "symbols": [
+            "DrawInputText_4568A0"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456914",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
+          "count_width": "U32",
+          "relationship": "回车段复制至同一256B destination，caller末NUL及现有行推进/绘制保持；原标准memcpy交真实限长复制，不改变预清或门禁"
+        },
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456955",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原+148H低W32/U32，现有maxCharBits直接传入",
+          "count_width": "U32",
+          "relationship": "定长段复制至同一256B destination，caller末NUL/44B190分类/删孤立高位字节及推进保持；既有快照和保护差异不称原等价"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x4014B0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x401718"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4021A0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x40265F"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x43CBB0",
+          "reference_count": 2,
+          "call_sites": [
+            "0x43CE16",
+            "0x43D3EA"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x45CA20",
+          "reference_count": 2,
+          "call_sites": [
+            "0x45CB9C",
+            "0x45CBA6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_count": 3,
+          "call_sites": [
+            "0x45FBD6",
+            "0x45FBE0",
+            "0x45FBEA"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x46417D"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_count": 2,
+          "call_sites": [
+            "0x464F93",
+            "0x464F9D"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x49CAD0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x49CCAD"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A58E0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A5963"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A7590",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A75D8"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A7640",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A767F"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4CB920",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4CB9A3"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4CCED0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4CD143"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4D3210",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4D33E4"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4DF730",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4DFF78"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4EA1B0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4EA5E4"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4EB1C0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4EB742"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4F2130",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4F2454"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4FA050",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4FA2F6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4FD6A0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4FD8FC"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x501FD0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x502708"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x51C7D0",
+          "reference_count": 3,
+          "call_sites": [
+            "0x51D193",
+            "0x51D202",
+            "0x51D42E"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x52DCE0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x52E0FC"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x52ED50",
+          "reference_count": 1,
+          "call_sites": [
+            "0x52F2E6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x530BA0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x532263"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_input_text_draw.md"
+      ],
+      "verification_level": "原父332条统计、复制相邻55条/两个真实U32参数/32原代码引用与25父；整份源码限定两标识符/两Count表达式/一个既有头包含，核心/声明保持、两合同追加及JSON一个既有父/共享项限定差异静态核对；不重验其余277条或各调用方，未构建或执行",
+      "boundary": "仅多行回车/定长段两复制接真实53BEC0；现有U32 scan/maxCharBits直接作原计数，同一256B destination与caller补NUL、44B190分类/孤立高位字节删除/推进/逐段绘制保持。保留既有destination预清、局部NUL/容量/零推进/上下文/队列/字体门禁及maxCharBits/textLength快照，不称原拒绝、原+148H重复取样全路径等价或故障等价。字段138H memcpy、单行直接队列/计数重读/末锚点及其余正文逐字保持，不新建保护/私有状态或改变对象生命周期，不触碰4021A0待批补值。完整输入/渲染/数据生产/跨板块运行验收仍待，音频/加解密不恢复。"
     }
   ]
 }

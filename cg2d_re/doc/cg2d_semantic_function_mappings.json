@@ -18214,7 +18214,7 @@
     {
       "original_entry": "0x53C8B3",
       "inventory_id": "F:0013C8B3",
-      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
+      "status": "原单字节读取本体及22原入口源连接已接；完整FILE/filebuf与运行未闭合",
       "original_end_exclusive": "0x53C8CD",
       "instruction_count": 12,
       "original_direct_reference_count": 39,
@@ -18236,7 +18236,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。 三个调色板入口九个原getc点已整链迁移，每色按B/G/R分别消费低U8，EOF(-1)仍窄化FF；不合并为批量读或增加输入门槛，原39入向中的其余调用未据此计完成。 地图十二个原getc点已整链迁移，标签/版本分别取低字节，两个弃用四次读已各合四轮循环；六源码getc表达式保持动态读取顺序，EOF未转为新增失败。",
+      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。 三个调色板入口九个原getc点已整链迁移，每色按B/G/R分别消费低U8，EOF(-1)仍窄化FF；不合并为批量读或增加输入门槛，原39入向中的其余调用未据此计完成。 地图十二个原getc点已整链迁移，标签/版本分别取低字节，两个弃用四次读已各合四轮循环；六源码getc表达式保持动态读取顺序，EOF未转为新增失败。；2026-10-04新增549147@549186反向回推叶失败尾真实条件读取：remaining<1时读1-remaining次、弃返回；原普通计数域失败时该条件不进入，保留条件/常量，不以接线证明运行或事务回滚。两filebuf上游/生命周期仍待。",
       "function_chunks": [
         {
           "start": "0x53C8B3",
@@ -18401,7 +18401,7 @@
           "parent_entry": "0x549BC7"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行",
+      "verification_level": "完整原指令、全部直接入向、回退记录原字节；新增源码静态核对，未执行；复用549147既有36条及仅读参数/失败尾36条局部窗口，新增叶/唯一声明及549186条件call、U8/W32/完整-1/无符号分支/AL返回和一根一父限定JSON静态核对；既有核心/21点不重验，未构建或执行",
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "stdio/fgetc.cpp",
@@ -18534,6 +18534,14 @@
           "call_site": "0x468CD8",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x549147",
+          "call_site": "0x549186",
+          "source": "src/platform/LegacyStdio.cpp",
+          "symbol": "UnreadLegacyStreamBytes_549147",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3",
+          "relationship": "仅保留原失败尾remaining<1的1-remaining次条件读，弃返回；不记实际运行或普通失败域覆盖"
         }
       ]
     },
@@ -33492,11 +33500,11 @@
     {
       "original_entry": "0x549147",
       "inventory_id": "F:00149147",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原反向字节回推叶已实现并接真实ungetc/fgetc；完整filebuf生产消费与运行未验",
       "original_end_exclusive": "0x549194",
       "instruction_count": 36,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用；本项复用既有36条全本体/两个入向取证，仅读所需参数/失败条件36条局部窗口；新增两文件叶/唯一声明、两真实callee/源字节U8/数量W32/条件回读/AL返回与JSON限定更新静态核对；未复检原FILE核心，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5489F5",
@@ -33507,11 +33515,48 @@
           "parent_entry": "0x549AE2"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "UnreadLegacyStreamBytes_549147"
+          ],
+          "relationship": "原const char&连续字节/LegacyFile*/U32参数，末端U8反向回推，完整-1终止与AL布尔返回，条件回读不改"
+        },
+        {
+          "path": "src/platform/LegacyStdio.hpp",
+          "symbols": [
+            "UnreadLegacyStreamBytes_549147"
+          ],
+          "relationship": "唯一原叶声明，源/FILE非拥有，未公开旧filebuf对象布局"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "反向字节回推：从末字节向前ungetc，遇FFFFFFFF停止；只规定AL成功/失败，保留失败后的原条件fgetc路径，不添加通用回滚。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "反向字节回推：从末字节向前ungetc，遇FFFFFFFF停止；只规定AL成功/失败，保留失败后的原条件fgetc路径，不添加通用回滚。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04实现本体：count0直接成功，不读取字节；非零从源末端U8取字节，先退游标再原ungetc，完整-1才停止，成功才减remaining。失败remaining非0，按原W32条件remaining<1才用1-remaining次数fgetc；正常局部计数域该条件不进入，不改成回滚已推入的全部字节或删除原条件。原两上游pbackfail/filebuf对象尚未接，宿主提案仍待，不称完整FILE生命周期。",
+      "stream_call_connections": [
+        {
+          "target_entry": "0x54463F",
+          "call_site": "0x549162",
+          "source": "src/platform/LegacyStdio.cpp",
+          "symbol": "UnreadLegacyStreamByte_54463F",
+          "relationship": "从源末端U8零扩展S32，退游标后回推；仅完整FFFFFFFF失败，成功才减remaining"
+        },
+        {
+          "target_entry": "0x53C8B3",
+          "call_site": "0x549186",
+          "source": "src/platform/LegacyStdio.cpp",
+          "symbol": "ReadLegacyStreamByte_53C8B3",
+          "relationship": "保留原失败尾remaining<1无符号条件下1-remaining次读取，弃返回；不改成事务回滚"
+        }
+      ],
+      "original_parameter_contract": {
+        "source": "const char&，机器传参为非拥有字节地址",
+        "stream": "LegacyFile*，非拥有",
+        "byte_count": "U32",
+        "return": "AL布尔值，高位不承诺"
+      }
     },
     {
       "original_entry": "0x549CE5",

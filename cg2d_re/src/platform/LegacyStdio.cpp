@@ -1300,4 +1300,32 @@ std::int32_t CloseAllLegacyStreams_5446AD()
     return successes;
 }
 
+// 原549147；源地址/FILE借用，按末端U8回推，数量W32，只有AL返回布尔值。
+bool UnreadLegacyStreamBytes_549147(const char& firstByte,
+    LegacyFile* const stream, const std::uint32_t byteCount)
+{
+    std::uint32_t remaining = byteCount;
+    const char* cursor = &firstByte + remaining;
+    while (remaining != 0) {
+        const auto character = static_cast<std::uint8_t>(cursor[-1]);
+        --cursor;
+        if (UnreadLegacyStreamByte_54463F(character, stream) == -1) {
+            break;
+        }
+        --remaining;
+    }
+    if (remaining == 0) {
+        return true;
+    }
+    std::uint32_t rollbackCount = 1;
+    if (remaining < rollbackCount) {
+        rollbackCount -= remaining;
+        do {
+            static_cast<void>(ReadLegacyStreamByte_53C8B3(stream));
+            --rollbackCount;
+        } while (rollbackCount != 0);
+    }
+    return false;
+}
+
 } // namespace cg::platform

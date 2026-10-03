@@ -47,7 +47,7 @@
 | CRT字符/数值/浮点 | 旧长整数解析、分类/多字节表及初始化、单字符转换、数字格式、格式输出/扫描、96位扩展算术/十进制/IEEE转换、六槽安装/控制字/除法探测已有 | 真实CRT上游及剩余消费者接线/运行未闭合，不执行硬件/数值样例；[文本](../doc/cg2d_legacy_string_compare.md)、[多字节](../doc/cg2d_legacy_multibyte.md)、[stdio](../doc/cg2d_stdio_contract.md)、[启动](../doc/cg2d_startup_flow.md) |
 | CRT FILE/低层描述符 | 流/描述符生产、打开/关闭/刷新/读取/文本转换、定位/缓冲/回推/宽字符/扫描输出及36B文件状态已有真实本体 | 窄宽filebuf、完整初始化/应用迁移与实际持久化未验；[stdio](../doc/cg2d_stdio_contract.md) |
 | CRT堆 | 模式选择、初始化/容量查询、模式2完整八入口、模式3区域/组生产和原堆外层malloc/free/calloc/realloc已有；退出表初分配/容量/扩容同属原堆 | 模式3的541FB1/541C88/542466及16B块原生双链未定；指定宿主Malloc/Free与原堆域保持区分，21应用calloc原点未迁；[堆合同](../doc/cg2d_crt_memory_contract.md) |
-| 业务文件迁移 | 黑名单/聊天历史/登录存档、邮件/profile/category/公会、窗口存档、调色板/索引、地图、相册/CUT/AUT、图形Info/数据、anime/坐标、自动地图缓存/资源路径、日志/现代66、argument.ini及截图探测均接同源LegacyFile链 | 保留短读/短写/EOF/重复关闭/不清槽次序；打开62/67、关闭86/96、读行4/8、写块55/55、读块26/29、定位18/25、刷新1/5、低层读取21/39、fprintf10/11。余点及完整初始化/持久化未闭合；[stdio](../doc/cg2d_stdio_contract.md)、[资源](../doc/cg2d_resource_sources.md)、[图形](../doc/cg2d_graphic_info.md)、[动画](../doc/cg2d_animation_runtime.md) |
+| 业务文件迁移 | 黑名单/聊天历史/登录存档、邮件/profile/category/公会、窗口存档、调色板/索引、地图、相册/CUT/AUT、图形Info/数据、anime/坐标、自动地图缓存/资源路径、日志/现代66、argument.ini及截图探测均接同源LegacyFile链 | 保留短读/短写/EOF/重复关闭/不清槽次序；打开62/67、关闭86/96、读行4/8、批量读取55/55、批量写入26/29、定位18/25、刷新1/5、单字节读取22/39、fprintf10/11。余点及完整初始化/持久化未闭合；[stdio](../doc/cg2d_stdio_contract.md)、[资源](../doc/cg2d_resource_sources.md)、[图形](../doc/cg2d_graphic_info.md)、[动画](../doc/cg2d_animation_runtime.md) |
 | 格式生产者 | 连接/错误/协议、创建/登录标题、配置/存档、现代窗口、旧人物/宠物/邮件/技能/物品/设置/制造/商店/交易/仓库/公会、世界/战斗/实体/渲染及CRT局部共989真实原点已接 | 原未清缓冲、容量/末NUL、符号/别名、共享表达式及调用/RNG顺序分别留在合同；34余点见下表，完整父/文本/文件/画面未验；[stdio合同](../doc/cg2d_stdio_contract.md) |
 | 字符串生产者 | 输入/分类/绘制、交易/摊位/战斗M头、加工名称、分色分配/释放、网络名称/@MSG、商店29B、防护表、错误报告与CRT输出/浮点已接原复制/查找；字符/子串当前范围入口归属收口 | 完整复制尚3点、长度尚11点；输入预清/安全门禁/快照等差异不称等价；防护1清B/2置A/3先B后A及每段LF退出已纠正，内部tail不加入口计数；[字符串](../doc/cg2d_legacy_string_compare.md)、[网络](../doc/cg2d_network_runtime.md)、[错误报告](../doc/cg2d_startup_flow.md) |
 | R1映射/分类 | 公共命名、容器/构析/共享叶、导入跳板、未归属代码/数据/填充边界已增量登记；不重复已有本体 | 映射不等于真实实现；4范围引用见下表，完整间接目标/全EXE未知仍待；[语义索引](../doc/cg2d_semantic_function_mappings.md)、[候选](../doc/cg2d_unassigned_code_candidates.json) |
@@ -161,3 +161,18 @@
 未构建、测试、运行或哈希校验；完整53DDB5/cinit、私有环境更新/退出和CRT生命周期未闭合。
 下一步转剩余可推进FILE/业务分配及数据生产，不循环复核已接点，不擅批宿主提案或恢复音频；
 [局部SPEC](../doc/cg2d_startup_flow.md#2026-10-04-原环境块与两遍环境表生产局部spec及实现)和总完成门禁保持。
+
+
+### 2026-10-04 反向字节回推叶实现小步
+
+实现549147的连续字节末端U8回推：复用既有36条合同，按真实ungetc完整-1停止，
+只在成功后减W32余量；保留失败尾无符号remaining<1及1-remaining条件回读，
+不改常量、不补全部回滚/保护/清零。源/FILE借用与AL布尔返回保持。
+
+原两上游pbackfail/filebuf对象及完整生命周期未接，宿主总提案仍待。
+549147记录由仅取证更新为真实本体，语义项1084不变；
+53C8B3真实源连接21→22/39（原549186条件调用），不称普通域实际执行或运行覆盖。
+更正本进度FILE摘要名称为批量读取55/55、批量写入26/29、单字节读取22/39，原计数池保持。
+只核两文件新增、两流callee/U8/W32/失败条件、JSON一根一父及合同/进度限定差异；
+旧核心/已接点不重验，未构建、测试、运行或hash校验。
+[局部SPEC](../doc/cg2d_stdio_contract.md#2026-10-04-反向字节回推叶局部spec及实现)及完整CRT/FILE/总PLAN门禁保持。

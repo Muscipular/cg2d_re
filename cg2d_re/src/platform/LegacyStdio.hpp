@@ -73,6 +73,9 @@ void RewindLegacyStream_53B27D(LegacyFile* stream);
 std::int32_t SetLegacyStreamBuffer_54ACF1(
     LegacyFile* stream, char* buffer, std::uint32_t mode, std::uint32_t size);
 std::int32_t UnreadLegacyStreamByte_54463F(std::int32_t character, LegacyFile* stream);
+// 原549147；const char&借用连续字节首项，U32数量；失败条件回读沿原指令。
+bool UnreadLegacyStreamBytes_549147(
+    const char& firstByte, LegacyFile* stream, std::uint32_t byteCount);
 // 原fpos数值为8B的低/高W32，非地址；保留逐半发布及读取次序。
 struct LegacyFilePosition final {
     std::uint32_t low;

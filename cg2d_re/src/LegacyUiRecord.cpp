@@ -11452,12 +11452,12 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t skillWidth = TextMeasure(skillName, 0);
     drawAt(skillName, 82 - skillWidth / 2, 37, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);
@@ -11574,12 +11574,12 @@ std::uintptr_t Sub_4EF0F0(const std::int32_t opened)
     const char* const skillName = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t skillWidth = TextMeasure(skillName, 0);
     drawAt(skillName, 82 - skillWidth / 2, 37, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);

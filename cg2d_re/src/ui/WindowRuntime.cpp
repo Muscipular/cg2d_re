@@ -38923,7 +38923,7 @@ void Sub_49F7E0(const std::int32_t offset)
         static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text[0] = '\0';
         const char* const name = gStatusChoiceRecordsCB03D0[offset + row].name;
         if (name != nullptr) {
-            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->text,
                 "           %s", name);
             static_cast<WindowTextData*>(gCurrentWindow->elements[row + 10].data)->bytes00[0] =
                 static_cast<std::byte>(gStatusChoiceRecordsCB03D0[offset + row].color);
@@ -38932,14 +38932,14 @@ void Sub_49F7E0(const std::int32_t offset)
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[row + 4].data)->imageNo =
                 gHealthImages57E6A4[imageIndex];
             const std::int32_t level = gStatusChoiceRecordsCB03D0[offset + row].level;
-            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 22].data)->text,
                 "%10d", level);
             const WindowStatusChoiceRecord* const record = gStatusChoiceRecordsCB03D0 + offset + row;
             const std::int32_t maxFp = record->maxFp;
             const std::int32_t fp = record->fp;
             const std::int32_t maxHp = record->maxHp;
             const std::int32_t hp = record->hp;
-            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 28].data)->text,
                 "                            %6d/%6d %6d/%6d", hp, maxHp, fp, maxFp);
         }
     }

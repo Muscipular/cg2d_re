@@ -8192,7 +8192,7 @@ void Sub_4C69B0(WindowItemSelectorState* const state)
     const std::int32_t maximumWeight = pet->values6D8[2];
     const std::int32_t weight = pet->values6D8[1];
     auto* const weightData = static_cast<WindowTextData*>(weightElement->data);
-    std::sprintf(weightData->text, "\xAD\x74\xAD\xAB:%3d/%3d", weight, maximumWeight);
+    platform::FormatLegacyString_53B304(weightData->text, "\xAD\x74\xAD\xAB:%3d/%3d", weight, maximumWeight);
     const std::int32_t weightWidth = login::detail::TextMeasure(
         weightData->text, std::to_integer<std::uint8_t>(weightData->bytes00[1]));
     weightElement->x = state->elements00[1]->x - weightWidth / 2 + 101;

@@ -52,6 +52,20 @@ std::uint16_t* IncrementLegacyWideWriteCursor_549E51(LegacyWideStreamBuffer* con
     return previous;
 }
 
+void BumpLegacyWideReadCursor_549E08(LegacyWideStreamBuffer* const storage,
+    const std::int32_t characterCount)
+{
+    *storage->readRemainingSlot -= characterCount;
+    *storage->readCurrentSlot += characterCount;
+}
+
+void BumpLegacyWideWriteCursor_549E3D(LegacyWideStreamBuffer* const storage,
+    const std::int32_t characterCount)
+{
+    *storage->writeRemainingSlot -= characterCount;
+    *storage->writeCurrentSlot += characterCount;
+}
+
 template <typename Character>
 void ResetLegacyStreamBuffer_549EDE(LegacyStreamBufferStorage<Character>* const storage)
 {

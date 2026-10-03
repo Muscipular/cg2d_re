@@ -34275,22 +34275,97 @@
     {
       "original_entry": "0x549E08",
       "inventory_id": "F:00149E08",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原宽读写S32字符推进本体已实现；上游批量/虚表/owner和完整运行未闭合",
       "original_end_exclusive": "0x549E1C",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新两叶14条与S32参/余量先减/槽重取/原2倍字节位移、两源码限定新增/唯一声明/两记录及合同进度静态核对，旧叶/核心不复检，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x549800",
           "parent_entry": "0x5497A8"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "BumpLegacyWideReadCursor_549E08"
+          ],
+          "relationship": "实际余量S32槽先减字符数，然后重新取U16游标槽按2B字符移动，未改成字节计数或私有副本"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "BumpLegacyWideReadCursor_549E08",
+            "LegacyWideStreamBuffer"
+          ],
+          "relationship": "唯一真实显式this接口，已有96B视图，已证U16*地址拓宽/数值S32"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽gbump：所指余量先减S32字符数，再重取游标槽并加2*字符数，不按字节数直接减余量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽gbump：所指余量先减S32字符数，再重取游标槽并加2*字符数，不按字节数直接减余量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x549E1C",
@@ -34489,22 +34564,97 @@
     {
       "original_entry": "0x549E3D",
       "inventory_id": "F:00149E3D",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原宽读写S32字符推进本体已实现；上游批量/虚表/owner和完整运行未闭合",
       "original_end_exclusive": "0x549E51",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新两叶14条与S32参/余量先减/槽重取/原2倍字节位移、两源码限定新增/唯一声明/两记录及合同进度静态核对，旧叶/核心不复检，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x549887",
           "parent_entry": "0x54982F"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "BumpLegacyWideWriteCursor_549E3D"
+          ],
+          "relationship": "实际余量S32槽先减字符数，然后重新取U16游标槽按2B字符移动，未改成字节计数或私有副本"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "BumpLegacyWideWriteCursor_549E3D",
+            "LegacyWideStreamBuffer"
+          ],
+          "relationship": "唯一真实显式this接口，已有96B视图，已证U16*地址拓宽/数值S32"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽pbump：输出侧先从余量减S32字符数，再重取游标槽并加2*字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽pbump：输出侧先从余量减S32字符数，再重取游标槽并加2*字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x549E51",

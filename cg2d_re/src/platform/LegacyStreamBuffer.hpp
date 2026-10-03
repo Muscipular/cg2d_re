@@ -43,6 +43,12 @@ char* IncrementLegacyWriteCursor_548EC5(LegacyNarrowStreamBuffer* storage);
 std::uint16_t* DecrementLegacyWideReadCursor_549E1C(LegacyWideStreamBuffer* storage);
 std::uint16_t* IncrementLegacyWideReadCursor_549E2D(LegacyWideStreamBuffer* storage);
 std::uint16_t* IncrementLegacyWideWriteCursor_549E51(LegacyWideStreamBuffer* storage);
+// 原549E08/549E3D；余量按S32字符数扣减，U16*按2B字符步长推进。
+void BumpLegacyWideReadCursor_549E08(
+    LegacyWideStreamBuffer* storage, std::int32_t characterCount);
+void BumpLegacyWideWriteCursor_549E3D(
+    LegacyWideStreamBuffer* storage, std::int32_t characterCount);
+
 // 原549EDE窄宽共用重绑定/清六值；只实例化已证char/U16，实际owner另行接线。
 template <typename Character>
 void ResetLegacyStreamBuffer_549EDE(LegacyStreamBufferStorage<Character>* storage);

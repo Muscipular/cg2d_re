@@ -10511,7 +10511,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "已有标准库字节操作的限定语义关联；父链和运行边界仍独立验收",
+      "status": "原89条字符查找直接本体及分色两调用已接；其他23原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -10536,13 +10536,58 @@
           "symbols": [
             "UpdateLoginMessage"
           ]
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrChr_53C2F0"
+          ],
+          "relationship": "原源对齐/字节匹配/目标与NUL筛查/候选复读直接核心"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrChr_53C2F0"
+          ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4FBA30"
+          ],
+          "relationship": "两个实际查$调用；既有其他标准库关联不计直接本体已接"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "低W8目标，首匹配原指针或空，目标0可命中终止NUL。除主范围外包含53C2E0..53C2E5共享返回chunk；后续align不算该函数。已有std::strchr调用承接原字节查找，向量/对齐实现和无效缓冲故障时点不据此判等。 无新增业务包装或默认值，未执行算法、编译、测试或运行。"
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处已接，其他23未计完成；既有CommandOptions/LoginMessage的std::strchr仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。",
+      "original_direct_reference_count": 25,
+      "original_direct_call_reference_count": 25,
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA3B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 36,
+          "relationship": "首轮查$后才取得原前缀长度"
+        },
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBADD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 36,
+          "relationship": "前缀释放/原标记颜色处理后再次查$，保持同一借用文本"
+        }
+      ],
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行"
     },
     {
       "original_entry": "0x53C790",
@@ -10973,7 +11018,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及二十六个业务复制调用已接；其他十三引用及完整运行未闭合",
+      "status": "原直接本体及二十七个业务复制调用已接；其他十二引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11026,7 +11071,7 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十六处，其他13处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十七处，其他12处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11315,9 +11360,20 @@
           "count_kind": "原+148H低W32/U32，现有maxCharBits直接传入",
           "count_width": "U32",
           "relationship": "定长段复制至同一256B destination，caller末NUL/44B190分类/删孤立高位字节及推进保持；既有快照和保护差异不称原等价"
+        },
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA72",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原EBP前缀长度低W32/U32；新length为U32，双$时加1",
+          "count_width": "U32",
+          "relationship": "前缀分配length+1成功后复制，caller末NUL，再绘制/测宽/X推进/源切换/同源释放，之后颜色解析"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行"
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行；分色父94条及查找89条完整取证，五原调用/Count U32/同源临时生命周期与整份源码限定差异静态核对，未执行"
     },
     {
       "original_entry": "0x544DB0",
@@ -29161,6 +29217,13 @@
             "Malloc_53C3AC"
           ],
           "relationship": "用户既有std::malloc/std::free窄合同；本步逐字保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4FBA30"
+          ],
+          "relationship": "限定分色临时块已批准宿主窄合同，真实原堆接口和模式3不改"
         }
       ],
       "inbound_evidence": [
@@ -29387,10 +29450,23 @@
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
       "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
-      "boundary": "真实原堆malloc先采样1086150完整S32门禁再调53C3BE；退出表53B41D及真实realloc空输入路径已接。其余宿主分配合同保持，不以55入向数量宣称全迁移；模式3分配核心仍待。"
+      "boundary": "真实原堆malloc先采样1086150完整S32门禁再调53C3BE；退出表53B41D及真实realloc空输入路径已接。其余宿主分配合同保持，不以55入向数量宣称全迁移；模式3分配核心仍待。 分色0x4FBA5D改经既有Malloc_53C3AC宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。",
+      "host_contract_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA5D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C3AC",
+          "target_symbol": "Malloc_53C3AC",
+          "size_kind": "原EBP低W32+1/U32",
+          "contract": "既有已批准std::malloc/std::free宿主窄合同，不进入真实原堆块域"
+        }
+      ]
     },
     {
       "original_entry": "0x53C0A9",
@@ -29419,6 +29495,13 @@
             "Free_53C0A9"
           ],
           "relationship": "用户既有std::malloc/std::free窄合同；本步逐字保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4FBA30"
+          ],
+          "relationship": "限定分色临时块已批准宿主窄合同，真实原堆接口和模式3不改"
         }
       ],
       "inbound_evidence": [
@@ -29785,10 +29868,22 @@
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
       "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
-      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。"
+      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。",
+      "host_contract_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBAB5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C0A9",
+          "target_symbol": "Free_53C0A9",
+          "contract": "消费同源Malloc_53C3AC宿主块；绘制/测宽/X推进/源切换后释放，不混原堆"
+        }
+      ]
     },
     {
       "original_entry": "0x4011A0",
@@ -42358,6 +42453,201 @@
       ],
       "verification_level": "原父332条统计、复制相邻55条/两个真实U32参数/32原代码引用与25父；整份源码限定两标识符/两Count表达式/一个既有头包含，核心/声明保持、两合同追加及JSON一个既有父/共享项限定差异静态核对；不重验其余277条或各调用方，未构建或执行",
       "boundary": "仅多行回车/定长段两复制接真实53BEC0；现有U32 scan/maxCharBits直接作原计数，同一256B destination与caller补NUL、44B190分类/孤立高位字节删除/推进/逐段绘制保持。保留既有destination预清、局部NUL/容量/零推进/上下文/队列/字体门禁及maxCharBits/textLength快照，不称原拒绝、原+148H重复取样全路径等价或故障等价。字段138H memcpy、单行直接队列/计数重读/末锚点及其余正文逐字保持，不新建保护/私有状态或改变对象生命周期，不触碰4021A0待批补值。完整输入/渲染/数据生产/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x4FBA30",
+      "inventory_id": "F:000FBA30",
+      "status": "既有分色前缀查找/复制及批准宿主临时块生命周期已接；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4FBB22",
+      "instruction_count": 94,
+      "original_direct_reference_count": 16,
+      "original_direct_call_reference_count": 16,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4FBA30"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA72",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原EBP前缀长度低W32/U32；新length为U32，双$时加1",
+          "count_width": "U32",
+          "relationship": "前缀分配length+1成功后复制，caller末NUL，再绘制/测宽/X推进/源切换/同源释放，之后颜色解析"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA3B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 36,
+          "relationship": "首轮查$后才取得原前缀长度"
+        },
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBADD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 36,
+          "relationship": "前缀释放/原标记颜色处理后再次查$，保持同一借用文本"
+        }
+      ],
+      "host_contract_call_connections": [
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBA5D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C3AC",
+          "target_symbol": "Malloc_53C3AC",
+          "size_kind": "原EBP低W32+1/U32",
+          "contract": "既有已批准std::malloc/std::free宿主窄合同，不进入真实原堆块域"
+        },
+        {
+          "parent_entry": "0x4FBA30",
+          "call_site": "0x4FBAB5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4FBA30",
+          "target_entry": "0x53C0A9",
+          "target_symbol": "Free_53C0A9",
+          "contract": "消费同源Malloc_53C3AC宿主块；绘制/测宽/X推进/源切换后释放，不混原堆"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x48B810",
+          "reference_count": 1,
+          "call_sites": [
+            "0x48B8BC"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x48B930",
+          "reference_count": 1,
+          "call_sites": [
+            "0x48B9DE"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4B99D0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4B9AE9"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4BF950",
+          "reference_count": 2,
+          "call_sites": [
+            "0x4BFB24",
+            "0x4BFB74"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4C1EC0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4C1F74"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4C4180",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4C4234"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4D4960",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4D4A0C"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4D61E0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4D6259"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4DA400",
+          "reference_count": 2,
+          "call_sites": [
+            "0x4DA4F5",
+            "0x4DA545"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4DDA30",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4DDAD2"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4DF210",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4DF2B2"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4E0FF0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4E10A5"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4E7290",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4E7335"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        },
+        {
+          "parent_entry": "0x4FB940",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4FB9E5"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或完整业务分派"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/legacy_item_work_selection.md"
+      ],
+      "verification_level": "父完整94条/16代码引用、原五调用/查找核心完整89条与立即数、U32前缀及同源临时块/图文消费者静态核对；源码限定新核心/声明和五调用/长度/一个已有头包含，其他正文及已批准分配释放/复制核心保持，未构建或执行",
+      "boundary": "原两查$、双$长度加1、EBP低W32前缀/分配length+1/U32、失败0、复制/caller末NUL、456780绘制/44B2A0本字体测宽/X推进/源置delimiter+2/释放后S8数字颜色/D67D30共享更新与再次查找保持。尾段取共享颜色低W8并返回原最后绘制结果；不改参数、owner/借用指针或对象生命周期，不加转码/保护。Malloc_53C3AC/Free_53C0A9仅用户已批准宿主窄合同，宿主块同源释放，不移交真实原堆或解除mode3/启动/退出门禁。完整分色/数据生产/输入/渲染/跨板块运行验收仍待，音频/加解密不恢复。"
     }
   ]
 }

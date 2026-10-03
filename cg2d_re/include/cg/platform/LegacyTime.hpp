@@ -28,6 +28,9 @@ char* StrTok_53D26E(char* text, const char* delimiters);
 // 输入与交易载荷复用LegacyTime已有本体，源对齐读取/复读与分段补零次序保持。
 char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t count);
 
+// 原53C2F0；低W8目标按源对齐/候选复读搜索，返回借用首匹配或空，目标0可命中NUL。
+char* __cdecl StrChr_53C2F0(const char* text, std::int32_t target);
+
 // 原53C654；旧字节路径交CreateDirectoryA，非零错误经542F44写共享槽，返回0/-1。
 std::int32_t CreateLegacyDirectory_53C654(const char* path);
 

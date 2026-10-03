@@ -434,6 +434,59 @@ char* __cdecl StrNCpy_53BEC0(char* target, const char* source, std::uint32_t cou
     return target;
 }
 
+// 原53C2F0及共享53C2E0返回块：查找低W8目标，返回原文本内的借用指针。
+char* __cdecl StrChr_53C2F0(const char* text, const std::int32_t target)
+{
+    const auto needle = static_cast<unsigned char>(target);
+    const auto* cursor = reinterpret_cast<const unsigned char*>(text);
+    while ((reinterpret_cast<std::uintptr_t>(cursor) & 3u) != 0) {
+        const unsigned char value = *cursor++;
+        if (value == needle) {
+            return const_cast<char*>(reinterpret_cast<const char*>(cursor - 1));
+        }
+        if (value == 0) {
+            return nullptr;
+        }
+    }
+
+    const std::uint32_t pattern = static_cast<std::uint32_t>(needle) * 0x01010101u;
+    for (;;) {
+        std::uint32_t probe;
+        std::memcpy(&probe, cursor, sizeof(probe));
+        const std::uint32_t zeroSum = probe + 0x7EFEFEFFu;
+        const std::uint32_t compared = probe ^ pattern;
+        const std::uint32_t matchFlags =
+            ((compared + 0x7EFEFEFFu) ^ ~compared) & 0x81010100u;
+        const std::uint32_t zeroFlags = (zeroSum ^ ~probe) & 0x81010100u;
+        cursor += 4;
+        if (matchFlags != 0) {
+            // 原53C368仅在目标候选出现后重读，逐字节先匹配再判NUL。
+            std::uint32_t block;
+            std::memcpy(&block, cursor - 4, sizeof(block));
+            for (std::uint32_t index = 0; index < 4; ++index) {
+                const auto value = static_cast<unsigned char>(block >> (index * 8u));
+                if (value == needle) {
+                    return const_cast<char*>(reinterpret_cast<const char*>(cursor - 4 + index));
+                }
+                if (value == 0) {
+                    return nullptr;
+                }
+            }
+            continue;
+        }
+        if (zeroFlags == 0) {
+            continue;
+        }
+        if ((zeroFlags & 0x01010100u) != 0) {
+            return nullptr;
+        }
+        if ((zeroSum & 0x80000000u) != 0) {
+            continue;
+        }
+        return nullptr;
+    }
+}
+
 namespace {
 
 struct LegacyFileErrorEntry {

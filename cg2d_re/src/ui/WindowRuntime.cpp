@@ -25,6 +25,7 @@
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCursor.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
@@ -7684,17 +7685,17 @@ std::int32_t Sub_4FBA30(
     const std::int32_t fontType, std::int8_t color, const char* text,
     const std::int8_t value7, const std::int8_t marker)
 {
-    const char* delimiter = std::strchr(text, '$');
+    const char* delimiter = platform::StrChr_53C2F0(text, '$');
     while (delimiter != nullptr) {
-        std::size_t length = static_cast<std::size_t>(delimiter - text);
+        std::uint32_t length = static_cast<std::uint32_t>(delimiter - text);
         if (delimiter[1] == '$') {
             ++length;
         }
-        auto* const prefix = static_cast<char*>(std::malloc(length + 1));
+        auto* const prefix = static_cast<char*>(platform::Malloc_53C3AC(length + 1));
         if (prefix == nullptr) {
             return 0;
         }
-        std::strncpy(prefix, text, length);
+        platform::StrNCpy_53BEC0(prefix, text, length);
         prefix[length] = '\0';
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),
@@ -7703,7 +7704,7 @@ std::int32_t Sub_4FBA30(
             color, prefix, value7, marker));
         x += login::detail::TextMeasure(prefix, fontType);
         text = delimiter + 2;
-        std::free(prefix);
+        platform::Free_53C0A9(prefix);
         const signed char next = static_cast<signed char>(delimiter[1]);
         if (next != '$') {
             const std::int32_t digit = next - '0';
@@ -7712,7 +7713,7 @@ std::int32_t Sub_4FBA30(
                 color = static_cast<std::int8_t>(digit);
             }
         }
-        delimiter = std::strchr(text, '$');
+        delimiter = platform::StrChr_53C2F0(text, '$');
     }
     return render::DrawText_456780(
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x)),

@@ -17787,7 +17787,7 @@ std::int32_t Sub_4B5C30(const std::int32_t index, const std::int32_t state)
         if ((state & 2) == 0) {
             return consumed;
         }
-        std::sprintf(text, "%d", (index - 5) / 7);
+        platform::FormatLegacyString_53B304(text, "%d", (index - 5) / 7);
         input::EscapeLegacyTextAndNotify_52D2D0(text, escaped, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -17892,7 +17892,7 @@ void Sub_4B62A0()
             std::memcpy(&month, bytes + 16, sizeof(month));
             std::int32_t year;
             std::memcpy(&year, bytes + 20, sizeof(year));
-            std::sprintf(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
+            platform::FormatLegacyString_53B304(buffer.data(), "%4d/%02d/%02d/%02d:%02d",
                 year + 1900, month + 1, day, hour, minute);
             auto* const date = static_cast<WindowTextData*>(gCurrentWindow->elements[first + 2].data);
             std::strcpy(date->text, buffer.data());

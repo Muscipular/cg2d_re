@@ -42291,7 +42291,7 @@ WindowElement* Sub_491AA0()
                 std::strcpy(data->text, techniqueName);
                 gCurrentWindow->elements[23 + row].visible = 1;
                 const std::int32_t fp = selectedPet().techniquesD8[row].fp;
-                std::sprintf(buffer, "%3d", fp);
+                platform::FormatLegacyString_53B304(buffer, "%3d", fp);
                 std::strcpy(gPetTechniqueCostsD66C34[row].data(), buffer);
             }
         }
@@ -42303,7 +42303,7 @@ WindowElement* Sub_491AA0()
             gCurrentWindow->elements[23 + row].visible = 0;
         }
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     auto* const page = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     std::strcpy(page->text, buffer);
     gCurrentWindow->elements[33].visible = 0;

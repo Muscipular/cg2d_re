@@ -9379,7 +9379,7 @@ std::int32_t Sub_49DA30(
         }
     } else {
         if (gDialogReply.type == 2) {
-            std::sprintf(rowReply, "%d", -gDialogReply.firstLine);
+            platform::FormatLegacyString_53B304(rowReply, "%d", -gDialogReply.firstLine);
             input::EscapeLegacyTextAndNotify_52D2D0(rowReply, reply, 255);
         } else if (gDialogReply.type == 35) {
             if ((button & 1) != 0) {
@@ -9403,7 +9403,7 @@ std::int32_t Sub_49DA30(
             input::EscapeLegacyTextAndNotify_52D2D0(first, first, 255);
             std::strcpy(second, texts[1]);
             input::EscapeLegacyTextAndNotify_52D2D0(second, second, 255);
-            std::sprintf(combined, "%s|%s", first, second);
+            platform::FormatLegacyString_53B304(combined, "%s|%s", first, second);
             input::EscapeLegacyText_52D1B0(combined, reply, 255);
         } else {
             input::EscapeLegacyTextAndNotify_52D2D0(
@@ -9422,7 +9422,7 @@ std::int32_t Sub_49DA30(
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     if (row >= 0) {
-        std::sprintf(reply, "%d", row + 1);
+        platform::FormatLegacyString_53B304(reply, "%d", row + 1);
         input::EscapeLegacyTextAndNotify_52D2D0(reply, rowReply, 255);
         const std::int32_t target = gDialogReply.target;
         const std::int32_t request = gDialogReply.request;

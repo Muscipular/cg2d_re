@@ -331,10 +331,8 @@ std::int32_t UpdateServerConnection()
     std::int32_t result = 0;
 
     if (phase == 0) {
-        std::memcpy(
-            gServerConnectingText,
-            kServerConnectingText,
-            sizeof(kServerConnectingText));
+        static_cast<void>(platform::FormatLegacyString_53B304(
+            gServerConnectingText, kServerConnectingText));
 
         gServerConnectionLayout.columnCount =
             (detail::TextMeasure(gServerConnectingText, 0) + 111) / 64;

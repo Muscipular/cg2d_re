@@ -2,6 +2,7 @@
 #include "ImeLifecycle.hpp"
 #include "ClientShutdown.hpp"
 #include "StartupNative.hpp"
+#include "LegacyFormat.hpp"
 
 #include "../LoginMessageDependencies.hpp"
 #include "../render/GraphicDxCacheState.hpp"
@@ -246,7 +247,7 @@ int InitializeClient_4576B0()
     static_cast<void>(InitializeIme_458FD0());
     if (RestoreCurrentSavedState_5201B0() == 0) {
         char message[1024];
-        std::sprintf(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
+        FormatLegacyString_53B304(message, kSavedStateErrorFormat, static_cast<int>(gValueFF4E28));
         ShowLegacyMessage(message, kConfirmCaption, kErrorMessageFlags);
         return 0;
     }

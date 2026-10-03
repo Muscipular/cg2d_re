@@ -774,3 +774,20 @@ NUL/长度/LF、25项顺序、实际使用位置和源码限定差异；不执�
 不运行测宽或格式化样例，不把源码断言写成已编译通过。各文件历史UTF-8描述仅代表
 修复前状态；本增量覆盖本表常量的状态，不重审已过文本和其他业务实现。
 不构建、检查产物、新增或执行测试、运行客户端或哈希校验；真实显示/交互仍未验收。
+
+
+## 登录标题五真实格式板块 SPEC（2026-10-04）
+
+依工程委托裁决，现SetBaseWindowTitle一snprintf与SetServerWindowTitle两个snprintf恢复53B304、撤sizeof容量参数，复用既有256B title与两个helper签名；登录源码只引已有内部LegacyFormat.hpp。三个源码格式callee承接五原call，不造helper原地址、不保留新增截断。
+
+| 原call | 格式 | 源绑定与条件 |
+| --- | --- | --- |
+| 45FEDE | 55C7E8 %s %s | Base helper第1调用，原state0先写1后格式/窗口标题。 |
+| 46010C | 55C7D8 %s %s [%s %s] | 选服原低S8输入/available门禁后：窗口名、版本、category、server四T*，包含slot9。 |
+| 46012E | 55CD18 %s %s [旧B066字节 %s] | 普通格式后slot9再三T*覆盖同title；保持两次原调用，窗口只在两格式之后发布。 |
+| 460971 | 55C7E8 %s %s | 消息101尾先恢复state1再Base helper第2调用。 |
+| 4609BE | 55C7E8 %s %s | state102消息轮询后无条件Base helper第3调用，不以轮询失败跳过。 |
+
+窗口名559384旧8B正文及NUL、版本55C5BC的7.1.00及NUL沿现原字节常量；category按serverIndex/20、server按page*10+slot借现表，不重建或加界限。未清256B同一title、原状态写序/窗口文本边界/选服发布/错误文案、音效调用和newest排除均保持；模块摘要相关正文不改、不执行任何摘要算法。
+
+原[45FEA0,460C98)1135条仅读140五格式邻指令，余995条/原51C430 caller和其它状态不重验。三新含NUL格式/两个原参数常量、五真实call和slot9双格式/现三次Base helper调用与源局部变更静态核对。未构建、测试、运行或hash，不把标题恢复算完整登录/窗口容量全链/CRT或总PLAN通过。

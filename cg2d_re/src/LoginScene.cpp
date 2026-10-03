@@ -1,6 +1,7 @@
 #include "cg/LoginScene.hpp"
 
 #include "LoginSceneDependencies.hpp"
+#include "platform/LegacyFormat.hpp"
 
 #include "cg/LoginInput.hpp"
 #include "cg/LoginMessage.hpp"
@@ -364,7 +365,7 @@ void IncrementSceneState()
 
 void SetBaseWindowTitle(char (&buffer)[256])
 {
-    std::snprintf(buffer, sizeof(buffer), "%s %s", kWindowName, kVersion);
+    cg::platform::FormatLegacyString_53B304(buffer, "%s %s", kWindowName, kVersion);
     cg::platform::SetLegacyWindowText(cg::platform::gLegacyWindow, buffer);
 }
 
@@ -387,18 +388,16 @@ void SetServerWindowTitle(
     const char* const category = CategoryTitle(serverIndex / 20);
     const char* const server =
         kServerLabels[static_cast<std::size_t>(page * 10 + slot)];
-    std::snprintf(
+    cg::platform::FormatLegacyString_53B304(
         buffer,
-        sizeof(buffer),
         "%s %s [%s %s]",
         kWindowName,
         kVersion,
         category,
         server);
     if (slot == 9) {
-        std::snprintf(
+        cg::platform::FormatLegacyString_53B304(
             buffer,
-            sizeof(buffer),
             "%s %s [\xB0\x66 %s]", // 原55CD18，特殊标题中的“逆”保留两字节。
             kWindowName,
             kVersion,

@@ -9780,7 +9780,7 @@
     {
       "original_entry": "0x53B4E7",
       "inventory_id": "F:0013B4E7",
-      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆释放已接，完整delete/生命周期未验",
+      "status": "六宿主裸字节适配保持；窄字符串/异常对象与ios链原堆释放已接，完整delete/生产及生命周期未验",
       "original_end_exclusive": "0x53B4F2",
       "instruction_count": 4,
       "sources": [
@@ -9833,6 +9833,13 @@
             "DeleteLegacyStreamFailure_54A19C"
           ],
           "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "TidyLegacyIos_54A2CB"
+          ],
+          "relationship": "54A2E0/54A2FA两个原值/回调链delete点，next先读/同域原堆释放；不混宿主节点或改六裸适配"
         }
       ],
       "evidence_documents": [
@@ -9840,7 +9847,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -9917,6 +9924,28 @@
           "target_symbol": "FreeLegacyHeapMemory_53C0A9",
           "arguments": "storage",
           "relationship": "先完整析构后flags bit0，同域原堆释放"
+        }
+      ],
+      "ios_original_heap_connections": [
+        {
+          "parent_entry": "0x54A2CB",
+          "call_site": "0x54A2E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "TidyLegacyIos_54A2CB",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "memory": "value",
+          "relationship": "value.next在原delete前读；不清对象头到全部释放结束"
+        },
+        {
+          "parent_entry": "0x54A2CB",
+          "call_site": "0x54A2FA",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "TidyLegacyIos_54A2CB",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "memory": "callback",
+          "relationship": "值链结束先缓存回调头再清值头；callback.next在delete前读，末清回调头"
         }
       ]
     },
@@ -37333,11 +37362,11 @@
     {
       "original_entry": "0x54A23C",
       "inventory_id": "F:0014A23C",
-      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "status": "原ios回调/双链释放本体已实现；真实节点生产/全owner、登记/locale/异常与运行未闭合",
       "original_end_exclusive": "0x54A25E",
       "instruction_count": 16,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；本轮两体46条及全部入向、54A293字段写/54865E单locale指针/54A1D0虚表和54A25E原U32索引布局只读取证，新节点头/回调协议/64B视图、遍历与释放不同next读取时点/回调头先取再清值头、实际原堆目标/三记录与六文件限定差异静态核对；旧核心不复检，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A23C",
@@ -37350,11 +37379,138 @@
           "parent_entry": "0x54A2CB"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "CallLegacyIosCallbacks_54A23C"
+          ],
+          "relationship": "实际回调三参/原生同对象地址及遍历、原堆双链释放顺序，不映射宿主std对象或影子节点"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "CallLegacyIosCallbacks_54A23C",
+            "LegacyIosBaseStorage",
+            "LegacyIosCallbackNode",
+            "LegacyIosValueNodeHeader"
+          ],
+          "relationship": "已证对象/节点字段，仅地址拓宽、W32位型与仅已证值节点头"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "退出回调遍历：从+1C节点开始，以(event,this,node+4)调用node+8函数指针，调用返回后才读当前节点next；不提前取next或重新读表头。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+      "boundary": "从实际对象+1C取一次回调头；先读node+4的W32 index，再取node+8函数指针，以(event,this,index)调用，返回后才重新读当前node+0 next；不提前取next、不重读对象表头、不检查空函数、不捕获或固定回调。原调用符号X为void且caller弃EAX，IDA自动int返回不视为原合同。新端对象/节点只地址拓宽，未与SDK std::ios_base互转或登记影子状态；真实节点生产/owner、注册/locale/异常及运行未闭。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosBaseStorage",
+        "original_consumed_range": "+00..+27",
+        "native_size": 64,
+        "fields": {
+          "virtualTable": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "const void*，只保留不路由"
+          },
+          "stateBits": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "W32位型"
+          },
+          "exceptionBits": {
+            "original_offset": 8,
+            "native_offset": 12,
+            "type": "W32位型"
+          },
+          "formatBits": {
+            "original_offset": 12,
+            "native_offset": 16,
+            "type": "W32位型"
+          },
+          "precisionBits": {
+            "original_offset": 16,
+            "native_offset": 20,
+            "type": "W32，未消费符号性不推定"
+          },
+          "widthBits": {
+            "original_offset": 20,
+            "native_offset": 24,
+            "type": "W32，未消费符号性不推定"
+          },
+          "valueHead": {
+            "original_offset": 24,
+            "native_offset": 32,
+            "type": "LegacyIosValueNodeHeader*，仅已证next头"
+          },
+          "callbackHead": {
+            "original_offset": 28,
+            "native_offset": 40,
+            "type": "LegacyIosCallbackNode*"
+          },
+          "localeImplementation": {
+            "original_offset": 32,
+            "native_offset": 48,
+            "type": "单locale实现指针，构析/生产未闭"
+          },
+          "registryIndex": {
+            "original_offset": 36,
+            "native_offset": 56,
+            "type": "U32，原jnb/jb"
+          }
+        },
+        "boundary": "真实字段地址拓宽，无初始化/隐式构析/宿主对象互转/影子登记表；节点生产与全值节点剩余字段/完整owner/locale/异常和运行未闭"
+      },
+      "callback_node_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosCallbackNode",
+        "native_size": 24,
+        "fields": {
+          "next": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生node*"
+          },
+          "index": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "S32原位型"
+          },
+          "callback": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "cdecl(event S32, actual native this*, index S32)，返寄存器不消费"
+          }
+        },
+        "boundary": "只节点实际协议，不创建/快照回调或推定上游所有者，原不检查空函数；本组未证明完整节点尺寸/分配请求，不以视图sizeof作为上游规模",
+        "original_consumed_range": "+00..+0B"
+      },
+      "value_node_header": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosValueNodeHeader",
+        "original_consumed_field": "+00 next",
+        "native_consumed_field": "+00 next",
+        "boundary": "仅实际节点头，不声明完整节点尺寸/其余字段，不用头sizeof作为原分配规模"
+      },
+      "callback_contract": {
+        "source": "src/platform/LegacyIos.cpp",
+        "type": "LegacyIosCallback",
+        "original_call_site": "0x54A24F",
+        "arguments": [
+          "event W32",
+          "actual this pointer",
+          "node.index W32"
+        ],
+        "caller_stack_cleanup_bytes": 12,
+        "return_consumed": false,
+        "read_order": [
+          "node.index",
+          "node.callback",
+          "call(event,this,index)",
+          "node.next after return"
+        ],
+        "boundary": "S32传参保留原32位型；函数地址/this仅拓宽，不调宿主SDK回调"
+      }
     },
     {
       "original_entry": "0x54A25E",
@@ -37435,11 +37591,11 @@
     {
       "original_entry": "0x54A2CB",
       "inventory_id": "F:0014A2CB",
-      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "status": "原ios回调/双链释放本体已实现；真实节点生产/全owner、登记/locale/异常与运行未闭合",
       "original_end_exclusive": "0x54A30D",
       "instruction_count": 30,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；本轮两体46条及全部入向、54A293字段写/54865E单locale指针/54A1D0虚表和54A25E原U32索引布局只读取证，新节点头/回调协议/64B视图、遍历与释放不同next读取时点/回调头先取再清值头、实际原堆目标/三记录与六文件限定差异静态核对；旧核心不复检，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A2CB",
@@ -37452,11 +37608,151 @@
           "parent_entry": "0x54A1D0"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "TidyLegacyIos_54A2CB"
+          ],
+          "relationship": "实际回调三参/原生同对象地址及遍历、原堆双链释放顺序，不映射宿主std对象或影子节点"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "TidyLegacyIos_54A2CB",
+            "LegacyIosBaseStorage",
+            "LegacyIosCallbackNode",
+            "LegacyIosValueNodeHeader"
+          ],
+          "relationship": "已证对象/节点字段，仅地址拓宽、W32位型与仅已证值节点头"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "回调及链释放：先Callfns(event0)，再读并释放+18链，末尾清+18；随后释放+1C回调链再清头。delete之前保存当前next，回调阶段与释放阶段读序不可混用。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+      "boundary": "先真实Callfns(event0)，完成后才读取+18值链，每次delete前取并保存当前next。值链完成后原54A2EC先缓存+1C回调链头，54A2EF再清+18值链头；随后释放缓存回调链，每次delete前取next，最后清+1C。新源两delete沿原53B4E7→53C0A9真实原堆域，不用宿主delete、不提前清头或在回调前快照，不额外保护/catch/释放locale或整个对象。上游Tidy caller/节点生产与完整owner/登记/locale/异常和运行未闭，CRT提案仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosBaseStorage",
+        "original_consumed_range": "+00..+27",
+        "native_size": 64,
+        "fields": {
+          "virtualTable": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "const void*，只保留不路由"
+          },
+          "stateBits": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "W32位型"
+          },
+          "exceptionBits": {
+            "original_offset": 8,
+            "native_offset": 12,
+            "type": "W32位型"
+          },
+          "formatBits": {
+            "original_offset": 12,
+            "native_offset": 16,
+            "type": "W32位型"
+          },
+          "precisionBits": {
+            "original_offset": 16,
+            "native_offset": 20,
+            "type": "W32，未消费符号性不推定"
+          },
+          "widthBits": {
+            "original_offset": 20,
+            "native_offset": 24,
+            "type": "W32，未消费符号性不推定"
+          },
+          "valueHead": {
+            "original_offset": 24,
+            "native_offset": 32,
+            "type": "LegacyIosValueNodeHeader*，仅已证next头"
+          },
+          "callbackHead": {
+            "original_offset": 28,
+            "native_offset": 40,
+            "type": "LegacyIosCallbackNode*"
+          },
+          "localeImplementation": {
+            "original_offset": 32,
+            "native_offset": 48,
+            "type": "单locale实现指针，构析/生产未闭"
+          },
+          "registryIndex": {
+            "original_offset": 36,
+            "native_offset": 56,
+            "type": "U32，原jnb/jb"
+          }
+        },
+        "boundary": "真实字段地址拓宽，无初始化/隐式构析/宿主对象互转/影子登记表；节点生产与全值节点剩余字段/完整owner/locale/异常和运行未闭"
+      },
+      "callback_node_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosCallbackNode",
+        "native_size": 24,
+        "fields": {
+          "next": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生node*"
+          },
+          "index": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "S32原位型"
+          },
+          "callback": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "cdecl(event S32, actual native this*, index S32)，返寄存器不消费"
+          }
+        },
+        "boundary": "只节点实际协议，不创建/快照回调或推定上游所有者，原不检查空函数；本组未证明完整节点尺寸/分配请求，不以视图sizeof作为上游规模",
+        "original_consumed_range": "+00..+0B"
+      },
+      "value_node_header": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyIosValueNodeHeader",
+        "original_consumed_field": "+00 next",
+        "native_consumed_field": "+00 next",
+        "boundary": "仅实际节点头，不声明完整节点尺寸/其余字段，不用头sizeof作为原分配规模"
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A2CB",
+          "call_site": "0x54A2D1",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "TidyLegacyIos_54A2CB",
+          "target_entry": "0x54A23C",
+          "target_symbol": "CallLegacyIosCallbacks_54A23C",
+          "event": 0,
+          "relationship": "必须先实际回调，返回后读取值链；未提前保存链头"
+        },
+        {
+          "parent_entry": "0x54A2CB",
+          "call_site": "0x54A2E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "TidyLegacyIos_54A2CB",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "memory": "value",
+          "relationship": "value.next在原delete前读；不清对象头到全部释放结束"
+        },
+        {
+          "parent_entry": "0x54A2CB",
+          "call_site": "0x54A2FA",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "TidyLegacyIos_54A2CB",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "memory": "callback",
+          "relationship": "值链结束先缓存回调头再清值头；callback.next在delete前读，末清回调头"
+        }
+      ]
     },
     {
       "original_entry": "0x5482DD",

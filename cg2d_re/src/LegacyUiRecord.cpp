@@ -3399,7 +3399,7 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
     }
     if ((character_select::detail::Sub_503990(&accept) & 1) != 0) {
         char requestText[16];
-        std::sprintf(requestText, "%d", gLegacyPetSkillSlotCF4B64);
+        platform::FormatLegacyString_53B304(requestText, "%d", gLegacyPetSkillSlotCF4B64);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -3416,19 +3416,19 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
     char buffer[256];
     const char* const skillName = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].text0C.data();
-    std::sprintf(buffer, kLegacyPetSkillTitle588344, skillName);
+    platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillTitle588344, skillName);
     const std::int32_t skillWidth = TextMeasure(buffer, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - skillWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 20), 2, 0, 0, buffer, 0, 0));
     const char* const petName = ui::detail::gWindow54PetOptionsD67448[gLegacyPetSkillPetSelectionC8A94C].name.data();
-    std::sprintf(buffer, kLegacyPetSkillPetName588338, petName);
+    platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillPetName588338, petName);
     // 原4D8AEE测量固定示例文本，绘制仍使用实际名称，不能改成测量buffer。
     const std::int32_t petWidth = TextMeasure(kLegacyPetSkillPetMeasure588320, 0);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - petWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 44), 2, 0, 0, buffer, 0, 0));
     const auto& slot = ui::detail::gWindow54TechniqueSlotsD66E38[gLegacyPetSkillSlotCF4B64];
     if (slot.used != 0) {
-        std::sprintf(buffer, kLegacyPetSkillUsedSlot58830C, slot.name.data());
+        platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillUsedSlot58830C, slot.name.data());
     } else {
         std::strcpy(buffer, kLegacyPetSkillEmptySlot5882F4);
     }
@@ -3439,12 +3439,12 @@ std::uint32_t Sub_4D88C0(const std::int32_t opened)
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 160 - learnWidth / 2),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 88),
         2, 0, 0, kLegacyPetSkillLearnLine5882E8, 0, 0));
-    std::sprintf(buffer, kLegacyPetSkillGold588D5C, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillGold588D5C, world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 85),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 120), 2, 0, 0, buffer, 0, 0));
     const std::int32_t price = gLegacyPetSkillCatalogCA0478[
         gLegacyPetSkillCatalogSelectionC8AF70 + 8 * gLegacyPetSkillCatalogPageD45F74].price08;
-    std::sprintf(buffer, kLegacyPetSkillPrice588D48, price);
+    platform::FormatLegacyString_53B304(buffer, kLegacyPetSkillPrice588D48, price);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 85),
         static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.y + 140), 2, 0, 0, buffer, 0, 0));
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillConfirmPanel582210.x + 92),

@@ -9149,7 +9149,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         static_cast<void>(DrawGraphic(statusX, statusY, 212, statusImage, 0, nullptr));
         const std::int32_t valueContact = world::detail::gContactIndicesFDA608[position];
         const std::int32_t value = world::detail::gContactsF19FB0[valueContact].value08;
-        std::sprintf(buffer, "%3d", value);
+        platform::FormatLegacyString_53B304(buffer, "%3d", value);
         drawAt(buffer, 180, 45 + 90 * row, color);
         const std::int32_t nameContact = world::detail::gContactIndicesFDA608[position];
         drawAt(world::detail::gContactsF19FB0[nameContact].name10.data(), 77, 68 + 90 * row, color);
@@ -9163,7 +9163,7 @@ std::uintptr_t Sub_4EC240(const std::int32_t opened)
         Sub_5035E0(&deletes[row], 212, 1, gValueD69768, 0);
     }
     const std::int32_t page = std::bit_cast<std::int32_t>(world::detail::gValueCB0354);
-    std::sprintf(buffer, "%2d/%2d", page + 1, 15);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, 15);
     drawAt(buffer, 176, 399, 0);
     Sub_5035E0(&edit, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previous, 212, 1, gValueD69768, 0);

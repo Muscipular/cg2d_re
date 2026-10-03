@@ -7479,7 +7479,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             if (itemCount != 0) {
                                 std::strcat(itemSource, "|");
                             }
-                            std::sprintf(buffer, "%d", item + 8);
+                            platform::FormatLegacyString_53B304(buffer, "%d", item + 8);
                             std::strcat(itemSource, buffer);
                             ++itemCount;
                         }
@@ -7492,7 +7492,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             if (petCount != 0) {
                                 std::strcat(petSource, "|");
                             }
-                            std::sprintf(buffer, "%d", pet);
+                            platform::FormatLegacyString_53B304(buffer, "%d", pet);
                             std::strcat(petSource, buffer);
                             ++petCount;
                         }
@@ -7603,7 +7603,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
     char buffer[128];
     const auto drawCount = [&buffer](const std::int32_t value, const char* const format,
         const std::int32_t offsetX) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         const std::int32_t top = gLegacyTradePanel582F00.y + 38;
         const std::int32_t left = gLegacyTradePanel582F00.x + offsetX;
         static_cast<void>(DrawText(static_cast<std::int16_t>(left),
@@ -7744,7 +7744,7 @@ std::int32_t Sub_4E6E10(const std::int32_t side)
                     y + 52 * row + grid[1] + 24, 214, image, 0, &descriptor));
                 const std::int32_t count = ReadRecordW32(record, 8);
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyTradePanel582F00.y + 52 * row + grid[1] + 31;
                     const std::int32_t countX = gLegacyTradePanel582F00.x + 52 * column + grid[0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -7861,23 +7861,23 @@ std::int32_t Sub_4E7380(const std::int32_t x, const std::int32_t y,
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 136 - width / 2, 5, 0);
     char buffer[128];
-    std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x0C));
+    platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x0C));
     drawAt(buffer, 191, 30, 1);
     const std::int32_t tribeWidth = TextMeasure(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 1);
     drawAt(ui::detail::gTribeNames57CB54[ReadLegacyTradeW16(record, 4)], 227 - tribeWidth / 2, 50, 1);
     const std::int32_t maxHp = ReadRecordW32(record, 0x14);
     const std::int32_t hp = ReadRecordW32(record, 0x10);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 191, 90, 1);
     const std::int32_t maxFp = ReadRecordW32(record, 0x1C);
     const std::int32_t fp = ReadRecordW32(record, 0x18);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 191, 110, 1);
     for (std::int32_t attribute = 0; attribute < 5; ++attribute) {
-        std::sprintf(buffer, "%3d", ReadRecordW32(record, 0x38 + 4 * attribute));
+        platform::FormatLegacyString_53B304(buffer, "%3d", ReadRecordW32(record, 0x38 + 4 * attribute));
         drawAt(buffer, 191, 130 + 20 * attribute, 1);
     }
-    std::sprintf(buffer, "%2d", ReadRecordW32(record, 0x5C));
+    platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(record, 0x5C));
     drawAt(buffer, 191, 230, 1);
     drawAt("1/2", 240, 9, 1);
     return DrawGraphic(x + 136, y + 126, 222, 23277, 0, nullptr);
@@ -7976,11 +7976,11 @@ std::int32_t Sub_4E7870(const std::int32_t x, const std::int32_t y)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    std::sprintf(buffer, "%7d",
+    platform::FormatLegacyString_53B304(buffer, "%7d",
         world::detail::gPlayerItemsFDA8A4[gLegacyTradeSplitSourceD45F90 + 8].count);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 46), 4, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%7d", gLegacyTradeSplitAmountD2D490);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyTradeSplitAmountD2D490);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 88),
         static_cast<std::int16_t>(y + 86), 4, 1, 0, buffer, 0, 0));
     for (auto& digit : digits) {
@@ -8088,7 +8088,7 @@ std::int32_t Sub_4E82F0()
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), kLegacyTradeRemoteMoney58950C);
     }
     char buffer[32];
-    std::sprintf(buffer, "%7d", ui::detail::gTradeValueCF4688);
+    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gTradeValueCF4688);
     const std::int32_t textY = gLegacyTradePanel582F00.y + 150;
     const std::int32_t textX = gLegacyTradePanel582F00.x + 146;
     static_cast<void>(DrawText(static_cast<std::int16_t>(textX),
@@ -8348,9 +8348,9 @@ std::int32_t Sub_4E8AD0()
             static_cast<std::int16_t>(top), 2, 0, 0, text, 0, 0));
     };
     char buffer[128];
-    std::sprintf(buffer, "%7d", money);
+    platform::FormatLegacyString_53B304(buffer, "%7d", money);
     drawAt(buffer, 118);
-    std::sprintf(buffer, "%7d", ui::detail::gTradeValueD046D0);
+    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gTradeValueD046D0);
     drawAt(buffer, 158);
     for (auto& digit : digits) {
         Sub_5035E0(&digit, 213, 1, gValueD69768, 0);

@@ -24376,7 +24376,7 @@ std::int32_t Sub_4C5C30(const std::int32_t index, const std::int32_t state)
         const std::int32_t image = character_select::detail::Sub_4C5650(
             base, imageClass, quarter, fifth, ones);
         std::array<char, 52> buffer;
-        std::sprintf(buffer.data(), "%d", image);
+        platform::FormatLegacyString_53B304(buffer.data(), "%d", image);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
         const std::int32_t y =
@@ -24512,7 +24512,7 @@ std::int32_t Sub_4C5F80(
     }
     std::array<char, 256> text;
     std::array<char, 256> escaped;
-    std::sprintf(text.data(), "%d", gImageDialogImageD2F7AC);
+    platform::FormatLegacyString_53B304(text.data(), "%d", gImageDialogImageD2F7AC);
     input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 255);
     const std::int32_t target = gImageDialogTargetD2F7A8;
     const std::int32_t request = gImageDialogRequestD2F7A4;

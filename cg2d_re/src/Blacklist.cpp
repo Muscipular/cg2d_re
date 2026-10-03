@@ -1,8 +1,9 @@
 #include "cg/Blacklist.hpp"
 #include "cg/Input.hpp"
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
 
 #include <bit>
-#include <cstdio>
 #include <cstring>
 
 namespace cg::blacklist {
@@ -39,23 +40,23 @@ bool EqualPairedBytes(
 std::int8_t PersistBlacklistFile_4011A0(const std::int32_t fileId)
 {
     PathBuffer localPath {};
-    std::sprintf(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    platform::FormatLegacyString_53B304(localPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
 
     if (std::strcmp(gPath.data(), localPath.data()) != 0) {
         return 0;
     }
 
-    std::FILE* const file = std::fopen(gPath.data(), "w");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(gPath.data(), "w");
     for (const Record& record : gRecords) {
         if (record[0] == 0) {
             break;
         }
 
-        std::fputs(reinterpret_cast<const char*>(record.data()), file);
-        std::fputs("\n", file);
+        platform::WriteLegacyStreamString_53B356(reinterpret_cast<const char*>(record.data()), file);
+        platform::WriteLegacyStreamString_53B356("\n", file);
     }
 
-    std::fclose(file);
+    platform::CloseLegacyStream_53B1D0(file);
     return std::int8_t {1};
 }
 
@@ -80,14 +81,14 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
 {
     std::memset(gPath.data(), 0, sizeof(gPath));
     std::memset(gRecords.data(), 0, sizeof(gRecords));
-    std::sprintf(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
+    platform::FormatLegacyString_53B304(gPath.data(), "data\\blacklist_%d.txt", static_cast<int>(fileId));
 
-    std::FILE* const file = std::fopen(gPath.data(), "rb+");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(gPath.data(), "rb+");
     if (file != nullptr) {
-        std::rewind(file);
-        if (std::feof(file) == 0) {
+        platform::RewindLegacyStream_53B27D(file);
+        if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x10u) == 0) {
             for (;;) {
-                std::fgets(
+                platform::ReadLegacyStreamLine_53B226(
                     reinterpret_cast<char*>(
                         gRecords[static_cast<std::size_t>(gCursor)].data()),
                     static_cast<int>(kRecordSize),
@@ -123,12 +124,12 @@ std::int8_t LoadBlacklistFile(const std::int32_t fileId)
                     }
                 }
 
-                if (std::feof(file) != 0) {
+                if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x10u) != 0) {
                     break;
                 }
             }
         }
-        std::fclose(file);
+        platform::CloseLegacyStream_53B1D0(file);
     }
 
     gCurrentFileId = fileId;

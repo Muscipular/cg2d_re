@@ -4994,7 +4994,7 @@
     {
       "original_entry": "0x401030",
       "inventory_id": "F:00001030",
-      "status": "已有命名本体映射，完整依赖及运行未验",
+      "status": "黑名单加载真实FILE与格式化全链已接；完整CRT启动和运行验收仍待",
       "sources": [
         {
           "path": "src/Blacklist.cpp",
@@ -5004,9 +5004,74 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_blacklist_state.md"
+        "doc/cg2d_blacklist_state.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "先清512B路径和100×17B记录表，不清游标；rb+打开并沿feof驱动，fgets返回不作新门禁。失败也发布fileId并返回W8的1，不能解释为文件加载成功。"
+      "boundary": "先清512B路径和100×17B记录表，不清游标；真实53B304格式化后rb+打开LegacyFile，rewind及两处低U8 flags/10H驱动循环，fgets返回继续忽略。17B/空行/CRLF/游标处理逐字保持；非空流恰关闭一次，失败仍发布fileId并返回W8的1。全部五调用已接，不增加初始化、保护或转码，不解释为运行文件加载成功。",
+      "original_end_exclusive": "0x401167",
+      "instruction_count": 97,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x45DB70",
+          "parent_entry": "0x45D990"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x40105D",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x40106C",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x401081",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile",
+          "target_entry": "0x53B27D",
+          "target_symbol": "RewindLegacyStream_53B27D"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x4010AA",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile",
+          "target_entry": "0x53B226",
+          "target_symbol": "ReadLegacyStreamLine_53B226"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x401152",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "direct_byte_consumptions": [
+        {
+          "address": "0x401086",
+          "field": "LegacyFile.flags低U8",
+          "mask": "0x10"
+        },
+        {
+          "address": "0x401143",
+          "field": "LegacyFile.flags低U8",
+          "mask": "0x10"
+        }
+      ],
+      "verification_level": "两个父169条/5入向、10调用/2 EOF字节读与格式/mode/LF字节，新增差异静态核对；未执行"
     },
     {
       "original_entry": "0x458DE0",
@@ -11042,7 +11107,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11441,7 +11506,21 @@
         "source_path": "stdio/fclose.cpp",
         "symbol": "fclose",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401255",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x401152",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile"
+        }
+      ]
     },
     {
       "original_entry": "0x53B226",
@@ -11468,7 +11547,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "保留原内联逐字节路径：count<=0不写目标/不读流，count1仅首NUL，最多count-1并保留LF。首EOF返空且不写目标，已有字节后EOF才补NUL；直接filbuf已接，不把内联误记为原fgetc调用，既有日志未写局部待批项不补值。",
+      "boundary": "保留原内联逐字节路径：count<=0不写目标/不读流，count1仅首NUL，最多count-1并保留LF。首EOF返空且不写目标，已有字节后EOF才补NUL；直接filbuf已接，不把内联误记为原fgetc调用，既有日志未写局部待批项不补值。 黑名单4010AA逐行读取已与打开/定位/EOF低字节/关闭整链接线，maxCount17及忽略返回保持；其余业务不据此完成。",
       "function_chunks": [
         {
           "start": "0x53B226",
@@ -11515,12 +11594,20 @@
         "source_path": "stdio/fgets.cpp",
         "symbol": "common_fgets",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x4010AA",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile"
+        }
+      ]
     },
     {
       "original_entry": "0x53B27D",
       "inventory_id": "F:0013B27D",
-      "status": "原文件定位或缓冲调整本体及内部依赖已实现；业务FILE迁移与完整初始化未闭合",
+      "status": "真实rewind及唯一黑名单原调用已接；完整初始化/运行仍待",
       "original_end_exclusive": "0x53B2D1",
       "instruction_count": 32,
       "original_direct_reference_count": 1,
@@ -11542,7 +11629,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "入口保存fd，flush后清FILE30H/低层EOF2H，fd=-1借唯一可变58FB40记录；重读update位后清方向3，再seek(0,BEGIN)。两调用返回均忽略，不因seek失败补IOERROR。void沿唯一401081不消费残留寄存器的合同，Blacklist业务尚未迁移。",
+      "boundary": "入口保存fd，flush后清FILE30H/低层EOF2H，fd=-1借唯一可变58FB40记录；重读update位后清方向3，再seek(0,BEGIN)。两调用返回均忽略，不因seek失败补IOERROR。void沿唯一401081不消费残留寄存器的合同，Blacklist业务已整链迁移，唯一401081调用已接LegacyFile；完整初始化和运行仍待。",
       "function_chunks": [
         {
           "start": "0x53B27D",
@@ -11561,7 +11648,15 @@
         "source_path": "stdio/rewind.cpp",
         "symbol": "_rewind_internal",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x401081",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile"
+        }
+      ]
     },
     {
       "original_entry": "0x53B2D1",
@@ -11634,7 +11729,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc、批量读写、完整启动及业务迁移仍未闭合，未运行验收。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -11917,12 +12012,26 @@
         "source_path": "stdio/fopen.cpp",
         "symbol": "fopen",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401220",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x40106C",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile"
+        }
+      ]
     },
     {
       "original_entry": "0x53B356",
       "inventory_id": "F:0013B356",
-      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
+      "status": "真实字符串流输出及全部两个黑名单原调用已接；其他业务/完整启动和运行仍待",
       "original_end_exclusive": "0x53B399",
       "instruction_count": 30,
       "original_direct_reference_count": 2,
@@ -11944,7 +12053,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按既有strlen正常NUL串合同取U32长度，真实stbuf→fwrite(1,length)→ftbuf，只有fwrite数量决定写满0/否则-1；最终flush失败不覆盖返回。不增加RAII；Blacklist宿主FILE尚未迁移，不算两业务原引用已接。",
+      "boundary": "按既有strlen正常NUL串合同取U32长度，真实stbuf→fwrite(1,length)→ftbuf，只有fwrite数量决定写满0/否则-1；最终flush失败不覆盖返回。不增加RAII；Blacklist已整链迁移，401236/401241两个原业务调用均接真实LegacyFile，不与宿主FILE混用；运行仍待。",
       "function_chunks": [
         {
           "start": "0x53B356",
@@ -11967,7 +12076,21 @@
         "source_path": "stdio/fputs.cpp",
         "symbol": "_fputs_internal",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401236",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401241",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0"
+        }
+      ]
     },
     {
       "original_entry": "0x53BB02",
@@ -14959,7 +15082,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及14个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及16个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15006,7 +15129,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5共14点已接，其他1008点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处共16点已接，其他1006点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -15104,6 +15227,18 @@
           "call_site": "0x532E91",
           "source": "src/platform/StartupCommon.cpp",
           "symbol": "CreateSaveDirectories"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x4011C8",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0"
+        },
+        {
+          "parent_entry": "0x401030",
+          "call_site": "0x40105D",
+          "source": "src/Blacklist.cpp",
+          "symbol": "LoadBlacklistFile"
         }
       ],
       "business_format_evidence": [
@@ -15118,6 +15253,10 @@
         {
           "address": "0x5531A4",
           "bytes": "256400"
+        },
+        {
+          "address": "0x5531AC",
+          "bytes": "646174615c626c61636b6c6973745f25642e74787400"
         }
       ]
     },
@@ -25589,6 +25728,106 @@
       ],
       "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
       "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。"
+    },
+    {
+      "original_entry": "0x4011A0",
+      "inventory_id": "F:000011A0",
+      "status": "既有黑名单持久化本体与真实FILE/格式化全链已接；启动/运行验收仍待",
+      "original_end_exclusive": "0x401269",
+      "instruction_count": 72,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/Blacklist.cpp",
+          "symbols": [
+            "PersistBlacklistFile_4011A0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x401005",
+          "parent_entry": "0x401000"
+        },
+        {
+          "address": "0x4012DB",
+          "parent_entry": "0x401270"
+        },
+        {
+          "address": "0x4013BE",
+          "parent_entry": "0x4012F0"
+        },
+        {
+          "address": "0x4014A1",
+          "parent_entry": "0x401470"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x4011C8",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401220",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401236",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0",
+          "target_entry": "0x53B356",
+          "target_symbol": "WriteLegacyStreamString_53B356"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401241",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0",
+          "target_entry": "0x53B356",
+          "target_symbol": "WriteLegacyStreamString_53B356"
+        },
+        {
+          "parent_entry": "0x4011A0",
+          "call_site": "0x401255",
+          "source": "src/Blacklist.cpp",
+          "symbol": "PersistBlacklistFile_4011A0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x5531AC",
+          "bytes": "646174615c626c61636b6c6973745f25642e74787400"
+        },
+        {
+          "address": "0x5531C8",
+          "bytes": "7700"
+        },
+        {
+          "address": "0x5531C4",
+          "bytes": "0a00"
+        },
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_blacklist_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "完整72条与4直接入向、两父全FILE接线/原数据字节和限定源码差异静态核对；未执行",
+      "boundary": "仅迁移既有本体的五CRT调用：清512B局部路径、signed fileId真实sprintf、路径不等返0；相等以共享路径/w打开，不检查空指针，顺序写每个非空17B记录和单LF，关闭结果忽略后W8返1。100项记录/共享状态与添加/删除/清空调用保持，不加失败门禁或转码；真实CRT初始化、文件内容/异常/运行未验。"
     }
   ]
 }

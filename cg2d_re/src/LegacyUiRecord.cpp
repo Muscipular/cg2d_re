@@ -10967,7 +10967,7 @@ std::uintptr_t Sub_530BA0(const std::int32_t opened)
     Sub_5035E0(&next, 212, 1, gValueD69768, 0);
     const std::int32_t page = gLegacyGuildDetailsPage1050ED4;
     const std::int32_t pageCount = gLegacyGuildDetailsPageCount1050ED0;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
     const std::int32_t pageY = gLegacyGuildDetailsPanel58F098.y + 225;
     const std::int32_t pageX = gLegacyGuildDetailsPanel58F098.x + 132;
     static_cast<void>(DrawText(Low16(pageX), Low16(pageY), 2, 0, 0, buffer, 0, 0));
@@ -11142,7 +11142,7 @@ std::uint32_t Sub_532450(const std::int32_t opened)
     const std::int32_t page = gLegacyGuildRankPage1051334;
     const std::int32_t pageCount = gLegacyGuildRankPageCount105133C;
     char buffer[128];
-    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
     drawAt(buffer, 161, 100, 0);
     if (gLegacyGuildEditAllowed1050F14 != 0) {
         Sub_5035E0(&remove, 212, 1, gValueD69768, 0);

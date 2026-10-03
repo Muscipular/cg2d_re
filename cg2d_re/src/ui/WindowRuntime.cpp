@@ -23143,10 +23143,10 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         if (item.used != 0) {
             gWindow69Tooltip580850 = hovered + 8;
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", item.name.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", item.memo.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -23173,7 +23173,7 @@ std::int32_t Sub_4C2B20(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -23242,9 +23242,9 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    platform::FormatLegacyString_53B304(buffer.data(), "%2d X %2d", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                    platform::FormatLegacyString_53B304(buffer.data(), "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -23268,7 +23268,7 @@ std::int32_t Sub_4C2FA0(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow69ConfirmAmountsD2E2B8) {
         if (amount.visible != 0) {
-            std::sprintf(buffer.data(), "%d", amount.value);
+            platform::FormatLegacyString_53B304(buffer.data(), "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);
@@ -24074,10 +24074,10 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         if (item.used != 0) {
             gWindow70Tooltip580860 = hovered + 8;
             if (std::strlen(item.memo.data()) != 0 && (item.flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", item.name.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item.name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item.flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", item.memo.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item.memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }
@@ -24104,7 +24104,7 @@ std::int32_t Sub_4C4CB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -24173,9 +24173,9 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
                     x + 24, y + 24, 226, item.imageNo, 0, &descriptor));
                 const std::int32_t factor = item.factor;
                 if (factor != 0) {
-                    std::sprintf(buffer.data(), "%2d X %2d", factor, item.quantity);
+                    platform::FormatLegacyString_53B304(buffer.data(), "%2d X %2d", factor, item.quantity);
                 } else {
-                    std::sprintf(buffer.data(), "X %2d", item.quantity);
+                    platform::FormatLegacyString_53B304(buffer.data(), "X %2d", item.quantity);
                 }
                 const auto countFrame = static_cast<std::uint8_t>(login::detail::gValueD69768);
                 static_cast<void>(render::DrawText_456780(
@@ -24199,7 +24199,7 @@ std::int32_t Sub_4C50C0(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::uint8_t>(login::detail::gValueD69768)));
     for (const WindowConfirmationAmount& amount : gWindow70ConfirmAmountsD2E290) {
         if (amount.visible != 0) {
-            std::sprintf(buffer.data(), "%d", amount.value);
+            platform::FormatLegacyString_53B304(buffer.data(), "%d", amount.value);
             const std::int32_t y = amount.y;
             const std::int32_t x = amount.x;
             Sub_4771B0(x, y + 35, buffer.data(), 0, 4, 1, 226);

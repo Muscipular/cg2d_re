@@ -3220,7 +3220,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     } else {
         price = gStallBrowseD046D8.itemValuesD13E74[gStallItemPageD67BC8 + row];
     }
-    std::sprintf(buffer, "%d", price);
+    platform::FormatLegacyString_53B304(buffer, "%d", price);
     std::int32_t priceColor = 0;
     if (price >= 10000) {
         if (price < 100000) {
@@ -3241,7 +3241,7 @@ std::int32_t Sub_4D04A0(const std::int32_t index, const std::int32_t state)
     const std::int32_t count = item->count;
     if (count > 0) {
         char countBuffer[20];
-        std::sprintf(countBuffer, "%3d", count);
+        platform::FormatLegacyString_53B304(countBuffer, "%3d", count);
         WindowInstance* const window = gCurrentWindow;
         const WindowElement& element = window->elements[index];
         const auto y = static_cast<std::int16_t>(window->y + element.y + 32);
@@ -3335,7 +3335,7 @@ std::int32_t Sub_4D1D50(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(buffer, "%3d", count);
+            platform::FormatLegacyString_53B304(buffer, "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 static_cast<std::int16_t>(x + 21), static_cast<std::int16_t>(y + 32),
                 3, 1, 1, buffer, 0, 0));

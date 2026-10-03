@@ -21357,7 +21357,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
     const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
     gWindow54ValueCB01E4 = count;
-    std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
         "%2d/%2d", usedSlots, totalSlots);
     std::int32_t freeSlots = world::detail::ReadPlayerValue16C() - usedSlots;
     if (freeSlots < 0) {
@@ -21391,7 +21391,7 @@ void Sub_4BE600(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", 0);
     for (std::int32_t row = 0; row < 10; ++row) {
         window->elements[row + 69].mouseCallback = &Sub_4C0910;
     }
@@ -21421,7 +21421,7 @@ void Sub_4BE930(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d", 0);
+    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d", 0);
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t petIndex =
             std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
@@ -21476,7 +21476,7 @@ void Sub_4BEC20(WindowInstance* const window)
     }
     window->elements[33].visible = 0;
     window->elements[6].visible = 1;
-    std::sprintf(gWindow54AmountTextD45F78.data(), "%10d",
+    platform::FormatLegacyString_53B304(gWindow54AmountTextD45F78.data(), "%10d",
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     for (std::int32_t row = 0; row < 5; ++row) {
         const world::detail::PetPairRecord& pair = world::detail::gPetPairsDE0B08[row];
@@ -21604,9 +21604,9 @@ void Sub_4BF160(
                 const world::detail::SkillRuntimeRecord& skill = world::detail::gSkillsF1BAFC[index];
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     skill.name.data());
-                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
+                platform::FormatLegacyString_53B304(gWindow54ValueTextsCB035C.data() + row * 11, "%2d", skill.level);
                 const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill.requiredSlots19[0]);
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
+                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%2d", requiredSlots);
             }
         }
     }
@@ -21634,9 +21634,9 @@ void Sub_4BF2E0(
                 window->elements[row + 59].visible = 1;
                 std::strcpy(static_cast<WindowTextData*>(window->elements[row + 34].data)->text,
                     gWindow54NamesC8AAA0[selected].text.data());
-                std::sprintf(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
+                platform::FormatLegacyString_53B304(gWindow54ValueTextsCB035C.data() + row * 11, "%2d",
                     gWindow54ValuesCB01A4[selected]);
-                std::sprintf(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
+                platform::FormatLegacyString_53B304(gWindow54ValueTextsC8B318.data() + row * 11, "%2d",
                     gWindow54ValuesCB09D8[selected]);
             }
         }
@@ -21674,8 +21674,8 @@ void Sub_4BF460(WindowInstance* const window, const std::int32_t scroll)
         if (gWindow54SkillsD2EAB8[row].name[0] != '\0') {
             std::strcpy(static_cast<WindowTextData*>(window->elements[row + 79].data)->text,
                 record.name.data());
-            std::sprintf(gWindow54SkillValueTextsCF4978.data() + row * 11, "%5d", record.value04);
-            std::sprintf(gWindow54SkillPriceTextsCF493C.data() + row * 11, "%10d", record.price);
+            platform::FormatLegacyString_53B304(gWindow54SkillValueTextsCF4978.data() + row * 11, "%5d", record.value04);
+            platform::FormatLegacyString_53B304(gWindow54SkillPriceTextsCF493C.data() + row * 11, "%10d", record.price);
             const std::int32_t money = world::detail::ReadPlayerValueFC();
             const std::int32_t price = record.price;
             static_cast<WindowNumberData*>(window->elements[row + 89].data)->color =

@@ -11955,7 +11955,7 @@ std::int32_t Sub_4B4140(
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x30 + row * 4, sizeof(value));
-        std::sprintf(buffer.data(), "%10d", value);
+        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
@@ -11966,7 +11966,7 @@ std::int32_t Sub_4B4140(
     if (maximumWeight > 0) {
         std::int32_t weight;
         std::memcpy(&weight, record + 0x5F8, sizeof(weight));
-        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        platform::FormatLegacyString_53B304(buffer.data(), "%3d / %3d", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             31, 5, 12, 0, buffer.data(), 0, 0));
@@ -12080,7 +12080,7 @@ std::int32_t Sub_4B4680(
     for (std::int32_t row = 0; row < 5; ++row) {
         std::int32_t value;
         std::memcpy(&value, record + 0x38 + row * 4, sizeof(value));
-        std::sprintf(buffer.data(), "%10d", value);
+        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),

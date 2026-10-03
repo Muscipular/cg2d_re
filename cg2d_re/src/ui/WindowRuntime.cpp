@@ -36954,7 +36954,7 @@ std::int32_t Sub_49BA10(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         if (world::detail::Sub_43C4B0() != -1) {
             std::array<char, 256> buffer;
-            std::sprintf(buffer.data(), "M|%X", 255u);
+            platform::FormatLegacyString_53B304(buffer.data(), "M|%X", 255u);
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
             gCurrentWindow->state |= 0x8000u;
             world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -36992,7 +36992,7 @@ void Sub_49B670(
         };
         drawText(pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data(), 10, 5);
         std::array<char, 256> buffer;
-        std::sprintf(buffer.data(), "%3d", pet.value08);
+        platform::FormatLegacyString_53B304(buffer.data(), "%3d", pet.value08);
         drawText(buffer.data(), 140, 5);
         const std::int32_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
@@ -37000,11 +37000,11 @@ void Sub_49B670(
         }
         const std::int32_t maxHp = gBattlePetVitalsCF4B78[petIndex].maxHp;
         const std::int32_t hp = gBattlePetVitalsCF4B78[petIndex].hp;
-        std::sprintf(buffer.data(), "%6d/%6d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer.data(), "%6d/%6d", hp, maxHp);
         drawText(buffer.data(), 35, 19);
         const std::int32_t maxFp = gBattlePetVitalsCF4B78[petIndex].maxFp;
         const std::int32_t fp = gBattlePetVitalsCF4B78[petIndex].fp;
-        std::sprintf(buffer.data(), "%6d/%6d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer.data(), "%6d/%6d", fp, maxFp);
         drawText(buffer.data(), 35, 32);
         for (std::int32_t row = 0; row < 4; ++row) {
             const std::int32_t segments = pet.values70[21 + row] / 10;
@@ -37092,7 +37092,7 @@ std::int32_t Sub_49BB00(const std::int32_t index, const std::int32_t state)
                     static_cast<void>(audio::PlaySe_52C450(55, 320));
                 } else {
                     std::array<char, 256> buffer;
-                    std::sprintf(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
+                    platform::FormatLegacyString_53B304(buffer.data(), "M|%X", static_cast<std::uint32_t>(selected));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     gCurrentWindow->state |= 0x8000u;

@@ -1695,3 +1695,23 @@ RPLAN.24范围保持，实际分配失败/异常ABI及越界故障等价未验�
 语义1086/18pending/4引用、填充8/8/长度12点和其他原池保持。
 54A899仍仅声明，其他构析/标准流/filebuf上游、原堆模式3/62析构/启动/x64异常运行未闭合；
 未编译、测试、配置、运行或hash校验。
+
+
+## 2026-10-04 真实长度/位置异常依赖的新取证边界
+
+54A67A/54A899各35条含各自清理/FrameHandler chunk只读取证：
+先Tidy(false)临时旧窄字符串，分别按原String too long/Invalid string position取长度并assign，
+再54A6D4构造logic_error基体，分别安装length_error/out_of_range原虚表与ThrowInfo，
+最后原CxxThrowException；清理临时字符串和异常/基体的顺序不得换成直接宿主throw。
+
+54A6D4另39条已证：先以593850文本引用调用54B079原exception文本构造，
+再从源首字节复制成员前缀/Tidy(false)，以原npos整串共享assign，
+最后安装logic_error原虚表；构造失败有54B100基体清理chunk。
+54A062五条what直接读+10的成员缓冲，空时借已实现55013C静态空串。
+这些是新取得的真实类型/所有权/清理依赖，不是现有宿主std::exception的等价许可。
+
+本次没有替换ThrowLegacyStringLength_54A67A/ThrowLegacyStringRange_54A899真实声明：
+原类型继承/复制/虚表与ThrowInfo在x64编译器、宿主回调和旧被调构析之间的完整映射尚未闭合，
+不得以直接std::length_error/out_of_range、私有类型改名或固定失败绕过；
+CRT宿主总提案仍待批。暂时阻断这两个异常链，已证其他真实叶继续实施，
+不把未运行或不验证异常视为验收豁免，不重新核此前字符串核心。

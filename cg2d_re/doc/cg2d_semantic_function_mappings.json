@@ -33918,31 +33918,106 @@
     {
       "original_entry": "0x548EA5",
       "inventory_id": "F:00148EA5",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x548EB5",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5489A1",
           "parent_entry": "0x548979"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DecrementLegacyReadCursor_548EA5"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DecrementLegacyReadCursor_548EA5",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄Gndec：先递增所指余量，再递减所指游标1B，重读游标槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄Gndec：先递增所指余量，再递减所指游标1B，重读游标槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x548EB5",
       "inventory_id": "F:00148EB5",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x548EC5",
       "instruction_count": 7,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5486DC",
@@ -33953,31 +34028,181 @@
           "parent_entry": "0x548A53"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "IncrementLegacyReadCursor_548EB5"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "IncrementLegacyReadCursor_548EB5",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄Gninc：先递减所指余量，再保存旧游标并发布旧值+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄Gninc：先递减所指余量，再保存旧游标并发布旧值+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x548EC5",
       "inventory_id": "F:00148EC5",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x548ED5",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x548875",
           "parent_entry": "0x548843"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "IncrementLegacyWriteCursor_548EC5"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "IncrementLegacyWriteCursor_548EC5",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄Pninc：输出侧先减所指余量，保存旧游标后发布+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄Pninc：输出侧先减所指余量，保存旧游标后发布+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x549787",
@@ -34070,31 +34295,106 @@
     {
       "original_entry": "0x549E1C",
       "inventory_id": "F:00149E1C",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x549E2D",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x549B0A",
           "parent_entry": "0x549AE2"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DecrementLegacyWideReadCursor_549E1C"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DecrementLegacyWideReadCursor_549E1C",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽Gndec：先增所指余量，再将游标减2B，重读槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽Gndec：先增所指余量，再将游标减2B，重读槽后返回新游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x549E2D",
       "inventory_id": "F:00149E2D",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x549E3D",
       "instruction_count": 7,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x54979E",
@@ -34105,11 +34405,86 @@
           "parent_entry": "0x549BC7"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "IncrementLegacyWideReadCursor_549E2D"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "IncrementLegacyWideReadCursor_549E2D",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽Gninc：先减所指余量，保存旧游标并发布旧值+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽Gninc：先减所指余量，保存旧游标并发布旧值+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x549E3D",
@@ -34134,22 +34509,97 @@
     {
       "original_entry": "0x549E51",
       "inventory_id": "F:00149E51",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x549E61",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5499D0",
           "parent_entry": "0x54999A"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "IncrementLegacyWideWriteCursor_549E51"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "IncrementLegacyWideWriteCursor_549E51",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽Pninc：输出侧先减所指余量，保存旧游标再发布+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽Pninc：输出侧先减所指余量，保存旧游标再发布+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBuffer",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x548CAC",
@@ -34567,11 +35017,11 @@
     {
       "original_entry": "0x549EDE",
       "inventory_id": "F:00149EDE",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原流缓冲单步或重绑本体已实现；虚表/locale/实际上游owner及完整生命周期运行未闭合",
       "original_end_exclusive": "0x549F20",
       "instruction_count": 25,
       "original_direct_reference_count": 4,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用；新六叶42条/重绑25条只读取证及原六字段地址关系，两个新源/唯一声明/96B原生字段/原副作用时序、CMake来源及七记录/合同进度静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x548623",
@@ -34590,11 +35040,86 @@
           "parent_entry": "0x549E88"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ResetLegacyStreamBuffer_549EDE"
+          ],
+          "relationship": "原六间接槽/真实S32余量与原移动次序；窄1B宽2B/返回新旧指针合同保留"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "ResetLegacyStreamBuffer_549EDE",
+            "LegacyStreamBufferStorage"
+          ],
+          "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "缓冲槽重绑定：把六间接槽重绑到对象自身，再依次清写侧基址/游标/余量、读侧基址/游标/余量；不整对象清零。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "缓冲槽重绑定：把六间接槽重绑到对象自身，再依次清写侧基址/游标/余量、读侧基址/游标/余量；不整对象清零。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE窄宽共用六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。；当前四原入向548623/548F2E/54972F/549EBA均同一原入口，C++只实例化char/U16，不重复原ID。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyStreamBufferStorage<char/U16>",
+        "original_consumed_range": "+00..+33",
+        "native_size": 96,
+        "fields": {
+          "readBase": {
+            "original_offset": 4,
+            "native_offset": 8
+          },
+          "writeBase": {
+            "original_offset": 8,
+            "native_offset": 16
+          },
+          "readBaseSlot": {
+            "original_offset": 12,
+            "native_offset": 24
+          },
+          "writeBaseSlot": {
+            "original_offset": 16,
+            "native_offset": 32
+          },
+          "readCurrent": {
+            "original_offset": 20,
+            "native_offset": 40
+          },
+          "writeCurrent": {
+            "original_offset": 24,
+            "native_offset": 48
+          },
+          "readCurrentSlot": {
+            "original_offset": 28,
+            "native_offset": 56
+          },
+          "writeCurrentSlot": {
+            "original_offset": 32,
+            "native_offset": 64
+          },
+          "readRemaining": {
+            "original_offset": 36,
+            "native_offset": 72,
+            "type": "S32"
+          },
+          "writeRemaining": {
+            "original_offset": 40,
+            "native_offset": 76,
+            "type": "S32"
+          },
+          "readRemainingSlot": {
+            "original_offset": 44,
+            "native_offset": 80
+          },
+          "writeRemainingSlot": {
+            "original_offset": 48,
+            "native_offset": 88
+          }
+        },
+        "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
+      }
     },
     {
       "original_entry": "0x548B68",

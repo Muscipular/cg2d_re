@@ -11323,7 +11323,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11999,6 +11999,48 @@
           "call_site": "0x45A6E9",
           "source": "src/GraphicRead.cpp",
           "symbol": "CloseGraphicFiles"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BCED",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BD7F",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDD0",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDFD",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45C01F",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45BEF0",
+          "call_site": "0x45BEFD",
+          "source": "src/AnimationCleanup.cpp",
+          "symbol": "AnimeUnload_45BEF0"
+        },
+        {
+          "parent_entry": "0x45BF20",
+          "call_site": "0x45BF34",
+          "source": "src/AnimationCleanup.cpp",
+          "symbol": "Sub_45BF20"
         }
       ]
     },
@@ -12209,7 +12251,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12721,6 +12763,30 @@
           "call_site": "0x459C8C",
           "source": "src/GraphicInfo.cpp",
           "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BC05",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BD3C",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BF6E",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BF8E",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
         }
       ]
     },
@@ -12875,7 +12941,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。 图形459AC4的END2/S32零偏移与45A94D的BEGIN0/S32记录偏移已整链接真实LegacyFile，忽略结果、之后重取Info/数据共享槽的时序保持。",
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。 图形459AC4的END2/S32零偏移与45A94D的BEGIN0/S32记录偏移已整链接真实LegacyFile，忽略结果、之后重取Info/数据共享槽的时序保持。 动画45B7DD与坐标45C20B两原定位已整链接真实LegacyFile，BEGIN0/S32位模式及忽略返回保持，后续读取重新消费同一表槽别名。",
       "function_chunks": [
         {
           "start": "0x53BC41",
@@ -13081,6 +13147,18 @@
           "call_site": "0x45A94D",
           "source": "src/GraphicRead.cpp",
           "symbol": "ReadGraphicDataByIndex"
+        },
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45B7DD",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760"
+        },
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C20B",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150"
         }
       ]
     },
@@ -13109,7 +13187,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。 图形459CE2/45A966两原读取已整链迁移，(28H,1)未清记录及(length U32,1)共享读区保持；前者忽略返回继续消费，后者仅返回1才解码。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。 图形459CE2/45A966两原读取已整链迁移，(28H,1)未清记录及(length U32,1)共享读区保持；前者忽略返回继续消费，后者仅返回1才解码。 动画/坐标七个原读取已整链迁移，(0CH,1)、(20或12,1)、(10*frameCount U32,1)、(8,count U16零扩展U32)、(1,1)、(4,2)、(2,1)全部忽略返回，未清局部/部分覆盖及EOF消费时点保持。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -13597,6 +13675,48 @@
           "call_site": "0x45A966",
           "source": "src/GraphicRead.cpp",
           "symbol": "ReadGraphicDataByIndex"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BC33",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45B8E5",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760"
+        },
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45BA0D",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760"
+        },
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C261",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFAA",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFCA",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFD9",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60"
         }
       ]
     },
@@ -16432,7 +16552,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及43个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及45个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -16479,7 +16599,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处共43点已接，其他979点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处共45点已接，其他977点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -16751,6 +16871,18 @@
           "call_site": "0x459B3A",
           "source": "src/GraphicInfo.cpp",
           "symbol": "GraphicInit_459960"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDA9",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20"
+        },
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C1CF",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150"
         }
       ],
       "business_format_evidence": [
@@ -16805,6 +16937,14 @@
         {
           "address": "0x5598CC",
           "bytes": "4d41585f47524150484943533d25642c4e6565643d256400"
+        },
+        {
+          "address": "0x55991C",
+          "bytes": "693d25642c616e696d73697a653d256400"
+        },
+        {
+          "address": "0x55994C",
+          "bytes": "2564202f203130303000"
         }
       ]
     },
@@ -30784,6 +30924,537 @@
           "from": "0x45A952",
           "parent_entry": "0x45A900",
           "access_type": 3
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45BB20",
+      "inventory_id": "F:0005BB20",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45BEE1",
+      "instruction_count": 270,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "AnimeInit_45BB20"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4578EF",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BC05",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BC33",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BCED",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BD3C",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BD7F",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDA9",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDD0",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x45BB20",
+          "call_site": "0x45BDFD",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeInit_45BB20",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有完整AnimeInit的九Info/数据流与失败关闭统一LegacyFile，读取固定0CH/1 U32实参；先read后S32容量检查再flags低U8/10H，EOF存在标志和关闭次序保持。Info必需0/8缺失返2不清旧动画槽；容量达上限只关Info返3；count>10000原消息→关Info→原共享指针释放→动画槽关闭清空返5；数据必需打开失败同清理返2。两9×256B路径、未清12B局部、去重/覆盖/字段/排序/分配及未知共享归属未改，完整资源/运行未验。",
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x55991C",
+          "bytes": "693d25642c616e696d73697a653d256400"
+        },
+        {
+          "address": "0x5598F8",
+          "bytes": "8341836a3f815b83563f3f8366815b835e82aa946a91b982b582c482a282dc82b7814200"
+        }
+      ],
+      "business_flag_read_evidence": [
+        {
+          "address": "0x45BC4D",
+          "branch_address": "0x45BC51",
+          "relationship": "读取及容量检查后直接读FILE flags低U8/10H，EOF只发布存在标志并关闭"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A3A20",
+          "from": "0x45BD1F",
+          "parent_entry": "0x45BB20",
+          "access_type": 1
+        },
+        {
+          "address": "0x9A3A20",
+          "from": "0x45BD44",
+          "parent_entry": "0x45BB20",
+          "access_type": 2
+        },
+        {
+          "address": "0x9A3A20",
+          "from": "0x45BDF1",
+          "parent_entry": "0x45BB20",
+          "access_type": 1
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45B760",
+      "inventory_id": "F:0005B760",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45BB1F",
+      "instruction_count": 293,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "AnimeLoadAction_45B760"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x517990",
+          "parent_entry": "0x517880"
+        },
+        {
+          "address": "0x517F9A",
+          "parent_entry": "0x517DA0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45B7DD",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45B8E5",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45B760",
+          "call_site": "0x45BA0D",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "AnimeLoadAction_45B760",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有完整action/帧装载复用同一动画流槽别名，BEGIN0/S32偏移定位忽略结果；20或12B头/10*frameCount U32帧块读取均(长度,1)，忽略返回且复用未清2000B局部。只换真实FILE核心，数量门槛/发布/原清理/CoordInit调用及磁盘10B/运行12B帧、未写末2B、基址/槽字节/活动计数等全部正文保持，播放及资源内容/运行未验。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A3A20",
+          "from": "0x45B7C8",
+          "parent_entry": "0x45B760",
+          "access_type": 1
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45C150",
+      "inventory_id": "F:0005C150",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45C2C7",
+      "instruction_count": 116,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "CoordInit_45C150"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45BABA",
+          "parent_entry": "0x45B760"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C1CF",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C20B",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x45C150",
+          "call_site": "0x45C261",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordInit_45C150",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有完整坐标装载保留U16来源、文件/action/坐标/count门槛及count>1000提示，容量格式接真实53B304。BEGIN0/S32偏移定位后沿既有分配发布，之后重取同一坐标流槽，读取(8,count U16零扩展U32)到未清1000项局部且忽略结果。逐项W32加基址/W16坐标与失败0/跳过1保持，其他堆/布局/播放正文未改。",
+      "business_byte_evidence": [
+        {
+          "address": "0x55994C",
+          "bytes": "2564202f203130303000"
+        },
+        {
+          "address": "0x559930",
+          "bytes": "8dc095578366815b835e97ca82aa88d98fed82c582b7814200"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A2988",
+          "from": "0x45C178",
+          "parent_entry": "0x45C150",
+          "access_type": 3
+        },
+        {
+          "address": "0x9A2988",
+          "from": "0x45C17F",
+          "parent_entry": "0x45C150",
+          "access_type": 1
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45C040",
+      "inventory_id": "F:0005C040",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45C146",
+      "instruction_count": 95,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "CoordLoadInit_45C040"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x457925",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45C040",
+          "call_site": "0x45C08E",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoadInit_45C040",
+          "target_entry": "0x45BF60",
+          "target_symbol": "CoordLoad_45BF60"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有九坐标文件初始化同归animation::detail，入口清槽不关闭旧值；45C08E把同一LegacyFile**传给45BF60且忽略返回。按原不区分大小写路径比较，向后续同路径槽回写两输入路径并共享同一流，非空槽后续跳过。只沿已证指针拓宽双指针接口，不引入引用计数、第二文件表或额外关闭；路径容量/字节/顺序及比较核心保持。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A2988",
+          "from": "0x45C052",
+          "parent_entry": "0x45C040",
+          "access_type": 1
+        },
+        {
+          "address": "0x9A2988",
+          "from": "0x45C05D",
+          "parent_entry": "0x45C040",
+          "access_type": 1
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45BF60",
+      "inventory_id": "F:0005BF60",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45C038",
+      "instruction_count": 71,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "CoordLoad_45BF60"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45C08E",
+          "parent_entry": "0x45C040"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BF6E",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BF8E",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFAA",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFCA",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45BFD9",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x45BF60",
+          "call_site": "0x45C01F",
+          "source": "src/AnimationRuntime.cpp",
+          "symbol": "CoordLoad_45BF60",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有完整坐标文件生产先rb数据并立即发布输出，数据失败返0，再rb Info失败仍保留数据；版本读(1,1)后只比较原路径参数低字节，未读仍由现有地址低位承接，版本!=1返0且不关闭两流。读取前flags低U8/10H，(4,2)记录→(2,1)计数→GetIndex/命中时发布原W32偏移/W16数量，短读仍消费未清局部后缀。正常只关Info返1，数据持续共享，不新增清理/补零/错误位门槛，完整生命周期/内容/运行未验。",
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "business_flag_read_evidence": [
+        {
+          "address": "0x45BFBA",
+          "branch_address": "0x45BFBE",
+          "relationship": "第一次记录读取前检查Info flags低U8/10H"
+        },
+        {
+          "address": "0x45C018",
+          "branch_address": "0x45C01C",
+          "relationship": "记录/计数消费后重新检查Info flags低U8/10H"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45BEF0",
+      "inventory_id": "F:0005BEF0",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45BF1D",
+      "instruction_count": 15,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "AnimeUnload_45BEF0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x457A63",
+          "parent_entry": "0x457A40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45BEF0",
+          "call_site": "0x45BEFD",
+          "source": "src/AnimationCleanup.cpp",
+          "symbol": "AnimeUnload_45BEF0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有退出父按九动画槽关闭非空LegacyFile后清同一槽，再直接透传45B630主表活动槽清理结果。坐标文件、主表布局、活动数据释放和槽链正文不改，不据本步称完整资源退出验收。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A3A20",
+          "from": "0x45BEF1",
+          "parent_entry": "0x45BEF0",
+          "access_type": 1
+        }
+      ]
+    },
+    {
+      "original_entry": "0x45BF20",
+      "inventory_id": "F:0005BF20",
+      "status": "既有动画/坐标本体的真实文件及共享槽接线已接；完整CRT/资源内容/运行验收仍待",
+      "original_end_exclusive": "0x45BF55",
+      "instruction_count": 16,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "Sub_45BF20"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x457A68",
+          "parent_entry": "0x457A40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x45BF20",
+          "call_site": "0x45BF34",
+          "source": "src/AnimationCleanup.cpp",
+          "symbol": "Sub_45BF20",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
+      "boundary": "既有退出父按九W32关闭标志非零时关闭对应动画槽（45BF2D的9A3A20），不判流空、不清文件槽，仅清关闭标志，然后直接透传45B740。它不关闭9A2988坐标流，不按函数名补回收；原标志生产/指针残留与完整生命周期/运行仍待。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0x9A3A20",
+          "from": "0x45BF2D",
+          "parent_entry": "0x45BF20",
+          "access_type": 3
+        },
+        {
+          "address": "0x9A29D0",
+          "from": "0x45BF23",
+          "parent_entry": "0x45BF20",
+          "access_type": 3
+        },
+        {
+          "address": "0x9A29D0",
+          "from": "0x45BF3C",
+          "parent_entry": "0x45BF20",
+          "access_type": 2
         }
       ]
     }

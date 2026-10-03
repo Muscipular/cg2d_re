@@ -1,6 +1,8 @@
 #include "cg/AnimationRuntime.hpp"
 
 #include "AnimationRuntimeState.hpp"
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
 #include "LegacySort.hpp"
 
 #include "cg/GraphicAlloc.hpp"
@@ -8,7 +10,6 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
 
-#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
@@ -18,8 +19,8 @@ std::array<std::uint32_t, 9> gFileCloseFlags9A29D0 {};
 std::array<MainSlot, 256> gMainSlots9A29F8 {};
 MainSlot gLeftSentinel9A3A00 {};
 MainSlot gRightSentinel9A3A10 {};
-std::array<std::FILE*, 9> gAnimateFiles9A3A20 {};
-std::array<std::FILE*, 9> gCoordinateFiles9A2988 {};
+std::array<platform::LegacyFile*, 9> gAnimateFiles9A3A20 {};
+std::array<platform::LegacyFile*, 9> gCoordinateFiles9A2988 {};
 std::array<CacheSlot, 256> gCacheSlots9A3A48 {};
 std::uint32_t gActiveCount9A4A68 = 0;
 std::uint32_t gActiveBytes9A4A6C = 0;
@@ -102,9 +103,9 @@ std::int32_t AnimeInit_45BB20(
         if (detail::gCleanupAllocation9A4A54 != nullptr) {
             std::free(detail::gCleanupAllocation9A4A54);
         }
-        for (std::FILE*& file : detail::gAnimateFiles9A3A20) {
+        for (platform::LegacyFile*& file : detail::gAnimateFiles9A3A20) {
             if (file != nullptr) {
-                std::fclose(file);
+                platform::CloseLegacyStream_53B1D0(file);
                 file = nullptr;
             }
         }
@@ -112,7 +113,7 @@ std::int32_t AnimeInit_45BB20(
     };
 
     for (std::int32_t slot = 0; slot < 9; ++slot) {
-        std::FILE* const file = std::fopen(localInfoPaths[slot], "rb");
+        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(localInfoPaths[slot], "rb");
         if (file == nullptr) {
             if (slot == 0 || slot == 8) {
                 return 2;
@@ -121,14 +122,14 @@ std::int32_t AnimeInit_45BB20(
         }
         for (;;) {
             // 原容量检查在 fread 之后、EOF 之前；读取槽跨轮复用且不补短读。
-            std::fread(&info, sizeof(info), 1, file);
+            platform::ReadLegacyStream_53BCCD(&info, 0x0Cu, 1, file);
             if (uniqueCount >= gMaxAnimateCount9A4A4C) {
-                std::fclose(file);
+                platform::CloseLegacyStream_53B1D0(file);
                 return 3;
             }
-            if (std::feof(file) != 0) {
+            if ((static_cast<std::uint8_t>(file->flags) & 0x10u) != 0) {
                 filePresent[slot] = 1;
-                std::fclose(file);
+                platform::CloseLegacyStream_53B1D0(file);
                 break;
             }
             const std::uint32_t key = info.animeNo - 100000u;
@@ -150,9 +151,9 @@ std::int32_t AnimeInit_45BB20(
             indices[key] = index;
             if (count > 10000u) {
                 char message[256];
-                std::sprintf(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
+                platform::FormatLegacyString_53B304(message, "i=%d,animsize=%d", slot, static_cast<int>(count));
                 platform::ShowLegacyMessage(message, kAnimeSizeErrorCaption, 0);
-                std::fclose(file);
+                platform::CloseLegacyStream_53B1D0(file);
                 return cleanupFailure(5);
             }
         }
@@ -162,7 +163,7 @@ std::int32_t AnimeInit_45BB20(
     detail::gAnimateFiles9A3A20.fill(nullptr);
     for (std::size_t slot = 0; slot < 9; ++slot) {
         if (filePresent[slot] == 1) {
-            detail::gAnimateFiles9A3A20[slot] = std::fopen(localDataPaths[slot], "rb");
+            detail::gAnimateFiles9A3A20[slot] = platform::OpenLegacyStream_53B2F1(localDataPaths[slot], "rb");
             if (detail::gAnimateFiles9A3A20[slot] == nullptr && (slot == 0 || slot == 8)) {
                 return cleanupFailure(2);
             }
@@ -244,8 +245,9 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     if (slot == nullptr) {
         return 0;
     }
-    std::FILE*& file = detail::gAnimateFiles9A3A20[fileIndex];
-    std::fseek(file, static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset), SEEK_SET);
+    platform::LegacyFile*& file = detail::gAnimateFiles9A3A20[fileIndex];
+    platform::SeekLegacyStream_53BC41(file,
+        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].offset), 0);
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
     if (gAnimateRecords9A4A58[index].count == 0) {
         return 0;
@@ -271,7 +273,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     std::uint16_t buffer[1000];
     for (std::int32_t actionIndex = 0;
          actionIndex < gAnimateRecords9A4A58[index].count; ++actionIndex) {
-        std::fread(buffer, gAnimateRecords9A4A58[index].flag >= 1 ? 20 : 12, 1, file);
+        platform::ReadLegacyStream_53BCCD(buffer, gAnimateRecords9A4A58[index].flag >= 1 ? 20 : 12, 1, file);
         auto* const action = static_cast<detail::ActionEntry*>(
             gAnimateRecords9A4A58[index].actionList) + actionIndex;
         action->frames = nullptr;
@@ -308,7 +310,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
             return 0;
         }
         slot->value04 += 12u * action->frameCount;
-        std::fread(buffer, 10u * action->frameCount, 1, file);
+        platform::ReadLegacyStream_53BCCD(buffer, 10u * action->frameCount, 1, file);
         for (std::uint32_t frameIndex = 0; frameIndex < action->frameCount; ++frameIndex) {
             const std::uint16_t* const source = buffer + frameIndex * 5;
             static_cast<detail::FrameEntry*>(action->frames)[frameIndex].graphicIndex = source[0];
@@ -336,7 +338,7 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
 std::int32_t CoordInit_45C150(const std::int32_t index)
 {
     const auto fileIndex = static_cast<std::uint16_t>(gAnimateRecords9A4A58[index].fileIndex);
-    std::FILE*& file = detail::gCoordinateFiles9A2988[fileIndex];
+    platform::LegacyFile*& file = detail::gCoordinateFiles9A2988[fileIndex];
     if (file == nullptr || gAnimateRecords9A4A58[index].actionList == nullptr
         || gAnimateRecords9A4A58[index].coordinates != nullptr
         || gAnimateRecords9A4A58[index].coordinateCount == 0) {
@@ -344,22 +346,22 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     }
     if (gAnimateRecords9A4A58[index].coordinateCount > 1000) {
         char message[256];
-        std::sprintf(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
+        platform::FormatLegacyString_53B304(message, "%d / 1000", gAnimateRecords9A4A58[index].coordinateCount);
         platform::ShowLegacyMessage(message,
             "\x8D\xC0\x95\x57\x83\x66\x81\x5B\x83\x5E\x97\xCA"
             "\x82\xAA\x88\xD9\x8F\xED\x82\xC5\x82\xB7\x81\x42", 0);
         return 0;
     }
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
-    std::fseek(file,
-        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset), SEEK_SET);
+    platform::SeekLegacyStream_53BC41(file,
+        static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset), 0);
     gAnimateRecords9A4A58[index].coordinates = std::malloc(
         sizeof(detail::CoordinateEntry) * gAnimateRecords9A4A58[index].coordinateCount);
     if (gAnimateRecords9A4A58[index].coordinates == nullptr) {
         return 0;
     }
     detail::CoordinateEntry buffer[1000];
-    std::fread(buffer, 8, gAnimateRecords9A4A58[index].coordinateCount, file);
+    platform::ReadLegacyStream_53BCCD(buffer, 8, gAnimateRecords9A4A58[index].coordinateCount, file);
     for (std::int32_t coordinate = 0;
          coordinate < gAnimateRecords9A4A58[index].coordinateCount; ++coordinate) {
         auto* const destination = static_cast<detail::CoordinateEntry*>(
@@ -392,36 +394,36 @@ void CoordLoadInit_45C040(char* const* const dataPaths, char* const* const infoP
 }
 
 std::int32_t CoordLoad_45BF60(
-    std::FILE** const outputFile, const char* const dataPath, const char* const infoPath)
+    platform::LegacyFile** const outputFile, const char* const dataPath, const char* const infoPath)
 {
-    *outputFile = std::fopen(dataPath, "rb");
+    *outputFile = platform::OpenLegacyStream_53B2F1(dataPath, "rb");
     if (*outputFile == nullptr) {
         return 0;
     }
-    std::FILE* const infoFile = std::fopen(infoPath, "rb");
+    platform::LegacyFile* const infoFile = platform::OpenLegacyStream_53B2F1(infoPath, "rb");
     if (infoFile == nullptr) {
         return 0;
     }
 
     // 原 fread 覆盖路径参数低字节；未读到字节时保留实际地址低位，不补零。
     auto version = static_cast<std::uint8_t>(reinterpret_cast<std::uintptr_t>(dataPath));
-    std::fread(&version, 1, 1, infoFile);
+    platform::ReadLegacyStream_53BCCD(&version, 1, 1, infoFile);
     if (version != 1) {
         return 0;
     }
 
     std::uint32_t record[2];
     std::uint16_t count;
-    while (std::feof(infoFile) == 0) {
-        std::fread(record, 4, 2, infoFile);
-        std::fread(&count, 2, 1, infoFile);
+    while ((static_cast<std::uint8_t>(infoFile->flags) & 0x10u) == 0) {
+        platform::ReadLegacyStream_53BCCD(record, 4, 2, infoFile);
+        platform::ReadLegacyStream_53BCCD(&count, 2, 1, infoFile);
         const std::int32_t index = GetIndex_45B400(record[0] - 100000u);
         if (index >= 0) {
             gAnimateRecords9A4A58[index].coordinateOffset = record[1];
             gAnimateRecords9A4A58[index].coordinateCount = count;
         }
     }
-    std::fclose(infoFile);
+    platform::CloseLegacyStream_53B1D0(infoFile);
     return 1;
 }
 

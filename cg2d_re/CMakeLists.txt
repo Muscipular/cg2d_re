@@ -73,6 +73,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyCryptInt.cpp
     src/platform/LegacyModuleDigest.cpp
     src/platform/LegacyMemory.cpp
+    src/platform/LegacyHeap.cpp
     src/platform/LegacyRuntimeError.cpp
     src/platform/LegacyRuntimeExit.cpp
     src/platform/LegacySignal.cpp

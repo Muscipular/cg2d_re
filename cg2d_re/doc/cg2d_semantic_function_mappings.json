@@ -16440,31 +16440,22 @@
     {
       "original_entry": "0x53FCFB",
       "inventory_id": "F:0013FCFB",
-      "status": "完整原本体已取证并声明真实登记依赖；原堆实现与所有权仍待",
+      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
       "original_end_exclusive": "0x53FD5C",
       "instruction_count": 40,
       "original_direct_reference_count": 2,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "LegacyPrimaryEmptyExitStaticInitializer"
-          ],
-          "relationship": "两调用53B3A0/53B3BF均在53B399退出登记，关联现有宿主退出表职责"
+            "GetLegacyAllocationSize_53FCFB"
+          ]
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
           "symbols": [
             "GetLegacyAllocationSize_53FCFB"
-          ],
-          "relationship": "仅真实依赖声明，尚无本体，不使用宿主近似填补"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "RegisterLegacyExitCallback_53B399"
-          ],
-          "relationship": "登记本体已接该真实依赖，当前不能运行完整退出表"
+          ]
         }
       ],
       "native_reference": {
@@ -16476,7 +16467,7 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原mode3命中小块读block-4减9；mode2命中读单字节乘16；其他直接HeapSize并返回W32，不加空指针保护。宿主以first/last/end跟踪槽容量，不由本函数查旧块。仅职责归属，不伪造旧块头或将两种容量策略视为等价。 2026-10-03新增原函数声明及53B399调用；不是原堆已实现或宿主通用替代已批准。",
+      "boundary": "真实采样模式一次：3调用541C5D，命中读取输入前4字节U32减9；2调用尚待实现5429B8，命中读标记U8乘16；否则HeapSize(重读共享原堆,0,原地址)并取U32。不设空参数保护/errno。退出登记两点已接本体，原堆创建/归属、模式2查块和扩容仍未闭合，不能作用于宿主malloc块。",
       "inbound_evidence": [
         {
           "address": "0x53B3A0",
@@ -16487,7 +16478,7 @@
           "parent_entry": "0x53B399"
         }
       ],
-      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53C2B4",
@@ -16624,68 +16615,138 @@
     {
       "original_entry": "0x541BB8",
       "inventory_id": "F:00141BB8",
-      "status": "原私有堆创建及模式分派已取证；宿主进程堆职责关联不等价",
+      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
       "original_end_exclusive": "0x541C15",
       "instruction_count": 30,
       "original_direct_reference_count": 1,
       "sources": [
         {
-          "path": "src/platform/LegacyMemory.cpp",
+          "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "AllocateLegacyByteBuffer",
-            "FreeLegacyByteBuffer"
-          ],
-          "relationship": "既有裸字节适配借_get_heap_handle，不是原HeapCreate/模式初始化的直接实现"
+            "InitializeLegacyHeap_541BB8"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "InitializeLegacyHeap_541BB8"
+          ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "start@53DE0F实际传0，HeapCreate flags=1、initial=1000H、maximum=0并发布10869A4；成功后选择并发布10869A8。模式3调541C15(3F8H)，模式2调54275C，初始化失败HeapDestroy后返回0但未清共享堆槽；成功返1。原调用失败进入fast_error_exit(1CH)。",
+      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用尚待实现54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
         "symbol": "__acrt_initialize_heap / __acrt_uninitialize_heap / _get_heap_handle"
-      }
+      },
+      "inbound_evidence": [
+        {
+          "address": "0x53DE0F",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x541C15",
       "inventory_id": "F:00141C15",
-      "status": "原模式3小块池头初始化已取证；未实现旧内部池",
+      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
       "original_end_exclusive": "0x541C5D",
       "instruction_count": 17,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "InitializeLegacySmallHeap3_541C15"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "InitializeLegacySmallHeap3_541C15"
+          ]
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "唯一541BB8调用；HeapAlloc(140H,flags0)后先发布108699C，失败返0；成功清1086994/98，发布1086990、阈值10869A0=实参3F8H及1086988=10H，返回1。未把头块未清内容擅自置零。"
+      "boundary": "真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域生产、管理区内部布局和分配释放尚待。",
+      "inbound_evidence": [
+        {
+          "address": "0x541BEC",
+          "parent_entry": "0x541BB8"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x54275C",
       "inventory_id": "F:0014275C",
-      "status": "原模式2区域初始化及运行期扩池调用已取证；未实现旧内部池",
+      "status": "原模式2本体已取证并声明真实依赖；页布局及分配释放整体适配尚待",
       "original_end_exclusive": "0x5428A0",
       "instruction_count": 102,
       "original_direct_reference_count": 2,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "CreateLegacySmallHeap2Region_54275C"
+          ],
+          "relationship": "仅真实依赖声明，未提供模式2本体"
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "InitializeLegacyHeap_541BB8"
+          ],
+          "relationship": "原模式分支调用，不能以固定成功或宿主API填充"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "541BB8与542A54各一调用，不能只当启动代码。选静态头或分配2020H描述区，VirtualAlloc保留400000H并提交10000H，发布链/区域/1024元数据项，清已提交区并初始化16页。失败按原路径释放保留区和动态描述区，静态头不HeapFree。"
+      "boundary": "541BB8与542A54各一调用，不能只当启动代码。选静态头或分配2020H描述区，VirtualAlloc保留400000H并提交10000H，发布链/区域/1024元数据项，清已提交区并初始化16页。失败按原路径释放保留区和动态描述区，静态头不HeapFree。 原页头指针拓宽会影响相邻计数/240标记及哨兵，须与页内分配释放一并适配；本步不缩减容量或猜新偏移。",
+      "inbound_evidence": [
+        {
+          "address": "0x541BF9",
+          "parent_entry": "0x541BB8"
+        },
+        {
+          "address": "0x542C23",
+          "parent_entry": "0x542A54"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x541C5D",
       "inventory_id": "F:00141C5D",
-      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "status": "真实原堆基础本体及内部状态已实现；两模式完整分配链、宿主归属和启动接线未闭合",
       "original_end_exclusive": "0x541C88",
       "instruction_count": 14,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及全部直接入向/调用位置",
-      "sources": [],
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "FindLegacySmallHeap3Region_541C5D"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "FindLegacySmallHeap3Region_541C5D"
+          ]
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x53C0C0",
@@ -16707,7 +16768,7 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "模式3查区域：按1086998个14H记录扫描，U32(pointer-base)<100000H命中返回该头；未命中返回0。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "先采样U32记录数再采样表首，按32B原生区域头正序扫描；仅原+0C/+10指针拓宽，地址差用uintptr_t，范围仍100000H。已由真实53FCFB调用，原free/realloc尚未迁移；不截地址、不添加空值保护或容量影子。"
     },
     {
       "original_entry": "0x541C88",
@@ -16868,12 +16929,27 @@
     {
       "original_entry": "0x5429B8",
       "inventory_id": "F:001429B8",
-      "status": "小块池私有叶全本体已取证；未实现、未接线或验收旧池",
+      "status": "原模式2本体已取证并声明真实依赖；页布局及分配释放整体适配尚待",
       "original_end_exclusive": "0x542A0F",
       "instruction_count": 34,
       "original_direct_reference_count": 3,
-      "verification_level": "完整指令及全部直接入向/调用位置",
-      "sources": [],
+      "verification_level": "完整原指令与直接入向、字段发布/消费和新增源码静态核对；未构建、链接或执行",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "FindLegacySmallHeap2Block_5429B8"
+          ],
+          "relationship": "仅真实依赖声明，未提供模式2本体"
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "原模式分支调用，不能以固定成功或宿主API填充"
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x53C0E3",
@@ -16891,7 +16967,7 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "模式2查块：区域开区间内、16B对齐、页内偏移>=100H才写两输出为区域/页首，并返回页内分配标记地址；失败返回0且不写两输出。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "模式2查块：区域开区间内、16B对齐、页内偏移>=100H才写两输出为区域/页首，并返回页内分配标记地址；失败返回0且不写两输出。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。 原页头指针拓宽会影响相邻计数/240标记及哨兵，须与页内分配释放一并适配；本步不缩减容量或猜新偏移。"
     },
     {
       "original_entry": "0x542A0F",

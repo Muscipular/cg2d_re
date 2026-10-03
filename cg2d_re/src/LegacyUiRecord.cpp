@@ -12350,7 +12350,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
                     212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyItemWorkPanel5842D0.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyItemWorkPanel5842D0.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -12387,8 +12387,8 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     }
     case 1: message = kItemWorkText589F40; break;
     case 2:
-        std::sprintf(buffer, kItemWorkText589F2C, cost);
-        message = buffer;
+        platform::FormatLegacyString_53B304(buffer, kItemWorkText589F2C, cost);
+        gLegacyItemWorkMessageCA0ACC = buffer;
         break;
     case 3: message = kLegacyGatherNoFp5864F0; break;
     case 4: message = kItemWorkText589F1C; break;
@@ -12406,7 +12406,8 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
     default: break;
     }
     if (message != nullptr) {
-        gLegacyItemWorkMessageCA0ACC = message;
+        platform::FormatLegacyString_53B304(buffer, message);
+        gLegacyItemWorkMessageCA0ACC = buffer;
     }
     for (std::int32_t row = 0; row < 3; ++row) {
         if (input::ExtractLegacyLine_503AB0(

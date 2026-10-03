@@ -11628,12 +11628,12 @@ std::uint32_t Sub_4F0B40(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(57, 320));
     }
     char buffer[256];
-    std::sprintf(buffer, kLegacyFpNotice589BFC);
+    platform::FormatLegacyString_53B304(buffer, kLegacyFpNotice589BFC);
     const std::int32_t messageY = gLegacyFpNoticePanel583E20.y;
     const std::int32_t messageX = gLegacyFpNoticePanel583E20.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(messageX + 16),
         static_cast<std::int16_t>(messageY + 24), 2, 0, 0, buffer, 0, 0));
-    std::sprintf(buffer, kLegacyFpRequired589BE8, gLegacyRequiredFpCC31D8);
+    platform::FormatLegacyString_53B304(buffer, kLegacyFpRequired589BE8, gLegacyRequiredFpCC31D8);
     const std::int32_t valueY = gLegacyFpNoticePanel583E20.y;
     const std::int32_t valueX = gLegacyFpNoticePanel583E20.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(valueX + 16),
@@ -11715,12 +11715,12 @@ std::uintptr_t Sub_4F0F70(const std::int32_t opened)
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
     char buffer[256];
-    std::sprintf(buffer, "%7d", world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count);
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::gPlayerItemsFDA8A4[gLegacySplitSourceCC3E60].count);
     const std::int32_t countY = gLegacyItemSplitPanel584078.y + 46;
     const std::int32_t countX = gLegacyItemSplitPanel584078.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
         static_cast<std::int16_t>(countY), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%7d", gLegacySplitAmountC8A948);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacySplitAmountC8A948);
     const std::int32_t amountY = gLegacyItemSplitPanel584078.y + 86;
     const std::int32_t amountX = gLegacyItemSplitPanel584078.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),

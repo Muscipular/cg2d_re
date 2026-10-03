@@ -1,5 +1,6 @@
 #include "cg/platform/LegacyNetworkAdapter.hpp"
 #include "cg/platform/LegacyMemory.hpp"
+#include "LegacyFormat.hpp"
 
 #include <winsock2.h>
 #include <iphlpapi.h>
@@ -48,7 +49,7 @@ std::int32_t Sub_534EF0(char* const output)
     char* const text = selected->IfType == IF_TYPE_ETHERNET_CSMACD
         ? ethernetText : wirelessText;
     const BYTE* const address = selected->PhysicalAddress;
-    std::sprintf(
+    FormatLegacyString_53B304(
         text,
         "%02x%02x%02x%02x%02x%02x",
         address[0], address[1], address[2],

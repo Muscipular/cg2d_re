@@ -770,7 +770,7 @@ std::int32_t Sub_534520(char* const destination)
     const std::int32_t month = readField(0x10);
     const std::int32_t year = readField(0x14);
     char timestamp[256];
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         timestamp, "%4d/%2d/%2d %02d:%02d", year + 1900, month + 1, day, hours, minutes);
     std::strcpy(destination, timestamp);
     return 0;

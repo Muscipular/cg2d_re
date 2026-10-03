@@ -1,9 +1,16 @@
 #include "LegacyLocale.hpp"
 
 #include "LegacyHeap.hpp"
+#include "LegacyRuntimeExit.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
 namespace cg::platform {
+
+// 原三槽已证虚拟零初态；实际同一原生locale域，非SDK状态镜像/影子映射。
+LegacyLocaleImplementation* gLegacyClassicLocaleObject1086728 = nullptr;
+LegacyLocaleImplementation* gLegacyClassicLocaleImplementation108672C = nullptr;
+LegacyLocaleImplementation* gLegacyGlobalLocaleImplementation1086730 = nullptr;
+
 namespace {
 
 LegacyLocaleFacet* DeleteLegacyLocaleImplementationFromFacet(
@@ -22,6 +29,7 @@ const LegacyLocaleFacetMethods gLegacyLocaleImplementationMethods550154{
     DeleteLegacyLocaleImplementationFromFacet
 };
 const char gLegacyLocaleStar55014C[2] = "*"; // 原已加载2B含NUL。
+const char gLegacyLocaleC55457C[2] = "C"; // 原已加载2B含NUL。
 
 // 原54A577是54A505/清理共用尾，仅改facet方法表，不新增原函数身份。
 void RestoreLegacyLocaleFacetMethods_54A577(LegacyLocaleFacet* const storage)
@@ -134,6 +142,82 @@ LegacyLocaleImplementation* DeleteLegacyLocaleImplementation_54A59B(
         FreeLegacyHeapMemory_53C0A9(storage);
     }
     return storage;
+}
+
+LegacyLocaleImplementation* InitializeLegacyGlobalLocale_54A404()
+{
+    LegacyLocaleImplementation* result = gLegacyGlobalLocaleImplementation1086730;
+    if (result == nullptr) {
+        // 原0x28只因地址拓宽变64B，其余数值保持U32；原53C9CF→53C3BE(U32,1)。
+        auto* const allocation = static_cast<LegacyLocaleImplementation*>(
+            AllocateLegacyHeapWithHandler_53C3BE(
+                static_cast<std::uint32_t>(sizeof(LegacyLocaleImplementation)), 1));
+        LegacyLocaleImplementation* initialized = nullptr;
+        if (allocation != nullptr) {
+            try {
+                initialized = ConstructLegacyLocaleImplementation_54A505(allocation, 0);
+            } catch (...) {
+                // 原state1只删除分配块，随后state0空清理；不额外调用完整析构。
+                FreeLegacyHeapMemory_53C0A9(allocation);
+                throw;
+            }
+        }
+        // 原分配空也照常发布/登记，不新增保护或失败回滚。
+        gLegacyGlobalLocaleImplementation1086730 = initialized;
+        RegisterLegacyAtExit_53B406(ReleaseLegacyGlobalLocale_54A4BD);
+        gLegacyGlobalLocaleImplementation1086730->categories = 0x3Fu;
+        LegacyNarrowString* const name = &gLegacyGlobalLocaleImplementation1086730->name;
+        const std::uint32_t length = StrLen_53F9E0(gLegacyLocaleC55457C);
+        AssignLegacyNarrowString_549055(name, gLegacyLocaleC55457C, length);
+
+        result = gLegacyGlobalLocaleImplementation1086730;
+        gLegacyClassicLocaleImplementation108672C = result;
+        const std::uint32_t references = result->facet.references;
+        if (references < 0xFFFFFFFFu) {
+            result->facet.references = references + 1u;
+            result = gLegacyGlobalLocaleImplementation1086730;
+        }
+        // 原测试固定经典对象槽地址，已证非空；保留测试地址而非实现值。
+        LegacyLocaleImplementation** const classic = &gLegacyClassicLocaleObject1086728;
+        if (classic != nullptr) {
+            *classic = gLegacyClassicLocaleImplementation108672C;
+        }
+    }
+    return result;
+}
+
+LegacyLocaleImplementation** ConstructLegacyLocale_54865E(
+    LegacyLocaleImplementation** const implementationSlot)
+{
+    // 原先发布_Init返回，再重新读当前全局引用，而非先增引用后保存对象。
+    *implementationSlot = InitializeLegacyGlobalLocale_54A404();
+    LegacyLocaleImplementation* const current = gLegacyGlobalLocaleImplementation1086730;
+    const std::uint32_t references = current->facet.references;
+    if (references < 0xFFFFFFFFu) {
+        current->facet.references = references + 1u;
+    }
+    return implementationSlot;
+}
+
+void ReleaseLegacyGlobalLocale_54A4BD()
+{
+    LegacyLocaleImplementation* const implementation = gLegacyGlobalLocaleImplementation1086730;
+    if (implementation != nullptr) {
+        const std::uint32_t references = implementation->facet.references;
+        if (references > 0 && references < 0xFFFFFFFFu) {
+            implementation->facet.references = references - 1u;
+        }
+        if (implementation->facet.references == 0) {
+            LegacyLocaleFacet* const facet = &implementation->facet;
+            facet->methods->deletingDestructor(facet, 1);
+        }
+    }
+    // 原不清当前/经典三个槽；不替换宿主tidy_global的不同生命周期。
+}
+
+void DestroyLegacyClassicLocale_54A3FA()
+{
+    DestroyLegacyLocale_54867D(&gLegacyClassicLocaleObject1086728);
 }
 
 } // namespace cg::platform

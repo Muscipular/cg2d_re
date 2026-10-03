@@ -50,4 +50,16 @@ void DestroyLegacyLocaleImplementation_54A5B7(LegacyLocaleImplementation* storag
 LegacyLocaleImplementation* DeleteLegacyLocaleImplementation_54A59B(
     LegacyLocaleImplementation* storage, std::uint32_t flags);
 
+// 原三个已证虚拟零指针槽；只真实原生域，不与SDK当前locale相互镜像。
+extern LegacyLocaleImplementation* gLegacyClassicLocaleObject1086728;
+extern LegacyLocaleImplementation* gLegacyClassicLocaleImplementation108672C;
+extern LegacyLocaleImplementation* gLegacyGlobalLocaleImplementation1086730;
+
+// 原全局惰性生产/默认对象构造/退出释放；首次生产登记仅真实原退出表。
+LegacyLocaleImplementation* InitializeLegacyGlobalLocale_54A404();
+LegacyLocaleImplementation** ConstructLegacyLocale_54865E(
+    LegacyLocaleImplementation** implementationSlot);
+void ReleaseLegacyGlobalLocale_54A4BD();
+void DestroyLegacyClassicLocale_54A3FA();
+
 } // namespace cg::platform

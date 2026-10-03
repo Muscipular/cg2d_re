@@ -12991,7 +12991,7 @@ std::int32_t Sub_4ADF40(const std::int32_t index, const std::int32_t state)
             std::array<char, 512> buffer;
             std::strcpy(buffer.data(), gWindowTitleCC4118.data());
             input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
-            std::sprintf(buffer.data(), "N|%s", buffer.data() + 256);
+            platform::FormatLegacyString_53B304(buffer.data(), "N|%s", buffer.data() + 256);
             input::EscapeLegacyText_52D1B0(buffer.data(), buffer.data() + 256, 255);
             const std::int32_t target = gWindowRequestCF46AC;
             const std::int32_t request = gWindowRequestD672B0;
@@ -13028,7 +13028,7 @@ std::int32_t Sub_4AE170(const std::int32_t index, const std::int32_t state)
     }
     if ((state & 2) != 0) {
         std::array<char, 52> buffer;
-        std::sprintf(buffer.data(), "I|%d", gSelectedItem57EE0C);
+        platform::FormatLegacyString_53B304(buffer.data(), "I|%d", gSelectedItem57EE0C);
         const std::int32_t target = gWindowRequestCF46AC;
         const std::int32_t request = gWindowRequestD672B0;
         const std::int32_t y =

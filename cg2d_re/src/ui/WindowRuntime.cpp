@@ -33725,25 +33725,25 @@ WindowAnimationData* Sub_485AF0(WindowInstance* const window)
         gWindow12ValueCF3FF0 = -1;
     }
     if (gWindow12LevelUpC9C0FC != 0) {
-        std::sprintf(
+        platform::FormatLegacyString_53B304(
             static_cast<WindowTextData*>(window->elements[6].data)->text, "%s", kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[6].data);
-        std::sprintf(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
+        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gWindow12ExperienceD2DFCC);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gWindow12EnduranceCB0358 != 0) {
-        std::sprintf(buffer, kCraftEndurance586600, gWindow12EnduranceCB0358);
+        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gWindow12EnduranceCB0358);
         std::strcat(increments, buffer);
     }
     if (gWindow12DexterityCC3EC0 != 0) {
-        std::sprintf(buffer, kCraftDexterity5865F4, gWindow12DexterityCC3EC0);
+        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gWindow12DexterityCC3EC0);
         std::strcat(increments, buffer);
     }
     if (gWindow12IntelligenceCC4B60 != 0) {
-        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60);
+        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gWindow12IntelligenceCC4B60);
         std::strcat(increments, buffer);
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;
@@ -34447,7 +34447,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text5899E8);
             if (result != 0) {
                 std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5899B8);
-                std::sprintf(buffer, kWindow13Text5899D4, value);
+                platform::FormatLegacyString_53B304(buffer, kWindow13Text5899D4, value);
                 gWindow13DetailsCB0FDC += buffer;
                 lines = 1;
             } else {
@@ -34459,7 +34459,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             if (result != 0) {
                 std::strcpy(gWindow13TitleCC18EC.data(), kWindow13Text589970);
                 std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text589954);
-                std::sprintf(buffer, value == 4 ? kWindow13Text589940 : kWindow13Text589928);
+                platform::FormatLegacyString_53B304(buffer, value == 4 ? kWindow13Text589940 : kWindow13Text589928);
                 gWindow13DetailsCB0FDC += buffer;
                 lines = 1;
             } else {
@@ -34469,7 +34469,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
                 } else {
                     std::strcpy(gWindow13SummaryCC18CC.data(), kWindow13Text5898D8);
                     if (value == 3 || value == 2) {
-                        std::sprintf(buffer, value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8);
+                        platform::FormatLegacyString_53B304(buffer, value == 3 ? kWindow13Text5898B8 : kWindow13Text5898A8);
                         gWindow13DetailsCB0FDC += buffer;
                     }
                     lines = 1;
@@ -34480,7 +34480,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
             break;
     }
     const auto appendValue = [&](const char* const format, const std::int32_t number) {
-        std::sprintf(buffer, format, number);
+        platform::FormatLegacyString_53B304(buffer, format, number);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -34491,7 +34491,7 @@ login::YobiAction* Sub_4EEA40(const std::int32_t result, const char* const text)
         appendValue(kCraftExperience589820, gWindow13ExperienceCC2E5C);
     }
     if (gWindow13LevelUpCF468C != 0 && lines < 8) {
-        std::sprintf(buffer, kCraftLevelUp589814);
+        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
         gWindow13DetailsCB0FDC += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));

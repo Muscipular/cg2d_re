@@ -4684,7 +4684,7 @@ std::int32_t Sub_4CA1A0(const std::int32_t index, const std::int32_t state)
     std::int32_t value;
     if (Sub_4CB4A0(index, &group, &value) != 0) {
         std::array<std::array<char, 256>, 2> buffers;
-        std::sprintf(buffers[0].data(), "%d|%d|", group, value);
+        platform::FormatLegacyString_53B304(buffers[0].data(), "%d|%d|", group, value);
         input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[1].data(), 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4825,7 +4825,7 @@ std::int32_t Sub_4CA6F0(const std::int32_t index, const std::int32_t state)
     const auto& search = world::detail::ReadProfileSearch105C398();
     const std::int32_t entry = search.value04;
     const std::int32_t group = search.value00;
-    std::sprintf(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
+    platform::FormatLegacyString_53B304(buffers[0].data(), "%d|%d|%s", group, entry, buffers[1].data());
     input::EscapeLegacyTextAndNotify_52D2D0(buffers[0].data(), buffers[2].data(), 255);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4855,7 +4855,7 @@ std::int32_t Sub_4CA9C0(const std::int32_t index, const std::int32_t state)
         char packet[256];
         char combined[1024];
         std::strcpy(name, record.text04.data());
-        std::sprintf(combined, "%d|%s", key, name);
+        platform::FormatLegacyString_53B304(combined, "%d|%s", key, name);
         input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 255);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4955,7 +4955,7 @@ std::int32_t Sub_4CB2F0(const std::int32_t index, const std::int32_t state)
     if ((state & 1) != 0) {
         static_cast<WindowGraphicData*>(gCurrentWindow->elements[0].data)->imageNo = 244253;
         char hint[256];
-        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        platform::FormatLegacyString_53B304(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         std::strcpy(gHoverTextD68AE8.data(), hint);
         consumed = 1;
     } else {
@@ -5048,7 +5048,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     if ((state & 1) != 0) {
         graphic->imageNo = 244253;
         char hint[256];
-        std::sprintf(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
+        platform::FormatLegacyString_53B304(hint, kMiniMailCostHint588588, world::detail::ReadCategoryValue105FA20());
         std::strcpy(gHoverTextD68AE8.data(), hint);
         consumed = 1;
     } else {
@@ -5071,7 +5071,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
     std::strcpy(text, input::gInputContextCA0180.text);
     input::EscapeLegacyText_52D1B0(name, escapedName, 256);
     input::EscapeLegacyText_52D1B0(text, escapedText, 1024);
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         combined, "%d|%s|%s|%d", gMiniMailCompose105F508.target, escapedName, escapedText, 0);
     input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1023);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
@@ -5097,7 +5097,7 @@ std::int32_t Sub_4CB6A0(const std::int32_t index, const std::int32_t state)
         std::int32_t year;
         std::memcpy(&year, bytes + 20, sizeof(year));
         char timestamp[64];
-        std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d",
+        platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d",
             year + 1900, month + 1, day, hour, minute);
         world::detail::Sub_5343C0(contact, 1, timestamp, text);
     }

@@ -25179,7 +25179,7 @@ void WriteMailGuildStatus(WindowTextData* const data, const std::int32_t status)
         if (server >= 25) {
             server -= 25;
         }
-        std::sprintf(data->text, kMailStatusFormat5598F0,
+        platform::FormatLegacyString_53B304(data->text, kMailStatusFormat5598F0,
             kMailGuildStatusText56F0AC.prefixes[server],
             kMailGuildStatusText56F0AC.Suffix(status));
         data->bytes00[0] = static_cast<std::byte>(gLoginWindowRuntime.mailGuildColorsD6784C[1]);
@@ -25202,10 +25202,10 @@ void WriteMailContactStatus(
             server -= 25;
         }
         const char* const prefix = kMailContactStatusText56E9BC.prefixes[server];
-        std::sprintf(data->text, kMailStatusFormat5598F0,
+        platform::FormatLegacyString_53B304(data->text, kMailStatusFormat5598F0,
             prefix, kMailContactStatusText56E9BC.Suffix(status));
         if (record.ReadStatus() == 10) {
-            std::sprintf(data->text, kMailReverseFormat587434, prefix);
+            platform::FormatLegacyString_53B304(data->text, kMailReverseFormat587434, prefix);
         }
         data->bytes00[0] = static_cast<std::byte>(kMailStatusColors56F09C[1]);
     }
@@ -25344,7 +25344,7 @@ std::int32_t Sub_4A09E0()
                 windowX + anchorX - 7, y, 223, image, 0, &descriptor));
             auto* const nameData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex].data);
             std::strcpy(nameData->text, record.name);
-            std::sprintf(numberText, kMailNumberFormat553FCC, *record.number);
+            platform::FormatLegacyString_53B304(numberText, kMailNumberFormat553FCC, *record.number);
             auto* const numberData = static_cast<WindowTextData*>(gCurrentWindow->elements[textIndex + 1].data);
             std::strcpy(numberData->text, numberText);
             switch (gLoginWindowRuntime.valuesD67B40[6]) {

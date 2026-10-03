@@ -17334,7 +17334,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及80个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及83个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17381,7 +17381,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处共80点已接，其他942点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处共83点已接，其他939点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17875,6 +17875,24 @@
           "call_site": "0x44AD66",
           "source": "src/Input.cpp",
           "symbol": "Sub_44AB60"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461EC2",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F0E",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F48",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30"
         }
       ],
       "business_format_evidence": [
@@ -17937,6 +17955,14 @@
         {
           "address": "0x55994C",
           "bytes": "2564202f203130303000"
+        },
+        {
+          "address": "0x553FDC",
+          "bytes": "25346400"
+        },
+        {
+          "address": "0x5535F8",
+          "bytes": "257300"
         }
       ]
     },
@@ -35976,6 +36002,131 @@
       ],
       "verification_level": "完整175条/唯一入向、两格式点/三个互斥表达式/四格式原字节/分支AL消费、首字节→caret→length/提示→切换→相位及整份源码/JSON限定差异静态核对；未重验其余输入/历史/聊天/黑名单本体/原消费者内部，未执行",
       "boundary": "自录无参提示与已有/加入成功/失败全部格式接真实53B304，借用输入文本/玩家名/黑名单owner与256B未清message保持；同一原公共点对应现有两互斥表达式，动态每条路径仍一次。按44AD77/7D/83将源码首字节→length→caret改为原首字节→caret→length，三写后提示，再切626AA0，末相位20；聊天分支独有的length→caret→首字节及IME/历史/发送/多行正文不改，不补未知字段/owner/业务保护，不记完整交互或文件运行已验收。"
+    },
+    {
+      "original_entry": "0x461B30",
+      "inventory_id": "F:00061B30",
+      "status": "既有角色槽父的全部三处显示格式已接真实核心；完整槽位交互/画面运行未验",
+      "original_end_exclusive": "0x46208F",
+      "instruction_count": 343,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/CharacterSelectSlot.cpp",
+          "symbols": [
+            "ProcessCharacterSlot_461B30"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4614F8",
+          "parent_entry": "0x460FF0"
+        },
+        {
+          "address": "0x46257B",
+          "parent_entry": "0x462330"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461EC2",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F0E",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F48",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 3,
+      "business_byte_evidence": [
+        {
+          "address": "0x553FDC",
+          "push_sites": [
+            "0x461EBC",
+            "0x461F08"
+          ],
+          "bytes": "25346400"
+        },
+        {
+          "address": "0x5535F8",
+          "push_sites": [
+            "0x461F42"
+          ],
+          "bytes": "257300"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "read_site": "0x461EAA",
+          "address": "0xFF03F2",
+          "record_offset": "0x12",
+          "contract": "同一0x94字节角色记录的S16，以movsx提升S32传给461EC2；不换成U16"
+        },
+        {
+          "read_site": "0x461EEB",
+          "address": "0xFF03F4",
+          "record_offset": "0x14",
+          "contract": "S32读取，461EF4有符号比较10000/461EF9的jl；非小于时461EFB只将局部值设9999，负值保持，不写回记录"
+        },
+        {
+          "read_site": "0x461F34",
+          "address": "0xFF0434",
+          "record_offset": "0x54",
+          "contract": "借用原NUL文本供%s复制，不转码、补终止或限长，不推定字段业务名称"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461EE6",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x456670",
+          "target_symbol": "DrawText2_456670",
+          "relationship": "相应格式后立即消费同一256B未清buffer；原坐标/mode0/font9/低U8色号/末参数0保持"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F2C",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x456670",
+          "target_symbol": "DrawText2_456670",
+          "relationship": "相应格式后立即消费同一256B未清buffer；原坐标/mode0/font9/低U8色号/末参数0保持"
+        },
+        {
+          "parent_entry": "0x461B30",
+          "call_site": "0x461F66",
+          "source": "src/CharacterSelectSlot.cpp",
+          "symbol": "ProcessCharacterSlot_461B30",
+          "target_entry": "0x456670",
+          "target_symbol": "DrawText2_456670",
+          "relationship": "相应格式后立即消费同一256B未清buffer；原坐标/mode0/font9/低U8色号/末参数0保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_character_select_scene.md"
+      ],
+      "verification_level": "完整父边界/343条指令统计/两入向，仅[461E93,461F99)显示及预览相邻段取证；三格式点/三表达式/两个原格式字节组、字段符号/局部阈值/即刻绘制与整份源码/JSON限定差异静态核对；不重验其余槽位父本体/消费者内部，未执行",
+      "boundary": "全部三个宿主sprintf接真实53B304，原S16→S32与S32参数、+14局部≥10000设9999、+54借用NUL文本及%4d/%s保持。三次复用既有256B未清局部，各次格式后立即DrawText2，随后预览非空写+2B0=1、重取同槽并FrameMove(100,0,0)；+00名称仍直接绘制。其他UI/命中/样式/两次存在判定/背景/S32返回正文逐字保持；不增加清尾、截断、转码、补零或异常保护，不推定字段业务名，不记完整交互/画面已验收。"
     }
   ]
 }

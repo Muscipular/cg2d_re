@@ -5,11 +5,12 @@
 
 #include "cg/LoginRequest.hpp"
 
+#include "platform/LegacyFormat.hpp"
+
 #include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
 #include <cstring>
 
 namespace cg::character_select {
@@ -153,7 +154,8 @@ std::int32_t ProcessCharacterSlot_461B30(
             0);
 
         char buffer[256];
-        std::sprintf(buffer, "%4d", ReadRecordInt16(record, kValue12Offset));
+        platform::FormatLegacyString_53B304(
+            buffer, "%4d", ReadRecordInt16(record, kValue12Offset));
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[1].x),
             static_cast<std::int16_t>(coordinates[1].y),
@@ -167,7 +169,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         if (value14 >= 10000) {
             value14 = 9999;
         }
-        std::sprintf(buffer, "%4d", value14);
+        platform::FormatLegacyString_53B304(buffer, "%4d", value14);
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[2].x),
             static_cast<std::int16_t>(coordinates[2].y),
@@ -179,7 +181,7 @@ std::int32_t ProcessCharacterSlot_461B30(
 
         const char* const text54 =
             reinterpret_cast<const char*>(record.data() + kText54Offset);
-        std::sprintf(buffer, "%s", text54);
+        platform::FormatLegacyString_53B304(buffer, "%s", text54);
         render::DrawText2_456670(
             static_cast<std::int16_t>(coordinates[3].x),
             static_cast<std::int16_t>(coordinates[3].y),

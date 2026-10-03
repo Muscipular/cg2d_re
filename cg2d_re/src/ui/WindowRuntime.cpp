@@ -31506,7 +31506,7 @@ std::int32_t Sub_482270(const std::int32_t index, const std::int32_t state)
             enabled = !world::detail::IsPlayerFpLessThan(
                 world::detail::gPlayerItemsFDA8A4[selected].level * 10);
             const std::int32_t level = world::detail::gPlayerItemsFDA8A4[gSelectedItemD460C0].level;
-            std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[11].data)->text,
                 kCraftMagicCost58678C, level * 10);
         }
         const std::int32_t skill = gCraftSkillIndexCC2368;
@@ -32202,7 +32202,7 @@ std::int32_t Sub_483150(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item->count;
         if (count > 0) {
-            std::sprintf(countText, "%3d", count);
+            platform::FormatLegacyString_53B304(countText, "%3d", count);
             static_cast<void>(render::DrawText_456780(x - 3, y + 7, 3, 1, 1, countText, 0, 0));
         }
     }

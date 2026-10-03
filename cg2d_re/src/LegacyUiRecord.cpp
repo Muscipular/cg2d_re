@@ -12801,7 +12801,7 @@ std::uint32_t Sub_4F4790(const std::int32_t opened)
                     212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyCraftMaterialsPanel584468.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyCraftMaterialsPanel584468.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -13004,11 +13004,11 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
                 NullSub_509080();
                 if (gLegacyCraftExecutionDurationD2DC08 < elapsed) {
                     const std::int32_t recipe = ui::detail::gRecipeIndex5846BC;
-                    std::sprintf(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
+                    platform::FormatLegacyString_53B304(buffer, "%d", world::detail::gSkillsF1BAFC[skill].recipes8E8[recipe].itemId);
                     for (std::int32_t slot = 0; slot < 6; ++slot) {
                         const std::int32_t selected = ui::detail::gSelectedSlotsCA0A90[slot];
                         if (selected >= 0) {
-                            std::sprintf(part, "|%d", selected + 8);
+                            platform::FormatLegacyString_53B304(part, "|%d", selected + 8);
                             std::strcat(buffer, part);
                         }
                     }
@@ -13066,7 +13066,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
     const std::int32_t costRecipe = ui::detail::gRecipeIndex5846BC;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
     const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[skill].fpReduce / 100;
-    std::sprintf(buffer, "%4d", cost);
+    platform::FormatLegacyString_53B304(buffer, "%4d", cost);
     drawAt(buffer, 295, 39, 1);
     std::int32_t materialRecipe = ui::detail::gRecipeIndex5846BC;
     for (std::int32_t material = 4; material >= 0; --material) {
@@ -13077,7 +13077,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
             const std::int32_t count =
                 world::detail::gSkillsF1BAFC[skill].recipes8E8[materialRecipe].items6C[material].count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 drawAt(buffer, 281, 67 + 24 * material, 1);
                 materialRecipe = ui::detail::gRecipeIndex5846BC;
             }
@@ -13092,7 +13092,7 @@ std::uint32_t Sub_4F51D0(const std::int32_t opened)
                 top + positions[slot][1] + 24, 213, image, 0, &descriptor));
             const std::int32_t count = ui::detail::gSelectionCountsD66E0C[slot];
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 drawAt(buffer, positions[slot][0] + 21, positions[slot][1] + 31, 1);
             }
         }

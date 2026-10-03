@@ -164,7 +164,7 @@ LegacySmallHeap2Region* CreateLegacySmallHeap2Region_54275C()
                 region->pages[index].freeSlots = index < 16 ? 240 : -1;
                 region->pages[index].failedRequest = 241;
             }
-            std::memset(base, 0, 0x10000);
+            static_cast<void>(FillLegacyMemory_5419D0(base, 0, 0x10000));
             for (auto* address = base; reinterpret_cast<std::uintptr_t>(address)
                     < reinterpret_cast<std::uintptr_t>(region->base) + 0x10000;
                  address += 0x1000) {
@@ -356,7 +356,8 @@ void* AllocateLegacySmallHeap2Block_542A54(const std::int32_t units)
         return nullptr;
     }
     // 原542B9D..542BA3：第三参数为0，不能改为清commitBytes字节。
-    std::memset(address, static_cast<int>(commitBytes), 0);
+    static_cast<void>(FillLegacyMemory_5419D0(
+        address, static_cast<std::int32_t>(commitBytes), 0));
     auto* info = first;
     for (std::int32_t index = 0; index < count; ++index) {
         InitializeSmallHeap2Page(

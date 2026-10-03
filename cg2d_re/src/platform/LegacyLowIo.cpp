@@ -499,7 +499,8 @@ std::int32_t ResizeLegacyDescriptor_5438D4(
     std::int32_t result = 0;
     std::int32_t remaining = size - end;
     if (remaining > 0) {
-        std::memset(zeros, 0, sizeof(zeros));
+        static_cast<void>(FillLegacyMemory_5419D0(
+            zeros, 0, static_cast<std::uint32_t>(sizeof(zeros))));
         const std::int32_t previousMode = SetLegacyDescriptorMode_5463A3(descriptor, 0x8000);
         do {
             const auto count = static_cast<std::uint32_t>(remaining < 4096 ? remaining : 4096);

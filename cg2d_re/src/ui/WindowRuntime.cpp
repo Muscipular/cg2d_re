@@ -10517,7 +10517,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     left + 24, top + 24, 223, item.imageNo, 0, &descriptor));
             }
             if (item.count > 0) {
-                std::sprintf(countText.data(), "%3d", item.count);
+                platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
                 static_cast<void>(render::DrawText_456780(
                     left + 21, top + 31, 3, 1, 1, countText.data(), 0, 0));
             }
@@ -10548,7 +10548,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             } else {
                 gCurrentWindow->state |= 0x8000u;
                 world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                std::sprintf(buffer.data(), "Q|%X|", 255u);
+                platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", 255u);
                 static_cast<void>(network::SendBattlePacket_5109B0(
                     platform::gConnectionSocket, buffer.data()));
                 world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -10643,7 +10643,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                     } else {
                         gCurrentWindow->state |= 0x8000u;
                         world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                        std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
+                        platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(hovered + 8));
                         static_cast<void>(network::SendBattlePacket_5109B0(
                             platform::gConnectionSocket, buffer.data()));
                         world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -10674,7 +10674,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
                 } else {
                     const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
                     world::detail::gBattleSelectedItem5ABC48 = hovered + 8;
-                    std::sprintf(buffer.data(), "I|%X|%X",
+                    platform::FormatLegacyString_53B304(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(hovered + 8),
                         static_cast<std::uint32_t>(currentPosition));
                     static_cast<void>(network::SendBattlePacket_5109B0(
@@ -10806,7 +10806,7 @@ std::int32_t Sub_499C30(const std::int32_t index, const std::int32_t state)
             static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         }
         if (item.count > 0) {
-            std::sprintf(countText.data(), "%3d", item.count);
+            platform::FormatLegacyString_53B304(countText.data(), "%3d", item.count);
             static_cast<void>(render::DrawText_456780(
                 x - 3, y + 7, 3, 1, 1, countText.data(), 0, 0));
         }

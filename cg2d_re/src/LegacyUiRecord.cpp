@@ -15189,7 +15189,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
             static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
             const std::int32_t count = item->count;
             if (count > 0) {
-                std::sprintf(buffer, "%3d", count);
+                platform::FormatLegacyString_53B304(buffer, "%3d", count);
                 const std::int32_t countY = position[1] + gLegacyInventoryPanel584C00.y + 31;
                 const std::int32_t countX = position[0] + gLegacyInventoryPanel584C00.x + 21;
                 static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -15215,7 +15215,7 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
         const std::int32_t left = kLegacyInventoryPositions584CC4[dragged][0] + gLegacyInventoryPanel584C00.x;
         DrawGraphicHover(Low16(left + 2), Low16(top + 2), Low16(left + 45), Low16(top + 45), 212, 254, 0);
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
     const std::int32_t moneyY = gLegacyInventoryPanel584C00.y + 71;
     const std::int32_t moneyX = gLegacyInventoryPanel584C00.x + 200;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moneyX),
@@ -15229,10 +15229,10 @@ std::uintptr_t Sub_4FAEF0(const std::int32_t opened)
     } else if (hovered >= 0) {
         const auto* const item = &world::detail::gPlayerItemsFDA8A4[hovered];
         if (item->used != 0 && std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-            std::sprintf(buffer, "%s[kok]", item->name.data());
+            platform::FormatLegacyString_53B304(buffer, "%s[kok]", item->name.data());
             hint = buffer;
         } else if (item->used != 0 && (item->flags & 0x200u) != 0) {
-            std::sprintf(buffer, kLegacyInventoryMemo58A38C, item->memo.data());
+            platform::FormatLegacyString_53B304(buffer, kLegacyInventoryMemo58A38C, item->memo.data());
             hint = buffer;
         } else {
             switch (hovered) {
@@ -15330,12 +15330,12 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
         gLegacyMoneyAmountD2D618 = money;
     }
     char buffer[256];
-    std::sprintf(buffer, "%7d", money);
+    platform::FormatLegacyString_53B304(buffer, "%7d", money);
     const std::int32_t moneyY = gLegacyMoneyPanel584DA8.y + 46;
     const std::int32_t moneyX = gLegacyMoneyPanel584DA8.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moneyX),
         static_cast<std::int16_t>(moneyY), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%7d", gLegacyMoneyAmountD2D618);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyMoneyAmountD2D618);
     const std::int32_t amountY = gLegacyMoneyPanel584DA8.y + 86;
     const std::int32_t amountX = gLegacyMoneyPanel584DA8.x + 88;
     static_cast<void>(DrawText(static_cast<std::int16_t>(amountX),

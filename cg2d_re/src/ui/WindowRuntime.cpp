@@ -40694,10 +40694,10 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                     const auto& pet = world::detail::gPetRuntimeF633F8[petIndex];
                     const char* const name = pet.name6BD[0] != '\0' ? pet.name6BD.data() : pet.name6AC.data();
                     const std::int32_t points = pet.lvFlag6C;
-                    std::sprintf(buffer, kStatusPetPoints586314, name, points);
+                    platform::FormatLegacyString_53B304(buffer, kStatusPetPoints586314, name, points);
                 } else {
                     const std::int32_t points = world::detail::gValueD2F788;
-                    std::sprintf(buffer, kStatusPlayerPoints556D50, points);
+                    platform::FormatLegacyString_53B304(buffer, kStatusPlayerPoints556D50, points);
                 }
             } else {
                 std::strcpy(buffer, kStatusNoPoints556D34);
@@ -40787,7 +40787,7 @@ std::int32_t Sub_4723D0(const std::int32_t index, const std::int32_t state)
                 const char* const format = petInjury <= 25 ? kStatusPetInjury556DB4
                     : petInjury <= 50 ? kStatusPetInjury556DA0
                     : petInjury <= 75 ? kStatusPetInjury556D8C : kStatusPetInjury556D78;
-                std::sprintf(buffer, format, name);
+                platform::FormatLegacyString_53B304(buffer, format, name);
                 const std::size_t length = std::strlen(buffer) + 1;
                 const std::size_t bulk = length & ~std::size_t{3};
                 std::memcpy(gHoverTextD68AE8.data(), buffer, bulk);

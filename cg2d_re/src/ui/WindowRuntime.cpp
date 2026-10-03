@@ -18515,7 +18515,7 @@ void Sub_4B8670()
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            platform::FormatLegacyString_53B304(text, "%2d", selected);
         }
     }
 }
@@ -18535,7 +18535,7 @@ void Sub_4B86C0()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", total);
     const std::int32_t currentTotal = gShopTotalD2DAFC;
     const std::int32_t money = world::detail::ReadPlayerValueFC();
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color =

@@ -36,6 +36,22 @@ static_assert(offsetof(LegacyWideStreamBuffer, readCurrentSlot) == 56);
 static_assert(offsetof(LegacyWideStreamBuffer, readRemainingSlot) == 80);
 static_assert(sizeof(LegacyWideStreamBuffer) == 96);
 
+// 原默认字符叶不读取this/栈参；未消费W32实参保持不透明，不推定业务符号性。
+std::int32_t DefaultLegacyNarrowCharacter_5486BF(
+    LegacyNarrowStreamBuffer* storage, std::uint32_t ignoredStackValue);
+std::int32_t DefaultLegacyNarrowRead_5486C5(LegacyNarrowStreamBuffer* storage);
+// 原只规定AX，返回U16；不补充EAX高W16的约定。
+std::uint16_t DefaultLegacyWideCharacter_549778(
+    LegacyWideStreamBuffer* storage, std::uint32_t ignoredStackValue);
+std::uint16_t DefaultLegacyWideRead_549782(LegacyWideStreamBuffer* storage);
+// 原窄宽共用默认槽；只实例化已证char/U16，不装入虚表。
+template <typename Character>
+std::int32_t DefaultLegacyStreamZero_54977F(LegacyStreamBufferStorage<Character>* storage);
+template <typename Character>
+LegacyStreamBufferStorage<Character>* DefaultLegacySetBuffer_549925(
+    LegacyStreamBufferStorage<Character>* storage,
+    Character* ignoredBuffer, std::uint32_t ignoredCount);
+
 // 原Gndec返回移动后的指针，Gninc/Pninc返回移动前指针，不校验余量/空槽。
 char* DecrementLegacyReadCursor_548EA5(LegacyNarrowStreamBuffer* storage);
 char* IncrementLegacyReadCursor_548EB5(LegacyNarrowStreamBuffer* storage);

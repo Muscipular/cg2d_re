@@ -2,6 +2,67 @@
 
 namespace cg::platform {
 
+// 原5486BF的两个默认字符槽；栈中W32实参没有被读取。
+std::int32_t DefaultLegacyNarrowCharacter_5486BF(
+    LegacyNarrowStreamBuffer* const storage, const std::uint32_t ignoredStackValue)
+{
+    (void)storage;
+    (void)ignoredStackValue;
+    return -1;
+}
+
+std::int32_t DefaultLegacyNarrowRead_5486C5(
+    LegacyNarrowStreamBuffer* const storage)
+{
+    (void)storage;
+    return -1;
+}
+
+// 原宽默认入口只规定AX；U16返回不承诺原EAX高W16。
+std::uint16_t DefaultLegacyWideCharacter_549778(
+    LegacyWideStreamBuffer* const storage, const std::uint32_t ignoredStackValue)
+{
+    (void)storage;
+    (void)ignoredStackValue;
+    return 0xFFFFu;
+}
+
+std::uint16_t DefaultLegacyWideRead_549782(
+    LegacyWideStreamBuffer* const storage)
+{
+    (void)storage;
+    return 0xFFFFu;
+}
+
+// 原54977F由窄宽六个默认槽共用；完整EAX为0，不访问对象。
+template <typename Character>
+std::int32_t DefaultLegacyStreamZero_54977F(
+    LegacyStreamBufferStorage<Character>* const storage)
+{
+    (void)storage;
+    return 0;
+}
+template std::int32_t DefaultLegacyStreamZero_54977F<char>(
+    LegacyNarrowStreamBuffer* storage);
+template std::int32_t DefaultLegacyStreamZero_54977F<std::uint16_t>(
+    LegacyWideStreamBuffer* storage);
+
+// 原549925只返回this；两个栈参未读取，不实际绑定缓冲或操作FILE。
+template <typename Character>
+LegacyStreamBufferStorage<Character>* DefaultLegacySetBuffer_549925(
+    LegacyStreamBufferStorage<Character>* const storage,
+    Character* const ignoredBuffer, const std::uint32_t ignoredCount)
+{
+    (void)ignoredBuffer;
+    (void)ignoredCount;
+    return storage;
+}
+template LegacyNarrowStreamBuffer* DefaultLegacySetBuffer_549925<char>(
+    LegacyNarrowStreamBuffer* storage, char* ignoredBuffer, std::uint32_t ignoredCount);
+template LegacyWideStreamBuffer* DefaultLegacySetBuffer_549925<std::uint16_t>(
+    LegacyWideStreamBuffer* storage, std::uint16_t* ignoredBuffer,
+    std::uint32_t ignoredCount);
+
 char* DecrementLegacyReadCursor_548EA5(LegacyNarrowStreamBuffer* const storage)
 {
     ++*storage->readRemainingSlot;

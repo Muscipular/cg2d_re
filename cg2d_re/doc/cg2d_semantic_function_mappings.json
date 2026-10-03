@@ -35847,11 +35847,11 @@
     {
       "original_entry": "0x54977F",
       "inventory_id": "F:0014977F",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x549782",
       "instruction_count": 2,
       "original_direct_reference_count": 6,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x54FFE0",
@@ -35878,21 +35878,42 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacyStreamZero_54977F"
+          ],
+          "relationship": "窄宽六个共用默认槽，完整EAX=0；对象与缓冲均不访问，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacyStreamZero_54977F"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，S32返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "六个虚表槽引用；xor eax,eax后ret，真实返回完整0，不能泛化到其他读写入口。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "六个虚表槽引用；xor eax,eax后ret，真实返回完整0，不能泛化到其他读写入口。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：窄宽六个共用默认槽，完整EAX=0；对象与缓冲均不访问。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "S32",
+        "behavior": "窄宽六个共用默认槽，完整EAX=0；对象与缓冲均不访问",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x5486BF",
       "inventory_id": "F:001486BF",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x5486C5",
       "instruction_count": 2,
       "original_direct_reference_count": 2,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x550010",
@@ -35903,42 +35924,84 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacyNarrowCharacter_5486BF"
+          ],
+          "relationship": "两个默认字符槽，完整W32为FFFFFFFF，即S32的-1；W32栈参不读取，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacyNarrowCharacter_5486BF"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，S32返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄基类两个默认槽共享，返回完整FFFFFFFF且ret4。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "窄基类两个默认槽共享，返回完整FFFFFFFF且ret4。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：两个默认字符槽，完整W32为FFFFFFFF，即S32的-1；W32栈参不读取。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "S32",
+        "behavior": "两个默认字符槽，完整W32为FFFFFFFF，即S32的-1；W32栈参不读取",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x5486C5",
       "inventory_id": "F:001486C5",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x5486C9",
       "instruction_count": 2,
       "original_direct_reference_count": 1,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x55001C",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacyNarrowRead_5486C5"
+          ],
+          "relationship": "默认读取，完整W32为FFFFFFFF，即S32的-1；无栈参，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacyNarrowRead_5486C5"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，S32返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄基类默认读取返回完整FFFFFFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "窄基类默认读取返回完整FFFFFFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：默认读取，完整W32为FFFFFFFF，即S32的-1；无栈参。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "S32",
+        "behavior": "默认读取，完整W32为FFFFFFFF，即S32的-1；无栈参",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x549778",
       "inventory_id": "F:00149778",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x54977F",
       "instruction_count": 2,
       "original_direct_reference_count": 2,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x5500AC",
@@ -35949,42 +36012,84 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacyWideCharacter_549778"
+          ],
+          "relationship": "两个宽默认字符槽，仅规定AX=FFFF；W32栈参不读取，不承诺EAX高W16，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacyWideCharacter_549778"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，U16返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽基类两个默认槽共享，只将AX置FFFF且ret4，不假设高W16清零。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "宽基类两个默认槽共享，只将AX置FFFF且ret4，不假设高W16清零。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：两个宽默认字符槽，仅规定AX=FFFF；W32栈参不读取，不承诺EAX高W16。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "U16",
+        "behavior": "两个宽默认字符槽，仅规定AX=FFFF；W32栈参不读取，不承诺EAX高W16",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x549782",
       "inventory_id": "F:00149782",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x549787",
       "instruction_count": 2,
       "original_direct_reference_count": 1,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x5500B8",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacyWideRead_549782"
+          ],
+          "relationship": "宽默认读取，仅规定AX=FFFF；无栈参，不承诺EAX高W16，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacyWideRead_549782"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，U16返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽基类默认读取只将AX置FFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "宽基类默认读取只将AX置FFFF，ret无栈参。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：宽默认读取，仅规定AX=FFFF；无栈参，不承诺EAX高W16。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "U16",
+        "behavior": "宽默认读取，仅规定AX=FFFF；无栈参，不承诺EAX高W16",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x549925",
       "inventory_id": "F:00149925",
-      "status": "原标准流生命周期或默认虚入口已取证；ABI与完整新端承接未验收",
+      "status": "原六个默认流缓冲返回叶本体已实现；真实虚表/owner和完整流生命周期未闭合",
       "original_end_exclusive": "0x54992A",
       "instruction_count": 2,
       "original_direct_reference_count": 2,
-      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽",
+      "verification_level": "全部代码指令（含列出的分离chunk）及全部直接入向；异常表合同未穷尽；本轮六叶共12条、14个原虚表数据引用及新增声明/本体/返回宽度/窄宽显式实例化、限定差异静态核对，旧叶不复检，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x550034",
@@ -35995,12 +36100,33 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DefaultLegacySetBuffer_549925"
+          ],
+          "relationship": "窄宽共用默认setbuf，只返回this；两栈参不读取，不绑定缓冲或操作FILE，无新增状态或读写副作用"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DefaultLegacySetBuffer_549925"
+          ],
+          "relationship": "显式this原生接口；未消费W32实参不透明，原生this指针返回合同；只声明已证范围"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄宽基类setbuf默认槽共享：EAX=this，ret8；不调用setvbuf或绑定缓冲。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。"
+      "boundary": "窄宽基类setbuf默认槽共享：EAX=this，ret8；不调用setvbuf或绑定缓冲。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04按原两条实际指令实现本体：窄宽共用默认setbuf，只返回this；两栈参不读取，不绑定缓冲或操作FILE。未消费参数保持原W32存储规模而不推定含义/符号性；只拓宽this/已证缓冲地址。共享入口仅char/U16两种已证实例，不重复计原身份；原virtualTable地址仍只保存，不注册/模拟虚表，未扩大待批CRT宿主提案。",
+      "default_return_contract": {
+        "result": "原生this指针",
+        "behavior": "窄宽共用默认setbuf，只返回this；两栈参不读取，不绑定缓冲或操作FILE",
+        "object_access": "无",
+        "virtual_dispatch": "未接入，真实原入口对应叶本体已实现"
+      }
     },
     {
       "original_entry": "0x54992A",

@@ -33207,7 +33207,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
     char lostItem[256];
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -33218,7 +33218,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, gCraftExperienceCC3204);
     }
     if (gCraftLevelUpCF4974 != 0 && lines < 8) {
-        std::sprintf(buffer, kCraftLevelUp589814);
+        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
         gCraftResultDetailsD2E92C += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));
@@ -33238,7 +33238,7 @@ WindowAnimationData* Sub_4F39F0(const std::int32_t result, const char* const tex
         if (std::strlen(buffer) == 0) {
             break;
         }
-        std::sprintf(lostItem, kCraftLostItem589F9C, buffer);
+        platform::FormatLegacyString_53B304(lostItem, kCraftLostItem589F9C, buffer);
         if (std::strlen(lostItem) < 28) {
             std::strcat(lostItem, "\n");
         }
@@ -33789,7 +33789,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     gWindow12ValueD66E28 = 0;
     char buffer[256];
     if (result == 0) {
-        std::sprintf(buffer, kWindow12Nothing5897DC);
+        platform::FormatLegacyString_53B304(buffer, kWindow12Nothing5897DC);
         gWindow12ExperienceD2DFCC = 0;
         // 原四个dword文字复制后清两槽，再复制末尾LF/NUL；string只保存逻辑文本。
         gWindow12DetailsCC190C.append(buffer, 16);
@@ -33815,7 +33815,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
     std::strcpy(gWindow12SuffixCB1E1C.data(), kWindow12Suffix589830);
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -33826,7 +33826,7 @@ WindowAnimationData* Sub_4ED6B0(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, experience);
     }
     if (gWindow12LevelUpC9C0FC != 0 && lines < 8) {
-        std::sprintf(buffer, kCraftLevelUp589814);
+        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
         gWindow12DetailsCC190C += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));

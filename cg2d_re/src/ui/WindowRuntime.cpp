@@ -12281,12 +12281,12 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 if (count != 0) {
                     std::strcat(itemSource.data(), "|");
                 }
-                std::sprintf(buffer.data(), "%d|%d", slot, position);
+                platform::FormatLegacyString_53B304(buffer.data(), "%d|%d", slot, position);
                 std::strcat(itemSource.data(), buffer.data());
                 ++count;
             }
         }
-        std::strncpy(itemCopy.data(), itemSource.data(), 1024);
+        platform::StrNCpy_53BEC0(itemCopy.data(), itemSource.data(), 1024);
         count = 0;
         for (std::int32_t position = 0; position < 5; ++position) {
             const std::int32_t slot = Sub_4B00F0(position);
@@ -12294,12 +12294,12 @@ std::int32_t Sub_4B0A50(const std::int32_t index, const std::int32_t state)
                 if (count != 0) {
                     std::strcat(petSource.data(), "|");
                 }
-                std::sprintf(buffer.data(), "%d|%d", slot, position);
+                platform::FormatLegacyString_53B304(buffer.data(), "%d|%d", slot, position);
                 std::strcat(petSource.data(), buffer.data());
                 ++count;
             }
         }
-        std::strncpy(petCopy.data(), petSource.data(), 1024);
+        platform::StrNCpy_53BEC0(petCopy.data(), petSource.data(), 1024);
         const std::int32_t amount = gTradeValueD046D0;
         static_cast<void>(network::Sub_512040(
             platform::gConnectionSocket, itemCopy.data(), petCopy.data(), amount));

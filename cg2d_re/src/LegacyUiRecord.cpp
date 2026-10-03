@@ -15436,13 +15436,13 @@ std::int32_t Sub_500370(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(skillLeft + 30),
             static_cast<std::int16_t>(skillTop + row * 29 + 120), 2, 0, 0,
             skill->name.data(), 0, 0));
-        std::sprintf(buffer, "%2d", skill->level);
+        platform::FormatLegacyString_53B304(buffer, "%2d", skill->level);
         const std::int32_t levelTop = gLegacySkillList585708.y;
         const std::int32_t levelLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelLeft + 203),
             static_cast<std::int16_t>(levelTop + row * 29 + 120), 2, 0, 0, buffer, 0, 0));
         const std::int32_t required = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
-        std::sprintf(buffer, "%d", required);
+        platform::FormatLegacyString_53B304(buffer, "%d", required);
         const std::int32_t slotsTop = gLegacySkillList585708.y;
         const std::int32_t slotsLeft = gLegacySkillList585708.x;
         static_cast<void>(DrawText(static_cast<std::int16_t>(slotsLeft + 250),
@@ -15464,7 +15464,7 @@ std::int32_t Sub_500370(const std::int32_t opened)
         }
     }
     const std::int32_t signedUsed = std::bit_cast<std::int8_t>(usedSlots);
-    std::sprintf(buffer, "%2d", 10 - signedUsed);
+    platform::FormatLegacyString_53B304(buffer, "%2d", 10 - signedUsed);
     const std::int32_t footerTop = gLegacySkillList585708.y;
     const std::int32_t footerLeft = gLegacySkillList585708.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(footerLeft + 156),

@@ -11261,7 +11261,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11877,6 +11877,36 @@
           "call_site": "0x46CB41",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x51875D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x518814",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC44",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DD25",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90"
         }
       ]
     },
@@ -12087,7 +12117,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12551,6 +12581,30 @@
           "call_site": "0x46C890",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x5186DE",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187C8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB2E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DCB5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90"
         }
       ]
     },
@@ -12927,7 +12981,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。 相册/CUT/AUT十一原读取已整链迁移：(1,4)相册、(12,1)CUT头及逐字段4B/2B、(1,749A3H)AUT；返回消费/忽略、短读继续和共享后缀保持。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -13337,6 +13391,72 @@
           "call_site": "0x46CB1D",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187E3",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB98",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBD2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBDD",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBEB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBF9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC0A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC18",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC26",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC34",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DD1F",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90"
         }
       ]
     },
@@ -13365,7 +13485,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。 地图八个原write点已整链迁移，四W32头/三平面WORD零值/逐行写均保持，既有tile/obj合循环对应七源码表达式，写返回忽略不加门禁。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。 地图八个原write点已整链迁移，四W32头/三平面WORD零值/逐行写均保持，既有tile/obj合循环对应七源码表达式，写返回忽略不加门禁。 相册518738的(1,U32编码长度)已整链迁移，恢复51873D写后重新读取长度比较；短写不关闭流，缓冲释放顺序及原capacity4不改。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -13611,6 +13731,12 @@
           "call_site": "0x468BAB",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x518738",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0"
         }
       ]
     },
@@ -16158,7 +16284,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及38个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及42个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -16205,7 +16331,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处共38点已接，其他984点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处共42点已接，其他980点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -16447,6 +16573,30 @@
           "call_site": "0x468607",
           "source": "src/world/SceneState.cpp",
           "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x5186CF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187B9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB1F",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DCA6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90"
         }
       ],
       "business_format_evidence": [
@@ -16489,6 +16639,14 @@
         {
           "address": "0x55DE0C",
           "bytes": "25735c25645c256400"
+        },
+        {
+          "address": "0x55DE50",
+          "bytes": "62696e5c50554b325c6375746461745c25642e63757400"
+        },
+        {
+          "address": "0x55DE7C",
+          "bytes": "62696e5c50554b325c6375746461745c25642e61757400"
         }
       ]
     },
@@ -29777,6 +29935,427 @@
       ],
       "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
       "boundary": "先清两个共享输出，路径/rb失败返0；成功清三份11664 WORD局部，seek12/BEGIN读两个(4,1)头，未写头字节不补零。可写尺寸选择、原裁剪、各平面逐行S32定位/U32长度读取、关闭后原像素/标志/调色板/资源消费均保持；三平面已合循环不改变动态次数。当前核文件段249条，后续像素正文未重新验收，未改变其他cut/aut入口或保护；完整CRT/内容/运行未验。"
+    },
+    {
+      "original_entry": "0x5186A0",
+      "inventory_id": "F:001186A0",
+      "status": "既有相册或CUT/AUT本体的真实FILE/格式化整链已接；完整CRT/内容/运行验收仍待",
+      "original_end_exclusive": "0x518774",
+      "instruction_count": 72,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_5186A0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4705F5",
+          "parent_entry": "0x4705F0"
+        },
+        {
+          "address": "0x4707A5",
+          "parent_entry": "0x503E80"
+        },
+        {
+          "address": "0x4F63C8",
+          "parent_entry": "0x4F6220"
+        },
+        {
+          "address": "0x5187D6",
+          "parent_entry": "0x518780"
+        },
+        {
+          "address": "0x518836",
+          "parent_entry": "0x518780"
+        },
+        {
+          "address": "0x518A2B",
+          "parent_entry": "0x518870"
+        },
+        {
+          "address": "0x518C0B",
+          "parent_entry": "0x518BE0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x5186CF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x5186DE",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x518738",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x5186A0",
+          "call_site": "0x51875D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_5186A0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B6A4",
+          "bytes": "616c62756d2e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
+      "boundary": "先分配78018H编码块，再128B路径/gDataPath/album.dat/wb，失败只释放缓冲；成功复制3C00CH完整快照并调用原52D310(capacity4)，不改成完整持久化。按U32长度写入，51873D写后重读encodedBytes再以U32比较，恢复当前冻结比较量；短写只释放不关闭，写足关闭后释放。分配适配、codec、共享相册/字段及待批保持，未增加RAII/重试/补写，完整CRT/内容/运行未验。",
+      "business_count_read_evidence": [
+        {
+          "address": "0x51872F",
+          "relationship": "写前读取encodedBytes作为ElementCount"
+        },
+        {
+          "address": "0x51873D",
+          "compare_address": "0x518744",
+          "branch_address": "0x518748",
+          "relationship": "写后重读encodedBytes，U32 cmp/jnb决定短写路径"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x518780",
+      "inventory_id": "F:00118780",
+      "status": "既有相册或CUT/AUT本体的真实FILE/格式化整链已接；完整CRT/内容/运行验收仍待",
+      "original_end_exclusive": "0x518865",
+      "instruction_count": 80,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_518780"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51C5D5",
+          "parent_entry": "0x51C430"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187B9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187C8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187E3",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x5187F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x518780",
+          "call_site": "0x518814",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_518780",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B6A4",
+          "bytes": "616c62756d2e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
+      "boundary": "依序分配两78018H块，128B path/gDataPath/album.dat/rb失败调用5186A0，再释放两块；成功只读(1,4)U32实际数，flags低U8/20H非零先关闭→释放两块→退出。无错关闭后52D460按实际数解码，仅3C00CH覆盖相册，否则5186A0，最终依序释放。未清局部/尾部、分配适配、原codec/长度及失败重写保持，不把相册首4字节写回算完整持久化；完整CRT/内容/运行未验。",
+      "business_field_read_evidence": [
+        {
+          "address": "0x5187EA",
+          "test_address": "0x5187F0",
+          "field": "LegacyFile::flags低U8",
+          "mask": "0x20",
+          "relationship": "原FILE+0C读取后错误判断；非宿主ferror"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x46DB00",
+      "inventory_id": "F:0006DB00",
+      "status": "既有相册或CUT/AUT本体的真实FILE/格式化整链已接；完整CRT/内容/运行验收仍待",
+      "original_end_exclusive": "0x46DC55",
+      "instruction_count": 119,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46DB00"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46DABC",
+          "parent_entry": "0x46DA80"
+        },
+        {
+          "address": "0x46DADF",
+          "parent_entry": "0x46DA80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB1F",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB2E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DB98",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBD2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBDD",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBEB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DBF9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC0A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC18",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC26",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC34",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DB00",
+          "call_site": "0x46DC44",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DB00",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55DE50",
+          "bytes": "62696e5c50554b325c6375746461745c25642e63757400"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
+      "boundary": "先46DC60完整清CUT/逐条+4哨兵，再256B path/selected/rb。失败两既有消息，第二结果!=1透传，==1透传窗口消息10H返回；成功(12,1)头后按0A/08/06 signed S16取数相加，逐条(4,1)+七次(2,1)读取，20B步长/末2B不读/短读继续，最终返回关闭S32结果。无额外计数/容量保护，原消息字节和共享owner/清理次序保持；完整CRT/内容/运行未验。"
+    },
+    {
+      "original_entry": "0x46DC90",
+      "inventory_id": "F:0006DC90",
+      "status": "既有相册或CUT/AUT本体的真实FILE/格式化整链已接；完整CRT/内容/运行验收仍待",
+      "original_end_exclusive": "0x46DD35",
+      "instruction_count": 51,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46DC90"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46DAC2",
+          "parent_entry": "0x46DA80"
+        },
+        {
+          "address": "0x46DAE5",
+          "parent_entry": "0x46DA80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DCA6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DCB5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DD1F",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46DC90",
+          "call_site": "0x46DD25",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46DC90",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55DE7C",
+          "bytes": "62696e5c50554b325c6375746461745c25642e61757400"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "四父完整322条/十二直接入向、25文件格式调用/flags低U8/写后长度重读/关闭释放与消息返回、原路径mode字节和限定源码差异静态核对；未执行",
+      "boundary": "256B path/selected/rb，不清AUT表；失败两既有消息，第二结果!=1透传，==1透传窗口消息10H返回。成功单次(1,749A3H=477603)读取且忽略数，返回关闭S32结果；原159201×3B布局/失败保留/短读后缀/消费者保持，不补零、回滚或新增检查；完整CRT/内容/运行未验。"
     }
   ]
 }

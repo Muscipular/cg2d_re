@@ -875,8 +875,10 @@ void Sub_5186A0()
     auto* const encoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
-    std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
-    std::FILE* const stream = std::fopen(path, "wb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", platform::gDataPath, "album.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "wb");
     if (stream == nullptr) {
         platform::FreeLegacyByteBuffer(encoded);
         return;
@@ -886,13 +888,16 @@ void Sub_5186A0()
     std::int32_t encodedBytes;
     login::detail::EncodeSavedBytes(
         snapshot.data(), 0x3C00C, 0, encoded, &encodedBytes, 4);
-    const std::size_t count = static_cast<std::uint32_t>(encodedBytes);
-    const std::size_t written = std::fwrite(encoded, 1, count, stream);
-    if (written < count) {
+    const std::uint32_t count = static_cast<std::uint32_t>(encodedBytes);
+    const std::uint32_t written =
+        platform::WriteLegacyStream_53C680(encoded, 1, count, stream);
+    // 原51873D在写后重新读取编码长度，再以U32比较。
+    const std::uint32_t expectedCount = static_cast<std::uint32_t>(encodedBytes);
+    if (written < expectedCount) {
         platform::FreeLegacyByteBuffer(encoded);
         return;
     }
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     platform::FreeLegacyByteBuffer(encoded);
 }
 
@@ -904,19 +909,23 @@ void Sub_518780()
     auto* const decoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(0x78018));
     char path[128];
-    std::sprintf(path, "%s\\%s", platform::gDataPath, "album.dat");
-    std::FILE* const stream = std::fopen(path, "rb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", platform::gDataPath, "album.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "rb");
     if (stream == nullptr) {
         Sub_5186A0();
     } else {
-        const std::size_t count = std::fread(encoded, 1, 4, stream);
-        if (std::ferror(stream) != 0) {
-            static_cast<void>(std::fclose(stream));
+        const std::uint32_t count =
+            platform::ReadLegacyStream_53BCCD(encoded, 1, 4, stream);
+        // 原5187EA/5187F0读取flags低U8并测试20H错误位。
+        if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) != 0) {
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
             platform::FreeLegacyByteBuffer(encoded);
             platform::FreeLegacyByteBuffer(decoded);
             return;
         }
-        static_cast<void>(std::fclose(stream));
+        static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
         std::int32_t decodedBytes;
         static_cast<void>(login::detail::DecodeSavedBytes(
             encoded, static_cast<std::int32_t>(count), 0, decoded, &decodedBytes));
@@ -5083,8 +5092,10 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
 {
     Sub_46DC60();
     char path[256];
-    std::sprintf(path, kCutPath55DE50, selected);
-    std::FILE* const file = std::fopen(path, kCutReadMode554920);
+    platform::FormatLegacyString_53B304(
+        path, kCutPath55DE50, selected);
+    platform::LegacyFile* const file =
+        platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowLegacyMessage(kCutMessage55DE3C, kCutCaption5536B8, 0x10);
         const std::int32_t response =
@@ -5095,31 +5106,33 @@ std::int32_t __cdecl Sub_46DB00(std::int32_t selected)
         return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
     }
 
-    std::fread(&gCutData9FB948, 12, 1, file);
+    platform::ReadLegacyStream_53BCCD(&gCutData9FB948, 12, 1, file);
     const std::int32_t count0A = static_cast<std::int32_t>(gCutData9FB948.count0A);
     const std::int32_t count08 = static_cast<std::int32_t>(gCutData9FB948.count08);
     const std::int32_t count06 = static_cast<std::int32_t>(gCutData9FB948.count06);
     const std::int32_t count = count0A + count08 + count06;
     for (std::int32_t index = 0; index < count; ++index) {
         CutRecord9FB954& record = gCutData9FB948.records[index];
-        std::fread(&record.value00, 4, 1, file);
-        std::fread(&record.value04, 2, 1, file);
-        std::fread(&record.value06, 2, 1, file);
-        std::fread(&record.value08, 2, 1, file);
-        std::fread(&record.value0A, 2, 1, file);
-        std::fread(&record.value0C, 2, 1, file);
-        std::fread(&record.value0E, 2, 1, file);
-        std::fread(&record.value10, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value00, 4, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value04, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value06, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value08, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value0A, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value0C, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value0E, 2, 1, file);
+        platform::ReadLegacyStream_53BCCD(&record.value10, 2, 1, file);
     }
-    return std::fclose(file);
+    return platform::CloseLegacyStream_53B1D0(file);
 }
 
 // 原 [0x46DC90,0x46DD35)；失败保留表，成功单次读取并返回完整关闭结果。
 std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
 {
     char path[256];
-    std::sprintf(path, kAutPath55DE7C, selected);
-    std::FILE* const file = std::fopen(path, kCutReadMode554920);
+    platform::FormatLegacyString_53B304(
+        path, kAutPath55DE7C, selected);
+    platform::LegacyFile* const file =
+        platform::OpenLegacyStream_53B2F1(path, kCutReadMode554920);
     if (file == nullptr) {
         platform::ShowLegacyMessage(kAutMessage55DE68, kCutCaption5536B8, 0x10);
         const std::int32_t response =
@@ -5130,8 +5143,8 @@ std::int32_t __cdecl Sub_46DC90(std::int32_t selected)
         return platform::PostLegacyWindowMessage(platform::gLegacyWindow, 0x10, 0, 0);
     }
 
-    std::fread(gAutDataAF10D8, 1, 477603, file);
-    return std::fclose(file);
+    platform::ReadLegacyStream_53BCCD(gAutDataAF10D8, 1, 477603, file);
+    return platform::CloseLegacyStream_53B1D0(file);
 }
 
 // 原 [0x468200,0x46828D)：四次独立读取玩家坐标，裁剪后发布两个跨度。

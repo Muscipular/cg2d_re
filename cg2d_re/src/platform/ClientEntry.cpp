@@ -1,10 +1,11 @@
 #include "StartupNative.hpp"
+#include "LegacyFormat.hpp"
+#include "LegacyStdio.hpp"
 
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/platform/Startup.hpp"
 
-#include <cstdio>
 #include <cstring>
 
 namespace cg::platform {
@@ -30,19 +31,19 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
         std::memset(fileCommandLine, 0, sizeof(fileCommandLine));
         std::memset(fileName, 0, sizeof(fileName));
         std::int32_t total = 0;
-        std::sprintf(fileName, "%s", ".\\data\\argument.ini");
-        std::FILE* file = std::fopen(fileName, "r");
+        FormatLegacyString_53B304(fileName, "%s", ".\\data\\argument.ini");
+        LegacyFile* file = OpenLegacyStream_53B2F1(fileName, "r");
         if (file != nullptr) {
             do {
                 std::memset(line, 0, 1025);
-                std::fgets(line, 1024, file);
+                ReadLegacyStreamLine_53B226(line, 1024, file);
                 total += static_cast<std::int32_t>(std::strlen(line));
                 if (total >= 4096) {
                     break;
                 }
                 std::strcat(fileCommandLine, line);
-            } while (std::feof(file) == 0);
-            std::fclose(file);
+            } while ((static_cast<std::uint8_t>(file->flags) & 0x10u) == 0);
+            CloseLegacyStream_53B1D0(file);
         }
         gCommandLine = fileCommandLine;
     }

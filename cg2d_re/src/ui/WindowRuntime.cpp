@@ -10907,7 +10907,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                 } else {
                     gCurrentWindow->state |= 0x8000u;
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                    std::sprintf(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
+                    platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", static_cast<std::uint32_t>(source));
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;
@@ -10978,7 +10978,7 @@ std::int32_t Sub_49AC40(const std::int32_t index, const std::int32_t state)
                 } else {
                     gCurrentWindow->state |= 0x8000u;
                     world::detail::gBattleSelectionModes5ABC7C[5] = 0;
-                    std::sprintf(buffer.data(), "Q|%X|", 255u);
+                    platform::FormatLegacyString_53B304(buffer.data(), "Q|%X|", 255u);
                     static_cast<void>(network::SendBattlePacket_5109B0(
                         platform::gConnectionSocket, buffer.data()));
                     world::detail::gBattlePlayerActionState5ABC74 = 1;

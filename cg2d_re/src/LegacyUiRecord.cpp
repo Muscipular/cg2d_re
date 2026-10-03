@@ -9370,7 +9370,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
     };
     char buffer[128];
     const std::int32_t valueContact = world::detail::gValueCF4FC0;
-    std::sprintf(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::gContactsF19FB0[valueContact].value08);
     drawAt(buffer, 134, 49, 1, 0);
     const std::int32_t measuredNameContact = world::detail::gValueCF4FC0;
     const std::int32_t nameWidth = TextMeasure(world::detail::gContactsF19FB0[measuredNameContact].name10.data(), 0);
@@ -9398,7 +9398,7 @@ std::uint32_t Sub_4EAAA0(const std::int32_t opened)
         static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 128, body, row, 28));
         drawAt(buffer, 10, 169 + 20 * row, 0, color);
     }
-    std::sprintf(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", world::detail::gValueD046D4 + 1, 10);
     drawAt(buffer, 56, 403, 1, 0);
     for (auto& button : buttons) {
         Sub_5035E0(&button, 212, 1, gValueD69768, 0);
@@ -9489,7 +9489,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContextD66CA8.text);
             char escaped[600];
@@ -9552,7 +9552,7 @@ std::uintptr_t Sub_4EB1C0(const std::int32_t opened)
             static_cast<std::int16_t>(top), 2, 0, color, name, 0, 0));
     }
     char pageText[128];
-    std::sprintf(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
+    platform::FormatLegacyString_53B304(pageText, "%2d/%2d", gLegacyMailPreviousPageD2DACC + 1, 15);
     const std::int32_t pageY = gLegacyMailNormalPanel583488.y + 152;
     const std::int32_t pageX = gLegacyMailNormalPanel583488.x + 119;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),

@@ -2612,7 +2612,7 @@ std::uint32_t Sub_4F0460(const std::int32_t opened)
     if (manyPages) {
         const std::int32_t currentPage = ui::detail::gSkillTargetPageC8A974;
         const std::int32_t pageCount = ui::detail::gSkillTargetPageCountCA0178;
-        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
+        platform::FormatLegacyString_53B304(buffer, "%d/%d", currentPage + 1, pageCount);
         drawAt(buffer, 270, 24, 0);
     }
     page = ui::detail::gSkillTargetPageC8A974;
@@ -2742,7 +2742,7 @@ std::uint32_t Sub_4E4A50(const std::int32_t opened)
         const std::int32_t currentPage = *rows.page;
         const std::int32_t pageCount = *rows.pageCount;
         char buffer[128];
-        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
+        platform::FormatLegacyString_53B304(buffer, "%d/%d", currentPage + 1, pageCount);
         drawAt(buffer, 270, 24, 0);
     }
     page = *rows.page;

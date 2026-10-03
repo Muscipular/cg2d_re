@@ -4888,7 +4888,7 @@ std::uint32_t Sub_4CAFA0()
         static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text,
         profile.text08.data());
     char number[256];
-    std::sprintf(number, "%3d", profile.value108);
+    platform::FormatLegacyString_53B304(number, "%3d", profile.value108);
     std::strcpy(
         static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text, number);
     std::strcpy(
@@ -5123,7 +5123,7 @@ std::uint32_t Sub_4CB9F0()
         static_cast<WindowTextData*>(gCurrentWindow->elements[0].data)->text,
         profile.text08.data());
     char number[256];
-    std::sprintf(number, "%d", profile.value108);
+    platform::FormatLegacyString_53B304(number, "%d", profile.value108);
     std::strcpy(
         static_cast<WindowTextData*>(gCurrentWindow->elements[1].data)->text, number);
     std::strcpy(

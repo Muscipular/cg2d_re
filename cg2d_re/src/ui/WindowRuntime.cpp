@@ -39145,10 +39145,10 @@ std::int32_t Sub_499790(const std::int32_t value)
         WindowInstance* window = gCurrentWindow;
         gBattleResultCloseTickCB0F78 = now + 5000u;
         const std::int32_t delta = world::detail::gValueFF0D04;
-        std::sprintf(static_cast<WindowTextData*>(window->elements[2].data)->text, "DP   %+9d", delta);
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[2].data)->text, "DP   %+9d", delta);
         window = gCurrentWindow;
         const std::int32_t total = world::detail::gValueFF0D08;
-        std::sprintf(static_cast<WindowTextData*>(window->elements[3].data)->text, "Total%9d", total);
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[3].data)->text, "Total%9d", total);
     }
     const std::uint32_t now = platform::ReadTickCount32();
     if (gBattleResultCloseTickCB0F78 < now) {

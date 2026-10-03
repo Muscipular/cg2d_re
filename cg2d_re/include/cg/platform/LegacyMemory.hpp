@@ -8,7 +8,7 @@ namespace cg::platform {
 void* __cdecl Malloc_53C3AC(std::uint32_t size);
 void __cdecl Free_53C0A9(void* memory);
 
-// 原53FCFB；真实原堆容量查询。只可用于原堆块，模式2查块依赖尚待实现。
+// 原53FCFB；两模式及普通原堆容量查询。只可用于原堆块，不能混用宿主分配。
 std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);
 // 原53FA5B真实依赖声明；原扩容及分配器归属尚待，不能用宿主替代补齐。
 void* ReallocateLegacyMemory_53FA5B(void* memory, std::uint32_t byteCount);

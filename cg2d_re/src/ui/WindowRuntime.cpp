@@ -30811,7 +30811,7 @@ WindowAnimationData* Sub_47FAE0(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
     std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftDecorate586784);
-    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[10].data)->text,
         kCraftMagicCost58678C, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
@@ -30828,7 +30828,7 @@ WindowAnimationData* Sub_47FD00(WindowInstance* const window)
 {
     ResetCraftMaterialMode();
     std::strcpy(static_cast<WindowTextData*>(window->elements[9].data)->text, kCraftPetDecorate5867AC);
-    std::sprintf(static_cast<WindowTextData*>(window->elements[10].data)->text,
+    platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[10].data)->text,
         kCraftMagicCost58678C, 100);
     for (std::int32_t index = 11; index <= 13; ++index) {
         static_cast<WindowTextData*>(window->elements[index].data)->text[0] = '\0';
@@ -31218,7 +31218,7 @@ WindowAnimationData* Sub_47DF50(WindowInstance* const window)
         if (count <= 0) {
             row = 1;
         }
-        std::sprintf(static_cast<WindowTextData*>(window->elements[9 + row].data)->text,
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[9 + row].data)->text,
             "%-24s%3d", requirement->name.data(), count);
         recipe = gCraftRecipeIndexD2D638;
         ++row;

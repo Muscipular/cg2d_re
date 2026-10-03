@@ -10,7 +10,9 @@ void __cdecl Free_53C0A9(void* memory);
 
 // 原53FCFB；两模式及普通原堆容量查询。只可用于原堆块，不能混用宿主分配。
 std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);
-// 原53FA5B真实依赖声明；原扩容及分配器归属尚待，不能用宿主替代补齐。
+// 原53BFF8/53FA5B真实原堆入口；只与原堆释放配对，禁止混用宿主块。
+// 本体已实现，模式3小块核心、完整分配器归属及启动仍待闭合。
+void* CallocateLegacyMemory_53BFF8(std::uint32_t count, std::uint32_t size);
 void* ReallocateLegacyMemory_53FA5B(void* memory, std::uint32_t byteCount);
 
 // 原541620；按重叠方向、目标对齐及逐W32读写顺序复制，返回原目标。

@@ -13,7 +13,7 @@ extern LegacyRuntimeExitCallback* gLegacyRuntimeExitFirst1087AF4;
 extern LegacyRuntimeExitCallback* gLegacyRuntimeExitLast1087AF0;
 
 // 原53B399/53B406；按实际块容量追加，空回调也入表，外层据返回指针给0/-1。
-// 容量/扩容的原堆依赖尚待实现，初始化及宿主析构登记不得提前混接。
+// 原堆外层与模式2已实现，模式3核心/启动及宿主析构登记迁移尚待。
 LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(LegacyRuntimeExitCallback callback);
 std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback callback);
 

@@ -11,9 +11,6 @@
 
 namespace cg::platform {
 
-// 原53BFF8，原calloc依赖尚未实现；不擅自扩大Malloc的std替代范围。
-void* CallocateLegacyMemory_53BFF8(std::uint32_t count, std::uint32_t size);
-
 char gLegacyStandardInputBuffer1086AE0[4096] {};
 LegacyFile gLegacyStaticFiles58F8B8[20] = {
     {gLegacyStandardInputBuffer1086AE0, 0, gLegacyStandardInputBuffer1086AE0,

@@ -8140,7 +8140,7 @@
     {
       "original_entry": "0x53C3BE",
       "inventory_id": "F:0013C3BE",
-      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
       "original_end_exclusive": "0x53C3EA",
       "instruction_count": 16,
       "sources": [
@@ -8155,6 +8155,19 @@
           "symbols": [
             "AllocateLegacyByteBuffer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "AllocateLegacyHeapWithHandler_53C3BE"
+          ],
+          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "AllocateLegacyHeapWithHandler_53C3BE"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8162,12 +8175,24 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。",
+      "original_direct_reference_count": 2,
+      "inbound_evidence": [
+        {
+          "address": "0x53C3B6",
+          "parent_entry": "0x53C3AC"
+        },
+        {
+          "address": "0x53C9D5",
+          "parent_entry": "0x53C9CF"
+        }
+      ],
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53C3EA",
       "inventory_id": "F:0013C3EA",
-      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
       "original_end_exclusive": "0x53C45E",
       "instruction_count": 46,
       "sources": [
@@ -8182,6 +8207,19 @@
           "symbols": [
             "AllocateLegacyByteBuffer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "AllocateLegacyHeapBlock_53C3EA"
+          ],
+          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "AllocateLegacyHeapBlock_53C3EA"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8189,7 +8227,15 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+      "boundary": "既有六处裸字节调用域：原系统堆路径0按1并向16字节对齐、flags=0；当前U32请求按同样容量规则交Win64堆。原heapmode2/3的小块池、管理块、碎片及地址复用不复刻，按局部SPEC明确适配；不宣称分配成功时点相同。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapBlock_53C3EA实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x53C3C9",
+          "parent_entry": "0x53C3BE"
+        }
+      ],
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53B4E7",
@@ -8221,7 +8267,7 @@
     {
       "original_entry": "0x541A28",
       "inventory_id": "F:00141A28",
-      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
       "original_end_exclusive": "0x541A43",
       "instruction_count": 13,
       "sources": [
@@ -8236,6 +8282,19 @@
           "symbols": [
             "AllocateLegacyByteBuffer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CallLegacyHeapNewHandler_541A28"
+          ],
+          "relationship": "真实原堆调用域本体，原108614C/1086150状态；不是既有宿主裸字节域的替换"
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "CallLegacyHeapNewHandler_541A28"
+          ]
         }
       ],
       "evidence_documents": [
@@ -8243,12 +8302,36 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。",
+      "original_direct_reference_count": 5,
+      "inbound_evidence": [
+        {
+          "address": "0x53C082",
+          "parent_entry": "0x53BFF8"
+        },
+        {
+          "address": "0x53C3DD",
+          "parent_entry": "0x53C3BE"
+        },
+        {
+          "address": "0x53FB81",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FCA6",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x53FCEA",
+          "parent_entry": "0x53FA5B"
+        }
+      ],
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53B399",
       "inventory_id": "F:0013B399",
-      "status": "原退出登记本体已实现；容量/扩容依赖、堆归属和宿主调用迁移未闭合",
+      "status": "真实登记/容量/扩容和初分配已同属原堆；模式3核心、宿主登记迁移与启动仍待",
       "original_end_exclusive": "0x53B406",
       "instruction_count": 32,
       "sources": [
@@ -8269,7 +8352,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先查询容量再采样共享首末；不足时再次查询后重读首指针扩容四个原生槽。失败返回空；成功重读共享首末地址、先发布首再发布末，最后写回调并递增共享末。空回调仍写槽。容量/字节数保持U32、指针/地址差拓宽；原分配器所有权未闭合，不能启用完整初始化或替换宿主登记。",
+      "boundary": "先查询容量再采样共享首末；不足时再次查询后重读首指针扩容四个原生槽。失败返回空；成功重读共享首末地址、先发布首再发布末，最后写回调并递增共享末。空回调仍写槽。容量/字节数保持U32、指针/地址差拓宽；53B418初分配已改为真实原堆malloc，与容量/扩容统一所有权；模式3和完整初始化未闭合，不能替换宿主登记。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -8572,7 +8655,7 @@
     {
       "original_entry": "0x53B418",
       "inventory_id": "F:0013B418",
-      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
+      "status": "退出表真实初始化及原堆归属已接；模式3核心和完整初始化调用仍待",
       "original_end_exclusive": "0x53B447",
       "instruction_count": 14,
       "sources": [
@@ -8593,7 +8676,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按原32指针槽分配，仅槽步长拓宽；U32请求交已批准Malloc，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；登记增长53B399及原CRT调用未接。",
+      "boundary": "按原32个指针槽分配，仅槽步长拓宽；53B41D的U32请求已交真实原堆AllocateLegacyHeapMemory_53C3AC，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；初分配、53B399容量查询/扩容已统一原堆，原CRT初始化调用、模式3核心和宿主静态登记迁移仍待；未作运行/异常验收。",
       "original_direct_reference_count": 1,
       "function_chunks": [
         {
@@ -8613,7 +8696,15 @@
         "symbol": "__scrt_initialize_onexit_tables",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "business_call_connections": [
+        {
+          "callsite": "0x53B41D",
+          "parent_entry": "0x53B418",
+          "target_symbol": "AllocateLegacyHeapMemory_53C3AC",
+          "target_path": "src/platform/LegacyHeap.cpp"
+        }
+      ]
     },
     {
       "original_entry": "0x53C8FA",
@@ -13952,7 +14043,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc尚缺，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -16376,17 +16467,22 @@
     {
       "original_entry": "0x53FA5B",
       "inventory_id": "F:0013FA5B",
-      "status": "完整原本体已取证并声明真实登记依赖；原堆实现与所有权仍待",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
       "original_end_exclusive": "0x53FCFB",
       "instruction_count": 246,
       "original_direct_reference_count": 3,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "LegacyPrimaryEmptyExitStaticInitializer"
-          ],
-          "relationship": "现有宿主atexit根的私有增长职责，非本函数直接实现"
+            "ReallocateLegacyMemory_53FA5B"
+          ]
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "ReallocateLegacyMemory_53FA5B"
+          ]
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -16394,20 +16490,6 @@
             "GetEnv_54518B"
           ],
           "relationship": "547E8A两个扩容调用属于已获批std::getenv补表整体承接"
-        },
-        {
-          "path": "include/cg/platform/LegacyMemory.hpp",
-          "symbols": [
-            "ReallocateLegacyMemory_53FA5B"
-          ],
-          "relationship": "仅真实依赖声明，尚无本体，不使用宿主近似填补"
-        },
-        {
-          "path": "src/platform/LegacyRuntimeExit.cpp",
-          "symbols": [
-            "RegisterLegacyExitCallback_53B399"
-          ],
-          "relationship": "登记本体已接该真实依赖，当前不能运行完整退出表"
         }
       ],
       "native_reference": {
@@ -16420,7 +16502,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_game_time.md"
       ],
-      "boundary": "空指针先走malloc，非空且长度0才free并返回0；原mode2/3小块迁移与普通堆含不同长度、16B对齐和new-mode重试，未显式写errno。宿主直接size_t容量与错误写入不同；环境根既有批准不扩大到退出表或通用Realloc。未新建分配器或应用扩容接口。 2026-10-03新增原函数声明及53B399调用；不是原堆已实现或宿主通用替代已批准。",
+      "boundary": "输入空先调真实原堆malloc，非空长度0调真实原堆free；仅入口采样模式。mode3小块迁移复制首W32减1，成功后再查原区域再释放；普通堆回退改变当前对齐长度，失败处理器消费该值。mode2小块门槛严格<480，分配后读标记U8乘16取小复制再释放；其他走HeapReAlloc。四原复制点实际目标541620。退出表初分配/容量查询/扩容已统一原堆；模式3核心及宿主析构/完整启动仍待，两个环境扩容仍沿既有std::getenv整体承接。",
       "inbound_evidence": [
         {
           "address": "0x53B3CE",
@@ -16435,7 +16517,7 @@
           "parent_entry": "0x547E8A"
         }
       ],
-      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53FCFB",
@@ -21988,11 +22070,11 @@
     {
       "original_entry": "0x53BFF8",
       "inventory_id": "F:0013BFF8",
-      "status": "已有应用calloc调用映射；原内部堆、重试与错误合同未完整承接",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
       "original_end_exclusive": "0x53C0A9",
       "instruction_count": 72,
       "original_direct_reference_count": 23,
-      "verification_level": "完整72条指令及23处直接入向；应用分配参数与发布位置静态对应",
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
       "function_chunks": [
         {
           "start": "0x53BFF8",
@@ -22095,32 +22177,22 @@
       ],
       "sources": [
         {
-          "path": "src/YobiRuntime.cpp",
+          "path": "src/platform/LegacyHeap.cpp",
           "symbols": [
-            "Sub_404A40",
-            "NewYobiAction_404AE0",
-            "NewBattleText_4217F0"
+            "CallocateLegacyMemory_53BFF8"
           ]
         },
         {
-          "path": "src/platform/WindowProcedure.cpp",
+          "path": "include/cg/platform/LegacyMemory.hpp",
           "symbols": [
-            "WindowProcedure"
-          ]
-        },
-        {
-          "path": "src/ui/WindowRuntime.cpp",
-          "symbols": [
-            "OpenWindow_471440",
-            "Sub_49C710",
-            "RebuildWindowLines51"
+            "CallocateLegacyMemory_53BFF8"
           ]
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "21应用调用分布于Yobi对象/载荷、战斗文本、IME、窗口与两类输入/行表；另2调用属于53E9A5静态FILE表初始化。W32乘积、零请求按1/16B对齐、模式3按原请求清零、模式2按对齐容量清零、系统HeapAlloc(flags8)分别保留证据。失败重读1086150，处理器接收当前ESI对齐容量，返回非零重试；本体不显式写旧errno。现有业务calloc及sizeof原生指针承载保持，不添加保护或重试包装；完整内部合同不由宿主calloc存在直接判完成，CRT提案仍待确认。"
+      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。"
     },
     {
       "original_entry": "0x53DA45",
@@ -24861,6 +24933,662 @@
         }
       ],
       "verification_level": "完整原指令、常量位型、控制映射/硬件叶与新源码静态核对；未构建或执行"
+    },
+    {
+      "original_entry": "0x53C3AC",
+      "inventory_id": "F:0013C3AC",
+      "status": "真实原堆本体及指定CRT调用域已实现；既有宿主窄合同保持，模式3/启动未闭合",
+      "original_end_exclusive": "0x53C3BE",
+      "instruction_count": 6,
+      "original_direct_reference_count": 55,
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "AllocateLegacyHeapMemory_53C3AC"
+          ],
+          "relationship": "真实原堆调用域本体；不消费宿主分配块"
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "AllocateLegacyHeapMemory_53C3AC"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Malloc_53C3AC"
+          ],
+          "relationship": "用户既有std::malloc/std::free窄合同；本步逐字保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43BE1F",
+          "parent_entry": "0x43BE00"
+        },
+        {
+          "address": "0x43BE66",
+          "parent_entry": "0x43BE00"
+        },
+        {
+          "address": "0x442E8C",
+          "parent_entry": "0x442DC0"
+        },
+        {
+          "address": "0x453A08",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453B77",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453B87",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x457546",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x45755A",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x45756E",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x457584",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x459BF6",
+          "parent_entry": "0x459960"
+        },
+        {
+          "address": "0x45B81F",
+          "parent_entry": "0x45B760"
+        },
+        {
+          "address": "0x45B9D2",
+          "parent_entry": "0x45B760"
+        },
+        {
+          "address": "0x45C220",
+          "parent_entry": "0x45C150"
+        },
+        {
+          "address": "0x4AD333",
+          "parent_entry": "0x4AD180"
+        },
+        {
+          "address": "0x4AD369",
+          "parent_entry": "0x4AD180"
+        },
+        {
+          "address": "0x4AD63C",
+          "parent_entry": "0x4AD470"
+        },
+        {
+          "address": "0x4AD671",
+          "parent_entry": "0x4AD470"
+        },
+        {
+          "address": "0x4FBA5D",
+          "parent_entry": "0x4FBA30"
+        },
+        {
+          "address": "0x5065BA",
+          "parent_entry": "0x506580"
+        },
+        {
+          "address": "0x516B86",
+          "parent_entry": "0x516B60"
+        },
+        {
+          "address": "0x516BAD",
+          "parent_entry": "0x516B60"
+        },
+        {
+          "address": "0x516DE4",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516DF4",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E05",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E16",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E2D",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E40",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E53",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E66",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516E79",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x51A754",
+          "parent_entry": "0x51A6A0"
+        },
+        {
+          "address": "0x52C1B9",
+          "parent_entry": "0x52C160"
+        },
+        {
+          "address": "0x53B41D",
+          "parent_entry": "0x53B418"
+        },
+        {
+          "address": "0x53EAAE",
+          "parent_entry": "0x53EA5E"
+        },
+        {
+          "address": "0x53EED9",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F539",
+          "parent_entry": "0x53F52D"
+        },
+        {
+          "address": "0x53F5C9",
+          "parent_entry": "0x53F52D"
+        },
+        {
+          "address": "0x53F886",
+          "parent_entry": "0x53F848"
+        },
+        {
+          "address": "0x53FA6B",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x540C7C",
+          "parent_entry": "0x540B1D"
+        },
+        {
+          "address": "0x543763",
+          "parent_entry": "0x543711"
+        },
+        {
+          "address": "0x543FC8",
+          "parent_entry": "0x543F8E"
+        },
+        {
+          "address": "0x543FFD",
+          "parent_entry": "0x543F8E"
+        },
+        {
+          "address": "0x54409D",
+          "parent_entry": "0x544047"
+        },
+        {
+          "address": "0x544330",
+          "parent_entry": "0x544294"
+        },
+        {
+          "address": "0x544397",
+          "parent_entry": "0x544294"
+        },
+        {
+          "address": "0x544820",
+          "parent_entry": "0x544815"
+        },
+        {
+          "address": "0x5473A6",
+          "parent_entry": "0x54737A"
+        },
+        {
+          "address": "0x547F00",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x547F1B",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x547FCF",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x548095",
+          "parent_entry": "0x548069"
+        },
+        {
+          "address": "0x548154",
+          "parent_entry": "0x548143"
+        },
+        {
+          "address": "0x54AD5A",
+          "parent_entry": "0x54ACF1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
+      "boundary": "真实原堆malloc先采样1086150完整S32门禁再调53C3BE；退出表53B41D及真实realloc空输入路径已接。其余宿主分配合同保持，不以55入向数量宣称全迁移；模式3分配核心仍待。"
+    },
+    {
+      "original_entry": "0x53C0A9",
+      "inventory_id": "F:0013C0A9",
+      "status": "真实原堆本体及指定CRT调用域已实现；既有宿主窄合同保持，模式3/启动未闭合",
+      "original_end_exclusive": "0x53C112",
+      "instruction_count": 45,
+      "original_direct_reference_count": 90,
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "FreeLegacyHeapMemory_53C0A9"
+          ],
+          "relationship": "真实原堆调用域本体；不消费宿主分配块"
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "FreeLegacyHeapMemory_53C0A9"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "Free_53C0A9"
+          ],
+          "relationship": "用户既有std::malloc/std::free窄合同；本步逐字保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404B4C",
+          "parent_entry": "0x404AE0"
+        },
+        {
+          "address": "0x404D1D",
+          "parent_entry": "0x404D10"
+        },
+        {
+          "address": "0x404D26",
+          "parent_entry": "0x404D10"
+        },
+        {
+          "address": "0x404D70",
+          "parent_entry": "0x404D60"
+        },
+        {
+          "address": "0x404D7C",
+          "parent_entry": "0x404D60"
+        },
+        {
+          "address": "0x4217BC",
+          "parent_entry": "0x421750"
+        },
+        {
+          "address": "0x4217D0",
+          "parent_entry": "0x421750"
+        },
+        {
+          "address": "0x43BEE6",
+          "parent_entry": "0x43BED0"
+        },
+        {
+          "address": "0x442E0D",
+          "parent_entry": "0x442DC0"
+        },
+        {
+          "address": "0x443553",
+          "parent_entry": "0x442F70"
+        },
+        {
+          "address": "0x4463D4",
+          "parent_entry": "0x4462E0"
+        },
+        {
+          "address": "0x4465AE",
+          "parent_entry": "0x4464D0"
+        },
+        {
+          "address": "0x453B5F",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453C0E",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453C18",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453DC7",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453DCD",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x4575B4",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x4575C6",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x4575D8",
+          "parent_entry": "0x4574E0"
+        },
+        {
+          "address": "0x45767A",
+          "parent_entry": "0x457670"
+        },
+        {
+          "address": "0x45768C",
+          "parent_entry": "0x457670"
+        },
+        {
+          "address": "0x45769E",
+          "parent_entry": "0x457670"
+        },
+        {
+          "address": "0x45906E",
+          "parent_entry": "0x459040"
+        },
+        {
+          "address": "0x45A6CA",
+          "parent_entry": "0x45A6C0"
+        },
+        {
+          "address": "0x45B477",
+          "parent_entry": "0x45B440"
+        },
+        {
+          "address": "0x45B4BF",
+          "parent_entry": "0x45B440"
+        },
+        {
+          "address": "0x45B4F8",
+          "parent_entry": "0x45B440"
+        },
+        {
+          "address": "0x45B687",
+          "parent_entry": "0x45B650"
+        },
+        {
+          "address": "0x45B6CF",
+          "parent_entry": "0x45B650"
+        },
+        {
+          "address": "0x45B708",
+          "parent_entry": "0x45B650"
+        },
+        {
+          "address": "0x45BDE9",
+          "parent_entry": "0x45BB20"
+        },
+        {
+          "address": "0x467832",
+          "parent_entry": "0x466DC0"
+        },
+        {
+          "address": "0x467872",
+          "parent_entry": "0x466DC0"
+        },
+        {
+          "address": "0x4678A1",
+          "parent_entry": "0x466DC0"
+        },
+        {
+          "address": "0x47134F",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x471376",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x4713A5",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x4713BE",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x4713D7",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x4713FF",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x47140F",
+          "parent_entry": "0x471270"
+        },
+        {
+          "address": "0x49C919",
+          "parent_entry": "0x49C710"
+        },
+        {
+          "address": "0x49C93B",
+          "parent_entry": "0x49C710"
+        },
+        {
+          "address": "0x49CE32",
+          "parent_entry": "0x49CDF0"
+        },
+        {
+          "address": "0x49CE4F",
+          "parent_entry": "0x49CDF0"
+        },
+        {
+          "address": "0x4AD0AE",
+          "parent_entry": "0x4AD090"
+        },
+        {
+          "address": "0x4AD0C7",
+          "parent_entry": "0x4AD090"
+        },
+        {
+          "address": "0x4FBAB5",
+          "parent_entry": "0x4FBA30"
+        },
+        {
+          "address": "0x506595",
+          "parent_entry": "0x506580"
+        },
+        {
+          "address": "0x516BD6",
+          "parent_entry": "0x516B60"
+        },
+        {
+          "address": "0x516BF7",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C03",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C0F",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C1A",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C26",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C32",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C3D",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C49",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C55",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C68",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516C7F",
+          "parent_entry": "0x5081A0"
+        },
+        {
+          "address": "0x516FCD",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516FD8",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516FE4",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516FF0",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x516FFB",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x517007",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x517013",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x51701E",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x51702A",
+          "parent_entry": "0x516DA0"
+        },
+        {
+          "address": "0x519E0C",
+          "parent_entry": "0x519D50"
+        },
+        {
+          "address": "0x51A6D0",
+          "parent_entry": "0x51A6A0"
+        },
+        {
+          "address": "0x52B91A",
+          "parent_entry": "0x52B8E0"
+        },
+        {
+          "address": "0x52C234",
+          "parent_entry": "0x52C160"
+        },
+        {
+          "address": "0x52C264",
+          "parent_entry": "0x52C160"
+        },
+        {
+          "address": "0x52C313",
+          "parent_entry": "0x52C160"
+        },
+        {
+          "address": "0x53B213",
+          "parent_entry": "0x53B1D0"
+        },
+        {
+          "address": "0x53B4EB",
+          "parent_entry": "0x53B4E7"
+        },
+        {
+          "address": "0x53F283",
+          "parent_entry": "0x53EB28"
+        },
+        {
+          "address": "0x53F3A2",
+          "parent_entry": "0x53F38F"
+        },
+        {
+          "address": "0x53FA80",
+          "parent_entry": "0x53FA5B"
+        },
+        {
+          "address": "0x540C6F",
+          "parent_entry": "0x540B1D"
+        },
+        {
+          "address": "0x54402B",
+          "parent_entry": "0x543F8E"
+        },
+        {
+          "address": "0x544353",
+          "parent_entry": "0x544294"
+        },
+        {
+          "address": "0x5446E8",
+          "parent_entry": "0x5446AD"
+        },
+        {
+          "address": "0x547F58",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x548004",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x54A610",
+          "parent_entry": "0x54A5B7"
+        },
+        {
+          "address": "0x54AC74",
+          "parent_entry": "0x54AC66"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_startup_flow.md"
+      ],
+      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行",
+      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。"
     }
   ]
 }

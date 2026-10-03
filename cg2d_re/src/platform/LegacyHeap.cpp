@@ -601,4 +601,274 @@ std::int32_t CommitLegacySmallHeap3Group_54236B(LegacySmallHeap3Region* const re
     return index;
 }
 
+
+LegacyHeapNewHandler gLegacyHeapNewHandler108614C = nullptr;
+std::int32_t gLegacyHeapNewMode1086150 = 0;
+
+std::int32_t CallLegacyHeapNewHandler_541A28(const std::uint32_t byteCount)
+{
+    const auto handler = gLegacyHeapNewHandler108614C;
+    return handler != nullptr && handler(byteCount) != 0 ? 1 : 0;
+}
+
+void* AllocateLegacyHeapBlock_53C3EA(std::uint32_t byteCount)
+{
+    const std::int32_t mode = gLegacyHeapMode10869A8;
+    if (mode == 3) {
+        if (byteCount <= gLegacySmallHeap3Threshold10869A0) {
+            void* const result = AllocateLegacySmallHeap3Block_541FB1(byteCount);
+            if (result != nullptr) {
+                return result;
+            }
+        }
+    } else if (mode == 2) {
+        byteCount = byteCount != 0 ? (byteCount + 15u) & 0xFFFFFFF0u : 16u;
+        if (byteCount <= gLegacySmallHeap2Threshold591E7C) {
+            void* const result = AllocateLegacySmallHeap2Block_542A54(
+                static_cast<std::int32_t>(byteCount >> 4));
+            if (result != nullptr) {
+                return result;
+            }
+        }
+        return ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);
+    }
+    if (byteCount == 0) {
+        byteCount = 1;
+    }
+    byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
+    return ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);
+}
+
+void* AllocateLegacyHeapWithHandler_53C3BE(
+    const std::uint32_t byteCount, const std::int32_t enableHandler)
+{
+    if (byteCount > 0xFFFFFFE0u) {
+        return nullptr;
+    }
+    for (;;) {
+        void* const result = AllocateLegacyHeapBlock_53C3EA(byteCount);
+        if (result != nullptr || enableHandler == 0) {
+            return result;
+        }
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+void* AllocateLegacyHeapMemory_53C3AC(const std::uint32_t byteCount)
+{
+    const std::int32_t mode = gLegacyHeapNewMode1086150;
+    return AllocateLegacyHeapWithHandler_53C3BE(byteCount, mode);
+}
+
+void FreeLegacyHeapMemory_53C0A9(void* const memory)
+{
+    if (memory == nullptr) {
+        return;
+    }
+    const std::int32_t mode = gLegacyHeapMode10869A8;
+    if (mode == 3) {
+        auto* const region = FindLegacySmallHeap3Region_541C5D(memory);
+        if (region != nullptr) {
+            FreeLegacySmallHeap3Block_541C88(region, memory);
+            return;
+        }
+    } else if (mode == 2) {
+        LegacySmallHeap2Region* region;
+        std::byte* page;
+        auto* const marker = FindLegacySmallHeap2Block_5429B8(memory, &region, &page);
+        if (marker != nullptr) {
+            FreeLegacySmallHeap2Block_542A0F(region, page, marker);
+            return;
+        }
+    }
+    static_cast<void>(::HeapFree(gLegacyHeap10869A4, 0, memory));
+}
+
+void* CallocateLegacyMemory_53BFF8(
+    const std::uint32_t count, const std::uint32_t size)
+{
+    const std::uint32_t original = count * size;
+    std::uint32_t bytes = original;
+    if (bytes <= 0xFFFFFFE0u) {
+        if (bytes == 0) {
+            bytes = 1;
+        }
+        bytes = (bytes + 15u) & 0xFFFFFFF0u;
+    }
+    for (;;) {
+        void* result = nullptr;
+        if (bytes <= 0xFFFFFFE0u) {
+            const std::int32_t mode = gLegacyHeapMode10869A8;
+            if (mode == 3) {
+                if (original <= gLegacySmallHeap3Threshold10869A0) {
+                    result = AllocateLegacySmallHeap3Block_541FB1(original);
+                    if (result != nullptr) {
+                        std::memset(result, 0, original);
+                        return result;
+                    }
+                }
+            } else if (mode == 2 && bytes <= gLegacySmallHeap2Threshold591E7C) {
+                result = AllocateLegacySmallHeap2Block_542A54(
+                    static_cast<std::int32_t>(bytes >> 4));
+                if (result != nullptr) {
+                    std::memset(result, 0, bytes);
+                    return result;
+                }
+            }
+            result = ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, bytes);
+            if (result != nullptr) {
+                return result;
+            }
+        }
+        if (gLegacyHeapNewMode1086150 == 0) {
+            return result;
+        }
+        if (CallLegacyHeapNewHandler_541A28(bytes) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+void* ReallocateLegacyMemory_53FA5B(void* const memory, std::uint32_t byteCount)
+{
+    if (memory == nullptr) {
+        return AllocateLegacyHeapMemory_53C3AC(byteCount);
+    }
+    if (byteCount == 0) {
+        FreeLegacyHeapMemory_53C0A9(memory);
+        return nullptr;
+    }
+    const std::int32_t mode = gLegacyHeapMode10869A8;
+    if (mode == 3) {
+        for (;;) {
+            void* result = nullptr;
+            if (byteCount <= 0xFFFFFFE0u) {
+                auto* region = FindLegacySmallHeap3Region_541C5D(memory);
+                if (region != nullptr) {
+                    if (byteCount <= gLegacySmallHeap3Threshold10869A0) {
+                        result = memory;
+                        if (ResizeLegacySmallHeap3Block_542466(region, memory, byteCount) == 0) {
+                            result = AllocateLegacySmallHeap3Block_541FB1(byteCount);
+                            if (result != nullptr) {
+                                std::uint32_t copied;
+                                std::memcpy(&copied,
+                                    static_cast<const std::byte*>(memory) - 4, sizeof(copied));
+                                --copied;
+                                if (copied >= byteCount) {
+                                    copied = byteCount;
+                                }
+                                CopyLegacyMemory_541620(result, memory, copied);
+                                region = FindLegacySmallHeap3Region_541C5D(memory);
+                                FreeLegacySmallHeap3Block_541C88(region, memory);
+                            }
+                        }
+                    }
+                    if (result == nullptr) {
+                        if (byteCount == 0) {
+                            byteCount = 1;
+                        }
+                        byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
+                        result = ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);
+                        if (result != nullptr) {
+                            std::uint32_t copied;
+                            std::memcpy(&copied,
+                                static_cast<const std::byte*>(memory) - 4, sizeof(copied));
+                            --copied;
+                            if (copied >= byteCount) {
+                                copied = byteCount;
+                            }
+                            CopyLegacyMemory_541620(result, memory, copied);
+                            FreeLegacySmallHeap3Block_541C88(region, memory);
+                        }
+                    }
+                }
+                // 原53FB4E消费局部所属区域值，不借此修复旧失败/重入情形。
+                if (region == nullptr) {
+                    if (byteCount == 0) {
+                        byteCount = 1;
+                    }
+                    byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
+                    result = ::HeapReAlloc(gLegacyHeap10869A4, 0, memory, byteCount);
+                }
+                if (result != nullptr) {
+                    return result;
+                }
+            }
+            if (gLegacyHeapNewMode1086150 == 0) {
+                return result;
+            }
+            if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+                return nullptr;
+            }
+        }
+    }
+    if (mode == 2) {
+        if (byteCount <= 0xFFFFFFE0u) {
+            byteCount = byteCount != 0 ? (byteCount + 15u) & 0xFFFFFFF0u : 16u;
+        }
+        for (;;) {
+            void* result = nullptr;
+            if (byteCount <= 0xFFFFFFE0u) {
+                LegacySmallHeap2Region* region;
+                std::byte* page;
+                auto* const marker = FindLegacySmallHeap2Block_5429B8(memory, &region, &page);
+                if (marker != nullptr) {
+                    if (byteCount < gLegacySmallHeap2Threshold591E7C) {
+                        const std::uint32_t units = byteCount >> 4;
+                        if (ResizeLegacySmallHeap2Block_542D80(region, page, marker, units) != 0) {
+                            return memory;
+                        }
+                        result = AllocateLegacySmallHeap2Block_542A54(
+                            static_cast<std::int32_t>(units));
+                    }
+                    if (result == nullptr) {
+                        result = ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);
+                    }
+                    if (result != nullptr) {
+                        std::uint32_t copied = static_cast<std::uint32_t>(*marker) << 4;
+                        if (copied >= byteCount) {
+                            copied = byteCount;
+                        }
+                        CopyLegacyMemory_541620(result, memory, copied);
+                        FreeLegacySmallHeap2Block_542A0F(region, page, marker);
+                        return result;
+                    }
+                } else {
+                    result = ::HeapReAlloc(gLegacyHeap10869A4, 0, memory, byteCount);
+                    if (result != nullptr) {
+                        return result;
+                    }
+                }
+            }
+            if (gLegacyHeapNewMode1086150 == 0) {
+                return result;
+            }
+            if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+                return nullptr;
+            }
+        }
+    }
+    for (;;) {
+        void* result = nullptr;
+        if (byteCount <= 0xFFFFFFE0u) {
+            if (byteCount == 0) {
+                byteCount = 1;
+            }
+            byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
+            result = ::HeapReAlloc(gLegacyHeap10869A4, 0, memory, byteCount);
+            if (result != nullptr) {
+                return result;
+            }
+        }
+        if (gLegacyHeapNewMode1086150 == 0) {
+            return result;
+        }
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
 } // namespace cg::platform

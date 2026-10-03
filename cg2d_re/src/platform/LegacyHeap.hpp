@@ -73,6 +73,24 @@ extern std::uint32_t gLegacySmallHeap3Count1086998;
 extern LegacySmallHeap3Region* gLegacySmallHeap3Regions108699C;
 extern std::uint32_t gLegacySmallHeap3Threshold10869A0;
 
+// 原108614C/1086150；真实原堆处理器与门禁，不与宿主窄适配状态混用。
+using LegacyHeapNewHandler = std::int32_t (*)(std::uint32_t);
+extern LegacyHeapNewHandler gLegacyHeapNewHandler108614C;
+extern std::int32_t gLegacyHeapNewMode1086150;
+std::int32_t CallLegacyHeapNewHandler_541A28(std::uint32_t byteCount);
+
+// 原堆专用malloc/free调用域；现有Malloc_53C3AC/Free_53C0A9宿主合同保持。
+void* AllocateLegacyHeapBlock_53C3EA(std::uint32_t byteCount);
+void* AllocateLegacyHeapWithHandler_53C3BE(std::uint32_t byteCount, std::int32_t enableHandler);
+void* AllocateLegacyHeapMemory_53C3AC(std::uint32_t byteCount);
+void FreeLegacyHeapMemory_53C0A9(void* memory);
+
+// 模式3真实核心依赖声明；16B拆分/合并原生布局尚待，不提供假本体。
+void* AllocateLegacySmallHeap3Block_541FB1(std::uint32_t byteCount);
+void FreeLegacySmallHeap3Block_541C88(LegacySmallHeap3Region* region, void* memory);
+std::int32_t ResizeLegacySmallHeap3Block_542466(
+    LegacySmallHeap3Region* region, void* memory, std::uint32_t byteCount);
+
 // 原541BB8；创建后发布模式，子初始化失败销毁堆但不清共享槽。
 std::int32_t InitializeLegacyHeap_541BB8(std::int32_t serialized);
 // 原541C15；分配16个未清区域头，只初始化原共享管理状态。

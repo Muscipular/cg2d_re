@@ -1,6 +1,7 @@
 #include "LegacyRuntimeExit.hpp"
 #include "LegacyRuntimeError.hpp"
 #include "LegacyStdio.hpp"
+#include "LegacyHeap.hpp"
 #include "cg/platform/LegacyMemory.hpp"
 #include "StartupNative.hpp"
 
@@ -75,7 +76,7 @@ LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418()
 {
     constexpr std::uint32_t kInitialSlotCount = 32;
     auto* slots = static_cast<LegacyRuntimeExitCallback*>(
-        Malloc_53C3AC(kInitialSlotCount
+        AllocateLegacyHeapMemory_53C3AC(kInitialSlotCount
             * static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback))));
     gLegacyRuntimeExitFirst1087AF4 = slots;
     if (slots == nullptr) {

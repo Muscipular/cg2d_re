@@ -5207,7 +5207,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
                 deleteHovered = index;
             }
             if ((QueryPanelButtonState(&deletes[index]) & 1) != 0) {
-                std::sprintf(buffer, "%d", index);
+                platform::FormatLegacyString_53B304(buffer, "%d", index);
                 static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 127));
                 sendReply(64, buffer + 128);
                 static_cast<void>(audio::Sub_5042D0(gLegacyMessagePanel582AA8.id));
@@ -5248,7 +5248,7 @@ std::uintptr_t Sub_4DF730(const std::int32_t opened)
                 const std::int32_t day = time->day;
                 const std::int32_t month = time->month0based + 1;
                 const std::int32_t year = time->yearMinus1900 + 1900;
-                std::sprintf(buffer, "%4d/%02d/%02d/%02d:%02d", year, month, day, hours, minutes);
+                platform::FormatLegacyString_53B304(buffer, "%4d/%02d/%02d/%02d:%02d", year, month, day, hours, minutes);
                 drawAt(buffer, 248, 45 + 76 * index, 1);
             }
         }

@@ -667,7 +667,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
 {
     char* const previous = gNetworkRuntimeState.addressTextDA33D8.data();
     if (previous[0] != '\0') {
-        if (std::strstr(previous, text) != nullptr) {
+        if (platform::StrStr_53BE40(previous, text) != nullptr) {
             return;
         }
         constexpr char format58B0B0[] =

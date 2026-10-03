@@ -15,6 +15,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/RendererResources.hpp"
 #include "cg/world/SceneState.hpp"
@@ -891,8 +892,8 @@ std::int32_t Sub_4631D0()
                     name[cursor] = '\0';
                     if (login::CharacterNameExists_51B140(state::gCreationInput9A51E8.text) != 0) {
                         state::gValue9A5AFC = 102;
-                    } else if (std::strstr(name, " ") != nullptr
-                        || std::strstr(name, "\x81\x40") != nullptr
+                    } else if (platform::StrStr_53BE40(name, " ") != nullptr
+                        || platform::StrStr_53BE40(name, "\x81\x40") != nullptr
                         || input::IsRejectedInputText_404060(name)) {
                         state::gValue9A5AFC = 108;
                     } else if (input::Sub_45E770(name) == 1) {

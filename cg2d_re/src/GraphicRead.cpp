@@ -1,5 +1,8 @@
 #include "cg/GraphicRead.hpp"
 
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
+
 #include "cg/GraphicDecode.hpp"
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
@@ -177,12 +180,16 @@ void LoadIndependentPaletteIndex_522900()
     if (directory[255] != '\\') {
         std::strcat(directory, "\\");
     }
-    std::sprintf(fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
-    std::FILE* const file = std::fopen(fileName, "rb");
+    platform::FormatLegacyString_53B304(
+        fileName, "%s%s\\%s", directory, platform::gDataPath, "CGLoadSpr.dbf");
+    platform::LegacyFile* const file =
+        platform::OpenLegacyStream_53B2F1(fileName, "rb");
     if (file == nullptr) {
         return;
     }
-    std::fread(&gPaletteDbf.header, 1, sizeof(PaletteDbfHeader), file);
+    platform::ReadLegacyStream_53BCCD(
+        &gPaletteDbf.header, 1,
+        static_cast<std::uint32_t>(sizeof(PaletteDbfHeader)), file);
     if (gPaletteDbf.header.magic != 0x00464244u) {
         return; // 原 magic 不匹配路径没有 fclose。
     }
@@ -191,7 +198,8 @@ void LoadIndependentPaletteIndex_522900()
         platform::AllocateLegacyByteBuffer(gPaletteDbf.header.compressedLength));
     auto* decoded = static_cast<std::uint8_t*>(
         platform::AllocateLegacyByteBuffer(gPaletteDbf.header.decodedLength));
-    std::fread(compressed, 1, gPaletteDbf.header.compressedLength, file);
+    platform::ReadLegacyStream_53BCCD(
+        compressed, 1, gPaletteDbf.header.compressedLength, file);
     static_cast<void>(DecompressDbf_53AF90(
         compressed, static_cast<std::int32_t>(gPaletteDbf.header.compressedLength),
         decoded, &gPaletteDbf.header.decodedLength));
@@ -212,7 +220,7 @@ void LoadIndependentPaletteIndex_522900()
     }
     gPaletteDbf.count = readWord(decoded);
     gPaletteDbf.stride = readWord(decoded + 4);
-    std::fclose(file);
+    platform::CloseLegacyStream_53B1D0(file);
 
     gPaletteDbf.current = gPaletteDbf.records.begin();
     while (gPaletteDbf.current != gPaletteDbf.records.end()) {

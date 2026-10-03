@@ -4489,7 +4489,7 @@
     {
       "original_entry": "0x450470",
       "inventory_id": "F:00050470",
-      "status": "共享逻辑及32位分支已映射，低色深目标沿既定排除",
+      "status": "共享逻辑/32位分支已映射且文件链已接；低色深目标沿既定排除，完整启动/运行未验",
       "original_role": "调色板共享初始化与32位目标",
       "sources": [
         {
@@ -4505,12 +4505,91 @@
         "doc/cg2d_render_depth_scope.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "只映射已确认共享逻辑及32位分支：固定色、首次672字节消费、168号置黑前备份、CPU调色板绑定与原错误返回。8/16/24位目标按既有用户排除，不把8位源索引或调色板资源一并排除。"
+      "boundary": "只映射已确认共享逻辑及32位分支：固定色、首次672字节消费、168号置黑前备份、CPU调色板绑定与原错误返回。8/16/24位目标按既有用户排除，不把8位源索引或调色板资源一并排除。 本轮六个格式/文件调用统一LegacyFile，首次224×B/G/R原序getc、EOF低U8为FF、关闭后全调色板备份再168置黑保持；能力/绑定/CPU查色表正文未改。",
+      "original_end_exclusive": "0x450A78",
+      "instruction_count": 387,
+      "original_direct_reference_count": 2,
+      "inbound_evidence": [
+        {
+          "address": "0x457775",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x466C16",
+          "parent_entry": "0x466B80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507AB",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507BD",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507F6",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507FF",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x450807",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x450821",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x450780",
+        "end_exclusive": "0x450840",
+        "instruction_count": 54
+      },
+      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
     },
     {
       "original_entry": "0x450A80",
       "inventory_id": "F:00050A80",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "既有调色板读取本体的真实FILE整链已接；完整启动/运行未验",
       "original_role": "调色板文件读取",
       "sources": [
         {
@@ -4524,7 +4603,82 @@
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "打开失败沿原提示返回0；逐项按B/G/R读中间224色并设flags=5，EOF窄化为FF而非新失败；关闭后从当前调色板复制首尾16项。不额外置黑168、改活动编号或重建查色表。"
+      "boundary": "打开失败沿原提示返回0；逐项按B/G/R读中间224色并设flags=5，EOF窄化为FF而非新失败；关闭后从当前调色板复制首尾16项。不额外置黑168、改活动编号或重建查色表。 本轮六个格式/文件调用统一LegacyFile，256B局部path未清，原错误提示、224×B/G/R逐次读取、低U8返回与关闭后头尾复制保持；原读取失败及原颜色状态未改。",
+      "original_end_exclusive": "0x450B6A",
+      "instruction_count": 77,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x45A1B4",
+          "parent_entry": "0x45A190"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AA9",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AB8",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AFC",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B05",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B0D",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B23",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x450A80",
+        "end_exclusive": "0x450B6A",
+        "instruction_count": 77
+      },
+      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
     },
     {
       "original_entry": "0x450B70",
@@ -11107,7 +11261,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11669,6 +11823,30 @@
           "call_site": "0x4C9161",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "Sub_4C9130"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x450821",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B23",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450D44",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x522AAB",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900"
         }
       ]
     },
@@ -11879,7 +12057,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12289,6 +12467,30 @@
           "call_site": "0x4C913B",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "Sub_4C9130"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507BD",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AB8",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C33",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x52299B",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900"
         }
       ]
     },
@@ -12599,7 +12801,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -12877,6 +13079,18 @@
           "call_site": "0x4C90CF",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "Sub_4C9060"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x5229BB",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x5229FE",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900"
         }
       ]
     },
@@ -13131,7 +13345,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。",
+      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。 三个调色板入口九个原getc点已整链迁移，每色按B/G/R分别消费低U8，EOF(-1)仍窄化FF；不合并为批量读或增加输入门槛，原39入向中的其余调用未据此计完成。",
       "function_chunks": [
         {
           "start": "0x53C8B3",
@@ -13302,7 +13516,63 @@
         "source_path": "stdio/fgetc.cpp",
         "symbol": "fgetc",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507F6",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507FF",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x450807",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AFC",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B05",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450B0D",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C4D",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C5A",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C67",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        }
+      ]
     },
     {
       "original_entry": "0x53CB78",
@@ -15496,7 +15766,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及30个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及34个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15543,7 +15813,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处共30点已接，其他992点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处共34点已接，其他988点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -15737,6 +16007,30 @@
           "call_site": "0x51957C",
           "source": "src/world/MailState.cpp",
           "symbol": "Sub_519550"
+        },
+        {
+          "parent_entry": "0x450470",
+          "call_site": "0x4507AB",
+          "source": "src/Palette.cpp",
+          "symbol": "InitPalette32"
+        },
+        {
+          "parent_entry": "0x450A80",
+          "call_site": "0x450AA9",
+          "source": "src/Palette.cpp",
+          "symbol": "ReadPalette"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C24",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x522989",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900"
         }
       ],
       "business_format_evidence": [
@@ -15759,6 +16053,10 @@
         {
           "address": "0x553514",
           "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55D064",
+          "bytes": "257325735c257300"
         }
       ]
     },
@@ -27991,6 +28289,208 @@
       ],
       "verification_level": "两父85条/4直接入向、十CRT调用及两处flags低U8/20H、双打开/长度发布/返回次序、原路径/mode字节与限定源码差异静态核对；未执行",
       "boundary": "先wb+打开；只有成功才4C92D0捕获同一521CH窗口存档区、写(1,521CH)并关闭，写/关闭结果忽略；失败不捕获或清存档区。所有路径保持S32返1，此值不是写盘成功证明，不增加报错、拒绝、补写或重试；窗口捕获宽度/次序及磁盘布局保持，完整CRT与运行未验。"
+    },
+    {
+      "original_entry": "0x450BB0",
+      "inventory_id": "F:00050BB0",
+      "status": "既有共享调色板/32位过渡本体的文件整链已接；完整渲染/启动/运行验收仍待",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "UpdatePalette_450BB0"
+          ]
+        }
+      ],
+      "original_end_exclusive": "0x45118B",
+      "instruction_count": 357,
+      "original_direct_reference_count": 6,
+      "inbound_evidence": [
+        {
+          "address": "0x457133",
+          "parent_entry": "0x457020"
+        },
+        {
+          "address": "0x4581AC",
+          "parent_entry": "0x457B10"
+        },
+        {
+          "address": "0x45848E",
+          "parent_entry": "0x458390"
+        },
+        {
+          "address": "0x45869A",
+          "parent_entry": "0x4585F0"
+        },
+        {
+          "address": "0x51CB14",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x51D0EE",
+          "parent_entry": "0x51C7D0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C24",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C33",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C4D",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C5A",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C67",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450D44",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x450BB0",
+        "end_exclusive": "0x450D55",
+        "instruction_count": 105
+      },
+      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。"
+    },
+    {
+      "original_entry": "0x522900",
+      "inventory_id": "F:00122900",
+      "status": "既有独立调色板DBF本体的文件整链已接；完整CRT/资源/运行验收仍待",
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "LoadIndependentPaletteIndex_522900"
+          ]
+        }
+      ],
+      "original_end_exclusive": "0x522B29",
+      "instruction_count": 170,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x522B8E",
+          "parent_entry": "0x522B30"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x522989",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x52299B",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x5229BB",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x5229FE",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x522900",
+          "call_site": "0x522AAB",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "LoadIndependentPaletteIndex_522900",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58D364",
+          "bytes": "43474c6f61645370722e64626600"
+        },
+        {
+          "address": "0x55D064",
+          "bytes": "257325735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x522900",
+        "end_exclusive": "0x522B29",
+        "instruction_count": 170
+      },
+      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "保留两个256B清零局部、第255字节目录检查及追加、共享gDataPath和CGLoadSpr.dbf路径；rb失败退出，读(1,20H)共享头忽略返回，魔数不符直接退出不关闭。两裸字节分配、读压缩长度、53AF90解码、释放压缩块/保留解码块、payload+8/唯一键覆盖、count/stride发布后才关闭，再有序索引入队均保持；不改容器/分配适配或头后缀，不加保护/拒绝。其他共享图形FILE链未因此迁移，完整CRT/资源/运行未验。"
     }
   ]
 }

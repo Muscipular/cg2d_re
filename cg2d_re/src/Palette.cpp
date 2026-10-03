@@ -1,5 +1,8 @@
 #include "cg/Palette.hpp"
 
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
+
 #include "cg/ResourcePaths.hpp"
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/render/RendererResources.hpp"
@@ -198,8 +201,10 @@ int InitPalette32()
 
     if (gPaletteInitialized == 0) {
         char path[512];
-        std::sprintf(path, "%s\\%s", resource::gBinPath, gPaletteFiles[0].path);
-        std::FILE* file = std::fopen(path, "rb");
+        platform::FormatLegacyString_53B304(
+            path, "%s\\%s", resource::gBinPath, gPaletteFiles[0].path);
+        platform::LegacyFile* file =
+            platform::OpenLegacyStream_53B2F1(path, "rb");
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
             platform::ShowLegacyMessage(
@@ -208,12 +213,15 @@ int InitPalette32()
             return 0;
         }
         for (int i = 16; i < 240; ++i) {
-            gPalette[i].blue = static_cast<std::uint8_t>(std::fgetc(file));
-            gPalette[i].green = static_cast<std::uint8_t>(std::fgetc(file));
-            gPalette[i].red = static_cast<std::uint8_t>(std::fgetc(file));
+            gPalette[i].blue = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
+            gPalette[i].green = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
+            gPalette[i].red = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
             gPalette[i].flags = 5;
         }
-        std::fclose(file);
+        platform::CloseLegacyStream_53B1D0(file);
         std::memcpy(gPaletteBackup, gPalette, sizeof(gPaletteBackup));
     }
 
@@ -254,8 +262,10 @@ int InitPalette32()
 int ReadPalette(std::int32_t index, PaletteEntry* output)
 {
     char path[256];
-    std::sprintf(path, "%s\\%s", resource::gBinPath, gPaletteFiles[index].path);
-    std::FILE* file = std::fopen(path, "rb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", resource::gBinPath, gPaletteFiles[index].path);
+    platform::LegacyFile* file =
+        platform::OpenLegacyStream_53B2F1(path, "rb");
     if (file == nullptr) {
         platform::ShowLegacyMessage(
             "\xB5\x4C\xAA\x6B\xA5\xB4\xB6\x7D\xA6\xE2\xBD\x4C\xC0\xC9\xAE\xD7\xA1\x43",
@@ -263,12 +273,15 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
         return 0;
     }
     for (int i = 16; i < 240; ++i) {
-        output[i].blue = static_cast<std::uint8_t>(std::fgetc(file));
-        output[i].green = static_cast<std::uint8_t>(std::fgetc(file));
-        output[i].red = static_cast<std::uint8_t>(std::fgetc(file));
+        output[i].blue = static_cast<std::uint8_t>(
+            platform::ReadLegacyStreamByte_53C8B3(file));
+        output[i].green = static_cast<std::uint8_t>(
+            platform::ReadLegacyStreamByte_53C8B3(file));
+        output[i].red = static_cast<std::uint8_t>(
+            platform::ReadLegacyStreamByte_53C8B3(file));
         output[i].flags = 5;
     }
-    std::fclose(file);
+    platform::CloseLegacyStream_53B1D0(file);
     for (int i = 0; i < 16; ++i) {
         output[i] = gPalette[i];
     }
@@ -313,16 +326,21 @@ int UpdatePalette_450BB0()
         }
 
         char path[512];
-        std::sprintf(path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
-        std::FILE* file = std::fopen(path, "rb");
+        platform::FormatLegacyString_53B304(
+            path, "%s\\%s", resource::gBinPath, gPaletteFiles[previousActivePalette].path);
+        platform::LegacyFile* file =
+            platform::OpenLegacyStream_53B2F1(path, "rb");
         if (file == nullptr) {
             return 0; // 失败不更新已加载索引；下一帧继续尝试打开。
         }
 
         for (int i = 16; i < 240; ++i) {
-            gPaletteTarget[i].blue = static_cast<std::uint8_t>(std::fgetc(file));
-            gPaletteTarget[i].green = static_cast<std::uint8_t>(std::fgetc(file));
-            gPaletteTarget[i].red = static_cast<std::uint8_t>(std::fgetc(file));
+            gPaletteTarget[i].blue = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
+            gPaletteTarget[i].green = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
+            gPaletteTarget[i].red = static_cast<std::uint8_t>(
+                platform::ReadLegacyStreamByte_53C8B3(file));
             if (i == 168) {
                 gPaletteTarget[i].blue = 0;
                 gPaletteTarget[i].green = 0;
@@ -343,7 +361,7 @@ int UpdatePalette_450BB0()
             gPaletteGreenStep[i] = static_cast<float>(static_cast<double>(greenDifference) / steps);
             gPaletteRedStep[i] = static_cast<float>(static_cast<double>(redDifference) / steps);
         }
-        std::fclose(file);
+        platform::CloseLegacyStream_53B1D0(file);
 
         const std::int32_t loadedActivePalette = gActivePalette;
         gPaletteTransitionActive = 1;

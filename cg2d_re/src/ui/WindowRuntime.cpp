@@ -14013,7 +14013,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
             if (allowed) {
                 Sub_48BB90(41, index, source, petIndex);
             } else {
-                std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
+                platform::FormatLegacyString_53B304(buffer.data(), kStoragePetEquipmentWarning587900);
                 world::detail::Sub_44B050(buffer.data(), 4, 3);
             }
         }
@@ -14059,7 +14059,7 @@ std::int32_t Sub_4AAEC0(const std::int32_t index, const std::int32_t state)
                 if (allowed) {
                     Sub_48BB90(41, index, petIndex, target + 100);
                 } else {
-                    std::sprintf(buffer.data(), kStoragePetEquipmentWarning587900);
+                    platform::FormatLegacyString_53B304(buffer.data(), kStoragePetEquipmentWarning587900);
                     world::detail::Sub_44B050(buffer.data(), 4, 3);
                 }
             }

@@ -10661,7 +10661,7 @@
     {
       "original_entry": "0x44ADB0",
       "inventory_id": "F:0004ADB0",
-      "status": "已修复有效状态内上下文取样及回写顺序；既有额外安全边界保留，运行未验",
+      "status": "有效状态内三复制已接真实53BEC0；既有额外安全边界及预清零差异保留，运行未验",
       "original_end_exclusive": "0x44B044",
       "instruction_count": 182,
       "sources": [
@@ -10670,14 +10670,50 @@
           "symbols": [
             "AppendChar_44ADB0"
           ],
-          "relationship": "现有输入追加本体；本次修正上下文重取、原W32数量与保存/恢复顺序"
+          "relationship": "已有输入追加本体、上下文重取及保存/恢复顺序保持；本步三限长复制接真实53BEC0"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_append.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类helper、共享owner与输入容量，不计输入全链及客户端运行通过。"
+      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类规则、共享owner与输入容量，不计输入全链及客户端运行通过。 原44AE01/44AE16/44AFF7三复制已接StrNCpy_53BEC0，完整U32计数289/288/288和现有局部预清零保持；仅函数与固定容量转换变化，不改任何对象取样或回写。",
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE01",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 289,
+          "count_width": "U32",
+          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；不改预清零或额外安全门禁"
+        },
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE16",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 288,
+          "count_width": "U32",
+          "relationship": "当前text复制至288B oldText，之后重取当前对象，先保存总长后光标"
+        },
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AFF7",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 288,
+          "count_width": "U32",
+          "relationship": "条件回滚复制oldText至当前text，随后分别重取对象、先恢复总长再光标"
+        }
+      ]
     },
     {
       "original_entry": "0x44A160",
@@ -10704,7 +10740,7 @@
     {
       "original_entry": "0x44B1D0",
       "inventory_id": "F:0004B1D0",
-      "status": "已修复库复制计数U32边界；既有分类本体保持，运行未验",
+      "status": "分类复制已接真实53BEC0；原U32计数与S32分类保持，运行未验",
       "original_end_exclusive": "0x44B244",
       "instruction_count": 44,
       "sources": [
@@ -10713,15 +10749,28 @@
           "symbols": [
             "ClassifyAnsiBoundary_44B1D0"
           ],
-          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+          "relationship": "已有分类本体及原W32数量边界；本步唯一复制交真实53BEC0，其他正文不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_context.md",
         "doc/cg2d_input_append.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "原Count低W32以U32交strncpy，随后原S32偏移补NUL、S32扫描；高位字节与下一NUL判断给出0/1/2/3。保留既有局部预清零差异；越界/负数量不专项模拟、不添加门禁、不称故障等价。七处编辑调用保持。"
+      "boundary": "原Count低W32以U32交真实StrNCpy_53BEC0，随后原S32偏移补NUL、S32扫描；高位字节与下一NUL判断给出0/1/2/3。保留既有局部预清零差异；越界/负数量不专项模拟、不添加门禁、不称故障等价。七处编辑调用保持。 本步只替换复制标识符，显式NUL/分类次序及原返回不改。",
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x44B1D0",
+          "call_site": "0x44B1EC",
+          "source": "src/Input.cpp",
+          "symbol": "ClassifyAnsiBoundary_44B1D0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原Count低W32作为U32",
+          "relationship": "复制后仍按原S32位置写NUL并分类，返回弃用；局部预清零差异保持"
+        }
+      ]
     },
     {
       "original_entry": "0x44B190",
@@ -10924,7 +10973,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "已有地址化直接本体及TZ调用；另有四处输入标准库消费关联，运行未验",
+      "status": "原直接本体及两TZ/四输入/两交易共八调用已接；其他三十一引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -10942,15 +10991,122 @@
             "ClassifyAnsiBoundary_44B1D0",
             "AppendChar_44ADB0"
           ],
-          "relationship": "四处std::strncpy表达式对应44B1EC/44AE01/44AE16/44AFF7"
+          "relationship": "四处真实StrNCpy_53BEC0表达式对应44B1EC/44AE01/44AE16/44AFF7；原U32计数和前后次序保持"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrNCpy_53BEC0"
+          ],
+          "relationship": "新增唯一共享声明，复用原本体；不新增工具文件、复制算法或依赖"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4E5E40"
+          ],
+          "relationship": "4E638F/4E646B两1024B载荷复制接真实StrNCpy_53BEC0；格式/拼接/回传不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_game_time.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_input_append.md",
+        "doc/ui_windows/legacy_trade_panel.md"
       ],
-      "boundary": "LegacyTime已有原U32计数、源对齐块读取、候选后复读及分段补零直接本体；540CA1/540D5A两个TZ调用已接。另四处Input标准库消费仍保持限定域，其他父链不因本体存在一并验收。count0返回原target，满count且无NUL不额外写终止。"
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接八处，其他31处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。",
+      "original_direct_reference_count": 39,
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x540B1D",
+          "call_site": "0x540CA1",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "RefreshTz_540B1D",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "既有TZ标准名称调用保持，本步不重验时区父链"
+        },
+        {
+          "parent_entry": "0x540B1D",
+          "call_site": "0x540D5A",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "RefreshTz_540B1D",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 3,
+          "count_width": "U32",
+          "relationship": "既有TZ夏令名称调用保持，本步不重验时区父链"
+        },
+        {
+          "parent_entry": "0x44B1D0",
+          "call_site": "0x44B1EC",
+          "source": "src/Input.cpp",
+          "symbol": "ClassifyAnsiBoundary_44B1D0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原Count低W32作为U32",
+          "relationship": "复制后仍按原S32位置写NUL并分类，返回弃用；局部预清零差异保持"
+        },
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE01",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 289,
+          "count_width": "U32",
+          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；不改预清零或额外安全门禁"
+        },
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AE16",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 288,
+          "count_width": "U32",
+          "relationship": "当前text复制至288B oldText，之后重取当前对象，先保存总长后光标"
+        },
+        {
+          "parent_entry": "0x44ADB0",
+          "call_site": "0x44AFF7",
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 288,
+          "count_width": "U32",
+          "relationship": "条件回滚复制oldText至当前text，随后分别重取对象、先恢复总长再光标"
+        },
+        {
+          "parent_entry": "0x4E5E40",
+          "call_site": "0x4E638F",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4E5E40",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 1024,
+          "count_width": "U32",
+          "relationship": "物品原文复制至独立物品载荷，之后继续宠物拼接；四1024B缓冲及格式/拼接次序保持"
+        },
+        {
+          "parent_entry": "0x4E5E40",
+          "call_site": "0x4E646B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4E5E40",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 1024,
+          "count_width": "U32",
+          "relationship": "宠物原文复制至独立宠物载荷，之后金额先于socket取样并512040公开；不转义/另清尾"
+        }
+      ],
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行"
     },
     {
       "original_entry": "0x544DB0",
@@ -40066,7 +40222,7 @@
     {
       "original_entry": "0x4E5E40",
       "inventory_id": "F:000E5E40",
-      "status": "既有旧交易父全部格式已接真实核心；内部接线保持，完整生产/路由及运行未验",
+      "status": "旧交易全部格式与两载荷复制已接真实核心；内部接线保持，完整生产/路由及运行未验",
       "original_end_exclusive": "0x4E6CBF",
       "instruction_count": 1027,
       "original_direct_reference_count": 0,
@@ -40231,8 +40387,8 @@
           "call_site": "0x4E638F",
           "format_call_site": "0x4E6323",
           "target_entry": "0x53BEC0",
-          "target_symbol": "std::strncpy",
-          "relationship": "原53BEC0复制当前保留宿主std::strncpy；16B格式逐次strcat至物品1024B原文，首项前不加竖线，全部拼接后原strncpy(...,1024)复制至独立1024B载荷；不清尾/转义"
+          "target_symbol": "StrNCpy_53BEC0",
+          "relationship": "原53BEC0复制已接真实StrNCpy_53BEC0；16B格式逐次strcat至物品1024B原文，首项前不加竖线，全部拼接后原strncpy(...,1024)复制至独立1024B载荷；不清尾/转义"
         },
         {
           "call_site": "0x4E648E",
@@ -40245,8 +40401,8 @@
           "call_site": "0x4E646B",
           "format_call_site": "0x4E63FF",
           "target_entry": "0x53BEC0",
-          "target_symbol": "std::strncpy",
-          "relationship": "原53BEC0复制当前保留宿主std::strncpy；16B格式逐次strcat至宠物1024B原文，首项前不加竖线，全部拼接后原strncpy(...,1024)复制至独立1024B载荷；不清尾/转义"
+          "target_symbol": "StrNCpy_53BEC0",
+          "relationship": "原53BEC0复制已接真实StrNCpy_53BEC0；16B格式逐次strcat至宠物1024B原文，首项前不加竖线，全部拼接后原strncpy(...,1024)复制至独立1024B载荷；不清尾/转义"
         },
         {
           "call_site": "0x4E648E",
@@ -40300,10 +40456,35 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_trade_panel.md"
+        "doc/ui_windows/legacy_trade_panel.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
       "verification_level": "父边界/1027条统计/0原引用；格式/消费相邻272条，七引用指令及相关寄存器定义补证；23原点/14表达式、原字节/S32字段/复制回传/消费者、整份源码六父仅14标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或复制/回传/文字消费者内部，未执行",
-      "boundary": "公开两索引格式与六汇总格式接真实53B304；16B index/四1024B原文复制区与128B汇总局部保持，物品槽+8/宠物索引S32、used非零且S16选择>0、第二项起竖线/两次strncpy/金额先于socket及512040后状态顺序保持。六汇总仍一表达式动态六次/逐项采样即时绘制，原无空格文案、面板X偏移37/131/180/331/405/455、Y+38及mode2/font1/color0保持。 其他父正文与原输入/选择/公开/撤回/确认/统计/预览/共享状态/音效调用/关闭/提示/返回逐字保持，不新增转码、限长、扩容、清尾、补零或异常保护，不恢复音频/包加解密。现有五直接call/两局部表装载保持；完整数据生产、旧表通用handler与交易运行往返仍待，不计旧52整体运行验收。"
+      "boundary": "公开两索引格式与六汇总格式接真实53B304；16B index/四1024B原文复制区与128B汇总局部保持，物品槽+8/宠物索引S32、used非零且S16选择>0、第二项起竖线/两次strncpy/金额先于socket及512040后状态顺序保持。六汇总仍一表达式动态六次/逐项采样即时绘制，原无空格文案、面板X偏移37/131/180/331/405/455、Y+38及mode2/font1/color0保持。 其他父正文与原输入/选择/公开/撤回/确认/统计/预览/共享状态/音效调用/关闭/提示/返回逐字保持，不新增转码、限长、扩容、清尾、补零或异常保护，不恢复音频/包加解密。现有五直接call/两局部表装载保持；完整数据生产、旧表通用handler与交易运行往返仍待，不计旧52整体运行验收。 4E638F/4E646B两载荷复制已接真实StrNCpy_53BEC0，1024U32计数及原源/目标/时点保持；本步两标识符/两固定容量转换，其他格式/公开状态和消费路径逐字不变。",
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4E5E40",
+          "call_site": "0x4E638F",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4E5E40",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 1024,
+          "count_width": "U32",
+          "relationship": "物品原文复制至独立物品载荷，之后继续宠物拼接；四1024B缓冲及格式/拼接次序保持"
+        },
+        {
+          "parent_entry": "0x4E5E40",
+          "call_site": "0x4E646B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4E5E40",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 1024,
+          "count_width": "U32",
+          "relationship": "宠物原文复制至独立宠物载荷，之后金额先于socket取样并512040公开；不转义/另清尾"
+        }
+      ]
     },
     {
       "original_entry": "0x4E6E10",

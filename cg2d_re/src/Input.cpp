@@ -245,7 +245,7 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
     const std::int32_t count)
 {
     std::array<char, InputTextCapacity> copied {};
-    std::strncpy(
+    platform::StrNCpy_53BEC0(
         copied.data(),
         source,
         static_cast<std::uint32_t>(count));
@@ -942,12 +942,12 @@ void AppendChar_44ADB0(const char character)
 
     std::array<char, InputTextCapacity + 1> tail {};
     std::array<char, InputTextCapacity> oldText {};
-    std::strncpy(
+    platform::StrNCpy_53BEC0(
         tail.data(),
         context->text + context->caretByteOffset,
-        tail.size());
+        static_cast<std::uint32_t>(tail.size()));
     context = gCurrentInputData;
-    std::strncpy(oldText.data(), context->text, oldText.size());
+    platform::StrNCpy_53BEC0(oldText.data(), context->text, static_cast<std::uint32_t>(oldText.size()));
 
     // 当前对象按原阶段重取，保存/回写次序见doc/cg2d_input_append.md。
     context = gCurrentInputData;
@@ -1044,7 +1044,7 @@ void AppendChar_44ADB0(const char character)
         const std::int32_t totalByteLength = context->totalByteLength;
         const std::int32_t caretByteOffset = context->caretByteOffset;
         if (caretByteOffset == totalByteLength - 1) {
-            std::strncpy(context->text, oldText.data(), oldText.size());
+            platform::StrNCpy_53BEC0(context->text, oldText.data(), static_cast<std::uint32_t>(oldText.size()));
             context = gCurrentInputData;
             context->totalByteLength = oldTotalByteLength;
             context = gCurrentInputData;

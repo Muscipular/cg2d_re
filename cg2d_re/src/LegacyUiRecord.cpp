@@ -7484,7 +7484,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             ++itemCount;
                         }
                     }
-                    std::strncpy(itemPayload, itemSource, sizeof(itemPayload));
+                    platform::StrNCpy_53BEC0(itemPayload, itemSource, static_cast<std::uint32_t>(sizeof(itemPayload)));
                     std::int32_t petCount = 0;
                     for (std::int32_t pet = 0; pet < 5; ++pet) {
                         const char* const record = BorrowLegacyTradePet(1, pet);
@@ -7497,7 +7497,7 @@ std::uint32_t Sub_4E5E40(const std::int32_t opened)
                             ++petCount;
                         }
                     }
-                    std::strncpy(petPayload, petSource, sizeof(petPayload));
+                    platform::StrNCpy_53BEC0(petPayload, petSource, static_cast<std::uint32_t>(sizeof(petPayload)));
                     const std::int32_t amount = ui::detail::gTradeValueD046D0;
                     const auto socket = platform::gConnectionSocket;
                     static_cast<void>(network::Sub_512040(socket, itemPayload, petPayload, amount));

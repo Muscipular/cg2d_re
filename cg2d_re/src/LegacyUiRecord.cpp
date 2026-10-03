@@ -2459,9 +2459,9 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
     drawAt(kLegacySkillStatusPrompt589B58, 172, 24, 4);
     drawAt(kLegacySkillStatusHeader589B2C, 44, 50, 0);
     for (std::int32_t index = 0; index < *rows.count; ++index) {
-        std::sprintf(buffer, "%3d", rows.levels[index]);
+        platform::FormatLegacyString_53B304(buffer, "%3d", rows.levels[index]);
         drawAt(buffer, 107, 76 + 20 * index, 0);
-        std::sprintf(buffer, "%-16s", rows.names[index].data());
+        platform::FormatLegacyString_53B304(buffer, "%-16s", rows.names[index].data());
         const std::int8_t color = std::bit_cast<std::int8_t>(
             static_cast<std::uint8_t>(colors[rows.kinds[index]]));
         drawAt(buffer, 143, 76 + 20 * index, color);
@@ -2469,7 +2469,7 @@ std::uint32_t Sub_4EFB70(const std::int32_t opened)
         const std::int32_t fp = rows.fp[index];
         const std::int32_t maxHp = rows.maxHp[index];
         const std::int32_t hp = rows.hp[index];
-        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
         drawAt(buffer, 296, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(rows.injuries[index]);
         const std::int32_t imageY = gLegacySkillStatusPanel583C90.y + 20 * index + 84;

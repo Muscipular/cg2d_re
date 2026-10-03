@@ -36535,19 +36535,19 @@ void Sub_498520()
                 bool send = true;
                 switch (gBattleSelectionMode5ABC70) {
                 case 0:
-                    std::sprintf(buffer.data(), "H|%X", static_cast<std::uint32_t>(target));
+                    platform::FormatLegacyString_53B304(buffer.data(), "H|%X", static_cast<std::uint32_t>(target));
                     break;
                 case 2: {
                     const std::int32_t technique = gBattleSelectedTechnique5ABC78;
                     const std::int32_t skill = gBattleSelectedSkill5ABB5C;
-                    std::sprintf(buffer.data(), "S|%X|%X|%X",
+                    platform::FormatLegacyString_53B304(buffer.data(), "S|%X|%X|%X",
                         static_cast<std::uint32_t>(skill), static_cast<std::uint32_t>(technique),
                         static_cast<std::uint32_t>(target));
                     break;
                 }
                 case 3: {
                     const std::int32_t item = gBattleSelectedItem5ABC48;
-                    std::sprintf(buffer.data(), "I|%X|%X",
+                    platform::FormatLegacyString_53B304(buffer.data(), "I|%X|%X",
                         static_cast<std::uint32_t>(item), static_cast<std::uint32_t>(target));
                     break;
                 }
@@ -36664,7 +36664,7 @@ void Sub_498520()
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
             if (target != -1 && (platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
                 const std::int32_t technique = gValue553F84;
-                std::sprintf(buffer.data(), "W|%X|%X",
+                platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
                     static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, buffer.data()));
                 login::detail::FlushBattleEntries_43C060();
@@ -36756,7 +36756,7 @@ void Sub_498520()
             if (!clickedReturn && gValue553F84 != -1) {
                 const std::int32_t namePet = Sub_43C4B0();
                 const std::int32_t nameTechnique = gValue553F84;
-                std::sprintf(buffer.data(), "%-16s",
+                platform::FormatLegacyString_53B304(buffer.data(), "%-16s",
                     gPetRuntimeF633F8[namePet].techniquesD8[nameTechnique].name.data());
                 const std::int32_t nameY = gBattleCommandY553F7C;
                 const std::int32_t nameX = gBattleCommandX553F78;
@@ -36766,7 +36766,7 @@ void Sub_498520()
                     2, 0, 0, buffer.data(), 0));
                 const std::int32_t costPet = Sub_43C4B0();
                 const std::int32_t costTechnique = gValue553F84;
-                std::sprintf(buffer.data(), "%4d", gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp);
+                platform::FormatLegacyString_53B304(buffer.data(), "%4d", gPetRuntimeF633F8[costPet].techniquesD8[costTechnique].fp);
                 const std::int32_t costY = gBattleCommandY553F7C;
                 const std::int32_t costX = gBattleCommandX553F78;
                 static_cast<void>(render::DrawText2_456670(

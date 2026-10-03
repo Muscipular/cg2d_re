@@ -616,15 +616,17 @@ InputContext* Sub_44AA90()
 
 bool IsRejectedInputText_404060(const char* const legacyText)
 {
-    const std::size_t length = std::strlen(legacyText);
-    if (std::strstr(legacyText, "\xA1\x40") != nullptr) {
+    // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
+    const std::int32_t length = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(std::strlen(legacyText)));
+    if (platform::StrStr_53BE40(legacyText, "\xA1\x40") != nullptr) {
         return true;
     }
     if (length == 0) {
         return true;
     }
 
-    for (std::size_t index = 0; index < length; ++index) {
+    for (std::int32_t index = 0; index < length; ++index) {
         const std::uint8_t firstByte = static_cast<std::uint8_t>(
             static_cast<unsigned char>(legacyText[index]));
         if ((firstByte & 0x80U) != 0U) {
@@ -654,12 +656,12 @@ bool IsRejectedInputText_404060(const char* const legacyText)
         if (platform::ClassifyLegacySpace_53BDEF(firstByte) != 0) {
             return true;
         }
-        if (platform::ClassifyLegacyControl_53BE17(firstByte) != 0) {
+        if (platform::ClassifyLegacyControl_53BE17(SignedByte(legacyText[index])) != 0) {
             return true;
         }
     }
 
-    return std::strstr(legacyText, "[GP]") != nullptr;
+    return platform::StrStr_53BE40(legacyText, "[GP]") != nullptr;
 }
 
 std::int32_t Sub_476740(const char* const text)

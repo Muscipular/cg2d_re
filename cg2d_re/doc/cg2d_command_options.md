@@ -161,3 +161,18 @@
 跨界访问与原 x86 栈/地址异常不计故障等价。Debug 两个静态库
 编译通过，不代表完整链接、旧配置文件生产或登录运行已验收。
 前文“仅声明/未实现”均为 2026-09-20 的历史状态。
+
+
+## 命令参数查找与IP借用位置真实接线（2026-10-03）
+
+依[字符串局部SPEC](cg2d_legacy_string_compare.md#输入检查与启动参数真实查找板块spec2026-10-03)，
+本线程裁决465F00十九子串/四字符点与507C80一子串点交真实核心，复用唯一LegacyTime公开头。
+CommandOptions仅替换20个std::strstr、3个std::strchr标识符并加该头；坐标别名source一表达式
+仍承接46679A/4667EC两原点，九槽/数据后Info、七动态关键字表/格式/错字与value复用不改。
+原newest/savedata/datafolder/binfolder/mapfolder和windowmode/nodelay/winpos/3Ddevice/
+soundoff/musicoff/onlyactive/IP含NUL字节已核；同一cmd借用返回后strlen偏移/真实扫描、
+原共享flag/API/后处理、IP重复查找后的索引/地址/端口/计数/cursor及返回正文保持，不添保护。
+newest:参数保留不恢复已排除五函数；音频参数只保留解析，不解除暂停。两原入向4659CB/
+4669D8与662/92统计、317/15相邻读取只核新查找，原数据表沿已有取证且整份数组保持。
+JSON四旧项加两新父按字符串合同限定更新；未重跑完整参数/扫描/格式或
+真实启动验收，不构建、测试、运行算法/客户端或hash校验，总SPEC/索引不刷新。

@@ -4783,7 +4783,7 @@
     {
       "original_entry": "0x465790",
       "inventory_id": "F:00065790",
-      "status": "已有启动/场景本体，argument.ini真实FILE整链已接；完整依赖及运行未验",
+      "status": "已有启动本体、argument.ini真实FILE整链及两个真实子串门禁已接；完整依赖及运行未验",
       "original_role": "原客户端入口",
       "sources": [
         {
@@ -4798,7 +4798,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。",
+      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。",
       "original_end_exclusive": "0x4659ED",
       "instruction_count": 164,
       "original_direct_reference_count": 1,
@@ -4871,7 +4871,51 @@
           "relationship": "追加之后直接检查同一FILE flags低U8/10H，未置EOF仍回读，不新增读错误退出"
         }
       ],
-      "verification_level": "完整164条/唯一入向、四CRT点、flags低U8/检查时点、四原字符串字节及入口限定源码/JSON差异静态核对；仅核argument.ini整链，不重验窗口/命令解析/完整启动，未执行"
+      "verification_level": "完整164条/唯一入向、四CRT点、flags低U8/检查时点、四原字符串字节及入口限定源码/JSON差异静态核对；仅核argument.ini整链，不重验窗口/命令解析/完整启动，未执行；本步原164统计/查找邻30读取、两真实点/含NUL字节、唯一入向及整份入口限定差异静态核对，不重验其余启动正文",
+      "search_call_connections": [
+        {
+          "parent_entry": "0x465790",
+          "call_site": "0x4657C8",
+          "source": "src/platform/ClientEntry.cpp",
+          "symbol": "WinMain",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandLine",
+          "needle_expression": "\"CGstart\"",
+          "relationship": "原文件命令行切换门禁",
+          "needle_bytes": "4347737461727400",
+          "needle_address": "0x55D03C",
+          "needle_push_site": "0x4657B7"
+        },
+        {
+          "parent_entry": "0x465790",
+          "call_site": "0x4658CD",
+          "source": "src/platform/ClientEntry.cpp",
+          "symbol": "WinMain",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"updated\"",
+          "relationship": "互斥量创建/发布后原updated门禁",
+          "needle_bytes": "7570646174656400",
+          "needle_address": "0x55D020",
+          "needle_push_site": "0x4658C2"
+        }
+      ],
+      "search_byte_evidence": [
+        {
+          "call_site": "0x4657C8",
+          "push_site": "0x4657B7",
+          "address": "0x55D03C",
+          "bytes": "4347737461727400"
+        },
+        {
+          "call_site": "0x4658CD",
+          "push_site": "0x4658C2",
+          "address": "0x55D020",
+          "bytes": "7570646174656400"
+        }
+      ]
     },
     {
       "original_entry": "0x4659F0",
@@ -5050,7 +5094,7 @@
     {
       "original_entry": "0x465F00",
       "inventory_id": "F:00065F00",
-      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "status": "已有参数本体及真实扫描/格式依赖，十九子串/四字符原点已接；完整启动及运行未验",
       "original_role": "启动命令选项解析",
       "sources": [
         {
@@ -5066,7 +5110,387 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "本体及ParseIpOptions_507C80已有；命令选项16个原扫描点和IP的1点已迁到真实53CADC/53DEF4，保留字节查找、共享字段、局部复用和末次507C80的0/解析返回，入口弃置结果。newest参数仍保留，不恢复排除更新链；音效/音乐开关和后处理未改，完整启动及网络流程未验。 8处资源名/保存路径输出已接真实53B304，原格式表、目标及扫描后value复用不变。"
+      "boundary": "本体及ParseIpOptions_507C80已有；命令选项16个原扫描点和IP的1点已迁到真实53CADC/53DEF4，保留字节查找、共享字段、局部复用和末次507C80的0/解析返回，入口弃置结果。newest参数仍保留，不恢复排除更新链；音效/音乐开关和后处理未改，完整启动及网络流程未验。 8处资源名/保存路径输出已接真实53B304，原格式表、目标及扫描后value复用不变。 本步十九原子串点及四字符点接53BE40/53C2F0，坐标别名46679A/4667EC共用一个destination循环表达式，仍逐槽先数据后Info；大小写/子串、七关键字表与错字、借用返回后的strlen偏移、共享value/未检查扫描失败及单遍别名复制保持。newest参数只保留解析，音频仍暂停，不补NULL/索引默认值。",
+      "original_end_exclusive": "0x4669EB",
+      "instruction_count": 662,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x465790",
+          "reference_site": "0x4659CB",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465F30",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"newest:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6e65776573743a00",
+          "needle_address": "0x55D9BC",
+          "needle_push_site": "0x465F2A"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465F6E",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"savedata:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "73617665646174613a00",
+          "needle_address": "0x55D9B0",
+          "needle_push_site": "0x465F68"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465FAF",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"datafolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "64617461666f6c6465723a00",
+          "needle_address": "0x55D9A4",
+          "needle_push_site": "0x465FA9"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465FED",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"binfolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "62696e666f6c6465723a00",
+          "needle_address": "0x55D998",
+          "needle_push_site": "0x465FE7"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46602A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"mapfolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6d6170666f6c6465723a00",
+          "needle_address": "0x55D98C",
+          "needle_push_site": "0x466024"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4664FD",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466552",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicOverrideKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4665A7",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4665FC",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "animeKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466651",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "animeInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4666D4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "coordinateKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46673A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "coordinateInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466852",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x46684C"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46689F",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"nodelay\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6e6f64656c617900",
+          "needle_address": "0x55D198",
+          "needle_push_site": "0x466899"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4668C3",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"winpos:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "77696e706f733a00",
+          "needle_address": "0x55D190",
+          "needle_push_site": "0x4668BD"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46692D",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"3Ddevice:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "33446465766963653a00",
+          "needle_address": "0x55D17C",
+          "needle_push_site": "0x46691B"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46696A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"soundoff\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "736f756e646f666600",
+          "needle_address": "0x55D170",
+          "needle_push_site": "0x466964"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466988",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"musicoff\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6d757369636f666600",
+          "needle_address": "0x55D164",
+          "needle_push_site": "0x466982"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4669B4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"onlyactive\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x4669AE"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4666B9",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "gResourceNames[CoordinateNames][slot]",
+          "relationship": "坐标数据表扫描前查*门禁"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466720",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "gResourceNames[CoordinateInfoNames][slot]",
+          "relationship": "坐标Info表扫描前查*门禁"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46679A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "destination",
+          "source_expression_group": "coordinate_alias_table_loop",
+          "relationship": "别名单遍循环先数据表，查*后沿原扫描/正向复制"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4667EC",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "destination",
+          "source_expression_group": "coordinate_alias_table_loop",
+          "relationship": "同一别名单遍循环后Info表，查*后沿原扫描/正向复制"
+        }
+      ],
+      "search_byte_evidence": [
+        {
+          "call_site": "0x465F30",
+          "push_site": "0x465F2A",
+          "address": "0x55D9BC",
+          "bytes": "6e65776573743a00"
+        },
+        {
+          "call_site": "0x465F6E",
+          "push_site": "0x465F68",
+          "address": "0x55D9B0",
+          "bytes": "73617665646174613a00"
+        },
+        {
+          "call_site": "0x465FAF",
+          "push_site": "0x465FA9",
+          "address": "0x55D9A4",
+          "bytes": "64617461666f6c6465723a00"
+        },
+        {
+          "call_site": "0x465FED",
+          "push_site": "0x465FE7",
+          "address": "0x55D998",
+          "bytes": "62696e666f6c6465723a00"
+        },
+        {
+          "call_site": "0x46602A",
+          "push_site": "0x466024",
+          "address": "0x55D98C",
+          "bytes": "6d6170666f6c6465723a00"
+        },
+        {
+          "call_site": "0x466852",
+          "push_site": "0x46684C",
+          "address": "0x55D108",
+          "bytes": "77696e646f776d6f646500"
+        },
+        {
+          "call_site": "0x46689F",
+          "push_site": "0x466899",
+          "address": "0x55D198",
+          "bytes": "6e6f64656c617900"
+        },
+        {
+          "call_site": "0x4668C3",
+          "push_site": "0x4668BD",
+          "address": "0x55D190",
+          "bytes": "77696e706f733a00"
+        },
+        {
+          "call_site": "0x46692D",
+          "push_site": "0x46691B",
+          "address": "0x55D17C",
+          "bytes": "33446465766963653a00"
+        },
+        {
+          "call_site": "0x46696A",
+          "push_site": "0x466964",
+          "address": "0x55D170",
+          "bytes": "736f756e646f666600"
+        },
+        {
+          "call_site": "0x466988",
+          "push_site": "0x466982",
+          "address": "0x55D164",
+          "bytes": "6d757369636f666600"
+        },
+        {
+          "call_site": "0x4669B4",
+          "push_site": "0x4669AE",
+          "address": "0x55D0C8",
+          "bytes": "6f6e6c7961637469766500"
+        }
+      ],
+      "verification_level": "本步原662条统计/317查找邻读取、十九子串/四字符call及十二静态needle含NUL字节、唯一4659CB/465790入向静态核对；动态表沿已有证据且整份数组保持，整份CommandOptions只20子串/3字符标识符与已有头，IP子项单列；其余扫描/格式/后处理正文不重验，未构建或执行"
     },
     {
       "original_entry": "0x4669F0",
@@ -10473,7 +10897,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及九个业务调用已接；其他44原引用及完整运行未闭合",
+      "status": "原66条子串查找直接本体及33个业务调用已接；其他20原引用及完整运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -10487,19 +10911,23 @@
           "path": "src/Input.cpp",
           "symbols": [
             "IsRejectedInputText_404060"
-          ]
+          ],
+          "relationship": "原40407B/40410D两实际入口调用，长度/index S32与控制分类前独立源采样"
         },
         {
           "path": "src/platform/CommandOptions.cpp",
           "symbols": [
-            "ParseCommandOptions"
-          ]
+            "ParseCommandOptions",
+            "ParseIpOptions_507C80"
+          ],
+          "relationship": "十九参数点及507CA4一IP点直接53BE40，原数组/借用游标与后续正文保持"
         },
         {
           "path": "src/platform/ClientEntry.cpp",
           "symbols": [
             "WinMain"
-          ]
+          ],
+          "relationship": "原4657C8/4658CD两实际门禁调用，文件命令行/互斥量顺序保持"
         },
         {
           "path": "src/platform/LegacyTime.cpp",
@@ -10548,9 +10976,11 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_network_dispatch.md",
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_command_options.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接，其他44及既有标准库关联未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53，其他20原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -10642,6 +11072,321 @@
           "target_symbol": "StrStr_53BE40",
           "needle_bytes": "7c00",
           "relationship": "旧时间两调用及借用返回发布后，真实|子串定位先于128B清区；返回借用分隔符地址供前缀复制及404600"
+        },
+        {
+          "parent_entry": "0x404060",
+          "call_site": "0x40407B",
+          "source": "src/Input.cpp",
+          "symbol": "IsRejectedInputText_404060",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "legacyText",
+          "needle_expression": "\"\\xA1\\x40\"",
+          "relationship": "长度采样后定位原A140字节，命中即拒绝",
+          "needle_bytes": "a14000",
+          "needle_address": "0x553604",
+          "needle_push_site": "0x40406E"
+        },
+        {
+          "parent_entry": "0x404060",
+          "call_site": "0x40410D",
+          "source": "src/Input.cpp",
+          "symbol": "IsRejectedInputText_404060",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "legacyText",
+          "needle_expression": "\"[GP]\"",
+          "relationship": "原S32扫描结束后查GP标记并返回拒绝bool",
+          "needle_bytes": "5b47505d00",
+          "needle_address": "0x5535FC",
+          "needle_push_site": "0x404107"
+        },
+        {
+          "parent_entry": "0x465790",
+          "call_site": "0x4657C8",
+          "source": "src/platform/ClientEntry.cpp",
+          "symbol": "WinMain",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "commandLine",
+          "needle_expression": "\"CGstart\"",
+          "relationship": "原文件命令行切换门禁",
+          "needle_bytes": "4347737461727400",
+          "needle_address": "0x55D03C",
+          "needle_push_site": "0x4657B7"
+        },
+        {
+          "parent_entry": "0x465790",
+          "call_site": "0x4658CD",
+          "source": "src/platform/ClientEntry.cpp",
+          "symbol": "WinMain",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"updated\"",
+          "relationship": "互斥量创建/发布后原updated门禁",
+          "needle_bytes": "7570646174656400",
+          "needle_address": "0x55D020",
+          "needle_push_site": "0x4658C2"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465F30",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"newest:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6e65776573743a00",
+          "needle_address": "0x55D9BC",
+          "needle_push_site": "0x465F2A"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465F6E",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"savedata:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "73617665646174613a00",
+          "needle_address": "0x55D9B0",
+          "needle_push_site": "0x465F68"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465FAF",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"datafolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "64617461666f6c6465723a00",
+          "needle_address": "0x55D9A4",
+          "needle_push_site": "0x465FA9"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x465FED",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"binfolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "62696e666f6c6465723a00",
+          "needle_address": "0x55D998",
+          "needle_push_site": "0x465FE7"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46602A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"mapfolder:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6d6170666f6c6465723a00",
+          "needle_address": "0x55D98C",
+          "needle_push_site": "0x466024"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4664FD",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466552",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicOverrideKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4665A7",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "graphicInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4665FC",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "animeKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466651",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "animeInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4666D4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "coordinateKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46673A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "coordinateInfoKeys[slot]",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466852",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"windowmode\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "77696e646f776d6f646500",
+          "needle_address": "0x55D108",
+          "needle_push_site": "0x46684C"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46689F",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"nodelay\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6e6f64656c617900",
+          "needle_address": "0x55D198",
+          "needle_push_site": "0x466899"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4668C3",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"winpos:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "77696e706f733a00",
+          "needle_address": "0x55D190",
+          "needle_push_site": "0x4668BD"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46692D",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"3Ddevice:\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "33446465766963653a00",
+          "needle_address": "0x55D17C",
+          "needle_push_site": "0x46691B"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46696A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"soundoff\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "736f756e646f666600",
+          "needle_address": "0x55D170",
+          "needle_push_site": "0x466964"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466988",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"musicoff\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6d757369636f666600",
+          "needle_address": "0x55D164",
+          "needle_push_site": "0x466982"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4669B4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gCommandLine",
+          "needle_expression": "\"onlyactive\"",
+          "relationship": "保留原子串/大小写及借用返回后的原扫描、格式或开关时点",
+          "needle_bytes": "6f6e6c7961637469766500",
+          "needle_address": "0x55D0C8",
+          "needle_push_site": "0x4669AE"
+        },
+        {
+          "parent_entry": "0x507C80",
+          "call_site": "0x507CA4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseIpOptions_507C80",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "cursor",
+          "needle_expression": "\"IP:\"",
+          "relationship": "逐次IP借用定位，后续索引/扫描/记录/端口/计数及cursor推进正文保持",
+          "needle_bytes": "49503a00",
+          "needle_address": "0x55D060",
+          "needle_push_site": "0x507C9E"
         }
       ],
       "single_byte_tail_connection": {
@@ -10654,7 +11399,7 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行",
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行",
       "battle_header_table_evidence": {
         "address": "0x553E94",
         "entry_count": 25,
@@ -10791,7 +11536,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符查找直接本体及分色两调用已接；其他23原引用及完整运行未闭合",
+      "status": "原89条字符查找直接本体及六个业务调用已接；其他19原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -10809,7 +11554,8 @@
           "path": "src/platform/CommandOptions.cpp",
           "symbols": [
             "ParseCommandOptions"
-          ]
+          ],
+          "relationship": "四坐标表原点由三个源码表达式直接调用53C2F0，别名双表单一循环表达式先数据后Info"
         },
         {
           "path": "src/LoginMessage.cpp",
@@ -10847,9 +11593,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_command_options.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处已接，其他23未计完成；既有CommandOptions/LoginMessage的std::strchr仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及本步参数四处共六处已接，其他19未计完成；既有LoginMessage的std::strchr仍仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -10872,9 +11619,55 @@
           "target_symbol": "StrChr_53C2F0",
           "target_byte": 36,
           "relationship": "前缀释放/原标记颜色处理后再次查$，保持同一借用文本"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4666B9",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "gResourceNames[CoordinateNames][slot]",
+          "relationship": "坐标数据表扫描前查*门禁"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x466720",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "gResourceNames[CoordinateInfoNames][slot]",
+          "relationship": "坐标Info表扫描前查*门禁"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x46679A",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "destination",
+          "source_expression_group": "coordinate_alias_table_loop",
+          "relationship": "别名单遍循环先数据表，查*后沿原扫描/正向复制"
+        },
+        {
+          "parent_entry": "0x465F00",
+          "call_site": "0x4667EC",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseCommandOptions",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "target_byte": 42,
+          "source_expression": "destination",
+          "source_expression_group": "coordinate_alias_table_loop",
+          "relationship": "同一别名单遍循环后Info表，查*后沿原扫描/正向复制"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -44159,6 +44952,208 @@
       ],
       "verification_level": "原508800..508901完整90条、587B28含NUL的7c00及唯一51610E/512E40 caller；整份NetworkRuntime只50885B/508882两个标识符和Count U32转换、现有whV路由及旧时间/共享借用发布/清区/无分隔符与busy正文保持静态核对，未构建或执行",
       "boundary": "请求状态1门禁后先状态2及低S16回复码；失败busy保持，成功协议模式1→同址旧time32→localtime借用返回保存→真实|查找→同一128B前缀清区。找到时按地址差低U32调用真实53BEC0，再原分隔符地址调用404600后返回；无分隔符仍strlen+1原内联复制。复用现有LegacyTime公开声明，不新建分派、缓冲、owner、判空、末NUL、限长或默认成功；上游whV/下游共享防护及窗口检查保持，完整登录/网络/防护/CRT与跨板块运行未验，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x404060",
+      "inventory_id": "F:00004060",
+      "status": "原输入拒绝检查及两真实子串调用已对齐；完整输入/运行仍待",
+      "original_role": "旧字节文本拒绝检查",
+      "original_end_exclusive": "0x40411E",
+      "instruction_count": 84,
+      "original_direct_reference_count": 13,
+      "original_direct_call_reference_count": 13,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "IsRejectedInputText_404060"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x404060",
+          "call_site": "0x40407B",
+          "source": "src/Input.cpp",
+          "symbol": "IsRejectedInputText_404060",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "legacyText",
+          "needle_expression": "\"\\xA1\\x40\"",
+          "relationship": "长度采样后定位原A140字节，命中即拒绝",
+          "needle_bytes": "a14000",
+          "needle_address": "0x553604",
+          "needle_push_site": "0x40406E"
+        },
+        {
+          "parent_entry": "0x404060",
+          "call_site": "0x40410D",
+          "source": "src/Input.cpp",
+          "symbol": "IsRejectedInputText_404060",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "legacyText",
+          "needle_expression": "\"[GP]\"",
+          "relationship": "原S32扫描结束后查GP标记并返回拒绝bool",
+          "needle_bytes": "5b47505d00",
+          "needle_address": "0x5535FC",
+          "needle_push_site": "0x404107"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x45CA20",
+          "reference_site": "0x45CB2C",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45CA20",
+          "reference_site": "0x45CB3D",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45CA20",
+          "reference_site": "0x45CC0D",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45CA20",
+          "reference_site": "0x45CC1E",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_site": "0x45FC62",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_site": "0x45FC77",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_site": "0x45FD27",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_site": "0x45FD38",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "reference_site": "0x4638D9",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_site": "0x46500E",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_site": "0x465023",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_site": "0x4650D4",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_site": "0x4650E5",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "numeric_and_sample_evidence": [
+        {
+          "site": "0x40409B",
+          "relationship": "原EDI长度有符号比较jle跳末GP检查；length低U32按S32解释，0原拒绝，非零负长度不加拒绝"
+        },
+        {
+          "site": "0x404105",
+          "relationship": "原ESI游标与EDI长度按jl比较，新index S32保持"
+        },
+        {
+          "site": "0x4040E5",
+          "relationship": "ASCII当前字节先movsx传isspace；当前高位0分支的firstByte值保持"
+        },
+        {
+          "site": "0x4040F1",
+          "call_site": "0x4040F6",
+          "relationship": "原isspace调用之后独立movsx重读同一源字节给iscntrl，现SignedByte(legacyText[index])"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "原404060..40411E完整84条/13真实call入向、两needle含NUL字节、bool返回及S32/双采样/扫描次序静态回映；Input整份只两查找标识符/length与index S32/控制分类重读取增量，其余正文保持；未构建、测试或执行",
+      "boundary": "先取原长度，再A140子串查找，命中或零长度拒绝；length原低U32按S32解释/index S32比较。原高位字节第二采样、A140..A1FE/A240..A2FE/A340..A3E0范围、ASCII |/反斜线/斜线拒绝保持；空白分类后独立SignedByte重读源作控制分类，最后GP子串bool。13普通校验call不随控制器内键盘排除分支扩大排除；不重验全部上游输入/预清/安全门禁，不新添NULL/负长度拒绝、编码转换、默认值或故障模拟；旧CRT与完整运行仍待。"
+    },
+    {
+      "original_entry": "0x507C80",
+      "inventory_id": "F:00107C80",
+      "status": "已有IP参数本体及真实扫描依赖，一处子串定位已接；完整解析/网络运行未验",
+      "original_role": "启动IP参数逐次解析",
+      "original_end_exclusive": "0x507D88",
+      "instruction_count": 92,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "ParseIpOptions_507C80",
+            "ParseCommandOptions"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x507C80",
+          "call_site": "0x507CA4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "ParseIpOptions_507C80",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "cursor",
+          "needle_expression": "\"IP:\"",
+          "relationship": "逐次IP借用定位，后续索引/扫描/记录/端口/计数及cursor推进正文保持",
+          "needle_bytes": "49503a00",
+          "needle_address": "0x55D060",
+          "needle_push_site": "0x507C9E"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x465F00",
+          "reference_site": "0x4669D8",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_command_options.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "原92条统计/15查找邻读取、507CA4真实call/55D060含NUL字节、唯一4669D8/465F00入向及整份CommandOptions限定标识符差异静态核对；其余77条不重新读取/验收，未构建或执行",
+      "boundary": "cursor按原IP:字节逐次借用查找；仅std::strstr替换53BE40，后续真实扫描/索引栈槽复用/地址/端口/available/计数/cursor=port和返回正文逐字保持，既有native指针低W32初值不补0或加保护。该项单列507C80证据，不把原465F00源码联合列名当本函数已全面验收；完整IP解析/启动/网络及运行仍待，音频/加解密不恢复。"
     }
   ]
 }

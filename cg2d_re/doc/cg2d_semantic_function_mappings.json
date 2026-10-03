@@ -10727,7 +10727,28 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原唯一TZ caller及既有用户裁决，直接std::getenv；保留借用指针和父调用后续逻辑，宿主校验/锁/表准备/编码差异不称原体等价。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+      "boundary": "原唯一TZ caller及既有用户裁决，直接std::getenv；保留借用指针和父调用后续逻辑，宿主校验/锁/表准备/编码差异不称原体等价。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。 本轮登记本父内部长度/复制原引用的既有宿主归属；不计原体实现、实际接线或范围排除，其他边界/来源/宿主根保持。",
+      "native_delegated_string_call_references": [
+        {
+          "parent_entry": "0x54518B",
+          "call_site": "0x5451C5",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原请求名长度；随既有GetEnv整体std::getenv承接，非原体实现/实际接线/范围排除"
+        },
+        {
+          "parent_entry": "0x54518B",
+          "call_site": "0x5451D4",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原环境表项长度；随既有GetEnv整体承接，不称宿主逐指令等价"
+        }
+      ],
+      "verification_level": "本次仅长度/复制调用邻窗与既有归属合同静态核对；54518B读取18/51、547E8A读取22/155、548143读取21/23，共61/229，余168不重验；源码/宿主根保持，未构建或执行"
     },
     {
       "original_entry": "0x54733B",
@@ -10834,7 +10855,28 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一caller54737A实际传第二参数0，负责该补表链发布；不据此授权一般putenv或第二参数非0更新系统环境的应用接口。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+      "boundary": "唯一caller54737A实际传第二参数0，负责该补表链发布；不据此授权一般putenv或第二参数非0更新系统环境的应用接口。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。 本轮登记本父内部长度/复制原引用的既有宿主归属；不计原体实现、实际接线或范围排除，其他边界/来源/宿主根保持。",
+      "native_delegated_string_call_references": [
+        {
+          "parent_entry": "0x547E8A",
+          "call_site": "0x547FC7",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原第二参数非0分支的长度+2分配；只登记已归属私有父内部引用，唯一caller传0，不授权一般putenv/非0更新接口"
+        },
+        {
+          "parent_entry": "0x547E8A",
+          "call_site": "0x547FE0",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原第二参数非0分支分配成功后复制；只归属既有私有父，不授权一般putenv/非0更新接口"
+        }
+      ],
+      "verification_level": "本次仅长度/复制调用邻窗与既有归属合同静态核对；54518B读取18/51、547E8A读取22/155、548143读取21/23，共61/229，余168不重验；源码/宿主根保持，未构建或执行"
     },
     {
       "original_entry": "0x548011",
@@ -13690,7 +13732,7 @@
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "既有复制入口/共享尾及6原调用已接；其他五原引用/完整父与运行未验",
+      "status": "既有复制入口/共享尾及6原调用已接；2原引用已批宿主承接，其他3原引用/完整父与运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
       "sources": [
@@ -13738,7 +13780,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。 原547FE0/548161另列已批GetEnv私有父宿主承接，实际6原点保持；独立CRT启动/异常对象三未决不转为排除。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
@@ -13821,7 +13863,27 @@
         "target_symbol": "StrCpy_544DB0",
         "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
       },
-      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持"
+      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持；仅新增547FE0/548161的既有GetEnv宿主归属，6实际接线/共享尾保持",
+      "native_delegated_copy_call_references": [
+        {
+          "parent_entry": "0x547E8A",
+          "call_site": "0x547FE0",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原第二参数非0分支分配成功后复制；只归属既有私有父，不授权一般putenv/非0更新接口"
+        },
+        {
+          "parent_entry": "0x548143",
+          "call_site": "0x548161",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原分配成功后复制并返分配指针；仅既有环境复制叶宿主归属，不断言getenv实际调用_strdup"
+        }
+      ]
     },
     {
       "original_entry": "0x544DC0",
@@ -14450,7 +14512,28 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空源null；strlen+1分配失败null，成功复制返回分配指针。唯一直接caller在已批旧环境补表链，按新增证据限定归属，不以通用函数名扩大std替代范围；原堆/复制入口本身不随之排除。"
+      "boundary": "空源null；strlen+1分配失败null，成功复制返回分配指针。唯一直接caller在已批旧环境补表链，按新增证据限定归属，不以通用函数名扩大std替代范围；原堆/复制入口本身不随之排除。 本轮登记本父内部长度/复制原引用的既有宿主归属；不计原体实现、实际接线或范围排除，其他边界/来源/宿主根保持。",
+      "native_delegated_string_call_references": [
+        {
+          "parent_entry": "0x548143",
+          "call_site": "0x54814D",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原长度+1分配，空源/分配失败null；唯一548069@5480B7的已批环境表链，非通用strdup授权"
+        },
+        {
+          "parent_entry": "0x548143",
+          "call_site": "0x548161",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原分配成功后复制并返分配指针；仅既有环境复制叶宿主归属，不断言getenv实际调用_strdup"
+        }
+      ],
+      "verification_level": "本次仅长度/复制调用邻窗与既有归属合同静态核对；54518B读取18/51、547E8A读取22/155、548143读取21/23，共61/229，余168不重验；源码/宿主根保持，未构建或执行"
     },
     {
       "original_entry": "0x5450F0",
@@ -14478,7 +14561,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及9原调用已接；其他15原引用/完整父与运行未验",
+      "status": "既有长度核心及9原调用已接；4原引用已批宿主承接，其他11原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14541,7 +14624,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -14644,7 +14727,45 @@
           "relationship": "原进位后首字符非1才取剩余串低U32长度+1，随后正常重叠移动保持"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变"
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变",
+      "native_delegated_length_call_references": [
+        {
+          "parent_entry": "0x54518B",
+          "call_site": "0x5451C5",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原请求名长度；随既有GetEnv整体std::getenv承接，非原体实现/实际接线/范围排除"
+        },
+        {
+          "parent_entry": "0x54518B",
+          "call_site": "0x5451D4",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原环境表项长度；随既有GetEnv整体承接，不称宿主逐指令等价"
+        },
+        {
+          "parent_entry": "0x547E8A",
+          "call_site": "0x547FC7",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原第二参数非0分支的长度+2分配；只登记已归属私有父内部引用，唯一caller传0，不授权一般putenv/非0更新接口"
+        },
+        {
+          "parent_entry": "0x548143",
+          "call_site": "0x54814D",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyTime.cpp",
+          "host_root_symbol": "GetEnv_54518B",
+          "relationship": "原长度+1分配，空源/分配失败null；唯一548069@5480B7的已批环境表链，非通用strdup授权"
+        }
+      ]
     },
     {
       "original_entry": "0x5419D0",

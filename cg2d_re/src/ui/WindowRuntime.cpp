@@ -10108,7 +10108,7 @@ std::int32_t Sub_4A00C0(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
+    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gShopCommandsD64E10[index]));
     input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 16, 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -10164,7 +10164,7 @@ std::int32_t Sub_4A0280(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
+    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCB03D4[index]));
     return SendChoiceDialogReply(buffer.data());
 }
 
@@ -10174,7 +10174,7 @@ std::int32_t Sub_4A0420(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    std::sprintf(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
+    platform::FormatLegacyString_53B304(buffer.data(), "%d", static_cast<std::int32_t>(gChoiceCommandsCF47D8[index]));
     return SendChoiceDialogReply(buffer.data());
 }
 
@@ -10184,7 +10184,7 @@ std::int32_t Sub_4A05C0(const std::int32_t index)
         return index;
     }
     std::array<char, 32> buffer;
-    std::sprintf(buffer.data(), "%d", index + 1);
+    platform::FormatLegacyString_53B304(buffer.data(), "%d", index + 1);
     return SendChoiceDialogReply(buffer.data());
 }
 

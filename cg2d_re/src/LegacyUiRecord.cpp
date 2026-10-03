@@ -5804,7 +5804,7 @@ std::uintptr_t Sub_4D5250(const std::int32_t opened)
     char escaped[16];
     for (std::int32_t choice = 0; choice < 2; ++choice) {
         if ((character_select::detail::Sub_503990(&buttons[choice]) & 1) != 0) {
-            std::sprintf(response, "%d", choice + 1);
+            platform::FormatLegacyString_53B304(response, "%d", choice + 1);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(response, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -6002,9 +6002,9 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
     const std::int32_t imageX = gLegacyGiveReceiveQuantityPanel581BD0.x + 44;
     static_cast<void>(DrawGraphic(imageX, imageY, 214, image, 0, &descriptor));
     char buffer[128];
-    std::sprintf(buffer, "%7d", value(0xC34));
+    platform::FormatLegacyString_53B304(buffer, "%7d", value(0xC34));
     drawAt(buffer, 87, 120, 0);
-    std::sprintf(buffer, "%2d", ui::detail::gShopValueD046C4);
+    platform::FormatLegacyString_53B304(buffer, "%2d", ui::detail::gShopValueD046C4);
     drawAt(buffer, 82, 92, 0);
     drawAt(kLegacyQuantityUnit5889A4, 155, 120, 4);
     const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
@@ -6017,13 +6017,13 @@ std::uintptr_t Sub_4D55C0(const std::int32_t opened)
         const std::int32_t group = ui::detail::gShopValueD672D4;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    std::sprintf(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
+    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopValueCAFEA4 != 0 ? available : value(0xC24));
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
-    std::sprintf(buffer, "%7d", ui::detail::gShopValueD046C4);
+    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopValueD046C4);
     drawAt(buffer, 463, 338, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
-    std::sprintf(buffer, "1/1");
+    platform::FormatLegacyString_53B304(buffer, "1/1");
     drawAt(buffer, 168, 43, 0);
     Sub_5035E0(&increase, 213, 1, gValueD69768, 0);
     Sub_5035E0(&decrease, 213, 1, gValueD69768, 0);

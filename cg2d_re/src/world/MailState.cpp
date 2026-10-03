@@ -2,6 +2,8 @@
 #include "WorldUpdateDependencies.hpp"
 
 #include "../LoginInputDependencies.hpp"
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
 
 #include "cg/Input.hpp"
 #include "cg/LegacyAudio.hpp"
@@ -1311,26 +1313,32 @@ void Sub_50F450(
 std::int32_t Sub_5348A0()
 {
     char path[1024];
-    std::sprintf(path, "bin\\%s", "category.dat");
-    std::FILE* const stream = std::fopen(path, "wb+");
+    platform::FormatLegacyString_53B304(
+        path, "bin\\%s", "category.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fwrite(&gCategory105FA10, sizeof(gCategory105FA10), 1, stream));
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::WriteLegacyStream_53C680(
+        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     return 1;
 }
 
 std::int32_t Sub_534910()
 {
     char path[1024];
-    std::sprintf(path, "bin\\%s", "category.dat");
-    std::FILE* const stream = std::fopen(path, "rb+");
+    platform::FormatLegacyString_53B304(
+        path, "bin\\%s", "category.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fread(&gCategory105FA10, sizeof(gCategory105FA10), 1, stream));
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::ReadLegacyStream_53BCCD(
+        &gCategory105FA10, static_cast<std::uint32_t>(sizeof(gCategory105FA10)), 1, stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     return 1;
 }
 
@@ -1365,26 +1373,32 @@ std::int32_t Sub_5345A0(const std::int32_t index)
 std::int32_t Sub_534770()
 {
     char path[1024];
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    std::FILE* const stream = std::fopen(path, "wb+");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "wb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fwrite(gProfiles1074938.data(), sizeof(gProfiles1074938), 1, stream));
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::WriteLegacyStream_53C680(
+        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     return 1;
 }
 
 std::int32_t Sub_5347F0()
 {
     char path[1024];
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
-    std::FILE* const stream = std::fopen(path, "rb+");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "profile.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "rb+");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fread(gProfiles1074938.data(), sizeof(gProfiles1074938), 1, stream));
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::ReadLegacyStream_53BCCD(
+        gProfiles1074938.data(), static_cast<std::uint32_t>(sizeof(gProfiles1074938)), 1, stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     const std::int16_t selected = login::gSelectedCharacterIndex;
     std::memcpy(
         &gCurrentProfile10738E8, &gProfiles1074938[selected],
@@ -1395,49 +1409,58 @@ std::int32_t Sub_5347F0()
 std::int32_t Sub_518CB0()
 {
     char path[128];
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    std::FILE* stream = std::fopen(path, "rb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
+    platform::LegacyFile* stream =
+        platform::OpenLegacyStream_53B2F1(path, "rb");
     if (stream == nullptr) {
         return Sub_519300();
     }
-    static_cast<void>(std::fread(
-        gMailStorageF7CA08.data(), 1, gMailStorageF7CA08.size(), stream));
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::ReadLegacyStream_53BCCD(
+        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(gMailStorageF7CA08.size()), stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
 
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    stream = std::fopen(path, "rb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
+    stream = platform::OpenLegacyStream_53B2F1(path, "rb");
     if (stream == nullptr) {
         return Sub_519550();
     }
-    static_cast<void>(std::fread(
-        gGuildMailStorageDE0B30.data(), 1, gGuildMailStorageDE0B30.size(), stream));
-    return std::fclose(stream);
+    static_cast<void>(platform::ReadLegacyStream_53BCCD(
+        gGuildMailStorageDE0B30.data(), 1,
+        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));
+    return platform::CloseLegacyStream_53B1D0(stream);
 }
 
 std::int32_t Sub_519300()
 {
     char path[128];
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
-    std::FILE* const stream = std::fopen(path, "wb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "mail.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fwrite(
-        gMailStorageF7CA08.data(), 1, gMailStorageF7CA08.size(), stream));
-    return std::fclose(stream);
+    static_cast<void>(platform::WriteLegacyStream_53C680(
+        gMailStorageF7CA08.data(), 1, static_cast<std::uint32_t>(gMailStorageF7CA08.size()), stream));
+    return platform::CloseLegacyStream_53B1D0(stream);
 }
 
 std::int32_t Sub_519550()
 {
     char path[128];
-    std::sprintf(path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
-    std::FILE* const stream = std::fopen(path, "wb");
+    platform::FormatLegacyString_53B304(
+        path, "%s\\%s", login::detail::ReadSelectedSavedDirectory(), "guildmail.dat");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1(path, "wb");
     if (stream == nullptr) {
         return 0;
     }
-    static_cast<void>(std::fwrite(
-        gGuildMailStorageDE0B30.data(), 1, gGuildMailStorageDE0B30.size(), stream));
-    return std::fclose(stream);
+    static_cast<void>(platform::WriteLegacyStream_53C680(
+        gGuildMailStorageDE0B30.data(), 1,
+        static_cast<std::uint32_t>(gGuildMailStorageDE0B30.size()), stream));
+    return platform::CloseLegacyStream_53B1D0(stream);
 }
 
 std::int32_t Sub_519290()

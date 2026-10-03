@@ -11107,7 +11107,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11603,6 +11603,54 @@
           "call_site": "0x533841",
           "source": "src/LoginSavedState.cpp",
           "symbol": "Sub_533730"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348E6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534956",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347CC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53484D",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D19",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D84",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51935C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x5195AC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550"
         }
       ]
     },
@@ -11813,7 +11861,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12163,6 +12211,54 @@
           "call_site": "0x5337DD",
           "source": "src/LoginSavedState.cpp",
           "symbol": "Sub_533730"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348C5",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534935",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347AB",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53482B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518CEB",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D56",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51933B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x51958B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550"
         }
       ]
     },
@@ -12473,7 +12569,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -12721,6 +12817,30 @@
           "call_site": "0x532F38",
           "source": "src/LoginSavedState.cpp",
           "symbol": "LoadSavedPhysicalRecord_532ED0"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534950",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x534847",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D13",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D7E",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
         }
       ]
     },
@@ -12749,7 +12869,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -12917,6 +13037,30 @@
           "call_site": "0x5337FB",
           "source": "src/LoginSavedState.cpp",
           "symbol": "Sub_533730"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348E0",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347C6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x519356",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x5195A6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550"
         }
       ]
     },
@@ -15286,7 +15430,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及22个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及30个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15333,7 +15477,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处共22点已接，其他1000点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处共30点已接，其他992点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -15479,6 +15623,54 @@
           "call_site": "0x5337CB",
           "source": "src/LoginSavedState.cpp",
           "symbol": "Sub_533730"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348B6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534926",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x53479C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53481C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518CDC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D47",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51932C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x51957C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550"
         }
       ],
       "business_format_evidence": [
@@ -26842,6 +27034,713 @@
       ],
       "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
       "boundary": "十槽依次筛active==1和原记录+6A/+37非零；复制510H记录、仅局部+37清33H再单字节0、52D310编码后格式化路径/wb+。打开失败退出整次保存，短写关闭后退出，写足关闭继续下槽；写后重读长度/U32比较、共享记录/标志/映射保持，不加保护、补写或成功清标记。CRT启动/文件内容/运行验收仍待。"
+    },
+    {
+      "original_entry": "0x5348A0",
+      "inventory_id": "F:001348A0",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x534905",
+      "instruction_count": 31,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_5348A0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4707B9",
+          "parent_entry": "0x503E80",
+          "relationship": "原近跳转入向"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348B6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348C5",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348E0",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x5348A0",
+          "call_site": "0x5348E6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5348A0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58F638",
+          "bytes": "63617465676f72792e64617400"
+        },
+        {
+          "address": "0x58F630",
+          "bytes": "62696e5c257300"
+        },
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "未清400H path格式化bin\\%s/category.dat，以wb+打开失败返0；成功写(13ED4H,1)唯一分类区，读写/关闭结果不改变返1。原布局/字段/加载初值保持，不转码、补写或新增失败门禁；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x534910",
+      "inventory_id": "F:00134910",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x534975",
+      "instruction_count": 31,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_534910"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4705E9",
+          "parent_entry": "0x4705D0",
+          "relationship": "原近跳转入向"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534926",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534935",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534950",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x534910",
+          "call_site": "0x534956",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534910",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58F638",
+          "bytes": "63617465676f72792e64617400"
+        },
+        {
+          "address": "0x58F630",
+          "bytes": "62696e5c257300"
+        },
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "未清400H path格式化bin\\%s/category.dat，以rb+打开失败返0；成功读(13ED4H,1)至同一分类区，短读字节不回滚，不预清目标；忽略读/关闭结果返1。原布局/共享生产消费保持，CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x534770",
+      "inventory_id": "F:00134770",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x5347EB",
+      "instruction_count": 36,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_534770"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45E7CA",
+          "parent_entry": "0x45E7B0",
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x4707B4",
+          "parent_entry": "0x503E80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x53479C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347AB",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347C6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x534770",
+          "call_site": "0x5347CC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_534770",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58F624",
+          "bytes": "70726f66696c652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "每次通过105C394→105C36C→1058698获取保存目录，未清400H path格式化%s\\%s/profile.dat；wb+失败返0，成功写(1050H,1)两份828H资料，忽略写/关闭结果返1。布局/当前角色资料/文本字节保持，不补写、转码或新门禁；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x5347F0",
+      "inventory_id": "F:001347F0",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x534891",
+      "instruction_count": 47,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_5347F0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x47062D",
+          "parent_entry": "0x470600"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53481C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53482B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x534847",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x5347F0",
+          "call_site": "0x53484D",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_5347F0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58F624",
+          "bytes": "70726f66696c652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "同源保存目录格式化%s\\%s/profile.dat，400H path未清；rb+失败返0，成功读(1050H,1)，忽略读/关闭结果，关闭后重新读取角色S16并复制其828H持久资料到10738E8，再返1。短读仍复制，不预清或回滚目标；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x518CB0",
+      "inventory_id": "F:00118CB0",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x518D94",
+      "instruction_count": 65,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_518CB0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51C5B5",
+          "parent_entry": "0x51C430"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518CDC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518CEB",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D13",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D19",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D47",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D56",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D7E",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x518CB0",
+          "call_site": "0x518D84",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_518CB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B6C4",
+          "bytes": "6d61696c2e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x58B6B4",
+          "bytes": "6775696c646d61696c2e64617400"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "未清80H path每次重读保存目录；先mail.dat/rb，失败调用519300并立即返回，不继续公会邮件。成功读(1,5DC00H)并关闭且忽略结果，再guildmail.dat/rb；失败调用519550并返回，成功读(1,139480H)后返回关闭S32结果。共享字节区不预清、短读不回滚，不增加拒绝/重试；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x519300",
+      "inventory_id": "F:00119300",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x51936C",
+      "instruction_count": 31,
+      "original_direct_reference_count": 17,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_519300"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x461526",
+          "parent_entry": "0x460FF0"
+        },
+        {
+          "address": "0x4707AA",
+          "parent_entry": "0x503E80"
+        },
+        {
+          "address": "0x4A3621",
+          "parent_entry": "0x4A3600"
+        },
+        {
+          "address": "0x4A367F",
+          "parent_entry": "0x4A3660"
+        },
+        {
+          "address": "0x4A462C",
+          "parent_entry": "0x4A4620"
+        },
+        {
+          "address": "0x4A5D42",
+          "parent_entry": "0x4A5970"
+        },
+        {
+          "address": "0x4A6003",
+          "parent_entry": "0x4A5970"
+        },
+        {
+          "address": "0x4A686D",
+          "parent_entry": "0x4A6450"
+        },
+        {
+          "address": "0x4A6A1A",
+          "parent_entry": "0x4A6450"
+        },
+        {
+          "address": "0x4EA390",
+          "parent_entry": "0x4EA1B0"
+        },
+        {
+          "address": "0x4EAC0A",
+          "parent_entry": "0x4EAAA0"
+        },
+        {
+          "address": "0x4EB47F",
+          "parent_entry": "0x4EB1C0"
+        },
+        {
+          "address": "0x4EBB7F",
+          "parent_entry": "0x4EBAA0"
+        },
+        {
+          "address": "0x50DD29",
+          "parent_entry": "0x50DC70"
+        },
+        {
+          "address": "0x518CF9",
+          "parent_entry": "0x518CB0"
+        },
+        {
+          "address": "0x52DEC0",
+          "parent_entry": "0x52DCE0"
+        },
+        {
+          "address": "0x52F763",
+          "parent_entry": "0x52F670"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51932C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51933B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x519356",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x519300",
+          "call_site": "0x51935C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519300",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B6C4",
+          "bytes": "6d61696c2e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "未清80H path同源目录格式化mail.dat/wb；打开失败沿原EAX0返0，成功写(1,5DC00H)忽略写返回后直接返回关闭S32结果。普通邮件共享字节区/清空接收消费保持，不替换为固定成功或增加短写门禁；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x519550",
+      "inventory_id": "F:00119550",
+      "status": "既有邮件/资料/分类本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x5195BC",
+      "instruction_count": 31,
+      "original_direct_reference_count": 16,
+      "sources": [
+        {
+          "path": "src/world/MailState.cpp",
+          "symbols": [
+            "Sub_519550"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46152B",
+          "parent_entry": "0x460FF0"
+        },
+        {
+          "address": "0x4707AF",
+          "parent_entry": "0x503E80"
+        },
+        {
+          "address": "0x4A3626",
+          "parent_entry": "0x4A3600"
+        },
+        {
+          "address": "0x4A3684",
+          "parent_entry": "0x4A3660"
+        },
+        {
+          "address": "0x4A4631",
+          "parent_entry": "0x4A4620"
+        },
+        {
+          "address": "0x4A5D47",
+          "parent_entry": "0x4A5970"
+        },
+        {
+          "address": "0x4A6008",
+          "parent_entry": "0x4A5970"
+        },
+        {
+          "address": "0x4A6872",
+          "parent_entry": "0x4A6450"
+        },
+        {
+          "address": "0x4A6A1F",
+          "parent_entry": "0x4A6450"
+        },
+        {
+          "address": "0x4EA395",
+          "parent_entry": "0x4EA1B0"
+        },
+        {
+          "address": "0x50E83E",
+          "parent_entry": "0x50E830",
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x50F242",
+          "parent_entry": "0x50F190"
+        },
+        {
+          "address": "0x518D64",
+          "parent_entry": "0x518CB0"
+        },
+        {
+          "address": "0x52E7BA",
+          "parent_entry": "0x52E650"
+        },
+        {
+          "address": "0x52F010",
+          "parent_entry": "0x52ED50"
+        },
+        {
+          "address": "0x532E5E",
+          "parent_entry": "0x50F280"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x51957C",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x51958B",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x5195A6",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x519550",
+          "call_site": "0x5195AC",
+          "source": "src/world/MailState.cpp",
+          "symbol": "Sub_519550",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B6B4",
+          "bytes": "6775696c646d61696c2e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md",
+        "doc/ui_windows/shared_runtime.md"
+      ],
+      "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
+      "boundary": "未清80H path同源目录格式化guildmail.dat/wb；打开失败沿原EAX0返0，成功写(1,139480H)忽略写返回后直接返回关闭S32结果。公会邮件共享字节区/接收/赠送/排序消费保持，不补写、保护或转码；CRT初始化和运行未验。"
     }
   ]
 }

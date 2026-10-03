@@ -16633,13 +16633,13 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     }
     char buffer[128];
     const std::uint32_t cursorMode = platform::gValueD67AE4;
-    std::sprintf(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, cursorNames[cursorMode != 0]);
     const std::int32_t cursorY = gLegacyMouseSettings585320.y;
     const std::int32_t cursorX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(cursorX + 62),
         static_cast<std::int16_t>(cursorY + 60), 2, 0, 0, buffer, 0, 0));
     const std::uint32_t moveMode = platform::gValueD67AE8;
-    std::sprintf(buffer, kLegacyMouse5535F8, moveNames[moveMode]);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, moveNames[moveMode]);
     const std::int32_t moveY = gLegacyMouseSettings585320.y;
     const std::int32_t moveX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(moveX + 31),
@@ -16647,7 +16647,7 @@ std::uint32_t Sub_4FE860(const std::int32_t opened)
     // 原54D4BC为F32 0x3DCCCCCD，不能改成double字面量0.1。
     const double speed = static_cast<double>(platform::gValue553438)
         * static_cast<double>(std::bit_cast<float>(std::uint32_t {0x3DCCCCCD}));
-    std::sprintf(buffer, kLegacyMouse58A80C, speed);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMouse58A80C, speed);
     const std::int32_t speedY = gLegacyMouseSettings585320.y;
     const std::int32_t speedX = gLegacyMouseSettings585320.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(speedX + 100),

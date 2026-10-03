@@ -11736,7 +11736,7 @@ void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
         static_cast<void>(GetBattleMPreviewHeader_439700(header.data()));
         std::size_t kind = 0;
         while (kind < kBattleMHeaders553E94.size()
-            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
         if (kind != 22) {
@@ -12329,7 +12329,7 @@ std::int32_t CheckBattleMParticipants_43B290(
     }
     std::size_t kind = 0;
     while (kind < kBattleMHeaders553E94.size()
-        && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+        && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
         ++kind;
     }
     if (kind < kBattleMHeaders553E94.size()) {
@@ -12429,7 +12429,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         } else {
             std::size_t kind = 0;
             while (kind < kBattleMHeaders553E94.size()
-                && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+                && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
                 ++kind;
             }
             if (kind < kBattleMHeaders553E94.size()) {
@@ -12589,7 +12589,7 @@ namespace {
     while (payload->remainingMessages5C > 0 && GetBattleMObjectHeader_423960(scene, header.data()) == 0) {
         std::size_t kind = 0;
         while (kind < kBattleMHeaders553E94.size()
-            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
         if (kind == kBattleMHeaders553E94.size()) {
@@ -19037,7 +19037,7 @@ void ParseBattleMRide_4239D0(YobiAction* const action)
         static_cast<void>(GetBattleMObjectHeader_423960(action, header.data()));
         std::size_t kind = 0;
         while (kind < kBattleMHeaders553E94.size()
-            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
         if (kind != 22) {
@@ -19750,7 +19750,7 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         payload->packetOffset64 = next;
         std::size_t kind = 0;
         while (kind < kBattleMHeaders553E94.size()
-            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
         if (kind < kBattleMHeaders553E94.size()) {
@@ -19827,7 +19827,7 @@ std::int32_t Sub_43BAA0()
         }
         std::size_t kind = 0;
         while (kind < kBattleMHeaders553E94.size()
-            && std::strstr(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
+            && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
         if (kind != 14 && kind != 20) {

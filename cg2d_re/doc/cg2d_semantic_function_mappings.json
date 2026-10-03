@@ -10473,7 +10473,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及提示命令一调用已接；其他52原引用及完整运行未闭合",
+      "status": "原66条子串查找直接本体及八个业务调用已接；其他45原引用及完整运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -10520,14 +10520,29 @@
             "Sub_50CE10"
           ],
           "relationship": "原50CEB1真实@MSG定位调用"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ParseBattleMRide_4239D0",
+            "DrainInactiveBattleMEvent",
+            "ScanBattleMRideParticipants_439770",
+            "CheckBattleMParticipants_43B290",
+            "DispatchBattleEvents_43B360",
+            "FinishBattleEvent_43B6C0",
+            "Sub_43BAA0",
+            "UpdateBattleEvent_427470"
+          ],
+          "relationship": "七实际原点的头表查找；42761D在已接入真实入口的失活辅助函数，不新建回调"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_network_dispatch.md"
+        "doc/cg2d_network_dispatch.md",
+        "doc/ui_windows/shared_battle.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中50CEB1一处已接，其他52及既有标准库关联未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处及战斗头表七处共八处已接，其他45及既有标准库关联未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -10540,6 +10555,75 @@
           "target_symbol": "StrStr_53BE40",
           "needle_bytes": "404d53473a00",
           "relationship": "53CADC扫描后在512B command定位@MSG:，返回借用指针+5才作2024B回传复制"
+        },
+        {
+          "parent_entry": "0x4239D0",
+          "call_site": "0x423A0C",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "ParseBattleMRide_4239D0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x427470",
+          "call_site": "0x42761D",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "DrainInactiveBattleMEvent",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持",
+          "entry_symbol": "UpdateBattleEvent_427470",
+          "source_call_chain": [
+            "UpdateBattleEvent_427470",
+            "PrepareBattleMExecution",
+            "DrainInactiveBattleMEvent"
+          ]
+        },
+        {
+          "parent_entry": "0x439770",
+          "call_site": "0x4397A2",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "ScanBattleMRideParticipants_439770",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x43B290",
+          "call_site": "0x43B2C1",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "CheckBattleMParticipants_43B290",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x43B360",
+          "call_site": "0x43B527",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "DispatchBattleEvents_43B360",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x43B6C0",
+          "call_site": "0x43B731",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "FinishBattleEvent_43B6C0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x43BAA0",
+          "call_site": "0x43BAD6",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "Sub_43BAA0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
         }
       ],
       "single_byte_tail_connection": {
@@ -10552,7 +10636,139 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行"
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行",
+      "battle_header_table_evidence": {
+        "address": "0x553E94",
+        "entry_count": 25,
+        "original_pointer_width": "W32",
+        "entries": [
+          {
+            "slot": "0x553E94",
+            "address": "0x553F60",
+            "bytes": "534b4c00"
+          },
+          {
+            "slot": "0x553E98",
+            "address": "0x553F5C",
+            "bytes": "45534300"
+          },
+          {
+            "slot": "0x553E9C",
+            "address": "0x553F58",
+            "bytes": "434c5200"
+          },
+          {
+            "slot": "0x553EA0",
+            "address": "0x553F54",
+            "bytes": "53555000"
+          },
+          {
+            "slot": "0x553EA4",
+            "address": "0x553F50",
+            "bytes": "504f5300"
+          },
+          {
+            "slot": "0x553EA8",
+            "address": "0x553F4C",
+            "bytes": "4d4f4e00"
+          },
+          {
+            "slot": "0x553EAC",
+            "address": "0x553F48",
+            "bytes": "45515500"
+          },
+          {
+            "slot": "0x553EB0",
+            "address": "0x553F44",
+            "bytes": "49544d00"
+          },
+          {
+            "slot": "0x553EB4",
+            "address": "0x553F40",
+            "bytes": "434d4200"
+          },
+          {
+            "slot": "0x553EB8",
+            "address": "0x553F3C",
+            "bytes": "50534e00"
+          },
+          {
+            "slot": "0x553EBC",
+            "address": "0x553F38",
+            "bytes": "414e5200"
+          },
+          {
+            "slot": "0x553EC0",
+            "address": "0x553F34",
+            "bytes": "50554500"
+          },
+          {
+            "slot": "0x553EC4",
+            "address": "0x553F30",
+            "bytes": "41435400"
+          },
+          {
+            "slot": "0x553EC8",
+            "address": "0x553F2C",
+            "bytes": "43465000"
+          },
+          {
+            "slot": "0x553ECC",
+            "address": "0x553F28",
+            "bytes": "43485400"
+          },
+          {
+            "slot": "0x553ED0",
+            "address": "0x553F24",
+            "bytes": "504e4f00"
+          },
+          {
+            "slot": "0x553ED4",
+            "address": "0x553F20",
+            "bytes": "504c5600"
+          },
+          {
+            "slot": "0x553ED8",
+            "address": "0x553F1C",
+            "bytes": "43424300"
+          },
+          {
+            "slot": "0x553EDC",
+            "address": "0x553F18",
+            "bytes": "50444e00"
+          },
+          {
+            "slot": "0x553EE0",
+            "address": "0x553F14",
+            "bytes": "52454200"
+          },
+          {
+            "slot": "0x553EE4",
+            "address": "0x553F10",
+            "bytes": "42535400"
+          },
+          {
+            "slot": "0x553EE8",
+            "address": "0x553F0C",
+            "bytes": "474d4e00"
+          },
+          {
+            "slot": "0x553EEC",
+            "address": "0x553F08",
+            "bytes": "52494400"
+          },
+          {
+            "slot": "0x553EF0",
+            "address": "0x553F04",
+            "bytes": "44534b00"
+          },
+          {
+            "slot": "0x553EF4",
+            "address": "0x553F00",
+            "bytes": "454e4400"
+          }
+        ]
+      }
     },
     {
       "original_entry": "0x53C2F0",
@@ -42051,7 +42267,7 @@
     {
       "original_entry": "0x43B6C0",
       "inventory_id": "F:0003B6C0",
-      "status": "既有事件推进三字节复制已接真实核心；其余依赖及完整运行未验",
+      "status": "既有事件推进三字节复制已接真实核心；其余依赖及完整运行未验；本步M头表查找亦接真实子串核心",
       "original_end_exclusive": "0x43B7EB",
       "instruction_count": 109,
       "original_direct_reference_count": 94,
@@ -42081,8 +42297,19 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/ui_windows/shared_battle.md"
       ],
-      "verification_level": "完整109条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行",
-      "boundary": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。",
+      "verification_level": "完整109条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行；本步查找相邻28条与25项原头字节/实际参数，七标识符整份限定差异静态核对，未执行",
+      "boundary": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。 本步0x43B731头表查找接真实53BE40，原25项/3B头/首次匹配或失配时旧phase及后续计数/初始化/动作保持；整份YobiRuntime只七查找标识符替换，不重验父其余正文或上游全链。",
+      "search_call_connections": [
+        {
+          "parent_entry": "0x43B6C0",
+          "call_site": "0x43B731",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "FinishBattleEvent_43B6C0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
       "inbound_reference_groups": [
         {
           "parent_entry": "0x4239D0",
@@ -42869,6 +43096,323 @@
           "bytes": "404d53473a00"
         }
       ]
+    },
+    {
+      "original_entry": "0x4239D0",
+      "inventory_id": "F:000239D0",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4242A4",
+      "instruction_count": 595,
+      "original_direct_reference_count": 13,
+      "original_direct_call_reference_count": 13,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ParseBattleMRide_4239D0"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4239D0",
+          "call_site": "0x423A0C",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "ParseBattleMRide_4239D0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x427470",
+          "is_code": true,
+          "reference_type": 17,
+          "reference_count": 13,
+          "reference_sites": [
+            "0x427EB3",
+            "0x429E63",
+            "0x42B26E",
+            "0x42B5EC",
+            "0x42BE98",
+            "0x42CB4A",
+            "0x42EB1E",
+            "0x431C84",
+            "0x4340EA",
+            "0x434E9F",
+            "0x435727",
+            "0x435787",
+            "0x4369E5"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或解除其待决"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父595条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x427470",
+      "inventory_id": "F:00027470",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x437AD3",
+      "instruction_count": 17298,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleEvent_427470",
+            "PrepareBattleMExecution",
+            "DrainInactiveBattleMEvent"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x427470",
+          "call_site": "0x42761D",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "DrainInactiveBattleMEvent",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持",
+          "entry_symbol": "UpdateBattleEvent_427470",
+          "source_call_chain": [
+            "UpdateBattleEvent_427470",
+            "PrepareBattleMExecution",
+            "DrainInactiveBattleMEvent"
+          ]
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x43B610",
+          "is_code": false,
+          "reference_type": 1,
+          "reference_count": 1,
+          "reference_sites": [
+            "0x43B63D"
+          ],
+          "relationship": "原函数地址取用/回调绑定data xref，非直接call，不按入向数判全链"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。",
+      "callback_address_evidence": [
+        {
+          "reference_site": "0x43B63D",
+          "target_entry": "0x427470",
+          "instruction": "mov",
+          "destination": "dword ptr [edi+8]",
+          "relationship": "原向对象+8写函数地址，data xref；当前同一callback赋值保持，不增加直接call"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x439770",
+      "inventory_id": "F:00039770",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x439914",
+      "instruction_count": 140,
+      "original_direct_reference_count": 3,
+      "original_direct_call_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ScanBattleMRideParticipants_439770"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x439770",
+          "call_site": "0x4397A2",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "ScanBattleMRideParticipants_439770",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x439B30",
+          "is_code": true,
+          "reference_type": 17,
+          "reference_count": 3,
+          "reference_sites": [
+            "0x439BDC",
+            "0x439DF7",
+            "0x43A004"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或解除其待决"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父140条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x43B290",
+      "inventory_id": "F:0003B290",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x43B35A",
+      "instruction_count": 79,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CheckBattleMParticipants_43B290"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x43B290",
+          "call_site": "0x43B2C1",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "CheckBattleMParticipants_43B290",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x43B360",
+          "is_code": true,
+          "reference_type": 17,
+          "reference_count": 1,
+          "reference_sites": [
+            "0x43B4BC"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或解除其待决"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父79条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x43B360",
+      "inventory_id": "F:0003B360",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x43B60A",
+      "instruction_count": 203,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DispatchBattleEvents_43B360"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x43B360",
+          "call_site": "0x43B527",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "DispatchBattleEvents_43B360",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x4383B0",
+          "is_code": false,
+          "reference_type": 1,
+          "reference_count": 1,
+          "reference_sites": [
+            "0x4383C7"
+          ],
+          "relationship": "原函数地址取用/回调绑定data xref，非直接call，不按入向数判全链"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父203条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "原4383C7向对象+8写函数地址，既有分派回调绑定保持，非直接call。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。",
+      "callback_address_evidence": [
+        {
+          "reference_site": "0x4383C7",
+          "target_entry": "0x43B360",
+          "instruction": "mov",
+          "destination": "dword ptr [eax+8]",
+          "relationship": "原向对象+8写函数地址，data xref；当前同一callback赋值保持，不增加直接call"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x43BAA0",
+      "inventory_id": "F:0003BAA0",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x43BC0B",
+      "instruction_count": 107,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43BAA0"
+          ]
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x43BAA0",
+          "call_site": "0x43BAD6",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "Sub_43BAA0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x43CBB0",
+          "is_code": true,
+          "reference_type": 17,
+          "reference_count": 2,
+          "reference_sites": [
+            "0x43D209",
+            "0x43D330"
+          ],
+          "relationship": "原直接代码call枚举，不重验该父全文或解除其待决"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md"
+      ],
+      "verification_level": "父107条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
     }
   ]
 }

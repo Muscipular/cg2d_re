@@ -710,7 +710,7 @@ void Sub_50DC70(
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5191C0(index, 0, name, text);
     const char* const contactName = gContactsF19FB0[index].name10.data();
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         message, kind == -1 ? kReceivedMailFormat58B07C : kReceivedPetMailFormat58B064,
         contactName);
     static_cast<void>(Sub_519300());
@@ -834,7 +834,7 @@ void Sub_50F7F0(
     network::ExtractDelimitedField_52CED0(payload, '|', 2, 511, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(text);
     Sub_5343C0(index, 0, name, text);
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         message, kReceivedMiniMailFormat58B108,
         gMiniMailRuntime.contacts[index].name10.data());
     static_cast<void>(Sub_518DA0());
@@ -897,7 +897,7 @@ void Sub_50F9E0(const std::uintptr_t, const char* const payload)
     }
     Sub_5343C0(index, 0, timestamp, text);
     static_cast<void>(audio::PlaySe_52C450(63, 320));
-    std::sprintf(message, kReceivedMiniMailFormat58B108, record.name10.data());
+    platform::FormatLegacyString_53B304(message, kReceivedMiniMailFormat58B108, record.name10.data());
     Sub_44B050(message, 4, 3);
 }
 

@@ -17334,7 +17334,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及75个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及78个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17381,7 +17381,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处共75点已接，其他947点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处共78点已接，其他944点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17845,6 +17845,24 @@
           "call_site": "0x517590",
           "source": "src/network/NetworkRuntime.cpp",
           "symbol": "BuildProtocolCommand_517510"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464197",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x4641D4",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464221",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0"
         }
       ],
       "business_format_evidence": [
@@ -35691,6 +35709,117 @@
       ],
       "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
       "boundary": "既有非加密命令构造父只将变换后temp以58AA5C %s加尾空格输出到原借用buffer，返回忽略；原8B temp/命令拷贝/4038A0调用、后继密码长度/校验和状态/itoa16/不含NUL复制/W16长度/0返回逐字保持。83原入向只证明直接消费范围，不记所有caller/队列/发送已验收，不恢复403C50/403E50排除链。"
+    },
+    {
+      "original_entry": "0x4631D0",
+      "inventory_id": "F:000631D0",
+      "status": "既有创建页父的三数值格式已接真实核心；入口门禁/完整创建/画面运行未验",
+      "original_end_exclusive": "0x46428D",
+      "instruction_count": 1146,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_4631D0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x462770",
+          "parent_entry": "0x4626A0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464197",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x4641D4",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464221",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55CE0C",
+          "push_sites": [
+            "0x464191",
+            "0x4641CE",
+            "0x46421B"
+          ],
+          "bytes": "2530326400"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "read_site": "0x464182",
+          "address": "0x9A4D04",
+          "contract": "S8→S32提升，464197格式；518/185绘制"
+        },
+        {
+          "read_site": "0x4641C2",
+          "address": "0x9A5FD4",
+          "contract": "五连续字节逐轮S8→S32；46420A比较5/46420D回读，4641D4格式；479/(199+14*i)绘制"
+        },
+        {
+          "read_site": "0x46420F",
+          "address": "0x9A50C8",
+          "contract": "S8→S32提升，464221格式；518/293绘制"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x4641B8",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "格式后立即消费同一32B未清buffer；mode0/font13/color低U8 83H/两尾参数0与原循环次数保持"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464201",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "格式后立即消费同一32B未清buffer；mode0/font13/color低U8 83H/两尾参数0与原循环次数保持"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "call_site": "0x464242",
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "格式后立即消费同一32B未清buffer；mode0/font13/color低U8 83H/两尾参数0与原循环次数保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_character_select_scene.md"
+      ],
+      "verification_level": "完整父边界/1146指令统计/唯一入向及共同显示尾83条取证，三格式点/三个表达式与七动态显示、S8→S32/唯一格式/即刻绘制及整份源码/JSON限定差异静态核对；仅三格式，不重验其余创建本体/消费者内部，未执行",
+      "boundary": "同一32B未清局部的全部三格式改接真实53B304，原%02d/CreationSignedByte S32参数保持。中间五轮重读4B低字节与独立第五槽，原连续五字节别名、每轮格式/绘制及两端数值时点保持，不扩大字段或取无符号参数。原编辑/按钮/确认/输入/预览/元素与两背景、返回S32正文不改；只核新增显示格式接线，不放行4626A0待决入口gate、不记创建流程或画面运行已验收。"
     }
   ]
 }

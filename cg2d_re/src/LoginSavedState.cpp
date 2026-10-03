@@ -1,6 +1,8 @@
 #include "CharacterSelectSceneDependencies.hpp"
 #include "LoginInputDependencies.hpp"
 #include "LoginSceneDependencies.hpp"
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
 #include "ui/WindowRuntimeState.hpp"
 
 #include "cg/Input.hpp"
@@ -254,25 +256,27 @@ SavedPhysicalRecord gCurrentSavedRecord {};
     char path[0x400];
     std::uint8_t encoded[0xA20];
     std::int32_t decodedBytes;
-    std::sprintf(
+    cg::platform::FormatLegacyString_53B304(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "save.dat");
 
-    std::FILE* const file = std::fopen(path, "rb+");
+    cg::platform::LegacyFile* const file =
+        cg::platform::OpenLegacyStream_53B2F1(path, "rb+");
     if (file == nullptr) {
         return 0;
     }
 
-    const std::size_t bytesRead =
-        std::fread(encoded, 1, 0xA20, file);
-    if (std::ferror(file) != 0) {
-        std::fclose(file);
+    const std::uint32_t bytesRead =
+        cg::platform::ReadLegacyStream_53BCCD(encoded, 1, 0xA20, file);
+    // 原532F3F/532F45只读取flags低U8并测试20H错误位。
+    if ((*reinterpret_cast<const std::uint8_t*>(&file->flags) & 0x20u) != 0) {
+        cg::platform::CloseLegacyStream_53B1D0(file);
         return 0;
     }
 
-    std::fclose(file);
+    cg::platform::CloseLegacyStream_53B1D0(file);
     (void)DecodeLegacyBytes_52D460(
         encoded,
         static_cast<std::int32_t>(bytesRead),
@@ -383,12 +387,13 @@ SavedPhysicalRecord gCurrentSavedRecord {};
         &encodedBytes,
         0xA20);
 
-    std::FILE* const file = std::fopen(fileName, "wb+");
+    cg::platform::LegacyFile* const file =
+        cg::platform::OpenLegacyStream_53B2F1(fileName, "wb+");
     if (file == nullptr) {
         return 0;
     }
 
-    const std::size_t bytesWritten = std::fwrite(
+    const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
         encoded,
         1,
         static_cast<std::uint32_t>(encodedBytes),
@@ -397,7 +402,7 @@ SavedPhysicalRecord gCurrentSavedRecord {};
         return 0;
     }
 
-    std::fclose(file);
+    cg::platform::CloseLegacyStream_53B1D0(file);
     return 1;
 }
 
@@ -505,22 +510,23 @@ SavedPhysicalRecord gCurrentSavedRecord {};
 {
     char path[0x400];
     for (std::int32_t index = 0; index < 10; ++index) {
-        std::sprintf(
+        cg::platform::FormatLegacyString_53B304(
             path,
             "%s\\%s",
             gSavedState.paths[index].text,
             "save.dat");
-        std::FILE* const file = std::fopen(path, "rb+");
+        cg::platform::LegacyFile* const file =
+            cg::platform::OpenLegacyStream_53B2F1(path, "rb+");
         if (file != nullptr) {
-            std::fclose(file);
+            cg::platform::CloseLegacyStream_53B1D0(file);
             return 0;
         }
     }
 
-    std::FILE* const legacyFile =
-        std::fopen("data\\save.dat", "rb+");
+    cg::platform::LegacyFile* const legacyFile =
+        cg::platform::OpenLegacyStream_53B2F1("data\\save.dat", "rb+");
     if (legacyFile != nullptr) {
-        std::fclose(legacyFile);
+        cg::platform::CloseLegacyStream_53B1D0(legacyFile);
         return 1;
     }
     return 2;
@@ -657,15 +663,16 @@ std::int32_t PersistCurrentSavedRecord_520200()
     const std::int32_t selected = gSavedState.selected;
     const std::int32_t physicalSlot =
         gSavedState.logicalToPhysical[selected];
-    std::sprintf(
+    cg::platform::FormatLegacyString_53B304(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "save.dat");
 
-    std::FILE* const file = std::fopen(path, "wb+");
+    cg::platform::LegacyFile* const file =
+        cg::platform::OpenLegacyStream_53B2F1(path, "wb+");
     std::int32_t result = file != nullptr ? 1 : 0;
-    const std::size_t bytesWritten = std::fwrite(
+    const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
         encoded,
         1,
         static_cast<std::uint32_t>(encodedBytes),
@@ -675,7 +682,7 @@ std::int32_t PersistCurrentSavedRecord_520200()
     if (bytesWritten < expectedBytes) {
         result = 0;
     }
-    std::fclose(file);
+    cg::platform::CloseLegacyStream_53B1D0(file);
     (void)StoreCurrentRecordToSelectedPhysical_533700();
     return result;
 }
@@ -1264,18 +1271,19 @@ void Sub_533730()
             encoded,
             &encodedBytes,
             0xA20);
-        std::sprintf(
+        cg::platform::FormatLegacyString_53B304(
             path,
             "%s\\%s",
             gSavedState.paths[physicalSlot].text,
             "save.dat");
 
-        std::FILE* const file = std::fopen(path, "wb+");
+        cg::platform::LegacyFile* const file =
+            cg::platform::OpenLegacyStream_53B2F1(path, "wb+");
         if (file == nullptr) {
             return;
         }
 
-        const std::size_t bytesWritten = std::fwrite(
+        const std::uint32_t bytesWritten = cg::platform::WriteLegacyStream_53C680(
             encoded,
             1,
             static_cast<std::uint32_t>(encodedBytes),
@@ -1283,10 +1291,10 @@ void Sub_533730()
         const std::uint32_t expectedBytes =
             static_cast<std::uint32_t>(encodedBytes);
         if (bytesWritten < expectedBytes) {
-            std::fclose(file);
+            cg::platform::CloseLegacyStream_53B1D0(file);
             return;
         }
-        std::fclose(file);
+        cg::platform::CloseLegacyStream_53B1D0(file);
     }
 }
 

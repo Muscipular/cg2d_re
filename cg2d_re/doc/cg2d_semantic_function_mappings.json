@@ -11107,7 +11107,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11555,6 +11555,54 @@
           "call_site": "0x44A06F",
           "source": "src/Input.cpp",
           "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F4A",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F5E",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0"
+        },
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533184",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x53342C",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x533442",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x5202C5",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x53380C",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x533841",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730"
         }
       ]
     },
@@ -11765,7 +11813,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12079,6 +12127,42 @@
           "call_site": "0x449FCA",
           "source": "src/Input.cpp",
           "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F10",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0"
+        },
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533141",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x5333FB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x53341F",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x520292",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337DD",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730"
         }
       ]
     },
@@ -12389,7 +12473,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -12631,6 +12715,12 @@
           "call_site": "0x44A126",
           "source": "src/Input.cpp",
           "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F38",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0"
         }
       ]
     },
@@ -12659,7 +12749,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -12809,6 +12899,24 @@
           "call_site": "0x44A04F",
           "source": "src/Input.cpp",
           "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533168",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x5202B2",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337FB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730"
         }
       ]
     },
@@ -15178,7 +15286,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及18个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及22个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15225,7 +15333,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处共18点已接，其他1004点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处共22点已接，其他1000点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -15347,6 +15455,30 @@
           "call_site": "0x449FBB",
           "source": "src/Input.cpp",
           "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F01",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x5333EC",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x520280",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337CB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730"
         }
       ],
       "business_format_evidence": [
@@ -26180,6 +26312,536 @@
       ],
       "verification_level": "两父131条/2入向、17原调用对应15源码表达式、原路径/mode字节、传输尺寸与分支及限定源码差异静态核对；未执行",
       "boundary": "r+b失败返0；忽略seek(index*121H,BEGIN)结果，写(121H,1)不足1关闭返0；成功才忽略seek(4840H,BEGIN)结果并写参数index的4B，关闭后按U32项数>=1返回0/1。无索引/容量/失败保护，原文件块与尾字段W32保持，原回车调用不改；失败已写字节不回滚。"
+    },
+    {
+      "original_entry": "0x532ED0",
+      "inventory_id": "F:00132ED0",
+      "status": "既有登录存档本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x532FB9",
+      "instruction_count": 80,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "LoadSavedPhysicalRecord_532ED0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53347A",
+          "parent_entry": "0x533470"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F01",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F10",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F38",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F4A",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x532ED0",
+          "call_site": "0x532F5E",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "LoadSavedPhysicalRecord_532ED0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55D980",
+          "bytes": "736176652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_saved_state_storage.md",
+        "doc/cg2d_saved_state_loader.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
+      "boundary": "先写FF4E28为0、rb+失败返0；读取(1,A20H)后读取flags低U8/20H，错误先关闭返0，无错误先关闭再交52D460；保留decodedBytes==510H和首W32==7002H两判定。path/encoded/decodedBytes局部未补零，短读已写字节和记录不回滚，编解码/共享存储未变；启动、文件内容和运行验收仍待。",
+      "business_field_read_evidence": [
+        {
+          "address": "0x532F3F",
+          "test_address": "0x532F45",
+          "field": "LegacyFile::flags低U8",
+          "mask": "0x20",
+          "relationship": "原FILE+0C已按原生指针布局迁移为flags字段；非宿主ferror"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x532FC0",
+      "inventory_id": "F:00132FC0",
+      "status": "既有登录存档本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x53319A",
+      "instruction_count": 133,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "WriteDefaultSavedFile_532FC0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53331A",
+          "parent_entry": "0x533300"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533141",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533168",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x532FC0",
+          "call_site": "0x533184",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "WriteDefaultSavedFile_532FC0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_saved_state_storage.md",
+        "doc/cg2d_default_saved_file.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
+      "boundary": "既有默认510H记录构造、音频/显示标量采样和52D310编码保持；wb+失败返0，写(1,encodedBytes)后重读长度按U32比较，短写直接返0且不关闭，写足关闭返1。未创建目录、补写、重试或恢复音频；仅完整FILE接线，不代表完整启动或运行通过。"
+    },
+    {
+      "original_entry": "0x5333D0",
+      "inventory_id": "F:001333D0",
+      "status": "既有登录存档本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x533461",
+      "instruction_count": 43,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "ProbeSavedStateLocation_5333D0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x533305",
+          "parent_entry": "0x533300"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x5333EC",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x5333FB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x53341F",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x53342C",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x5333D0",
+          "call_site": "0x533442",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ProbeSavedStateLocation_5333D0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55D980",
+          "bytes": "736176652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        },
+        {
+          "address": "0x58F5B8",
+          "bytes": "646174615c736176652e64617400"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_saved_state_storage.md",
+        "doc/cg2d_saved_state_probe.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
+      "boundary": "依次探测十个共享paths下save.dat/rb+，首个打开成功先关闭返0；全部失败才探测data\\save.dat/rb+，成功关闭返1、失败返2。未清400H path、不转码或新增索引/容量保护；当前/旧位置及关闭次序保持，完整CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x520200",
+      "inventory_id": "F:00120200",
+      "status": "既有登录存档本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x5202DE",
+      "instruction_count": 68,
+      "original_direct_reference_count": 30,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "PersistCurrentSavedRecord_520200"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45C478",
+          "parent_entry": "0x45C2D0"
+        },
+        {
+          "address": "0x45C6CD",
+          "parent_entry": "0x45C5A0"
+        },
+        {
+          "address": "0x45F6C8",
+          "parent_entry": "0x45F190"
+        },
+        {
+          "address": "0x461350",
+          "parent_entry": "0x460FF0"
+        },
+        {
+          "address": "0x46279F",
+          "parent_entry": "0x4626A0"
+        },
+        {
+          "address": "0x493E31",
+          "parent_entry": "0x493E10"
+        },
+        {
+          "address": "0x4A1ED9",
+          "parent_entry": "0x4A1C30"
+        },
+        {
+          "address": "0x4A1FA0",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4A2041",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4A212C",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4A2240",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4A22EB",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4A2396",
+          "parent_entry": "0x4A1EF0"
+        },
+        {
+          "address": "0x4EBDF2",
+          "parent_entry": "0x4EBD20"
+        },
+        {
+          "address": "0x4FC777",
+          "parent_entry": null,
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x4FD1ED",
+          "parent_entry": "0x4FD1A0"
+        },
+        {
+          "address": "0x4FDC1D",
+          "parent_entry": "0x4FDBD0"
+        },
+        {
+          "address": "0x4FE140",
+          "parent_entry": "0x4FE0E0"
+        },
+        {
+          "address": "0x4FE8D5",
+          "parent_entry": "0x4FE860"
+        },
+        {
+          "address": "0x4FEF77",
+          "parent_entry": "0x4FEF30",
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x4FF200",
+          "parent_entry": "0x4FF1A0"
+        },
+        {
+          "address": "0x4FF51A",
+          "parent_entry": "0x4FF4C0"
+        },
+        {
+          "address": "0x503CF2",
+          "parent_entry": "0x503CD0",
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x51C951",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x51CCB6",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x51CEF1",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x51D012",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x5201A3",
+          "parent_entry": "0x520160",
+          "relationship": "原近跳转入向"
+        },
+        {
+          "address": "0x52C957",
+          "parent_entry": "0x52C910"
+        },
+        {
+          "address": "0x52F9E2",
+          "parent_entry": "0x52F910"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x520280",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x520292",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x5202B2",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x520200",
+          "call_site": "0x5202C5",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "PersistCurrentSavedRecord_520200",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55D980",
+          "bytes": "736176652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_saved_state_storage.md",
+        "doc/cg2d_current_saved_record_persist.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
+      "boundary": "复制当前510H记录、仅清局部+37的33H、52D310编码后重读selected/逻辑映射再格式化路径；wb+只决定初始结果，空流仍传fwrite，写后重读长度按U32判短写；无条件关闭后533700回写，最后返结果。不加null短路或保护，不宣称空流稳定失败结果；编解码、状态、磁盘布局保持，原CRT启动/文件内容/运行未验。"
+    },
+    {
+      "original_entry": "0x533730",
+      "inventory_id": "F:00133730",
+      "status": "既有登录存档本体及真实FILE完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x533854",
+      "instruction_count": 88,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "Sub_533730"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x464B29",
+          "parent_entry": "0x464840"
+        },
+        {
+          "address": "0x465775",
+          "parent_entry": "0x465740"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337CB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337DD",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x5337FB",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x53380C",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x533730",
+          "call_site": "0x533841",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "Sub_533730",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55D980",
+          "bytes": "736176652e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_saved_state_storage.md",
+        "doc/cg2d_saved_state_persist.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "五父412条/35直接入向、22个文件/格式调用及低U8错误读、原路径/mode含NUL字节、返回/关闭次序和限定源码差异静态核对；未执行",
+      "boundary": "十槽依次筛active==1和原记录+6A/+37非零；复制510H记录、仅局部+37清33H再单字节0、52D310编码后格式化路径/wb+。打开失败退出整次保存，短写关闭后退出，写足关闭继续下槽；写后重读长度/U32比较、共享记录/标志/映射保持，不加保护、补写或成功清标记。CRT启动/文件内容/运行验收仍待。"
     }
   ]
 }

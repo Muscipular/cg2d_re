@@ -33444,7 +33444,7 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
     char buffer[256];
     std::int32_t lines = 0;
     const auto appendValue = [&](const char* const format, const std::int32_t value) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         if (std::strlen(buffer) < 28) {
             std::strcat(buffer, "\n");
         }
@@ -33455,7 +33455,7 @@ WindowAnimationData* Sub_4F1800(const std::int32_t result, const char* const tex
         appendValue(kCraftExperience589820, gItemWorkExperienceC8A950);
     }
     if (gItemWorkLevelUpCB03D8 != 0 && lines < 8) {
-        std::sprintf(buffer, kCraftLevelUp589814);
+        platform::FormatLegacyString_53B304(buffer, kCraftLevelUp589814);
         gItemWorkDetailsD2DB00 += buffer;
         ++lines;
         static_cast<void>(audio::PlaySe_52C450(64, 320));

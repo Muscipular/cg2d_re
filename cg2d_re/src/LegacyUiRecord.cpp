@@ -2830,7 +2830,7 @@ std::uint32_t Sub_4E4EA0(const std::int32_t opened)
         const std::int32_t currentPage = gLegacyTradeTargetPageCC3208;
         const std::int32_t pageCount = gLegacyTradeTargetPageCountCF46D0;
         char buffer[128];
-        std::sprintf(buffer, "%d/%d", currentPage + 1, pageCount);
+        platform::FormatLegacyString_53B304(buffer, "%d/%d", currentPage + 1, pageCount);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.x + 270),
             static_cast<std::int16_t>(gLegacyTradeTargetPanel582E08.y + 24), 2, 0, 0, buffer, 0, 0));
     }

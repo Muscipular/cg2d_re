@@ -5971,7 +5971,7 @@ void Sub_4AAB70(
     char buffer[256];
     const auto drawNumber = [&](const std::int32_t value, const char* const format,
                                 const std::int32_t dx, const std::int32_t dy) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
@@ -6019,7 +6019,7 @@ void Sub_4AB400(
                                 const std::int32_t dx, const std::int32_t dy) {
         std::int32_t value;
         std::memcpy(&value, record + offset, sizeof(value));
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),
@@ -6149,7 +6149,7 @@ std::int32_t Sub_4B0F20(
                                     const std::int32_t dx, const std::int32_t dy) {
             std::int32_t value;
             std::memcpy(&value, record + offset, sizeof(value));
-            std::sprintf(buffer, format, value);
+            platform::FormatLegacyString_53B304(buffer, format, value);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + dx)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + dy)),

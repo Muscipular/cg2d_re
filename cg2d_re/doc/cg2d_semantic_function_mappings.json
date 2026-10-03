@@ -17432,7 +17432,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及100个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及118个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17479,7 +17479,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处、删除3处及旧技能选择/学习/遗忘9处共100点已接，其他922点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。 旧技能4D6710/4D6A60/4D6EA0九原格式点接真实53B304及转义/非加密选择回传和即刻文字绘制；S32参数、六原格式/旧字节、16B/64B/256B未清局部、许可/逐行重读及原绘制/取样次序保持。只核新增格式差异，旧正文/图号衔接/旧表路由仍未闭合；业务点累计100，其他922个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处、删除3处及旧技能选择/学习/遗忘9处及旧买卖列表/确认18处共118点已接，其他904点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。 旧技能4D6710/4D6A60/4D6EA0九原格式点接真实53B304及转义/非加密选择回传和即刻文字绘制；S32参数、六原格式/旧字节、16B/64B/256B未清局部、许可/逐行重读及原绘制/取样次序保持。只核新增格式差异，旧正文/图号衔接/旧表路由仍未闭合；业务点累计100，其他922个原引用未计完成。 旧买卖4D9220/4DA580/4DAA40/4DBD30十八原格式点与既有十六表达式整链接真实53B304，卖出数量三互斥原点仍共用一表达式/动态一次；S32字段/索引差异、八原字节、128B/512B/32B缓冲、跨面板坐标/原色号与拼接/转义/回传/即刻绘制次序保持。只核新增格式差异，上游与旧表路由仍待；业务点累计118，其他904个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -18093,6 +18093,114 @@
           "call_site": "0x4D7351",
           "source": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4D6EA0"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4D9F78",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4D9FD6",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA105",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA165",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA1B7",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220"
+        },
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA6FF",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580"
+        },
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA87B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580"
+        },
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA8DC",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB741",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB79F",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB92A",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB975",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB9C9",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DBEAD",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DBFDB",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC04A",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC0DE",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC189",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30"
         }
       ],
       "business_format_evidence": [
@@ -18195,6 +18303,30 @@
         {
           "address": "0x588C48",
           "bytes": "b27ba662a7deafe0c4e6a8cfa5ceb671aabaa658ad70a1472532642f313000"
+        },
+        {
+          "address": "0x586D48",
+          "bytes": "25642f256400"
+        },
+        {
+          "address": "0x586874",
+          "bytes": "25647c256400"
+        },
+        {
+          "address": "0x5889F8",
+          "bytes": "7825326400"
+        },
+        {
+          "address": "0x588E4C",
+          "bytes": "abf9a6b3aaf7c342202025376420aaf7b9f42020c1cab652aaf7c342202025376420aaf7b9f400"
+        },
+        {
+          "address": "0x588F28",
+          "bytes": "2573282564817e25642900"
+        },
+        {
+          "address": "0x588F00",
+          "bytes": "abf9a6b3aaf7c342202025376420aaf7b9f4202020bde6a558aaf7c342202025376420aaf7b9f400"
         }
       ]
     },
@@ -36920,6 +37052,599 @@
       ],
       "verification_level": "父边界/438条统计/当前无直接或数据引用，格式相邻180条及额外8条循环指令取证，全部格式/原字节/S32参数/转义回传及显示消费者、整份源码三父仅九标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
       "boundary": "旧57四格式（选择、两逐行值、合计）均接真实53B304；16B回传与256B逐行/合计显示、S32参数及十五轮合法行先累计/名字/重读两值各自格式及绘制/图形次序保持，原99取消/CB01E0窄边界许可不改；其他正文逐字保持。 保留现有唯一预览/文本/表owner，不转码、清尾、补零、限长、钳制或新增异常保护；当前原入口无引用证据不判死代码，旧正文/独立图号衔接/旧表实际路由与生命周期/收发/画面仍未闭合，不记整个界面已验收。"
+    },
+    {
+      "original_entry": "0x4D9220",
+      "inventory_id": "F:000D9220",
+      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "original_end_exclusive": "0x4DA3F2",
+      "instruction_count": 1081,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D9220"
+          ]
+        }
+      ],
+      "inbound_evidence": [],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4D9F78",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4D9FD6",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA105",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA165",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4D9220",
+          "call_site": "0x4DA1B7",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D9220",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 5,
+      "business_byte_evidence": [
+        {
+          "address": "0x5889A8",
+          "push_sites": [
+            "0x4D9F72",
+            "0x4DA0FF",
+            "0x4DA15D"
+          ],
+          "bytes": "25376400"
+        },
+        {
+          "address": "0x553FB4",
+          "push_sites": [
+            "0x4D9FD0"
+          ],
+          "bytes": "25326400"
+        },
+        {
+          "address": "0x586D48",
+          "push_sites": [
+            "0x4DA1B1"
+          ],
+          "bytes": "25642f256400"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "field": "record+C24",
+          "width": "S32",
+          "contract": "原价格读取后%7d，保留价格色0/4及字体/层"
+        },
+        {
+          "field": "record+C28",
+          "width": "S32",
+          "contract": "上次绘制后重新读取选择数，%2d"
+        },
+        {
+          "field": "gold/C8AF6C/gold",
+          "width": "S32",
+          "contract": "金币先显示，之后单独采样合计与金币确定有符号超额色6/0，保留两次金币读取"
+        },
+        {
+          "field": "CC1A0C/D2D63C",
+          "width": "S32",
+          "contract": "页+1及页数依原参数次序，以%d/%d输出"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "call_site": "0x4D9FBA",
+          "format_call_site": "0x4D9F78",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DA003",
+          "format_call_site": "0x4D9FD6",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DA134",
+          "format_call_site": "0x4DA105",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DA193",
+          "format_call_site": "0x4DA165",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DA1E3",
+          "format_call_site": "0x4DA1B7",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/legacy_buy_list.md"
+      ],
+      "verification_level": "父边界/1081条统计/当前引用为空，格式相邻194条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+      "boundary": "买入列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer及每次即时绘制/原价格与合计色号保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。"
+    },
+    {
+      "original_entry": "0x4DA580",
+      "inventory_id": "F:000DA580",
+      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "original_end_exclusive": "0x4DA9F9",
+      "instruction_count": 351,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DA580"
+          ]
+        }
+      ],
+      "inbound_evidence": [],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA6FF",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA87B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DA580",
+          "call_site": "0x4DA8DC",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DA580",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 3,
+      "business_byte_evidence": [
+        {
+          "address": "0x586874",
+          "push_sites": [
+            "0x4DA6F9"
+          ],
+          "bytes": "25647c256400"
+        },
+        {
+          "address": "0x5889F8",
+          "push_sites": [
+            "0x4DA875"
+          ],
+          "bytes": "7825326400"
+        },
+        {
+          "address": "0x588E4C",
+          "push_sites": [
+            "0x4DA8D6"
+          ],
+          "bytes": "abf9a6b3aaf7c342202025376420aaf7b9f42020c1cab652aaf7c342202025376420aaf7b9f400"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "field": "index/record+C28",
+          "width": "S32",
+          "contract": "二十项used与selected非零时将列表index、选择数依序%d|%d；第二项起先加竖线，保留32B entry/512B连续buffer"
+        },
+        {
+          "field": "record+C28",
+          "width": "S32",
+          "contract": "x%2d显示选择数，紧凑两列，仅当前有效项"
+        },
+        {
+          "field": "C8AF6C/gold",
+          "width": "S32",
+          "contract": "先读total再gold，变参仍gold/total次序；原旧字节汇总及立即绘制"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "call_site": "0x4DA76A",
+          "format_call_site": "0x4DA6FF",
+          "target_entry": "0x52D2D0",
+          "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+          "relationship": "32B条目逐次strcat到512B前半区，确认只清原文首字节，全部拼接后转义至后半256B/容量255"
+        },
+        {
+          "call_site": "0x4DA7A7",
+          "format_call_site": "0x4DA6FF",
+          "target_entry": "0x512620",
+          "target_symbol": "Sub_512620",
+          "relationship": "按target/request/Y/X/socket采样、mode0回传，返回消费及随后关闭不改"
+        },
+        {
+          "call_site": "0x4DA8AA",
+          "format_call_site": "0x4DA87B",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DA90B",
+          "format_call_site": "0x4DA8DC",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/legacy_buy_confirmation.md"
+      ],
+      "verification_level": "父边界/351条统计/当前引用为空，格式相邻139条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+      "boundary": "买入确认三格式接真实53B304，二十有效项原列表index/selected拼接次序、32B entry与512B前后256B原文/转义、容量255/取样/mode0/关闭保持；选择数及旧编码汇总显示立即绘制。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。"
+    },
+    {
+      "original_entry": "0x4DAA40",
+      "inventory_id": "F:000DAA40",
+      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "original_end_exclusive": "0x4DBD23",
+      "instruction_count": 1175,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DAA40"
+          ]
+        }
+      ],
+      "inbound_evidence": [],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB741",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB79F",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB92A",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB975",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DAA40",
+          "call_site": "0x4DB9C9",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DAA40",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 5,
+      "business_byte_evidence": [
+        {
+          "address": "0x5889A8",
+          "push_sites": [
+            "0x4DB73B",
+            "0x4DB924",
+            "0x4DB96F"
+          ],
+          "bytes": "25376400"
+        },
+        {
+          "address": "0x553FB4",
+          "push_sites": [
+            "0x4DB799"
+          ],
+          "bytes": "25326400"
+        },
+        {
+          "address": "0x586D48",
+          "push_sites": [
+            "0x4DB9C3"
+          ],
+          "bytes": "25642f256400"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "field": "record+C24/C28",
+          "width": "S32",
+          "contract": "价格与选择数重新按原时点读取，%7d/%2d；价格色根据+C3C及选择数为6或0/7，原额外选择数采样保持"
+        },
+        {
+          "field": "gold/CF3FCC",
+          "width": "S32",
+          "contract": "分别%7d格式后各自立即绘制，未清128B共用buffer"
+        },
+        {
+          "field": "CF49FC/CA0ABC",
+          "width": "S32",
+          "contract": "原页+1及页数按%d/%d次序，不借买入页号"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "call_site": "0x4DB783",
+          "format_call_site": "0x4DB741",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DB7CB",
+          "format_call_site": "0x4DB79F",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DB959",
+          "format_call_site": "0x4DB92A",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DB9A6",
+          "format_call_site": "0x4DB975",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        },
+        {
+          "call_site": "0x4DB9F7",
+          "format_call_site": "0x4DB9C9",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/legacy_sell_list.md"
+      ],
+      "verification_level": "父边界/1175条统计/当前引用为空，格式相邻186条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+      "boundary": "卖出列表五格式接真实53B304，价格/选择数/gold/合计/页码的S32参数及%7d/%2d/%d/%d、128B未清buffer与每次即时绘制/原价格色6或0/7保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。"
+    },
+    {
+      "original_entry": "0x4DBD30",
+      "inventory_id": "F:000DBD30",
+      "status": "既有旧买卖父的全部格式已接真实核心；上游/旧表路由及完整运行未验",
+      "original_end_exclusive": "0x4DC28E",
+      "instruction_count": 439,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DBD30"
+          ]
+        }
+      ],
+      "inbound_evidence": [],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DBEAD",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DBFDB",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC04A",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC0DE",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4DBD30",
+          "call_site": "0x4DC189",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 3,
+      "business_byte_evidence": [
+        {
+          "address": "0x586874",
+          "push_sites": [
+            "0x4DBEA7"
+          ],
+          "bytes": "25647c256400"
+        },
+        {
+          "address": "0x588F28",
+          "push_sites": [
+            "0x4DBFD5",
+            "0x4DC044",
+            "0x4DC0D8"
+          ],
+          "bytes": "2573282564817e25642900"
+        },
+        {
+          "address": "0x588F00",
+          "push_sites": [
+            "0x4DC183"
+          ],
+          "bytes": "abf9a6b3aaf7c342202025376420aaf7b9f4202020bde6a558aaf7c342202025376420aaf7b9f400"
+        }
+      ],
+      "business_value_evidence": [
+        {
+          "field": "record+C2C/C28",
+          "width": "S32",
+          "contract": "卖出回传用记录内物品索引及选择数，避免换成列表index，32B/512B容量保持"
+        },
+        {
+          "field": "record+C40/C30/C38/C28",
+          "width": "S32/W32",
+          "contract": "100H优先，其次200H；+C30<=1直接复制名称，否则原%s(%d及81/7E字节%d)格式；两个数为+C38/C28"
+        },
+        {
+          "field": "record+C44或+1",
+          "width": "借用char*",
+          "contract": "100H借备注/色5，其他借名称/色1或0；两个标志分支用旧65坐标，普通用旧66，不复制owner"
+        },
+        {
+          "field": "CF3FCC/gold",
+          "width": "S32",
+          "contract": "先读total再gold，格式变参仍gold/total次序；旧字节汇总即时绘制"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "call_site": "0x4DBF0F",
+          "format_call_site": "0x4DBEAD",
+          "target_entry": "0x52D2D0",
+          "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+          "relationship": "32B条目逐次strcat到512B前半区，确认只清原文首字节，全部拼接后转义至后半256B/容量255"
+        },
+        {
+          "call_site": "0x4DBF4B",
+          "format_call_site": "0x4DBEAD",
+          "target_entry": "0x512620",
+          "target_symbol": "Sub_512620",
+          "relationship": "按target/request/Y/X/socket采样、mode0回传，返回消费及随后关闭不改"
+        },
+        {
+          "call_site": "0x4DC157",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "三互斥数量格式分支或直接复制分支最终共用4DC157；100H/200H借旧65坐标/色5或1，普通借旧66/色0，名称借用及返回保持",
+          "format_call_sites": [
+            "0x4DBFDB",
+            "0x4DC04A",
+            "0x4DC0DE"
+          ]
+        },
+        {
+          "call_site": "0x4DC1BA",
+          "format_call_site": "0x4DC189",
+          "target_entry": "0x456780",
+          "target_symbol": "DrawText_456780",
+          "relationship": "相应格式后立即消费原未清buffer；mode2/font0/原色号/末两参数0、坐标及其间调用/重读保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/legacy_sell_confirmation.md"
+      ],
+      "verification_level": "父边界/439条统计/当前引用为空，格式相邻296条及确认拼接/发送补充取证；全部原格式点/表达式关系/原字节/S32字段与消费者、整份源码四父仅十六标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或消费者内部，未执行",
+      "boundary": "卖出确认五原点对应三现有表达式全部接真实53B304；数量三个互斥原分支共用一表达式仍动态一次，名称/数值/持有<=1复制及跨面板坐标/色号保持。回传仍用+C2C物品索引，32B/512B缓冲与原拼接/转义/mode0/关闭保持，汇总原字段采样及即时绘制保持。 其余数量、分页、许可、预览、按钮、提示、音效调用、共享owner、指针与数值返回正文逐字不改；不新增清尾、补零、限长、转码、钳制或异常保护，不恢复暂停音频/包加解密。完整商品/图号/页数生产、旧表路由及真实输入/收发/画面仍未闭合，不记整个界面已运行验收。",
+      "business_format_branch_evidence": {
+        "source_expression_count": 1,
+        "format_address": "0x588F28",
+        "variants": [
+          {
+            "call_site": "0x4DBFDB",
+            "push_site": "0x4DBFD5",
+            "condition": "flags100H置位且+C30>1",
+            "name_source": "record+C44",
+            "color": 5,
+            "coordinate_owner": "582468/58246C旧65"
+          },
+          {
+            "call_site": "0x4DC04A",
+            "push_site": "0x4DC044",
+            "condition": "flags100H未置位且200H置位且+C30>1",
+            "name_source": "record+1",
+            "color": 1,
+            "coordinate_owner": "582468/58246C旧65"
+          },
+          {
+            "call_site": "0x4DC0DE",
+            "push_site": "0x4DC0D8",
+            "condition": "flags100H/200H均未置位且+C30>1",
+            "name_source": "record+1",
+            "color": 0,
+            "coordinate_owner": "5825F8/5825FC旧66"
+          }
+        ],
+        "relationship": "同一原格式/同一S32字段次序/同一buffer，既有共用表达式仅替换格式核心，不展开或重复执行；<=1的三个原复制分支保持"
+      }
     }
   ]
 }

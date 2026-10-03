@@ -13295,7 +13295,7 @@ std::uint32_t Sub_505170(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 212, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGemMaterialsPanel58AA60.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyGemMaterialsPanel58AA60.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -13475,12 +13475,12 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
                 if (duration < elapsed) {
                     const std::int32_t first = ui::detail::gSelectedSlotsCA0A90[0];
                     if (first >= 0) {
-                        std::sprintf(part, "%d|", first + 8);
+                        platform::FormatLegacyString_53B304(part, "%d|", first + 8);
                         std::strcpy(buffer, part);
                     }
                     const std::int32_t last = ui::detail::gSelectedSlotsCA0A90[5];
                     if (last >= 0) {
-                        std::sprintf(part, "%d", last + 8);
+                        platform::FormatLegacyString_53B304(part, "%d", last + 8);
                         std::strcat(buffer, part);
                     }
                     NullSub_509080();
@@ -13520,7 +13520,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
         static_cast<std::int16_t>(nameY), 2, 0, 0, name, 0, 0));
     const std::int32_t reduce = world::detail::gSkillsF1BAFC[skill].fpReduce;
     const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].techniques3C[0].value7C;
-    std::sprintf(buffer, "%4d", fp * reduce / 100);
+    platform::FormatLegacyString_53B304(buffer, "%4d", fp * reduce / 100);
     const std::int32_t costY = gLegacyGemExecutionPanel58AB28.y + 39;
     const std::int32_t costX = gLegacyGemExecutionPanel58AB28.x + 295;
     static_cast<void>(DrawText(static_cast<std::int16_t>(costX),
@@ -13534,7 +13534,7 @@ std::uint32_t Sub_505C20(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = ui::detail::gSelectionCountsD66E0C[slot];
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGemExecutionPanel58AB28.y + positions[slot][1] + 31;
                     const std::int32_t countX = gLegacyGemExecutionPanel58AB28.x + positions[slot][0] + 21;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),

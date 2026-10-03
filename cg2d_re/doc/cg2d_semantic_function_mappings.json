@@ -9616,7 +9616,7 @@
     {
       "original_entry": "0x53C9CF",
       "inventory_id": "F:0013C9CF",
-      "status": "六个宿主裸字节适配保持；新增原窄字符串内部原堆桥接，完整new/堆/运行未验",
+      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆接线已实现，完整new/堆/运行未验",
       "original_end_exclusive": "0x53C9DD",
       "instruction_count": 6,
       "sources": [
@@ -9638,6 +9638,14 @@
             "AllocateLegacyNarrowStringBytes_53C9CF"
           ],
           "relationship": "仅原窄字符串内部原堆字节块；真实53C3BE(enableHandler1)且与内部原堆释放配对，六裸适配保持"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyExceptionText_54B079",
+            "CopyConstructLegacyException_54B0B6"
+          ],
+          "relationship": "原异常对象两new点按原53C9CF只传(U32,1)给真实53C3BE，文本结果先发布且与同域释放配对"
         }
       ],
       "evidence_documents": [
@@ -9645,7 +9653,29 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。"
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。",
+      "exception_original_heap_connections": [
+        {
+          "parent_entry": "0x54B079",
+          "call_site": "0x54B090",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyExceptionText_54B079",
+          "target_entry": "0x53C9CF",
+          "target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "byte_count": "textBytes U32",
+          "enable_handler": 1
+        },
+        {
+          "parent_entry": "0x54B0B6",
+          "call_site": "0x54B0D8",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyException_54B0B6",
+          "target_entry": "0x53C9CF",
+          "target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "byte_count": "textBytes U32",
+          "enable_handler": 1
+        }
+      ]
     },
     {
       "original_entry": "0x53C3BE",
@@ -9750,7 +9780,7 @@
     {
       "original_entry": "0x53B4E7",
       "inventory_id": "F:0013B4E7",
-      "status": "六个宿主裸字节释放适配保持；新增窄字符串原堆释放桥接，完整delete/生命周期未验",
+      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆释放已接，完整delete/生命周期未验",
       "original_end_exclusive": "0x53B4F2",
       "instruction_count": 4,
       "sources": [
@@ -9772,6 +9802,14 @@
             "FreeLegacyNarrowStringBytes_53B4E7"
           ],
           "relationship": "仅548E4F的buffer-1原堆块，同域FreeLegacyHeapMemory_53C0A9；六宿主适配保持"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DestroyLegacyException_54B100",
+            "DeleteLegacyException_54B05D"
+          ],
+          "relationship": "原异常拥有文本/flag1对象两delete点按原53B4E7转53C0A9同域释放，不释放宿主裸适配块"
         }
       ],
       "evidence_documents": [
@@ -9779,7 +9817,29 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。"
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。",
+      "exception_original_heap_connections": [
+        {
+          "parent_entry": "0x54B100",
+          "call_site": "0x54B10F",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyException_54B100",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "condition": "原完整U32拥有标志非0",
+          "memory": "storage->text"
+        },
+        {
+          "parent_entry": "0x54B05D",
+          "call_site": "0x54B06D",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyException_54B05D",
+          "target_entry": "0x53B4E7",
+          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "condition": "先54B100，再flags低位1",
+          "memory": "storage"
+        }
+      ]
     },
     {
       "original_entry": "0x541A28",
@@ -13978,7 +14038,7 @@
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "既有复制入口/共享尾及7原调用已接；2原引用已批宿主承接，其他2异常对象原引用/完整父与运行未验",
+      "status": "既有复制入口/共享尾及9原调用已接；2原引用已批宿主承接，完整父与运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
       "sources": [
@@ -14024,6 +14084,14 @@
             "InitializeLegacyEnvironment_543F8E"
           ],
           "relationship": "543F8E原环境项复制544014；上游544294/53DE34生产片段已有，完整启动/退出仍待"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyExceptionText_54B079",
+            "CopyConstructLegacyException_54B0B6"
+          ],
+          "relationship": "54B079/54B0B6两个实际完整复制原点，异常文本与原堆配对；不改旧本体/已批宿主范围"
         }
       ],
       "evidence_documents": [
@@ -14033,7 +14101,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。 原547FE0/548161另列已批GetEnv私有父宿主承接，实际6原点保持；独立CRT启动/异常对象三未决不转为排除。；2026-10-04新增543F8E@544014环境项真实复制：两遍跳过首字节=项，逐项分配先写槽，失败沿错误9退出后原位置继续，未补保护/清目标；原块释放/清槽/末空槽/完成标志顺序保持。环境块544294生产与捕获片段同源；GetEnv既有std范围不改，完整启动/环境退出与异常对象仍未闭合。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。 原547FE0/548161另列已批GetEnv私有父宿主承接，实际6原点保持；独立CRT启动/异常对象三未决不转为排除。；2026-10-04新增543F8E@544014环境项真实复制：两遍跳过首字节=项，逐项分配先写槽，失败沿错误9退出后原位置继续，未补保护/清目标；原块释放/清槽/末空槽/完成标志顺序保持。环境块544294生产与捕获片段同源；GetEnv既有std范围不改，完整启动/环境退出与异常对象仍未闭合。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
@@ -14117,6 +14185,28 @@
           "source_expression": "cursor",
           "destination_expression": "*slot",
           "relationship": "长度+1后仅首字节非=项分配/先发布槽，失败错误9后原位置继续；实际复制后推进表槽，未加保护或清零"
+        },
+        {
+          "parent_entry": "0x54B079",
+          "call_site": "0x54B0A1",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyExceptionText_54B079",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "*sourceText",
+          "relationship": "仅原堆分配返回非空，已发布目标后重新读取源；目的仍用分配返回指针，不缓存前次源或清目标",
+          "destination_expression": "allocatedText"
+        },
+        {
+          "parent_entry": "0x54B0B6",
+          "call_site": "0x54B0EA",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyException_54B0B6",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "source->text",
+          "relationship": "仅原堆分配返回非空，已发布目标后重新读取源；目的仍用分配返回指针，不缓存前次源或清目标",
+          "destination_expression": "allocatedText"
         }
       ],
       "shared_tail_connection": {
@@ -14127,7 +14217,7 @@
         "target_symbol": "StrCpy_544DB0",
         "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
       },
-      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持；仅新增547FE0/548161的既有GetEnv宿主归属，6实际接线/共享尾保持；新543F8E完整71条/544294完整132条及启动2指令发布片段、两长度/一复制/实际Malloc与Free链、三槽引用/后端专用引用/系统块归属和x64表槽拓宽静态核对；既有核心/已接点不重验，未构建或执行",
+      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持；仅新增547FE0/548161的既有GetEnv宿主归属，6实际接线/共享尾保持；新543F8E完整71条/544294完整132条及启动2指令发布片段、两长度/一复制/实际Malloc与Free链、三槽引用/后端专用引用/系统块归属和x64表槽拓宽静态核对；既有核心/已接点不重验，未构建或执行；新54B079/54B0B6两个异常对象真实调用点与源重取/目标发布/原堆域和限定新增静态核对，核心/已接点未复检，未构建或执行",
       "native_delegated_copy_call_references": [
         {
           "parent_entry": "0x547E8A",
@@ -14825,7 +14915,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及12原调用已接；4原引用已批宿主承接，其他8原引用/完整父与运行未验",
+      "status": "既有长度核心及14原调用已接；4原引用已批宿主承接，其他6原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14893,6 +14983,14 @@
             "SplitLegacyNarrowString_549025"
           ],
           "relationship": "549043真实共享拆分长度，Tidy后读取保存旧缓冲"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyExceptionText_54B079",
+            "CopyConstructLegacyException_54B0B6"
+          ],
+          "relationship": "54B079/54B0B6两个实际长度原点，异常文本与原堆配对；不改旧本体/已批宿主范围"
         }
       ],
       "evidence_documents": [
@@ -14902,7 +15000,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -15036,9 +15134,31 @@
           "source_expression": "saved",
           "result_width": "U32",
           "relationship": "仅非0/FF共享标记，保存旧buffer/Tidy(true)后才真实U32长度；再assign旧指针/实际长度，不缓存旧字段length"
+        },
+        {
+          "parent_entry": "0x54B079",
+          "call_site": "0x54B089",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyExceptionText_54B079",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "*sourceText",
+          "relationship": "拥有文本路径真实U32长度+1先于原堆分配与目标发布，不猜空源或增保护",
+          "result_width": "U32"
+        },
+        {
+          "parent_entry": "0x54B0B6",
+          "call_site": "0x54B0D1",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyException_54B0B6",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "source->text",
+          "relationship": "拥有文本路径真实U32长度+1先于原堆分配与目标发布，不猜空源或增保护",
+          "result_width": "U32"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行",
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行；新54B079/54B0B6两个异常对象真实调用点与源重取/目标发布/原堆域和限定新增静态核对，核心/已接点未复检，未构建或执行",
       "native_delegated_length_call_references": [
         {
           "parent_entry": "0x54518B",
@@ -32017,7 +32137,7 @@
     {
       "original_entry": "0x54B05D",
       "inventory_id": "F:0014B05D",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
       "original_end_exclusive": "0x54B079",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
@@ -32027,16 +32147,79 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DeleteLegacyException_54B05D"
+          ],
+          "relationship": "原逐本体正常/分配空/借用/释放路径，真实原堆接口及原两槽方法表，未用宿主异常或固定成功替代"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DeleteLegacyException_54B05D",
+            "LegacyExceptionObject",
+            "LegacyExceptionMethodTable"
+          ],
+          "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "exception虚表数据引用；先54B100清理文本，再按标志低位1决定delete对象，返回原对象地址。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+      "boundary": "exception虚表数据引用；先54B100清理文本，再按标志低位1决定delete对象，返回原对象地址。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
+      "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyExceptionObject",
+        "original_consumed_range": "+00..+0B",
+        "native_size": 24,
+        "fields": {
+          "methods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生两槽方法表指针"
+          },
+          "text": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*，原堆拥有或借用"
+          },
+          "ownsText": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32完整原位型，不截为U8"
+          }
+        },
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+      },
+      "method_table": {
+        "original_address": "0x5501C8",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyExceptionMethods5501C8",
+        "native_type": "LegacyExceptionMethodTable",
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54B05D",
+            "target_symbol": "DeleteLegacyException_54B05D"
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54B116",
+            "target_symbol": "GetLegacyExceptionText_54B116"
+          }
+        ],
+        "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
+      }
     },
     {
       "original_entry": "0x54B079",
       "inventory_id": "F:0014B079",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
       "original_end_exclusive": "0x54B0B6",
       "instruction_count": 25,
       "original_direct_reference_count": 2,
@@ -32050,21 +32233,84 @@
           "parent_entry": "0x54A6D4"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyExceptionText_54B079"
+          ],
+          "relationship": "原逐本体正常/分配空/借用/释放路径，真实原堆接口及原两槽方法表，未用宿主异常或固定成功替代"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ConstructLegacyExceptionText_54B079",
+            "LegacyExceptionObject",
+            "LegacyExceptionMethodTable"
+          ],
+          "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
         "symbol": "__std_exception_copy / __std_exception_destroy"
+      },
+      "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyExceptionObject",
+        "original_consumed_range": "+00..+0B",
+        "native_size": 24,
+        "fields": {
+          "methods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生两槽方法表指针"
+          },
+          "text": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*，原堆拥有或借用"
+          },
+          "ownsText": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32完整原位型，不截为U8"
+          }
+        },
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+      },
+      "method_table": {
+        "original_address": "0x5501C8",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyExceptionMethods5501C8",
+        "native_type": "LegacyExceptionMethodTable",
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54B05D",
+            "target_symbol": "DeleteLegacyException_54B05D"
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54B116",
+            "target_symbol": "GetLegacyExceptionText_54B116"
+          }
+        ],
+        "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
       }
     },
     {
       "original_entry": "0x54B0B6",
       "inventory_id": "F:0014B0B6",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
       "original_end_exclusive": "0x54B100",
       "instruction_count": 31,
       "original_direct_reference_count": 3,
@@ -32082,21 +32328,84 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "CopyConstructLegacyException_54B0B6"
+          ],
+          "relationship": "原逐本体正常/分配空/借用/释放路径，真实原堆接口及原两槽方法表，未用宿主异常或固定成功替代"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "CopyConstructLegacyException_54B0B6",
+            "LegacyExceptionObject",
+            "LegacyExceptionMethodTable"
+          ],
+          "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
         "symbol": "__std_exception_copy / __std_exception_destroy"
+      },
+      "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyExceptionObject",
+        "original_consumed_range": "+00..+0B",
+        "native_size": 24,
+        "fields": {
+          "methods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生两槽方法表指针"
+          },
+          "text": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*，原堆拥有或借用"
+          },
+          "ownsText": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32完整原位型，不截为U8"
+          }
+        },
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+      },
+      "method_table": {
+        "original_address": "0x5501C8",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyExceptionMethods5501C8",
+        "native_type": "LegacyExceptionMethodTable",
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54B05D",
+            "target_symbol": "DeleteLegacyException_54B05D"
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54B116",
+            "target_symbol": "GetLegacyExceptionText_54B116"
+          }
+        ],
+        "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
       }
     },
     {
       "original_entry": "0x54B100",
       "inventory_id": "F:0014B100",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
       "original_end_exclusive": "0x54B116",
       "instruction_count": 7,
       "original_direct_reference_count": 15,
@@ -32162,21 +32471,84 @@
           "parent_entry": "0x54A8F3"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DestroyLegacyException_54B100"
+          ],
+          "relationship": "原逐本体正常/分配空/借用/释放路径，真实原堆接口及原两槽方法表，未用宿主异常或固定成功替代"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DestroyLegacyException_54B100",
+            "LegacyExceptionObject",
+            "LegacyExceptionMethodTable"
+          ],
+          "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。",
+      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
         "symbol": "__std_exception_copy / __std_exception_destroy"
+      },
+      "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyExceptionObject",
+        "original_consumed_range": "+00..+0B",
+        "native_size": 24,
+        "fields": {
+          "methods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生两槽方法表指针"
+          },
+          "text": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*，原堆拥有或借用"
+          },
+          "ownsText": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32完整原位型，不截为U8"
+          }
+        },
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+      },
+      "method_table": {
+        "original_address": "0x5501C8",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyExceptionMethods5501C8",
+        "native_type": "LegacyExceptionMethodTable",
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54B05D",
+            "target_symbol": "DeleteLegacyException_54B05D"
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54B116",
+            "target_symbol": "GetLegacyExceptionText_54B116"
+          }
+        ],
+        "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
       }
     },
     {
       "original_entry": "0x54B116",
       "inventory_id": "F:0014B116",
-      "status": "原异常对象或过滤叶全本体已取证；宿主差异与新端承接未验收",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
       "original_end_exclusive": "0x54B123",
       "instruction_count": 5,
       "original_direct_reference_count": 1,
@@ -32186,11 +32558,102 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "GetLegacyExceptionText_54B116"
+          ],
+          "relationship": "原逐本体正常/分配空/借用/释放路径，真实原堆接口及原两槽方法表，未用宿主异常或固定成功替代"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "GetLegacyExceptionText_54B116",
+            "LegacyExceptionObject",
+            "LegacyExceptionMethodTable"
+          ],
+          "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。"
+      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
+      "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyExceptionObject",
+        "original_consumed_range": "+00..+0B",
+        "native_size": 24,
+        "fields": {
+          "methods": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "原生两槽方法表指针"
+          },
+          "text": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*，原堆拥有或借用"
+          },
+          "ownsText": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32完整原位型，不截为U8"
+          }
+        },
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+      },
+      "method_table": {
+        "original_address": "0x5501C8",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyExceptionMethods5501C8",
+        "native_type": "LegacyExceptionMethodTable",
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54B05D",
+            "target_symbol": "DeleteLegacyException_54B05D"
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54B116",
+            "target_symbol": "GetLegacyExceptionText_54B116"
+          }
+        ],
+        "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
+      },
+      "null_text_fallback": {
+        "original_address": "0x5501D0",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyUnknownException5501D0",
+        "byte_count": 18,
+        "bytes": [
+          85,
+          110,
+          107,
+          110,
+          111,
+          119,
+          110,
+          32,
+          101,
+          120,
+          99,
+          101,
+          112,
+          116,
+          105,
+          111,
+          110,
+          0
+        ],
+        "loaded": true,
+        "nul": 0
+      }
     },
     {
       "original_entry": "0x54ACB7",

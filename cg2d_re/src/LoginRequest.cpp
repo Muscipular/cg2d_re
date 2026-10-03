@@ -7,6 +7,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "platform/LegacyFormat.hpp"
 #include "cg/world/SceneState.hpp"
 
 #include <cstring>
@@ -127,7 +128,8 @@ std::int32_t PollLoginRequest()
         return 0;
     }
 
-    std::memcpy(gRequestMessage, kRequestTimeoutMessage, sizeof(kRequestTimeoutMessage));
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        gRequestMessage, kRequestTimeoutMessage));
     return -1;
 }
 
@@ -199,8 +201,8 @@ std::int32_t Sub_508C90()
         return 0;
     }
 
-    std::memcpy(gRequestMessage, kLogoutTimeoutMessage,
-        sizeof(kLogoutTimeoutMessage));
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        gRequestMessage, kLogoutTimeoutMessage));
     return -1;
 }
 

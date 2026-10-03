@@ -3,6 +3,7 @@
 #include "cg/LoginRequest.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/MainLoop.hpp"
+#include "platform/LegacyFormat.hpp"
 
 #include <cstddef>
 #include <cstring>
@@ -63,7 +64,8 @@ std::int32_t PollCharacterDeletionRequest()
         return 0;
     }
 
-    std::memcpy(gRequestMessage, kRequestTimeoutMessage, sizeof(kRequestTimeoutMessage));
+    static_cast<void>(platform::FormatLegacyString_53B304(
+        gRequestMessage, kRequestTimeoutMessage));
     return -1;
 }
 

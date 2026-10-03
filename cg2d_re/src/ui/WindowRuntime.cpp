@@ -39036,7 +39036,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             } else {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                std::sprintf(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, "%+7d", experience);
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 13].data)->text, "%+7d", experience);
             }
         }
         const auto& names = world::detail::BorrowBattleResultNames();
@@ -39068,7 +39068,7 @@ std::int32_t Sub_4991C0(const std::int32_t value)
             if (level < maxLevel) {
                 WindowInstance* const window = gCurrentWindow;
                 const std::int32_t experience = result->value04;
-                std::sprintf(static_cast<WindowTextData*>(window->elements[row + 45].data)->text, "%+5d", experience);
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 45].data)->text, "%+5d", experience);
             } else {
                 std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[row + 45].data)->text, " --- ");
             }

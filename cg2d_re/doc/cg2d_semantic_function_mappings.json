@@ -11107,7 +11107,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11651,6 +11651,24 @@
           "call_site": "0x5195AC",
           "source": "src/world/MailState.cpp",
           "symbol": "Sub_519550"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9100",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9116",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        },
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C9161",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130"
         }
       ]
     },
@@ -11861,7 +11879,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12259,6 +12277,18 @@
           "call_site": "0x51958B",
           "source": "src/world/MailState.cpp",
           "symbol": "Sub_519550"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9071",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        },
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C913B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130"
         }
       ]
     },
@@ -12569,7 +12599,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -12841,6 +12871,12 @@
           "call_site": "0x518D7E",
           "source": "src/world/MailState.cpp",
           "symbol": "Sub_518CB0"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90CF",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
         }
       ]
     },
@@ -12869,7 +12905,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -13061,6 +13097,12 @@
           "call_site": "0x5195A6",
           "source": "src/world/MailState.cpp",
           "symbol": "Sub_519550"
+        },
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C915B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130"
         }
       ]
     },
@@ -13926,7 +13968,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原表按U32范围/FOPEN验证；stdout/stderr依序取2再1，句柄相同跳CloseHandle；其他再次get后关。成功失败均free_osfhnd并重读组指针清flags，保存的系统错误非0才映射/-1。保留非法errno9/DOS0；不借宿主fd表。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "原表按U32范围/FOPEN验证；stdout/stderr依序取2再1，句柄相同跳CloseHandle；其他再次get后关。成功失败均free_osfhnd并重读组指针清flags，保存的系统错误非0才映射/-1。保留非法errno9/DOS0；不借宿主fd表。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。 窗口存档4C90B3已接原低层表，长度查询后的关闭仍先于FILE错误检查，返回按原忽略；不混用宿主描述符。",
       "function_chunks": [
         {
           "start": "0x53D30A",
@@ -13953,12 +13995,20 @@
         "source_path": "lowio/close.cpp",
         "symbol": "_close",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90B3",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        }
+      ]
     },
     {
       "original_entry": "0x53D3BD",
       "inventory_id": "F:0013D3BD",
-      "status": "原读取/设备/长度本体及局部依赖已实现；打开及业务FILE迁移未闭合",
+      "status": "原描述符长度本体及唯一原业务调用已接；完整CRT启动/运行未验",
       "original_end_exclusive": "0x53D435",
       "instruction_count": 45,
       "original_direct_reference_count": 1,
@@ -13980,7 +14030,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原范围/FOPEN门禁，先lseek(CUR,0)，-1立即结束；否则lseek(END,0)，位置不同时尝试恢复并忽略恢复结果，返回END查询值。使用真实低W32定位及其状态副作用；窗口存档业务父调用尚未迁移，不改64位长度或恢复失败覆盖返回。",
+      "boundary": "原范围/FOPEN门禁，先lseek(CUR,0)，-1立即结束；否则lseek(END,0)，位置不同时尝试恢复并忽略恢复结果，返回END查询值。使用真实低W32定位及其状态副作用；窗口存档唯一原业务调用4C90A8已整链迁移，同一原描述符查询后先发布CC4238再关闭，不改64位长度或恢复失败覆盖返回。",
       "function_chunks": [
         {
           "start": "0x53D3BD",
@@ -13999,12 +14049,20 @@
         "source_path": "lowio/filelength.cpp",
         "symbol": "common_filelength",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90A8",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        }
+      ]
     },
     {
       "original_entry": "0x53D435",
       "inventory_id": "F:0013D435",
-      "status": "原描述符/FILE打开及长度调整本体已实现；初始化与业务迁移未闭合",
+      "status": "原描述符打开包装及唯一原业务调用已接；完整CRT启动/运行未验",
       "original_end_exclusive": "0x53D44C",
       "instruction_count": 7,
       "original_direct_reference_count": 1,
@@ -14026,7 +14084,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实sopen，三个参数均保持原字节/数值；窗口存档业务父调用仍待迁移。 calloc、批量读写、完整启动及业务迁移仍未闭合，未运行验收。",
+      "boundary": "固定share40H转真实sopen，三个参数保持原字节/数值；唯一原业务入向4C9098已在窗口存档整链内接入同一原低层表，102H/180H与第二次打开保持，不借宿主fd或替换为FILE内已有描述符。完整CRT初始化、模式3、其他业务FILE迁移及文件内容/运行验收仍待。",
       "function_chunks": [
         {
           "start": "0x53D435",
@@ -14045,7 +14103,15 @@
         "source_path": "lowio/open.cpp",
         "symbol": "common_open",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9098",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060"
+        }
+      ]
     },
     {
       "original_entry": "0x53D44C",
@@ -27741,6 +27807,190 @@
       ],
       "verification_level": "七父272条/39直接入向、32个CRT调用、原路径/mode含NUL字节、传输尺寸/短路/复制/返回次序及限定源码差异静态核对；未执行",
       "boundary": "未清80H path同源目录格式化guildmail.dat/wb；打开失败沿原EAX0返0，成功写(1,139480H)忽略写返回后直接返回关闭S32结果。公会邮件共享字节区/接收/赠送/排序消费保持，不补写、保护或转码；CRT初始化和运行未验。"
+    },
+    {
+      "original_entry": "0x4C9060",
+      "inventory_id": "F:000C9060",
+      "status": "既有窗口存档本体及真实FILE/描述符完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x4C9123",
+      "instruction_count": 65,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9060"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4705D5",
+          "parent_entry": "0x4705D0"
+        },
+        {
+          "address": "0x470600",
+          "parent_entry": "0x470600"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9071",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9098",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53D435",
+          "target_symbol": "OpenLegacyDescriptor_53D435"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90A8",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53D3BD",
+          "target_symbol": "GetLegacyDescriptorLength_53D3BD"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90B3",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53D30A",
+          "target_symbol": "CloseLegacyDescriptor_53D30A"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C90CF",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9100",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x4C9060",
+          "call_site": "0x4C9116",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9060",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        },
+        {
+          "address": "0x5884DC",
+          "bytes": "646174615c57696e536176654461746500"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "两父85条/4直接入向、十CRT调用及两处flags低U8/20H、双打开/长度发布/返回次序、原路径/mode字节与限定源码差异静态核对；未执行",
+      "boundary": "先默认回退再rb+打开，失败再次默认回退返0；成功另以102H/180H原低层描述符打开，成功查询长度先写CC4238再关闭描述符，长度-1也继续。两处flags低U8/20H检查中间读(1,521CH)且忽略项数；无错按版本13H、检查!=1、应用!=0顺序短路，不符默认回退后仍关闭FILE返1；描述符失败/错误位非零默认回退关闭返0。双打开不合并，不借宿主fd/FILE、不把EOF当错误；窗口数据/修补/回退/读取后缀保持，完整CRT与运行未验。",
+      "business_field_read_evidence": [
+        {
+          "address": "0x4C90B8",
+          "test_address": "0x4C90BE",
+          "field": "LegacyFile::flags低U8",
+          "mask": "0x20",
+          "relationship": "原FILE+0C；读取前检查"
+        },
+        {
+          "address": "0x4C90D4",
+          "test_address": "0x4C90DA",
+          "field": "LegacyFile::flags低U8",
+          "mask": "0x20",
+          "relationship": "原FILE+0C；读取后重新采样"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4C9130",
+      "inventory_id": "F:000C9130",
+      "status": "既有窗口存档本体及真实FILE/描述符完整接线已落位；完整CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x4C9170",
+      "instruction_count": 20,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4C9130"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4705F0",
+          "parent_entry": "0x4705F0"
+        },
+        {
+          "address": "0x4707A0",
+          "parent_entry": "0x503E80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C913B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C915B",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4C9130",
+          "call_site": "0x4C9161",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4C9130",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x5884F0",
+          "bytes": "77622b00"
+        },
+        {
+          "address": "0x5884DC",
+          "bytes": "646174615c57696e536176654461746500"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_runtime.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "两父85条/4直接入向、十CRT调用及两处flags低U8/20H、双打开/长度发布/返回次序、原路径/mode字节与限定源码差异静态核对；未执行",
+      "boundary": "先wb+打开；只有成功才4C92D0捕获同一521CH窗口存档区、写(1,521CH)并关闭，写/关闭结果忽略；失败不捕获或清存档区。所有路径保持S32返1，此值不是写盘成功证明，不增加报错、拒绝、补写或重试；窗口捕获宽度/次序及磁盘布局保持，完整CRT与运行未验。"
     }
   ]
 }

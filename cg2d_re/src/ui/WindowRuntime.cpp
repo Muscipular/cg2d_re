@@ -7,6 +7,8 @@
 #include "../LoginSceneDependencies.hpp"
 #include "../platform/MainLoopDependencies.hpp"
 #include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyLowio.hpp"
+#include "../platform/LegacyStdio.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
@@ -15172,30 +15174,34 @@ std::int32_t Sub_4C9170()
 std::int32_t Sub_4C9060()
 {
     static_cast<void>(Sub_4C9240());
-    std::FILE* const stream = std::fopen("data\\WinSaveDate", "rb+");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1("data\\WinSaveDate", "rb+");
     if (stream == nullptr) {
         static_cast<void>(Sub_4C9240());
         return 0;
     }
-    const int descriptor = ::_open(
-        "data\\WinSaveDate", _O_RDWR | _O_CREAT, _S_IREAD | _S_IWRITE);
+    const std::int32_t descriptor = platform::OpenLegacyDescriptor_53D435(
+        "data\\WinSaveDate", 0x102u, 0x180u);
     if (descriptor != -1) {
-        gWindowSavedLengthCC4238 = static_cast<std::int32_t>(::_filelength(descriptor));
-        static_cast<void>(::_close(descriptor));
-        if (std::ferror(stream) == 0) {
-            static_cast<void>(std::fread(&gWindowSavedDataD40B30, 1, 0x521C, stream));
-            if (std::ferror(stream) == 0) {
+        gWindowSavedLengthCC4238 =
+            platform::GetLegacyDescriptorLength_53D3BD(descriptor);
+        static_cast<void>(platform::CloseLegacyDescriptor_53D30A(descriptor));
+        // 原4C90B8/4C90D4均读取flags低U8，只有20H是错误。
+        if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) == 0) {
+            static_cast<void>(platform::ReadLegacyStream_53BCCD(
+                &gWindowSavedDataD40B30, 1, 0x521C, stream));
+            if ((*reinterpret_cast<const std::uint8_t*>(&stream->flags) & 0x20u) == 0) {
                 if (gWindowSavedDataD40B30.version != 0x13
                     || Sub_4C93A0() == 1 || Sub_4C9170() == 0) {
                     static_cast<void>(Sub_4C9240());
                 }
-                static_cast<void>(std::fclose(stream));
+                static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
                 return 1;
             }
         }
     }
     static_cast<void>(Sub_4C9240());
-    static_cast<void>(std::fclose(stream));
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     return 0;
 }
 
@@ -15242,11 +15248,13 @@ std::uint32_t Sub_4C92D0()
 
 std::int32_t Sub_4C9130()
 {
-    std::FILE* const stream = std::fopen("data\\WinSaveDate", "wb+");
+    platform::LegacyFile* const stream =
+        platform::OpenLegacyStream_53B2F1("data\\WinSaveDate", "wb+");
     if (stream != nullptr) {
         static_cast<void>(Sub_4C92D0());
-        static_cast<void>(std::fwrite(&gWindowSavedDataD40B30, 1, 0x521C, stream));
-        static_cast<void>(std::fclose(stream));
+        static_cast<void>(platform::WriteLegacyStream_53C680(
+            &gWindowSavedDataD40B30, 1, 0x521C, stream));
+        static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
     }
     return 1;
 }

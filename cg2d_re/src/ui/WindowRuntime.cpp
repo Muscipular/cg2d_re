@@ -24574,7 +24574,7 @@ std::int32_t Sub_4C0910(const std::int32_t index, const std::int32_t state)
     if ((state & 2) != 0) {
         std::array<char, 16> text;
         std::array<char, 16> escaped;
-        std::sprintf(text.data(), "%d", selected + 1);
+        platform::FormatLegacyString_53B304(text.data(), "%d", selected + 1);
         input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -24632,7 +24632,7 @@ std::int32_t Sub_4C0A50(const std::int32_t index, const std::int32_t state)
         gWindow54PetChoiceC8AA90 = selected;
         std::array<char, 16> text;
         std::array<char, 16> escaped;
-        std::sprintf(text.data(), "%d", selected);
+        platform::FormatLegacyString_53B304(text.data(), "%d", selected);
         input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -24734,7 +24734,7 @@ std::int32_t Sub_4C0CB0(const std::int32_t index, const std::int32_t state)
     gWindow54SelectedD2DC04 = selected;
     std::array<char, 16> text;
     std::array<char, 16> escaped;
-    std::sprintf(text.data(), "%d", selected);
+    platform::FormatLegacyString_53B304(text.data(), "%d", selected);
     input::EscapeLegacyTextAndNotify_52D2D0(text.data(), escaped.data(), 15);
     const std::int32_t target = world::detail::gDialogTargetD2DE6C;
     const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -24784,7 +24784,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         if ((buttons & 1u) != 0) {
             gCurrentWindow->elements[index].visible = 0;
             std::array<char, 16> requestText;
-            std::sprintf(requestText.data(), "%d", gWindow54ReplacementC8B08C);
+            platform::FormatLegacyString_53B304(requestText.data(), "%d", gWindow54ReplacementC8B08C);
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
             const std::int32_t y =
@@ -24832,12 +24832,12 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         "\xC1\xCA\xA4\x4A\xAA\xF7\xC3\x42\x20\x25\x37\x64\xAA\xF7\xB9\xF4";
     constexpr char question5882B0[] = "\xB3\x6F\xBC\xCB\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
     std::array<char, 256> buffer;
-    std::sprintf(buffer.data(), learnFormat588344,
+    platform::FormatLegacyString_53B304(buffer.data(), learnFormat588344,
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].name.data());
     std::int32_t width = login::detail::TextMeasure(buffer.data(), 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 130, 4, 0, 0, buffer.data(), 0, 0));
-    std::sprintf(buffer.data(), petFormat588338,
+    platform::FormatLegacyString_53B304(buffer.data(), petFormat588338,
         gWindow54PetOptionsD67448[gWindow54PetChoiceC8AA90].name.data());
     // 原第二行按固定16位示例名测宽，不按实际候选名测量。
     width = login::detail::TextMeasure(petMeasure588320, 0);
@@ -24845,7 +24845,7 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
         static_cast<std::int16_t>(320 - width / 2), 154, 4, 0, 0, buffer.data(), 0, 0));
     const Window54TechniqueSlot& slot = gWindow54TechniqueSlotsD66E38[gWindow54ReplacementC8B08C];
     if (slot.used != 0) {
-        std::sprintf(buffer.data(), slotFormat58830C, slot.name.data());
+        platform::FormatLegacyString_53B304(buffer.data(), slotFormat58830C, slot.name.data());
     } else {
         std::strcpy(buffer.data(), emptySlot5882F4);
     }
@@ -24855,9 +24855,9 @@ std::int32_t Sub_4C0F20(const std::int32_t index, const std::int32_t unusedState
     width = login::detail::TextMeasure(learnSuffix5882E8, 0);
     static_cast<void>(render::DrawText_456780(
         static_cast<std::int16_t>(320 - width / 2), 198, 4, 0, 0, learnSuffix5882E8, 0, 0));
-    std::sprintf(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer.data(), moneyFormat5882D4, world::detail::ReadPlayerValueFC());
     static_cast<void>(render::DrawText_456780(245, 230, 4, 0, 0, buffer.data(), 0, 0));
-    std::sprintf(buffer.data(), priceFormat5882C0,
+    platform::FormatLegacyString_53B304(buffer.data(), priceFormat5882C0,
         gWindow54SkillsD2EAB8[gWindow54SelectedD2DC04].price);
     static_cast<void>(render::DrawText_456780(245, 250, 4, 0, 0, buffer.data(), 0, 0));
     static_cast<void>(render::DrawText_456780(252, 282, 4, 0, 0, question5882B0, 0, 0));

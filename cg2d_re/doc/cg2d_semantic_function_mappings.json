@@ -11061,7 +11061,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及48个业务调用已接；其他5原引用及完整运行未闭合",
+      "status": "原66条子串核心及49业务点已接，另4沿既有newest范围排除；当前范围入口引用收口，完整父/CRT运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -11162,6 +11162,13 @@
             "Sub_4631D0"
           ],
           "relationship": "两名称查找原点以FF0D18先空格后8140再404060，入口gate与其他创建正文不改"
+        },
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ],
+          "relationship": "原541B59环境内模块路径动态needle真实调用，ASCII上转/API返回/借用selection与原后续保持"
         }
       ],
       "evidence_documents": [
@@ -11174,9 +11181,10 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_setup_ini.md",
         "doc/cg2d_sub_507140.md",
-        "doc/cg2d_character_select_scene.md"
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53；本步配置八处再接，合41/53；本步两悬停父四处再接，合45/53；本步创建名称两处与IP地址通知一处再接，合48/53，其他5原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。 配置八处只将返回用于原零/非零门禁，原窗口/活动前缀与四效果发布保持；整份父其余API/复制/比较/长度/预清/四格式逐字不动，不扩大配置或启动验收。 两悬停父均同址D68AE8先han后kok，四真实第二参数push/两含NUL字节保持；窗口截尾/字段发布与图像描述生产/字段/返回/鼠标层正文不变。原型main数据引用与两直接call分开登记，不扩大完整父/显示清理或画面验收。 角色名称保留空格/8140原字节短路与404060次序，地址通知动态第二needle/旧串非空/命中早返/提示后回写保持；两源码仅三个标识符/一个已有头，不批准gate或转记完整父运行。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53；本步配置八处再接，合41/53；本步两悬停父四处再接，合45/53；本步创建名称两处与IP地址通知一处再接，合48/53；本步堆选择541B59再接，合49实际已接，其他4仅沿既有newest父范围排除，原53入口引用在当前范围内完成接线/分类。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。 配置八处只将返回用于原零/非零门禁，原窗口/活动前缀与四效果发布保持；整份父其余API/复制/比较/长度/预清/四格式逐字不动，不扩大配置或启动验收。 两悬停父均同址D68AE8先han后kok，四真实第二参数push/两含NUL字节保持；窗口截尾/字段发布与图像描述生产/字段/返回/鼠标层正文不变。原型main数据引用与两直接call分开登记，不扩大完整父/显示清理或画面验收。 角色名称保留空格/8140原字节短路与404060次序，地址通知动态第二needle/旧串非空/命中早返/提示后回写保持；两源码仅三个标识符/一个已有头，不批准gate或转记完整父运行。 原50FC30@50FDC4/50FDEB及50FF70@5100D9/5100F2只登记R6.1.3.115–119既有排除，不计实现、不恢复或扩大范围；原53入口引用与49连接/4排除集合一致且互不交叠，不称所有父/完整CRT或运行验收。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -11790,6 +11798,17 @@
           "source_expression": "previous",
           "needle_expression": "text",
           "relationship": "原DA33D8非空时以第二入参动态needle查找，命中早返不回写；未命中原提示/警告/回写次序保持"
+        },
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B59",
+          "source": "src/platform/LegacyMemory.cpp",
+          "symbol": "SelectLegacyHeapMode_541A70",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "environment",
+          "needle_expression": "filename",
+          "relationship": "原ASCII上转后的1090H环境内查104H模块路径，返回借用selection；API失败局部/其他正文保持"
         }
       ],
       "single_byte_tail_connection": {
@@ -11802,7 +11821,7 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行；配置465A80八真实call/六不同字节与源快照/效果顺序、347统计112邻读取/唯一入向、父仅八标识符和已有头增量静态核对，原核心/声明保持，不重验其余235条或API/配置运行；悬停两父1029统计67邻读取、四实际查找call/两复用字节、原型结构main真实槽与源码窗口6绑定/两直接入向、两源码仅四标识符/一已有头静态核对；其余962条及已过核心不重验，未执行；两父1192统计40邻读取、三真实点/两含NUL needle/原第二入参text与源/短路次序、两源码限定差异与各唯一入向静态核对，其他1152条不重验，未执行",
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行；配置465A80八真实call/六不同字节与源快照/效果顺序、347统计112邻读取/唯一入向、父仅八标识符和已有头增量静态核对，原核心/声明保持，不重验其余235条或API/配置运行；悬停两父1029统计67邻读取、四实际查找call/两复用字节、原型结构main真实槽与源码窗口6绑定/两直接入向、两源码仅四标识符/一已有头静态核对；其余962条及已过核心不重验，未执行；两父1192统计40邻读取、三真实点/两含NUL needle/原第二入参text与源/短路次序、两源码限定差异与各唯一入向静态核对，其他1152条不重验，未执行；541A70两新查找原点/115统计24读取、四既有排除call及现总SPEC授权，原53代码入口引用与49已接+4排除集合分解/无遗漏无重复静态核对；核心/声明保持，不重验排除父/其他CRT/运行",
       "battle_header_table_evidence": {
         "address": "0x553E94",
         "entry_count": 25,
@@ -11934,12 +11953,50 @@
             "bytes": "454e4400"
           }
         ]
-      }
+      },
+      "excluded_search_call_references": [
+        {
+          "parent_entry": "0x50FC30",
+          "call_site": "0x50FDC4",
+          "target_entry": "0x53BE40",
+          "classification": "沿用户既有newest五函数范围排除，未实现",
+          "scope_reference": "plan/cg2d_full_reconstruction_plan.md",
+          "scope_requirement": "R6.1.3.115–119",
+          "relationship": "只登记原调用与已批父范围，不新增排除、不恢复或计作实现"
+        },
+        {
+          "parent_entry": "0x50FC30",
+          "call_site": "0x50FDEB",
+          "target_entry": "0x53BE40",
+          "classification": "沿用户既有newest五函数范围排除，未实现",
+          "scope_reference": "plan/cg2d_full_reconstruction_plan.md",
+          "scope_requirement": "R6.1.3.115–119",
+          "relationship": "只登记原调用与已批父范围，不新增排除、不恢复或计作实现"
+        },
+        {
+          "parent_entry": "0x50FF70",
+          "call_site": "0x5100D9",
+          "target_entry": "0x53BE40",
+          "classification": "沿用户既有newest五函数范围排除，未实现",
+          "scope_reference": "plan/cg2d_full_reconstruction_plan.md",
+          "scope_requirement": "R6.1.3.115–119",
+          "relationship": "只登记原调用与已批父范围，不新增排除、不恢复或计作实现"
+        },
+        {
+          "parent_entry": "0x50FF70",
+          "call_site": "0x5100F2",
+          "target_entry": "0x53BE40",
+          "classification": "沿用户既有newest五函数范围排除，未实现",
+          "scope_reference": "plan/cg2d_full_reconstruction_plan.md",
+          "scope_requirement": "R6.1.3.115–119",
+          "relationship": "只登记原调用与已批父范围，不新增排除、不恢复或计作实现"
+        }
+      ]
     },
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符查找直接本体及六个业务调用已接；其他19原引用及完整运行未闭合",
+      "status": "原89条字符核心及七业务点已接；其他18原引用及完整运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -11992,14 +12049,22 @@
             "StrStr_53BE40"
           ],
           "relationship": "原53BEAE到53C2F6单字节内部尾跳的具名函数桥接，不是新增原入口引用"
+        },
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ],
+          "relationship": "原541B67在借用selection查逗号低W8真实入口点，+1推进和原解析保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_command_options.md"
+        "doc/cg2d_command_options.md",
+        "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及本步参数四处共六处已接，其他19未计完成；既有LoginMessage的std::strchr仍仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处共七处已接，其他18未计完成；既有LoginMessage的std::strchr仍仅为标准字节关联。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，其他18原引用待接线分类，不扩大堆/CRT/运行验收。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -12068,9 +12133,21 @@
           "source_expression": "destination",
           "source_expression_group": "coordinate_alias_table_loop",
           "relationship": "同一别名单遍循环后Info表，查*后沿原扫描/正向复制"
+        },
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B67",
+          "source": "src/platform/LegacyMemory.cpp",
+          "symbol": "SelectLegacyHeapMode_541A70",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "selection",
+          "target_byte": 44,
+          "target_push_site": "0x541B64",
+          "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -22937,7 +23014,7 @@
     {
       "original_entry": "0x541A70",
       "inventory_id": "F:00141A70",
-      "status": "OS/环境/链接器版本选择本体及解析依赖已接；堆初始化/失败局部/运行未验",
+      "status": "堆模式选择本体/解析及两真实查找依赖已接；启动/布局/失败局部与运行未验",
       "original_end_exclusive": "0x541BB8",
       "instruction_count": 115,
       "original_direct_reference_count": 1,
@@ -22957,9 +23034,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。",
+      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。 本步541B59/541B67交真实53BE40/53C2F0，动态环境/filename借用定位及selection逗号后+1保持，整份LegacyMemory只两标识符。只补依赖，不接541BB8、改变分配器/初始化或放行未知mode3布局。",
       "function_chunks": [
         {
           "start": "0x541A70",
@@ -22972,7 +23050,32 @@
           "parent_entry": "0x541BB8"
         }
       ],
-      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行"
+      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行；本步115统计/24查找邻读取、真实动态源与needle/低W8逗号/借用返回+1和唯一541BD8入向、整份源码两标识符静态核对，余91条与其他内存正文不重验",
+      "search_call_connections": [
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B59",
+          "source": "src/platform/LegacyMemory.cpp",
+          "symbol": "SelectLegacyHeapMode_541A70",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "environment",
+          "needle_expression": "filename",
+          "relationship": "原ASCII上转后的1090H环境内查104H模块路径，返回借用selection；API失败局部/其他正文保持"
+        },
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B67",
+          "source": "src/platform/LegacyMemory.cpp",
+          "symbol": "SelectLegacyHeapMode_541A70",
+          "target_entry": "0x53C2F0",
+          "target_symbol": "StrChr_53C2F0",
+          "source_expression": "selection",
+          "target_byte": 44,
+          "target_push_site": "0x541B64",
+          "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
+        }
+      ]
     },
     {
       "original_entry": "0x541BB8",

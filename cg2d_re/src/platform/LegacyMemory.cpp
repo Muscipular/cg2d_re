@@ -80,10 +80,10 @@ std::int32_t SelectLegacyHeapMode_541A70()
                     *cursor = static_cast<char>(value - 0x20);
                 }
             }
-            selection = std::strstr(environment, filename);
+            selection = StrStr_53BE40(environment, filename);
         }
         if (selection != nullptr) {
-            char* const comma = std::strchr(selection, ',');
+            char* const comma = StrChr_53C2F0(selection, ',');
             if (comma != nullptr) {
                 char* const value = comma + 1;
                 for (char* cursor = value; *cursor != '\0'; ++cursor) {

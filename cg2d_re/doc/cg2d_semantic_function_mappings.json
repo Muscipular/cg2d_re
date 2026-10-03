@@ -11463,7 +11463,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。 自动地图缓存两父二十一原关闭点已整链迁移，现有时间采样/失败合循环对应动态路径仍恰关闭一次；成功时间先发布再关闭、缓存每次失败关闭返0与写端忽略结果保持。 日志十个原关闭点已整链迁移，日期两分支现有合并表达式保持动态一次；窗口66不清D67BB8，随后开流父仍重复关闭同槽，由真实flags清零承接，不再维护私有关闭状态。 WinMain465890已与argument.ini整链迁移，打开成功后EOF或容量退出均同源关闭一次；S32返回忽略，发布命令行仍在关闭之后，失败未开流不关闭。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。 自动地图缓存两父二十一原关闭点已整链迁移，现有时间采样/失败合循环对应动态路径仍恰关闭一次；成功时间先发布再关闭、缓存每次失败关闭返0与写端忽略结果保持。 日志十个原关闭点已整链迁移，日期两分支现有合并表达式保持动态一次；窗口66不清D67BB8，随后开流父仍重复关闭同槽，由真实flags清零承接，不再维护私有关闭状态。 WinMain465890已与argument.ini整链迁移，打开成功后EOF或容量退出均同源关闭一次；S32返回忽略，发布命令行仍在关闭之后，失败未开流不关闭。 截图4537FB探测关闭已整链迁移，每次成功打开只关闭一次，S32返回忽略后递增；空打开停止且不关闭，仍先完成全部探测再进入GDI捕获。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -12373,6 +12373,12 @@
           "call_site": "0x465890",
           "source": "src/platform/ClientEntry.cpp",
           "symbol": "WinMain"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537FB",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760"
         }
       ]
     },
@@ -12601,7 +12607,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。 自动地图缓存八原打开点已与原descriptor/stat/读取写入/关闭整链迁移，采样0/1/6为rb，缓存写wb/读rb；首必需时间失败终止，后两失败保留0。 聊天写入/系统/协议/现代66十个原打开点已与同源LegacyFile输出/读取/定位/flush/关闭整链迁移，r/a/w/a+/rt/a+t保持。写入共享volatile流和现代独立读取槽均直接保存原FILE槽；旧私有包装删除，原失败发布/无保护输出路径保持。 WinMain465814的r打开已与路径格式/S32读行/低U8 EOF/关闭整链迁移；局部同源LegacyFile，失败仍发布空命令行，不新增失败消息或门禁。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。 自动地图缓存八原打开点已与原descriptor/stat/读取写入/关闭整链迁移，采样0/1/6为rb，缓存写wb/读rb；首必需时间失败终止，后两失败保留0。 聊天写入/系统/协议/现代66十个原打开点已与同源LegacyFile输出/读取/定位/flush/关闭整链迁移，r/a/w/a+/rt/a+t保持。写入共享volatile流和现代独立读取槽均直接保存原FILE槽；旧私有包装删除，原失败发布/无保护输出路径保持。 WinMain465814的r打开已与路径格式/S32读行/低U8 EOF/关闭整链迁移；局部同源LegacyFile，失败仍发布空命令行，不新增失败消息或门禁。 截图4537EE的r探测已整链迁移，真实FILE为空即停止、不额外区分打开失败原因；非空先关闭再递增，全部1000成功才提示返回，256B未清路径/同源时间保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -13251,6 +13257,12 @@
           "call_site": "0x465814",
           "source": "src/platform/ClientEntry.cpp",
           "symbol": "WinMain"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537EE",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760"
         }
       ]
     },
@@ -17322,7 +17334,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及58个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及61个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17369,7 +17381,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处共58点已接，其他964点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处共61点已接，其他961点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17731,6 +17743,24 @@
           "call_site": "0x465805",
           "source": "src/platform/ClientEntry.cpp",
           "symbol": "WinMain"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537DF",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x453823",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x453B45",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760"
         }
       ],
       "business_format_evidence": [
@@ -34439,6 +34469,217 @@
           "access_type": 3
         }
       ]
+    },
+    {
+      "original_entry": "0x453760",
+      "inventory_id": "F:00053760",
+      "status": "既有截图父的文件/格式整链已接；GDI替换沿既有裁决，捕获/完整运行未验",
+      "original_end_exclusive": "0x453DE0",
+      "instruction_count": 491,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "TakeScreenshot_453760"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x503C99",
+          "parent_entry": "0x503C80"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537DF",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537EE",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x4537FB",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x453823",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x453760",
+          "call_site": "0x453B45",
+          "source": "src/render/SdlPresenter.cpp",
+          "symbol": "TakeScreenshot_453760",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 10,
+      "business_format_branch_evidence": [
+        {
+          "call_site": "0x453B45",
+          "source_expression_count": 6,
+          "relationship": "六原GDI格式push汇入同一原sprintf；新端沿既有六分支各一表达式，每次动态仍只格式化/输出一次",
+          "variants": [
+            {
+              "format_push_site": "0x453A2B",
+              "format_address": "0x556640",
+              "source_constant": "kScreenshotDcFailure556640",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            },
+            {
+              "format_push_site": "0x453A52",
+              "format_address": "0x55661C",
+              "source_constant": "kScreenshotBitmapFailure55661C",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            },
+            {
+              "format_push_site": "0x453A9D",
+              "format_address": "0x5565F8",
+              "source_constant": "kScreenshotBlitFailure5565F8",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            },
+            {
+              "format_push_site": "0x453ADB",
+              "format_address": "0x5565D4",
+              "source_constant": "kScreenshotDibFailure5565D4",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            },
+            {
+              "format_push_site": "0x453B2B",
+              "format_address": "0x5565BC",
+              "source_constant": "kScreenshotSuccess5565BC",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            },
+            {
+              "format_push_site": "0x453B38",
+              "format_address": "0x556598",
+              "source_constant": "kScreenshotWriteFailure556598",
+              "source": "src/render/SdlPresenter.cpp",
+              "symbol": "TakeScreenshot_453760"
+            }
+          ]
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x556598",
+          "push_sites": [
+            "0x453B38"
+          ],
+          "bytes": "89e63f82cc95db91b682c98eb8947382b582dc82b582bd28372981422825732900"
+        },
+        {
+          "address": "0x5565BC",
+          "push_sites": [
+            "0x453B2B"
+          ],
+          "bytes": "89e63f82f095db91b682b582dc82b582bd81422825732900"
+        },
+        {
+          "address": "0x5565D4",
+          "push_sites": [
+            "0x453ADB"
+          ],
+          "bytes": "89e63f82cc95db91b682c98eb8947382b582dc82b582bd2847342981422825732900"
+        },
+        {
+          "address": "0x5565F8",
+          "push_sites": [
+            "0x453A9D"
+          ],
+          "bytes": "89e63f82cc95db91b682c98eb8947382b582dc82b582bd2847332981422825732900"
+        },
+        {
+          "address": "0x55661C",
+          "push_sites": [
+            "0x453A52"
+          ],
+          "bytes": "89e63f82cc95db91b682c98eb8947382b582dc82b582bd2847322981422825732900"
+        },
+        {
+          "address": "0x556640",
+          "push_sites": [
+            "0x453A2B"
+          ],
+          "bytes": "89e63f82cc95db91b682c98eb8947382b582dc82b582bd2847312981422825732900"
+        },
+        {
+          "address": "0x5566F4",
+          "push_sites": [
+            "0x45381D"
+          ],
+          "bytes": "a4b5a4d1a477b867a4a3afe0a673a8faa7f3a668aabab565adb1a446a14300"
+        },
+        {
+          "address": "0x556714",
+          "push_sites": [
+            "0x4537D9"
+          ],
+          "bytes": "73637265656e73686f745c43472530326425303264253032645f253033642e626d7000"
+        },
+        {
+          "address": "0x556738",
+          "push_sites": [
+            "0x453786"
+          ],
+          "bytes": "73637265656e73686f7400"
+        },
+        {
+          "address": "0x554908",
+          "push_sites": [
+            "0x4537E8"
+          ],
+          "bytes": "7200"
+        }
+      ],
+      "business_native_alternative_evidence": [
+        {
+          "call_site": "0x4539B4",
+          "target_entry": "0x53B304",
+          "relationship": "Primary失败格式沿既有SDL至GDI替换保留证据，不恢复COM分支、不列本轮真实接线点"
+        },
+        {
+          "call_site": "0x453D8A",
+          "target_entry": "0x53B304",
+          "relationship": "Primary成功格式沿既有SDL至GDI替换保留证据，不列本轮真实接线点"
+        },
+        {
+          "call_site": "0x453DA9",
+          "target_entry": "0x53B304",
+          "relationship": "Primary写失败格式沿既有SDL至GDI替换保留证据，不列本轮真实接线点"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_sdl_presenter.md"
+      ],
+      "verification_level": "完整491条/唯一入向、五原调用对应十源码表达式、六GDI格式来源与十字符串272B含NUL及限定源码/JSON差异静态核对；仅文件/格式整链，未重验捕获/掩码/BMP/释放/节流，未执行",
+      "boundary": "公共文件前导及已批准GDI路径的原FILE/三原格式点统一真实核心；256B path未清、共享localtime每轮月/日/年重取、S32序号0至999、r失败即停止/非空close忽略结果后递增保持。满1000先1280B未清无参格式/消息后返回，不捕获。六GDI格式各256B未清message与同一path，动态一次；原字节/消息/分配/释放/失败残留与原BMP调用正文不改。SDL不提供Primary锁，沿既有GDI替换，不复刻Primary格式/故障；完整捕获/资源/像素输出/实际文件内容与运行验收仍待。"
     }
   ]
 }

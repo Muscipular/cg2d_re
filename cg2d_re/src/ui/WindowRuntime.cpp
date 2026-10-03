@@ -36876,7 +36876,7 @@ void Sub_4982C0()
         }
     }
     std::array<char, 16> buffer;
-    std::sprintf(buffer.data(), "%2d", remaining / 1000);
+    platform::FormatLegacyString_53B304(buffer.data(), "%2d", remaining / 1000);
     for (std::int32_t index = 0; index < 2; ++index) {
         if (buffer[index] != ' ') {
             const std::int32_t digit =
@@ -36887,7 +36887,7 @@ void Sub_4982C0()
     }
     if (gBattleModeFlag5ABFCC == 1) {
         const auto turn = std::bit_cast<std::int32_t>(gBattleTurnSnapshot5ABC08 + 1u);
-        std::sprintf(buffer.data(), "\xB2\xC4 %d \xA6\x5E\xA6\x58", turn);
+        platform::FormatLegacyString_53B304(buffer.data(), "\xB2\xC4 %d \xA6\x5E\xA6\x58", turn);
         static_cast<void>(render::DrawText3_456560(288, 180, 0, 4, buffer.data(), 0));
     }
 }

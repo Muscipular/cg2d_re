@@ -14878,11 +14878,11 @@ std::uintptr_t Sub_4FD6A0(const std::int32_t opened)
     } else if (hovered >= 0) {
         const std::int8_t currentPage = gLegacyPresetPanel5850C8.selected;
         if (currentPage == 0) {
-            std::sprintf(hint, kLegacyPresetNormal58A6A8, hovered + 1);
+            platform::FormatLegacyString_53B304(hint, kLegacyPresetNormal58A6A8, hovered + 1);
         } else if (currentPage == 1) {
-            std::sprintf(hint, kLegacyPresetCtrl58A68C, hovered + 1);
+            platform::FormatLegacyString_53B304(hint, kLegacyPresetCtrl58A68C, hovered + 1);
         } else if (currentPage == 2) {
-            std::sprintf(hint, kLegacyPresetShift58A66C, hovered + 1);
+            platform::FormatLegacyString_53B304(hint, kLegacyPresetShift58A66C, hovered + 1);
         }
     }
     return static_cast<std::uintptr_t>(Sub_503440(&gLegacyPresetPanel5850C8, 1));
@@ -16425,7 +16425,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
         return static_cast<std::uint32_t>(interaction);
     }
     char buffer[128];
-    std::sprintf(buffer, kLegacyChat553FB4, platform::gValue55463C);
+    platform::FormatLegacyString_53B304(buffer, kLegacyChat553FB4, platform::gValue55463C);
     const std::int32_t linesY = gLegacyChatSettings585000.y;
     const std::int32_t linesX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(linesX + 62),
@@ -16436,7 +16436,7 @@ std::uint32_t Sub_4FD1A0(const std::int32_t opened)
     const std::int32_t soundX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(soundX + 62),
         static_cast<std::int16_t>(soundY + 180), 2, 0, 0, buffer, 0, 0));
-    std::sprintf(buffer, kLegacyChat5531A4, platform::gValue554640);
+    platform::FormatLegacyString_53B304(buffer, kLegacyChat5531A4, platform::gValue554640);
     const std::int32_t rangeY = gLegacyChatSettings585000.y;
     const std::int32_t rangeX = gLegacyChatSettings585000.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(rangeX + 62),
@@ -16946,7 +16946,7 @@ std::uint32_t Sub_4FF1A0(const std::int32_t opened)
     }
     char buffer[128];
     const std::int32_t mode = std::bit_cast<std::int16_t>(platform::gScanlineSyncMode);
-    std::sprintf(buffer, kLegacyMouse5535F8, modeNames[mode]);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMouse5535F8, modeNames[mode]);
     const std::int32_t y = gLegacyScanlineSettings5854B0.y;
     const std::int32_t x = gLegacyScanlineSettings5854B0.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 31),

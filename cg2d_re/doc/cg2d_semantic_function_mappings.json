@@ -17334,7 +17334,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及61个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及71个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17381,7 +17381,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处共61点已接，其他961点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处共71点已接，其他951点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17761,6 +17761,66 @@
           "call_site": "0x453B45",
           "source": "src/render/SdlPresenter.cpp",
           "symbol": "TakeScreenshot_453760"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5083BD",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5083F6",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5084A4",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50850F",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50853A",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x508574",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x508669",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50879E",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360"
+        },
+        {
+          "parent_entry": "0x5082D0",
+          "call_site": "0x5082E9",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_5082D0"
+        },
+        {
+          "parent_entry": "0x508310",
+          "call_site": "0x508329",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_508310"
         }
       ],
       "business_format_evidence": [
@@ -34680,6 +34740,344 @@
       ],
       "verification_level": "完整491条/唯一入向、五原调用对应十源码表达式、六GDI格式来源与十字符串272B含NUL及限定源码/JSON差异静态核对；仅文件/格式整链，未重验捕获/掩码/BMP/释放/节流，未执行",
       "boundary": "公共文件前导及已批准GDI路径的原FILE/三原格式点统一真实核心；256B path未清、共享localtime每轮月/日/年重取、S32序号0至999、r失败即停止/非空close忽略结果后递增保持。满1000先1280B未清无参格式/消息后返回，不捕获。六GDI格式各256B未清message与同一path，动态一次；原字节/消息/分配/释放/失败残留与原BMP调用正文不改。SDL不提供Primary锁，沿既有GDI替换，不复刻Primary格式/故障；完整捕获/资源/像素输出/实际文件内容与运行验收仍待。"
+    },
+    {
+      "original_entry": "0x508360",
+      "inventory_id": "F:00108360",
+      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "original_end_exclusive": "0x5087FC",
+      "instruction_count": 339,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_508360"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45DB30",
+          "parent_entry": "0x45D990"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5083BD",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5083F6",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x5084A4",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50850F",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50853A",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x508574",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x508669",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50879E",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_format_argument_evidence": [
+        {
+          "call_site": "0x5083BD",
+          "source_format": "kServerInfoFailureMessage",
+          "format_address": "0x58AF74",
+          "value_argument_count": 0
+        },
+        {
+          "call_site": "0x5083F6",
+          "source_format": "kSocketFailureMessage",
+          "format_address": "0x58AF58",
+          "value_argument_count": 0
+        },
+        {
+          "call_site": "0x5084A4",
+          "source_format": "kServerAddressFailureFormat",
+          "format_address": "0x58AF38",
+          "value_argument_count": 1,
+          "value_contract": "serverAddress原字节"
+        },
+        {
+          "call_site": "0x50850F",
+          "source_format": "CONNECT ERROR=%d",
+          "format_address": "0x58AF24",
+          "value_argument_count": 1,
+          "value_contract": "已采样S32错误"
+        },
+        {
+          "call_site": "0x50853A",
+          "source_format": "kConnectFailureMessage",
+          "format_address": "0x58AF04",
+          "value_argument_count": 0
+        },
+        {
+          "call_site": "0x508574",
+          "source_format": "kConnectionTimeoutMessage",
+          "format_address": "0x58AEEC",
+          "value_argument_count": 0
+        },
+        {
+          "call_site": "0x508669",
+          "source_format": "kConnectExceptionMessage",
+          "format_address": "0x55C62C",
+          "value_argument_count": 0
+        },
+        {
+          "call_site": "0x50879E",
+          "source_format": "kLoginRejectedMessage",
+          "format_address": "0x58AED4",
+          "value_argument_count": 0
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58AF74",
+          "push_site": "0x5083B3",
+          "bytes": "a6f8aa41beb9aabaa657bad9a4a3a5bfbd54a14300"
+        },
+        {
+          "address": "0x58AF58",
+          "push_site": "0x5083EC",
+          "bytes": "baf4b8f4b371b054a8f3a977a15d544350a15ebff9bb7ea14300"
+        },
+        {
+          "address": "0x58AF38",
+          "push_site": "0x50849A",
+          "bytes": "b54caa6ba8fab16fa6f8aa41beb9aaba20495020a6eca77da1432825732900"
+        },
+        {
+          "address": "0x58AF24",
+          "push_site": "0x508509",
+          "bytes": "434f4e4e454354204552524f523d256400"
+        },
+        {
+          "address": "0x58AF04",
+          "push_site": "0x508530",
+          "bytes": "b54caa6bb67da96cb342b27abb50a6f8aa41beb9aabab373b1b5a14300"
+        },
+        {
+          "address": "0x58AEEC",
+          "push_site": "0x50856A",
+          "bytes": "bb50a6f8aa41beb9aabab373b1b5b94faec9a14300"
+        },
+        {
+          "address": "0x55C62C",
+          "push_site": "0x50865F",
+          "bytes": "b54caa6bb373a457a6f8aa41beb9a1432000"
+        },
+        {
+          "address": "0x58AED4",
+          "push_site": "0x50878E",
+          "bytes": "b54caa6bb56ea44aa14300"
+        }
+      ],
+      "business_log_connections": [
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50851C",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x44B5C0",
+          "target_symbol": "Sub_44B5C0",
+          "relationship": "既有真实系统日志FILE消费者；本轮仅改其文本生产者，调用/返回消费保持"
+        },
+        {
+          "parent_entry": "0x508360",
+          "call_site": "0x50863C",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "target_entry": "0x44B5C0",
+          "target_symbol": "Sub_44B5C0",
+          "relationship": "既有真实系统日志FILE消费者；本轮仅改其文本生产者，调用/返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
+      "boundary": "八格式全部接真实53B304；六无参提示恢复目标+原常量的两实参，去除宿主%s包装，IP失败仍带原serverAddress、CONNECT日志仍带已采样S32错误。DA34DC共享1024B目标不清余部/不新增owner；连接错误先格式日志/真实44B5C0/关闭/失败提示，地址/例外/拒绝先提示后关闭，原负返回/门禁/状态/600000超时以及socket/协议/adapter正文保持。局部栈/SDK布局沿既有适配，不转记原帧或完整登录已验收。"
+    },
+    {
+      "original_entry": "0x5082D0",
+      "inventory_id": "F:001082D0",
+      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "original_end_exclusive": "0x508310",
+      "instruction_count": 21,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_5082D0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x507F24",
+          "parent_entry": "0x507DF0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5082D0",
+          "call_site": "0x5082E9",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_5082D0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_format_argument_evidence": [
+        {
+          "call_site": "0x5082E9",
+          "source_format": "RECV ERROR=%d",
+          "format_address": "0x58AD74",
+          "value_argument_count": 1,
+          "value_contract": "已采样S32错误"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58AD74",
+          "push_site": "0x5082E3",
+          "bytes": "52454356204552524f523d256400"
+        }
+      ],
+      "business_log_connections": [
+        {
+          "parent_entry": "0x5082D0",
+          "call_site": "0x5082F3",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_5082D0",
+          "target_entry": "0x44B5C0",
+          "target_symbol": "Sub_44B5C0",
+          "relationship": "既有真实系统日志FILE消费者；本轮仅改其文本生产者，调用/返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
+      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。"
+    },
+    {
+      "original_entry": "0x508310",
+      "inventory_id": "F:00108310",
+      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "original_end_exclusive": "0x508350",
+      "instruction_count": 21,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_508310"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5080D3",
+          "parent_entry": "0x507DF0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x508310",
+          "call_site": "0x508329",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_508310",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_format_argument_evidence": [
+        {
+          "call_site": "0x508329",
+          "source_format": "SNED ERROR=%d",
+          "format_address": "0x58AD84",
+          "value_argument_count": 1,
+          "value_contract": "已采样S32错误"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58AD84",
+          "push_site": "0x508323",
+          "bytes": "534e4544204552524f523d256400"
+        }
+      ],
+      "business_log_connections": [
+        {
+          "parent_entry": "0x508310",
+          "call_site": "0x508333",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_508310",
+          "target_entry": "0x44B5C0",
+          "target_symbol": "Sub_44B5C0",
+          "relationship": "既有真实系统日志FILE消费者；本轮仅改其文本生产者，调用/返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
+      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。"
     }
   ]
 }

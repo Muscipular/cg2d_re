@@ -20,7 +20,6 @@
 #include "cg/platform/MainLoop.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include <cstdio>
 #include <cstring>
 
 namespace {
@@ -148,8 +147,8 @@ std::int32_t Sub_508360()
                 static_cast<std::int32_t>(gValue58AD94),
                 serverAddress,
                 &port) < 0) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, "%s", kServerInfoFailureMessage));
+            static_cast<void>(platform::FormatLegacyString_53B304(
+                gRequestMessage, kServerInfoFailureMessage));
             return -2;
         }
 
@@ -157,8 +156,8 @@ std::int32_t Sub_508360()
         platform::gConnectionSocket =
             static_cast<std::uintptr_t>(connectionSocket);
         if (connectionSocket == INVALID_SOCKET) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, "%s", kSocketFailureMessage));
+            static_cast<void>(platform::FormatLegacyString_53B304(
+                gRequestMessage, kSocketFailureMessage));
             return -3;
         }
 
@@ -185,7 +184,7 @@ std::int32_t Sub_508360()
         if (address.sin_addr.s_addr == INADDR_NONE) {
             hostent* const host = ::gethostbyname(serverAddress);
             if (host == nullptr) {
-                static_cast<void>(std::sprintf(
+                static_cast<void>(platform::FormatLegacyString_53B304(
                     gRequestMessage,
                     kServerAddressFailureFormat,
                     serverAddress));
@@ -208,12 +207,12 @@ std::int32_t Sub_508360()
             const int error = ::WSAGetLastError();
             if (error != 10035) {
                 char logMessage[sizeof("CONNECT ERROR=-2147483648")];
-                static_cast<void>(std::sprintf(
+                static_cast<void>(platform::FormatLegacyString_53B304(
                     logMessage, "CONNECT ERROR=%d", error));
                 static_cast<void>(Sub_44B5C0(logMessage));
                 static_cast<void>(::closesocket(connectionSocket));
-                static_cast<void>(std::sprintf(
-                    gRequestMessage, "%s", kConnectFailureMessage));
+                static_cast<void>(platform::FormatLegacyString_53B304(
+                    gRequestMessage, kConnectFailureMessage));
                 return -5;
             }
         }
@@ -247,8 +246,8 @@ std::int32_t Sub_508360()
             static_cast<void>(Sub_44B5C0("CONNECT OK"));
         }
         if (::__WSAFDIsSet(connectionSocket, &exceptionSet) != 0) {
-            static_cast<void>(std::sprintf(
-                gRequestMessage, "%s", kConnectExceptionMessage));
+            static_cast<void>(platform::FormatLegacyString_53B304(
+                gRequestMessage, kConnectExceptionMessage));
             static_cast<void>(::closesocket(connectionSocket));
             return -6;
         }
@@ -275,8 +274,8 @@ std::int32_t Sub_508360()
         else if (gRequestStatus == 2) {
             if (network::ReadProtocolModeDA3B22() == 0) {
                 gRequestStatus = 0;
-                static_cast<void>(std::sprintf(
-                    gRequestMessage, "%s", kLoginRejectedMessage));
+                static_cast<void>(platform::FormatLegacyString_53B304(
+                    gRequestMessage, kLoginRejectedMessage));
                 static_cast<void>(::closesocket(
                     static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -7;
@@ -301,8 +300,8 @@ std::int32_t Sub_508360()
 
     const std::uint32_t now = platform::ReadTickCount32();
     if (now - gRequestStartTick > 600000U) {
-        static_cast<void>(std::sprintf(
-            gRequestMessage, "%s", kConnectionTimeoutMessage));
+        static_cast<void>(platform::FormatLegacyString_53B304(
+            gRequestMessage, kConnectionTimeoutMessage));
         return -1;
     }
     return 0;

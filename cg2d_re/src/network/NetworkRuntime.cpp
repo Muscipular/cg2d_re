@@ -457,7 +457,7 @@ std::int32_t Sub_5082D0()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
-    std::sprintf(message, "RECV ERROR=%d", error);
+    platform::FormatLegacyString_53B304(message, "RECV ERROR=%d", error);
     static_cast<void>(login::detail::Sub_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }
@@ -466,7 +466,7 @@ std::int32_t Sub_508310()
 {
     const std::int32_t error = ::WSAGetLastError();
     char message[256];
-    std::sprintf(message, "SNED ERROR=%d", error);
+    platform::FormatLegacyString_53B304(message, "SNED ERROR=%d", error);
     static_cast<void>(login::detail::Sub_44B5C0(message));
     return error == WSAEWOULDBLOCK ? 0 : error;
 }

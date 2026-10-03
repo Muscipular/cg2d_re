@@ -11261,7 +11261,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11847,6 +11847,36 @@
           "call_site": "0x522AAB",
           "source": "src/GraphicRead.cpp",
           "symbol": "LoadIndependentPaletteIndex_522900"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686D7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468890",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468BE0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468F10",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB41",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
         }
       ]
     },
@@ -12057,7 +12087,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12491,6 +12521,36 @@
           "call_site": "0x52299B",
           "source": "src/GraphicRead.cpp",
           "symbol": "LoadIndependentPaletteIndex_522900"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4685B1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687C4",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688CC",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468C6C",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C890",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
         }
       ]
     },
@@ -12645,7 +12705,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。",
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。",
       "function_chunks": [
         {
           "start": "0x53BC41",
@@ -12773,6 +12833,72 @@
           "call_site": "0x44A03D",
           "source": "src/Input.cpp",
           "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468667",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A02",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A80",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468B9A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468DDF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468E5D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468EEA",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8D9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C9E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CA7C",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB0B",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
         }
       ]
     },
@@ -12801,7 +12927,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。 登录存档532F38的(1,A20H)读取接真实LegacyFile，随后低U8 flags/20H判错误并关闭再解码；短读字节不回滚。 邮件/资料/分类534950/534847/518D13/518D7E四读取已整链接线，13ED4H/1050H/5DC00H/139480H尺寸保持，忽略返回及部分覆盖不回滚。 窗口存档4C90CF的(1,521CH)读取已整链迁移，前后各重新采样flags低U8/20H，不把EOF或短读单独作为错误。 独立调色板DBF5229BB/5229FE两读取已整链迁移，(1,20H)头和(1,compressedLength)压缩块保持，读取返回忽略、不补零或回滚后缀。 地图二十个原read点已整链迁移，四W32头/两W32小地图头与U32行长度保持；既有平面合循环共十六源码读表达式，短读前缀/既有兼容后缀和失败门槛不改。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -13091,6 +13217,126 @@
           "call_site": "0x5229FE",
           "source": "src/GraphicRead.cpp",
           "symbol": "LoadIndependentPaletteIndex_522900"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686A1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686B0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686BF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686D1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x46890A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468919",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468928",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x46893A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CE7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CF6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468D05",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468D17",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468DF3",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468E72",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468EF8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8E8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8F7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C9F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CA8E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB1D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840"
         }
       ]
     },
@@ -13119,7 +13365,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。 登录存档533168/5202B2/5337FB三写已与打开/关闭整链接线，写后重读长度按U32比较，各父短写和打开失败次序分别保持。 邮件/资料/分类5348E0/5347C6/519356/5195A6四写已整链接线，传输尺寸与忽略返回保持，不增加短写拒绝、重试或补写。 窗口存档4C915B的(1,521CH)写已与先打开/成功才捕获/关闭整链接线，写返回忽略且保存父所有路径返1保持。 地图八个原write点已整链迁移，四W32头/三平面WORD零值/逐行写均保持，既有tile/obj合循环对应七源码表达式，写返回忽略不加门禁。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -13317,6 +13563,54 @@
           "call_site": "0x4C915B",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "Sub_4C9130"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468817",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468826",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468838",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468847",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468872",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A16",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A95",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468BAB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
         }
       ]
     },
@@ -13345,7 +13639,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。 三个调色板入口九个原getc点已整链迁移，每色按B/G/R分别消费低U8，EOF(-1)仍窄化FF；不合并为批量读或增加输入门槛，原39入向中的其余调用未据此计完成。",
+      "boundary": "先S32减remaining，负调真实filbuf，否则取U8再推进current；不提前按EOF位返回。39个原caller仅作引用证据，现有应用/资源FILE仍待迁移，音频继续暂停。 三个调色板入口九个原getc点已整链迁移，每色按B/G/R分别消费低U8，EOF(-1)仍窄化FF；不合并为批量读或增加输入门槛，原39入向中的其余调用未据此计完成。 地图十二个原getc点已整链迁移，标签/版本分别取低字节，两个弃用四次读已各合四轮循环；六源码getc表达式保持动态读取顺序，EOF未转为新增失败。",
       "function_chunks": [
         {
           "start": "0x53C8B3",
@@ -13571,6 +13865,78 @@
           "call_site": "0x450C67",
           "source": "src/Palette.cpp",
           "symbol": "UpdatePalette_450BB0"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x46866D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468677",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468681",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468690",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688E9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688EF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688FB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CC6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CCC",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CD2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CD8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40"
         }
       ]
     },
@@ -13649,7 +14015,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先减S32 count；有空间读取current写参数低U8，之后重读current推进，返回U8；不足转真实flsbuf。地图写出等业务FILE及两个CRT内部caller未迁移，不把宿主对象强转或混用。",
+      "boundary": "先减S32 count；有空间读取current写参数低U8，之后重读current推进，返回U8；不足转真实flsbuf。地图写出等业务FILE及两个CRT内部caller未迁移，不把宿主对象强转或混用。 地图创建四个原业务fputc点已整链迁移，依序M/A/P/版本1，S32字符/忽略返回保持；其他两个原核心引用不据此重复迁移或计完整运行。",
       "function_chunks": [
         {
           "start": "0x53CFDC",
@@ -13688,7 +14054,33 @@
         "source_path": "stdio/fputc.cpp",
         "symbol": "fputc",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687E4",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687F2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468800",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468808",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0"
+        }
+      ]
     },
     {
       "original_entry": "0x53BB3D",
@@ -15766,7 +16158,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及34个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及38个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15813,7 +16205,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处共34点已接，其他988点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处共38点已接，其他984点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -16031,6 +16423,30 @@
           "call_site": "0x522989",
           "source": "src/GraphicRead.cpp",
           "symbol": "LoadIndependentPaletteIndex_522900"
+        },
+        {
+          "parent_entry": "0x468520",
+          "call_site": "0x46853E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468520"
+        },
+        {
+          "parent_entry": "0x468520",
+          "call_site": "0x468561",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468520"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4685E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468607",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570"
         }
       ],
       "business_format_evidence": [
@@ -16057,6 +16473,22 @@
         {
           "address": "0x55D064",
           "bytes": "257325735c257300"
+        },
+        {
+          "address": "0x55DDF8",
+          "bytes": "25735c25645c25642e64617400"
+        },
+        {
+          "address": "0x55DDE8",
+          "bytes": "25735c25645c25645c25642e64617400"
+        },
+        {
+          "address": "0x55DE18",
+          "bytes": "25735c256400"
+        },
+        {
+          "address": "0x55DE0C",
+          "bytes": "25735c25645c256400"
         }
       ]
     },
@@ -28491,6 +28923,860 @@
         "doc/cg2d_stdio_contract.md"
       ],
       "boundary": "保留两个256B清零局部、第255字节目录检查及追加、共享gDataPath和CGLoadSpr.dbf路径；rb失败退出，读(1,20H)共享头忽略返回，魔数不符直接退出不关闭。两裸字节分配、读压缩长度、53AF90解码、释放压缩块/保留解码块、payload+8/唯一键覆盖、count/stride发布后才关闭，再有序索引入队均保持；不改容器/分配适配或头后缀，不加保护/拒绝。其他共享图形FILE链未因此迁移，完整CRT/资源/运行未验。"
+    },
+    {
+      "original_entry": "0x468520",
+      "inventory_id": "F:00068520",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x46856A",
+      "instruction_count": 25,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468520"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46859F",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x4688BD",
+          "parent_entry": "0x4688A0"
+        },
+        {
+          "address": "0x468C5D",
+          "parent_entry": "0x468C40"
+        },
+        {
+          "address": "0x46C881",
+          "parent_entry": "0x46C840"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x468520",
+          "call_site": "0x46853E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468520",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x468520",
+          "call_site": "0x468561",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468520",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55DA00",
+          "bytes": "6d617000"
+        },
+        {
+          "address": "0x55DDF8",
+          "bytes": "25735c25645c25642e64617400"
+        },
+        {
+          "address": "0x55DDE8",
+          "bytes": "25735c25645c25645c25642e64617400"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x468520",
+        "end_exclusive": "0x46856A",
+        "instruction_count": 25
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "零mapId忽略第三参、使用map/0/floor；非零用map/mapId/value9E0434/floor，分别按原格式生成路径，透传真实sprintf S32返回。保留共享路径字节及signed数值，不新增索引/容量/编码限制；仅路径接线，完整CRT/文件/运行未验。"
+    },
+    {
+      "original_entry": "0x468570",
+      "inventory_id": "F:00068570",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x4687A3",
+      "instruction_count": 189,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468570"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x509477",
+          "parent_entry": "0x5093F0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4685B1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4685E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468607",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468667",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x46866D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468677",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468681",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x468690",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686A1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686B0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686BF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686D1",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468570",
+          "call_site": "0x4686D7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468570",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x55DA00",
+          "bytes": "6d617000"
+        },
+        {
+          "address": "0x55DE18",
+          "bytes": "25735c256400"
+        },
+        {
+          "address": "0x55DE0C",
+          "bytes": "25735c25645c256400"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x468570",
+        "end_exclusive": "0x4687A3",
+        "instruction_count": 189
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "第三参0返0；rb失败才依序尝试目录，三级目录仅a2>0，调用4687B0创建非负返1/负返-1。rb成功seek0/BEGIN，四次getc低字节/版本、四W32按序读取，先关闭再比较；字段/标签/版本不符或a2==2重建，负返-1/非负返0，其余返0。256B路径/目录和既有短头兼容补零保持，不宣称原未写局部为0；无新增I/O拒绝/保护。完整CRT/内容/运行未验。"
+    },
+    {
+      "original_entry": "0x4687B0",
+      "inventory_id": "F:000687B0",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x4688A0",
+      "instruction_count": 95,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4687B0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x468641",
+          "parent_entry": "0x468570"
+        },
+        {
+          "address": "0x46877C",
+          "parent_entry": "0x468570"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687C4",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687E4",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53CFDC",
+          "target_symbol": "WriteLegacyStreamByte_53CFDC"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x4687F2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53CFDC",
+          "target_symbol": "WriteLegacyStreamByte_53CFDC"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468800",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53CFDC",
+          "target_symbol": "WriteLegacyStreamByte_53CFDC"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468808",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53CFDC",
+          "target_symbol": "WriteLegacyStreamByte_53CFDC"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468817",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468826",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468838",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468847",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468872",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4687B0",
+          "call_site": "0x468890",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4687B0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        },
+        {
+          "address": "0x55DE08",
+          "bytes": "4d415000"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x4687B0",
+        "end_exclusive": "0x4688A0",
+        "instruction_count": 95
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "wb失败返-1；写M/A/P/版本1四单字节，再按四W32实参顺序各写(4,1)，三个平面按现有行列循环各WORD写零(2,1)，关闭返0。所有写/关闭结果忽略，源0为U32但传输仅低2B；不调换字段/维度命名或增加失败门禁、补写/重试，完整CRT/内容/运行未验。"
+    },
+    {
+      "original_entry": "0x4688A0",
+      "inventory_id": "F:000688A0",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x468BF5",
+      "instruction_count": 274,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4688A0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5092CF",
+          "parent_entry": "0x509100"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688CC",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688E9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688EF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x4688FB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x46890A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468919",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468928",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x46893A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A02",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A16",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A80",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468A95",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468B9A",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468BAB",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x4688A0",
+          "call_site": "0x468BE0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_4688A0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x5531A8",
+          "bytes": "72622b00"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x4688A0",
+        "end_exclusive": "0x468BF5",
+        "instruction_count": 274
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "rb+失败返-1；四次弃用getc及四个(4,1)头，既有短头兼容局部与原裁剪/源目标起点/跨度保持。只copyHeight>0，先tile全部行再obj全部行，hit每行先或C000H写输入并按当前缓存矩形调用468C00，再写该行盘；所有seek/write结果忽略，最终关闭返0。rowBytes收回U32，偏移S32/BEGIN0，既有两平面写合循环仍按原次数/顺序；不新增宽度门槛或越界/溢出保护。共享缓存、完整CRT/内容/运行仍待既有验收。"
+    },
+    {
+      "original_entry": "0x468C40",
+      "inventory_id": "F:00068C40",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x468F25",
+      "instruction_count": 244,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468C40"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x469070",
+          "parent_entry": "0x469030"
+        },
+        {
+          "address": "0x4692EA",
+          "parent_entry": "0x469290"
+        },
+        {
+          "address": "0x46D015",
+          "parent_entry": "0x46CF60"
+        },
+        {
+          "address": "0x46D53B",
+          "parent_entry": "0x46CF60"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468C6C",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CC6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CCC",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CD2",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CD8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CE7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468CF6",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468D05",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468D17",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468DDF",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468DF3",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468E5D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468E72",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468EEA",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468EF8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x468C40",
+          "call_site": "0x468F10",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_468C40",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x468C40",
+        "end_exclusive": "0x468F25",
+        "instruction_count": 244
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "rb失败仅退出消息0/返-1，不清三缓冲；成功才各清5202B，四次弃用getc后四W32头读取，保留既有短头兼容补零。原裁剪/起点/跨度及copyHeight>0门槛，三平面逐行seek/read后关闭返0；元素长度为U32的2*copyWidth，偏移S32/BEGIN0。短读不回滚前缀/已清后缀，不新增宽度/容量拒绝；完整CRT/地图内容/运行未验。"
+    },
+    {
+      "original_entry": "0x46C840",
+      "inventory_id": "F:0006C840",
+      "status": "既有地图文件本体的真实FILE/格式化整链已接；完整CRT/地图内容/运行验收仍待",
+      "original_end_exclusive": "0x46CDE5",
+      "instruction_count": 442,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46C840"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46C790",
+          "parent_entry": "0x46C760"
+        },
+        {
+          "address": "0x46C7F5",
+          "parent_entry": "0x46C760"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C890",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8D9",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8E8",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C8F7",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C9E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46C9F5",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CA7C",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CA8E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB0B",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB1D",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x46C840",
+          "call_site": "0x46CB41",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "Sub_46C840",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x46C840",
+        "end_exclusive": "0x46CB46",
+        "instruction_count": 249
+      },
+      "evidence_documents": [
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "六父1269条范围/十四直接入向与调用取证；前五父827条及小地图文件段249条共1076条静态核对，69原调用对应53源码表达式/原字节/限定源码差异；未重新验收小地图全部像素分支，未执行",
+      "boundary": "先清两个共享输出，路径/rb失败返0；成功清三份11664 WORD局部，seek12/BEGIN读两个(4,1)头，未写头字节不补零。可写尺寸选择、原裁剪、各平面逐行S32定位/U32长度读取、关闭后原像素/标志/调色板/资源消费均保持；三平面已合循环不改变动态次数。当前核文件段249条，后续像素正文未重新验收，未改变其他cut/aut入口或保护；完整CRT/内容/运行未验。"
     }
   ]
 }

@@ -11061,7 +11061,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及41个业务调用已接；其他12原引用及完整运行未闭合",
+      "status": "原66条子串查找直接本体及45个业务调用已接；其他8原引用及完整运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -11140,6 +11140,20 @@
             "ReadSetupIni"
           ],
           "relationship": "原465A80八窗口/活动/效果点直接53BE40，同一当前命令/屏幕后快照/效果局部与门禁次序保持"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4731E0"
+          ],
+          "relationship": "窗口6两实际查han/kok点，原原型main回调保持，未扩大显示/清理验收"
+        },
+        {
+          "path": "src/render/GraphicHitTest.cpp",
+          "symbols": [
+            "Sub_507140"
+          ],
+          "relationship": "描述生产后两实际查han/kok点，MainLoop/LoadingScreen原入口及共享D68AE8保持"
         }
       ],
       "evidence_documents": [
@@ -11150,9 +11164,10 @@
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_command_options.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_setup_ini.md"
+        "doc/cg2d_setup_ini.md",
+        "doc/cg2d_sub_507140.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53；本步配置八处再接，合41/53，其他12原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。 配置八处只将返回用于原零/非零门禁，原窗口/活动前缀与四效果发布保持；整份父其余API/复制/比较/长度/预清/四格式逐字不动，不扩大配置或启动验收。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接；本步输入两处、WinMain两处、参数十九处、IP一处再接24，合33/53；本步配置八处再接，合41/53；本步两悬停父四处再接，合45/53，其他8原引用未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。 本步404060长度/index恢复S32与控制分类前独立SignedByte重读有完整84条证据；其余三父只替换查找标识符/已有头，17静态needle含NUL、七动态表保持，不添默认/保护或扩大父链验收。 配置八处只将返回用于原零/非零门禁，原窗口/活动前缀与四效果发布保持；整份父其余API/复制/比较/长度/预清/四格式逐字不动，不扩大配置或启动验收。 两悬停父均同址D68AE8先han后kok，四真实第二参数push/两含NUL字节保持；窗口截尾/字段发布与图像描述生产/字段/返回/鼠标层正文不变。原型main数据引用与两直接call分开登记，不扩大完整父/显示清理或画面验收。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -11671,6 +11686,62 @@
           "needle_address": "0x55D074",
           "needle_push_site": "0x465E78",
           "relationship": "前三项未命中才查，命中写4，否则保留0"
+        },
+        {
+          "parent_entry": "0x4731E0",
+          "call_site": "0x4732B7",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4731E0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[han]\"",
+          "needle_bytes": "5b68616e5d00",
+          "needle_address": "0x554038",
+          "needle_push_site": "0x4732AD",
+          "relationship": "同一共享悬停串先han后kok；返回作门禁，既有截尾及字段发布正文保持"
+        },
+        {
+          "parent_entry": "0x4731E0",
+          "call_site": "0x4732F7",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4731E0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[kok]\"",
+          "needle_bytes": "5b6b6f6b5d00",
+          "needle_address": "0x554040",
+          "needle_push_site": "0x4732ED",
+          "relationship": "同一共享悬停串先han后kok；返回作门禁，既有截尾及字段发布正文保持"
+        },
+        {
+          "parent_entry": "0x507140",
+          "call_site": "0x507BEE",
+          "source": "src/render/GraphicHitTest.cpp",
+          "symbol": "Sub_507140",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[han]\"",
+          "needle_bytes": "5b68616e5d00",
+          "needle_address": "0x554038",
+          "needle_push_site": "0x507BE4",
+          "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
+        },
+        {
+          "parent_entry": "0x507140",
+          "call_site": "0x507C26",
+          "source": "src/render/GraphicHitTest.cpp",
+          "symbol": "Sub_507140",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[kok]\"",
+          "needle_bytes": "5b6b6f6b5d00",
+          "needle_address": "0x554040",
+          "needle_push_site": "0x507C1C",
+          "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
         }
       ],
       "single_byte_tail_connection": {
@@ -11683,7 +11754,7 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行；配置465A80八真实call/六不同字节与源快照/效果顺序、347统计112邻读取/唯一入向、父仅八标识符和已有头增量静态核对，原核心/声明保持，不重验其余235条或API/配置运行",
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行；输入完整84条/其余三父918统计与362邻读取、24查找真实点及17needle字节/各原入向，S32与二次源采样及三源码限定差异静态核对；总1002统计/446读取，不重验其余556条/原核心或全父运行；配置465A80八真实call/六不同字节与源快照/效果顺序、347统计112邻读取/唯一入向、父仅八标识符和已有头增量静态核对，原核心/声明保持，不重验其余235条或API/配置运行；悬停两父1029统计67邻读取、四实际查找call/两复用字节、原型结构main真实槽与源码窗口6绑定/两直接入向、两源码仅四标识符/一已有头静态核对；其余962条及已过核心不重验，未执行",
       "battle_header_table_evidence": {
         "address": "0x553E94",
         "entry_count": 25,
@@ -45438,6 +45509,160 @@
       ],
       "verification_level": "原92条统计/15查找邻读取、507CA4真实call/55D060含NUL字节、唯一4669D8/465F00入向及整份CommandOptions限定标识符差异静态核对；其余77条不重新读取/验收，未构建或执行",
       "boundary": "cursor按原IP:字节逐次借用查找；仅std::strstr替换53BE40，后续真实扫描/索引栈槽复用/地址/端口/available/计数/cursor=port和返回正文逐字保持，既有native指针低W32初值不补0或加保护。该项单列507C80证据，不把原465F00源码联合列名当本函数已全面验收；完整IP解析/启动/网络及运行仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x4731E0",
+      "inventory_id": "F:000731E0",
+      "status": "已有窗口6父正文与原型main绑定，两真实标记查找已接；完整显示清理/运行未验",
+      "original_role": "窗口6共享悬停文本更新回调",
+      "original_end_exclusive": "0x473559",
+      "instruction_count": 230,
+      "original_reference_count": 1,
+      "original_direct_reference_count": 0,
+      "original_direct_call_reference_count": 0,
+      "original_data_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4731E0"
+          ]
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "gWindowPrototypeRecords"
+          ],
+          "relationship": "窗口6原型main指针&Sub_4731E0既有绑定保持"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x4731E0",
+          "call_site": "0x4732B7",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4731E0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[han]\"",
+          "needle_bytes": "5b68616e5d00",
+          "needle_address": "0x554038",
+          "needle_push_site": "0x4732AD",
+          "relationship": "同一共享悬停串先han后kok；返回作门禁，既有截尾及字段发布正文保持"
+        },
+        {
+          "parent_entry": "0x4731E0",
+          "call_site": "0x4732F7",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4731E0",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[kok]\"",
+          "needle_bytes": "5b6b6f6b5d00",
+          "needle_address": "0x554040",
+          "needle_push_site": "0x4732ED",
+          "relationship": "同一共享悬停串先han后kok；返回作门禁，既有截尾及字段发布正文保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x54E330",
+          "parent_entry": null,
+          "is_code": false,
+          "reference_type": 1,
+          "relationship": "原型结构首部数据引用，非直接call；真实main成员槽另列"
+        }
+      ],
+      "callback_binding_evidence": {
+        "prototype_index": 6,
+        "prototype_base": "0x54E330",
+        "main_callback_slot": "0x54E354",
+        "main_callback_offset": 36,
+        "original_pointer_width": "W32",
+        "bytes": "e0314700",
+        "target_entry": "0x4731E0",
+        "source": "src/ui/WindowPrototypes.cpp",
+        "target_symbol": "Sub_4731E0"
+      },
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "verification_level": "原230条统计/34查找邻读取、4732B7/4732F7实际call/两needle字节与原型54E330数据xref/main54E354原字节及现窗口6绑定静态核对；整份WindowRuntime只两标识符，原型/头/其他父正文保持，余196条与完整回调不重验，未执行",
+      "boundary": "本步仅查找真实依赖：同一共享D68AE8先han后kok，既有非空门禁、命中后strlen减5位置写NUL及1/5字段发布、窗口元素显示/数据/绘制/清理正文逐字保持，不以匹配位置重写截尾、不补保护或其他依赖。原型6 main绑定是数据引用，不增加直接call计数或重造调度；完整显示/清理/资源与运行仍待，不因新记录计入语义索引而称整个父已验收。"
+    },
+    {
+      "original_entry": "0x507140",
+      "inventory_id": "F:00107140",
+      "status": "已有图像命中与描述生产父正文，两真实标记查找已接；完整渲染悬停/运行未验",
+      "original_role": "排序图像命中及共享悬停描述消费",
+      "original_end_exclusive": "0x507C7A",
+      "instruction_count": 799,
+      "original_reference_count": 2,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/render/GraphicHitTest.cpp",
+          "symbols": [
+            "Sub_507140",
+            "DescribeHoveredYobi_507140"
+          ],
+          "relationship": "原查找点位于Sub_507140中描述生产helper调用后"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x507140",
+          "call_site": "0x507BEE",
+          "source": "src/render/GraphicHitTest.cpp",
+          "symbol": "Sub_507140",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[han]\"",
+          "needle_bytes": "5b68616e5d00",
+          "needle_address": "0x554038",
+          "needle_push_site": "0x507BE4",
+          "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
+        },
+        {
+          "parent_entry": "0x507140",
+          "call_site": "0x507C26",
+          "source": "src/render/GraphicHitTest.cpp",
+          "symbol": "Sub_507140",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "source_expression": "gHoverTextD68AE8.data()",
+          "needle_expression": "\"[kok]\"",
+          "needle_bytes": "5b6b6f6b5d00",
+          "needle_address": "0x554040",
+          "needle_push_site": "0x507C1C",
+          "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x45712E",
+          "parent_entry": "0x457020",
+          "is_code": true,
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4581A7",
+          "parent_entry": "0x457B10",
+          "is_code": true,
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "原799条统计/33查找邻读取、507BEE/507C26实际call/两复用字节与45712E/457020、4581A7/457B10真实入向静态核对；整份GraphicHitTest仅两标识符/一个已有公开头，余766条/完整MainLoop加载循环/描述和命中算法不重验，未执行",
+      "boundary": "现MainLoop/LoadingScreen调用既有Sub_507140不改；命中/排序/门禁后借用同一graphic作DescribeHoveredYobi_507140生产，再同址D68AE8先han后kok查找。仅标准库查找转53BE40，原字段1/5、返回及层字节写入/命中流程/描述生产/共享owner/生命周期正文逐字保持，不新增状态/保护或演示生产者，不把本步接线算完整图像/悬停/显示/资源/CRT运行通过。"
     }
   ]
 }

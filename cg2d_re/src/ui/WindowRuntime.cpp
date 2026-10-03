@@ -40851,12 +40851,12 @@ std::int32_t Sub_4731E0(const std::int32_t)
         gCurrentWindow->elements[11].visible = 0;
         gCurrentWindow->elements[12].visible = 0;
     } else {
-        if (std::strstr(gHoverTextD68AE8.data(), "[han]") != nullptr) {
+        if (platform::StrStr_53BE40(gHoverTextD68AE8.data(), "[han]") != nullptr) {
             if (gHoverTextD68AE8[0] != '\0') {
                 gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
             }
             gHoverObjectValueD68AC8 = 1;
-        } else if (std::strstr(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
+        } else if (platform::StrStr_53BE40(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
             if (gHoverTextD68AE8[0] != '\0') {
                 gHoverTextD68AE8[std::strlen(gHoverTextD68AE8.data()) - 5] = '\0';
             }

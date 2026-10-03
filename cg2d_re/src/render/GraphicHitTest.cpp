@@ -6,6 +6,7 @@
 
 #include "cg/YobiRuntime.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/GraphicDxCache.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -291,9 +292,9 @@ void Sub_507140()
             SortTextures_520790();
             if (world::detail::gValueD460C8 == 0 && gValue58589C != 0) {
                 DescribeHoveredYobi_507140(&graphic);
-                if (std::strstr(gHoverTextD68AE8.data(), "[han]") != nullptr) {
+                if (StrStr_53BE40(gHoverTextD68AE8.data(), "[han]") != nullptr) {
                     gHoverObjectValueD68AC8 = 1;
-                } else if (std::strstr(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
+                } else if (StrStr_53BE40(gHoverTextD68AE8.data(), "[kok]") != nullptr) {
                     gHoverObjectValueD68AC8 = 5;
                 }
             }

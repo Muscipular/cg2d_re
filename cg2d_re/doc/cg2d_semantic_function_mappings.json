@@ -9825,6 +9825,14 @@
             "DeleteLegacyStringRangeError_54A94D"
           ],
           "relationship": "原长度/位置异常六本体的新增真实父调用；顺序、完整基类/成员和原堆域保持，不改旧本体"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DeleteLegacyRuntimeError_54A0C9",
+            "DeleteLegacyStreamFailure_54A19C"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
@@ -9832,7 +9840,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -9887,6 +9895,28 @@
           "target_symbol": "FreeLegacyHeapMemory_53C0A9",
           "arguments": "storage",
           "relationship": "先析构后flags bit0，同域原堆释放，返回原地址"
+        }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x54A0C9",
+          "call_site": "0x54A0D9",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyRuntimeError_54A0C9",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0同域原堆对象释放/返原地址"
+        },
+        {
+          "parent_entry": "0x54A19C",
+          "call_site": "0x54A1AC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyStreamFailure_54A19C",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "先完整析构后flags bit0，同域原堆释放"
         }
       ]
     },
@@ -32305,12 +32335,19 @@
             "ConstructLegacyLogicError_54A6D4"
           ],
           "relationship": "原logic_error新增真实父调用，原地址/成员/清理与同域原堆顺序，不算宿主类型/完整抛出完成"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A6F3；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。",
+      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A6F3；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A01D；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -32373,6 +32410,18 @@
           "arguments": "&storage->base, &baseText",
           "relationship": "593850实际共享地址先写局部槽再真实文本构造；不以空常量代替"
         }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A01D",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54B079",
+          "target_symbol": "ConstructLegacyExceptionText_54B079",
+          "arguments": "&storage->base, &baseText",
+          "relationship": "先实际593850源槽和基类文本构造"
+        }
       ]
     },
     {
@@ -32419,12 +32468,19 @@
             "CopyConstructLegacyLogicError_54A7AE"
           ],
           "relationship": "原logic_error新增真实父调用，原地址/成员/清理与同域原堆顺序，不算宿主类型/完整抛出完成"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "CopyConstructLegacyRuntimeError_54A0E5"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。",
+      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A0FC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -32486,6 +32542,18 @@
           "target_symbol": "CopyConstructLegacyException_54B0B6",
           "arguments": "&storage->base, &source->base",
           "relationship": "成员任何读取之前先复制真实基类，完成才启用state0"
+        }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A0FC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54B0B6",
+          "target_symbol": "CopyConstructLegacyException_54B0B6",
+          "arguments": "&storage->base, &source->base",
+          "relationship": "源成员读取前实际基类复制"
         }
       ]
     },
@@ -32591,12 +32659,22 @@
             "DestroyLegacyStringRangeError_54A8F3"
           ],
           "relationship": "原长度/位置异常六本体的新增真实父调用；顺序、完整基类/成员和原堆域保持，不改旧本体"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE",
+            "CopyConstructLegacyRuntimeError_54A0E5",
+            "DestroyLegacyRuntimeError_54A08C",
+            "DestroyLegacyStreamFailure_54A142"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。",
+      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54C32F/0x54C357/0x54A0B7/0x54C343/0x54A16D/0x54C36B；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -32730,6 +32808,68 @@
           "target_symbol": "DestroyLegacyException_54B100",
           "arguments": "&storage->base",
           "relationship": "state0唯一jmp清理，只基类，源catch后重抛"
+        }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54C32F",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "原state0展开jmp，仅已完成基类"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54C357",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "原state0展开jmp，不另回滚成员"
+        },
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54A0B7",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员成功后保护区外正常基类析构"
+        },
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54C343",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员失败state0只清基类并重抛"
+        },
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54A16D",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员成功后保护区外正常基类析构"
+        },
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54C36B",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "state0唯一基类清理/原jmp"
         }
       ]
     },
@@ -33825,12 +33965,22 @@
             "DestroyLegacyStringRangeError_54A8F3"
           ],
           "relationship": "原长度/位置异常六本体的新增真实父调用；顺序、完整基类/成员和原堆域保持，不改旧本体"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE",
+            "CopyConstructLegacyRuntimeError_54A0E5",
+            "DestroyLegacyRuntimeError_54A08C",
+            "DestroyLegacyStreamFailure_54A142"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。",
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -33920,6 +34070,48 @@
           "target_symbol": "TidyLegacyNarrowString_548E29",
           "arguments": "&storage->message, true",
           "relationship": "先logic_error表，成员析构保护区"
+        }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A034",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, false",
+          "relationship": "只源prefix首U8后Tidy(false)，基类已完成"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A114",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, false",
+          "relationship": "基类复制后才源prefix首U8/Tidy(false)"
+        },
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54A0AC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, true",
+          "relationship": "runtime方法表先于成员析构"
+        },
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54A162",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, true",
+          "relationship": "先恢复runtime表，不装failure最派生表"
         }
       ]
     },
@@ -34522,12 +34714,20 @@
             "CopyConstructLegacyLogicError_54A7AE"
           ],
           "relationship": "原logic_error新增真实父调用，原地址/成员/清理与同域原堆顺序，不算宿主类型/完整抛出完成"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE",
+            "CopyConstructLegacyRuntimeError_54A0E5"
+          ],
+          "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04依据原80条实现，源长度门禁54A899真实声明保持，count缩减后自身先erase(pos+copied,npos)再erase(0,pos)。整串非零且tag<FE才Tidy目标，再重取源buffer/length/capacity，最后原tag低U8增1；未缓存第一次源指针/引用数当后值。其他路径Grow(copied,true)后重取源，真实541620复制，再重取目标/长度/NUL。55013B/55013C两已加载00字节由同一2B背板表达，三个fallback位置保持，不声明邻接总容量或换独立空串。现有宿主对象/未批提案/异常叶/模式3/上游构析和运行门禁不变。；2026-10-04接原logic_error父实际调用0x54A71A/0x54A7ED；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。",
+      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04依据原80条实现，源长度门禁54A899真实声明保持，count缩减后自身先erase(pos+copied,npos)再erase(0,pos)。整串非零且tag<FE才Tidy目标，再重取源buffer/length/capacity，最后原tag低U8增1；未缓存第一次源指针/引用数当后值。其他路径Grow(copied,true)后重取源，真实541620复制，再重取目标/长度/NUL。55013B/55013C两已加载00字节由同一2B背板表达，三个fallback位置保持，不声明邻接总容量或换独立空串。现有宿主对象/未批提案/异常叶/模式3/上游构析和运行门禁不变。；2026-10-04接原logic_error父实际调用0x54A71A/0x54A7ED；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A044/0x54A124；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -34596,6 +34796,28 @@
           "target_symbol": "AssignLegacyNarrowStringFromString_54A315",
           "arguments": "&storage->message, &source->message, 0, gLegacyNarrowStringNpos550040",
           "relationship": "源成员在基类复制后实际读取/共享，不提前快照"
+        }
+      ],
+      "runtime_failure_parent_call_connections": [
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A044",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54A315",
+          "target_symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "arguments": "&storage->message, source, 0, gLegacyNarrowStringNpos550040",
+          "relationship": "Tidy后取npos，共享赋值完成后runtime表"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A124",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54A315",
+          "target_symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "arguments": "&storage->message, &source->message, 0, gLegacyNarrowStringNpos550040",
+          "relationship": "Tidy后实际共享赋值，不先缓存源成员"
         }
       ]
     },
@@ -87283,7 +87505,7 @@
     {
       "original_entry": "0x54A062",
       "inventory_id": "F:0014A062",
-      "status": "原logic_error对象本体与真实base/成员接线已实现；Raise/派生异常及完整传播和运行未闭合",
+      "status": "原五族共用what本体及五原方法表槽真实原生绑定已实现；完整owner/类型与抛出传播及运行未闭合",
       "original_end_exclusive": "0x54A06F",
       "instruction_count": 5,
       "original_direct_reference_count": 5,
@@ -87337,6 +87559,15 @@
             "LegacyExceptionRaiseMethodTable"
           ],
           "relationship": "原28B→原生48B仅地址拓宽，真实首成员与三槽结构"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyRuntimeErrorMethods550130",
+            "gLegacyStreamFailureMethods5500EC",
+            "GetLegacyLogicErrorTextFromBase"
+          ],
+          "relationship": "新增两已证原方法表what槽真实绑定，旧三表/what本体不改，共用叶5/5槽绑定不是5/5owner完整验收"
         }
       ],
       "evidence_documents": [
@@ -87414,7 +87645,69 @@
         ],
         "boundary": "原已加载三槽一一对应，仅两槽本体已实现，第三槽真实声明引用不置空/不补固定抛出；不是SDK或编译器C++vft/RTTI/ThrowInfo"
       },
-      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。"
+      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；2026-10-04新增runtime/failure两what槽，五原方法数据引用均有原生真实方法表绑定，原核心逐字保持。仅5/5方法槽接线，未称完整五owner生产/生命周期、SDK类型/ThrowInfo/x64传播或运行完成。",
+      "shared_exception_method_table_connections": [
+        {
+          "original_slot": "0x550188",
+          "table": "0x550184",
+          "symbol": "gLegacyLogicErrorMethods550184",
+          "storage_type": "LegacyLogicErrorObject",
+          "source": "src/platform/LegacyException.cpp",
+          "target_entry": "0x54A062",
+          "target_symbol": "GetLegacyLogicErrorText_54A062",
+          "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+          "native_slot_offset": 8,
+          "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
+        },
+        {
+          "original_slot": "0x550168",
+          "table": "0x550164",
+          "symbol": "gLegacyStringLengthErrorMethods550164",
+          "storage_type": "LegacyStringLengthErrorObject",
+          "source": "src/platform/LegacyException.cpp",
+          "target_entry": "0x54A062",
+          "target_symbol": "GetLegacyLogicErrorText_54A062",
+          "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+          "native_slot_offset": 8,
+          "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
+        },
+        {
+          "original_slot": "0x550198",
+          "table": "0x550194",
+          "symbol": "gLegacyStringRangeErrorMethods550194",
+          "storage_type": "LegacyStringRangeErrorObject",
+          "source": "src/platform/LegacyException.cpp",
+          "target_entry": "0x54A062",
+          "target_symbol": "GetLegacyLogicErrorText_54A062",
+          "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+          "native_slot_offset": 8,
+          "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
+        },
+        {
+          "original_slot": "0x550134",
+          "table": "0x550130",
+          "symbol": "gLegacyRuntimeErrorMethods550130",
+          "storage_type": "LegacyRuntimeErrorObject",
+          "source": "src/platform/LegacyException.cpp",
+          "target_entry": "0x54A062",
+          "target_symbol": "GetLegacyLogicErrorText_54A062",
+          "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+          "native_slot_offset": 8,
+          "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
+        },
+        {
+          "original_slot": "0x5500F0",
+          "table": "0x5500EC",
+          "symbol": "gLegacyStreamFailureMethods5500EC",
+          "storage_type": "LegacyStreamFailureObject",
+          "source": "src/platform/LegacyException.cpp",
+          "target_entry": "0x54A062",
+          "target_symbol": "GetLegacyLogicErrorText_54A062",
+          "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+          "native_slot_offset": 8,
+          "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
+        }
+      ]
     },
     {
       "original_entry": "0x54A738",
@@ -88390,6 +88683,1064 @@
         "boundary": "两原三槽表身份各自保持；共享what只复用原同入口，Raise仅真实声明引用，不空置或固定抛出，不是SDK/编译器C++类型元数据"
       },
       "boundary": "原54A930先经本族实际拷贝生成28B对象，后按独立ThrowInfo调CxxThrowException，无正常返回尾。当前仅真实声明；不能用宿主直接throw/私有改名类型/原x86元数据搬x64替代。"
+    },
+    {
+      "original_entry": "0x549FFE",
+      "inventory_id": "F:00149FFE",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A062",
+      "instruction_count": 39,
+      "original_direct_reference_count": 1,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x549ffe",
+          "end_exclusive": "0x54a062"
+        },
+        {
+          "start": "0x54c32c",
+          "end_exclusive": "0x54c33e"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x549fd4",
+          "parent_entry": "0x549f62",
+          "kind": 17
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ConstructLegacyRuntimeError_549FFE",
+            "LegacyRuntimeErrorObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyRuntimeErrorObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x550130",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyRuntimeErrorMethods550130",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A0C9",
+            "target_symbol": "DeleteLegacyRuntimeError_54A0C9",
+            "native_this_bridge": "DeleteLegacyRuntimeErrorFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A06F",
+            "target_symbol": "RaiseLegacyRuntimeError_54A06F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A01D",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54B079",
+          "target_symbol": "ConstructLegacyExceptionText_54B079",
+          "arguments": "&storage->base, &baseText",
+          "relationship": "先实际593850源槽和基类文本构造"
+        },
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A034",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, false",
+          "relationship": "只源prefix首U8后Tidy(false)，基类已完成"
+        },
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54A044",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54A315",
+          "target_symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "arguments": "&storage->message, source, 0, gLegacyNarrowStringNpos550040",
+          "relationship": "Tidy后取npos，共享赋值完成后runtime表"
+        },
+        {
+          "parent_entry": "0x549FFE",
+          "call_site": "0x54C32F",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "ConstructLegacyRuntimeError_549FFE",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "原state0展开jmp，仅已完成基类"
+        }
+      ],
+      "shared_base_text": {
+        "original_address": "0x593850",
+        "source": "src/Input.cpp",
+        "symbol": "input::LegacyText593850",
+        "loaded": false,
+        "boundary": "复用现有可写共享存储，不新增初值或以未加载FF/空常量替代"
+      },
+      "unwind_contract": {
+        "original_func_info": "0x551620",
+        "magic": "0x19930520",
+        "state_count": 1,
+        "try_block_count": 0,
+        "action": {
+          "previous_state": 4294967295,
+          "action": "0x54c32c",
+          "loaded": true
+        },
+        "source_scope": "基类ctor/copy完成后，成员prefix/Tidy/assign保护区；异常只清基类",
+        "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      }
+    },
+    {
+      "original_entry": "0x54A0E5",
+      "inventory_id": "F:0014A0E5",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A142",
+      "instruction_count": 37,
+      "original_direct_reference_count": 3,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a0e5",
+          "end_exclusive": "0x54a142"
+        },
+        {
+          "start": "0x54c354",
+          "end_exclusive": "0x54c366"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54a079",
+          "parent_entry": "0x54a06f",
+          "kind": 17
+        },
+        {
+          "address": "0x54a1bf",
+          "parent_entry": "0x54a1b8",
+          "kind": 17
+        },
+        {
+          "address": "0x5515b0",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "CopyConstructLegacyRuntimeError_54A0E5"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "CopyConstructLegacyRuntimeError_54A0E5",
+            "LegacyRuntimeErrorObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyRuntimeErrorObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x550130",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyRuntimeErrorMethods550130",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A0C9",
+            "target_symbol": "DeleteLegacyRuntimeError_54A0C9",
+            "native_this_bridge": "DeleteLegacyRuntimeErrorFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A06F",
+            "target_symbol": "RaiseLegacyRuntimeError_54A06F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A0FC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54B0B6",
+          "target_symbol": "CopyConstructLegacyException_54B0B6",
+          "arguments": "&storage->base, &source->base",
+          "relationship": "源成员读取前实际基类复制"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A114",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, false",
+          "relationship": "基类复制后才源prefix首U8/Tidy(false)"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54A124",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54A315",
+          "target_symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "arguments": "&storage->message, &source->message, 0, gLegacyNarrowStringNpos550040",
+          "relationship": "Tidy后实际共享赋值，不先缓存源成员"
+        },
+        {
+          "parent_entry": "0x54A0E5",
+          "call_site": "0x54C357",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "原state0展开jmp，不另回滚成员"
+        }
+      ],
+      "unwind_contract": {
+        "original_func_info": "0x551690",
+        "magic": "0x19930520",
+        "state_count": 1,
+        "try_block_count": 0,
+        "action": {
+          "previous_state": 4294967295,
+          "action": "0x54c354",
+          "loaded": true
+        },
+        "source_scope": "基类ctor/copy完成后，成员prefix/Tidy/assign保护区；异常只清基类",
+        "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      }
+    },
+    {
+      "original_entry": "0x54A08C",
+      "inventory_id": "F:0014A08C",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A0C9",
+      "instruction_count": 23,
+      "original_direct_reference_count": 2,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a08c",
+          "end_exclusive": "0x54a0c9"
+        },
+        {
+          "start": "0x54c340",
+          "end_exclusive": "0x54c352"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54a0cc",
+          "parent_entry": "0x54a0c9",
+          "kind": 17
+        },
+        {
+          "address": "0x551658",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DestroyLegacyRuntimeError_54A08C"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DestroyLegacyRuntimeError_54A08C",
+            "LegacyRuntimeErrorObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyRuntimeErrorObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x550130",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyRuntimeErrorMethods550130",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A0C9",
+            "target_symbol": "DeleteLegacyRuntimeError_54A0C9",
+            "native_this_bridge": "DeleteLegacyRuntimeErrorFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A06F",
+            "target_symbol": "RaiseLegacyRuntimeError_54A06F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54A0AC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, true",
+          "relationship": "runtime方法表先于成员析构"
+        },
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54A0B7",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员成功后保护区外正常基类析构"
+        },
+        {
+          "parent_entry": "0x54A08C",
+          "call_site": "0x54C343",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyRuntimeError_54A08C",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员失败state0只清基类并重抛"
+        }
+      ],
+      "unwind_contract": {
+        "original_func_info": "0x551668",
+        "magic": "0x19930520",
+        "state_count": 1,
+        "try_block_count": 0,
+        "action": {
+          "previous_state": 4294967295,
+          "action": "0x54c340",
+          "loaded": true
+        },
+        "source_scope": "只成员Tidy(true)保护区，normal base Destroy在区外",
+        "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      }
+    },
+    {
+      "original_entry": "0x54A0C9",
+      "inventory_id": "F:0014A0C9",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A0E5",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a0c9",
+          "end_exclusive": "0x54a0e5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x550130",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DeleteLegacyRuntimeError_54A0C9"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DeleteLegacyRuntimeError_54A0C9",
+            "LegacyRuntimeErrorObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyRuntimeErrorObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x550130",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyRuntimeErrorMethods550130",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A0C9",
+            "target_symbol": "DeleteLegacyRuntimeError_54A0C9",
+            "native_this_bridge": "DeleteLegacyRuntimeErrorFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A06F",
+            "target_symbol": "RaiseLegacyRuntimeError_54A06F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A0C9",
+          "call_site": "0x54A0CC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyRuntimeError_54A0C9",
+          "target_entry": "0x54A08C",
+          "target_symbol": "DestroyLegacyRuntimeError_54A08C",
+          "arguments": "storage",
+          "relationship": "先实际runtime析构入口"
+        },
+        {
+          "parent_entry": "0x54A0C9",
+          "call_site": "0x54A0D9",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyRuntimeError_54A0C9",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0同域原堆对象释放/返原地址"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x54A06F",
+      "inventory_id": "F:0014A06F",
+      "status": "原runtime_error Raise仅真实声明；复制后ThrowInfo/SDK类型/x64传播未实现/未验收",
+      "original_end_exclusive": "0x54A08C",
+      "instruction_count": 10,
+      "original_direct_reference_count": 1,
+      "verification_level": "原完整10条及真实方法表槽取证，仅声明/第三槽引用静态核对，不计本体实现",
+      "function_chunks": [
+        {
+          "start": "0x54a06f",
+          "end_exclusive": "0x54a08c"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x550138",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "RaiseLegacyRuntimeError_54A06F"
+          ],
+          "relationship": "真实Raise显式this仅声明，不代换宿主异常"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyRuntimeErrorMethods550130"
+          ],
+          "relationship": "原第三方法槽真实声明引用，不置空/固定抛出"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyRuntimeErrorObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x550130",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyRuntimeErrorMethods550130",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A0C9",
+            "target_symbol": "DeleteLegacyRuntimeError_54A0C9",
+            "native_this_bridge": "DeleteLegacyRuntimeErrorFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A06F",
+            "target_symbol": "RaiseLegacyRuntimeError_54A06F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原54A06F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。"
+    },
+    {
+      "original_entry": "0x54A1B8",
+      "inventory_id": "F:0014A1B8",
+      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A1D0",
+      "instruction_count": 8,
+      "original_direct_reference_count": 2,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a1b8",
+          "end_exclusive": "0x54a1d0"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54a189",
+          "parent_entry": "0x54a17f",
+          "kind": 17
+        },
+        {
+          "address": "0x5515d0",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "CopyConstructLegacyStreamFailure_54A1B8"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "CopyConstructLegacyStreamFailure_54A1B8",
+            "LegacyStreamFailureObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyStreamFailureObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x5500EC",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyStreamFailureMethods5500EC",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A19C",
+            "target_symbol": "DeleteLegacyStreamFailure_54A19C",
+            "native_this_bridge": "DeleteLegacyStreamFailureFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A17F",
+            "target_symbol": "RaiseLegacyStreamFailure_54A17F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A1B8",
+          "call_site": "0x54A1BF",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "CopyConstructLegacyStreamFailure_54A1B8",
+          "target_entry": "0x54A0E5",
+          "target_symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+          "arguments": "storage, source",
+          "relationship": "runtime复制父完成后才写独立failure表"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x54A142",
+      "inventory_id": "F:0014A142",
+      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A17F",
+      "instruction_count": 23,
+      "original_direct_reference_count": 2,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a142",
+          "end_exclusive": "0x54a17f"
+        },
+        {
+          "start": "0x54c368",
+          "end_exclusive": "0x54c37a"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x54a19f",
+          "parent_entry": "0x54a19c",
+          "kind": 17
+        },
+        {
+          "address": "0x5515e8",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DestroyLegacyStreamFailure_54A142"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DestroyLegacyStreamFailure_54A142",
+            "LegacyStreamFailureObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyStreamFailureObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x5500EC",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyStreamFailureMethods5500EC",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A19C",
+            "target_symbol": "DeleteLegacyStreamFailure_54A19C",
+            "native_this_bridge": "DeleteLegacyStreamFailureFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A17F",
+            "target_symbol": "RaiseLegacyStreamFailure_54A17F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54A162",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "arguments": "&storage->message, true",
+          "relationship": "先恢复runtime表，不装failure最派生表"
+        },
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54A16D",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "成员成功后保护区外正常基类析构"
+        },
+        {
+          "parent_entry": "0x54A142",
+          "call_site": "0x54C36B",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DestroyLegacyStreamFailure_54A142",
+          "target_entry": "0x54B100",
+          "target_symbol": "DestroyLegacyException_54B100",
+          "arguments": "&storage->base",
+          "relationship": "state0唯一基类清理/原jmp"
+        }
+      ],
+      "unwind_contract": {
+        "original_func_info": "0x5516B8",
+        "magic": "0x19930520",
+        "state_count": 1,
+        "try_block_count": 0,
+        "action": {
+          "previous_state": 4294967295,
+          "action": "0x54c368",
+          "loaded": true
+        },
+        "source_scope": "只成员Tidy(true)保护区，normal base Destroy在区外",
+        "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      }
+    },
+    {
+      "original_entry": "0x54A19C",
+      "inventory_id": "F:0014A19C",
+      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "original_end_exclusive": "0x54A1B8",
+      "instruction_count": 11,
+      "original_direct_reference_count": 1,
+      "verification_level": "本轮七原体152条含四分离清理/handler chunk、全部入向及两原三槽/四FuncInfo、实际base/成员先行/共享文本/表写时点/flags原堆生命周期和19目标及限定新增静态核对；旧核心不复检，未构建或运行",
+      "function_chunks": [
+        {
+          "start": "0x54a19c",
+          "end_exclusive": "0x54a1b8"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5500ec",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "DeleteLegacyStreamFailure_54A19C"
+          ],
+          "relationship": "实际原对象构造/拷贝/析构/删除及原堆域，runtime/failure真实父调用和方法表身份保持"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "DeleteLegacyStreamFailure_54A19C",
+            "LegacyStreamFailureObject"
+          ],
+          "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyStreamFailureObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x5500EC",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyStreamFailureMethods5500EC",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A19C",
+            "target_symbol": "DeleteLegacyStreamFailure_54A19C",
+            "native_this_bridge": "DeleteLegacyStreamFailureFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A17F",
+            "target_symbol": "RaiseLegacyStreamFailure_54A17F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x54A19C",
+          "call_site": "0x54A19F",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyStreamFailure_54A19C",
+          "target_entry": "0x54A142",
+          "target_symbol": "DestroyLegacyStreamFailure_54A142",
+          "arguments": "storage",
+          "relationship": "先本族实际failure析构，不改父调用身份"
+        },
+        {
+          "parent_entry": "0x54A19C",
+          "call_site": "0x54A1AC",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "DeleteLegacyStreamFailure_54A19C",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "先完整析构后flags bit0，同域原堆释放"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x54A17F",
+      "inventory_id": "F:0014A17F",
+      "status": "原ios_base::failure Raise仅真实声明；复制后ThrowInfo/SDK类型/x64传播未实现/未验收",
+      "original_end_exclusive": "0x54A19C",
+      "instruction_count": 10,
+      "original_direct_reference_count": 1,
+      "verification_level": "原完整10条及真实方法表槽取证，仅声明/第三槽引用静态核对，不计本体实现",
+      "function_chunks": [
+        {
+          "start": "0x54a17f",
+          "end_exclusive": "0x54a19c"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5500f4",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "RaiseLegacyStreamFailure_54A17F"
+          ],
+          "relationship": "真实Raise显式this仅声明，不代换宿主异常"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyStreamFailureMethods5500EC"
+          ],
+          "relationship": "原第三方法槽真实声明引用，不置空/固定抛出"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "native_storage": {
+        "source": "src/platform/LegacyException.hpp",
+        "type": "LegacyStreamFailureObject",
+        "storage_alias_of": "LegacyLogicErrorObject",
+        "original_size": 28,
+        "native_size": 48,
+        "boundary": "exception+0C string字段已证；仅存储复用，不表达宿主C++继承或catch类型合并"
+      },
+      "method_table": {
+        "original_address": "0x5500EC",
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "gLegacyStreamFailureMethods5500EC",
+        "native_type": "LegacyExceptionRaiseMethodTable",
+        "native_size": 24,
+        "slots": [
+          {
+            "original_offset": 0,
+            "native_offset": 0,
+            "target_entry": "0x54A19C",
+            "target_symbol": "DeleteLegacyStreamFailure_54A19C",
+            "native_this_bridge": "DeleteLegacyStreamFailureFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 4,
+            "native_offset": 8,
+            "target_entry": "0x54A062",
+            "target_symbol": "GetLegacyLogicErrorText_54A062",
+            "native_this_bridge": "GetLegacyLogicErrorTextFromBase",
+            "implemented": true
+          },
+          {
+            "original_offset": 8,
+            "native_offset": 16,
+            "target_entry": "0x54A17F",
+            "target_symbol": "RaiseLegacyStreamFailure_54A17F",
+            "implemented": false
+          }
+        ],
+        "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
+      },
+      "boundary": "原54A17F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。"
     }
   ]
 }

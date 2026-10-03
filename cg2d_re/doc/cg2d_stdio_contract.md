@@ -3814,3 +3814,21 @@ Raise实际复制后CxxThrowException、length/range/failure各对象、ThrowInf
 局部静态只核对新增声明/本体、三类调用与换表/释放时点、两清理作用域与原元数据、两独立三槽/首成员适配、12原目标及五文件限定差异/UTF-8无BOM/LF；旧核心/已接点不复检。不构建、运行、加测或SHA/hash校验，静态声明不计为已执行ABI验证。
 
 length/range原抛出父仍仅声明，三族Raise均未实现；ThrowInfo/SDK catch类型/x64传播、failure对象、上游生产、原堆模式3及完整运行仍未闭。本板块不豁免总PLAN、异常链或运行验收。
+
+
+## 2026-10-04 runtime_error/failure 对象局部 SPEC 与实施裁决
+
+沿原549FFE构造、54A0E5复制、54A08C析构、54A0C9删除型及failure的54A142析构、54A19C删除型、54A1B8复制，七原本体共152条含四清理/handler chunk。本线程按工程委托实施实际字段存储/父调用与方法槽；原54A06F/54A17F各10条Raise只取证/真实声明，不计实现。
+
+实际原表必须区分：runtime_error是550130（54A0C9/54A062/54A06F），failure是5500EC（54A19C/54A062/54A17F），两表各三槽已加载。原两Raise均28B（1CH）对象，成员仍+0C string；原生用既有48B存储视图，只有地址拓宽。视图别名不合并原C++异常/SDK catch类型，原独立表/ThrowInfo与实际父关系保持。
+
+- runtime构造先以现有input::LegacyText593850()当前可写共享存储为源槽调54B079，之后才源prefix首U8/Tidy(false)/assign(source,0,当时npos)，完成才runtime表。copy先真实54B0B6，完成后才源成员首U8和同一成员链；不把593850当固定空串或读IDA假FF，不新增初值/预清/容量门槛。
+- 四FuncInfo551620/551668/551690/5516B8均magic19930520、state1、try表0；prevFFFFFFFF动作54C32C/54C340/54C354/54C368只清54B100。构造/复制成员失败不回滚成员；两析构均先runtime表/Tidy(true)，失败仍清基类，正常基类析构在保护区外。源级catch只表达该C++清理，不模拟FS/prolog/FrameHandler或称SEH等价。
+- failure copy实际调54A0E5 runtime复制父，完成后才写failure表；failure析构先恢复runtime表，不写最派生failure表。两个删除型先各自真实析构，再flags bit0同域53B4E7→53C0A9对象释放/返回原地址；不改父调用、混宿主delete或自动析构。
+- 共用what54A062本体保持，新增runtime/failure两表真实槽后，五原方法数据入向都有原生绑定；依旧读取实际成员buffer，空时才借55013B+1同背板。5/5方法槽不是5/5owner或异常类型完整验收。
+
+仅扩充LegacyException.cpp/.hpp；新增九原身份（7本体+2Raise声明），语义1100→1109。六既有依赖根16实际原点、三个本轮内部父点，共19；共享what另登记5方法槽绑定。旧核心/已接点、strlen14/复制9和现有暂停/待批范围不改。
+
+仅新增本体/声明、两实际表/源槽与成员读取时点、四state0范围、19原目标/共享what槽及五文件限定差异/UTF-8无BOM/LF静态核对。旧核心不复检，未构建、运行、加测或SHA/hash校验，静态offsetof/sizeof不计已执行ABI证明。
+
+五族Raise、length/range原抛出父、549F62状态/failure抛出、ThrowInfo/SDK catch类型/x64异常传播、完整原堆模式3与owner生产及运行仍未闭；不代批CRT宿主提案、不降低总PLAN验收。

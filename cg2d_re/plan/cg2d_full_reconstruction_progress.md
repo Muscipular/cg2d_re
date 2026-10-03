@@ -297,3 +297,12 @@ Gninc/Pninc返回旧指针，六槽先重绑再按写侧/读侧清六值，其�
 - 两独立三槽前两本体/共享原what已接，第三54A848/54A930各10条仅真实声明。新增8原身份（6本体+2声明），语义1092→1100；四既有依赖根10实际原点+两本族dtor点，共12；strlen14/复制9、18pending/4引用保持。
 - 局部SPEC/裁决与六本体/两声明/两三槽/两state0作用域、12目标及五文件限定差异/UTF-8无BOM/LF静态核对；旧核心未复检，未构建、运行、加测或SHA/hash校验。
 - 原length/range抛出父、三个Raise与ThrowInfo/SDK类型/x64传播、failure对象、原堆模式3/实际上游与完整运行仍待，总PLAN未完成。
+
+
+## 2026-10-04 runtime_error/failure 真对象父链
+
+- 七原本体549FFE/54A0E5/54A08C/54A0C9与54A142/54A19C/54A1B8实现，152条含四分离chunk；实际runtime表550130/failure表5500EC各独立三槽，复用已证48B字段视图，不合并SDK类型。
+- 保持当前可写593850源槽/base先行、首prefix U8/Tidy/assign后装表；failure copy真实runtime父后才换表，两dtor先runtime表/成员/基类，state0只基类；删除先本族dtor/flags bit0/同域原堆释放及原地址返回。
+- 两Raise54A06F/54A17F各10条仅声明；新增9原身份（7本体+2声明），语义1100→1109。七现有根更新（六依赖16原点+共用what五方法槽绑定），本轮内部父点3，共19实际原点；旧核心/strlen14/复制9、18pending/4引用不改。
+- 局部SPEC/裁决与新增七本体/两声明/两三槽/四state0范围、19目标和五文件限定差异/UTF-8无BOM/LF静态核对；旧核心未复检，未构建、运行、加测或SHA/hash校验。
+- 五族Raise、length/range原抛出父、549F62流状态抛出及ThrowInfo/SDK类型/x64传播、owner/原堆模式3与完整运行仍待，总PLAN未完成。

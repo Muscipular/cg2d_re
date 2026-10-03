@@ -88,4 +88,23 @@ LegacyStringRangeErrorObject* CopyConstructLegacyStringRangeError_54A969(
 // 原54A930实际拷贝后抛出；仅真实声明，不补固定异常或空槽。
 void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* storage);
 
+// 只复用已证48B字段视图；runtime_error/failure的原表、父调用和SDK类型迁移独立。
+using LegacyRuntimeErrorObject = LegacyLogicErrorObject;
+using LegacyStreamFailureObject = LegacyRuntimeErrorObject;
+LegacyRuntimeErrorObject* ConstructLegacyRuntimeError_549FFE(
+    LegacyRuntimeErrorObject* storage, const LegacyNarrowString* source);
+LegacyRuntimeErrorObject* CopyConstructLegacyRuntimeError_54A0E5(
+    LegacyRuntimeErrorObject* storage, const LegacyRuntimeErrorObject* source);
+void DestroyLegacyRuntimeError_54A08C(LegacyRuntimeErrorObject* storage);
+LegacyRuntimeErrorObject* DeleteLegacyRuntimeError_54A0C9(
+    LegacyRuntimeErrorObject* storage, std::uint32_t flags);
+void DestroyLegacyStreamFailure_54A142(LegacyStreamFailureObject* storage);
+LegacyStreamFailureObject* DeleteLegacyStreamFailure_54A19C(
+    LegacyStreamFailureObject* storage, std::uint32_t flags);
+LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
+    LegacyStreamFailureObject* storage, const LegacyStreamFailureObject* source);
+// 原复制后抛出入口仅声明，不代换宿主异常或生成原x86元数据。
+void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* storage);
+void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* storage);
+
 } // namespace cg::platform

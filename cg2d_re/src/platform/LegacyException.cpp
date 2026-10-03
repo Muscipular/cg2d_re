@@ -56,6 +56,28 @@ const LegacyExceptionRaiseMethodTable gLegacyStringRangeErrorMethods550194{
     RaiseLegacyStringRangeError_54A930
 };
 
+LegacyExceptionObject* DeleteLegacyRuntimeErrorFromBase(
+    LegacyExceptionObject* const storage, const std::uint32_t flags)
+{
+    DeleteLegacyRuntimeError_54A0C9(reinterpret_cast<LegacyRuntimeErrorObject*>(storage), flags);
+    return storage;
+}
+const LegacyExceptionRaiseMethodTable gLegacyRuntimeErrorMethods550130{
+    {DeleteLegacyRuntimeErrorFromBase, GetLegacyLogicErrorTextFromBase},
+    RaiseLegacyRuntimeError_54A06F
+};
+
+LegacyExceptionObject* DeleteLegacyStreamFailureFromBase(
+    LegacyExceptionObject* const storage, const std::uint32_t flags)
+{
+    DeleteLegacyStreamFailure_54A19C(reinterpret_cast<LegacyStreamFailureObject*>(storage), flags);
+    return storage;
+}
+const LegacyExceptionRaiseMethodTable gLegacyStreamFailureMethods5500EC{
+    {DeleteLegacyStreamFailureFromBase, GetLegacyLogicErrorTextFromBase},
+    RaiseLegacyStreamFailure_54A17F
+};
+
 } // namespace
 
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
@@ -249,6 +271,97 @@ LegacyStringRangeErrorObject* CopyConstructLegacyStringRangeError_54A969(
 {
     CopyConstructLegacyLogicError_54A7AE(storage, source);
     storage->base.methods = &gLegacyStringRangeErrorMethods550194.base;
+    return storage;
+}
+
+// 原549FFE，与logic_error存储布局相同，实际原入口/方法表保持独立。
+LegacyRuntimeErrorObject* ConstructLegacyRuntimeError_549FFE(
+    LegacyRuntimeErrorObject* const storage, const LegacyNarrowString* const source)
+{
+    const char* const baseText = input::LegacyText593850();
+    ConstructLegacyExceptionText_54B079(&storage->base, &baseText);
+    try {
+        storage->message.prefix00[0] = source->prefix00[0];
+        TidyLegacyNarrowString_548E29(&storage->message, false);
+        AssignLegacyNarrowStringFromString_54A315(
+            &storage->message, source, 0, gLegacyNarrowStringNpos550040);
+    } catch (...) {
+        // 原54C32C唯一state0动作只清已完成的基类。
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    storage->base.methods = &gLegacyRuntimeErrorMethods550130.base;
+    return storage;
+}
+
+LegacyRuntimeErrorObject* CopyConstructLegacyRuntimeError_54A0E5(
+    LegacyRuntimeErrorObject* const storage, const LegacyRuntimeErrorObject* const source)
+{
+    CopyConstructLegacyException_54B0B6(&storage->base, &source->base);
+    try {
+        storage->message.prefix00[0] = source->message.prefix00[0];
+        TidyLegacyNarrowString_548E29(&storage->message, false);
+        AssignLegacyNarrowStringFromString_54A315(
+            &storage->message, &source->message, 0, gLegacyNarrowStringNpos550040);
+    } catch (...) {
+        // 原54C354只清基类，不额外回滚成员。
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    storage->base.methods = &gLegacyRuntimeErrorMethods550130.base;
+    return storage;
+}
+
+void DestroyLegacyRuntimeError_54A08C(LegacyRuntimeErrorObject* const storage)
+{
+    storage->base.methods = &gLegacyRuntimeErrorMethods550130.base;
+    try {
+        TidyLegacyNarrowString_548E29(&storage->message, true);
+    } catch (...) {
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    DestroyLegacyException_54B100(&storage->base);
+}
+
+LegacyRuntimeErrorObject* DeleteLegacyRuntimeError_54A0C9(
+    LegacyRuntimeErrorObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyRuntimeError_54A08C(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+void DestroyLegacyStreamFailure_54A142(LegacyStreamFailureObject* const storage)
+{
+    // 原failure析构先恢复runtime_error表，不装最派生failure表。
+    storage->base.methods = &gLegacyRuntimeErrorMethods550130.base;
+    try {
+        TidyLegacyNarrowString_548E29(&storage->message, true);
+    } catch (...) {
+        DestroyLegacyException_54B100(&storage->base);
+        throw;
+    }
+    DestroyLegacyException_54B100(&storage->base);
+}
+
+LegacyStreamFailureObject* DeleteLegacyStreamFailure_54A19C(
+    LegacyStreamFailureObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyStreamFailure_54A142(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
+    LegacyStreamFailureObject* const storage, const LegacyStreamFailureObject* const source)
+{
+    CopyConstructLegacyRuntimeError_54A0E5(storage, source);
+    storage->base.methods = &gLegacyStreamFailureMethods5500EC.base;
     return storage;
 }
 

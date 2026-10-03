@@ -7115,11 +7115,11 @@ std::uint32_t Sub_4E2D90()
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t balance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    std::sprintf(buffer, "%7d", balance);
+    platform::FormatLegacyString_53B304(buffer, "%7d", balance);
     drawAt(buffer, 146, 150, 0);
-    std::sprintf(buffer, "%7d", maximum);
+    platform::FormatLegacyString_53B304(buffer, "%7d", maximum);
     drawAt(buffer, 421, 118, 0);
-    std::sprintf(buffer, "%7d", readDraft());
+    platform::FormatLegacyString_53B304(buffer, "%7d", readDraft());
     drawAt(buffer, 421, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7136,11 +7136,11 @@ std::uint32_t Sub_4E2D90()
         drawAt(kLegacyStorageNoMoney58906C, 63, 305, 0);
     } else if (message == 0) {
         drawAt(kLegacyStorageFee589284, 80, 305, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
         drawAt(buffer, 139, 306, 1);
     }
     drawAt(kLegacyStorageGold589278, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 417, 306, 1);
     const char* hint;
     std::uint32_t result = 0;
@@ -7240,11 +7240,11 @@ std::uint32_t Sub_4E3750()
             static_cast<std::int16_t>(top), 2, font, 0, text, 0, 0));
     };
     char buffer[64];
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 423, 151, 0);
-    std::sprintf(buffer, "%7d", maximum);
+    platform::FormatLegacyString_53B304(buffer, "%7d", maximum);
     drawAt(buffer, 143, 118, 0);
-    std::sprintf(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyStorageWithdrawDraftD2EA98);
     drawAt(buffer, 143, 158, 0);
     Sub_5035E0(&confirm, 223, 1, gValueD69768, 0);
     for (auto& digit : digits) {
@@ -7260,10 +7260,10 @@ std::uint32_t Sub_4E3750()
     const std::int32_t displaySide = ui::detail::ReadLegacyStorageSideD67618();
     const std::int32_t currentBalance = ReadRecordW32(
         ui::detail::gItemDetailStorageCC4D58.data() + displaySide * 0xFBF8, 0xFBF4);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, currentBalance);
+    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, currentBalance);
     drawAt(buffer, 139, 306, 1);
     drawAt(kLegacyStorageFee589284, 358, 305, 0);
-    std::sprintf(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
+    platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, gLegacyStorageFeeD40B04);
     drawAt(buffer, 417, 306, 1);
     const char* hint;
     std::uint32_t result = 0;

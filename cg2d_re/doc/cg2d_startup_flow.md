@@ -1598,3 +1598,72 @@ GetEnv现有std::getenv许可保持，未决CRT宿主总提案及异常对象承
 静态核对仅两文件新增区域/唯一声明、系统块释放/转换失败和错误9路径、
 两遍采样/指针与W32、JSON限定增量、合同/进度追加及UTF-8无BOM/LF/差异空白。
 未编译、测试、运行或计算/比对摘要，完整启动/环境生命周期与CRT运行验收保持未完成。
+
+
+## 2026-10-04 原窄字符串八叶与共享生命周期局部SPEC及实现
+
+### 方案、存储视图与所有权
+
+依当前用户工程委托，本线程采用原指令和原异常元数据落实八叶，
+在模块内新增LegacyNarrowString.cpp/.hpp并只登记到既有startup静态目标。
+本次依据为原代码/5513C0表，而不是旧节列出的本机STL头或待批CRT宿主提案。
+不替换现有宿主std::string、标准流对象或原C/C++启动表，不恢复音频。
+
+LegacyNarrowString只表达本组直接读取的原+00..+0F：
+原未解释+00..+03四字节保留，buffer原+04拓宽到新+08，
+length/capacity原+08/+0C保持U32，位于新+10/+14，原生视图24B。
+无隐式构析、默认补零、句柄/影子共享表；本组不写前缀字节，不宣称宿主私有ABI兼容。
+原550040已加载四字节FFFFFFFF，仅原十三代码读取已证；新同身份U32槽保持实际比较时采样，
+不按不可达、常量传播或源码函数数提升全量覆盖。
+
+buffer指向原堆字节块+1，buffer[-1]为真实U8共享标记。
+本组内部53C9CF六条桥接直接53C3BE(request,1)，53B4E7四条delete桥接直接原堆53C0A9；
+新块只与原堆释放配对。已有六个宿主裸字节适配/四个std许可保持，不用其owner释放原字符串块。
+模式3三个核心及完整堆启动仍未闭合，本次没有自动创建/切换堆或扩大21应用calloc范围。
+
+### 原八叶及正常/失败状态
+
+| 原入口/条数 | 实现及保留的状态 |
+|---|---|
+| 548D69/36 append | 先以550040-length无符号值严格大于count作门禁，失败调用真实54A67A；count非0才缓存新length/Grow(false)。成功重取buffer及旧length，S8字符符号扩展传5419D0低U8/count；填后重取buffer，再发布缓存新length/NUL，返回this |
+| 548DC2/43 erase | 先原位置门禁54A899，再Split；重新读length并缩减count。count非0才按原53D710正常重叠裁决memmove后缀，再重新取length/count后Grow(false)，AL真才写length/NUL，返回this |
+| 548E29/24 Tidy | release真且buffer非空才读-1标记；0/FF delete块起点，其余低U8减1。随后依次清buffer/length/capacity，不写前缀，不加自动析构或清整对象 |
+| 548F74/19 Freeze | 非0/FF共享标记才Grow(length,false)，弃AL；随后重取buffer，非空才写-1标记FF，不缓存旧指针当新指针 |
+| 548FA0/56 Grow | 请求超过FFFFFFFD调用真实54A67A。共享零请求先减引用后Tidy(false)，返回AL0；共享非零直接Copy。非共享零请求依trim Tidy(true)，否则仅非空buffer时清length/首NUL。非零trim只在capacity<=31且>=requested保留，否则Tidy后Copy；非trim容量足够直接AL1，否则Copy/AL1 |
+| 549025/23 Split | 仅共享非0/FF：保存旧buffer→Tidy(true)→549043真实StrLen(saved)→assign。不能缓存原length替代NUL长度，Tidy只减引用使原保存块仍由其他共享者持有 |
+| 549055/21 assign(ptr,count) | Grow(count,true)AL真才549071真实541620复制；再重取buffer/写length/NUL，返回this。不提前缓存目标/源内容或修正自身别名失败路径 |
+| 54908A/75 Copy | 请求OR1F扩容，超过FFFFFFFD则用原请求；capacity+2按S32负数夹为0沿原值。第一次分配抛C++异常才按原请求容量第二次分配，第二异常继续外传；空返回不重试/不补检查。旧length非0才549104按min(length,capacity)复制至新块+1；重新取旧length/Tidy(true)，发布buffer+1/标记0/capacity/min旧length/NUL |
+
+按原先后/重取字段表达函数；使用原0/FF/共享计数、W32数值与真实地址。
+未添加空指针保护、容量拒绝、栈预清/快照、事务回滚或故障恢复；
+RPLAN.24范围保持，实际分配失败/异常ABI及越界故障等价未验。
+原53D710的有效范围std::memmove裁决只用于本组548DFC；
+其余复制549071/549104接真实541620，未改两核心或已有消费者。
+
+### 54908A捕获表新增事实
+
+原FuncInfo5513C0：magic19930520、maxState2；
+5513E0两unwind项均previous=-1/action0，没有本地对象销毁动作；
+5513F0 tryLow0/tryHigh0/catchHigh1、handlerCount1；
+551408为adjectives0/typeDescriptor0/displacement0/handler5490C9。
+据此5490C9是原任意C++类型异常处理器，仅第一次new位于try域；
+第二new在handler内，不能按空返回或固定失败改写，也不能形成无限重试。
+新x64由C++ try/catch(...)表达该边界，不复制x86 EH_prolog、FS链或FrameHandler状态；
+最终编译器异常/原新失败流程门禁仍未通过，不扩大为SEH故障恢复。
+
+### 接线、声明依赖及核对
+
+5419D0新增548DA8，原八调用8/8真实源接线；53F9E0新增549043，11→12真实，
+另4既批宿主引用、余8原点保持。541620新增549071/549104，
+53D710新增548DFC，不把八叶本体与原点齐备当完整CRT/调用链验收。
+54A67A/54A899新增两个真实无参void声明和稳定记录；各35条只统计，
+原异常对象构造/抛出尚未实现，不以宿主length_error/out_of_range、空函数或默认成功补齐。
+语义清单1084→1086的新增两项仅声明；原八叶及两分配桥接为已有记录等级提升，
+18个pending及4分类引用、模式3/62析构/启动/宿主双执行和完整链接运行门禁保持。
+
+原八叶297条及两桥接10条、捕获表/loaded550040只读取证。
+必要静态核对仅新两文件/存储偏移/原真实调用与失败路径、CMake一来源登记、
+14记录限定更新/2声明记录、局部合同/进度及UTF-8无BOM/LF/差异空白。
+原堆、StrLen/Fill/Copy/Move核心与已接点不复检；未配置、编译、测试、运行或hash校验。
+其他窄字符串assign(string)/构析/标准流/filebuf上游仍未落实到本视图，
+不能把当前宿主对象作为原共享缓冲强制转换或注册为旧对象。

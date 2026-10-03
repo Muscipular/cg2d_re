@@ -9616,7 +9616,7 @@
     {
       "original_entry": "0x53C9CF",
       "inventory_id": "F:0013C9CF",
-      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "status": "六个宿主裸字节适配保持；新增原窄字符串内部原堆桥接，完整new/堆/运行未验",
       "original_end_exclusive": "0x53C9DD",
       "instruction_count": 6,
       "sources": [
@@ -9631,6 +9631,13 @@
           "symbols": [
             "AllocateLegacyByteBuffer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AllocateLegacyNarrowStringBytes_53C9CF"
+          ],
+          "relationship": "仅原窄字符串内部原堆字节块；真实53C3BE(enableHandler1)且与内部原堆释放配对，六裸适配保持"
         }
       ],
       "evidence_documents": [
@@ -9638,7 +9645,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。"
     },
     {
       "original_entry": "0x53C3BE",
@@ -9743,7 +9750,7 @@
     {
       "original_entry": "0x53B4E7",
       "inventory_id": "F:0013B4E7",
-      "status": "已接六个裸字节缓冲调用域；私有堆适配及运行边界见SPEC",
+      "status": "六个宿主裸字节释放适配保持；新增窄字符串原堆释放桥接，完整delete/生命周期未验",
       "original_end_exclusive": "0x53B4F2",
       "instruction_count": 4,
       "sources": [
@@ -9758,6 +9765,13 @@
           "symbols": [
             "FreeLegacyByteBuffer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "FreeLegacyNarrowStringBytes_53B4E7"
+          ],
+          "relationship": "仅548E4F的buffer-1原堆块，同域FreeLegacyHeapMemory_53C0A9；六宿主适配保持"
         }
       ],
       "evidence_documents": [
@@ -9765,7 +9779,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。"
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。"
     },
     {
       "original_entry": "0x541A28",
@@ -13355,7 +13369,7 @@
     {
       "original_entry": "0x53D710",
       "inventory_id": "F:0013D710",
-      "status": "原重叠复制已证；两个网络及两个浮点CRT消费者显式关联",
+      "status": "原正常重叠复制及网络/浮点/旧字符串指定消费者关联；其余父/运行未闭合",
       "original_end_exclusive": "0x53DA45",
       "instruction_count": 231,
       "sources": [
@@ -13374,13 +13388,20 @@
             "RoundLegacyFloatDigits_544EA0"
           ],
           "relationship": "原540205/544F0A两处按正常重叠复制合同用std::memmove承接"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "EraseLegacyNarrowString_548DC2"
+          ],
+          "relationship": "原548DFC按正常重叠合同std::memmove移动后缀，真实Split后重取长度/删除数，后续Grow时点保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "有效源目标范围内，dest>src且dest<src+count时逆向，否则正向，返回原dest。用std::memmove保留重叠复制后字节，不重建对齐跳表或异常现场。237个元数据item中53D8FC..53D908的六个伪指令为三个W32目标，代码计231；原分母/数据库不改。 新增浮点shift/fptostr两处真实消费者，未改变既有网络调用，也未宣称其余CRT父链完成。",
+      "boundary": "有效源目标范围内，dest>src且dest<src+count时逆向，否则正向，返回原dest。用std::memmove保留重叠复制后字节，不重建对齐跳表或异常现场。237个元数据item中53D8FC..53D908的六个伪指令为三个W32目标，代码计231；原分母/数据库不改。 新增浮点shift/fptostr两处真实消费者，未改变既有网络调用，也未宣称其余CRT父链完成。；2026-10-04新增548DC2@548DFC真实删除后缀重叠复制，沿本条既有有效范围std::memmove裁决；不新增输入保护/影子复制或重建跳表，其他消费者/异常与生命周期未闭合。",
       "metadata_item_count": 237,
       "embedded_dispatch_tables": [
         {
@@ -13418,6 +13439,16 @@
           "end_exclusive": "0x53DA00",
           "entry_count": 4,
           "entry_width": 4
+        }
+      ],
+      "cxx_string_call_connections": [
+        {
+          "parent_entry": "0x548DC2",
+          "call_site": "0x548DFC",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "EraseLegacyNarrowString_548DC2",
+          "source_expression": "destination,destination+count,suffix-count",
+          "relationship": "先Split/重取length/缩减删除数，原当前缓冲内向前重叠移动，之后再次取length才Grow"
         }
       ]
     },
@@ -14794,7 +14825,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及11原调用已接；4原引用已批宿主承接，其他9原引用/完整父与运行未验",
+      "status": "既有长度核心及12原调用已接；4原引用已批宿主承接，其他8原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14855,6 +14886,13 @@
             "InitializeLegacyEnvironment_543F8E"
           ],
           "relationship": "543F8E两遍真实原长度调用543FB4/543FEE；不把上游系统块扫描计为53F9E0入口"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "SplitLegacyNarrowString_549025"
+          ],
+          "relationship": "549043真实共享拆分长度，Tidy后读取保存旧缓冲"
         }
       ],
       "evidence_documents": [
@@ -14864,7 +14902,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -14987,9 +15025,20 @@
           "source_expression": "cursor (copy pass)",
           "result_width": "U32",
           "relationship": "第二遍先长度+1，才判断首字节=是否分配/复制；长度同时用于分配和源推进"
+        },
+        {
+          "parent_entry": "0x549025",
+          "call_site": "0x549043",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "SplitLegacyNarrowString_549025",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "saved",
+          "result_width": "U32",
+          "relationship": "仅非0/FF共享标记，保存旧buffer/Tidy(true)后才真实U32长度；再assign旧指针/实际长度，不缓存旧字段length"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行",
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行",
       "native_delegated_length_call_references": [
         {
           "parent_entry": "0x54518B",
@@ -15032,7 +15081,7 @@
     {
       "original_entry": "0x5419D0",
       "inventory_id": "F:001419D0",
-      "status": "原低U8填充完整本体与7真实原调用已接；1旧C++字符串父/完整链与运行未验",
+      "status": "原低U8填充完整本体与8原入口调用已接；完整父/异常/CRT运行未闭合",
       "original_end_exclusive": "0x541A28",
       "instruction_count": 40,
       "sources": [
@@ -15086,6 +15135,13 @@
             "ResizeLegacyDescriptor_5438D4"
           ],
           "relationship": "原543954正差值扩展前固定4096B零缓冲；FILE/描述符模式与错误次序保持"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AppendLegacyNarrowString_548D69"
+          ],
+          "relationship": "原548DA8真实追加填充，原共享/原堆/数量与发布时点保持"
         }
       ],
       "evidence_documents": [
@@ -15094,7 +15150,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。；2026-10-04新增完整核心与四原入口实际接线。保留低U8、Count0不写/返原目标、Count>=4才前缀对齐/逐W32/尾写。仅用std::align求原4B对齐，无整数地址缓存。53C094的mode3原请求/mode2当前对齐容量分别保留，其他原堆owner/失败不改；53E46C固定32B、5400A6 S32 precision低U32、5452F7两倍当前wideCount同源清零。原其余四点542844/542BA3/543954/548DA8未接，完整父/启动/内存及运行未验，不扩大calloc应用批准域。；2026-10-04再接54275C@542844区域64KB清零、542A54@542BA3 Count0/Val当前commitBytes不写、5438D4@543954正S32扩展时先清4096B局部零缓冲。旧模式2几何/共享指针/首次16页初始化、VirtualAlloc失败、文件模式/分块write/errno/DOS及位置恢复正文保持，不能把零数量改成清提交容量。余548D69@548DA8 C++字符串追加父未实现/承接未闭合；原8入口归属计数7+1保持，完整CRT/堆/文件运行未验。",
+      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。；2026-10-04新增完整核心与四原入口实际接线。保留低U8、Count0不写/返原目标、Count>=4才前缀对齐/逐W32/尾写。仅用std::align求原4B对齐，无整数地址缓存。53C094的mode3原请求/mode2当前对齐容量分别保留，其他原堆owner/失败不改；53E46C固定32B、5400A6 S32 precision低U32、5452F7两倍当前wideCount同源清零。原其余四点542844/542BA3/543954/548DA8未接，完整父/启动/内存及运行未验，不扩大calloc应用批准域。；2026-10-04再接54275C@542844区域64KB清零、542A54@542BA3 Count0/Val当前commitBytes不写、5438D4@543954正S32扩展时先清4096B局部零缓冲。旧模式2几何/共享指针/首次16页初始化、VirtualAlloc失败、文件模式/分块write/errno/DOS及位置恢复正文保持，不能把零数量改成清提交容量。余548D69@548DA8 C++字符串追加父未实现/承接未闭合；原8入口归属计数7+1保持，完整CRT/堆/文件运行未验。；2026-10-04原548D69八叶链新增548DA8真实填充，原八入口引用全部接入真实核心；这不完成上游对象、54A67A/54A899异常叶、模式3或完整CRT/运行验收。",
       "original_direct_reference_count": 8,
       "fill_call_connections": [
         {
@@ -15163,9 +15219,18 @@
           "target_symbol": "FillLegacyMemory_5419D0",
           "source_expression": "zeros,0,4096",
           "relationship": "原ESI xor0及差值S32>0分支，固定4096B先清零再setmode(binary)/分块写；不改变错误与原位置恢复"
+        },
+        {
+          "parent_entry": "0x548D69",
+          "call_site": "0x548DA8",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "AppendLegacyNarrowString_548D69",
+          "target_symbol": "FillLegacyMemory_5419D0",
+          "source_expression": "buffer+重取length,S8 character→S32,count",
+          "relationship": "原npos-length严格大于门禁、count非0/Grow AL真后，S8符号扩展为Val低U8，填后重取buffer才发布新length/NUL"
         }
       ],
-      "verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行；三新原点/参数生产与局部邻窗、两源文件限定三标识符/数量和四记录增量静态核对；核心/旧模式2与descriptor父不重验，未构建或执行"
+      "verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行；三新原点/参数生产与局部邻窗、两源文件限定三标识符/数量和四记录增量静态核对；核心/旧模式2与descriptor父不重验，未构建或执行；新548D69全36条/S8 Val扩展/原npos与Grow门禁、八叶内部实际链及该原点/限定源码和JSON静态核对，核心/七已接点不复检，未构建或执行"
     },
     {
       "original_entry": "0x54B160",
@@ -32767,11 +32832,11 @@
     {
       "original_entry": "0x548D69",
       "inventory_id": "F:00148D69",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x548DC2",
       "instruction_count": 36,
       "original_direct_reference_count": 4,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5488C2",
@@ -32790,20 +32855,83 @@
           "parent_entry": "0x549BC7"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AppendLegacyNarrowString_548D69"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "AppendLegacyNarrowString_548D69",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "append(count,char)：先按550040减旧长度作上限门禁；数量非零才Grow，成功后memset追加并发布长度/NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "append(count,char)：先按550040减旧长度作上限门禁；数量非零才Grow，成功后memset追加并发布长度/NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x548D7E",
+          "instruction": "call    ?_Xlen@std@@YAXXZ",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548D91",
+          "instruction": "call    ?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548DA8",
+          "instruction": "call    _memset",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x548DC2",
       "inventory_id": "F:00148DC2",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x548E29",
       "instruction_count": 43,
       "original_direct_reference_count": 9,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5488B7",
@@ -32842,20 +32970,88 @@
           "parent_entry": "0x54A315"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "EraseLegacyNarrowString_548DC2"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "EraseLegacyNarrowString_548DC2",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "erase：位置门禁后先Split，重新读取长度并缩减删除数；有删除才以53D710移动后缀，再Grow并发布长度/NUL。不能把原_memcpy标签误作不支持重叠。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "erase：位置门禁后先Split，重新读取长度并缩减删除数；有删除才以53D710移动后缀，再Grow并发布长度/NUL。不能把原_memcpy标签误作不支持重叠。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x548DD0",
+          "instruction": "call    ?_Xran@std@@YAXXZ",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548DD7",
+          "instruction": "call    ?_Split@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXXZ",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548DFC",
+          "instruction": "call    _memcpy",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548E0E",
+          "instruction": "call    ?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x548E29",
       "inventory_id": "F:00148E29",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x548E65",
       "instruction_count": 24,
       "original_direct_reference_count": 22,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x548813",
@@ -32946,20 +33142,73 @@
           "parent_entry": "0x54A8F3"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "TidyLegacyNarrowString_548E29"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "TidyLegacyNarrowString_548E29",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x548E4F",
+          "instruction": "call    delete",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x548F74",
       "inventory_id": "F:00148F74",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x548FA0",
       "instruction_count": 19,
       "original_direct_reference_count": 16,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x5488CC",
@@ -33026,20 +33275,73 @@
           "parent_entry": "0x549BC7"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "FreezeLegacyNarrowString_548F74"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "FreezeLegacyNarrowString_548F74",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Freeze：共享标记非0/FF先Grow(length,false)，随后重取buffer，非空才将buffer[-1]置FF。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "Freeze：共享标记非0/FF先Grow(length,false)，随后重取buffer，非空才将buffer[-1]置FF。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x548F8E",
+          "instruction": "call    ?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x548FA0",
       "inventory_id": "F:00148FA0",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x549025",
       "instruction_count": 56,
       "original_direct_reference_count": 5,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x548D91",
@@ -33062,40 +33364,171 @@
           "parent_entry": "0x54A315"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "GrowLegacyNarrowString_548FA0"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "GrowLegacyNarrowString_548FA0",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Grow：U32请求上限FFFFFFFD；共享零请求先减引用再Tidy(false)。非共享零请求依trim释放或只清长度/首NUL；非零trim路径保留或重建，返回只规定AL。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "Grow：U32请求上限FFFFFFFD；共享零请求先减引用再Tidy(false)。非共享零请求依trim释放或只清长度/首NUL；非零trim路径保留或重建，返回只规定AL。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x548FAD",
+          "instruction": "call    ?_Xlen@std@@YAXXZ",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x548FD2",
+          "instruction": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x54900A",
+          "instruction": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x549019",
+          "instruction": "call    ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x549025",
       "inventory_id": "F:00149025",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x549055",
       "instruction_count": 23,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x548DD7",
           "parent_entry": "0x548DC2"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "SplitLegacyNarrowString_549025"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "SplitLegacyNarrowString_549025",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Split：仅共享标记非0/FF时保存旧buffer，Tidy(true)后strlen(saved)再assign；不能用旧长度替换strlen。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "Split：仅共享标记非0/FF时保存旧buffer，Tidy(true)后strlen(saved)再assign；不能用旧长度替换strlen。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x54903D",
+          "instruction": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x549043",
+          "instruction": "call    _strlen",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x54904D",
+          "instruction": "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x549055",
       "inventory_id": "F:00149055",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x54908A",
       "instruction_count": 21,
       "original_direct_reference_count": 6,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x54904D",
@@ -33122,31 +33555,105 @@
           "parent_entry": "0x54A899"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AssignLegacyNarrowString_549055"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "AssignLegacyNarrowString_549055",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x549060",
+          "instruction": "call    ?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAE_NI_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x549071",
+          "instruction": "call    _memcpy_0",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        }
+      ]
     },
     {
       "original_entry": "0x54908A",
       "inventory_id": "F:0014908A",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
       "original_end_exclusive": "0x549147",
       "instruction_count": 75,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列；新八父297条及两原分配叶10条只读取证、Copy原FuncInfo/try/handler/unwind、550040四已加载字节、Native字段/真实内部调用与局部SPEC；新两源文件/唯一声明/CMake一来源登记、限定JSON/文档静态核对，未构建或执行",
       "inbound_evidence": [
         {
           "address": "0x549019",
           "parent_entry": "0x548FA0"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "CopyLegacyNarrowString_54908A"
+          ],
+          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "CopyLegacyNarrowString_54908A",
+            "LegacyNarrowString"
+          ],
+          "relationship": "唯一显式this声明/24B原生视图；未解释4B前缀不写、无隐式构析"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "Copy：请求先按1F位掩码扩容，分配capacity+2，复制旧前缀后Tidy旧块并发布新buffer+1、标记0、容量/长度/NUL。5490C9为异常处理片段，不是普通空返回重试；捕获合同仍待。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。",
+      "boundary": "Copy：请求先按1F位掩码扩容，分配capacity+2，复制旧前缀后Tidy旧块并发布新buffer+1、标记0、容量/长度/NUL。5490C9为异常处理片段，不是普通空返回重试；捕获合同本步由5513C0/551408原数据证实为任意C++类型异常、仅第一次分配受捕获；原请求重试及第二异常外传保持。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
       "function_chunks": [
         {
           "start": "0x54908A",
@@ -33155,6 +33662,92 @@
         {
           "start": "0x54C1B8",
           "end_exclusive": "0x54C1C2"
+        }
+      ],
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "exception_capture_evidence": {
+        "function_info": "0x5513C0",
+        "magic": "0x19930520",
+        "max_states": 2,
+        "unwind_map": "0x5513E0",
+        "unwind_actions": [
+          {
+            "previous_state": -1,
+            "action": null
+          },
+          {
+            "previous_state": -1,
+            "action": null
+          }
+        ],
+        "try_map": "0x5513F0",
+        "try_low": 0,
+        "try_high": 0,
+        "catch_high": 1,
+        "catch_count": 1,
+        "handler_map": "0x551408",
+        "handler": {
+          "adjectives": 0,
+          "type_descriptor": null,
+          "displacement": 0,
+          "entry": "0x5490C9"
+        },
+        "source": "catch (...)仅第一次分配，catch内原请求第二次分配异常继续外传；原new空返回不重试/不补保护"
+      },
+      "internal_call_connections": [
+        {
+          "call_site": "0x54908F",
+          "instruction": "call    __EH_prolog",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x5490BE",
+          "instruction": "call    ??2@YAPAXI@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x5490D9",
+          "instruction": "call    ??2@YAPAXI@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x549104",
+          "instruction": "call    _memcpy_0",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
+        },
+        {
+          "call_site": "0x549113",
+          "instruction": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
+          "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
         }
       ]
     },
@@ -36248,7 +36841,7 @@
     {
       "original_entry": "0x541620",
       "inventory_id": "F:00141620",
-      "status": "原批量读写或缓冲输出本体及局部依赖已实现；业务FILE迁移及完整启动未闭合",
+      "status": "原批量内存复制本体及指定接线已实现；完整消费者/启动与运行未闭合",
       "original_end_exclusive": "0x541955",
       "instruction_count": 231,
       "original_direct_reference_count": 14,
@@ -36264,13 +36857,21 @@
           "symbols": [
             "CopyLegacyMemory_541620"
           ]
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AssignLegacyNarrowString_549055",
+            "CopyLegacyNarrowString_54908A"
+          ],
+          "relationship": "原549071/549104实际块复制；Grow成功后assign，旧块复制在Tidy前，两源/容量/发布顺序保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。",
+      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。；2026-10-04新增549055@549071/54908A@549104两个原窄字符串真实复制点，源/目标/低U32数量及Grow/Tidy/长度发布顺序保持；核心及其余消费者不复检，完整生命周期/运行未闭合。",
       "function_chunks": [
         {
           "start": "0x541620",
@@ -36335,7 +36936,23 @@
           "parent_entry": "0x54A315"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "cxx_string_call_connections": [
+        {
+          "parent_entry": "0x549055",
+          "call_site": "0x549071",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "AssignLegacyNarrowString_549055",
+          "relationship": "Grow(count,true)返回AL非零才复制，再重取buffer/长度/NUL"
+        },
+        {
+          "parent_entry": "0x54908A",
+          "call_site": "0x549104",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "CopyLegacyNarrowString_54908A",
+          "relationship": "旧length非0才按min(length,capacity)复制至新块+1，Tidy之前，不把源指针改成新块"
+        }
+      ]
     },
     {
       "original_entry": "0x53E950",
@@ -84386,6 +85003,63 @@
       ],
       "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。",
       "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行"
+    },
+    {
+      "original_entry": "0x54A67A",
+      "inventory_id": "F:0014A67A",
+      "status": "仅真实异常叶声明；原异常对象构造/抛出及x64承接未实现/未验",
+      "original_end_exclusive": "0x54A6D4",
+      "instruction_count": 35,
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "ThrowLegacyStringLength_54A67A"
+          ],
+          "relationship": "仅本组实际调用需要的原无参void声明，不提供空body或默认结果"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。",
+      "verification_level": "稳定入口/统计与新原调用点、唯一声明静态核对；原35条正文未验/未实现，不计body完成",
+      "new_string_inbound_evidence": [
+        {
+          "call_site": "0x548D7E"
+        },
+        {
+          "call_site": "0x548FAD"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x54A899",
+      "inventory_id": "F:0014A899",
+      "status": "仅真实异常叶声明；原异常对象构造/抛出及x64承接未实现/未验",
+      "original_end_exclusive": "0x54A8F3",
+      "instruction_count": 35,
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "ThrowLegacyStringRange_54A899"
+          ],
+          "relationship": "仅本组实际调用需要的原无参void声明，不提供空body或默认结果"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_crt_memory_contract.md"
+      ],
+      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。",
+      "verification_level": "稳定入口/统计与新原调用点、唯一声明静态核对；原35条正文未验/未实现，不计body完成",
+      "new_string_inbound_evidence": [
+        {
+          "call_site": "0x548DD0"
+        }
+      ]
     }
   ]
 }

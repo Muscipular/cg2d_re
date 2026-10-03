@@ -41030,7 +41030,7 @@ void Sub_474FB0()
     std::memcpy(nameData->text, name, nameLength);
 
     char buffer[256];
-    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
+    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     const std::size_t levelLength = std::strlen(buffer) + 1;
     std::memcpy(levelData->text, buffer, levelLength);
@@ -41083,21 +41083,21 @@ void Sub_474FB0()
     const std::size_t tribeLength = std::strlen(tribe) + 1;
     std::memcpy(tribeData->text, tribe, tribeLength);
 
-    std::sprintf(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
+    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerExperienceOnce());
     auto* const experienceData = static_cast<WindowTextData*>(gCurrentWindow->elements[9].data);
     const std::size_t experienceLength = std::strlen(buffer) + 1;
     std::memcpy(experienceData->text, buffer, experienceLength);
 
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     auto* const hpData = static_cast<WindowTextData*>(gCurrentWindow->elements[11].data);
     const std::size_t hpLength = std::strlen(buffer) + 1;
     std::memcpy(hpData->text, buffer, hpLength);
 
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     auto* const fpData = static_cast<WindowTextData*>(gCurrentWindow->elements[12].data);
     const std::size_t fpLength = std::strlen(buffer) + 1;
     std::memcpy(fpData->text, buffer, fpLength);
@@ -41106,14 +41106,14 @@ void Sub_474FB0()
     if (world::detail::IsPlayerNextExperienceEqual(-1)) {
         nextExperience = "        -";
     } else {
-        std::sprintf(buffer, "%9d", world::detail::ReadPlayerNextExperienceOnce());
+        platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerNextExperienceOnce());
         nextExperience = buffer;
     }
     auto* const nextData = static_cast<WindowTextData*>(gCurrentWindow->elements[10].data);
     const std::size_t nextLength = std::strlen(nextExperience) + 1;
     std::memcpy(nextData->text, nextExperience, nextLength);
 
-    std::sprintf(buffer, "%9d", world::detail::ReadPlayerDuelPoint());
+    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::ReadPlayerDuelPoint());
     auto* const duelData = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
     const std::size_t duelLength = std::strlen(buffer) + 1;
     std::memcpy(duelData->text, buffer, duelLength);
@@ -41142,7 +41142,7 @@ void Sub_474FB0()
 
     const std::int32_t penalty = world::detail::ReadPlayerPenalty();
     if (penalty > 0) {
-        std::sprintf(buffer, "x%d", penalty);
+        platform::FormatLegacyString_53B304(buffer, "x%d", penalty);
         WindowElement* const penaltyElements = gCurrentWindow->elements;
         const std::size_t penaltyLength = std::strlen(buffer) + 1;
         auto* const penaltyData = static_cast<WindowTextData*>(penaltyElements[2].data);

@@ -5774,13 +5774,13 @@ std::int32_t Sub_4B0290(const std::int32_t value)
         std::memset(gTradeItemSlotsCF3AE8.data() + 16, 0xFF, 4);
         gTradePetSlotsCC4D28[4] = 0xFF;
         auto* const otherName = static_cast<WindowTextData*>(textWindow->elements[15].data);
-        std::sprintf(otherName->text, "%16s", gTradeNameD2D654.data());
+        platform::FormatLegacyString_53B304(otherName->text, "%16s", gTradeNameD2D654.data());
         WindowElement* const elements = gCurrentWindow->elements;
         const char* const playerName = world::detail::BorrowPlayerDisplayText(1);
         auto* const separator = static_cast<WindowTextData*>(elements[16].data);
         std::strcpy(separator->text, "<=>");
         auto* const ownName = static_cast<WindowTextData*>(gCurrentWindow->elements[17].data);
-        std::sprintf(ownName->text, "%-16s", playerName);
+        platform::FormatLegacyString_53B304(ownName->text, "%-16s", playerName);
         const std::int32_t y =
             platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
         const std::int32_t x =

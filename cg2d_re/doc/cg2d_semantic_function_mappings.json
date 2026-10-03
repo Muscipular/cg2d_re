@@ -13937,7 +13937,7 @@
     {
       "original_entry": "0x544DB0",
       "inventory_id": "F:00144DB0",
-      "status": "既有复制入口/共享尾及6原调用已接；2原引用已批宿主承接，其他3原引用/完整父与运行未验",
+      "status": "既有复制入口/共享尾及7原调用已接；2原引用已批宿主承接，其他2异常对象原引用/完整父与运行未验",
       "original_end_exclusive": "0x544DB7",
       "instruction_count": 3,
       "sources": [
@@ -13976,6 +13976,13 @@
             "GenerateLegacyFloatDecimal_546F36"
           ],
           "relationship": "原547017/547034由现特殊值同一text复制表达式承接，count5/6发布保持"
+        },
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "InitializeLegacyEnvironment_543F8E"
+          ],
+          "relationship": "543F8E原环境项复制544014；上游544294/53DE34生产片段已有，完整启动/退出仍待"
         }
       ],
       "evidence_documents": [
@@ -13985,7 +13992,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。 原547FE0/548161另列已批GetEnv私有父宿主承接，实际6原点保持；独立CRT启动/异常对象三未决不转为排除。",
+      "boundary": "入口三条在544DB5跳544E21，共用544DC0名下复制尾；LegacyTime已有完整源对齐复制、候选/值两次读取、四类末块写宽及原target返回。此前仅记录共享关系遗漏已有本体，现纠正；原11处直接引用中TZ一处与错误报告两处和科学尾/特殊值三原点共六处已接，其余五处及完整CRT父链和故障行为不据此验收。 新StrCat只把已证544E21共用尾桥接到本体、弃尾目标返回后另返原追加target，不作第12个原入口调用；完整本体逐字保持。 新三原复制点由两源表达式承接，六字节e+000和四特殊串/复制后count5或6及原target身份保持，零值直接写入路径不改；内部追加桥接不增加原入口统计。 原547FE0/548161另列已批GetEnv私有父宿主承接，实际6原点保持；独立CRT启动/异常对象三未决不转为排除。；2026-10-04新增543F8E@544014环境项真实复制：两遍跳过首字节=项，逐项分配先写槽，失败沿错误9退出后原位置继续，未补保护/清目标；原块释放/清槽/末空槽/完成标志顺序保持。环境块544294生产与捕获片段同源；GetEnv既有std范围不改，完整启动/环境退出与异常对象仍未闭合。",
       "shared_code": {
         "entry": "0x544E21",
         "end_exclusive": "0x544EA0",
@@ -14058,6 +14065,17 @@
           "destination_expression": "output->digits",
           "source_expression_group": "float_special_value_copy",
           "relationship": "SNAN/QNAN原复制后count6；现同一text表达式承接另一原点，零值路径不变"
+        },
+        {
+          "parent_entry": "0x543F8E",
+          "call_site": "0x544014",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "InitializeLegacyEnvironment_543F8E",
+          "target_entry": "0x544DB0",
+          "target_symbol": "StrCpy_544DB0",
+          "source_expression": "cursor",
+          "destination_expression": "*slot",
+          "relationship": "长度+1后仅首字节非=项分配/先发布槽，失败错误9后原位置继续；实际复制后推进表槽，未加保护或清零"
         }
       ],
       "shared_tail_connection": {
@@ -14068,7 +14086,7 @@
         "target_symbol": "StrCpy_544DB0",
         "relationship": "原公共代码的内部桥接，非544DB0入口xref，不增加11原入口引用统计"
       },
-      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持；仅新增547FE0/548161的既有GetEnv宿主归属，6实际接线/共享尾保持",
+      "verification_level": "既有StrCpy全文逐字保持，仅公开唯一声明并接两错误父点；原共享尾49条在追加84全文中核对应读取/写宽/返回身份，桥接及两常量/顺序和限定源码静态核对，未构建或执行；科学尾/特殊值三真实原点与两源表达式/原含NUL模板/四原特殊串/复制后count发布及限定源码静态核对；既有直接本体/共享尾/声明逐字保持；仅新增547FE0/548161的既有GetEnv宿主归属，6实际接线/共享尾保持；新543F8E完整71条/544294完整132条及启动2指令发布片段、两长度/一复制/实际Malloc与Free链、三槽引用/后端专用引用/系统块归属和x64表槽拓宽静态核对；既有核心/已接点不重验，未构建或执行",
       "native_delegated_copy_call_references": [
         {
           "parent_entry": "0x547E8A",
@@ -14766,7 +14784,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及9原调用已接；4原引用已批宿主承接，其他11原引用/完整父与运行未验",
+      "status": "既有长度核心及11原调用已接；4原引用已批宿主承接，其他9原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14820,6 +14838,13 @@
             "RoundLegacyFloatDigits_544EA0"
           ],
           "relationship": "移位/舍入的两实际长度+NUL计数点，原U32和重叠移动保持"
+        },
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "InitializeLegacyEnvironment_543F8E"
+          ],
+          "relationship": "543F8E两遍真实原长度调用543FB4/543FEE；不把上游系统块扫描计为53F9E0入口"
         }
       ],
       "evidence_documents": [
@@ -14829,7 +14854,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -14930,9 +14955,31 @@
           "source_expression": "output + 1",
           "result_width": "U32",
           "relationship": "原进位后首字符非1才取剩余串低U32长度+1，随后正常重叠移动保持"
+        },
+        {
+          "parent_entry": "0x543F8E",
+          "call_site": "0x543FB4",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "InitializeLegacyEnvironment_543F8E",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "cursor (count pass)",
+          "result_width": "U32",
+          "relationship": "第一遍仅非=首字节计数，但全部项均调用真实长度+1推进；不复用第二遍长度"
+        },
+        {
+          "parent_entry": "0x543F8E",
+          "call_site": "0x543FEE",
+          "source": "src/platform/CommandOptions.cpp",
+          "symbol": "InitializeLegacyEnvironment_543F8E",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "cursor (copy pass)",
+          "result_width": "U32",
+          "relationship": "第二遍先长度+1，才判断首字节=是否分配/复制；长度同时用于分配和源推进"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变",
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行",
       "native_delegated_length_call_references": [
         {
           "parent_entry": "0x54518B",
@@ -83987,6 +84034,125 @@
       ],
       "verification_level": "1135条统计仅读140五标题邻指令、三格式和两原名/版本字节、槽9双格式及真实三次Base helper调用、源码只三格式callee/撤容量参静态核对；余995条/原状态机及caller不重验，未执行。",
       "boundary": "三Base原点共享一现callee，普通选服和slot9特殊各实际原点；原窗口名/版本原字节T*、category/server借用、未清256B title、state先写/原选择门禁、普通后特殊覆盖和窗口文本发布保持。仅标题原格式入口恢复，撤现snprintf截断参数，不改原状态/错误文案/表或调用、音频暂停和newest排除；不执行任何模块摘要/资源/登陆操作，不宣原父/完整标题容量链/场景/CRT或总PLAN验收。"
+    },
+    {
+      "original_entry": "0x544294",
+      "inventory_id": "F:00144294",
+      "status": "原系统环境块完整本体已实现；完整CRT启动/生命周期与运行未验",
+      "original_end_exclusive": "0x5443C6",
+      "instruction_count": 132,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x53DE34",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "GetLegacyEnvironmentBlock_544294"
+          ],
+          "relationship": "原宽/窄API后端、双NUL数量、两次ACP转换/失败释放或真实541620复制；返回指定Malloc拥有的原字节块"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "boundary": "真实原132条；10862A4仅该父使用，首次W失败才A/缓存成功后端；空首字符只计一个NUL。宽路径CP0/flags0先询容量、分配成功才转换，失败释放结果、必释放W系统块；窄路径分配后541620复制、必释放A系统块。无新门槛/清目标/回退改选/UTF8转换，API与原块owner区分；未实现完整启动/退出、未运行或异常验收。",
+      "verification_level": "原完整132条/唯一入向及专用后端三引用、窄复制541620实际call只读取证；两源码限定新增、真实依赖/失败释放/指针与W32及文档/JSON静态核对，未构建或执行"
+    },
+    {
+      "original_entry": "0x543F8E",
+      "inventory_id": "F:00143F8E",
+      "status": "原两遍环境表完整本体及两长度/一复制已接；完整CRT启动/退出未验",
+      "original_end_exclusive": "0x544047",
+      "instruction_count": 71,
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x53DE43",
+          "parent_entry": "0x53DDB5"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "InitializeLegacyEnvironment_543F8E",
+            "gLegacyRawEnvironment1086030",
+            "gLegacyEnvironment1086008",
+            "gLegacyEnvironmentInitialized1087AE8"
+          ],
+          "relationship": "同源原块输入/两遍生产char*表；数值W32、表槽地址x64，发布/错误9/原块释放清槽/末空槽/标志顺序保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "string_call_connections": [
+        {
+          "target_entry": "0x53F9E0",
+          "call_site": "0x543FB4",
+          "symbol": "StrLen_53F9E0"
+        },
+        {
+          "target_entry": "0x53F9E0",
+          "call_site": "0x543FEE",
+          "symbol": "StrLen_53F9E0"
+        },
+        {
+          "target_entry": "0x544DB0",
+          "call_site": "0x544014",
+          "symbol": "StrCpy_544DB0"
+        }
+      ],
+      "allocation_call_connections": [
+        {
+          "call_site": "0x543FC8",
+          "symbol": "Malloc_53C3AC",
+          "relationship": "(count+1)*sizeof(char*)表；指定宿主合同/原槽先发布再判空"
+        },
+        {
+          "call_site": "0x543FFD",
+          "symbol": "Malloc_53C3AC",
+          "relationship": "第二遍每非=项U32长度+1；先发布项槽再判空"
+        }
+      ],
+      "boundary": "只在1087AEC=0初始化原多字节；两遍均给=项取长度，过滤分别在取长度前计数和取长度后复制。表/项分配失败均错误9，若间接退出槽返回沿原继续，不加保护。Free原块→清原槽→末空槽→标志1。GetEnv既有std范围不改、原表不挂宿主environ，完整startup/cinit/环境更新/退出仍待；不称原内存快照/运行等价。",
+      "verification_level": "原完整71条/唯一直接caller、三个原槽全部引用、544294同源生产/53DE34发布片段及三真实字符串call；两文件限定新增/唯一声明/失败顺序与x64表分配/W32和JSON差异静态核对，未构建或执行"
+    },
+    {
+      "original_entry": "0x53DDB5",
+      "inventory_id": "F:0013DDB5",
+      "status": "仅原命令行/argv既有辅助及新增环境块发布片段；完整CRT启动未实现/未验",
+      "original_end_exclusive": "0x53DEAB",
+      "instruction_count": 78,
+      "sources": [
+        {
+          "path": "src/platform/CommandOptions.cpp",
+          "symbols": [
+            "CaptureLegacyEnvironment_53DE34"
+          ],
+          "relationship": "仅53DE34调用544294、53DE39发布1086030；独立命名片段，不作为完整原启动本体"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md"
+      ],
+      "implemented_instruction_fragments": [
+        {
+          "start": "0x53DE34",
+          "end_exclusive": "0x53DE3E",
+          "instruction_count": 2,
+          "entry_symbol": "CaptureLegacyEnvironment_53DE34"
+        }
+      ],
+      "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。",
+      "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行"
     }
   ]
 }

@@ -62,6 +62,15 @@ extern char* gLegacyProgramName1086018;
 extern char** gLegacyArguments1086000;
 extern std::int32_t gLegacyArgumentCount1085FFC;
 
+// 原1086030是Malloc拥有的旧字节块；53DE34先发布，543F8E释放后清槽。
+extern char* gLegacyRawEnvironment1086030;
+// 原1086008是543F8E生产的拥有型char*表，包含末尾空槽；各地址按x64拓宽。
+extern char** gLegacyEnvironment1086008;
+extern std::uint32_t gLegacyEnvironmentInitialized1087AE8; // 原543F8E末尾写1。
+// 两片段保持原启动次序：环境块生产、argv生产、环境表生产、cinit；完整入口仍待。
+void CaptureLegacyEnvironment_53DE34();
+void InitializeLegacyEnvironment_543F8E();
+
 // 原5440E0；槽/字节区可空以计数，槽数包含末尾nullptr，返回槽数指针。
 // 两个计数保持S32；多字节分类由调用方既有初始化提供，不在此重新初始化。
 std::int32_t* ParseLegacyCommandLine_5440E0(const char* commandLine, char** arguments,

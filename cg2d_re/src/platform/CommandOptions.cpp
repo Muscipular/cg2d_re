@@ -19,6 +19,13 @@
 namespace cg::platform {
 
 char* gLegacyRawCommandLine1087AE4;
+// 原1086030/1086008/1087AE8；原启动先发布原块，再由543F8E生产表和完成标志。
+char* gLegacyRawEnvironment1086030;
+char** gLegacyEnvironment1086008;
+std::uint32_t gLegacyEnvironmentInitialized1087AE8;
+// 原10862A4仅被544294读写；0尚未探测、1宽API、2窄API。
+static std::uint32_t gLegacyEnvironmentBackend10862A4;
+
 // 原argv发布槽和260字节程序路径；由544047写入，不借用宿主argv。
 char* gLegacyProgramName1086018 = nullptr;
 char** gLegacyArguments1086000 = nullptr;
@@ -313,6 +320,135 @@ int ParseIpOptions_507C80(const char* const commandLine)
 void CaptureLegacyCommandLine_53DE29()
 {
     gLegacyRawCommandLine1087AE4 = ::GetCommandLineA();
+}
+
+// 原544294；返回Malloc_53C3AC拥有的旧字节块，系统环境块只在本函数内借用。
+static char* GetLegacyEnvironmentBlock_544294()
+{
+    wchar_t* wide = nullptr;
+    char* narrow = nullptr;
+    if (gLegacyEnvironmentBackend10862A4 == 0) {
+        wide = ::GetEnvironmentStringsW();
+        if (wide != nullptr) {
+            gLegacyEnvironmentBackend10862A4 = 1;
+        } else {
+            narrow = ::GetEnvironmentStringsA();
+            if (narrow == nullptr) {
+                return nullptr;
+            }
+            gLegacyEnvironmentBackend10862A4 = 2;
+        }
+    }
+
+    if (gLegacyEnvironmentBackend10862A4 == 1) {
+        if (wide == nullptr) {
+            wide = ::GetEnvironmentStringsW();
+            if (wide == nullptr) {
+                return nullptr;
+            }
+        }
+        const wchar_t* cursor = wide;
+        if (*cursor != L'\0') {
+            do {
+                do {
+                    ++cursor;
+                } while (*cursor != L'\0');
+                ++cursor;
+            } while (*cursor != L'\0');
+        }
+        const std::uint32_t characterCount =
+            static_cast<std::uint32_t>(cursor - wide) + 1u;
+        const auto wideCount = std::bit_cast<std::int32_t>(characterCount);
+        const std::int32_t byteCount = ::WideCharToMultiByte(
+            CP_ACP, 0, wide, wideCount, nullptr, 0, nullptr, nullptr);
+        char* result = nullptr;
+        if (byteCount != 0) {
+            result = static_cast<char*>(
+                Malloc_53C3AC(static_cast<std::uint32_t>(byteCount)));
+            if (result != nullptr && ::WideCharToMultiByte(
+                    CP_ACP, 0, wide, wideCount, result, byteCount, nullptr, nullptr) == 0) {
+                Free_53C0A9(result);
+                result = nullptr;
+            }
+        }
+        static_cast<void>(::FreeEnvironmentStringsW(wide));
+        return result;
+    }
+
+    if (gLegacyEnvironmentBackend10862A4 != 2) {
+        return nullptr;
+    }
+    if (narrow == nullptr) {
+        narrow = ::GetEnvironmentStringsA();
+        if (narrow == nullptr) {
+            return nullptr;
+        }
+    }
+    const char* cursor = narrow;
+    if (*cursor != '\0') {
+        do {
+            do {
+                ++cursor;
+            } while (*cursor != '\0');
+            ++cursor;
+        } while (*cursor != '\0');
+    }
+    const std::uint32_t byteCount =
+        static_cast<std::uint32_t>(cursor - narrow) + 1u;
+    auto* const result = static_cast<char*>(Malloc_53C3AC(byteCount));
+    if (result != nullptr) {
+        static_cast<void>(CopyLegacyMemory_541620(result, narrow, byteCount));
+    }
+    static_cast<void>(::FreeEnvironmentStringsA(narrow));
+    return result;
+}
+
+// 原53DE34..53DE3E；只发布原块，不提前执行argv、环境表或cinit。
+void CaptureLegacyEnvironment_53DE34()
+{
+    gLegacyRawEnvironment1086030 = GetLegacyEnvironmentBlock_544294();
+}
+
+// 原543F8E；表槽地址拓宽，计数/字符串字节数保持W32，不借宿主environ表。
+void InitializeLegacyEnvironment_543F8E()
+{
+    if (gLegacyMultibyteInitGuard1087AEC == 0) {
+        InitializeLegacyMultibyte_546CAE();
+    }
+    char* cursor = gLegacyRawEnvironment1086030;
+    std::uint32_t count = 0;
+    while (*cursor != '\0') {
+        if (*cursor != '=') {
+            ++count;
+        }
+        const std::uint32_t length = StrLen_53F9E0(cursor);
+        cursor += length + 1u;
+    }
+
+    const std::uint32_t tableBytes =
+        (count + 1u) * static_cast<std::uint32_t>(sizeof(char*));
+    auto** slot = static_cast<char**>(Malloc_53C3AC(tableBytes));
+    gLegacyEnvironment1086008 = slot;
+    if (slot == nullptr) {
+        ExitLegacyRuntimeError_53DEAB(9);
+    }
+    cursor = gLegacyRawEnvironment1086030;
+    while (*cursor != '\0') {
+        const std::uint32_t bytes = StrLen_53F9E0(cursor) + 1u;
+        if (*cursor != '=') {
+            *slot = static_cast<char*>(Malloc_53C3AC(bytes));
+            if (*slot == nullptr) {
+                ExitLegacyRuntimeError_53DEAB(9);
+            }
+            static_cast<void>(StrCpy_544DB0(*slot, cursor));
+            ++slot;
+        }
+        cursor += bytes;
+    }
+    Free_53C0A9(gLegacyRawEnvironment1086030);
+    gLegacyRawEnvironment1086030 = nullptr;
+    *slot = nullptr;
+    gLegacyEnvironmentInitialized1087AE8 = 1;
 }
 
 // 原543F36；返回借用的WinMain命令行尾部，不复制或改变底层文本。

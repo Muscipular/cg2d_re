@@ -5877,7 +5877,7 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
         }
         if (text != nullptr) {
             char buffer[256];
-            std::sprintf(buffer, "%s", text);
+            platform::FormatLegacyString_53B304(buffer, "%s", text);
             const auto y = static_cast<std::int16_t>(action->y - 98);
             const std::int32_t width = TextMeasure(buffer, 1);
             const auto x = static_cast<std::int16_t>(action->x - width / 2);

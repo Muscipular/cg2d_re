@@ -14296,7 +14296,7 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
         if (index == 30 || index == 31) {
             std::array<char, 384> buffer;
             const std::int32_t value = std::bit_cast<std::int32_t>(window->elements[index].state);
-            std::sprintf(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
+            platform::FormatLegacyString_53B304(buffer.data(), index == 30 ? "G|%d" : "D|%d", value);
             input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 128, 255);
             const std::int32_t userState =
                 std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
@@ -14316,15 +14316,15 @@ std::int32_t Sub_4ABB20(const std::int32_t index, const std::int32_t state)
         window = gCurrentWindow;
     }
     if (index == 30) {
-        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d",
+        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data(), "%9d",
             std::bit_cast<std::int32_t>(window->elements[30].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
+        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data() + 11, "%9d", gStorageLastAmountsD67B68[side]);
     } else if (index == 31) {
-        std::sprintf(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
+        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data() + 11, "%9d",
             std::bit_cast<std::int32_t>(window->elements[31].state));
         const std::int32_t side = std::bit_cast<std::int32_t>(gLoginWindowRuntime.valueD67618);
-        std::sprintf(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
+        platform::FormatLegacyString_53B304(gStorageAmountTextsCB1DF8.data(), "%9d", gStorageLastAmountsD67B68[side]);
     }
     return 0;
 }

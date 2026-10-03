@@ -37703,7 +37703,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
             }
         }
         const std::int32_t totalSlots = world::detail::ReadPlayerValue16C();
-        std::sprintf(buffer, "%2d/%2d", usedSlots, totalSlots);
+        platform::FormatLegacyString_53B304(buffer, "%2d/%2d", usedSlots, totalSlots);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[3].data)->text, buffer);
         break;
     }
@@ -37728,15 +37728,15 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         if (record->level < record->maxLevel) {
             const std::int32_t next = record->nextExperience;
             const std::int32_t experience = record->experience;
-            std::sprintf(buffer, "%4d/%4d", experience, next);
+            platform::FormatLegacyString_53B304(buffer, "%4d/%4d", experience, next);
         } else {
-            std::sprintf(buffer, "%4d/ -- ", record->experience);
+            platform::FormatLegacyString_53B304(buffer, "%4d/ -- ", record->experience);
         }
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[5].data)->text, buffer);
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         const std::int32_t maximum = record->maxLevel;
         const std::int32_t level = record->level;
-        std::sprintf(buffer, "%2d/%2d", level, maximum);
+        platform::FormatLegacyString_53B304(buffer, "%2d/%2d", level, maximum);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {
@@ -37764,7 +37764,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[2].data)->text,
             record->techniques3C[levelIndex].name.data());
         const std::int32_t level = world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].level;
-        std::sprintf(buffer, "%5d", level);
+        platform::FormatLegacyString_53B304(buffer, "%5d", level);
         std::strcpy(static_cast<WindowTextData*>(gCurrentWindow->elements[9].data)->text, buffer);
         for (std::int32_t line = 0; line < 2; ++line) {
             const std::int32_t skill = gSkillWindowIndexD2EA60;
@@ -37787,7 +37787,7 @@ std::int32_t Sub_47A7A0(const std::int32_t)
         }
         const std::int32_t current =
             login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[currentPosition]);
-        std::sprintf(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text,
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(gCurrentWindow->elements[7].data)->text,
             "%4d/%4d", current, maximum);
         if (gSkillWindowHoverD2F744 >= 0) {
             for (std::int32_t line = 0; line < 4; ++line) {

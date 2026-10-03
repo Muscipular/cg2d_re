@@ -10933,7 +10933,27 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "唯一caller547E8A的等号搜索依赖；不用新多字节表重新实现已被GetEnv裁决替换的私有链，不代表所有mbschr或strchr调用均被排除。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。"
+      "boundary": "唯一caller547E8A的等号搜索依赖；不用新多字节表重新实现已被GetEnv裁决替换的私有链，不代表所有mbschr或strchr调用均被排除。 仅核边界/入向/归属与宿主根，不冒称全部原指令复验或整个CRT完成。 本次原49条完整阅读确认5480E2仅在108677C=0调用53C2F0，其唯一547E9E等号查找仍位于该私有根；作为原25入口引用中的1个既有宿主承接单列，与24实际接线/范围排除区分，不撤销原裁决。",
+      "verification_level": "本次5480D0完整49原指令/唯一547E9E入向、父547E8A仅155统计11邻/等号参数，现GetEnv_54518B直接std::getenv及RefreshTz同一源根/既有私有合同静态核对；只核原事实与替换归属，不实现原体或称宿主等价，所有源码/头保持，未构建或执行",
+      "native_delegated_call_connections": [
+        {
+          "parent_entry": "0x5480D0",
+          "call_site": "0x5480E2",
+          "target_entry": "0x53C2F0",
+          "classification": "沿既有GetEnv裁决的环境私有链整体标准库承接，非范围排除/非原体实现",
+          "native_root_entry": "0x54518B",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "GetEnv_54518B",
+          "native_symbol": "std::getenv",
+          "scope_reference": "doc/cg2d_game_time.md",
+          "original_incoming": {
+            "parent_entry": "0x547E8A",
+            "call_site": "0x547E9E",
+            "target_byte": 61
+          },
+          "relationship": "原5480D0唯一入向只属于已批GetEnv私有补表链；108677C为0的字符调用归宿主根，普通24字符原点仍真实接线"
+        }
+      ]
     },
     {
       "original_entry": "0x53C8CD",
@@ -12187,7 +12207,7 @@
     {
       "original_entry": "0x53C2F0",
       "inventory_id": "F:0013C2F0",
-      "status": "原89条字符核心及24业务调用点已接；5480D0一原引用及完整运行未闭合",
+      "status": "原89条字符核心与24业务点已接，另1随已批GetEnv私有链宿主承接；当前范围入口归属收口，完整父/CRT运行未闭合",
       "original_end_exclusive": "0x53C3AC",
       "instruction_count": 89,
       "original_chunks": [
@@ -12268,6 +12288,14 @@
             "NewBattleText_4217F0"
           ],
           "relationship": "原421851/421868/42189E三LF点直接53C2F0，计数与生产源/借用推进保持"
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "GetEnv_54518B",
+            "RefreshTz_540B1D"
+          ],
+          "relationship": "仅原5480D0私有环境链的已批宿主根证明，非新增StrChr直接调用或mbschr原体"
         }
       ],
       "evidence_documents": [
@@ -12278,9 +12306,10 @@
         "doc/cg2d_login_state_controller.md",
         "doc/cg2d_capability4_modal_update.md",
         "doc/ui_windows/window_51.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_game_time.md"
       ],
-      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处/窗口文本十处/战斗文本三处共24处已接，其他1未计完成；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，5480D0一原引用待接线分类，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；剩5480D0一原引用待接线分类。 本步坐标括号两点/对话LF一处/邮件三个斜线点/两51生产入口四LF点，共十原点由六源码表达式承接，源/借用返回/目标低W8和现共用helper链保持；只替换标识符，不重写解析、状态/分配、字段布局或父运行验收。 战斗文本三处LF查找的首源/借用newline+1/逐行current保持，整份YobiRuntime仅三个标识符；原计数/分配复制/布局/payload与音效正文不改，不新增内部tail入口计数或称完整动作/CRT运行通过。",
+      "boundary": "原主范围及53C2E0..53C2E5共享返回共89条直接核心已实现。低W8目标/4B源对齐，非对齐逐字节先匹配后NUL；对齐W32按7EFEFEFF/81010100筛目标优先/终止候选，目标候选才重新读原块并由低至高先匹配后判NUL，假候选继续，01010100/zeroSum最高位区分高位假信号。返回原借用首匹配或空，目标0命中终止NUL，不加保护、默认值或私有状态。原25代码引用中分色4FBA3B/4FBADD两处及参数四处/堆选择一处/两提示四处/窗口文本十处/战斗文本三处共24处真实已接；另1随已批GetEnv私有链整体标准库承接，原25入口引用在当前范围完成接线/归属；LoginMessage的两原LF点和能力4提示两原LF点本步均真实已接。完整父链/CRT/运行及无效缓冲故障等价未据静态核对通过。 本步StrStr单字节分支按原53BEAE→53C2F6内部tail共用本体，新增具名桥接不改变25原入口引用或两已接分色点；原89条直接核心逐字保持。 本步参数查*四原点/三个源码表达式、低W8目标2AH、坐标数据/Info扫描门禁与单遍别名数据后Info顺序保持，不增加内部tail的入口引用或递归别名解析。 本步541B67目标2CH与selection借用返回+1保持；原StrStr单字节内部tail不新计入口，5480D0一原引用按既有GetEnv裁决宿主承接，不扩大堆/CRT/运行验收。 两提示各一currentLine循环表达式承接原首次/回边两点，四入口点目标0AH/局部写NUL/测宽与+1推进保持，不改其他父/音频或以四接线扩大运行验收；原剩余5480D0一引用现按既有GetEnv裁决宿主承接。 本步坐标括号两点/对话LF一处/邮件三个斜线点/两51生产入口四LF点，共十原点由六源码表达式承接，源/借用返回/目标低W8和现共用helper链保持；只替换标识符，不重写解析、状态/分配、字段布局或父运行验收。 战斗文本三处LF查找的首源/借用newline+1/逐行current保持，整份YobiRuntime仅三个标识符；原计数/分配复制/布局/payload与音效正文不改，不新增内部tail入口计数或称完整动作/CRT运行通过。 最后5480E2原字符call位于547E8A→5480D0→53C2F0旧环境补表私有链，源根仍GetEnv_54518B直接std::getenv。24连接与该1宿主项分解原25，无重复/遗漏；不将宿主项计范围排除或原mbschr实现，不扩大一般putenv/其他字符及CRT承接或运行验收。",
       "original_direct_reference_count": 25,
       "original_direct_call_reference_count": 25,
       "search_call_connections": [
@@ -12598,7 +12627,7 @@
           "relationship": "逐行生产，原长度/分配/复制/推进保持"
         }
       ],
-      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验；五父1358统计160查找邻读取、十真实call/目标push及原六入向/六源码表达式与三组共用关系、单文件仅六标识符和两51入口helper链静态核对，余1198条及既有核心不重验；4217F0原169统计44查找邻读取、三真实点/0AH push及计数/生产借用源/唯一43758A入向、整份源仅三个标识符静态核对，余125条及已过核心不重验",
+      "verification_level": "完整原89条含共享返回chunk、53C353实际立即数01010100/原字节2500010101、25代码引用/两实际分色call、源对齐/首次块读/目标优先/候选复读/逐字节返回/高位假信号分支静态核对；核心/唯一声明与五调用及U32长度接线，未构建或执行；原53BEAE到内部53C2F6及新StrStr单字节桥接静态回映，本核心逐字保持；本步465F00四真实查*call/对应三个表达式、共享value/单遍复制正文与低W8目标静态核对；已过89条核心/内部tail及声明逐字保持，未执行；本步541B67实际入口/低W8逗号/借用selection与+1/父115统计24邻读取和源码限定差异静态核对，原核心及内部tail/声明保持；两提示父1044统计/72查找邻读取、四真实call/四0AH push/两循环表达式与借用推进/原26+1入向、两源码限定标识符及已有头静态核对，余972条与原核心/内部tail不重验；五父1358统计160查找邻读取、十真实call/目标push及原六入向/六源码表达式与三组共用关系、单文件仅六标识符和两51入口helper链静态核对，余1198条及既有核心不重验；4217F0原169统计44查找邻读取、三真实点/0AH push及计数/生产借用源/唯一43758A入向、整份源仅三个标识符静态核对，余125条及已过核心不重验；5480D0完整49条/唯一547E9E与父155统计11邻、现GetEnv标准库根和既有明确私有归属、原25代码入口引用分解24实际接线/1宿主整体承接静态核对；源码/头保持，无运行",
       "internal_tail_connections": [
         {
           "parent_entry": "0x53BE40",
@@ -12609,6 +12638,25 @@
           "symbol": "StrStr_53BE40",
           "target_symbol": "StrChr_53C2F0",
           "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
+        }
+      ],
+      "native_delegated_search_call_references": [
+        {
+          "parent_entry": "0x5480D0",
+          "call_site": "0x5480E2",
+          "target_entry": "0x53C2F0",
+          "classification": "沿既有GetEnv裁决的环境私有链整体标准库承接，非范围排除/非原体实现",
+          "native_root_entry": "0x54518B",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "GetEnv_54518B",
+          "native_symbol": "std::getenv",
+          "scope_reference": "doc/cg2d_game_time.md",
+          "original_incoming": {
+            "parent_entry": "0x547E8A",
+            "call_site": "0x547E9E",
+            "target_byte": 61
+          },
+          "relationship": "原5480D0唯一入向只属于已批GetEnv私有补表链；108677C为0的字符调用归宿主根，普通24字符原点仍真实接线"
         }
       ]
     },

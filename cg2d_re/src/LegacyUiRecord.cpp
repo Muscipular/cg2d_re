@@ -15734,19 +15734,19 @@ std::int32_t Sub_5014A0(const std::int32_t x, const std::int32_t y)
     char buffer[256];
     const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
         const std::int32_t offsetY, const char* const format, const std::int8_t color = 0) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         static_cast<void>(DrawText(static_cast<std::int16_t>(x + offsetX),
             static_cast<std::int16_t>(y + offsetY), 2, 1, color, buffer, 0, 0));
     };
     drawNumber(world::detail::ReadPlayerLevel(), 62, 38, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
         static_cast<std::int16_t>(y + 61), 2, 1, 0, buffer, 0, 0));
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 55),
         static_cast<std::int16_t>(y + 84), 2, 1, 0, buffer, 0, 0));
     drawNumber(world::detail::ReadPlayerValue78(8), 62, 107, "%3d");

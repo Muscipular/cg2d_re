@@ -407,3 +407,45 @@ PAGE表示真实三项回调；按静态位置计数，不代表各互斥分支�
 HP/FP各最大值先于当前值的16B CryptInt getter401EA0，参数当前在前：FDA728→FDA718及FDA748→FDA738。经验独立getter FDA758；5010BE经验绘后5010C3新FDA704等级S32、5010CB/5010D0按<130才501100 FDA768下级经验getter/501110格式，>=130跳getter/格式并绘58A214固定限值；分支后重新采版本。penalty原非零门槛下先绘22527，501395图绘后50139A新FDA7F8 S32再x%d，不复用门槛值或图形面板坐标。
 
 种族/称号/公会/职业重借与测宽、属性条每项版本、肖像/伤势/前后排按钮/时钟/协议/提示/S32返回0等其它正文不动，不把版本或数据生产、原父/旧路由或完整人物流程计为完成。只读555/985新格式邻窗及等级门槛，余430沿既有父合同；四常量沿已核字节。源码仅四格式标识符、十六原点与十三数值lambda绑定、字段/符号性/参数/容量/各取数及格式后新版本/getter顺序/条件/布局/返回、JSON唯一增量/文档末追加/编码与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧真实路由/数据生产/运行未验。
+
+
+## 2026-10-04 人物属性页三十处真实格式接线
+
+局部SPEC：仅迁移5014A0三个源码格式接口至53B304，现drawNumber二十八个实际绑定加HP/FP两直接格式，对应三十原点；不新增函数地址或重构助手。所有普通属性各自在格式前新取S32值，不改用入口按1/0/2/3/4/BP读取的六值资格快照，原求和/除2/两次按钮查询/发送顺序保持。原共用未清256B，输入S32 x/y仅DrawText边界低S16、layer2/font1/尾0。
+
+| 原点 | 当前S32来源/格式 | 输入X/Y | 颜色 |
+| --- | --- | --- | --- |
+| 501700 | world::detail::ReadPlayerLevel() / %3d | 62/38 | 0 |
+| 50174A | hp, maxHp / %4d/%4d | 55/61 | 0 |
+| 501794 | fp, maxFp / %4d/%4d | 55/84 | 0 |
+| 5017CF | world::detail::ReadPlayerValue78(8) / %3d | 62/107 | 0 |
+| 501807 | world::detail::ReadPlayerValue78(9) / %3d | 62/130 | 0 |
+| 501842 | world::detail::ReadPlayerValue78(10) / %3d | 62/153 | 0 |
+| 50187D | world::detail::ReadPlayerValueB0(0) / %3d | 62/176 | 0 |
+| 5018B8 | world::detail::ReadPlayerValue78(11) / %3d | 62/199 | 0 |
+| 5018F2 | world::detail::ReadPlayerValue78(12) / %3d | 62/222 | 0 |
+| 50192D | world::detail::ReadPlayerValue78(13) / %3d | 62/245 | 0 |
+| 501968 | world::detail::ReadPlayerValueB0(1) / %3d | 62/269 | 0 |
+| 5019A2 | world::detail::ReadPlayerValue78(5) / %3d | 186/206 | 0 |
+| 5019E3 | world::detail::ReadPlayerValue78(6) / %3d | 186/228 | 0 |
+| 501A1E | world::detail::ReadPlayerValue78(7) / %3d | 186/252 | 0 |
+| 501A58 | world::detail::ReadPlayerValueD4(0) / %+4d | 194/298 | 0 |
+| 501A99 | world::detail::ReadPlayerValueD4(1) / %+4d | 194/321 | 0 |
+| 501AD4 | world::detail::ReadPlayerValueD4(2) / %+4d | 194/344 | 0 |
+| 501B0E | world::detail::ReadPlayerValueD4(3) / %+4d | 194/367 | 0 |
+| 501B49 | world::detail::gValueD2F788 / %4d | 220/61 | 0 |
+| 501B91 | world::detail::ReadPlayerValue78(0) / %3d | 192/84 | 首基础项前penalty共用6/0 |
+| 501BCE | world::detail::ReadPlayerValue78(1) / %3d | 192/107 | 首基础项前penalty共用6/0 |
+| 501C05 | world::detail::ReadPlayerValue78(2) / %3d | 192/130 | 首基础项前penalty共用6/0 |
+| 501C3F | world::detail::ReadPlayerValue78(3) / %3d | 192/153 | 首基础项前penalty共用6/0 |
+| 501C79 | world::detail::ReadPlayerValue78(4) / %3d | 192/176 | 首基础项前penalty共用6/0 |
+| 501CB3 | world::detail::ReadPlayerValueBC(0) / %+4d | 69/268 | 0 |
+| 501CF0 | world::detail::ReadPlayerValueBC(1) / %+4d | 69/291 | 0 |
+| 501D2B | world::detail::ReadPlayerValueBC(2) / %+4d | 69/314 | 0 |
+| 501D66 | world::detail::ReadPlayerValueBC(3) / %+4d | 69/337 | 0 |
+| 501DA0 | world::detail::ReadPlayerValueBC(4) / %+4d | 69/360 | 0 |
+| 501DDB | world::detail::ReadPlayerValueBC(5) / %+4d | 69/383 | 0 |
+
+血魔各最大值先于当前值的16B CryptInt getter401EA0，格式参数当前在前：50172C/FDA728→501737/FDA718及501776/FDA748→501781/FDA738。501B2D四修正绘后501B32新D2F788 BP/%4d；501B68 BP绘后501B6D独立FDA7F8 penalty只读一次形成五基础项共用颜色6/0，501B73起五S32值在各次格式前分别重读。六抗性FDA7BC起六S32与显式正号宽4保持，修正防御Y269/首抗性Y268原差异不合并或改坐标。
+
+三十文字后原501F60闪烁调用、CC3EF8门槛图、再次新读BP决定五按钮、各次hover图号/提示/S32返回0等其它正文不动。只读577/820新格式邻窗，余243沿既有父合同；四常量沿已核字节。源码仅三个格式标识符、三十原点/二十八数值lambda绑定、字段/符号性/参数/容量/资格与颜色快照时点/后期BP与各新取数/getter顺序/坐标差异/返回、JSON唯一增量/文档末追加/编码与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧真实路由/数据生产/运行未验。

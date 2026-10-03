@@ -14739,7 +14739,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
     }
     const std::int32_t count = blacklist::GetBlacklistCount_401190();
     char countText[512];
-    std::sprintf(countText, kLegacyBlacklistText55332C, count);
+    platform::FormatLegacyString_53B304(countText, kLegacyBlacklistText55332C, count);
     const std::int32_t countY = gLegacyBlacklistPanel5531D0.y;
     const std::int32_t countX = gLegacyBlacklistPanel5531D0.x;
     DrawText(Low16(countX + 10), Low16(countY + 95), 2, 0, 8, countText, 0, 0);
@@ -14776,7 +14776,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
         char message[128];
         if (blacklist::ContainsBlacklistRecord_4013D0(gLegacyBlacklistInput5939B8->text) != 0) {
             const bool removed = blacklist::RemoveBlacklistRecord_4012F0(gLegacyBlacklistInput5939B8->text) != 0;
-            std::sprintf(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
+            platform::FormatLegacyString_53B304(message, removed ? kLegacyBlacklistText5532EC : kLegacyBlacklistText5532D8,
                 gLegacyBlacklistInput5939B8->text);
         } else {
             if (blacklist::GetBlacklistCount_401190() >= 72) {
@@ -14785,7 +14785,7 @@ std::uintptr_t Sub_4014B0(const std::int32_t opened)
                 return static_cast<std::uintptr_t>(Sub_503440(&gLegacyBlacklistPanel5531D0, 1));
             }
             const bool added = blacklist::AddBlacklistRecord_401270(gLegacyBlacklistInput5939B8->text) != 0;
-            std::sprintf(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
+            platform::FormatLegacyString_53B304(message, added ? kLegacyBlacklistText5532C4 : kLegacyBlacklistText5532B0,
                 gLegacyBlacklistInput5939B8->text);
         }
         gLegacyBlacklistInput5939B8->text[0] = 0;

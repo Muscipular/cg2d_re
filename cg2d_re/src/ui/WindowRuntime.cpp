@@ -11588,13 +11588,13 @@ bool Sub_4C75A0(WindowItemSelectorState* const selector, const std::int32_t stat
         const char* const format = attribute.percent != 0
             ? (value < 0 ? "%s-%4d%%" : "%s+%4d%%")
             : (value < 0 ? "%s-%4d" : "%s+%4d");
-        std::sprintf(buffer.data(), format, attribute.label, value < 0 ? -value : value);
+        platform::FormatLegacyString_53B304(buffer.data(), format, attribute.label, value < 0 ? -value : value);
         drawText(x, y, attribute.color, buffer.data());
         y += 16;
         ++lines;
     }
     if (world::detail::gReplyRecordF7C950.hasText24 != 0) {
-        std::sprintf(buffer.data(),
+        platform::FormatLegacyString_53B304(buffer.data(),
             "\xAF\xE0\xB4\xEE\xA4\xD6\xA8\xCF\xA5\xCE\x22%s\x22\xAA\xBA\xC5\x5D",
             world::detail::gReplyRecordF7C950.text25.data());
         drawText(28, 188, 0, buffer.data());
@@ -11687,7 +11687,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
                 static_cast<void>(network::Sub_511D60(
                     platform::gConnectionSocket, hovered + 8, selected));
             } else if (mode == 2) {
-                std::sprintf(buffer.data(), "%d", hovered + 8);
+                platform::FormatLegacyString_53B304(buffer.data(), "%d", hovered + 8);
                 input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), escaped.data(), 15);
                 const std::int32_t target = world::detail::gDialogTargetD2DE6C;
                 const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -11750,7 +11750,7 @@ std::int32_t Sub_489F00(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),

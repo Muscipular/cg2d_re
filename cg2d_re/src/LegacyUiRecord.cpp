@@ -14388,44 +14388,44 @@ std::int32_t Sub_4F8E40(const std::int32_t x, const std::int32_t y)
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
     char buffer[256];
-    std::sprintf(buffer, "%3d", pet.value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 36);
     const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
     const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 59);
     const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
     const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 82);
     for (std::int32_t field = 0; field < 5; ++field) {
-        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
+        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[5 + field]);
         drawAt(buffer, 62, 105 + 23 * field);
     }
     for (std::int32_t field = 0; field < 6; ++field) {
-        std::sprintf(buffer, "%+4d", pet.values70[11 + field]);
+        platform::FormatLegacyString_53B304(buffer, "%+4d", pet.values70[11 + field]);
         drawAt(buffer, 69, 243 + 23 * field);
     }
     for (std::int32_t field = 0; field < 5; ++field) {
-        std::sprintf(buffer, "%3d", pet.values70[field]);
+        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[field]);
         drawAt(buffer, 192, 82 + 23 * field);
     }
-    std::sprintf(buffer, "%3d", pet.values70[10]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[10]);
     drawAt(buffer, 186, 202);
-    std::sprintf(buffer, "%2d", pet.value6A4);
+    platform::FormatLegacyString_53B304(buffer, "%2d", pet.value6A4);
     drawAt(buffer, 194, 227);
     for (std::int32_t field = 0; field < 4; ++field) {
-        std::sprintf(buffer, "%+4d", pet.values70[17 + field]);
+        platform::FormatLegacyString_53B304(buffer, "%+4d", pet.values70[17 + field]);
         drawAt(buffer, 193, 273 + 23 * field);
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    std::sprintf(buffer, "%d/%d", position + 1, count);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 388;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
         static_cast<std::int16_t>(pageY), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%3d", pet.lvFlag6C);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet.lvFlag6C);
     drawAt(buffer, 220, 59);
     if (pet.lvFlag6C != 0) {
         static_cast<void>(DrawGraphic(x + 178, y + 68, 212, 22811, 1, nullptr));

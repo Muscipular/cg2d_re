@@ -13232,7 +13232,7 @@ std::int32_t Sub_4A9020(const std::int32_t value)
 std::int32_t Sub_4A9160(const std::int32_t)
 {
     std::array<char, 16> buffer;
-    std::sprintf(buffer.data(), "%10d", gStorageValueCC4218);
+    platform::FormatLegacyString_53B304(buffer.data(), "%10d", gStorageValueCC4218);
     auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[13].data);
     std::strcpy(text->text, buffer.data());
     WindowElement* elements = gCurrentWindow->elements;

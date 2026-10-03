@@ -16569,11 +16569,11 @@ std::int32_t Sub_494180(const std::int32_t index, const std::int32_t state)
             gCurrentWindow->elements[17].visible = 1;
             gCurrentWindow->elements[18].visible = 1;
             gCurrentWindow->elements[29].visible = 1;
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t musicWidth = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             gCurrentWindow->elements[13].x =
                 ((37 - musicWidth) >> 1) + gSettingsOffsetCA02DC + 69;
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t effectWidth = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             gCurrentWindow->elements[16].x =
                 ((37 - effectWidth) >> 1) + gSettingsOffsetCA02DC + 69;

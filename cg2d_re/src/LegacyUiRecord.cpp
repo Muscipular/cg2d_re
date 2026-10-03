@@ -15585,7 +15585,7 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     };
     const auto drawNumber = [&](const std::int32_t value, const std::int32_t offsetX,
         const std::int32_t oldY, const std::int32_t newY, const char* const format) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         drawAt(buffer, offsetX, versionY(oldY, newY));
     };
     const std::int32_t tribeWidth = TextMeasure(
@@ -15625,11 +15625,11 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     drawNumber(world::detail::ReadPlayerLevel(), 62, 122, 140, "%3d");
     const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
     const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, versionY(191, 206));
     const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
     const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, versionY(214, 228));
     drawNumber(world::detail::ReadPlayerValue78(8), 62, 237, 250, "%3d");
     drawNumber(world::detail::ReadPlayerValue78(9), 62, 260, 272, "%3d");
@@ -15644,7 +15644,7 @@ std::int32_t Sub_5008C0(const std::int32_t x, const std::int32_t y)
     const char* nextExperience = "   ---   ";
     if (world::detail::ReadPlayerLevel() < 130) {
         const std::int32_t next = world::detail::ReadPlayerNextExperienceOnce();
-        std::sprintf(buffer, "%9d", next);
+        platform::FormatLegacyString_53B304(buffer, "%9d", next);
         nextExperience = buffer;
     }
     drawAt(nextExperience, 55, versionY(168, 184));

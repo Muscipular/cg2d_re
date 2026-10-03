@@ -379,3 +379,31 @@ PAGE表示真实三项回调；按静态位置计数，不代表各互斥分支�
 唯一进度追加本步，原历史及压缩基线保持；没有构建、测试、运行或产物检查，
 不对齐总SPEC、不压缩日志。原57C368仍保留handlerToken证据字段，
 本步不以单个完整总入口替代旧99项分派/完整场景接线。
+
+
+## 2026-10-04 人物基本资料十六处真实格式接线
+
+局部SPEC：仅将5008C0四源码格式接口迁至53B304，现drawNumber(value,offsetX,oldY,newY,format)的十三实际绑定调用加三处直接格式，对应十六真实原点；不新增函数地址或重构lambda。每项保留前文字绘后新读数值、格式化后才当项读取版本U8，版本<7/>=7选旧/新Y，输入完整S32 x/y仅DrawText边界低S16；原共用未清256B/layer2/font1/color0/尾0。
+
+| 原点 | S32来源/格式 | 输入X | 版本<7 / >=7的输入Y |
+| --- | --- | --- | --- |
+| 500A7B | world::detail::ReadPlayerDuelPoint() / %9d | 185 | 145 / 162 |
+| 500C64 | world::detail::ReadPlayerLevel() / %3d | 62 | 122 / 140 |
+| 500CC8 | hp, maxHp / %4d/%4d | 55 | 191 / 206 |
+| 500D2F | fp, maxFp / %4d/%4d | 55 | 214 / 228 |
+| 500D83 | world::detail::ReadPlayerValue78(8) / %3d | 62 | 237 / 250 |
+| 500DD7 | world::detail::ReadPlayerValue78(9) / %3d | 62 | 260 / 272 |
+| 500E2B | world::detail::ReadPlayerValue78(10) / %3d | 62 | 283 / 294 |
+| 500E7F | world::detail::ReadPlayerValue78(11) / %3d | 62 | 306 / 316 |
+| 500ED3 | world::detail::ReadPlayerValue78(12) / %3d | 62 | 329 / 338 |
+| 500F27 | world::detail::ReadPlayerValue78(13) / %3d | 62 | 352 / 360 |
+| 500F7B | world::detail::ReadPlayerValue78(5) / %3d | 193 | 306 / 316 |
+| 500FD5 | world::detail::ReadPlayerValue78(6) / %3d | 193 | 329 / 338 |
+| 501029 | world::detail::ReadPlayerValue78(7) / %3d | 193 | 352 / 360 |
+| 501082 | world::detail::ReadPlayerExperienceOnce() / %9d | 55 | 145 / 162 |
+| 501110 | next / %9d | 55 | 168 / 184 |
+| 5013AE | world::detail::ReadPlayerPenalty() / x%d | 241 | 122 / 139 |
+
+HP/FP各最大值先于当前值的16B CryptInt getter401EA0，参数当前在前：FDA728→FDA718及FDA748→FDA738。经验独立getter FDA758；5010BE经验绘后5010C3新FDA704等级S32、5010CB/5010D0按<130才501100 FDA768下级经验getter/501110格式，>=130跳getter/格式并绘58A214固定限值；分支后重新采版本。penalty原非零门槛下先绘22527，501395图绘后50139A新FDA7F8 S32再x%d，不复用门槛值或图形面板坐标。
+
+种族/称号/公会/职业重借与测宽、属性条每项版本、肖像/伤势/前后排按钮/时钟/协议/提示/S32返回0等其它正文不动，不把版本或数据生产、原父/旧路由或完整人物流程计为完成。只读555/985新格式邻窗及等级门槛，余430沿既有父合同；四常量沿已核字节。源码仅四格式标识符、十六原点与十三数值lambda绑定、字段/符号性/参数/容量/各取数及格式后新版本/getter顺序/条件/布局/返回、JSON唯一增量/文档末追加/编码与差异静态核对通过。禁构建/测试/客户端/hash；原父/旧真实路由/数据生产/运行未验。

@@ -13966,7 +13966,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
         const std::int32_t index = row + 15 * gLegacyAlbumPageC8B1B0;
         const std::byte* const record = records + index * 0x80;
         if (record[0] != std::byte{0}) {
-            std::sprintf(buffer, "%03d", ReadRecordW32(record, 4));
+            platform::FormatLegacyString_53B304(buffer, "%03d", ReadRecordW32(record, 4));
             const std::int32_t numberY = gLegacyAlbumListPanel584788.y + 24 * row + 42;
             const std::int32_t numberX = gLegacyAlbumListPanel584788.x + 46;
             static_cast<void>(DrawText(static_cast<std::int16_t>(numberX),
@@ -13990,7 +13990,7 @@ std::uint32_t Sub_4F6CA0(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumPageC8B1B0;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueCC3E68);
-    std::sprintf(buffer, "%2d/%2d", current + 1, count);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", current + 1, count);
     const std::int32_t pageY = gLegacyAlbumListPanel584788.y + 406;
     const std::int32_t pageX = gLegacyAlbumListPanel584788.x + 115;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),
@@ -14101,19 +14101,19 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 83 - width / 2),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 36 + 75 * row),
             2, 0, 0, name, 0, 0));
-        std::sprintf(buffer, "%3d", pet.value08);
+        platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 186),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 38 + 75 * row),
             2, 1, 0, buffer, 0, 0));
         const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
         const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
-        std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 61 + 75 * row),
             2, 1, 0, buffer, 0, 0));
         const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
         const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
-        std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetListPanel584850.x + 49),
             static_cast<std::int16_t>(gLegacyPetListPanel584850.y + 83 + 75 * row),
             2, 1, 0, buffer, 0, 0));

@@ -11461,10 +11461,10 @@ std::int32_t Sub_489760(const std::int32_t index, const std::int32_t state)
         if (item->used != 0) {
             gWindowStates[14].value10 = static_cast<std::uint32_t>(hovered);
             if (std::strlen(item->memo.data()) != 0 && (item->flags & 0x100u) != 0) {
-                std::sprintf(buffer.data(), "%s[kok]", item->name.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[kok]", item->name.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             } else if ((item->flags & 0x200u) != 0) {
-                std::sprintf(buffer.data(), "%s[han]", item->memo.data());
+                platform::FormatLegacyString_53B304(buffer.data(), "%s[han]", item->memo.data());
                 std::strcpy(gHoverTextD68AE8.data(), buffer.data());
             }
         }

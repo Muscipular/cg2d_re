@@ -34233,7 +34233,7 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
     switch (kind) {
         case 0:
         case 1: {
-            std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                 kWindow13Text586B00, gSkillTargetNameD2F748.data());
             const char* text = nullptr;
             if (kind == 0) {
@@ -34246,12 +34246,12 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
         }
         case 2:
             if (gWindow13ResultD66E2C != 0) {
-                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586AAC, gSkillTargetNameD2F748.data());
-                std::sprintf(static_cast<WindowTextData*>(window->elements[5].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     kWindow13Text586A94, gWindow13ValueD2DBF0);
             } else {
-                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586B00, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     gWindow13ValueD2DBF0 == 0 ? kWindow13Text586A80 : kWindow13Text586A70);
@@ -34259,17 +34259,17 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
             break;
         case 3:
             if (gWindow13ResultD66E2C != 0) {
-                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586AAC, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     gWindow13ValueD2DBF0 == 4 ? kWindow13Text586A5C : kWindow13Text586A48);
             } else if (gWindow13ValueD2DBF0 == 0) {
-                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586B00, gSkillTargetNameD2F748.data());
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
                     kWindow13Text586A80);
             } else {
-                std::sprintf(static_cast<WindowTextData*>(window->elements[4].data)->text,
+                platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[4].data)->text,
                     kWindow13Text586A34, gSkillTargetNameD2F748.data());
                 const std::int32_t value = gWindow13ValueD2DBF0;
                 std::strcpy(static_cast<WindowTextData*>(window->elements[5].data)->text,
@@ -34284,22 +34284,22 @@ WindowAnimationData* Sub_4876B0(WindowInstance* const window)
     if (gWindow13LevelUpCF468C != 0) {
         std::strcpy(static_cast<WindowTextData*>(window->elements[6].data)->text, kCraftLevelUp58661C);
     } else {
-        std::sprintf(static_cast<WindowTextData*>(window->elements[6].data)->text,
+        platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[6].data)->text,
             kCraftExperience58660C, gWindow13ExperienceCC2E5C);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[7].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gWindow13EnduranceCC421C != 0) {
-        std::sprintf(buffer, kCraftEndurance586600, gWindow13EnduranceCC421C);
+        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gWindow13EnduranceCC421C);
         std::strcat(increments, buffer);
     }
     if (gWindow13DexterityD2D644 != 0) {
-        std::sprintf(buffer, kCraftDexterity5865F4, gWindow13DexterityD2D644);
+        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gWindow13DexterityD2D644);
         std::strcat(increments, buffer);
     }
     if (gWindow13IntelligenceCC19FC != 0) {
-        std::sprintf(buffer, kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC);
+        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gWindow13IntelligenceCC19FC);
         std::strcat(increments, buffer);
     }
     static_cast<WindowAnimationData*>(window->elements[2].data)->value04 = 1;

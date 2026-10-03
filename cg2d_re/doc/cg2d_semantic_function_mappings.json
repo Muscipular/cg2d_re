@@ -17334,7 +17334,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及71个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及75个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17381,7 +17381,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处共71点已接，其他951点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处共75点已接，其他947点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17821,6 +17821,30 @@
           "call_site": "0x508329",
           "source": "src/network/NetworkRuntime.cpp",
           "symbol": "Sub_508310"
+        },
+        {
+          "parent_entry": "0x50CF20",
+          "call_site": "0x50CF38",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50CF20"
+        },
+        {
+          "parent_entry": "0x50E6E0",
+          "call_site": "0x50E71A",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50E6E0"
+        },
+        {
+          "parent_entry": "0x50F190",
+          "call_site": "0x50F23A",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50F190"
+        },
+        {
+          "parent_entry": "0x517510",
+          "call_site": "0x517590",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "BuildProtocolCommand_517510"
         }
       ],
       "business_format_evidence": [
@@ -35078,6 +35102,595 @@
       ],
       "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
       "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。"
+    },
+    {
+      "original_entry": "0x50CF20",
+      "inventory_id": "F:0010CF20",
+      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "original_end_exclusive": "0x50CF55",
+      "instruction_count": 16,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50CF20"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x5158FB",
+          "parent_entry": "0x512E40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x50CF20",
+          "call_site": "0x50CF38",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50CF20",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B03C",
+          "push_site": "0x50CF32",
+          "bytes": "a5a2b1d1a446a14900"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x50CF20",
+          "call_site": "0x50CF46",
+          "target_entry": "0x44B050",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
+      "boundary": "仅第二参数S32为0才在原256B未清局部以58B03C无参格式输出→44B050(color4,font3)；未消费参数、早返及void合同保持，不新增场景门禁或文本。"
+    },
+    {
+      "original_entry": "0x50E6E0",
+      "inventory_id": "F:0010E6E0",
+      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "original_end_exclusive": "0x50E767",
+      "instruction_count": 46,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50E6E0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51662E",
+          "parent_entry": "0x512E40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x50E6E0",
+          "call_site": "0x50E71A",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50E6E0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B0B0",
+          "push_site": "0x50E714",
+          "bytes": "495020a6eca77da5d15b25735dc5dca6a85b25735da14300"
+        },
+        {
+          "address": "0x58B094",
+          "push_site": "0x50E731",
+          "bytes": "baf4b8f4a6b3a569afe0ac4fb351a641b373b1b5a446a14300"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x50E6E0",
+          "call_site": "0x50E728",
+          "target_entry": "0x44B050",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        },
+        {
+          "parent_entry": "0x50E6E0",
+          "call_site": "0x50E736",
+          "target_entry": "0x44B050",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
+      "boundary": "原DA33D8唯一旧文本非空且strstr未命中才以58B0B0在256B未清message格式化，先previous后text；变更提示/原警告/旧文本回写顺序保持。命中早返不回写、空旧文本直接复制，不新增缓冲/截断/保护或重验地址通知算法。"
+    },
+    {
+      "original_entry": "0x50F190",
+      "inventory_id": "F:0010F190",
+      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "original_end_exclusive": "0x50F273",
+      "instruction_count": 73,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50F190"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x514129",
+          "parent_entry": "0x512E40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x50F190",
+          "call_site": "0x50F23A",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_50F190",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58B0EC",
+          "push_site": "0x50F21C",
+          "bytes": "b17aa6aca8eca8d3a6dbae61b1da20257320aabaab48a5f3a1e300"
+        },
+        {
+          "address": "0x58B0C8",
+          "push_site": "0x50F230",
+          "bytes": "b17aa6aca8eca8d3a6dbae61b1daa6a8adfb20257320aabac364aaabab48a5f3a1e300"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x50F190",
+          "call_site": "0x50F242",
+          "target_entry": "0x519550",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        },
+        {
+          "parent_entry": "0x50F190",
+          "call_site": "0x50F261",
+          "target_entry": "0x44B050",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
+      "boundary": "原字段提取/反转义/先存索引/插入保持，%s仍消费该先前索引的外部记录+18而非输入name；S32 kind恰-1选58B0EC、否则58B0C8，在同一256B未清message/表达式格式化。随后保存/原音效/消息顺序保持，未消费参数/失败无保护与既有共享记录不改，不推进音频或重验公会文件。",
+      "business_format_branch_evidence": [
+        {
+          "call_site": "0x50F23A",
+          "source_expression_count": 1,
+          "variants": [
+            {
+              "format_push_site": "0x50F21C",
+              "format_address": "0x58B0EC",
+              "source_constant": "kGuildMailFormat58B0EC",
+              "condition": "kind S32 == -1"
+            },
+            {
+              "format_push_site": "0x50F230",
+              "format_address": "0x58B0C8",
+              "source_constant": "kGuildPetMailFormat58B0C8",
+              "condition": "kind S32 != -1"
+            }
+          ],
+          "relationship": "两原分支汇合于同一sprintf，保留既有条件表达式及每次动态一次"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x517510",
+      "inventory_id": "F:00117510",
+      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "original_end_exclusive": "0x51766C",
+      "instruction_count": 113,
+      "original_direct_reference_count": 83,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "BuildProtocolCommand_517510"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51057B",
+          "parent_entry": "0x510570"
+        },
+        {
+          "address": "0x51063B",
+          "parent_entry": "0x510630"
+        },
+        {
+          "address": "0x51071B",
+          "parent_entry": "0x510710"
+        },
+        {
+          "address": "0x51081B",
+          "parent_entry": "0x510810"
+        },
+        {
+          "address": "0x51088B",
+          "parent_entry": "0x510880"
+        },
+        {
+          "address": "0x5108FB",
+          "parent_entry": "0x5108F0"
+        },
+        {
+          "address": "0x51094B",
+          "parent_entry": "0x510940"
+        },
+        {
+          "address": "0x5109BB",
+          "parent_entry": "0x5109B0"
+        },
+        {
+          "address": "0x510A0B",
+          "parent_entry": "0x510A00"
+        },
+        {
+          "address": "0x510ACB",
+          "parent_entry": "0x510AC0"
+        },
+        {
+          "address": "0x510B8F",
+          "parent_entry": "0x510B80"
+        },
+        {
+          "address": "0x510CEB",
+          "parent_entry": "0x510CE0"
+        },
+        {
+          "address": "0x510DAB",
+          "parent_entry": "0x510DA0"
+        },
+        {
+          "address": "0x510E3B",
+          "parent_entry": "0x510E30"
+        },
+        {
+          "address": "0x510ECB",
+          "parent_entry": "0x510EC0"
+        },
+        {
+          "address": "0x510F5B",
+          "parent_entry": "0x510F50"
+        },
+        {
+          "address": "0x510FAB",
+          "parent_entry": "0x510FA0"
+        },
+        {
+          "address": "0x51103C",
+          "parent_entry": "0x511030"
+        },
+        {
+          "address": "0x5110BB",
+          "parent_entry": "0x5110B0"
+        },
+        {
+          "address": "0x51119B",
+          "parent_entry": "0x511190"
+        },
+        {
+          "address": "0x5111EB",
+          "parent_entry": "0x5111E0"
+        },
+        {
+          "address": "0x51125B",
+          "parent_entry": "0x511250"
+        },
+        {
+          "address": "0x5112CB",
+          "parent_entry": "0x5112C0"
+        },
+        {
+          "address": "0x51135B",
+          "parent_entry": "0x511350"
+        },
+        {
+          "address": "0x5113CB",
+          "parent_entry": "0x5113C0"
+        },
+        {
+          "address": "0x51143B",
+          "parent_entry": "0x511430"
+        },
+        {
+          "address": "0x51148B",
+          "parent_entry": "0x511480"
+        },
+        {
+          "address": "0x51151B",
+          "parent_entry": "0x511510"
+        },
+        {
+          "address": "0x5115FB",
+          "parent_entry": "0x5115F0"
+        },
+        {
+          "address": "0x51164B",
+          "parent_entry": "0x511640"
+        },
+        {
+          "address": "0x51176B",
+          "parent_entry": "0x511760"
+        },
+        {
+          "address": "0x5117DB",
+          "parent_entry": "0x5117D0"
+        },
+        {
+          "address": "0x51184B",
+          "parent_entry": "0x511840"
+        },
+        {
+          "address": "0x5118BB",
+          "parent_entry": "0x5118B0"
+        },
+        {
+          "address": "0x51190B",
+          "parent_entry": "0x511900"
+        },
+        {
+          "address": "0x511A0B",
+          "parent_entry": "0x511A00"
+        },
+        {
+          "address": "0x511A5B",
+          "parent_entry": "0x511A50"
+        },
+        {
+          "address": "0x511AEB",
+          "parent_entry": "0x511AE0"
+        },
+        {
+          "address": "0x511BCB",
+          "parent_entry": "0x511BC0"
+        },
+        {
+          "address": "0x511C3B",
+          "parent_entry": "0x511C30"
+        },
+        {
+          "address": "0x511C8B",
+          "parent_entry": "0x511C80"
+        },
+        {
+          "address": "0x511CDB",
+          "parent_entry": "0x511CD0"
+        },
+        {
+          "address": "0x511D1B",
+          "parent_entry": "0x511D10"
+        },
+        {
+          "address": "0x511D6B",
+          "parent_entry": "0x511D60"
+        },
+        {
+          "address": "0x511DDB",
+          "parent_entry": "0x511DD0"
+        },
+        {
+          "address": "0x511E6B",
+          "parent_entry": "0x511E60"
+        },
+        {
+          "address": "0x511EFB",
+          "parent_entry": "0x511EF0"
+        },
+        {
+          "address": "0x511FBB",
+          "parent_entry": "0x511FB0"
+        },
+        {
+          "address": "0x511FFB",
+          "parent_entry": "0x511FF0"
+        },
+        {
+          "address": "0x51204B",
+          "parent_entry": "0x512040"
+        },
+        {
+          "address": "0x5120DB",
+          "parent_entry": "0x5120D0"
+        },
+        {
+          "address": "0x51216B",
+          "parent_entry": "0x512160"
+        },
+        {
+          "address": "0x51219B",
+          "parent_entry": "0x512190"
+        },
+        {
+          "address": "0x5121EB",
+          "parent_entry": "0x5121E0"
+        },
+        {
+          "address": "0x51223B",
+          "parent_entry": "0x512230"
+        },
+        {
+          "address": "0x51227B",
+          "parent_entry": "0x512270"
+        },
+        {
+          "address": "0x5122CB",
+          "parent_entry": "0x5122C0"
+        },
+        {
+          "address": "0x51231B",
+          "parent_entry": "0x512310"
+        },
+        {
+          "address": "0x51236B",
+          "parent_entry": "0x512360"
+        },
+        {
+          "address": "0x5123BB",
+          "parent_entry": "0x5123B0"
+        },
+        {
+          "address": "0x51240B",
+          "parent_entry": "0x512400"
+        },
+        {
+          "address": "0x51247B",
+          "parent_entry": "0x512470"
+        },
+        {
+          "address": "0x5124EB",
+          "parent_entry": "0x5124E0"
+        },
+        {
+          "address": "0x51257B",
+          "parent_entry": "0x512570"
+        },
+        {
+          "address": "0x5125BB",
+          "parent_entry": "0x5125B0"
+        },
+        {
+          "address": "0x51262B",
+          "parent_entry": "0x512620"
+        },
+        {
+          "address": "0x51272B",
+          "parent_entry": "0x512720"
+        },
+        {
+          "address": "0x5127BB",
+          "parent_entry": "0x5127B0"
+        },
+        {
+          "address": "0x51280B",
+          "parent_entry": "0x512800"
+        },
+        {
+          "address": "0x5128CB",
+          "parent_entry": "0x5128C0"
+        },
+        {
+          "address": "0x512ABB",
+          "parent_entry": "0x512AB0"
+        },
+        {
+          "address": "0x512B0B",
+          "parent_entry": "0x512B00"
+        },
+        {
+          "address": "0x512B9B",
+          "parent_entry": "0x512B90"
+        },
+        {
+          "address": "0x512BDB",
+          "parent_entry": "0x512BD0"
+        },
+        {
+          "address": "0x512C1B",
+          "parent_entry": "0x512C10"
+        },
+        {
+          "address": "0x512C6B",
+          "parent_entry": "0x512C60"
+        },
+        {
+          "address": "0x512CAB",
+          "parent_entry": "0x512CA0"
+        },
+        {
+          "address": "0x512CFB",
+          "parent_entry": "0x512CF0"
+        },
+        {
+          "address": "0x512D3B",
+          "parent_entry": "0x512D30"
+        },
+        {
+          "address": "0x512DAB",
+          "parent_entry": "0x512DA0"
+        },
+        {
+          "address": "0x512DFB",
+          "parent_entry": "0x512DF0"
+        },
+        {
+          "address": "0x516C9B",
+          "parent_entry": "0x516C90"
+        },
+        {
+          "address": "0x516D7B",
+          "parent_entry": "0x516D70"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x517510",
+          "call_site": "0x517590",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "BuildProtocolCommand_517510",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x58AA5C",
+          "push_site": "0x51758A",
+          "bytes": "25732000"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "parent_entry": "0x517510",
+          "call_site": "0x517579",
+          "target_entry": "0x4038A0",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        },
+        {
+          "parent_entry": "0x517510",
+          "call_site": "0x517625",
+          "target_entry": "0x54ABDD",
+          "relationship": "既有真实上下游/消费者；本轮只迁移格式，全部调用与返回消费保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
+      "boundary": "既有非加密命令构造父只将变换后temp以58AA5C %s加尾空格输出到原借用buffer，返回忽略；原8B temp/命令拷贝/4038A0调用、后继密码长度/校验和状态/itoa16/不含NUL复制/W16长度/0返回逐字保持。83原入向只证明直接消费范围，不记所有caller/队列/发送已验收，不恢复403C50/403E50排除链。"
     }
   ]
 }

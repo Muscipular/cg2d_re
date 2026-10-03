@@ -34,7 +34,6 @@
 #include <array>
 #include <bit>
 #include <cstddef>
-#include <cstdio>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
@@ -506,7 +505,7 @@ void Sub_50CF20(
         "\xA5\xA2\xB1\xD1\xA4\x46\xA1\x49";
     static_assert(sizeof(kMessage) == 9);
     char buffer[256];
-    std::sprintf(buffer, kMessage);
+    platform::FormatLegacyString_53B304(buffer, kMessage);
     world::detail::Sub_44B050(buffer, 4, 3);
 }
 
@@ -680,7 +679,7 @@ void Sub_50E6E0(const std::uintptr_t, const char* const text)
         static_assert(sizeof(format58B0B0) == 24);
         static_assert(sizeof(warning58B094) == 25);
         char message[256];
-        std::sprintf(message, format58B0B0, previous, text);
+        platform::FormatLegacyString_53B304(message, format58B0B0, previous, text);
         world::detail::Sub_44B050(message, 4, 3);
         world::detail::Sub_44B050(warning58B094, 4, 3);
     }
@@ -751,7 +750,7 @@ void Sub_50F190(
     static_cast<void>(world::detail::Sub_519370(key, 0, name, text));
     const char* const recordName =
         (login::detail::gOrderedRecords1051B14.data() + index)->text18;
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         message, kind == -1 ? kGuildMailFormat58B0EC : kGuildPetMailFormat58B0C8,
         recordName);
     static_cast<void>(world::detail::Sub_519550());
@@ -883,7 +882,7 @@ std::int32_t BuildProtocolCommand_517510(
             login::gValueDA38DC));
     }
 
-    static_cast<void>(std::sprintf(buffer, "%s ", temp.data()));
+    static_cast<void>(platform::FormatLegacyString_53B304(buffer, "%s ", temp.data()));
 
     std::array<char, 8> checksumSlot;
     checksumSlot[0] = input::LegacyText593850()[0];

@@ -2833,7 +2833,7 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     char buffer[32];
-    std::sprintf(buffer, "%s", pet->name6AC.data());
+    platform::FormatLegacyString_53B304(buffer, "%s", pet->name6AC.data());
     {
         WindowInstance* const window = gCurrentWindow;
         const auto x = static_cast<std::int16_t>(window->x + 77);
@@ -2848,34 +2848,34 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
         static_cast<void>(render::DrawText_456780(
             x, y, 3, 13, std::bit_cast<std::int8_t>(std::uint8_t{138}), buffer, 0, 0));
     };
-    std::sprintf(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
+    platform::FormatLegacyString_53B304(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[1]));
     drawText(227, 58);
-    std::sprintf(buffer, "%3d", pet->value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->value08);
     drawText(53, 75);
     const std::int16_t tribe = std::bit_cast<std::int16_t>(pet->value04);
     if (tribe >= 0 && tribe < 20) {
-        std::sprintf(buffer, "%s", gTribeNames57CB54[tribe]);
+        platform::FormatLegacyString_53B304(buffer, "%s", gTribeNames57CB54[tribe]);
     } else {
         buffer[0] = '\0';
     }
     drawText(120, 75);
-    std::sprintf(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
+    platform::FormatLegacyString_53B304(buffer, "%4d", platform::legacy_crypt_int::Read_401EC0(&pet->values0C[3]));
     drawText(227, 75);
-    std::sprintf(buffer, "%3d", pet->values70[0]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[0]);
     drawText(117, 93);
-    std::sprintf(buffer, "%3d", pet->values70[1]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[1]);
     drawText(176, 93);
-    std::sprintf(buffer, "%3d", pet->values70[2]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[2]);
     drawText(234, 93);
-    std::sprintf(buffer, "%3d", pet->value6A4);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->value6A4);
     drawText(53, 111);
-    std::sprintf(buffer, "%3d", pet->values70[3]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[3]);
     drawText(117, 111);
-    std::sprintf(buffer, "%3d", pet->values70[4]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[4]);
     drawText(176, 111);
-    std::sprintf(buffer, "%3d", pet->values70[10]);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->values70[10]);
     drawText(234, 111);
-    std::sprintf(buffer, "%3d", pet->lvFlag6C);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet->lvFlag6C);
     drawText(91, 129);
     std::int32_t consumed = 0;
     if (gValueD67BE0 != 0 && gStallOwn58111C != 0) {
@@ -2928,10 +2928,10 @@ std::int32_t Sub_4D0EB0(const std::int32_t index, const std::int32_t state)
     const bool priceOwn = gStallOwn58111C != 0;
     std::int32_t price;
     if (priceOwn) {
-        std::sprintf(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
+        platform::FormatLegacyString_53B304(buffer, "%d", gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value);
         price = gStallPetOffersCC3E98[gStallPetPageD67BD0 + row].value;
     } else {
-        std::sprintf(buffer, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row]);
+        platform::FormatLegacyString_53B304(buffer, "%d", gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row]);
         price = gStallBrowseD046D8.petValuesD2D464[gStallPetPageD67BD0 + row];
     }
     std::int32_t priceColor = 0;

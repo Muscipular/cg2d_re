@@ -34886,10 +34886,10 @@ void Sub_47B6C0(
         static_cast<std::int16_t>(x + 7), static_cast<std::int16_t>(y + 2),
         static_cast<std::uint8_t>(textLayer), 12, nameColor, skill->name.data(), 0, 0));
     char buffer[20];
-    std::sprintf(buffer, "%2d", skill->level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", skill->level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t requiredSlots = std::bit_cast<std::int8_t>(skill->requiredSlots19[0]);
-    std::sprintf(buffer, "%2d", requiredSlots);
+    platform::FormatLegacyString_53B304(buffer, "%2d", requiredSlots);
     Sub_4771B0(x + 193, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     const std::int32_t kind = skill->canRebirth;
     const std::int32_t imageNo = kSkillListImages54F37C[kind * 3 + visualState];
@@ -35066,13 +35066,13 @@ void Sub_47B9B0(
     char buffer[20];
     const std::int32_t level =
         world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C[technique].value90;
-    std::sprintf(buffer, "%2d", level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", level);
     Sub_4771B0(x + 155, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
     const std::int32_t kind = record->canRebirth;
     if (kind != 1 && kind != 2) {
         const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
-        std::sprintf(buffer, "%3d", cost);
+        platform::FormatLegacyString_53B304(buffer, "%3d", cost);
         Sub_4771B0(x + 186, y + 3, buffer, 0, 0, 0, static_cast<std::uint8_t>(graphicLayer));
     } else {
         static_cast<void>(render::DrawText_456780(

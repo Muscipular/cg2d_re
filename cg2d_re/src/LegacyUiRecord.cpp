@@ -2987,7 +2987,7 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             char buffer[16];
             char escaped[16];
             gLegacyPetSkillCatalogSelectionC8AF70 = hovered;
-            std::sprintf(buffer, "%d", index);
+            platform::FormatLegacyString_53B304(buffer, "%d", index);
             static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
             const std::int32_t target = world::detail::gDialogTargetD2DE6C;
             const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -3025,10 +3025,10 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
             2, 0, 0, text, 0, 0));
     }
     char buffer[256];
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 465),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 286), 2, 0, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%d/%d", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLegacyPetSkillCatalogPageD45F74 + 1, gLegacyPetSkillCatalogPageCountC8AF84);
     static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 172),
         static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 44), 2, 0, 0, buffer, 0, 0));
     for (std::int32_t row = 0; row < 8; ++row) {
@@ -3041,14 +3041,14 @@ std::uint32_t Sub_4D7470(const std::int32_t opened)
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 97 - nameWidth / 2),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 86 + 32 * row), 2, 0, 0, name, 0, 0));
         const std::int32_t value = gLegacyPetSkillCatalogCA0478[row + 8 * gLegacyPetSkillCatalogPageD45F74].value04;
-        std::sprintf(buffer, "%4d", value);
+        platform::FormatLegacyString_53B304(buffer, "%4d", value);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 203),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, 0, buffer, 0, 0));
         const std::int32_t page = gLegacyPetSkillCatalogPageD45F74;
         const std::int32_t gold = world::detail::ReadPlayerValueFC();
         const std::int32_t price = gLegacyPetSkillCatalogCA0478[row + 8 * page].price08;
         const std::uint8_t color = gold >= price ? 0 : 6;
-        std::sprintf(buffer, "%7d", price);
+        platform::FormatLegacyString_53B304(buffer, "%7d", price);
         static_cast<void>(DrawText(static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.x + 261),
             static_cast<std::int16_t>(gLegacyPetSkillCatalogPanel581FB8.y + 88 + 32 * row), 2, 1, color, buffer, 0, 0));
     }

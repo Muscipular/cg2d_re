@@ -5578,7 +5578,7 @@ std::int32_t Sub_4885A0(const std::int32_t amount)
         }
     }
     char buffer[384];
-    std::sprintf(buffer, "I|%d|%d|%d", source, target, amount);
+    platform::FormatLegacyString_53B304(buffer, "I|%d|%d|%d", source, target, amount);
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(windowState->userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(windowState->value14);
@@ -8833,13 +8833,13 @@ std::int32_t Sub_488D30(const std::int32_t index, const std::int32_t state)
 
 std::int32_t Sub_488E60(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(gInventoryMoneyTextCB086C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 std::int32_t Sub_488E80(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    platform::FormatLegacyString_53B304(gInventoryValueTextCC3ECC.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 

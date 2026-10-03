@@ -6075,7 +6075,7 @@ std::int32_t Sub_48D540(
             std::strlen(pet.name6BD.data()) != 0 ? pet.name6BD.data() : pet.name6AC.data();
         drawText(name, 8, 6);
         char buffer[256];
-        std::sprintf(buffer, "%3d", pet.value08);
+        platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
         drawText(buffer, 141, 6);
         const std::int16_t tribe = std::bit_cast<std::int16_t>(pet.value04);
         if (tribe >= 0 && tribe < 20) {
@@ -6083,11 +6083,11 @@ std::int32_t Sub_48D540(
         }
         const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
         const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
-        std::sprintf(buffer, "%6d/%6d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", hp, maxHp);
         drawText(buffer, 37, 19);
         const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
         const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
-        std::sprintf(buffer, "%6d/%6d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", fp, maxFp);
         drawText(buffer, 37, 32);
         if (Sub_4EA670(index) == 1) {
             static_cast<void>(render::DrawGraphic3_520970(
@@ -6289,14 +6289,14 @@ std::int32_t Sub_4B1260(
     }
     char buffer[52];
     if (*tab == 2) {
-        std::sprintf(buffer, "%9d", displayAmount);
+        platform::FormatLegacyString_53B304(buffer, "%9d", displayAmount);
         Sub_4771B0(x + 179, y + 88, buffer, 3, 0, 1, 223);
     }
-    std::sprintf(buffer, "%3d", itemCount);
+    platform::FormatLegacyString_53B304(buffer, "%3d", itemCount);
     Sub_4771B0(x + 71, y + 258, buffer, 3, 0, 1, 223);
-    std::sprintf(buffer, "%3d", petCount);
+    platform::FormatLegacyString_53B304(buffer, "%3d", petCount);
     Sub_4771B0(x + 156, y + 258, buffer, 3, 0, 1, 223);
-    std::sprintf(buffer, "%10d", amount);
+    platform::FormatLegacyString_53B304(buffer, "%10d", amount);
     Sub_4771B0(x + 241, y + 258, buffer, 3, 0, 1, 223);
     imageNo = backgroundImages[std::bit_cast<std::int8_t>(*tab)];
     static_cast<void>(render::DrawGraphic3_520970(

@@ -15952,7 +15952,7 @@ std::int32_t Sub_501FD0(const std::int32_t x, const std::int32_t y)
     render::DrawInputText_4568A0(gLegacyProfileInputD6885C);
     const std::int32_t page = gLegacyTitlePageCF49B4;
     const std::int32_t pages = gLegacyTitlePageCountC8AF80;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pages);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pages);
     static_cast<void>(DrawText(static_cast<std::int16_t>(x + 166),
         static_cast<std::int16_t>(y + 101), 2, 0, 0, buffer, 0, 0));
     Sub_5035E0(&submit, 212, 1, gValueD69768, 0);
@@ -17106,13 +17106,13 @@ std::uint32_t Sub_5029B0(const std::int32_t opened)
         static_cast<std::int16_t>(nameY + 36), 2, 0, 0, world::ReadText9DAD30(), 0, 0));
     char buffer[256];
     const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
-    std::sprintf(buffer, kLegacyMapEast58AA54, playerX);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMapEast58AA54, playerX);
     const std::int32_t eastY = gLegacyMapPanelD68868.y;
     const std::int32_t eastX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(eastX + 62),
         static_cast<std::int16_t>(eastY + 186), 2, 0, 0, buffer, 0, 0));
     const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    std::sprintf(buffer, kLegacyMapSouth58AA4C, playerY);
+    platform::FormatLegacyString_53B304(buffer, kLegacyMapSouth58AA4C, playerY);
     const std::int32_t southY = gLegacyMapPanelD68868.y;
     const std::int32_t southX = gLegacyMapPanelD68868.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(southX + 133),
@@ -17419,7 +17419,7 @@ std::int32_t Sub_503160(
                 const char* const hint = tab->hint;
                 if (hint != nullptr) {
                     char buffer[128];
-                    std::sprintf(buffer, "%s", hint);
+                    platform::FormatLegacyString_53B304(buffer, "%s", hint);
                     std::strcpy(ui::detail::gHoverTextD68AE8.data(), buffer);
                 }
                 if ((gValueD68D9C & 1u) != 0) {

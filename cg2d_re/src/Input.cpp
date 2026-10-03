@@ -7,6 +7,8 @@
 #include "cg/ui/WindowRuntime.hpp"
 
 #include "InputKeyDispatchDependencies.hpp"
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
 #include "platform/LegacyMultibyte.hpp"
 #include "platform/WindowProcedureState.hpp"
 #include "world/WorldUpdateDependencies.hpp"
@@ -1251,21 +1253,21 @@ std::int32_t Sub_44A090()
 {
     gCursor62683C = -1;
     char path[128];
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    std::FILE* const readStream = std::fopen(path, kChatHistoryReadMode);
+    platform::LegacyFile* const readStream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryReadMode);
     if (readStream != nullptr) {
-        const std::size_t count =
-            std::fread(&gChatHistory621FF8, 0x4844, 1, readStream);
-        std::fclose(readStream);
-        return count == 1 ? 1 : 0;
+        const std::uint32_t count =
+            platform::ReadLegacyStream_53BCCD(&gChatHistory621FF8, 0x4844, 1, readStream);
+        platform::CloseLegacyStream_53B1D0(readStream);
+        return count >= 1 ? 1 : 0;
     }
 
-    std::FILE* const writeStream = std::fopen(path, kChatHistoryWriteMode);
+    platform::LegacyFile* const writeStream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryWriteMode);
     if (writeStream != nullptr) {
-        std::fwrite(&gChatHistory621FF8, 0x4844, 1, writeStream);
-        std::fclose(writeStream);
+        platform::WriteLegacyStream_53C680(&gChatHistory621FF8, 0x4844, 1, writeStream);
+        platform::CloseLegacyStream_53B1D0(writeStream);
     }
     gCursor62683C = 63;
     return 0;
@@ -1275,23 +1277,23 @@ std::int32_t Sub_44A090()
 std::int32_t Sub_449FA0(const std::int32_t index)
 {
     char path[128];
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         path, kPathFormat_553514, platform::gDataPath, kChatHistoryName554910);
 
-    std::FILE* const stream = std::fopen(path, kChatHistoryUpdateMode);
+    platform::LegacyFile* const stream = platform::OpenLegacyStream_53B2F1(path, kChatHistoryUpdateMode);
     if (stream == nullptr) {
         return 0;
     }
 
-    std::fseek(stream, index * 0x121, SEEK_SET);
-    if (std::fwrite(gChatHistory621FF8.records[index], 0x121, 1, stream) < 1) {
-        std::fclose(stream);
+    platform::SeekLegacyStream_53BC41(stream, index * 0x121, 0);
+    if (platform::WriteLegacyStream_53C680(gChatHistory621FF8.records[index], 0x121, 1, stream) < 1) {
+        platform::CloseLegacyStream_53B1D0(stream);
         return 0;
     }
 
-    std::fseek(stream, 0x4840, SEEK_SET);
-    const std::size_t written = std::fwrite(&index, sizeof(index), 1, stream);
-    std::fclose(stream);
+    platform::SeekLegacyStream_53BC41(stream, 0x4840, 0);
+    const std::uint32_t written = platform::WriteLegacyStream_53C680(&index, sizeof(index), 1, stream);
+    platform::CloseLegacyStream_53B1D0(stream);
     return written >= 1 ? 1 : 0;
 }
 

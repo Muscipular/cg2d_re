@@ -11107,7 +11107,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -11519,6 +11519,42 @@
           "call_site": "0x401152",
           "source": "src/Blacklist.cpp",
           "symbol": "LoadBlacklistFile"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0FD",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A134",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A146",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A023",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A05D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A06F",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
         }
       ]
     },
@@ -11729,7 +11765,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -12025,6 +12061,24 @@
           "call_site": "0x40106C",
           "source": "src/Blacklist.cpp",
           "symbol": "LoadBlacklistFile"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0C4",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0DC",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FCA",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
         }
       ]
     },
@@ -12179,7 +12233,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的业务/filebuf调用未迁移，不混用std::FILE。",
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。",
       "function_chunks": [
         {
           "start": "0x53BC41",
@@ -12294,7 +12348,21 @@
         "source_path": "stdio/fseek.cpp",
         "symbol": "fseek",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FF3",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A03D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        }
+      ]
     },
     {
       "original_entry": "0x53BCCD",
@@ -12321,7 +12389,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。",
+      "boundary": "U32乘积零立即0；10CH缓冲计数非零时以U32 min经真实541620复制，之后重读FILE字段更新。大块按块长整数倍直接read，0/-1置EOF10H/错误20H；小块filbuf成功先存AL再重读bufferSize。失败返完整元素数，已写部分不撤回；55个原引用不计业务迁移完成。 聊天历史44A126读取(4844H,1)已与格式化/打开/关闭整链接LegacyFile，短读字节保持，不以调用接线计完整加载验收。",
       "function_chunks": [
         {
           "start": "0x53BCCD",
@@ -12556,7 +12624,15 @@
         "source_path": "stdio/fread.cpp",
         "symbol": "fread",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A126",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        }
+      ]
     },
     {
       "original_entry": "0x53C680",
@@ -12583,7 +12659,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，业务调用仍待。",
+      "boundary": "U32乘积零早退；108H缓冲非零计数先复制，再按原序更新同一FILE。大块先按缓冲状态flush，再write，-1或U32短写置错误20H；小块源S8传flsbuf，成功推进并重读尺寸，只有此路径S32尺寸<=0时改块长1。失败返完整元素数，不撤回；fputs内部调用已接，聊天历史44A0F7/44A015/44A04F三调用已整链迁移，其他业务调用仍待。",
       "function_chunks": [
         {
           "start": "0x53C680",
@@ -12714,7 +12790,27 @@
         "source_path": "stdio/fwrite.cpp",
         "symbol": "fwrite",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0F7",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A015",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A04F",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
+        }
+      ]
     },
     {
       "original_entry": "0x53C8B3",
@@ -15082,7 +15178,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及16个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及18个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -15129,7 +15225,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处共16点已接，其他1006点未据此计完成；格式、参数及后处理保持。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处共18点已接，其他1004点未据此计完成；格式、参数及后处理保持。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -15239,6 +15335,18 @@
           "call_site": "0x40105D",
           "source": "src/Blacklist.cpp",
           "symbol": "LoadBlacklistFile"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0B5",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FBB",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0"
         }
       ],
       "business_format_evidence": [
@@ -15257,6 +15365,10 @@
         {
           "address": "0x5531AC",
           "bytes": "646174615c626c61636b6c6973745f25642e74787400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
         }
       ]
     },
@@ -25828,6 +25940,246 @@
       ],
       "verification_level": "完整72条与4直接入向、两父全FILE接线/原数据字节和限定源码差异静态核对；未执行",
       "boundary": "仅迁移既有本体的五CRT调用：清512B局部路径、signed fileId真实sprintf、路径不等返0；相等以共享路径/w打开，不检查空指针，顺序写每个非空17B记录和单LF，关闭结果忽略后W8返1。100项记录/共享状态与添加/删除/清空调用保持，不加失败门禁或转码；真实CRT初始化、文件内容/异常/运行未验。"
+    },
+    {
+      "original_entry": "0x44A090",
+      "inventory_id": "F:0004A090",
+      "status": "既有聊天历史本体及真实FILE/格式化完整接线已落位；CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x44A15B",
+      "instruction_count": 59,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A090"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x504A30",
+          "parent_entry": "0x504A30"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0B5",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0C4",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0DC",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0F7",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A0FD",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A126",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53BCCD",
+          "target_symbol": "ReadLegacyStream_53BCCD"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A134",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x44A090",
+          "call_site": "0x44A146",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44A090",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554910",
+          "bytes": "636861746869732e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        },
+        {
+          "address": "0x55490C",
+          "bytes": "722b6200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_scene_state.md"
+      ],
+      "verification_level": "两父131条/2入向、17原调用对应15源码表达式、原路径/mode字节、传输尺寸与分支及限定源码差异静态核对；未执行",
+      "boundary": "游标先-1，未清128B路径按共享gDataPath/%s\\\\%s/chathis.dat格式化；rb成功只读(4844H,1)并关闭，返回按原cmp/jnb的U32项数>=1。rb失败才wb写同一4844H文件块，忽略写/关结果，最终游标63/返回0。短读字节不撤回，不清唯一历史块，不以创建尝试计作加载成功；日志与待批栈内容保持。"
+    },
+    {
+      "original_entry": "0x449FA0",
+      "inventory_id": "F:00049FA0",
+      "status": "既有聊天历史本体及真实FILE/格式化完整接线已落位；CRT启动/运行验收仍待",
+      "original_end_exclusive": "0x44A084",
+      "instruction_count": 72,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449FA0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x44AC26",
+          "parent_entry": "0x44AB60"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FBB",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FCA",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x449FF3",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A015",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A023",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A03D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A04F",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53C680",
+          "target_symbol": "WriteLegacyStream_53C680"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A05D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x449FA0",
+          "call_site": "0x44A06F",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449FA0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x554910",
+          "bytes": "636861746869732e64617400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        },
+        {
+          "address": "0x55491C",
+          "bytes": "776200"
+        },
+        {
+          "address": "0x55490C",
+          "bytes": "722b6200"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_input_key_dispatch.md"
+      ],
+      "verification_level": "两父131条/2入向、17原调用对应15源码表达式、原路径/mode字节、传输尺寸与分支及限定源码差异静态核对；未执行",
+      "boundary": "r+b失败返0；忽略seek(index*121H,BEGIN)结果，写(121H,1)不足1关闭返0；成功才忽略seek(4840H,BEGIN)结果并写参数index的4B，关闭后按U32项数>=1返回0/1。无索引/容量/失败保护，原文件块与尾字段W32保持，原回车调用不改；失败已写字节不回滚。"
     }
   ]
 }

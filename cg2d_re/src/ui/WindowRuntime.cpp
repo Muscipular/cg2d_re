@@ -14338,7 +14338,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
     WindowInstance* window = gCurrentWindow;
     std::int32_t y = window->y + 285;
     std::int32_t x = window->x + 357;
@@ -14349,12 +14349,12 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 442;
     Sub_4771B0(x, y, buffer.data(), 3, 0, 1, 223);
-    std::sprintf(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer.data(), "%10d", world::detail::ReadPlayerValueFC());
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 527;
@@ -14367,7 +14367,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 85;
@@ -14380,7 +14380,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
             ++count;
         }
     }
-    std::sprintf(buffer.data(), "%3d", count);
+    platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 170;
@@ -14389,7 +14389,7 @@ std::int32_t Sub_4A9B00(const std::int32_t, const std::int32_t)
     std::int32_t amount;
     std::memcpy(&amount,
         gItemDetailStorageCC4D58.data() + side * 0xFBF8 + 0xFBF4, sizeof(amount));
-    std::sprintf(buffer.data(), "%10d", amount);
+    platform::FormatLegacyString_53B304(buffer.data(), "%10d", amount);
     window = gCurrentWindow;
     y = window->y + 285;
     x = window->x + 255;

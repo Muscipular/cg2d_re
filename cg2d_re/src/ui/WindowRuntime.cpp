@@ -5673,7 +5673,7 @@ void Sub_48BB90(
         return;
     }
     char buffer[384];
-    std::sprintf(buffer, "P|%d|%d", source, target);
+    platform::FormatLegacyString_53B304(buffer, "P|%d|%d", source, target);
     input::EscapeLegacyTextAndNotify_52D2D0(buffer, buffer + 128, 255);
     const auto userState = std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
     const auto value14 = std::bit_cast<std::int32_t>(gWindowStates[41].value14);
@@ -10304,13 +10304,13 @@ std::int32_t Sub_499970(const std::int32_t, const std::int32_t state)
 
 std::int32_t Sub_499B00(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(gBattleMoneyTextCF469C.data(), "%10d", world::detail::ReadPlayerValueFC());
     return 0;
 }
 
 std::int32_t Sub_499B20(const std::int32_t, const std::int32_t)
 {
-    std::sprintf(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    platform::FormatLegacyString_53B304(gBattleValueTextC8A960.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     return 0;
 }
 

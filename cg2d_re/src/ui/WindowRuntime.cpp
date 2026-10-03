@@ -26565,7 +26565,7 @@ void FormatMailTimestamp587768(char* const destination)
     std::memcpy(&month, bytes + 16, sizeof(month));
     std::int32_t year;
     std::memcpy(&year, bytes + 20, sizeof(year));
-    std::sprintf(destination, "%4d/%2d/%2d %02d:%02d",
+    platform::FormatLegacyString_53B304(destination, "%4d/%2d/%2d %02d:%02d",
         year + 1900, month + 1, day, hour, minute);
 }
 
@@ -27133,7 +27133,7 @@ std::int32_t Sub_4A5970(const std::int32_t index, const std::int32_t state)
                 const std::int32_t key = record.key04;
                 input::EscapeLegacyText_52D1B0(record.name10.data(), escapedName, 256);
                 input::EscapeLegacyText_52D1B0(input::gInputContextD66CA8.text, escapedText, 1024);
-                std::sprintf(combined, "%d|%s|%s", key, escapedName, escapedText);
+                platform::FormatLegacyString_53B304(combined, "%d|%s|%s", key, escapedName, escapedText);
                 input::EscapeLegacyTextAndNotify_52D2D0(combined, packet, 1024);
                 static_cast<void>(network::Sub_511840(platform::gConnectionSocket, packet, 0));
                 static_cast<void>(world::detail::Sub_534520(timestamp));

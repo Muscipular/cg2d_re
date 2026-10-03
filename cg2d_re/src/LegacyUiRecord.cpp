@@ -9710,7 +9710,7 @@ std::uint32_t Sub_52D7B0(const std::int32_t opened)
                 static_cast<void>(DrawGraphic(left, top, 213, image, 0, &descriptor));
                 const std::int32_t count = item->count;
                 if (count > 0) {
-                    std::sprintf(buffer, "%3d", count);
+                    platform::FormatLegacyString_53B304(buffer, "%3d", count);
                     const std::int32_t countY = gLegacyGuildGiftPanel58E950.y + 67 + 53 * row;
                     const std::int32_t countX = gLegacyGuildGiftPanel58E950.x + 29 + 52 * column;
                     static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -9810,7 +9810,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
             const std::int32_t month = calendar->month0based + 1;
             const std::int32_t year = calendar->yearMinus1900 + 1900;
             char timestamp[64];
-            std::sprintf(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
+            platform::FormatLegacyString_53B304(timestamp, "%4d/%2d/%2d %02d:%02d", year, month, day, hours, minutes);
             char source[512];
             std::strcpy(source, input::gInputContext1050B80.text);
             char escaped[600];
@@ -9855,7 +9855,7 @@ std::uint32_t Sub_52DCE0(const std::int32_t opened)
         const std::int32_t count = world::detail::gPlayerItemsFDA8A4[nameGift].count;
         if (count > 0) {
             char buffer[128];
-            std::sprintf(buffer, "%3d", count);
+            platform::FormatLegacyString_53B304(buffer, "%3d", count);
             const std::int32_t countY = gLegacyGuildComposePanel58EA18.y + 127;
             const std::int32_t countX = gLegacyGuildComposePanel58EA18.x + 213;
             static_cast<void>(DrawText(static_cast<std::int16_t>(countX),
@@ -9941,7 +9941,7 @@ std::uint32_t Sub_52E240(const std::int32_t opened)
             static_cast<std::int16_t>(nameY), 2, 0, color, buffer, 0, 0));
         // 原52E4C2操作数F63400为宠物+08，不按反编译lv名称改到+6C。
         const std::int32_t value = pet->value08;
-        std::sprintf(buffer, "%3d", value);
+        platform::FormatLegacyString_53B304(buffer, "%3d", value);
         const std::int32_t valueY = gLegacyGuildPetPanel58EAE0.y + 45 + 28 * row;
         const std::int32_t valueX = gLegacyGuildPetPanel58EAE0.x + 226;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valueX),

@@ -4535,9 +4535,9 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
         const std::int32_t left = gLegacyRepairPanel582788.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4551,13 +4551,13 @@ std::uintptr_t Sub_4DC7E0(const std::int32_t opened)
     } else if (gLegacyRepairMessageD64E14 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    std::sprintf(buffer, "%7d", gLegacyRepairTotalD460C4);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyRepairTotalD460C4);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyRepairPageCF4A08;
     const std::int32_t pageCount = gLegacyRepairPageCountCC4B24;
-    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -4667,7 +4667,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
                         std::strcat(buffer, "|");
                     }
                     const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
-                    std::sprintf(entry, "%d", inventoryIndex);
+                    platform::FormatLegacyString_53B304(entry, "%d", inventoryIndex);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -4713,7 +4713,7 @@ std::uint32_t Sub_4DDB20(const std::int32_t opened)
     }
     const std::int32_t total = gLegacyRepairTotalD460C4;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    std::sprintf(buffer, kLegacyRepairSummary5890A4, gold, total);
+    platform::FormatLegacyString_53B304(buffer, kLegacyRepairSummary5890A4, gold, total);
     drawAt(buffer, 134, 254);
     drawAt(kLegacyRepairQuestion58908C, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));
@@ -4917,9 +4917,9 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
         const std::int32_t left = gLegacyIdentifyPanel582918.x + dx + 44;
         static_cast<void>(DrawGraphic(left, top, 214, image, 0, &descriptor));
         const std::int8_t priceColor = ReadRecordW32(item, 0xC28) != 0 ? 0 : 7;
-        std::sprintf(buffer, "%7d", ReadRecordW32(item, 0xC24));
+        platform::FormatLegacyString_53B304(buffer, "%7d", ReadRecordW32(item, 0xC24));
         drawAt(buffer, dx + 87, dy + 120, priceColor);
-        std::sprintf(buffer, "%2d", ReadRecordW32(item, 0xC28));
+        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(item, 0xC28));
         drawAt(buffer, dx + 82, dy + 92, 0);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
         Sub_5035E0(&decreases[row], 213, 1, gValueD69768, 0);
@@ -4933,13 +4933,13 @@ std::uintptr_t Sub_4DDFC0(const std::int32_t opened)
     } else if (gLegacyIdentifyMessageC9A948 == 1) {
         drawAt(kLegacyRepairNoMoney58906C, 375, 79, 0);
     }
-    std::sprintf(buffer, "%7d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, "%7d", world::detail::ReadPlayerValueFC());
     drawAt(buffer, 463, 286, 0);
-    std::sprintf(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyIdentifyTotalCB1E3C);
     drawAt(buffer, 463, 338, 0);
     const std::int32_t page = gLegacyIdentifyPageCC3F00;
     const std::int32_t pageCount = gLegacyIdentifyPageCountC9A950;
-    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 172, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -5049,7 +5049,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
                         std::strcat(buffer, "|");
                     }
                     const std::int32_t inventoryIndex = ReadRecordW32(item, 0xC2C);
-                    std::sprintf(entry, "%d", inventoryIndex);
+                    platform::FormatLegacyString_53B304(entry, "%d", inventoryIndex);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -5095,7 +5095,7 @@ std::uint32_t Sub_4DF300(const std::int32_t opened)
     }
     const std::int32_t total = gLegacyIdentifyTotalCB1E3C;
     const std::int32_t gold = world::detail::ReadPlayerValueFC();
-    std::sprintf(buffer, kLegacyIdentifySummary589150, gold, total);
+    platform::FormatLegacyString_53B304(buffer, kLegacyIdentifySummary589150, gold, total);
     drawAt(buffer, 134, 254);
     drawAt(kLegacyIdentifyQuestion589138, 214, 294);
     static_cast<void>(character_select::detail::Sub_503A20(&accept, 2, 4, 1, gValueD69768, 218));

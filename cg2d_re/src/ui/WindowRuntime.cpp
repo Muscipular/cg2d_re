@@ -33108,21 +33108,21 @@ WindowAnimationData* Sub_47E5E0(WindowInstance* const window)
         std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
-        std::sprintf(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
+        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gCraftExperienceCC3204);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
     increments[0] = '\0';
     char buffer[256];
     if (gCraftEnduranceD2F328 != 0) {
-        std::sprintf(buffer, kCraftEndurance586600, gCraftEnduranceD2F328);
+        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gCraftEnduranceD2F328);
         std::strcat(increments, buffer);
     }
     if (gCraftDexterityCA0448 != 0) {
-        std::sprintf(buffer, kCraftDexterity5865F4, gCraftDexterityCA0448);
+        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gCraftDexterityCA0448);
         std::strcat(increments, buffer);
     }
     if (gCraftIntelligenceCB0F84 != 0) {
-        std::sprintf(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
+        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gCraftIntelligenceCB0F84);
         std::strcat(increments, buffer);
     }
     std::strcpy(
@@ -33335,22 +33335,22 @@ WindowAnimationData* Sub_47F3D0(WindowInstance* const window)
         std::strcpy(static_cast<WindowTextData*>(window->elements[11].data)->text, kCraftLevelUp58661C);
     } else {
         auto* const data = static_cast<WindowTextData*>(window->elements[11].data);
-        std::sprintf(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
+        platform::FormatLegacyString_53B304(data->text, kCraftExperience58660C, gItemWorkExperienceC8A950);
     }
     char* const increments = static_cast<WindowTextData*>(window->elements[12].data)->text;
     increments[0] = '\0';
     char buffer[256];
     // 原门禁取制造回复，显示值取本次物品回复；不能收敛成同一来源。
     if (gCraftEnduranceD2F328 != 0) {
-        std::sprintf(buffer, kCraftEndurance586600, gItemWorkEnduranceCF46B4);
+        platform::FormatLegacyString_53B304(buffer, kCraftEndurance586600, gItemWorkEnduranceCF46B4);
         std::strcat(increments, buffer);
     }
     if (gCraftDexterityCA0448 != 0) {
-        std::sprintf(buffer, kCraftDexterity5865F4, gItemWorkDexterityCB0A14);
+        platform::FormatLegacyString_53B304(buffer, kCraftDexterity5865F4, gItemWorkDexterityCB0A14);
         std::strcat(increments, buffer);
     }
     if (gCraftIntelligenceCB0F84 != 0) {
-        std::sprintf(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
+        platform::FormatLegacyString_53B304(buffer, kCraftIntelligence5865E8, gItemWorkIntelligenceD30418);
         std::strcat(increments, buffer);
     }
     std::strcpy(

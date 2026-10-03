@@ -7343,12 +7343,12 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
     char buffer[128];
     for (std::int32_t index = 0; index < ui::detail::ReadLegacyItemUseStatusCount(); ++index) {
         const auto& record = ui::detail::ReadLegacyItemUseStatus(index);
-        std::sprintf(buffer, "%3d", record.level);
+        platform::FormatLegacyString_53B304(buffer, "%3d", record.level);
         const std::int32_t levelY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t levelX = gLegacyItemUseStatusPanel582C78.x + 107;
         static_cast<void>(DrawText(static_cast<std::int16_t>(levelX),
             static_cast<std::int16_t>(levelY), 2, 0, 0, buffer, 0, 0));
-        std::sprintf(buffer, "%-16s", record.name.data());
+        platform::FormatLegacyString_53B304(buffer, "%-16s", record.name.data());
         const std::uint8_t color = static_cast<std::uint8_t>(colors[record.kind]);
         const std::int32_t nameY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t nameX = gLegacyItemUseStatusPanel582C78.x + 143;
@@ -7358,7 +7358,7 @@ std::uint32_t Sub_4E4460(const std::int32_t opened)
         const std::int32_t fp = record.fp;
         const std::int32_t maxHp = record.maxHp;
         const std::int32_t hp = record.hp;
-        std::sprintf(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%4d/%4d %4d/%4d", hp, maxHp, fp, maxFp);
         const std::int32_t valuesY = gLegacyItemUseStatusPanel582C78.y + 20 * index + 76;
         const std::int32_t valuesX = gLegacyItemUseStatusPanel582C78.x + 296;
         static_cast<void>(DrawText(static_cast<std::int16_t>(valuesX),

@@ -3,6 +3,7 @@
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
 #include <cstring>
@@ -241,7 +242,8 @@ std::int32_t ScanLegacyInput_53DEF4(
                     }
                 }
                 std::uint8_t set[32];
-                std::memset(set, 0, sizeof(set));
+                static_cast<void>(FillLegacyMemory_5419D0(
+                    set, 0, static_cast<std::uint32_t>(sizeof(set))));
                 std::uint8_t previous = 0;
                 if (kind == '{' && *setText == ']') {
                     previous = ']';

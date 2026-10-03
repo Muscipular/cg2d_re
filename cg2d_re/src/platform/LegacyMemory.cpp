@@ -2,6 +2,7 @@
 #include "cg/platform/LegacyTime.hpp"
 
 #include <cstring>
+#include <memory>
 
 #include <malloc.h>
 #include <new.h>
@@ -164,6 +165,135 @@ void* CopyLegacyMemory_541620(void* const destination,
         }
     }
     return destination;
+}
+
+// 原5419D0；低U8填充，先按4B对齐写前缀，再逐W32/尾字节，返回原目标。
+void* FillLegacyMemory_5419D0(
+    void* const destination, const std::int32_t value, std::uint32_t byteCount)
+{
+    if (byteCount == 0) {
+        return destination;
+    }
+    auto* output = static_cast<unsigned char*>(destination);
+    const auto byte = static_cast<std::uint8_t>(value);
+    if (byteCount >= 4) {
+        void* aligned = output;
+        std::size_t alignmentSpace = 4;
+        // 至多3B调整；这里只求原4B对齐位置，不保存整数地址。
+        static_cast<void>(std::align(4, 1, aligned, alignmentSpace));
+        while (output != aligned) {
+            *output++ = byte;
+            --byteCount;
+        }
+        const std::uint32_t word = static_cast<std::uint32_t>(byte) * 0x01010101u;
+        while (byteCount >= 4) {
+            std::memcpy(output, &word, sizeof(word));
+            output += 4;
+            byteCount -= 4;
+        }
+    }
+    while (byteCount != 0) {
+        *output++ = byte;
+        --byteCount;
+    }
+    return destination;
+}
+
+// 原54B160及分离chunk；未对齐逐U8，双4B对齐按原W32读/复读及尾掩码。
+std::int32_t CompareLegacyMemory_54B160(
+    const void* const leftBuffer, const void* const rightBuffer, std::uint32_t byteCount)
+{
+    if (byteCount == 0) {
+        return 0;
+    }
+    const auto* left = static_cast<const unsigned char*>(leftBuffer);
+    const auto* right = static_cast<const unsigned char*>(rightBuffer);
+    void* alignedLeft = const_cast<void*>(leftBuffer);
+    void* alignedRight = const_cast<void*>(rightBuffer);
+    std::size_t leftSpace = 4;
+    std::size_t rightSpace = 4;
+    static_cast<void>(std::align(4, 1, alignedLeft, leftSpace));
+    static_cast<void>(std::align(4, 1, alignedRight, rightSpace));
+    if (alignedLeft != leftBuffer || alignedRight != rightBuffer) {
+        if ((byteCount & 1u) != 0) {
+            const unsigned char leftByte = *left;
+            const unsigned char rightByte = *right;
+            if (leftByte != rightByte) {
+                return leftByte < rightByte ? -1 : 1;
+            }
+            ++left;
+            ++right;
+            --byteCount;
+        }
+        while (byteCount != 0) {
+            for (std::uint32_t index = 0; index != 2; ++index) {
+                const unsigned char leftByte = left[index];
+                const unsigned char rightByte = right[index];
+                if (leftByte != rightByte) {
+                    return leftByte < rightByte ? -1 : 1;
+                }
+            }
+            left += 2;
+            right += 2;
+            byteCount -= 2;
+        }
+        return 0;
+    }
+
+    std::uint32_t words = byteCount >> 2;
+    byteCount &= 3u;
+    while (words != 0) {
+        std::uint32_t leftWord;
+        std::uint32_t rightWord;
+        std::memcpy(&leftWord, left, sizeof(leftWord));
+        std::memcpy(&rightWord, right, sizeof(rightWord));
+        left += 4;
+        right += 4;
+        --words;
+        if (leftWord != rightWord) {
+            // 原失配块再次读取，不能改成复用第一次读取的值。
+            std::memcpy(&leftWord, left - 4, sizeof(leftWord));
+            std::memcpy(&rightWord, right - 4, sizeof(rightWord));
+            for (std::uint32_t shift = 0; shift != 24; shift += 8) {
+                const auto leftByte = static_cast<std::uint8_t>(leftWord >> shift);
+                const auto rightByte = static_cast<std::uint8_t>(rightWord >> shift);
+                if (leftByte != rightByte) {
+                    return leftByte < rightByte ? -1 : 1;
+                }
+            }
+            return (leftWord >> 24) < (rightWord >> 24) ? -1 : 1;
+        }
+    }
+    if (byteCount == 0) {
+        return 0;
+    }
+    // 原对齐尾仍读取两W32，随后只按剩余1/2/3字节比较；不改原读取合同。
+    std::uint32_t leftWord;
+    std::uint32_t rightWord;
+    std::memcpy(&leftWord, left, sizeof(leftWord));
+    std::memcpy(&rightWord, right, sizeof(rightWord));
+    const auto firstLeft = static_cast<std::uint8_t>(leftWord);
+    const auto firstRight = static_cast<std::uint8_t>(rightWord);
+    if (firstLeft != firstRight) {
+        return firstLeft < firstRight ? -1 : 1;
+    }
+    if (--byteCount == 0) {
+        return 0;
+    }
+    const auto secondLeft = static_cast<std::uint8_t>(leftWord >> 8);
+    const auto secondRight = static_cast<std::uint8_t>(rightWord >> 8);
+    if (secondLeft != secondRight) {
+        return secondLeft < secondRight ? -1 : 1;
+    }
+    if (--byteCount == 0) {
+        return 0;
+    }
+    leftWord &= 0x00FF0000u;
+    rightWord &= 0x00FF0000u;
+    if (leftWord != rightWord) {
+        return leftWord < rightWord ? -1 : 1;
+    }
+    return 0;
 }
 
 void* AllocateLegacyByteBuffer(const std::uint32_t byteCount)

@@ -10752,7 +10752,17 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "既有546B29仍传256字节/info1/strict0；新增541955传1或2字节/info1/strict1。独立10862E4 A/W探测、代码页/locale回退、首转换flags1或9、次转换flags1、同栈宽缓冲清零与实际转换长度保持。只拓展这两个已证调用域，不声称任意infoType等完整接口已承接；未执行NLS/目录操作、构建、测试或客户端。"
+      "boundary": "既有546B29仍传256字节/info1/strict0；新增541955传1或2字节/info1/strict1。独立10862E4 A/W探测、代码页/locale回退、首转换flags1或9、次转换flags1、同栈宽缓冲清零与实际转换长度保持。只拓展这两个已证调用域，不声称任意infoType等完整接口已承接；未执行NLS/目录操作、构建、测试或客户端。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
+      "verification_level": "既有父合同/静态级别保持；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+      "memory_fill_connections": [
+        {
+          "target_entry": "0x5419D0",
+          "call_site": "0x5452F7",
+          "source": "src/platform/LegacyMultibyte.cpp",
+          "symbol": "GetLegacyTableCharacterTypes_545208",
+          "relationship": "当前系统调用结果wideCount先乘2保留低U32；同原SEH/alloca区域内，不改API结果/失败"
+        }
+      ]
     },
     {
       "original_entry": "0x543AE8",
@@ -15022,23 +15032,51 @@
     {
       "original_entry": "0x5419D0",
       "inventory_id": "F:001419D0",
-      "status": "限定多字节表及扫描位集清零域的标准库关联；其他父链/运行未验",
+      "status": "原低U8填充完整本体与四真实原调用已接；其余四原调用/完整父与运行未验",
       "original_end_exclusive": "0x541A28",
       "instruction_count": 40,
       "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "FillLegacyMemory_5419D0"
+          ],
+          "relationship": "原40条完整核心，低U8/Count0/4B前缀/逐W32及尾/原目标身份"
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "FillLegacyMemory_5419D0"
+          ],
+          "relationship": "唯一声明，值S32低U8/数量U32/真实目标指针"
+        },
         {
           "path": "src/platform/LegacyMultibyte.cpp",
           "symbols": [
             "GetLegacyTableCharacterTypes_545208"
           ],
-          "relationship": "5452F7的原宽字符局部区清零已由std::memset承接"
+          "relationship": "5452F7的原宽字符局部区清零已由FillLegacyMemory_5419D0承接"
         },
         {
           "path": "src/platform/LegacyScan.cpp",
           "symbols": [
             "ScanLegacyInput_53DEF4"
           ],
-          "relationship": "53E46C的固定32B零填充由std::memset承接；不扩大其他域"
+          "relationship": "53E46C的固定32B零填充由FillLegacyMemory_5419D0承接；不扩大其他域"
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CallocateLegacyMemory_53BFF8"
+          ],
+          "relationship": "原53C094共用点：mode3原请求/mode2对齐容量两个源分支，不混原堆/宿主释放"
+        },
+        {
+          "path": "src/platform/LegacyFloatFormat.cpp",
+          "symbols": [
+            "FormatLegacyFloatFixed_53FFD7"
+          ],
+          "relationship": "原5400A6移位后按当前S32 precision低U32填0x30"
         }
       ],
       "evidence_documents": [
@@ -15047,21 +15085,80 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。"
+      "boundary": "原Count0不写内存，非零按Val低W8填Count字节并返回原dest；关联545208固定256输入域的2*wideCount清零及53DEF4的32B扫描位集清零，不扩为原八caller全部完成，不改父SEH/API返回处理。；2026-10-04新增完整核心与四原入口实际接线。保留低U8、Count0不写/返原目标、Count>=4才前缀对齐/逐W32/尾写。仅用std::align求原4B对齐，无整数地址缓存。53C094的mode3原请求/mode2当前对齐容量分别保留，其他原堆owner/失败不改；53E46C固定32B、5400A6 S32 precision低U32、5452F7两倍当前wideCount同源清零。原其余四点542844/542BA3/543954/548DA8未接，完整父/启动/内存及运行未验，不扩大calloc应用批准域。",
+      "original_direct_reference_count": 8,
+      "fill_call_connections": [
+        {
+          "parent_entry": "0x53BFF8",
+          "call_site": "0x53C094",
+          "source": "src/platform/LegacyHeap.cpp",
+          "symbol": "CallocateLegacyMemory_53BFF8",
+          "target_symbol": "FillLegacyMemory_5419D0",
+          "source_expressions": [
+            "result,0,original (mode3)",
+            "result,0,bytes (mode2)"
+          ],
+          "source_expression_group": "calloc_shared_fill",
+          "relationship": "mode3先push原乘积；mode2@53C0A2先push当前对齐ESI、jmp53C091；同一原call，不算两原点"
+        },
+        {
+          "parent_entry": "0x53DEF4",
+          "call_site": "0x53E46C",
+          "source": "src/platform/LegacyScan.cpp",
+          "symbol": "ScanLegacyInput_53DEF4",
+          "target_symbol": "FillLegacyMemory_5419D0",
+          "source_expression": "set,0,32",
+          "relationship": "字符集扫描先清固定32B后逐U8范围置位，sizeof(set)低U32"
+        },
+        {
+          "parent_entry": "0x53FFD7",
+          "call_site": "0x5400A6",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "FormatLegacyFloatFixed_53FFD7",
+          "target_symbol": "FillLegacyMemory_5419D0",
+          "source_expression": "cursor,'0',U32 precision",
+          "relationship": "仍现同一移位后填0x30，数量按当前S32低U32，不改缓存/非缓存分支"
+        },
+        {
+          "parent_entry": "0x545208",
+          "call_site": "0x5452F7",
+          "source": "src/platform/LegacyMultibyte.cpp",
+          "symbol": "GetLegacyTableCharacterTypes_545208",
+          "target_symbol": "FillLegacyMemory_5419D0",
+          "source_expression": "wide,0,U32(sizeof(wchar_t)*wideCount)",
+          "relationship": "当前系统调用结果wideCount先乘2保留低U32；同原SEH/alloca区域内，不改API结果/失败"
+        }
+      ],
+      "verification_level": "原完整40条/八直接引用，四原点所需参数/共用分支及Count采样只读取证；新核心/唯一声明和五源表达式、所有原核心数值/指针/目标返回、六源码文件限定差异/JSON六项更新与文档/进度静态核对，未构建或执行"
     },
     {
       "original_entry": "0x54B160",
       "inventory_id": "F:0014B160",
-      "status": "仅内存比较本体/分离返回边界已证；当前无已证caller，承接未判定",
+      "status": "原分块内存比较本体及共用返回已实现；无新增已证caller，完整消费/运行未验",
       "original_end_exclusive": "0x54B1AC",
       "instruction_count": 77,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "CompareLegacyMemory_54B160"
+          ],
+          "relationship": "原未对齐U8路径/双4B对齐W32比较、失配块复读及1/2/3字节尾实际W32读与FF0000掩码，精确S32-1/0/+1"
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "CompareLegacyMemory_54B160"
+          ],
+          "relationship": "唯一声明；原数量U32，两源地址非拥有，Count0不读"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_function_boundary_classifications.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原无直接入向；不能因未查到xref判定全局不可达或排除。Count0返回0；非零按U8首差异返回-1/+1，相等返回0。两chunk共77条，Count0及主段相等落向独立元数据54B1AC的RET；其一条另在边界分类登记，不生成假空函数。当前音频std::memcmp不作为原调用证据，音频保持暂停。",
+      "boundary": "原无直接入向；不能因未查到xref判定全局不可达或排除。Count0返回0；非零按U8首差异返回-1/+1，相等返回0。两chunk共77条，Count0及主段相等落向独立元数据54B1AC的RET；其一条另在边界分类登记，不生成假空函数。当前音频std::memcmp不作为原调用证据，音频保持暂停。；2026-10-04落位完整两chunk及共用54B1AC返回语义，未生成独立空函数/重复ID。Count0先返0；任一地址未4B对齐走奇数首字节/逐两U8；双对齐先逐W32，失配块再次左/右W32读并按低字节先判，最后字节按原CF选择-1/+1；对齐1..3尾仍先读两W32再按实际数量/FF0000判，不改成有界逐字节读取/修复越界。不引入整数地址缓存/容量保护或std::memcmp替代；没有原callee入向证明，不造音频/其他调用，音频仍暂停，运行及故障等价未验。",
       "original_chunks": [
         [
           "0x54B160",
@@ -15072,7 +15169,8 @@
           "0x54B20C"
         ]
       ],
-      "shared_return_entry": "0x54B1AC"
+      "shared_return_entry": "0x54B1AC",
+      "verification_level": "原两chunk77条加独立元数据共用RET1条、全部19跳转实际目标与FF0000实际立即数/六原字节已核；新核心/唯一声明、0数量/对齐分类/字节次序/W32失配复读/尾读取与精确S32返回，源码/JSON限定增量静态核对，未构建或执行"
     },
     {
       "original_entry": "0x53B1D0",
@@ -35441,7 +35539,7 @@
       "original_end_exclusive": "0x53C0A9",
       "instruction_count": 72,
       "original_direct_reference_count": 23,
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
       "function_chunks": [
         {
           "start": "0x53BFF8",
@@ -35559,7 +35657,16 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。"
+      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
+      "memory_fill_connections": [
+        {
+          "target_entry": "0x5419D0",
+          "call_site": "0x53C094",
+          "source": "src/platform/LegacyHeap.cpp",
+          "symbol": "CallocateLegacyMemory_53BFF8",
+          "relationship": "mode3先push原乘积；mode2@53C0A2先push当前对齐ESI、jmp53C091；同一原call，不算两原点"
+        }
+      ]
     },
     {
       "original_entry": "0x53DA45",
@@ -36674,7 +36781,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "正常按decimal+precision舍入，缓存且先前指数等于precision补0/NUL；保留符号、decimal<=0的前导0、小数点移位和负decimal补零。缓存模式不裁precision，非缓存才取较小补零数。顶层/缓存父、移位/舍入及数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。",
+      "boundary": "正常按decimal+precision舍入，缓存且先前指数等于precision补0/NUL；保留符号、decimal<=0的前导0、小数点移位和负decimal补零。缓存模式不裁precision，非缓存才取较小补零数。顶层/缓存父、移位/舍入及数字生产已接；六槽安装本体已实现，真实启动调用与完整运行仍待。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
       "function_chunks": [
         {
           "start": "0x53FFD7",
@@ -36691,7 +36798,16 @@
           "parent_entry": "0x54019A"
         }
       ],
-      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行"
+      "verification_level": "完整原指令/入向、共享记录/模板/初值及新增静态核对；未编译执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+      "memory_fill_connections": [
+        {
+          "target_entry": "0x5419D0",
+          "call_site": "0x5400A6",
+          "source": "src/platform/LegacyFloatFormat.cpp",
+          "symbol": "FormatLegacyFloatFixed_53FFD7",
+          "relationship": "仍现同一移位后填0x30，数量按当前S32低U32，不改缓存/非缓存分支"
+        }
+      ]
     },
     {
       "original_entry": "0x5400B5",
@@ -38266,7 +38382,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "完整输入分派、h/l/L/w/F/N/*/I64修饰、S32宽度/计数/U8完成标记、整数/浮点/c/s/[/n/字面匹配及原EOF规则已表达。保留i/x预读回推、I64n清零值、字符集倒序范围和缺失]无保护、宽转换失败沿旧DstCh、浮点349宽度/读取/回推次序；全局ctype/小数点/58FB58继续真实共享。仅p地址累计/目标写入拓宽至uintptr_t/void*，其他数值W16/W32/W64不扩；Win64原生va_list不复制x86槽。未消费的未知字面目标预取被省略，抑制字符串用U32单位计数保持成功判断；原C/DstCh未初始化域不补零、不宣称故障等价。唯一字符串包装及版本、命令、IP、网络/战斗扫描调用已接；524060音频调用仍暂停，未构建执行，实际浮点启动仍待。",
+      "boundary": "完整输入分派、h/l/L/w/F/N/*/I64修饰、S32宽度/计数/U8完成标记、整数/浮点/c/s/[/n/字面匹配及原EOF规则已表达。保留i/x预读回推、I64n清零值、字符集倒序范围和缺失]无保护、宽转换失败沿旧DstCh、浮点349宽度/读取/回推次序；全局ctype/小数点/58FB58继续真实共享。仅p地址累计/目标写入拓宽至uintptr_t/void*，其他数值W16/W32/W64不扩；Win64原生va_list不复制x86槽。未消费的未知字面目标预取被省略，抑制字符串用U32单位计数保持成功判断；原C/DstCh未初始化域不补零、不宣称故障等价。唯一字符串包装及版本、命令、IP、网络/战斗扫描调用已接；524060音频调用仍暂停，未构建执行，实际浮点启动仍待。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
       "function_chunks": [
         {
           "start": "0x53DEF4",
@@ -38289,7 +38405,16 @@
           "bytes": "5d000000"
         }
       ],
-      "verification_level": "906条原指令、字符集字节、位宽/读写/回推/EOF及新增源码静态核对；未编译执行"
+      "verification_level": "906条原指令、字符集字节、位宽/读写/回推/EOF及新增源码静态核对；未编译执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+      "memory_fill_connections": [
+        {
+          "target_entry": "0x5419D0",
+          "call_site": "0x53E46C",
+          "source": "src/platform/LegacyScan.cpp",
+          "symbol": "ScanLegacyInput_53DEF4",
+          "relationship": "字符集扫描先清固定32B后逐U8范围置位，sizeof(set)低U32"
+        }
+      ]
     },
     {
       "original_entry": "0x5448A4",

@@ -705,7 +705,7 @@ void* CallocateLegacyMemory_53BFF8(
                 if (original <= gLegacySmallHeap3Threshold10869A0) {
                     result = AllocateLegacySmallHeap3Block_541FB1(original);
                     if (result != nullptr) {
-                        std::memset(result, 0, original);
+                        static_cast<void>(FillLegacyMemory_5419D0(result, 0, original));
                         return result;
                     }
                 }
@@ -713,7 +713,7 @@ void* CallocateLegacyMemory_53BFF8(
                 result = AllocateLegacySmallHeap2Block_542A54(
                     static_cast<std::int32_t>(bytes >> 4));
                 if (result != nullptr) {
-                    std::memset(result, 0, bytes);
+                    static_cast<void>(FillLegacyMemory_5419D0(result, 0, bytes));
                     return result;
                 }
             }

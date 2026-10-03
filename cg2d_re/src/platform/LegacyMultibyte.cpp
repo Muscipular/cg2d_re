@@ -2,6 +2,7 @@
 
 #include "LegacyStringCompareState.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
 #include <cstring>
@@ -108,7 +109,8 @@ int GetLegacyCharacterTypes_545208(const char* const source, const std::int32_t 
     wchar_t* wide;
     __try {
         wide = static_cast<wchar_t*>(_alloca(sizeof(wchar_t) * wideCount));
-        std::memset(wide, 0, sizeof(wchar_t) * wideCount);
+        static_cast<void>(FillLegacyMemory_5419D0(wide, 0,
+            static_cast<std::uint32_t>(sizeof(wchar_t) * wideCount)));
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         wide = nullptr;
     }

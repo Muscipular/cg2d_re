@@ -4,6 +4,7 @@
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
 #include "cg/platform/LegacyTime.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
 #include <cstring>
@@ -207,7 +208,8 @@ char* FormatLegacyFloatFixed_53FFD7(double* const value, char* const output,
                 precision = zeros;
             }
             ShiftLegacyFloatText_5401EB(cursor, precision);
-            std::memset(cursor, '0', static_cast<std::uint32_t>(precision));
+            static_cast<void>(FillLegacyMemory_5419D0(
+                cursor, '0', static_cast<std::uint32_t>(precision)));
         }
     }
     return output;

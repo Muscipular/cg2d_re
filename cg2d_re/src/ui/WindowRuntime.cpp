@@ -16840,7 +16840,7 @@ std::int32_t Sub_4949C0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
@@ -16876,7 +16876,7 @@ std::int32_t Sub_494AE0(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gMusicVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
+            platform::FormatLegacyString_53B304(gSettingsMusicTextD3041C.data(), "%d", platform::gMusicVolume);
             const std::int32_t width = Sub_477460(gSettingsMusicTextD3041C.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[13].x = x;
@@ -16912,7 +16912,7 @@ std::int32_t Sub_494C10(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume - 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;
@@ -16948,7 +16948,7 @@ std::int32_t Sub_494D30(const std::int32_t index, const std::int32_t state)
         } else {
             platform::gEffectVolume = volume + 1;
             static_cast<void>(audio::Sub_52C3D0());
-            std::sprintf(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
+            platform::FormatLegacyString_53B304(gSettingsEffectTextD2EA64.data(), "%d", platform::gEffectVolume);
             const std::int32_t width = Sub_477460(gSettingsEffectTextD2EA64.data(), 3);
             const std::int32_t x = ((37 - width) >> 1) + gSettingsOffsetCA02DC + 69;
             gCurrentWindow->elements[16].x = x;

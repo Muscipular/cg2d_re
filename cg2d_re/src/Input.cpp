@@ -17,7 +17,6 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
-#include <cstdio>
 #include <cstring>
 #include <type_traits>
 
@@ -1593,17 +1592,17 @@ void Sub_44AB60()
         char message[256];
         const char* const text = gInputContextC8B1B8.text;
         if (std::strcmp(text, world::detail::BorrowPlayerDisplayText(1)) == 0) {
-            std::sprintf(message, kBlacklistSelfText554938);
+            platform::FormatLegacyString_53B304(message, kBlacklistSelfText554938);
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
-            std::sprintf(message, kBlacklistExistingFormat554928, text);
+            platform::FormatLegacyString_53B304(message, kBlacklistExistingFormat554928, text);
         } else {
             const char* const format = blacklist::AddBlacklistRecord_401270(text) != 0
                 ? kBlacklistAddedFormat5532C4 : kBlacklistFailedFormat5532B0;
-            std::sprintf(message, format, text);
+            platform::FormatLegacyString_53B304(message, format, text);
         }
         gInputContextC8B1B8.text[0] = '\0';
-        gInputContextC8B1B8.totalByteLength = 0;
         gInputContextC8B1B8.caretByteOffset = 0;
+        gInputContextC8B1B8.totalByteLength = 0;
         world::detail::Sub_44B050(message, 4, 3);
         SetContext_44B330(&gInputContext626AA0);
     }

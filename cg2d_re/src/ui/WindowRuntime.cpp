@@ -29016,9 +29016,9 @@ std::int32_t Sub_4CC6E0(const std::int32_t index, const std::int32_t state)
             if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {
                 const char* const format = blacklist::RemoveBlacklistRecord_4012F0(name) != 0
                     ? kBlacklistRemoved58863C : kBlacklistRemoveFailed588620;
-                std::sprintf(message, format, name);
+                platform::FormatLegacyString_53B304(message, format, name);
             } else {
-                std::sprintf(message, kBlacklistAbsent58860C, name);
+                platform::FormatLegacyString_53B304(message, kBlacklistAbsent58860C, name);
             }
             world::detail::Sub_44B050(message, 4, 3);
         }

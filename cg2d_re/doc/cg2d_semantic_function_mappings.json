@@ -10473,7 +10473,7 @@
     {
       "original_entry": "0x53BE40",
       "inventory_id": "F:0013BE40",
-      "status": "原66条子串查找直接本体及八个业务调用已接；其他45原引用及完整运行未闭合",
+      "status": "原66条子串查找直接本体及九个业务调用已接；其他44原引用及完整运行未闭合",
       "original_end_exclusive": "0x53BEC0",
       "instruction_count": 66,
       "original_chunks": [
@@ -10534,15 +10534,23 @@
             "UpdateBattleEvent_427470"
           ],
           "relationship": "七实际原点的头表查找；42761D在已接入真实入口的失活辅助函数，不新建回调"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "HandleResponse_508800"
+          ],
+          "relationship": "原50885B真实|分隔符定位，借用返回连接前缀复制和共享防护表解析"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_network_dispatch.md",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_network_runtime.md"
       ],
-      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处及战斗头表七处共八处已接，其他45及既有标准库关联未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。",
+      "boundary": "原空needle先返回原源，单字节沿53BEAE→53C2F6共用查找内部，新端显式StrChr桥接且不增加字符入口引用。多字节首两needle冻结，先匹配首字节后判NUL，第二字节不符复用已读值作为下一候选；前二匹配后按needle+2/源当前/源推进2/needle+3/源前一/needle推进2逐项比对，失败从已匹配第二源字节重新候选，完整匹配返回首部借用指针。不预算长度、转码、改大小写、加保护或默认值，原53入口代码引用中提示命令一处、战斗头表七处及登录分隔符一处共九处已接，其他44及既有标准库关联未计直接本体完成。完整父链/CRT/运行与故障等价仍未据静态核对通过。 七战斗头表按同一25项/3B旧头依次查找，Ride/预扫描回滚、参与者/分派、失活失配continue、结束仅匹配写phase及CHT/BST14/20保持；两原地址绑定与直接call区分，真实入口→准备→失活helper保持。其余父正文/数值/owner/生命周期及424620待批补值不改，完整战斗/CRT/运行仍待。 原50885B在已接旧时间/返回发布后查找7c00，保持先查找再清128B与借用地址供508882/508888两调用；失败busy和无分隔符内联复制保持，不重写whV分派或增加保护。",
       "original_direct_reference_count": 53,
       "original_direct_call_reference_count": 53,
       "search_call_connections": [
@@ -10624,6 +10632,16 @@
           "target_entry": "0x53BE40",
           "target_symbol": "StrStr_53BE40",
           "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持"
+        },
+        {
+          "parent_entry": "0x508800",
+          "call_site": "0x50885B",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "HandleResponse_508800",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "needle_bytes": "7c00",
+          "relationship": "旧时间两调用及借用返回发布后，真实|子串定位先于128B清区；返回借用分隔符地址供前缀复制及404600"
         }
       ],
       "single_byte_tail_connection": {
@@ -10636,7 +10654,7 @@
         "target_symbol": "StrChr_53C2F0",
         "relationship": "原单字节尾跳入字符查找内部，共用低W8 first与原源；新端具名函数桥接，不作新的25入口引用或第三个原入口业务点"
       },
-      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行",
+      "verification_level": "原完整66条与实际所有关键跳转目标/53BEAE→53C2F6、53入口引用/真实50CEB1、空分支不读源/复用第二候选/两字节读取推进/失败重启/借用返回静态核对；新增核心/唯一声明和两父限定三复制/一查找/两U32计数转换，未构建或执行；七战斗父18531条统计/相邻196条、25原指针与3B+NUL头/真实辅助链与两回调地址绑定，整份YobiRuntime仅七标识符和六新父/一个旧父/共享项限定差异静态核对，未执行；原508800完整90条/587B28的7c00与51610E唯一caller、真实whV分派/同址旧时间/借用返回/查找先于清区/前缀复制和404600生产链限定差异静态核对，未执行",
       "battle_header_table_evidence": {
         "address": "0x553E94",
         "entry_count": 25,
@@ -11299,7 +11317,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及三十一个业务复制调用已接；两原点按既有键盘分支排除，其他六引用及完整运行未闭合",
+      "status": "原直接本体及三十六个业务复制调用已接；两原点按既有键盘分支排除，其他一引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11341,6 +11359,20 @@
             "Sub_4CFE70"
           ],
           "relationship": "摊位编辑/浏览回复/上架八复制原点接真实核心；原计数、清区、转义/终止/发送次序保持"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ParseProtectionTables_404600"
+          ],
+          "relationship": "四原防护表复制点、W32槽号/Count及原W16标志生产纠正，共享消费保持"
+        },
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "HandleResponse_508800"
+          ],
+          "relationship": "508882原前缀复制交真实核心，保持先旧时间/查找/清区/复制/解析两表"
         }
       ],
       "evidence_documents": [
@@ -11352,9 +11384,10 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_external_keyboard_wrapper.md",
-        "doc/ui_windows/window_53.md"
+        "doc/ui_windows/window_53.md",
+        "doc/cg2d_network_runtime.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接三十一处，另两处随已批准屏幕键盘回填段排除，其他6处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；31已接+2范围排除+6未接对应原39引用。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接三十六处，另两处随已批准屏幕键盘回填段排除，其他1处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；36已接+2范围排除+1未接对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11698,9 +11731,64 @@
           "count_value": 29,
           "count_width": "U32",
           "relationship": "第10字段容量768/反转义后长度>28选择原???否则同一buffer，复制至CC3210首区；随后第11字段与+1D正文，不另加NUL"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x4046E3",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "逗号段复制表1当前0x400B槽，再推进表1槽号"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x404720",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "辅助数量<30才先清32B record.text并复制，后编号1001+index及B=0加10000再推进数量"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x404777",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "分号段复制表2当前0x400B槽，之后三独立读取尾字节并按1清B/2置A/3先B后A"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x4047FB",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "段内LF/NUL末段复制表1；每段起点LF/NUL直接结束，不多调用"
+        },
+        {
+          "parent_entry": "0x508800",
+          "call_site": "0x508882",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "HandleResponse_508800",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原separator-text地址差低W32/U32",
+          "count_width": "U32",
+          "relationship": "真实|定位后先清同一128B共享前缀区，再复制并将分隔符本身传入404600；无caller末NUL"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行；分色父94条及查找89条完整取证，五原调用/Count U32/同源临时生命周期与整份源码限定差异静态核对，未执行；网络三父423条统计/203条读取、两个512E40原caller与三复制/一查找/两U32转换，整份限定源码及两新父/三共享项静态核对，未执行；商店238条统计/相邻40条和???原字节/单一原caller；两已排除键盘父651统计/66读取与既有实施SPEC/活动代码对齐，不改活动控制器或97分类；整份WindowRuntime仅一标识符及共享项/一新父限定差异静态核对，未执行",
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行；窗口交易父完整212条/真实回调槽，整份WindowRuntime仅两复制/两格式标识符替换，一个既有父及两共享项限定增量静态核对，未执行；输入绘制332条统计/相邻55条、32原代码引用/25父，整份InputText仅两复制标识符/两Count表达式/一个既有头包含，一个既有父及共享项限定差异静态核对，未执行；分色父94条及查找89条完整取证，五原调用/Count U32/同源临时生命周期与整份源码限定差异静态核对，未执行；网络三父423条统计/203条读取、两个512E40原caller与三复制/一查找/两U32转换，整份限定源码及两新父/三共享项静态核对，未执行；商店238条统计/相邻40条和???原字节/单一原caller；两已排除键盘父651统计/66读取与既有实施SPEC/活动代码对齐，不改活动控制器或97分类；整份WindowRuntime仅一标识符及共享项/一新父限定差异静态核对，未执行；协议两父完整276条与|字节/四原标志写字节、真实whV→508800→404600及旧辅助消费、两源码限定差异/核心和头保持/两新父与两共享项增量静态核对，未构建或执行",
       "excluded_call_connections": [
         {
           "parent_entry": "0x45FA70",
@@ -43505,6 +43593,187 @@
       ],
       "verification_level": "原238条统计中名称选择/复制/后续相邻40条、原Count29/???字节和单一caller；整份源码只一标识符/核心和头保持、两合同末尾追加及JSON共享项/一个既有父增量静态核对，不重验其余198条，未构建或执行",
       "boundary": "仅原4B79C2固定U32计数29名称复制接真实53BEC0；第10字段容量768/反转义/原长度>28的???与CC3210同源目标、不额外末NUL，第11字段与32行+1D/96B步距、其他C20/C24/C28/C2C/C30/C34字段/共享状态/占用/53窗口返回逐字保持。不初始化、转码、加保护或改变owner/生命周期，不恢复两既有屏幕键盘回填段；其他依赖/商店/输入/网络/渲染/跨板块运行验收仍待，音频/加解密不恢复。"
+    },
+    {
+      "original_entry": "0x404600",
+      "inventory_id": "F:00004600",
+      "status": "原防护表四限长复制与共享记录生产已按真实指令接通并纠正标志；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x40487B",
+      "instruction_count": 186,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ParseProtectionTables_404600"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x4046E3",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "逗号段复制表1当前0x400B槽，再推进表1槽号"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x404720",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "辅助数量<30才先清32B record.text并复制，后编号1001+index及B=0加10000再推进数量"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x404777",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "分号段复制表2当前0x400B槽，之后三独立读取尾字节并按1清B/2置A/3先B后A"
+        },
+        {
+          "parent_entry": "0x404600",
+          "call_site": "0x4047FB",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ParseProtectionTables_404600",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原源游标地址差低W32/U32，segmentLength显式U32",
+          "count_width": "U32",
+          "relationship": "段内LF/NUL末段复制表1；每段起点LF/NUL直接结束，不多调用"
+        }
+      ],
+      "auxiliary_record_layout": {
+        "original_address": "0x59E090",
+        "record_count": 30,
+        "record_size": 40,
+        "text_size": 32,
+        "number_offset": 32,
+        "number_width": "W32",
+        "flag_a_offset": 36,
+        "flag_b_offset": 38,
+        "flag_width": "W16",
+        "relationship": "同一既有ProtectionAuxiliaryRecord与404940共享消费，不新增owner或清text/number"
+      },
+      "flag_read_and_write_evidence": [
+        {
+          "site": "0x40479C",
+          "bytes": "66892ccdb6e05900"
+        },
+        {
+          "site": "0x4047AD",
+          "bytes": "66c704d5b4e059000100"
+        },
+        {
+          "site": "0x4047C3",
+          "bytes": "6689a8b6e05900"
+        },
+        {
+          "site": "0x4047CA",
+          "bytes": "66c780b4e059000100"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x508800",
+          "reference_site": "0x508888",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原分隔符地址直接传入，当前真实whV回复同址生产链"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "verification_level": "原404600..40487B完整186条、四Count/目标/清区/三独立标志读取与四写指令字节、唯一原caller和既有404940消费；整份MainLoopSupport限定四复制/原U32/每段LF门禁/标志写序及一个既有头和布局断言静态核对，未构建或执行",
+      "boundary": "先清两0x5000B表、按原顺序初始化两CryptInt并清辅助数量、仅30条A=0/B=1；逗号表1复制后推进槽号，数量<30才清32B/复制/1001+index/B=0加10000/推进数量。分号表2复制后按三次独立cursor[-1]判断1清B、2置A、3先清B后置A，纠正此前1/2颠倒及单次快照/else-if。每段起点LF/NUL直接结束，段内LF/NUL才末段表1复制；四Count及槽号保持U32，目标uint8_t只在char*复制边界转换，不转码、额外终止、保护、钳制或模拟溢出。两表S8逐字节AddAssign_401E20、首槽NUL停止和每表20槽/每槽0x400限界保持且未执行，不作hash校验。既有CryptInt与404940共享消费/其他正文逐字保持，完整防护/网络/CRT及跨板块运行仍待。"
+    },
+    {
+      "original_entry": "0x508800",
+      "inventory_id": "F:00108800",
+      "status": "既有whV回复旧时间及前缀/防护表真实生产链接通；其他依赖与完整运行未验",
+      "original_end_exclusive": "0x508901",
+      "instruction_count": 90,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "HandleResponse_508800",
+            "NetworkDispatch_512E40"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x508800",
+          "call_site": "0x508882",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "HandleResponse_508800",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原separator-text地址差低W32/U32",
+          "count_width": "U32",
+          "relationship": "真实|定位后先清同一128B共享前缀区，再复制并将分隔符本身传入404600；无caller末NUL"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x508800",
+          "call_site": "0x50885B",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "HandleResponse_508800",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "needle_bytes": "7c00",
+          "relationship": "旧时间两调用及借用返回发布后，真实|子串定位先于128B清区；返回借用分隔符地址供前缀复制及404600"
+        }
+      ],
+      "separator_evidence": {
+        "address": "0x587B28",
+        "bytes": "7c00",
+        "relationship": "原含NUL的|单字节needle，返回指针借用原回复text"
+      },
+      "production_call_connections": [
+        {
+          "call_site": "0x508888",
+          "target_entry": "0x404600",
+          "target_symbol": "ParseProtectionTables_404600",
+          "source": "src/network/NetworkRuntime.cpp",
+          "relationship": "前缀复制后传分隔符本身；被调入口从input+1开始，不传下一字节"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x512E40",
+          "reference_site": "0x51610E",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原whV回复直接call，现有TryDispatchReply<HandleResponse_508800,I,T>保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "verification_level": "原508800..508901完整90条、587B28含NUL的7c00及唯一51610E/512E40 caller；整份NetworkRuntime只50885B/508882两个标识符和Count U32转换、现有whV路由及旧时间/共享借用发布/清区/无分隔符与busy正文保持静态核对，未构建或执行",
+      "boundary": "请求状态1门禁后先状态2及低S16回复码；失败busy保持，成功协议模式1→同址旧time32→localtime借用返回保存→真实|查找→同一128B前缀清区。找到时按地址差低U32调用真实53BEC0，再原分隔符地址调用404600后返回；无分隔符仍strlen+1原内联复制。复用现有LegacyTime公开声明，不新建分派、缓冲、owner、判空、末NUL、限长或默认成功；上游whV/下游共享防护及窗口检查保持，完整登录/网络/防护/CRT与跨板块运行未验，音频/加解密不恢复。"
     }
   ]
 }

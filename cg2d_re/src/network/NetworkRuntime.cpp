@@ -817,16 +817,16 @@ void HandleResponse_508800(
     gNetworkRuntimeState.localTime62B380 =
         platform::LocalTime_53B8C6(&gNetworkRuntimeState.time62B394);
 
-    const char* const separator = std::strstr(text, "|");
+    const char* const separator = platform::StrStr_53BE40(text, "|");
     std::memset(
         character_select::detail::gText9A4EAC,
         0,
         sizeof(character_select::detail::gText9A4EAC));
     if (separator != nullptr) {
-        std::memcpy(
+        platform::StrNCpy_53BEC0(
             character_select::detail::gText9A4EAC,
             text,
-            static_cast<std::size_t>(separator - text));
+            static_cast<std::uint32_t>(separator - text));
         platform::ParseProtectionTables_404600(separator);
         return;
     }

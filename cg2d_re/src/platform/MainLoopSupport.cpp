@@ -7,6 +7,7 @@
 #include "cg/network/NetworkRuntime.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyStringCompare.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/render/SurfaceState.hpp"
 
@@ -63,6 +64,7 @@ struct ProtectionAuxiliaryRecord {
 };
 static_assert(offsetof(ProtectionAuxiliaryRecord, number) == 0x20);
 static_assert(offsetof(ProtectionAuxiliaryRecord, flagA) == 0x24);
+static_assert(offsetof(ProtectionAuxiliaryRecord, flagB) == 0x26);
 
 ProtectionAuxiliaryRecord gProtectionAuxiliaryRecords[30]{};
 std::uint32_t gProtectionAuxiliaryRecordCount = 0;
@@ -415,6 +417,7 @@ std::uint8_t CheckProtection_4043B0(const char* functionName)
     return processResult;
 }
 
+// 原0x404600：508800传入分隔符地址，复制两表并生产共享窗口防护记录。
 void ParseProtectionTables_404600(const char* input)
 {
     std::memset(gProtectionBuffer1, 0, sizeof(gProtectionBuffer1));
@@ -427,11 +430,11 @@ void ParseProtectionTables_404600(const char* input)
         record.flagB = 1;
     }
 
-    std::size_t table1Index = 0;
-    std::size_t table2Index = 0;
+    std::uint32_t table1Index = 0;
+    std::uint32_t table2Index = 0;
     const char* segmentStart = input + 1;
     if (*segmentStart != '\n') {
-        while (*segmentStart != '\0') {
+        while (*segmentStart != '\n' && *segmentStart != '\0') {
             const char* cursor = segmentStart;
             while (*cursor != ','
                    && *cursor != ';'
@@ -440,11 +443,12 @@ void ParseProtectionTables_404600(const char* input)
                 ++cursor;
             }
 
-            const std::size_t segmentLength =
-                static_cast<std::size_t>(cursor - segmentStart);
+            const std::uint32_t segmentLength =
+                static_cast<std::uint32_t>(cursor - segmentStart);
             if (*cursor == ',') {
-                std::memcpy(
-                    gProtectionBuffer1 + table1Index * 0x400,
+                StrNCpy_53BEC0(
+                    reinterpret_cast<char*>(
+                        gProtectionBuffer1 + table1Index * 0x400),
                     segmentStart,
                     segmentLength);
                 ++table1Index;
@@ -455,7 +459,7 @@ void ParseProtectionTables_404600(const char* input)
                     ProtectionAuxiliaryRecord& record =
                         gProtectionAuxiliaryRecords[recordIndex];
                     std::memset(record.text, 0, sizeof(record.text));
-                    std::memcpy(record.text, segmentStart, segmentLength);
+                    StrNCpy_53BEC0(record.text, segmentStart, segmentLength);
                     record.number = 1001 + recordIndex;
                     if (record.flagB == 0) {
                         record.number += 10000;
@@ -468,8 +472,9 @@ void ParseProtectionTables_404600(const char* input)
             }
 
             if (*cursor == ';') {
-                std::memcpy(
-                    gProtectionBuffer2 + table2Index * 0x400,
+                StrNCpy_53BEC0(
+                    reinterpret_cast<char*>(
+                        gProtectionBuffer2 + table2Index * 0x400),
                     segmentStart,
                     segmentLength);
                 ++table2Index;
@@ -477,22 +482,24 @@ void ParseProtectionTables_404600(const char* input)
                 ProtectionAuxiliaryRecord& record =
                     gProtectionAuxiliaryRecords[
                         gProtectionAuxiliaryRecordCount];
-                const char flag = cursor[-1];
-                if (flag == '1') {
-                    record.flagA = 1;
-                } else if (flag == '2') {
+                if (cursor[-1] == '1') {
                     record.flagB = 0;
-                } else if (flag == '3') {
+                }
+                if (cursor[-1] == '2') {
                     record.flagA = 1;
+                }
+                if (cursor[-1] == '3') {
                     record.flagB = 0;
+                    record.flagA = 1;
                 }
 
                 segmentStart = cursor + 1;
                 continue;
             }
 
-            std::memcpy(
-                gProtectionBuffer1 + table1Index * 0x400,
+            StrNCpy_53BEC0(
+                reinterpret_cast<char*>(
+                    gProtectionBuffer1 + table1Index * 0x400),
                 segmentStart,
                 segmentLength);
             ++table1Index;

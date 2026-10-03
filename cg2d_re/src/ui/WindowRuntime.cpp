@@ -2772,7 +2772,7 @@ std::int32_t Sub_4D0A80(
     const std::int32_t shortY = static_cast<std::int16_t>(y);
     char buffer[100];
     for (std::int32_t row = 0; row < 5; ++row) {
-        std::sprintf(buffer, "%10d", pet.values70[5 + row]);
+        platform::FormatLegacyString_53B304(buffer, "%10d", pet.values70[5 + row]);
         static_cast<void>(render::DrawText_456780(
             static_cast<std::int16_t>(x + 144), static_cast<std::int16_t>(shortY + 23 + row * 15),
             5, 12, 0, buffer, 0, 0));
@@ -12188,7 +12188,7 @@ std::int32_t Sub_4B3BF0(
     std::array<char, 100> buffer;
     for (std::int32_t row = 0; row < 5; ++row) {
         const std::int32_t value = pet.values70[5 + row];
-        std::sprintf(buffer.data(), "%10d", value);
+        platform::FormatLegacyString_53B304(buffer.data(), "%10d", value);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 144)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(shortY + 23 + row * 15)),
@@ -12197,7 +12197,7 @@ std::int32_t Sub_4B3BF0(
     const std::int32_t maximumWeight = pet.values6D8[2];
     if (maximumWeight > 0) {
         const std::int32_t weight = pet.values6D8[1];
-        std::sprintf(buffer.data(), "%3d / %3d", weight, maximumWeight);
+        platform::FormatLegacyString_53B304(buffer.data(), "%3d / %3d", weight, maximumWeight);
         static_cast<void>(render::DrawText_456780(
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x + 61)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 31)),

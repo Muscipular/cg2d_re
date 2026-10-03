@@ -13646,11 +13646,11 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 85 - width / 2, 35, 0, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 66, 60, 1, 0);
     // 原4F5DD9复制16B CryptInt作为可变实参，%9d实际仅消费首W32，不解密FP。
     const platform::LegacyCryptInt rawFp = world::detail::ReadPlayerFpRawSnapshot();
-    std::sprintf(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
+    platform::FormatLegacyString_53B304(buffer, "%9d", std::bit_cast<std::int32_t>(rawFp.legacyVftToken));
     drawAt(buffer, 258, 60, 1, 0);
     for (std::int32_t row = 0; row < 8; ++row) {
         const std::int32_t recipeIndex = row + 8 * gLegacyRecipePageD67D0C;
@@ -13663,13 +13663,13 @@ std::uint32_t Sub_4F5A60(const std::int32_t opened)
             const std::int32_t fp = world::detail::gSkillsF1BAFC[skill].recipes8E8[costRecipe].value04;
             // 原4F5EB2直接以配对槽号取倍率，不再次通过pair.index映射。
             const std::int32_t cost = fp * world::detail::gSkillsF1BAFC[multiplierSkill].fpReduce / 100;
-            std::sprintf(buffer, "%4d", cost);
+            platform::FormatLegacyString_53B304(buffer, "%4d", cost);
             drawAt(buffer, 295, 92 + 24 * row, 1, color);
         }
     }
     const std::int32_t page = gLegacyRecipePageD67D0C;
     const std::int32_t pageCount = gLegacyRecipePageCountD67D10;
-    std::sprintf(buffer, "%2d/%2d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page + 1, pageCount);
     drawAt(buffer, 87, 350, 1, 0);
     if (hoveredRow >= 0) {
         const std::int32_t recipeIndex = hoveredRow + 8 * gLegacyRecipePageD67D0C;
@@ -13812,7 +13812,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
             SetYobiActionFlag2(gLegacyAlbumActionD67D14, false);
             ClearYobiActionFlags0C(gLegacyAlbumActionD67D14);
         }
-        std::sprintf(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
+        platform::FormatLegacyString_53B304(buffer, "%03d", ReadRecordW32(selectedRecord(), 4));
         drawAt(buffer, 46, 170, 1);
         const std::int32_t nameWidth = TextMeasure(reinterpret_cast<const char*>(selectedRecord() + 0x34), 0);
         const char* const name = reinterpret_cast<const char*>(selectedRecord() + 0x34);
@@ -13831,7 +13831,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
         std::strcpy(buffer, ui::detail::gTribeNames57CB54[tribe]);
         const std::int32_t tribeWidth = TextMeasure(buffer, 1);
         drawAt(buffer, 215 - tribeWidth / 2, 193, 1);
-        std::sprintf(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
+        platform::FormatLegacyString_53B304(buffer, "%2d", ReadRecordW32(selectedRecord(), 0x30));
         drawAt(buffer, 195, 325, 1);
         for (std::int32_t rating = 0; rating < 5; ++rating) {
             const std::byte* const ratingRecord = selectedRecord();
@@ -13863,7 +13863,7 @@ std::uintptr_t Sub_4F6220(const std::int32_t opened)
     }
     const std::int32_t current = gLegacyAlbumSelectionC8AF7C;
     const std::int32_t count = std::bit_cast<std::int32_t>(resource::gValueD2D5FC);
-    std::sprintf(buffer, "%3d/%3d", current + 1, count);
+    platform::FormatLegacyString_53B304(buffer, "%3d/%3d", current + 1, count);
     drawAt(buffer, 150, 411, 1);
     Sub_5035E0(&back, 212, 1, gValueD69768, 0);
     Sub_5035E0(&previousTen, 212, 1, gValueD69768, 0);

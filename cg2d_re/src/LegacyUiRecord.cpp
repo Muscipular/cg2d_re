@@ -5511,9 +5511,9 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         const std::int32_t currentTotal = gLegacyBarterTotalD2F334;
         const std::int32_t currentAvailable = ui::detail::gShopAvailableCF4A24;
         const std::int8_t color = currentAvailable < cost + currentTotal ? 7 : 0;
-        std::sprintf(buffer, "%7d", cost);
+        platform::FormatLegacyString_53B304(buffer, "%7d", cost);
         drawAt(buffer, dx + 87, dy + 120, color);
-        std::sprintf(buffer, "%2d", item.selected);
+        platform::FormatLegacyString_53B304(buffer, "%2d", item.selected);
         drawAt(buffer, dx + 82, dy + 92, 0);
         drawAt(kLegacyQuantityUnit5889A4, dx + 155, dy + 120, 4);
         Sub_5035E0(&increases[row], 213, 1, gValueD69768, 0);
@@ -5526,15 +5526,15 @@ std::uintptr_t Sub_4D36F0(const std::int32_t opened)
         const std::int32_t group = gLegacyBarterMessageCC2E54;
         drawAt(lines[1 + 4 * group + row].text.data(), 375, 59 + 20 * row, 0);
     }
-    std::sprintf(buffer, "%7d", ui::detail::gShopAvailableCF4A24);
+    platform::FormatLegacyString_53B304(buffer, "%7d", ui::detail::gShopAvailableCF4A24);
     drawAt(buffer, 463, 286, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 286, 4);
-    std::sprintf(buffer, "%7d", gLegacyBarterTotalD2F334);
+    platform::FormatLegacyString_53B304(buffer, "%7d", gLegacyBarterTotalD2F334);
     drawAt(buffer, 463, 338, 0);
     drawAt(kLegacyQuantityUnit5889A4, 531, 338, 4);
     const std::int32_t page = gLegacyBarterPageCB10D0;
     const std::int32_t pageCount = gLegacyBarterPageCountC8A954;
-    std::sprintf(buffer, "%d/%d", page + 1, pageCount);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", page + 1, pageCount);
     drawAt(buffer, 168, 43, 0);
     Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
     Sub_5035E0(&next, 213, 1, gValueD69768, 0);
@@ -5628,7 +5628,7 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
                     if (count > 0) {
                         std::strcat(buffer, "|");
                     }
-                    std::sprintf(entry, "%d|%d", index, selected);
+                    platform::FormatLegacyString_53B304(entry, "%d|%d", index, selected);
                     std::strcat(buffer, entry);
                     ++count;
                 }
@@ -5659,14 +5659,14 @@ std::uint32_t Sub_4D4A50(const std::int32_t opened)
             const std::int32_t dx = 302 * (shown % 2);
             const std::int32_t dy = 20 * (shown / 2);
             drawAt(item.name.data(), dx + 24, dy + 34);
-            std::sprintf(buffer, "x%2d", item.selected);
+            platform::FormatLegacyString_53B304(buffer, "x%2d", item.selected);
             drawAt(buffer, dx + 280, dy + 34);
             ++shown;
         }
     }
     const std::int32_t total = gLegacyBarterTotalD2F334;
     const std::int32_t available = ui::detail::gShopAvailableCF4A24;
-    std::sprintf(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
+    platform::FormatLegacyString_53B304(buffer, kLegacyBarterSummary5889D8, ui::detail::gShopTextCB0184.data(), available, total);
     const std::int32_t width = MeasureDefaultText_44B260(buffer);
     const std::int32_t summaryY = gLegacyBarterConfirmPanel581978.y + 254;
     static_cast<void>(DrawText(static_cast<std::int16_t>(320 - width / 2),

@@ -4277,7 +4277,7 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
     char buffer[128];
     if (hovered >= 0 && (static_cast<std::uint8_t>(gValueD68D9C) & 1U) != 0) {
         char escaped[16];
-        std::sprintf(buffer, "%d", hovered + 1);
+        platform::FormatLegacyString_53B304(buffer, "%d", hovered + 1);
         static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, escaped, 15));
         const std::int32_t target = world::detail::gDialogTargetD2DE6C;
         const std::int32_t request = world::detail::gDialogRequestCC21E0;
@@ -4308,11 +4308,11 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         if (level <= 0) {
             continue;
         }
-        std::sprintf(buffer, "%3d", level);
+        platform::FormatLegacyString_53B304(buffer, "%3d", level);
         drawAt(buffer, 100, 76 + 20 * index, 0);
-        std::sprintf(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
+        platform::FormatLegacyString_53B304(buffer, "%-16s", reinterpret_cast<const char*>(record + 12));
         drawAt(buffer, 141, 76 + 20 * index, 0);
-        std::sprintf(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
+        platform::FormatLegacyString_53B304(buffer, kLegacyStorageAmount588FC4, ReadRecordW32(record, 8));
         drawAt(buffer, 290, 76 + 20 * index, 0);
         const std::int32_t image = ui::detail::ReadLegacyHealthImage(ReadRecordW32(record, 4));
         const std::int32_t imageY = gLegacyHealingPanel5826C0.y + 20 * index + 84;
@@ -4323,9 +4323,9 @@ std::uint32_t Sub_4DC290(const std::int32_t opened)
         totalCost += cost;
         totalHealth += health;
     }
-    std::sprintf(buffer, kLegacyHealingTotal588FA8, totalCost);
+    platform::FormatLegacyString_53B304(buffer, kLegacyHealingTotal588FA8, totalCost);
     drawAt(buffer, 114, 196, 0);
-    std::sprintf(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(buffer, kLegacyHealingGold588F94, world::detail::ReadPlayerValueFC());
     drawAt(buffer, 151, 224, 0);
     static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
     const char* hint = nullptr;

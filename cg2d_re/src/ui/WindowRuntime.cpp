@@ -22633,7 +22633,7 @@ std::int32_t Sub_4C1C50(const std::int32_t value)
     if ((static_cast<const WindowMouseData*>(elements[10].data)->flags & 1u) != 0) {
         gWindow69ScrollD2D604 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
-    std::sprintf(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
+    platform::FormatLegacyString_53B304(gWindow69BalanceTextD2E448.data(), "%10d", world::detail::ReadPlayerValue15BCC());
     if (gWindow69Message580854 >= 0) {
         gWindow69Message580854 = -1;
     }
@@ -22778,8 +22778,8 @@ std::int32_t Sub_4C21B0(const std::int32_t index, const std::int32_t state)
                     "\xBD\x54\xBB\x7B\xAD\x6E\xC1\xCA\xB6\x52\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x48";
                 constexpr char accept587F00[] = "\xB6\x52\xB6\x69\xAA\xAB\xAB\x7E\xA1\x43";
                 constexpr char cancel585AD0[] = "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43";
-                std::sprintf(gWindow69ConfirmHeadingCC3F68.data(), heading588378);
-                std::sprintf(gWindow69ConfirmQuestionCC3F04.data(), question587F0C);
+                platform::FormatLegacyString_53B304(gWindow69ConfirmHeadingCC3F68.data(), heading588378);
+                platform::FormatLegacyString_53B304(gWindow69ConfirmQuestionCC3F04.data(), question587F0C);
                 std::strcpy(gWindow69ConfirmAcceptD2E81C.data(), accept587F00);
                 std::strcpy(gWindow69ConfirmCancelCB076C.data(), cancel585AD0);
                 gCurrentWindow->elements[0].visible = 1;
@@ -23583,7 +23583,7 @@ std::int32_t Sub_4C3F00(const std::int32_t value)
         gWindow70ScrollCC4B68 = Sub_474270(elements + 10, gShopItemCountCB1E10 - 5);
     }
     const std::int32_t owned = world::detail::Sub_51B5F0(gWindow70ValueD6791C);
-    std::sprintf(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
+    platform::FormatLegacyString_53B304(gWindow70BalanceTextCF3F14.data(), "%10d", owned);
     if (gWindow70Message580864 >= 0) {
         gWindow70Message580864 = -1;
     }
@@ -23728,8 +23728,8 @@ std::int32_t Sub_4C43C0(const std::int32_t index, const std::int32_t state)
                     "\xBD\x54\xBB\x7B\xAD\x6E\xA5\xE6\xB4\xAB\xB3\x6F\xA8\xC7\xAA\xAB\xAB\x7E\xA1\x48";
                 constexpr char accept587F00[] = "\xB6\x52\xB6\x69\xAA\xAB\xAB\x7E\xA1\x43";
                 constexpr char cancel585AD0[] = "\xC1\xD9\xAC\x4F\xBA\xE2\xA4\x46\xA1\x43";
-                std::sprintf(gWindow70ConfirmHeadingCF4A40.data(), heading5883D4);
-                std::sprintf(gWindow70ConfirmQuestionCF4ABC.data(), question5883BC);
+                platform::FormatLegacyString_53B304(gWindow70ConfirmHeadingCF4A40.data(), heading5883D4);
+                platform::FormatLegacyString_53B304(gWindow70ConfirmQuestionCF4ABC.data(), question5883BC);
                 std::strcpy(gWindow70ConfirmAcceptD2DD6C.data(), accept587F00);
                 std::strcpy(gWindow70ConfirmCancelCC48BC.data(), cancel585AD0);
                 gCurrentWindow->elements[0].visible = 1;

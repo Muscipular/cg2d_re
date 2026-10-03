@@ -41925,22 +41925,22 @@ std::uint32_t Sub_48F8F0()
         if (platform::legacy_crypt_int::Equal_401D00(&selectedPet().values0C[5], -1)) {
             const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
                 &selectedPet().values0C[4]);
-            std::sprintf(buffer, "%8d/       -", experience);
+            platform::FormatLegacyString_53B304(buffer, "%8d/       -", experience);
         } else {
             const std::int32_t nextExperience = platform::legacy_crypt_int::Read_401EC0(
                 &selectedPet().values0C[5]);
             const std::int32_t experience = platform::legacy_crypt_int::Read_401EC0(
                 &selectedPet().values0C[4]);
-            std::sprintf(buffer, "%8d/%8d", experience, nextExperience);
+            platform::FormatLegacyString_53B304(buffer, "%8d/%8d", experience, nextExperience);
         }
         copyTextAfterScan(11, buffer);
         const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[1]);
         const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[0]);
-        std::sprintf(buffer, "%5d/%5d", hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, "%5d/%5d", hp, maxHp);
         copyTextAfterScan(12, buffer);
         const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[3]);
         const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&selectedPet().values0C[2]);
-        std::sprintf(buffer, "%5d/%5d", fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, "%5d/%5d", fp, maxFp);
         copyTextAfterScan(13, buffer);
 
         const auto& tribePet = selectedPet();
@@ -41951,16 +41951,16 @@ std::uint32_t Sub_48F8F0()
         const std::size_t tribeLength = std::strlen(tribeName) + 1;
         auto* const tribeData = static_cast<WindowTextData*>(tribeElements[14].data);
         std::memcpy(tribeData->text, tribeName, tribeLength);
-        std::sprintf(buffer, "%3d", selectedPet().values70[10]);
+        platform::FormatLegacyString_53B304(buffer, "%3d", selectedPet().values70[10]);
         static_cast<void>(copyTextBeforeScan(15, buffer));
-        std::sprintf(buffer, "%2d", selectedPet().value6A4);
+        platform::FormatLegacyString_53B304(buffer, "%2d", selectedPet().value6A4);
         static_cast<void>(copyTextBeforeScan(16, buffer));
-        std::sprintf(buffer, "%3d", selectedPet().value08);
+        platform::FormatLegacyString_53B304(buffer, "%3d", selectedPet().value08);
         static_cast<void>(copyTextBeforeScan(18, buffer));
         const auto& weightPet = selectedPet();
         const std::int32_t maxWeight = weightPet.values6D8[2];
         const std::int32_t weight = weightPet.values6D8[1];
-        std::sprintf(buffer, "%6d/%6d", weight, maxWeight);
+        platform::FormatLegacyString_53B304(buffer, "%6d/%6d", weight, maxWeight);
         static_cast<void>(copyTextBeforeScan(19, buffer));
 
         const auto& imagePet = selectedPet();
@@ -42025,7 +42025,7 @@ std::uint32_t Sub_48F8F0()
         }
         gCurrentWindow->elements[10].visible = 0;
     }
-    std::sprintf(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", gLoginWindowRuntime.selectedPetCC3E5C + 1, 5);
     return static_cast<std::uint32_t>(copyTextBeforeScan(17, buffer));
 }
 

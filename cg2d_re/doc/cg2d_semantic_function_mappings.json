@@ -10973,7 +10973,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及二十个业务复制调用已接；其他十九引用及完整运行未闭合",
+      "status": "原直接本体及二十二个业务复制调用已接；其他十七引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11026,7 +11026,7 @@
         "doc/ui_windows/shared_67_68.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十处，其他19处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接二十二处，其他17处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11247,9 +11247,33 @@
           "count_value": 3,
           "count_width": "U32",
           "relationship": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持"
+        },
+        {
+          "parent_entry": "0x4F24A0",
+          "call_site": "0x4F257B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F24A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 64,
+          "count_width": "U32",
+          "source_expression_count": 2,
+          "relationship": "发送后读取独立source长度，非空局部source/空时当前+8物品名两互斥表达式，共用原复制点；同一64B CC40D8，不追加末NUL，之后重取选择/面板并发布图号"
+        },
+        {
+          "parent_entry": "0x4F2A30",
+          "call_site": "0x4F30E5",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F2A30",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 64,
+          "count_width": "U32",
+          "source_expression_count": 1,
+          "relationship": "计时发送后重取选择、发布D67C48=1，再当前+8物品名复制至同一64B CC40D8；不另写NUL，复制后再取选择/面板并发布图号"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行"
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异；战斗四父完整220条/原引用2+2+2+94，整份YobiRuntime仅四标识符替换，四既有父新增登记及共享项限定差异静态核对，未执行；物品加工两父1149条统计/153条读取，两原点映射三表达式、整份LegacyUiRecord仅三标识符替换和两既有父登记/共享项限定差异静态核对，未执行"
     },
     {
       "original_entry": "0x544DB0",
@@ -41832,6 +41856,101 @@
           "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
         }
       ]
+    },
+    {
+      "original_entry": "0x4F24A0",
+      "inventory_id": "F:000F24A0",
+      "status": "既有物品加工名称限长复制已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4F25B8",
+      "instruction_count": 91,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F24A0"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4F24A0",
+          "call_site": "0x4F257B",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F24A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 64,
+          "count_width": "U32",
+          "source_expression_count": 2,
+          "relationship": "发送后读取独立source长度，非空局部source/空时当前+8物品名两互斥表达式，共用原复制点；同一64B CC40D8，不追加末NUL，之后重取选择/面板并发布图号"
+        }
+      ],
+      "copy_source_expression_count": 2,
+      "remaining_host_format_expression_count": 0,
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x4F2130",
+          "reference_site": "0x4F234E",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        },
+        {
+          "parent_entry": "0x4F2130",
+          "reference_site": "0x4F2424",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call引用；本步不改或重验调用方正文"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/legacy_item_work_name.md"
+      ],
+      "verification_level": "完整91条原指令/两源分支共用调用与两原引用；整份源码仅三标识符、核心/声明保持和文档追加/JSON限定增量静态核对；未构建或执行",
+      "boundary": "发送后读取独立source长度，非空局部source/空时当前+8物品名两互斥表达式，共用原复制点；同一64B CC40D8，不追加末NUL，之后重取选择/面板并发布图号。仅名称发布复制接线；共享64B目标、原256B局部/技能及+8物品字段、发送和重新取样/返回次序保持，不改变清尾、数值宽度或生命周期，不增加保护/转码/故障模拟。其他依赖、旧表外层路由、完整加工/跨板块运行验收仍待；计时父两宿主格式未迁，不恢复音频/加解密。"
+    },
+    {
+      "original_entry": "0x4F2A30",
+      "inventory_id": "F:000F2A30",
+      "status": "既有物品加工名称限长复制已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4F39AD",
+      "instruction_count": 1058,
+      "original_direct_reference_count": 0,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F2A30"
+          ]
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4F2A30",
+          "call_site": "0x4F30E5",
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F2A30",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 64,
+          "count_width": "U32",
+          "source_expression_count": 1,
+          "relationship": "计时发送后重取选择、发布D67C48=1，再当前+8物品名复制至同一64B CC40D8；不另写NUL，复制后再取选择/面板并发布图号"
+        }
+      ],
+      "copy_source_expression_count": 1,
+      "remaining_host_format_expression_count": 2,
+      "inbound_evidence": [],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/legacy_item_work_selection.md"
+      ],
+      "verification_level": "父1058条统计，仅发送/复制/图号相邻62条和入口0引用；整份源码仅三标识符、核心/声明保持和文档追加/JSON限定增量静态核对，不重验其余996条；未构建或执行",
+      "boundary": "计时发送后重取选择、发布D67C48=1，再当前+8物品名复制至同一64B CC40D8；不另写NUL，复制后再取选择/面板并发布图号。仅名称发布复制接线；共享64B目标、原256B局部/技能及+8物品字段、发送和重新取样/返回次序保持，不改变清尾、数值宽度或生命周期，不增加保护/转码/故障模拟。其他依赖、旧表外层路由、完整加工/跨板块运行验收仍待；计时父两宿主格式未迁，不恢复音频/加解密。"
     }
   ]
 }

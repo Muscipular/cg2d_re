@@ -12074,9 +12074,9 @@ std::int32_t Sub_4F24A0()
     const std::uintptr_t socket = platform::gConnectionSocket;
     static_cast<void>(network::Sub_511EF0(socket, skill, level, item, request));
     if (std::strlen(source) != 0) {
-        std::strncpy(gLegacyItemWorkNameCC40D8.data(), source, 64);
+        platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(), source, 64);
     } else {
-        std::strncpy(gLegacyItemWorkNameCC40D8.data(),
+        platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
             world::detail::gPlayerItemsFDA8A4[gLegacyItemWorkSelection584394 + 8].name.data(), 64);
     }
     const std::int32_t selected = gLegacyItemWorkSelection584394;
@@ -12282,7 +12282,7 @@ std::uintptr_t Sub_4F2A30(const std::int32_t opened)
             static_cast<void>(network::Sub_511EF0(platform::gConnectionSocket, skill, level, item, buffer));
             const std::int32_t resultItem = gLegacyItemWorkSelection584394;
             gLegacySkillPendingD67C48 = 1;
-            std::strncpy(gLegacyItemWorkNameCC40D8.data(),
+            platform::StrNCpy_53BEC0(gLegacyItemWorkNameCC40D8.data(),
                 world::detail::gPlayerItemsFDA8A4[resultItem + 8].name.data(), 64);
             const std::int32_t imageItem = gLegacyItemWorkSelection584394;
             const std::uint32_t panelId = gLegacyItemWorkPanel5842D0.id;

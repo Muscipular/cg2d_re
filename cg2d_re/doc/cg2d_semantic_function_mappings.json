@@ -11389,7 +11389,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。 自动地图缓存两父二十一原关闭点已整链迁移，现有时间采样/失败合循环对应动态路径仍恰关闭一次；成功时间先发布再关闭、缓存每次失败关闭返0与写端忽略结果保持。",
+      "boundary": "字符串流或非活动流-1；活动流flush/freebuf/低层close依序，关闭失败结果-1，成功才释放并清临时文件名；最终清flags。仅当前旧流清理链接入，96个原caller及现有业务std::FILE未因此全迁移。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及其余业务FILE迁移仍未闭合，不代表当前已链接/运行。 黑名单401152/401255两关闭已接同一真实LegacyFile，不单独混接宿主FILE。 聊天历史六个原关闭路径已接真实LegacyFile，既有源码合并同一读结果和尾写结果的关闭，各动态路径仍恰关闭一次。 登录存档五父的八处关闭全部接同一真实LegacyFile，默认写入短写不关闭、当前保存无条件关闭与回写、批量短写关闭退出均保持。 邮件/资料/分类七父的八次关闭均接真实LegacyFile；分类/资料关闭返回忽略，邮件两写和加载第二关闭的S32返回直接消费，原调用次序保持。 窗口存档4C9100/4C9116/4C9161三关闭已整链迁移，默认回退先于加载关闭、捕获写先于保存关闭，关闭返回按原忽略。 三个调色板入口与独立调色板DBF四处关闭已整链迁移，备份/首尾复制/状态发布和有序索引入队时点保持，DBF魔数失败路径仍不关闭。 地图五处关闭已整链迁移，关闭后头比较/重建或小地图像素消费的顺序保持，返回按原忽略。 相册加载两关闭、保存一关闭及CUT/AUT两关闭已整链迁移；相册短写不关闭，读错误先关闭再释放，CUT/AUT关闭S32返回直接透传。 图形探测、Info预扫/加载、初始化失败及九数据槽清理五个原关闭点已整链迁移；Info关闭后指针保留，数据关闭后才清槽，Info必需槽失败保留数据流。 动画初始化四个关闭、坐标Info正常关闭及两个退出父共七原关闭点已整链迁移；容量3只关闭Info，错误5先Info后共享释放/动画槽，45BF20依标志关动画槽而不关坐标槽，保留原指针与失败残留。 自动地图缓存两父二十一原关闭点已整链迁移，现有时间采样/失败合循环对应动态路径仍恰关闭一次；成功时间先发布再关闭、缓存每次失败关闭返0与写端忽略结果保持。 日志十个原关闭点已整链迁移，日期两分支现有合并表达式保持动态一次；窗口66不清D67BB8，随后开流父仍重复关闭同槽，由真实flags清零承接，不再维护私有关闭状态。",
       "function_chunks": [
         {
           "start": "0x53B1D0",
@@ -12233,6 +12233,66 @@
           "call_site": "0x45A69E",
           "source": "src/ResourcePaths.cpp",
           "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F16",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B107",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050"
+        },
+        {
+          "parent_entry": "0x44B5A0",
+          "call_site": "0x44B5B7",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ResetSystemLog_44B5A0"
+        },
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5EA",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0"
+        },
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173F7",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0"
+        },
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x5174B4",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC550",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5D6",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CBDB0",
+          "call_site": "0x4CC046",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBDB0"
+        },
+        {
+          "parent_entry": "0x4CBDB0",
+          "call_site": "0x4CC1E5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBDB0"
         }
       ]
     },
@@ -12261,7 +12321,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "保留原内联逐字节路径：count<=0不写目标/不读流，count1仅首NUL，最多count-1并保留LF。首EOF返空且不写目标，已有字节后EOF才补NUL；直接filbuf已接，不把内联误记为原fgetc调用，既有日志未写局部待批项不补值。 黑名单4010AA逐行读取已与打开/定位/EOF低字节/关闭整链接线，maxCount17及忽略返回保持；其余业务不据此完成。",
+      "boundary": "保留原内联逐字节路径：count<=0不写目标/不读流，count1仅首NUL，最多count-1并保留LF。首EOF返空且不写目标，已有字节后EOF才补NUL；直接filbuf已接，不把内联误记为原fgetc调用，既有日志未写局部待批项不补值。 黑名单4010AA逐行读取已与打开/定位/EOF低字节/关闭整链接线，maxCount17及忽略返回保持；其余业务不据此完成。 现代66的4CC643/4CC3E0两读取已整链迁移，count为S32 1000且同一D67BB8流；计数父每轮原清零并忽略返回、正文父入口清零并以返回结束，两种时点保持，旧待批不改。",
       "function_chunks": [
         {
           "start": "0x53B226",
@@ -12315,6 +12375,18 @@
           "call_site": "0x4010AA",
           "source": "src/Blacklist.cpp",
           "symbol": "LoadBlacklistFile"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC643",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CC340",
+          "call_site": "0x4CC3E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC340"
         }
       ]
     },
@@ -12443,7 +12515,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。 自动地图缓存八原打开点已与原descriptor/stat/读取写入/关闭整链迁移，采样0/1/6为rb，缓存写wb/读rb；首必需时间失败终止，后两失败保留0。",
+      "boundary": "固定share40H转真实fsopen，原路径/mode字节不转码、不用安全解析接口。67个原直接引用仅作原消费范围，业务std::FILE尚未整体迁移，音频暂停保持。 calloc/批量读写本体已实现，模式3、完整启动及其余业务迁移仍未闭合，未运行验收。 黑名单40106C/401220两打开与读取/写入/关闭已整链接LegacyFile，其他调用未据此计完成。 聊天历史44A0C4/44A0DC/449FCA三打开已与读取/创建/更新/定位/关闭整链接线，模式保持rb/wb/r+b。 登录存档五父六处rb+/wb+打开与读写/错误位/关闭整链接线，局部流无共享宿主FILE外泄；原失败分支保持。 邮件/资料/分类七父八次打开与读写/关闭整链接线，rb/wb/rb+/wb+和两级创建短路保持，没有宿主FILE外泄。 窗口存档4C9071/4C913B两打开已与双描述符/读写/flags检查/关闭整链接线，rb+/wb+及捕获门槛保持。 三个调色板入口与独立调色板DBF四处rb打开已与逐字节/整块读取及关闭整链接线，未加EOF/短读拒绝或混用共享图形std::FILE槽。 地图检查/创建/增量写/三平面读/小地图五处打开已整链迁移，rb/wb/rb+、失败目录创建/退出消息和输出清理门槛保持。 相册保存/加载及CUT/AUT四处打开已整链迁移，wb/rb及原失败保存/消息/共享清理路径保持，未扩大相册4B编解码容量。 图形探测/数据槽/Info两轮四个原rb打开点已与定位/长度/读取/关闭整链迁移；九数据槽和唯一Info槽同归既有资源owner，原可选槽与必需槽失败残留保持。 动画Info/数据与坐标数据/Info四个原rb打开点已与读取/定位/关闭整链迁移，坐标数据立即发布，Info缺失及版本失败不回收已开流；两九槽及LegacyFile**输出同源。 自动地图缓存八原打开点已与原descriptor/stat/读取写入/关闭整链迁移，采样0/1/6为rb，缓存写wb/读rb；首必需时间失败终止，后两失败保留0。 聊天写入/系统/协议/现代66十个原打开点已与同源LegacyFile输出/读取/定位/flush/关闭整链迁移，r/a/w/a+/rt/a+t保持。写入共享volatile流和现代独立读取槽均直接保存原FILE槽；旧私有包装删除，原失败发布/无保护输出路径保持。",
       "function_chunks": [
         {
           "start": "0x53B2F1",
@@ -13027,6 +13099,66 @@
           "call_site": "0x45A503",
           "source": "src/ResourcePaths.cpp",
           "symbol": "Sub_45A420"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E9C",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449EB7",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F25",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B116",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050"
+        },
+        {
+          "parent_entry": "0x44B5A0",
+          "call_site": "0x44B5AA",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ResetSystemLog_44B5A0"
+        },
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5CB",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0"
+        },
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173DC",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0"
+        },
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x517499",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5A9",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5E5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
         }
       ]
     },
@@ -13119,7 +13251,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空流交flsall(0)；非空flush非0返-1，成功且4000H才commit，返回归一0/-1。仅旧流链已接，原业务及标准库文件对象未混用。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "空流交flsall(0)；非空flush非0返-1，成功且4000H才commit，返回归一0/-1。仅旧流链已接，原业务及标准库文件对象未混用。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、calloc及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。 449F91聊天初始化flush已与共享volatile原FILE打开/六输出整链迁移，末次无条件重取当前流，NULL仍沿真实全流刷新分支，不新增判空或采样冻结，返回忽略。",
       "function_chunks": [
         {
           "start": "0x53BB02",
@@ -13154,7 +13286,15 @@
         "source_path": "stdio/fflush.cpp",
         "symbol": "fflush",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F91",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        }
+      ]
     },
     {
       "original_entry": "0x53BC41",
@@ -13181,7 +13321,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。 图形459AC4的END2/S32零偏移与45A94D的BEGIN0/S32记录偏移已整链接真实LegacyFile，忽略结果、之后重取Info/数据共享槽的时序保持。 动画45B7DD与坐标45C20B两原定位已整链接真实LegacyFile，BEGIN0/S32位模式及忽略返回保持，后续读取重新消费同一表槽别名。",
+      "boundary": "83H活动及origin0/1/2门禁，失败只errno22/-1。清EOF后CUR经真实ftell相加改BEGIN，不因ftell=-1早退；忽略flush失败，update清方向，否则自有读缓冲且非400H改size512。最后seek=-1才失败。25原引用中的聊天历史449FF3/44A03D已整链迁移；其他业务/filebuf调用未据此完成，不混用std::FILE。 地图检查/写/读/小地图十一原seek点已整链接同一LegacyFile，全部BEGIN0、偏移S32；既有平面循环合并的六源码表达式保持动态次数。 图形459AC4的END2/S32零偏移与45A94D的BEGIN0/S32记录偏移已整链接真实LegacyFile，忽略结果、之后重取Info/数据共享槽的时序保持。 动画45B7DD与坐标45C20B两原定位已整链接真实LegacyFile，BEGIN0/S32位模式及忽略返回保持，后续读取重新消费同一表槽别名。 现代查看器4CC3C5已整链接真实D67BB8流，BEGIN0/S32零偏移/忽略返回，随后fgets重新取同一共享槽，原行解析与输出正文不变。",
       "function_chunks": [
         {
           "start": "0x53BC41",
@@ -13399,6 +13539,12 @@
           "call_site": "0x45C20B",
           "source": "src/AnimationRuntime.cpp",
           "symbol": "CoordInit_45C150"
+        },
+        {
+          "parent_entry": "0x4CC340",
+          "call_site": "0x4CC3C5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC340"
         }
       ]
     },
@@ -17084,7 +17230,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及52个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及57个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17131,7 +17277,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处共52点已接，其他970点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处共57点已接，其他965点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -17457,6 +17603,36 @@
           "call_site": "0x45A14B",
           "source": "src/ResourcePaths.cpp",
           "symbol": "LoadAutoMapColor_45A130"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E71",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E8D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC57E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC59A",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540"
+        },
+        {
+          "parent_entry": "0x4CBD30",
+          "call_site": "0x4CBD84",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBD30"
         }
       ],
       "business_format_evidence": [
@@ -18299,7 +18475,7 @@
     {
       "original_entry": "0x53BC0F",
       "inventory_id": "F:0013BC0F",
-      "status": "原输出核心/包装或初始浮点trap已实现；浮点转换安装及业务迁移未闭合",
+      "status": "原fprintf本体及十个日志业务点已整链接线；旧待批/完整启动与运行未闭合",
       "original_end_exclusive": "0x53BC41",
       "instruction_count": 22,
       "original_direct_reference_count": 11,
@@ -18321,7 +18497,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "真实stbuf→53EB28→ftbuf，使用原生va_list位置，保存/返回核心结果，不以收尾失败覆盖，也不添加RAII、流锁或宿主参数检查。11个应用调用仍待迁移；4021A0待批补值保持。",
+      "boundary": "真实stbuf→53EB28→ftbuf，使用原生va_list位置，保存/返回核心结果，不以收尾失败覆盖，也不添加RAII、流锁或宿主参数检查。11个应用调用仍待迁移；4021A0待批补值保持。 449DA0六日志输出、44B050一行、44B5C0系统及5173B0/517480两个协议日志，共十个原fprintf点已整链接同一LegacyFile/格式核心。开失败仍无条件输出的三次首日志保持，返回按原忽略；旧4021A0一处待批及完整启动/运行未闭合。",
       "function_chunks": [
         {
           "start": "0x53BC0F",
@@ -18380,7 +18556,69 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/output.cpp",
         "symbol": "common_vfprintf",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "business_call_connections": [
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449ECA",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449EF3",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F06",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F3C",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F70",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F83",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0"
+        },
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B0FB",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050"
+        },
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5E4",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0"
+        },
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173F1",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0"
+        },
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x5174AE",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480"
+        }
+      ]
     },
     {
       "original_entry": "0x53B447",
@@ -32533,6 +32771,1576 @@
       ],
       "verification_level": "五父完整731条/十入向、54应用文件/格式/stat点对应25源码表达式、53CCD0十四调用/完整字段与失败发布、同表句柄重读和原字节/限定差异静态核对；未执行",
       "boundary": "既有缓存加载统一LegacyFile，0/1/6时间采样/失败门槛同保存，rb打开后依序读取版本/三个时间/零哨兵/7A120H U32正文，逐项读后比较，失败关闭返0。现有时间合循环及读/值失败关闭合路径动态次数保持；正文直接写唯一表，短读前缀保留、不补后缀、不查额外尾部，成功关闭返1，其他地图/资源正文未改。"
+    },
+    {
+      "original_entry": "0x449DA0",
+      "inventory_id": "F:00049DA0",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x449F9C",
+      "instruction_count": 154,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_449DA0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51C568",
+          "parent_entry": "0x51C430"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E71",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E8D",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449E9C",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449EB7",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449ECA",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449EF3",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F06",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F16",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F25",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F3C",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F70",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F83",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x449DA0",
+          "call_site": "0x449F91",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_449DA0",
+          "target_entry": "0x53BB02",
+          "target_symbol": "FlushLegacyStream_53BB02"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有完整聊天初始化的volatile 626C1C统一LegacyFile，同源时间/16B文件名/260B路径两格式接原核心；r失败a打开后原三次输出无保护，r成功先关闭再a重开，两路各发布共享槽。gate非空才会话三输出，各次重取流/时间；最后无条件flush含NULL分支。聊天记录/输入初始化/目录/状态正文不改，原编码格式及失败残留保持，完整资源/运行未验。",
+      "business_byte_evidence": [
+        {
+          "address": "0x554904",
+          "bytes": "6100"
+        },
+        {
+          "address": "0x554908",
+          "bytes": "7200"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55351C",
+          "bytes": "636861745f2530326425303264253032642e74787400"
+        },
+        {
+          "address": "0x554658",
+          "bytes": "4c6f6700"
+        },
+        {
+          "address": "0x5548CC",
+          "bytes": "20202020202020203e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c0a00"
+        },
+        {
+          "address": "0x55488C",
+          "bytes": "20202020202020203e3e2020c55d20a44f20c45f20a8a920ab5f20c04920aacc20a4e920bb78205b20253032642f253032642f25303264205d20203c3c0a00"
+        },
+        {
+          "address": "0x554848",
+          "bytes": "0a20202d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d0a00"
+        },
+        {
+          "address": "0x554820",
+          "bytes": "20a1bd20253032642f253032642f2530326420253032643a253032643a2530326420acf6bffd0a00"
+        },
+        {
+          "address": "0x5547DC",
+          "bytes": "20202d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d0a00"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0x626C1C",
+          "from": "0x449E21",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449EA4",
+          "parent_entry": "0x449DA0",
+          "access_type": 2
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449EBF",
+          "parent_entry": "0x449DA0",
+          "access_type": 2
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449EE7",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449EF8",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449F0B",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449F2D",
+          "parent_entry": "0x449DA0",
+          "access_type": 2
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449F64",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449F75",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x449F88",
+          "parent_entry": "0x449DA0",
+          "access_type": 3
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44B050",
+      "inventory_id": "F:0004B050",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x44B170",
+      "instruction_count": 85,
+      "original_direct_reference_count": 56,
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44B050"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x40187C",
+          "parent_entry": "0x4014B0"
+        },
+        {
+          "address": "0x4018E2",
+          "parent_entry": "0x4014B0"
+        },
+        {
+          "address": "0x40DD76",
+          "parent_entry": "0x40DC90"
+        },
+        {
+          "address": "0x40DDD3",
+          "parent_entry": "0x40DC90"
+        },
+        {
+          "address": "0x40DE0C",
+          "parent_entry": "0x40DC90"
+        },
+        {
+          "address": "0x42757D",
+          "parent_entry": "0x427470"
+        },
+        {
+          "address": "0x427717",
+          "parent_entry": "0x427470"
+        },
+        {
+          "address": "0x42A2DE",
+          "parent_entry": "0x427470"
+        },
+        {
+          "address": "0x43BB88",
+          "parent_entry": "0x43BAA0"
+        },
+        {
+          "address": "0x44AD89",
+          "parent_entry": "0x44AB60"
+        },
+        {
+          "address": "0x453834",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453B59",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x453DBA",
+          "parent_entry": "0x453760"
+        },
+        {
+          "address": "0x47053D",
+          "parent_entry": "0x4704A0"
+        },
+        {
+          "address": "0x470760",
+          "parent_entry": "0x470670"
+        },
+        {
+          "address": "0x473E08",
+          "parent_entry": "0x473840"
+        },
+        {
+          "address": "0x47C170",
+          "parent_entry": "0x47BC00"
+        },
+        {
+          "address": "0x47C62C",
+          "parent_entry": "0x47C570"
+        },
+        {
+          "address": "0x48370E",
+          "parent_entry": "0x483150"
+        },
+        {
+          "address": "0x4849FE",
+          "parent_entry": "0x4847C0"
+        },
+        {
+          "address": "0x484A3C",
+          "parent_entry": "0x4847C0"
+        },
+        {
+          "address": "0x4867DA",
+          "parent_entry": "0x486040"
+        },
+        {
+          "address": "0x486827",
+          "parent_entry": "0x486040"
+        },
+        {
+          "address": "0x48C5D5",
+          "parent_entry": "0x48C1E0"
+        },
+        {
+          "address": "0x49A0DD",
+          "parent_entry": "0x499C30"
+        },
+        {
+          "address": "0x49A5C7",
+          "parent_entry": "0x499C30"
+        },
+        {
+          "address": "0x49AF53",
+          "parent_entry": "0x49AC40"
+        },
+        {
+          "address": "0x49B25D",
+          "parent_entry": "0x49AC40"
+        },
+        {
+          "address": "0x4AB0A0",
+          "parent_entry": "0x4AAEC0"
+        },
+        {
+          "address": "0x4AB207",
+          "parent_entry": "0x4AAEC0"
+        },
+        {
+          "address": "0x4AB80B",
+          "parent_entry": "0x4AB710"
+        },
+        {
+          "address": "0x4AEE99",
+          "parent_entry": "0x4AEE00"
+        },
+        {
+          "address": "0x4CC887",
+          "parent_entry": "0x4CC6E0"
+        },
+        {
+          "address": "0x4CC8E9",
+          "parent_entry": "0x4CC6E0"
+        },
+        {
+          "address": "0x4CD1F9",
+          "parent_entry": "0x4CD1E0"
+        },
+        {
+          "address": "0x4CF877",
+          "parent_entry": "0x4CED60"
+        },
+        {
+          "address": "0x4CFD52",
+          "parent_entry": "0x4CFCA0"
+        },
+        {
+          "address": "0x4EDDE3",
+          "parent_entry": "0x4EDB20"
+        },
+        {
+          "address": "0x4F0435",
+          "parent_entry": "0x4F0200"
+        },
+        {
+          "address": "0x4FFA8F",
+          "parent_entry": "0x4FF650"
+        },
+        {
+          "address": "0x50785D",
+          "parent_entry": "0x507140"
+        },
+        {
+          "address": "0x5078ED",
+          "parent_entry": "0x507140"
+        },
+        {
+          "address": "0x507991",
+          "parent_entry": "0x507140"
+        },
+        {
+          "address": "0x50C9D1",
+          "parent_entry": "0x50C940"
+        },
+        {
+          "address": "0x50CAA9",
+          "parent_entry": "0x50C940"
+        },
+        {
+          "address": "0x50CD5B",
+          "parent_entry": "0x50CAE0"
+        },
+        {
+          "address": "0x50CEED",
+          "parent_entry": "0x50CE10"
+        },
+        {
+          "address": "0x50CF46",
+          "parent_entry": "0x50CF20"
+        },
+        {
+          "address": "0x50DD6A",
+          "parent_entry": "0x50DC70"
+        },
+        {
+          "address": "0x50E728",
+          "parent_entry": "0x50E6E0"
+        },
+        {
+          "address": "0x50E736",
+          "parent_entry": "0x50E6E0"
+        },
+        {
+          "address": "0x50F261",
+          "parent_entry": "0x50F190"
+        },
+        {
+          "address": "0x50F8C7",
+          "parent_entry": "0x50F7F0"
+        },
+        {
+          "address": "0x50FC18",
+          "parent_entry": "0x50F9E0"
+        },
+        {
+          "address": "0x52F792",
+          "parent_entry": "0x52F670"
+        },
+        {
+          "address": "0x532A86",
+          "parent_entry": "0x532450"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B0FB",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B107",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x44B050",
+          "call_site": "0x44B116",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44B050",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有完整聊天入行保留S32颜色/字体门槛、分段复制中途流采样；非空才原时间/索引重取→日志行输出→重取共享流关闭→a重开→重取索引→发布volatile流，失败仍发布空。记录字段/索引循环/数量及时间正文未改，81 40旧字节保持，未新增格式/关闭/打开失败门槛。",
+      "business_byte_evidence": [
+        {
+          "address": "0x554904",
+          "bytes": "6100"
+        },
+        {
+          "address": "0x554954",
+          "bytes": "20253032643a253032643a25303264814025730a00"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0x626C1C",
+          "from": "0x44B0A6",
+          "parent_entry": "0x44B050",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x44B0ED",
+          "parent_entry": "0x44B050",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x44B100",
+          "parent_entry": "0x44B050",
+          "access_type": 3
+        },
+        {
+          "address": "0x626C1C",
+          "from": "0x44B124",
+          "parent_entry": "0x44B050",
+          "access_type": 2
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44B5A0",
+      "inventory_id": "F:0004B5A0",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x44B5BE",
+      "instruction_count": 10,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ResetSystemLog_44B5A0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4576B8",
+          "parent_entry": "0x4576B0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44B5A0",
+          "call_site": "0x44B5AA",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ResetSystemLog_44B5A0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x44B5A0",
+          "call_site": "0x44B5B7",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ResetSystemLog_44B5A0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有系统日志清理以systemlog.txt/w接真实LegacyFile，打开失败0，成功关闭S32位模式转U32原样透传；没有新增状态、路径或其他失败副作用。",
+      "business_byte_evidence": [
+        {
+          "address": "0x5531C8",
+          "bytes": "7700"
+        },
+        {
+          "address": "0x55496C",
+          "bytes": "73797374656d6c6f672e74787400"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44B5C0",
+      "inventory_id": "F:0004B5C0",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x44B5F4",
+      "instruction_count": 18,
+      "original_direct_reference_count": 31,
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "Sub_44B5C0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4578B2",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x4578CC",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x4578E0",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x45792F",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x457949",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x457989",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x4579AD",
+          "parent_entry": "0x4576B0"
+        },
+        {
+          "address": "0x5082F3",
+          "parent_entry": "0x5082D0"
+        },
+        {
+          "address": "0x508333",
+          "parent_entry": "0x508310"
+        },
+        {
+          "address": "0x50851C",
+          "parent_entry": "0x508360"
+        },
+        {
+          "address": "0x50863C",
+          "parent_entry": "0x508360"
+        },
+        {
+          "address": "0x5241DA",
+          "parent_entry": "0x5241A0"
+        },
+        {
+          "address": "0x5241FB",
+          "parent_entry": "0x5241A0"
+        },
+        {
+          "address": "0x524214",
+          "parent_entry": "0x5241A0"
+        },
+        {
+          "address": "0x52AFC8",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52AFE0",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52AFF8",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B022",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B093",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B0C7",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B136",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B153",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B170",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B19C",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B1BE",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B44A",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B4DD",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B518",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B574",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B591",
+          "parent_entry": "0x524230"
+        },
+        {
+          "address": "0x52B612",
+          "parent_entry": "0x524230"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5CB",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5E4",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x44B5C0",
+          "call_site": "0x44B5EA",
+          "source": "src/LoginState.cpp",
+          "symbol": "Sub_44B5C0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有系统日志输出以systemlog.txt/a接真实LegacyFile，打开失败0，成功%s换行写入忽略结果后关闭，S32关闭位模式转U32原样透传；不因原音频caller引用数恢复音频推进。",
+      "business_byte_evidence": [
+        {
+          "address": "0x554904",
+          "bytes": "6100"
+        },
+        {
+          "address": "0x55496C",
+          "bytes": "73797374656d6c6f672e74787400"
+        },
+        {
+          "address": "0x55497C",
+          "bytes": "25730a00"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x5173B0",
+      "inventory_id": "F:001173B0",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x517474",
+      "instruction_count": 75,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "SplitReceivedBuffer_5173B0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x512E67",
+          "parent_entry": "0x512E40"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173DC",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173F1",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x5173B0",
+          "call_site": "0x5173F7",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SplitReceivedBuffer_5173B0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有接收协议父先observer(0)再采样配置路径/a+输出%s换行并关闭，之后才原分词；缺配置或打开失败不阻断正文。仅局部文件链改型/调用，观察回调、共享缓冲/参数表、旧字节与其他协议正文逐字不变。",
+      "business_byte_evidence": [
+        {
+          "address": "0x55497C",
+          "bytes": "25730a00"
+        },
+        {
+          "address": "0x58B620",
+          "bytes": "612b00"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x517480",
+      "inventory_id": "F:00117480",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x517502",
+      "instruction_count": 49,
+      "original_direct_reference_count": 84,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "SendProtocolBuffer_517480"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x510618",
+          "parent_entry": "0x510570"
+        },
+        {
+          "address": "0x5106FB",
+          "parent_entry": "0x510630"
+        },
+        {
+          "address": "0x5107FE",
+          "parent_entry": "0x510710"
+        },
+        {
+          "address": "0x510872",
+          "parent_entry": "0x510810"
+        },
+        {
+          "address": "0x5108E2",
+          "parent_entry": "0x510880"
+        },
+        {
+          "address": "0x51092F",
+          "parent_entry": "0x5108F0"
+        },
+        {
+          "address": "0x5109A2",
+          "parent_entry": "0x510940"
+        },
+        {
+          "address": "0x5109EF",
+          "parent_entry": "0x5109B0"
+        },
+        {
+          "address": "0x510AA8",
+          "parent_entry": "0x510A00"
+        },
+        {
+          "address": "0x510B68",
+          "parent_entry": "0x510AC0"
+        },
+        {
+          "address": "0x510CAA",
+          "parent_entry": "0x510B80"
+        },
+        {
+          "address": "0x510CC7",
+          "parent_entry": "0x510B80"
+        },
+        {
+          "address": "0x510D88",
+          "parent_entry": "0x510CE0"
+        },
+        {
+          "address": "0x510E25",
+          "parent_entry": "0x510DA0"
+        },
+        {
+          "address": "0x510EB5",
+          "parent_entry": "0x510E30"
+        },
+        {
+          "address": "0x510F45",
+          "parent_entry": "0x510EC0"
+        },
+        {
+          "address": "0x510F8F",
+          "parent_entry": "0x510F50"
+        },
+        {
+          "address": "0x511025",
+          "parent_entry": "0x510FA0"
+        },
+        {
+          "address": "0x5110A4",
+          "parent_entry": "0x511030"
+        },
+        {
+          "address": "0x51117B",
+          "parent_entry": "0x5110B0"
+        },
+        {
+          "address": "0x5111CF",
+          "parent_entry": "0x511190"
+        },
+        {
+          "address": "0x511242",
+          "parent_entry": "0x5111E0"
+        },
+        {
+          "address": "0x5112B2",
+          "parent_entry": "0x511250"
+        },
+        {
+          "address": "0x511345",
+          "parent_entry": "0x5112C0"
+        },
+        {
+          "address": "0x5113B2",
+          "parent_entry": "0x511350"
+        },
+        {
+          "address": "0x511422",
+          "parent_entry": "0x5113C0"
+        },
+        {
+          "address": "0x51146F",
+          "parent_entry": "0x511430"
+        },
+        {
+          "address": "0x511505",
+          "parent_entry": "0x511480"
+        },
+        {
+          "address": "0x5115DB",
+          "parent_entry": "0x511510"
+        },
+        {
+          "address": "0x51162F",
+          "parent_entry": "0x5115F0"
+        },
+        {
+          "address": "0x511751",
+          "parent_entry": "0x511640"
+        },
+        {
+          "address": "0x5117C2",
+          "parent_entry": "0x511760"
+        },
+        {
+          "address": "0x511832",
+          "parent_entry": "0x5117D0"
+        },
+        {
+          "address": "0x5118A2",
+          "parent_entry": "0x511840"
+        },
+        {
+          "address": "0x5118EF",
+          "parent_entry": "0x5118B0"
+        },
+        {
+          "address": "0x5119EE",
+          "parent_entry": "0x511900"
+        },
+        {
+          "address": "0x511A3F",
+          "parent_entry": "0x511A00"
+        },
+        {
+          "address": "0x511AD5",
+          "parent_entry": "0x511A50"
+        },
+        {
+          "address": "0x511BAB",
+          "parent_entry": "0x511AE0"
+        },
+        {
+          "address": "0x511C22",
+          "parent_entry": "0x511BC0"
+        },
+        {
+          "address": "0x511C6F",
+          "parent_entry": "0x511C30"
+        },
+        {
+          "address": "0x511CBF",
+          "parent_entry": "0x511C80"
+        },
+        {
+          "address": "0x511D03",
+          "parent_entry": "0x511CD0"
+        },
+        {
+          "address": "0x511D4F",
+          "parent_entry": "0x511D10"
+        },
+        {
+          "address": "0x511DC2",
+          "parent_entry": "0x511D60"
+        },
+        {
+          "address": "0x511E55",
+          "parent_entry": "0x511DD0"
+        },
+        {
+          "address": "0x511EE5",
+          "parent_entry": "0x511E60"
+        },
+        {
+          "address": "0x511F98",
+          "parent_entry": "0x511EF0"
+        },
+        {
+          "address": "0x511FE3",
+          "parent_entry": "0x511FB0"
+        },
+        {
+          "address": "0x51202F",
+          "parent_entry": "0x511FF0"
+        },
+        {
+          "address": "0x5120C5",
+          "parent_entry": "0x512040"
+        },
+        {
+          "address": "0x512155",
+          "parent_entry": "0x5120D0"
+        },
+        {
+          "address": "0x51217C",
+          "parent_entry": "0x512160"
+        },
+        {
+          "address": "0x5121CF",
+          "parent_entry": "0x512190"
+        },
+        {
+          "address": "0x51221F",
+          "parent_entry": "0x5121E0"
+        },
+        {
+          "address": "0x512263",
+          "parent_entry": "0x512230"
+        },
+        {
+          "address": "0x5122AF",
+          "parent_entry": "0x512270"
+        },
+        {
+          "address": "0x5122FF",
+          "parent_entry": "0x5122C0"
+        },
+        {
+          "address": "0x51234F",
+          "parent_entry": "0x512310"
+        },
+        {
+          "address": "0x51239F",
+          "parent_entry": "0x512360"
+        },
+        {
+          "address": "0x5123EF",
+          "parent_entry": "0x5123B0"
+        },
+        {
+          "address": "0x512462",
+          "parent_entry": "0x512400"
+        },
+        {
+          "address": "0x5124D2",
+          "parent_entry": "0x512470"
+        },
+        {
+          "address": "0x512565",
+          "parent_entry": "0x5124E0"
+        },
+        {
+          "address": "0x5125A3",
+          "parent_entry": "0x512570"
+        },
+        {
+          "address": "0x512612",
+          "parent_entry": "0x5125B0"
+        },
+        {
+          "address": "0x51270E",
+          "parent_entry": "0x512620"
+        },
+        {
+          "address": "0x5127A5",
+          "parent_entry": "0x512720"
+        },
+        {
+          "address": "0x5127EF",
+          "parent_entry": "0x5127B0"
+        },
+        {
+          "address": "0x5128A8",
+          "parent_entry": "0x512800"
+        },
+        {
+          "address": "0x512AA3",
+          "parent_entry": "0x5128C0"
+        },
+        {
+          "address": "0x512AEF",
+          "parent_entry": "0x512AB0"
+        },
+        {
+          "address": "0x512B85",
+          "parent_entry": "0x512B00"
+        },
+        {
+          "address": "0x512BC3",
+          "parent_entry": "0x512B90"
+        },
+        {
+          "address": "0x512C03",
+          "parent_entry": "0x512BD0"
+        },
+        {
+          "address": "0x512C4F",
+          "parent_entry": "0x512C10"
+        },
+        {
+          "address": "0x512C93",
+          "parent_entry": "0x512C60"
+        },
+        {
+          "address": "0x512CDF",
+          "parent_entry": "0x512CA0"
+        },
+        {
+          "address": "0x512D23",
+          "parent_entry": "0x512CF0"
+        },
+        {
+          "address": "0x512D92",
+          "parent_entry": "0x512D30"
+        },
+        {
+          "address": "0x512DDF",
+          "parent_entry": "0x512DA0"
+        },
+        {
+          "address": "0x512E2F",
+          "parent_entry": "0x512DF0"
+        },
+        {
+          "address": "0x516D5B",
+          "parent_entry": "0x516C90"
+        },
+        {
+          "address": "0x516D8C",
+          "parent_entry": "0x516D70"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x517499",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x5174AE",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480",
+          "target_entry": "0x53BC0F",
+          "target_symbol": "FormatLegacyStream_53BC0F"
+        },
+        {
+          "parent_entry": "0x517480",
+          "call_site": "0x5174B4",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "SendProtocolBuffer_517480",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有发送协议父先采样配置路径/a+写->%s换行并关闭，再observer(1)，最后原长度门槛/换行添加/发送；缺配置或打开失败继续。只迁移局部文件链，不修改或实现排除加密、发送后端及缓冲/生命周期正文。",
+      "business_byte_evidence": [
+        {
+          "address": "0x58B620",
+          "bytes": "612b00"
+        },
+        {
+          "address": "0x58B624",
+          "bytes": "2d3e25730a00"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4CC540",
+      "inventory_id": "F:000CC540",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x4CC69A",
+      "instruction_count": 94,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CC540"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4CC0D2",
+          "parent_entry": "0x4CBDB0"
+        },
+        {
+          "address": "0x4CC292",
+          "parent_entry": "0x4CBDB0"
+        },
+        {
+          "address": "0x4CC37B",
+          "parent_entry": "0x4CC340"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC550",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC57E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC59A",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5A9",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5D6",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC5E5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x4CC540",
+          "call_site": "0x4CC643",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC540",
+          "target_entry": "0x53B226",
+          "target_symbol": "ReadLegacyStreamLine_53B226"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/window_66.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有现代66开流父的D67BB8直接LegacyFile*，移除私有宿主包装；入口非空先关闭且不清槽，两个格式/rt先发布，失败error1；成功error0关闭再a+t发布，失败只error1，成功才门禁1/上限0。flags低U8/10H直接读，原每轮清1000B、fgets返回忽略、长度计数/EOF空读无条件加1/槽重读保持；不增加错误位门槛或私有关闭状态。",
+      "business_byte_evidence": [
+        {
+          "address": "0x553510",
+          "bytes": "727400"
+        },
+        {
+          "address": "0x55350C",
+          "bytes": "612b7400"
+        },
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55351C",
+          "bytes": "636861745f2530326425303264253032642e74787400"
+        },
+        {
+          "address": "0x554658",
+          "bytes": "4c6f6700"
+        }
+      ],
+      "business_shared_file_evidence": [
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC540",
+          "parent_entry": "0x4CC540",
+          "access_type": 3
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC5B1",
+          "parent_entry": "0x4CC540",
+          "access_type": 2
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC5F1",
+          "parent_entry": "0x4CC540",
+          "access_type": 2
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC67E",
+          "parent_entry": "0x4CC540",
+          "access_type": 3
+        }
+      ],
+      "business_flag_read_evidence": [
+        {
+          "address": "0x4CC61E",
+          "branch_address": "0x4CC622",
+          "relationship": "读取前直接检查FILE flags低U8/10H"
+        },
+        {
+          "address": "0x4CC68B",
+          "test_address": "0x4CC68E",
+          "relationship": "计数后重取共享流，读flags低U8再test10H"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4CBD30",
+      "inventory_id": "F:000CBD30",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x4CBD8D",
+      "instruction_count": 26,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CBD30"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x470660",
+          "parent_entry": "0x470600"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CBD30",
+          "call_site": "0x4CBD84",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBD30",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/window_66.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有现代66首次共享LegacyTm/所选日生产中的文件名格式改接真实53B304，非空时间对象不重复采样；同源16B文件名/S32时间字段、初值/发布和其余正文保持，旧查看器待批不变。",
+      "business_byte_evidence": [
+        {
+          "address": "0x55351C",
+          "bytes": "636861745f2530326425303264253032642e74787400"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4CBDB0",
+      "inventory_id": "F:000CBDB0",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x4CC324",
+      "instruction_count": 420,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CBDB0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x57AEC0",
+          "parent_entry": null
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CBDB0",
+          "call_site": "0x4CC046",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBDB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        },
+        {
+          "parent_entry": "0x4CBDB0",
+          "call_site": "0x4CC1E5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CBDB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/window_66.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有现代66日期按钮两个原关闭点整链改为真实LegacyFile，现有合分支的一处源码表达式动态各关闭一次，D67BB8不清，之后修改共享日期再调用4CC540重复关闭同槽。分页/提示/图形/日期字段、页/滑块/音效与其余正文逐字不变；原数据表入向parent保持空，不推广旧402020/4021A0待批补值。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC03C",
+          "parent_entry": "0x4CBDB0",
+          "access_type": 3
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC1DB",
+          "parent_entry": "0x4CBDB0",
+          "access_type": 3
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4CC340",
+      "inventory_id": "F:000CC340",
+      "status": "既有日志/现代查看器父的真实FILE完整链已接；旧待批/完整CRT与运行验收仍待",
+      "original_end_exclusive": "0x4CC538",
+      "instruction_count": 166,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CC340"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4CBDA1",
+          "parent_entry": "0x4CBD90"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CC340",
+          "call_site": "0x4CC3C5",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC340",
+          "target_entry": "0x53BC41",
+          "target_symbol": "SeekLegacyStream_53BC41"
+        },
+        {
+          "parent_entry": "0x4CC340",
+          "call_site": "0x4CC3E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CC340",
+          "target_entry": "0x53B226",
+          "target_symbol": "ReadLegacyStreamLine_53B226"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/window_66.md"
+      ],
+      "verification_level": "十父完整1097条/180直接引用、39文件格式调用对应38表达式、23共享流引用、EOF低U8/原字节/失败/重复关闭/协议回调顺序及限定源码差异静态核对；不重验UI/日期/播放/协议分发，未执行",
+      "boundary": "既有现代66正文父保留入口1000B/10000×65B清零、失败/门禁与页起点生产；BEGIN0/S32零偏移定位忽略返回，fgets count S32 1000每次重取真实D67BB8，空返回结束。旧字节bit80/63/64列换行、物理读取后10000门槛、十四文本输出与错误提示正文未改，不把文件链静态核对转记显示验收。",
+      "business_shared_file_evidence": [
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC368",
+          "parent_entry": "0x4CC340",
+          "access_type": 3
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC3BA",
+          "parent_entry": "0x4CC340",
+          "access_type": 3
+        },
+        {
+          "address": "0xD67BB8",
+          "from": "0x4CC3CD",
+          "parent_entry": "0x4CC340",
+          "access_type": 3
+        }
+      ]
     }
   ]
 }

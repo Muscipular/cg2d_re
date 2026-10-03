@@ -1,5 +1,8 @@
 #include "cg/network/NetworkRuntime.hpp"
 
+#include "../platform/LegacyFormat.hpp"
+#include "../platform/LegacyStdio.hpp"
+
 #include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "../LoginStateDependencies.hpp"
@@ -303,11 +306,11 @@ void SplitReceivedBuffer_5173B0(char* const buffer)
         observer(0U, buffer);
     }
     if (gNetworkRuntimeState.receiveLogPathDA3F9C.c_str()[0] != '\0') {
-        std::FILE* const file = std::fopen(
+        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(
             gNetworkRuntimeState.receiveLogPathDA3F9C.c_str(), "a+");
         if (file != nullptr) {
-            static_cast<void>(std::fprintf(file, "%s\n", buffer));
-            static_cast<void>(std::fclose(file));
+            static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "%s\n", buffer));
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(file));
         }
     }
     std::int32_t count = 0;
@@ -1590,12 +1593,12 @@ std::int32_t SendProtocolBuffer_517480(
     char* const buffer)
 {
     if (gNetworkRuntimeState.sendLogPathDA3B58[0] != '\0') {
-        std::FILE* const file = std::fopen(
+        platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1(
             gNetworkRuntimeState.sendLogPathDA3B58,
             "a+");
         if (file != nullptr) {
-            static_cast<void>(std::fprintf(file, "->%s\n", buffer));
-            static_cast<void>(std::fclose(file));
+            static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "->%s\n", buffer));
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(file));
         }
     }
 

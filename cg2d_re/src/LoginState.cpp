@@ -3,6 +3,9 @@
 
 #include "cg/LoginState.hpp"
 
+#include "platform/LegacyFormat.hpp"
+#include "platform/LegacyStdio.hpp"
+
 #include "LoginStateDependencies.hpp"
 #include "world/MailState.hpp"
 
@@ -120,13 +123,13 @@ namespace detail {
 // 原 0x44B5C0：日志打开失败返回零；成功返回 fclose 的 W32 位模式。
 std::uint32_t Sub_44B5C0(const char* text)
 {
-    std::FILE* const file = std::fopen("systemlog.txt", "a");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1("systemlog.txt", "a");
     if (file == nullptr) {
         return 0;
     }
 
-    static_cast<void>(std::fprintf(file, "%s\n", text));
-    return static_cast<std::uint32_t>(std::fclose(file));
+    static_cast<void>(platform::FormatLegacyStream_53BC0F(file, "%s\n", text));
+    return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
 }
 
 std::int32_t Sub_508360()

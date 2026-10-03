@@ -1,5 +1,6 @@
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
+#include "LegacyStdio.hpp"
 
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -514,11 +515,11 @@ int ReleaseProtection_4042B0()
 
 std::uint32_t ResetSystemLog_44B5A0()
 {
-    std::FILE* const file = std::fopen("systemlog.txt", "w");
+    platform::LegacyFile* const file = platform::OpenLegacyStream_53B2F1("systemlog.txt", "w");
     if (file == nullptr) {
         return 0;
     }
-    return static_cast<std::uint32_t>(std::fclose(file));
+    return static_cast<std::uint32_t>(platform::CloseLegacyStream_53B1D0(file));
 }
 
 // 原 0x52CD30：先调用 0x52CCA0，再将 0x103DE80 置 1；不读取实参。

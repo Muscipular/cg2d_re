@@ -988,32 +988,6 @@ static_assert(offsetof(WindowRuntimePrefixD2F0B8, value26C) == 0x26C);
 static_assert(sizeof(WindowRuntimePrefixD2F0B8) == 0x270);
 
 // 各原地址的唯一UI存储；此聚合的整体内存顺序不是原端连续布局。
-// 原FILE关闭只清标志不释放槽；日期按钮和重开入口会先后关闭同一槽。
-struct LogViewerFileSlot {
-    std::FILE* stream;
-};
-
-LogViewerFileSlot gLogViewerFileStorage {};
-
-LogViewerFileSlot* OpenLogViewerFile(const char* const path, const char* const mode)
-{
-    std::FILE* const stream = std::fopen(path, mode);
-    if (stream == nullptr) {
-        return nullptr;
-    }
-    gLogViewerFileStorage.stream = stream;
-    return &gLogViewerFileStorage;
-}
-
-std::int32_t CloseLogViewerFile(LogViewerFileSlot* const slot)
-{
-    if (slot->stream == nullptr) {
-        return -1;
-    }
-    const std::int32_t result = std::fclose(slot->stream);
-    slot->stream = nullptr;
-    return result;
-}
 
 struct LoginWindowRuntimeSlots {
     std::int32_t valueCF4A00;
@@ -1069,7 +1043,7 @@ struct LoginWindowRuntimeSlots {
     std::int32_t timeCB1DF0;
     std::int32_t valueD67BB0;
     std::int32_t logViewerMaximumD67BB4; // 原计数上限，含EOF空读取，不减可见行数。
-    LogViewerFileSlot* logViewerFileD67BB8; // 只在打开后发布；关闭保留原非空槽身份。
+    platform::LegacyFile* logViewerFileD67BB8; // 只在打开后发布；关闭保留原非空槽身份。
     std::int32_t logViewerErrorD67BBC;
     std::int32_t dayD67BC0;
 };
@@ -29232,34 +29206,34 @@ void Sub_4CBD30()
     std::memcpy(&month, bytes + 0x10, sizeof(month));
     std::int32_t year;
     std::memcpy(&year, bytes + 0x14, sizeof(year));
-    std::sprintf(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
+    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648, "chat_%02d%02d%02d.txt",
         year % 100, month + 1, day);
 }
 
 void Sub_4CC540()
 {
-    LogViewerFileSlot* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
+    platform::LegacyFile* const previous = gLoginWindowRuntime.logViewerFileD67BB8;
     if (previous != nullptr) {
-        static_cast<void>(CloseLogViewerFile(previous));
+        static_cast<void>(platform::CloseLegacyStream_53B1D0(previous));
     }
     const std::int32_t day = gLoginWindowRuntime.dayD67BC0;
     platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;
     const std::int32_t month = calendar->month0based;
     const std::int32_t year = calendar->yearMinus1900;
-    std::sprintf(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
+    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648, kLogViewerFileFormat55351C,
         year % 100, month + 1, day);
     char path[256];
-    std::sprintf(path, kLogViewerPathFormat553514,
+    platform::FormatLegacyString_53B304(path, kLogViewerPathFormat553514,
         kLogViewerDirectory554658, world::detail::gLogFileName554648);
-    LogViewerFileSlot* current = OpenLogViewerFile(path, kLogViewerReadMode553510);
+    platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, kLogViewerReadMode553510);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
         return;
     }
     gLoginWindowRuntime.logViewerErrorD67BBC = 0;
-    static_cast<void>(CloseLogViewerFile(current));
-    current = OpenLogViewerFile(path, kLogViewerAppendMode55350C);
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(current));
+    current = platform::OpenLegacyStream_53B2F1(path, kLogViewerAppendMode55350C);
     gLoginWindowRuntime.logViewerFileD67BB8 = current;
     if (current == nullptr) {
         gLoginWindowRuntime.logViewerErrorD67BBC = 1;
@@ -29267,9 +29241,9 @@ void Sub_4CC540()
     }
     gLogDisplayGate593F84 = 1;
     gLoginWindowRuntime.logViewerMaximumD67BB4 = 0;
-    while (std::feof(current->stream) == 0) {
+    while ((static_cast<std::uint8_t>(current->flags) & 0x10u) == 0) {
         char buffer[1000] {};
-        static_cast<void>(std::fgets(buffer, sizeof(buffer), current->stream));
+        static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
         const auto length = static_cast<std::int32_t>(std::strlen(buffer));
         if (length > 65) {
             gLoginWindowRuntime.logViewerMaximumD67BB4 += (length - 1) / 65;
@@ -29292,9 +29266,9 @@ void Sub_4CC340()
     const std::int32_t maximum = gLoginWindowRuntime.logViewerMaximumD67BB4;
     gLoginWindowRuntime.valueD67BB0 = Sub_474270(&window->elements[1], maximum);
     if (gLoginWindowRuntime.logViewerErrorD67BBC == 0 && gLogDisplayGate593F84 == 1) {
-        static_cast<void>(std::fseek(gLoginWindowRuntime.logViewerFileD67BB8->stream, 0, SEEK_SET));
+        static_cast<void>(platform::SeekLegacyStream_53BC41(gLoginWindowRuntime.logViewerFileD67BB8, 0, 0));
         std::int32_t row = 0;
-        while (std::fgets(buffer, sizeof(buffer), gLoginWindowRuntime.logViewerFileD67BB8->stream) != nullptr) {
+        while (platform::ReadLegacyStreamLine_53B226(buffer, 1000, gLoginWindowRuntime.logViewerFileD67BB8) != nullptr) {
             std::int32_t column = 0;
             const char* source = buffer;
             while (*source != '\0') {
@@ -29395,9 +29369,9 @@ std::int32_t Sub_4CBDB0(const std::int32_t index, const std::int32_t state)
             static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data)->imageNo = base;
         }
         if ((state & 0x400) != 0) {
-            LogViewerFileSlot* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
+            platform::LegacyFile* const stream = gLoginWindowRuntime.logViewerFileD67BB8;
             if (stream != nullptr) {
-                static_cast<void>(CloseLogViewerFile(stream));
+                static_cast<void>(platform::CloseLegacyStream_53B1D0(stream));
             }
             if (index == 6) {
                 platform::LegacyTm53B8C6* const calendar = gLoginWindowRuntime.calendarTimeD67BAC;

@@ -1150,7 +1150,7 @@ namespace cg::world::detail {
 Record5FB7F8 gRecords5FB7F8[512] {};
 volatile std::int32_t gWriteIndex626C08 = 0;
 char gLogPath62699C[260] {};
-std::FILE* volatile gLogStream626C1C = nullptr;
+platform::LegacyFile* volatile gLogStream626C1C = nullptr;
 volatile std::int32_t gCountC9A944 = 0;
 volatile std::uint32_t gValue626C10 = 0;
 input::InputContext gInputContext626840 {};
@@ -1316,7 +1316,7 @@ void __cdecl Sub_449DA0()
     gValue626BFC = 0;
 
     std::int32_t timeValue = 0;
-    std::FILE* const existingStream = gLogStream626C1C;
+    platform::LegacyFile* const existingStream = gLogStream626C1C;
     if (existingStream != nullptr) {
         return;
     }
@@ -1336,45 +1336,45 @@ void __cdecl Sub_449DA0()
     const std::int32_t fileMonth = readTimeField(0x10);
     const std::int32_t fileDay = readTimeField(0x0C);
     const std::int32_t fileYear = readTimeField(0x14);
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         gLogFileName554648,
         kFileFormat_55351C,
         fileYear % 100, fileMonth + 1, fileDay);
-    std::sprintf(
+    platform::FormatLegacyString_53B304(
         gLogPath62699C,
         kPathFormat_553514,
         kLogDirectory_554658,
         gLogFileName554648);
 
-    std::FILE* const readStream =
-        std::fopen(gLogPath62699C, kReadMode_554908);
+    platform::LegacyFile* const readStream =
+        platform::OpenLegacyStream_53B2F1(gLogPath62699C, kReadMode_554908);
     gLogStream626C1C = readStream;
-    std::FILE* gate;
+    platform::LegacyFile* gate;
     if (readStream == nullptr) {
-        std::FILE* const appendStream =
-            std::fopen(gLogPath62699C, kAppendMode_554904);
+        platform::LegacyFile* const appendStream =
+            platform::OpenLegacyStream_53B2F1(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
-        std::fprintf(appendStream, kFirstSeparator_5548CC.data());
+        platform::FormatLegacyStream_53BC0F(appendStream, kFirstSeparator_5548CC.data());
 
         const std::int32_t titleMonth = readTimeField(0x10);
         const std::int32_t titleDay = readTimeField(0x0C);
         const std::int32_t titleYear = readTimeField(0x14);
-        std::fprintf(
+        platform::FormatLegacyStream_53BC0F(
             gLogStream626C1C,
             kDateTitle_55488C,
             titleYear % 100, titleMonth + 1, titleDay);
-        std::fprintf(gLogStream626C1C, kFirstSeparator_5548CC.data());
+        platform::FormatLegacyStream_53BC0F(gLogStream626C1C, kFirstSeparator_5548CC.data());
         gate = gLogStream626C1C;
     } else {
-        std::fclose(readStream);
-        std::FILE* const appendStream =
-            std::fopen(gLogPath62699C, kAppendMode_554904);
+        platform::CloseLegacyStream_53B1D0(readStream);
+        platform::LegacyFile* const appendStream =
+            platform::OpenLegacyStream_53B2F1(gLogPath62699C, kAppendMode_554904);
         gLogStream626C1C = appendStream;
         gate = appendStream;
     }
 
     if (gate != nullptr) {
-        std::fprintf(gate, kBeforeSession_554848.data());
+        platform::FormatLegacyStream_53BC0F(gate, kBeforeSession_554848.data());
 
         const std::int32_t sessionSecond = readTimeField(0x00);
         const std::int32_t sessionMinute = readTimeField(0x04);
@@ -1382,14 +1382,14 @@ void __cdecl Sub_449DA0()
         const std::int32_t sessionDay = readTimeField(0x0C);
         const std::int32_t sessionMonth = readTimeField(0x10);
         const std::int32_t sessionYear = readTimeField(0x14);
-        std::fprintf(
+        platform::FormatLegacyStream_53BC0F(
             gLogStream626C1C,
             kSessionTime_554820,
             sessionYear % 100, sessionMonth + 1, sessionDay,
             sessionHour, sessionMinute, sessionSecond);
-        std::fprintf(gLogStream626C1C, kAfterSession_5547DC.data());
+        platform::FormatLegacyStream_53BC0F(gLogStream626C1C, kAfterSession_5547DC.data());
     }
-    std::fflush(gLogStream626C1C);
+    platform::FlushLegacyStream_53BB02(gLogStream626C1C);
 }
 
 // 原 sub_4A76E0@[0x4A76E0,0x4A76FD)：先写未封顶值，超过 512 再写封顶值。
@@ -1427,7 +1427,7 @@ void Sub_44B050(
         std::memcpy(destination + offset, &copied, sizeof(copied));
     }
 
-    const std::FILE* const gate = gLogStream626C1C;
+    const platform::LegacyFile* const gate = gLogStream626C1C;
     for (std::size_t offset = wordCount * sizeof(std::uint32_t);
          offset < length; ++offset) {
         destination[offset] = text[offset];
@@ -1448,12 +1448,12 @@ void Sub_44B050(
         std::memcpy(&minute, timeBytes + 4, sizeof(minute));
         std::memcpy(&hour, timeBytes + 8, sizeof(hour));
 
-        std::fprintf(
+        platform::FormatLegacyStream_53BC0F(
             gLogStream626C1C,
             " %02d:%02d:%02d\x81\x40%s\n",
             hour, minute, second, gRecords5FB7F8[index].text);
-        std::fclose(gLogStream626C1C);
-        std::FILE* const newStream = std::fopen(gLogPath62699C, "a");
+        platform::CloseLegacyStream_53B1D0(gLogStream626C1C);
+        platform::LegacyFile* const newStream = platform::OpenLegacyStream_53B2F1(gLogPath62699C, "a");
         index = gWriteIndex626C08;
         gLogStream626C1C = newStream;
     }

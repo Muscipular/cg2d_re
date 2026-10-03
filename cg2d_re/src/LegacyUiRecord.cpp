@@ -11203,12 +11203,12 @@ std::uint32_t Sub_4ECE00(const std::int32_t opened)
         }
     }
     char buffer[128];
-    std::sprintf(buffer, "%+9d", world::detail::gValueFF0D04);
+    platform::FormatLegacyString_53B304(buffer, "%+9d", world::detail::gValueFF0D04);
     const std::int32_t deltaY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t deltaX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(deltaX + 69),
         static_cast<std::int16_t>(deltaY + 44), 2, 1, 0, buffer, 0, 0));
-    std::sprintf(buffer, "%9d", world::detail::gValueFF0D08);
+    platform::FormatLegacyString_53B304(buffer, "%9d", world::detail::gValueFF0D08);
     const std::int32_t totalY = gLegacyPointResultPanel5838A8.y;
     const std::int32_t totalX = gLegacyPointResultPanel5838A8.x;
     static_cast<void>(DrawText(static_cast<std::int16_t>(totalX + 69),
@@ -11300,7 +11300,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
         if (level >= 130) {
             drawAt(kLegacyResultLimit5897D4, 267, row * 24 + 59, 1);
         } else {
-            std::sprintf(buffer, "%+6d", result->value04);
+            platform::FormatLegacyString_53B304(buffer, "%+6d", result->value04);
             drawAt(buffer, 267, row * 24 + 59, 1);
         }
     }
@@ -11329,7 +11329,7 @@ std::uint32_t Sub_4ED020(const std::int32_t opened)
             if (level >= maxLevel) {
                 drawAt(kLegacyResultLimit5897D4, 554, visibleRow * 24 + 57, 1);
             } else {
-                std::sprintf(buffer, "%+6d", skillResults[skillIndex].value04);
+                platform::FormatLegacyString_53B304(buffer, "%+6d", skillResults[skillIndex].value04);
                 drawAt(buffer, 554, visibleRow * 24 + 57, 1);
             }
             if (skillResults[skillIndex].value00 != 0) {

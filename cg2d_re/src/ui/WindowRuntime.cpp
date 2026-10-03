@@ -40259,7 +40259,7 @@ std::int32_t Sub_495E60(const std::int32_t index, const std::int32_t)
     }
     const std::int32_t x =
         platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
-    std::sprintf(data->text, "%3d", x);
+    platform::FormatLegacyString_53B304(data->text, "%3d", x);
     return 0;
 }
 
@@ -40272,7 +40272,7 @@ std::int32_t Sub_495EB0(const std::int32_t index, const std::int32_t)
     }
     const std::int32_t y =
         platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
-    std::sprintf(data->text, "%3d", y);
+    platform::FormatLegacyString_53B304(data->text, "%3d", y);
     return 0;
 }
 

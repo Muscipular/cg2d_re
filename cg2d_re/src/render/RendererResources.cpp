@@ -1,6 +1,7 @@
 #include "cg/render/RendererResources.hpp"
 
 #include "GraphicDxCacheState.hpp"
+#include "../platform/LegacyFormat.hpp"
 #include "LegacyTextureDrawing.hpp"
 #include "cg/platform/CommandOptions.hpp"
 #include "cg/platform/LegacyWindow.hpp"
@@ -120,7 +121,7 @@ void WriteRendererModeFile(const bool fallback)
         CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (file != INVALID_HANDLE_VALUE) {
         if (!fallback) {
-            std::sprintf(buffer, "%d",
+            platform::FormatLegacyString_53B304(buffer, "%d",
                 static_cast<int>(std::bit_cast<std::int8_t>(platform::gSupportedRenderMode)));
         }
         DWORD written;

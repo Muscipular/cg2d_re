@@ -564,3 +564,14 @@ union GraphicQueueReference {
 
 **状态：完整 RenderChara 本体已按本节实施，现有 World::Update 六处调用保持原位。**
 仅静态核对，未编译、链接或运行验收。
+
+
+## 模式文件与缓存不足两真实格式板块 SPEC（2026-10-04）
+
+依工程委托裁决，RendererResources的WriteRendererModeFile与GraphicDxCache的TakeGraphicDxCache_5222D0各一std::sprintf接53B304，两源码各加已有内部LegacyFormat.hpp；已批准SDL_Renderer/32位CPU资源和全部其他正文不改，本步不扩DX替换的豁免或更改资源策略。
+
+44C370仍属44B630：正常初始化支持模式不等才调用现WriteRendererModeFile(false)；CreateFile成功后才从628FEA读S8支持模式、符号扩展S32，以5531A4的%d写源现已清11B buffer，再strlen不含NUL→WriteFile→CloseHandle。原完整目的容量本步不证明，保持该验收门禁；fallback true仅旧字节'1'，无本格式。文件名/打开和写入失败/模式发布、窗口/设备和native后端正文保持，helper不另设原地址。
+
+52254A属5222D0缓存不足尾：scan绕回scanStart才将S32当前索引按58D348原字节%d+LF写未清256B message→调试输出→返回。已经领取/解绑的节点和半成链不清/不回滚、不补尾next，不改reuseState、全局扫描、块大小/调色板或第二恒空参数的已批准边界；不把提示恢复当作缓存资源充足或完整链接运行通过。
+
+原父996/199共1195条，本次读取37/25共62父内相邻指令，余1133条/全部5个原直接入向/后端和资源生产不重验；另3条相邻522570入口已隔离不用作本父证据。一个新含NUL格式、一个复用字节与两个实际call/参数及文件成功后采样/缓存尾、整份两源仅两callee和两已有内部头静态核对。未构建、测试、运行/写模式文件/获取资源或hash。原父/容量全链/像素和完整后端/CRT与总PLAN仍未闭合。

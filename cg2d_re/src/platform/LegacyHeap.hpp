@@ -7,8 +7,46 @@
 
 namespace cg::platform {
 
-// 原模式3管理区；内部链布局待与分配/释放一起还原，不按旧字节偏移写原生指针。
-struct LegacySmallHeap3Control;
+// 原大小级双链；地址指向链接字段，实块与组哨兵使用同一原生节点类型。
+struct LegacySmallHeap3Link final {
+    LegacySmallHeap3Link* next;
+    LegacySmallHeap3Link* previous;
+};
+static_assert(sizeof(LegacySmallHeap3Link) == 16);
+
+// 原实空闲块首W32及+04起的两个地址；首块位于页+0C，链接实际8B对齐。
+// 本步只用于4080B初始块；16B拆分块的原生链布局仍待闭合。
+#pragma pack(push, 4)
+struct LegacySmallHeap3FreeBlock final {
+    std::uint32_t boundary;
+    LegacySmallHeap3Link links;
+};
+#pragma pack(pop)
+static_assert(offsetof(LegacySmallHeap3FreeBlock, links) == 4);
+static_assert(sizeof(LegacySmallHeap3FreeBlock) == 20);
+static_assert(alignof(LegacySmallHeap3FreeBlock) == 4);
+
+// 原516B组；活跃分配数保持W32，64个双地址链头随原生指针拓宽。
+struct LegacySmallHeap3Group final {
+    std::uint32_t allocationCount;
+    LegacySmallHeap3Link heads[64];
+};
+static_assert(offsetof(LegacySmallHeap3Group, heads) == 8);
+static_assert(sizeof(LegacySmallHeap3Group) == 1032);
+
+// 原41C4H管理区；当前组/大小级计数/两组位图保持原宽度和前段偏移。
+struct LegacySmallHeap3Control final {
+    std::int32_t currentGroup;
+    std::uint8_t classCounts[64];
+    std::uint32_t groupMask0[32];
+    std::uint32_t groupMask1[32];
+    LegacySmallHeap3Group groups[32];
+};
+static_assert(offsetof(LegacySmallHeap3Control, classCounts) == 4);
+static_assert(offsetof(LegacySmallHeap3Control, groupMask0) == 0x44);
+static_assert(offsetof(LegacySmallHeap3Control, groupMask1) == 0xC4);
+static_assert(offsetof(LegacySmallHeap3Control, groups) == 0x148);
+static_assert(sizeof(LegacySmallHeap3Control) == 0x8248);
 
 // 原14H区域头；仅+0C/+10地址拓宽，供541C15/541C5D及后续区域生产者共用。
 struct LegacySmallHeap3Region final {
@@ -41,6 +79,10 @@ std::int32_t InitializeLegacyHeap_541BB8(std::int32_t serialized);
 std::int32_t InitializeLegacySmallHeap3_541C15(std::uint32_t threshold);
 // 原541C5D；按原顺序查100000H所属区域，不改输入或共享槽。
 LegacySmallHeap3Region* FindLegacySmallHeap3Region_541C5D(void* memory);
+
+// 原5422BA/54236B；真实区域与组生产者，原分配/释放/拆分消费者尚待。
+LegacySmallHeap3Region* CreateLegacySmallHeap3Region_5422BA();
+std::int32_t CommitLegacySmallHeap3Group_54236B(LegacySmallHeap3Region* region);
 
 // 原模式2页头；游标拓宽，连续空闲数移至原未使用尾区，标记/载荷几何保持。
 struct LegacySmallHeap2Page final {

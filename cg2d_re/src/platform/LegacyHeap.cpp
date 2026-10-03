@@ -512,4 +512,93 @@ std::int32_t ResizeLegacySmallHeap2Block_542D80(LegacySmallHeap2Region* const re
     return 0;
 }
 
+
+LegacySmallHeap3Region* CreateLegacySmallHeap3Region_5422BA()
+{
+    std::uint32_t count = gLegacySmallHeap3Count1086998;
+    const std::uint32_t capacity = gLegacySmallHeap3Capacity1086988;
+    if (count == capacity) {
+        const std::uint32_t bytes = (capacity + 16u)
+            * static_cast<std::uint32_t>(sizeof(LegacySmallHeap3Region));
+        auto* const resized = static_cast<LegacySmallHeap3Region*>(
+            ::HeapReAlloc(gLegacyHeap10869A4, 0, gLegacySmallHeap3Regions108699C, bytes));
+        if (resized == nullptr) {
+            return nullptr;
+        }
+        gLegacySmallHeap3Capacity1086988 += 16;
+        gLegacySmallHeap3Regions108699C = resized;
+        count = gLegacySmallHeap3Count1086998;
+    }
+    auto* const region = gLegacySmallHeap3Regions108699C + count;
+    auto* const control = static_cast<LegacySmallHeap3Control*>(
+        ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, sizeof(LegacySmallHeap3Control)));
+    region->control = control;
+    if (control == nullptr) {
+        return nullptr;
+    }
+    auto* const base = static_cast<std::byte*>(
+        ::VirtualAlloc(nullptr, 0x100000, MEM_RESERVE, PAGE_READWRITE));
+    region->base = base;
+    if (base == nullptr) {
+        static_cast<void>(::HeapFree(gLegacyHeap10869A4, 0, region->control));
+        return nullptr;
+    }
+    region->uncommittedGroups = 0xFFFFFFFFu;
+    region->classMask0 = 0;
+    region->classMask1 = 0;
+    ++gLegacySmallHeap3Count1086998;
+    region->control->currentGroup = -1;
+    return region;
+}
+
+std::int32_t CommitLegacySmallHeap3Group_54236B(LegacySmallHeap3Region* const region)
+{
+    auto* const control = region->control;
+    std::uint32_t mask = region->uncommittedGroups;
+    std::int32_t index = 0;
+    while ((mask & 0x80000000u) == 0) {
+        mask <<= 1;
+        ++index;
+    }
+    auto* const group = control->groups + index;
+    for (std::int32_t bucket = 0; bucket < 63; ++bucket) {
+        auto* const head = group->heads + bucket;
+        head->previous = head;
+        head->next = head;
+    }
+    auto* const base = region->base + (index << 15);
+    if (::VirtualAlloc(base, 0x8000, MEM_COMMIT, PAGE_READWRITE) == nullptr) {
+        return -1;
+    }
+    for (std::int32_t page = 0; page < 8; ++page) {
+        auto* const address = base + page * 0x1000;
+        auto* const block = reinterpret_cast<LegacySmallHeap3FreeBlock*>(address + 0x0C);
+        *reinterpret_cast<std::uint32_t*>(address + 8) = 0xFFFFFFFFu;
+        *reinterpret_cast<std::uint32_t*>(address + 0xFFC) = 0xFFFFFFFFu;
+        block->boundary = 4080;
+        // 原边端地址先指向相邻页；这里只形成整数地址，提交范围外不解引用。
+        const auto pageAddress = reinterpret_cast<std::uintptr_t>(address);
+        block->links.next = reinterpret_cast<LegacySmallHeap3Link*>(pageAddress + 0x1010);
+        block->links.previous = reinterpret_cast<LegacySmallHeap3Link*>(pageAddress - 0xFF0);
+        *reinterpret_cast<std::uint32_t*>(address + 0xFF8) = 4080;
+    }
+    auto* const head = group->heads + 63;
+    auto* const first = &reinterpret_cast<LegacySmallHeap3FreeBlock*>(base + 0x0C)->links;
+    auto* const last =
+        &reinterpret_cast<LegacySmallHeap3FreeBlock*>(base + 0x700C)->links;
+    head->next = first;
+    first->previous = head;
+    head->previous = last;
+    last->next = head;
+    control->groupMask0[index] = 0;
+    control->groupMask1[index] = 1;
+    const std::uint8_t oldCount = control->classCounts[63];
+    control->classCounts[63] = static_cast<std::uint8_t>(oldCount + 1);
+    if (oldCount == 0) {
+        region->classMask1 |= 1u;
+    }
+    region->uncommittedGroups &= ~(0x80000000u >> index);
+    return index;
+}
+
 } // namespace cg::platform

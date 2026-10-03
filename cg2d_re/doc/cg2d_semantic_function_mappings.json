@@ -16676,7 +16676,7 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域生产、管理区内部布局和分配释放尚待。",
+      "boundary": "真实按16个原生32B区域头HeapAlloc(flags0)，先发布表首；失败返0，成功清1086994空组区域指针及1086998数量，再发布当前区域、U32阈值、16项容量。1086994已证为地址，不能误作计数；记录内容不补零。区域/组生产及管理区已按原生地址布局落位；16B小块的拆分/合并布局和完整分配释放仍待。本体此次未改。",
       "inbound_evidence": [
         {
           "address": "0x541BEC",
@@ -16799,12 +16799,21 @@
     {
       "original_entry": "0x541FB1",
       "inventory_id": "F:00141FB1",
-      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "status": "完整分配指令及原生布局约束已取证；区域/组依赖已实现，分配本体仍待",
       "original_end_exclusive": "0x5422BA",
       "instruction_count": 275,
       "original_direct_reference_count": 3,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
-      "sources": [],
+      "verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CreateLegacySmallHeap3Region_5422BA",
+            "CommitLegacySmallHeap3Group_54236B"
+          ],
+          "relationship": "仅该父两个真实依赖已实现，不是541FB1本体"
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x53C036",
@@ -16822,17 +16831,34 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "模式3分配入口：calloc、malloc内部叶和realloc各一调用；内部调5422BA新区域及54236B新组。完整空闲链/位图算法未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。"
     },
     {
       "original_entry": "0x5422BA",
       "inventory_id": "F:001422BA",
-      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
       "original_end_exclusive": "0x54236B",
       "instruction_count": 53,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
-      "sources": [],
+      "verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CreateLegacySmallHeap3Region_5422BA"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "CreateLegacySmallHeap3Region_5422BA",
+            "LegacySmallHeap3Control",
+            "LegacySmallHeap3Group",
+            "LegacySmallHeap3Link",
+            "LegacySmallHeap3FreeBlock"
+          ]
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x54207D",
@@ -16842,17 +16868,34 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "模式3区域创建私有依赖：仅541FB1调用；调用HeapReAlloc、带清零HeapAlloc、VirtualAlloc保留和失败HeapFree。容量/发布/全部失败细节仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "真实以16个原生区域头增量HeapReAlloc，成功先加共享容量再发布表首并重读数量；不额外修正旧当前/待回收指针。HEAP_ZERO_MEMORY分配原生8248H控制区，control/base均先发布后判空；保留1MB失败只释放control且不清槽。成功按原顺序掩码/数量/当前组发布。完整分配器尚待，不能交宿主块。"
     },
     {
       "original_entry": "0x54236B",
       "inventory_id": "F:0014236B",
-      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "status": "模式3区域/组真实生产本体与原生控制布局已实现；小块拆分/合并布局及完整池未闭合",
       "original_end_exclusive": "0x542466",
       "instruction_count": 85,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
-      "sources": [],
+      "verification_level": "完整53/85条及唯一直接父、原控制字段和4080B初始块页链、新增差异静态核对；未构建、链接或执行",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CommitLegacySmallHeap3Group_54236B"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyHeap.hpp",
+          "symbols": [
+            "CommitLegacySmallHeap3Group_54236B",
+            "LegacySmallHeap3Control",
+            "LegacySmallHeap3Group",
+            "LegacySmallHeap3Link",
+            "LegacySmallHeap3FreeBlock"
+          ]
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x54208C",
@@ -16862,7 +16905,7 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "模式3组创建私有依赖：仅541FB1调用；含VirtualAlloc提交。完整组布局与位图初始化仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "真实按未提交掩码最高位选组，无零掩码保护；提交前先初始化63链头previous→next，VirtualAlloc非空才成功，失败不回滚。8个4KB页保持首/尾W32标记和4080B块，链接字段地址拓宽；第63级链串八页并回哨兵，组位图0/1、U8大小级计数及区域/未提交位图写序保持。仅初始大块可承载原生双链；16B拆分/合并适配未闭合，不能宣称完整模式3可运行。"
     },
     {
       "original_entry": "0x542466",

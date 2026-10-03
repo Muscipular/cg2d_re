@@ -43343,7 +43343,7 @@ void Sub_478A10()
     const std::size_t nameLength = std::strlen(name) + 1;
     std::memcpy(nameData->text, name, nameLength);
     char number[256];
-    std::sprintf(number, "%3d", world::detail::ReadPlayerLevel());
+    platform::FormatLegacyString_53B304(number, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[1].data);
     const std::size_t levelLength = std::strlen(number) + 1;
     std::memcpy(levelData->text, number, levelLength);
@@ -43496,7 +43496,7 @@ void Sub_478010()
     std::memcpy(nameData->text, name, nameLength);
 
     char buffer[256];
-    std::sprintf(buffer, "%3d", world::detail::ReadPlayerLevel());
+    platform::FormatLegacyString_53B304(buffer, "%3d", world::detail::ReadPlayerLevel());
     auto* const levelData = static_cast<WindowTextData*>(gCurrentWindow->elements[7].data);
     const std::size_t levelLength = std::strlen(buffer) + 1;
     std::memcpy(levelData->text, buffer, levelLength);

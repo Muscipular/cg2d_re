@@ -14276,29 +14276,29 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
             static_cast<std::int16_t>(y + offsetY), 2, 1, 0, text, 0, 0));
     };
     char buffer[256];
-    std::sprintf(buffer, "%3d", pet.value08);
+    platform::FormatLegacyString_53B304(buffer, "%3d", pet.value08);
     drawAt(buffer, 62, 44);
-    std::sprintf(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[4]));
+    platform::FormatLegacyString_53B304(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[4]));
     drawAt(buffer, 55, 66);
     if (pet.value08 < 130) {
-        std::sprintf(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[5]));
+        platform::FormatLegacyString_53B304(buffer, "%9d", platform::legacy_crypt_int::Read_401EC0(&pet.values0C[5]));
         drawAt(buffer, 55, 89);
     } else {
         drawAt(kLegacyPetLevelLimit58A214, 55, 89);
     }
     const std::int32_t maxHp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[1]);
     const std::int32_t hp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[0]);
-    std::sprintf(buffer, "%4d/%4d", hp, maxHp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", hp, maxHp);
     drawAt(buffer, 55, 113);
     const std::int32_t maxFp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[3]);
     const std::int32_t fp = platform::legacy_crypt_int::Read_401EC0(&pet.values0C[2]);
-    std::sprintf(buffer, "%4d/%4d", fp, maxFp);
+    platform::FormatLegacyString_53B304(buffer, "%4d/%4d", fp, maxFp);
     drawAt(buffer, 55, 136);
     for (std::int32_t field = 0; field < 6; ++field) {
-        std::sprintf(buffer, "%3d", pet.values70[5 + field]);
+        platform::FormatLegacyString_53B304(buffer, "%3d", pet.values70[5 + field]);
         drawAt(buffer, 62, 159 + 23 * field);
     }
-    std::sprintf(buffer, "%2d", pet.value6A4);
+    platform::FormatLegacyString_53B304(buffer, "%2d", pet.value6A4);
     drawAt(buffer, 70, 297);
     std::strcpy(buffer, ui::detail::gTribeNames57CB54[std::bit_cast<std::int16_t>(pet.value04)]);
     const std::int32_t width = TextMeasure(buffer, 1);
@@ -14315,7 +14315,7 @@ std::int32_t Sub_4F8550(const std::int32_t x, const std::int32_t y)
     }
     const std::int32_t position = gLegacyPetSelectionD67ADC;
     const std::int32_t count = world::detail::gPetCountDE0B00;
-    std::sprintf(buffer, "%d/%d", position + 1, count);
+    platform::FormatLegacyString_53B304(buffer, "%d/%d", position + 1, count);
     const std::int32_t pageY = gLegacyPetDetailPanel584918.y + 382;
     const std::int32_t pageX = gLegacyPetDetailPanel584918.x + 180;
     static_cast<void>(DrawText(static_cast<std::int16_t>(pageX),

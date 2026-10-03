@@ -9,6 +9,8 @@
 namespace cg::platform {
 
 std::uint32_t gLegacyNarrowStringNpos550040 = 0xFFFFFFFFu;
+// 原55013B标记及55013C首NUL，同一背板保留fallback[-1]别名。
+char gLegacyNarrowStringEmpty55013B[2] = {'\0', '\0'};
 
 namespace {
 
@@ -205,6 +207,58 @@ LegacyNarrowString* EraseLegacyNarrowString_548DC2(LegacyNarrowString* const sto
             storage->length = length;
             buffer[length] = '\0';
         }
+    }
+    return storage;
+}
+
+LegacyNarrowString* AssignLegacyNarrowStringFromString_54A315(
+    LegacyNarrowString* const storage, const LegacyNarrowString* const source,
+    const std::uint32_t position, const std::uint32_t count)
+{
+    if (source->length < position) {
+        ThrowLegacyStringRange_54A899();
+    }
+    const std::uint32_t sourceLength = source->length;
+    std::uint32_t copied = sourceLength - position;
+    if (count < copied) {
+        copied = count;
+    }
+    if (storage == source) {
+        const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+        const std::uint32_t tail = copied + position;
+        static_cast<void>(EraseLegacyNarrowString_548DC2(storage, tail, eraseCount));
+        static_cast<void>(EraseLegacyNarrowString_548DC2(storage, 0, position));
+        return storage;
+    }
+    if (copied != 0 && copied == sourceLength) {
+        char* buffer = source->buffer;
+        if (buffer == nullptr) {
+            buffer = gLegacyNarrowStringEmpty55013B + 1;
+        }
+        if (static_cast<std::uint8_t>(buffer[-1]) < 0xFE) {
+            TidyLegacyNarrowString_548E29(storage, true);
+            buffer = source->buffer;
+            if (buffer == nullptr) {
+                buffer = gLegacyNarrowStringEmpty55013B + 1;
+            }
+            storage->buffer = buffer;
+            storage->length = source->length;
+            storage->capacity = source->capacity;
+            const auto reference = static_cast<std::uint8_t>(buffer[-1]);
+            buffer[-1] = std::bit_cast<char>(static_cast<std::uint8_t>(reference + 1u));
+            return storage;
+        }
+    }
+    if (GrowLegacyNarrowString_548FA0(storage, copied, true)) {
+        char* buffer = source->buffer;
+        if (buffer == nullptr) {
+            buffer = gLegacyNarrowStringEmpty55013B + 1;
+        }
+        buffer += position;
+        static_cast<void>(CopyLegacyMemory_541620(storage->buffer, buffer, copied));
+        char* const current = storage->buffer;
+        storage->length = copied;
+        current[copied] = '\0';
     }
     return storage;
 }

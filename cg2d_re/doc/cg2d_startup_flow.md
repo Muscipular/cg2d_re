@@ -1667,3 +1667,31 @@ RPLAN.24范围保持，实际分配失败/异常ABI及越界故障等价未验�
 原堆、StrLen/Fill/Copy/Move核心与已接点不复检；未配置、编译、测试、运行或hash校验。
 其他窄字符串assign(string)/构析/标准流/filebuf上游仍未落实到本视图，
 不能把当前宿主对象作为原共享缓冲强制转换或注册为旧对象。
+
+
+## 2026-10-04 原字符串对象赋值及静态空串局部SPEC
+
+在既有LegacyNarrowString两文件新增54A315完整80条对象赋值，
+复用实际Erase/Tidy/Grow/541620与真实54A899声明。本线程依已受托工程方案裁决采用直接字段方案，
+不把现有宿主std::string对象转成原视图，不扩大宿主总提案/堆许可或启动调用。
+
+1. 源length<position先原位置异常调用；随后重新取源length，以U32剩余和输入count取较小值。
+2. storage==source：先采样原npos，以position+copied作起点删尾，然后erase(0,position)删头。
+   不改成一次memmove、不缓存删尾前的源数据当结果，返回同一storage。
+3. 非自身、copied非零且等于刚取源length时，源buffer空则用原55013C fallback；
+   原-1标记U8小于FE才共享。先Tidy目标，再重新取源buffer/fallback，
+   依次发布目标buffer、当前源length、当前源capacity，最后重新读取tag并低U8增1。
+   不重用Tidy前的buffer或标记值。
+4. 其他分支Grow(copied,true)，AL真才重新取源buffer/fallback并加原position，
+   54A3C8真实541620复制copied；复制后重新读目标buffer再发布length/NUL。
+   Grow的原共享/trim/原堆/异常及空返回边界保留。
+5. 55013B共享标记和55013C首NUL均有加载值00；用同一可写char[2]表达这两个实际字节，
+   空串指针为背板+1，-1访问同一标记。只落实这两字节，不依据IDA的dword名称猜四字节容量、
+   不声明更大空串区或用独立只读空串代替三个fallback位置。
+   原异常/不一致字段与RPLAN.24范围不加保护，也不宣称故障等价。
+
+只读取证新父80条及两原字节/四个fallback引用，旧八叶/内存核心/已接点不复检。
+两文件限定新增/唯一声明、三条记录更新及合同/进度必要静态核对，
+语义1086/18pending/4引用、填充8/8/长度12点和其他原池保持。
+54A899仍仅声明，其他构析/标准流/filebuf上游、原堆模式3/62析构/启动/x64异常运行未闭合；
+未编译、测试、配置、运行或hash校验。

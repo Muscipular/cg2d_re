@@ -19,6 +19,7 @@ static_assert(offsetof(LegacyNarrowString, capacity) == 20);
 static_assert(sizeof(LegacyNarrowString) == 24);
 
 extern std::uint32_t gLegacyNarrowStringNpos550040; // 原已加载FFFFFFFF；原比较时读取。
+extern char gLegacyNarrowStringEmpty55013B[2]; // 原标记/首NUL；空串指针取+1。
 
 // 原54A67A/54A899；真实长度/位置异常依赖仍仅声明，不补默认结果。
 void ThrowLegacyStringLength_54A67A();
@@ -37,5 +38,10 @@ LegacyNarrowString* AppendLegacyNarrowString_548D69(
     LegacyNarrowString* storage, std::uint32_t count, std::int8_t character);
 LegacyNarrowString* EraseLegacyNarrowString_548DC2(
     LegacyNarrowString* storage, std::uint32_t position, std::uint32_t count);
+
+// 原54A315；保留自身双erase/整串共享/分段复制，源对象是非拥有借用。
+LegacyNarrowString* AssignLegacyNarrowStringFromString_54A315(
+    LegacyNarrowString* storage, const LegacyNarrowString* source,
+    std::uint32_t position, std::uint32_t count);
 
 } // namespace cg::platform

@@ -33754,11 +33754,11 @@
     {
       "original_entry": "0x54A315",
       "inventory_id": "F:0014A315",
-      "status": "原窄字符串本体已取证；新端承接与共享生命周期未实现/未验收",
+      "status": "原共享/自身/分段字符串赋值完整本体已实现；上游构析/异常/完整运行未闭合",
       "original_end_exclusive": "0x54A3E3",
       "instruction_count": 80,
       "original_direct_reference_count": 4,
-      "verification_level": "完整代码指令及全部直接入向；异常捕获边界另列",
+      "verification_level": "原80条及原55013B/55013C两已加载字节与四个55013C直接引用只读取证；两源文件限定新增/唯一声明、三fallback/自赋值/字段重取/共享计数与541620原54A3C8接线及三记录/合同进度静态核对，未编译或执行",
       "inbound_evidence": [
         {
           "address": "0x54A044",
@@ -33777,11 +33777,75 @@
           "parent_entry": "0x54A7AE"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AssignLegacyNarrowStringFromString_54A315",
+            "gLegacyNarrowStringEmpty55013B"
+          ],
+          "relationship": "原80条直接字段逻辑；自身先删尾/头、整串共享Tidy后重取/增U8计数，其余Grow后原块复制"
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.hpp",
+          "symbols": [
+            "AssignLegacyNarrowStringFromString_54A315"
+          ],
+          "relationship": "唯一原四参(x64显式this)接口，两个数值U32/源对象借用"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。"
+      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04依据原80条实现，源长度门禁54A899真实声明保持，count缩减后自身先erase(pos+copied,npos)再erase(0,pos)。整串非零且tag<FE才Tidy目标，再重取源buffer/length/capacity，最后原tag低U8增1；未缓存第一次源指针/引用数当后值。其他路径Grow(copied,true)后重取源，真实541620复制，再重取目标/长度/NUL。55013B/55013C两已加载00字节由同一2B背板表达，三个fallback位置保持，不声明邻接总容量或换独立空串。现有宿主对象/未批提案/异常叶/模式3/上游构析和运行门禁不变。",
+      "native_storage": {
+        "type": "LegacyNarrowString",
+        "source": "src/platform/LegacyNarrowString.hpp",
+        "original_consumed_range": "+00..+0F",
+        "native_size": 24,
+        "fields": {
+          "prefix00": {
+            "original_offset": 0,
+            "size": 4,
+            "meaning": "未解释/本组不写"
+          },
+          "buffer": {
+            "original_offset": 4,
+            "native_offset": 8,
+            "type": "char*",
+            "ownership": "原堆块+1，共享标记位于-1"
+          },
+          "length": {
+            "original_offset": 8,
+            "native_offset": 16,
+            "type": "U32"
+          },
+          "capacity": {
+            "original_offset": 12,
+            "native_offset": 20,
+            "type": "U32"
+          }
+        },
+        "boundary": "仅本组字段视图，不兼容宿主std::string私有ABI，不构造或自动析构标准流对象"
+      },
+      "static_empty_storage": {
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "symbol": "gLegacyNarrowStringEmpty55013B",
+        "original_tag_address": "0x55013B",
+        "original_text_address": "0x55013C",
+        "original_loaded_bytes": "0000",
+        "native_size": 2,
+        "boundary": "仅已证相邻标记和首NUL，不冻结或猜测其他容量，fallback的-1访问同一背板"
+      },
+      "memory_copy_connections": [
+        {
+          "target_entry": "0x541620",
+          "call_site": "0x54A3C8",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "relationship": "Grow后重取源buffer/staticEmpty+position；copy后重取目标再发布copied/NUL"
+        }
+      ]
     },
     {
       "original_entry": "0x5486C9",
@@ -36862,16 +36926,17 @@
           "path": "src/platform/LegacyNarrowString.cpp",
           "symbols": [
             "AssignLegacyNarrowString_549055",
-            "CopyLegacyNarrowString_54908A"
+            "CopyLegacyNarrowString_54908A",
+            "AssignLegacyNarrowStringFromString_54A315"
           ],
-          "relationship": "原549071/549104实际块复制；Grow成功后assign，旧块复制在Tidy前，两源/容量/发布顺序保持"
+          "relationship": "原549071/549104实际块复制；Grow成功后assign，旧块复制在Tidy前，两源/容量/发布顺序保持；原54A3C8共享/分段赋值的Grow后复制"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。；2026-10-04新增549055@549071/54908A@549104两个原窄字符串真实复制点，源/目标/低U32数量及Grow/Tidy/长度发布顺序保持；核心及其余消费者不复检，完整生命周期/运行未闭合。",
+      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。；2026-10-04新增549055@549071/54908A@549104两个原窄字符串真实复制点，源/目标/低U32数量及Grow/Tidy/长度发布顺序保持；核心及其余消费者不复检，完整生命周期/运行未闭合。；2026-10-04再接54A315@54A3C8，源/目标采样和共享/自赋值排斥分支保持；核心及已有点不复检。",
       "function_chunks": [
         {
           "start": "0x541620",
@@ -36951,6 +37016,13 @@
           "source": "src/platform/LegacyNarrowString.cpp",
           "symbol": "CopyLegacyNarrowString_54908A",
           "relationship": "旧length非0才按min(length,capacity)复制至新块+1，Tidy之前，不把源指针改成新块"
+        },
+        {
+          "parent_entry": "0x54A315",
+          "call_site": "0x54A3C8",
+          "source": "src/platform/LegacyNarrowString.cpp",
+          "symbol": "AssignLegacyNarrowStringFromString_54A315",
+          "relationship": "非自赋值且不共享时Grow后重取源/staticEmpty+pos，低U32 copied复制；再重取目标/长度/NUL"
         }
       ]
     },
@@ -85053,11 +85125,14 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_crt_memory_contract.md"
       ],
-      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。",
+      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。；2026-10-04新增54A315@54A328真实门禁调用；仍仅声明，不计异常构造/抛出完成。",
       "verification_level": "稳定入口/统计与新原调用点、唯一声明静态核对；原35条正文未验/未实现，不计body完成",
       "new_string_inbound_evidence": [
         {
           "call_site": "0x548DD0"
+        },
+        {
+          "call_site": "0x54A328"
         }
       ]
     }

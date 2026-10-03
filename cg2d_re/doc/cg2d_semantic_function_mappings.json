@@ -17432,7 +17432,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及87个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及91个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17479,7 +17479,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处共87点已接，其他935点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处及删除3处共91点已接，其他931点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -18015,6 +18015,30 @@
           "call_site": "0x465EE0",
           "source": "src/platform/SetupIni.cpp",
           "symbol": "ReadSetupIni"
+        },
+        {
+          "parent_entry": "0x533360",
+          "call_site": "0x533399",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ResetSavedState_533360"
+        },
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x533885",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860"
+        },
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x5338AA",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860"
+        },
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x5338C9",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860"
         }
       ],
       "business_format_evidence": [
@@ -18093,6 +18117,10 @@
         {
           "address": "0x55D0B8",
           "bytes": "6f6e6c7961637469766520257300"
+        },
+        {
+          "address": "0x58F5B0",
+          "bytes": "646174615c256400"
         }
       ]
     },
@@ -36257,6 +36285,208 @@
       ],
       "verification_level": "完整父边界/343条指令统计/两入向，仅[461E93,461F99)显示及预览相邻段取证；三格式点/三表达式/两个原格式字节组、字段符号/局部阈值/即刻绘制与整份源码/JSON限定差异静态核对；不重验其余槽位父本体/消费者内部，未执行",
       "boundary": "全部三个宿主sprintf接真实53B304，原S16→S32与S32参数、+14局部≥10000设9999、+54借用NUL文本及%4d/%s保持。三次复用既有256B未清局部，各次格式后立即DrawText2，随后预览非空写+2B0=1、重取同槽并FrameMove(100,0,0)；+00名称仍直接绘制。其他UI/命中/样式/两次存在判定/背景/S32返回正文逐字保持；不增加清尾、截断、转码、补零或异常保护，不推定字段业务名，不记完整交互/画面已验收。"
+    },
+    {
+      "original_entry": "0x533360",
+      "inventory_id": "F:00133360",
+      "status": "既有复位父的十轮目录格式已接真实核心；完整存档交互/运行未验",
+      "original_end_exclusive": "0x5333CF",
+      "instruction_count": 35,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "ResetSavedState_533360"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x533300",
+          "parent_entry": "0x533300"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x533360",
+          "call_site": "0x533399",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "ResetSavedState_533360",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 1,
+      "business_dynamic_format_count": 10,
+      "business_byte_evidence": [
+        {
+          "address": "0x58F5B0",
+          "push_site": "0x533393",
+          "bytes": "646174615c256400"
+        }
+      ],
+      "business_state_write_evidence": [
+        {
+          "write_site": "0x533366",
+          "address": "0x105C368",
+          "field": "newPhysical",
+          "width": "S32",
+          "value": -1
+        },
+        {
+          "write_site": "0x533370",
+          "address": "0x105C364",
+          "field": "visibleCount",
+          "width": "S32",
+          "value": 0
+        },
+        {
+          "write_site": "0x533376",
+          "address": "0x105C394",
+          "field": "selected",
+          "width": "S32",
+          "value": 0
+        },
+        {
+          "write_site": "0x53337C",
+          "address": "0x105C360",
+          "field": "mappingCount",
+          "width": "S32",
+          "value": 0
+        },
+        {
+          "write_site": "0x53339E",
+          "field": "active[index]",
+          "width": "W32",
+          "value": 0
+        },
+        {
+          "write_site": "0x5333A4",
+          "field": "logicalToPhysical[index]",
+          "width": "S32",
+          "value": -1
+        }
+      ],
+      "business_record_clear_evidence": {
+        "destination": "0x1059098",
+        "destination_load_site": "0x5333B7",
+        "clear_site": "0x5333C6",
+        "byte_count": 1296,
+        "repeat_count": 10,
+        "relationship": "每轮固定同一records[0]的0x510B，不随index平移，不清其他九条记录；每个路径只写格式结果及NUL，尾部不补零"
+      },
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_saved_state_reset.md"
+      ],
+      "verification_level": "完整35条/唯一入向、唯一格式点/十动态调用/原字节/S32索引与入口及循环写序、整份源码限定替换/文档追加/JSON限定差异静态核对；未重新验其余存档父或格式核心内部，未执行",
+      "boundary": "既有InitializeSavedState_533300仍调用本体，唯一宿主sprintf表达式接真实53B304；S32 index0..9、十个256B共享路径槽及原data反斜杠%d保持。入口newPhysical/visibleCount/selected/mappingCount四W32顺序、每轮格式后active=0/map=-1/同一records[0]清0x510B十次及末返回0逐字保持；不将路径尾部补零，不修成records[index]，不新增保护、私有owner或改其他保存/设置恢复正文，不记完整存档交互已验收。"
+    },
+    {
+      "original_entry": "0x533860",
+      "inventory_id": "F:00133860",
+      "status": "既有删除父的三路径格式已接真实核心及API消费者；完整删除交互/运行未验",
+      "original_end_exclusive": "0x5338E1",
+      "instruction_count": 41,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "DeleteSavedFiles_533860",
+            "Sub_533860"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x464D25",
+          "parent_entry": "0x464840"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x533885",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x5338AA",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x533860",
+          "call_site": "0x5338C9",
+          "source": "src/LoginSavedState.cpp",
+          "symbol": "DeleteSavedFiles_533860",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 3,
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "push_sites": [
+            "0x53387F",
+            "0x5338A4",
+            "0x5338C3"
+          ],
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x55D980",
+          "push_site": "0x533875",
+          "bytes": "736176652e64617400"
+        },
+        {
+          "address": "0x58B6C4",
+          "push_site": "0x53389A",
+          "bytes": "6d61696c2e64617400"
+        },
+        {
+          "address": "0x58B6B4",
+          "push_site": "0x5338B9",
+          "bytes": "6775696c646d61696c2e64617400"
+        }
+      ],
+      "business_consumer_connections": [
+        {
+          "call_site": "0x533898",
+          "format_call_site": "0x533885",
+          "target_iat_slot": "0x54D114",
+          "target_symbol": "DeleteFileA",
+          "relationship": "原53388A载入EDI后间接调用；即时消费同一未清1024B路径，BOOL32忽略，不短路"
+        },
+        {
+          "call_site": "0x5338B7",
+          "format_call_site": "0x5338AA",
+          "target_iat_slot": "0x54D114",
+          "target_symbol": "DeleteFileA",
+          "relationship": "同一已加载API立即消费第二格式，BOOL32忽略，不短路"
+        },
+        {
+          "call_site": "0x5338D6",
+          "format_call_site": "0x5338C9",
+          "target_iat_slot": "0x54D114",
+          "target_symbol": "DeleteFileA",
+          "relationship": "同一已加载API立即消费第三格式；完整BOOL32按S32作为父返回，不归一或聚合"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_delete_saved_files.md"
+      ],
+      "verification_level": "完整41条/唯一入向、三原格式点/三表达式/四原字节组/S32物理索引与共享目录、三寄存器间接API/IAT加载及前两忽略/末次BOOL32返回、整份源码限定替换/文档追加/JSON限定差异静态核对；不重验caller或API内部，未执行",
+      "boundary": "既有464840流程仍经Sub_533860转发私有本体，三宿主格式接真实53B304。物理槽S32索引及同一共享目录、未清1024B path、save.dat→mail.dat→guildmail.dat的逐次格式/立即DeleteFileA及最终完整BOOL32返回保持。前两失败仍继续，不新增存在性/范围/长度检查、转码、限长、补零、异常保护或业务成功门禁，不修改共享保存状态或既有caller返回消费；未实际删除存档，不记完整交互已验收。"
     }
   ]
 }

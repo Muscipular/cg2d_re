@@ -13,7 +13,6 @@
 
 #include <bit>
 #include <cstddef>
-#include <cstdio>
 #include <cstdint>
 #include <cstring>
 #include <type_traits>
@@ -491,7 +490,7 @@ SavedPhysicalRecord gCurrentSavedRecord {};
     gSavedState.mappingCount = 0;
 
     for (std::int32_t index = 0; index < 10; ++index) {
-        std::sprintf(
+        cg::platform::FormatLegacyString_53B304(
             gSavedState.paths[index].text,
             "data\\%d",
             index);
@@ -693,21 +692,21 @@ std::int32_t PersistCurrentSavedRecord_520200()
 {
     char path[0x400];
 
-    std::sprintf(
+    cg::platform::FormatLegacyString_53B304(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "save.dat");
     (void)::DeleteFileA(path);
 
-    std::sprintf(
+    cg::platform::FormatLegacyString_53B304(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,
         "mail.dat");
     (void)::DeleteFileA(path);
 
-    std::sprintf(
+    cg::platform::FormatLegacyString_53B304(
         path,
         "%s\\%s",
         gSavedState.paths[physicalSlot].text,

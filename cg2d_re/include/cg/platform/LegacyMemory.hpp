@@ -8,6 +8,10 @@ namespace cg::platform {
 void* __cdecl Malloc_53C3AC(std::uint32_t size);
 void __cdecl Free_53C0A9(void* memory);
 
+// 原53FCFB/53FA5B真实依赖声明；尚待原堆所有权与模式2/3实现，不能用宿主替代补齐。
+std::uint32_t GetLegacyAllocationSize_53FCFB(void* memory);
+void* ReallocateLegacyMemory_53FA5B(void* memory, std::uint32_t byteCount);
+
 // 原541620；按重叠方向、目标对齐及逐W32读写顺序复制，返回原目标。
 void* CopyLegacyMemory_541620(void* destination, const void* source, std::uint32_t byteCount);
 

@@ -12,6 +12,11 @@ extern std::int32_t gLegacyRuntimeExitComplete1086028;
 extern LegacyRuntimeExitCallback* gLegacyRuntimeExitFirst1087AF4;
 extern LegacyRuntimeExitCallback* gLegacyRuntimeExitLast1087AF0;
 
+// 原53B399/53B406；按实际块容量追加，空回调也入表，外层据返回指针给0/-1。
+// 容量/扩容的原堆依赖尚待实现，初始化及宿主析构登记不得提前混接。
+LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(LegacyRuntimeExitCallback callback);
+std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback callback);
+
 // 原53B418；分配32槽，仅清首槽；失败走原运行库错误24。
 LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418();
 
@@ -25,7 +30,7 @@ void DispatchLegacyExit_53C91C(
 void ExitLegacyRuntime_53C8FA(std::int32_t code);
 [[noreturn]] void QuickExitLegacyRuntime_53C90B(std::int32_t code);
 
-// 原两个终止表中的真实叶；stdio底层刷新/关闭尚未实现，不能空置。
+// 原两个终止表中的真实叶；stdio刷新/关闭已接LegacyStdio本体。
 void FinishLegacyStdio_53EA4A();
 void CloseLegacyConsole_54B20C();
 void InstallLegacyExceptionFilter_545080();

@@ -34,6 +34,43 @@ LPTOP_LEVEL_EXCEPTION_FILTER gLegacyPreviousExceptionFilter10862E0 = nullptr;
 
 } // namespace
 
+LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(
+    LegacyRuntimeExitCallback const callback)
+{
+    constexpr auto kSlotBytes =
+        static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback));
+    const std::uint32_t capacity =
+        GetLegacyAllocationSize_53FCFB(gLegacyRuntimeExitFirst1087AF4);
+    auto* const first = gLegacyRuntimeExitFirst1087AF4;
+    auto* last = gLegacyRuntimeExitLast1087AF0;
+    const auto required = reinterpret_cast<std::uintptr_t>(last)
+        - reinterpret_cast<std::uintptr_t>(first) + kSlotBytes;
+    if (capacity < required) {
+        const std::uint32_t oldCapacity = GetLegacyAllocationSize_53FCFB(first);
+        const std::uint32_t newCapacity = oldCapacity + 4u * kSlotBytes;
+        auto* const resized = static_cast<LegacyRuntimeExitCallback*>(
+            ReallocateLegacyMemory_53FA5B(gLegacyRuntimeExitFirst1087AF4, newCapacity));
+        if (resized == nullptr) {
+            return nullptr;
+        }
+        // 原53B3DB在扩容返回后重读共享首末；旧块地址只参与整数差值。
+        const auto byteOffset = static_cast<std::intptr_t>(
+            reinterpret_cast<std::uintptr_t>(gLegacyRuntimeExitLast1087AF0)
+            - reinterpret_cast<std::uintptr_t>(gLegacyRuntimeExitFirst1087AF4));
+        gLegacyRuntimeExitFirst1087AF4 = resized;
+        last = resized + byteOffset / static_cast<std::intptr_t>(kSlotBytes);
+        gLegacyRuntimeExitLast1087AF0 = last;
+    }
+    *last = callback;
+    ++gLegacyRuntimeExitLast1087AF0;
+    return callback;
+}
+
+std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback const callback)
+{
+    return RegisterLegacyExitCallback_53B399(callback) != nullptr ? 0 : -1;
+}
+
 LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418()
 {
     constexpr std::uint32_t kInitialSlotCount = 32;

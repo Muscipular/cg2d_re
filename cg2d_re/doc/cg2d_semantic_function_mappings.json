@@ -8248,54 +8248,326 @@
     {
       "original_entry": "0x53B399",
       "inventory_id": "F:0013B399",
-      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "status": "原退出登记本体已实现；容量/扩容依赖、堆归属和宿主调用迁移未闭合",
       "original_end_exclusive": "0x53B406",
       "instruction_count": 32,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyRuntimeExit.cpp",
           "symbols": [
-            "LegacyPrimaryEmptyExitStaticInitializer"
-          ],
-          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+            "RegisterLegacyExitCallback_53B399"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "RegisterLegacyExitCallback_53B399"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "MSVC VCRuntime 14.50.35717",
-        "source_path": "crt/src/vcruntime/utility.cpp",
-        "symbol": "_onexit"
-      },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原表空间不足按16字节增长，失败返回空且不发布新表；成功追加原函数并返回它。宿主委托真实退出表，增长策略、指针编码、锁及失败时点不同。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+      "boundary": "先查询容量再采样共享首末；不足时再次查询后重读首指针扩容四个原生槽。失败返回空；成功重读共享首末地址、先发布首再发布末，最后写回调并递增共享末。空回调仍写槽。容量/字节数保持U32、指针/地址差拓宽；原分配器所有权未闭合，不能启用完整初始化或替换宿主登记。",
+      "native_reference": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/utility.cpp",
+        "symbol": "_onexit",
+        "relationship": "历史宿主职责参考，不是当前真实登记本体提供者"
+      },
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x53B40A",
+          "parent_entry": "0x53B406"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53B406",
       "inventory_id": "F:0013B406",
-      "status": "仅宿主CRT退出/初始化职责关联；最终入口接线及差异未验收",
+      "status": "原退出登记本体已实现；容量/扩容依赖、堆归属和宿主调用迁移未闭合",
       "original_end_exclusive": "0x53B418",
       "instruction_count": 8,
       "sources": [
         {
-          "path": "src/platform/LegacyMouse.cpp",
+          "path": "src/platform/LegacyRuntimeExit.cpp",
           "symbols": [
-            "LegacyPrimaryEmptyExitStaticInitializer"
-          ],
-          "relationship": "现有静态初始化/退出登记的宿主提供者关联；本文件不是原CRT函数定义"
+            "RegisterLegacyAtExit_53B406"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "RegisterLegacyAtExit_53B406"
+          ]
         }
       ],
-      "native_provider": {
-        "component": "MSVC VCRuntime 14.50.35717",
-        "source_path": "crt/src/vcruntime/utility.cpp",
-        "symbol": "atexit"
-      },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用53B399，非空返回0，空返回-1；当前std::atexit实际登记点承接。null回调导致外层-1，不据此把内部登记失败和null参数混为一谈。 仅静态职责关联，不新增私有退出表、不计范围排除或整体验收。"
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。",
+      "native_reference": {
+        "component": "MSVC VCRuntime 14.50.35717",
+        "source_path": "crt/src/vcruntime/utility.cpp",
+        "symbol": "atexit",
+        "relationship": "历史宿主职责参考，不是当前真实登记本体提供者"
+      },
+      "original_direct_reference_count": 62,
+      "inbound_evidence": [
+        {
+          "address": "0x401C45",
+          "parent_entry": "0x401C10"
+        },
+        {
+          "address": "0x404145",
+          "parent_entry": "0x404120"
+        },
+        {
+          "address": "0x404185",
+          "parent_entry": "0x404160"
+        },
+        {
+          "address": "0x4041C5",
+          "parent_entry": "0x4041A0"
+        },
+        {
+          "address": "0x43D795",
+          "parent_entry": "0x43D760"
+        },
+        {
+          "address": "0x44CC55",
+          "parent_entry": "0x44CC20"
+        },
+        {
+          "address": "0x44CD65",
+          "parent_entry": "0x44CD30"
+        },
+        {
+          "address": "0x453E25",
+          "parent_entry": "0x453E00"
+        },
+        {
+          "address": "0x453E65",
+          "parent_entry": "0x453E40"
+        },
+        {
+          "address": "0x454C25",
+          "parent_entry": "0x454C00"
+        },
+        {
+          "address": "0x456FF5",
+          "parent_entry": "0x456FD0"
+        },
+        {
+          "address": "0x459815",
+          "parent_entry": "0x4597E0"
+        },
+        {
+          "address": "0x459885",
+          "parent_entry": "0x459850"
+        },
+        {
+          "address": "0x467BC5",
+          "parent_entry": "0x467B90"
+        },
+        {
+          "address": "0x467C15",
+          "parent_entry": "0x467BF0"
+        },
+        {
+          "address": "0x467C55",
+          "parent_entry": "0x467C30"
+        },
+        {
+          "address": "0x467C95",
+          "parent_entry": "0x467C70"
+        },
+        {
+          "address": "0x467CD5",
+          "parent_entry": "0x467CB0"
+        },
+        {
+          "address": "0x467D25",
+          "parent_entry": "0x467CF0"
+        },
+        {
+          "address": "0x467D85",
+          "parent_entry": "0x467D50"
+        },
+        {
+          "address": "0x467DD5",
+          "parent_entry": "0x467DB0"
+        },
+        {
+          "address": "0x467E15",
+          "parent_entry": "0x467DF0"
+        },
+        {
+          "address": "0x467E55",
+          "parent_entry": "0x467E30"
+        },
+        {
+          "address": "0x467E95",
+          "parent_entry": "0x467E70"
+        },
+        {
+          "address": "0x467ED5",
+          "parent_entry": "0x467EB0"
+        },
+        {
+          "address": "0x467F15",
+          "parent_entry": "0x467EF0"
+        },
+        {
+          "address": "0x488415",
+          "parent_entry": "0x4883F0"
+        },
+        {
+          "address": "0x499915",
+          "parent_entry": "0x4998F0"
+        },
+        {
+          "address": "0x4CD265",
+          "parent_entry": "0x4CD250"
+        },
+        {
+          "address": "0x506365",
+          "parent_entry": "0x506350"
+        },
+        {
+          "address": "0x5183F5",
+          "parent_entry": "0x5183E0"
+        },
+        {
+          "address": "0x518555",
+          "parent_entry": "0x518520"
+        },
+        {
+          "address": "0x522655",
+          "parent_entry": "0x522620"
+        },
+        {
+          "address": "0x5226B5",
+          "parent_entry": "0x5226A0"
+        },
+        {
+          "address": "0x537A65",
+          "parent_entry": "0x537A30"
+        },
+        {
+          "address": "0x537B05",
+          "parent_entry": "0x537AE0"
+        },
+        {
+          "address": "0x54818C",
+          "parent_entry": "0x548170"
+        },
+        {
+          "address": "0x5481B9",
+          "parent_entry": "0x54819D"
+        },
+        {
+          "address": "0x5481E8",
+          "parent_entry": "0x5481CA"
+        },
+        {
+          "address": "0x54822C",
+          "parent_entry": "0x54820E"
+        },
+        {
+          "address": "0x54826E",
+          "parent_entry": "0x548252"
+        },
+        {
+          "address": "0x54829D",
+          "parent_entry": "0x54827F"
+        },
+        {
+          "address": "0x5482CC",
+          "parent_entry": "0x5482AE"
+        },
+        {
+          "address": "0x5491C3",
+          "parent_entry": "0x5491BE"
+        },
+        {
+          "address": "0x5491CF",
+          "parent_entry": "0x549194"
+        },
+        {
+          "address": "0x5491EF",
+          "parent_entry": "0x5491D6"
+        },
+        {
+          "address": "0x549219",
+          "parent_entry": "0x549200"
+        },
+        {
+          "address": "0x549246",
+          "parent_entry": "0x54922A"
+        },
+        {
+          "address": "0x549273",
+          "parent_entry": "0x549257"
+        },
+        {
+          "address": "0x5492A0",
+          "parent_entry": "0x549284"
+        },
+        {
+          "address": "0x5492CF",
+          "parent_entry": "0x5492B1"
+        },
+        {
+          "address": "0x549313",
+          "parent_entry": "0x5492F5"
+        },
+        {
+          "address": "0x549357",
+          "parent_entry": "0x549339"
+        },
+        {
+          "address": "0x549386",
+          "parent_entry": "0x549368"
+        },
+        {
+          "address": "0x549F4F",
+          "parent_entry": "0x549F4A"
+        },
+        {
+          "address": "0x549F5B",
+          "parent_entry": "0x549F20"
+        },
+        {
+          "address": "0x54A3F3",
+          "parent_entry": "0x54A3E3"
+        },
+        {
+          "address": "0x54A450",
+          "parent_entry": "0x54A404"
+        },
+        {
+          "address": "0x54A667",
+          "parent_entry": "0x54A662"
+        },
+        {
+          "address": "0x54A673",
+          "parent_entry": "0x54A638"
+        },
+        {
+          "address": "0x54A9B0",
+          "parent_entry": "0x54A9AB"
+        },
+        {
+          "address": "0x54A9BC",
+          "parent_entry": "0x54A981"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53B418",
@@ -16104,7 +16376,7 @@
     {
       "original_entry": "0x53FA5B",
       "inventory_id": "F:0013FA5B",
-      "status": "原扩容全本体及退出/环境两类父归属已取证；通用堆行为未验收",
+      "status": "完整原本体已取证并声明真实登记依赖；原堆实现与所有权仍待",
       "original_end_exclusive": "0x53FCFB",
       "instruction_count": 246,
       "original_direct_reference_count": 3,
@@ -16122,6 +16394,20 @@
             "GetEnv_54518B"
           ],
           "relationship": "547E8A两个扩容调用属于已获批std::getenv补表整体承接"
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "仅真实依赖声明，尚无本体，不使用宿主近似填补"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RegisterLegacyExitCallback_53B399"
+          ],
+          "relationship": "登记本体已接该真实依赖，当前不能运行完整退出表"
         }
       ],
       "native_reference": {
@@ -16134,12 +16420,27 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_game_time.md"
       ],
-      "boundary": "空指针先走malloc，非空且长度0才free并返回0；原mode2/3小块迁移与普通堆含不同长度、16B对齐和new-mode重试，未显式写errno。宿主直接size_t容量与错误写入不同；环境根既有批准不扩大到退出表或通用Realloc。未新建分配器或应用扩容接口。"
+      "boundary": "空指针先走malloc，非空且长度0才free并返回0；原mode2/3小块迁移与普通堆含不同长度、16B对齐和new-mode重试，未显式写errno。宿主直接size_t容量与错误写入不同；环境根既有批准不扩大到退出表或通用Realloc。未新建分配器或应用扩容接口。 2026-10-03新增原函数声明及53B399调用；不是原堆已实现或宿主通用替代已批准。",
+      "inbound_evidence": [
+        {
+          "address": "0x53B3CE",
+          "parent_entry": "0x53B399"
+        },
+        {
+          "address": "0x547F77",
+          "parent_entry": "0x547E8A"
+        },
+        {
+          "address": "0x547F9F",
+          "parent_entry": "0x547E8A"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53FCFB",
       "inventory_id": "F:0013FCFB",
-      "status": "原块容量查询及退出表唯一父归属已取证；宿主退出表布局差异保留",
+      "status": "完整原本体已取证并声明真实登记依赖；原堆实现与所有权仍待",
       "original_end_exclusive": "0x53FD5C",
       "instruction_count": 40,
       "original_direct_reference_count": 2,
@@ -16150,6 +16451,20 @@
             "LegacyPrimaryEmptyExitStaticInitializer"
           ],
           "relationship": "两调用53B3A0/53B3BF均在53B399退出登记，关联现有宿主退出表职责"
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "GetLegacyAllocationSize_53FCFB"
+          ],
+          "relationship": "仅真实依赖声明，尚无本体，不使用宿主近似填补"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RegisterLegacyExitCallback_53B399"
+          ],
+          "relationship": "登记本体已接该真实依赖，当前不能运行完整退出表"
         }
       ],
       "native_reference": {
@@ -16161,7 +16476,18 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原mode3命中小块读block-4减9；mode2命中读单字节乘16；其他直接HeapSize并返回W32，不加空指针保护。宿主以first/last/end跟踪槽容量，不由本函数查旧块。仅职责归属，不伪造旧块头或将两种容量策略视为等价。"
+      "boundary": "原mode3命中小块读block-4减9；mode2命中读单字节乘16；其他直接HeapSize并返回W32，不加空指针保护。宿主以first/last/end跟踪槽容量，不由本函数查旧块。仅职责归属，不伪造旧块头或将两种容量策略视为等价。 2026-10-03新增原函数声明及53B399调用；不是原堆已实现或宿主通用替代已批准。",
+      "inbound_evidence": [
+        {
+          "address": "0x53B3A0",
+          "parent_entry": "0x53B399"
+        },
+        {
+          "address": "0x53B3BF",
+          "parent_entry": "0x53B399"
+        }
+      ],
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
     },
     {
       "original_entry": "0x53C2B4",

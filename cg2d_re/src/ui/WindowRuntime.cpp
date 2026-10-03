@@ -14129,7 +14129,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             if (allowed) {
                 Sub_48BB90(41, index, source, petIndex + 100);
             } else {
-                std::sprintf(buffer.data() + 128, kStoragePetEquipmentWarning587900);
+                platform::FormatLegacyString_53B304(buffer.data() + 128, kStoragePetEquipmentWarning587900);
                 world::detail::Sub_44B050(buffer.data() + 128, 4, 3);
             }
         }
@@ -14163,7 +14163,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             if (position < 5) {
                 const std::int32_t target = std::bit_cast<std::int16_t>(
                     world::detail::gPetPairsDE0B08[position].index);
-                std::sprintf(buffer.data(), "P|%d|%d", petIndex + 100, target);
+                platform::FormatLegacyString_53B304(buffer.data(), "P|%d|%d", petIndex + 100, target);
                 input::EscapeLegacyTextAndNotify_52D2D0(buffer.data(), buffer.data() + 256, 255);
                 const std::int32_t userState =
                     std::bit_cast<std::int32_t>(gWindowStates[41].userState.value);
@@ -14190,7 +14190,7 @@ std::int32_t Sub_4AB710(const std::int32_t index, const std::int32_t state)
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t level = world::detail::ReadPlayerLevel();
             auto* const text = static_cast<WindowTextData*>(window->elements[13].data);
-            std::sprintf(text->text, "%10d", level);
+            platform::FormatLegacyString_53B304(text->text, "%10d", level);
         } else {
             const std::int32_t slot = source - 100;
             if (Sub_475D40() == 41 && Sub_475D50() == index) {

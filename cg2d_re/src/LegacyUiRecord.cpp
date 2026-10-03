@@ -11840,14 +11840,14 @@ std::uintptr_t Sub_4F1C40(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 82 - width / 2, 37, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     const bool belowMaximum =
         world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel;
     // 原满级分支仍格式化一次，只替换最终绘制文本。
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
     drawAt(belowMaximum ? buffer : kLegacyGatherLimit589858, 198, 62, 1);
     if (gLegacyItemWorkSelection584394 >= 0) {
         const std::int32_t itemWidth = TextMeasure(gLegacyItemWorkNameCC40D8.data(), 0);
@@ -11952,12 +11952,12 @@ std::uintptr_t Sub_4F3ED0(const std::int32_t opened)
     const char* const name = world::detail::gSkillsF1BAFC[skill].name.data();
     const std::int32_t width = TextMeasure(name, 0);
     drawAt(name, 82 - width / 2, 37, 0);
-    std::sprintf(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
+    platform::FormatLegacyString_53B304(buffer, "%2d", world::detail::gSkillsF1BAFC[skill].level);
     drawAt(buffer, 234, 39, 1);
-    std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
+    platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].experience);
     drawAt(buffer, 52, 62, 1);
     if (world::detail::gSkillsF1BAFC[skill].level < world::detail::gSkillsF1BAFC[skill].maxLevel) {
-        std::sprintf(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
+        platform::FormatLegacyString_53B304(buffer, "%8d", world::detail::gSkillsF1BAFC[skill].nextExperience);
         drawAt(buffer, 198, 62, 1);
     } else {
         drawAt(kLegacyGatherLimit589858, 198, 62, 1);

@@ -13694,7 +13694,7 @@ std::int32_t Sub_4A9D10(const std::int32_t index, const std::int32_t state)
         }
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -13867,7 +13867,7 @@ std::int32_t Sub_4AA3D0(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -14585,7 +14585,7 @@ std::int32_t Sub_4AC290(const std::int32_t index, const std::int32_t state)
         static_cast<void>(login::detail::DrawGraphic(x, y, 223, item.imageNo, 0, &descriptor));
         const std::int32_t count = item.count;
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),
@@ -14735,7 +14735,7 @@ std::int32_t Sub_4AC890(const std::int32_t index, const std::int32_t state)
         std::int32_t count;
         std::memcpy(&count, record + 8, sizeof(count));
         if (count > 0) {
-            std::sprintf(buffer.data(), "%3d", count);
+            platform::FormatLegacyString_53B304(buffer.data(), "%3d", count);
             static_cast<void>(render::DrawText_456780(
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(x - 3)),
                 std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(y + 7)),

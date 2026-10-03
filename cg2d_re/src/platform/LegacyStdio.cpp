@@ -559,7 +559,7 @@ void EndLegacyTemporaryBuffer_53EAEB(
 std::int32_t WriteLegacyStreamString_53B356(
     const char* const text, LegacyFile* const stream)
 {
-    const auto length = static_cast<std::uint32_t>(std::strlen(text));
+    const auto length = static_cast<std::uint32_t>(StrLen_53F9E0(text));
     const std::int32_t started = BeginLegacyTemporaryBuffer_53EA5E(stream);
     const std::uint32_t written = WriteLegacyStream_53C680(text, 1, length, stream);
     EndLegacyTemporaryBuffer_53EAEB(started, stream);

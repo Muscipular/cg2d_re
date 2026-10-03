@@ -2,6 +2,7 @@
 #include "LegacyFloatFormat.hpp"
 #include "LegacyMultibyte.hpp"
 #include "LegacyStringCompareState.hpp"
+#include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
 #include <cstring>
@@ -463,7 +464,7 @@ std::int32_t ScanLegacyString_53CADC(const char* const buffer, const char* const
     stream.base = const_cast<char*>(buffer);
     stream.current = const_cast<char*>(buffer);
     stream.remaining = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(std::strlen(buffer)));
+        static_cast<std::uint32_t>(StrLen_53F9E0(buffer)));
     std::va_list arguments;
     va_start(arguments, format);
     const std::int32_t result = ScanLegacyInput_53DEF4(&stream, format, arguments);

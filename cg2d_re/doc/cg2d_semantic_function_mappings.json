@@ -14425,7 +14425,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有地址化长度本体及TZ和三错误报告调用已接；其他二十原引用/运行未验",
+      "status": "既有长度核心及六原调用已接；其他18原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -14450,15 +14450,30 @@
             "ReportLegacyRuntimeError_5443FF"
           ],
           "relationship": "544537/544497/5444AA三个原长度点已接，GUI两次独立采样与stderr顺序保持"
+        },
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "WriteLegacyStreamString_53B356"
+          ],
+          "relationship": "原53B35F真实U32长度先于临时缓冲/写流"
+        },
+        {
+          "path": "src/platform/LegacyScan.cpp",
+          "symbols": [
+            "ScanLegacyString_53CADC"
+          ],
+          "relationship": "原53CAF3长度低U32按S32位型写FILE remaining，原字段/扫描次序保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处共四处已接，其余二十处仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处共六处已接，其余18原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -14500,9 +14515,31 @@
           "target_symbol": "StrLen_53F9E0",
           "result_width": "U32",
           "relationship": "超过60时第二次取U32长度，借用filename尾59B后3B原省略号覆盖"
+        },
+        {
+          "parent_entry": "0x53B356",
+          "call_site": "0x53B35F",
+          "source": "src/platform/LegacyStdio.cpp",
+          "symbol": "WriteLegacyStreamString_53B356",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "text",
+          "result_width": "U32",
+          "relationship": "先取U32长度，再真实临时缓冲/写流(1,length)/结束缓冲，written比较及返回保持"
+        },
+        {
+          "parent_entry": "0x53CADC",
+          "call_site": "0x53CAF3",
+          "source": "src/platform/LegacyScan.cpp",
+          "symbol": "ScanLegacyString_53CADC",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "buffer",
+          "result_width": "U32",
+          "relationship": "原flags49/base/current后取长度低U32按S32位型写remaining，再真实va_list/input与返回"
         }
       ],
-      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行"
+      "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验"
     },
     {
       "original_entry": "0x5419D0",
@@ -16390,7 +16427,7 @@
     {
       "original_entry": "0x53B356",
       "inventory_id": "F:0013B356",
-      "status": "真实字符串流输出及全部两个黑名单原调用已接；其他业务/完整启动和运行仍待",
+      "status": "真实字符串流输出/黑名单两点与真实长度依赖已接；完整启动/运行仍待",
       "original_end_exclusive": "0x53B399",
       "instruction_count": 30,
       "original_direct_reference_count": 2,
@@ -16412,7 +16449,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按既有strlen正常NUL串合同取U32长度，真实stbuf→fwrite(1,length)→ftbuf，只有fwrite数量决定写满0/否则-1；最终flush失败不覆盖返回。不增加RAII；Blacklist已整链迁移，401236/401241两个原业务调用均接真实LegacyFile，不与宿主FILE混用；运行仍待。",
+      "boundary": "按既有strlen正常NUL串合同取U32长度，真实stbuf→fwrite(1,length)→ftbuf，只有fwrite数量决定写满0/否则-1；最终flush失败不覆盖返回。不增加RAII；Blacklist已整链迁移，401236/401241两个原业务调用均接真实LegacyFile，不与宿主FILE混用；运行仍待。 本步53B35F以原text借用源交真实53F9E0，U32长度及临时缓冲/写流/结束和写满返回顺序保持；整份LegacyStdio仅该标识符，其他正文不变。",
       "function_chunks": [
         {
           "start": "0x53B356",
@@ -16429,7 +16466,7 @@
           "parent_entry": "0x4011A0"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行",
+      "verification_level": "完整原指令、全部直接入向、复制跳表和共享缓存边界；新增源码静态核对，未执行；本步30统计15长度邻读取、原2代码入向与长度U32/随后stbuf/写流顺序、源整份仅一标识符静态核对，余15条与已过流核心不重验",
       "native_reference": {
         "component": "UCRT 10.0.26100.0",
         "source_path": "stdio/fputs.cpp",
@@ -16448,6 +16485,19 @@
           "call_site": "0x401241",
           "source": "src/Blacklist.cpp",
           "symbol": "PersistBlacklistFile_4011A0"
+        }
+      ],
+      "length_call_connections": [
+        {
+          "parent_entry": "0x53B356",
+          "call_site": "0x53B35F",
+          "source": "src/platform/LegacyStdio.cpp",
+          "symbol": "WriteLegacyStreamString_53B356",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "text",
+          "result_width": "U32",
+          "relationship": "先取U32长度，再真实临时缓冲/写流(1,length)/结束缓冲，written比较及返回保持"
         }
       ]
     },
@@ -22102,7 +22152,7 @@
     {
       "original_entry": "0x53CADC",
       "inventory_id": "F:0013CADC",
-      "status": "原字符串扫描包装/核心及21个原业务调用点已接；1个音频调用暂停，完整运行未验",
+      "status": "原扫描包装/核心及21业务点与真实长度已接；1音频调用暂停，完整运行未验",
       "original_end_exclusive": "0x53CB10",
       "instruction_count": 19,
       "original_direct_reference_count": 22,
@@ -22152,7 +22202,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。原22个入向中版本1、命令16、IP1、网络字段1和战斗字段2已接；524060的BGM配置扫描仍属暂停音频，未迁移且不计排除。原格式字节、目标/返回消费和其他父逻辑保持，未构建/运行。",
+      "boundary": "先写临时FILE flags49/base/current，strlen低W32写remaining，原生va_list交真实53DEF4；其他FILE字段不补初值，源文本不改写。原22个入向中版本1、命令16、IP1、网络字段1和战斗字段2已接；524060的BGM配置扫描仍属暂停音频，未迁移且不计排除。原格式字节、目标/返回消费和其他父逻辑保持，未构建/运行。 本步53CAF3交真实53F9E0，已有U32→S32位型remaining保持，仍flags/base/current后才取长度并调用真实input，不补FILE字段或改输入/va_list；整份LegacyScan仅长度标识符与已有公开头。",
       "function_chunks": [
         {
           "start": "0x53CADC",
@@ -22249,7 +22299,7 @@
           "parent_entry": "0x524060"
         }
       ],
-      "verification_level": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行",
+      "verification_level": "完整19条原指令、22原入向、临时FILE/va_list及固定调用差异静态核对；未编译执行；本步19统计17邻读取、原22代码入向/长度前FILE三字段及长度后remaining同位型/真实input次序、源仅一标识符/已有头静态核对，余2条及扫描核心不重验，音频caller仍暂停",
       "business_call_connections": [
         {
           "parent_entry": "0x4659F0",
@@ -22362,6 +22412,19 @@
           "instruction": "0x50D461",
           "address": "0x58B048",
           "bytes": "25587c255800"
+        }
+      ],
+      "length_call_connections": [
+        {
+          "parent_entry": "0x53CADC",
+          "call_site": "0x53CAF3",
+          "source": "src/platform/LegacyScan.cpp",
+          "symbol": "ScanLegacyString_53CADC",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "buffer",
+          "result_width": "U32",
+          "relationship": "原flags49/base/current后取长度低U32按S32位型写remaining，再真实va_list/input与返回"
         }
       ]
     },

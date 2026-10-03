@@ -22446,7 +22446,7 @@ void Sub_4C1700()
             const std::int32_t index = gWindow69ScrollD2D604 + row;
             WindowInstance* const window = gCurrentWindow;
             const std::int32_t remaining = gWindow69ItemsCB2230[index].remainingC50;
-            std::sprintf(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
+            platform::FormatLegacyString_53B304(static_cast<WindowTextData*>(window->elements[row + 31].data)->text,
                 "\xB3\xD1\xBE\x6C %2d \xAD\xD3", remaining);
         }
     }

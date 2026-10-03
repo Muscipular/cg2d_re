@@ -40047,22 +40047,22 @@ void FormatStatusBarVitals(char* const buffer)
         const std::int32_t maxHp = login::detail::ReadYobiActionMaxHpOnce(battlePlayer);
         const std::int32_t hpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t hp = login::detail::ReadYobiActionHpOnce(world::detail::gBattleEntries59E980[hpPosition]);
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
         std::strcpy(gStatusHpTextD40B18.data(), buffer);
         const std::int32_t maxFpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t maxFp =
             login::detail::ReadYobiActionMaxFpOnce(world::detail::gBattleEntries59E980[maxFpPosition]);
         const std::int32_t fpPosition = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t fp = login::detail::ReadYobiActionFpOnce(world::detail::gBattleEntries59E980[fpPosition]);
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     } else {
         const std::int32_t maxHp = world::detail::ReadPlayerMaxHpOnce();
         const std::int32_t hp = world::detail::ReadPlayerHpOnce();
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
+        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, hp, maxHp);
         std::strcpy(gStatusHpTextD40B18.data(), buffer);
         const std::int32_t maxFp = world::detail::ReadPlayerMaxFpOnce();
         const std::int32_t fp = world::detail::ReadPlayerFpOnce();
-        std::sprintf(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
+        platform::FormatLegacyString_53B304(buffer, kStatusVitalsFormat553FE8, fp, maxFp);
     }
 }
 

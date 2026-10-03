@@ -18652,7 +18652,7 @@ void Sub_4B8B10()
             const char* record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            platform::FormatLegacyString_53B304(text, "%2d", selected);
             index = std::bit_cast<std::int8_t>(gShopSelectedSlotsCB03DC[gShopScrollCC488C + row]);
             record = gShopItemsCF4FE0.data() + index * 0xC58;
             std::int32_t maximum;
@@ -18681,7 +18681,7 @@ void Sub_4B8BE0()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopTotalTextCC4B2C.data(), "%10d", total);
+    platform::FormatLegacyString_53B304(gShopTotalTextCC4B2C.data(), "%10d", total);
     static_cast<WindowNumberData*>(gCurrentWindow->elements[7].data)->color = 0;
 }
 
@@ -18784,7 +18784,7 @@ void Sub_4B8FF0()
         if (record[0] != 0) {
             std::int32_t selected;
             std::memcpy(&selected, record + 0xC28, sizeof(selected));
-            std::sprintf(text, "%2d", selected);
+            platform::FormatLegacyString_53B304(text, "%2d", selected);
             gCurrentWindow->elements[row + 42].visible = 1;
             gCurrentWindow->elements[row + 47].visible = 1;
         }
@@ -18806,7 +18806,7 @@ void Sub_4B9090()
         }
     }
     gShopTotalD2DAFC = total;
-    std::sprintf(gShopValueTextCF4A28.data(), "%10d", total);
+    platform::FormatLegacyString_53B304(gShopValueTextCF4A28.data(), "%10d", total);
 }
 
 void Sub_4B90E0()
@@ -18828,7 +18828,7 @@ void Sub_4B9110()
 {
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC34, sizeof(price));
-    std::sprintf(gShopPriceTextsD673EC.data(), "%10d", price);
+    platform::FormatLegacyString_53B304(gShopPriceTextsD673EC.data(), "%10d", price);
     const char* const name = gShopDetailCC3210.data();
     const char* secondLine;
     if (std::strlen(name) <= 20) {
@@ -18846,8 +18846,8 @@ void Sub_4B9110()
 
 void Sub_4B9270()
 {
-    std::sprintf(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
-    std::sprintf(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
+    platform::FormatLegacyString_53B304(gShopCountTextsD2D988.data(), "%2d", gShopValueD046C4);
+    platform::FormatLegacyString_53B304(gShopValueTextCF4A28.data(), "%10d", gShopValueD046C4);
     std::int32_t price;
     std::memcpy(&price, gShopDetailCC3210.data() + 0xC2C, sizeof(price));
     gShopTotalD2DAFC = price * gShopValueD046C4;

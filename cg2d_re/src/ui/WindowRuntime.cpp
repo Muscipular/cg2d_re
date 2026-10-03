@@ -2614,7 +2614,7 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                std::sprintf(buffer, "%d|", gStallItemOffersD671D8[index].value);
+                platform::FormatLegacyString_53B304(buffer, "%d|", gStallItemOffersD671D8[index].value);
                 std::strcat(offers, buffer);
                 count = gStallItemCountD67BCC;
             }
@@ -2636,7 +2636,7 @@ std::int32_t Sub_4CFE70()
                 }
             }
             if (index < count) {
-                std::sprintf(buffer, "%d|", gStallPetOffersCC3E98[index].value);
+                platform::FormatLegacyString_53B304(buffer, "%d|", gStallPetOffersCC3E98[index].value);
                 std::strcat(offers, buffer);
                 count = gStallPetCountD67BD4;
             }
@@ -2646,21 +2646,21 @@ std::int32_t Sub_4CFE70()
         }
     }
     input::EscapeLegacyTextAndNotify_52D2D0(offers, escaped, 275);
-    std::strncpy(offers, escaped, 275);
+    platform::StrNCpy_53BEC0(offers, escaped, 275);
     const std::size_t nameLength = std::strlen(gStallNameD67BE4.data());
     offers[275] = '\0';
     if (nameLength != 0) {
-        std::sprintf(name, "%s", gStallNameD67BE4.data());
+        platform::FormatLegacyString_53B304(name, "%s", gStallNameD67BE4.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(name, escaped, 275);
-    std::strncpy(name, escaped, 32);
+    platform::StrNCpy_53BEC0(name, escaped, 32);
     const std::size_t descriptionLength = std::strlen(gStallDescriptionD67BF8.data());
     name[32] = '\0';
     if (descriptionLength != 0) {
-        std::sprintf(description, "%s", gStallDescriptionD67BF8.data());
+        platform::FormatLegacyString_53B304(description, "%s", gStallDescriptionD67BF8.data());
     }
     input::EscapeLegacyTextAndNotify_52D2D0(description, escaped, 275);
-    std::strncpy(description, escaped, 112);
+    platform::StrNCpy_53BEC0(description, escaped, 112);
     const std::uintptr_t socket = platform::gConnectionSocket;
     description[112] = '\0';
     static_cast<void>(network::Sub_5120D0(socket, name, description, offers));
@@ -3681,7 +3681,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(Sub_476570(&gStallDescriptionInput581360, window->x, window->y, 1));
-            std::strncpy(gStallDescriptionD67BF8.data(),
+            platform::StrNCpy_53BEC0(gStallDescriptionD67BF8.data(),
                 gStallDescriptionInput581360.input.context->text, 56);
             gStallDescriptionD67BF8[56] = '\0';
         } else if (std::strlen(gStallDescriptionD67BF8.data()) != 0) {
@@ -3708,7 +3708,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
             && gValueD67BE0 == 0 && gStallOwn58111C != 0) {
             WindowInstance* const window = gCurrentWindow;
             static_cast<void>(Sub_476570(&gStallNameInput581130, window->x, window->y, 1));
-            std::strncpy(gStallNameD67BE4.data(), gStallNameInput581130.input.context->text, 16);
+            platform::StrNCpy_53BEC0(gStallNameD67BE4.data(), gStallNameInput581130.input.context->text, 16);
             gStallNameD67BE4[16] = '\0';
         } else if (std::strlen(gStallNameD67BE4.data()) != 0) {
             WindowInstance* const window = gCurrentWindow;
@@ -3769,7 +3769,7 @@ std::int32_t Sub_4CD4F0(const std::int32_t value)
         }
         gStallHover581120 = -1;
     }
-    std::sprintf(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
+    platform::FormatLegacyString_53B304(gStallMoneyText57B440.data(), "%d", world::detail::ReadPlayerValueFC());
     return 1;
 }
 
@@ -3966,13 +3966,13 @@ void Sub_4CED60(
     }
 
     std::memset(&gStallBrowseD046D8, 0, sizeof(gStallBrowseD046D8));
-    std::strncpy(gStallBrowseD046D8.sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
+    platform::StrNCpy_53BEC0(gStallBrowseD046D8.sellerName00.data(), login::detail::BorrowYobiNameC4(action), 16);
     gStallBrowseD046D8.target5C = target;
     gStallBrowseD046D8.imageNo60 = login::detail::GetYobiActionField2A8(action);
     gStallBrowseD046D8.action64 = login::detail::GetYobiActionField2B0(action);
     gStallBrowseD046D8.direction68 = login::detail::GetYobiActionField2B8(action);
-    std::strncpy(gStallBrowseD046D8.stallName11.data(), stallName, 16);
-    std::strncpy(gStallBrowseD046D8.description22.data(), description, 56);
+    platform::StrNCpy_53BEC0(gStallBrowseD046D8.stallName11.data(), stallName, 16);
+    platform::StrNCpy_53BEC0(gStallBrowseD046D8.description22.data(), description, 56);
 
     char itemName[256];
     char itemDescription[768];

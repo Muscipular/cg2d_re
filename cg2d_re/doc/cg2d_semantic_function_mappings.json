@@ -10973,7 +10973,7 @@
     {
       "original_entry": "0x53BEC0",
       "inventory_id": "F:0013BEC0",
-      "status": "原直接本体及两TZ/四输入/两交易共八调用已接；其他三十一引用及完整运行未闭合",
+      "status": "原直接本体及十六个业务复制调用已接；其他二十三引用及完整运行未闭合",
       "original_end_exclusive": "0x53BFBE",
       "instruction_count": 109,
       "sources": [
@@ -11006,6 +11006,15 @@
             "Sub_4E5E40"
           ],
           "relationship": "4E638F/4E646B两1024B载荷复制接真实StrNCpy_53BEC0；格式/拼接/回传不改"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CD4F0",
+            "Sub_4CED60",
+            "Sub_4CFE70"
+          ],
+          "relationship": "摊位编辑/浏览回复/上架八复制原点接真实核心；原计数、清区、转义/终止/发送次序保持"
         }
       ],
       "evidence_documents": [
@@ -11013,9 +11022,11 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_input_append.md",
-        "doc/ui_windows/legacy_trade_panel.md"
+        "doc/ui_windows/legacy_trade_panel.md",
+        "doc/ui_windows/shared_67_68.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接八处，其他31处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中已接十六处，其他23处不计完成。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -11104,9 +11115,97 @@
           "count_value": 1024,
           "count_width": "U32",
           "relationship": "宠物原文复制至独立宠物载荷，之后金额先于socket取样并512040公开；不转义/另清尾"
+        },
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CD73A",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 56,
+          "count_width": "U32",
+          "relationship": "原焦点/own/gate分支更新输入原型后，从其当前context->text复制说明，再caller写[56]NUL"
+        },
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CD840",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "原输入原型更新后读取当前摊名文本，复制后仍caller写[16]NUL"
+        },
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEDBD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "成功分支清同一浏览区后，从借用action+C4复制卖家名；之后依序发布目标及对象字段"
+        },
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEDFA",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "目标/image/action/direction发布后复制传入摊名，原清区和尾字节保持"
+        },
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEE0E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 56,
+          "count_width": "U32",
+          "relationship": "传入说明复制后继续原物品/宠物解析，不添加保护/终止或改变RNG次序"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D009D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 275,
+          "count_width": "U32",
+          "relationship": "报价转义后复制escaped至offers；随后先取摊名长度再写offers[275]NUL"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D00FB",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 32,
+          "count_width": "U32",
+          "relationship": "摊名转义后复制escaped至name；随后先取说明长度再写name[32]NUL"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D0156",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 112,
+          "count_width": "U32",
+          "relationship": "说明转义后复制escaped至description；先采样socket再写description[112]NUL并发送"
         }
       ],
-      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行"
+      "verification_level": "既有完整109条核心合同与当前LegacyTime.cpp逐字保持；新44条分类/42条输入复制回写、交易既有复制窗口及当前39引用/八已接点，三源码限定差异/三合同仅追加/JSON四项限定增量静态核对；未构建或执行；摊位本轮413条及两48B原型项证据，整份WindowRuntime仅八复制/五格式标识符替换，三新增父登记和两共享项限定差异"
     },
     {
       "original_entry": "0x544DB0",
@@ -17588,7 +17687,7 @@
     {
       "original_entry": "0x53B304",
       "inventory_id": "F:0013B304",
-      "status": "原字符串输出包装及196个业务调用点已接；其余调用、真实启动/运行未闭合",
+      "status": "原字符串输出包装及201个业务调用点已接；其余调用、真实启动/运行未闭合",
       "original_end_exclusive": "0x53B356",
       "instruction_count": 32,
       "original_direct_reference_count": 1022,
@@ -17635,7 +17734,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处、删除3处及旧技能选择/学习/遗忘9处及旧买卖列表/确认18处及旧修理/鉴定14处及旧以物易物8处及仓库金币存取10处及仓库外层/物品/宠物23处及旧交易23处共196点已接，其他826点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。 旧技能4D6710/4D6A60/4D6EA0九原格式点接真实53B304及转义/非加密选择回传和即刻文字绘制；S32参数、六原格式/旧字节、16B/64B/256B未清局部、许可/逐行重读及原绘制/取样次序保持。只核新增格式差异，旧正文/图号衔接/旧表路由仍未闭合；业务点累计100，其他922个原引用未计完成。 旧买卖4D9220/4DA580/4DAA40/4DBD30十八原格式点与既有十六表达式整链接真实53B304，卖出数量三互斥原点仍共用一表达式/动态一次；S32字段/索引差异、八原字节、128B/512B/32B缓冲、跨面板坐标/原色号与拼接/转义/回传/即刻绘制次序保持。只核新增格式差异，上游与旧表路由仍待；业务点累计118，其他904个原引用未计完成。 旧修理/鉴定4DC7E0/4DDB20/4DDFC0/4DF300十四原点/十四表达式接真实53B304及列表/汇总即时绘制、索引拼接转义回传；S32字段与各自owner、六原字节组、128B/512B/32B容量及重复读取/取样/关闭次序保持。确认只回传+C2C物品索引，选择数仍仅作许可，不换列表索引或追加数量；上游/旧表路由仍待。业务点累计132，其他890个原引用未计完成。 旧以物易物4D36F0/4D4A50八点/八表达式接真实53B304及列表即时显示、索引数量拼接转义回传、确认数量显示和汇总固定字体测宽后居中绘制；原S32字段/名称借用/六字节组、128B/512B/32B容量与颜色/重读/取样/关闭顺序保持。零选择仍发送、非零数量包括负值及44B260字体快照保持，旧上游/路由仍待。业务点累计140，其他882个原引用未计完成。 仓库金额4E2D90/4E3750十点/十表达式接真实53B304及各次即时绘制，原%7d/金币字节、S32余额/上限/草稿/费用、64B未清buffer与side/金额/面板取样次序保持；CC4B58别名和外层原函数指针表不改。前三font0、后二font1/均mode2/color0；完整生产/旧表路由及运行仍待。业务点累计150，其他872个原引用未计完成。 仓库外层/物品/宠物六父剩余23原格式点/14表达式接真实53B304，六字段转义回传、六汇总逐项采样/即时绘制、数量/拆分/九宠物数值和底部金额保持；公共lambda/五属性循环及原字节/S32参数/缓冲不变，五原直接call和两局部表装载区分。完整生产/路由及运行仍待，业务点累计173，其他849个原引用未计完成。 旧交易六父23原点/14表达式接真实53B304，物品槽号+8/宠物索引公开载荷保留两次1024B复制，六汇总逐项采样、五属性循环/5FCH偏移、数量/拆分/双方金额原快照与读取保持；三交易文案无空格、原参数/缓冲/21文字消费者及五直接call/两表装载保持。完整生产/旧表路由与运行仍待，业务点累计196，其他826个原引用未计完成。",
+      "boundary": "原临时FILE只初始化base/current/flags42H/count7FFFFFFFH，原生va_list交真实53EB28；保存核心返回后count--并尝试尾NUL，满缓冲经真实flsbuf且不覆盖核心结果。flsbuf拒绝字符串路径不采样未消费fd；不清未知局部。原1022应用引用中命令8、存档目录1、商店价格5加黑名单2处、聊天历史2处、登录存档4处、邮件/资料/分类8处、调色板及DBF4处、地图路径/目录4处、相册及CUT/AUT4处、图形容量1处、动画及坐标提示2处、资源路径及缓存路径7处、聊天及现代查看器5处、入口命令行1处、截图公共及GDI3处、连接请求及收发错误10处、协议回包提示及命令前缀4处、创建页数值3处、回车黑名单2处及角色槽3处及配置路径/命令行4处、存档复位1处、删除3处及旧技能选择/学习/遗忘9处及旧买卖列表/确认18处及旧修理/鉴定14处及旧以物易物8处及仓库金币存取10处及仓库外层/物品/宠物23处及旧交易23处及摊位编辑/上架5处共201点已接，其他821点未据此计完成；格式、参数及后处理保持。 图形容量提示459B3A已接，共43个业务点，其余979个原引用未计完成；256B未清局部、原双%d格式/S32参数、消息/关闭顺序保持。 动画45BDA9及坐标45C1CF两原容量提示已接，256B未清消息、原%d参数的S32提升/先后顺序和旧编码标题保持；共45个业务点，其他977个原引用未计完成。 六组资源路径456050六点及auto.dat包装45A14B已接，原%s反斜杠%s、容量/顺序/末次S32返回保持；共52个业务点，其他970个原引用未计完成。 聊天路径两格式、现代查看器文件名/路径三格式已接，容量/旧时间字段采样/共享文件名及原顺序保持；业务点累计57，其他965个原引用未计完成。 WinMain465805生成argument.ini路径已与真实FILE读取/EOF/关闭整链迁移，%s及原路径/64B容量保持；业务点累计58，其他964个原引用未计完成。 截图4537DF/453823/453B45三原格式点已与r探测/关闭及既有GDI链迁移，对应八现有格式表达式；公共GDI六格式动态恰一次，原字节/缓冲/参数与消息顺序保持，Primary三格式沿已批准原生替换另记。业务点累计61，其他961个原引用未计完成。 508360八请求/日志格式及5082D0/508310两错误格式已整链接既有请求提示和真实系统日志消费者；六无参提示移除额外%s包装，恢复原常量格式，已采样S32错误/尾空格/SNED拼写与日志先于过滤保持。业务点累计71，其他951个原引用未计完成。 50CF38/50E71A/50F23A/517590四原点已接三回复提示与非加密命令前缀，公会两格式保持同一表达式、原外部姓名参数及后续保存/音效/消息顺序；地址双提示后回写、命令变换后%s尾空格与校验和正文保持。业务点累计75，其他947个原引用未计完成。 创建页464197/4641D4/464221三原点已整链接真实格式与既有绘制消费者，%02d/S8→S32、32B未清buffer及三表达式/七动态格式保持；仅新增差异不重验其余创建本体或放行入口gate。业务点累计78，其他944个原引用未计完成。 回车44AD13/44AD66两原点已接真实黑名单提示/消费者，对应现有三互斥格式表达式；四原格式字节/%s源/AL分支及首字节→caret→length→通知→切换保持。业务点累计80，其他942个原引用未计完成。 角色槽461EC2/461F0E/461F48三原点已接真实格式及三个即刻456670绘制，原%4d/%s、+12 S16→S32、+14 S32局部业务阈值和+54借用文本保持；256B未清buffer及预览相邻顺序不改。业务点累计83，其他939个原引用未计完成。 配置465B49/465C43/465D5A/465EE0四原点已接真实核心及既有A接口/命令行消费者，原路径/前缀/%s字节、参数借用/容量/预清差异、格式后指针切换与末次S32计数返回保持；屏幕键盘仍排除。业务点累计87，其他935个原引用未计完成。 存档复位533399及删除533885/5338AA/5338C9四原点接真实格式及共享路径/三DeleteFileA消费者，S32十槽索引/原data反斜杠%d/%s反斜杠%s与三个文件名、固定records[0]重复清零及三次删除/最终BOOL32返回保持。业务点累计91，其他931个原引用未计完成。 旧技能4D6710/4D6A60/4D6EA0九原格式点接真实53B304及转义/非加密选择回传和即刻文字绘制；S32参数、六原格式/旧字节、16B/64B/256B未清局部、许可/逐行重读及原绘制/取样次序保持。只核新增格式差异，旧正文/图号衔接/旧表路由仍未闭合；业务点累计100，其他922个原引用未计完成。 旧买卖4D9220/4DA580/4DAA40/4DBD30十八原格式点与既有十六表达式整链接真实53B304，卖出数量三互斥原点仍共用一表达式/动态一次；S32字段/索引差异、八原字节、128B/512B/32B缓冲、跨面板坐标/原色号与拼接/转义/回传/即刻绘制次序保持。只核新增格式差异，上游与旧表路由仍待；业务点累计118，其他904个原引用未计完成。 旧修理/鉴定4DC7E0/4DDB20/4DDFC0/4DF300十四原点/十四表达式接真实53B304及列表/汇总即时绘制、索引拼接转义回传；S32字段与各自owner、六原字节组、128B/512B/32B容量及重复读取/取样/关闭次序保持。确认只回传+C2C物品索引，选择数仍仅作许可，不换列表索引或追加数量；上游/旧表路由仍待。业务点累计132，其他890个原引用未计完成。 旧以物易物4D36F0/4D4A50八点/八表达式接真实53B304及列表即时显示、索引数量拼接转义回传、确认数量显示和汇总固定字体测宽后居中绘制；原S32字段/名称借用/六字节组、128B/512B/32B容量与颜色/重读/取样/关闭顺序保持。零选择仍发送、非零数量包括负值及44B260字体快照保持，旧上游/路由仍待。业务点累计140，其他882个原引用未计完成。 仓库金额4E2D90/4E3750十点/十表达式接真实53B304及各次即时绘制，原%7d/金币字节、S32余额/上限/草稿/费用、64B未清buffer与side/金额/面板取样次序保持；CC4B58别名和外层原函数指针表不改。前三font0、后二font1/均mode2/color0；完整生产/旧表路由及运行仍待。业务点累计150，其他872个原引用未计完成。 仓库外层/物品/宠物六父剩余23原格式点/14表达式接真实53B304，六字段转义回传、六汇总逐项采样/即时绘制、数量/拆分/九宠物数值和底部金额保持；公共lambda/五属性循环及原字节/S32参数/缓冲不变，五原直接call和两局部表装载区分。完整生产/路由及运行仍待，业务点累计173，其他849个原引用未计完成。 旧交易六父23原点/14表达式接真实53B304，物品槽号+8/宠物索引公开载荷保留两次1024B复制，六汇总逐项采样、五属性循环/5FCH偏移、数量/拆分/双方金额原快照与读取保持；三交易文案无空格、原参数/缓冲/21文字消费者及五直接call/两表装载保持。完整生产/旧表路由与运行仍待，业务点累计196，其他826个原引用未计完成。 摊位4CD4F0/4CFE70五原格式点接真实53B304及同源共享金额/报价拼接/姓名说明转义复制回传；%d/%d|/%s、S32参数/借用原字节和缓冲、条件与三次转义/复制/尾NUL/socket顺序保持。共享目标立即数与格式第二参数区分，不推断整窗运行；业务点累计201，其他821原引用未计完成。",
       "function_chunks": [
         {
           "start": "0x53B304",
@@ -18825,6 +18924,36 @@
           "call_site": "0x4E907B",
           "source": "src/LegacyUiRecord.cpp",
           "symbol": "Sub_4E8AD0"
+        },
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CDAEF",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4CFF41",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4CFFF1",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D00CD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D0128",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70"
         }
       ],
       "business_format_evidence": [
@@ -18999,6 +19128,10 @@
         {
           "address": "0x589494",
           "bytes": "253764aaf7b9f400"
+        },
+        {
+          "address": "0x58687C",
+          "bytes": "25647c00"
         }
       ]
     },
@@ -41107,6 +41240,340 @@
       ],
       "verification_level": "父边界/459条统计/1原引用；格式/消费相邻51条，七引用指令及相关寄存器定义补证；23原点/14表达式、原字节/S32字段/复制回传/消费者、整份源码六父仅14标识符替换/文档追加/JSON限定差异静态核对；不重验其余父或复制/回传/文字消费者内部，未执行",
       "boundary": "己方金额两格式接真实53B304；玩家+FC采样后原业务上限回写，第一行使用同一money快照、第二行格式时重读D046D0，%7d/128B未清buffer，当前面板421/118或158与mode2/font0/color0保持。 其他父正文与原输入/选择/公开/撤回/确认/统计/预览/共享状态/音效调用/关闭/提示/返回逐字保持，不新增转码、限长、扩容、清尾、补零或异常保护，不恢复音频/包加解密。现有五直接call/两局部表装载保持；完整数据生产、旧表通用handler与交易运行往返仍待，不计旧52整体运行验收。"
+    },
+    {
+      "original_entry": "0x4CD4F0",
+      "inventory_id": "F:000CD4F0",
+      "status": "既有摊位编辑一格式/两限长复制已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4CDB01",
+      "instruction_count": 435,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CD4F0"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": null,
+          "reference_site": "0x54EF58",
+          "is_code": false,
+          "reference_type": 1,
+          "relationship": "原48B UIWindowProto整项data xref，真实回调在项+24H；不是直接call或项首值"
+        },
+        {
+          "parent_entry": null,
+          "reference_site": "0x54EF88",
+          "is_code": false,
+          "reference_type": 1,
+          "relationship": "原48B UIWindowProto整项data xref，真实回调在项+24H；不是直接call或项首值"
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CD73A",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 56,
+          "count_width": "U32",
+          "relationship": "原焦点/own/gate分支更新输入原型后，从其当前context->text复制说明，再caller写[56]NUL"
+        },
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CD840",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "原输入原型更新后读取当前摊名文本，复制后仍caller写[16]NUL"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CD4F0",
+          "call_site": "0x4CDAEF",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CD4F0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 1,
+      "business_byte_evidence": [
+        {
+          "address": "0x5531A4",
+          "push_sites": [
+            "0x4CDAE5"
+          ],
+          "bytes": "256400"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_67_68.md"
+      ],
+      "verification_level": "父边界/435条统计，68条文本相邻及两48B原型项/实际引用/压入格式取证；八复制/五格式/S32值和原字节、整份源码十三标识符替换/文档追加/JSON三新增父及两共享项限定差异静态核对；不重验前两父其余正文或消费者内部，未执行",
+      "boundary": "摊位编辑两复制/共享金额一格式已接真实53BEC0/53B304；原型当前context读取、56/16 U32计数及caller末字节NUL保持，S32玩家金额按原%d写16B共享57B440，初值01234567只是目标正文，不当格式。 整份WindowRuntime本步仅十三调用标识符替换，其他父正文/窗口与输入取样/owner/布局/预览/字段/返回逐字保持，不新增转码、初始化、限长、保护或故障模拟；两核心算法/声明不改，不恢复音频/加解密。完整67/68/网络/鼠标/场景及整体验收仍待，不计整个摊位已运行。",
+      "table_callback_evidence": [
+        {
+          "xref_item_head": "0x54EF58",
+          "item_size": 48,
+          "callback_slot": "0x54EF7C",
+          "value": "0x4CD4F0",
+          "relationship": "48B项原字节+24H=F0D44C00，项首四字节0不表示无回调"
+        },
+        {
+          "xref_item_head": "0x54EF88",
+          "item_size": 48,
+          "callback_slot": "0x54EFAC",
+          "value": "0x4CD4F0",
+          "relationship": "48B项原字节+24H=F0D44C00，项首四字节0不表示无回调"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4CED60",
+      "inventory_id": "F:000CED60",
+      "status": "既有摊位回复三限长复制已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4CF899",
+      "instruction_count": 948,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CED60"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x50E7F0",
+          "reference_site": "0x50E80E",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call与既有回复/按钮路径保持，未据此验收整条分派"
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEDBD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "成功分支清同一浏览区后，从借用action+C4复制卖家名；之后依序发布目标及对象字段"
+        },
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEDFA",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 16,
+          "count_width": "U32",
+          "relationship": "目标/image/action/direction发布后复制传入摊名，原清区和尾字节保持"
+        },
+        {
+          "parent_entry": "0x4CED60",
+          "call_site": "0x4CEE0E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CED60",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 56,
+          "count_width": "U32",
+          "relationship": "传入说明复制后继续原物品/宠物解析，不添加保护/终止或改变RNG次序"
+        }
+      ],
+      "business_call_connections": [],
+      "business_source_expression_count": 0,
+      "business_byte_evidence": [],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_67_68.md"
+      ],
+      "verification_level": "父边界/948条统计，40条文本相邻及两48B原型项/实际引用/压入格式取证；八复制/五格式/S32值和原字节、整份源码十三标识符替换/文档追加/JSON三新增父及两共享项限定差异静态核对；不重验前两父其余正文或消费者内部，未执行",
+      "boundary": "浏览回复三复制已接真实53BEC0；成功分支清同一D046D8、借用action+C4卖家名16、随后目标/对象字段发布/摊名16/说明56 U32顺序保持；其余失败处理、完整物品/宠物解析与RNG消费不改。 整份WindowRuntime本步仅十三调用标识符替换，其他父正文/窗口与输入取样/owner/布局/预览/字段/返回逐字保持，不新增转码、初始化、限长、保护或故障模拟；两核心算法/声明不改，不恢复音频/加解密。完整67/68/网络/鼠标/场景及整体验收仍待，不计整个摊位已运行。"
+    },
+    {
+      "original_entry": "0x4CFE70",
+      "inventory_id": "F:000CFE70",
+      "status": "既有上架四格式/三限长复制已接真实核心；其他依赖及完整运行未验",
+      "original_end_exclusive": "0x4D022C",
+      "instruction_count": 305,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4CFE70"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "parent_entry": "0x4CF940",
+          "reference_site": "0x4CF9CA",
+          "is_code": true,
+          "reference_type": 17,
+          "relationship": "原直接call与既有回复/按钮路径保持，未据此验收整条分派"
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D009D",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 275,
+          "count_width": "U32",
+          "relationship": "报价转义后复制escaped至offers；随后先取摊名长度再写offers[275]NUL"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D00FB",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 32,
+          "count_width": "U32",
+          "relationship": "摊名转义后复制escaped至name；随后先取说明长度再写name[32]NUL"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D0156",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_value": 112,
+          "count_width": "U32",
+          "relationship": "说明转义后复制escaped至description；先采样socket再写description[112]NUL并发送"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4CFF41",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4CFFF1",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D00CD",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x4CFE70",
+          "call_site": "0x4D0128",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CFE70",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        }
+      ],
+      "business_source_expression_count": 4,
+      "business_byte_evidence": [
+        {
+          "address": "0x58687C",
+          "push_sites": [
+            "0x4CFF3B",
+            "0x4CFFEB"
+          ],
+          "bytes": "25647c00"
+        },
+        {
+          "address": "0x5535F8",
+          "push_sites": [
+            "0x4D00C7",
+            "0x4D0122"
+          ],
+          "bytes": "257300"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/ui_windows/shared_67_68.md"
+      ],
+      "verification_level": "父边界/305条统计，305条完整上架指令及两48B原型项/实际引用/压入格式取证；八复制/五格式/S32值和原字节、整份源码十三标识符替换/文档追加/JSON三新增父及两共享项限定差异静态核对；不重验前两父其余正文或消费者内部，未执行",
+      "boundary": "上架四格式/三复制已接真实53B304/53BEC0；12B未清报价buffer、S32 %d|/20物品5宠物槽与命中后数量重读、33B名称/113B说明原默认字节及条件%s保持。三次转义276B/容量275后复制275/32/112 U32，下一串长度或socket采样先于caller尾NUL，5120D0与存档/提示/首元素显示/返回0保持。 整份WindowRuntime本步仅十三调用标识符替换，其他父正文/窗口与输入取样/owner/布局/预览/字段/返回逐字保持，不新增转码、初始化、限长、保护或故障模拟；两核心算法/声明不改，不恢复音频/加解密。完整67/68/网络/鼠标/场景及整体验收仍待，不计整个摊位已运行。",
+      "business_consumer_connections": [
+        {
+          "call_site": "0x4D0083",
+          "format_call_sites": [
+            "0x4CFF41",
+            "0x4CFFF1"
+          ],
+          "target_entry": "0x52D2D0",
+          "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+          "relationship": "原逐槽strcat完成后转义offers至共用escaped；容量275，随后53BEC0复制275再原时点写末NUL"
+        },
+        {
+          "call_site": "0x4D00E7",
+          "format_call_sites": [
+            "0x4D00CD"
+          ],
+          "target_entry": "0x52D2D0",
+          "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+          "relationship": "原默认或条件%s摊名转义到共用escaped，随后复制32/下一串长度采样/末NUL"
+        },
+        {
+          "call_site": "0x4D0142",
+          "format_call_sites": [
+            "0x4D0128"
+          ],
+          "target_entry": "0x52D2D0",
+          "target_symbol": "EscapeLegacyTextAndNotify_52D2D0",
+          "relationship": "原默认或条件%s说明转义到共用escaped，随后复制112/socket采样/末NUL"
+        },
+        {
+          "call_site": "0x4D017C",
+          "format_call_sites": [
+            "0x4CFF41",
+            "0x4CFFF1",
+            "0x4D00CD",
+            "0x4D0128"
+          ],
+          "target_entry": "0x5120D0",
+          "target_symbol": "Sub_5120D0",
+          "relationship": "三串按name/description/offers参数回传，共享socket先于最终说明NUL采样；发送后存档/提示/显隐保持"
+        }
+      ]
     }
   ]
 }

@@ -41278,7 +41278,7 @@ void Sub_4767E0()
     char buffer[256];
     const auto writeNumber = [&buffer](
         const std::int32_t index, const std::int32_t value, const char* const format) {
-        std::sprintf(buffer, format, value);
+        platform::FormatLegacyString_53B304(buffer, format, value);
         auto* const text = static_cast<WindowTextData*>(gCurrentWindow->elements[index].data);
         const std::size_t length = std::strlen(buffer) + 1;
         std::memcpy(text->text, buffer, length);

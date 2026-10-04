@@ -137647,6 +137647,119 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x44E150",
+      "inventory_id": "F:0004E150",
+      "status": "GPC01完整原体/适用32位色与池阶段实修局部静态；全父/调色板寿命和像素运行未验",
+      "original_end_exclusive": "0x44E22F",
+      "instruction_count": 69,
+      "original_chunks": [
+        [
+          "0x44E150",
+          "0x44E22F"
+        ]
+      ],
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPaletteCache.cpp",
+          "symbols": [
+            "TakeIndexCacheFromPool_44E150"
+          ],
+          "relationship": "入口池基址保存、S32扫描与分支DX取序恢复，发布各阶段独立重取共享池"
+        },
+        {
+          "path": "include/cg/render/GraphicPaletteCache.hpp",
+          "symbols": [
+            "TakeIndexCacheFromPool_44E150",
+            "PaletteCacheItem"
+          ],
+          "relationship": "既有声明/0x410载荷/104动态和4静态项保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_palette_cache_alignment_spec.md",
+        "doc/cg2d_palette_cache_alignment_evidence.json"
+      ],
+      "boundary": "完整69条；104项入口同池扫描，空槽先沿保存基址写新图号，脏计数/返回各独立取共享池。正脏分支先DX基址后保存池旧图号，首槽强制分支先保存池旧图号后DX；均清旧图palette后沿各次新池写-1/新图号/脏0/返回。不增加空池/范围拒绝，不迁owner或改变分配释放老化。原唯一44E38B调用真实落位，完整父/间接alias和生命周期未验。",
+      "verification_level": "934条/3003B及56条局部窗口、73绝对数据操作数；八限定CPP补丁外全文与三生命周期根保持；未构建/测试/运行/摘要，RPLAN.24异常不计安全/故障等价",
+      "native_provider": {
+        "source": "src/render/GraphicPaletteCache.cpp",
+        "symbol": "TakeIndexCacheFromPool_44E150",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "palette_cache_alignment": {
+        "spec": "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure",
+        "evidence": "doc/cg2d_palette_cache_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_tails_retained": true,
+        "applicable_scope": "完整池业务",
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x44E290",
+      "inventory_id": "F:0004E290",
+      "status": "GPC01完整原体/适用32位色与池阶段实修局部静态；全父/调色板寿命和像素运行未验",
+      "original_end_exclusive": "0x44ED6C",
+      "instruction_count": 865,
+      "original_chunks": [
+        [
+          "0x44E290",
+          "0x44ED6C"
+        ]
+      ],
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPaletteCache.cpp",
+          "symbols": [
+            "LoadGraphicPalette32_44E290",
+            "WriteColor32"
+          ],
+          "relationship": "共享分流/32位色静态槽与实际源借用、原通道/表取样及颜色→纯黑两次W32写恢复"
+        },
+        {
+          "path": "include/cg/render/GraphicPaletteCache.hpp",
+          "symbols": [
+            "LoadGraphicPalette32_44E290",
+            "PaletteCacheItem"
+          ],
+          "relationship": "既有声明/0x410载荷/104动态和4静态项保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_palette_cache_alignment_spec.md",
+        "doc/cg2d_palette_cache_alignment_evidence.json"
+      ],
+      "boundary": "完整865条取证，仅共享分流/32位色适用处置。无双源才强制mode0，色调指针单次借用与blue/green/red中性判序；静态0号只认active0，其余保存活动号先比较旧号，旧帧相等才命中，未中先写号后当前帧。固定16/224/16段RGB，动态256项BGR/BGRX；同步取源/三通道映射按原序，先W32颜色、黑色再W32=1、末W32索引0清零。保留池空返回门禁与动态号帧写入、mode/源优先和所有返回。16/24分支不新增实现。原520D4C共享实参点由父两互斥源码call承接，父本步未改；完整父/owner/SDL像素未验。",
+      "verification_level": "934条/3003B及56条局部窗口、73绝对数据操作数；八限定CPP补丁外全文与三生命周期根保持；未构建/测试/运行/摘要，RPLAN.24异常不计安全/故障等价",
+      "native_provider": {
+        "source": "src/render/GraphicPaletteCache.cpp",
+        "symbol": "LoadGraphicPalette32_44E290",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "palette_cache_alignment": {
+        "spec": "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure",
+        "evidence": "doc/cg2d_palette_cache_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_tails_retained": true,
+        "applicable_scope": "共享分流/32位色",
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

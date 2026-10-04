@@ -1583,3 +1583,17 @@ SDK/机器ABI/像素画面未验；没有构建/测试/运行/摘要，异常不
 3无独立ID/18 pending/4分类引用及10/60关闭/0/182叶验收/完整门禁/全局闭包不提升。
 完整父/callee、全部上游/间接alias与资源对象借用/清理、SDK/机器浮点ABI/画面运行未验，
 未构建/测试/运行/摘要，异常不记安全/故障等价。
+
+## GPC01 动态池与调色板生成映射（2026-10-05）
+
+[具名 SPEC](cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure)及
+[934条原体/56条窗口](cg2d_palette_cache_alignment_evidence.json)补两项唯一身份：
+44E150→F:0004E150，44E290→F:0004E290，均由既有 GraphicPaletteCache.cpp 实体承接。
+前者恢复入口池与回收/发布取样，后者仅共享分流/32位色，恢复静态快照、
+原源/通道表借用和颜色→黑色双W32写；低色深未新实现。
+原520D4C共用实参call在父源码为两互斥表达式，44E38B真实池call唯一；
+只登记局部连接，完整父/间接alias/owner寿命和像素运行不提升。
+
+1202旧条目和所有分类/pending政策保持；当前1204条、1201有效原ID，
+3无独立ID、18pending及4分类引用不变；审核118/3680，限定证据81，
+功能全局门禁保持。源码快照：`cg2d-re-palette-cache-source-20261005`。

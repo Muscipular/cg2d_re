@@ -13,22 +13,38 @@ namespace {
 
 std::unique_ptr<PaletteCacheItem[]> gOwnedGraphicPaletteCache;
 
+// 原 44E290 的 W32 色项：同步借用 RGB/BGR 源，先写颜色，纯黑再写 1。
 void WriteColor32(
     PaletteCacheItem& item, const std::size_t index,
-    std::uint8_t blue, std::uint8_t green, std::uint8_t red,
+    const std::uint8_t* const source, const bool sourceIsBgr,
     const bool applyTone) noexcept
 {
+    std::uint8_t red;
+    std::uint8_t green;
+    std::uint8_t blue;
     if (applyTone) {
-        blue = gColorChannelMaps.blue[blue];
-        green = gColorChannelMaps.green[green];
-        red = gColorChannelMaps.red[red];
+        std::uint8_t* const redMap = gColorChannelMaps.red;
+        const std::uint8_t sourceRed = source[sourceIsBgr ? 2 : 0];
+        std::uint8_t* const blueMap = gColorChannelMaps.blue;
+        red = redMap[sourceRed];
+        std::uint8_t* const greenMap = gColorChannelMaps.green;
+        green = greenMap[source[1]];
+        blue = blueMap[source[sourceIsBgr ? 0 : 2]];
+    } else {
+        red = source[sourceIsBgr ? 2 : 0];
+        blue = source[sourceIsBgr ? 0 : 2];
+        green = source[1];
     }
     const std::uint32_t color =
         (static_cast<std::uint32_t>(red) << 16)
         | (static_cast<std::uint32_t>(green) << 8)
         | blue;
-    const std::uint32_t stored = color == 0 ? 1u : color;
-    std::memcpy(item.payload.data() + index * 4, &stored, sizeof(stored));
+    std::uint8_t* const target = item.payload.data() + index * 4;
+    std::memcpy(target, &color, sizeof(color));
+    if (color == 0) {
+        const std::uint32_t nonzeroBlack = 1;
+        std::memcpy(target, &nonzeroBlack, sizeof(nonzeroBlack));
+    }
 }
 
 } // namespace
@@ -59,33 +75,36 @@ void ReleaseGraphicPaletteCache_44E110() noexcept
 
 PaletteCacheItem* TakeIndexCacheFromPool_44E150(const std::int32_t imageNo) noexcept
 {
-    std::size_t index = 0;
-    while (index < kGraphicPaletteDynamicCount
-        && gGraphicDataCacheList[index].imageNo >= 0) {
+    PaletteCacheItem* const pool = gGraphicDataCacheList;
+    std::int32_t index = 0;
+    while (index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount)
+        && pool[index].imageNo >= 0) {
         ++index;
     }
-    if (index < kGraphicPaletteDynamicCount) {
-        gGraphicDataCacheList[index].imageNo = imageNo;
+    if (index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount)) {
+        pool[index].imageNo = imageNo;
         gGraphicDataCacheList[index].dirtyCount = 0;
         return &gGraphicDataCacheList[index];
     }
 
     index = 0;
-    while (index < kGraphicPaletteDynamicCount
-        && gGraphicDataCacheList[index].dirtyCount <= 0) {
+    while (index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount)
+        && pool[index].dirtyCount <= 0) {
         ++index;
     }
-    if (index < kGraphicPaletteDynamicCount) {
-        const std::int32_t previousImageNo = gGraphicDataCacheList[index].imageNo;
-        gGraphicDxCache103CFA4[static_cast<std::size_t>(previousImageNo)].palette = nullptr;
+    if (index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount)) {
+        DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
+        const std::int32_t previousImageNo = pool[index].imageNo;
+        dxBase[previousImageNo].palette = nullptr;
         gGraphicDataCacheList[index].imageNo = -1;
         gGraphicDataCacheList[index].imageNo = imageNo;
         gGraphicDataCacheList[index].dirtyCount = 0;
         return &gGraphicDataCacheList[index];
     }
 
-    const std::int32_t previousImageNo = gGraphicDataCacheList[0].imageNo;
-    gGraphicDxCache103CFA4[static_cast<std::size_t>(previousImageNo)].palette = nullptr;
+    const std::int32_t previousImageNo = pool[0].imageNo;
+    DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
+    dxBase[previousImageNo].palette = nullptr;
     gGraphicDataCacheList[0].imageNo = -1;
     gGraphicDataCacheList[0].imageNo = imageNo;
     gGraphicDataCacheList[0].dirtyCount = 0;
@@ -103,15 +122,20 @@ PaletteCacheItem* LoadGraphicPalette32_44E290(
         mode = 0;
     }
 
+    const PaletteTone neutral {128, 128, 128, 0};
+    const PaletteTone* tone = gPaletteTonePointer;
+    if (tone == nullptr) {
+        tone = &neutral;
+    }
+    if (applyTone == 0) {
+        tone = &neutral;
+    }
+
     PaletteCacheItem* item;
     const PaletteEntry* sourcePalette = nullptr;
     if (mode <= 1) {
-        const PaletteTone neutral {128, 128, 128, 0};
-        const PaletteTone* const tone =
-            applyTone != 0 && gPaletteTonePointer != nullptr
-            ? gPaletteTonePointer : &neutral;
         const bool neutralTone =
-            tone->red == 128 && tone->green == 128 && tone->blue == 128;
+            tone->blue == 128 && tone->green == 128 && tone->red == 128;
         const std::size_t staticIndex = mode == 0
             ? (neutralTone ? 0u : 2u)
             : (neutralTone ? 1u : 3u);
@@ -125,25 +149,32 @@ PaletteCacheItem* LoadGraphicPalette32_44E290(
             item->activePalIndex = 0;
             item->frameIndex = static_cast<std::uint32_t>(gPaletteFrameVersion);
         } else {
-            if (item->activePalIndex == gActivePalette
-                && item->frameIndex == static_cast<std::uint32_t>(gPaletteFrameVersion)) {
-                return item;
+            const std::int32_t activePalette = gActivePalette;
+            const std::int32_t previousPalette = item->activePalIndex;
+            if (previousPalette == activePalette) {
+                const std::uint32_t previousFrame = item->frameIndex;
+                if (previousFrame == static_cast<std::uint32_t>(gPaletteFrameVersion)) {
+                    return item;
+                }
             }
-            item->activePalIndex = gActivePalette;
+            item->activePalIndex = activePalette;
             item->frameIndex = static_cast<std::uint32_t>(gPaletteFrameVersion);
         }
 
         for (std::size_t index = 0; index < 16; ++index) {
             const PaletteEntry& color = sourcePalette[index];
-            WriteColor32(*item, index, color.blue, color.green, color.red, false);
+            WriteColor32(*item, index,
+                reinterpret_cast<const std::uint8_t*>(&color), false, false);
         }
         for (std::size_t index = 16; index < 240; ++index) {
             const PaletteEntry& color = sourcePalette[index];
-            WriteColor32(*item, index, color.blue, color.green, color.red, applyTone != 0);
+            WriteColor32(*item, index,
+                reinterpret_cast<const std::uint8_t*>(&color), false, applyTone != 0);
         }
         for (std::size_t index = 240; index < 256; ++index) {
             const PaletteEntry& color = sourcePalette[index];
-            WriteColor32(*item, index, color.blue, color.green, color.red, false);
+            WriteColor32(*item, index,
+                reinterpret_cast<const std::uint8_t*>(&color), false, false);
         }
     } else {
         item = TakeIndexCacheFromPool_44E150(imageNo);
@@ -161,7 +192,7 @@ PaletteCacheItem* LoadGraphicPalette32_44E290(
         const std::size_t stride = paletteTriples != nullptr ? 3u : 4u;
         for (std::size_t index = 0; index < 256; ++index) {
             const std::uint8_t* const color = source + index * stride;
-            WriteColor32(*item, index, color[0], color[1], color[2], applyTone != 0);
+            WriteColor32(*item, index, color, true, applyTone != 0);
         }
     }
 

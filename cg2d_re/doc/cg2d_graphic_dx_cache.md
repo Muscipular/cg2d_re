@@ -2287,3 +2287,17 @@ DrawAllQueued.cpp已实际修六处，两个private节点循环接原head而不�
 队列/节点/普通与独立表owner、48B/40B布局及全部循环/矩形/上传/native算法保持。
 初始Back存活门禁为已批准IsLost映射，不误删成额外NULL保护；模式/全部父、
 间接alias/借用寿命与初始化/场景/退出清理及像素运行仍未验。
+
+## GPC01 调色板缓存阶段源码收口（2026-10-05）
+
+沿 520D4C→44E290→44E150 实际调用完成[具名 SPEC](cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure)；
+[完整原体/局部接线与补丁证据](cg2d_palette_cache_alignment_evidence.json)
+保留 934 条指令及 56 条窗口。原两互斥上传实参分支共用一个 call，
+现有父源码两处表达式保持，不能把 2/1 当数量覆盖率。
+
+GraphicPaletteCache.cpp 八处修改恢复入口池保存/回收发布重取、活动号/帧和
+色调单次借用、同步 RGB/BGR 及通道表取序、每项颜色→纯黑双阶段 W32 写。
+载荷索引0末清零、命中与池空门禁、104/4项和0x410布局保持。
+初始化/释放/帧老化、父上传、双变换树和纹理入口不改。
+仅适用共享分流/32位色局部静态；16/24位不计新增实现，
+完整上游/父与 pool/owner 寿命和 SDL 像素运行仍待，G01/G04保持 open。

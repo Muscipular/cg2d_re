@@ -30476,9 +30476,11 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_login_state_controller.md",
-        "doc/cg2d_input_append.md"
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_append_alignment_evidence.json"
       ],
-      "boundary": "count0沿53C797→53C844返回原target，不读源/目的、不写NUL。非零先目的未对齐W8读后推进/NUL回退1，W32探零7EFEFEFF/81010100候选才复读并低到高定位，假候选继续。目的NUL后才源未对齐字节读/源推进/NUL原位写零，否则目的写/推进/减U32 count；耗尽单尾NUL。源对齐以剩余count>>2处理块，probe/value两次W32读后推进源4，候选首NUL分别W8/W16/W16再+2NUL/W32末写，假候选整块写/目的推进4/减块数；剩余count&3逐字节读/写/两游标推进后判NUL/减计数，耗尽只写一个NUL。53C7DD/53C87E实际FF0000，不按显示符号解释。原返回身份保持，不填剩余count零、不转码/新增上限/保护或模拟故障。44AE9A唯一范围内点按原287-长度低U32接现有remainingCapacity，独立tail源和text目标、调用后重取/既有预清与安全门禁/行扫描回滚保持；51007A/5100AE随既有newest五函数范围排除，不恢复、扩大排除或计实现，完整输入/CRT与运行未验。",
+      "boundary": "count0沿53C797→53C844返回原target，不读源/目的、不写NUL。非零先目的未对齐W8读后推进/NUL回退1，W32探零7EFEFEFF/81010100候选才复读并低到高定位，假候选继续。目的NUL后才源未对齐字节读/源推进/NUL原位写零，否则目的写/推进/减U32 count；耗尽单尾NUL。源对齐以剩余count>>2处理块，probe/value两次W32读后推进源4，候选首NUL分别W8/W16/W16再+2NUL/W32末写，假候选整块写/目的推进4/减块数；剩余count&3逐字节读/写/两游标推进后判NUL/减计数，耗尽只写一个NUL。53C7DD/53C87E实际FF0000，不按显示符号解释。原返回身份保持，不填剩余count零、不转码/新增上限/保护或模拟故障。44AE9A唯一范围内点按原287-长度低U32接现有remainingCapacity，独立tail源和text目标、调用后重取/行扫描回滚保持；IAP01撤销44ADB0额外拒绝与两副本预清；51007A/5100AE随既有newest五函数范围排除，不恢复、扩大排除或计实现，完整输入/CRT与运行未验。",
       "original_direct_reference_count": 3,
       "original_direct_call_reference_count": 3,
       "append_call_connections": [
@@ -30491,7 +30493,7 @@
           "target_symbol": "StrNCat_53C790",
           "count_kind": "原0x11F减当前文本长度低W32/U32，复用现有remainingCapacity",
           "count_width": "U32",
-          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；不改现有预清或安全门禁"
+          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；IAP01已撤销预清及额外拒绝，原Count/目标/源和后续行扫描保持"
         }
       ],
       "excluded_call_connections": [
@@ -30526,7 +30528,19 @@
           "bytes": "f7c20000ff00"
         }
       ],
-      "verification_level": "原123条完整与53C797→53C844/全部关键跳转、双掩码实际立即数、三入口引用；44ADB0共182统计仅25条调用相邻读取，合305统计/148读取。新直接本体/唯一声明/一调用标识符、Count原U32与对象重取/旧核心正文保持、两旧JSON项限定增量静态核对，未构建或执行；非全父/故障等价验收"
+      "verification_level": "原123条完整与53C797→53C844/全部关键跳转、双掩码实际立即数、三入口引用；44ADB0共182统计仅25条调用相邻读取，合305统计/148读取。新直接本体/唯一声明/一调用标识符、Count原U32与对象重取/旧核心正文保持、两旧JSON项限定增量静态核对，未构建或执行；非全父/故障等价验收",
+      "input_append_alignment": {
+        "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "evidence": "doc/cg2d_input_append_alignment_evidence.json",
+        "source": "src/Input.cpp",
+        "extra_safe_state_guard_removed": true,
+        "local_preclears_removed": 2,
+        "original_guards_and_copy_padding_retained": true,
+        "shared_control_single_snapshot_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      }
     },
     {
       "original_entry": "0x4589A0",
@@ -30618,7 +30632,7 @@
     {
       "original_entry": "0x44ADB0",
       "inventory_id": "F:0004ADB0",
-      "status": "有效状态内三复制及限长追加已接真实核心；既有额外安全边界及预清零差异保留，运行未验",
+      "status": "IAP01完整182条追加本体局部静态已对照；额外状态拒绝/两预清撤销，完整输入/运行未验",
       "original_end_exclusive": "0x44B044",
       "instruction_count": 182,
       "sources": [
@@ -30627,15 +30641,17 @@
           "symbols": [
             "AppendChar_44ADB0"
           ],
-          "relationship": "已有输入追加本体、上下文重取及保存/恢复顺序保持；本步三限长复制接真实53BEC0；原44AE9A限长追加也接真实53C790，既有U32 remainingCapacity保持"
+          "relationship": "既有真实追加本体、三StrNCpy/一StrNCat与原阶段取样保持；IAP01撤销额外拒绝与两个副本预清"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_input_append.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_append_alignment_evidence.json"
       ],
-      "boundary": "按原各阶段重取当前输入对象；旧值先总长后光标，回滚分别重取后先恢复总长再光标；行预算先采样再取U32长度，分类后重新取对象及行预算；最终maxLine/626C20只采样一次。保留既有HasSafeLegacyState额外前置拒绝及局部预清零，不冒称原门禁或故障等价；不改变分类规则、共享owner与输入容量，不计输入全链及客户端运行通过。 原44AE01/44AE16/44AFF7三复制已接StrNCpy_53BEC0，完整U32计数289/288/288和现有局部预清零保持；仅函数与固定容量转换变化，不改任何对象取样或回写。 原44AE9A接真实StrNCat_53C790，Count为现有U32的287减当前文本长度，text/tail与弃返回、调用后对象重取及后续扫描/分类/回滚全部正文保持；本步只替换一个调用标识符，不将既有额外安全拒绝/预清差异或整个输入/CRT运行计等价。",
+      "boundary": "原context空门禁/S8控制字节过滤、三Count289/288/288及拼接287−长度低U32保持；当前对象按各阶段重取，先保存/恢复total后caret。原行预算先保存再扫余串/unsigned比较，分类后重新取对象/预算；maxLine与626C20只取一次共用。原截断、孤立高位修正/光标钳制与条件回滚、626C28写1/末626C0C写20保持。IAP01仅删除HasSafeLegacyState额外门禁/两个私有常量和tail/oldText预清，原复制padding/NUL不删；不新增保护/默认值、owner或Unicode策略。异常域依RPLAN.24不专项模拟，不称安全或故障等价；完整父/间接alias/输入寿命、SDK及运行未验。",
       "copy_call_connections": [
         {
           "parent_entry": "0x44ADB0",
@@ -30646,7 +30662,7 @@
           "target_symbol": "StrNCpy_53BEC0",
           "count_value": 289,
           "count_width": "U32",
-          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；不改预清零或额外安全门禁"
+          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；IAP01已撤销预清及额外拒绝，原复制填充/NUL保持"
         },
         {
           "parent_entry": "0x44ADB0",
@@ -30681,10 +30697,59 @@
           "target_symbol": "StrNCat_53C790",
           "count_kind": "原0x11F减当前文本长度低W32/U32，复用现有remainingCapacity",
           "count_width": "U32",
-          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；不改现有预清或安全门禁"
+          "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；IAP01已撤销预清及额外拒绝，原Count/目标/源和后续行扫描保持"
         }
       ],
-      "verification_level": "本轮原父182条统计仅44AE9A相邻25条读取；原Count/三参数/真实目标与调用后当前对象重取、整份Input仅一标识符/既有复制与所有其余正文保持、JSON两个旧项限定增量静态核对，未构建或执行"
+      "verification_level": "原完整182条及支持叶21条/六实际目标、四追加/五分类引用；五限定源码替换之外整份Input.cpp与前提交相同，未构建/测试/运行/摘要，非完整父/寿命或故障等价",
+      "input_append_alignment": {
+        "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "evidence": "doc/cg2d_input_append_alignment_evidence.json",
+        "source": "src/Input.cpp",
+        "extra_safe_state_guard_removed": true,
+        "local_preclears_removed": 2,
+        "original_guards_and_copy_padding_retained": true,
+        "shared_control_single_snapshot_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x44a160",
+          "call_site": "0x44a195",
+          "target_entry": "0x44adb0",
+          "source": "src/Input.cpp",
+          "symbol": "LoadInitialText_44A160"
+        },
+        {
+          "parent_entry": "0x44ab60",
+          "call_site": "0x44acb0",
+          "target_entry": "0x44adb0",
+          "source": "src/Input.cpp",
+          "symbol": "Sub_44AB60"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x4595f8",
+          "target_entry": "0x44adb0",
+          "source": "src/platform/ImeComposition.cpp",
+          "symbol": "Sub_459580"
+        },
+        {
+          "parent_entry": "0x466dc0",
+          "call_site": "0x467261",
+          "target_entry": "0x44adb0",
+          "source": "src/platform/WindowProcedure.cpp",
+          "symbol": "WindowProcedure"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "AppendChar_44ADB0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44A160",
@@ -30758,7 +30823,7 @@
     {
       "original_entry": "0x44B190",
       "inventory_id": "F:0004B190",
-      "status": "现有完整末单元分类本体及五处消费者已关联；运行未验",
+      "status": "IAP01完整21条末单元分类叶及五直接点局部静态已对照；源码保持，完整父/运行未验",
       "original_end_exclusive": "0x44B1C5",
       "instruction_count": 21,
       "sources": [
@@ -30767,7 +30832,7 @@
           "symbols": [
             "ClassifyLastAnsiUnit_44B190"
           ],
-          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+          "relationship": "既有真实末单元分类叶；IAP01完整21条核对，无源码变化"
         },
         {
           "path": "src/render/InputText.cpp",
@@ -30787,9 +30852,31 @@
       "evidence_documents": [
         "doc/cg2d_input_context.md",
         "doc/cg2d_input_append.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_append_alignment_evidence.json"
       ],
-      "boundary": "空串0，普通尾字节1，高位首字节配非零尾2，孤立高位尾3；只按bit7，不按系统代码页或UTF-8。五处调用分布在追加、输入绘制两处及两个UI父入口；父链另行验收。"
+      "boundary": "空串0，普通尾字节1，高位首字节配非零尾2，孤立高位尾3；只按bit7，不按系统代码页或UTF-8。五处调用分布在追加、输入绘制两处及两个UI父入口；父链另行验收。",
+      "input_append_alignment": {
+        "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "evidence": "doc/cg2d_input_append_alignment_evidence.json",
+        "source": "src/Input.cpp",
+        "extra_safe_state_guard_removed": true,
+        "local_preclears_removed": 2,
+        "original_guards_and_copy_padding_retained": true,
+        "shared_control_single_snapshot_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "verification_level": "原完整21条/五直接点及现有bit7/0～3本体保持，仅局部静态；其它四消费者与输入寿命/运行未验",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "ClassifyLastAnsiUnit_44B190",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x449CF0",
@@ -31049,9 +31136,11 @@
         "doc/cg2d_external_keyboard_wrapper.md",
         "doc/ui_windows/window_53.md",
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_append_alignment_evidence.json"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中当前范围内三十七处已接，另两处随已批准屏幕键盘回填段排除，仅原入口引用在当前范围收口，完整父链未据此验收。输入额外安全拒绝/局部预清零既有差异保留、S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；37已接+2范围排除对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。 5444C4原3B省略号复制已接，原Filename尾59B借用/两次U32长度与后续前缀/三个追加次序保持，不添加末NUL、缓冲或保护；不是全部原父或CRT运行完成。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中当前范围内三十七处已接，另两处随已批准屏幕键盘回填段排除，仅原入口引用在当前范围收口，完整父链未据此验收。IAP01已撤销44ADB0额外安全拒绝及两副本预清；IED01已撤销44B1D0 copied预清；S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；37已接+2范围排除对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。 5444C4原3B省略号复制已接，原Filename尾59B借用/两次U32长度与后续前缀/三个追加次序保持，不添加末NUL、缓冲或保护；不是全部原父或CRT运行完成。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -31095,7 +31184,7 @@
           "target_symbol": "StrNCpy_53BEC0",
           "count_value": 289,
           "count_width": "U32",
-          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；不改预清零或额外安全门禁"
+          "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；IAP01已撤销预清及额外拒绝，原复制填充/NUL保持"
         },
         {
           "parent_entry": "0x44ADB0",
@@ -31491,7 +31580,19 @@
           "evidence_document": "doc/cg2d_external_keyboard_wrapper.md",
           "relationship": "原534AB0返回1后的专属复制/返回段已依既有局部实施方案移除，活动父的普通输入/IME/提交/焦点仍保留，不恢复或扩展排除"
         }
-      ]
+      ],
+      "input_append_alignment": {
+        "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "evidence": "doc/cg2d_input_append_alignment_evidence.json",
+        "source": "src/Input.cpp",
+        "extra_safe_state_guard_removed": true,
+        "local_preclears_removed": 2,
+        "original_guards_and_copy_padding_retained": true,
+        "shared_control_single_snapshot_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      }
     },
     {
       "original_entry": "0x544DB0",

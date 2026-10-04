@@ -82,11 +82,6 @@ LegacyInput593850 gLegacyInput593850 {};
 static_assert(offsetof(LegacyInput593850, context) == 8);
 static_assert(sizeof(LegacyInput593850) == 0x164);
 
-inline constexpr std::int32_t kMaximumCaretOffset =
-    static_cast<std::int32_t>(InputTextCapacity) - 2;
-inline constexpr std::int32_t kMaximumTotalByteLength =
-    static_cast<std::int32_t>(InputTextCapacity) - 1;
-
 constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
     '\n', 'n', ',', 'c', '|', 'z', '\\', 'y',
 }};
@@ -269,47 +264,6 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
         }
     }
     return result;
-}
-
-bool HasSafeLegacyState(const InputContext& context)
-{
-    if (context.caretByteOffset < 0
-        || context.caretByteOffset > kMaximumCaretOffset
-        || context.totalByteLength < 0
-        || context.totalByteLength > kMaximumTotalByteLength
-        || context.caretByteOffset > context.totalByteLength) {
-        return false;
-    }
-
-    const auto* const terminator = static_cast<const char*>(
-        std::memchr(context.text, '\0', InputTextCapacity));
-    if (terminator == nullptr) {
-        return false;
-    }
-
-    const std::size_t visibleLength =
-        static_cast<std::size_t>(terminator - context.text);
-    if (visibleLength
-        > static_cast<std::size_t>(context.totalByteLength)) {
-        return false;
-    }
-
-    const std::size_t caret =
-        static_cast<std::size_t>(context.caretByteOffset);
-    const auto* const tailTerminator = static_cast<const char*>(
-        std::memchr(
-            context.text + caret,
-            '\0',
-            InputTextCapacity - caret));
-    if (tailTerminator == nullptr) {
-        return false;
-    }
-
-    const std::size_t tailTerminatorOffset =
-        static_cast<std::size_t>(tailTerminator - context.text);
-    return caret <= visibleLength
-        || tailTerminatorOffset
-            <= static_cast<std::size_t>(context.totalByteLength);
 }
 
 } // namespace
@@ -942,12 +896,8 @@ void AppendChar_44ADB0(const char character)
         && signedCharacter != '\r') {
         return;
     }
-    if (!HasSafeLegacyState(*context)) {
-        return;
-    }
-
-    std::array<char, InputTextCapacity + 1> tail {};
-    std::array<char, InputTextCapacity> oldText {};
+    std::array<char, InputTextCapacity + 1> tail;
+    std::array<char, InputTextCapacity> oldText;
     platform::StrNCpy_53BEC0(
         tail.data(),
         context->text + context->caretByteOffset,

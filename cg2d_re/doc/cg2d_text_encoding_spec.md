@@ -93,3 +93,7 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [IED01](cg2d_input_edit_alignment_spec.md#input-edit-source-closure)恢复上下扫描S32行宽先保存、余串低U32比较/分类，终行在目标/列确定后重新扫描；五局部预清撤销，实际复制填充/显式NUL和原高位字节规则保持。退格原钳制后重新取result，左右保存字段别名不改，无Unicode索引、默认正文或新owner。
 
 521原指令/六caller及七分类点只归档局部I/W/S，AppendChar/其他编辑、完整焦点/IME/寿命和SDK/运行继续待T01/T02；原异常域不模拟或记安全/故障等价，不以七ID处置当全文本门禁通过。
+
+## 2026-10-05：追加副本与原字节边界
+
+[IAP01](cg2d_input_append_alignment_spec.md#input-append-source-closure)只撤销额外追加状态拒绝及289B tail/288B oldText预清，真实复制padding/NUL与Count289/288/288保持；拼接仍287减strlen低U32。原S8过滤、bit7末单元0～3、CR折叠/行预算与条件回滚保持，00接受/更新计数不新增一致性拒绝。完整文本绘制/输入父、共享寿命/间接alias、SDK与运行继续待验；不作异常域安全或故障等价声明。

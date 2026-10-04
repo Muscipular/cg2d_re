@@ -126,3 +126,7 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 ## 2026-10-05：分类与编辑局部存储当前状态
 
 [IED01](cg2d_input_edit_alignment_spec.md#input-edit-source-closure)已撤销44B1D0额外整块预清：真实StrNCpy_53BEC0低U32 Count、signed终止位置和S32扫描/0～3返回保持，不删原padding/NUL或加Count范围拒绝。七原点绑定与六编辑本体局部已对照，上下扫描预算/终行重新取长、退格钳制后对象重读按原序。此前日期保留预清是旧源码状态，固定历史见Git命名快照cg2d-re-input-render-source-20261005；完整输入/别名/SDK/运行仍未验。
+
+## 2026-10-05：追加前置状态差异当前对齐
+
+[IAP01](cg2d_input_append_alignment_spec.md#input-append-source-closure)撤销44ADB0非原有HasSafeLegacyState与两临时副本预清，原context为空/控制字节早退及当前对象逐阶段重取保持。三复制289/288/288、实际补零/NUL、低U32拼接余量和原截断/光标钳制/回滚不改；00仍按原接受，不能用可见串长/计数一致性补门禁。超行maxLine/626C20一次共同取样已正确；203条/实际直接引用仅局部静态，完整输入/别名/生命周期和运行未验。

@@ -220,4 +220,15 @@ void DestroyLegacyClassicLocale_54A3FA()
     DestroyLegacyLocale_54867D(&gLegacyClassicLocaleObject1086728);
 }
 
+void ConstructLegacyClassicLocaleLate_54A3ED()
+{
+    // 原唯一指令RET；晚段不覆盖已由默认locale构造生产的经典槽。
+}
+
+std::int32_t InitializeLegacyClassicLocale_54A3E3()
+{
+    ConstructLegacyClassicLocaleLate_54A3ED();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA);
+}
+
 } // namespace cg::platform

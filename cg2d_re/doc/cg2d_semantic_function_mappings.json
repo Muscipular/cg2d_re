@@ -9235,7 +9235,7 @@
     {
       "original_entry": "0x54A3E3",
       "inventory_id": "F:0014A3E3",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原经典locale晚段构造与退出登记本体已实现；实际CRT表及宿主迁移未闭合",
       "original_end_exclusive": "0x54A3ED",
       "instruction_count": 6,
       "sources": [
@@ -9246,6 +9246,20 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "InitializeLegacyClassicLocale_54A3E3"
+          ],
+          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "InitializeLegacyClassicLocale_54A3E3"
+          ],
+          "relationship": "显式接口；初始化传出真实退出登记S32返回，晚段构造不写状态"
         }
       ],
       "native_provider": {
@@ -9257,7 +9271,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。",
+      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。",
       "original_chunks": [
         [
           "0x54A3E3",
@@ -9267,12 +9281,56 @@
           "0x54A3EE",
           "0x54A3FA"
         ]
-      ]
+      ],
+      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行",
+      "inbound_evidence": [
+        {
+          "address": "0x55315c",
+          "target": "0x54a3e3",
+          "kind": 1
+        }
+      ],
+      "locale_classic_initializer_internal_call_connections": [
+        {
+          "parent_entry": "0x54A3E3",
+          "call_site": "0x54A3E3",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "InitializeLegacyClassicLocale_54A3E3",
+          "target_entry": "0x54A3ED",
+          "target_symbol": "ConstructLegacyClassicLocaleLate_54A3ED",
+          "arguments": "()",
+          "relationship": "原延迟构造仅RET，不写三个经典/全局槽，不默认构造或额外加引用"
+        },
+        {
+          "parent_entry": "0x54A3E3",
+          "call_site": "0x54A3F3",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "InitializeLegacyClassicLocale_54A3E3",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "arguments": "DestroyLegacyClassicLocale_54A3FA",
+          "relationship": "原真实退出表登记，完整S32返回直接传出，不改固定成功/宿主atexit"
+        }
+      ],
+      "locale_classic_exit_callback_binding": {
+        "parent_entry": "0x54A3E3",
+        "address_site": "0x54A3EE",
+        "source": "src/platform/LegacyLocale.cpp",
+        "symbol": "InitializeLegacyClassicLocale_54A3E3",
+        "callback_entry": "0x54A3FA",
+        "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+        "relationship": "真实函数地址登记；这里只登记，不即时清理或重复宿主析构"
+      },
+      "original_initializer_table_slot": {
+        "address": "0x55315C",
+        "loaded": true,
+        "target": "0x54a3e3"
+      }
     },
     {
       "original_entry": "0x54A3ED",
       "inventory_id": "F:0014A3ED",
-      "status": "仅宿主locale生命周期职责关联；特殊计数、失败与退出差异未验收",
+      "status": "原经典locale晚段构造与退出登记本体已实现；实际CRT表及宿主迁移未闭合",
       "original_end_exclusive": "0x54A3EE",
       "instruction_count": 1,
       "sources": [
@@ -9283,6 +9341,20 @@
             "WideStandardStreamsStaticInitializer"
           ],
           "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "ConstructLegacyClassicLocaleLate_54A3ED"
+          ],
+          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考"
+        },
+        {
+          "path": "src/platform/LegacyLocale.hpp",
+          "symbols": [
+            "ConstructLegacyClassicLocaleLate_54A3ED"
+          ],
+          "relationship": "显式接口；初始化传出真实退出登记S32返回，晚段构造不写状态"
         }
       ],
       "native_provider": {
@@ -9294,7 +9366,16 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。"
+      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。",
+      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行",
+      "inbound_evidence": [
+        {
+          "address": "0x54a3e3",
+          "target": "0x54a3ed",
+          "kind": 17
+        }
+      ],
+      "locale_classic_initializer_internal_call_connections": []
     },
     {
       "original_entry": "0x54A3FA",
@@ -9324,6 +9405,13 @@
             "DestroyLegacyClassicLocale_54A3FA"
           ],
           "relationship": "显式单指针对象槽/全局真实接口；地址拓宽，不互转宿主SDK对象"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "InitializeLegacyClassicLocale_54A3E3"
+          ],
+          "relationship": "新增原54A3EE回调地址绑定，实际原生退出表登记；既有经典析构本体不改"
         }
       ],
       "native_provider": {
@@ -9335,7 +9423,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。",
+      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。",
       "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
@@ -9378,6 +9466,17 @@
           "target_symbol": "DestroyLegacyLocale_54867D",
           "arguments": "&gLegacyClassicLocaleObject1086728",
           "relationship": "原tailjmp清经典实际对象，不重建/额外清槽"
+        }
+      ],
+      "locale_classic_exit_callback_bindings": [
+        {
+          "parent_entry": "0x54A3E3",
+          "address_site": "0x54A3EE",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "InitializeLegacyClassicLocale_54A3E3",
+          "callback_entry": "0x54A3FA",
+          "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+          "relationship": "真实函数地址登记；这里只登记，不即时清理或重复宿主析构"
         }
       ]
     },
@@ -11140,13 +11239,20 @@
             "InitializeLegacyGlobalLocale_54A404"
           ],
           "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "InitializeLegacyClassicLocale_54A3E3"
+          ],
+          "relationship": "新增原54A3F3真实登记点，原S32返回传出；既有退出表本体不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -11415,6 +11521,18 @@
           "target_symbol": "RegisterLegacyAtExit_53B406",
           "arguments": "ReleaseLegacyGlobalLocale_54A4BD",
           "relationship": "先发布global再真实登记，返回弃、不失败回滚或重复std登记"
+        }
+      ],
+      "locale_classic_initializer_parent_call_connections": [
+        {
+          "parent_entry": "0x54A3E3",
+          "call_site": "0x54A3F3",
+          "source": "src/platform/LegacyLocale.cpp",
+          "symbol": "InitializeLegacyClassicLocale_54A3E3",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "arguments": "DestroyLegacyClassicLocale_54A3FA",
+          "relationship": "原真实退出表登记，完整S32返回直接传出，不改固定成功/宿主atexit"
         }
       ]
     },

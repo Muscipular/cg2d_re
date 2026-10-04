@@ -61,5 +61,8 @@ LegacyLocaleImplementation** ConstructLegacyLocale_54865E(
     LegacyLocaleImplementation** implementationSlot);
 void ReleaseLegacyGlobalLocale_54A4BD();
 void DestroyLegacyClassicLocale_54A3FA();
+// 原55315C初始化项：晚段仅RET，随后真实退出登记，返回S32登记结果。
+void ConstructLegacyClassicLocaleLate_54A3ED();
+std::int32_t InitializeLegacyClassicLocale_54A3E3();
 
 } // namespace cg::platform

@@ -14,16 +14,24 @@ namespace cg::platform {
 extern volatile std::uint32_t gLegacyNarrowFileState1087B00;
 extern volatile std::uint32_t gLegacyWideFileState1087AF8;
 
-// 原basic_filebuf已证+00..+53视图；真实指针拓宽，状态位型/标志宽度保持。
-// 不自动初始化/构析、构造owner或接宿主streambuf/FILE。
+// 四个真实原表仅声明，完整槽接口/本体绑定待；不定义空表/牌值或接SDK vft。
+struct LegacyNarrowStreamBufferMethods;
+struct LegacyWideStreamBufferMethods;
+extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;
+extern const LegacyNarrowStreamBufferMethods gLegacyNarrowFileBufferMethods54FFD4;
+extern const LegacyWideStreamBufferMethods gLegacyWideStreamBufferMethods5500A8;
+extern const LegacyWideStreamBufferMethods gLegacyWideFileBufferMethods550070;
+
+// 原basic_filebuf已证+00..+53视图；+44消费确认为窄字符串地址，同其他地址拓宽。
+// 仅显式函数构析，不自动构造owner或接宿主streambuf/FILE。
 template <typename Character>
 struct LegacyFileBufferStorage final {
     LegacyStreamBufferStorage<Character> buffer;   // 原+00..+33；实际首成员。
-    LegacyLocaleImplementation* baseLocale;       // 原+34；本组保留不构析。
+    LegacyLocaleImplementation* baseLocale;       // 原+34；真实基类locale。
     std::uint32_t state38Bits;                    // 原+38；本组清0。
     std::uint32_t state3CBits;                    // 原+3C；第二次种子读取。
     std::uint32_t state40Bits;                    // 原+40；第一次种子读取。
-    std::uint32_t state44Bits;                    // 原+44；仅mode0清0。
+    LegacyNarrowString* scratchString;            // 原+44；窄宽均窄字符串，mode0才清空。
     std::uint8_t modeOneFlag;                     // 原+48；mode==1的0/1 U8。
     LegacyLocaleImplementation* privateLocale;    // 原+4C；mode0显式重构。
     LegacyFile* file;                              // 原+50；实际原FILE。
@@ -34,14 +42,16 @@ static_assert(offsetof(LegacyNarrowFileBuffer, baseLocale) == 96);
 static_assert(offsetof(LegacyNarrowFileBuffer, state38Bits) == 104);
 static_assert(offsetof(LegacyNarrowFileBuffer, state3CBits) == 108);
 static_assert(offsetof(LegacyNarrowFileBuffer, state40Bits) == 112);
-static_assert(offsetof(LegacyNarrowFileBuffer, state44Bits) == 116);
-static_assert(offsetof(LegacyNarrowFileBuffer, modeOneFlag) == 120);
-static_assert(offsetof(LegacyNarrowFileBuffer, privateLocale) == 128);
-static_assert(offsetof(LegacyNarrowFileBuffer, file) == 136);
-static_assert(sizeof(LegacyNarrowFileBuffer) == 144);
-static_assert(offsetof(LegacyWideFileBuffer, privateLocale) == 128);
-static_assert(offsetof(LegacyWideFileBuffer, file) == 136);
-static_assert(sizeof(LegacyWideFileBuffer) == 144);
+static_assert(offsetof(LegacyNarrowFileBuffer, scratchString) == 120);
+static_assert(offsetof(LegacyNarrowFileBuffer, modeOneFlag) == 128);
+static_assert(offsetof(LegacyNarrowFileBuffer, privateLocale) == 136);
+static_assert(offsetof(LegacyNarrowFileBuffer, file) == 144);
+static_assert(sizeof(LegacyNarrowFileBuffer) == 152);
+static_assert(offsetof(LegacyWideFileBuffer, scratchString) == 120);
+static_assert(offsetof(LegacyWideFileBuffer, modeOneFlag) == 128);
+static_assert(offsetof(LegacyWideFileBuffer, privateLocale) == 136);
+static_assert(offsetof(LegacyWideFileBuffer, file) == 144);
+static_assert(sizeof(LegacyWideFileBuffer) == 152);
 
 // 原两_Init void方法；mode保持原W32/S32位型，仅比较0/1，不增范围限制。
 void InitializeLegacyNarrowFileBuffer_548EFC(
@@ -51,5 +61,15 @@ void InitializeLegacyWideFileBuffer_549E88(
 // 原两close；FILE成功关闭返回0才_Init(nullptr,2)/返this，其他返空。
 LegacyNarrowFileBuffer* CloseLegacyNarrowFileBuffer_548ED5(LegacyNarrowFileBuffer* storage);
 LegacyWideFileBuffer* CloseLegacyWideFileBuffer_549E61(LegacyWideFileBuffer* storage);
+
+// 原完整构造/显式析构及基类析构；阶段清理、方法表写和原堆域保持。
+LegacyNarrowFileBuffer* ConstructLegacyNarrowFileBuffer_5485FE(
+    LegacyNarrowFileBuffer* storage, LegacyFile* file);
+LegacyWideFileBuffer* ConstructLegacyWideFileBuffer_54970A(
+    LegacyWideFileBuffer* storage, LegacyFile* file);
+void DestroyLegacyNarrowFileBuffer_5487DE(LegacyNarrowFileBuffer* storage);
+void DestroyLegacyWideFileBuffer_549935(LegacyWideFileBuffer* storage);
+void DestroyLegacyNarrowStreamBuffer_5486B1(LegacyNarrowFileBuffer* storage);
+void DestroyLegacyWideStreamBuffer_54976A(LegacyWideFileBuffer* storage);
 
 } // namespace cg::platform

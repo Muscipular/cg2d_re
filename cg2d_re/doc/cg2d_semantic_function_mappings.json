@@ -5306,42 +5306,200 @@
     {
       "original_entry": "0x506340",
       "inventory_id": "F:00106340",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "鼠标CRT启动入口",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "LegacyMouseStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "InitializeLegacyMouseRuntime_506340"
+          ],
+          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+        },
+        {
+          "path": "include/cg/platform/LegacyMouse.hpp",
+          "symbols": [
+            "InitializeLegacyMouseRuntime_506340"
+          ],
+          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。"
+      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x506340",
+          "end_exclusive": "0x50634A"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x506340",
+          "call_site": "0x506340",
+          "target_entry": "0x506350",
+          "target_symbol": "ConstructLegacyMouseRuntime_506350",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原同一固定状态构造前缀/正常算法，既有owner与随机消费保持"
+        },
+        {
+          "parent_entry": "0x506340",
+          "call_site": "0x506365",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "transfer": "call",
+          "arguments": "ReleaseLegacyMouseRuntimeAtExit_506370 整体无参callback",
+          "original_instruction_owner": "0x506350",
+          "original_registration_block": "0x506360",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        }
+      ],
+      "runtime_state_crt_callback_references": [
+        {
+          "parent_entry": "0x506340",
+          "reference_site": "0x506360",
+          "callback_entry": "0x506370",
+          "callback_symbol": "ReleaseLegacyMouseRuntimeAtExit_506370",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "original_instruction_owner": "0x506350",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ],
+      "runtime_state_crt_supplemental_registration_blocks": [
+        {
+          "parent_entry": "0x506340",
+          "branch_site": "0x506345",
+          "original_shared_block": "0x506360",
+          "original_shared_end_exclusive": "0x50636C",
+          "original_instruction_owner": "0x506350",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "instructions": [
+            [
+              "0x506360",
+              "push    offset loc_506370; void (__cdecl *)()",
+              "push",
+              "0x506370",
+              "-0x1"
+            ],
+            [
+              "0x506365",
+              "call    _atexit",
+              "call",
+              "0x53b406",
+              "-0x1"
+            ],
+            [
+              "0x50636a",
+              "pop     ecx",
+              "pop",
+              "0x1",
+              "-0x1"
+            ],
+            [
+              "0x50636b",
+              "retn",
+              "retn",
+              "-0x1",
+              "-0x1"
+            ]
+          ],
+          "relationship": "入口自身两条，尾入构造函数所属四条登记块，不扩大root function_chunks或新计原身份"
+        }
+      ]
     },
     {
       "original_entry": "0x506350",
       "inventory_id": "F:00106350",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "鼠标十个CryptInt的构造/析构与登记块",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "LegacyMouseStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "ConstructLegacyMouseRuntime_506350",
+            "ReleaseLegacyMouseRuntimeAtExit_506370"
+          ],
+          "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。"
+      "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 162,
+      "function_chunks": [
+        {
+          "start": "0x506350",
+          "end_exclusive": "0x50652E"
+        },
+        {
+          "start": "0x54BA70",
+          "end_exclusive": "0x54BACB"
+        },
+        {
+          "start": "0x54BAD0",
+          "end_exclusive": "0x54BB2B"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x506340",
+          "call_site": "0x506340",
+          "target_entry": "0x506350",
+          "target_symbol": "ConstructLegacyMouseRuntime_506350",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原同一固定状态构造前缀/正常算法，既有owner与随机消费保持"
+        }
+      ],
+      "runtime_state_crt_fixed_component_references": [
+        {
+          "combined_original_entry": "0x506350",
+          "constructor_prefix": "0x506350",
+          "constructor_body": "0x506460",
+          "constructor_symbol": "ConstructLegacyMouseRuntime_506350",
+          "constructor_return": "&gLegacyMouseState.mouseX 真实D68CF8地址",
+          "callback_prefix": "0x506370",
+          "callback_body": "0x506380",
+          "callback_symbol": "ReleaseLegacyMouseRuntimeAtExit_506370",
+          "source": "src/platform/LegacyMouse.cpp",
+          "original_this_address": "0xD68CF8",
+          "relationship": "同一合并函数内构造/退出固定this前缀单列，normal动作源码沿已证十值/六值；原FS/EH与故障不因普通循环认定等价，不增callback原身份"
+        }
+      ]
     },
     {
       "original_entry": "0x506530",
@@ -5372,109 +5530,382 @@
     {
       "original_entry": "0x5183D0",
       "inventory_id": "F:001183D0",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "玩家CRT启动入口",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "PlayerRuntimeValuesStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeLegacyPlayerRuntime_5183D0"
+          ],
+          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "InitializeLegacyPlayerRuntime_5183D0"
+          ],
+          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。"
+      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x5183D0",
+          "end_exclusive": "0x5183DA"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5183D0",
+          "call_site": "0x5183D0",
+          "target_entry": "0x5183E0",
+          "target_symbol": "ConstructLegacyPlayerRuntime_5183E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原同一固定状态构造前缀/正常算法，既有owner与随机消费保持"
+        },
+        {
+          "parent_entry": "0x5183D0",
+          "call_site": "0x5183F5",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "transfer": "call",
+          "arguments": "ReleaseLegacyPlayerRuntimeAtExit_518400 整体无参callback",
+          "original_instruction_owner": "0x5183E0",
+          "original_registration_block": "0x5183F0",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        }
+      ],
+      "runtime_state_crt_callback_references": [
+        {
+          "parent_entry": "0x5183D0",
+          "reference_site": "0x5183F0",
+          "callback_entry": "0x518400",
+          "callback_symbol": "ReleaseLegacyPlayerRuntimeAtExit_518400",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "original_instruction_owner": "0x5183E0",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ],
+      "runtime_state_crt_supplemental_registration_blocks": [
+        {
+          "parent_entry": "0x5183D0",
+          "branch_site": "0x5183D5",
+          "original_shared_block": "0x5183F0",
+          "original_shared_end_exclusive": "0x5183FC",
+          "original_instruction_owner": "0x5183E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "instructions": [
+            [
+              "0x5183f0",
+              "push    offset loc_518400; void (__cdecl *)()",
+              "push",
+              "0x518400",
+              "-0x1"
+            ],
+            [
+              "0x5183f5",
+              "call    _atexit",
+              "call",
+              "0x53b406",
+              "-0x1"
+            ],
+            [
+              "0x5183fa",
+              "pop     ecx",
+              "pop",
+              "0x1",
+              "-0x1"
+            ],
+            [
+              "0x5183fb",
+              "retn",
+              "retn",
+              "-0x1",
+              "-0x1"
+            ]
+          ],
+          "relationship": "入口自身两条，尾入构造函数所属四条登记块，不扩大root function_chunks或新计原身份"
+        }
+      ]
     },
     {
       "original_entry": "0x5183E0",
       "inventory_id": "F:001183E0",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "玩家六个CryptInt的构造/析构与登记块",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "PlayerRuntimeValuesStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ConstructPlayerRuntimeValues",
             "DestroyPlayerRuntimeValues"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructLegacyPlayerRuntime_5183E0",
+            "ReleaseLegacyPlayerRuntimeAtExit_518400"
+          ],
+          "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "元数据同时含5183F0/518400/518410/5184A0及54BB50/54BBA0异常块；正常顺序+18/+28/+38/+48/+58/+68，退出反序，复用唯一玩家owner。异常展开与宿主完整退出未验。"
+      "boundary": "元数据同时含5183F0/518400/518410/5184A0及54BB50/54BBA0异常块；正常顺序+18/+28/+38/+48/+58/+68，退出反序，复用唯一玩家owner。异常展开与宿主完整退出未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 106,
+      "function_chunks": [
+        {
+          "start": "0x5183E0",
+          "end_exclusive": "0x51851B"
+        },
+        {
+          "start": "0x54BB50",
+          "end_exclusive": "0x54BB91"
+        },
+        {
+          "start": "0x54BBA0",
+          "end_exclusive": "0x54BBE1"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5183D0",
+          "call_site": "0x5183D0",
+          "target_entry": "0x5183E0",
+          "target_symbol": "ConstructLegacyPlayerRuntime_5183E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原同一固定状态构造前缀/正常算法，既有owner与随机消费保持"
+        }
+      ],
+      "runtime_state_crt_fixed_component_references": [
+        {
+          "combined_original_entry": "0x5183E0",
+          "constructor_prefix": "0x5183E0",
+          "constructor_body": "0x5184A0",
+          "constructor_symbol": "ConstructLegacyPlayerRuntime_5183E0",
+          "constructor_return": "&gPlayerRuntime 真实FDA700 owner",
+          "callback_prefix": "0x518400",
+          "callback_body": "0x518410",
+          "callback_symbol": "ReleaseLegacyPlayerRuntimeAtExit_518400",
+          "source": "src/world/SceneState.cpp",
+          "original_this_address": "0xFDA700",
+          "relationship": "同一合并函数内构造/退出固定this前缀单列，normal动作源码沿已证十值/六值；原FS/EH与故障不因普通循环认定等价，不增callback原身份"
+        }
+      ]
     },
     {
       "original_entry": "0x518520",
       "inventory_id": "F:00118520",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "五宠物CRT启动与退出登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "PetRuntimeValuesStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeLegacyPetRuntime_518520"
+          ],
+          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "InitializeLegacyPetRuntime_518520"
+          ],
+          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。"
+      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x518520",
+          "end_exclusive": "0x51852A"
+        },
+        {
+          "start": "0x518550",
+          "end_exclusive": "0x51855C"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x518520",
+          "call_site": "0x518520",
+          "target_entry": "0x518530",
+          "target_symbol": "ConstructPetRuntimeValues",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原518530实际源码沿既有五记录构造循环，不声称53C45E/EH独立本体或运行已验"
+        },
+        {
+          "parent_entry": "0x518520",
+          "call_site": "0x518555",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "transfer": "call",
+          "arguments": "DestroyPetRuntimeValues 整体无参callback",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        }
+      ],
+      "runtime_state_crt_callback_references": [
+        {
+          "parent_entry": "0x518520",
+          "reference_site": "0x518550",
+          "callback_entry": "0x518560",
+          "callback_symbol": "DestroyPetRuntimeValues",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ]
     },
     {
       "original_entry": "0x518530",
       "inventory_id": "F:00118530",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "五宠物构造迭代",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ConstructPetRuntimeValues"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ],
+          "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原EH vector constructor以5110H步长正序构造五条，每条4CD360构造六个CryptInt；新端遍历唯一五记录及各六值，不按旧步长寻址新端。失败展开路径不由正常循环映射认定完成。"
+      "boundary": "原EH vector constructor以5110H步长正序构造五条，每条4CD360构造六个CryptInt；新端遍历唯一五记录及各六值，不按旧步长寻址新端。失败展开路径不由正常循环映射认定完成。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x518530",
+          "end_exclusive": "0x51854C"
+        }
+      ],
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x518520",
+          "call_site": "0x518520",
+          "target_entry": "0x518530",
+          "target_symbol": "ConstructPetRuntimeValues",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "transfer": "call",
+          "arguments": "无参；真实this返回不做成功门禁",
+          "relationship": "原518530实际源码沿既有五记录构造循环，不声称53C45E/EH独立本体或运行已验"
+        }
+      ]
     },
     {
       "original_entry": "0x518560",
       "inventory_id": "F:00118560",
-      "status": "正常构析已有映射，完整退出与异常路径未验",
+      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
       "original_role": "五宠物析构迭代",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "DestroyPetRuntimeValues"
-          ]
+          ],
+          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyPetRuntimeValues"
+          ],
+          "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。"
+      "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "runtime_state_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x518520",
+          "reference_site": "0x518550",
+          "callback_entry": "0x518560",
+          "callback_symbol": "DestroyPetRuntimeValues",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ]
     },
     {
       "original_entry": "0x4883F0",
@@ -17163,6 +17594,21 @@
             "InitializeLegacySecondItemSelector_4998F0"
           ],
           "relationship": "本轮两独立选择器CRT真实登记父入口；旧登记算法/数组保持"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "InitializeLegacyMouseRuntime_506340"
+          ],
+          "relationship": "本轮鼠标/玩家/主宠物独立CRT原登记父路径，原归属/旧算法保持"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeLegacyPlayerRuntime_5183D0",
+            "InitializeLegacyPetRuntime_518520"
+          ],
+          "relationship": "本轮鼠标/玩家/主宠物独立CRT原登记父路径，原归属/旧算法保持"
         }
       ],
       "evidence_documents": [
@@ -17170,7 +17616,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -18075,6 +18521,76 @@
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
+        }
+      ],
+      "runtime_state_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x506340",
+          "call_site": "0x506365",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "transfer": "call",
+          "arguments": "ReleaseLegacyMouseRuntimeAtExit_506370 整体无参callback",
+          "original_instruction_owner": "0x506350",
+          "original_registration_block": "0x506360",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        },
+        {
+          "parent_entry": "0x5183D0",
+          "call_site": "0x5183F5",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "transfer": "call",
+          "arguments": "ReleaseLegacyPlayerRuntimeAtExit_518400 整体无参callback",
+          "original_instruction_owner": "0x5183E0",
+          "original_registration_block": "0x5183F0",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        },
+        {
+          "parent_entry": "0x518520",
+          "call_site": "0x518555",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "transfer": "call",
+          "arguments": "DestroyPetRuntimeValues 整体无参callback",
+          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+        }
+      ],
+      "runtime_state_crt_callback_references": [
+        {
+          "parent_entry": "0x506340",
+          "reference_site": "0x506360",
+          "callback_entry": "0x506370",
+          "callback_symbol": "ReleaseLegacyMouseRuntimeAtExit_506370",
+          "source": "src/platform/LegacyMouse.cpp",
+          "symbol": "InitializeLegacyMouseRuntime_506340",
+          "original_instruction_owner": "0x506350",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        },
+        {
+          "parent_entry": "0x5183D0",
+          "reference_site": "0x5183F0",
+          "callback_entry": "0x518400",
+          "callback_symbol": "ReleaseLegacyPlayerRuntimeAtExit_518400",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPlayerRuntime_5183D0",
+          "original_instruction_owner": "0x5183E0",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        },
+        {
+          "parent_entry": "0x518520",
+          "reference_site": "0x518550",
+          "callback_entry": "0x518560",
+          "callback_symbol": "DestroyPetRuntimeValues",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacyPetRuntime_518520",
+          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
         }
       ]
     },
@@ -19282,7 +19798,7 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。",
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
       "crt_parent_internal_call_connections": [
         {
@@ -20002,6 +20518,35 @@
           "source_body_implemented": true,
           "native_table_defined": false,
           "relationship": "本轮两真实provider/固定内嵌对象接线，整90表仍extern不启用"
+        }
+      ],
+      "runtime_state_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x5530F8",
+          "target_entry": "0x506340",
+          "target_symbol": "cg::platform::InitializeLegacyMouseRuntime_506340",
+          "source": "src/platform/LegacyMouse.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x5530FC",
+          "target_entry": "0x5183D0",
+          "target_symbol": "cg::world::InitializeLegacyPlayerRuntime_5183D0",
+          "source": "src/world/SceneState.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x553100",
+          "target_entry": "0x518520",
+          "target_symbol": "cg::world::InitializeLegacyPetRuntime_518520",
+          "source": "src/world/SceneState.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
         }
       ]
     },

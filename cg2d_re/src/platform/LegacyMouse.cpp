@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyMouse.hpp"
 
 #include "LegacyIos.hpp"
+#include "LegacyRuntimeExit.hpp"
 
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
@@ -471,6 +472,38 @@ struct LegacyMultibyteStaticInitializer {
 const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;
 
 } // namespace
+
+namespace {
+
+// 原506350固定D68CF8→506460；仅十个CryptInt按原序构造，不动鼠标其他字段。
+LegacyCryptInt* ConstructLegacyMouseRuntime_506350()
+{
+    legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseX);
+    legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseY);
+    for (LegacyCryptInt& coordinate : gLegacyMouseState.buttonCoordinates) {
+        legacy_crypt_int::ConstructZero_401C70(&coordinate);
+    }
+    return &gLegacyMouseState.mouseX;
+}
+
+// 原506370固定D68CF8→506380；整体退出按八坐标/Y/X逆序，只原析构动作。
+void ReleaseLegacyMouseRuntimeAtExit_506370()
+{
+    for (std::size_t index = 8; index != 0; --index) {
+        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.buttonCoordinates[index - 1]);
+    }
+    legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseY);
+    legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseX);
+}
+
+} // namespace
+
+// 原CRT 5530F8：构造后原整体退出登记，完整S32透传。
+std::int32_t InitializeLegacyMouseRuntime_506340()
+{
+    ConstructLegacyMouseRuntime_506350();
+    return RegisterLegacyAtExit_53B406(ReleaseLegacyMouseRuntimeAtExit_506370);
+}
 
 std::int32_t ResetLegacyMouseState_506870()
 {

@@ -576,6 +576,37 @@ volatile std::uint32_t gWorldProjectionReferenceYBits = 0; // 原 0xC751A4。
 
 static_assert(sizeof(gValueD67B08) == 7 * sizeof(std::uint32_t));
 
+namespace {
+
+// 原5183E0固定FDA700→5184A0；六成员沿同一玩家owner，真实this返回。
+PlayerRuntimeSlots* ConstructLegacyPlayerRuntime_5183E0()
+{
+    ConstructPlayerRuntimeValues();
+    return &gPlayerRuntime;
+}
+
+// 原518400固定FDA700→518410；同一六成员逆序，其他玩家字段不动。
+void ReleaseLegacyPlayerRuntimeAtExit_518400()
+{
+    DestroyPlayerRuntimeValues();
+}
+
+} // namespace
+
+// 原CRT 5530FC：构造后原整体退出登记，完整S32透传。
+std::int32_t InitializeLegacyPlayerRuntime_5183D0()
+{
+    ConstructLegacyPlayerRuntime_5183E0();
+    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacyPlayerRuntimeAtExit_518400);
+}
+
+// 原CRT 553100：构造后原整体退出登记，完整S32透传。
+std::int32_t InitializeLegacyPetRuntime_518520()
+{
+    ConstructPetRuntimeValues();
+    return platform::RegisterLegacyAtExit_53B406(DestroyPetRuntimeValues);
+}
+
 void ConstructPlayerRuntimeValues()
 {
     platform::legacy_crypt_int::ConstructZero_401C70(&gPlayerRuntime.hp);

@@ -83,6 +83,9 @@ void InitializeWorldCoordinateStates();
 void InitializeWorldMoveStates();
 
 // 原5184A0/518410，玩家六组CryptInt；排在鼠标构造之后。
+// 原CRT 5530FC/553100：玩家六值、主宠物五条六值，各整体真实登记/完整S32。
+std::int32_t InitializeLegacyPlayerRuntime_5183D0();
+std::int32_t InitializeLegacyPetRuntime_518520();
 void ConstructPlayerRuntimeValues();
 void DestroyPlayerRuntimeValues();
 // 原518530/518560，五条宠物各六组CryptInt；排在玩家构造之后。

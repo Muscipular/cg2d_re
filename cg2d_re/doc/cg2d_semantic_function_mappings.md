@@ -1640,3 +1640,17 @@ std::atexit提供者关联；原18构造动作/登记点/无参callback、18data
 审核141/3680、限定证据90，快照`cg2d-re-standard-stream-exit-source-20261005`。
 不新增活动Init/模块/owner，17待接、全registry/facet、正常快速callable退出
 及SDK运行继续开放，任务10/60、叶0/182和全局门禁不变。
+
+## SCG01 两标准流控制器构造门禁映射（2026-10-05）
+
+[具名SPEC](cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure)及
+[311条原体/9辅助](cg2d_standard_stream_controller_gates_evidence.json)
+仅更新既有5482DD→F:001482DD、549397→F:00149397的七门禁来源，
+保原14正常/14展开call、四入向、分离段、真实计数与全部旧数字属性。
+14补丁外整CPP及其他源头保持，辅助四父和RET不增本组处置。
+
+两变化根记adapted，固定目标非零/源级C++承接不记机器发射或故障等价；
+1205其他记录及18pending/4分类/3无ID保持，语义1207/1204有效原ID。
+审核143/3680、限定证据93，快照`cg2d-re-standard-stream-gates-source-20261005`；
+17活动项/全registry/facet、正常快速callable退出及SDK运行仍待，
+任务10/60、叶0/182与全局门禁不提升。

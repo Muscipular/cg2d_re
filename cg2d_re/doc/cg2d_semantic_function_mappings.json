@@ -73773,11 +73773,11 @@
     {
       "original_entry": "0x5482DD",
       "inventory_id": "F:001482DD",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SCG01原标准流控制器七构造门禁已恢复/原状态与算法保持；完整活动序/登记容量/SDK运行未闭",
       "original_end_exclusive": "0x54843B",
       "instruction_count": 156,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法；SCG01两根完整311条/953B与9辅助条/41B、14原门禁/FuncInfo和14限定补丁静态；无构建/测试/运行/摘要",
       "function_chunks": [
         {
           "start": "0x5482DD",
@@ -73804,7 +73804,7 @@
           "symbols": [
             "InitializeLegacyNarrowStandardStreams_5482DD"
           ],
-          "relationship": "独立原S32计数/真实对象地址与七阶段构造、动态tie/共享错误缓冲/原单动作展开，不自动启动"
+          "relationship": "独立原S32计数/真实对象地址与七阶段构造、动态tie/共享错误缓冲/原单动作展开，不自动启动；SCG01当前七固定目标原非空门禁恢复，14补丁外算法和活动归属保持"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -73862,9 +73862,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_pe_zero_initialization_evidence.json",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json"
       ],
-      "boundary": "窄标准流控制器：592894为S32，已加载初值-1；非负只递增并返回this，负值先写1再按stdin/stdout缓冲、输入/输出、stderr缓冲、错误/日志流顺序构造。输入/错误/日志tie输出，错误flags或2，错误和日志共用10863D8。保留54C064..54C0DE异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x5491E5，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInputBuffer1086470、gLegacyNarrowStandardOutputBuffer1086348、gLegacyNarrowStandardErrorBuffer10863D8、gLegacyNarrowStandardInput1086430、gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "窄标准流控制器：592894为S32，已加载初值-1；非负只递增并返回this，负值先写1再按stdin/stdout缓冲、输入/输出、stderr缓冲、错误/日志流顺序构造。输入/错误/日志tie输出，错误flags或2，错误和日志共用10863D8。保留54C064..54C0DE异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x5491E5，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInputBuffer1086470、gLegacyNarrowStandardOutputBuffer1086348、gLegacyNarrowStandardErrorBuffer10863D8、gLegacyNarrowStandardInput1086430、gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SCG01各七原固定目标test/jz恢复为既有currentObject非空判定，仅围当次构造call；target/state先写、参数/返回弃/下阶段、独立计数/tie/format/共享错误缓冲与catch候选保持。原与当前固定目标均非零，不称正常输出修复/新增空值安全；无新活动Init或owner，原x86FS/机器ABI和运行未验。",
       "standard_stream_controller_internal_call_connections": [
         {
           "parent_entry": "0x5482DD",
@@ -74285,16 +74287,130 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "standard_stream_controller_gates": {
+        "group": "SCG01",
+        "spec": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "original_gates": [
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 0,
+            "target": "gLegacyNarrowStandardInputBuffer1086470",
+            "original_target": "0x1086470",
+            "gate_test": "0x54831c",
+            "gate_jump": "0x54831e",
+            "skip_target": "0x54832c",
+            "call_site": "0x548327",
+            "callee": "ConstructLegacyNarrowFileBuffer_5485FE",
+            "original_callee": "0x5485FE",
+            "source_arguments": "&gLegacyNarrowStandardInputBuffer1086470, &gLegacyStaticFiles58F8B8[0]"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 1,
+            "target": "gLegacyNarrowStandardOutputBuffer1086348",
+            "original_target": "0x1086348",
+            "gate_test": "0x548339",
+            "gate_jump": "0x54833b",
+            "skip_target": "0x548347",
+            "call_site": "0x548342",
+            "callee": "ConstructLegacyNarrowFileBuffer_5485FE",
+            "original_callee": "0x5485FE",
+            "source_arguments": "&gLegacyNarrowStandardOutputBuffer1086348, &gLegacyStaticFiles58F8B8[1]"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 2,
+            "target": "gLegacyNarrowStandardInput1086430",
+            "original_target": "0x1086430",
+            "gate_test": "0x548359",
+            "gate_jump": "0x54835b",
+            "skip_target": "0x548367",
+            "call_site": "0x548362",
+            "callee": "ConstructLegacyNarrowInput_548537",
+            "original_callee": "0x548537",
+            "source_arguments": "&gLegacyNarrowStandardInput1086430, &gLegacyNarrowStandardInputBuffer1086470.base, 1, 1"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 3,
+            "target": "gLegacyNarrowStandardOutput10863A0",
+            "original_target": "0x10863A0",
+            "gate_test": "0x548378",
+            "gate_jump": "0x54837a",
+            "skip_target": "0x54838b",
+            "call_site": "0x548386",
+            "callee": "ConstructLegacyNarrowOutput_548463",
+            "original_callee": "0x548463",
+            "source_arguments": "&gLegacyNarrowStandardOutput10863A0, &gLegacyNarrowStandardOutputBuffer1086348.base, 1, 1, 1"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 4,
+            "target": "gLegacyNarrowStandardErrorBuffer10863D8",
+            "original_target": "0x10863D8",
+            "gate_test": "0x5483aa",
+            "gate_jump": "0x5483ac",
+            "skip_target": "0x5483ba",
+            "call_site": "0x5483B5",
+            "callee": "ConstructLegacyNarrowFileBuffer_5485FE",
+            "original_callee": "0x5485FE",
+            "source_arguments": "&gLegacyNarrowStandardErrorBuffer10863D8, &gLegacyStaticFiles58F8B8[2]"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 5,
+            "target": "gLegacyNarrowStandardError10864C8",
+            "original_target": "0x10864C8",
+            "gate_test": "0x5483cb",
+            "gate_jump": "0x5483cd",
+            "skip_target": "0x5483dd",
+            "call_site": "0x5483D8",
+            "callee": "ConstructLegacyNarrowOutput_548463",
+            "original_callee": "0x548463",
+            "source_arguments": "&gLegacyNarrowStandardError10864C8, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1"
+          },
+          {
+            "root": "0x5482DD",
+            "inventory_id": "F:001482DD",
+            "state": 6,
+            "target": "gLegacyNarrowStandardLog1086310",
+            "original_target": "0x1086310",
+            "gate_test": "0x54840b",
+            "gate_jump": "0x54840e",
+            "skip_target": "0x54841c",
+            "call_site": "0x548417",
+            "callee": "ConstructLegacyNarrowOutput_548463",
+            "original_callee": "0x548463",
+            "source_arguments": "&gLegacyNarrowStandardLog1086310, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1"
+          }
+        ],
+        "source_predicate": "currentObject != nullptr",
+        "fixed_target_nonzero": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "new_protection_added": false,
+        "new_activity_call": false,
+        "original_machine_emission_claimed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
       "original_entry": "0x549397",
       "inventory_id": "F:00149397",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SCG01原标准流控制器七构造门禁已恢复/原状态与算法保持；完整活动序/登记容量/SDK运行未闭",
       "original_end_exclusive": "0x5494FE",
       "instruction_count": 155,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法；SCG01两根完整311条/953B与9辅助条/41B、14原门禁/FuncInfo和14限定补丁静态；无构建/测试/运行/摘要",
       "function_chunks": [
         {
           "start": "0x549397",
@@ -74321,7 +74437,7 @@
           "symbols": [
             "InitializeLegacyWideStandardStreams_549397"
           ],
-          "relationship": "独立原S32计数/真实对象地址与七阶段构造、动态tie/共享错误缓冲/原单动作展开，不自动启动"
+          "relationship": "独立原S32计数/真实对象地址与七阶段构造、动态tie/共享错误缓冲/原单动作展开，不自动启动；SCG01当前七固定目标原非空门禁恢复，14补丁外算法和活动归属保持"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -74379,9 +74495,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_pe_zero_initialization_evidence.json",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json"
       ],
-      "boundary": "宽标准流控制器：独立5929EC为S32，已加载初值-1；非负只递增，负值先写1。先构造stdin/stdout/stderr三个缓冲，再输入/输出/错误/日志；错误与日志共用10866A0，tie及unitbuf保持。保留54C1C4..54C23E异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x54920F，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInputBuffer1086610、gLegacyWideStandardOutputBuffer10865B8、gLegacyWideStandardErrorBuffer10866A0、gLegacyWideStandardInput1086578、gLegacyWideStandardOutput1086668、gLegacyWideStandardError1086500、gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "宽标准流控制器：独立5929EC为S32，已加载初值-1；非负只递增，负值先写1。先构造stdin/stdout/stderr三个缓冲，再输入/输出/错误/日志；错误与日志共用10866A0，tie及unitbuf保持。保留54C1C4..54C23E异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x54920F，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInputBuffer1086610、gLegacyWideStandardOutputBuffer10865B8、gLegacyWideStandardErrorBuffer10866A0、gLegacyWideStandardInput1086578、gLegacyWideStandardOutput1086668、gLegacyWideStandardError1086500、gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SCG01各七原固定目标test/jz恢复为既有currentObject非空判定，仅围当次构造call；target/state先写、参数/返回弃/下阶段、独立计数/tie/format/共享错误缓冲与catch候选保持。原与当前固定目标均非零，不称正常输出修复/新增空值安全；无新活动Init或owner，原x86FS/机器ABI和运行未验。",
       "standard_stream_controller_internal_call_connections": [
         {
           "parent_entry": "0x549397",
@@ -74802,6 +74920,120 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "standard_stream_controller_gates": {
+        "group": "SCG01",
+        "spec": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "original_gates": [
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 0,
+            "target": "gLegacyWideStandardInputBuffer1086610",
+            "original_target": "0x1086610",
+            "gate_test": "0x5493d6",
+            "gate_jump": "0x5493d8",
+            "skip_target": "0x5493e6",
+            "call_site": "0x5493E1",
+            "callee": "ConstructLegacyWideFileBuffer_54970A",
+            "original_callee": "0x54970A",
+            "source_arguments": "&gLegacyWideStandardInputBuffer1086610, &gLegacyStaticFiles58F8B8[0]"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 1,
+            "target": "gLegacyWideStandardOutputBuffer10865B8",
+            "original_target": "0x10865B8",
+            "gate_test": "0x5493f3",
+            "gate_jump": "0x5493f5",
+            "skip_target": "0x549401",
+            "call_site": "0x5493FC",
+            "callee": "ConstructLegacyWideFileBuffer_54970A",
+            "original_callee": "0x54970A",
+            "source_arguments": "&gLegacyWideStandardOutputBuffer10865B8, &gLegacyStaticFiles58F8B8[1]"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 2,
+            "target": "gLegacyWideStandardErrorBuffer10866A0",
+            "original_target": "0x10866A0",
+            "gate_test": "0x549412",
+            "gate_jump": "0x549414",
+            "skip_target": "0x549420",
+            "call_site": "0x54941B",
+            "callee": "ConstructLegacyWideFileBuffer_54970A",
+            "original_callee": "0x54970A",
+            "source_arguments": "&gLegacyWideStandardErrorBuffer10866A0, &gLegacyStaticFiles58F8B8[2]"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 3,
+            "target": "gLegacyWideStandardInput1086578",
+            "original_target": "0x1086578",
+            "gate_test": "0x549432",
+            "gate_jump": "0x549434",
+            "skip_target": "0x549440",
+            "call_site": "0x54943B",
+            "callee": "ConstructLegacyWideInput_549643",
+            "original_callee": "0x549643",
+            "source_arguments": "&gLegacyWideStandardInput1086578, &gLegacyWideStandardInputBuffer1086610.base, 1, 1"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 4,
+            "target": "gLegacyWideStandardOutput1086668",
+            "original_target": "0x1086668",
+            "gate_test": "0x549451",
+            "gate_jump": "0x549453",
+            "skip_target": "0x549467",
+            "call_site": "0x549462",
+            "callee": "ConstructLegacyWideOutput_549525",
+            "original_callee": "0x549525",
+            "source_arguments": "&gLegacyWideStandardOutput1086668, &gLegacyWideStandardOutputBuffer10865B8.base, 1, 1, 1"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 5,
+            "target": "gLegacyWideStandardError1086500",
+            "original_target": "0x1086500",
+            "gate_test": "0x549486",
+            "gate_jump": "0x549489",
+            "skip_target": "0x54949d",
+            "call_site": "0x549498",
+            "callee": "ConstructLegacyWideOutput_549525",
+            "original_callee": "0x549525",
+            "source_arguments": "&gLegacyWideStandardError1086500, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1"
+          },
+          {
+            "root": "0x549397",
+            "inventory_id": "F:00149397",
+            "state": 6,
+            "target": "gLegacyWideStandardLog1086540",
+            "original_target": "0x1086540",
+            "gate_test": "0x5494cb",
+            "gate_jump": "0x5494cd",
+            "skip_target": "0x5494df",
+            "call_site": "0x5494DA",
+            "callee": "ConstructLegacyWideOutput_549525",
+            "original_callee": "0x549525",
+            "source_arguments": "&gLegacyWideStandardLog1086540, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1"
+          }
+        ],
+        "source_predicate": "currentObject != nullptr",
+        "fixed_target_nonzero": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "new_protection_added": false,
+        "new_activity_call": false,
+        "original_machine_emission_claimed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {

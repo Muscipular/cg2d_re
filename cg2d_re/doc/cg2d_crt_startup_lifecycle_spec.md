@@ -89,3 +89,15 @@
 16晚段及经典locale共17仍待。完整registry容量/较大正常索引和facet生产，
 全应用normal/quick/callable/异常终止、跨组逆序及SDK运行未闭；
 没有新模块/双owner或迁移其余53B406 caller，C02/C03/C04保持open。
+
+## SCG01 标准流控制器原构造门禁（2026-10-05）
+
+[具名SPEC](cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure)
+已恢复5482DD/549397各七固定目标test/jz，现沿既有currentObject非空判定
+只调用当次原构造。目标/state先写、原参数/计数、窄宽不同构造序、
+实际FILE/共享错误缓冲、动态tie/format、候选展开与SSX01十八登记保持。
+
+固定原/当前对象非零，本组不宣称正常输出修复或新增空安全；
+无新活动Init/模块/owner，当前66+2投影及17待接保持。
+原计数-1/两七prev/四父及RET有证，但全registry容量、真实facet/codecvt、
+全应用normal/quick/callable退出和SDK运行仍待，C02/C03/C04继续open。

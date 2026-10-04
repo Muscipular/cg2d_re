@@ -4248,3 +4248,17 @@ LegacyIos仅类型及四对象定义变化，所有既有控制器、登记、�
 全局/经典locale原生合同中先前“对象原堆/原退出表”的当前状态已由[LCH01](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)更新：54A422/54C39F/54A5AB实现对象存储分配和异常/正常释放成对std::malloc/std::free；保真实U32请求/原handler、Ctor失败只块释放、正常完整析构后flags门禁。54A450/54A3F3改同回调std::atexit，global先发布/返回弃、经典先RET晚段/直接S32保持。
 
 全部原Ctor/默认locale、三槽引用/名称、facets逆序重取及异常清理正文保持；base facet对象及facets向量仍原域，名称NSH01。经典55315C全表caller、Legacy/宿主活动流归属、codecvt真实生产、完整退出与SDK/运行仍未闭，未提前启用经典初始化或删除转换分支。十二原体269/复用85总354及十七已有语义为局部证据，不改FILE/格式/长度既有分母或关闭完整CRT门禁。
+
+## SCG01 两标准流控制器的原门禁恢复（2026-10-05）
+
+[SCG01裁决/源码](cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure)
+补当前5482DD/549397构造点省略的14原固定目标非空判定；
+既有currentObject保存目标、state先写后判，判定只围住对应call。
+原311条/953B含分离state/异常尾，14test/jz/call/skip及九辅助条可追；
+pop在两处test/jz间不改变原目标/判定，不误归为另一条件。
+
+十四补丁外原计数/参数/两个构造序、0/1/2 FILE和错误/日志共享缓冲、
+动态tie/format、单候选RET展开与十八即时宿主登记、所有算法及分配域不改。
+固定目标非零，不据恢复门禁称新增保护/正常输出修复；无新活动或清理。
+C03/完整标准流与CRT、registry容量/较大正常index、真实facet/codecvt、
+全应用normal/quick/callable退出、SDK/运行保持未闭。

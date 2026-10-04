@@ -1009,3 +1009,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余与交付**：完整registry容量/较大正常索引/计算alias、真实facet/codecvt生产与分配域、全应用活动原序及normal/quick/callable/异常终止和SDK/运行待验。不构建/查产物/测试/运行/摘要，异常不专项模拟或记安全/故障等价；原格式明文、音频暂停、单线程保持。精确12项，快照`cg2d-re-standard-stream-exit-source-20261005`，用户原六项不暂存。
 
 **SSX01交付检查**：12项严格UTF-8无BOM/LF、674个本地Markdown链接、78项限定登记/决议引用及Git差异格式通过；measure生成和独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。
+
+## SCG01 标准流控制器原构造门禁开发（2026-10-05）
+
+- **实际开发**：先记[SCG01 SPEC](../doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision)，再在5482DD/549397各七构造点恢复原非空门禁；既有currentObject保存固定实际目标，state先写后判，只围住当次原call。固定原/当前目标均非零，本组恢复原控制流，不声称修复正常输出或新增空安全；无新保护/参数/接口或owner。
+- **原证据**：[归档](../doc/cg2d_standard_stream_controller_gates_evidence.json)含两根156+155=311条/953B、全部主/分离段、14test/jz/call/skip、原两计数FFFFFFFF及两个FuncInfo七prev。两门禁test/jz间原pop保持判定；复用四真实父8条/40B和原54843B单RET1条，总320唯一条/994B，辅助不新增审核。
+- **保持与接线**：14补丁外整CPP/所有其他src/include、原计数重读/先1/失败不恢复、窄宽不同七构造序/参数/返回弃、三个FILE、错误日志共享缓冲、每次tie/format重投影及单候选catch/重抛保持。SSX01十八std::atexit、四Init/14被动存储及所有分配域原文不变，无新活动，当前66+2投影/17待接保持。
+- **集中静态和度量**：完整311条/9辅助、14门禁/真实callee/计数和七prev、14限定补丁通过；两旧语义定点更新/1205其余及全部登记政策保持。新增两adapted/三限定E，语义1207/1204有效ID，审核143/3680、证据93；18pending/4分类/3无ID、任务10/60、叶0/182及全局门禁不变。C02/C03/C04均open，编码引用/差异及measure/-Check见交付条。
+- **剩余与交付**：全registry容量/较大正常索引/间接alias、真实facet/codecvt和分配域、全应用活动序与normal/quick/callable/异常终止、SDK及运行待验。未构建/查产物/新增或执行测试/运行/摘要，RPLAN.24异常不专项处理/记安全或故障等价；音频暂停、原格式明文、单线程保持。精确12项，快照`cg2d-re-standard-stream-gates-source-20261005`，用户既有六项不暂存。
+
+**SCG01交付检查**：12项严格UTF-8无BOM/LF、688个本地Markdown链接、36项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。

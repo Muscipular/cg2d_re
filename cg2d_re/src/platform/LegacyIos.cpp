@@ -583,35 +583,49 @@ void* InitializeLegacyNarrowStandardStreams_5482DD(void* const initializer)
     gLegacyNarrowStandardInitCount592894 = 1;
     state = 0;
     try {
-        ConstructLegacyNarrowFileBuffer_5485FE(
-            &gLegacyNarrowStandardInputBuffer1086470, &gLegacyStaticFiles58F8B8[0]);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowFileBuffer_5485FE(
+                &gLegacyNarrowStandardInputBuffer1086470, &gLegacyStaticFiles58F8B8[0]);
+        }
         currentObject = &gLegacyNarrowStandardOutputBuffer1086348;
         state = 1;
-        ConstructLegacyNarrowFileBuffer_5485FE(
-            &gLegacyNarrowStandardOutputBuffer1086348, &gLegacyStaticFiles58F8B8[1]);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowFileBuffer_5485FE(
+                &gLegacyNarrowStandardOutputBuffer1086348, &gLegacyStaticFiles58F8B8[1]);
+        }
         currentObject = &gLegacyNarrowStandardInput1086430;
         state = 2;
-        ConstructLegacyNarrowInput_548537(
-            &gLegacyNarrowStandardInput1086430, &gLegacyNarrowStandardInputBuffer1086470.base, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowInput_548537(
+                &gLegacyNarrowStandardInput1086430, &gLegacyNarrowStandardInputBuffer1086470.base, 1, 1);
+        }
         currentObject = &gLegacyNarrowStandardOutput10863A0;
         state = 3;
-        ConstructLegacyNarrowOutput_548463(
-            &gLegacyNarrowStandardOutput10863A0, &gLegacyNarrowStandardOutputBuffer1086348.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowOutput_548463(
+                &gLegacyNarrowStandardOutput10863A0, &gLegacyNarrowStandardOutputBuffer1086348.base, 1, 1, 1);
+        }
         currentObject = &gLegacyNarrowStandardErrorBuffer10863D8;
         ProjectStreamIos(&gLegacyNarrowStandardInput1086430)->tiedStream = &gLegacyNarrowStandardOutput10863A0;
         state = 4;
-        ConstructLegacyNarrowFileBuffer_5485FE(
-            &gLegacyNarrowStandardErrorBuffer10863D8, &gLegacyStaticFiles58F8B8[2]);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowFileBuffer_5485FE(
+                &gLegacyNarrowStandardErrorBuffer10863D8, &gLegacyStaticFiles58F8B8[2]);
+        }
         currentObject = &gLegacyNarrowStandardError10864C8;
         state = 5;
-        ConstructLegacyNarrowOutput_548463(
-            &gLegacyNarrowStandardError10864C8, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowOutput_548463(
+                &gLegacyNarrowStandardError10864C8, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1);
+        }
         currentObject = &gLegacyNarrowStandardLog1086310;
         ProjectStreamIos(&gLegacyNarrowStandardError10864C8)->tiedStream = &gLegacyNarrowStandardOutput10863A0;
         ProjectStreamIos(&gLegacyNarrowStandardError10864C8)->base.formatBits |= 2u;
         state = 6;
-        ConstructLegacyNarrowOutput_548463(
-            &gLegacyNarrowStandardLog1086310, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyNarrowOutput_548463(
+                &gLegacyNarrowStandardLog1086310, &gLegacyNarrowStandardErrorBuffer10863D8.base, 1, 1, 1);
+        }
         ProjectStreamIos(&gLegacyNarrowStandardLog1086310)->tiedStream = &gLegacyNarrowStandardOutput10863A0;
     } catch (...) {
         // 原七个prev均-1：只当前state调用一叶，不清已完成对象/恢复计数。
@@ -656,35 +670,49 @@ void* InitializeLegacyWideStandardStreams_549397(void* const initializer)
     gLegacyWideStandardInitCount5929EC = 1;
     state = 0;
     try {
-        ConstructLegacyWideFileBuffer_54970A(
-            &gLegacyWideStandardInputBuffer1086610, &gLegacyStaticFiles58F8B8[0]);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideFileBuffer_54970A(
+                &gLegacyWideStandardInputBuffer1086610, &gLegacyStaticFiles58F8B8[0]);
+        }
         currentObject = &gLegacyWideStandardOutputBuffer10865B8;
         state = 1;
-        ConstructLegacyWideFileBuffer_54970A(
-            &gLegacyWideStandardOutputBuffer10865B8, &gLegacyStaticFiles58F8B8[1]);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideFileBuffer_54970A(
+                &gLegacyWideStandardOutputBuffer10865B8, &gLegacyStaticFiles58F8B8[1]);
+        }
         currentObject = &gLegacyWideStandardErrorBuffer10866A0;
         state = 2;
-        ConstructLegacyWideFileBuffer_54970A(
-            &gLegacyWideStandardErrorBuffer10866A0, &gLegacyStaticFiles58F8B8[2]);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideFileBuffer_54970A(
+                &gLegacyWideStandardErrorBuffer10866A0, &gLegacyStaticFiles58F8B8[2]);
+        }
         currentObject = &gLegacyWideStandardInput1086578;
         state = 3;
-        ConstructLegacyWideInput_549643(
-            &gLegacyWideStandardInput1086578, &gLegacyWideStandardInputBuffer1086610.base, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideInput_549643(
+                &gLegacyWideStandardInput1086578, &gLegacyWideStandardInputBuffer1086610.base, 1, 1);
+        }
         currentObject = &gLegacyWideStandardOutput1086668;
         state = 4;
-        ConstructLegacyWideOutput_549525(
-            &gLegacyWideStandardOutput1086668, &gLegacyWideStandardOutputBuffer10865B8.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideOutput_549525(
+                &gLegacyWideStandardOutput1086668, &gLegacyWideStandardOutputBuffer10865B8.base, 1, 1, 1);
+        }
         currentObject = &gLegacyWideStandardError1086500;
         ProjectStreamIos(&gLegacyWideStandardInput1086578)->tiedStream = &gLegacyWideStandardOutput1086668;
         state = 5;
-        ConstructLegacyWideOutput_549525(
-            &gLegacyWideStandardError1086500, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideOutput_549525(
+                &gLegacyWideStandardError1086500, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1);
+        }
         currentObject = &gLegacyWideStandardLog1086540;
         ProjectStreamIos(&gLegacyWideStandardError1086500)->tiedStream = &gLegacyWideStandardOutput1086668;
         ProjectStreamIos(&gLegacyWideStandardError1086500)->base.formatBits |= 2u;
         state = 6;
-        ConstructLegacyWideOutput_549525(
-            &gLegacyWideStandardLog1086540, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1);
+        if (currentObject != nullptr) {
+            ConstructLegacyWideOutput_549525(
+                &gLegacyWideStandardLog1086540, &gLegacyWideStandardErrorBuffer10866A0.base, 1, 1, 1);
+        }
         ProjectStreamIos(&gLegacyWideStandardLog1086540)->tiedStream = &gLegacyWideStandardOutput1086668;
     } catch (...) {
         // 原七个prev均-1：只当前state调用一叶，不清已完成对象/恢复计数。

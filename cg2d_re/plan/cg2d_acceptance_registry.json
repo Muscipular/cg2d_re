@@ -82,7 +82,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_exit_table_heap_migration_spec.md",
-        "doc/cg2d_standard_stream_exit_migration_spec.md"
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -199,7 +200,9 @@
         "F:001482AE",
         "F:001492B1",
         "F:001492F5",
-        "F:00149368"
+        "F:00149368",
+        "F:001482DD",
+        "F:00149397"
       ],
       "closure_task_ids": [
         "C02",
@@ -217,7 +220,8 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -229,7 +233,8 @@
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "AIS01六图形/资源调用已统一至当前LegacyMouse原相对位置且旧三模块删除，多字节前置；当前68槽/29仅绑定补登记不代全90/17流locale活动归属、全CRT/快速退出/SDK和运行，音频继续暂停",
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
-        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭"
+        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
+        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -243,7 +248,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline"
       ]
     },
     {
@@ -268,7 +274,8 @@
         "doc/cg2d_native_cpp_exception_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md",
         "doc/cg2d_exit_table_heap_migration_spec.md",
-        "doc/cg2d_standard_stream_exit_migration_spec.md"
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_controller_gates_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -381,7 +388,9 @@
         "F:001492F5",
         "F:00149368",
         "F:00053E00",
-        "F:00053E40"
+        "F:00053E40",
+        "F:001482DD",
+        "F:00149397"
       ],
       "closure_task_ids": [
         "C01",
@@ -399,7 +408,8 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -412,7 +422,8 @@
         "NCE01六本机类型/单owner与九当前throw点已接，五一次原copy/三payload转移/一throw重抛保消息和清理；实际编译生成ABI/按值捕获/SDK、旧C06/硬件SEH/完整CRT和运行仍未闭",
         "LCH01实现对象64B存储/异常与正常释放、两宿主登记已配对；facet/向量仍原域、名称NSH01；经典55315C全表caller/活动流归属、完整C03/C04/C08/C11与codecvt/SDK/运行仍未闭",
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
-        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭"
+        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
+        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -427,7 +438,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline"
       ]
     },
     {
@@ -8761,6 +8773,114 @@
       "observation": "分离主/尾完整原体、真实调用/槽与限定源码差异",
       "expected": "18变化根/254唯一原指令，20补丁外源/其余语义和政策保持",
       "actual": "18记录定点对齐、18具名adapted/三限定证据，其余保持"
+    },
+    {
+      "id": "E-STANDARD-STREAM-GATES-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整根311条/953B、14原门禁及9辅助条/41B；doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-gates-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-acceptance",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitCount592894",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitCount5929EC",
+        "src/platform/LegacyMouse.cpp#UnwindLegacyStandardStream_54843B"
+      ],
+      "differences": [
+        {
+          "description": "仅恢复14原固定目标非空门禁；原/当前固定目标均非零，不声称修复正常输出或新增空安全；源级地址/C++展开承接不宣称原机器发射/x86FS/SDK等价",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        },
+        {
+          "description": "14补丁外构造/状态/计数/tie/format及18宿主登记保持；17活动项/全registry容量/codecvt生产、正常快速callable退出和SDK运行仍未验",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "十四原构造门禁",
+      "expected": "state先写，再判既有currentObject非空，只围住原构造call",
+      "actual": "14非空判定已恢复，没有新保护/早退/默认对象"
+    },
+    {
+      "id": "E-STANDARD-STREAM-GATES-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整根311条/953B、14原门禁及9辅助条/41B；doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-gates-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-acceptance",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitCount592894",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitCount5929EC",
+        "src/platform/LegacyMouse.cpp#UnwindLegacyStandardStream_54843B"
+      ],
+      "differences": [
+        {
+          "description": "仅恢复14原固定目标非空门禁；原/当前固定目标均非零，不声称修复正常输出或新增空安全；源级地址/C++展开承接不宣称原机器发射/x86FS/SDK等价",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        },
+        {
+          "description": "14补丁外构造/状态/计数/tie/format及18宿主登记保持；17活动项/全registry容量/codecvt生产、正常快速callable退出和SDK运行仍未验",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原状态/生产消费与失败、实际存储和共享缓冲",
+      "expected": "构造参数/两不同顺序、计数/动态投影及原候选展开、SSX01登记不改",
+      "actual": "14补丁外整CPP/其他源头保持，无新owner/活动调用"
+    },
+    {
+      "id": "E-STANDARD-STREAM-GATES-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整根311条/953B、14原门禁及9辅助条/41B；doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-gates-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-acceptance",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitCount592894",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitCount5929EC",
+        "src/platform/LegacyMouse.cpp#UnwindLegacyStandardStream_54843B"
+      ],
+      "differences": [
+        {
+          "description": "仅恢复14原固定目标非空门禁；原/当前固定目标均非零，不声称修复正常输出或新增空安全；源级地址/C++展开承接不宣称原机器发射/x86FS/SDK等价",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        },
+        {
+          "description": "14补丁外构造/状态/计数/tie/format及18宿主登记保持；17活动项/全registry容量/codecvt生产、正常快速callable退出和SDK运行仍未验",
+          "decision_ref": "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整原体与限定差异/台账",
+      "expected": "311主根与9辅助/14原门禁、两旧记录限定对齐",
+      "actual": "320唯一原条/994B、两adapted/三限定E及原政策保持"
     }
   ],
   "task_acceptance": [
@@ -8863,7 +8983,8 @@
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
       ]
     },
     {
@@ -8878,7 +8999,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
       ]
     },
     {
@@ -8904,7 +9026,8 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
       ]
     },
     {
@@ -10154,6 +10277,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001482DD",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149397",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
       ]
     }
   ],

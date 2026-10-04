@@ -29,7 +29,7 @@
 
 ## 当前源码 owner 与调用拓扑
 
-当前唯一函数符号和 owner 是 `cg::login::detail::TextMeasure`。唯一声明位于 `src/LoginStateDependencies.hpp`，唯一实现物理位于 `src/render/Font.cpp`；物理目录不等于 C++ namespace，该定义明确处于 `cg::login::detail`。当前不存在 `cg::render::TextMeasure`，也不存在 `TextMeasure` adapter。`src/render/Font.cpp` 中的实现对原函数有效输入域内的相同输入字节保持算法等价；这不代表调用方改变编码后仍保持链级布局等价。`text == nullptr` 与域外 `fontType` 返回 0 是既有的最窄安全适配，不改变原有效域算法。
+当前唯一函数符号和 owner 是 `cg::login::detail::TextMeasure`。唯一声明位于 `src/LoginStateDependencies.hpp`，唯一实现物理位于 `src/render/Font.cpp`；物理目录不等于 C++ namespace，该定义明确处于 `cg::login::detail`。当前不存在 `cg::render::TextMeasure`，也不存在 `TextMeasure` adapter。`src/render/Font.cpp` 中的实现对原函数有效输入域内的相同输入字节保持算法等价；这不代表调用方改变编码后仍保持链级布局等价。该处“最窄安全适配”已在后续具名原分支修正中撤销；当前两参数实现不新增空指针/字体范围返回0，三参数仅保原maxBytes<=0早退。以下日期段落与当前源码共同追踪，不用旧保护描述覆盖当前合同。
 
 当前源码共有 9 个翻译单元的 27 个调用点。它们与原 `TextMeasure@0x44B2A0` 直接调用点的映射如下；这些消费者均直接调用上述唯一 owner，本项不移动或改写声明、定义与调用：
 
@@ -47,7 +47,7 @@
 
 ## 地址中性度量表
 
-原 `gFontList@0x558F68` 有 14 项、每项 `0x18` 字节。首个 W32 是原生 `HFONT`，本函数不读取；新端不把它压入固定 W32，而以独立的 `FontMetrics` 保存其后的 `0x14` 字节度量与配置。未来原生字体句柄须由独立资源类型承载。
+原 `gFontList@0x558F68` 有 14 项、每项 `0x18` 字节。首个 W32 是原生 `HFONT`，本函数不读取；新端不把它压入固定 W32，而以独立的 `FontMetrics` 保存其后的 `0x14` 字节度量与配置。当前Font.cpp已有独立14项HFONT承载，原句柄不进地址中性FontMetrics；生命周期见FLC01，完整SDK/字形/画面未验。
 
 | fontType | sWidth | sHeight | doubleWidth | doubleHeight | familyIndex | fontHeight | field16 | field17 |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -113,3 +113,9 @@
 ## 2026-10-05：输入法绘制父的两次TextMeasure
 
 [RIN01](cg2d_input_render_alignment_spec.md#input-render-source-closure)恢复4590E0@459248组合测宽与4594C2候选测宽的原流程：前者文字返回后重取当前字体，后者用strlen前缓存的同一文本及新取字体；父不预扫描/拒绝或补宽度0。两参数TextMeasure及Font.cpp、其他caller保持，不把本组父修正推为全字体/文本/视觉验收。
+
+## 2026-10-05：字体创建、释放与消费当前对照
+
+[FLC01](cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)核三完整330/15/213体共558条，初始化恢复本地三族选择、保存S8族号/width-face-height和unsigned派生钳制，原中间写/后商覆盖保持。释放及消费现有正确本体不改，唯一原初始化caller明确传0，当前接线正确，不造配置补值。
+
+四全局族指针与三本地选择用途区分；14句柄/地址中性度量/13色/派生槽同owner，原6不新建且旧删除不清槽。消费按原字节/两分支/逐次Y→X与next，DIB/DC承接沿已批准SPEC。完整父/间接alias/共享Back/DC/句柄寿命、SDK/字形/画面运行未验，不把已有代码或558条局部静态当全字体/文本门禁通过。

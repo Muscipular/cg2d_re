@@ -1,0 +1,3423 @@
+{
+  "schema_version": 1,
+  "group": "FLC01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前cg2d.exe已打开IDA经MCP只读Python；未修改/重开/保存或导出",
+  "baseline_reference": "doc/cg2d_font_measure.md / doc/cg2d_sdl_presenter.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-font-lifecycle-source-20261005",
+  "functions": [
+    {
+      "entry": "0x456190",
+      "end": "0x456528",
+      "chunks": [
+        [
+          "0x456190",
+          "0x456528"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456190",
+          "text": "sub     esp, 0Ch",
+          "size": 3
+        },
+        {
+          "address": "0x456193",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x456194",
+          "text": "mov     eax, offset pszFaceName; \"細明體\"",
+          "size": 5
+        },
+        {
+          "address": "0x456199",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x45619a",
+          "text": "mov     edi, ds:DeleteObject",
+          "size": 6
+        },
+        {
+          "address": "0x4561a0",
+          "text": "mov     [esp+14h+pszFaceName], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4561a4",
+          "text": "mov     [esp+14h+var_8], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4561a8",
+          "text": "mov     [esp+14h+var_4], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4561ac",
+          "text": "mov     esi, offset gFontList",
+          "size": 5
+        },
+        {
+          "address": "0x4561b1",
+          "text": "mov     eax, [esi]",
+          "size": 2
+        },
+        {
+          "address": "0x4561b3",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4561b5",
+          "text": "jz      short loc_4561BA",
+          "size": 2
+        },
+        {
+          "address": "0x4561b7",
+          "text": "push    eax; ho",
+          "size": 1
+        },
+        {
+          "address": "0x4561b8",
+          "text": "call    edi ; DeleteObject",
+          "size": 2,
+          "operand_value": "0x7",
+          "operand_type": 1
+        },
+        {
+          "address": "0x4561ba",
+          "text": "add     esi, 18h",
+          "size": 3
+        },
+        {
+          "address": "0x4561bd",
+          "text": "cmp     esi, offset textColor",
+          "size": 6
+        },
+        {
+          "address": "0x4561c3",
+          "text": "jl      short loc_4561B1",
+          "size": 2
+        },
+        {
+          "address": "0x4561c5",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x4561c6",
+          "text": "mov     ebx, [esp+18h+arg_0]",
+          "size": 4
+        },
+        {
+          "address": "0x4561ca",
+          "text": "mov     esi, ds:CreateFontA",
+          "size": 6
+        },
+        {
+          "address": "0x4561d0",
+          "text": "mov     edi, [esp+ebx*4+18h+pszFaceName]",
+          "size": 4
+        },
+        {
+          "address": "0x4561d4",
+          "text": "push    edi; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x4561d5",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x4561d7",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x4561d9",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4561db",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4561dd",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x4561df",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x4561e1",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x4561e3",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x4561e5",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x4561ea",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x4561ec",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x4561ee",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x4561f0",
+          "text": "push    10h; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x4561f2",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x4561f4",
+          "text": "push    edi; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x4561f5",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x4561f7",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x4561f9",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4561fb",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4561fd",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x4561ff",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456201",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456203",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x456205",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x45620a",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x45620c",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x45620e",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x456210",
+          "text": "push    0Eh; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x456212",
+          "text": "mov     gFontList.handle, eax",
+          "size": 5
+        },
+        {
+          "address": "0x456217",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456219",
+          "text": "push    edi; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x45621a",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x45621c",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x45621e",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456220",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456222",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456224",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456226",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456228",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x45622a",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x45622f",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x456231",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x456233",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x456235",
+          "text": "push    14h; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x456237",
+          "text": "mov     gFontList.handle+18h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x45623c",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x45623e",
+          "text": "push    offset pszFaceName; \"細明體\"",
+          "size": 5
+        },
+        {
+          "address": "0x456243",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456245",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x456247",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456249",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45624b",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x45624d",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x45624f",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456251",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x456253",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x456258",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x45625a",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x45625c",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x45625e",
+          "text": "push    10h; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x456260",
+          "text": "mov     gFontList.handle+30h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x456265",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456267",
+          "text": "push    offset pszFaceName; \"細明體\"",
+          "size": 5
+        },
+        {
+          "address": "0x45626c",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x45626e",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x456270",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456272",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456274",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456276",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456278",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x45627a",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x45627c",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x456281",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x456283",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x456285",
+          "text": "mov     gFontList.handle+48h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x45628a",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x45628c",
+          "text": "push    0Eh; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x45628e",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456290",
+          "text": "push    offset pszFaceName; \"細明體\"",
+          "size": 5
+        },
+        {
+          "address": "0x456295",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456297",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x456299",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45629b",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45629d",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x45629f",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x4562a1",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x4562a3",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x4562a5",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x4562aa",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x4562ac",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x4562ae",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x4562b0",
+          "text": "push    14h; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x4562b2",
+          "text": "mov     gFontList.handle+60h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x4562b7",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x4562b9",
+          "text": "mov     gFontList.handle+78h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x4562be",
+          "text": "mov     al, gFontList.fontfamilyIndex+0A8h",
+          "size": 5
+        },
+        {
+          "address": "0x4562c3",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x4562c5",
+          "text": "jge     short loc_4562CE",
+          "size": 2
+        },
+        {
+          "address": "0x4562c7",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x4562c9",
+          "text": "mov     gFontList.fontfamilyIndex+0A8h, al",
+          "size": 5
+        },
+        {
+          "address": "0x4562ce",
+          "text": "movsx   eax, al",
+          "size": 3
+        },
+        {
+          "address": "0x4562d1",
+          "text": "xor     edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x4562d3",
+          "text": "mov     ecx, off_558F08[eax*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x4562da",
+          "text": "mov     dl, gFontList.fontHeight+0A8h",
+          "size": 6
+        },
+        {
+          "address": "0x4562e0",
+          "text": "push    ecx; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x4562e1",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x4562e3",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x4562e5",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4562e7",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4562e9",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x4562eb",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x4562ed",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x4562ef",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x4562f1",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x4562f6",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x4562f8",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x4562fa",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x4562fc",
+          "text": "push    edx; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x4562fd",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x4562ff",
+          "text": "mov     gFontList.handle+0A8h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x456304",
+          "text": "mov     al, gFontList.fontfamilyIndex+0C0h",
+          "size": 5
+        },
+        {
+          "address": "0x456309",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x45630b",
+          "text": "jge     short loc_456314",
+          "size": 2
+        },
+        {
+          "address": "0x45630d",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x45630f",
+          "text": "mov     gFontList.fontfamilyIndex+0C0h, al",
+          "size": 5
+        },
+        {
+          "address": "0x456314",
+          "text": "movsx   eax, al",
+          "size": 3
+        },
+        {
+          "address": "0x456317",
+          "text": "mov     edx, gFontList.sWidth+0C0h",
+          "size": 6
+        },
+        {
+          "address": "0x45631d",
+          "text": "mov     ecx, off_558F08[eax*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x456324",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456326",
+          "text": "push    ecx; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x456327",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456329",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x45632b",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45632d",
+          "text": "mov     al, gFontList.fontHeight+0C0h",
+          "size": 5
+        },
+        {
+          "address": "0x456332",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456334",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456336",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456338",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x45633a",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x45633c",
+          "text": "push    190h; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x456341",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x456343",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x456345",
+          "text": "push    edx; cWidth",
+          "size": 1
+        },
+        {
+          "address": "0x456346",
+          "text": "push    eax; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x456347",
+          "text": "call    esi ; CreateFontA; ;0x190 -> FW_NORMAL",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456349",
+          "text": "mov     gFontList.handle+0C0h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x45634e",
+          "text": "mov     al, gFontList.fontfamilyIndex+0D8h",
+          "size": 5
+        },
+        {
+          "address": "0x456353",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x456355",
+          "text": "jge     short loc_45635E",
+          "size": 2
+        },
+        {
+          "address": "0x456357",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x456359",
+          "text": "mov     gFontList.fontfamilyIndex+0D8h, al",
+          "size": 5
+        },
+        {
+          "address": "0x45635e",
+          "text": "movsx   ecx, al",
+          "size": 3
+        },
+        {
+          "address": "0x456361",
+          "text": "mov     eax, gFontList.sWidth+0D8h",
+          "size": 5
+        },
+        {
+          "address": "0x456366",
+          "text": "mov     edx, off_558F08[ecx*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x45636d",
+          "text": "xor     ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45636f",
+          "text": "push    edx; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x456370",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456372",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x456374",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456376",
+          "text": "mov     cl, gFontList.fontHeight+0D8h",
+          "size": 6
+        },
+        {
+          "address": "0x45637c",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45637e",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456380",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456382",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456384",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x456386",
+          "text": "push    190h; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x45638b",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x45638d",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x45638f",
+          "text": "push    eax; cWidth",
+          "size": 1
+        },
+        {
+          "address": "0x456390",
+          "text": "push    ecx; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x456391",
+          "text": "call    esi ; CreateFontA; ;0x190 -> FW_NORMAL",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456393",
+          "text": "mov     gFontList.handle+0D8h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x456398",
+          "text": "mov     al, gFontList.fontfamilyIndex+0F0h",
+          "size": 5
+        },
+        {
+          "address": "0x45639d",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x45639f",
+          "text": "jge     short loc_4563A8",
+          "size": 2
+        },
+        {
+          "address": "0x4563a1",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x4563a3",
+          "text": "mov     gFontList.fontfamilyIndex+0F0h, al",
+          "size": 5
+        },
+        {
+          "address": "0x4563a8",
+          "text": "movsx   edx, al",
+          "size": 3
+        },
+        {
+          "address": "0x4563ab",
+          "text": "mov     ecx, gFontList.sWidth+0F0h",
+          "size": 6
+        },
+        {
+          "address": "0x4563b1",
+          "text": "mov     eax, off_558F08[edx*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x4563b8",
+          "text": "xor     edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x4563ba",
+          "text": "push    eax; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x4563bb",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x4563bd",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x4563bf",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4563c1",
+          "text": "mov     dl, gFontList.fontHeight+0F0h",
+          "size": 6
+        },
+        {
+          "address": "0x4563c7",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x4563c9",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x4563cb",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x4563cd",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x4563cf",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x4563d1",
+          "text": "push    190h; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x4563d6",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x4563d8",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x4563da",
+          "text": "push    ecx; cWidth",
+          "size": 1
+        },
+        {
+          "address": "0x4563db",
+          "text": "push    edx; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x4563dc",
+          "text": "call    esi ; CreateFontA; ;0x190 -> FW_NORMAL",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x4563de",
+          "text": "mov     gFontList.handle+0F0h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x4563e3",
+          "text": "mov     al, gFontList.fontfamilyIndex+108h",
+          "size": 5
+        },
+        {
+          "address": "0x4563e8",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x4563ea",
+          "text": "jge     short loc_4563F3",
+          "size": 2
+        },
+        {
+          "address": "0x4563ec",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x4563ee",
+          "text": "mov     gFontList.fontfamilyIndex+108h, al",
+          "size": 5
+        },
+        {
+          "address": "0x4563f3",
+          "text": "movsx   eax, al",
+          "size": 3
+        },
+        {
+          "address": "0x4563f6",
+          "text": "mov     edx, gFontList.sWidth+108h",
+          "size": 6
+        },
+        {
+          "address": "0x4563fc",
+          "text": "mov     ecx, off_558F08[eax*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x456403",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456405",
+          "text": "push    ecx; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x456406",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456408",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x45640a",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45640c",
+          "text": "mov     al, gFontList.fontHeight+108h",
+          "size": 5
+        },
+        {
+          "address": "0x456411",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456413",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456415",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456417",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456419",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x45641b",
+          "text": "push    190h; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x456420",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x456422",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x456424",
+          "text": "push    edx; cWidth",
+          "size": 1
+        },
+        {
+          "address": "0x456425",
+          "text": "push    eax; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x456426",
+          "text": "call    esi ; CreateFontA; ;0x190 -> FW_NORMAL",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456428",
+          "text": "mov     gFontList.handle+108h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x45642d",
+          "text": "mov     al, gFontList.fontfamilyIndex+120h",
+          "size": 5
+        },
+        {
+          "address": "0x456432",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x456434",
+          "text": "jge     short loc_45643D",
+          "size": 2
+        },
+        {
+          "address": "0x456436",
+          "text": "mov     al, bl",
+          "size": 2
+        },
+        {
+          "address": "0x456438",
+          "text": "mov     gFontList.fontfamilyIndex+120h, al",
+          "size": 5
+        },
+        {
+          "address": "0x45643d",
+          "text": "movsx   ecx, al",
+          "size": 3
+        },
+        {
+          "address": "0x456440",
+          "text": "mov     eax, gFontList.sWidth+120h",
+          "size": 5
+        },
+        {
+          "address": "0x456445",
+          "text": "mov     edx, off_558F08[ecx*4]; \"細明體\"",
+          "size": 7
+        },
+        {
+          "address": "0x45644c",
+          "text": "xor     ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45644e",
+          "text": "push    edx; pszFaceName",
+          "size": 1
+        },
+        {
+          "address": "0x45644f",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456451",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x456453",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x456455",
+          "text": "mov     cl, gFontList.fontHeight+120h",
+          "size": 6
+        },
+        {
+          "address": "0x45645b",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45645d",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x45645f",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456461",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456463",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x456465",
+          "text": "push    190h; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x45646a",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x45646c",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x45646e",
+          "text": "push    eax; cWidth",
+          "size": 1
+        },
+        {
+          "address": "0x45646f",
+          "text": "push    ecx; cHeight",
+          "size": 1
+        },
+        {
+          "address": "0x456470",
+          "text": "call    esi ; CreateFontA; ;0x190 -> FW_NORMAL",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456472",
+          "text": "push    offset pszFaceName; \"細明體\"",
+          "size": 5
+        },
+        {
+          "address": "0x456477",
+          "text": "push    11h; iPitchAndFamily",
+          "size": 2
+        },
+        {
+          "address": "0x456479",
+          "text": "push    0; iQuality",
+          "size": 2
+        },
+        {
+          "address": "0x45647b",
+          "text": "push    0; iClipPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45647d",
+          "text": "push    0; iOutPrecision",
+          "size": 2
+        },
+        {
+          "address": "0x45647f",
+          "text": "push    1; iCharSet",
+          "size": 2
+        },
+        {
+          "address": "0x456481",
+          "text": "push    0; bStrikeOut",
+          "size": 2
+        },
+        {
+          "address": "0x456483",
+          "text": "push    0; bUnderline",
+          "size": 2
+        },
+        {
+          "address": "0x456485",
+          "text": "push    0; bItalic",
+          "size": 2
+        },
+        {
+          "address": "0x456487",
+          "text": "push    2BCh; cWeight",
+          "size": 5
+        },
+        {
+          "address": "0x45648c",
+          "text": "push    0; cOrientation",
+          "size": 2
+        },
+        {
+          "address": "0x45648e",
+          "text": "push    0; cEscapement",
+          "size": 2
+        },
+        {
+          "address": "0x456490",
+          "text": "push    0; cWidth",
+          "size": 2
+        },
+        {
+          "address": "0x456492",
+          "text": "push    0Ch; cHeight",
+          "size": 2
+        },
+        {
+          "address": "0x456494",
+          "text": "mov     gFontList.handle+120h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x456499",
+          "text": "call    esi ; CreateFontA; ;0x2bc -> FW_BOLD",
+          "size": 2,
+          "operand_value": "0x6",
+          "operand_type": 1
+        },
+        {
+          "address": "0x45649b",
+          "text": "mov     gFontList.handle+138h, eax",
+          "size": 5
+        },
+        {
+          "address": "0x4564a0",
+          "text": "mov     ecx, offset stru_558F30",
+          "size": 5
+        },
+        {
+          "address": "0x4564a5",
+          "text": "mov     eax, (offset gFontList.fontHeight+90h)",
+          "size": 5
+        },
+        {
+          "address": "0x4564aa",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x4564ab",
+          "text": "xor     edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x4564ad",
+          "text": "add     ecx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x4564b0",
+          "text": "mov     dl, [eax]",
+          "size": 2
+        },
+        {
+          "address": "0x4564b2",
+          "text": "add     eax, 18h",
+          "size": 3
+        },
+        {
+          "address": "0x4564b5",
+          "text": "shr     edx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4564b8",
+          "text": "dec     edx",
+          "size": 1
+        },
+        {
+          "address": "0x4564b9",
+          "text": "cmp     eax, (offset textColor.b+15h)",
+          "size": 5
+        },
+        {
+          "address": "0x4564be",
+          "text": "mov     [ecx-4], edx",
+          "size": 3
+        },
+        {
+          "address": "0x4564c1",
+          "text": "jl      short loc_4564AB",
+          "size": 2
+        },
+        {
+          "address": "0x4564c3",
+          "text": "mov     esi, (offset gFontList.doubleWidth+90h)",
+          "size": 5
+        },
+        {
+          "address": "0x4564c8",
+          "text": "xor     ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4564ca",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4564cc",
+          "text": "mov     edi, [esi]",
+          "size": 2
+        },
+        {
+          "address": "0x4564ce",
+          "text": "mov     al, [esi+9]",
+          "size": 3
+        },
+        {
+          "address": "0x4564d1",
+          "text": "mov     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4564d3",
+          "text": "shr     edx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4564d6",
+          "text": "dec     edx",
+          "size": 1
+        },
+        {
+          "address": "0x4564d7",
+          "text": "mov     dword ptr stru_558F30.b[ecx], edx",
+          "size": 6
+        },
+        {
+          "address": "0x4564dd",
+          "text": "mov     edx, 14h",
+          "size": 5
+        },
+        {
+          "address": "0x4564e2",
+          "text": "sub     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4564e4",
+          "text": "mov     eax, 19h",
+          "size": 5
+        },
+        {
+          "address": "0x4564e9",
+          "text": "sub     eax, edi",
+          "size": 2
+        },
+        {
+          "address": "0x4564eb",
+          "text": "mov     dword_5545AC[ecx], edx",
+          "size": 6
+        },
+        {
+          "address": "0x4564f1",
+          "text": "cmp     eax, 1",
+          "size": 3
+        },
+        {
+          "address": "0x4564f4",
+          "text": "mov     dword_55461C[ecx], eax",
+          "size": 6
+        },
+        {
+          "address": "0x4564fa",
+          "text": "jnb     short loc_456506",
+          "size": 2
+        },
+        {
+          "address": "0x4564fc",
+          "text": "mov     dword_55461C[ecx], 1",
+          "size": 10
+        },
+        {
+          "address": "0x456506",
+          "text": "mov     eax, 7BCh",
+          "size": 5
+        },
+        {
+          "address": "0x45650b",
+          "text": "add     esi, 18h",
+          "size": 3
+        },
+        {
+          "address": "0x45650e",
+          "text": "cdq",
+          "size": 1
+        },
+        {
+          "address": "0x45650f",
+          "text": "idiv    edi",
+          "size": 2
+        },
+        {
+          "address": "0x456511",
+          "text": "add     ecx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456514",
+          "text": "cmp     esi, (offset textColor.b+0Ch)",
+          "size": 6
+        },
+        {
+          "address": "0x45651a",
+          "text": "mov     dword_554618[ecx], eax",
+          "size": 6
+        },
+        {
+          "address": "0x456520",
+          "text": "jl      short loc_4564CA",
+          "size": 2
+        },
+        {
+          "address": "0x456522",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456523",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456524",
+          "text": "add     esp, 0Ch",
+          "size": 3
+        },
+        {
+          "address": "0x456527",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x4577fc",
+          "owner": "0x4576b0",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    },
+    {
+      "entry": "0x456530",
+      "end": "0x456554",
+      "chunks": [
+        [
+          "0x456530",
+          "0x456554"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456530",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x456531",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x456532",
+          "text": "mov     edi, ds:DeleteObject",
+          "size": 6
+        },
+        {
+          "address": "0x456538",
+          "text": "mov     esi, offset gFontList",
+          "size": 5
+        },
+        {
+          "address": "0x45653d",
+          "text": "mov     eax, [esi]",
+          "size": 2
+        },
+        {
+          "address": "0x45653f",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456541",
+          "text": "jz      short loc_456546",
+          "size": 2
+        },
+        {
+          "address": "0x456543",
+          "text": "push    eax; ho",
+          "size": 1
+        },
+        {
+          "address": "0x456544",
+          "text": "call    edi ; DeleteObject",
+          "size": 2,
+          "operand_value": "0x7",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456546",
+          "text": "add     esi, 18h",
+          "size": 3
+        },
+        {
+          "address": "0x456549",
+          "text": "cmp     esi, offset textColor",
+          "size": 6
+        },
+        {
+          "address": "0x45654f",
+          "text": "jl      short loc_45653D",
+          "size": 2
+        },
+        {
+          "address": "0x456551",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456552",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456553",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x457a77",
+          "owner": "0x457a40",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    },
+    {
+      "entry": "0x456d70",
+      "end": "0x456fce",
+      "chunks": [
+        [
+          "0x456d70",
+          "0x456fce"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456d70",
+          "text": "mov     eax, gCRenderer",
+          "size": 5
+        },
+        {
+          "address": "0x456d75",
+          "text": "sub     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x456d78",
+          "text": "lea     edx, [esp+8+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456d7c",
+          "text": "mov     eax, [eax+0Ch]",
+          "size": 3
+        },
+        {
+          "address": "0x456d7f",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456d80",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456d81",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x456d82",
+          "text": "mov     ecx, [eax]",
+          "size": 2
+        },
+        {
+          "address": "0x456d84",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x456d85",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x456d86",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x456d87",
+          "text": "xor     ebp, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x456d89",
+          "text": "call    dword ptr [ecx+44h]",
+          "size": 3,
+          "operand_value": "0x44",
+          "operand_type": 4
+        },
+        {
+          "address": "0x456d8c",
+          "text": "mov     eax, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456d90",
+          "text": "push    1; mode",
+          "size": 2
+        },
+        {
+          "address": "0x456d92",
+          "text": "push    eax; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456d93",
+          "text": "call    ds:SetBkMode; ;0x1 -> TRANSPARENT",
+          "size": 6,
+          "operand_value": "0x54d034",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456d99",
+          "text": "mov     edi, [esp+18h+a1]",
+          "size": 4
+        },
+        {
+          "address": "0x456d9d",
+          "text": "mov     al, [edi+6]",
+          "size": 3
+        },
+        {
+          "address": "0x456da0",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x456da2",
+          "text": "jnz     loc_456E91",
+          "size": 6
+        },
+        {
+          "address": "0x456da8",
+          "text": "test    edi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456daa",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456dac",
+          "text": "jz      loc_456FB2",
+          "size": 6
+        },
+        {
+          "address": "0x456db2",
+          "text": "mov     al, [esi+9]",
+          "size": 3
+        },
+        {
+          "address": "0x456db5",
+          "text": "lea     ebp, [esi+9]",
+          "size": 3
+        },
+        {
+          "address": "0x456db8",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x456dba",
+          "text": "jz      loc_456E7E",
+          "size": 6
+        },
+        {
+          "address": "0x456dc0",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456dc2",
+          "text": "mov     edi, ds:SelectObject",
+          "size": 6
+        },
+        {
+          "address": "0x456dc8",
+          "text": "mov     al, [esi+5]",
+          "size": 3
+        },
+        {
+          "address": "0x456dcb",
+          "text": "lea     ecx, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x456dce",
+          "text": "mov     eax, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456dd2",
+          "text": "mov     edx, gFontList.handle[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x456dd9",
+          "text": "push    edx; h",
+          "size": 1
+        },
+        {
+          "address": "0x456dda",
+          "text": "push    eax; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456ddb",
+          "text": "call    edi ; SelectObject",
+          "size": 2,
+          "operand_value": "0x7",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456ddd",
+          "text": "xor     ebx, ebx",
+          "size": 2
+        },
+        {
+          "address": "0x456ddf",
+          "text": "mov     bl, [esi+4]",
+          "size": 3
+        },
+        {
+          "address": "0x456de2",
+          "text": "test    bl, 80h",
+          "size": 3
+        },
+        {
+          "address": "0x456de5",
+          "text": "jnz     short loc_456E2F",
+          "size": 2
+        },
+        {
+          "address": "0x456de7",
+          "text": "mov     ecx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456deb",
+          "text": "push    0; color",
+          "size": 2
+        },
+        {
+          "address": "0x456ded",
+          "text": "push    ecx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456dee",
+          "text": "call    ds:SetTextColor",
+          "size": 6,
+          "operand_value": "0x54d038",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456df4",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456df6",
+          "text": "mov     ecx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456dfa",
+          "text": "mov     al, [esi+5]",
+          "size": 3
+        },
+        {
+          "address": "0x456dfd",
+          "text": "lea     edx, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x456e00",
+          "text": "mov     eax, gFontList.handle[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x456e07",
+          "text": "push    eax; h",
+          "size": 1
+        },
+        {
+          "address": "0x456e08",
+          "text": "push    ecx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456e09",
+          "text": "call    edi ; SelectObject",
+          "size": 2,
+          "operand_value": "0x7",
+          "operand_type": 1
+        },
+        {
+          "address": "0x456e0b",
+          "text": "mov     edi, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x456e0d",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x456e10",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456e12",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x456e14",
+          "text": "movsx   edx, word ptr [esi+2]",
+          "size": 4
+        },
+        {
+          "address": "0x456e18",
+          "text": "movsx   eax, word ptr [esi]",
+          "size": 3
+        },
+        {
+          "address": "0x456e1b",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456e1d",
+          "text": "dec     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456e1e",
+          "text": "inc     edx",
+          "size": 1
+        },
+        {
+          "address": "0x456e1f",
+          "text": "push    ecx; c",
+          "size": 1
+        },
+        {
+          "address": "0x456e20",
+          "text": "mov     ecx, [esp+1Ch+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456e24",
+          "text": "push    ebp; lpString",
+          "size": 1
+        },
+        {
+          "address": "0x456e25",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x456e26",
+          "text": "push    edx; y",
+          "size": 1
+        },
+        {
+          "address": "0x456e27",
+          "text": "push    eax; x",
+          "size": 1
+        },
+        {
+          "address": "0x456e28",
+          "text": "push    ecx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456e29",
+          "text": "call    ds:TextOutA",
+          "size": 6,
+          "operand_value": "0x54d03c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456e2f",
+          "text": "and     ebx, 7Fh",
+          "size": 3
+        },
+        {
+          "address": "0x456e32",
+          "text": "xor     edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x456e34",
+          "text": "mov     ecx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456e38",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456e3a",
+          "text": "mov     dh, [ebx+ebx*2+5590BAh]",
+          "size": 7
+        },
+        {
+          "address": "0x456e41",
+          "text": "mov     al, byte ptr textColor.b[ebx+ebx*2]",
+          "size": 7
+        },
+        {
+          "address": "0x456e48",
+          "text": "mov     dl, [ebx+ebx*2+5590B9h]",
+          "size": 7
+        },
+        {
+          "address": "0x456e4f",
+          "text": "shl     edx, 8",
+          "size": 3
+        },
+        {
+          "address": "0x456e52",
+          "text": "or      edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456e54",
+          "text": "push    edx; color",
+          "size": 1
+        },
+        {
+          "address": "0x456e55",
+          "text": "push    ecx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456e56",
+          "text": "call    ds:SetTextColor",
+          "size": 6,
+          "operand_value": "0x54d038",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456e5c",
+          "text": "mov     edi, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x456e5e",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x456e61",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456e63",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x456e65",
+          "text": "movsx   edx, word ptr [esi+2]",
+          "size": 4
+        },
+        {
+          "address": "0x456e69",
+          "text": "movsx   eax, word ptr [esi]",
+          "size": 3
+        },
+        {
+          "address": "0x456e6c",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456e6e",
+          "text": "dec     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456e6f",
+          "text": "push    ecx; c",
+          "size": 1
+        },
+        {
+          "address": "0x456e70",
+          "text": "mov     ecx, [esp+1Ch+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456e74",
+          "text": "push    ebp; lpString",
+          "size": 1
+        },
+        {
+          "address": "0x456e75",
+          "text": "push    edx; y",
+          "size": 1
+        },
+        {
+          "address": "0x456e76",
+          "text": "push    eax; x",
+          "size": 1
+        },
+        {
+          "address": "0x456e77",
+          "text": "push    ecx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456e78",
+          "text": "call    ds:TextOutA",
+          "size": 6,
+          "operand_value": "0x54d03c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456e7e",
+          "text": "mov     esi, [esi+10Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x456e84",
+          "text": "test    esi, esi",
+          "size": 2
+        },
+        {
+          "address": "0x456e86",
+          "text": "jnz     loc_456DB2",
+          "size": 6
+        },
+        {
+          "address": "0x456e8c",
+          "text": "jmp     loc_456FB2",
+          "size": 5
+        },
+        {
+          "address": "0x456e91",
+          "text": "mov     edx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456e95",
+          "text": "push    0; color",
+          "size": 2
+        },
+        {
+          "address": "0x456e97",
+          "text": "push    edx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456e98",
+          "text": "call    ds:SetTextColor",
+          "size": 6,
+          "operand_value": "0x54d038",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456e9e",
+          "text": "test    edi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456ea0",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456ea2",
+          "text": "jz      short loc_456EFB",
+          "size": 2
+        },
+        {
+          "address": "0x456ea4",
+          "text": "mov     bl, 80h",
+          "size": 2
+        },
+        {
+          "address": "0x456ea6",
+          "text": "test    [esi+4], bl",
+          "size": 3
+        },
+        {
+          "address": "0x456ea9",
+          "text": "jnz     short loc_456EF1",
+          "size": 2
+        },
+        {
+          "address": "0x456eab",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456ead",
+          "text": "mov     edx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456eb1",
+          "text": "mov     al, [esi+5]",
+          "size": 3
+        },
+        {
+          "address": "0x456eb4",
+          "text": "lea     eax, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x456eb7",
+          "text": "mov     ecx, gFontList.handle[eax*8]",
+          "size": 7
+        },
+        {
+          "address": "0x456ebe",
+          "text": "push    ecx; h",
+          "size": 1
+        },
+        {
+          "address": "0x456ebf",
+          "text": "push    edx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456ec0",
+          "text": "call    ds:SelectObject",
+          "size": 6,
+          "operand_value": "0x54d04c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456ec6",
+          "text": "lea     edx, [esi+9]",
+          "size": 3
+        },
+        {
+          "address": "0x456ec9",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x456ecc",
+          "text": "mov     edi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x456ece",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456ed0",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x456ed2",
+          "text": "movsx   eax, word ptr [esi+2]",
+          "size": 4
+        },
+        {
+          "address": "0x456ed6",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456ed8",
+          "text": "dec     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456ed9",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x456eda",
+          "text": "push    ecx; c",
+          "size": 1
+        },
+        {
+          "address": "0x456edb",
+          "text": "push    edx; lpString",
+          "size": 1
+        },
+        {
+          "address": "0x456edc",
+          "text": "movsx   ecx, word ptr [esi]",
+          "size": 3
+        },
+        {
+          "address": "0x456edf",
+          "text": "mov     edx, [esp+20h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456ee3",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456ee4",
+          "text": "push    eax; y",
+          "size": 1
+        },
+        {
+          "address": "0x456ee5",
+          "text": "push    ecx; x",
+          "size": 1
+        },
+        {
+          "address": "0x456ee6",
+          "text": "push    edx; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456ee7",
+          "text": "call    ds:TextOutA",
+          "size": 6,
+          "operand_value": "0x54d03c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456eed",
+          "text": "mov     edi, [esp+18h+a1]",
+          "size": 4
+        },
+        {
+          "address": "0x456ef1",
+          "text": "mov     esi, [esi+10Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x456ef7",
+          "text": "test    esi, esi",
+          "size": 2
+        },
+        {
+          "address": "0x456ef9",
+          "text": "jnz     short loc_456EA6",
+          "size": 2
+        },
+        {
+          "address": "0x456efb",
+          "text": "mov     [esp+18h+var_4], 0",
+          "size": 8
+        },
+        {
+          "address": "0x456f03",
+          "text": "mov     ebx, offset textColor.g",
+          "size": 5
+        },
+        {
+          "address": "0x456f08",
+          "text": "test    edi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456f0a",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x456f0c",
+          "text": "jz      loc_456F98",
+          "size": 6
+        },
+        {
+          "address": "0x456f12",
+          "text": "mov     al, [esi+4]",
+          "size": 3
+        },
+        {
+          "address": "0x456f15",
+          "text": "mov     ecx, [esp+18h+var_4]",
+          "size": 4
+        },
+        {
+          "address": "0x456f19",
+          "text": "and     eax, 7Fh",
+          "size": 3
+        },
+        {
+          "address": "0x456f1c",
+          "text": "cmp     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456f1e",
+          "text": "jnz     short loc_456F8A",
+          "size": 2
+        },
+        {
+          "address": "0x456f20",
+          "text": "test    ebp, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x456f22",
+          "text": "jnz     short loc_456F46",
+          "size": 2
+        },
+        {
+          "address": "0x456f24",
+          "text": "xor     ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456f26",
+          "text": "mov     eax, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456f2a",
+          "text": "mov     ch, [ebx+1]",
+          "size": 3
+        },
+        {
+          "address": "0x456f2d",
+          "text": "xor     edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x456f2f",
+          "text": "mov     cl, [ebx]",
+          "size": 2
+        },
+        {
+          "address": "0x456f31",
+          "text": "mov     dl, [ebx-1]",
+          "size": 3
+        },
+        {
+          "address": "0x456f34",
+          "text": "shl     ecx, 8",
+          "size": 3
+        },
+        {
+          "address": "0x456f37",
+          "text": "or      ecx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x456f39",
+          "text": "push    ecx; color",
+          "size": 1
+        },
+        {
+          "address": "0x456f3a",
+          "text": "push    eax; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456f3b",
+          "text": "call    ds:SetTextColor",
+          "size": 6,
+          "operand_value": "0x54d038",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456f41",
+          "text": "mov     ebp, 1",
+          "size": 5
+        },
+        {
+          "address": "0x456f46",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456f48",
+          "text": "mov     al, [esi+5]",
+          "size": 3
+        },
+        {
+          "address": "0x456f4b",
+          "text": "lea     ecx, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x456f4e",
+          "text": "mov     eax, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456f52",
+          "text": "mov     edx, gFontList.handle[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x456f59",
+          "text": "push    edx; h",
+          "size": 1
+        },
+        {
+          "address": "0x456f5a",
+          "text": "push    eax; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456f5b",
+          "text": "call    ds:SelectObject",
+          "size": 6,
+          "operand_value": "0x54d04c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456f61",
+          "text": "lea     edx, [esi+9]",
+          "size": 3
+        },
+        {
+          "address": "0x456f64",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x456f67",
+          "text": "mov     edi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x456f69",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456f6b",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x456f6d",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456f6f",
+          "text": "mov     eax, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456f73",
+          "text": "dec     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456f74",
+          "text": "push    ecx; c",
+          "size": 1
+        },
+        {
+          "address": "0x456f75",
+          "text": "push    edx; lpString",
+          "size": 1
+        },
+        {
+          "address": "0x456f76",
+          "text": "movsx   ecx, word ptr [esi+2]",
+          "size": 4
+        },
+        {
+          "address": "0x456f7a",
+          "text": "movsx   edx, word ptr [esi]",
+          "size": 3
+        },
+        {
+          "address": "0x456f7d",
+          "text": "push    ecx; y",
+          "size": 1
+        },
+        {
+          "address": "0x456f7e",
+          "text": "push    edx; x",
+          "size": 1
+        },
+        {
+          "address": "0x456f7f",
+          "text": "push    eax; hdc",
+          "size": 1
+        },
+        {
+          "address": "0x456f80",
+          "text": "call    ds:TextOutA",
+          "size": 6,
+          "operand_value": "0x54d03c",
+          "operand_type": 2
+        },
+        {
+          "address": "0x456f86",
+          "text": "mov     edi, [esp+18h+a1]",
+          "size": 4
+        },
+        {
+          "address": "0x456f8a",
+          "text": "mov     esi, [esi+10Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x456f90",
+          "text": "test    esi, esi",
+          "size": 2
+        },
+        {
+          "address": "0x456f92",
+          "text": "jnz     loc_456F12",
+          "size": 6
+        },
+        {
+          "address": "0x456f98",
+          "text": "mov     edx, [esp+18h+var_4]",
+          "size": 4
+        },
+        {
+          "address": "0x456f9c",
+          "text": "xor     ebp, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x456f9e",
+          "text": "add     ebx, 3",
+          "size": 3
+        },
+        {
+          "address": "0x456fa1",
+          "text": "inc     edx",
+          "size": 1
+        },
+        {
+          "address": "0x456fa2",
+          "text": "cmp     ebx, offset pszFaceName; \"細明體\"",
+          "size": 6
+        },
+        {
+          "address": "0x456fa8",
+          "text": "mov     [esp+18h+var_4], edx",
+          "size": 4
+        },
+        {
+          "address": "0x456fac",
+          "text": "jl      loc_456F08",
+          "size": 6
+        },
+        {
+          "address": "0x456fb2",
+          "text": "mov     ecx, gCRenderer",
+          "size": 6
+        },
+        {
+          "address": "0x456fb8",
+          "text": "mov     eax, [ecx+0Ch]",
+          "size": 3
+        },
+        {
+          "address": "0x456fbb",
+          "text": "mov     ecx, [esp+18h+hdc]",
+          "size": 4
+        },
+        {
+          "address": "0x456fbf",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456fc0",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x456fc1",
+          "text": "mov     edx, [eax]",
+          "size": 2
+        },
+        {
+          "address": "0x456fc3",
+          "text": "call    dword ptr [edx+68h]",
+          "size": 3,
+          "operand_value": "0x68",
+          "operand_type": 4
+        },
+        {
+          "address": "0x456fc6",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456fc7",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456fc8",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456fc9",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456fca",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x456fcd",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x521727",
+          "owner": "0x520dd0",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    }
+  ],
+  "instruction_counts": {
+    "initialize": 330,
+    "release": 15,
+    "consumer": 213,
+    "unique": 558
+  },
+  "data": {
+    "data_operands": [
+      {
+        "site": "0x456194",
+        "operand": 1,
+        "value": "0x5590e0",
+        "text": "mov     eax, offset pszFaceName; \"細明體\""
+      },
+      {
+        "site": "0x4561ac",
+        "operand": 1,
+        "value": "0x558f68",
+        "text": "mov     esi, offset gFontList"
+      },
+      {
+        "site": "0x4562d3",
+        "operand": 1,
+        "value": "0x558f08",
+        "text": "mov     ecx, off_558F08[eax*4]; \"細明體\""
+      },
+      {
+        "site": "0x4564a0",
+        "operand": 1,
+        "value": "0x558f30",
+        "text": "mov     ecx, offset stru_558F30"
+      },
+      {
+        "site": "0x4564c3",
+        "operand": 1,
+        "value": "0x559004",
+        "text": "mov     esi, (offset gFontList.doubleWidth+90h)"
+      },
+      {
+        "site": "0x4564eb",
+        "operand": 0,
+        "value": "0x5545ac",
+        "text": "mov     dword_5545AC[ecx], edx"
+      },
+      {
+        "site": "0x4564f4",
+        "operand": 0,
+        "value": "0x55461c",
+        "text": "mov     dword_55461C[ecx], eax"
+      },
+      {
+        "site": "0x45651a",
+        "operand": 0,
+        "value": "0x554618",
+        "text": "mov     dword_554618[ecx], eax"
+      },
+      {
+        "site": "0x456dd2",
+        "operand": 1,
+        "value": "0x558f68",
+        "text": "mov     edx, gFontList.handle[ecx*8]"
+      },
+      {
+        "site": "0x456e41",
+        "operand": 1,
+        "value": "0x5590b8",
+        "text": "mov     al, byte ptr textColor.b[ebx+ebx*2]"
+      }
+    ],
+    "face_bytes": "b2d3a9fac5e900",
+    "family_pointers": [
+      "0x5590e0",
+      "0x5590e0",
+      "0x5590e0",
+      "0x5590e0"
+    ],
+    "colors": "ffffff00ffffff00ff0000ffffff0000ff00ff0000a0a0a4a6caf0c0dcc0000000cdcdcd665425",
+    "family_refs": [
+      {
+        "from": "0x4562d3",
+        "owner": "0x456190",
+        "iscode": false
+      },
+      {
+        "from": "0x45631d",
+        "owner": "0x456190",
+        "iscode": false
+      },
+      {
+        "from": "0x456366",
+        "owner": "0x456190",
+        "iscode": false
+      },
+      {
+        "from": "0x4563b1",
+        "owner": "0x456190",
+        "iscode": false
+      },
+      {
+        "from": "0x4563fc",
+        "owner": "0x456190",
+        "iscode": false
+      },
+      {
+        "from": "0x456445",
+        "owner": "0x456190",
+        "iscode": false
+      }
+    ]
+  },
+  "caller_windows": [
+    {
+      "requested": [
+        "0x4577e5",
+        "0x457805"
+      ],
+      "instructions": [
+        {
+          "address": "0x4577e5",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x4577e6",
+          "text": "call    sub_53B4BF",
+          "size": 5,
+          "operand_value": "0x53b4bf",
+          "operand_type": 7
+        },
+        {
+          "address": "0x4577eb",
+          "text": "call    sub_46FB20",
+          "size": 5,
+          "operand_value": "0x46fb20",
+          "operand_type": 7
+        },
+        {
+          "address": "0x4577f0",
+          "text": "call    sub_506870",
+          "size": 5,
+          "operand_value": "0x506870",
+          "operand_type": 7
+        },
+        {
+          "address": "0x4577f5",
+          "text": "call    sub_404A40",
+          "size": 5,
+          "operand_value": "0x404a40",
+          "operand_type": 7
+        },
+        {
+          "address": "0x4577fa",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x4577fc",
+          "text": "call    sub_456190",
+          "size": 5,
+          "operand_value": "0x456190",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457801",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x457804",
+          "text": "call    sub_458FD0",
+          "size": 5,
+          "operand_value": "0x458fd0",
+          "operand_type": 7
+        }
+      ]
+    },
+    {
+      "requested": [
+        "0x457a60",
+        "0x457a80"
+      ],
+      "instructions": [
+        {
+          "address": "0x457a63",
+          "text": "call    AnimeUnload",
+          "size": 5,
+          "operand_value": "0x45bef0",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457a68",
+          "text": "call    sub_45BF20",
+          "size": 5,
+          "operand_value": "0x45bf20",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457a6d",
+          "text": "call    sub_45A6C0",
+          "size": 5,
+          "operand_value": "0x45a6c0",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457a72",
+          "text": "call    sub_457670",
+          "size": 5,
+          "operand_value": "0x457670",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457a77",
+          "text": "call    sub_456530",
+          "size": 5,
+          "operand_value": "0x456530",
+          "operand_type": 7
+        },
+        {
+          "address": "0x457a7c",
+          "text": "call    sub_459040",
+          "size": 5,
+          "operand_value": "0x459040",
+          "operand_type": 7
+        }
+      ]
+    }
+  ],
+  "consumer_connection": {
+    "parent_entry": "0x520dd0",
+    "call_site": "0x521727",
+    "target_entry": "0x456d70",
+    "source": "src/render/DrawAllQueued.cpp",
+    "batch_type": 4,
+    "source_symbol": "DrawAllQueued_520DD0",
+    "callee_symbol": "RenderTextToSurface_456D70",
+    "full_parent_verified": false,
+    "window": [
+      {
+        "address": "0x52170e",
+        "text": "test    eax, eax",
+        "size": 2
+      },
+      {
+        "address": "0x521710",
+        "text": "jz      short loc_521723",
+        "size": 2
+      },
+      {
+        "address": "0x521712",
+        "text": "mov     eax, gCRenderer",
+        "size": 5
+      },
+      {
+        "address": "0x521717",
+        "text": "mov     eax, [eax+0A0h]",
+        "size": 6
+      },
+      {
+        "address": "0x52171d",
+        "text": "push    eax",
+        "size": 1
+      },
+      {
+        "address": "0x52171e",
+        "text": "mov     ecx, [eax]",
+        "size": 2
+      },
+      {
+        "address": "0x521720",
+        "text": "call    dword ptr [ecx+18h]",
+        "size": 3,
+        "call_operand_value": "0x18",
+        "indirect": true,
+        "target_resolved": false
+      },
+      {
+        "address": "0x521723",
+        "text": "mov     edx, [edi+0Ch]",
+        "size": 3
+      },
+      {
+        "address": "0x521726",
+        "text": "push    edx; text",
+        "size": 1
+      },
+      {
+        "address": "0x521727",
+        "text": "call    Renderer__RenderTextToSurface",
+        "size": 5,
+        "call_target": "0x456d70"
+      },
+      {
+        "address": "0x52172c",
+        "text": "add     esp, 4",
+        "size": 3
+      },
+      {
+        "address": "0x52172f",
+        "text": "call    hasIDirect3D7",
+        "size": 5,
+        "call_target": "0x44b610"
+      },
+      {
+        "address": "0x521734",
+        "text": "test    eax, eax",
+        "size": 2
+      },
+      {
+        "address": "0x521736",
+        "text": "jz      loc_5213D4",
+        "size": 6
+      }
+    ]
+  },
+  "source": "src/render/Font.cpp",
+  "changed_entries": [
+    "0x456190"
+  ],
+  "unchanged_entries": [
+    "0x456530",
+    "0x456d70",
+    "0x44b2e0",
+    "0x44b2a0"
+  ],
+  "source_patch_contract": [
+    {
+      "literal_before": "std::int32_t InitializeFont_456190(const std::int32_t family)\n{\n",
+      "replacement": "std::int32_t InitializeFont_456190(const std::int32_t family)\n{\n    const std::array<const char*, 3> initialFaces {\n        kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,\n    };\n",
+      "label": "原本地三族槽"
+    },
+    {
+      "literal_before": "    constexpr std::array<std::int32_t, 3> kBoldHeights {16, 14, 20};",
+      "replacement": "    const char* const initialFace = initialFaces[static_cast<std::size_t>(family)];\n    constexpr std::array<std::int32_t, 3> kBoldHeights {16, 14, 20};",
+      "label": "原旧句柄删除后选择"
+    },
+    {
+      "literal_before": "        gFontHandles558F68[index] =\n            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, kFaceName5590E0);",
+      "replacement": "        gFontHandles558F68[index] =\n            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, initialFace);",
+      "label": "仅首三字体使用所选face"
+    },
+    {
+      "literal_before": "        FontMetrics& metrics = gFontMetrics[index];\n        if (metrics.familyIndex < 0) {\n            metrics.familyIndex = static_cast<std::int8_t>(family);\n        }\n        const char* const face = gFaceFamilies558F08[\n            static_cast<std::size_t>(metrics.familyIndex)];\n        const std::int32_t width = index == 7 ? 0 : metrics.sWidth;\n        const std::int32_t weight = index == 7 ? FW_BOLD : FW_NORMAL;\n        gFontHandles558F68[index] =\n            CreateLegacyFont(metrics.fontHeight, width, weight, face);",
+      "replacement": "        FontMetrics& metrics = gFontMetrics[index];\n        std::int8_t familyIndex = metrics.familyIndex;\n        if (familyIndex < 0) {\n            familyIndex = std::bit_cast<std::int8_t>(\n                static_cast<std::uint8_t>(family));\n            metrics.familyIndex = familyIndex;\n        }\n        const std::int32_t width = index == 7 ? 0 : metrics.sWidth;\n        const char* const face = gFaceFamilies558F08[\n            static_cast<std::size_t>(familyIndex)];\n        const std::int32_t height = metrics.fontHeight;\n        const std::int32_t weight = index == 7 ? FW_BOLD : FW_NORMAL;\n        gFontHandles558F68[index] =\n            CreateLegacyFont(height, width, weight, face);",
+      "label": "保存S8族号与宽-face-height取样"
+    },
+    {
+      "literal_before": "        if (difference < 1) {",
+      "replacement": "        if (std::bit_cast<std::uint32_t>(difference) < 1U) {",
+      "label": "原unsigned派生钳制"
+    }
+  ],
+  "source_contract": {
+    "initial_local_family_slots": 3,
+    "global_family_slots": 4,
+    "initial_local_selector_signed_w32": true,
+    "family_byte_saved_and_only_original_negative_branch_published": true,
+    "width_before_face_before_height": true,
+    "height_zero_extended_u8": true,
+    "unsigned_derived_compare_retained": true,
+    "derived_difference_write_before_quotient_retained": true,
+    "handle_owner_and_slot6_residual_retained": true,
+    "release_and_consumer_source_unchanged": true,
+    "native_dc_adaptation_unchanged": true
+  },
+  "native_call_connections": [
+    {
+      "parent_entry": "0x4576b0",
+      "call_site": "0x4577fc",
+      "target_entry": "0x456190",
+      "source": "src/platform/ClientInitialization.cpp",
+      "callee": "InitializeFont_456190",
+      "argument": 0
+    },
+    {
+      "parent_entry": "0x457a40",
+      "call_site": "0x457a77",
+      "target_entry": "0x456530",
+      "source": "src/platform/ClientShutdown.cpp",
+      "callee": "ReleaseFont_456530"
+    },
+    {
+      "parent_entry": "0x520dd0",
+      "call_site": "0x521727",
+      "target_entry": "0x456d70",
+      "source": "src/render/DrawAllQueued.cpp",
+      "callee": "RenderTextToSurface_456D70",
+      "batch_type": 4
+    }
+  ],
+  "important_points": {
+    "local_family": [
+      "0x456194",
+      "0x4561a0",
+      "0x4561a4",
+      "0x4561a8",
+      "0x4561d0"
+    ],
+    "family_saved": [
+      "0x4562be",
+      "0x4562c7",
+      "0x4562c9",
+      "0x4562ce",
+      "0x456304",
+      "0x45630f",
+      "0x456314"
+    ],
+    "width_face_height": [
+      "0x456317",
+      "0x45631d",
+      "0x45632d",
+      "0x456361",
+      "0x456366",
+      "0x456376",
+      "0x4563ab",
+      "0x4563b1",
+      "0x4563c1",
+      "0x4563f6",
+      "0x4563fc",
+      "0x45640c",
+      "0x456440",
+      "0x456445",
+      "0x456455"
+    ],
+    "derived_unsigned": [
+      "0x4564cc",
+      "0x4564ce",
+      "0x4564f1",
+      "0x4564f4",
+      "0x4564fa",
+      "0x4564fc",
+      "0x45650f",
+      "0x45651a"
+    ],
+    "release": [
+      "0x45653d",
+      "0x45653f",
+      "0x456541",
+      "0x456544",
+      "0x456549",
+      "0x456553"
+    ],
+    "consumer_color_snapshot": [
+      "0x456ddb",
+      "0x456ddf",
+      "0x456dee",
+      "0x456dfa",
+      "0x456e09",
+      "0x456e29",
+      "0x456e2f",
+      "0x456e3a",
+      "0x456e41",
+      "0x456e48",
+      "0x456e78",
+      "0x456e7e"
+    ],
+    "consumer_grouping": [
+      "0x456e98",
+      "0x456ee7",
+      "0x456eed",
+      "0x456f03",
+      "0x456f12",
+      "0x456f3b",
+      "0x456f41",
+      "0x456f5b",
+      "0x456f80",
+      "0x456f86",
+      "0x456f8a",
+      "0x456f9c",
+      "0x456fa2"
+    ],
+    "dc_offsets": [
+      "0x456d89",
+      "0x456fc3"
+    ]
+  },
+  "parameter_head_restore": {
+    "sites": [
+      "0x456eed",
+      "0x456f86"
+    ],
+    "interpretation": "原按值参数a1恢复EDI扫描寄存器；没有业务writer或可变全局头证据，保既有token/head身份",
+    "new_mutable_head_added": false
+  },
+  "remaining": [
+    "三完整初始化/退出/队列父与间接alias",
+    "共享DC/字体句柄/Back构建销毁的完整寿命",
+    "COM/native故障边界和GDI字形/画面、SDK与运行验收"
+  ],
+  "exceptional_domain": {
+    "rule": "RPLAN.24",
+    "fault_emulation_added": false,
+    "fault_equivalence_claimed": false,
+    "x64_safety_claimed": false
+  },
+  "verification": {
+    "method": "static",
+    "bounded_bodies_verified": true,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "build_performed": false,
+    "tests_added_or_executed": false,
+    "hash_performed": false
+  }
+}

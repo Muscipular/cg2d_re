@@ -109,3 +109,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [TQP01](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)恢复记录字段先写、原文本扫描/含NUL低U32数量及逐W32后余W8复制。signed模式复制完取尾，unsigned模式在W32后/W8前取尾；空链先读实际layer再更新尾槽，原计数重读/返回和满队列失败保持，额外拒绝撤销。
 
 DrawText3仍真实复用font0核心，输入绘制/所有caller和消费不改，token/唯一owner保持。四完整262条/854原点只局部静态与库存归档，不计全部上游/间接alias/消费/寿命或SDK/运行通过；异常域不称安全/故障等价。网络原格式明文不变，无Unicode或新补NUL/默认正文。
+
+## 2026-10-05：字体族字节/度量取样与原文本消费
+
+[FLC01](cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)恢复初始化的原本地族选择、保存S8族号/width-face-height及unsigned派生比较；族名字节、字体度量/实际句柄/39颜色和原API参数保持，不转换代码页/Unicode或新建字体fallback。当前TextMeasure早期保护描述按后续源码修正解读，不新增空指针或非法字体返回0。
+
+558条原体只局部静态；原TextOutA每次取原字节长度、Y→X/next和两消费分支未改，完整源/父/Back-DC与字体生命周期、SDK/画面运行继续待验。

@@ -1499,3 +1499,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)补四此前无映射原根：456560/456670/456780/521A30，原79/80/81/22共262条、854直接原点完整归档。三实际本体及两复制阶段helper修正，既有DrawText3真实font0 core复用源码保持；不将包装少一个词法call当缺体或计原native调用轨迹等价。
 
 语义1190→1194/有效ID1187→1191，18pending/4分类引用保持；四限定equivalent令103→107/3680，三E-TEXT-QUEUE-PRODUCER-I/W/S-20261005令60→63，固定Git命名快照cg2d-re-text-queue-producer-source-20261005。854原引用不是全部caller/原新参数通过，当前case4消费已有源码/接线，不凭旧“仅声明”新增影子实现；完整上游/消费/寿命与SDK/画面运行未验。T01/T02仍open、10/60任务、0/182叶及完整门禁保持。
+
+## 2026-10-05：FLC01字体初始化/释放/消费三根对照
+
+[局部SPEC](cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)补456190/456530/456D70三个此前无语义根，330/15/213共558条与三个唯一caller/原字节和数据具名。初始化实际修正本地族选择、保存S8族号/width-face-height与unsigned钳制，两个已正确体不改；原初始化caller传0已正确，不制造配置缺口。
+
+1194→1197条/有效ID1191→1194，18pending/4分类引用保持；三限定equivalent使107→110/3680，三E-FONT-LIFECYCLE-I/W/S-20261005使63→66，固定快照cg2d-re-font-lifecycle-source-20261005。DIB/DC适配、所有caller/接口与owner未改，COM偏移只记间接操作；完整父/别名/资源寿命与SDK/字形/运行未验，T01/T02仍open、10/60任务/0叶/完整门禁保持。

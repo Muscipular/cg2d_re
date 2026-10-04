@@ -92,16 +92,20 @@ std::array<FontMetrics, kFontTypeCount> gFontMetrics {{
 // 原 [456190,456528)：旧句柄只删除不清槽，索引 6 不创建新句柄。
 std::int32_t InitializeFont_456190(const std::int32_t family)
 {
+    const std::array<const char*, 3> initialFaces {
+        kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
+    };
     for (HFONT handle : gFontHandles558F68) {
         if (handle != nullptr) {
             static_cast<void>(::DeleteObject(handle));
         }
     }
 
+    const char* const initialFace = initialFaces[static_cast<std::size_t>(family)];
     constexpr std::array<std::int32_t, 3> kBoldHeights {16, 14, 20};
     for (std::size_t index = 0; index < kBoldHeights.size(); ++index) {
         gFontHandles558F68[index] =
-            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, kFaceName5590E0);
+            CreateLegacyFont(kBoldHeights[index], 0, FW_BOLD, initialFace);
     }
     for (std::size_t index = 0; index < kBoldHeights.size(); ++index) {
         gFontHandles558F68[index + 3] =
@@ -110,15 +114,19 @@ std::int32_t InitializeFont_456190(const std::int32_t family)
 
     for (std::size_t index = 7; index <= 12; ++index) {
         FontMetrics& metrics = gFontMetrics[index];
-        if (metrics.familyIndex < 0) {
-            metrics.familyIndex = static_cast<std::int8_t>(family);
+        std::int8_t familyIndex = metrics.familyIndex;
+        if (familyIndex < 0) {
+            familyIndex = std::bit_cast<std::int8_t>(
+                static_cast<std::uint8_t>(family));
+            metrics.familyIndex = familyIndex;
         }
-        const char* const face = gFaceFamilies558F08[
-            static_cast<std::size_t>(metrics.familyIndex)];
         const std::int32_t width = index == 7 ? 0 : metrics.sWidth;
+        const char* const face = gFaceFamilies558F08[
+            static_cast<std::size_t>(familyIndex)];
+        const std::int32_t height = metrics.fontHeight;
         const std::int32_t weight = index == 7 ? FW_BOLD : FW_NORMAL;
         gFontHandles558F68[index] =
-            CreateLegacyFont(metrics.fontHeight, width, weight, face);
+            CreateLegacyFont(height, width, weight, face);
     }
     gFontHandles558F68[13] = CreateLegacyFont(12, 0, FW_BOLD, kFaceName5590E0);
 
@@ -136,7 +144,7 @@ std::int32_t InitializeFont_456190(const std::int32_t family)
         gDerived5545AC[index] = 20 - height;
         std::int32_t difference = 25 - width;
         gDerived554618[index + 1] = difference;
-        if (difference < 1) {
+        if (std::bit_cast<std::uint32_t>(difference) < 1U) {
             gDerived554618[index + 1] = 1;
         }
         result = 1980 / width;

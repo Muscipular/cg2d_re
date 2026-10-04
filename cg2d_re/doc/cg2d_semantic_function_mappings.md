@@ -1669,3 +1669,17 @@ std::atexit提供者关联；原18构造动作/登记点/无参callback、18data
 固定快照`cg2d-re-file-buffer-output-source-20261005`。
 8辅助根不增本轮处置，C05/真实facet、全CRT/文件与SDK运行未闭，
 任务10/60、叶0/182和全局门禁不提升。
+
+## FPW01 四既有文件位置入口W32校正（2026-10-05）
+
+[具名SPEC](cg2d_file_position_width_spec.md#file-position-width-source-closure)及
+[174条原体/12dword/8原槽](cg2d_file_position_width_evidence.json)对应
+548B68/548BEA/5498B7/5498EE四既有库存身份；不按char/U16实例重复原ID。
+低/高/状态均W32，原实际初值/三独立volatile存储保持，
+术语明确并纠正两默认记录的旧“状态仅声明”状态，CPP和类型/算法不改。
+
+四adapted是本轮审核既有源级24B承接，原栈未写具体字节/by-value机器ABI/
+SDK与运行不称等价；1203其他记录及18pending/4分类/3无ID保持。
+语义1207/1204有效原ID、审核149/3680、限定证据99；
+快照`cg2d-re-file-position-width-source-20261005`。
+C10/C03/全FILE和CRT继续open，任务10/60、叶0/182/完整门禁不提升。

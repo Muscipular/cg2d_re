@@ -276,7 +276,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md",
         "doc/cg2d_standard_stream_exit_migration_spec.md",
         "doc/cg2d_standard_stream_controller_gates_spec.md",
-        "doc/cg2d_file_buffer_output_alignment_spec.md"
+        "doc/cg2d_file_buffer_output_alignment_spec.md",
+        "doc/cg2d_file_position_width_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -393,7 +394,11 @@
         "F:001482DD",
         "F:00149397",
         "F:00148843",
-        "F:0014999A"
+        "F:0014999A",
+        "F:00148B68",
+        "F:00148BEA",
+        "F:001498B7",
+        "F:001498EE"
       ],
       "closure_task_ids": [
         "C01",
@@ -413,7 +418,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
-        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -428,7 +434,8 @@
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
         "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
         "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
-        "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭"
+        "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭",
+        "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -445,7 +452,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
-        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline"
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline"
       ]
     },
     {
@@ -8992,6 +9000,120 @@
       "observation": "完整原根/原槽与限定源码台账",
       "expected": "248主根/398辅助与两SUB、两个旧记录限定增量",
       "actual": "646唯一条/1745B、两adapted/三限定证据与全政策保持"
+    },
+    {
+      "id": "E-FILE-POSITION-WIDTH-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整定位根174条/434B、12 dword读/8实际表槽及既有PE初态；doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-position-width-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-acceptance",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
+        "doc/cg2d_file_position_width_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferOffset_548B68",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferPosition_548BEA",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekOffset_5498B7",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekPosition_5498EE",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyDefaultPositionState1087B04",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamPosition"
+      ],
+      "differences": [
+        {
+          "description": "本轮审核既有四源根，算法/类型/存储已正确不重写；仅注释/合同含混半字改明确低/高W32，不称新增功能/生产或运行修复",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        },
+        {
+          "description": "24B自然填充/by-value/std::memcpy为具名源码adapted；原未写字节具体值/机器ABI/SDK运行未验，C10/C03/fullFILE/17活动项与全CRT不闭",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "既有四定位本体/三实际U32槽",
+      "expected": "四源根/三真实槽存在且W32，无缺实现误补或重复定义",
+      "actual": "四原生源根和三个volatileU32既有，状态0来源已有PE，不新增实现"
+    },
+    {
+      "id": "E-FILE-POSITION-WIDTH-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整定位根174条/434B、12 dword读/8实际表槽及既有PE初态；doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-position-width-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-acceptance",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
+        "doc/cg2d_file_position_width_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferOffset_548B68",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferPosition_548BEA",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekOffset_5498B7",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekPosition_5498EE",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyDefaultPositionState1087B04",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamPosition"
+      ],
+      "differences": [
+        {
+          "description": "本轮审核既有四源根，算法/类型/存储已正确不重写；仅注释/合同含混半字改明确低/高W32，不称新增功能/生产或运行修复",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        },
+        {
+          "description": "24B自然填充/by-value/std::memcpy为具名源码adapted；原未写字节具体值/机器ABI/SDK运行未验，C10/C03/fullFILE/17活动项与全CRT不闭",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原API/成功失败与四字段/24B输出消费",
+      "expected": "FILE重取/完整0、scratch状态/erase及输出未写区保持",
+      "actual": "既有顺序对应，24B/四字段未变；未运行/ABI未验"
+    },
+    {
+      "id": "E-FILE-POSITION-WIDTH-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整定位根174条/434B、12 dword读/8实际表槽及既有PE初态；doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-position-width-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-acceptance",
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
+        "doc/cg2d_file_position_width_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferOffset_548B68",
+        "src/platform/LegacyFileBuffer.cpp#SeekLegacyFileBufferPosition_548BEA",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekOffset_5498B7",
+        "src/platform/LegacyStreamBuffer.cpp#DefaultLegacySeekPosition_5498EE",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyDefaultPositionState1087B04",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamPosition"
+      ],
+      "differences": [
+        {
+          "description": "本轮审核既有四源根，算法/类型/存储已正确不重写；仅注释/合同含混半字改明确低/高W32，不称新增功能/生产或运行修复",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        },
+        {
+          "description": "24B自然填充/by-value/std::memcpy为具名源码adapted；原未写字节具体值/机器ABI/SDK运行未验，C10/C03/fullFILE/17活动项与全CRT不闭",
+          "decision_ref": "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原完整指令/槽/字段宽与限定校正",
+      "expected": "174根/12dword/8加载槽可追，CPP不变且歧义纠正",
+      "actual": "一个注释/合同术语与四条限定归档，其他源头/台账/政策保持"
     }
   ],
   "task_acceptance": [
@@ -9224,6 +9346,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
+      ]
+    },
+    {
+      "task_id": "C10",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
       ]
     }
   ],
@@ -10428,6 +10558,38 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00148B68",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00148BEA",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001498B7",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001498EE",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
       ]
     }
   ],

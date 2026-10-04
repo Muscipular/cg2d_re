@@ -923,5 +923,133 @@
       }
     ],
     "boundary": "这里只闭合14对象的载入初值、真实存储及既有源消费者；四Init对象类型/容量、登记数组容量/别名、CPP90表启用与完整标准流/SDK/运行仍未闭。两个已加载S32计数-1及全部现有函数/方法表/清理顺序保持；不引入宿主iostream、影子owner或自动构析。"
-  }
+  },
+  "legacy_ui_scalar_storage": [
+    {
+      "original_address": "0xCC3E64",
+      "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+      "consumers": [
+        "Sub_4D7440",
+        "Sub_4D7BF0",
+        "Sub_4D8200"
+      ],
+      "meaning": "宠物技能目录图号",
+      "source": "src/LegacyUiRecord.cpp",
+      "declaration": "src/LegacyPanelRuntime.hpp",
+      "type": "std::int32_t",
+      "original_consumed_bytes": 4,
+      "native_bytes": 4,
+      "initial_value": 0,
+      "original_loaded_query": {
+        "address": "0xcc3e64",
+        "consumed_bytes": 4,
+        "loaded_bytes": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "segment": {
+          "name": ".data",
+          "start": "0x553000",
+          "end": "0x1088000"
+        }
+      },
+      "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+      "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+    },
+    {
+      "original_address": "0xC8AF84",
+      "symbol": "gLegacyPetSkillCatalogPageCountC8AF84",
+      "consumers": [
+        "Sub_4D7470"
+      ],
+      "meaning": "宠物技能目录页数",
+      "source": "src/LegacyUiRecord.cpp",
+      "declaration": "src/LegacyPanelRuntime.hpp",
+      "type": "std::int32_t",
+      "original_consumed_bytes": 4,
+      "native_bytes": 4,
+      "initial_value": 0,
+      "original_loaded_query": {
+        "address": "0xc8af84",
+        "consumed_bytes": 4,
+        "loaded_bytes": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "segment": {
+          "name": ".data",
+          "start": "0x553000",
+          "end": "0x1088000"
+        }
+      },
+      "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+      "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+    },
+    {
+      "original_address": "0xD30134",
+      "symbol": "gLegacyTradeTargetCountD30134",
+      "consumers": [
+        "Sub_4E4EA0"
+      ],
+      "meaning": "旧交易目标总数",
+      "source": "src/LegacyUiRecord.cpp",
+      "declaration": "src/LegacyPanelRuntime.hpp",
+      "type": "std::int32_t",
+      "original_consumed_bytes": 4,
+      "native_bytes": 4,
+      "initial_value": 0,
+      "original_loaded_query": {
+        "address": "0xd30134",
+        "consumed_bytes": 4,
+        "loaded_bytes": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "segment": {
+          "name": ".data",
+          "start": "0x553000",
+          "end": "0x1088000"
+        }
+      },
+      "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+      "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+    },
+    {
+      "original_address": "0xCF46D0",
+      "symbol": "gLegacyTradeTargetPageCountCF46D0",
+      "consumers": [
+        "Sub_4E4EA0"
+      ],
+      "meaning": "旧交易目标页数",
+      "source": "src/LegacyUiRecord.cpp",
+      "declaration": "src/LegacyPanelRuntime.hpp",
+      "type": "std::int32_t",
+      "original_consumed_bytes": 4,
+      "native_bytes": 4,
+      "initial_value": 0,
+      "original_loaded_query": {
+        "address": "0xcf46d0",
+        "consumed_bytes": 4,
+        "loaded_bytes": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "segment": {
+          "name": ".data",
+          "start": "0x553000",
+          "end": "0x1088000"
+        }
+      },
+      "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+      "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+    }
+  ]
 }

@@ -214,10 +214,16 @@ std::int32_t gLegacySplitSourceCC3E60 = 0;
 std::int32_t gLegacySplitTargetCC21DC = 0;
 std::int32_t gLegacySplitAmountC8A948 = 0;
 std::int32_t gLegacyLastUsedItemCB01EC = 0;
+// 原PE.data载入填零；图号/页数运行时生产仍待，不在开页时重置。
+std::int32_t gLegacyPetSkillCatalogImageCC3E64 = 0;
+std::int32_t gLegacyPetSkillCatalogPageCountC8AF84 = 0;
 std::int32_t gLegacyPetSkillCatalogPageD45F74 = 0; // 原虚拟零初值；旧58翻页写入，旧59/60/61共用。
 std::int32_t gLegacyPetSkillCatalogSelectionC8AF70 = 0;
 std::int32_t gLegacyPetSkillCatalogMessageD2E818 = 0;
 std::int32_t gLegacyPetSkillPetSelectionC8A94C = 0;
+// 原PE.data载入填零；人数/页数运行时生产仍待，不借现代名单计数。
+std::int32_t gLegacyTradeTargetCountD30134 = 0;
+std::int32_t gLegacyTradeTargetPageCountCF46D0 = 0;
 std::int32_t gLegacyTradeTargetPageCC3208 = 0; // 原虚拟零初值；旧51翻页发布，不在开页时重置。
 
 namespace {

@@ -107888,7 +107888,7 @@
     {
       "original_entry": "0x4D7470",
       "inventory_id": "F:000D7470",
-      "status": "旧宠物技能目录五处格式已接线；三个数据缺口/路由与验收未闭合",
+      "status": "旧目录五格式已接；图号/页数装载存储已实现，CA0478容量/生产、标量生产/路由与验收未闭合",
       "original_end_exclusive": "0x4D7BEA",
       "instruction_count": 570,
       "sources": [
@@ -107898,13 +107898,22 @@
             "Sub_4D7470"
           ],
           "relationship": "仅五格式接口改变，其他正文保持，不补目录数据或注册"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "gLegacyPetSkillCatalogImageCC3E64",
+            "gLegacyPetSkillCatalogPageCountC8AF84"
+          ],
+          "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。",
+      "boundary": "只替换五处原格式接口，保留绝对发送索引与相对选择发布差异、16B/16B/cap15及读序、256B共用显示、每行96B/U16门槛/+4值/+8费用S32、各次新页号/金额/价格与格式后布局。原失败/翻页/预览/关闭/SE返回/完整尾返回保持；CA0478容量与生产、CC3E64图号、C8AF84页数仍仅外部声明，D45F74既有定义不再报缺，旧路由/运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -108058,12 +108067,78 @@
           "relationship": "value绘制后重读页号→真实金额→96B记录+8费用S32，先按S32金额>=费用形成U8颜色0/6，再fmt费用到同256B，格式后Y→X绘font1费用；保持每有效行独立金额读取，不统一缓存"
         }
       ],
-      "verification_level": "本步只读194/570新格式邻窗，余376沿既有父合同；四种原格式沿既有字节，5889A8 %7d地址按原push立即数核对。整份源仅五标识符、原宽度/容量/读序/返回、JSON增量及文档末追加/编码/差异静态核对通过。无构建/测试/运行/hash；目录三项生产/定义缺口、原父/旧路由与验收未闭合。"
+      "verification_level": "本步只读194/570新格式邻窗，余376沿既有父合同；四种原格式沿既有字节，5889A8 %7d地址按原push立即数核对。整份源仅五标识符、原宽度/容量/读序/返回、JSON增量及文档末追加/编码/差异静态核对通过。无构建/测试/运行/hash；目录三项生产/定义缺口、原父/旧路由与验收未闭合。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+      "loader_scalar_bindings": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        },
+        {
+          "original_address": "0xC8AF84",
+          "symbol": "gLegacyPetSkillCatalogPageCountC8AF84",
+          "consumers": [
+            "Sub_4D7470"
+          ],
+          "meaning": "宠物技能目录页数",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xc8af84",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ]
     },
     {
       "original_entry": "0x4D7C20",
       "inventory_id": "F:000D7C20",
-      "status": "旧候选宠物页五处格式已接线；目录缺口/路由与验收未闭合",
+      "status": "旧候选宠物页五格式已接；初始化图号装载存储已实现，目录/标量生产、路由与验收未闭合",
       "original_end_exclusive": "0x4D8200",
       "instruction_count": 454,
       "sources": [
@@ -108073,13 +108148,21 @@
             "Sub_4D7C20"
           ],
           "relationship": "仅五格式接口改变，其他正文保持，不新增数据生产/注册"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "gLegacyPetSkillCatalogImageCC3E64"
+          ],
+          "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。",
+      "boundary": "只替换五格式标识符；相对行16B/独立转义16B/cap15、发送后才发布C8A94C、取消原共享593850不变。64B共用显示、目录96B各次页号/相对选择/+4值/+8费用、五候选40B/used绘制而allowed只影响原颜色与点击、名称前颜色快照和名称绘后数值S32、原完整返回保持。目录三外部缺口/真实旧路由与运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -108227,12 +108310,47 @@
           "relationship": "相对hover S32写未清16B→独立16B转义/cap15→target/request/Y/X/socket发送mode0弃返回；发送后才读取panelId/发布同源C8A94C相对选择，再关闭/SE57并继续共同绘制，不采用旧58发送前发布"
         }
       ],
-      "verification_level": "本步新读210/454原格式邻窗，余244沿既有父合同，四种格式沿已核字节。整份源仅五标识符、签名/容量/宽度/所有其他正文、JSON增量、文档仅末追加及编码/差异静态核对通过。禁构建/测试/客户端/哈希保持，未补目录定义/生产、未知数值或注册；原父/旧路由/生命周期/运行未闭合。"
+      "verification_level": "本步新读210/454原格式邻窗，余244沿既有父合同，四种格式沿已核字节。整份源仅五标识符、签名/容量/宽度/所有其他正文、JSON增量、文档仅末追加及编码/差异静态核对通过。禁构建/测试/客户端/哈希保持，未补目录定义/生产、未知数值或注册；原父/旧路由/生命周期/运行未闭合。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+      "loader_scalar_bindings": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ]
     },
     {
       "original_entry": "0x4D8230",
       "inventory_id": "F:000D8230",
-      "status": "旧技能槽五处格式已接线；目录缺口/原路由与验收未闭合",
+      "status": "旧技能槽五格式已接；初始化图号装载存储已实现，目录/标量生产、路由与验收未闭合",
       "original_end_exclusive": "0x4D88B6",
       "instruction_count": 509,
       "sources": [
@@ -108242,13 +108360,21 @@
             "Sub_4D8230"
           ],
           "relationship": "仅五格式标识符改变，其他正文保持"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "gLegacyPetSkillCatalogImageCC3E64"
+          ],
+          "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_skill_catalog.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。",
+      "boundary": "只替换五原格式接口，同64B共用未清缓冲/五S32；目录96B各次新页号/选择/+4值/+8价、候选40B名称绘后新选择/+4值、92B技能槽名称绘后+4值、说明后独立金额、各格式后Y/X和原字体保持。十槽点击依slots、绘名/值依used、可用图独立依slots、hover说明不查used的区别保持；原确认页关联关闭、预览/网络/副作用与完整返回不动。目录三外部缺口、原路由及运行未闭合。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -108399,7 +108525,42 @@
           "relationship": "十行/右四说明与原hover两行说明完成后再读真实金额S32写同64B，格式后新Y/X；接按钮/提示与503440 flags1完整W32尾"
         }
       ],
-      "verification_level": "本步只读217/509新格式邻窗，余292沿既有父合同，三原格式沿已核字节。整份源仅五标识符、所有其他正文/签名不变，参数/字段/容量/读序、限定JSON/文档末追加与编码/差异静态核对通过。禁构建/测试/客户端/哈希，目录缺口/旧路由/完整画面与生命周期/运行未完成。"
+      "verification_level": "本步只读217/509新格式邻窗，余292沿既有父合同，三原格式沿已核字节。整份源仅五标识符、所有其他正文/签名不变，参数/字段/容量/读序、限定JSON/文档末追加与编码/差异静态核对通过。禁构建/测试/客户端/哈希，目录缺口/旧路由/完整画面与生命周期/运行未完成。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+      "loader_scalar_bindings": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ]
     },
     {
       "original_entry": "0x4D88C0",
@@ -108795,7 +108956,7 @@
     {
       "original_entry": "0x4E4EA0",
       "inventory_id": "F:000E4EA0",
-      "status": "旧交易目标页一格式已接线；三个数据缺口/旧路由与验收未闭合",
+      "status": "旧交易目标页格式与人数/页数真实装载存储已接；名单容量/定义/生产、标量生产/旧路由与验收未闭合",
       "original_end_exclusive": "0x4E52AA",
       "instruction_count": 304,
       "sources": [
@@ -108805,13 +108966,22 @@
             "Sub_4E4EA0"
           ],
           "relationship": "仅页码一格式标识符改变，所有其他正文保持"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "gLegacyTradeTargetCountD30134",
+            "gLegacyTradeTargetPageCountCF46D0"
+          ],
+          "relationship": "真实PE装载S32存储；既有消费直接借同一槽，运行时生产仍待"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_trade_target_list.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。",
+      "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -108853,7 +109023,71 @@
           "relationship": "标题后新读同源CC3208页号→外部CF46D0页数，参数页号+1/页数两S32写未清128B；格式后重取本页面板Y/X画页码，之后五行绘制入口另读页号，不把D30134总数当页号或补CF46D0"
         }
       ],
-      "verification_level": "本步只读44/304新格式邻窗、余260沿既有父合同；586D48沿已核字节。整份源仅一标识符、所有其他正文/签名不变，参数/容量/读序、限定JSON/文档末追加/编码与差异核对通过。禁构建/测试/客户端/哈希，原父/三数据缺口/旧路由/交易流程/运行未完成。"
+      "verification_level": "本步只读44/304新格式邻窗、余260沿既有父合同；586D48沿已核字节。整份源仅一标识符、所有其他正文/签名不变，参数/容量/读序、限定JSON/文档末追加/编码与差异核对通过。禁构建/测试/客户端/哈希，原父/三数据缺口/旧路由/交易流程/运行未完成。；本步只核完整4B载入范围/唯一定义/实际消费者及限定增量，旧本体不复检，未构建/测试/运行/hash",
+      "loader_scalar_bindings": [
+        {
+          "original_address": "0xD30134",
+          "symbol": "gLegacyTradeTargetCountD30134",
+          "consumers": [
+            "Sub_4E4EA0"
+          ],
+          "meaning": "旧交易目标总数",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xd30134",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        },
+        {
+          "original_address": "0xCF46D0",
+          "symbol": "gLegacyTradeTargetPageCountCF46D0",
+          "consumers": [
+            "Sub_4E4EA0"
+          ],
+          "meaning": "旧交易目标页数",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcf46d0",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ]
     },
     {
       "original_entry": "0x4DF730",
@@ -122910,6 +123144,252 @@
           "relationship": "原flags判定先于方法表写，后同域delete"
         }
       ]
+    },
+    {
+      "original_entry": "0x4D7440",
+      "inventory_id": "F:000D7440",
+      "original_end_exclusive": "0x4D746D",
+      "instruction_count": 12,
+      "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D7440",
+            "gLegacyPetSkillCatalogImageCC3E64",
+            "gLegacyPetSkillCatalogActionD67C5C"
+          ],
+          "relationship": "既有按Y/X/同一图号读取及4D6640实际创建，向独立非拥有槽发布/原样返回含空失败，正文不改；仅图号存储本轮新增"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D7440",
+            "gLegacyPetSkillCatalogImageCC3E64"
+          ],
+          "relationship": "已有typed入口和同一S32图号extern"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
+      "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
+      "data_dependencies": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ],
+      "original_identity_evidence": {
+        "source": "doc/cg2d_ida_inventory.json",
+        "original_chunk": [
+          "0x4D7440",
+          "0x4D746D"
+        ],
+        "instruction_count_source": "doc/ui_windows/legacy_pet_skill_catalog.md"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6640",
+        "arguments": "image,x+468,y+245",
+        "result": "gLegacyPetSkillCatalogActionD67C5C"
+      }
+    },
+    {
+      "original_entry": "0x4D7BF0",
+      "inventory_id": "F:000D7BF0",
+      "original_end_exclusive": "0x4D7C1D",
+      "instruction_count": 12,
+      "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D7BF0",
+            "gLegacyPetSkillCatalogImageCC3E64",
+            "gLegacyPetSkillPetActionD67C60"
+          ],
+          "relationship": "既有按Y/X/同一图号读取及4D6640实际创建，向独立非拥有槽发布/原样返回含空失败，正文不改；仅图号存储本轮新增"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D7BF0",
+            "gLegacyPetSkillCatalogImageCC3E64"
+          ],
+          "relationship": "已有typed入口和同一S32图号extern"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
+      "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
+      "data_dependencies": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ],
+      "original_identity_evidence": {
+        "source": "doc/cg2d_ida_inventory.json",
+        "original_chunk": [
+          "0x4D7BF0",
+          "0x4D7C1D"
+        ],
+        "instruction_count_source": "doc/ui_windows/legacy_pet_skill_catalog.md"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6640",
+        "arguments": "image,x+468,y+245",
+        "result": "gLegacyPetSkillPetActionD67C60"
+      }
+    },
+    {
+      "original_entry": "0x4D8200",
+      "inventory_id": "F:000D8200",
+      "original_end_exclusive": "0x4D822D",
+      "instruction_count": 12,
+      "status": "既有12条预览初始化完整本体已实现；同一图号真实装载存储已接，图号生产/路由与运行未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D8200",
+            "gLegacyPetSkillCatalogImageCC3E64",
+            "gLegacyPetSkillSlotsActionD67C64"
+          ],
+          "relationship": "既有按Y/X/同一图号读取及4D6640实际创建，向独立非拥有槽发布/原样返回含空失败，正文不改；仅图号存储本轮新增"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D8200",
+            "gLegacyPetSkillCatalogImageCC3E64"
+          ],
+          "relationship": "已有typed入口和同一S32图号extern"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "原x86地址仅作身份；图号S32不扩宽，预览只原生T*非拥有。Y/X/image读取、x+468/y+245、创建/发布/返回按已有完整合同，未造新增原函数或推数组/图号生产。装载初值不等于开页/网络复位，不注册旧表或记完整生命周期/故障等价。",
+      "verification_level": "本轮原库存身份/边界与已有12条完整合同关联、当前实际源签名/三个不同预览槽及唯一定义、PE完整4B范围和限定新增差异静态核对；未重复取证旧本体，未构建/测试/运行",
+      "data_dependencies": [
+        {
+          "original_address": "0xCC3E64",
+          "symbol": "gLegacyPetSkillCatalogImageCC3E64",
+          "consumers": [
+            "Sub_4D7440",
+            "Sub_4D7BF0",
+            "Sub_4D8200"
+          ],
+          "meaning": "宠物技能目录图号",
+          "source": "src/LegacyUiRecord.cpp",
+          "declaration": "src/LegacyPanelRuntime.hpp",
+          "type": "std::int32_t",
+          "original_consumed_bytes": 4,
+          "native_bytes": 4,
+          "initial_value": 0,
+          "original_loaded_query": {
+            "address": "0xcc3e64",
+            "consumed_bytes": 4,
+            "loaded_bytes": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "segment": {
+              "name": ".data",
+              "start": "0x553000",
+              "end": "0x1088000"
+            }
+          },
+          "initialization_evidence": "PE.data zero_tail [0x593000,0x1087B08)，槽完整4B在尾内；不是根据IDA未加载值猜零",
+          "runtime_production": "仍待定位；本步不增加开页/网络/初始化写入或复位"
+        }
+      ],
+      "original_identity_evidence": {
+        "source": "doc/cg2d_ida_inventory.json",
+        "original_chunk": [
+          "0x4D8200",
+          "0x4D822D"
+        ],
+        "instruction_count_source": "doc/ui_windows/legacy_pet_skill_catalog.md"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4D6640",
+        "arguments": "image,x+468,y+245",
+        "result": "gLegacyPetSkillSlotsActionD67C64"
+      }
     }
   ]
 }

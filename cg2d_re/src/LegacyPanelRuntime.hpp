@@ -37,7 +37,7 @@ static_assert(offsetof(LegacyPetSkillCatalogRecord, value04) == 4);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, price08) == 8);
 static_assert(offsetof(LegacyPetSkillCatalogRecord, text0C) == 12);
 
-// 以下三项仅为已证外部数据依赖，尚无定义；不得用猜测容量或默认图号/页数补接。
+// CA0478数组容量/定义/生产仍待；图号/页数已有真实PE填零初值存储，运行时生产仍待。
 extern LegacyPetSkillCatalogRecord gLegacyPetSkillCatalogCA0478[];
 extern std::int32_t gLegacyPetSkillCatalogImageCC3E64;
 extern std::int32_t gLegacyPetSkillCatalogPageCountC8AF84;
@@ -46,7 +46,7 @@ extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对�
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
 
-// 原旧51尚缺的三项外部数据依赖；名单总容量及完整生产未定，不提供猜测定义。
+// 名单容量/定义/生产仍待；总数/页数已有真实PE填零初值存储，不推运行时生产。
 extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
 extern std::int32_t gLegacyTradeTargetCountD30134;
 extern std::int32_t gLegacyTradeTargetPageCountCF46D0;

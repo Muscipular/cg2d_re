@@ -8,9 +8,10 @@ namespace cg::platform {
 struct LegacyIosBaseStorage;
 struct LegacyLocaleImplementation;
 
+// 原删除槽返回所属对象地址；仅该多态边界为非拥有void*，真实本体仍类型化。
 // 原550144仅已证删除槽0；8B为消费前缀，不推完整SDK虚表/分配规模。
 struct LegacyIosBaseMethods final {
-    LegacyIosBaseStorage* (*deletingDestructor)(
+    void* (*deletingDestructor)(
         LegacyIosBaseStorage* storage, std::uint32_t flags);
 };
 static_assert(sizeof(LegacyIosBaseMethods) == 8);
@@ -122,5 +123,83 @@ LegacyNarrowBasicIos* DeleteLegacyNarrowIos_548CF6(
     LegacyNarrowBasicIos* storage, std::uint32_t flags);
 LegacyWideBasicIos* DeleteLegacyWideIos_549D4B(
     LegacyWideBasicIos* storage, std::uint32_t flags);
+
+// 原虚基表两W32，首字未消费；偏移按实际x64成员位置，不把x86字节偏移当新端地址。
+struct LegacyStreamVirtualBaseLayout final {
+    std::uint32_t firstBits;
+    std::int32_t iosByteOffset;
+};
+static_assert(offsetof(LegacyStreamVirtualBaseLayout, iosByteOffset) == 4);
+static_assert(sizeof(LegacyStreamVirtualBaseLayout) == 8);
+
+// 原ostream首vbtable地址/实际basic_ios虚基，输入另有未解释W32槽；不接SDK继承布局。
+template <typename Character>
+struct LegacyOutputStreamStorage final {
+    const LegacyStreamVirtualBaseLayout* virtualBaseLayout;
+    LegacyBasicIosStorage<Character> ios;
+};
+template <typename Character>
+struct LegacyInputStreamStorage final {
+    const LegacyStreamVirtualBaseLayout* virtualBaseLayout;
+    std::uint32_t countBits; // 原+04；本组完整构造写0，登记构造不写，不推符号/业务含义。
+    LegacyBasicIosStorage<Character> ios;
+};
+using LegacyNarrowOutputStream = LegacyOutputStreamStorage<char>;
+static_assert(offsetof(LegacyNarrowOutputStream, virtualBaseLayout) == 0);
+static_assert(offsetof(LegacyNarrowOutputStream, ios) == 8);
+static_assert(sizeof(LegacyNarrowOutputStream) == 96);
+extern const LegacyStreamVirtualBaseLayout gLegacyNarrowOutputVirtualBase54FFC0;
+extern const LegacyIosBaseMethods gLegacyNarrowOutputMethods54FFB4;
+LegacyNarrowOutputStream* ConstructLegacyNarrowOutput_548463(
+    LegacyNarrowOutputStream* storage, LegacyStreamBufferObject<char>* buffer,
+    std::uint32_t registerBits, std::uint32_t initializeBits, std::uint32_t virtualBaseBits);
+LegacyNarrowOutputStream* RegisterConstructLegacyNarrowOutput_5484CD(
+    LegacyNarrowOutputStream* storage, std::uint32_t ignoredStackWord, std::uint32_t virtualBaseBits);
+void DestroyLegacyNarrowOutput_54823D(LegacyNarrowOutputStream* storage);
+void* DeleteLegacyNarrowOutputFromIos_548CD7(LegacyIosBaseStorage* virtualBase, std::uint32_t flags);
+
+using LegacyNarrowInputStream = LegacyInputStreamStorage<char>;
+static_assert(offsetof(LegacyNarrowInputStream, virtualBaseLayout) == 0);
+static_assert(offsetof(LegacyNarrowInputStream, ios) == 16);
+static_assert(sizeof(LegacyNarrowInputStream) == 104);
+static_assert(offsetof(LegacyNarrowInputStream, countBits) == 8);
+extern const LegacyStreamVirtualBaseLayout gLegacyNarrowInputVirtualBase54FFC8;
+extern const LegacyIosBaseMethods gLegacyNarrowInputMethods54FFAC;
+LegacyNarrowInputStream* ConstructLegacyNarrowInput_548537(
+    LegacyNarrowInputStream* storage, LegacyStreamBufferObject<char>* buffer,
+    std::uint32_t registerBits, std::uint32_t virtualBaseBits);
+LegacyNarrowInputStream* RegisterConstructLegacyNarrowInput_54859F(
+    LegacyNarrowInputStream* storage, std::uint32_t ignoredStackWord, std::uint32_t virtualBaseBits);
+void DestroyLegacyNarrowInput_5481F9(LegacyNarrowInputStream* storage);
+void* DeleteLegacyNarrowInputFromIos_548D12(LegacyIosBaseStorage* virtualBase, std::uint32_t flags);
+
+using LegacyWideOutputStream = LegacyOutputStreamStorage<std::uint16_t>;
+static_assert(offsetof(LegacyWideOutputStream, virtualBaseLayout) == 0);
+static_assert(offsetof(LegacyWideOutputStream, ios) == 8);
+static_assert(sizeof(LegacyWideOutputStream) == 96);
+extern const LegacyStreamVirtualBaseLayout gLegacyWideOutputVirtualBase55005C;
+extern const LegacyIosBaseMethods gLegacyWideOutputMethods550050;
+LegacyWideOutputStream* ConstructLegacyWideOutput_549525(
+    LegacyWideOutputStream* storage, LegacyStreamBufferObject<std::uint16_t>* buffer,
+    std::uint32_t registerBits, std::uint32_t initializeBits, std::uint32_t virtualBaseBits);
+LegacyWideOutputStream* RegisterConstructLegacyWideOutput_54958F(
+    LegacyWideOutputStream* storage, std::uint32_t ignoredStackWord, std::uint32_t virtualBaseBits);
+void DestroyLegacyWideOutput_549324(LegacyWideOutputStream* storage);
+void* DeleteLegacyWideOutputFromIos_549D2C(LegacyIosBaseStorage* virtualBase, std::uint32_t flags);
+
+using LegacyWideInputStream = LegacyInputStreamStorage<std::uint16_t>;
+static_assert(offsetof(LegacyWideInputStream, virtualBaseLayout) == 0);
+static_assert(offsetof(LegacyWideInputStream, ios) == 16);
+static_assert(sizeof(LegacyWideInputStream) == 104);
+static_assert(offsetof(LegacyWideInputStream, countBits) == 8);
+extern const LegacyStreamVirtualBaseLayout gLegacyWideInputVirtualBase550064;
+extern const LegacyIosBaseMethods gLegacyWideInputMethods550048;
+LegacyWideInputStream* ConstructLegacyWideInput_549643(
+    LegacyWideInputStream* storage, LegacyStreamBufferObject<std::uint16_t>* buffer,
+    std::uint32_t registerBits, std::uint32_t virtualBaseBits);
+LegacyWideInputStream* RegisterConstructLegacyWideInput_5496AB(
+    LegacyWideInputStream* storage, std::uint32_t ignoredStackWord, std::uint32_t virtualBaseBits);
+void DestroyLegacyWideInput_5492E0(LegacyWideInputStream* storage);
+void* DeleteLegacyWideInputFromIos_549D67(LegacyIosBaseStorage* virtualBase, std::uint32_t flags);
 
 } // namespace cg::platform

@@ -4041,3 +4041,18 @@ setbuf各只读一次FILE，空或真实setvbuf完整非0返空，成功返实�
 初始化原序：tie空、buffer输入、窄20H低U8或真实Btowc_54AAD5(20H)返回U16填充，然后真实base_Init。返回后重新读buffer，空才将当时完整stateBits的低bit4置位传给真实clear(storage,stateBits|4,0 W32)；原重复两次OR低AL与一次按位置bit相同，不新增状态门禁或固定成功。最后registerBits只低U8非0才真实_Addstd；原两CMP字节807C240C00/operand dtype0，不把高24位当登记真。任一父异常沿原自然停止，本组不加catch。宽填充不得固定20H或因Btowc FFFF替换/重试。
 
 两析构先写各自真实basic_ios表再ios_base析构，即使父再次写表也不折叠顺序；原尾调作真实源级父调用，不称尾栈或SDK虚基ABI等价。两删除先本类完整析构，flags bit0才原53B4E7→53C0A9同域Free，返回缓存原地址；本组原this不作-4/-8调整，不扩大到其他四包装/istream/ostream。12记录同步新本体、13连接与两槽0，旧基类64B/字段/调用数组保持；clear仍真实声明/完整failure抛出未实现，登记数据初值容量、标准流构造虚基/tie生产/owner、启动退出/模式3、三个种子/转换器全表和SDK/EH/运行仍待。仅新增静态核对，不构建/测试/运行或hash核验。
+
+
+### 2026-10-04 增量SPEC：窄宽istream/ostream构造登记及构析
+
+范围548463/548537/549525/549643完整构造，5484CD/54859F/54958F/5496AB登记构造，5481F9/54823D/5492E0/549324析构，548CD7/548D12/549D2C/549D67删除包装；16新原本体394条（含8构造展开chunk），28原数值call/尾调，四实际vbtable两W32与四删除槽0。旧basic_ios/ios_base/原堆/转换本体与业务数组不回核，不新增原身份。
+
+工程布局：输出首vbtable指针拓宽8B，实际basic_ios88B置native8，消费视图96B；输入vbtable0、原+04未解释W32 countBits置native8（符号不推）、实际ios置native16，消费视图104B。原vbtable首字0/第二字输出4、输入8已加载；两字段仍W32/native8B表，第二字按实际offsetof迁native8/16，仅承接指针布局变化，不搬x86字节偏移到新端。四独立表身份保留，不合并；每次原虚基投影重取当前vbtable/offset，不增加空值、偏移范围或RTTI保护，不推未知继承/其他vbtable或全部原分配布局。
+
+八构造的虚基参数都消费完整W32：非0才写本类vbtable、固定ios.registryIndex0及基本ios表，随后才标记虚基已初始化。主体沿当前vbtable写本类输入/输出表；完整输出只有第三栈字低U8非0才重新投影并basic_ios::init(buffer,原registerBits)，完整输入每条正常路径countBits0，再表写、重新投影和init。原第二registerBits W32传递，低U8语义由既有init消费。四登记构造第一W32未消费：只表写/重新投影_Addstd，不绑定buffer、不运行basic_ios::init，也不清输入count。正常返原this，虚基参数0不被补本类表/对象预清。
+
+八FuncInfo magic19930520/maxState1/state0 prev-1，动作54C0E0/54C104/54C128/54C14C/54C240/54C264/54C288/54C2AC，仅本入口完成虚基初始化bit0非0才清固定this+4/+8 ios；源级try/catch据此只清本类实际成员地址8/16，再传播，不改为动态投影清理，不补完整对象析构。四析构先沿当时vbtable动态表写，之后固定本类ios地址尾调basic_ios析构，这两个地址职责保持；不称x86尾栈/SDK虚基或清理再失败等价。
+
+删除包装入口接真实ios_base虚基地址，按本类实际成员偏移还原所属input/output对象（原-4/-8→native-8/-16），先完整本类析构，正常返回后flags bit0才53B4E7→53C0A9同域Free，返回保存的所属对象地址、不在释放后读成员。新证实返回地址可不同于ios_base地址：统一删除槽仅该返回边界为非拥有void*，真实各析构/delete接口不改生命周期或存整数地址。旧基类/两basic_ios表三个地址适配仅机械接此共同返回接口，原叶算法不改；基类表增加适配调用原Delete，四新槽直接指真实调整入口，无函数地址擦除/强转、SDK vft/RTTI或影子owner。
+
+23原记录同步16本体/28接线/四vbtable/四槽与共同删除接口，旧原调用数组和数值宽保持；登记原6父点（既有basic_ios两+本组四）、basic_ios init原两窄/两宽以及两basic_ios析构各旧1+本组6父点均具源码消费者，不据此完成标准流全局/启动退出或SDK运行。输出/输入实际全局owner与tie生产、标准流控制器、clear真实failure抛出、登记数组容量初值、三个种子/转换器完整生产/原堆模式3及完整运行仍待。新增静态仅检查本步字段、门禁、展开、指针接口/表目标/差异，不构建、测试、运行或hash核验。

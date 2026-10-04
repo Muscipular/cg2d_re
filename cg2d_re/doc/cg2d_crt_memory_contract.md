@@ -586,3 +586,9 @@ mode3的541FB1/541C88/542466本步仅声明真实依赖，16B小块原生双链�
 
 历史该小步仅声明54A67A/54A899；完整上游构析/堆/启动/运行门禁未完成。
 仅新两源码/声明/CMake一来源和限定记录/文档静态核对，未构建或执行，既有核心/模式2不复检。
+
+## 2026-10-04：NSH01窄字符串字节域宿主承接
+
+前述窄字符串“内部仅原堆”的当前实施边界由[NSH01局部SPEC](cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision)更新，原调用事实与其他原堆域保持。两个私有字节入口成对接std::malloc/std::free；原53C3BE上界/enable1循环和同一541A28处理器继续，新宿主请求零取1、失败传原U32 byteCount，异常不吞或伪造。
+
+八字符串叶及54A315本体全文保持，buffer指向同域块+1，buffer[-1]引用U8保留，逻辑capacity不读取宿主块尺寸。两原分配点5490BE/5490D9和548E4F释放沿同一入口，增长仍分配→复制→释放，不换realloc。对象/异常基类text/locale facets/filebuf对象、六裸字节和21应用calloc域未迁移；完整C08/C11、Raise/SDK与运行继续开放。

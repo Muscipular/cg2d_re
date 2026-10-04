@@ -20732,7 +20732,7 @@
     {
       "original_entry": "0x53C9CF",
       "inventory_id": "F:0013C9CF",
-      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆接线已实现，完整new/堆/运行未验",
+      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆接线已实现，完整new/堆/运行未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x53C9DD",
       "instruction_count": 6,
       "sources": [
@@ -20753,7 +20753,7 @@
           "symbols": [
             "AllocateLegacyNarrowStringBytes_53C9CF"
           ],
-          "relationship": "仅原窄字符串内部原堆字节块；真实53C3BE(enableHandler1)且与内部原堆释放配对，六裸适配保持"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyException.cpp",
@@ -20774,9 +20774,10 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。",
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B079",
@@ -20810,12 +20811,34 @@
           "arguments": "U32(sizeof64B),1",
           "relationship": "原40B仅地址拓宽64B，原new叶传handler1"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53C3BE",
       "inventory_id": "F:0013C3BE",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x53C3EA",
       "instruction_count": 16,
       "sources": [
@@ -20843,14 +20866,22 @@
           "symbols": [
             "AllocateLegacyHeapWithHandler_53C3BE"
           ]
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AllocateLegacyNarrowStringBytes_53C9CF"
+          ],
+          "relationship": "仅NSH01字节域承接原上界/enable1循环；原53C3BE其他域本体保持，不计此helper为原体等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。",
+      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "original_direct_reference_count": 2,
       "inbound_evidence": [
         {
@@ -20862,7 +20893,29 @@
           "parent_entry": "0x53C9CF"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53C3EA",
@@ -20915,7 +20968,7 @@
     {
       "original_entry": "0x53B4E7",
       "inventory_id": "F:0013B4E7",
-      "status": "六宿主裸字节适配保持；窄字符串/异常对象与ios链原堆释放已接，完整delete/生产及生命周期未验",
+      "status": "六宿主裸字节适配保持；窄字符串/异常对象与ios链原堆释放已接，完整delete/生产及生命周期未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x53B4F2",
       "instruction_count": 4,
       "sources": [
@@ -20936,7 +20989,7 @@
           "symbols": [
             "FreeLegacyNarrowStringBytes_53B4E7"
           ],
-          "relationship": "仅548E4F的buffer-1原堆块，同域FreeLegacyHeapMemory_53C0A9；六宿主适配保持"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyException.cpp",
@@ -21026,9 +21079,10 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -21242,12 +21296,34 @@
           "source_call_implemented": true,
           "runtime_verified": false
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x541A28",
       "inventory_id": "F:00141A28",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x541A43",
       "instruction_count": 13,
       "sources": [
@@ -21275,14 +21351,22 @@
           "symbols": [
             "CallLegacyHeapNewHandler_541A28"
           ]
+        },
+        {
+          "path": "src/platform/LegacyNarrowString.cpp",
+          "symbols": [
+            "AllocateLegacyNarrowStringBytes_53C9CF"
+          ],
+          "relationship": "NSH01每轮失败真实调用既有541A28，原byteCount实参/重读处理器/返回与异常传播保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。",
+      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "original_direct_reference_count": 5,
       "inbound_evidence": [
         {
@@ -21306,7 +21390,40 @@
           "parent_entry": "0x53FA5B"
         }
       ],
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行"
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行",
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      },
+      "narrow_string_host_handler_connection": {
+        "original_parent_entry": "0x53C3BE",
+        "original_call_site": "0x53C3DD",
+        "original_target_entry": "0x541A28",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "native_parent_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "target_symbol": "CallLegacyHeapNewHandler_541A28",
+        "native_parent_is_original_source_body": false,
+        "arguments": "原U32 byteCount，不是零请求替代值或内部对齐量",
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+      }
     },
     {
       "original_entry": "0x53B399",
@@ -50544,7 +50661,7 @@
     {
       "original_entry": "0x548D69",
       "inventory_id": "F:00148D69",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x548DC2",
       "instruction_count": 36,
       "original_direct_reference_count": 4,
@@ -50573,7 +50690,7 @@
           "symbols": [
             "AppendLegacyNarrowString_548D69"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -50601,9 +50718,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "append(count,char)：先按550040减旧长度作上限门禁；数量非零才Grow，成功后memset追加并发布长度/NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x548AD4/0x549C51；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488C2/0x549A21，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。",
+      "boundary": "append(count,char)：先按550040减旧长度作上限门禁；数量非零才Grow，成功后memset追加并发布长度/NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x548AD4/0x549C51；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488C2/0x549A21，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -50619,7 +50737,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -50694,12 +50812,34 @@
           "source": "src/platform/LegacyFileBuffer.cpp",
           "symbol": "WriteLegacyWideFileBuffer_54999A"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x548DC2",
       "inventory_id": "F:00148DC2",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x548E29",
       "instruction_count": 43,
       "original_direct_reference_count": 9,
@@ -50748,7 +50888,7 @@
           "symbols": [
             "EraseLegacyNarrowString_548DC2"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -50785,9 +50925,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "erase：位置门禁后先Split，重新读取长度并缩减删除数；有删除才以53D710移动后缀，再Grow并发布长度/NUL。不能把原_memcpy标签误作不支持重叠。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x548A0C/0x549B7D/0x548ABB/0x549C38；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488B7/0x549A16，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。；2026-10-04新增filebuf定位/缓冲设置真实原点0x548C5A，旧算法/业务记录保持；原父消费者已实现，派生表绑定/owner/完整运行待。",
+      "boundary": "erase：位置门禁后先Split，重新读取长度并缩减删除数；有删除才以53D710移动后缀，再Grow并发布长度/NUL。不能把原_memcpy标签误作不支持重叠。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x548A0C/0x549B7D/0x548ABB/0x549C38；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488B7/0x549A16，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。；2026-10-04新增filebuf定位/缓冲设置真实原点0x548C5A，旧算法/业务记录保持；原父消费者已实现，派生表绑定/owner/完整运行待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -50803,7 +50944,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -50915,12 +51056,34 @@
           "source": "src/platform/LegacyFileBuffer.cpp",
           "symbol": "SeekLegacyFileBufferPosition_548BEA"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x548E29",
       "inventory_id": "F:00148E29",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x548E65",
       "instruction_count": 24,
       "original_direct_reference_count": 22,
@@ -51021,7 +51184,7 @@
           "symbols": [
             "TidyLegacyNarrowString_548E29"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -51092,9 +51255,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04新增locale构析原点0x54A544/0x54A61F/0x54A30F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548813/0x54996A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；新增原clear真实父点0x549FB4/0x54A30F源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A693/0x54A67A@0x54A30F/0x54A899@0x54A8B2/0x54A899@0x54A30F源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。",
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04新增locale构析原点0x54A544/0x54A61F/0x54A30F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548813/0x54996A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；新增原clear真实父点0x549FB4/0x54A30F源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A693/0x54A67A@0x54A30F/0x54A899@0x54A8B2/0x54A899@0x54A30F源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -51110,7 +51274,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -51345,12 +51509,34 @@
           "arguments": "&message,true，唯一state0展开",
           "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x548F74",
       "inventory_id": "F:00148F74",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x548FA0",
       "instruction_count": 19,
       "original_direct_reference_count": 16,
@@ -51427,7 +51613,7 @@
           "symbols": [
             "FreezeLegacyNarrowString_548F74"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -51457,9 +51643,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "Freeze：共享标记非0/FF先Grow(length,false)，随后重取buffer，非空才将buffer[-1]置FF。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x5489E8/0x549B59/0x548AE4/0x548AF4/0x548B49/0x549C61/0x549C71/0x549CC6；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488CC/0x5488DC/0x54893F/0x54894F/0x549A2B/0x549A3B/0x549AA8/0x549AB8，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。",
+      "boundary": "Freeze：共享标记非0/FF先Grow(length,false)，随后重取buffer，非空才将buffer[-1]置FF。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增真实filebuf读回推原点0x5489E8/0x549B59/0x548AE4/0x548AF4/0x548B49/0x549C61/0x549C71/0x549CC6；已有本体不复检。字节/宽/窄串/冻结和状态时点/失败残留保持，转换器/派生表与完整运行待。；2026-10-04新增filebuf输出真实点0x5488CC/0x5488DC/0x54893F/0x54894F/0x549A2B/0x549A3B/0x549AA8/0x549AB8，真实8零字节原操作、Freeze/当前状态/0/1/3、原符号扩展/短写/负返回映射保持，不复检已有本体；转换器/派生表/完整运行待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -51475,7 +51662,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -51660,12 +51847,34 @@
           "source": "src/platform/LegacyFileBuffer.cpp",
           "symbol": "WriteLegacyWideFileBuffer_54999A"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x548FA0",
       "inventory_id": "F:00148FA0",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x549025",
       "instruction_count": 56,
       "original_direct_reference_count": 5,
@@ -51698,7 +51907,7 @@
           "symbols": [
             "GrowLegacyNarrowString_548FA0"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -51710,9 +51919,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "Grow：U32请求上限FFFFFFFD；共享零请求先减引用再Tidy(false)。非共享零请求依trim释放或只清长度/首NUL；非零trim路径保留或重建，返回只规定AL。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "boundary": "Grow：U32请求上限FFFFFFFD；共享零请求先减引用再Tidy(false)。非共享零请求依trim释放或只清长度/首NUL；非零trim路径保留或重建，返回只规定AL。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -51728,7 +51938,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -51764,12 +51974,34 @@
           "instruction": "call    ?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z",
           "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x549025",
       "inventory_id": "F:00149025",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x549055",
       "instruction_count": 23,
       "original_direct_reference_count": 1,
@@ -51786,7 +52018,7 @@
           "symbols": [
             "SplitLegacyNarrowString_549025"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -51798,9 +52030,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "Split：仅共享标记非0/FF时保存旧buffer，Tidy(true)后strlen(saved)再assign；不能用旧长度替换strlen。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "boundary": "Split：仅共享标记非0/FF时保存旧buffer，Tidy(true)后strlen(saved)再assign；不能用旧长度替换strlen。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -51816,7 +52049,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -51847,12 +52080,34 @@
           "instruction": "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z",
           "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x549055",
       "inventory_id": "F:00149055",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x54908A",
       "instruction_count": 21,
       "original_direct_reference_count": 6,
@@ -51889,7 +52144,7 @@
           "symbols": [
             "AssignLegacyNarrowString_549055"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -51931,9 +52186,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增locale构析原点0x54A559，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A47A；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FC5源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A6A9/0x54A899@0x54A8C8源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。",
+      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增locale构析原点0x54A559，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A47A；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FC5源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A6A9/0x54A899@0x54A8C8源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -51949,7 +52205,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -52033,12 +52289,34 @@
           "arguments": "&message,原消息地址,当时完整U32长度",
           "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54908A",
       "inventory_id": "F:0014908A",
-      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合",
+      "status": "原窄字符串本体及内部接线已实现；异常叶/原堆模式3/上游对象生命周期与运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x549147",
       "instruction_count": 75,
       "original_direct_reference_count": 1,
@@ -52055,7 +52333,7 @@
           "symbols": [
             "CopyLegacyNarrowString_54908A"
           ],
-          "relationship": "原共享标记U8/长度容量W32/指针x64的直接存储视图；显式原堆与内部调用，不使用宿主std::string"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -52067,9 +52345,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "Copy：请求先按1F位掩码扩容，分配capacity+2，复制旧前缀后Tidy旧块并发布新buffer+1、标记0、容量/长度/NUL。5490C9为异常处理片段，不是普通空返回重试；捕获合同本步由5513C0/551408原数据证实为任意C++类型异常、仅第一次分配受捕获；原请求重试及第二异常外传保持。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。",
+      "boundary": "Copy：请求先按1F位掩码扩容，分配capacity+2，复制旧前缀后Tidy旧块并发布新buffer+1、标记0、容量/长度/NUL。5490C9为异常处理片段，不是普通空返回重试；捕获合同本步由5513C0/551408原数据证实为任意C++类型异常、仅第一次分配受捕获；原请求重试及第二异常外传保持。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "function_chunks": [
         {
           "start": "0x54908A",
@@ -52095,7 +52374,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -52165,12 +52444,34 @@
           "instruction": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z",
           "evidence": "当前原完整本体，源中按原地址命名的实际依赖；原EH_prolog/FrameHandler由x64编译器表达，不注册x86栈包装"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A315",
       "inventory_id": "F:0014A315",
-      "status": "原共享/自身/分段字符串赋值完整本体已实现；上游构析/异常/完整运行未闭合",
+      "status": "原共享/自身/分段字符串赋值完整本体已实现；上游构析/异常/完整运行未闭合；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
       "original_end_exclusive": "0x54A3E3",
       "instruction_count": 80,
       "original_direct_reference_count": 4,
@@ -52200,7 +52501,7 @@
             "AssignLegacyNarrowStringFromString_54A315",
             "gLegacyNarrowStringEmpty55013B"
           ],
-          "relationship": "原80条直接字段逻辑；自身先删尾/头、整串共享Tidy后重取/增U8计数，其余Grow后原块复制"
+          "relationship": "NSH01当前窄字符串字节域：两个私有入口成对宿主分配/释放，九本体保持；共享U8/逻辑容量/失败处理器原序保留，不改对象或其他原堆域"
         },
         {
           "path": "src/platform/LegacyNarrowString.hpp",
@@ -52227,9 +52528,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
-      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04依据原80条实现，源长度门禁54A899真实声明保持，count缩减后自身先erase(pos+copied,npos)再erase(0,pos)。整串非零且tag<FE才Tidy目标，再重取源buffer/length/capacity，最后原tag低U8增1；未缓存第一次源指针/引用数当后值。其他路径Grow(copied,true)后重取源，真实541620复制，再重取目标/长度/NUL。55013B/55013C两已加载00字节由同一2B背板表达，三个fallback位置保持，不声明邻接总容量或换独立空串。现有宿主对象/未批提案/异常叶/模式3/上游构析和运行门禁不变。；2026-10-04接原logic_error父实际调用0x54A71A/0x54A7ED；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A044/0x54A124；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
+      "boundary": "assign(string,pos,count)：自身赋值先删尾再删头；整串且标记小于FE时Tidy目标后共享源三字段并增引用，否则Grow后复制。保留重新取源及静态空串回退。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04依据原80条实现，源长度门禁54A899真实声明保持，count缩减后自身先erase(pos+copied,npos)再erase(0,pos)。整串非零且tag<FE才Tidy目标，再重取源buffer/length/capacity，最后原tag低U8增1；未缓存第一次源指针/引用数当后值。其他路径Grow(copied,true)后重取源，真实541620复制，再重取目标/长度/NUL。55013B/55013C两已加载00字节由同一2B背板表达，三个fallback位置保持，不声明邻接总容量或换独立空串。现有宿主对象/未批提案/异常叶/模式3/上游构析和运行门禁不变。；2026-10-04接原logic_error父实际调用0x54A71A/0x54A7ED；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A044/0x54A124；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -52245,7 +52547,7 @@
             "original_offset": 4,
             "native_offset": 8,
             "type": "char*",
-            "ownership": "原堆块+1，共享标记位于-1"
+            "ownership": "NSH01宿主字节块+1，共享标记仍位于-1；对象存储/其他CRT域另行持有"
           },
           "length": {
             "original_offset": 8,
@@ -52321,7 +52623,29 @@
           "arguments": "&storage->message, &source->message, 0, gLegacyNarrowStringNpos550040",
           "relationship": "Tidy后实际共享赋值，不先缓存源成员"
         }
-      ]
+      ],
+      "narrow_string_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "source": "src/platform/LegacyNarrowString.cpp",
+        "domain": "LegacyNarrowString拥有的标记字节+正文+NUL块；对象存储与其他CRT/宿主裸字节域不迁移",
+        "allocator_symbol": "AllocateLegacyNarrowStringBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyNarrowStringBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "logical_capacity_from_host_usable_size": false,
+        "growth_is_allocate_copy_release": true,
+        "reference_byte_offset": -1,
+        "original_heap_private_header_read": false,
+        "string_algorithms_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5486C9",

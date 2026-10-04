@@ -194,7 +194,8 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
         "doc/cg2d_startup_protection_lifecycle_spec.md",
         "doc/cg2d_world_state_lifecycle_spec.md",
-        "doc/cg2d_ui_input_lifecycle_spec.md"
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_narrow_string_heap_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -236,7 +237,20 @@
         "F:000883F0",
         "F:000998F0",
         "F:000CD240",
-        "F:00106340"
+        "F:00106340",
+        "F:00148D69",
+        "F:00148DC2",
+        "F:00148E29",
+        "F:00148F74",
+        "F:00148FA0",
+        "F:00149025",
+        "F:00149055",
+        "F:0014908A",
+        "F:0014A315",
+        "F:0013C9CF",
+        "F:0013B4E7",
+        "F:0013C3BE",
+        "F:00141A28"
       ],
       "closure_task_ids": [
         "C01",
@@ -258,7 +272,8 @@
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
         "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
-        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
+        "NSH01窄字符串字节域已成对宿主分配/释放并保真实处理器循环、九本体/共享/逻辑容量；其他CRT域、C08/C11全组、实际抛出/SDK与运行仍未闭，两个共享入口处置不代表全部原caller"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -267,7 +282,8 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline"
       ]
     },
     {
@@ -6334,6 +6350,114 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：五提供者85条、Copy两分配邻窗34条与Tidy完整24条，共143唯一指令；doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-narrow-string-heap-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-acceptance",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyNarrowString.cpp#AllocateLegacyNarrowStringBytes_53C9CF",
+        "src/platform/LegacyNarrowString.cpp#FreeLegacyNarrowStringBytes_53B4E7",
+        "src/platform/LegacyNarrowString.cpp#CopyLegacyNarrowString_54908A",
+        "src/platform/LegacyNarrowString.cpp#TidyLegacyNarrowString_548E29",
+        "src/platform/LegacyNarrowString.hpp#LegacyNarrowString"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接NSH01字节域私有分配/释放，内部模式/对齐/物理容量/地址与失败时机按宿主；保原U32拒绝上界、零请求/真实处理器循环及逻辑容量，不计原分配器全体等价",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        },
+        {
+          "description": "仅同域字节块成组迁移，字符串对象与其他CRT/六裸字节/21应用calloc域保持；完整C08/C11、抛出/SDK与运行未闭",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04",
+      "id": "E-NARROW-STRING-HEAP-I-20261004",
+      "gate": "I",
+      "observation": "仅NSH01实际分配/释放入口及九字符串本体保留",
+      "expected": "两个私有入口成对宿主提供者；原上界、零请求、处理器参数/循环/异常传播及原算法保持",
+      "actual": "std::malloc/std::free已接，真实541A28每轮失败继续调用；其余九本体/布局不改"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：五提供者85条、Copy两分配邻窗34条与Tidy完整24条，共143唯一指令；doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-narrow-string-heap-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-acceptance",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyNarrowString.cpp#AllocateLegacyNarrowStringBytes_53C9CF",
+        "src/platform/LegacyNarrowString.cpp#FreeLegacyNarrowStringBytes_53B4E7",
+        "src/platform/LegacyNarrowString.cpp#CopyLegacyNarrowString_54908A",
+        "src/platform/LegacyNarrowString.cpp#TidyLegacyNarrowString_548E29",
+        "src/platform/LegacyNarrowString.hpp#LegacyNarrowString"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接NSH01字节域私有分配/释放，内部模式/对齐/物理容量/地址与失败时机按宿主；保原U32拒绝上界、零请求/真实处理器循环及逻辑容量，不计原分配器全体等价",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        },
+        {
+          "description": "仅同域字节块成组迁移，字符串对象与其他CRT/六裸字节/21应用calloc域保持；完整C08/C11、抛出/SDK与运行未闭",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04",
+      "id": "E-NARROW-STRING-HEAP-W-20261004",
+      "gate": "W",
+      "observation": "仅原两分配点/一释放点及本字节域共享/扩容接线",
+      "expected": "Copy两点与Tidy释放同域，buffer-1业务引用、逻辑容量和分配→复制→释放保持；不跨旧堆",
+      "actual": "同一私有分配/释放入口承接所有现有字符串字节路径，旧堆分配/释放/容量查询不进入本域，其他域未改"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：五提供者85条、Copy两分配邻窗34条与Tidy完整24条，共143唯一指令；doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-narrow-string-heap-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-acceptance",
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyNarrowString.cpp#AllocateLegacyNarrowStringBytes_53C9CF",
+        "src/platform/LegacyNarrowString.cpp#FreeLegacyNarrowStringBytes_53B4E7",
+        "src/platform/LegacyNarrowString.cpp#CopyLegacyNarrowString_54908A",
+        "src/platform/LegacyNarrowString.cpp#TidyLegacyNarrowString_548E29",
+        "src/platform/LegacyNarrowString.hpp#LegacyNarrowString"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接NSH01字节域私有分配/释放，内部模式/对齐/物理容量/地址与失败时机按宿主；保原U32拒绝上界、零请求/真实处理器循环及逻辑容量，不计原分配器全体等价",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        },
+        {
+          "description": "仅同域字节块成组迁移，字符串对象与其他CRT/六裸字节/21应用calloc域保持；完整C08/C11、抛出/SDK与运行未闭",
+          "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04",
+      "id": "E-NARROW-STRING-HEAP-S-20261004",
+      "gate": "S",
+      "observation": "仅143原指令/三原点与限定源码差异",
+      "expected": "两源入口/cstdlib和一头注释之外全文同前提交；原身份/原始关系保留，仅本域新source联系",
+      "actual": "五根85条+58消费窗口原事实可达，13既有语义记录同步具名边界；限定静态核对，不支持整个CRT或运行结论"
     }
   ],
   "task_acceptance": [
@@ -6463,6 +6587,22 @@
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
       ]
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+      ],
+      "task_id": "C08",
+      "state": "open"
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+      ],
+      "task_id": "C11",
+      "state": "open"
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
@@ -7082,6 +7222,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C9CF",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013B4E7",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
       ]
     }
   ],

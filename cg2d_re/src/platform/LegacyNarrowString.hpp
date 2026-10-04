@@ -9,7 +9,7 @@ namespace cg::platform {
 // 地址字段拓宽；没有隐式构析，调用方沿原Tidy/共享标记生产和释放。
 struct LegacyNarrowString final {
     std::uint8_t prefix00[4]; // 原未在本组解释的前缀字节。
-    char* buffer;             // 原+04；指向原堆块+1，buffer[-1]是共享标记。
+    char* buffer;             // 原+04；NSH01宿主字节块+1，buffer[-1]仍是共享标记。
     std::uint32_t length;     // 原+08；旧字节数，非Unicode字符数。
     std::uint32_t capacity;   // 原+0C；不含标记和末NUL，保持W32。
 };

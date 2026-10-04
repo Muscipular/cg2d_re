@@ -4,6 +4,7 @@
 #include "cg/platform/LegacyTime.hpp"
 
 #include <bit>
+#include <cstdlib>
 #include <cstring>
 
 namespace cg::platform {
@@ -14,16 +15,29 @@ char gLegacyNarrowStringEmpty55013B[2] = {'\0', '\0'};
 
 namespace {
 
-// 原53C9CF在旧字符串内部的原堆域；不是六处宿主裸字节适配的分配器。
+// NSH01宿主承接本字符串字节域；保原53C3BE上界与enableHandler=1循环。
 void* AllocateLegacyNarrowStringBytes_53C9CF(const std::uint32_t byteCount)
 {
-    return AllocateLegacyHeapWithHandler_53C3BE(byteCount, 1);
+    if (byteCount > 0xFFFFFFE0u) {
+        return nullptr;
+    }
+    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;
+    for (;;) {
+        void* const result = std::malloc(requested);
+        if (result != nullptr) {
+            return result;
+        }
+        // 每轮重读同一原处理器，参数仍是原请求，异常继续向外传播。
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
 }
 
-// 原53B4E7在同一原堆域，只接收上述块的起点，不释放宿主字符串或适配块。
+// NSH01同域释放：只接收本私有入口产生的块起点，buffer[-1]共享规则由Tidy保持。
 void FreeLegacyNarrowStringBytes_53B4E7(void* const memory)
 {
-    FreeLegacyHeapMemory_53C0A9(memory);
+    std::free(memory);
 }
 
 } // namespace

@@ -1,5 +1,7 @@
 # 战斗目标选择、命令与场景共享依赖
 
+> 2026-10-04最新决议：424620入口var_50的S32置0一次已决议；完整本体、生产/消费和验收仍待。见[当前子SPEC](../cg2d_local_determinism_spec.md)。下文“待批/未决”保留其历史时点，不覆盖本轮授权；原端证据和既有验证结论不改写。
+
 [总索引](../cg2d_ui_window_runtime.md) | [文档组织 SPEC](README.md)
 
 > 迁自 `810c6f75` 的完整证据章节，按原取证顺序保留。历史“当前/仍缺/未实现”不是现状；当前结论见[总索引](../cg2d_ui_window_runtime.md)与[唯一进度](../../plan/cg2d_full_reconstruction_progress.md)。仅静态核对，未运行验收。

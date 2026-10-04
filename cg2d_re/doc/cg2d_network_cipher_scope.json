@@ -2,7 +2,7 @@
   "schema_version": 1,
   "inventory": "doc/cg2d_ida_inventory.json",
   "authorization": "doc/cg2d_network_exclusion_wiring_spec.md：既有用户裁决排除网络包加解密链，非加密组包、队列与分发仍保留。",
-  "scope": "仅401960/401AB0两个独立包加解密叶；不排除403E50/403C50整体，也不确定替代线路格式。",
+  "scope": "仅401960/401AB0两个独立包加解密叶；不排除403E50/403C50整体，不改变原线路结构；按最新用户要求只旁路算法传明文，见doc/cg2d_network_compatibility_spec.md。",
   "evidence_document": "doc/cg2d_network_exclusion_wiring_spec.md",
   "verification": "原边界、直接caller、无callee及反编译分类；解密完整指令合同沿既有文档。未执行算法、构建、测试、收发或文件哈希校验。",
   "records": [
@@ -20,7 +20,7 @@
         "callee_count": 0
       },
       "source_state": "未使用的匿名空间EncryptPrivatePacket_401960已移除，不计已有实现。",
-      "boundary": "只排除独立算法叶。父入口中的长度、队列、发送区生产、首次CR/LF、窗口报告及状态副作用继续待真实协议接线；不把分类当完整网络完成。"
+      "boundary": "只排除独立算法叶。父入口中的长度、队列、发送区生产、首次CR/LF、窗口报告及状态副作用按原格式明文合同待真实接线；不把分类当完整网络完成。"
     },
     {
       "original_entry": "0x401AB0",
@@ -36,7 +36,7 @@
         "callee_count": 0
       },
       "source_state": "当前无新端定义；依用户排除不补空解码器或固定成功。",
-      "boundary": "只排除独立算法叶。父入口中的长度、队列、发送区生产、首次CR/LF、窗口报告及状态副作用继续待真实协议接线；不把分类当完整网络完成。"
+      "boundary": "只排除独立算法叶。父入口中的长度、队列、发送区生产、首次CR/LF、窗口报告及状态副作用按原格式明文合同待真实接线；不把分类当完整网络完成。"
     }
   ]
 }

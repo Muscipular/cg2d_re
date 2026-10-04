@@ -441,4 +441,105 @@ std::int32_t WriteLegacyWideStreamBuffer_54982F(
     return completed;
 }
 
+namespace {
+
+// 默认原入口的this为96B缓冲首成员；此处仅投影实际104B基类，不复制叶行为。
+std::int32_t NarrowCharacterMethod(
+    LegacyNarrowStreamBufferObject* const storage, const std::int32_t character)
+{
+    return DefaultLegacyNarrowCharacter_5486BF(
+        &storage->buffer, std::bit_cast<std::uint32_t>(character));
+}
+
+std::uint16_t WideCharacterMethod(
+    LegacyWideStreamBufferObject* const storage, const std::uint16_t character)
+{
+    return DefaultLegacyWideCharacter_549778(&storage->buffer, character);
+}
+
+std::int32_t NarrowReadMethod(LegacyNarrowStreamBufferObject* const storage)
+{
+    return DefaultLegacyNarrowRead_5486C5(&storage->buffer);
+}
+
+std::uint16_t WideReadMethod(LegacyWideStreamBufferObject* const storage)
+{
+    return DefaultLegacyWideRead_549782(&storage->buffer);
+}
+
+template <typename Character>
+std::int32_t ZeroMethod(LegacyStreamBufferObject<Character>* const storage)
+{
+    return DefaultLegacyStreamZero_54977F(&storage->buffer);
+}
+
+template <typename Character>
+LegacyStreamPosition* SeekOffsetMethod(
+    LegacyStreamBufferObject<Character>* const storage, LegacyStreamPosition* const result,
+    const std::uint32_t offsetBits, const std::uint32_t originBits,
+    const std::uint32_t modeBits)
+{
+    return DefaultLegacySeekOffset_5498B7(
+        &storage->buffer, result, offsetBits, originBits, modeBits);
+}
+
+template <typename Character>
+LegacyStreamPosition* SeekPositionMethod(
+    LegacyStreamBufferObject<Character>* const storage, LegacyStreamPosition* const result,
+    const LegacyStreamPosition position, const std::uint32_t modeBits)
+{
+    return DefaultLegacySeekPosition_5498EE(&storage->buffer, result, position, modeBits);
+}
+
+template <typename Character>
+LegacyStreamBufferObject<Character>* SetBufferMethod(
+    LegacyStreamBufferObject<Character>* const storage, Character* const buffer,
+    const std::uint32_t countBits)
+{
+    // 真实返回缓冲首成员地址，与所属基类对象地址相同；不解引用/SDK互转。
+    return reinterpret_cast<LegacyStreamBufferObject<Character>*>(
+        DefaultLegacySetBuffer_549925(&storage->buffer, buffer, countBits));
+}
+
+template <typename Character>
+void NoOpMethod(
+    LegacyStreamBufferObject<Character>* const storage, const std::uint32_t ignoredStackValue)
+{
+    DefaultLegacyStreamNoOp_5487D0(&storage->buffer, ignoredStackValue);
+}
+
+} // namespace
+
+// 原基类两个13槽常量表；仅指针拓宽/真实函数地址，初始化不新增SDK对象或退出登记。
+const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C{
+    DeleteLegacyNarrowStreamBuffer_548D31,
+    NarrowCharacterMethod,
+    NarrowCharacterMethod,
+    ZeroMethod<char>,
+    NarrowReadMethod,
+    ConsumeLegacyNarrowStreamBuffer_5486C9,
+    ReadLegacyNarrowStreamBuffer_5486E6,
+    WriteLegacyNarrowStreamBuffer_54875A,
+    SeekOffsetMethod<char>,
+    SeekPositionMethod<char>,
+    SetBufferMethod<char>,
+    ZeroMethod<char>,
+    NoOpMethod<char>
+};
+const LegacyWideStreamBufferMethods gLegacyWideStreamBufferMethods5500A8{
+    DeleteLegacyWideStreamBuffer_549D86,
+    WideCharacterMethod,
+    WideCharacterMethod,
+    ZeroMethod<std::uint16_t>,
+    WideReadMethod,
+    ConsumeLegacyWideStreamBuffer_549787,
+    ReadLegacyWideStreamBuffer_5497A8,
+    WriteLegacyWideStreamBuffer_54982F,
+    SeekOffsetMethod<std::uint16_t>,
+    SeekPositionMethod<std::uint16_t>,
+    SetBufferMethod<std::uint16_t>,
+    ZeroMethod<std::uint16_t>,
+    NoOpMethod<std::uint16_t>
+};
+
 } // namespace cg::platform

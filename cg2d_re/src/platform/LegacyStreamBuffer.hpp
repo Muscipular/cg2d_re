@@ -38,7 +38,7 @@ static_assert(offsetof(LegacyWideStreamBuffer, readCurrentSlot) == 56);
 static_assert(offsetof(LegacyWideStreamBuffer, readRemainingSlot) == 80);
 static_assert(sizeof(LegacyWideStreamBuffer) == 96);
 
-// 四个真实原表仅声明，完整槽接口/本体绑定待；不定义空表/牌值或接SDK vft。
+// 四个真实原表接口；两基类表已定义，派生表绑定待，不接SDK vft。
 struct LegacyNarrowStreamBufferMethods;
 struct LegacyWideStreamBufferMethods;
 extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;
@@ -62,32 +62,82 @@ static_assert(offsetof(LegacyWideStreamBufferObject, buffer) == 0);
 static_assert(offsetof(LegacyWideStreamBufferObject, localeImplementation) == 96);
 static_assert(sizeof(LegacyWideStreamBufferObject) == 104);
 
-// 原13函数地址槽；本组只消费槽1/4/5，其余只承载地址，不通过该类型调用。
-using LegacyStreamMethodAddress = void (*)();
-static_assert(sizeof(LegacyStreamMethodAddress) == 8);
+// 原13槽原生接口；原数值W32/字符宽度保持，位置为已证24B显式输出。
+// 未消费的定位/模式/末槽栈字仅W32位型，不推未证签名或SDK对象兼容。
+struct alignas(8) LegacyStreamPosition;
 struct LegacyNarrowStreamBufferMethods final {
-    LegacyStreamMethodAddress entry0;
+    LegacyNarrowStreamBufferObject* (*deletingDestructor)(
+        LegacyNarrowStreamBufferObject* storage, std::uint32_t flags);
     std::int32_t (*overflow)(LegacyNarrowStreamBufferObject* storage, std::int32_t character);
-    LegacyStreamMethodAddress entries2To3[2];
+    std::int32_t (*pbackfail)(LegacyNarrowStreamBufferObject* storage, std::int32_t character);
+    std::int32_t (*showMany)(LegacyNarrowStreamBufferObject* storage);
     std::int32_t (*underflow)(LegacyNarrowStreamBufferObject* storage);
     std::int32_t (*uflow)(LegacyNarrowStreamBufferObject* storage);
-    LegacyStreamMethodAddress entries6To12[7];
+    std::int32_t (*read)(
+        LegacyNarrowStreamBufferObject* storage, char* destination, std::int32_t requested);
+    std::int32_t (*write)(
+        LegacyNarrowStreamBufferObject* storage, const char* source, std::int32_t requested);
+    LegacyStreamPosition* (*seekOffset)(
+        LegacyNarrowStreamBufferObject* storage, LegacyStreamPosition* result,
+        std::uint32_t offsetBits, std::uint32_t originBits, std::uint32_t modeBits);
+    LegacyStreamPosition* (*seekPosition)(
+        LegacyNarrowStreamBufferObject* storage, LegacyStreamPosition* result,
+        LegacyStreamPosition position, std::uint32_t modeBits);
+    LegacyNarrowStreamBufferObject* (*setBuffer)(
+        LegacyNarrowStreamBufferObject* storage, char* buffer, std::uint32_t countBits);
+    std::int32_t (*sync)(LegacyNarrowStreamBufferObject* storage);
+    void (*noOp)(LegacyNarrowStreamBufferObject* storage, std::uint32_t ignoredStackValue);
 };
 struct LegacyWideStreamBufferMethods final {
-    LegacyStreamMethodAddress entry0;
+    LegacyWideStreamBufferObject* (*deletingDestructor)(
+        LegacyWideStreamBufferObject* storage, std::uint32_t flags);
     std::uint16_t (*overflow)(LegacyWideStreamBufferObject* storage, std::uint16_t character);
-    LegacyStreamMethodAddress entries2To3[2];
+    std::uint16_t (*pbackfail)(LegacyWideStreamBufferObject* storage, std::uint16_t character);
+    std::int32_t (*showMany)(LegacyWideStreamBufferObject* storage);
     std::uint16_t (*underflow)(LegacyWideStreamBufferObject* storage);
     std::uint16_t (*uflow)(LegacyWideStreamBufferObject* storage);
-    LegacyStreamMethodAddress entries6To12[7];
+    std::int32_t (*read)(
+        LegacyWideStreamBufferObject* storage, std::uint16_t* destination, std::int32_t requested);
+    std::int32_t (*write)(
+        LegacyWideStreamBufferObject* storage, const std::uint16_t* source, std::int32_t requested);
+    LegacyStreamPosition* (*seekOffset)(
+        LegacyWideStreamBufferObject* storage, LegacyStreamPosition* result,
+        std::uint32_t offsetBits, std::uint32_t originBits, std::uint32_t modeBits);
+    LegacyStreamPosition* (*seekPosition)(
+        LegacyWideStreamBufferObject* storage, LegacyStreamPosition* result,
+        LegacyStreamPosition position, std::uint32_t modeBits);
+    LegacyWideStreamBufferObject* (*setBuffer)(
+        LegacyWideStreamBufferObject* storage, std::uint16_t* buffer, std::uint32_t countBits);
+    std::int32_t (*sync)(LegacyWideStreamBufferObject* storage);
+    void (*noOp)(LegacyWideStreamBufferObject* storage, std::uint32_t ignoredStackValue);
 };
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, deletingDestructor) == 0);
 static_assert(offsetof(LegacyNarrowStreamBufferMethods, overflow) == 8);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, pbackfail) == 16);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, showMany) == 24);
 static_assert(offsetof(LegacyNarrowStreamBufferMethods, underflow) == 32);
 static_assert(offsetof(LegacyNarrowStreamBufferMethods, uflow) == 40);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, read) == 48);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, write) == 56);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, seekOffset) == 64);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, seekPosition) == 72);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, setBuffer) == 80);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, sync) == 88);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, noOp) == 96);
 static_assert(sizeof(LegacyNarrowStreamBufferMethods) == 104);
+static_assert(offsetof(LegacyWideStreamBufferMethods, deletingDestructor) == 0);
 static_assert(offsetof(LegacyWideStreamBufferMethods, overflow) == 8);
+static_assert(offsetof(LegacyWideStreamBufferMethods, pbackfail) == 16);
+static_assert(offsetof(LegacyWideStreamBufferMethods, showMany) == 24);
 static_assert(offsetof(LegacyWideStreamBufferMethods, underflow) == 32);
 static_assert(offsetof(LegacyWideStreamBufferMethods, uflow) == 40);
+static_assert(offsetof(LegacyWideStreamBufferMethods, read) == 48);
+static_assert(offsetof(LegacyWideStreamBufferMethods, write) == 56);
+static_assert(offsetof(LegacyWideStreamBufferMethods, seekOffset) == 64);
+static_assert(offsetof(LegacyWideStreamBufferMethods, seekPosition) == 72);
+static_assert(offsetof(LegacyWideStreamBufferMethods, setBuffer) == 80);
+static_assert(offsetof(LegacyWideStreamBufferMethods, sync) == 88);
+static_assert(offsetof(LegacyWideStreamBufferMethods, noOp) == 96);
 static_assert(sizeof(LegacyWideStreamBufferMethods) == 104);
 
 // 原默认字符叶不读取this/栈参；未消费W32实参保持不透明，不推定业务符号性。
@@ -98,7 +148,7 @@ std::int32_t DefaultLegacyNarrowRead_5486C5(LegacyNarrowStreamBuffer* storage);
 std::uint16_t DefaultLegacyWideCharacter_549778(
     LegacyWideStreamBuffer* storage, std::uint32_t ignoredStackValue);
 std::uint16_t DefaultLegacyWideRead_549782(LegacyWideStreamBuffer* storage);
-// 原窄宽共用默认槽；只实例化已证char/U16，不装入虚表。
+// 原窄宽共用默认槽；char/U16实例化，由原生表适配真实基类子对象。
 template <typename Character>
 std::int32_t DefaultLegacyStreamZero_54977F(LegacyStreamBufferStorage<Character>* storage);
 template <typename Character>

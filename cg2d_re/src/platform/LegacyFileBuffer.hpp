@@ -34,6 +34,25 @@ static_assert(offsetof(LegacyWideCodecvtInputMethods, base) == 0);
 static_assert(offsetof(LegacyWideCodecvtInputMethods, input) == 32);
 static_assert(sizeof(LegacyWideCodecvtInputMethods) == 40);
 
+// 原转换器输出槽5/+14；输入40B前缀作为真实首成员，读消费视图保持。
+// 48B仅已消费方法前缀，不推完整转换器分配或其余槽/SDK私有ABI。
+template <typename Character>
+struct LegacyCodecvtOutputMethods final {
+    LegacyCodecvtInputMethods<Character> inputPrefix;
+    std::int32_t (*output)(
+        LegacyLocaleFacet* storage, std::uint32_t* state,
+        const Character* first, const Character* last, const Character** next,
+        char* output, char* outputLast, char** outputNext);
+};
+using LegacyNarrowCodecvtOutputMethods = LegacyCodecvtOutputMethods<char>;
+using LegacyWideCodecvtOutputMethods = LegacyCodecvtOutputMethods<std::uint16_t>;
+static_assert(offsetof(LegacyNarrowCodecvtOutputMethods, inputPrefix) == 0);
+static_assert(offsetof(LegacyNarrowCodecvtOutputMethods, output) == 40);
+static_assert(sizeof(LegacyNarrowCodecvtOutputMethods) == 48);
+static_assert(offsetof(LegacyWideCodecvtOutputMethods, inputPrefix) == 0);
+static_assert(offsetof(LegacyWideCodecvtOutputMethods, output) == 40);
+static_assert(sizeof(LegacyWideCodecvtOutputMethods) == 48);
+
 // 原basic_filebuf已证+00..+53视图；+38转换器/+44窄字符串均真实地址拓宽。
 // 仅显式函数构析，不自动构造owner或接宿主streambuf/FILE。
 template <typename Character>
@@ -100,5 +119,14 @@ std::int32_t PeekLegacyNarrowFileBuffer_548A26(LegacyNarrowFileBuffer* storage);
 std::uint16_t PeekLegacyWideFileBuffer_549B99(LegacyWideFileBuffer* storage);
 std::int32_t ReadLegacyNarrowFileBuffer_548A53(LegacyNarrowFileBuffer* storage);
 std::uint16_t ReadLegacyWideFileBuffer_549BC7(LegacyWideFileBuffer* storage);
+
+// 原overflow：EOF输入返回0，转换沿实际输出槽5/8B窄串及原短写判定。
+std::int32_t WriteLegacyNarrowFileBuffer_548843(
+    LegacyNarrowFileBuffer* storage, std::int32_t character);
+std::uint16_t WriteLegacyWideFileBuffer_54999A(
+    LegacyWideFileBuffer* storage, std::uint16_t character);
+// 原窄宽同入口sync；FILE空返回0，仅完整S32 fflush负值为失败。
+template <typename Character>
+std::int32_t SyncLegacyFileBuffer_549D13(LegacyFileBufferStorage<Character>* storage);
 
 } // namespace cg::platform

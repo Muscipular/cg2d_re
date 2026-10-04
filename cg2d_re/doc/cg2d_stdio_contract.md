@@ -3981,3 +3981,14 @@ length/range原抛出父仍仅声明，三族Raise均未实现；ThrowInfo/SDK c
 结果3使用回调后的输入局部调原字节/宽字写：窄先取S8再取FILE，宽先取FILE再取U16。结果1仅输入next未移动失败，有移动继续；结果0不查输入next，其余失败。之后重取窄串/Freeze计算实际outputNext与当时buffer之差截U32，再重取窄串/Freeze，先取当时FILE后buffer，真实fwrite(size1,count)完整返回等于数量才成功；0数量可成功，不缩8B、不验范围、不重试/清串/恢复backup或回滚短写。原无本地catch。sync只读一次FILE，空返回0，原fflush完整S32小于0返回-1，其余返回0；char/U16两实例共一个原身份。
 
 工程裁决：保留原判定、采样顺序、别名及失败残留；仅已证地址拓宽，数值宽和152B派生布局保持。21直调接既有九依赖，2虚调接真实槽5消费者；fwrite业务26点保持原数组、新库2点单列，实际28/29；fflush业务1点保持、新库1点单列，实际2/5。静态仅验新增源码/记录/证据一致，不执行算法；非法next、未写局部、偶然栈字节及故障不称等价。派生两表、转换器真实生产/全表、上游owner/启动退出/模式3及SDK/EH/完整运行门禁仍待。
+
+
+### 2026-10-04 增量SPEC：filebuf共用定位与缓冲设置
+
+范围原548B68/548BEA窄宽共用定位及548CAC/549CE5两setbuf，52+78+18+20=168新完整指令、8原直调、6派生表数据引用。新取两派生13槽共26目标以确定共用身份，表定义留下一小步；共用两本体各char/U16源码实例不重复原身份。旧读取、输出、构析、基类表与五库依赖本体不回核。
+
+seekOffset先取FILE，非空真实fseek(S32 offset,W32 origin)完整0后重取FILE作fgetpos；成功依次写offset0、位置low/high及当时current状态。任一失败先取5500E0，再写offsetFFFFFFFF/low、取5500E4写high，最后1087B04状态；整24B复制输出，+04/+14原未写不补值。mode未读，不作权限门禁/flush/reset或宿主位置互转。
+
+seekPosition先输入low、额外offset S32、high，再FILE并发布局部high；FILE非空先真实fsetpos，额外offset非0才重取FILE作fseek(CUR1)，成功再重取FILE作fgetpos。全部成功后仅scratchString非空才把输入状态写current，再采样npos对缓存串erase；不查转换器、不恢复backup，不回滚清串失败。返回位置仅改输入四已证W32：offset0、当前位置两半和当时current；失败用同顺序默认槽四值。整24B复制实际by-value输入对象表示，保留未写区域而不填充；源级by-value/SDK ABI及偶然栈字节没有等价结论。
+
+setbuf各只读一次FILE，空或真实setvbuf完整非0返空，成功返实际base首成员地址。窄char缓冲/count W32原传，宽U16缓冲仅非拥有字节视图，countBits+countBits保持原W32相加，mode0；不乘原生sizeof、不钳制、不增保护/所有权。八call接既有fseek两、fgetpos两、fsetpos一、erase一、setvbuf两；fseek业务18原数组保持，新库2另列，实际20/25，其余调用数量2/2、1/1、2/2仅表示原调用点已消费。152B派生/104B基类/24B位置布局、两个加载默认位置槽与三个未定义状态种子不改。仅新增静态核对、不执行算法；派生表绑定、owner/转换器生产/启动退出/模式3和SDK/EH/完整运行门禁继续待。

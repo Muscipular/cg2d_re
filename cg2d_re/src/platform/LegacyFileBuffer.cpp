@@ -4,6 +4,7 @@
 #include "cg/platform/LegacyMemory.hpp"
 
 #include <bit>
+#include <cstring>
 
 namespace cg::platform {
 
@@ -594,5 +595,102 @@ std::int32_t SyncLegacyFileBuffer_549D13(LegacyFileBufferStorage<Character>* con
 
 template std::int32_t SyncLegacyFileBuffer_549D13<char>(LegacyNarrowFileBuffer*);
 template std::int32_t SyncLegacyFileBuffer_549D13<std::uint16_t>(LegacyWideFileBuffer*);
+
+template <typename Character>
+LegacyStreamPosition* SeekLegacyFileBufferOffset_548B68(
+    LegacyFileBufferStorage<Character>* const storage, LegacyStreamPosition* const result,
+    const std::int32_t offset, const std::uint32_t origin,
+    const std::uint32_t /*modeBits*/)
+{
+    LegacyFilePosition filePosition; // 原两个W32位置局部，不预清。
+    LegacyStreamPosition value;      // 原+04/+14未写，整24B复制，不补值。
+    LegacyFile* const file = storage->file;
+    if (file != nullptr && SeekLegacyStream_53BC41(file, offset, origin) == 0 &&
+        GetLegacyStreamPosition_54ACB7(storage->file, &filePosition) == 0) {
+        value.offsetBits = 0;
+        value.filePositionLowBits = filePosition.low;
+        value.filePositionHighBits = filePosition.high;
+        value.stateBits = storage->state40Bits;
+    } else {
+        const std::uint32_t low = gLegacyDefaultPositionLow5500E0;
+        value.offsetBits = 0xFFFFFFFFu;
+        value.filePositionLowBits = low;
+        value.filePositionHighBits = gLegacyDefaultPositionHigh5500E4;
+        value.stateBits = gLegacyDefaultPositionState1087B04;
+    }
+    std::memcpy(result, &value, sizeof(value));
+    return result;
+}
+
+template <typename Character>
+LegacyStreamPosition* SeekLegacyFileBufferPosition_548BEA(
+    LegacyFileBufferStorage<Character>* const storage, LegacyStreamPosition* const result,
+    LegacyStreamPosition position, const std::uint32_t /*modeBits*/)
+{
+    LegacyFilePosition filePosition;
+    filePosition.low = position.filePositionLowBits;
+    const std::int32_t offset = std::bit_cast<std::int32_t>(position.offsetBits);
+    const std::uint32_t high = position.filePositionHighBits;
+    LegacyFile* const file = storage->file;
+    filePosition.high = high;
+    if (file != nullptr && SetLegacyStreamPosition_54ACD9(file, &filePosition) == 0 &&
+        (offset == 0 || SeekLegacyStream_53BC41(storage->file, offset, 1) == 0) &&
+        GetLegacyStreamPosition_54ACB7(storage->file, &filePosition) == 0) {
+        LegacyNarrowString* const bytes = storage->scratchString;
+        if (bytes != nullptr) {
+            storage->state40Bits = position.stateBits;
+            const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+            EraseLegacyNarrowString_548DC2(bytes, 0, eraseCount);
+        }
+        const std::uint32_t low = filePosition.low;
+        position.offsetBits = 0;
+        position.filePositionLowBits = low;
+        position.filePositionHighBits = filePosition.high;
+        position.stateBits = storage->state40Bits;
+    } else {
+        const std::uint32_t low = gLegacyDefaultPositionLow5500E0;
+        position.offsetBits = 0xFFFFFFFFu;
+        position.filePositionLowBits = low;
+        position.filePositionHighBits = gLegacyDefaultPositionHigh5500E4;
+        position.stateBits = gLegacyDefaultPositionState1087B04;
+    }
+    // 只改输入位置四个已证W32，复制实际输入对象表示；不填充两个未写区域。
+    std::memcpy(result, &position, sizeof(position));
+    return result;
+}
+
+template LegacyStreamPosition* SeekLegacyFileBufferOffset_548B68<char>(
+    LegacyNarrowFileBuffer*, LegacyStreamPosition*, std::int32_t, std::uint32_t, std::uint32_t);
+template LegacyStreamPosition* SeekLegacyFileBufferOffset_548B68<std::uint16_t>(
+    LegacyWideFileBuffer*, LegacyStreamPosition*, std::int32_t, std::uint32_t, std::uint32_t);
+template LegacyStreamPosition* SeekLegacyFileBufferPosition_548BEA<char>(
+    LegacyNarrowFileBuffer*, LegacyStreamPosition*, LegacyStreamPosition, std::uint32_t);
+template LegacyStreamPosition* SeekLegacyFileBufferPosition_548BEA<std::uint16_t>(
+    LegacyWideFileBuffer*, LegacyStreamPosition*, LegacyStreamPosition, std::uint32_t);
+
+LegacyNarrowStreamBufferObject* SetLegacyNarrowFileBuffer_548CAC(
+    LegacyNarrowFileBuffer* const storage, char* const buffer, const std::uint32_t countBits)
+{
+    LegacyFile* const file = storage->file;
+    if (file == nullptr || SetLegacyStreamBuffer_54ACF1(file, buffer, 0, countBits) != 0) {
+        return nullptr;
+    }
+    return &storage->base;
+}
+
+LegacyWideStreamBufferObject* SetLegacyWideFileBuffer_549CE5(
+    LegacyWideFileBuffer* const storage, std::uint16_t* const buffer,
+    const std::uint32_t countBits)
+{
+    LegacyFile* const file = storage->file;
+    if (file == nullptr) {
+        return nullptr;
+    }
+    const std::uint32_t byteCount = countBits + countBits;
+    if (SetLegacyStreamBuffer_54ACF1(file, reinterpret_cast<char*>(buffer), 0, byteCount) != 0) {
+        return nullptr;
+    }
+    return &storage->base;
+}
 
 } // namespace cg::platform

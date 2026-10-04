@@ -129,4 +129,19 @@ std::uint16_t WriteLegacyWideFileBuffer_54999A(
 template <typename Character>
 std::int32_t SyncLegacyFileBuffer_549D13(LegacyFileBufferStorage<Character>* storage);
 
+// 原窄宽共用定位；offset消费S32/origin W32，mode未读；位置为24B原生对象表示。
+template <typename Character>
+LegacyStreamPosition* SeekLegacyFileBufferOffset_548B68(
+    LegacyFileBufferStorage<Character>* storage, LegacyStreamPosition* result,
+    std::int32_t offset, std::uint32_t origin, std::uint32_t modeBits);
+template <typename Character>
+LegacyStreamPosition* SeekLegacyFileBufferPosition_548BEA(
+    LegacyFileBufferStorage<Character>* storage, LegacyStreamPosition* result,
+    LegacyStreamPosition position, std::uint32_t modeBits);
+// 原setbuf成功返真实基类首成员；宽U16缓冲借用为字节地址，W32字符数相加翻倍。
+LegacyNarrowStreamBufferObject* SetLegacyNarrowFileBuffer_548CAC(
+    LegacyNarrowFileBuffer* storage, char* buffer, std::uint32_t countBits);
+LegacyWideStreamBufferObject* SetLegacyWideFileBuffer_549CE5(
+    LegacyWideFileBuffer* storage, std::uint16_t* buffer, std::uint32_t countBits);
+
 } // namespace cg::platform

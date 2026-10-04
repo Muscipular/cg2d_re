@@ -1654,3 +1654,18 @@ std::atexit提供者关联；原18构造动作/登记点/无参callback、18data
 审核143/3680、限定证据93，快照`cg2d-re-standard-stream-gates-source-20261005`；
 17活动项/全registry/facet、正常快速callable退出及SDK运行仍待，
 任务10/60、叶0/182与全局门禁不提升。
+
+## FBO01 窄宽输出数量地址差映射（2026-10-05）
+
+[具名SPEC](cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure)及
+[248条主根/398辅助证据](cg2d_file_buffer_output_alignment_evidence.json)
+只对齐已有548843→F:00148843、54999A→F:0014999A的produced表示，
+保原整数SUB/两53C680点、两data槽、原间接vft+14及全部旧调用/表/对象属性。
+地址仅原生拓宽，数量U32，count/write两阶段取串/Freeze/FILE/比较保持；
+不按表偏移虚造固定facet实现地址，不由局部差分称全C05完成。
+
+两根adapted、1205其他记录及18pending/4分类/3无ID保持，
+语义1207/1204有效原ID，审核145/3680、限定证据96；
+固定快照`cg2d-re-file-buffer-output-source-20261005`。
+8辅助根不增本轮处置，C05/真实facet、全CRT/文件与SDK运行未闭，
+任务10/60、叶0/182和全局门禁不提升。

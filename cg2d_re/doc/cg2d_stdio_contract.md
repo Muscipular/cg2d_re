@@ -4262,3 +4262,17 @@ pop在两处test/jz间不改变原目标/判定，不误归为另一条件。
 固定目标非零，不据恢复门禁称新增保护/正常输出修复；无新活动或清理。
 C03/完整标准流与CRT、registry容量/较大正常index、真实facet/codecvt、
 全应用normal/quick/callable退出、SDK/运行保持未闭。
+
+## FBO01 filebuf输出数量的整数地址差（2026-10-05）
+
+[具名SPEC与源码](cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure)
+将548843/54999A两produced从C++数组指针相减改原生uintptr_t地址整数差后取U32，
+对应548947/549AB0原SUB；不先截地址、不以length/8或两个next差代替数量。
+原转换后count串取/Freeze、读outputNext与当前buffer，另取write串/Freeze，
+再FILE/buffer→53C680(1,produced)和完整U32等数量返回消费保持。
+
+两表达式外整CPP及其它源头不改；EOF/快路径、facet空直写、0/1/3/其他、
+两次转换前Freeze/length时点、next未清、短写失败/state与owner/域原文保持。
+关闭/析构/Init/read八依赖仅取证，不新增本轮审核或“所有文件已验”。
+真实facet/完整槽生产与alias、17活动项/完整CRT/SDK/文件和正常快速退出运行
+仍待，C05继续open；整数差表示不记x64安全/异常专项或故障等价。

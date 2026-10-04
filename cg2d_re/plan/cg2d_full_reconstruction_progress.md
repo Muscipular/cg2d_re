@@ -1019,3 +1019,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余与交付**：全registry容量/较大正常索引/间接alias、真实facet/codecvt和分配域、全应用活动序与normal/quick/callable/异常终止、SDK及运行待验。未构建/查产物/新增或执行测试/运行/摘要，RPLAN.24异常不专项处理/记安全或故障等价；音频暂停、原格式明文、单线程保持。精确12项，快照`cg2d-re-standard-stream-gates-source-20261005`，用户既有六项不暂存。
 
 **SCG01交付检查**：12项严格UTF-8无BOM/LF、688个本地Markdown链接、36项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。
+
+## FBO01 文件缓冲输出数量地址差开发（2026-10-05）
+
+- **实际开发**：先写[FBO01 SPEC](../doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision)，再将LegacyFileBuffer两produced改两个uintptr_t地址整数差后取U32，原SUB表示对齐；不先截地址、不用length/8/两个next差或加范围保护。count串先取/Freeze、再读outputNext和当前buffer，write串另取/Freeze/FILE/buffer，53C680参数1/produced与等数量返回消费保持。
+- **原基线**：[归档](../doc/cg2d_file_buffer_output_alignment_evidence.json)含两124根共248条/638B、548947/549AB0整数SUB、两真实53C680、两个vft+14间接消费者及原已加载54FFD8/550074。窄宽Init/close/析构/read八未改依赖398条/1107B，合646唯一条/1745B；关闭失败/保存scratch/locale序等未见源码差异，不新增本轮审核。
+- **接线与保持**：两表达式外整CPP及其他src/include、EOF/快速游标、FILE/facet空、erase/Append8、两转换前Freeze/首buffer保存和length后读、0/1/3/其他及实际局部/next消费、state/短写与全部owner/分配域保持。原表adapter到两真实根、原数字call保留，无新facet/默认缓冲或活动Init，不据算式差异声称已经发生callback换buffer。
+- **集中静态与度量**：完整646原条/边界、两SUB/data槽/虚槽类型/写点、两限定差及1205其余语义/全政策保持通过。两旧记录定点增量/两adapted/三限定E，语义1207/1204有效ID、审核145/3680、证据96；18pending/4分类/3无ID、任务10/60、叶0/182和完整门禁不变。C05登记open，编码引用差异与measure/-Check见交付条。
+- **剩余与交付**：真实codecvt/facet及完整表/间接alias、17活动项/完整CRT/文件/SDK和正常快速退出运行待验。未构建/查产物/新增或执行测试/运行/摘要，RPLAN.24异常不专项或记x64安全/故障等价；音频暂停、原格式明文和单线程保持。精确11项，快照`cg2d-re-file-buffer-output-source-20261005`，用户既有六项不暂存。
+
+**FBO01交付检查**：11项严格UTF-8无BOM/LF、682个本地Markdown链接、33项限定证据/决议引用及Git差异格式通过；measure生成和独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。

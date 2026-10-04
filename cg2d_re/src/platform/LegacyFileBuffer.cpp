@@ -512,7 +512,9 @@ std::int32_t WriteLegacyNarrowFileBuffer_548843(
     }
     LegacyNarrowString* const countBytes = storage->scratchString;
     FreezeLegacyNarrowString_548F74(countBytes);
-    const std::uint32_t produced = static_cast<std::uint32_t>(outputNext - countBytes->buffer);
+    const std::uint32_t produced = static_cast<std::uint32_t>(
+        reinterpret_cast<std::uintptr_t>(outputNext)
+        - reinterpret_cast<std::uintptr_t>(countBytes->buffer));
     LegacyNarrowString* const writeBytes = storage->scratchString;
     FreezeLegacyNarrowString_548F74(writeBytes);
     LegacyFile* const outputFile = storage->file;
@@ -578,7 +580,9 @@ std::uint16_t WriteLegacyWideFileBuffer_54999A(
     }
     LegacyNarrowString* const countBytes = storage->scratchString;
     FreezeLegacyNarrowString_548F74(countBytes);
-    const std::uint32_t produced = static_cast<std::uint32_t>(outputNext - countBytes->buffer);
+    const std::uint32_t produced = static_cast<std::uint32_t>(
+        reinterpret_cast<std::uintptr_t>(outputNext)
+        - reinterpret_cast<std::uintptr_t>(countBytes->buffer));
     LegacyNarrowString* const writeBytes = storage->scratchString;
     FreezeLegacyNarrowString_548F74(writeBytes);
     LegacyFile* const outputFile = storage->file;

@@ -275,7 +275,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md",
         "doc/cg2d_exit_table_heap_migration_spec.md",
         "doc/cg2d_standard_stream_exit_migration_spec.md",
-        "doc/cg2d_standard_stream_controller_gates_spec.md"
+        "doc/cg2d_standard_stream_controller_gates_spec.md",
+        "doc/cg2d_file_buffer_output_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -390,7 +391,9 @@
         "F:00053E00",
         "F:00053E40",
         "F:001482DD",
-        "F:00149397"
+        "F:00149397",
+        "F:00148843",
+        "F:0014999A"
       ],
       "closure_task_ids": [
         "C01",
@@ -409,7 +412,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -423,7 +427,8 @@
         "LCH01实现对象64B存储/异常与正常释放、两宿主登记已配对；facet/向量仍原域、名称NSH01；经典55315C全表caller/活动流归属、完整C03/C04/C08/C11与codecvt/SDK/运行仍未闭",
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
         "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
-        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭"
+        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
+        "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -439,7 +444,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline"
       ]
     },
     {
@@ -8881,6 +8887,111 @@
       "observation": "完整原体与限定差异/台账",
       "expected": "311主根与9辅助/14原门禁、两旧记录限定对齐",
       "actual": "320唯一原条/994B、两adapted/三限定E及原政策保持"
+    },
+    {
+      "id": "E-FILE-BUFFER-OUTPUT-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "248完整原指令/638B、398辅助条/1107B、两实际数量SUB/data槽/53C680；doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-buffer-output-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-acceptance",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "doc/cg2d_file_buffer_output_alignment_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyNarrowFileBuffer_548843",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyWideFileBuffer_54999A",
+        "src/platform/LegacyFileBuffer.cpp#std::uintptr_t",
+        "src/platform/LegacyStdio.cpp#WriteLegacyStream_53C680"
+      ],
+      "differences": [
+        {
+          "description": "仅两输出数量改原生整数地址差后取U32，原SUB表示对齐；不先截地址/改申请或已用数量，不以C++数组相减假设两阶段指针同数组，不称机器/ABI或故障等价",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        },
+        {
+          "description": "两表达式外原case/EOF/FILE/facet、取串/Freeze与等数量写返回保持；真实facet/codecvt生产/完整表、17活动项/全CRT/文件/SDK与正常快速退出运行仍未验",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "窄宽输出的U32 produced",
+      "expected": "uintptr_t相减后取U32，无新保护或假数量",
+      "actual": "两数量差已实现，原数量宽不变"
+    },
+    {
+      "id": "E-FILE-BUFFER-OUTPUT-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "248完整原指令/638B、398辅助条/1107B、两实际数量SUB/data槽/53C680；doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-buffer-output-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-acceptance",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "doc/cg2d_file_buffer_output_alignment_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyNarrowFileBuffer_548843",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyWideFileBuffer_54999A",
+        "src/platform/LegacyFileBuffer.cpp#std::uintptr_t",
+        "src/platform/LegacyStdio.cpp#WriteLegacyStream_53C680"
+      ],
+      "differences": [
+        {
+          "description": "仅两输出数量改原生整数地址差后取U32，原SUB表示对齐；不先截地址/改申请或已用数量，不以C++数组相减假设两阶段指针同数组，不称机器/ABI或故障等价",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        },
+        {
+          "description": "两表达式外原case/EOF/FILE/facet、取串/Freeze与等数量写返回保持；真实facet/codecvt生产/完整表、17活动项/全CRT/文件/SDK与正常快速退出运行仍未验",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原地址借用与串/FILE/数量写入消费",
+      "expected": "独立count/write串重取/Freeze、实际FILE/buffer/比较及owner保持",
+      "actual": "两补丁外整CPP/其他源头保持，无新活动/owner/producer"
+    },
+    {
+      "id": "E-FILE-BUFFER-OUTPUT-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "248完整原指令/638B、398辅助条/1107B、两实际数量SUB/data槽/53C680；doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-file-buffer-output-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-acceptance",
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "doc/cg2d_file_buffer_output_alignment_evidence.json",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyNarrowFileBuffer_548843",
+        "src/platform/LegacyFileBuffer.cpp#WriteLegacyWideFileBuffer_54999A",
+        "src/platform/LegacyFileBuffer.cpp#std::uintptr_t",
+        "src/platform/LegacyStdio.cpp#WriteLegacyStream_53C680"
+      ],
+      "differences": [
+        {
+          "description": "仅两输出数量改原生整数地址差后取U32，原SUB表示对齐；不先截地址/改申请或已用数量，不以C++数组相减假设两阶段指针同数组，不称机器/ABI或故障等价",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        },
+        {
+          "description": "两表达式外原case/EOF/FILE/facet、取串/Freeze与等数量写返回保持；真实facet/codecvt生产/完整表、17活动项/全CRT/文件/SDK与正常快速退出运行仍未验",
+          "decision_ref": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整原根/原槽与限定源码台账",
+      "expected": "248主根/398辅助与两SUB、两个旧记录限定增量",
+      "actual": "646唯一条/1745B、两adapted/三限定证据与全政策保持"
     }
   ],
   "task_acceptance": [
@@ -9105,6 +9216,14 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure"
+      ]
+    },
+    {
+      "task_id": "C05",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
       ]
     }
   ],
@@ -10293,6 +10412,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00148843",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014999A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
       ]
     }
   ],

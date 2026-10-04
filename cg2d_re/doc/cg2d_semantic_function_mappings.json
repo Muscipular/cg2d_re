@@ -62228,11 +62228,11 @@
     {
       "original_entry": "0x548843",
       "inventory_id": "F:00148843",
-      "status": "原窄宽filebuf输出与共用同步三本体已实现；派生表/转换器生产与完整运行未闭；派生表对应槽源码目标绑定完成",
+      "status": "FBO01窄宽filebuf输出数量已按原整数地址差/U32对齐，原分支与借用阶段保持；facet真实生产/完整CRT与SDK运行未闭",
       "original_end_exclusive": "0x548979",
       "instruction_count": 124,
       "original_direct_reference_count": 1,
-      "verification_level": "新增三体260条/21原数值直调+2输出虚槽，EOF0/地址范围/Pninc先行、原S8/U16、8B窄串四Freeze/0/1/3/短写与状态残留、Sync只完整负值失败和五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收",
+      "verification_level": "新增三体260条/21原数值直调+2输出虚槽，EOF0/地址范围/Pninc先行、原S8/U16、8B窄串四Freeze/0/1/3/短写与状态残留、Sync只完整负值失败和五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；FBO01两完整根248条/638B、8辅助398条/1107B、两SUB/原data槽/实际fwrite及两限定源差静态；无构建/测试/运行/摘要",
       "inbound_evidence": [
         {
           "address": "0x54FFD8",
@@ -62245,7 +62245,7 @@
           "symbols": [
             "WriteLegacyNarrowFileBuffer_548843"
           ],
-          "relationship": "完整真实overflow/sync，地址命中/先Pninc、S8/W16、8零字节真实原Append、双串/next/短写与负fflush保持"
+          "relationship": "完整真实overflow/sync，地址命中/先Pninc、S8/W16、8零字节真实原Append、双串/next/短写与负fflush保持；FBO01当前数量为原生地址整数差后取U32，两表达式外原分支/重取与owner保持"
         },
         {
           "path": "src/platform/LegacyFileBuffer.hpp",
@@ -62263,9 +62263,11 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_file_buffer_output_alignment_spec.md",
+        "doc/cg2d_file_buffer_output_alignment_evidence.json"
       ],
-      "boundary": "窄overflow：输入完整FFFFFFFF返回0；缓冲有空间先Pninc再写低U8。无转换器调用fputc；有转换器先清旧字符串并补8个零字节，再虚调+14并按0/1/3结果分流，短fwrite失败。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。；2026-10-04真实原生三体，EOF输入0在访问缓冲前，命中原无符号地址范围后真实Pninc再写旧位置，成功返回原输入；FILE无转换器真实原fputc低S8或fputwc。转换真实erase/append8零字节、两次独立Freeze串/第一buffer后length与第二buffer采样，末当前facet/current state输出slot5。结果3真实输出实际局部输入，不重传原参数，0直接继续/1仅inputNext与输入地址不同才继续，其他EOF；后两次独立Freeze，当时buffer与outputNext之差截U32数量，FILE/最终buffer按原重取，真实fwrite(1,数量)等数量才成功，零数量按原成功，短写/回调状态不清串/回滚/重试/钳制或恢复backup。Sync两实际char/U16模板共一原身份，FILE空0，真实fflush完整S32仅负为-1，其余0。仅输出48B已消费前缀，输入40B和对象152B不改；无效next/不同数组指针或未写局部等故障/偶然内容不据静态称等价，转换器/派生表/owner/种子/SDK与运行未闭。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。",
+      "boundary": "窄overflow：输入完整FFFFFFFF返回0；缓冲有空间先Pninc再写低U8。无转换器调用fputc；有转换器先清旧字符串并补8个零字节，再虚调+14并按0/1/3结果分流，短fwrite失败。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。；2026-10-04真实原生三体，EOF输入0在访问缓冲前，命中原无符号地址范围后真实Pninc再写旧位置，成功返回原输入；FILE无转换器真实原fputc低S8或fputwc。转换真实erase/append8零字节、两次独立Freeze串/第一buffer后length与第二buffer采样，末当前facet/current state输出slot5。结果3真实输出实际局部输入，不重传原参数，0直接继续/1仅inputNext与输入地址不同才继续，其他EOF；后两次独立Freeze，当时buffer与outputNext之差截U32数量，FILE/最终buffer按原重取，真实fwrite(1,数量)等数量才成功，零数量按原成功，短写/回调状态不清串/回滚/重试/钳制或恢复backup。Sync两实际char/U16模板共一原身份，FILE空0，真实fflush完整S32仅负为-1，其余0。仅输出48B已消费前缀，输入40B和对象152B不改；无效next/不同数组指针或未写局部等故障/偶然内容不据静态称等价，转换器/派生表/owner/种子/SDK与运行未闭。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；FBO01仅produced改两个uintptr_t地址相减后取U32，保countBytes取/Freeze及其当前buffer、另一次writeBytes取/Freeze/FILE/buffer和53C680参数1/produced及等数量比较；不先截地址/用length或固定8代数量。两阶段借用不强当同数组，不据此声称实际callback换buffer；两表达式外分支/next局部未清/字段/owner及分配域保持，不加范围保护或故障等价。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
@@ -62485,7 +62487,23 @@
           "relationship": "真实filebuf首成员地址适配后调用原本体；默认叶同样调用既有真实叶，不复制固定返回/空动作",
           "boundary": "源码目标绑定；未构建/链接/运行，不称完整SDK/owner验收"
         }
-      ]
+      ],
+      "file_buffer_output_address_count": {
+        "group": "FBO01",
+        "spec": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "original_subtract": "0x548947",
+        "original_write_call": "0x54895E",
+        "native_address_type": "std::uintptr_t",
+        "result_type": "std::uint32_t",
+        "array_pointer_difference_used": false,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "new_activity_or_owner": false,
+        "facet_production_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x548979",
@@ -63083,11 +63101,11 @@
     {
       "original_entry": "0x54999A",
       "inventory_id": "F:0014999A",
-      "status": "原窄宽filebuf输出与共用同步三本体已实现；派生表/转换器生产与完整运行未闭；派生表对应槽源码目标绑定完成",
+      "status": "FBO01窄宽filebuf输出数量已按原整数地址差/U32对齐，原分支与借用阶段保持；facet真实生产/完整CRT与SDK运行未闭",
       "original_end_exclusive": "0x549AE2",
       "instruction_count": 124,
       "original_direct_reference_count": 1,
-      "verification_level": "新增三体260条/21原数值直调+2输出虚槽，EOF0/地址范围/Pninc先行、原S8/U16、8B窄串四Freeze/0/1/3/短写与状态残留、Sync只完整负值失败和五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收",
+      "verification_level": "新增三体260条/21原数值直调+2输出虚槽，EOF0/地址范围/Pninc先行、原S8/U16、8B窄串四Freeze/0/1/3/短写与状态残留、Sync只完整负值失败和五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；FBO01两完整根248条/638B、8辅助398条/1107B、两SUB/原data槽/实际fwrite及两限定源差静态；无构建/测试/运行/摘要",
       "inbound_evidence": [
         {
           "address": "0x550074",
@@ -63100,7 +63118,7 @@
           "symbols": [
             "WriteLegacyWideFileBuffer_54999A"
           ],
-          "relationship": "完整真实overflow/sync，地址命中/先Pninc、S8/W16、8零字节真实原Append、双串/next/短写与负fflush保持"
+          "relationship": "完整真实overflow/sync，地址命中/先Pninc、S8/W16、8零字节真实原Append、双串/next/短写与负fflush保持；FBO01当前数量为原生地址整数差后取U32，两表达式外原分支/重取与owner保持"
         },
         {
           "path": "src/platform/LegacyFileBuffer.hpp",
@@ -63118,9 +63136,11 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_file_buffer_output_alignment_spec.md",
+        "doc/cg2d_file_buffer_output_alignment_evidence.json"
       ],
-      "boundary": "宽overflow：只比较输入低W16的FFFF，缓冲按2B推进写W16；无转换器fputwc。有转换器仍用8B窄字符串作为输出区，输入范围2B，转换与短写门禁保持，返回合同仅按原各路径。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。；2026-10-04真实原生三体，EOF输入0在访问缓冲前，命中原无符号地址范围后真实Pninc再写旧位置，成功返回原输入；FILE无转换器真实原fputc低S8或fputwc。转换真实erase/append8零字节、两次独立Freeze串/第一buffer后length与第二buffer采样，末当前facet/current state输出slot5。结果3真实输出实际局部输入，不重传原参数，0直接继续/1仅inputNext与输入地址不同才继续，其他EOF；后两次独立Freeze，当时buffer与outputNext之差截U32数量，FILE/最终buffer按原重取，真实fwrite(1,数量)等数量才成功，零数量按原成功，短写/回调状态不清串/回滚/重试/钳制或恢复backup。Sync两实际char/U16模板共一原身份，FILE空0，真实fflush完整S32仅负为-1，其余0。仅输出48B已消费前缀，输入40B和对象152B不改；无效next/不同数组指针或未写局部等故障/偶然内容不据静态称等价，转换器/派生表/owner/种子/SDK与运行未闭。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。",
+      "boundary": "宽overflow：只比较输入低W16的FFFF，缓冲按2B推进写W16；无转换器fputwc。有转换器仍用8B窄字符串作为输出区，输入范围2B，转换与短写门禁保持，返回合同仅按原各路径。 本记录不扩大CRT替换许可，不新增流/locale影子状态或统一成功包装。；2026-10-04真实原生三体，EOF输入0在访问缓冲前，命中原无符号地址范围后真实Pninc再写旧位置，成功返回原输入；FILE无转换器真实原fputc低S8或fputwc。转换真实erase/append8零字节、两次独立Freeze串/第一buffer后length与第二buffer采样，末当前facet/current state输出slot5。结果3真实输出实际局部输入，不重传原参数，0直接继续/1仅inputNext与输入地址不同才继续，其他EOF；后两次独立Freeze，当时buffer与outputNext之差截U32数量，FILE/最终buffer按原重取，真实fwrite(1,数量)等数量才成功，零数量按原成功，短写/回调状态不清串/回滚/重试/钳制或恢复backup。Sync两实际char/U16模板共一原身份，FILE空0，真实fflush完整S32仅负为-1，其余0。仅输出48B已消费前缀，输入40B和对象152B不改；无效next/不同数组指针或未写局部等故障/偶然内容不据静态称等价，转换器/派生表/owner/种子/SDK与运行未闭。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；FBO01仅produced改两个uintptr_t地址相减后取U32，保countBytes取/Freeze及其当前buffer、另一次writeBytes取/Freeze/FILE/buffer和53C680参数1/produced及等数量比较；不先截地址/用length或固定8代数量。两阶段借用不强当同数组，不据此声称实际callback换buffer；两表达式外分支/next局部未清/字段/owner及分配域保持，不加范围保护或故障等价。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
@@ -63340,7 +63360,23 @@
           "relationship": "真实filebuf首成员地址适配后调用原本体；默认叶同样调用既有真实叶，不复制固定返回/空动作",
           "boundary": "源码目标绑定；未构建/链接/运行，不称完整SDK/owner验收"
         }
-      ]
+      ],
+      "file_buffer_output_address_count": {
+        "group": "FBO01",
+        "spec": "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "original_subtract": "0x549AB0",
+        "original_write_call": "0x549AC7",
+        "native_address_type": "std::uintptr_t",
+        "result_type": "std::uint32_t",
+        "array_pointer_difference_used": false,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "new_activity_or_owner": false,
+        "facet_production_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x549AE2",

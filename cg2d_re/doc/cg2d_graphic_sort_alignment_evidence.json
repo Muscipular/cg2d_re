@@ -1,0 +1,2069 @@
+{
+  "schema_version": 1,
+  "group": "GQS01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前已打开cg2d.exe数据库，只读MCP；不重开/保存/导出",
+  "baseline_reference": "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+  "implementation_reference": "Git固定命名快照 cg2d-re-graphic-sort-source-20261005",
+  "functions": [
+    {
+      "start": "0x520790",
+      "end": "0x5208e8",
+      "instructions": [
+        {
+          "address": "0x520790",
+          "text": "push    ebx",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x3",
+          "size": 1
+        },
+        {
+          "address": "0x520791",
+          "text": "mov     bl, byte_1020EDC",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x13",
+          "size": 6
+        },
+        {
+          "address": "0x520797",
+          "text": "xor     edx, edx",
+          "mnemonic": "xor",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 2
+        },
+        {
+          "address": "0x520799",
+          "text": "push    esi",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x52079a",
+          "text": "cmp     bl, dl",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x13",
+          "size": 2
+        },
+        {
+          "address": "0x52079c",
+          "text": "push    edi",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 1
+        },
+        {
+          "address": "0x52079d",
+          "text": "mov     ecx, 3",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 5
+        },
+        {
+          "address": "0x5207a2",
+          "text": "jz      short loc_5207A9",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x5207a9",
+          "size": 2
+        },
+        {
+          "address": "0x5207a4",
+          "text": "mov     ecx, 4",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 5
+        },
+        {
+          "address": "0x5207a9",
+          "text": "mov     ax, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 6
+        },
+        {
+          "address": "0x5207af",
+          "text": "movsx   esi, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 3
+        },
+        {
+          "address": "0x5207b2",
+          "text": "add     esi, ecx",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 2
+        },
+        {
+          "address": "0x5207b4",
+          "text": "cmp     esi, 1000h",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 6
+        },
+        {
+          "address": "0x5207ba",
+          "text": "jl      short loc_5207C9",
+          "mnemonic": "jl",
+          "operand0_type": 7,
+          "operand0_value": "0x5207c9",
+          "size": 2
+        },
+        {
+          "address": "0x5207bc",
+          "text": "mov     eax, 1000h",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 5
+        },
+        {
+          "address": "0x5207c1",
+          "text": "sub     eax, ecx",
+          "mnemonic": "sub",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x5207c3",
+          "text": "mov     pendingGraphicCount, ax",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x1020eb8",
+          "size": 6
+        },
+        {
+          "address": "0x5207c9",
+          "text": "or      esi, 0FFFFFFFFh",
+          "mnemonic": "or",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 3
+        },
+        {
+          "address": "0x5207cc",
+          "text": "cmp     bl, dl",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x13",
+          "size": 2
+        },
+        {
+          "address": "0x5207ce",
+          "text": "jz      short loc_52080F",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x52080f",
+          "size": 2
+        },
+        {
+          "address": "0x5207d0",
+          "text": "movsx   eax, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x5207d3",
+          "text": "lea     ecx, [eax+eax*4]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 3
+        },
+        {
+          "address": "0x5207d6",
+          "text": "mov     gGraphicCache3.layer[eax*4], 2",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceba",
+          "size": 8
+        },
+        {
+          "address": "0x5207de",
+          "text": "mov     di, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 7
+        },
+        {
+          "address": "0x5207e5",
+          "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 7
+        },
+        {
+          "address": "0x5207ec",
+          "text": "mov     gGraphicCache3.cacheIndex[eax*4], di",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceb8",
+          "size": 8
+        },
+        {
+          "address": "0x5207f4",
+          "text": "mov     [ecx+8], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x8",
+          "size": 3
+        },
+        {
+          "address": "0x5207f7",
+          "text": "mov     [ecx+10h], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 3
+        },
+        {
+          "address": "0x5207fa",
+          "text": "mov     [ecx+0Ch], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0xc",
+          "size": 3
+        },
+        {
+          "address": "0x5207fd",
+          "text": "mov     byte ptr [ecx+24h], 8",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x24",
+          "size": 4
+        },
+        {
+          "address": "0x520801",
+          "text": "mov     ax, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 6
+        },
+        {
+          "address": "0x520807",
+          "text": "inc     ax",
+          "mnemonic": "inc",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x520809",
+          "text": "mov     pendingGraphicCount, ax",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x1020eb8",
+          "size": 6
+        },
+        {
+          "address": "0x52080f",
+          "text": "movsx   eax, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x520812",
+          "text": "mov     bl, 6",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x13",
+          "size": 2
+        },
+        {
+          "address": "0x520814",
+          "text": "push    offset sub_5222A0; CompareFunction",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x5222a0",
+          "size": 5
+        },
+        {
+          "address": "0x520819",
+          "text": "lea     ecx, [eax+eax*4]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 3
+        },
+        {
+          "address": "0x52081c",
+          "text": "mov     gGraphicCache3.layer[eax*4], 5",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceba",
+          "size": 8
+        },
+        {
+          "address": "0x520824",
+          "text": "mov     di, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 7
+        },
+        {
+          "address": "0x52082b",
+          "text": "push    4; SizeOfElements",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x4",
+          "size": 2
+        },
+        {
+          "address": "0x52082d",
+          "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 7
+        },
+        {
+          "address": "0x520834",
+          "text": "mov     gGraphicCache3.cacheIndex[eax*4], di",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceb8",
+          "size": 8
+        },
+        {
+          "address": "0x52083c",
+          "text": "mov     [ecx+8], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x8",
+          "size": 3
+        },
+        {
+          "address": "0x52083f",
+          "text": "mov     [ecx+10h], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 3
+        },
+        {
+          "address": "0x520842",
+          "text": "mov     [ecx+0Ch], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0xc",
+          "size": 3
+        },
+        {
+          "address": "0x520845",
+          "text": "mov     [ecx+24h], bl",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x24",
+          "size": 3
+        },
+        {
+          "address": "0x520848",
+          "text": "mov     ax, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 6
+        },
+        {
+          "address": "0x52084e",
+          "text": "inc     ax",
+          "mnemonic": "inc",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x520850",
+          "text": "mov     pendingGraphicCount, ax",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x1020eb8",
+          "size": 6
+        },
+        {
+          "address": "0x520856",
+          "text": "movsx   eax, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x520859",
+          "text": "lea     ecx, [eax+eax*4]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 3
+        },
+        {
+          "address": "0x52085c",
+          "text": "mov     gGraphicCache3.layer[eax*4], bl",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceba",
+          "size": 7
+        },
+        {
+          "address": "0x520863",
+          "text": "mov     di, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 7
+        },
+        {
+          "address": "0x52086a",
+          "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 7
+        },
+        {
+          "address": "0x520871",
+          "text": "mov     gGraphicCache3.cacheIndex[eax*4], di",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceb8",
+          "size": 8
+        },
+        {
+          "address": "0x520879",
+          "text": "mov     [ecx+8], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x8",
+          "size": 3
+        },
+        {
+          "address": "0x52087c",
+          "text": "mov     [ecx+10h], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 3
+        },
+        {
+          "address": "0x52087f",
+          "text": "mov     [ecx+0Ch], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0xc",
+          "size": 3
+        },
+        {
+          "address": "0x520882",
+          "text": "mov     byte ptr [ecx+24h], 7",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x24",
+          "size": 4
+        },
+        {
+          "address": "0x520886",
+          "text": "mov     ax, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 6
+        },
+        {
+          "address": "0x52088c",
+          "text": "inc     ax",
+          "mnemonic": "inc",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x52088e",
+          "text": "mov     pendingGraphicCount, ax",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x1020eb8",
+          "size": 6
+        },
+        {
+          "address": "0x520894",
+          "text": "movsx   eax, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x520897",
+          "text": "lea     ecx, [eax+eax*4]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 3
+        },
+        {
+          "address": "0x52089a",
+          "text": "mov     gGraphicCache3.layer[eax*4], 14h",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceba",
+          "size": 8
+        },
+        {
+          "address": "0x5208a2",
+          "text": "mov     di, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 7
+        },
+        {
+          "address": "0x5208a9",
+          "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]",
+          "mnemonic": "lea",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 7
+        },
+        {
+          "address": "0x5208b0",
+          "text": "mov     gGraphicCache3.cacheIndex[eax*4], di",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x101ceb8",
+          "size": 8
+        },
+        {
+          "address": "0x5208b8",
+          "text": "mov     [ecx+8], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x8",
+          "size": 3
+        },
+        {
+          "address": "0x5208bb",
+          "text": "mov     [ecx+10h], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 3
+        },
+        {
+          "address": "0x5208be",
+          "text": "mov     [ecx+0Ch], edx",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0xc",
+          "size": 3
+        },
+        {
+          "address": "0x5208c1",
+          "text": "mov     byte ptr [ecx+24h], 9",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x24",
+          "size": 4
+        },
+        {
+          "address": "0x5208c5",
+          "text": "mov     ax, pendingGraphicCount",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 6
+        },
+        {
+          "address": "0x5208cb",
+          "text": "inc     ax",
+          "mnemonic": "inc",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x5208cd",
+          "text": "movsx   edx, ax",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 3
+        },
+        {
+          "address": "0x5208d0",
+          "text": "push    edx; NumOfElements",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 1
+        },
+        {
+          "address": "0x5208d1",
+          "text": "push    offset gGraphicCache3; Base",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x101ceb8",
+          "size": 5
+        },
+        {
+          "address": "0x5208d6",
+          "text": "mov     pendingGraphicCount, ax",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x1020eb8",
+          "size": 6
+        },
+        {
+          "address": "0x5208dc",
+          "text": "call    _qsort",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x53c112",
+          "size": 5
+        },
+        {
+          "address": "0x5208e1",
+          "text": "add     esp, 10h",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x5208e4",
+          "text": "pop     edi",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x7",
+          "size": 1
+        },
+        {
+          "address": "0x5208e5",
+          "text": "pop     esi",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5208e6",
+          "text": "pop     ebx",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x3",
+          "size": 1
+        },
+        {
+          "address": "0x5208e7",
+          "text": "retn",
+          "mnemonic": "retn",
+          "operand0_type": 0,
+          "operand0_value": "-0x1",
+          "size": 1
+        }
+      ],
+      "references": [
+        {
+          "from": "0x43cb4f",
+          "type": 17,
+          "parent": "0x43cb10"
+        },
+        {
+          "from": "0x457129",
+          "type": 17,
+          "parent": "0x457020"
+        },
+        {
+          "from": "0x4581a2",
+          "type": 17,
+          "parent": "0x457b10"
+        },
+        {
+          "from": "0x458489",
+          "type": 17,
+          "parent": "0x458390"
+        },
+        {
+          "from": "0x458695",
+          "type": 17,
+          "parent": "0x4585f0"
+        },
+        {
+          "from": "0x458a9c",
+          "type": 17,
+          "parent": "0x458a40"
+        },
+        {
+          "from": "0x466c80",
+          "type": 17,
+          "parent": "0x466b80"
+        },
+        {
+          "from": "0x5073c8",
+          "type": 17,
+          "parent": "0x507140"
+        },
+        {
+          "from": "0x5076c5",
+          "type": 17,
+          "parent": "0x507140"
+        },
+        {
+          "from": "0x51c8e4",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "from": "0x51cb92",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "from": "0x51d0ac",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "from": "0x51d662",
+          "type": 17,
+          "parent": "0x51d640"
+        }
+      ]
+    },
+    {
+      "start": "0x5222a0",
+      "end": "0x5222cb",
+      "instructions": [
+        {
+          "address": "0x5222a0",
+          "text": "mov     edx, [esp+arg_0]",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 4
+        },
+        {
+          "address": "0x5222a4",
+          "text": "push    esi",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5222a5",
+          "text": "mov     esi, [esp+4+arg_4]",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 4
+        },
+        {
+          "address": "0x5222a9",
+          "text": "mov     al, [edx+2]",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x10",
+          "size": 3
+        },
+        {
+          "address": "0x5222ac",
+          "text": "mov     cl, [esi+2]",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x11",
+          "size": 3
+        },
+        {
+          "address": "0x5222af",
+          "text": "cmp     al, cl",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x10",
+          "size": 2
+        },
+        {
+          "address": "0x5222b1",
+          "text": "jbe     short loc_5222BA",
+          "mnemonic": "jbe",
+          "operand0_type": 7,
+          "operand0_value": "0x5222ba",
+          "size": 2
+        },
+        {
+          "address": "0x5222b3",
+          "text": "mov     eax, 1",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 5
+        },
+        {
+          "address": "0x5222b8",
+          "text": "pop     esi",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5222b9",
+          "text": "retn",
+          "mnemonic": "retn",
+          "operand0_type": 0,
+          "operand0_value": "-0x1",
+          "size": 1
+        },
+        {
+          "address": "0x5222ba",
+          "text": "jnb     short loc_5222C1",
+          "mnemonic": "jnb",
+          "operand0_type": 7,
+          "operand0_value": "0x5222c1",
+          "size": 2
+        },
+        {
+          "address": "0x5222bc",
+          "text": "or      eax, 0FFFFFFFFh",
+          "mnemonic": "or",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x5222bf",
+          "text": "pop     esi",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5222c0",
+          "text": "retn",
+          "mnemonic": "retn",
+          "operand0_type": 0,
+          "operand0_value": "-0x1",
+          "size": 1
+        },
+        {
+          "address": "0x5222c1",
+          "text": "movsx   ecx, word ptr [edx]",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 3
+        },
+        {
+          "address": "0x5222c4",
+          "text": "movsx   eax, word ptr [esi]",
+          "mnemonic": "movsx",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 3
+        },
+        {
+          "address": "0x5222c7",
+          "text": "sub     eax, ecx",
+          "mnemonic": "sub",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x5222c9",
+          "text": "pop     esi",
+          "mnemonic": "pop",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5222ca",
+          "text": "retn",
+          "mnemonic": "retn",
+          "operand0_type": 0,
+          "operand0_value": "-0x1",
+          "size": 1
+        }
+      ],
+      "references": [
+        {
+          "from": "0x520814",
+          "type": 1,
+          "parent": "0x520790"
+        }
+      ]
+    }
+  ],
+  "instruction_counts": {
+    "complete_roots": 103,
+    "caller_windows": 104,
+    "root_count": 2,
+    "direct_sort_references": 13,
+    "comparator_address_references": 1
+  },
+  "caller_windows": [
+    {
+      "call": "0x43cb4f",
+      "parent": "0x43cb10",
+      "instructions": [
+        {
+          "address": "0x43cb42",
+          "text": "push    140h",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x140",
+          "size": 5
+        },
+        {
+          "address": "0x43cb47",
+          "text": "call    Renderer__DrawGraphic",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x521b10",
+          "size": 5
+        },
+        {
+          "address": "0x43cb4c",
+          "text": "add     esp, 1Ch",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x43cb4f",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x43cb54",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x43cb59",
+          "text": "mov     dword_103CF10, esi",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x103cf10",
+          "size": 6
+        },
+        {
+          "address": "0x43cb5f",
+          "text": "call    Renderer__DrawAllQueued",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520dd0",
+          "size": 5
+        },
+        {
+          "address": "0x43cb64",
+          "text": "mov     edx, gCRenderer",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x457129",
+      "parent": "0x457020",
+      "instructions": [
+        {
+          "address": "0x45711c",
+          "text": "cmp     gWindowActiveState, esi",
+          "mnemonic": "cmp",
+          "operand0_type": 2,
+          "operand0_value": "0x55ce70",
+          "size": 6
+        },
+        {
+          "address": "0x457122",
+          "text": "jz      short loc_457133",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x457133",
+          "size": 2
+        },
+        {
+          "address": "0x457124",
+          "text": "call    World__CursorUpdate",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x506e00",
+          "size": 5
+        },
+        {
+          "address": "0x457129",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x45712e",
+          "text": "call    sub_507140",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x507140",
+          "size": 5
+        },
+        {
+          "address": "0x457133",
+          "text": "call    sub_450BB0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x450bb0",
+          "size": 5
+        },
+        {
+          "address": "0x457138",
+          "text": "cmp     gWindowActiveState, esi",
+          "mnemonic": "cmp",
+          "operand0_type": 2,
+          "operand0_value": "0x55ce70",
+          "size": 6
+        },
+        {
+          "address": "0x45713e",
+          "text": "jz      short loc_457145",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x457145",
+          "size": 2
+        }
+      ]
+    },
+    {
+      "call": "0x4581a2",
+      "parent": "0x457b10",
+      "instructions": [
+        {
+          "address": "0x458195",
+          "text": "call    Renderer__DrawGraphic",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x521b10",
+          "size": 5
+        },
+        {
+          "address": "0x45819a",
+          "text": "add     esp, 18h",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x45819d",
+          "text": "call    World__CursorUpdate",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x506e00",
+          "size": 5
+        },
+        {
+          "address": "0x4581a2",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x4581a7",
+          "text": "call    sub_507140",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x507140",
+          "size": 5
+        },
+        {
+          "address": "0x4581ac",
+          "text": "call    sub_450BB0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x450bb0",
+          "size": 5
+        },
+        {
+          "address": "0x4581b1",
+          "text": "call    sub_459760",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x459760",
+          "size": 5
+        },
+        {
+          "address": "0x4581b6",
+          "text": "fld     frame_dt",
+          "mnemonic": "fld",
+          "operand0_type": 11,
+          "operand0_value": "-0x1",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x458489",
+      "parent": "0x458390",
+      "instructions": [
+        {
+          "address": "0x458481",
+          "text": "cmp     eax, esi",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x458483",
+          "text": "jnz     short loc_458489",
+          "mnemonic": "jnz",
+          "operand0_type": 7,
+          "operand0_value": "0x458489",
+          "size": 2
+        },
+        {
+          "address": "0x458485",
+          "text": "mov     dword ptr [esp+34h+var_24], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 4
+        },
+        {
+          "address": "0x458489",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x45848e",
+          "text": "call    sub_450BB0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x450bb0",
+          "size": 5
+        },
+        {
+          "address": "0x458493",
+          "text": "call    sub_459760",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x459760",
+          "size": 5
+        },
+        {
+          "address": "0x458498",
+          "text": "fld     frame_dt",
+          "mnemonic": "fld",
+          "operand0_type": 11,
+          "operand0_value": "-0x1",
+          "size": 6
+        },
+        {
+          "address": "0x45849e",
+          "text": "fadd    gLastRenderDt",
+          "mnemonic": "fadd",
+          "operand0_type": 11,
+          "operand0_value": "-0x1",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x458695",
+      "parent": "0x4585f0",
+      "instructions": [
+        {
+          "address": "0x45868d",
+          "text": "cmp     eax, esi",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x45868f",
+          "text": "jnz     short loc_458695",
+          "mnemonic": "jnz",
+          "operand0_type": 7,
+          "operand0_value": "0x458695",
+          "size": 2
+        },
+        {
+          "address": "0x458691",
+          "text": "mov     dword ptr [esp+34h+var_24], esi",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x10",
+          "size": 4
+        },
+        {
+          "address": "0x458695",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x45869a",
+          "text": "call    sub_450BB0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x450bb0",
+          "size": 5
+        },
+        {
+          "address": "0x45869f",
+          "text": "call    sub_459760",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x459760",
+          "size": 5
+        },
+        {
+          "address": "0x4586a4",
+          "text": "fld     frame_dt",
+          "mnemonic": "fld",
+          "operand0_type": 11,
+          "operand0_value": "-0x1",
+          "size": 6
+        },
+        {
+          "address": "0x4586aa",
+          "text": "fadd    gLastRenderDt",
+          "mnemonic": "fadd",
+          "operand0_type": 11,
+          "operand0_value": "-0x1",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x458a9c",
+      "parent": "0x458a40",
+      "instructions": [
+        {
+          "address": "0x458a8f",
+          "text": "push    3BE3Eh",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x3be3e",
+          "size": 5
+        },
+        {
+          "address": "0x458a94",
+          "text": "call    sub_49BE00",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x49be00",
+          "size": 5
+        },
+        {
+          "address": "0x458a99",
+          "text": "add     esp, 44h",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x458a9c",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x458aa1",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x458aa6",
+          "text": "mov     dword_103CF10, esi",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x103cf10",
+          "size": 6
+        },
+        {
+          "address": "0x458aac",
+          "text": "call    Renderer__DrawAllQueued",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520dd0",
+          "size": 5
+        },
+        {
+          "address": "0x458ab1",
+          "text": "mov     dword_103CF10, 1",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x103cf10",
+          "size": 10
+        }
+      ]
+    },
+    {
+      "call": "0x466c80",
+      "parent": "0x466b80",
+      "instructions": [
+        {
+          "address": "0x466c73",
+          "text": "push    140h",
+          "mnemonic": "push",
+          "operand0_type": 5,
+          "operand0_value": "0x140",
+          "size": 5
+        },
+        {
+          "address": "0x466c78",
+          "text": "call    Renderer__DrawGraphic",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x521b10",
+          "size": 5
+        },
+        {
+          "address": "0x466c7d",
+          "text": "add     esp, 1Ch",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x466c80",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x466c85",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x466c8a",
+          "text": "mov     dword_103CF10, esi",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x103cf10",
+          "size": 6
+        },
+        {
+          "address": "0x466c90",
+          "text": "call    Renderer__DrawAllQueued",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520dd0",
+          "size": 5
+        },
+        {
+          "address": "0x466c95",
+          "text": "mov     edx, gCRenderer",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x2",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x5073c8",
+      "parent": "0x507140",
+      "instructions": [
+        {
+          "address": "0x5073bf",
+          "text": "push    esi; a1",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x6",
+          "size": 1
+        },
+        {
+          "address": "0x5073c0",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x522180",
+          "size": 5
+        },
+        {
+          "address": "0x5073c5",
+          "text": "add     esp, 1Ch",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x5073c8",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x5073cd",
+          "text": "mov     eax, dword_D460C8",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 5
+        },
+        {
+          "address": "0x5073d2",
+          "text": "mov     dword_D6976C, 0FFFFFFFFh",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0xd6976c",
+          "size": 10
+        },
+        {
+          "address": "0x5073dc",
+          "text": "cmp     eax, ebx",
+          "mnemonic": "cmp",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x5073de",
+          "text": "mov     gMouseEventState, 0D4h",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0xd68db4",
+          "size": 7
+        }
+      ]
+    },
+    {
+      "call": "0x5076c5",
+      "parent": "0x507140",
+      "instructions": [
+        {
+          "address": "0x5076bc",
+          "text": "push    eax",
+          "mnemonic": "push",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 1
+        },
+        {
+          "address": "0x5076bd",
+          "text": "call    sub_507090",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x507090",
+          "size": 5
+        },
+        {
+          "address": "0x5076c2",
+          "text": "add     esp, 4",
+          "mnemonic": "add",
+          "operand0_type": 1,
+          "operand0_value": "0x4",
+          "size": 3
+        },
+        {
+          "address": "0x5076c5",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x5076ca",
+          "text": "mov     eax, dword_D460C8",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 5
+        },
+        {
+          "address": "0x5076cf",
+          "text": "test    eax, eax",
+          "mnemonic": "test",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 2
+        },
+        {
+          "address": "0x5076d1",
+          "text": "jnz     loc_507C3C",
+          "mnemonic": "jnz",
+          "operand0_type": 7,
+          "operand0_value": "0x507c3c",
+          "size": 6
+        },
+        {
+          "address": "0x5076d7",
+          "text": "mov     eax, dword_58589C",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x0",
+          "size": 5
+        }
+      ]
+    },
+    {
+      "call": "0x51c8e4",
+      "parent": "0x51c7d0",
+      "instructions": [
+        {
+          "address": "0x51c8d5",
+          "text": "call    sub_4596D0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4596d0",
+          "size": 5
+        },
+        {
+          "address": "0x51c8da",
+          "text": "call    sub_44A1B0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x44a1b0",
+          "size": 5
+        },
+        {
+          "address": "0x51c8df",
+          "text": "call    World__RenderInput",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4590e0",
+          "size": 5
+        },
+        {
+          "address": "0x51c8e4",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x51c8e9",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x51c8ee",
+          "text": "mov     dword_103CF10, ebx",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x103cf10",
+          "size": 6
+        },
+        {
+          "address": "0x51c8f4",
+          "text": "call    Renderer__DrawAllQueued",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520dd0",
+          "size": 5
+        },
+        {
+          "address": "0x51c8f9",
+          "text": "mov     ecx, gCRenderer",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x1",
+          "size": 6
+        }
+      ]
+    },
+    {
+      "call": "0x51cb92",
+      "parent": "0x51c7d0",
+      "instructions": [
+        {
+          "address": "0x51cb7e",
+          "text": "mov     flt_C8A758, 0",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0xc8a758",
+          "size": 10
+        },
+        {
+          "address": "0x51cb88",
+          "text": "call    sub_4596D0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4596d0",
+          "size": 5
+        },
+        {
+          "address": "0x51cb8d",
+          "text": "call    sub_44A1B0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x44a1b0",
+          "size": 5
+        },
+        {
+          "address": "0x51cb92",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x51cb97",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x51cb9c",
+          "text": "call    sub_46F160",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x46f160",
+          "size": 5
+        },
+        {
+          "address": "0x51cba1",
+          "text": "cmp     word_C8A73E, bx",
+          "mnemonic": "cmp",
+          "operand0_type": 2,
+          "operand0_value": "0xc8a73e",
+          "size": 7
+        },
+        {
+          "address": "0x51cba8",
+          "text": "jz      short loc_51CBB3",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x51cbb3",
+          "size": 2
+        }
+      ]
+    },
+    {
+      "call": "0x51d0ac",
+      "parent": "0x51c7d0",
+      "instructions": [
+        {
+          "address": "0x51d09d",
+          "text": "call    sub_4596D0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4596d0",
+          "size": 5
+        },
+        {
+          "address": "0x51d0a2",
+          "text": "call    sub_44A1B0",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x44a1b0",
+          "size": 5
+        },
+        {
+          "address": "0x51d0a7",
+          "text": "call    World__RenderInput",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4590e0",
+          "size": 5
+        },
+        {
+          "address": "0x51d0ac",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x51d0b1",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x51d0b6",
+          "text": "call    sub_46F160",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x46f160",
+          "size": 5
+        },
+        {
+          "address": "0x51d0bb",
+          "text": "cmp     word_C8A73E, bx",
+          "mnemonic": "cmp",
+          "operand0_type": 2,
+          "operand0_value": "0xc8a73e",
+          "size": 7
+        },
+        {
+          "address": "0x51d0c2",
+          "text": "jz      short loc_51D0CD",
+          "mnemonic": "jz",
+          "operand0_type": 7,
+          "operand0_value": "0x51d0cd",
+          "size": 2
+        }
+      ]
+    },
+    {
+      "call": "0x51d662",
+      "parent": "0x51d640",
+      "instructions": [
+        {
+          "address": "0x51d652",
+          "text": "mov     peddingGraphicCount2, ebx",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0x73ecb8",
+          "size": 6
+        },
+        {
+          "address": "0x51d658",
+          "text": "call    Renderer__CacheReset",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x456d30",
+          "size": 5
+        },
+        {
+          "address": "0x51d65d",
+          "text": "call    sub_469030",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x469030",
+          "size": 5
+        },
+        {
+          "address": "0x51d662",
+          "text": "call    Renderer__SortTexture",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x520790",
+          "size": 5
+        },
+        {
+          "address": "0x51d667",
+          "text": "call    Renderer__ClearSurface",
+          "mnemonic": "call",
+          "operand0_type": 7,
+          "operand0_value": "0x4512c0",
+          "size": 5
+        },
+        {
+          "address": "0x51d66c",
+          "text": "mov     al, byte_C82204",
+          "mnemonic": "mov",
+          "operand0_type": 1,
+          "operand0_value": "0x10",
+          "size": 5
+        },
+        {
+          "address": "0x51d671",
+          "text": "mov     byte_C82204, bl",
+          "mnemonic": "mov",
+          "operand0_type": 2,
+          "operand0_value": "0xc82204",
+          "size": 6
+        },
+        {
+          "address": "0x51d677",
+          "text": "mov     [esp+10h+var_9], al",
+          "mnemonic": "mov",
+          "operand0_type": 4,
+          "operand0_value": "0x7",
+          "size": 4
+        }
+      ]
+    }
+  ],
+  "data_observations": [
+    {
+      "address": "0x1020eb8",
+      "width": 2,
+      "name": "pendingGraphicCount",
+      "database_bytes": "ffff",
+      "bytes_loaded": [
+        false,
+        false
+      ],
+      "bytes_have_value": [
+        false,
+        false
+      ],
+      "initial_value_proven": false,
+      "interpretation": "未装载、无值，不把读取ff提升为初值"
+    },
+    {
+      "address": "0x1020edc",
+      "width": 1,
+      "name": "byte_1020EDC",
+      "database_bytes": "ff",
+      "bytes_loaded": [
+        false
+      ],
+      "bytes_have_value": [
+        false
+      ],
+      "initial_value_proven": false,
+      "interpretation": "未装载、无值，不把读取ff提升为初值"
+    }
+  ],
+  "shared_data": [
+    {
+      "original": "0x1020EB8",
+      "width": "W16",
+      "source": "src/platform/MainLoopState.cpp",
+      "symbol": "gPendingGraphicCount",
+      "owner_changed": false
+    },
+    {
+      "original": "0x1020EDC",
+      "width": "W8",
+      "source": "src/render/GraphicPendingQueue.cpp",
+      "symbol": "gSpecialGraphicPending",
+      "owner_changed": false
+    },
+    {
+      "original": "0x101CEB8",
+      "element_size": 4,
+      "source": "include/cg/render/GraphicPendingQueue.hpp",
+      "symbol": "GraphicCache3",
+      "owner_changed": false
+    },
+    {
+      "original": "0xFF4EB8",
+      "old_element_size": 40,
+      "new_element_size": 48,
+      "source": "include/cg/render/GraphicPendingQueue.hpp",
+      "symbol": "GraphicCacheItem32",
+      "layout_changed": false
+    }
+  ],
+  "source_patch_contract": [
+    {
+      "label": "比较器层号及同层索引取样",
+      "literal_before": "    const auto& first = *static_cast<const GraphicCache3*>(left);\n    const auto& second = *static_cast<const GraphicCache3*>(right);\n    if (first.layer < second.layer) {\n        return -1;\n    }\n    if (first.layer > second.layer) {\n        return 1;\n    }\n    return static_cast<std::int32_t>(second.cacheIndex)\n        - static_cast<std::int32_t>(first.cacheIndex);",
+      "replacement": "    const auto& first = *static_cast<const GraphicCache3*>(left);\n    const auto& second = *static_cast<const GraphicCache3*>(right);\n    const std::uint8_t firstLayer = first.layer;\n    const std::uint8_t secondLayer = second.layer;\n    if (firstLayer > secondLayer) {\n        return 1;\n    }\n    if (firstLayer < secondLayer) {\n        return -1;\n    }\n    const std::int32_t firstIndex = first.cacheIndex;\n    const std::int32_t secondIndex = second.cacheIndex;\n    return secondIndex - firstIndex;"
+    },
+    {
+      "label": "保留槽两次共享计数取样及AX返回",
+      "literal_before": "void AppendReservedGraphic(\n    const std::size_t index,\n    const std::uint8_t layer,\n    const std::uint8_t batchType)\n{\n    const std::uint16_t countBits = platform::gPendingGraphicCount;\n    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[index];\n    cache3.layer = layer;\n    cache3.cacheIndex = std::bit_cast<std::int16_t>(countBits);\n\n    GraphicCacheItem32& record = gLegacyPendingStorage.records[index];\n    record.imageNo = -1;\n    record.value4 = 0;\n    record.reference.action = nullptr;\n    record.batchType = batchType;\n\n    platform::gPendingGraphicCount = static_cast<std::uint16_t>(countBits + 1U);\n}",
+      "replacement": "std::uint16_t AppendReservedGraphic(\n    const std::uint16_t indexBits,\n    const std::uint8_t layer,\n    const std::uint8_t batchType)\n{\n    const auto index = static_cast<std::size_t>(\n        std::bit_cast<std::int16_t>(indexBits));\n    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[index];\n    cache3.layer = layer;\n    cache3.cacheIndex = std::bit_cast<std::int16_t>(\n        platform::gPendingGraphicCount);\n\n    GraphicCacheItem32& record = gLegacyPendingStorage.records[index];\n    record.imageNo = -1;\n    record.value4 = 0;\n    record.reference.action = nullptr;\n    record.batchType = batchType;\n\n    const std::uint16_t countBits = platform::gPendingGraphicCount;\n    const auto nextCountBits = static_cast<std::uint16_t>(countBits + 1U);\n    platform::gPendingGraphicCount = nextCountBits;\n    return nextCountBits;\n}"
+    },
+    {
+      "label": "排序入口原钳制/保留槽/最终数量",
+      "literal_before": "void SortTextures_520790()\n{\n    const bool hasSpecialGraphic = gSpecialGraphicPending != 0;\n    const std::int16_t initialCount =\n        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    if (initialCount < 0) {\n        // 新端拒绝负位型；原函数会越界，不把此保护归于原版。\n        return;\n    }\n\n    const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;\n    if (static_cast<std::int32_t>(initialCount) + reserveCount\n        >= MAX_QUEUE_SIZE) {\n        platform::gPendingGraphicCount = static_cast<std::uint16_t>(\n            MAX_QUEUE_SIZE - reserveCount);\n    }\n\n    std::size_t firstIndex = initialCount < MAX_QUEUE_SIZE\n        ? static_cast<std::size_t>(initialCount)\n        : static_cast<std::size_t>(platform::gPendingGraphicCount);\n    if (hasSpecialGraphic) {\n        AppendReservedGraphic(firstIndex, 2, 8);\n        firstIndex = platform::gPendingGraphicCount;\n    }\n    AppendReservedGraphic(firstIndex, 5, 6);\n    AppendReservedGraphic(platform::gPendingGraphicCount, 6, 7);\n    AppendReservedGraphic(platform::gPendingGraphicCount, 20, 9);\n\n    cg::detail::SortLegacyRecords_53C112(\n        gLegacyPendingStorage.cache3.data(),\n        static_cast<std::uint32_t>(platform::gPendingGraphicCount),\n        CompareGraphicCache3_5222A0);\n}\n",
+      "replacement": "void SortTextures_520790()\n{\n    const bool hasSpecialGraphic = gSpecialGraphicPending != 0;\n    const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;\n    std::uint16_t countBits = platform::gPendingGraphicCount;\n    const std::int16_t initialCount = std::bit_cast<std::int16_t>(countBits);\n    if (static_cast<std::int32_t>(initialCount) + reserveCount\n        >= MAX_QUEUE_SIZE) {\n        countBits = static_cast<std::uint16_t>(MAX_QUEUE_SIZE - reserveCount);\n        platform::gPendingGraphicCount = countBits;\n    }\n\n    if (hasSpecialGraphic) {\n        countBits = AppendReservedGraphic(countBits, 2, 8);\n    }\n    countBits = AppendReservedGraphic(countBits, 5, 6);\n    countBits = AppendReservedGraphic(countBits, 6, 7);\n    countBits = AppendReservedGraphic(countBits, 20, 9);\n\n    const std::int32_t sortCount = std::bit_cast<std::int16_t>(countBits);\n    cg::detail::SortLegacyRecords_53C112(\n        gLegacyPendingStorage.cache3.data(),\n        static_cast<std::uint32_t>(sortCount),\n        CompareGraphicCache3_5222A0);\n}\n"
+    }
+  ],
+  "header_patch": {
+    "literal_before": "// 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。",
+    "replacement": "// 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。"
+  },
+  "native_call_connections": [
+    {
+      "parent": "0x43CB10",
+      "calls": [
+        "0x43CB4F"
+      ],
+      "path": "src/world/MapSceneDrawing.cpp",
+      "symbol": "Sub_43CB10"
+    },
+    {
+      "parent": "0x457020",
+      "calls": [
+        "0x457129"
+      ],
+      "path": "src/platform/MainLoop.cpp",
+      "symbol": "MainLoop"
+    },
+    {
+      "parent": "0x457B10",
+      "calls": [
+        "0x4581A2"
+      ],
+      "path": "src/platform/LoadingScreen.cpp",
+      "symbol": "InitLoading_457B10"
+    },
+    {
+      "parent": "0x458390",
+      "calls": [
+        "0x458489"
+      ],
+      "path": "src/platform/ClientInitialization.cpp",
+      "symbol": "AdvanceLoadingFadeFrame",
+      "reuse": true,
+      "reuse_parent_symbol": "FadeInLoading_458390"
+    },
+    {
+      "parent": "0x4585F0",
+      "calls": [
+        "0x458695"
+      ],
+      "path": "src/platform/ClientInitialization.cpp",
+      "symbol": "AdvanceLoadingFadeFrame",
+      "reuse": true,
+      "reuse_parent_symbol": "FadeOutLoading_4585F0"
+    },
+    {
+      "parent": "0x458A40",
+      "calls": [
+        "0x458A9C"
+      ],
+      "path": "src/platform/MainLoop.cpp",
+      "symbol": "ShowModeChange_458A40"
+    },
+    {
+      "parent": "0x466B80",
+      "calls": [
+        "0x466C80"
+      ],
+      "path": "src/platform/RendererRebuild.cpp",
+      "symbol": "RebuildRenderer_466B80"
+    },
+    {
+      "parent": "0x507140",
+      "calls": [
+        "0x5073C8",
+        "0x5076C5"
+      ],
+      "path": "src/render/GraphicHitTest.cpp",
+      "symbol": "Sub_507140"
+    },
+    {
+      "parent": "0x51C7D0",
+      "calls": [
+        "0x51C8E4",
+        "0x51CB92",
+        "0x51D0AC"
+      ],
+      "path": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0"
+    },
+    {
+      "parent": "0x51D640",
+      "calls": [
+        "0x51D662"
+      ],
+      "path": "src/world/SceneState.cpp",
+      "symbol": "Sub_51D640"
+    }
+  ],
+  "source_lexical_sort_calls": 12,
+  "logical_original_sort_calls": 13,
+  "comparator_call": {
+    "address_reference": "0x520814",
+    "sort_call": "0x5208DC",
+    "sort_target": "0x53C112",
+    "comparator": "0x5222A0",
+    "root_direct_call_to_comparator": false
+  },
+  "consumer_connections": [
+    {
+      "path": "src/render/DrawAllQueued.cpp",
+      "symbol": "DrawAllQueued_520DD0",
+      "cases": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "special_flag_clear": "gSpecialGraphicPending = 0",
+      "body_changed": false,
+      "full_behavior_verified": false
+    },
+    {
+      "path": "src/render/GraphicHitTest.cpp",
+      "symbol": "Sub_507140",
+      "sort_calls": 2,
+      "body_changed": false,
+      "full_behavior_verified": false
+    }
+  ],
+  "important_points": [
+    "5207BC完整EAX赋值与5207C1减法会更新AX；旧首槽仍旧AX说明撤销",
+    "每项layer写先于共享索引取样；四record写完后重新取count增一",
+    "最后保存AX符号扩展数量，不重新读取共享槽/零扩U16",
+    "5222C1左S16、5222C4右S16，右减左",
+    "保原容量门禁、可选/三必选条目和未写字段；不新清理或owner",
+    "原比较器引用为地址压栈，由真实旧排序算法调用；不将其记为root直接callee",
+    "5222A9先取左U8层号、5222AC取右U8层号；先大返1再小返-1，两层都只一次读取"
+  ],
+  "exceptional_domain": "RPLAN.24不新增负数/越界保护，不执行专项故障或回绕模拟，不记x64安全/故障等价",
+  "verification": {
+    "level": "仅限定源码/数据/调用关系静态",
+    "build": false,
+    "tests_added": false,
+    "tests_executed": false,
+    "runtime": false,
+    "hash": false,
+    "all_callers_verified": false,
+    "full_lifecycle_closed": false
+  },
+  "remaining": [
+    "13原父完整流程/参数与12源码复用细节",
+    "全队列生产消费及对象/文本借用寿命",
+    "53C112任意通用元素域/完整机器ABI",
+    "完整命中/画面及场景往返、资源/清理运行"
+  ]
+}

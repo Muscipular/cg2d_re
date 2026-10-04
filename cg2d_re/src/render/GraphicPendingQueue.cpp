@@ -33,14 +33,17 @@ int CompareGraphicCache3_5222A0(const void* const left, const void* const right)
 {
     const auto& first = *static_cast<const GraphicCache3*>(left);
     const auto& second = *static_cast<const GraphicCache3*>(right);
-    if (first.layer < second.layer) {
-        return -1;
-    }
-    if (first.layer > second.layer) {
+    const std::uint8_t firstLayer = first.layer;
+    const std::uint8_t secondLayer = second.layer;
+    if (firstLayer > secondLayer) {
         return 1;
     }
-    return static_cast<std::int32_t>(second.cacheIndex)
-        - static_cast<std::int32_t>(first.cacheIndex);
+    if (firstLayer < secondLayer) {
+        return -1;
+    }
+    const std::int32_t firstIndex = first.cacheIndex;
+    const std::int32_t secondIndex = second.cacheIndex;
+    return secondIndex - firstIndex;
 }
 
 // 原波纹坐标差 helper；读取顺序和每个 F32 落点均属于调用语义。
@@ -80,15 +83,17 @@ void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept
 }
 
 // 原 SortTextures_520790 的单个保留槽；未列出的记录字段保持原值。
-void AppendReservedGraphic(
-    const std::size_t index,
+std::uint16_t AppendReservedGraphic(
+    const std::uint16_t indexBits,
     const std::uint8_t layer,
     const std::uint8_t batchType)
 {
-    const std::uint16_t countBits = platform::gPendingGraphicCount;
+    const auto index = static_cast<std::size_t>(
+        std::bit_cast<std::int16_t>(indexBits));
     GraphicCache3& cache3 = gLegacyPendingStorage.cache3[index];
     cache3.layer = layer;
-    cache3.cacheIndex = std::bit_cast<std::int16_t>(countBits);
+    cache3.cacheIndex = std::bit_cast<std::int16_t>(
+        platform::gPendingGraphicCount);
 
     GraphicCacheItem32& record = gLegacyPendingStorage.records[index];
     record.imageNo = -1;
@@ -96,7 +101,10 @@ void AppendReservedGraphic(
     record.reference.action = nullptr;
     record.batchType = batchType;
 
-    platform::gPendingGraphicCount = static_cast<std::uint16_t>(countBits + 1U);
+    const std::uint16_t countBits = platform::gPendingGraphicCount;
+    const auto nextCountBits = static_cast<std::uint16_t>(countBits + 1U);
+    platform::gPendingGraphicCount = nextCountBits;
+    return nextCountBits;
 }
 
 } // namespace
@@ -357,34 +365,26 @@ std::int32_t Sub_521870()
 void SortTextures_520790()
 {
     const bool hasSpecialGraphic = gSpecialGraphicPending != 0;
-    const std::int16_t initialCount =
-        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    if (initialCount < 0) {
-        // 新端拒绝负位型；原函数会越界，不把此保护归于原版。
-        return;
-    }
-
     const std::int32_t reserveCount = hasSpecialGraphic ? 4 : 3;
+    std::uint16_t countBits = platform::gPendingGraphicCount;
+    const std::int16_t initialCount = std::bit_cast<std::int16_t>(countBits);
     if (static_cast<std::int32_t>(initialCount) + reserveCount
         >= MAX_QUEUE_SIZE) {
-        platform::gPendingGraphicCount = static_cast<std::uint16_t>(
-            MAX_QUEUE_SIZE - reserveCount);
+        countBits = static_cast<std::uint16_t>(MAX_QUEUE_SIZE - reserveCount);
+        platform::gPendingGraphicCount = countBits;
     }
 
-    std::size_t firstIndex = initialCount < MAX_QUEUE_SIZE
-        ? static_cast<std::size_t>(initialCount)
-        : static_cast<std::size_t>(platform::gPendingGraphicCount);
     if (hasSpecialGraphic) {
-        AppendReservedGraphic(firstIndex, 2, 8);
-        firstIndex = platform::gPendingGraphicCount;
+        countBits = AppendReservedGraphic(countBits, 2, 8);
     }
-    AppendReservedGraphic(firstIndex, 5, 6);
-    AppendReservedGraphic(platform::gPendingGraphicCount, 6, 7);
-    AppendReservedGraphic(platform::gPendingGraphicCount, 20, 9);
+    countBits = AppendReservedGraphic(countBits, 5, 6);
+    countBits = AppendReservedGraphic(countBits, 6, 7);
+    countBits = AppendReservedGraphic(countBits, 20, 9);
 
+    const std::int32_t sortCount = std::bit_cast<std::int16_t>(countBits);
     cg::detail::SortLegacyRecords_53C112(
         gLegacyPendingStorage.cache3.data(),
-        static_cast<std::uint32_t>(platform::gPendingGraphicCount),
+        static_cast<std::uint32_t>(sortCount),
         CompareGraphicCache3_5222A0);
 }
 

@@ -137323,6 +137323,134 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x520790",
+      "inventory_id": "F:00120790",
+      "status": "GQS01两完整原体及限定排序接线局部静态已对照；完整父/队列寿命及运行未验",
+      "original_end_exclusive": "0x5208E8",
+      "instruction_count": 84,
+      "original_chunks": [
+        [
+          "0x520790",
+          "0x5208E8"
+        ]
+      ],
+      "original_reference_count": 13,
+      "original_direct_reference_count": 13,
+      "original_address_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "SortTextures_520790",
+            "AppendReservedGraphic"
+          ],
+          "relationship": "原容量/本地AX/每项两次共享取样/最终S16数量已修，真实旧排序模板保持"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "SortTextures_520790",
+            "GraphicCache3",
+            "GraphicCacheItem32"
+          ],
+          "relationship": "原非地址宽度与唯一队列承载保持；新增注释反映真实保留项生产"
+        },
+        {
+          "path": "src/LegacySort.hpp",
+          "symbols": [
+            "SortLegacyRecords_53C112"
+          ],
+          "relationship": "既有真实比较/分区/完整4B交换提供者保持；不重验通用算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_sort_alignment_spec.md",
+        "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "入口一次取特殊W8/预留3或4；W16计数S16扩后S32容量比较，原EAX更新AX及共享count，首槽沿新AX；各项layer先写，后取共享count写cacheIndex，再image=-1/value4=0/空原生地址/batch，末再取共享count递增W16返回下一槽。三必选及可选项序保持，最后本地AX按S16扩S32后以W32数量消费真实原排序模板。仅4Bcache3排序、主record/未写字段/owner保持；额外负数保护撤销，异常域按RPLAN.24不记安全/故障等价。完整13父/上游/消费/间接alias及寿命、画面运行未验。",
+      "verification_level": "两完整84/19共103条与13个8条caller窗口；三限定CPP补丁和一条头注释外全文保持，旧语义/登记外部保持；未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "SortTextures_520790",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "graphic_sort_alignment": {
+        "spec": "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "evidence": "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "source_changed": true,
+        "original_capacity_gate_retained": true,
+        "extra_negative_guard_removed": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5222A0",
+      "inventory_id": "F:001222A0",
+      "status": "GQS01两完整原体及限定排序接线局部静态已对照；完整父/队列寿命及运行未验",
+      "original_end_exclusive": "0x5222CB",
+      "instruction_count": 19,
+      "original_chunks": [
+        [
+          "0x5222A0",
+          "0x5222CB"
+        ]
+      ],
+      "original_reference_count": 1,
+      "original_direct_reference_count": 0,
+      "original_address_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "CompareGraphicCache3_5222A0"
+          ],
+          "relationship": "原左/右U8层号各一次取样、先大后小；同层先取左S16后取右S16，右减左；真实旧排序消费保持"
+        },
+        {
+          "path": "src/LegacySort.hpp",
+          "symbols": [
+            "SortLegacyRecords_53C112"
+          ],
+          "relationship": "既有真实比较/分区/完整4B交换提供者保持；不重验通用算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_sort_alignment_spec.md",
+        "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "左/右U8层号各一次取样后先大返回1、再小返回-1；同层先左S16后右S16、右减左；原一个地址引用520814经53C112真实间接回调，不记根直接call比较器。既有算法/记录字节交换保持，完整call序/机器ABI、全画面和队列寿命未验。",
+      "verification_level": "两完整84/19共103条与13个8条caller窗口；三限定CPP补丁和一条头注释外全文保持，旧语义/登记外部保持；未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "CompareGraphicCache3_5222A0",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "graphic_sort_alignment": {
+        "spec": "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "evidence": "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "source_changed": true,
+        "original_capacity_gate_retained": true,
+        "extra_negative_guard_removed": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

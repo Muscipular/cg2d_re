@@ -167,11 +167,11 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | 编号 / 范围 | 当前已具备 | 剩余任务 | 完成条件 / 证据 |
 |---|---|---|---|
 | G01 / 图形资源完整生命周期 | 读取/解码/调色板/DBF、多处父及四容器已有；AIS01按原序迁入四调用并删除旧模块 | 按初始化→加载→重建→场景释放→进程退出补共享owner/失效与全标准流依赖 | [DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[AIS01](../doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)；本组顺序不代装载/清理或运行验收 |
-| G02 / 队列与命中 | 48B队列、RenderChara、DrawAllQueued、507140及指定caller已有 | 全场景生产、文本token/对象借用有效期、清理后访问 | [命中](../doc/cg2d_sub_507140.md)、[绘制源码](../src/render/DrawAllQueued.cpp)；指定接线不等于全场景闭环 |
+| G02 / 队列与命中 | 48B队列、RenderChara/DrawAllQueued/507140已有；GQS01钳制后AX/共享取样/最终S16排序数量已修，12调用承接13原点 | 全场景生产/父参数、文本token/对象借用有效期、间接alias及清理后访问 | 保持open；[GQS01](../doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)、[命中](../doc/cg2d_sub_507140.md)；局部排序/既有消费不代全场景闭环 |
 | G03 / 模式2/3/4 | MakeSurface尺寸/格式门禁、接口/设备生产与探测已有 | 模式切换/回退、裁剪、采样/混合、提交及重建真实流程 | [纹理](../doc/cg2d_texture_rendering.md)、[呈现](../doc/cg2d_sdl_presenter.md)；像素/实际driver留V04 |
 | G04 / 渲染替换差异 | SDL自动driver、CPU Back/Temp、DX原生ABI豁免已批 | 逐上层函数核RAND、W32/S16、坐标/色键/生命周期/提交序 | 仅DX边界豁免HRESULT/COM，不豁免上层；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
 | G05 / 原图标/光标 | 使用关系有记录，原资源取得/权限未闭合 | 明确合法可用原资源与读取条件 | 不重开原EXE、不造替代图/下载；[启动](../doc/cg2d_startup_flow.md)、[资源来源](../doc/cg2d_resource_sources.md) |
-| T01 / 文本生产消费合同 | 输入/文本生产与FLC01字体族/度量/派生写序、两文本消费分支局部已对照 | 各来源编码、容量/NUL、共享存储、字节/像素单位及全部上游/排序/资源/生命周期继续逐链归档 | 保持open；[文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)、[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)；不推全工程代码页/验收 |
+| T01 / 文本生产消费合同 | 输入/文本生产及字体消费已局部对照；GQS01原钳制后首槽/每项共享取样/最终S16排序数量已修 | 各来源编码、容量/NUL、共享存储、字节/像素单位及全部上游/命中/排序父/资源/生命周期逐链归档 | 保持open；[GQS01](../doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)、[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)、[文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)；不推全工程代码页/验收 |
 | T02 / 输入/IME差异 | 输入/队列生产与FLC01字体初始化/原消费/释放局部对齐；保存族号/width-face-height及unsigned派生钳制落实 | 全部上游/原新参数、排序/初始化退出/资源父、焦点/索引、原API候选/间接alias及完整寿命，SDK/画面运行未验 | 保持open；[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)、[TQP01](../doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)；D05/RPLAN.24保持 |
 | T03 / 字体与显示 | 原字节TextOutA、共享Back DIB和case4已接 | 目标字体、字形、原字节显示边界及现有失败/超长处理的适用范围 | [字体](../doc/cg2d_font_measure.md)、[文本SPEC](../doc/cg2d_text_encoding_spec.md)；原数据不被显示副本反写，实际画面留V04 |
 

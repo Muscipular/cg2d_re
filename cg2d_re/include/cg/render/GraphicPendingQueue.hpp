@@ -136,7 +136,7 @@ void Sub_520930(float* value);
 // 原 sub_521870@[0x521870,0x5219B5)：共享 CPU Back/Temp 的波纹条带回拷。
 std::int32_t Sub_521870();
 
-// 原 Renderer::SortTextures@[0x520790,0x5208E8)；只重排 cache3 索引记录。
+// 原 Renderer::SortTextures@[0x520790,0x5208E8)；追加原保留项后只排序 cache3，主记录不重排。
 void SortTextures_520790();
 
 // 原 520DD0：完整 0..12 批次消费，不清队列计数；末尾老化调色板并清特殊标志。

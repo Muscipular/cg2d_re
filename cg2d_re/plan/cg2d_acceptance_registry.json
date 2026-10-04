@@ -854,7 +854,8 @@
         "doc/cg2d_sub_507140.md",
         "doc/cg2d_graphic_transform_lifecycle_spec.md",
         "doc/cg2d_text_queue_alignment_spec.md",
-        "doc/cg2d_font_lifecycle_alignment_spec.md"
+        "doc/cg2d_font_lifecycle_alignment_spec.md",
+        "doc/cg2d_graphic_sort_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -871,7 +872,9 @@
         "F:00121A30",
         "F:00056190",
         "F:00056530",
-        "F:00056D70"
+        "F:00056D70",
+        "F:00120790",
+        "F:001222A0"
       ],
       "closure_task_ids": [
         "C09",
@@ -888,20 +891,23 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
         "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
         "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
-        "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "GQS01两排序根103条/13局部原调用窗口只局部静态，原钳制后AX/每项两次共享取样/最终S16数量已修；完整父参数/上游/命中消费、间接alias及队列资源寿命、机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline"
       ]
     },
     {
@@ -7839,6 +7845,96 @@
       "observation": "仅三完整558条、数据字节/caller窗口及五限定源补丁",
       "expected": "五限定源码补丁外全文、全部旧语义/登记外部保持，原COM偏移只存未解析操作",
       "actual": "558原指令/10operand及face/39颜色可追，三根新映射/限定处置；字形/画面与运行未验"
+    },
+    {
+      "feature_id": "FUNC-RENDER",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整103条及13个局部caller窗口；doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-sort-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-acceptance",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
+        "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/LegacySort.hpp",
+        "src/platform/MainLoopState.cpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/GraphicHitTest.cpp#Sub_507140"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-GRAPHIC-SORT-I-20261005",
+      "gate": "I",
+      "observation": "仅两排序/比较器根适用原正常/容量钳制路径",
+      "expected": "首槽沿原钳制后AX、layer后取索引/记录后取递增、最终S16数量和一次层号/同层索引取样落实；原容量门禁保留",
+      "actual": "排序实际修正、额外负数拒绝撤销；未写字段/真实原算法保持，异常域不记安全/故障等价"
+    },
+    {
+      "feature_id": "FUNC-RENDER",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整103条及13个局部caller窗口；doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-sort-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-acceptance",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
+        "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/LegacySort.hpp",
+        "src/platform/MainLoopState.cpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/GraphicHitTest.cpp#Sub_507140"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-GRAPHIC-SORT-W-20261005",
+      "gate": "W",
+      "observation": "仅原13调用点/新12词法公共复用、唯一队列及现有消费/清标志接线",
+      "expected": "原调用点/公共复用及共享owner保持，实际保留项消费/命中再次排序存在",
+      "actual": "13逻辑点由12词法调用承接，原count/flag未装载ff不当初值；完整父/消费/间接alias及寿命未验"
+    },
+    {
+      "feature_id": "FUNC-RENDER",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整103条及13个局部caller窗口；doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-sort-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-acceptance",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "doc/cg2d_graphic_sort_alignment_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/GraphicPendingQueue.cpp#AppendReservedGraphic",
+        "src/render/GraphicPendingQueue.cpp#CompareGraphicCache3_5222A0",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/LegacySort.hpp",
+        "src/platform/MainLoopState.cpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/GraphicHitTest.cpp#Sub_507140"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-GRAPHIC-SORT-S-20261005",
+      "gate": "S",
+      "observation": "仅两完整103条/13局部窗口与三限定源码补丁",
+      "expected": "旧AX误读撤销，完整原指令/原真实53C112目标和比较器地址引用可追，限定源/旧台账外部保持",
+      "actual": "103原指令及104局部窗口已存，两根新映射/限定处置；机器ABI/画面和运行未验"
     }
   ],
   "task_acceptance": [
@@ -8031,7 +8127,8 @@
         "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure"
       ]
     },
     {
@@ -8971,6 +9068,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00120790",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001222A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure"
       ]
     }
   ],

@@ -1505,3 +1505,23 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)补456190/456530/456D70三个此前无语义根，330/15/213共558条与三个唯一caller/原字节和数据具名。初始化实际修正本地族选择、保存S8族号/width-face-height与unsigned钳制，两个已正确体不改；原初始化caller传0已正确，不制造配置缺口。
 
 1194→1197条/有效ID1191→1194，18pending/4分类引用保持；三限定equivalent使107→110/3680，三E-FONT-LIFECYCLE-I/W/S-20261005使63→66，固定快照cg2d-re-font-lifecycle-source-20261005。DIB/DC适配、所有caller/接口与owner未改，COM偏移只记间接操作；完整父/别名/资源寿命与SDK/字形/运行未验，T01/T02仍open、10/60任务/0叶/完整门禁保持。
+
+## GQS01图形队列保留槽与排序取样对照（2026-10-05）
+
+[局部SPEC与源码结论](cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)及
+[完整只读证据](cg2d_graphic_sort_alignment_evidence.json)保存520790 84条、
+5222A0 19条，共103条及13个局部caller窗104条。
+原5207BC/5207C1会更新AX，旧首槽沿旧计数说明撤销；源码已按钳制后AX定位，
+撤销额外负数保护，并保每项layer后读索引/四记录写后读count递增、最后本地AX按S16扩W32数量。
+比较器左/右层号各取一次，先大后小判断；同层先读左索引再右索引，右减左。既有真实53C112分区/完整4B记录交换不改。
+
+12词法调用对应13原点，458390/4585F0两加载父复用AdvanceLoadingFadeFrame。
+唯一W16计数owner及现有case6/7/8/9消费/清特殊标志、命中两次重排可查；
+5222A0来自520814函数地址压栈，不误记为520790直接call。
+数据库count/flag读取ff标未装载、无值，不当初值，当前owner不变。
+
+新增F:00120790/F:001222A0两唯一语义，1197旧记录不改：
+1199条/1196有效原ID、3无独立ID、18 pending、4分类引用；
+限定处置112/3680，I/W/S证据69条，任务10/60、叶0/182、完整门禁和全局闭包保持。
+完整父参数/上游/间接alias及队列资源寿命、机器ABI/画面运行未验，RPLAN.24异常不记安全/故障等价。
+没有构建、查产物、新增/执行测试、运行或摘要；不推整体已完成。

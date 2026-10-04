@@ -11,7 +11,7 @@ namespace cg::platform {
 // 不自动初始化/构析/分配，不接宿主streambuf；六间接槽可指向自身或实际外部字段。
 template <typename Character>
 struct LegacyStreamBufferStorage final {
-    const void* virtualTable;             // 原+00；实际原生方法表，本组仅调用槽1/4/5。
+    const void* virtualTable;             // 原+00；实际原生方法表，按已证槽类型化调用。
     Character* readBase;                  // 原+04。
     Character* writeBase;                 // 原+08。
     Character** readBaseSlot;             // 原+0C。
@@ -38,7 +38,7 @@ static_assert(offsetof(LegacyWideStreamBuffer, readCurrentSlot) == 56);
 static_assert(offsetof(LegacyWideStreamBuffer, readRemainingSlot) == 80);
 static_assert(sizeof(LegacyWideStreamBuffer) == 96);
 
-// 四个真实原表接口；两基类表已定义，派生表绑定待，不接SDK vft。
+// 四个真实原表接口均已定义/绑定各13槽；仅原生函数地址，不接SDK vft。
 struct LegacyNarrowStreamBufferMethods;
 struct LegacyWideStreamBufferMethods;
 extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;

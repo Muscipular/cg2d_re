@@ -693,4 +693,158 @@ LegacyWideStreamBufferObject* SetLegacyWideFileBuffer_549CE5(
     return &storage->base;
 }
 
+namespace {
+
+// 仅派生实际表把真实filebuf.base首成员地址还原为所属对象；不覆盖独立基类存储。
+LegacyNarrowStreamBufferObject* NarrowFileDeleteMethod(
+    LegacyNarrowStreamBufferObject* const storage, const std::uint32_t flags)
+{
+    return reinterpret_cast<LegacyNarrowStreamBufferObject*>(DeleteLegacyNarrowFileBuffer_548D4D(
+        reinterpret_cast<LegacyNarrowFileBuffer*>(storage), flags));
+}
+
+LegacyWideStreamBufferObject* WideFileDeleteMethod(
+    LegacyWideStreamBufferObject* const storage, const std::uint32_t flags)
+{
+    return reinterpret_cast<LegacyWideStreamBufferObject*>(DeleteLegacyWideFileBuffer_549DA2(
+        reinterpret_cast<LegacyWideFileBuffer*>(storage), flags));
+}
+
+std::int32_t NarrowFileOverflowMethod(
+    LegacyNarrowStreamBufferObject* const storage, const std::int32_t character)
+{
+    return WriteLegacyNarrowFileBuffer_548843(
+        reinterpret_cast<LegacyNarrowFileBuffer*>(storage), character);
+}
+
+std::uint16_t WideFileOverflowMethod(
+    LegacyWideStreamBufferObject* const storage, const std::uint16_t character)
+{
+    return WriteLegacyWideFileBuffer_54999A(
+        reinterpret_cast<LegacyWideFileBuffer*>(storage), character);
+}
+
+std::int32_t NarrowFilePutBackMethod(
+    LegacyNarrowStreamBufferObject* const storage, const std::int32_t character)
+{
+    return PutBackLegacyNarrowFileBuffer_548979(
+        reinterpret_cast<LegacyNarrowFileBuffer*>(storage), character);
+}
+
+std::uint16_t WideFilePutBackMethod(
+    LegacyWideStreamBufferObject* const storage, const std::uint16_t character)
+{
+    return PutBackLegacyWideFileBuffer_549AE2(
+        reinterpret_cast<LegacyWideFileBuffer*>(storage), character);
+}
+
+std::int32_t NarrowFilePeekMethod(LegacyNarrowStreamBufferObject* const storage)
+{
+    return PeekLegacyNarrowFileBuffer_548A26(reinterpret_cast<LegacyNarrowFileBuffer*>(storage));
+}
+
+std::uint16_t WideFilePeekMethod(LegacyWideStreamBufferObject* const storage)
+{
+    return PeekLegacyWideFileBuffer_549B99(reinterpret_cast<LegacyWideFileBuffer*>(storage));
+}
+
+std::int32_t NarrowFileReadMethod(LegacyNarrowStreamBufferObject* const storage)
+{
+    return ReadLegacyNarrowFileBuffer_548A53(reinterpret_cast<LegacyNarrowFileBuffer*>(storage));
+}
+
+std::uint16_t WideFileReadMethod(LegacyWideStreamBufferObject* const storage)
+{
+    return ReadLegacyWideFileBuffer_549BC7(reinterpret_cast<LegacyWideFileBuffer*>(storage));
+}
+
+template <typename Character>
+std::int32_t FileZeroMethod(LegacyStreamBufferObject<Character>* const storage)
+{
+    return DefaultLegacyStreamZero_54977F(&storage->buffer);
+}
+
+template <typename Character>
+LegacyStreamPosition* FileSeekOffsetMethod(
+    LegacyStreamBufferObject<Character>* const storage, LegacyStreamPosition* const result,
+    const std::uint32_t offsetBits, const std::uint32_t originBits,
+    const std::uint32_t modeBits)
+{
+    return SeekLegacyFileBufferOffset_548B68(
+        reinterpret_cast<LegacyFileBufferStorage<Character>*>(storage), result,
+        std::bit_cast<std::int32_t>(offsetBits), originBits, modeBits);
+}
+
+template <typename Character>
+LegacyStreamPosition* FileSeekPositionMethod(
+    LegacyStreamBufferObject<Character>* const storage, LegacyStreamPosition* const result,
+    const LegacyStreamPosition position, const std::uint32_t modeBits)
+{
+    return SeekLegacyFileBufferPosition_548BEA(
+        reinterpret_cast<LegacyFileBufferStorage<Character>*>(storage), result, position, modeBits);
+}
+
+LegacyNarrowStreamBufferObject* NarrowFileSetBufferMethod(
+    LegacyNarrowStreamBufferObject* const storage, char* const buffer,
+    const std::uint32_t countBits)
+{
+    return SetLegacyNarrowFileBuffer_548CAC(
+        reinterpret_cast<LegacyNarrowFileBuffer*>(storage), buffer, countBits);
+}
+
+LegacyWideStreamBufferObject* WideFileSetBufferMethod(
+    LegacyWideStreamBufferObject* const storage, std::uint16_t* const buffer,
+    const std::uint32_t countBits)
+{
+    return SetLegacyWideFileBuffer_549CE5(
+        reinterpret_cast<LegacyWideFileBuffer*>(storage), buffer, countBits);
+}
+
+template <typename Character>
+std::int32_t FileSyncMethod(LegacyStreamBufferObject<Character>* const storage)
+{
+    return SyncLegacyFileBuffer_549D13(reinterpret_cast<LegacyFileBufferStorage<Character>*>(storage));
+}
+
+template <typename Character>
+void FileNoOpMethod(
+    LegacyStreamBufferObject<Character>* const storage, const std::uint32_t ignoredStackValue)
+{
+    DefaultLegacyStreamNoOp_5487D0(&storage->buffer, ignoredStackValue);
+}
+
+} // namespace
+
+// 原派生两个13槽常量表；四批量槽直接用实际基类，其他真实目标经地址适配调用。
+const LegacyNarrowStreamBufferMethods gLegacyNarrowFileBufferMethods54FFD4{
+    NarrowFileDeleteMethod,
+    NarrowFileOverflowMethod,
+    NarrowFilePutBackMethod,
+    FileZeroMethod<char>,
+    NarrowFilePeekMethod,
+    NarrowFileReadMethod,
+    ReadLegacyNarrowStreamBuffer_5486E6,
+    WriteLegacyNarrowStreamBuffer_54875A,
+    FileSeekOffsetMethod<char>,
+    FileSeekPositionMethod<char>,
+    NarrowFileSetBufferMethod,
+    FileSyncMethod<char>,
+    FileNoOpMethod<char>
+};
+const LegacyWideStreamBufferMethods gLegacyWideFileBufferMethods550070{
+    WideFileDeleteMethod,
+    WideFileOverflowMethod,
+    WideFilePutBackMethod,
+    FileZeroMethod<std::uint16_t>,
+    WideFilePeekMethod,
+    WideFileReadMethod,
+    ReadLegacyWideStreamBuffer_5497A8,
+    WriteLegacyWideStreamBuffer_54982F,
+    FileSeekOffsetMethod<std::uint16_t>,
+    FileSeekPositionMethod<std::uint16_t>,
+    WideFileSetBufferMethod,
+    FileSyncMethod<std::uint16_t>,
+    FileNoOpMethod<std::uint16_t>
+};
+
 } // namespace cg::platform

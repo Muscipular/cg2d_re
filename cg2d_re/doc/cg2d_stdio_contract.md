@@ -3992,3 +3992,28 @@ seekOffset先取FILE，非空真实fseek(S32 offset,W32 origin)完整0后重取F
 seekPosition先输入low、额外offset S32、high，再FILE并发布局部high；FILE非空先真实fsetpos，额外offset非0才重取FILE作fseek(CUR1)，成功再重取FILE作fgetpos。全部成功后仅scratchString非空才把输入状态写current，再采样npos对缓存串erase；不查转换器、不恢复backup，不回滚清串失败。返回位置仅改输入四已证W32：offset0、当前位置两半和当时current；失败用同顺序默认槽四值。整24B复制实际by-value输入对象表示，保留未写区域而不填充；源级by-value/SDK ABI及偶然栈字节没有等价结论。
 
 setbuf各只读一次FILE，空或真实setvbuf完整非0返空，成功返实际base首成员地址。窄char缓冲/count W32原传，宽U16缓冲仅非拥有字节视图，countBits+countBits保持原W32相加，mode0；不乘原生sizeof、不钳制、不增保护/所有权。八call接既有fseek两、fgetpos两、fsetpos一、erase一、setvbuf两；fseek业务18原数组保持，新库2另列，实际20/25，其余调用数量2/2、1/1、2/2仅表示原调用点已消费。152B派生/104B基类/24B位置布局、两个加载默认位置槽与三个未定义状态种子不改。仅新增静态核对、不执行算法；派生表绑定、owner/转换器生产/启动退出/模式3和SDK/EH/完整运行门禁继续待。
+
+
+### 2026-10-04 增量SPEC：两派生filebuf真实方法表
+
+范围原54FFD4/550070两实际13槽表的26 DD目标源码定义/绑定，零新原函数身份。先前已取26原目标，不回读表或已过入口算法。沿既有13字段/104B原生接口和真实filebuf.base首成员，定义两个const表；构析原写表地址现在接真实定义，不增加SDK对象/退出登记/自动owner、动态影子初始化或外部依赖。
+
+| 槽 | 方法 | 窄原目标 | 宽原目标 |
+| --- | --- | --- | --- |
+| 0 | deletingDestructor | 548D4D | 549DA2 |
+| 1 | overflow | 548843 | 54999A |
+| 2 | pbackfail | 548979 | 549AE2 |
+| 3 | showMany | 54977F | 54977F |
+| 4 | underflow | 548A26 | 549B99 |
+| 5 | uflow | 548A53 | 549BC7 |
+| 6 | read | 5486E6 | 5497A8 |
+| 7 | write | 54875A | 54982F |
+| 8 | seekOffset | 548B68 | 548B68 |
+| 9 | seekPosition | 548BEA | 548BEA |
+| 10 | setBuffer | 548CAC | 549CE5 |
+| 11 | sync | 549D13 | 549D13 |
+| 12 | noOp | 5487D0 | 5487D0 |
+
+工程裁决：4个批量槽直接用真实基类函数地址；其余22槽实例经17个局部适配函数调用已实现目标，不复制默认0/-1/空动作。真实基类地址只在实际派生表调用中还原为152B所属filebuf，删除返回仅地址互转，不在释放后读成员；默认叶直接用真实96B缓冲首成员。offset字段原W32以bit_cast为S32给已证消费，其余数量/模式/flags保持W32，宽字符U16。setBuffer返实际base，sync调用原共用本体，位置by-value沿既有24B接口，无SDK fpos_t/streampos互转；源级参数复制/未写区域及末槽12参数性质、真实caller签名没有ABI等价结论。
+
+25原记录同步26对应源码绑定和4构析依赖；只更新当前结构化表定义/槽引用/消费者门禁，旧本体、调用数组与两基类表算法不变。基类26+派生26共52源码槽目标绑定，不能代计完整标准流owner/启动退出、三个种子、原堆模式3、转换器真实生产/全表或SDK/EH/运行验收。仅新增静态核对，不新增/执行测试、编译、运行或hash核验。

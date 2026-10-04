@@ -36552,31 +36552,125 @@
     {
       "original_entry": "0x5486C9",
       "inventory_id": "F:001486C9",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x5486E6",
       "instruction_count": 14,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x550020",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ConsumeLegacyNarrowStreamBuffer_5486C9"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "ConsumeLegacyNarrowStreamBuffer_5486C9"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄uflow：先调虚表+10的underflow，完整EAX为FFFFFFFF即返回；否则Gninc后从旧游标读U8并零扩展。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄uflow：先调虚表+10的underflow，完整EAX为FFFFFFFF即返回；否则Gninc后从旧游标读U8并零扩展。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x5486C9",
+          "call_site": "0x5486DC",
+          "target_entry": "0x548EB5",
+          "target_symbol": "IncrementLegacyReadCursor_548EB5",
+          "arguments": "&storage->buffer",
+          "relationship": "underflow正常后真实Gninc重取实际游标，读取返回旧位置U8，不直接返回peek字符",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyNarrowStreamBuffer_5486C9"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x5486C9",
+          "call_site": "0x5486CE",
+          "slot": 4,
+          "member": "underflow",
+          "original_slot_offset": 16,
+          "native_slot_offset": 32,
+          "return_contract": "完整S32，仅-1为EOF；成功后仍Gninc重读旧游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyNarrowStreamBuffer_5486C9",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x550020",
+          "target": "0x5486c9",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x5486E6",
       "inventory_id": "F:001486E6",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x54875A",
       "instruction_count": 52,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x54FFEC",
@@ -36587,20 +36681,120 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ReadLegacyNarrowStreamBuffer_5486E6"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "ReadLegacyNarrowStreamBuffer_5486E6"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄xsgetn：S32请求非正返回0；有游标且余量正时取较小数量交541620，随后重读余量/游标槽再更新；否则虚调+14，遇FFFFFFFF停止并返回已复制数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄xsgetn：S32请求非正返回0；有游标且余量正时取较小数量交541620，随后重读余量/游标槽再更新；否则虚调+14，遇FFFFFFFF停止并返回已复制数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x5486E6",
+          "call_site": "0x548719",
+          "target_entry": "0x541620",
+          "target_symbol": "CopyLegacyMemory_541620",
+          "arguments": "output, current, U32(copied)",
+          "relationship": "真实原复制/别名与重叠方向；完成后先重取余量槽，再更新完成/请求/余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyNarrowStreamBuffer_5486E6"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x5486E6",
+          "call_site": "0x548739",
+          "slot": 5,
+          "member": "uflow",
+          "original_slot_offset": 20,
+          "native_slot_offset": 40,
+          "return_contract": "完整S32 -1停；其余仅低U8写输出",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyNarrowStreamBuffer_5486E6",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x54ffec",
+          "target": "0x5486e6",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        },
+        {
+          "address": "0x550024",
+          "target": "0x5486e6",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x54875A",
       "inventory_id": "F:0014875A",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x5487D0",
       "instruction_count": 53,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x54FFF0",
@@ -36611,11 +36805,111 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "WriteLegacyNarrowStreamBuffer_54875A"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "WriteLegacyNarrowStreamBuffer_54875A"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄xsputn：正请求按可用余量批量541620复制后重读写槽，或零扩展源U8调用虚表+4；完整FFFFFFFF停止，返回完成数量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "窄xsputn：正请求按可用余量批量541620复制后重读写槽，或零扩展源U8调用虚表+4；完整FFFFFFFF停止，返回完成数量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x54875A",
+          "call_site": "0x54878D",
+          "target_entry": "0x541620",
+          "target_symbol": "CopyLegacyMemory_541620",
+          "arguments": "current, input, U32(copied)",
+          "relationship": "真实原复制/别名；完成后先重取写余量槽，再更新局部计数/槽，不能缓存复制前槽",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyNarrowStreamBuffer_54875A"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x54875A",
+          "call_site": "0x5487B1",
+          "slot": 1,
+          "member": "overflow",
+          "original_slot_offset": 4,
+          "native_slot_offset": 8,
+          "return_contract": "源U8零扩展传S32，完整-1停；先源字节读取后重取当前表",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyNarrowStreamBuffer_54875A",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x54fff0",
+          "target": "0x54875a",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        },
+        {
+          "address": "0x550028",
+          "target": "0x54875a",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x548EA5",
@@ -36745,12 +37039,19 @@
             "LegacyStreamBufferStorage"
           ],
           "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ConsumeLegacyNarrowStreamBuffer_5486C9"
+          ],
+          "relationship": "新增uflow/窄宽批量原实际父点；共享游标/余量槽时点保持，已过依赖不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄Gninc：先递减所指余量，再保存旧游标并发布旧值+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "boundary": "窄Gninc：先递减所指余量，再保存旧游标并发布旧值+1B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。；2026-10-04新增streambuf真实父点0x5486DC，原窄复制后重取槽/宽逐W16前向复制后bump与uflow先underflow再Gninc顺序保持；旧本体与已接范围不复检，实际表/槽目标及上游完整owner/运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyNarrowStreamBuffer",
@@ -36809,7 +37110,19 @@
           }
         },
         "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
-      }
+      },
+      "stream_virtual_transfer_parent_call_connections": [
+        {
+          "parent_entry": "0x5486C9",
+          "call_site": "0x5486DC",
+          "target_entry": "0x548EB5",
+          "target_symbol": "IncrementLegacyReadCursor_548EB5",
+          "arguments": "&storage->buffer",
+          "relationship": "underflow正常后真实Gninc重取实际游标，读取返回旧位置U8，不直接返回peek字符",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyNarrowStreamBuffer_5486C9"
+        }
+      ]
     },
     {
       "original_entry": "0x548EC5",
@@ -36909,31 +37222,125 @@
     {
       "original_entry": "0x549787",
       "inventory_id": "F:00149787",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x5497A8",
       "instruction_count": 14,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x5500BC",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ConsumeLegacyWideStreamBuffer_549787"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "ConsumeLegacyWideStreamBuffer_549787"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽uflow：先虚调underflow并仅比较AX与FFFF；EOF路径返回0000FFFF，成功Gninc后读取W16到AX，不能泛化为完整W32字符返回。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽uflow：先虚调underflow并仅比较AX与FFFF；EOF路径返回0000FFFF，成功Gninc后读取W16到AX，不能泛化为完整W32字符返回。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x549787",
+          "call_site": "0x54979E",
+          "target_entry": "0x549E2D",
+          "target_symbol": "IncrementLegacyWideReadCursor_549E2D",
+          "arguments": "&storage->buffer",
+          "relationship": "underflow非FFFF后真实宽Gninc读取旧位置W16，只规定U16",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyWideStreamBuffer_549787"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x549787",
+          "call_site": "0x54978C",
+          "slot": 4,
+          "member": "underflow",
+          "original_slot_offset": 16,
+          "native_slot_offset": 32,
+          "return_contract": "U16，仅FFFF为EOF，不能归一成窄-1或规定成功高W16",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyWideStreamBuffer_549787",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x5500bc",
+          "target": "0x549787",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x5497A8",
       "inventory_id": "F:001497A8",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x54982F",
       "instruction_count": 61,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x550088",
@@ -36944,20 +37351,120 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ReadLegacyWideStreamBuffer_5497A8"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "ReadLegacyWideStreamBuffer_5497A8"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽xsgetn：S32请求非正返回0；余量先shl1/sar1，再按较小数逐W16正向复制，之后gbump；无可用块则虚调+14，仅AX==FFFF时停止。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽xsgetn：S32请求非正返回0；余量先shl1/sar1，再按较小数逐W16正向复制，之后gbump；无可用块则虚调+14，仅AX==FFFF时停止。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x5497A8",
+          "call_site": "0x549800",
+          "target_entry": "0x549E08",
+          "target_symbol": "BumpLegacyWideReadCursor_549E08",
+          "arguments": "&storage->buffer, copied",
+          "relationship": "逐W16正向复制，完成/请求/输出推进后真实gbump重新读取实际余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyWideStreamBuffer_5497A8"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x5497A8",
+          "call_site": "0x54980B",
+          "slot": 5,
+          "member": "uflow",
+          "original_slot_offset": 20,
+          "native_slot_offset": 40,
+          "return_contract": "仅U16 FFFF停，其余原W16写输出",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyWideStreamBuffer_5497A8",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x550088",
+          "target": "0x5497a8",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        },
+        {
+          "address": "0x5500c0",
+          "target": "0x5497a8",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x54982F",
       "inventory_id": "F:0014982F",
-      "status": "原streambuf本体已取证；宿主承接和完整流生命周期未实现/未验收",
+      "status": "原streambuf默认消费与窄宽批量六本体及实际虚调用消费者已实现；四表定义/槽绑定与完整owner运行未闭",
       "original_end_exclusive": "0x5498B7",
       "instruction_count": 62,
       "original_direct_reference_count": 2,
-      "verification_level": "完整代码指令及全部直接入向，含虚表数据引用",
+      "verification_level": "新增六体256条、6原数值直调/6真实虚调槽、窄完整W32/宽U16与S32 shl1/sar1、窄复制后槽重取/宽W16前向复制、部分方法接口13地址槽和五文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x55008C",
@@ -36968,11 +37475,111 @@
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "WriteLegacyWideStreamBuffer_54982F"
+          ],
+          "relationship": "完整真实uflow/xsgetn/xsputn原生源，char/U16差异/六间接槽/当前表与重叠/EOF次序保持"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "WriteLegacyWideStreamBuffer_54982F"
+          ],
+          "relationship": "真实104B基类/首成员接口与本组槽1/4/5类型，S32请求/字符数/窄S32宽U16保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽xsputn：可用余量经shl1/sar1后逐W16正向复制并pbump；无块时源W16到AX后虚调+4，仅AX==FFFF停止，返回已完成字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。"
+      "boundary": "宽xsputn：可用余量经shl1/sar1后逐W16正向复制并pbump；无块时源W16到AX后虚调+4，仅AX==FFFF停止，返回已完成字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04真实六体/6直调/6消费者虚调，主动调用仅已证槽1/4/5，当前实际表每次回退时重取，不保全循环快照/空保护。uflow先underflow，成功仍真实Gninc读旧位置，窄U8零扩S32/宽只U16。批量S32非正原返0，不读槽/输入；正请求缓存当轮实际游标，非空且余量正才取较小数量。窄真实541620后先重取余量槽地址，再完成/请求/余量，后重取游标槽与局部指针/槽推进；宽余量原S32 shl1/sar1位型折返、逐W16前向读写，不调memcpy/memmove，完成/请求/局部指针推进后真实gbump/pbump重取槽。回退读uflow/写先U8或W16输入后当前表overflow，原宽FFFF/窄完整FFFFFFFF才停并返回真实已完成字符数；不加编码/预清/钳制、事务回滚或固定成功。104B基类/152B派生布局未变，实际四表对象继续extern未定义，不以部分接口/消费者代码称全槽接线或完整运行。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "native_method_table_interface": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferMethods",
+        "original_address_slots": 13,
+        "native_size": 104,
+        "typed_consumer_slots": [
+          1,
+          4,
+          5
+        ],
+        "opaque_address_only_slots": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "receiver": "实际窄/宽104B基类或filebuf.base，无SDK对象互转/影子路由",
+        "boundary": "其余槽只函数地址载体，禁止通过void(*)()调用，不定义空函数/空表；四真实extern表仍未定义，完整槽接口/目标绑定待"
+      },
+      "stream_virtual_transfer_internal_call_connections": [
+        {
+          "parent_entry": "0x54982F",
+          "call_site": "0x549887",
+          "target_entry": "0x549E3D",
+          "target_symbol": "BumpLegacyWideWriteCursor_549E3D",
+          "arguments": "&storage->buffer, copied",
+          "relationship": "逐W16正向复制，完成/请求/源推进后真实pbump重新读取实际余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyWideStreamBuffer_54982F"
+        }
+      ],
+      "stream_virtual_transfer_dispatch_calls": [
+        {
+          "parent_entry": "0x54982F",
+          "call_site": "0x549896",
+          "slot": 1,
+          "member": "overflow",
+          "original_slot_offset": 4,
+          "native_slot_offset": 8,
+          "return_contract": "先源W16读取后取当前表，U16入参/返回，仅FFFF停",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyWideStreamBuffer_54982F",
+          "receiver": "真实LegacyNarrow/WideStreamBufferObject*，filebuf的base实际首成员",
+          "boundary": "消费者实际类型化虚调用已实现；四真实表仍extern未定义，不算槽目标已绑定/真实运行完成"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x55008c",
+          "target": "0x54982f",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        },
+        {
+          "address": "0x5500c4",
+          "target": "0x54982f",
+          "kind": 1,
+          "boundary": "原数据引用仅证槽目标，当前全表目标尚未绑定"
+        }
+      ]
     },
     {
       "original_entry": "0x549E08",
@@ -37003,12 +37610,19 @@
             "LegacyWideStreamBuffer"
           ],
           "relationship": "唯一真实显式this接口，已有96B视图，已证U16*地址拓宽/数值S32"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ReadLegacyWideStreamBuffer_5497A8"
+          ],
+          "relationship": "新增uflow/窄宽批量原实际父点；共享游标/余量槽时点保持，已过依赖不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽gbump：所指余量先减S32字符数，再重取游标槽并加2*字符数，不按字节数直接减余量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。",
+      "boundary": "宽gbump：所指余量先减S32字符数，再重取游标槽并加2*字符数，不按字节数直接减余量。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。；2026-10-04新增streambuf真实父点0x549800，原窄复制后重取槽/宽逐W16前向复制后bump与uflow先underflow再Gninc顺序保持；旧本体与已接范围不复检，实际表/槽目标及上游完整owner/运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyWideStreamBuffer",
@@ -37067,7 +37681,19 @@
           }
         },
         "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
-      }
+      },
+      "stream_virtual_transfer_parent_call_connections": [
+        {
+          "parent_entry": "0x5497A8",
+          "call_site": "0x549800",
+          "target_entry": "0x549E08",
+          "target_symbol": "BumpLegacyWideReadCursor_549E08",
+          "arguments": "&storage->buffer, copied",
+          "relationship": "逐W16正向复制，完成/请求/输出推进后真实gbump重新读取实际余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyWideStreamBuffer_5497A8"
+        }
+      ]
     },
     {
       "original_entry": "0x549E1C",
@@ -37197,12 +37823,19 @@
             "LegacyStreamBufferStorage"
           ],
           "relationship": "原+00..+33存储视图，地址原生/数值S32，无构析/分配/影子表"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ConsumeLegacyWideStreamBuffer_549787"
+          ],
+          "relationship": "新增uflow/窄宽批量原实际父点；共享游标/余量槽时点保持，已过依赖不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽Gninc：先减所指余量，保存旧游标并发布旧值+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。",
+      "boundary": "宽Gninc：先减所指余量，保存旧游标并发布旧值+2B，返回旧游标。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE仅宽六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。；2026-10-04新增streambuf真实父点0x54979E，原窄复制后重取槽/宽逐W16前向复制后bump与uflow先underflow再Gninc顺序保持；旧本体与已接范围不复检，实际表/槽目标及上游完整owner/运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyWideStreamBuffer",
@@ -37261,7 +37894,19 @@
           }
         },
         "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
-      }
+      },
+      "stream_virtual_transfer_parent_call_connections": [
+        {
+          "parent_entry": "0x549787",
+          "call_site": "0x54979E",
+          "target_entry": "0x549E2D",
+          "target_symbol": "IncrementLegacyWideReadCursor_549E2D",
+          "arguments": "&storage->buffer",
+          "relationship": "underflow非FFFF后真实宽Gninc读取旧位置W16，只规定U16",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ConsumeLegacyWideStreamBuffer_549787"
+        }
+      ]
     },
     {
       "original_entry": "0x549E3D",
@@ -37292,12 +37937,19 @@
             "LegacyWideStreamBuffer"
           ],
           "relationship": "唯一真实显式this接口，已有96B视图，已证U16*地址拓宽/数值S32"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "WriteLegacyWideStreamBuffer_54982F"
+          ],
+          "relationship": "新增uflow/窄宽批量原实际父点；共享游标/余量槽时点保持，已过依赖不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽pbump：输出侧先从余量减S32字符数，再重取游标槽并加2*字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。",
+      "boundary": "宽pbump：输出侧先从余量减S32字符数，再重取游标槽并加2*字符数。 不建立旧流影子表、不以固定返回填充；CRT宿主提案保持待确认。；2026-10-04实现两间接槽依次副作用，不在扣余量前缓存游标槽，不读写其他字段。调用S32正/零/负值按原正常域传入，不加校验/钳制/保护，不专项模拟越界/溢出；U16*用于2B尺度，原数值不扩宽。已有视图不兼容宿主流，实际上游/虚表/FILE/locale/owner和异常及运行未闭合。；2026-10-04新增streambuf真实父点0x549887，原窄复制后重取槽/宽逐W16前向复制后bump与uflow先underflow再Gninc顺序保持；旧本体与已接范围不复检，实际表/槽目标及上游完整owner/运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyWideStreamBuffer",
@@ -37356,7 +38008,19 @@
           }
         },
         "boundary": "虚表地址仅保留不路由，不含locale/派生字段；不得转换宿主streambuf/FILE或创建影子状态"
-      }
+      },
+      "stream_virtual_transfer_parent_call_connections": [
+        {
+          "parent_entry": "0x54982F",
+          "call_site": "0x549887",
+          "target_entry": "0x549E3D",
+          "target_symbol": "BumpLegacyWideWriteCursor_549E3D",
+          "arguments": "&storage->buffer, copied",
+          "relationship": "逐W16正向复制，完成/请求/源推进后真实pbump重新读取实际余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyWideStreamBuffer_54982F"
+        }
+      ]
     },
     {
       "original_entry": "0x549E51",
@@ -43642,13 +44306,21 @@
             "AssignLegacyNarrowStringFromString_54A315"
           ],
           "relationship": "原549071/549104实际块复制；Grow成功后assign，旧块复制在Tidy前，两源/容量/发布顺序保持；原54A3C8共享/分段赋值的Grow后复制"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "ReadLegacyNarrowStreamBuffer_5486E6",
+            "WriteLegacyNarrowStreamBuffer_54875A"
+          ],
+          "relationship": "新增uflow/窄宽批量原实际父点；共享游标/余量槽时点保持，已过依赖不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。；2026-10-04新增549055@549071/54908A@549104两个原窄字符串真实复制点，源/目标/低U32数量及Grow/Tidy/长度发布顺序保持；核心及其余消费者不复检，完整生命周期/运行未闭合。；2026-10-04再接54A315@54A3C8，源/目标采样和共享/自赋值排斥分支保持；核心及已有点不复检。",
+      "boundary": "目标位于源区间内且在源之后才逆向；已核六组跳表，保持对齐前缀/高端字节、逐W32读后写、剩余逐字节顺序。局部W32用两次std::memcpy表达未对齐读写，不整块替代；零量不读写，指针仅比较边界转uintptr_t。fread/fwrite已接，其他12个原引用未因本体存在视为迁移；网络53D710保持独立。；2026-10-04新增549055@549071/54908A@549104两个原窄字符串真实复制点，源/目标/低U32数量及Grow/Tidy/长度发布顺序保持；核心及其余消费者不复检，完整生命周期/运行未闭合。；2026-10-04再接54A315@54A3C8，源/目标采样和共享/自赋值排斥分支保持；核心及已有点不复检。；2026-10-04新增streambuf真实父点0x548719/0x54878D，原窄复制后重取槽/宽逐W16前向复制后bump与uflow先underflow再Gninc顺序保持；旧本体与已接范围不复检，实际表/槽目标及上游完整owner/运行仍待。",
       "function_chunks": [
         {
           "start": "0x541620",
@@ -43735,6 +44407,28 @@
           "source": "src/platform/LegacyNarrowString.cpp",
           "symbol": "AssignLegacyNarrowStringFromString_54A315",
           "relationship": "非自赋值且不共享时Grow后重取源/staticEmpty+pos，低U32 copied复制；再重取目标/长度/NUL"
+        }
+      ],
+      "stream_virtual_transfer_parent_call_connections": [
+        {
+          "parent_entry": "0x5486E6",
+          "call_site": "0x548719",
+          "target_entry": "0x541620",
+          "target_symbol": "CopyLegacyMemory_541620",
+          "arguments": "output, current, U32(copied)",
+          "relationship": "真实原复制/别名与重叠方向；完成后先重取余量槽，再更新完成/请求/余量/游标",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "ReadLegacyNarrowStreamBuffer_5486E6"
+        },
+        {
+          "parent_entry": "0x54875A",
+          "call_site": "0x54878D",
+          "target_entry": "0x541620",
+          "target_symbol": "CopyLegacyMemory_541620",
+          "arguments": "current, input, U32(copied)",
+          "relationship": "真实原复制/别名；完成后先重取写余量槽，再更新局部计数/槽，不能缓存复制前槽",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "WriteLegacyNarrowStreamBuffer_54875A"
         }
       ]
     },

@@ -11,7 +11,7 @@ namespace cg::platform {
 // 不自动初始化/构析/分配，不接宿主streambuf；六间接槽可指向自身或实际外部字段。
 template <typename Character>
 struct LegacyStreamBufferStorage final {
-    const void* virtualTable;             // 原+00；当前只保留地址，不路由未决虚表。
+    const void* virtualTable;             // 原+00；实际原生方法表，本组仅调用槽1/4/5。
     Character* readBase;                  // 原+04。
     Character* writeBase;                 // 原+08。
     Character** readBaseSlot;             // 原+0C。
@@ -61,6 +61,34 @@ static_assert(sizeof(LegacyNarrowStreamBufferObject) == 104);
 static_assert(offsetof(LegacyWideStreamBufferObject, buffer) == 0);
 static_assert(offsetof(LegacyWideStreamBufferObject, localeImplementation) == 96);
 static_assert(sizeof(LegacyWideStreamBufferObject) == 104);
+
+// 原13函数地址槽；本组只消费槽1/4/5，其余只承载地址，不通过该类型调用。
+using LegacyStreamMethodAddress = void (*)();
+static_assert(sizeof(LegacyStreamMethodAddress) == 8);
+struct LegacyNarrowStreamBufferMethods final {
+    LegacyStreamMethodAddress entry0;
+    std::int32_t (*overflow)(LegacyNarrowStreamBufferObject* storage, std::int32_t character);
+    LegacyStreamMethodAddress entries2To3[2];
+    std::int32_t (*underflow)(LegacyNarrowStreamBufferObject* storage);
+    std::int32_t (*uflow)(LegacyNarrowStreamBufferObject* storage);
+    LegacyStreamMethodAddress entries6To12[7];
+};
+struct LegacyWideStreamBufferMethods final {
+    LegacyStreamMethodAddress entry0;
+    std::uint16_t (*overflow)(LegacyWideStreamBufferObject* storage, std::uint16_t character);
+    LegacyStreamMethodAddress entries2To3[2];
+    std::uint16_t (*underflow)(LegacyWideStreamBufferObject* storage);
+    std::uint16_t (*uflow)(LegacyWideStreamBufferObject* storage);
+    LegacyStreamMethodAddress entries6To12[7];
+};
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, overflow) == 8);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, underflow) == 32);
+static_assert(offsetof(LegacyNarrowStreamBufferMethods, uflow) == 40);
+static_assert(sizeof(LegacyNarrowStreamBufferMethods) == 104);
+static_assert(offsetof(LegacyWideStreamBufferMethods, overflow) == 8);
+static_assert(offsetof(LegacyWideStreamBufferMethods, underflow) == 32);
+static_assert(offsetof(LegacyWideStreamBufferMethods, uflow) == 40);
+static_assert(sizeof(LegacyWideStreamBufferMethods) == 104);
 
 // 原默认字符叶不读取this/栈参；未消费W32实参保持不透明，不推定业务符号性。
 std::int32_t DefaultLegacyNarrowCharacter_5486BF(
@@ -135,5 +163,18 @@ LegacyNarrowStreamBufferObject* DeleteLegacyNarrowStreamBuffer_548D31(
     LegacyNarrowStreamBufferObject* storage, std::uint32_t flags);
 LegacyWideStreamBufferObject* DeleteLegacyWideStreamBuffer_549D86(
     LegacyWideStreamBufferObject* storage, std::uint32_t flags);
+
+// 原uflow：先实际underflow，再真实Gninc，读取旧游标；窄全W32/宽仅U16。
+std::int32_t ConsumeLegacyNarrowStreamBuffer_5486C9(LegacyNarrowStreamBufferObject* storage);
+std::uint16_t ConsumeLegacyWideStreamBuffer_549787(LegacyWideStreamBufferObject* storage);
+// 原xsgetn/xsputn；S32请求/完成字符数，六间接槽和真实虚调用保持。
+std::int32_t ReadLegacyNarrowStreamBuffer_5486E6(
+    LegacyNarrowStreamBufferObject* storage, char* destination, std::int32_t requested);
+std::int32_t WriteLegacyNarrowStreamBuffer_54875A(
+    LegacyNarrowStreamBufferObject* storage, const char* source, std::int32_t requested);
+std::int32_t ReadLegacyWideStreamBuffer_5497A8(
+    LegacyWideStreamBufferObject* storage, std::uint16_t* destination, std::int32_t requested);
+std::int32_t WriteLegacyWideStreamBuffer_54982F(
+    LegacyWideStreamBufferObject* storage, const std::uint16_t* source, std::int32_t requested);
 
 } // namespace cg::platform

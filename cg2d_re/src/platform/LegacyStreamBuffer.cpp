@@ -1,7 +1,9 @@
 #include "LegacyStreamBuffer.hpp"
 
 #include "LegacyHeap.hpp"
+#include "cg/platform/LegacyMemory.hpp"
 
+#include <bit>
 #include <cstring>
 
 namespace cg::platform {
@@ -238,6 +240,205 @@ LegacyWideStreamBufferObject* DeleteLegacyWideStreamBuffer_549D86(
         FreeLegacyHeapMemory_53C0A9(storage);
     }
     return storage;
+}
+
+std::int32_t ConsumeLegacyNarrowStreamBuffer_5486C9(
+    LegacyNarrowStreamBufferObject* const storage)
+{
+    const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
+        storage->buffer.virtualTable);
+    if (methods->underflow(storage) == -1) {
+        return -1;
+    }
+    char* const previous = IncrementLegacyReadCursor_548EB5(&storage->buffer);
+    return static_cast<std::uint8_t>(*previous);
+}
+
+std::uint16_t ConsumeLegacyWideStreamBuffer_549787(
+    LegacyWideStreamBufferObject* const storage)
+{
+    const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
+        storage->buffer.virtualTable);
+    if (methods->underflow(storage) == 0xFFFFu) {
+        return 0xFFFFu;
+    }
+    std::uint16_t* const previous = IncrementLegacyWideReadCursor_549E2D(&storage->buffer);
+    return *previous;
+}
+
+std::int32_t ReadLegacyNarrowStreamBuffer_5486E6(
+    LegacyNarrowStreamBufferObject* const storage, char* const destination,
+    std::int32_t requested)
+{
+    std::int32_t completed = 0;
+    if (requested <= 0) {
+        return completed;
+    }
+    char* output = destination;
+    do {
+        char* const current = *storage->buffer.readCurrentSlot;
+        std::int32_t available = 0;
+        if (current != nullptr) {
+            available = *storage->buffer.readRemainingSlot;
+        }
+        if (current != nullptr && available > 0) {
+            const std::int32_t copied = requested < available ? requested : available;
+            CopyLegacyMemory_541620(output, current, static_cast<std::uint32_t>(copied));
+            // 原复制后先重新读取余量槽地址，再更新完成/请求、余量和游标。
+            std::int32_t* const remainingSlot = storage->buffer.readRemainingSlot;
+            completed += copied;
+            requested -= copied;
+            *remainingSlot -= copied;
+            char** const currentSlot = storage->buffer.readCurrentSlot;
+            output += copied;
+            *currentSlot += copied;
+        } else {
+            const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
+                storage->buffer.virtualTable);
+            const std::int32_t character = methods->uflow(storage);
+            if (character == -1) {
+                break;
+            }
+            *output = std::bit_cast<char>(static_cast<std::uint8_t>(character));
+            ++output;
+            ++completed;
+            --requested;
+        }
+    } while (requested > 0);
+    return completed;
+}
+
+std::int32_t WriteLegacyNarrowStreamBuffer_54875A(
+    LegacyNarrowStreamBufferObject* const storage, const char* const source,
+    std::int32_t requested)
+{
+    std::int32_t completed = 0;
+    if (requested <= 0) {
+        return completed;
+    }
+    const char* input = source;
+    do {
+        char* const current = *storage->buffer.writeCurrentSlot;
+        std::int32_t available = 0;
+        if (current != nullptr) {
+            available = *storage->buffer.writeRemainingSlot;
+        }
+        if (current != nullptr && available > 0) {
+            const std::int32_t copied = requested < available ? requested : available;
+            CopyLegacyMemory_541620(current, input, static_cast<std::uint32_t>(copied));
+            std::int32_t* const remainingSlot = storage->buffer.writeRemainingSlot;
+            completed += copied;
+            requested -= copied;
+            *remainingSlot -= copied;
+            char** const currentSlot = storage->buffer.writeCurrentSlot;
+            input += copied;
+            *currentSlot += copied;
+        } else {
+            // 原先从源U8零扩展，再读取当时虚表；不能先缓存整个循环的表。
+            const std::uint8_t character = static_cast<std::uint8_t>(*input);
+            const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
+                storage->buffer.virtualTable);
+            if (methods->overflow(storage, character) == -1) {
+                break;
+            }
+            ++input;
+            ++completed;
+            --requested;
+        }
+    } while (requested > 0);
+    return completed;
+}
+
+std::int32_t ReadLegacyWideStreamBuffer_5497A8(
+    LegacyWideStreamBufferObject* const storage, std::uint16_t* const destination,
+    std::int32_t requested)
+{
+    std::int32_t completed = 0;
+    if (requested <= 0) {
+        return completed;
+    }
+    std::uint16_t* output = destination;
+    do {
+        std::uint16_t* const current = *storage->buffer.readCurrentSlot;
+        std::int32_t available = 0;
+        if (current != nullptr) {
+            // 原shl1/sar1的S32位型折返，不替换为原余量或容量钳制。
+            available = std::bit_cast<std::int32_t>(
+                std::bit_cast<std::uint32_t>(*storage->buffer.readRemainingSlot) << 1) >> 1;
+        }
+        if (current != nullptr && available > 0) {
+            const std::int32_t copied = requested < available ? requested : available;
+            std::uint16_t* targetCursor = output;
+            const std::uint16_t* sourceCursor = current;
+            for (std::int32_t left = copied; left > 0; --left) {
+                const std::uint16_t character = *sourceCursor;
+                *targetCursor = character;
+                ++targetCursor;
+                ++sourceCursor;
+            }
+            completed += copied;
+            requested -= copied;
+            output += copied;
+            BumpLegacyWideReadCursor_549E08(&storage->buffer, copied);
+        } else {
+            const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
+                storage->buffer.virtualTable);
+            const std::uint16_t character = methods->uflow(storage);
+            if (character == 0xFFFFu) {
+                break;
+            }
+            *output = character;
+            ++output;
+            ++completed;
+            --requested;
+        }
+    } while (requested > 0);
+    return completed;
+}
+
+std::int32_t WriteLegacyWideStreamBuffer_54982F(
+    LegacyWideStreamBufferObject* const storage, const std::uint16_t* const source,
+    std::int32_t requested)
+{
+    std::int32_t completed = 0;
+    if (requested <= 0) {
+        return completed;
+    }
+    const std::uint16_t* input = source;
+    do {
+        std::uint16_t* const current = *storage->buffer.writeCurrentSlot;
+        std::int32_t available = 0;
+        if (current != nullptr) {
+            available = std::bit_cast<std::int32_t>(
+                std::bit_cast<std::uint32_t>(*storage->buffer.writeRemainingSlot) << 1) >> 1;
+        }
+        if (current != nullptr && available > 0) {
+            const std::int32_t copied = requested < available ? requested : available;
+            std::uint16_t* targetCursor = current;
+            const std::uint16_t* sourceCursor = input;
+            for (std::int32_t left = copied; left > 0; --left) {
+                const std::uint16_t character = *sourceCursor;
+                *targetCursor = character;
+                ++targetCursor;
+                ++sourceCursor;
+            }
+            completed += copied;
+            requested -= copied;
+            input += copied;
+            BumpLegacyWideWriteCursor_549E3D(&storage->buffer, copied);
+        } else {
+            const std::uint16_t character = *input;
+            const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
+                storage->buffer.virtualTable);
+            if (methods->overflow(storage, character) == 0xFFFFu) {
+                break;
+            }
+            ++input;
+            ++completed;
+            --requested;
+        }
+    } while (requested > 0);
+    return completed;
 }
 
 } // namespace cg::platform

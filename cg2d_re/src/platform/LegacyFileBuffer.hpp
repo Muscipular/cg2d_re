@@ -144,4 +144,10 @@ LegacyNarrowStreamBufferObject* SetLegacyNarrowFileBuffer_548CAC(
 LegacyWideStreamBufferObject* SetLegacyWideFileBuffer_549CE5(
     LegacyWideFileBuffer* storage, std::uint16_t* buffer, std::uint32_t countBits);
 
+// 原晚段构造只恢复实际派生表/返this；未消费W32保留，不重复_Init或资源构造。
+LegacyNarrowFileBuffer* ConstructLegacyNarrowFileBufferLate_5487D3(
+    LegacyNarrowFileBuffer* storage, std::uint32_t ignoredStackWord);
+LegacyWideFileBuffer* ConstructLegacyWideFileBufferLate_54992A(
+    LegacyWideFileBuffer* storage, std::uint32_t ignoredStackWord);
+
 } // namespace cg::platform

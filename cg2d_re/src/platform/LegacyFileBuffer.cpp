@@ -847,4 +847,18 @@ const LegacyWideStreamBufferMethods gLegacyWideFileBufferMethods550070{
     FileNoOpMethod<std::uint16_t>
 };
 
+LegacyNarrowFileBuffer* ConstructLegacyNarrowFileBufferLate_5487D3(
+    LegacyNarrowFileBuffer* const storage, const std::uint32_t /*ignoredStackWord*/)
+{
+    storage->base.buffer.virtualTable = &gLegacyNarrowFileBufferMethods54FFD4;
+    return storage;
+}
+
+LegacyWideFileBuffer* ConstructLegacyWideFileBufferLate_54992A(
+    LegacyWideFileBuffer* const storage, const std::uint32_t /*ignoredStackWord*/)
+{
+    storage->base.buffer.virtualTable = &gLegacyWideFileBufferMethods550070;
+    return storage;
+}
+
 } // namespace cg::platform

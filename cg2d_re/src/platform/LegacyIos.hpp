@@ -229,4 +229,19 @@ void* InitializeLegacyWideStandardStreams_549397(void* initializer);
 // 原构造展开只当前state的一次54843B；两实参是原实际地址，叶不消费/不析构对象。
 void UnwindLegacyStandardStream_54843B(void* currentObject, void* fixedObject);
 
+// 原5495EE窄宽共用刷新；状态&6门禁，实际sync完整-1才重取虚基/clear。
+template <typename Character>
+LegacyOutputStreamStorage<Character>* FlushLegacyOutput_5495EE(
+    LegacyOutputStreamStorage<Character>* storage);
+// 原退出包装this未消费，只递减独立W32计数，0时按输出/错误/日志刷新；不直接析构流。
+void ReleaseLegacyNarrowStandardStreams_5491F6();
+void ReleaseLegacyWideStandardStreams_549220();
+// 原两CRT项/晚段对象动作及原退出回调；只显式调用，不自动接当前启动。
+std::int32_t InitializeLegacyNarrowErrorBuffer_548252();
+LegacyFileBufferStorage<char>* ConstructLegacyNarrowErrorBufferLate_54825C();
+void DestroyLegacyNarrowErrorBufferAtExit_548275();
+std::int32_t InitializeLegacyWideErrorStream_549339();
+LegacyWideOutputStream* RegisterLegacyWideErrorStreamLate_549343();
+void DestroyLegacyWideErrorStreamAtExit_54935E();
+
 } // namespace cg::platform

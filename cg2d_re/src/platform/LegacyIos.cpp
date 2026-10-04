@@ -4,6 +4,7 @@
 #include "LegacyFileBuffer.hpp"
 #include "LegacyLocale.hpp"
 #include "LegacyMultibyte.hpp"
+#include "LegacyRuntimeExit.hpp"
 
 #include <bit>
 
@@ -670,6 +671,109 @@ void* InitializeLegacyWideStandardStreams_549397(void* const initializer)
         throw;
     }
     return initializer;
+}
+
+namespace {
+
+std::int32_t SynchronizeOutputBuffer(LegacyNarrowStreamBufferObject* const buffer)
+{
+    const auto* const methods = reinterpret_cast<const LegacyNarrowStreamBufferMethods*>(
+        buffer->buffer.virtualTable);
+    return methods->sync(buffer);
+}
+
+std::int32_t SynchronizeOutputBuffer(LegacyWideStreamBufferObject* const buffer)
+{
+    const auto* const methods = reinterpret_cast<const LegacyWideStreamBufferMethods*>(
+        buffer->buffer.virtualTable);
+    return methods->sync(buffer);
+}
+
+} // namespace
+
+template <typename Character>
+LegacyOutputStreamStorage<Character>* FlushLegacyOutput_5495EE(
+    LegacyOutputStreamStorage<Character>* const storage)
+{
+    std::uint32_t errorBits = 0;
+    LegacyBasicIosStorage<Character>* const initialIos = ProjectStreamIos(storage);
+    if ((initialIos->base.stateBits & 6u) == 0) {
+        // 原无buffer空保护；仅实际sync完整S32 -1为失败。
+        if (SynchronizeOutputBuffer(initialIos->buffer) == -1) {
+            errorBits = 4;
+        }
+    }
+    LegacyBasicIosStorage<Character>* const currentIos = ProjectStreamIos(storage);
+    if (errorBits != 0) {
+        std::uint32_t stateBits = currentIos->base.stateBits | errorBits;
+        if (currentIos->buffer == nullptr) {
+            stateBits |= 4u;
+        }
+        ClearLegacyIos_549F62(&currentIos->base, stateBits, 0);
+    }
+    return storage;
+}
+
+template LegacyNarrowOutputStream* FlushLegacyOutput_5495EE<char>(LegacyNarrowOutputStream*);
+template LegacyWideOutputStream* FlushLegacyOutput_5495EE<std::uint16_t>(LegacyWideOutputStream*);
+
+void ReleaseLegacyNarrowStandardStreams_5491F6()
+{
+    const std::int32_t count = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(gLegacyNarrowStandardInitCount592894) - 1u);
+    gLegacyNarrowStandardInitCount592894 = count;
+    if (count != 0) {
+        return;
+    }
+    FlushLegacyOutput_5495EE(&gLegacyNarrowStandardOutput10863A0);
+    FlushLegacyOutput_5495EE(&gLegacyNarrowStandardError10864C8);
+    FlushLegacyOutput_5495EE(&gLegacyNarrowStandardLog1086310);
+}
+
+void ReleaseLegacyWideStandardStreams_549220()
+{
+    const std::int32_t count = std::bit_cast<std::int32_t>(
+        static_cast<std::uint32_t>(gLegacyWideStandardInitCount5929EC) - 1u);
+    gLegacyWideStandardInitCount5929EC = count;
+    if (count != 0) {
+        return;
+    }
+    FlushLegacyOutput_5495EE(&gLegacyWideStandardOutput1086668);
+    FlushLegacyOutput_5495EE(&gLegacyWideStandardError1086500);
+    FlushLegacyOutput_5495EE(&gLegacyWideStandardLog1086540);
+}
+
+LegacyNarrowFileBuffer* ConstructLegacyNarrowErrorBufferLate_54825C()
+{
+    return ConstructLegacyNarrowFileBufferLate_5487D3(
+        &gLegacyNarrowStandardErrorBuffer10863D8, 0);
+}
+
+void DestroyLegacyNarrowErrorBufferAtExit_548275()
+{
+    DestroyLegacyNarrowFileBuffer_5487DE(&gLegacyNarrowStandardErrorBuffer10863D8);
+}
+
+LegacyWideOutputStream* RegisterLegacyWideErrorStreamLate_549343()
+{
+    return RegisterConstructLegacyWideOutput_54958F(&gLegacyWideStandardError1086500, 0, 1);
+}
+
+void DestroyLegacyWideErrorStreamAtExit_54935E()
+{
+    DestroyLegacyWideOutput_549324(&gLegacyWideStandardError1086500);
+}
+
+std::int32_t InitializeLegacyNarrowErrorBuffer_548252()
+{
+    ConstructLegacyNarrowErrorBufferLate_54825C();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowErrorBufferAtExit_548275);
+}
+
+std::int32_t InitializeLegacyWideErrorStream_549339()
+{
+    RegisterLegacyWideErrorStreamLate_549343();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideErrorStreamAtExit_54935E);
 }
 
 } // namespace cg::platform

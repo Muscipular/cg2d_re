@@ -10,6 +10,11 @@
 namespace cg::platform {
 namespace {
 
+// 原5501C0单槽；显式this按已证前缀使用，不借宿主type_info或RTTI表。
+const LegacyExceptionTypeDescriptorMethods gLegacyTypeDescriptorMethods5501C0{
+    DeleteLegacyExceptionTypeDescriptor_54AC7B
+};
+
 // 原5501C8/5501CC只含删除析构与what；只接已证两槽，不生成宿主异常元数据。
 const LegacyExceptionMethodTable gLegacyExceptionMethods5501C8{
     DeleteLegacyException_54B05D,
@@ -515,6 +520,27 @@ std::int32_t MatchLegacyExceptionType_5404FA(
         return 0;
     }
     return 1;
+}
+
+void DestroyLegacyExceptionTypeDescriptor_54AC66(
+    LegacyExceptionTypeDescriptorPrefix* const storage)
+{
+    storage->methods = &gLegacyTypeDescriptorMethods5501C0;
+    char* const cachedName = storage->cachedName;
+    if (cachedName != nullptr) {
+        FreeLegacyHeapMemory_53C0A9(cachedName);
+    }
+}
+
+LegacyExceptionTypeDescriptorPrefix* DeleteLegacyExceptionTypeDescriptor_54AC7B(
+    LegacyExceptionTypeDescriptorPrefix* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyExceptionTypeDescriptor_54AC66(storage);
+    if ((flags & 1u) != 0) {
+        // 原53B4E7薄叶同域调用53C0A9；不能释放宿主type_info或其他堆块。
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
 }
 
 } // namespace cg::platform

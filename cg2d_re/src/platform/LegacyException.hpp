@@ -28,6 +28,17 @@ struct LegacyExceptionTypeDescriptorPrefix final {
 static_assert(sizeof(LegacyExceptionTypeDescriptorPrefix) == 16);
 static_assert(offsetof(LegacyExceptionTypeDescriptorPrefix, cachedName) == 8);
 
+// 原5501C0只有删除析构一槽；5501C4是另一类RTTI数据，不并入本表。
+struct LegacyExceptionTypeDescriptorMethods final {
+    LegacyExceptionTypeDescriptorPrefix* (*deletingDestructor)(
+        LegacyExceptionTypeDescriptorPrefix* storage, std::uint32_t flags);
+};
+static_assert(sizeof(LegacyExceptionTypeDescriptorMethods) == 8);
+// 只显式清理原堆缓存/对象；不自动构析或清指针，不生成宿主RTTI元数据。
+void DestroyLegacyExceptionTypeDescriptor_54AC66(LegacyExceptionTypeDescriptorPrefix* storage);
+LegacyExceptionTypeDescriptorPrefix* DeleteLegacyExceptionTypeDescriptor_54AC7B(
+    LegacyExceptionTypeDescriptorPrefix* storage, std::uint32_t flags);
+
 // 原HandlerType/CatchableType只声明匹配所读前缀，不补后续字段、生产或默认值。
 struct LegacyExceptionHandlerTypePrefix final {
     std::uint32_t properties; // 原+00；匹配按低U8读取位01/02/08。

@@ -74,7 +74,8 @@
         "doc/cg2d_client_shutdown.md",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
         "doc/cg2d_graphic_transform_lifecycle_spec.md",
-        "doc/cg2d_resource_container_lifecycle_spec.md"
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_standard_stream_init_identity_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -95,7 +96,11 @@
         "F:00122630",
         "F:00122660",
         "F:00122690",
-        "F:001226A0"
+        "F:001226A0",
+        "F:00053E10",
+        "F:00053E50",
+        "F:001491E0",
+        "F:0014920A"
       ],
       "closure_task_ids": [
         "C02",
@@ -115,13 +120,15 @@
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
         "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
-        "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验"
+        "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
+        "四Init按SI01仅地址身份的原生对象已定义；原完整尺寸未知保留，登记数组/全应用序/活动流构析与运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
-        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline"
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline"
       ]
     },
     {
@@ -135,9 +142,15 @@
         "doc/cg2d_crt_runtime_boundary_spec.md",
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_standard_stream_init_identity_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00053E10",
+        "F:00053E50",
+        "F:001491E0",
+        "F:0014920A"
+      ],
       "closure_task_ids": [
         "C01",
         "C05",
@@ -154,11 +167,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "四Init按SI01仅地址身份的原生对象已定义；原完整尺寸未知保留，登记数组/全应用序/活动流构析与运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline"
+      ]
     },
     {
       "id": "FUNC-LOOP",
@@ -5632,6 +5648,111 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-INIT-IDENTITY-I-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：四对象各两引用/四构造前缀8条、窄宽控制器311条及固定退出参数流；doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-init-identity-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-acceptance",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowEarlyStandardInitializer628FE9",
+        "src/platform/LegacyIos.cpp#gLegacyWideEarlyStandardInitializer628FE8",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitializer1086539",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitializer1086538"
+      ],
+      "observation": "仅四Init对象的完整原生类型/实际定义",
+      "expected": "四独立平凡存储可传出实际地址，不加入计数/流/自动构析副作用",
+      "actual": "已补完整无业务字段类型及四同名非const对象，原函数与14流/两计数保持",
+      "differences": [
+        {
+          "description": "SI01用四个独立无业务字段的平凡原生对象承载只保存/返回的Init地址；原完整尺寸未知，不以native sizeof证明旧布局，非其他opaque对象通用适配",
+          "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision"
+        },
+        {
+          "description": "x86地址身份由实际x64 T*表达，计数仍独立S32、14流/文件/locale保留原owner，未加入宿主Init对象的自动构析或重复登记",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-INIT-IDENTITY-W-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：四对象各两引用/四构造前缀8条、窄宽控制器311条及固定退出参数流；doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-init-identity-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-acceptance",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowEarlyStandardInitializer628FE9",
+        "src/platform/LegacyIos.cpp#gLegacyWideEarlyStandardInitializer628FE8",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitializer1086539",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitializer1086538"
+      ],
+      "observation": "仅原八对象引用、四构造前缀和两控制器Init参数流",
+      "expected": "四固定对象分别进原窄宽控制器，this只保存/返回，实际登记/退出身份不变",
+      "actual": "原各两引用与311条控制器的var_10保存/返回及var_14流对象区分核定，四既有实际地址取参已接真实存储",
+      "differences": [
+        {
+          "description": "SI01用四个独立无业务字段的平凡原生对象承载只保存/返回的Init地址；原完整尺寸未知，不以native sizeof证明旧布局，非其他opaque对象通用适配",
+          "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision"
+        },
+        {
+          "description": "x86地址身份由实际x64 T*表达，计数仍独立S32、14流/文件/locale保留原owner，未加入宿主Init对象的自动构析或重复登记",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-INIT-IDENTITY-S-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：四对象各两引用/四构造前缀8条、窄宽控制器311条及固定退出参数流；doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-init-identity-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-acceptance",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowEarlyStandardInitializer628FE9",
+        "src/platform/LegacyIos.cpp#gLegacyWideEarlyStandardInitializer628FE8",
+        "src/platform/LegacyIos.cpp#gLegacyNarrowStandardInitializer1086539",
+        "src/platform/LegacyIos.cpp#gLegacyWideStandardInitializer1086538"
+      ],
+      "observation": "仅原311条/四前缀/固定退出的身份流与本组新增类型/定义静态对照",
+      "expected": "原完整尺寸仍未知；类型/定义之外算法不改，不新增虚构启动项或空实现",
+      "actual": "实际指令逐段证明Init不作为字节读写/偏移基址，本组只有原生表示和定义变化；六键盘启动项按现有范围排除，未恢复源码",
+      "differences": [
+        {
+          "description": "SI01用四个独立无业务字段的平凡原生对象承载只保存/返回的Init地址；原完整尺寸未知，不以native sizeof证明旧布局，非其他opaque对象通用适配",
+          "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-decision"
+        },
+        {
+          "description": "x86地址身份由实际x64 T*表达，计数仍独立S32、14流/文件/locale保留原owner，未加入宿主Init对象的自动构析或重复登记",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -5745,6 +5866,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+      ]
+    },
+    {
+      "task_id": "C03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
       ]
     }
   ],
@@ -5991,6 +6120,92 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00053E10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00053E50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001491E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014920A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00137A30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137A40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137A70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137AE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137AF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137B10",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
       ]
     }
   ],

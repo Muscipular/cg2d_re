@@ -52,7 +52,7 @@
 | [创建 gate SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) | 固定 entryGate=1 已按本轮委托裁决 | 显式参数完整本体已存在 | WorldUpdate已显式传1，源码接线差异收口；创建数据和真实流程仍待 | P08 |
 | [网络排除接线 SPEC](../doc/cg2d_network_exclusion_wiring_spec.md) | 只排除两加解密叶；保留帧、队列、发送长度及状态副作用 | 上层组包/分发与两完整非加密帧父、真实接线已有 | 保留原帧/正文/状态，仅旁路加解密传明文；全部业务/生命周期与互通待验，不自定义分包 | P09、P10、U10 |
 | [CRT 宿主提案](../doc/cg2d_crt_host_migration_spec.md) | 受限宿主承接已获本轮具名裁决；私有库差异单列 | 已批准的窄替代继续有效；大量旧 CRT 本体已落位 | 按两个子SPEC落实真实提供者/分配域/应用语义，既有兼容层和真实流程验收保留 | C01–C12 |
-| [启动局部 SPEC](../doc/cg2d_startup_flow.md) | 原启动顺序、C/C++ 表、退出登记、唯一构析与共享对象 | 父入口/C5/浮点槽、多个 CRT provider、七共享槽和 14 标准流存储已有 | C++90 表、四 Init、登记数据、避免宿主双执行与完整退出 | C01–C04、V02 |
+| [启动局部 SPEC](../doc/cg2d_startup_flow.md) | 原启动顺序、C/C++ 表、退出登记、唯一构析与共享对象 | 父入口/C5/浮点槽、多个 CRT provider、七共享槽和 14 标准流存储已有 | C++90 表、登记数据、SI01本组以外活动构析与完整退出 | C01–C04、V02 |
 | [stdio / 内存局部 SPEC](../doc/cg2d_stdio_contract.md)、[堆合同](../doc/cg2d_crt_memory_contract.md) | 原 FILE/描述符和分配域、正常失败、副作用及所有权保留 | 文件核心、流对象方法表、模式 2 和原堆外层已有 | 剩余调用点、codecvt 生产、模式3整域宿主迁移、应用分配域逐项处理 | C05、C08、C10–C12 |
 | [世界/UI/战斗局部合同](../doc/cg2d_ui_window_runtime.md)、[战斗合同](../doc/ui_windows/shared_battle.md) | 真实路由及生产—消费—清理完整对应 | 多数页面本体、预览工厂、Yobi 生命周期和战斗分发已有 | 部分页父、旧表路由、目录/名单/版本数据、攻击生产与载荷清理 | P01–P08、U01–U11 |
 | [音频替换合同](../doc/cg2d_audio_update.md) | SDL 替换已批，上层状态/时序和播放验收仍保留 | 有局部播放、通知及退出实现 | 七入口与完整音频仍暂停，不从范围移除 | P11–P17、V05 |
@@ -119,7 +119,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 |---|---|---|---|
 | C01 / CRT 总策略 | 受限宿主承接已定，本轮未迁移 | 按启动/运行库两个子SPEC实施 | 私有差异与业务保留项分列；[宿主总SPEC](../doc/cg2d_crt_host_migration_spec.md) |
 | C02 / C++90 初始化表 | 原90槽/多个provider已有，四图形/DBF具名构析已接 | 逐槽区分宿主内部与应用显式构析，保留原应用相对顺序 | 不再要求造完整私有CRT启动替宿主；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
-| C03 / 四Init与登记 | 14流对象/七共享槽已有 | 保留兼容消费者的实际Init/登记；宿主组整体迁移类型/消费者/owner | 不用宿主对象强转旧布局，未知容量仍补证；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
+| C03 / 四Init与登记 | 14流/七共享槽及SI01四Init真实地址对象已有 | 登记数据/容量、全应用序及Legacy/宿主活动流构析归属仍待 | 保持open；[SI01收口](../doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)，原尺寸未知不填成1B |
 | C04 / 构析与入口迁移 | 原provider/数组helper及四容器本组唯一宿主构析已接 | 宿主启动后沿原应用序显式执行，每owner一套活动构析 | 排除双执行/跨域释放，62析构逐项归属；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C05 / codecvt | 旧消费者与方法槽在，真实生产未闭 | 宿主内部用完整宿主流类型；保留Legacy消费者仍补真实facet生产 | 不造空表/桥半类型/猜编码；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C06 / 异常查找捕获 | 旧数据/部分叶已有，父未闭 | 私有5402AB/5407BC职责由真实本机异常设施承接，caller成组映射 | 保留业务异常/清理，不记旧内核已还原；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |

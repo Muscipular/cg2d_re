@@ -549,6 +549,16 @@ void* DeleteLegacyWideInputFromIos_549D67(
     return storage;
 }
 
+// SI01：原Init只保存/返回地址；本类型只承接四个独立对象的身份。
+// 原完整对象尺寸未知，本线sizeof不用于推原布局或相邻字节；计数/流状态仍在原owner。
+static_assert(std::is_trivially_default_constructible_v<LegacyStandardStreamInitializer>);
+static_assert(std::is_trivially_destructible_v<LegacyStandardStreamInitializer>);
+static_assert(std::is_empty_v<LegacyStandardStreamInitializer>);
+LegacyStandardStreamInitializer gLegacyNarrowEarlyStandardInitializer628FE9 {};
+LegacyStandardStreamInitializer gLegacyWideEarlyStandardInitializer628FE8 {};
+LegacyStandardStreamInitializer gLegacyNarrowStandardInitializer1086539 {};
+LegacyStandardStreamInitializer gLegacyWideStandardInitializer1086538 {};
+
 volatile std::int32_t gLegacyNarrowStandardInitCount592894 = -1;
 volatile std::int32_t gLegacyWideStandardInitCount5929EC = -1;
 

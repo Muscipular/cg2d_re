@@ -1919,3 +1919,9 @@ Cpp5530F8/5530FC/553100只记录真实provider，整90表仍extern未启用，�
 [本组源码合同](cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure)按原553058/55305C、553104/553108四槽和11身份365条落位。既有GraphicInfo/GraphicRead各移除两自动对象构析，改唯一被动存储、固定构析和各自即时宿主登记；模块适配唯一调用，每对相邻项按原先后且不读登记结果。std::atexit实际返回S32，原vector残留EAX未消费不虚造指针返回；共享5226B0/C0/D0/522860仍归5226A0。
 
 DBF map→vector成员构造、U32逐轮data/size释放载荷→归空集合→清树节点→集合容量/空树逆序析构与原正常职责对应；原文件/解压/入队/双池及分配域保持。宿主私有节点、空节点、allocator/EH与退出表按D02/D03，原全90表、四Init和所有活动owner仍未接全；未来接原全应用序须同时移除模块适配，不能双执行。C02/C04/G01与全启动/快速退出、SDK/运行保持未闭；无构建/测试/运行/摘要。
+
+### C03 / SI01四Init对象定义与两个专用排除槽（2026-10-04）
+
+[本组SI01合同](cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)补四独立Init地址对象；311条控制器与八原引用中this只保存/返回，流/计数持有者独立。既有LegacyIos控制器/登记/退出和LegacyMouse配置均保持，不增加初始化调用/自动构析；原完整尺寸未知与native表示区别记录，不将1B当作原容量证明。
+
+原55310C→537A30、553110→537AE0与四构析已由屏幕键盘专用HWND映射树/临界区证据列入具名排除；本轮只确认分类并归档六F处置，不恢复源码或填空表项。C++90/登记数据及全应用原序、标准流两套活动归属和运行继续未闭，C03保持open。

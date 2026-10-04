@@ -261,8 +261,9 @@ LegacyFileBufferStorage<std::uint16_t>* ConstructLegacyWideErrorBufferLate_54928
 void DestroyLegacyWideErrorBufferAtExit_5492A7();
 std::int32_t InitializeLegacyWideErrorBuffer_549284();
 
-// 原两个Init对象地址只传给控制器/返回，无字段证据；保持不完整类型/extern，不造1B替身。
-struct LegacyStandardStreamInitializer;
+// SI01：本组Init只保存/返回实际地址；四独立对象用原生无业务字段类型承载。
+// 原完整尺寸仍未知，sizeof本类型不证明旧容量；不自动构造流、登记退出或携带计数。
+struct LegacyStandardStreamInitializer final {};
 extern LegacyStandardStreamInitializer gLegacyNarrowStandardInitializer1086539;
 extern LegacyStandardStreamInitializer gLegacyWideStandardInitializer1086538;
 void* ConstructLegacyNarrowStandardInitializer_5491E0();
@@ -305,7 +306,7 @@ LegacyWideOutputStream* RegisterLegacyWideLogStreamLate_549372();
 void DestroyLegacyWideLogStreamAtExit_54938D();
 std::int32_t InitializeLegacyWideLogStream_549368();
 
-// 原C++表前段两个独立Init对象仅实际地址声明，容量/初值未证，不造对象替身。
+// 原C++表前段两独立Init由SI01实际对象承接地址；原字节尺寸未知，类型不承载流状态。
 extern LegacyStandardStreamInitializer gLegacyNarrowEarlyStandardInitializer628FE9;
 void* ConstructLegacyNarrowEarlyStandardInitializer_453E10();
 void ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30();

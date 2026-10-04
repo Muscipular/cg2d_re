@@ -776,4 +776,106 @@ std::int32_t InitializeLegacyWideErrorStream_549339()
     return RegisterLegacyAtExit_53B406(DestroyLegacyWideErrorStreamAtExit_54935E);
 }
 
+LegacyNarrowFileBuffer* ConstructLegacyNarrowInputBufferLate_54817A()
+{
+    return ConstructLegacyNarrowFileBufferLate_5487D3(&gLegacyNarrowStandardInputBuffer1086470, 0);
+}
+
+void DestroyLegacyNarrowInputBufferAtExit_548193()
+{
+    DestroyLegacyNarrowFileBuffer_5487DE(&gLegacyNarrowStandardInputBuffer1086470);
+}
+
+std::int32_t InitializeLegacyNarrowInputBuffer_548170()
+{
+    ConstructLegacyNarrowInputBufferLate_54817A();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowInputBufferAtExit_548193);
+}
+
+LegacyNarrowFileBuffer* ConstructLegacyNarrowOutputBufferLate_5481A7()
+{
+    return ConstructLegacyNarrowFileBufferLate_5487D3(&gLegacyNarrowStandardOutputBuffer1086348, 0);
+}
+
+void DestroyLegacyNarrowOutputBufferAtExit_5481C0()
+{
+    DestroyLegacyNarrowFileBuffer_5487DE(&gLegacyNarrowStandardOutputBuffer1086348);
+}
+
+std::int32_t InitializeLegacyNarrowOutputBuffer_54819D()
+{
+    ConstructLegacyNarrowOutputBufferLate_5481A7();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowOutputBufferAtExit_5481C0);
+}
+
+LegacyWideFileBuffer* ConstructLegacyWideInputBufferLate_549234()
+{
+    return ConstructLegacyWideFileBufferLate_54992A(&gLegacyWideStandardInputBuffer1086610, 0);
+}
+
+void DestroyLegacyWideInputBufferAtExit_54924D()
+{
+    DestroyLegacyWideFileBuffer_549935(&gLegacyWideStandardInputBuffer1086610);
+}
+
+std::int32_t InitializeLegacyWideInputBuffer_54922A()
+{
+    ConstructLegacyWideInputBufferLate_549234();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideInputBufferAtExit_54924D);
+}
+
+LegacyWideFileBuffer* ConstructLegacyWideOutputBufferLate_549261()
+{
+    return ConstructLegacyWideFileBufferLate_54992A(&gLegacyWideStandardOutputBuffer10865B8, 0);
+}
+
+void DestroyLegacyWideOutputBufferAtExit_54927A()
+{
+    DestroyLegacyWideFileBuffer_549935(&gLegacyWideStandardOutputBuffer10865B8);
+}
+
+std::int32_t InitializeLegacyWideOutputBuffer_549257()
+{
+    ConstructLegacyWideOutputBufferLate_549261();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideOutputBufferAtExit_54927A);
+}
+
+LegacyWideFileBuffer* ConstructLegacyWideErrorBufferLate_54928E()
+{
+    return ConstructLegacyWideFileBufferLate_54992A(&gLegacyWideStandardErrorBuffer10866A0, 0);
+}
+
+void DestroyLegacyWideErrorBufferAtExit_5492A7()
+{
+    DestroyLegacyWideFileBuffer_549935(&gLegacyWideStandardErrorBuffer10866A0);
+}
+
+std::int32_t InitializeLegacyWideErrorBuffer_549284()
+{
+    ConstructLegacyWideErrorBufferLate_54928E();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideErrorBufferAtExit_5492A7);
+}
+
+void* ConstructLegacyNarrowStandardInitializer_5491E0()
+{
+    return InitializeLegacyNarrowStandardStreams_5482DD(&gLegacyNarrowStandardInitializer1086539);
+}
+
+std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6()
+{
+    ConstructLegacyNarrowStandardInitializer_5491E0();
+    return RegisterLegacyAtExit_53B406(ReleaseLegacyNarrowStandardStreams_5491F6);
+}
+
+void* ConstructLegacyWideStandardInitializer_54920A()
+{
+    return InitializeLegacyWideStandardStreams_549397(&gLegacyWideStandardInitializer1086538);
+}
+
+std::int32_t RegisterLegacyWideStandardInitializer_549200()
+{
+    ConstructLegacyWideStandardInitializer_54920A();
+    return RegisterLegacyAtExit_53B406(ReleaseLegacyWideStandardStreams_549220);
+}
+
 } // namespace cg::platform

@@ -244,4 +244,30 @@ std::int32_t InitializeLegacyWideErrorStream_549339();
 LegacyWideOutputStream* RegisterLegacyWideErrorStreamLate_549343();
 void DestroyLegacyWideErrorStreamAtExit_54935E();
 
+// 原五缓冲CRT项：晚段只原表写/返this，随后登记真实退出析构；不重建FILE/locale。
+LegacyFileBufferStorage<char>* ConstructLegacyNarrowInputBufferLate_54817A();
+void DestroyLegacyNarrowInputBufferAtExit_548193();
+std::int32_t InitializeLegacyNarrowInputBuffer_548170();
+LegacyFileBufferStorage<char>* ConstructLegacyNarrowOutputBufferLate_5481A7();
+void DestroyLegacyNarrowOutputBufferAtExit_5481C0();
+std::int32_t InitializeLegacyNarrowOutputBuffer_54819D();
+LegacyFileBufferStorage<std::uint16_t>* ConstructLegacyWideInputBufferLate_549234();
+void DestroyLegacyWideInputBufferAtExit_54924D();
+std::int32_t InitializeLegacyWideInputBuffer_54922A();
+LegacyFileBufferStorage<std::uint16_t>* ConstructLegacyWideOutputBufferLate_549261();
+void DestroyLegacyWideOutputBufferAtExit_54927A();
+std::int32_t InitializeLegacyWideOutputBuffer_549257();
+LegacyFileBufferStorage<std::uint16_t>* ConstructLegacyWideErrorBufferLate_54928E();
+void DestroyLegacyWideErrorBufferAtExit_5492A7();
+std::int32_t InitializeLegacyWideErrorBuffer_549284();
+
+// 原两个Init对象地址只传给控制器/返回，无字段证据；保持不完整类型/extern，不造1B替身。
+struct LegacyStandardStreamInitializer;
+extern LegacyStandardStreamInitializer gLegacyNarrowStandardInitializer1086539;
+extern LegacyStandardStreamInitializer gLegacyWideStandardInitializer1086538;
+void* ConstructLegacyNarrowStandardInitializer_5491E0();
+void* ConstructLegacyWideStandardInitializer_54920A();
+std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6();
+std::int32_t RegisterLegacyWideStandardInitializer_549200();
+
 } // namespace cg::platform

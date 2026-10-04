@@ -273,12 +273,12 @@ void ScanBattleMParticipants_439B30(
 // 原43B290：冲突返回0，保留此前槽写入和预扫描副作用；成功OR参与位，不清调用方mask。
 std::int32_t CheckBattleMParticipants_43B290(
     std::int32_t* source, std::int32_t previousSource, std::uint32_t* mask, std::int32_t* flag);
-// 原43B360完整事件调度，4383B0已绑定；事件执行仍有424620传递依赖。
+// 原43B360完整事件调度，4383B0已绑定；424620攻击生产已落位，完整事件/数据与运行另验。
 void DispatchBattleEvents_43B360(YobiAction* scene);
 // 原43B610：绑定完整427470、原序初始化22位置并发布32槽事件T*。
 YobiAction* NewBattleEvent_43B610(
     std::int32_t kind, std::int32_t slot, std::uint32_t participants, std::int32_t group);
-void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620依赖仍缺。
+void UpdateBattleEvent_427470(YobiAction* scene); // 完整分派与恢复/回存；424620本体已接，完整战斗另验。
 std::int32_t PeekBattleMInteger_43B860(YobiAction* action); // 只预读，不推进对象或全局游标。
 std::int32_t GetBattleMObjectHeader_423960(YobiAction* action, char* destination);
 YobiAction* NewBattleScene_4383B0(); // 优先级1，原生场景载荷、完整43B360绑定及A8全位置1。
@@ -422,7 +422,7 @@ void TakeBattleMSkillTargets_426FC0(
     std::int32_t technique, std::int32_t fpUsed, std::int32_t attackMode,
     std::int32_t* sourcePosition, std::int32_t* initialPosition,
     std::int32_t* targetPosition, std::int32_t* redirectedPosition);
-// 原424620九参攻击生产，仅真实依赖声明；var_50待决，不提供替身。
+// 原424620完整九参攻击生产；D01次级图号仅入口0一次，保留跨轮复用。
 void TakeBattleMSkillAttackTargets_424620(
     YobiAction* scene, std::int32_t skill, std::int32_t level,
     std::int32_t levelIndex, std::int32_t fpUsed,

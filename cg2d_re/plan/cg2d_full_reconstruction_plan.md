@@ -2,6 +2,7 @@
 
 > 建立：2026-09-14；按用户要求于2026-10-04压缩更新。**整体SPEC未完成，完成总PLAN的目标继续有效。**
 > 压缩前六份SPEC及进度全文固定在Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression`，可用该引用及原文件路径读取；更早历史见独立进度中的命名快照。
+> 2026-10-04开发增量：八项局部适配源码均已对齐，原格式明文两帧父已落位；具体源码/局部证据沿对应子SPEC和登记簿，完整功能、生命周期与运行门禁仍未闭合。
 > 2026-10-04最新授权与具名决议见[收尾决议总SPEC](../doc/cg2d_closure_decisions_spec.md)：八项局部确定化、受限宿主CRT与生命周期方案已定；网络兼容原格式，只旁路加解密传明文。本轮只更新设计，不记实现或验收完成。
 > 度量入口：[追踪与验收SPEC](../doc/cg2d_traceability_acceptance_spec.md) · [自动看板](cg2d_measurement_dashboard.md) · [验收登记簿](cg2d_acceptance_registry.json)。全库存身份纳管与功能验收分开；功能枚举未闭合前不报总完成率。
 > [唯一执行进度](cg2d_full_reconstruction_progress.md)记录实际推进；[60项收尾任务表](cg2d_spec_closure_checklist.md)列当前差异、依赖与收口条件；[项目规则](../AGENTS.md)约束执行。此前压缩未改边界；本轮新增授权差异以具名决议为准，历史结论不改写。
@@ -73,11 +74,11 @@ DX原生ABI豁免不适用于其他外部ABI；未知socket/输入/音频事实�
 
 ### 4.3 当前未闭合与明确待决
 
-当前[机器清单](../doc/cg2d_semantic_function_mappings.json)为1143语义记录、18pending、4分类引用；含映射/关联/宿主承接等不同等级，不默认全部已实现。原元数据3680条和直接定位快照不能与这些数字相加或推完成率。
+当前[机器清单](../doc/cg2d_semantic_function_mappings.json)为1144语义记录、18pending、4分类引用；含映射/关联/宿主承接等不同等级，不默认全部已实现。原元数据3680条和直接定位快照不能与这些数字相加或推完成率。
 
 | 收尾范围 | 当前未闭合条件 |
 |---|---|
-| P01–P08、P18 | 八项适配已由本轮委托决定，按[局部子SPEC](../doc/cg2d_local_determinism_spec.md)待实施/核对；4D8DA0第二命令/模式生产仍待事实，不补业务默认命令 |
+| P01–P08、P18 | 八项适配源码均按[局部子SPEC](../doc/cg2d_local_determinism_spec.md)对齐，完整功能及运行另验；4D8DA0第二命令/模式生产仍待事实，不补业务默认命令 |
 | P09–P10 | 保留原帧结构和非加密副作用，只旁路401960/401AB0传明文；两父源码与局部静态接线已闭，完整业务/生命周期/互通待验，不自创格式，见[帧子SPEC](../doc/cg2d_network_plaintext_frame_spec.md) |
 | P11–P17 | 454C30/454EE0/458AE0/4FDBD0/4FE0E0/50E680/52C3D0七音频入口暂停 |
 | C01–C12 | 受限宿主方案已定：原表分类/应用显式构析、模式3整分配域、异常私有内核与图形树内部由宿主承接；已有兼容层/实际状态、owner、错误/业务结果与真实提供者迁移仍未闭。见[宿主总SPEC](../doc/cg2d_crt_host_migration_spec.md) |

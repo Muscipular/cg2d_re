@@ -30,10 +30,11 @@
     {
       "original_entry": "0x424620",
       "inventory_id": "F:00024620",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "仅真实声明，攻击目标生产本体未完成",
-      "remaining_requirement": "D01已决定入口var_50的S32置0一次；完整本体/消费链仍待，不逐轮清零。",
+      "status": "源码工作项已关闭，完整战斗与运行门禁仍未验",
+      "implementation_state": "完整3089条九参攻击生产/五表/四输出及既有三个父调用已接；D01入口var_50 S32=0一次",
+      "remaining_requirement": "D01仅指定次级图号0一次，条件写/跨轮复用/效果第四字段与所有原分派保持；完整战斗生产、动作/载荷生命周期和运行仍待，音频暂停。",
       "evidence_documents": [
+        "doc/cg2d_battle_attack_targets_spec.md",
         "doc/ui_windows/shared_battle.md"
       ],
       "decision_spec": "doc/cg2d_local_determinism_spec.md"
@@ -124995,6 +124996,40 @@
         "runtime_verified": false
       },
       "verification_level": "全部原指令/精确原字节、新增完整本体、W16/W32/S32比较及共享owner/读写顺序、真实绑定/Loop调用静态对照；未构建/测试/运行"
+    },
+    {
+      "original_entry": "0x424620",
+      "inventory_id": "F:00024620",
+      "status": "完整3089条九参攻击目标生产及三个既有父调用已接；D01入口次级图号0一次，全战斗/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleMSkillAttackTargets_424620"
+          ],
+          "relationship": "完整技能分派、四位置输出、主/次附加图号与六数组、效果/动作生产、多轮与最终尾"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attack_targets_spec.md",
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_local_determinism_spec.md"
+      ],
+      "boundary": "scene原生T*、四S32参数及四独立S32*，不复制四字段结构作为位置输出。仅var_50对应secondaryGraphic入口0一次，原其他初始化/条件写/跨轮复用保持。复用gBattleAllEntries59E980、BattleActorPayload及16B效果/动作队列；五表经43BF00(levelIndex+1)，258用同源索引15/5与坐标[2]/[3]按S32平均。首255、首空/初target空和多轮空分别沿原返回或最终尾；2017/后继flags真实W32、最后效果next/0/0/0及四输出实际读写保持。原280call位置、新310源表达式分别登记，共享尾不按字面计数推等价；完整依赖/生命周期/运行及异常域未计通过。",
+      "instruction_count": 3089,
+      "function_chunks": [
+        {
+          "start": "0x424620",
+          "end_exclusive": "0x426F9C"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "TakeBattleMSkillAttackTargets_424620",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "原连续3089条、五20B表/六跳表、280原call及310源表达式各共享路径、字段/输出/初值/跨轮/收尾与既有三父接线静态核对；未构建/测试/运行"
     }
   ]
 }

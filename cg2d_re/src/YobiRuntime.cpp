@@ -388,7 +388,7 @@ struct BattleActorPayload {
     std::int32_t reactionImage1010;
     std::int32_t image1014; // 429A05写51B740转换后的图号，40C480消费；完整生产父链仍待落位。
     std::int32_t value1018;
-    std::int32_t value101C; // 40CCB0音效编号；427470技能98模式6已写入，424620等其他生产仍待。
+    std::int32_t value101C; // 40CCB0音效编号；427470技能98模式6已写入，424620已接，其他生产沿对应父合同。
     std::int32_t value1020; // 40CCE0音效编号；与1018/101C独立，不是地址。
     std::int32_t value1024;
     std::int32_t image1028; // 41CD00的type34图号及音效/坐标重读源，生产仍待上游。
@@ -11313,6 +11313,1113 @@ void AppendBattleSkillTail_424500(
     }
 }
 
+// 原[424620,426F9C)：完整九参攻击目标生产；D01仅次级图号入口置0一次。
+// 共享尾/字段与分支见doc/cg2d_battle_attack_targets_spec.md，保留原条件与追加次序。
+void TakeBattleMSkillAttackTargets_424620(
+    YobiAction* const scene, std::int32_t skill, std::int32_t level,
+    const std::int32_t levelIndex, const std::int32_t fpUsed,
+    std::int32_t* const sourcePosition, std::int32_t* const initialPosition,
+    std::int32_t* const targetPosition, std::int32_t* const redirectedPosition)
+{
+    using namespace world::detail;
+    constexpr std::array<std::int32_t, 5> kAttackImages54D6D0 {
+        0x1B210, 0x1B211, 0x1B212, 0x1B213, 0x1B214
+    };
+    constexpr std::array<std::int32_t, 5> kAttackImages54D5F4 {
+        0x1B1DB, 0x1B1DC, 0x1B1DD, 0x1B1DE, 0x1B1DF
+    };
+    constexpr std::array<std::int32_t, 5> kAttackImages54D608 {
+        0x1B1E0, 0x1B1E1, 0x1B1E2, 0x1B1E3, 0x1B1E4
+    };
+    constexpr std::array<std::int32_t, 5> kAttackImages54D694 {
+        0x1B21A, 0x1B21B, 0x1B21C, 0x1B21D, 0x1B21E
+    };
+    constexpr std::array<std::int32_t, 5> kAttackImages54D6BC {
+        0x1B206, 0x1B20C, 0x1B20D, 0x1B20E, 0x1B20F
+    };
+    std::int32_t sourceToken;
+    std::int32_t firstSource;
+    YobiAction* firstCaster;
+    std::int32_t targetToken;
+    std::int32_t firstTarget;
+    std::int32_t* currentTarget;
+    std::int32_t clearedMainFlags;
+    std::int32_t secondaryPosition;
+    std::int32_t redirectToken;
+    std::int32_t mainRedirect;
+    std::int32_t secondaryToken;
+    std::int32_t secondaryConverted;
+    std::int32_t secondaryRedirectToken;
+    std::int32_t secondaryRedirect;
+    std::int32_t movingSource;
+    std::int32_t mainAuxIndex;
+    std::int32_t mainScanIndex94;
+    std::int32_t* mainScan94;
+    std::int32_t* initialReactionPosition;
+    std::int32_t skill2017SecondaryToken;
+    std::int32_t skill2017RedirectToken;
+    std::int32_t skill2017Redirect;
+    std::int32_t mainScanIndex105;
+    std::int32_t* mainScan105;
+    std::int32_t mainScanIndexDefault;
+    std::int32_t* mainScanDefault;
+    std::int32_t skill72SecondaryToken;
+    std::int32_t skill72RedirectToken;
+    std::int32_t skill72Redirect;
+    std::int32_t currentMainFlags;
+    std::int32_t criticalPosition;
+    std::int32_t secondaryNextTarget;
+    std::int32_t originalTargetForSecondary;
+    std::int32_t secondaryAuxIndex;
+    std::int32_t secondaryScanIndex;
+    std::int32_t* secondaryScan;
+    std::int32_t secondaryCriticalPosition;
+    std::int32_t currentSecondaryFlags;
+    std::int32_t mainNextTarget;
+    YobiAction* mainCompletedActor;
+    std::int32_t mainCompletedTarget;
+    std::int32_t skill72CriticalPosition;
+    std::int32_t skill72NextTarget;
+    std::uint8_t secondaryFlagByte1;
+    std::int32_t* initialPositionForSkill72;
+    std::int32_t initialSkill72Value;
+    std::int32_t skill2017Flags; // 426A7B/426B8B完整W32，426BD2不窄化。
+    std::int32_t skill2017Position;
+    std::int32_t skill2017CriticalPosition;
+    std::int32_t skill2017NextTarget;
+    std::int32_t nextSourceToken;
+    std::int32_t nextSource;
+    std::int32_t* initialPositionAtTail;
+    YobiAction* nextInitialActor;
+    std::int32_t nextTargetToken;
+    std::int32_t nextTarget;
+    std::int32_t initialAtTail;
+    YobiAction* tailInitialActor;
+    BattleEntryEffectRecord effect2017Secondary;
+    BattleEntryEffectRecord effect260Main;
+    BattleEntryEffectRecord effect2017Redirect;
+    BattleEntryEffectRecord effect72Redirect;
+    BattleEntryEffectRecord effect72Main;
+    BattleEntryEffectRecord effectHighTechnique;
+    BattleEntryEffectRecord effect260Secondary;
+    BattleEntryEffectRecord effectPrimary;
+    BattleEntryEffectRecord effect2017Main;
+    BattleEntryEffectRecord effect72Secondary;
+    YobiAction* failureScene;
+    std::int32_t primaryValue;
+    std::int32_t primaryGraphic;
+    std::int32_t deferredInitialDeath;
+    std::int32_t secondaryGraphic = 0; // D01：原var_50仅入口初始化一次。
+    std::int32_t mainFlag8;
+    std::int32_t mainSecondGraphic;
+    std::int32_t secondarySecondGraphic;
+    std::int32_t nextTargetOrDeathFlag;
+    std::int32_t roundCount;
+    std::int32_t positionOrFlag;
+    std::int32_t skill81Value;
+    std::int32_t mainFirstImages[2];
+    std::int32_t secondaryFirstImages[2];
+    std::int32_t secondaryValues[2];
+    std::int32_t secondarySecondImages[2];
+    std::int32_t mainValues[2];
+    std::int32_t mainSecondImages[2];
+    std::int32_t secondaryFlags;
+    std::int32_t lastSecondaryPosition;
+    std::int32_t mainFlags;
+    // 424931..424999：两次独立索引/坐标采样，S32均值与源位置分别承接。
+    std::int32_t coordinateIndex15;
+    std::int32_t coordinateIndex5;
+    std::int32_t coordinate15;
+    std::int32_t coordinate5;
+    std::int32_t coordinateSum;
+    std::int32_t coordinateSource;
+
+    primaryGraphic = 0;
+    roundCount = 0;
+    deferredInitialDeath = 0;
+    mainSecondGraphic = 0;
+    secondarySecondGraphic = 0;
+    mainFirstImages[0] = 0;
+    mainFirstImages[1] = 0;
+    secondaryFirstImages[0] = 0;
+    secondaryFirstImages[1] = 0;
+    mainSecondImages[0] = 0;
+    mainSecondImages[1] = 0;
+    secondarySecondImages[0] = 0;
+    secondarySecondImages[1] = 0;
+    mainValues[0] = 0;
+    mainValues[1] = 0;
+    secondaryValues[0] = 0;
+    secondaryValues[1] = 0;
+    sourceToken = TakeBattleMInteger_438F70(scene);
+    firstSource = GetBattlePosition_4237E0(sourceToken);
+    *initialPosition = firstSource;
+    positionOrFlag = firstSource;
+    (*sourcePosition) = firstSource;
+    if (firstSource == 255)
+        return;
+    firstCaster = gBattleAllEntries59E980[firstSource];
+    if (!firstCaster) {
+FinishFirstTargetFailure:
+        FinishBattleEvent_43B6C0(scene);
+        return;
+    }
+    static_cast<BattleActorPayload*>(firstCaster->payload)->castLevel1040 = level;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 40);
+    if (static_cast<std::uint32_t>(skill) < 2
+        || skill == 3
+        || skill == 6
+        || skill == 72
+        || skill == 75
+        || skill == 76
+        || skill == 77
+        || skill == 78
+        || skill == 79
+        || skill == 80
+        || skill == 2096
+        || skill == 2097
+        || skill == 2098
+        || skill == 2099
+        || skill == 2100
+        || skill == 2101
+        || skill == 81
+        || skill == 84
+        || skill == 85
+        || skill == 87
+        || skill == 96
+        || skill == 94
+        || skill == 5
+        || skill == 2016
+        || skill == 2008
+        || skill == 2021
+        || skill == 3100) {
+        goto AppendInitialGenericCast;
+    }
+    if (skill == 2017) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 151);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D6D0[GetBattleValueBand_43BF00(levelIndex + 1)];
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
+        goto ReadFirstTarget;
+    }
+    if (skill == 2007) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 151);
+        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->image102C = kAttackImages54D5F4[GetBattleValueBand_43BF00(levelIndex + 1)];
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 252);
+        goto ReadFirstTarget;
+    }
+    if (skill < 257 || skill >= 4004) {
+        if (skill == 105) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 161);
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->flash1004 = 1;
+            goto ReadFirstTarget;
+        }
+        if (skill != 113)
+            goto ReadFirstTarget;
+AppendInitialGenericCast:
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 151);
+        goto ReadFirstTarget;
+    }
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 151);
+    if (skill != 257) {
+        if (skill == 258) {
+            coordinateIndex15 = gBattlePointIndices5536FC[15];
+            coordinateIndex5 = gBattlePointIndices5536FC[5];
+            coordinate15 = gBattleGraphicPoints553758[coordinateIndex15][2];
+            coordinate5 = gBattleGraphicPoints553758[coordinateIndex5][2];
+            coordinateSum = coordinate15 + coordinate5;
+            coordinateSource = *sourcePosition;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[coordinateSource]->payload)
+                ->moveTargetXFE8 = coordinateSum / 2;
+            coordinateIndex15 = gBattlePointIndices5536FC[15];
+            coordinateIndex5 = gBattlePointIndices5536FC[5];
+            coordinate15 = gBattleGraphicPoints553758[coordinateIndex15][3];
+            coordinate5 = gBattleGraphicPoints553758[coordinateIndex5][3];
+            coordinateSum = coordinate15 + coordinate5;
+            coordinateSource = *sourcePosition;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[coordinateSource]->payload)
+                ->moveTargetYFEC = coordinateSum / 2;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 8);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 6);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 10);
+            goto ReadFirstTarget;
+        }
+        if (skill != 262 || levelIndex < 9)
+            goto ReadFirstTarget;
+    }
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 75);
+ReadFirstTarget:
+    targetToken = TakeBattleMInteger_438F70(scene);
+    firstTarget = GetBattlePosition_4237E0(targetToken);
+    currentTarget = targetPosition;
+    (*targetPosition) = firstTarget;
+    if (!gBattleAllEntries59E980[firstTarget])
+        goto FinishFirstTargetFailure;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->castSkill103C = skill;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->castSkillLevel1044 = levelIndex;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->fpUsed1008 = fpUsed;
+    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 55);
+    mainFlags = TakeBattleMInteger_438F70(scene);
+    primaryValue = TakeBattleMInteger_438F70(scene);
+    if (skill == 81)
+        skill81Value = TakeBattleMInteger_438F70(scene);
+    if ((mainFlags & 0x800000) != 0)
+        TakeBattleMAuxGraphics_43BF30(scene, 0, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
+    if (skill == 5 || skill == 2016) {
+        clearedMainFlags = std::bit_cast<std::int32_t>(static_cast<std::uint32_t>(mainFlags) & ~0x4U);
+        mainFlags = clearedMainFlags;
+    }
+    secondaryPosition = -1;
+    secondaryFlags = 0;
+    for (lastSecondaryPosition = -1; ; lastSecondaryPosition = -1) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 25);
+        if ((mainFlags & 0x10) != 0 || (mainFlags & 0x1000) != 0) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 3);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 115);
+            goto SelectSkill260MoveTail;
+        }
+        if (skill == 96)
+            goto SelectSkill260MoveTail;
+        if (skill == 260) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 208);
+AppendSkill260Move206:
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 206);
+            goto AppendPrimaryEffect;
+        }
+        if (roundCount > 0) {
+            movingSource = (*sourcePosition);
+            if ((*sourcePosition) == positionOrFlag) {
+                if (skill == 262) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[movingSource], 210);
+                    goto AppendPrimaryEffect;
+                }
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[movingSource], 3);
+SelectSkill260MoveTail:
+                if (skill != 260)
+                    goto AppendPrimaryEffect;
+                goto AppendSkill260Move206;
+            }
+        }
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 7);
+        if (skill == 262)
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 210);
+        else
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 9);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 10);
+        if (skill == 2008) {
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D608[GetBattleValueBand_43BF00(levelIndex + 1)];
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
+        } else {
+            if (skill != 2021)
+                goto SelectSkill260MoveTail;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->image102C = kAttackImages54D694[GetBattleValueBand_43BF00(levelIndex + 1)];
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 252);
+        }
+AppendPrimaryEffect:
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 247);
+        effectPrimary.position3 = primaryValue;
+        effectPrimary.position4 = primaryGraphic;
+        effectPrimary.flags = static_cast<std::uint32_t>(mainFlags);
+        effectPrimary.position = (*currentTarget);
+        AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effectPrimary);
+        positionOrFlag = mainFlags & 0x200;
+        if ((mainFlags & 0x200) != 0) {
+            redirectToken = TakeBattleMInteger_438F70(scene);
+            mainRedirect = GetBattlePosition_4237E0(redirectToken);
+            *redirectedPosition = mainRedirect;
+            AppendBattleRedirect_4242B0(scene, (*sourcePosition), (*currentTarget), mainFlags, primaryValue, mainRedirect);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 11);
+            (*currentTarget) = *redirectedPosition;
+        }
+        switch (skill) {
+            case 260:
+                if ((mainFlags & 0x80000) != 0) {
+                    secondaryToken = TakeBattleMInteger_438F70(scene);
+                    secondaryConverted = GetBattlePosition_4237E0(secondaryToken);
+                    secondaryPosition = secondaryConverted;
+                    lastSecondaryPosition = secondaryConverted;
+                    if (secondaryConverted != 255) {
+                        failureScene = scene;
+                        if (!gBattleAllEntries59E980[secondaryConverted])
+                            goto FinishMidRoundFailure;
+                        secondaryFlags = TakeBattleMInteger_438F70(scene);
+                        level = TakeBattleMInteger_438F70(scene);
+                        if ((secondaryFlags & 0x800000) != 0)
+                            TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                        if ((secondaryFlags & 0x200) != 0) {
+                            secondaryRedirectToken = TakeBattleMInteger_438F70(scene);
+                            secondaryRedirect = GetBattlePosition_4237E0(secondaryRedirectToken);
+                            AppendBattleRedirect_4242B0(scene, (*sourcePosition), secondaryPosition, secondaryFlags, level, secondaryRedirect);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 11);
+                            effect260Main.position3 = primaryValue;
+                            effect260Main.position4 = primaryGraphic;
+                            effect260Main.flags = static_cast<std::uint32_t>(mainFlags);
+                            secondaryPosition = secondaryRedirect;
+                            effect260Main.position = (*targetPosition);
+                            lastSecondaryPosition = secondaryRedirect;
+                            AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect260Main);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                            currentTarget = targetPosition;
+                        }
+                    }
+                }
+                goto AppendTechniqueEffects;
+            case 94:
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1050 = TakeBattleMInteger_438F70(scene);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 260;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 98);
+                mainAuxIndex = 0;
+                mainScanIndex94 = 0;
+                mainScan94 = mainFirstImages;
+                while (*mainScan94 <= 0) {
+                    ++mainScanIndex94;
+                    ++mainScan94;
+                    if (mainScanIndex94 >= 2)
+                        goto AppendMainAuxiliaryEffects;
+                }
+                mainAuxIndex = mainScanIndex94;
+                goto AppendMainAuxiliaryEffects;
+            case 5:
+            case 2016:
+                initialReactionPosition = initialPosition;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22341;
+                goto AppendInitialReaction;
+            case 84:
+                initialReactionPosition = initialPosition;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22343;
+                goto AppendInitialReaction;
+            case 87:
+                initialReactionPosition = initialPosition;
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[*initialPosition]->payload)->reactionImage1010 = 22342;
+AppendInitialReaction:
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialReactionPosition], 68);
+AppendTechniqueEffects:
+                if (levelIndex >= 9) {
+                    switch (skill) {
+                        case 257:
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[(*sourcePosition)], 2, 0, 15);
+                            goto AppendTechniqueMainEffect;
+                        case 259:
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[(*sourcePosition)], 0, 0, 15);
+                            goto AppendTechniqueMainEffect;
+                        case 260:
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[(*sourcePosition)], 1, 0, 15);
+                            goto AppendTechniqueMainEffect;
+                        case 262:
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                            AppendBattleEffectList_4393A0(gBattleAllEntries59E980[(*sourcePosition)], 3, 0, 15);
+AppendTechniqueMainEffect:
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 245);
+                            effectHighTechnique.position3 = primaryValue;
+                            effectHighTechnique.position4 = primaryGraphic;
+                            effectHighTechnique.flags = static_cast<std::uint32_t>(mainFlags);
+                            effectHighTechnique.position = (*currentTarget);
+                            AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effectHighTechnique);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                mainAuxIndex = 0;
+                mainScanIndexDefault = 0;
+                mainScanDefault = mainFirstImages;
+                while (*mainScanDefault <= 0) {
+                    ++mainScanIndexDefault;
+                    ++mainScanDefault;
+                    if (mainScanIndexDefault >= 2)
+                        goto AppendMainAuxiliaryEffects;
+                }
+                mainAuxIndex = mainScanIndexDefault;
+AppendMainAuxiliaryEffects:
+                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*sourcePosition)], (*currentTarget), mainFlags, SprimaryGraphic, mainSecondGraphic, mainFirstImages[mainAuxIndex]);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 14);
+                break;
+            case 72:
+            case 113:
+                secondaryPosition = 0;
+                lastSecondaryPosition = 0;
+                secondaryFlags = 0;
+                level = 0;
+                if ((mainFlags & 1) != 0) {
+                    skill72SecondaryToken = TakeBattleMInteger_438F70(scene);
+                    secondaryPosition = GetBattlePosition_4237E0(skill72SecondaryToken);
+                    lastSecondaryPosition = secondaryPosition;
+                    secondaryFlags = TakeBattleMInteger_438F70(scene);
+                    level = TakeBattleMInteger_438F70(scene);
+                    if ((secondaryFlags & 0x800000) != 0)
+                        TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                    if ((secondaryFlags & 0x200) != 0) {
+                        skill72RedirectToken = TakeBattleMInteger_438F70(scene);
+                        skill72Redirect = GetBattlePosition_4237E0(skill72RedirectToken);
+                        secondaryPosition = AppendBattleRedirect_4242B0(scene, (*sourcePosition), secondaryPosition, secondaryFlags, level, skill72Redirect);
+                        lastSecondaryPosition = secondaryPosition;
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                        effect72Redirect.position3 = primaryValue;
+                        effect72Redirect.position4 = primaryGraphic;
+                        effect72Redirect.flags = static_cast<std::uint32_t>(mainFlags);
+                        effect72Redirect.position = (*targetPosition);
+                        AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect72Redirect);
+                    }
+                }
+                if ((mainFlags & 1) != 0) {
+                    if ((secondaryFlags & 0x200) == 0)
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*targetPosition);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    if ((secondaryFlags & 0x200) != 0)
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                    effect72Secondary.position3 = level;
+                    effect72Secondary.position4 = secondaryGraphic;
+                    effect72Secondary.position = secondaryPosition;
+                    effect72Secondary.flags = static_cast<std::uint32_t>(secondaryFlags);
+                    AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect72Secondary);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 237);
+                    effect72Main.position3 = primaryValue;
+                    effect72Main.position4 = primaryGraphic;
+                    effect72Main.flags = static_cast<std::uint32_t>(mainFlags);
+                    effect72Main.position = (*targetPosition);
+                    AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect72Main);
+                    if ((secondaryFlags & 0x40) == 0 && (secondaryFlags & 0x2000) == 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                    }
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 63);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*targetPosition);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                }
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 76);
+                currentTarget = targetPosition;
+                break;
+            case 2017:
+                secondaryPosition = 0;
+                lastSecondaryPosition = 0;
+                secondaryFlags = 0;
+                level = 0;
+                if ((mainFlags & 1) != 0) {
+                    skill2017SecondaryToken = TakeBattleMInteger_438F70(scene);
+                    secondaryPosition = GetBattlePosition_4237E0(skill2017SecondaryToken);
+                    lastSecondaryPosition = secondaryPosition;
+                    secondaryFlags = TakeBattleMInteger_438F70(scene);
+                    level = TakeBattleMInteger_438F70(scene);
+                    if ((secondaryFlags & 0x800000) != 0)
+                        TakeBattleMAuxGraphics_43BF30(scene, 0, &secondaryGraphic, &secondarySecondGraphic, secondaryFirstImages, secondarySecondImages, secondaryValues);
+                    if ((secondaryFlags & 0x200) != 0) {
+                        skill2017RedirectToken = TakeBattleMInteger_438F70(scene);
+                        skill2017Redirect = GetBattlePosition_4237E0(skill2017RedirectToken);
+                        secondaryPosition = AppendBattleRedirect_4242B0(scene, (*sourcePosition), secondaryPosition, secondaryFlags, level, skill2017Redirect);
+                        lastSecondaryPosition = secondaryPosition;
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                        effect2017Redirect.position3 = primaryValue;
+                        effect2017Redirect.position4 = primaryGraphic;
+                        effect2017Redirect.flags = static_cast<std::uint32_t>(mainFlags);
+                        effect2017Redirect.position = (*currentTarget);
+                        AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect2017Redirect);
+                    }
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*currentTarget);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                    effect2017Secondary.position3 = level;
+                    effect2017Secondary.position4 = secondaryGraphic;
+                    effect2017Secondary.position = secondaryPosition;
+                    effect2017Secondary.flags = static_cast<std::uint32_t>(secondaryFlags);
+                    AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect2017Secondary);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 237);
+                    effect2017Main.position3 = primaryValue;
+                    effect2017Main.position4 = primaryGraphic;
+                    effect2017Main.flags = static_cast<std::uint32_t>(mainFlags);
+                    effect2017Main.position = (*currentTarget);
+                    AppendBattleEffect_439400(gBattleAllEntries59E980[(*sourcePosition)], effect2017Main);
+                    if ((secondaryFlags & 0x40) == 0 && (secondaryFlags & 0x2000) == 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                    }
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 63);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->targetPosition100C = (*currentTarget);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
+                    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 110;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 41);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 5);
+                }
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 76);
+                break;
+            case 96:
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 62;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 77);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 91);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 94);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 92);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 78);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 36);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 75);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 210;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 95);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 76);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 64);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1020 = 133;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 82);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22403;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 97);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 37);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 96);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 73);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+                break;
+            case 105:
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 99);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 100);
+                mainAuxIndex = 0;
+                mainScanIndex105 = 0;
+                mainScan105 = mainFirstImages;
+                while (*mainScan105 <= 0) {
+                    ++mainScanIndex105;
+                    ++mainScan105;
+                    if (mainScanIndex105 >= 2)
+                        goto AppendMainAuxiliaryEffects;
+                }
+                mainAuxIndex = mainScanIndex105;
+                goto AppendMainAuxiliaryEffects;
+            default:
+                goto AppendTechniqueEffects;
+        }
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 0);
+        if (skill == 2016) {
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*currentTarget)]->payload)->image102C = kAttackImages54D6BC[GetBattleValueBand_43BF00(levelIndex + 1)];
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 252);
+        }
+        currentMainFlags = mainFlags;
+        mainFlag8 = mainFlags & 8;
+        if ((mainFlags & 8) == 0 && (mainFlags & 0x100) == 0) {
+            if ((mainFlags & 0x40) != 0) {
+                if ((mainFlags & 3) == 0)
+                    goto AppendSkill2008ReactionTail;
+                if ((mainFlags & 0x2000) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 34);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 121);
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 34);
+                    if (positionOrFlag) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 73);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 74);
+                    }
+                }
+                if ((mainFlags & 0x2000) != 0) {
+                    criticalPosition = (*sourcePosition);
+                    if (gBattleCurrentPosition5ABCA4 == (*sourcePosition)) {
+AppendLocalCriticalCast:
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[criticalPosition], 256);
+                        currentTarget = targetPosition;
+                        goto ReloadPrimaryFlags;
+                    }
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[criticalPosition], 52);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 51);
+                } else {
+                    criticalPosition = (*targetPosition);
+                    if (gBattleCurrentPosition5ABCA4 == (*targetPosition))
+                        goto AppendLocalCriticalCast;
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[criticalPosition], 52);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 51);
+                }
+                currentTarget = targetPosition;
+                goto ReloadPrimaryFlags;
+            }
+            if ((mainFlags & 0x10000000) != 0 || !primaryValue && skill != 6 || (mainFlags & 3) == 0)
+                goto AppendSkill2008ReactionTail;
+            if ((mainFlags & 0x8000) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 123);
+                goto ReloadPrimaryFlags;
+            }
+            if ((mainFlags & 0x4000) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 122);
+                goto ReloadPrimaryFlags;
+            }
+            if ((mainFlags & 0x2000) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 121);
+                goto ReloadPrimaryFlags;
+            }
+            if (skill != 260) {
+                if (skill != 72 && skill != 2017 && skill != 113) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? 165 : 27);
+ReloadPrimaryFlags:
+                    currentMainFlags = mainFlags;
+                }
+AppendSkill2008ReactionTail:
+                if (skill == 2008 && (currentMainFlags & 0x20) == 0 && (currentMainFlags & 0x80000) == 0)
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], 65);
+                goto FindMainNextTarget;
+            }
+            if ((mainFlags & 0x80000) == 0 || secondaryPosition == 255) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*currentTarget)], (mainFlags & 2) != 0 ? 165 : 27);
+            } else {
+                secondaryNextTarget = FindBattleMTarget_43B9B0(scene, secondaryPosition, 0);
+                originalTargetForSecondary = (*currentTarget);
+                nextTargetOrDeathFlag = secondaryNextTarget;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[originalTargetForSecondary], 209);
+                effect260Secondary.position3 = level;
+                effect260Secondary.position4 = secondaryGraphic;
+                effect260Secondary.position = secondaryPosition;
+                    effect260Secondary.flags = static_cast<std::uint32_t>(secondaryFlags);
+                AppendBattleEffect_439400(gBattleAllEntries59E980[(*currentTarget)], effect260Secondary);
+                secondaryAuxIndex = 0;
+                secondaryScanIndex = 0;
+                secondaryScan = secondaryFirstImages;
+                while (*secondaryScan <= 0) {
+                    ++secondaryScanIndex;
+                    ++secondaryScan;
+                    if (secondaryScanIndex >= 2)
+                        goto AppendSecondaryAuxiliaryEffects;
+                }
+                secondaryAuxIndex = secondaryScanIndex;
+AppendSecondaryAuxiliaryEffects:
+                AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[(*currentTarget)], secondaryPosition, secondaryFlags, secondaryGraphic, secondarySecondGraphic, secondaryFirstImages[secondaryAuxIndex]);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 0);
+                if ((secondaryFlags & 0x40) != 0) {
+                    if ((secondaryFlags & 3) != 0) {
+                        if ((secondaryFlags & 0x2000) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 206);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 34);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 121);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 34);
+                            if ((secondaryFlags & 0x200) != 0) {
+                                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 73);
+                                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 74);
+                            }
+                        }
+                        if ((secondaryFlags & 0x2000) != 0) {
+                            secondaryCriticalPosition = (*targetPosition);
+                            if (gBattleCurrentPosition5ABCA4 == (*targetPosition)) {
+                                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryCriticalPosition], 256);
+                            } else {
+                                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryCriticalPosition], 52);
+                                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 51);
+                            }
+                        } else if (gBattleCurrentPosition5ABCA4 == secondaryPosition) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 256);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 52);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 51);
+                        }
+                    }
+                } else if ((secondaryFlags & 0x8000) == 0) {
+                    if ((secondaryFlags & 0x4000) != 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 122);
+                    } else if ((secondaryFlags & 0x2000) != 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 121);
+                    } else if ((secondaryFlags & 8) == 0 && (secondaryFlags & 0x10000100) == 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                    }
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 123);
+                }
+                currentSecondaryFlags = secondaryFlags;
+                if ((secondaryFlags & 0x200) != 0) {
+                    AppendBattleSkillTail_424500(scene, secondaryPosition, secondaryFlags, level, nextTargetOrDeathFlag);
+                    currentSecondaryFlags = secondaryFlags;
+                }
+                if (level || (currentSecondaryFlags & 8) != 0 || (currentSecondaryFlags & 0x100) != 0) {
+                    if ((currentSecondaryFlags & 0x10000000) == 0) {
+                        if ((secondaryFlags & 0x200) != 0 && nextTargetOrDeathFlag >= 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 3);
+                            AppendBattleEffect_439400(gBattleAllEntries59E980[secondaryPosition], {nextTargetOrDeathFlag, 0U, 0, 0});
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 74);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 11);
+                        }
+                        currentSecondaryFlags = secondaryFlags; // 426050/426069实际重读完整W32。
+                    }
+                    if ((currentSecondaryFlags & 0x100) != 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 76);
+                        currentSecondaryFlags = secondaryFlags; // 426050/426069实际重读完整W32。
+                    }
+                }
+                if ((currentSecondaryFlags & 0x20) != 0) {
+                    if ((currentSecondaryFlags & 0x2000) != 0) {
+                        if (secondaryPosition != *initialPosition)
+                            goto DeferSecondaryInitialDeath;
+                    } else if (secondaryPosition == *initialPosition) {
+DeferSecondaryInitialDeath:
+                        deferredInitialDeath = 1;
+                        goto FindMainNextTarget;
+                    }
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 46);
+                }
+            }
+        }
+FindMainNextTarget:
+        mainNextTarget = FindBattleMTarget_43B9B0(scene, (*targetPosition), 0);
+        if (positionOrFlag)
+            AppendBattleSkillTail_424500(scene, (*targetPosition), mainFlags, primaryValue, mainNextTarget);
+        if ((mainFlags & 0x10000000) == 0 && (primaryValue || skill == 6 || mainFlag8 || (mainFlags & 0x100) != 0) && (mainFlags & 0xC000) == 0) {
+            if ((mainFlags & 0x2000) != 0) {
+                if ((*targetPosition) == *initialPosition && (*sourcePosition) != mainNextTarget)
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 11);
+                if (skill == 257) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 76);
+                    goto HandleMainDeath;
+                }
+                if (skill == 262) {
+                    mainCompletedActor = gBattleAllEntries59E980[*initialPosition];
+                    if (static_cast<BattleActorPayload*>(mainCompletedActor->payload)->castSkillLevel1044 >= 9)
+                        goto AppendMainCompleted76;
+                }
+            } else {
+                mainCompletedTarget = (*targetPosition);
+                if ((*targetPosition) != *initialPosition && skill != 72 && skill != 2017 && skill != 96 && skill != 113) {
+                    if (mainNextTarget < 0)
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[mainCompletedTarget], 11);
+                    else
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[mainCompletedTarget], 248);
+                }
+                if ((mainFlags & 0x100) != 0) {
+                    mainCompletedActor = gBattleAllEntries59E980[(*targetPosition)];
+AppendMainCompleted76:
+                    AppendBattleCast_4392A0(scene, mainCompletedActor, 76);
+                }
+            }
+        }
+HandleMainDeath:
+        nextTargetOrDeathFlag = mainFlags & 0x20;
+        if ((mainFlags & 0x20) == 0)
+            goto HandleSkill72PostReaction;
+        if ((mainFlags & 0x2000) != 0) {
+            if ((*targetPosition) == *initialPosition) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 46);
+                goto HandleSkill72PostReaction;
+            }
+DeferMainInitialDeath:
+            deferredInitialDeath = 1;
+            goto HandleSkill72PostReaction;
+        }
+        if ((*targetPosition) == *initialPosition)
+            goto DeferMainInitialDeath;
+        if (skill == 96)
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 47);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 46);
+HandleSkill72PostReaction:
+        if (skill == 72 || skill == 113) {
+            primaryValue = mainFlags & 1; // 426376：局部W32后段条件快照。
+            if ((mainFlags & 1) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 0);
+                if (!mainFlag8 && (mainFlags & 0x100) == 0 && level && (secondaryFlags & 0x40) == 0 && (secondaryFlags & 3) != 0) {
+                    if ((secondaryFlags & 0x8000) == 0) {
+                        if ((secondaryFlags & 0x4000) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 122);
+                        } else if ((secondaryFlags & 0x2000) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 121);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                        }
+                    } else {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 123);
+                    }
+                }
+            } else {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 32);
+            }
+            if ((mainFlags & 0x80000) != 0) {
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 257;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22332;
+            } else {
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 258;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22333;
+            }
+            positionOrFlag = secondaryFlags & 0x40;
+            if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
+                if ((mainFlags & 0x80000) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 57);
+                } else if ((mainFlags & 1) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 58);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 58);
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 60);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 37);
+                }
+            }
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+            if ((mainFlags & 1) != 0 && !mainFlag8 && (mainFlags & 0x100) == 0) {
+                if (positionOrFlag && (secondaryFlags & 3) != 0) {
+                    if ((secondaryFlags & 0x2000) != 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 34);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 121);
+                    } else {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 34);
+                        if ((secondaryFlags & 0x200) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 73);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 74);
+                        }
+                    }
+                    if ((secondaryFlags & 0x2000) != 0) {
+                        skill72CriticalPosition = (*sourcePosition);
+                        if (gBattleCurrentPosition5ABCA4 == (*sourcePosition)) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill72CriticalPosition], 256);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill72CriticalPosition], 52);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 51);
+                        }
+                    } else if (gBattleCurrentPosition5ABCA4 == (*targetPosition)) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 256);
+                    } else {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 52);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 51);
+                    }
+                }
+                skill72NextTarget = FindBattleMTarget_43B9B0(scene, secondaryPosition, 0);
+                if ((secondaryFlags & 0x200) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 11);
+                    AppendBattleSkillTail_424500(scene, secondaryPosition, secondaryFlags, level, skill72NextTarget);
+                }
+                if (((secondaryFlagByte1 = static_cast<std::uint8_t>(static_cast<std::uint32_t>(secondaryFlags) >> 8U), level) || (secondaryFlags & 8) != 0 || (secondaryFlags & 0x100) != 0) && (secondaryFlags & 0xC000) == 0) {
+                    initialPositionForSkill72 = initialPosition;
+                    if ((secondaryFlags & 0x2000) != 0) {
+                        if (secondaryPosition == *initialPosition)
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 11);
+                    } else {
+                        if (secondaryPosition != *initialPosition) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 11);
+                            secondaryFlagByte1 = static_cast<std::uint8_t>(static_cast<std::uint32_t>(secondaryFlags) >> 8U);
+                        }
+                        if ((secondaryFlagByte1 & 1) != 0)
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 76);
+                    }
+                } else {
+                    initialPositionForSkill72 = initialPosition;
+                }
+                if (nextTargetOrDeathFlag) {
+                    initialSkill72Value = *initialPositionForSkill72;
+                    if ((mainFlags & 0x2000) != 0) {
+                        if (secondaryPosition == initialSkill72Value) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 46);
+                            goto HandleSkill2017PostReaction;
+                        }
+                    } else if (secondaryPosition != initialSkill72Value) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 46);
+                        goto HandleSkill2017PostReaction;
+                    }
+                    deferredInitialDeath = 1;
+                }
+            }
+        }
+HandleSkill2017PostReaction:
+        if (skill == 2017) {
+            primaryValue = mainFlags & 1; // 426810：同一W32局部的2017后段快照。
+            if ((mainFlags & 1) != 0) {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 0);
+                if (!mainFlag8 && (mainFlags & 0x100) == 0 && level && (secondaryFlags & 0x40) == 0 && (secondaryFlags & 3) != 0) {
+                    if ((secondaryFlags & 0x8000) == 0) {
+                        if ((secondaryFlags & 0x4000) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 122);
+                        } else if ((secondaryFlags & 0x2000) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], (mainFlags & 2) != 0 ? 165 : 27);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 121);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], (secondaryFlags & 2) != 0 ? 165 : 27);
+                        }
+                    } else {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[secondaryPosition], 123);
+                    }
+                }
+            } else {
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 32);
+            }
+            if ((mainFlags & 0x80000) != 0) {
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 257;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22332;
+            } else {
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value101C = 258;
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 81);
+                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 68);
+                static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->reactionImage1010 = 22333;
+            }
+            if ((secondaryFlags & 0x40) == 0 || (secondaryFlags & 0x2000) == 0) {
+                if ((mainFlags & 0x80000) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 57);
+                } else if ((mainFlags & 1) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 58);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 58);
+                } else {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 60);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 37);
+                }
+            }
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 74);
+            if ((mainFlags & 1) != 0 && !mainFlag8 && (mainFlags & 0x100) == 0) {
+                skill2017Flags = secondaryFlags;
+                if ((secondaryFlags & 0x40) != 0 && (secondaryFlags & 3) != 0) {
+                    if ((secondaryFlags & 0x2000) != 0) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 34);
+                        skill2017Position = lastSecondaryPosition;
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 121);
+                    } else {
+                        skill2017Position = lastSecondaryPosition;
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 34);
+                        if ((secondaryFlags & 0x200) != 0) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 73);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 74);
+                        }
+                    }
+                    if ((secondaryFlags & 0x2000) != 0) {
+                        skill2017CriticalPosition = (*sourcePosition);
+                        if (gBattleCurrentPosition5ABCA4 == (*sourcePosition)) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill2017CriticalPosition], 256);
+                        } else {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill2017CriticalPosition], 52);
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 51);
+                        }
+                    } else if (gBattleCurrentPosition5ABCA4 == (*targetPosition)) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill2017Position], 256);
+                    } else {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill2017Position], 52);
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[skill2017Position], 51);
+                    }
+                    skill2017Flags = secondaryFlags;
+                }
+                skill2017NextTarget = FindBattleMTarget_43B9B0(scene, lastSecondaryPosition, 0);
+                if ((skill2017Flags & 0x200) != 0) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 11);
+                    AppendBattleSkillTail_424500(scene, lastSecondaryPosition, skill2017Flags, level, skill2017NextTarget);
+                }
+                if ((level || (skill2017Flags & 8) != 0 || (skill2017Flags & 0x100) != 0) && (skill2017Flags & 0xC000u) == 0) {
+                    if ((skill2017Flags & 0x2000) != 0) {
+                        if (lastSecondaryPosition == *initialPosition)
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 11);
+                    } else {
+                        if (lastSecondaryPosition != *initialPosition)
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 11);
+                        if ((skill2017Flags & 0x100) != 0)
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[lastSecondaryPosition], 76);
+                    }
+                }
+                if (nextTargetOrDeathFlag) {
+                    if ((mainFlags & 0x2000) != 0) {
+                        if (lastSecondaryPosition == *initialPosition) {
+                            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 46);
+                            goto ReadNextAttackRound;
+                        }
+                    } else if (lastSecondaryPosition != *initialPosition) {
+                        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*targetPosition)], 46);
+                        goto ReadNextAttackRound;
+                    }
+                    deferredInitialDeath = 1;
+                }
+            }
+        } else if (skill == 81 && !mainFlag8 && (mainFlags & 0xC100) == 0 && ((mainFlags & 0x2000) == 0 || !nextTargetOrDeathFlag)) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 64);
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1018 = 271;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 80);
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1030 = skill81Value;
+            static_cast<BattleActorPayload*>(gBattleAllEntries59E980[(*sourcePosition)]->payload)->value1034 = 5;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[(*sourcePosition)], 160);
+        }
+ReadNextAttackRound:
+        if (lastSecondaryPosition == 255)
+            goto PrepareInitialTail;
+        nextSourceToken = TakeBattleMInteger_438F70(scene);
+        nextSource = GetBattlePosition_4237E0(nextSourceToken);
+        positionOrFlag = nextSource;
+        (*sourcePosition) = nextSource;
+        if (nextSource == 255)
+            goto PrepareInitialTail;
+        if (!gBattleAllEntries59E980[nextSource]) {
+            failureScene = scene;
+FinishMidRoundFailure:
+            FinishBattleEvent_43B6C0(failureScene);
+PrepareInitialTail:
+            initialPositionAtTail = initialPosition;
+            goto FinalizeInitialActor;
+        }
+        if (skill == 257) {
+            initialPositionAtTail = initialPosition;
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPosition], 76);
+        } else {
+            initialPositionAtTail = initialPosition;
+            if (skill == 262) {
+                nextInitialActor = gBattleAllEntries59E980[*initialPosition];
+                if (static_cast<BattleActorPayload*>(nextInitialActor->payload)->castSkillLevel1044 >= 9)
+                    AppendBattleCast_4392A0(scene, nextInitialActor, 76);
+            }
+        }
+        nextTargetToken = TakeBattleMInteger_438F70(scene);
+        nextTarget = GetBattlePosition_4237E0(nextTargetToken);
+        (*targetPosition) = nextTarget;
+        if (!gBattleAllEntries59E980[nextTarget])
+            break;
+        mainFlags = TakeBattleMInteger_438F70(scene);
+        primaryValue = TakeBattleMInteger_438F70(scene);
+        if ((mainFlags & 0x800000) != 0)
+            TakeBattleMAuxGraphics_43BF30(scene, 0, &primaryGraphic, &mainSecondGraphic, mainFirstImages, mainSecondImages, mainValues);
+        currentTarget = targetPosition;
+        secondaryPosition = -1;
+        ++roundCount;
+        skill = -1;
+        secondaryFlags = 0;
+    }
+    FinishBattleEvent_43B6C0(scene);
+FinalizeInitialActor:
+    initialAtTail = *initialPositionAtTail;
+    if (deferredInitialDeath == 1) {
+        if (initialAtTail < 20) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[initialAtTail], 11);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPositionAtTail], 46);
+        }
+    } else {
+        if (initialAtTail < 20) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[initialAtTail], 7);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPositionAtTail], 11);
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPositionAtTail], 10);
+        }
+        if (skill == 257) {
+            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*initialPositionAtTail], 76);
+        } else if (skill == 262) {
+            tailInitialActor = gBattleAllEntries59E980[*initialPositionAtTail];
+            if (static_cast<BattleActorPayload*>(tailInitialActor->payload)->castSkillLevel1044 >= 9)
+                AppendBattleCast_4392A0(scene, tailInitialActor, 76);
+        }
+    }
+}
+
+
 void TakeBattleMSkillTargets_426FC0(
     YobiAction* const scene, const std::int32_t skill, const std::int32_t level,
     const std::int32_t technique, const std::int32_t fpUsed, const std::int32_t attackMode,
@@ -18240,7 +19347,7 @@ constexpr std::array<std::int32_t, 6> kBattleMSkill2007Images54D5F4 {
     111067, 111068, 111069, 111070, 111071, 111072,
 };
 
-// 原435B63..43695E及42B26D..42B282；caller先分流mode0和72/113/2017至尚未完成的424620。
+// 原435B63..43695E及42B26D..42B282；caller先分流mode0和72/113/2017至完整424620攻击生产。
 [[maybe_unused]] void ProcessBattleMSkillAttackNonzeroMode(
     YobiAction* const scene, BattleScenePayload* const payload,
     const std::int32_t fpUsed, const std::int32_t mode)

@@ -4012,122 +4012,286 @@
     {
       "original_entry": "0x4597E0",
       "inventory_id": "F:000597E0",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicMapNumbers"
-          ]
+            "InitializeGraphicMapNumbers_4597E0"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 6,
-      "boundary": "CRT553058：原先构造9A2960 vector，再登记459820；由进程期std::vector自动生命周期承接。跨模块初始化/退出先后未据此验收。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x4597E0",
+          "end_exclusive": "0x4597EA"
+        },
+        {
+          "start": "0x459810",
+          "end_exclusive": "0x45981C"
+        }
+      ],
+      "original_end_exclusive": "0x4597EA",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "InitializeGraphicMapNumbers_4597E0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x4597E0",
+        "source_symbol": "InitializeGraphicMapNumbers_4597E0",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x4597F0",
       "inventory_id": "F:000597F0",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicMapNumbers"
-          ]
+            "ConstructGraphicMapNumbers_4597F0"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 9,
-      "boundary": "原vector三个指针清零；未定义的allocator标签字节不复制为业务状态，空集合由默认构造承接。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。；原EAX残值未消费，native为void，不把固定this或0当业务返回。",
+      "function_chunks": [
+        {
+          "start": "0x4597F0",
+          "end_exclusive": "0x45980D"
+        }
+      ],
+      "original_end_exclusive": "0x45980D",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "ConstructGraphicMapNumbers_4597F0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x4597F0",
+        "source_symbol": "ConstructGraphicMapNumbers_4597F0",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x459820",
       "inventory_id": "F:00059820",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicMapNumbers"
-          ]
+            "DestroyGraphicMapNumbers_459820"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 11,
-      "boundary": "原只释放vector储存并清三指针，元素是W32图号；std::vector销毁不触及图形主表。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x459820",
+          "end_exclusive": "0x459845"
+        }
+      ],
+      "original_end_exclusive": "0x459845",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "DestroyGraphicMapNumbers_459820",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x459820",
+        "source_symbol": "DestroyGraphicMapNumbers_459820",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x459850",
       "inventory_id": "F:00059850",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "InitializeGraphicFirstRecords_459850"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 6,
-      "boundary": "CRT55305C：原调用459860再登记459890；由进程期有序键表生命周期承接，跨模块CRT顺序仍未验。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x459850",
+          "end_exclusive": "0x45985A"
+        },
+        {
+          "start": "0x459880",
+          "end_exclusive": "0x45988C"
+        }
+      ],
+      "original_end_exclusive": "0x45985A",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "InitializeGraphicFirstRecords_459850",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x459850",
+        "source_symbol": "InitializeGraphicFirstRecords_459850",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x459860",
       "inventory_id": "F:00059860",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "ConstructGraphicFirstRecords_459860"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 9,
-      "boundary": "原将73F128交45A9E0构造；两个局部allocator字节不当业务输入。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x459860",
+          "end_exclusive": "0x459877"
+        }
+      ],
+      "original_end_exclusive": "0x459877",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "ConstructGraphicFirstRecords_459860",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x459860",
+        "source_symbol": "ConstructGraphicFirstRecords_459860",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x459890",
       "inventory_id": "F:00059890",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "DestroyGraphicFirstRecords_459890"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 71,
-      "boundary": "原释放树节点、表头及最后共享哨兵，不释放节点中借用的GraphicInfo。当前std::map销毁保持主表非拥有语义；不模拟原树形与分配细节。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x459890",
+          "end_exclusive": "0x459957"
+        }
+      ],
+      "original_end_exclusive": "0x459957",
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "DestroyGraphicFirstRecords_459890",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x459890",
+        "source_symbol": "DestroyGraphicFirstRecords_459890",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x45A9E0",
@@ -4137,14 +4301,16 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "instruction_count": 50,
       "boundary": "原构造共享空哨兵与表头并清记录数；现由std::map默认构造承接空索引，不另建旧哨兵或引用计数。"
@@ -4152,101 +4318,241 @@
     {
       "original_entry": "0x522620",
       "inventory_id": "F:00122620",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "gIndependentPaletteQueue"
-          ]
+            "InitializeIndependentPaletteQueue_522620"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 6,
-      "boundary": "CRT553104：原调用522630再登记522660；由独立mapNo队列的std::vector生命周期承接，和DBF载荷集合不是同一owner。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x522620",
+          "end_exclusive": "0x52262A"
+        },
+        {
+          "start": "0x522650",
+          "end_exclusive": "0x52265C"
+        }
+      ],
+      "original_end_exclusive": "0x52262A",
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "InitializeIndependentPaletteQueue_522620",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x522620",
+        "source_symbol": "InitializeIndependentPaletteQueue_522620",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x522630",
       "inventory_id": "F:00122630",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "gIndependentPaletteQueue"
-          ]
+            "ConstructIndependentPaletteQueue_522630"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 9,
-      "boundary": "原103CF88的vector起址/结束/容量清零；默认空vector承接，不预先插入静态调色板项。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。；原EAX残值未消费，native为void，不把固定this或0当业务返回。",
+      "function_chunks": [
+        {
+          "start": "0x522630",
+          "end_exclusive": "0x52264D"
+        }
+      ],
+      "original_end_exclusive": "0x52264D",
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "ConstructIndependentPaletteQueue_522630",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x522630",
+        "source_symbol": "ConstructIndependentPaletteQueue_522630",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x522660",
       "inventory_id": "F:00122660",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "gIndependentPaletteQueue"
-          ]
+            "DestroyIndependentPaletteQueue_522660"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 11,
-      "boundary": "原只销毁mapNo数值队列储存并清三指针；不释放DBF解压块、树或独立调色板双池。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x522660",
+          "end_exclusive": "0x522685"
+        }
+      ],
+      "original_end_exclusive": "0x522685",
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "DestroyIndependentPaletteQueue_522660",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x522660",
+        "source_symbol": "DestroyIndependentPaletteQueue_522660",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x522690",
       "inventory_id": "F:00122690",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "gPaletteDbf",
-            "PaletteDbfState"
-          ]
+            "InitializePaletteDbfState_522690"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 2,
-      "boundary": "CRT553108：调用5226A0后跳5226B0登记5226C0；后两位置属于5226A0合并函数块，不伪造独立元数据ID。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。",
+      "function_chunks": [
+        {
+          "start": "0x522690",
+          "end_exclusive": "0x52269A"
+        }
+      ],
+      "original_end_exclusive": "0x52269A",
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "InitializePaletteDbfState_522690",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x522690",
+        "source_symbol": "InitializePaletteDbfState_522690",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x5226A0",
       "inventory_id": "F:001226A0",
-      "status": "已有标准容器适配映射，完整生命周期未验",
+      "status": "本组四被动owner/具名构析与即时宿主登记已接；DBF正常载荷及容器清理顺序已对齐，全应用序/运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "gPaletteDbf",
-            "PaletteDbfState",
-            "decodedBlocks",
-            "records"
-          ]
+            "ConstructPaletteDbfState_5226A0",
+            "DestroyPaletteDbfState_5226C0",
+            "PaletteDbfState"
+          ],
+          "relationship": "真实固定owner的具名构析/即时宿主登记；节点/allocator等私有差异按D02/D03，不是原体逐指令等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
       "instruction_count": 225,
-      "boundary": "该IDA条目含构造、登记、退出、异常清理等多块。PaletteDbfState按装载序释放解压块，随后容器管理节点/存储；释放池522C50不销毁本owner。节点/哨兵/指针数组的具体分配释放次数与时机按既有标准容器适配边界，不称逐指令或完整异常路径等价。"
+      "boundary": "只本组应用owner/正常构造与退出按原职责接线；mapNo保持S32、记录指针非拥有。宿主STL私有节点/分配/退出表及C++异常机制按获批边界承接，原全应用相对序与快速退出仍待；无第二套自动对象构析或once/懒构造/默认成功，未构建/运行。；5226B0/C0/D0/522860与两后置chunk不增身份；map→vector构造，U32索引逐次data/size释放解压块→集合clear→树clear→集合容量析构→空树析构。原header/count/stride/payload及各加载消费保持，C++展开/SDK实际结果未验。",
+      "function_chunks": [
+        {
+          "start": "0x5226A0",
+          "end_exclusive": "0x5228F8"
+        },
+        {
+          "start": "0x536EB0",
+          "end_exclusive": "0x536ED2"
+        },
+        {
+          "start": "0x54BC10",
+          "end_exclusive": "0x54BC30"
+        }
+      ],
+      "original_end_exclusive": "0x5228F8",
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "ConstructPaletteDbfState_5226A0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "resource_container_lifecycle": {
+        "original_entry": "0x5226A0",
+        "source_symbol": "ConstructPaletteDbfState_5226A0",
+        "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md",
+        "disposition": "adapted",
+        "module_provider_active": true,
+        "full_application_order_connected": false,
+        "runtime_verified": false,
+        "fixed_version": "cg2d-re-resource-containers-source-20261004"
+      }
     },
     {
       "original_entry": "0x45AA80",
@@ -4258,13 +4564,15 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原非空整范围有快速清树路径，否则逐节点删除；实际GraphicInit调用为清整树，现有clear承接，不释放借用的GraphicInfo。"
     },
@@ -4277,13 +4585,15 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原先取得后继，移接/平衡后删除节点并减计数；由std::map的erase/clear/析构机制承接，节点值保持非拥有引用。"
     },
@@ -4296,13 +4606,15 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原递归右子树并沿左子树释放节点，止于9A2980共享哨兵；节点销毁由std::map承接，不模拟旧树形和释放顺序。"
     },
@@ -4316,13 +4628,15 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原分配24B节点、复制键值、按S32键挂接并平衡；现由emplace承接首次记录，节点指针拓宽而mapNo保持S32。"
     },
@@ -4335,13 +4649,15 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "范围删除内部用于寻找后继子树的最左节点；由std::map内部迭代/删除承接，不公开原哨兵指针。"
     },
@@ -4355,13 +4671,15 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "用于父入口唯一插入检查中的前驱移动；当前emplace与此前去重vector共同保留首见记录，不单独暴露旧迭代器。"
     },
@@ -4374,13 +4692,15 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原通过右子树最左节点或父链更新迭代槽；由当前map删除和析构内部遍历承接。"
     },
@@ -4394,13 +4714,15 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicMapNumbers"
-          ]
+            "gGraphicMapNumbersStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原叶只递归处理超过16元素的分区，小分区由459960内联插入排序收尾；std::sort替代整个父排序阶段，不宣称与该叶独立输出相同。比较为S32，返回残值被父入口弃用。"
     },
@@ -4513,15 +4835,17 @@
           "path": "src/GraphicRead.cpp",
           "symbols": [
             "decodedBlocks",
-            "gIndependentPaletteQueue"
-          ]
+            "gIndependentPaletteQueueStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         },
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicMapNumbers"
-          ]
+            "gGraphicMapNumbersStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         },
         {
           "path": "src/world/SceneState.cpp",
@@ -4534,7 +4858,8 @@
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_scene_state.md"
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "五个直接callsite均在end插入一项：459E07图号、518B37相册请求编号、522A38解压块指针、522AF1/522B7E调色板mapNo。分别由有类型vector的push_back承接，只有解压块元素拓宽为指针；不模拟原容量增长与分配失败时机。"
     },
@@ -11196,15 +11521,17 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "boundary": "按顺序复制节点引用与W8插入标志；图形变换44CD80六处、图号索引459960两处由现有有序容器操作结果承接。5396A0两处属于已批屏幕键盘链排除，不据此排除共享叶或其他调用。原结果结构的32位引用布局不套用于x64。",
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_external_keyboard_wrapper.md"
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ]
     },
     {
@@ -11223,16 +11550,18 @@
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
-            "gGraphicFirstRecords",
+            "gGraphicFirstRecordsStorage",
             "GraphicInit_459960"
-          ]
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         },
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
             "PaletteDbfState",
-            "gPaletteDbf"
-          ]
+            "gPaletteDbfStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "boundary": "读取this+4表头的+0首节点，写输出迭代器并返回输出地址；44CC60、459890、459960、5226A0两处、523390由现有容器首项/插入/清理生命周期整体承接。535310一处属于已批键盘链排除；不独立模拟旧表头地址或将清理临时begin读取当作新增业务循环。",
@@ -11240,7 +11569,8 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_external_keyboard_wrapper.md",
-        "doc/cg2d_graphic_transform_lifecycle_spec.md"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ]
     },
     {
@@ -11254,15 +11584,17 @@
           "path": "src/GraphicRead.cpp",
           "symbols": [
             "PaletteDbfState",
-            "gPaletteDbf"
-          ]
+            "gPaletteDbfStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "boundary": "分配原24B节点并仅写+4 parent和+14 color；5226A0函数块内522880/5228C5分别建立共享哨兵/表头，由既有map构造承接。535090一处属已批屏幕键盘链排除。不把原分配布局或失败时机当作已保真，不新增固定成功包装。",
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_external_keyboard_wrapper.md"
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ]
     },
     {
@@ -18568,22 +18900,25 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960",
-            "gGraphicFirstRecords"
-          ]
+            "gGraphicFirstRecordsStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         },
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
             "LoadIndependentPaletteIndex_522900",
-            "gPaletteDbf"
-          ]
+            "gPaletteDbfStorage"
+          ],
+          "relationship": "既有容器职责关联；本轮同一owner改为被动存储/纯借用和具名构析，原算法/私有机制映射边界不变，不新增原体实现声明"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_external_keyboard_wrapper.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原目的非空时顺序读写两W32并返回原目的，空目的直接返回；45AF97/523D57用于图形与DBF树节点键值。既有emplace、try_emplace及记录指针赋值承接父链键值职责，S32键保持，已证GraphicInfo*/uint8_t*用原生指针。其余四caller属已排除键盘树，不整体排除本叶；不声称独立空目的/重叠输入、内存ABI或分配失败等价。"
     },
@@ -21571,7 +21906,8 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_graphic_transform_lifecycle_spec.md"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -22357,6 +22693,49 @@
           "module_provider_active": true,
           "original_exit_callback": "0x44CD70",
           "relationship": "本组第二相邻项在第一项构造/即时登记后执行；全应用相对序、快速退出与运行未验"
+        }
+      ],
+      "resource_container_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x553058",
+          "target_entry": "0x4597E0",
+          "target_symbol": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+          "exit_callback": "0x459820",
+          "source": "src/GraphicInfo.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true
+        },
+        {
+          "reference_site": "0x55305C",
+          "target_entry": "0x459850",
+          "target_symbol": "cg::resource::InitializeGraphicFirstRecords_459850",
+          "exit_callback": "0x459890",
+          "source": "src/GraphicInfo.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true
+        },
+        {
+          "reference_site": "0x553104",
+          "target_entry": "0x522620",
+          "target_symbol": "cg::resource::InitializeIndependentPaletteQueue_522620",
+          "exit_callback": "0x522660",
+          "source": "src/GraphicRead.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true
+        },
+        {
+          "reference_site": "0x553108",
+          "target_entry": "0x522690",
+          "target_symbol": "cg::resource::InitializePaletteDbfState_522690",
+          "exit_callback": "0x5226C0",
+          "source": "src/GraphicRead.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true,
+          "shared_chunk_root": "0x5226A0"
         }
       ]
     },

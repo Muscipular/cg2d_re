@@ -13,6 +13,11 @@ struct PaletteEntry;
 
 namespace cg::resource {
 
+// 原553104/553108：独立队列与DBF分别构造后即时登记真实退出。
+// 当前仅模块适配调用；接全应用序时同小步移除适配，不重复构析。
+std::int32_t InitializeIndependentPaletteQueue_522620();
+std::int32_t InitializePaletteDbfState_522690();
+
 // 原 0x927EF4 的九个 Graphic 文件槽，统一由资源初始化/关闭链接原FILE核心。
 extern platform::LegacyFile* gGraphicFiles[9];
 

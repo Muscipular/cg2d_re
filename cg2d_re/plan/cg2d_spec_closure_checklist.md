@@ -118,9 +118,9 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | 编号 / 范围 | 当前证据级别 | 剩余差异与下一步 | 依赖与完成条件 |
 |---|---|---|---|
 | C01 / CRT 总策略 | 受限宿主承接已定，本轮未迁移 | 按启动/运行库两个子SPEC实施 | 私有差异与业务保留项分列；[宿主总SPEC](../doc/cg2d_crt_host_migration_spec.md) |
-| C02 / C++90 初始化表 | 原表/部分provider已有 | 逐槽区分宿主内部与应用显式构析，保留原应用相对顺序 | 不再要求造完整私有CRT启动替宿主；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
+| C02 / C++90 初始化表 | 原90槽/多个provider已有，四图形/DBF具名构析已接 | 逐槽区分宿主内部与应用显式构析，保留原应用相对顺序 | 不再要求造完整私有CRT启动替宿主；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C03 / 四Init与登记 | 14流对象/七共享槽已有 | 保留兼容消费者的实际Init/登记；宿主组整体迁移类型/消费者/owner | 不用宿主对象强转旧布局，未知容量仍补证；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
-| C04 / 构析与入口迁移 | 原provider/数组helper已接 | 宿主启动后沿原应用序显式执行，每owner一套活动构析 | 排除双执行/跨域释放，62析构逐项归属；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
+| C04 / 构析与入口迁移 | 原provider/数组helper及四容器本组唯一宿主构析已接 | 宿主启动后沿原应用序显式执行，每owner一套活动构析 | 排除双执行/跨域释放，62析构逐项归属；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C05 / codecvt | 旧消费者与方法槽在，真实生产未闭 | 宿主内部用完整宿主流类型；保留Legacy消费者仍补真实facet生产 | 不造空表/桥半类型/猜编码；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C06 / 异常查找捕获 | 旧数据/部分叶已有，父未闭 | 私有5402AB/5407BC职责由真实本机异常设施承接，caller成组映射 | 保留业务异常/清理，不记旧内核已还原；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C07 / 抛出与SDK | 旧准备链已有，抛出未接 | 编译器生成真实异常ABI，不手造ThrowInfo/RVA，明确消息/复制/重抛映射 | 不把Legacy对象硬转宿主异常；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
@@ -166,7 +166,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前已具备 | 剩余任务 | 完成条件 / 证据 |
 |---|---|---|---|
-| G01 / 图形资源完整生命周期 | 图形/地图/anime读取、解码、调色板、DBF及多处父调用已有 | 按初始化→加载→重建→场景释放→进程退出补共享owner/失效边 | [DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[资源](../doc/cg2d_resource_implementation.md)；不得重新记为“全未实现” |
+| G01 / 图形资源完整生命周期 | 读取/解码、调色板/DBF及多处父已有；四容器构析与DBF退出序已接 | 按初始化→加载→重建→场景释放→进程退出补共享owner/失效边 | [DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[资源](../doc/cg2d_resource_implementation.md)；不得重新记为“全未实现” |
 | G02 / 队列与命中 | 48B队列、RenderChara、DrawAllQueued、507140及指定caller已有 | 全场景生产、文本token/对象借用有效期、清理后访问 | [命中](../doc/cg2d_sub_507140.md)、[绘制源码](../src/render/DrawAllQueued.cpp)；指定接线不等于全场景闭环 |
 | G03 / 模式2/3/4 | MakeSurface尺寸/格式门禁、接口/设备生产与探测已有 | 模式切换/回退、裁剪、采样/混合、提交及重建真实流程 | [纹理](../doc/cg2d_texture_rendering.md)、[呈现](../doc/cg2d_sdl_presenter.md)；像素/实际driver留V04 |
 | G04 / 渲染替换差异 | SDL自动driver、CPU Back/Temp、DX原生ABI豁免已批 | 逐上层函数核RAND、W32/S16、坐标/色键/生命周期/提交序 | 仅DX边界豁免HRESULT/COM，不豁免上层；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
@@ -212,3 +212,5 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 - 定点核三静态库目标、创建无参调用与显式本体、两网络接线、七CRT槽、14标准流存储、四UI标量、堆三声明、异常抛出声明和绘制/命中源码。
 - 其余细分实现数量沿已记录局部合同，未重新逐指令审计既有本体；本表是可执行的收尾索引，不是全EXE完成证明。
 - 本轮仅改文档并做UTF-8、链接、任务号/待决映射及限定差异检查；用户已有六项工作区修改保留，不纳入提交。
+
+本轮C02/C04/G01局部源码与限定证据见[四容器子SPEC](../doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure)；三项仍open，不能因接口落位关闭全应用顺序/资源生命周期。

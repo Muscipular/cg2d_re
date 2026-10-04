@@ -6,6 +6,11 @@
 
 namespace cg::resource {
 
+// 原553058/55305C：各固定容器构造后立即登记宿主退出，返回实际S32。
+// 当前仅模块适配调用；接原全应用序时必须同时移除适配，不能双执行。
+std::int32_t InitializeGraphicMapNumbers_4597E0();
+std::int32_t InitializeGraphicFirstRecords_459850();
+
 // GraphicInit@0x459960 建立的运行时记录；不含指针，x64 下步长仍为 0x20。
 // 字段写入证据及磁盘布局区别见 cg2d_re/doc/cg2d_graphic_info.md。
 struct GraphicInfo {

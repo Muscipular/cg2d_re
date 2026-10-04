@@ -1,6 +1,6 @@
 # CRT 启动与生命周期迁移子 SPEC
 
-> D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，本轮仅设计。
+> D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，上位实施方案；局部实现见下方各组合同，全应用启动/退出仍未闭。
 > 决定：由宿主MSVC/UCRT完成自身初始化/终止；原应用可见初始化和退出显式承接，不能同时启用两套owner。
 
 ## 1. 原表是对应账本，不是要求复造宿主CRT的启动表
@@ -46,3 +46,7 @@
 ## 5. C09 本组实施合同
 
 [图形双树构析与宿主登记子SPEC](cg2d_graphic_transform_lifecycle_spec.md)细化两固定owner的被动存储、具名构造/即时登记/退出以及业务清理分工。当前同模块启动适配保留本组前置条件，整表接入时必须同时移除适配，不能双执行；全应用相对顺序和运行仍待。
+
+## 6. C02/C04 图形索引与DBF容器提供者
+
+[资源容器子SPEC](cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure)已按四真实槽实施被动存储/固定构析/即时宿主登记；两个模块位置的适配只保证本组配对。DBF按实际指令修正map→vector构造及载荷释放、集合归空、清树、成员逆序析构。全应用原序接通时必须同小步移除模块适配；四Init/其他owner、全资源/快速退出与运行继续待验，C02/C04/G01不提前关闭。

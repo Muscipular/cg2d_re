@@ -73,7 +73,8 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_client_shutdown.md",
         "doc/cg2d_crt_startup_lifecycle_spec.md",
-        "doc/cg2d_graphic_transform_lifecycle_spec.md"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -83,7 +84,18 @@
         "F:0004CD40",
         "F:0004CD70",
         "F:00053FB0",
-        "F:00054780"
+        "F:00054780",
+        "F:000597E0",
+        "F:000597F0",
+        "F:00059820",
+        "F:00059850",
+        "F:00059860",
+        "F:00059890",
+        "F:00122620",
+        "F:00122630",
+        "F:00122660",
+        "F:00122690",
+        "F:001226A0"
       ],
       "closure_task_ids": [
         "C02",
@@ -102,12 +114,14 @@
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
-        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验"
+        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
+        "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline"
       ]
     },
     {
@@ -424,9 +438,22 @@
         "doc/cg2d_resource_sources.md",
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_graphic_decode.md",
-        "doc/cg2d_graphic_info.md"
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_resource_container_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000597E0",
+        "F:000597F0",
+        "F:00059820",
+        "F:00059850",
+        "F:00059860",
+        "F:00059890",
+        "F:00122620",
+        "F:00122630",
+        "F:00122660",
+        "F:00122690",
+        "F:001226A0"
+      ],
       "closure_task_ids": [
         "G01",
         "G05",
@@ -439,11 +466,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline"
+      ]
     },
     {
       "id": "FUNC-ANIMATION",
@@ -5488,6 +5518,120 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-RESOURCE-CONTAINERS-I-20261004",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：C++90表/本组四槽，11原身份365条及原5226A0共享构造/析构/EH块；doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-resource-containers-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-acceptance",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "src/GraphicInfo.cpp#GraphicInfoContainersStartup",
+        "src/GraphicInfo.cpp#InitializeGraphicMapNumbers_4597E0",
+        "src/GraphicInfo.cpp#InitializeGraphicFirstRecords_459850",
+        "src/GraphicRead.cpp#IndependentPaletteContainersStartup",
+        "src/GraphicRead.cpp#PaletteDbfState",
+        "src/GraphicRead.cpp#InitializeIndependentPaletteQueue_522620",
+        "src/GraphicRead.cpp#InitializePaletteDbfState_522690",
+        "include/cg/GraphicInfo.hpp",
+        "include/cg/GraphicRead.hpp"
+      ],
+      "observation": "仅四资源容器的正常构析/即时登记与DBF载荷清理",
+      "expected": "四被动owner/八真实构析叶/四真实宿主登记，取消旧自动对象；DBF按原map→vector及载荷/集合/树次序",
+      "actual": "四组具名提供者及两个无析构启动适配落位；DBF成员和U32循环/clear顺序与原对应，不构建/运行",
+      "differences": [
+        {
+          "description": "宿主STL私有节点/空节点/allocator与C++异常机制、宿主退出登记按D02/D03承接；保留载荷分配域及业务字段，不称原CRT逐指令等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前两模块各唯一适配保持本模块位置，原全应用相对序仍未接；全表接入必须同时移除模块适配，不双执行",
+          "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-RESOURCE-CONTAINERS-W-20261004",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：C++90表/本组四槽，11原身份365条及原5226A0共享构造/析构/EH块；doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-resource-containers-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-acceptance",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "src/GraphicInfo.cpp#GraphicInfoContainersStartup",
+        "src/GraphicInfo.cpp#InitializeGraphicMapNumbers_4597E0",
+        "src/GraphicInfo.cpp#InitializeGraphicFirstRecords_459850",
+        "src/GraphicRead.cpp#IndependentPaletteContainersStartup",
+        "src/GraphicRead.cpp#PaletteDbfState",
+        "src/GraphicRead.cpp#InitializeIndependentPaletteQueue_522620",
+        "src/GraphicRead.cpp#InitializePaletteDbfState_522690",
+        "include/cg/GraphicInfo.hpp",
+        "include/cg/GraphicRead.hpp"
+      ],
+      "observation": "仅本组四原槽/固定owner/全部同文件消费与退出职责",
+      "expected": "553058/55305C、553104/553108各自构造后即时登记；借用同一存储，DBF与调色板双池分别持有",
+      "actual": "两个模块适配按两原相邻项调用，消费者经纯借用取同一对象；522C50仍不析构DBF/队列，全应用序另待",
+      "differences": [
+        {
+          "description": "宿主STL私有节点/空节点/allocator与C++异常机制、宿主退出登记按D02/D03承接；保留载荷分配域及业务字段，不称原CRT逐指令等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前两模块各唯一适配保持本模块位置，原全应用相对序仍未接；全表接入必须同时移除模块适配，不双执行",
+          "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-RESOURCE-CONTAINERS-S-20261004",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：C++90表/本组四槽，11原身份365条及原5226A0共享构造/析构/EH块；doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-resource-containers-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-acceptance",
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "src/GraphicInfo.cpp#GraphicInfoContainersStartup",
+        "src/GraphicInfo.cpp#InitializeGraphicMapNumbers_4597E0",
+        "src/GraphicInfo.cpp#InitializeGraphicFirstRecords_459850",
+        "src/GraphicRead.cpp#IndependentPaletteContainersStartup",
+        "src/GraphicRead.cpp#PaletteDbfState",
+        "src/GraphicRead.cpp#InitializeIndependentPaletteQueue_522620",
+        "src/GraphicRead.cpp#InitializePaletteDbfState_522690",
+        "include/cg/GraphicInfo.hpp",
+        "include/cg/GraphicRead.hpp"
+      ],
+      "observation": "仅原11身份365条/chunks和新增本组源码静态对照",
+      "expected": "共享段不增身份，源借用/构析外原装载、字段宽度、格式、FILE/解压及资源算法不改",
+      "actual": "完整365条及90表/四目标槽核定，新增本组构造、登记、清理与同源读写静态对照；无测试/运行",
+      "differences": [
+        {
+          "description": "宿主STL私有节点/空节点/allocator与C++异常机制、宿主退出登记按D02/D03承接；保留载荷分配域及业务字段，不称原CRT逐指令等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前两模块各唯一适配保持本模块位置，原全应用相对序仍未接；全表接入必须同时移除模块适配，不双执行",
+          "decision_ref": "doc/cg2d_resource_container_lifecycle_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -5577,6 +5721,30 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure"
+      ]
+    },
+    {
+      "task_id": "C02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+      ]
+    },
+    {
+      "task_id": "C04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+      ]
+    },
+    {
+      "task_id": "G01",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
       ]
     }
   ],
@@ -5723,6 +5891,105 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000597E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000597F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00059820",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00059850",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00059860",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00059890",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00122620",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00122630",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00122660",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00122690",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:001226A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_crt_startup_lifecycle_spec.md"
       ]
     }

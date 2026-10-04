@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <memory>
 #include <new>
 #include <type_traits>
 #include <vector>
@@ -150,22 +151,80 @@ struct PaletteDbfState {
     PaletteDbfHeader header {};
     std::int32_t count = 0;  // 原 103CF50，最后一次载荷的项数。
     std::int32_t stride = 0; // 原 103CF54，最后一次载荷的原字节步长。
-    std::vector<std::uint8_t*> decodedBlocks;
+    // 原522860先构造+28索引，再构造+38载荷集合；私有节点由宿主承接。
     std::map<std::int32_t, std::uint8_t*> records;
+    std::vector<std::uint8_t*> decodedBlocks;
     std::uint8_t* payload = nullptr; // 原 103CF78，指向解压块 +8。
     std::map<std::int32_t, std::uint8_t*>::iterator current {}; // 原 103CF80。
 
     ~PaletteDbfState()
     {
-        // 原 5226D0：先依装载序释放所有解压块，再销毁树及指针集合。
-        for (std::uint8_t* block : decodedBlocks) {
-            platform::FreeLegacyByteBuffer(block);
+        // 原522701..522838：释放载荷 -> 归空集合 -> 清树节点 ->
+        // 成员逆序释放集合容量，再销毁已空树/表头，不重复释放载荷。
+        std::uint32_t blockIndex = 0;
+        while (decodedBlocks.data() != nullptr && blockIndex < decodedBlocks.size()) {
+            platform::FreeLegacyByteBuffer(decodedBlocks[blockIndex]);
+            ++blockIndex;
         }
+        decodedBlocks.clear();
+        records.clear();
     }
 };
 
-std::vector<std::int32_t> gIndependentPaletteQueue; // 原 103CF88，元素为 mapNo。
-PaletteDbfState gPaletteDbf;
+using IndependentPaletteQueue = std::vector<std::int32_t>;
+
+// 原103CF88队列与103CF30 DBF为独立owner；被动存储不自动构析。
+alignas(IndependentPaletteQueue)
+std::byte gIndependentPaletteQueueStorage[sizeof(IndependentPaletteQueue)] {};
+alignas(PaletteDbfState)
+std::byte gPaletteDbfStorage[sizeof(PaletteDbfState)] {};
+
+IndependentPaletteQueue& BorrowIndependentPaletteQueue() noexcept
+{
+    return *std::launder(
+        reinterpret_cast<IndependentPaletteQueue*>(gIndependentPaletteQueueStorage));
+}
+
+PaletteDbfState& BorrowPaletteDbfState() noexcept
+{
+    return *std::launder(reinterpret_cast<PaletteDbfState*>(gPaletteDbfStorage));
+}
+
+// 原522630返回未消费；只构造独立队列，不触及DBF或双池。
+void ConstructIndependentPaletteQueue_522630()
+{
+    static_cast<void>(std::construct_at(
+        reinterpret_cast<IndependentPaletteQueue*>(gIndependentPaletteQueueStorage)));
+}
+
+void DestroyIndependentPaletteQueue_522660()
+{
+    std::destroy_at(&BorrowIndependentPaletteQueue());
+}
+
+// 原5226A0 -> 522860固定this；类型成员按map -> vector构造。
+PaletteDbfState* ConstructPaletteDbfState_5226A0()
+{
+    return std::construct_at(reinterpret_cast<PaletteDbfState*>(gPaletteDbfStorage));
+}
+
+// 原5226C0/5226D0属5226A0共享体，不增原身份；真实释放解压块及成员容器。
+void DestroyPaletteDbfState_5226C0()
+{
+    std::destroy_at(&BorrowPaletteDbfState());
+}
+
+struct IndependentPaletteContainersStartup final {
+    IndependentPaletteContainersStartup()
+    {
+        // 原553104 -> 553108；每项构造后立即登记，不按首次结果短路。
+        static_cast<void>(InitializeIndependentPaletteQueue_522620());
+        static_cast<void>(InitializePaletteDbfState_522690());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<IndependentPaletteContainersStartup>);
+IndependentPaletteContainersStartup gIndependentPaletteContainersStartup;
 std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
 IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
 IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;
@@ -188,24 +247,24 @@ void LoadIndependentPaletteIndex_522900()
         return;
     }
     platform::ReadLegacyStream_53BCCD(
-        &gPaletteDbf.header, 1,
+        &BorrowPaletteDbfState().header, 1,
         static_cast<std::uint32_t>(sizeof(PaletteDbfHeader)), file);
-    if (gPaletteDbf.header.magic != 0x00464244u) {
+    if (BorrowPaletteDbfState().header.magic != 0x00464244u) {
         return; // 原 magic 不匹配路径没有 fclose。
     }
 
     auto* compressed = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(gPaletteDbf.header.compressedLength));
+        platform::AllocateLegacyByteBuffer(BorrowPaletteDbfState().header.compressedLength));
     auto* decoded = static_cast<std::uint8_t*>(
-        platform::AllocateLegacyByteBuffer(gPaletteDbf.header.decodedLength));
+        platform::AllocateLegacyByteBuffer(BorrowPaletteDbfState().header.decodedLength));
     platform::ReadLegacyStream_53BCCD(
-        compressed, 1, gPaletteDbf.header.compressedLength, file);
+        compressed, 1, BorrowPaletteDbfState().header.compressedLength, file);
     static_cast<void>(DecompressDbf_53AF90(
-        compressed, static_cast<std::int32_t>(gPaletteDbf.header.compressedLength),
-        decoded, &gPaletteDbf.header.decodedLength));
+        compressed, static_cast<std::int32_t>(BorrowPaletteDbfState().header.compressedLength),
+        decoded, &BorrowPaletteDbfState().header.decodedLength));
     platform::FreeLegacyByteBuffer(compressed);
-    gPaletteDbf.decodedBlocks.push_back(decoded);
-    gPaletteDbf.payload = decoded + 8;
+    BorrowPaletteDbfState().decodedBlocks.push_back(decoded);
+    BorrowPaletteDbfState().payload = decoded + 8;
 
     const auto readWord = [](const std::uint8_t* const bytes) {
         std::int32_t value;
@@ -214,22 +273,22 @@ void LoadIndependentPaletteIndex_522900()
     };
     for (std::int32_t index = 0; index < readWord(decoded); ++index) {
         std::uint8_t* const record =
-            gPaletteDbf.payload + index * readWord(decoded + 4);
-        const auto inserted = gPaletteDbf.records.try_emplace(readWord(record), nullptr);
+            BorrowPaletteDbfState().payload + index * readWord(decoded + 4);
+        const auto inserted = BorrowPaletteDbfState().records.try_emplace(readWord(record), nullptr);
         inserted.first->second = record;
     }
-    gPaletteDbf.count = readWord(decoded);
-    gPaletteDbf.stride = readWord(decoded + 4);
+    BorrowPaletteDbfState().count = readWord(decoded);
+    BorrowPaletteDbfState().stride = readWord(decoded + 4);
     platform::CloseLegacyStream_53B1D0(file);
 
-    gPaletteDbf.current = gPaletteDbf.records.begin();
-    while (gPaletteDbf.current != gPaletteDbf.records.end()) {
-        const auto current = gPaletteDbf.current++;
+    BorrowPaletteDbfState().current = BorrowPaletteDbfState().records.begin();
+    while (BorrowPaletteDbfState().current != BorrowPaletteDbfState().records.end()) {
+        const auto current = BorrowPaletteDbfState().current++;
         const std::uint8_t* const record = current->second;
         if (record == nullptr) {
             break;
         }
-        gIndependentPaletteQueue.push_back(readWord(record + 4));
+        BorrowIndependentPaletteQueue().push_back(readWord(record + 4));
     }
 }
 
@@ -242,7 +301,7 @@ void LoadIndependentPalette32_522CB0(const std::int32_t index)
     IndependentPaletteIndex& entry = gIndependentPaletteIndex[index];
     if (entry.loaded == 0) {
         std::int32_t imageNo;
-        GetGraphicMapNoIndex(gIndependentPaletteQueue[index], &imageNo);
+        GetGraphicMapNoIndex(BorrowIndependentPaletteQueue()[index], &imageNo);
         std::uint32_t paletteLength;
         if (ReadGraphicDataByIndex(
                 imageNo, &gGraphicDataPtr, &gCurrentGraphicWidth,
@@ -287,6 +346,18 @@ void LoadIndependentPalette32_522CB0(const std::int32_t index)
 }
 
 } // namespace
+
+std::int32_t InitializeIndependentPaletteQueue_522620()
+{
+    ConstructIndependentPaletteQueue_522630();
+    return std::atexit(DestroyIndependentPaletteQueue_522660);
+}
+
+std::int32_t InitializePaletteDbfState_522690()
+{
+    static_cast<void>(ConstructPaletteDbfState_5226A0());
+    return std::atexit(DestroyPaletteDbfState_5226C0);
+}
 
 std::int32_t DecompressDbf_53AF90(
     const std::uint8_t* const source,
@@ -388,12 +459,12 @@ std::int32_t DecompressDbf_53AF90(
 
 std::int32_t InitializeIndependentPalettes_522B30()
 {
-    gIndependentPaletteQueue.clear();
+    BorrowIndependentPaletteQueue().clear();
     for (const std::int32_t mapNo : gHiddenPaletteBaseQueue) {
-        gIndependentPaletteQueue.push_back(mapNo);
+        BorrowIndependentPaletteQueue().push_back(mapNo);
     }
     LoadIndependentPaletteIndex_522900();
-    gIndependentPaletteCount = static_cast<std::int32_t>(gIndependentPaletteQueue.size());
+    gIndependentPaletteCount = static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());
 
     gIndependentPaletteIndex = static_cast<IndependentPaletteIndex*>(
         platform::AllocateLockedZeroedGlobalMemory(

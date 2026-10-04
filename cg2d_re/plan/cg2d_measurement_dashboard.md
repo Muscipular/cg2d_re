@@ -14,7 +14,7 @@
 | 语义登记 | 1144条/1141个原ID | 无独立ID记录另列3条 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 16/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 27/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置0 / 0 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -39,7 +39,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 
 | 功能ID | 范围/名称 | 合同 | 已审/同合同候选成员 | 任务 | B/I/W/S/R |
 |---|---|---|---:|---|---|
-| FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md) | 8/324 | C02、C03、C04、V01、V02、C09 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md) | 19/348 | C02、C03、C04、V01、V02、C09 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-CRT | included：CRT提供者与兼容边界 | [cg2d_crt_runtime_boundary_spec](../doc/cg2d_crt_runtime_boundary_spec.md)、[cg2d_stdio_contract](../doc/cg2d_stdio_contract.md)、[cg2d_crt_memory_contract](../doc/cg2d_crt_memory_contract.md)、[cg2d_legacy_string_compare](../doc/cg2d_legacy_string_compare.md) | 0/682 | C01、C05、C06、C07、C08、C10、C11、C12 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOOP | included：主循环与场景分发 | [cg2d_main_loop](../doc/cg2d_main_loop.md)、[cg2d_scene_state](../doc/cg2d_scene_state.md) | 0/97 | U11、V02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 1/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -49,7 +49,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md) | 0/23 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-TEXT | included：文本与字体显示 | [cg2d_text_encoding_spec](../doc/cg2d_text_encoding_spec.md)、[cg2d_font_measure](../doc/cg2d_font_measure.md)、[cg2d_text_pending_queue](../doc/cg2d_text_pending_queue.md) | 0/2 | T01、T03、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-MAP | included：地图与世界数据 | [cg2d_map_scene_drawing](../doc/cg2d_map_scene_drawing.md)、[cg2d_map_draw_cache](../doc/cg2d_map_draw_cache.md)、[cg2d_world_objects](../doc/cg2d_world_objects.md) | 0/8 | U11、G01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-RESOURCE | included：资源加载与来源 | [cg2d_resource_sources](../doc/cg2d_resource_sources.md)、[cg2d_resource_implementation](../doc/cg2d_resource_implementation.md)、[cg2d_graphic_decode](../doc/cg2d_graphic_decode.md)、[cg2d_graphic_info](../doc/cg2d_graphic_info.md) | 0/50 | G01、G05、V01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-RESOURCE | included：资源加载与来源 | [cg2d_resource_sources](../doc/cg2d_resource_sources.md)、[cg2d_resource_implementation](../doc/cg2d_resource_implementation.md)、[cg2d_graphic_decode](../doc/cg2d_graphic_decode.md)、[cg2d_graphic_info](../doc/cg2d_graphic_info.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md) | 11/60 | G01、G05、V01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-ANIMATION | included：动画索引与播放 | [cg2d_animation_runtime](../doc/cg2d_animation_runtime.md) | 0/14 | G01、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-RENDER | included：32位渲染与缓存 | [cg2d_graphic_dx_cache_x64_spec](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[cg2d_texture_rendering](../doc/cg2d_texture_rendering.md)、[cg2d_sdl_presenter](../doc/cg2d_sdl_presenter.md)、[cg2d_sub_507140](../doc/cg2d_sub_507140.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md) | 8/35 | C09、G01、G02、G03、G04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-UI | included：窗口与旧面板 | [cg2d_ui_window_runtime](../doc/cg2d_ui_window_runtime.md)、[shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md) | 0/27 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

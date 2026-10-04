@@ -10,6 +10,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <memory>
+#include <new>
+#include <type_traits>
 #include <vector>
 
 namespace cg::resource {
@@ -27,11 +30,76 @@ char gGraphicInfoCachedPaths[9][255] {};
 platform::LegacyFile* gGraphicInfoFile = nullptr; // 原 927EF0；fclose 后原端不清槽。
 std::int32_t gGraphicRequiredCount = 0; // 原 833C9C，预扫总字节数/40+10。
 
-// 原 9A2960/73F128：本次初始化的去重值集合与首见记录引用；两者进程期持有。
-std::vector<std::int32_t> gGraphicMapNumbers;
-std::map<std::int32_t, GraphicInfo*> gGraphicFirstRecords;
+// 原 9A2960/73F128：去重值集合与首见记录引用，生命周期按两相邻CRT项配对。
+using GraphicMapNumbers = std::vector<std::int32_t>;
+using GraphicFirstRecords = std::map<std::int32_t, GraphicInfo*>;
+
+alignas(GraphicMapNumbers)
+std::byte gGraphicMapNumbersStorage[sizeof(GraphicMapNumbers)] {};
+alignas(GraphicFirstRecords)
+std::byte gGraphicFirstRecordsStorage[sizeof(GraphicFirstRecords)] {};
+
+GraphicMapNumbers& BorrowGraphicMapNumbers() noexcept
+{
+    return *std::launder(
+        reinterpret_cast<GraphicMapNumbers*>(gGraphicMapNumbersStorage));
+}
+
+GraphicFirstRecords& BorrowGraphicFirstRecords() noexcept
+{
+    return *std::launder(
+        reinterpret_cast<GraphicFirstRecords*>(gGraphicFirstRecordsStorage));
+}
+
+// 原4597F0的返回未消费；固定构造同一实际vector，不报告旧指针残值。
+void ConstructGraphicMapNumbers_4597F0()
+{
+    static_cast<void>(std::construct_at(
+        reinterpret_cast<GraphicMapNumbers*>(gGraphicMapNumbersStorage)));
+}
+
+void DestroyGraphicMapNumbers_459820()
+{
+    std::destroy_at(&BorrowGraphicMapNumbers());
+}
+
+GraphicFirstRecords* ConstructGraphicFirstRecords_459860()
+{
+    return std::construct_at(
+        reinterpret_cast<GraphicFirstRecords*>(gGraphicFirstRecordsStorage));
+}
+
+// 原459890：节点/表头归宿主，GraphicInfo*仍借用，不释放主表。
+void DestroyGraphicFirstRecords_459890()
+{
+    std::destroy_at(&BorrowGraphicFirstRecords());
+}
+
+struct GraphicInfoContainersStartup final {
+    GraphicInfoContainersStartup()
+    {
+        // 原553058 -> 55305C：第一登记失败不跳过第二构造/登记。
+        static_cast<void>(InitializeGraphicMapNumbers_4597E0());
+        static_cast<void>(InitializeGraphicFirstRecords_459850());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
+GraphicInfoContainersStartup gGraphicInfoContainersStartup;
 
 } // namespace
+
+std::int32_t InitializeGraphicMapNumbers_4597E0()
+{
+    ConstructGraphicMapNumbers_4597F0();
+    return std::atexit(DestroyGraphicMapNumbers_459820);
+}
+
+std::int32_t InitializeGraphicFirstRecords_459850()
+{
+    static_cast<void>(ConstructGraphicFirstRecords_459860());
+    return std::atexit(DestroyGraphicFirstRecords_459890);
+}
 
 std::int32_t GraphicInit_459960(
     const char* const* graphicPaths, const char* const* graphicInfoPaths)
@@ -104,8 +172,8 @@ std::int32_t GraphicInit_459960(
     std::memset(
         gGraphicMapNoIndex, 0,
         sizeof(std::int32_t) * static_cast<std::size_t>(gMaxGraphicCount));
-    gGraphicMapNumbers.clear();
-    gGraphicFirstRecords.clear();
+    BorrowGraphicMapNumbers().clear();
+    BorrowGraphicFirstRecords().clear();
 
     GraphicInfoRecord record; // 原 40B 栈槽不预清零；跨次 fread 保留未覆盖字节。
     std::int32_t processed = 0;
@@ -150,13 +218,13 @@ std::int32_t GraphicInit_459960(
                 < static_cast<std::uint32_t>(gMaxGraphicCount)) {
                 gGraphicMapNoIndex[record.mapNo] = static_cast<std::int32_t>(index);
             }
-            if (std::find(gGraphicMapNumbers.begin(), gGraphicMapNumbers.end(), record.mapNo)
-                == gGraphicMapNumbers.end()) {
-                gGraphicMapNumbers.push_back(record.mapNo);
-                gGraphicFirstRecords.emplace(record.mapNo, &gGraphicInfo[index]);
+            if (std::find(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end(), record.mapNo)
+                == BorrowGraphicMapNumbers().end()) {
+                BorrowGraphicMapNumbers().push_back(record.mapNo);
+                BorrowGraphicFirstRecords().emplace(record.mapNo, &gGraphicInfo[index]);
             }
         }
-        std::sort(gGraphicMapNumbers.begin(), gGraphicMapNumbers.end());
+        std::sort(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end());
         platform::CloseLegacyStream_53B1D0(gGraphicInfoFile);
         base = processed;
     }

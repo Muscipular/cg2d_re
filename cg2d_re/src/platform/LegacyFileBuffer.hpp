@@ -14,12 +14,32 @@ namespace cg::platform {
 extern volatile std::uint32_t gLegacyNarrowFileState1087B00;
 extern volatile std::uint32_t gLegacyWideFileState1087AF8;
 
-// 原basic_filebuf已证+00..+53视图；+44消费确认为窄字符串地址，同其他地址拓宽。
+// 原转换器本组仅调方法槽4/+10；首成员是实际facet槽0表，其他三槽只承载地址。
+// 实际完整转换器表/生产者待，不据40B已消费前缀推完整分配或SDK私有ABI。
+template <typename Character>
+struct LegacyCodecvtInputMethods final {
+    LegacyLocaleFacetMethods base;
+    void (*entries1To3[3])();
+    std::int32_t (*input)(
+        LegacyLocaleFacet* storage, std::uint32_t* state,
+        const char* first, const char* last, const char** next,
+        Character* output, Character* outputLast, Character** outputNext);
+};
+using LegacyNarrowCodecvtInputMethods = LegacyCodecvtInputMethods<char>;
+using LegacyWideCodecvtInputMethods = LegacyCodecvtInputMethods<std::uint16_t>;
+static_assert(offsetof(LegacyNarrowCodecvtInputMethods, base) == 0);
+static_assert(offsetof(LegacyNarrowCodecvtInputMethods, input) == 32);
+static_assert(sizeof(LegacyNarrowCodecvtInputMethods) == 40);
+static_assert(offsetof(LegacyWideCodecvtInputMethods, base) == 0);
+static_assert(offsetof(LegacyWideCodecvtInputMethods, input) == 32);
+static_assert(sizeof(LegacyWideCodecvtInputMethods) == 40);
+
+// 原basic_filebuf已证+00..+53视图；+38转换器/+44窄字符串均真实地址拓宽。
 // 仅显式函数构析，不自动构造owner或接宿主streambuf/FILE。
 template <typename Character>
 struct LegacyFileBufferStorage final {
     LegacyStreamBufferObject<Character> base;     // 原+00..+37；实际首成员基类子对象。
-    std::uint32_t state38Bits;                    // 原+38；本组清0。
+    LegacyLocaleFacet* codecvtFacet;               // 原+38；真实非拥有转换器facet地址。
     std::uint32_t state3CBits;                    // 原+3C；第二次种子读取。
     std::uint32_t state40Bits;                    // 原+40；第一次种子读取。
     LegacyNarrowString* scratchString;            // 原+44；窄宽均窄字符串，mode0才清空。
@@ -31,14 +51,17 @@ using LegacyNarrowFileBuffer = LegacyFileBufferStorage<char>;
 using LegacyWideFileBuffer = LegacyFileBufferStorage<std::uint16_t>;
 static_assert(offsetof(LegacyNarrowFileBuffer, base) == 0);
 static_assert(offsetof(LegacyWideFileBuffer, base) == 0);
-static_assert(offsetof(LegacyNarrowFileBuffer, state38Bits) == 104);
-static_assert(offsetof(LegacyNarrowFileBuffer, state3CBits) == 108);
-static_assert(offsetof(LegacyNarrowFileBuffer, state40Bits) == 112);
+static_assert(offsetof(LegacyNarrowFileBuffer, codecvtFacet) == 104);
+static_assert(offsetof(LegacyNarrowFileBuffer, state3CBits) == 112);
+static_assert(offsetof(LegacyNarrowFileBuffer, state40Bits) == 116);
 static_assert(offsetof(LegacyNarrowFileBuffer, scratchString) == 120);
 static_assert(offsetof(LegacyNarrowFileBuffer, modeOneFlag) == 128);
 static_assert(offsetof(LegacyNarrowFileBuffer, privateLocale) == 136);
 static_assert(offsetof(LegacyNarrowFileBuffer, file) == 144);
 static_assert(sizeof(LegacyNarrowFileBuffer) == 152);
+static_assert(offsetof(LegacyWideFileBuffer, codecvtFacet) == 104);
+static_assert(offsetof(LegacyWideFileBuffer, state3CBits) == 112);
+static_assert(offsetof(LegacyWideFileBuffer, state40Bits) == 116);
 static_assert(offsetof(LegacyWideFileBuffer, scratchString) == 120);
 static_assert(offsetof(LegacyWideFileBuffer, modeOneFlag) == 128);
 static_assert(offsetof(LegacyWideFileBuffer, privateLocale) == 136);
@@ -67,5 +90,15 @@ LegacyNarrowFileBuffer* DeleteLegacyNarrowFileBuffer_548D4D(
     LegacyNarrowFileBuffer* storage, std::uint32_t flags);
 LegacyWideFileBuffer* DeleteLegacyWideFileBuffer_549DA2(
     LegacyWideFileBuffer* storage, std::uint32_t flags);
+
+// 原派生读取/回推；underflow缓存同一表先uflow再pbackfail，转换沿实际facet槽4。
+std::int32_t PutBackLegacyNarrowFileBuffer_548979(
+    LegacyNarrowFileBuffer* storage, std::int32_t character);
+std::uint16_t PutBackLegacyWideFileBuffer_549AE2(
+    LegacyWideFileBuffer* storage, std::uint16_t character);
+std::int32_t PeekLegacyNarrowFileBuffer_548A26(LegacyNarrowFileBuffer* storage);
+std::uint16_t PeekLegacyWideFileBuffer_549B99(LegacyWideFileBuffer* storage);
+std::int32_t ReadLegacyNarrowFileBuffer_548A53(LegacyNarrowFileBuffer* storage);
+std::uint16_t ReadLegacyWideFileBuffer_549BC7(LegacyWideFileBuffer* storage);
 
 } // namespace cg::platform

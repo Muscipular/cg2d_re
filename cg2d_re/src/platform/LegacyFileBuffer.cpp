@@ -1,6 +1,9 @@
 #include "LegacyFileBuffer.hpp"
 
 #include "LegacyHeap.hpp"
+#include "cg/platform/LegacyMemory.hpp"
+
+#include <bit>
 
 namespace cg::platform {
 
@@ -29,7 +32,7 @@ void InitializeLegacyNarrowFileBuffer_548EFC(
     storage->file = file;
     storage->state40Bits = gLegacyNarrowFileState1087B00;
     const std::uint32_t secondState = gLegacyNarrowFileState1087B00;
-    storage->state38Bits = 0;
+    storage->codecvtFacet = nullptr;
     storage->state3CBits = secondState;
 }
 
@@ -50,7 +53,7 @@ void InitializeLegacyWideFileBuffer_549E88(
     storage->file = file;
     storage->state40Bits = gLegacyWideFileState1087AF8;
     const std::uint32_t secondState = gLegacyWideFileState1087AF8;
-    storage->state38Bits = 0;
+    storage->codecvtFacet = nullptr;
     storage->state3CBits = secondState;
 }
 
@@ -206,6 +209,244 @@ LegacyWideFileBuffer* DeleteLegacyWideFileBuffer_549DA2(
         FreeLegacyHeapMemory_53C0A9(storage);
     }
     return storage;
+}
+
+std::int32_t PutBackLegacyNarrowFileBuffer_548979(
+    LegacyNarrowFileBuffer* const storage, const std::int32_t character)
+{
+    char* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr && reinterpret_cast<std::uintptr_t>(
+            *storage->base.buffer.readBaseSlot) < reinterpret_cast<std::uintptr_t>(current)) {
+        if (character == -1 || static_cast<std::uint8_t>(current[-1]) == character) {
+            DecrementLegacyReadCursor_548EA5(&storage->base.buffer);
+            return character == -1 ? 0 : character;
+        }
+    }
+    LegacyFile* const file = storage->file;
+    if (file == nullptr || character == -1) {
+        return -1;
+    }
+    if (storage->codecvtFacet == nullptr) {
+        return UnreadLegacyStreamByte_54463F(static_cast<std::uint8_t>(character), file) == -1
+            ? -1 : character;
+    }
+    LegacyNarrowString* const bytes = storage->scratchString;
+    const std::uint32_t length = bytes->length;
+    if (length == 0) {
+        return -1;
+    }
+    FreezeLegacyNarrowString_548F74(bytes);
+    const char* const first = bytes->buffer;
+    // 原Freeze后再次取FILE，反向回推正常成功才重取字符串/清串并恢复状态。
+    if (!UnreadLegacyStreamBytes_549147(*first, storage->file, length)) {
+        return -1;
+    }
+    const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+    LegacyNarrowString* const eraseString = storage->scratchString;
+    EraseLegacyNarrowString_548DC2(eraseString, 0, eraseCount);
+    storage->state40Bits = storage->state3CBits;
+    return character;
+}
+
+std::uint16_t PutBackLegacyWideFileBuffer_549AE2(
+    LegacyWideFileBuffer* const storage, const std::uint16_t character)
+{
+    std::uint16_t* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr && reinterpret_cast<std::uintptr_t>(
+            *storage->base.buffer.readBaseSlot) < reinterpret_cast<std::uintptr_t>(current)) {
+        if (character == 0xFFFFu || current[-1] == character) {
+            DecrementLegacyWideReadCursor_549E1C(&storage->base.buffer);
+            return character == 0xFFFFu ? 0 : character;
+        }
+    }
+    LegacyFile* const file = storage->file;
+    if (file == nullptr || character == 0xFFFFu) {
+        return 0xFFFFu;
+    }
+    if (storage->codecvtFacet == nullptr) {
+        return UnreadLegacyStreamWide_54AE87(character, file) == 0xFFFFu
+            ? 0xFFFFu : character;
+    }
+    LegacyNarrowString* const bytes = storage->scratchString;
+    const std::uint32_t length = bytes->length;
+    if (length == 0) {
+        return 0xFFFFu;
+    }
+    FreezeLegacyNarrowString_548F74(bytes);
+    const char* const first = bytes->buffer;
+    if (!UnreadLegacyStreamBytes_549147(*first, storage->file, length)) {
+        return 0xFFFFu;
+    }
+    const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+    LegacyNarrowString* const eraseString = storage->scratchString;
+    EraseLegacyNarrowString_548DC2(eraseString, 0, eraseCount);
+    storage->state40Bits = storage->state3CBits;
+    return character;
+}
+
+std::int32_t PeekLegacyNarrowFileBuffer_548A26(LegacyNarrowFileBuffer* const storage)
+{
+    char* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr) {
+        char* const last = current + *storage->base.buffer.readRemainingSlot;
+        if (reinterpret_cast<std::uintptr_t>(current) < reinterpret_cast<std::uintptr_t>(last)) {
+            return static_cast<std::uint8_t>(*current);
+        }
+    }
+    const auto* const savedMethods = static_cast<const LegacyNarrowStreamBufferMethods*>(
+        storage->base.buffer.virtualTable);
+    const std::int32_t character = savedMethods->uflow(&storage->base);
+    // 原即使EOF也调同一保存表的pbackfail，不重取表或省略回推副作用。
+    return savedMethods->pbackfail(&storage->base, character);
+}
+
+std::uint16_t PeekLegacyWideFileBuffer_549B99(LegacyWideFileBuffer* const storage)
+{
+    std::uint16_t* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr) {
+        std::uint16_t* const last = current + *storage->base.buffer.readRemainingSlot;
+        if (reinterpret_cast<std::uintptr_t>(current) < reinterpret_cast<std::uintptr_t>(last)) {
+            return *current;
+        }
+    }
+    const auto* const savedMethods = static_cast<const LegacyWideStreamBufferMethods*>(
+        storage->base.buffer.virtualTable);
+    const std::uint16_t character = savedMethods->uflow(&storage->base);
+    return savedMethods->pbackfail(&storage->base, character);
+}
+
+std::int32_t ReadLegacyNarrowFileBuffer_548A53(LegacyNarrowFileBuffer* const storage)
+{
+    char* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr) {
+        char* const last = current + *storage->base.buffer.readRemainingSlot;
+        if (reinterpret_cast<std::uintptr_t>(current) < reinterpret_cast<std::uintptr_t>(last)) {
+            return static_cast<std::uint8_t>(
+                *IncrementLegacyReadCursor_548EB5(&storage->base.buffer));
+        }
+    }
+    LegacyFile* const file = storage->file;
+    if (file == nullptr) {
+        return -1;
+    }
+    if (storage->codecvtFacet == nullptr) {
+        const std::int32_t character = ReadLegacyStreamByte_53C8B3(file);
+        return character == -1 ? -1 : static_cast<std::uint8_t>(character);
+    }
+    char output; // 原输出/两next局部不初始化，不新增成功产出或进度检查。
+    const char* inputNext;
+    char* outputNext;
+    const std::uint32_t originalState = storage->state40Bits;
+    LegacyNarrowString* const initialBytes = storage->scratchString;
+    storage->state3CBits = originalState;
+    const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+    EraseLegacyNarrowString_548DC2(initialBytes, 0, eraseCount);
+    for (;;) {
+        const std::int32_t character = ReadLegacyStreamByte_53C8B3(storage->file);
+        if (character == -1) {
+            return -1;
+        }
+        AppendLegacyNarrowString_548D69(storage->scratchString, 1,
+            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character)));
+        LegacyNarrowString* const firstBytes = storage->scratchString;
+        storage->state40Bits = storage->state3CBits;
+        FreezeLegacyNarrowString_548F74(firstBytes);
+        LegacyNarrowString* const secondBytes = storage->scratchString;
+        const char* const first = firstBytes->buffer;
+        FreezeLegacyNarrowString_548F74(secondBytes);
+        const std::uint32_t length = firstBytes->length;
+        const char* const input = secondBytes->buffer;
+        const char* const last = first != nullptr ? first + length : nullptr;
+        LegacyLocaleFacet* const facet = storage->codecvtFacet;
+        const auto* const methods = reinterpret_cast<const LegacyNarrowCodecvtInputMethods*>(
+            facet->methods);
+        const std::int32_t result = methods->input(facet, &storage->state40Bits,
+            input, last, &inputNext, &output, &output + 1, &outputNext);
+        switch (result) {
+        case 0:
+            return static_cast<std::uint8_t>(output);
+        case 1:
+            continue;
+        case 3: {
+            LegacyNarrowString* const bytes = storage->scratchString;
+            if (bytes->length < 1u) {
+                continue;
+            }
+            FreezeLegacyNarrowString_548F74(bytes);
+            CopyLegacyMemory_541620(&output, bytes->buffer, 1);
+            return static_cast<std::uint8_t>(output);
+        }
+        default:
+            return -1;
+        }
+    }
+}
+
+std::uint16_t ReadLegacyWideFileBuffer_549BC7(LegacyWideFileBuffer* const storage)
+{
+    std::uint16_t* const current = *storage->base.buffer.readCurrentSlot;
+    if (current != nullptr) {
+        std::uint16_t* const last = current + *storage->base.buffer.readRemainingSlot;
+        if (reinterpret_cast<std::uintptr_t>(current) < reinterpret_cast<std::uintptr_t>(last)) {
+            return *IncrementLegacyWideReadCursor_549E2D(&storage->base.buffer);
+        }
+    }
+    LegacyFile* const file = storage->file;
+    if (file == nullptr) {
+        return 0xFFFFu;
+    }
+    if (storage->codecvtFacet == nullptr) {
+        const std::uint16_t character = ReadLegacyStreamWide_54AF70(file);
+        return character == 0xFFFFu ? 0xFFFFu : character;
+    }
+    std::uint16_t output;
+    const char* inputNext;
+    std::uint16_t* outputNext;
+    const std::uint32_t originalState = storage->state40Bits;
+    LegacyNarrowString* const initialBytes = storage->scratchString;
+    storage->state3CBits = originalState;
+    const std::uint32_t eraseCount = gLegacyNarrowStringNpos550040;
+    EraseLegacyNarrowString_548DC2(initialBytes, 0, eraseCount);
+    for (;;) {
+        // 原宽转换仍读取窄字节并累积窄字符串，不能以fgetwc替代此循环。
+        const std::int32_t character = ReadLegacyStreamByte_53C8B3(storage->file);
+        if (character == -1) {
+            return 0xFFFFu;
+        }
+        AppendLegacyNarrowString_548D69(storage->scratchString, 1,
+            std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(character)));
+        LegacyNarrowString* const firstBytes = storage->scratchString;
+        storage->state40Bits = storage->state3CBits;
+        FreezeLegacyNarrowString_548F74(firstBytes);
+        LegacyNarrowString* const secondBytes = storage->scratchString;
+        const char* const first = firstBytes->buffer;
+        FreezeLegacyNarrowString_548F74(secondBytes);
+        const std::uint32_t length = firstBytes->length;
+        const char* const input = secondBytes->buffer;
+        const char* const last = first != nullptr ? first + length : nullptr;
+        LegacyLocaleFacet* const facet = storage->codecvtFacet;
+        const auto* const methods = reinterpret_cast<const LegacyWideCodecvtInputMethods*>(
+            facet->methods);
+        const std::int32_t result = methods->input(facet, &storage->state40Bits,
+            input, last, &inputNext, &output, &output + 1, &outputNext);
+        switch (result) {
+        case 0:
+            return output;
+        case 1:
+            continue;
+        case 3: {
+            LegacyNarrowString* const bytes = storage->scratchString;
+            if (bytes->length < 2u) {
+                continue;
+            }
+            FreezeLegacyNarrowString_548F74(bytes);
+            CopyLegacyMemory_541620(&output, bytes->buffer, 2);
+            return output;
+        }
+        default:
+            return 0xFFFFu;
+        }
+    }
 }
 
 } // namespace cg::platform

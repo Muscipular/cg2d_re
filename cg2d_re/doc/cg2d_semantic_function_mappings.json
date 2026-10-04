@@ -7551,7 +7551,7 @@
     {
       "original_entry": "0x453E00",
       "inventory_id": "F:00053E00",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_role": "CRT553020窄标准流登记",
       "sources": [
         {
@@ -7566,7 +7566,7 @@
           "symbols": [
             "InitializeLegacyNarrowEarlyStandardStreams_453E00"
           ],
-          "relationship": "早段真实Init地址/控制器返回、原退出登记及共享退出源码复用，当前整表不启用"
+          "relationship": "早段真实Init地址/控制器返回、原退出登记及共享退出源码复用，当前整表不启用；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -7583,16 +7583,18 @@
             "gLegacyNarrowStandardInitializer1086539",
             "gLegacyWideStandardInitializer1086538"
           ],
-          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明"
+          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md"
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "原构造628FE9控制器再登记453E30；现有应用侧标准流配置/退出对象承接，实际标准流与运行期计数由本机CRT持有。；2026-10-04原两早段三入口共六函数源码落位；每组初始化先真实动作/原53B406、完整S32返回，动作传628FE9/628FE8给已过5482DD/549397保留this返回。两退出前缀尾跳54843C/5494FE共享计数/刷新chunk，复用已过5491F6/549220源码，shared不消费ECX，不重复算法或计独立原身份。按原完整函数含共享chunk38条，其中新前缀/登记20条，已过共享18条不重验。源Init只不完整extern，不造1B/猜初值、once/回滚、std::atexit或当前宿主迁移；实际对象/登记/Cpp90/启动退出及运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。",
+      "boundary": "原构造628FE9控制器再登记453E30；现有应用侧标准流配置/退出对象承接，实际标准流与运行期计数由本机CRT持有。；2026-10-04原两早段三入口共六函数源码落位；每组初始化先真实动作/原53B406、完整S32返回，动作传628FE9/628FE8给已过5482DD/549397保留this返回。两退出前缀尾跳54843C/5494FE共享计数/刷新chunk，复用已过5491F6/549220源码，shared不消费ECX，不重复算法或计独立原身份。按原完整函数含共享chunk38条，其中新前缀/登记20条，已过共享18条不重验。源Init只不完整extern，不造1B/猜初值、once/回滚、std::atexit或当前宿主迁移；实际对象/登记/Cpp90/启动退出及运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -7604,7 +7606,7 @@
           "end_exclusive": "0x453E2C"
         }
       ],
-      "verification_level": "；新增六入口前缀/登记、共享chunk归属与源码复用/回调和Cpp槽状态静态，不复检共享体或运行",
+      "verification_level": "；新增六入口前缀/登记、共享chunk归属与源码复用/回调和Cpp槽状态静态，不复检共享体或运行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "early_standard_stream_internal_call_connections": [
         {
           "parent_entry": "0x453E00",
@@ -7620,11 +7622,12 @@
           "parent_entry": "0x453E00",
           "call_site": "0x453E25",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowEarlyStandardStreams_453E00",
           "arguments": "ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30 无参callback",
-          "relationship": "原早段标准流真实动作/登记/控制器尾调，不改宿主自动初始化或复检旧目标"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "early_standard_stream_callback_references": [
@@ -7669,6 +7672,22 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
+      },
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x453E25",
+        "original_target": "0x53B406",
+        "callback_entry": "0x453E30",
+        "callback_symbol": "ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
@@ -7851,7 +7870,7 @@
     {
       "original_entry": "0x453E40",
       "inventory_id": "F:00053E40",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_role": "CRT553024宽标准流登记",
       "sources": [
         {
@@ -7866,7 +7885,7 @@
           "symbols": [
             "InitializeLegacyWideEarlyStandardStreams_453E40"
           ],
-          "relationship": "早段真实Init地址/控制器返回、原退出登记及共享退出源码复用，当前整表不启用"
+          "relationship": "早段真实Init地址/控制器返回、原退出登记及共享退出源码复用，当前整表不启用；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -7883,16 +7902,18 @@
             "gLegacyNarrowStandardInitializer1086539",
             "gLegacyWideStandardInitializer1086538"
           ],
-          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明"
+          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
-        "doc/cg2d_active_initializer_order_spec.md"
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "原构造628FE8控制器再登记453E70；当前应用侧宽流适配位于窄流之后，退出反序，后继音频553028仍暂缓。；2026-10-04原两早段三入口共六函数源码落位；每组初始化先真实动作/原53B406、完整S32返回，动作传628FE9/628FE8给已过5482DD/549397保留this返回。两退出前缀尾跳54843C/5494FE共享计数/刷新chunk，复用已过5491F6/549220源码，shared不消费ECX，不重复算法或计独立原身份。按原完整函数含共享chunk38条，其中新前缀/登记20条，已过共享18条不重验。源Init只不完整extern，不造1B/猜初值、once/回滚、std::atexit或当前宿主迁移；实际对象/登记/Cpp90/启动退出及运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。",
+      "boundary": "原构造628FE8控制器再登记453E70；当前应用侧宽流适配位于窄流之后，退出反序，后继音频553028仍暂缓。；2026-10-04原两早段三入口共六函数源码落位；每组初始化先真实动作/原53B406、完整S32返回，动作传628FE9/628FE8给已过5482DD/549397保留this返回。两退出前缀尾跳54843C/5494FE共享计数/刷新chunk，复用已过5491F6/549220源码，shared不消费ECX，不重复算法或计独立原身份。按原完整函数含共享chunk38条，其中新前缀/登记20条，已过共享18条不重验。源Init只不完整extern，不造1B/猜初值、once/回滚、std::atexit或当前宿主迁移；实际对象/登记/Cpp90/启动退出及运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；AIS01：当前68槽以LegacyMouse同一TU声明序/既有wrapper展开按原表投影；六图形/资源模块移除旧调用并迁入原相对位置，多字节前置。源级当前投影不代完整90/标准流活动归属及运行，本组未审原整个本体。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "instruction_count": 6,
       "function_chunks": [
         {
@@ -7904,7 +7925,7 @@
           "end_exclusive": "0x453E6C"
         }
       ],
-      "verification_level": "；新增六入口前缀/登记、共享chunk归属与源码复用/回调和Cpp槽状态静态，不复检共享体或运行",
+      "verification_level": "；新增六入口前缀/登记、共享chunk归属与源码复用/回调和Cpp槽状态静态，不复检共享体或运行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "early_standard_stream_internal_call_connections": [
         {
           "parent_entry": "0x453E40",
@@ -7920,11 +7941,12 @@
           "parent_entry": "0x453E40",
           "call_site": "0x453E65",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideEarlyStandardStreams_453E40",
           "arguments": "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70 无参callback",
-          "relationship": "原早段标准流真实动作/登记/控制器尾调，不改宿主自动初始化或复检旧目标"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "early_standard_stream_callback_references": [
@@ -7969,6 +7991,22 @@
         "original_body_reviewed_in_this_group": false,
         "full_application_order_connected": false,
         "runtime_verified": false
+      },
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x453E65",
+        "original_target": "0x53B406",
+        "callback_entry": "0x453E70",
+        "callback_symbol": "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
@@ -15527,7 +15565,7 @@
     {
       "original_entry": "0x548170",
       "inventory_id": "F:00148170",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x54817A",
       "instruction_count": 6,
       "sources": [
@@ -15544,7 +15582,7 @@
           "symbols": [
             "InitializeLegacyNarrowInputBuffer_548170"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -15556,9 +15594,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553114先调用54817A处理1086470的窄输入缓冲，再登记548193退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "CRT553114先调用54817A处理1086470的窄输入缓冲，再登记548193退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x548170",
@@ -15584,11 +15624,12 @@
           "parent_entry": "0x548170",
           "call_site": "0x54818C",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowInputBuffer_548170",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -15603,7 +15644,23 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x54818C",
+        "original_target": "0x53B406",
+        "callback_entry": "0x548193",
+        "callback_symbol": "DestroyLegacyNarrowInputBufferAtExit_548193",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x54817A",
@@ -15774,7 +15831,7 @@
     {
       "original_entry": "0x54819D",
       "inventory_id": "F:0014819D",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5481A7",
       "instruction_count": 6,
       "sources": [
@@ -15791,7 +15848,7 @@
           "symbols": [
             "InitializeLegacyNarrowOutputBuffer_54819D"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -15803,9 +15860,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553118先调用5481A7处理1086348的窄输出缓冲，再登记5481C0退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "CRT553118先调用5481A7处理1086348的窄输出缓冲，再登记5481C0退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x54819D",
@@ -15831,11 +15890,12 @@
           "parent_entry": "0x54819D",
           "call_site": "0x5481B9",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowOutputBuffer_54819D",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -15850,7 +15910,23 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5481B9",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5481C0",
+        "callback_symbol": "DestroyLegacyNarrowOutputBufferAtExit_5481C0",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x5481A7",
@@ -16021,7 +16097,7 @@
     {
       "original_entry": "0x5481CA",
       "inventory_id": "F:001481CA",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5481D4",
       "instruction_count": 6,
       "sources": [
@@ -16038,7 +16114,7 @@
           "symbols": [
             "InitializeLegacyNarrowInputStream_5481CA"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -16051,9 +16127,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT55311C先调用5481D4处理1086430的窄输入流，再登记5481EF退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT55311C先调用5481D4处理1086430的窄输入流，再登记5481EF退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x5481CA",
@@ -16064,7 +16142,7 @@
           "0x5481EF"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5481CA",
@@ -16080,11 +16158,12 @@
           "parent_entry": "0x5481CA",
           "call_site": "0x5481E8",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowInputStream_5481CA",
           "arguments": "DestroyLegacyNarrowInputStreamAtExit_5481EF 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -16105,7 +16184,23 @@
           "reference_site": "0x55311C",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5481E8",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5481EF",
+        "callback_symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x5481D4",
@@ -16276,7 +16371,7 @@
     {
       "original_entry": "0x54820E",
       "inventory_id": "F:0014820E",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x548218",
       "instruction_count": 6,
       "sources": [
@@ -16293,7 +16388,7 @@
           "symbols": [
             "InitializeLegacyNarrowOutputStream_54820E"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -16306,9 +16401,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553120先调用548218处理10863A0的窄输出流，再登记548233退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT553120先调用548218处理10863A0的窄输出流，再登记548233退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x54820E",
@@ -16319,7 +16416,7 @@
           "0x548233"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x54820E",
@@ -16335,11 +16432,12 @@
           "parent_entry": "0x54820E",
           "call_site": "0x54822C",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowOutputStream_54820E",
           "arguments": "DestroyLegacyNarrowOutputStreamAtExit_548233 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -16360,7 +16458,23 @@
           "reference_site": "0x553120",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x54822C",
+        "original_target": "0x53B406",
+        "callback_entry": "0x548233",
+        "callback_symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x548218",
@@ -16531,7 +16645,7 @@
     {
       "original_entry": "0x548252",
       "inventory_id": "F:00148252",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x54825C",
       "instruction_count": 6,
       "sources": [
@@ -16549,7 +16663,7 @@
           "symbols": [
             "InitializeLegacyNarrowErrorBuffer_548252"
           ],
-          "relationship": "本次真实原本体/字段/父调用与源级窄宽实例，沿已证对象地址和原退出表，不借旧宿主生命周期"
+          "relationship": "本次真实原本体/字段/父调用与源级窄宽实例，沿已证对象地址和原退出表，不借旧宿主生命周期；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -16561,9 +16675,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553124先调用54825C处理10863D8的窄错误/日志共享缓冲，再登记548275退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "CRT553124先调用54825C处理10863D8的窄错误/日志共享缓冲，再登记548275退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x548252",
@@ -16589,15 +16705,32 @@
           "parent_entry": "0x548252",
           "call_site": "0x54826E",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowErrorBuffer_548252",
-          "relationship": "原真实call/尾调：退出计数/动态sync失败重取/晚段原字段或登记参数保持，不自动启用CRT/回滚失败",
-          "arguments": "DestroyLegacyNarrowErrorBufferAtExit_548275"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "DestroyLegacyNarrowErrorBufferAtExit_548275",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x54826E",
+        "original_target": "0x53B406",
+        "callback_entry": "0x548275",
+        "callback_symbol": "DestroyLegacyNarrowErrorBufferAtExit_548275",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x54825C",
@@ -16757,7 +16890,7 @@
     {
       "original_entry": "0x54827F",
       "inventory_id": "F:0014827F",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x548289",
       "instruction_count": 6,
       "sources": [
@@ -16774,7 +16907,7 @@
           "symbols": [
             "InitializeLegacyNarrowErrorStream_54827F"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -16787,9 +16920,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553128先调用548289处理10864C8的窄错误流，再登记5482A4退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT553128先调用548289处理10864C8的窄错误流，再登记5482A4退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x54827F",
@@ -16800,7 +16935,7 @@
           "0x5482A4"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x54827F",
@@ -16816,11 +16951,12 @@
           "parent_entry": "0x54827F",
           "call_site": "0x54829D",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowErrorStream_54827F",
           "arguments": "DestroyLegacyNarrowErrorStreamAtExit_5482A4 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -16841,7 +16977,23 @@
           "reference_site": "0x553128",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x54829D",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5482A4",
+        "callback_symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x548289",
@@ -17012,7 +17164,7 @@
     {
       "original_entry": "0x5482AE",
       "inventory_id": "F:001482AE",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5482B8",
       "instruction_count": 6,
       "sources": [
@@ -17029,7 +17181,7 @@
           "symbols": [
             "InitializeLegacyNarrowLogStream_5482AE"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -17042,9 +17194,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT55312C先调用5482B8处理1086310的窄日志流，再登记5482D3退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT55312C先调用5482B8处理1086310的窄日志流，再登记5482D3退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x5482AE",
@@ -17055,7 +17209,7 @@
           "0x5482D3"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5482AE",
@@ -17071,11 +17225,12 @@
           "parent_entry": "0x5482AE",
           "call_site": "0x5482CC",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyNarrowLogStream_5482AE",
           "arguments": "DestroyLegacyNarrowLogStreamAtExit_5482D3 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -17096,7 +17251,23 @@
           "reference_site": "0x55312C",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5482CC",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5482D3",
+        "callback_symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x5482B8",
@@ -17267,7 +17438,7 @@
     {
       "original_entry": "0x54922A",
       "inventory_id": "F:0014922A",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x549234",
       "instruction_count": 6,
       "sources": [
@@ -17284,7 +17455,7 @@
           "symbols": [
             "InitializeLegacyWideInputBuffer_54922A"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -17296,9 +17467,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT55313C先调用549234处理1086610的宽输入缓冲，再登记54924D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "CRT55313C先调用549234处理1086610的宽输入缓冲，再登记54924D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x54922A",
@@ -17324,11 +17497,12 @@
           "parent_entry": "0x54922A",
           "call_site": "0x549246",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideInputBuffer_54922A",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -17343,7 +17517,23 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549246",
+        "original_target": "0x53B406",
+        "callback_entry": "0x54924D",
+        "callback_symbol": "DestroyLegacyWideInputBufferAtExit_54924D",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x549234",
@@ -17514,7 +17704,7 @@
     {
       "original_entry": "0x549257",
       "inventory_id": "F:00149257",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x549261",
       "instruction_count": 6,
       "sources": [
@@ -17531,7 +17721,7 @@
           "symbols": [
             "InitializeLegacyWideOutputBuffer_549257"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -17543,9 +17733,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553140先调用549261处理10865B8的宽输出缓冲，再登记54927A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "CRT553140先调用549261处理10865B8的宽输出缓冲，再登记54927A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x549257",
@@ -17571,11 +17763,12 @@
           "parent_entry": "0x549257",
           "call_site": "0x549273",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideOutputBuffer_549257",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -17590,7 +17783,23 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549273",
+        "original_target": "0x53B406",
+        "callback_entry": "0x54927A",
+        "callback_symbol": "DestroyLegacyWideOutputBufferAtExit_54927A",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x549261",
@@ -17761,7 +17970,7 @@
     {
       "original_entry": "0x549284",
       "inventory_id": "F:00149284",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x54928E",
       "instruction_count": 6,
       "sources": [
@@ -17779,7 +17988,7 @@
           "symbols": [
             "InitializeLegacyWideErrorBuffer_549284"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -17791,9 +18000,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553144先调用54928E处理10866A0的宽错误/日志共享缓冲，再登记5492A7退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "CRT553144先调用54928E处理10866A0的宽错误/日志共享缓冲，再登记5492A7退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x549284",
@@ -17819,11 +18030,12 @@
           "parent_entry": "0x549284",
           "call_site": "0x5492A0",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideErrorBuffer_549284",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -17838,7 +18050,23 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5492A0",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5492A7",
+        "callback_symbol": "DestroyLegacyWideErrorBufferAtExit_5492A7",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x54928E",
@@ -18011,7 +18239,7 @@
     {
       "original_entry": "0x5492B1",
       "inventory_id": "F:001492B1",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5492BB",
       "instruction_count": 6,
       "sources": [
@@ -18028,7 +18256,7 @@
           "symbols": [
             "InitializeLegacyWideInputStream_5492B1"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -18041,9 +18269,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553148先调用5492BB处理1086578的宽输入流，再登记5492D6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT553148先调用5492BB处理1086578的宽输入流，再登记5492D6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x5492B1",
@@ -18054,7 +18284,7 @@
           "0x5492D6"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492B1",
@@ -18070,11 +18300,12 @@
           "parent_entry": "0x5492B1",
           "call_site": "0x5492CF",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideInputStream_5492B1",
           "arguments": "DestroyLegacyWideInputStreamAtExit_5492D6 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -18095,7 +18326,23 @@
           "reference_site": "0x553148",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5492CF",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5492D6",
+        "callback_symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x5492BB",
@@ -18266,7 +18513,7 @@
     {
       "original_entry": "0x5492F5",
       "inventory_id": "F:001492F5",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5492FF",
       "instruction_count": 6,
       "sources": [
@@ -18283,7 +18530,7 @@
           "symbols": [
             "InitializeLegacyWideOutputStream_5492F5"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -18296,9 +18543,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT55314C先调用5492FF处理1086668的宽输出流，再登记54931A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT55314C先调用5492FF处理1086668的宽输出流，再登记54931A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x5492F5",
@@ -18309,7 +18558,7 @@
           "0x54931A"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492F5",
@@ -18325,11 +18574,12 @@
           "parent_entry": "0x5492F5",
           "call_site": "0x549313",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideOutputStream_5492F5",
           "arguments": "DestroyLegacyWideOutputStreamAtExit_54931A 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -18350,7 +18600,23 @@
           "reference_site": "0x55314C",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549313",
+        "original_target": "0x53B406",
+        "callback_entry": "0x54931A",
+        "callback_symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x5492FF",
@@ -18521,7 +18787,7 @@
     {
       "original_entry": "0x549339",
       "inventory_id": "F:00149339",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x549343",
       "instruction_count": 6,
       "sources": [
@@ -18538,7 +18804,7 @@
           "symbols": [
             "InitializeLegacyWideErrorStream_549339"
           ],
-          "relationship": "本次真实原本体/字段/父调用与源级窄宽实例，沿已证对象地址和原退出表，不借旧宿主生命周期"
+          "relationship": "本次真实原本体/字段/父调用与源级窄宽实例，沿已证对象地址和原退出表，不借旧宿主生命周期；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -18550,9 +18816,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553150先调用549343处理1086500的宽错误流，再登记54935E退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "CRT553150先调用549343处理1086500的宽错误流，再登记54935E退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x549339",
@@ -18578,15 +18846,32 @@
           "parent_entry": "0x549339",
           "call_site": "0x549357",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideErrorStream_549339",
-          "relationship": "原真实call/尾调：退出计数/动态sync失败重取/晚段原字段或登记参数保持，不自动启用CRT/回滚失败",
-          "arguments": "DestroyLegacyWideErrorStreamAtExit_54935E"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "DestroyLegacyWideErrorStreamAtExit_54935E",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549357",
+        "original_target": "0x53B406",
+        "callback_entry": "0x54935E",
+        "callback_symbol": "DestroyLegacyWideErrorStreamAtExit_54935E",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x549343",
@@ -18744,7 +19029,7 @@
     {
       "original_entry": "0x549368",
       "inventory_id": "F:00149368",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x549372",
       "instruction_count": 6,
       "sources": [
@@ -18761,7 +19046,7 @@
           "symbols": [
             "InitializeLegacyWideLogStream_549368"
           ],
-          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -18774,9 +19059,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553154先调用549372处理1086540的宽日志流，再登记54938D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "boundary": "CRT553154先调用549372处理1086540的宽日志流，再登记54938D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x549368",
@@ -18787,7 +19074,7 @@
           "0x54938D"
         ]
       ],
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x549368",
@@ -18803,11 +19090,12 @@
           "parent_entry": "0x549368",
           "call_site": "0x549386",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideLogStream_549368",
           "arguments": "DestroyLegacyWideLogStreamAtExit_54938D 无参callback",
-          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_object_crt_callback_references": [
@@ -18828,7 +19116,23 @@
           "reference_site": "0x553154",
           "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
         }
-      ]
+      ],
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549386",
+        "original_target": "0x53B406",
+        "callback_entry": "0x54938D",
+        "callback_symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x549372",
@@ -18999,7 +19303,7 @@
     {
       "original_entry": "0x5491D6",
       "inventory_id": "F:001491D6",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x5491E0",
       "instruction_count": 6,
       "sources": [
@@ -19019,7 +19323,7 @@
           "symbols": [
             "RegisterLegacyNarrowStandardInitializer_5491D6"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -19036,15 +19340,17 @@
             "gLegacyNarrowStandardInitializer1086539",
             "gLegacyWideStandardInitializer1086538"
           ],
-          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明"
+          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553134先调用5491E0处理1086539的窄共享控制器，再登记5491F6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "CRT553134先调用5491E0处理1086539的窄共享控制器，再登记5491F6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x5491D6",
@@ -19070,11 +19376,12 @@
           "parent_entry": "0x5491D6",
           "call_site": "0x5491EF",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "RegisterLegacyNarrowStandardInitializer_5491D6",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -19089,7 +19396,7 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行",
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_init_identity_contract": {
         "decision": "SI01",
         "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md",
@@ -19104,6 +19411,22 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x5491EF",
+        "original_target": "0x53B406",
+        "callback_entry": "0x5491F6",
+        "callback_symbol": "ReleaseLegacyNarrowStandardStreams_5491F6",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
@@ -19393,7 +19716,7 @@
     {
       "original_entry": "0x549200",
       "inventory_id": "F:00149200",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
       "original_end_exclusive": "0x54920A",
       "instruction_count": 6,
       "sources": [
@@ -19413,7 +19736,7 @@
           "symbols": [
             "RegisterLegacyWideStandardInitializer_549200"
           ],
-          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT"
+          "relationship": "本次原真实固定对象/晚段/无参callback或控制器/原53B406调用，旧算法不复检，不自动启用CRT；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         },
         {
           "path": "src/platform/LegacyIos.hpp",
@@ -19430,15 +19753,17 @@
             "gLegacyNarrowStandardInitializer1086539",
             "gLegacyWideStandardInitializer1086538"
           ],
-          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明"
+          "relationship": "SI01四实际独立Init地址对象定义；只填身份存储，原本体/计数/流及登记不改，非旧容量证明；SSX01当前该根即时退出提供者为std::atexit；原数值目标仅映射，构造和callback保持，不自动活动"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json"
       ],
-      "boundary": "CRT553138先调用54920A处理1086538的宽共享控制器，再登记549220退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "CRT553138先调用54920A处理1086538的宽共享控制器，再登记549220退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
       "original_chunks": [
         [
           "0x549200",
@@ -19464,11 +19789,12 @@
           "parent_entry": "0x549200",
           "call_site": "0x549219",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "RegisterLegacyWideStandardInitializer_549200",
-          "relationship": "原真实构造/尾调/登记：固定真实对象地址、晚段0参数/析构或原控制器this，完整返回保持；不自动启用CRT",
-          "arguments": "对应原实际无参退出callback"
+          "relationship": "SSX01按D03宿主承接即时登记，同一原无参callback，构造完成后调用/宿主S32直接传出，原数字target保留；无新活动调用或失败回滚",
+          "arguments": "对应原实际无参退出callback",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406"
         }
       ],
       "standard_stream_crt_parent_call_connections": [],
@@ -19483,7 +19809,7 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行",
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
       "standard_init_identity_contract": {
         "decision": "SI01",
         "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md",
@@ -19498,6 +19824,22 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "standard_stream_exit_migration": {
+        "group": "SSX01",
+        "spec": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "provider": "std::atexit",
+        "registration_site": "0x549219",
+        "original_target": "0x53B406",
+        "callback_entry": "0x549220",
+        "callback_symbol": "ReleaseLegacyWideStandardStreams_549220",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_activity_call": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {

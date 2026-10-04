@@ -76,3 +76,16 @@
 [AIS01收口](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)已将两图形树/两索引容器/独立队列与DBF六provider从三个旧模块移到LegacyMouse原相对位置，旧模块调用同小步删除；C5多字节已有调用移到首项应用适配前。当前66应用+2 SDK流配置槽按同一TU声明序和既有wrapper内部原序；owner、RNG、即时退出登记、失败消费和业务正文不改。
 
 这里更新前三组“跨模块相对序未保证”的局部状态，未接完整90：2音频暂停、2键盘排除、17流或经典locale待接及原null单列。旧cinit/CRT根不启用、原90数组不造占位；活动流/全部OS状态、快速退出与全owner/面清理、SDK和运行仍待，C02/C04/C09不整项关闭。
+
+## SSX01 标准流即时退出登记域（2026-10-05）
+
+[具名SPEC](cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure)
+已将LegacyIos的18真实点（16晚段、2早段）直接接std::atexit，同原callback；
+构造先/即时登记/宿主S32传出、异常传播及登记失败不回滚保持。
+18原数据槽与分离登记尾有证，原构造/回调、14被动流/缓冲和四Init原文保持；
+宿主表扩容/失败时机/非零返回按D03接受，不称原0/-1或表内核等价。
+
+当前66应用+2 SDK配置投影保持，两早段Legacy控制器未新增活动，
+16晚段及经典locale共17仍待。完整registry容量/较大正常索引和facet生产，
+全应用normal/quick/callable/异常终止、跨组逆序及SDK运行未闭；
+没有新模块/双owner或迁移其余53B406 caller，C02/C03/C04保持open。

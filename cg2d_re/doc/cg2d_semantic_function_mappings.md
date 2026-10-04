@@ -1626,3 +1626,17 @@ F:0013B406包装正文不改，只同步当前分域。原数字call/属性、62
 语义仍1207/1204有效原ID、审核123/3680、限定证据87。
 当前17流/locale活动归属、62完整父/计算alias/SDK/正常快速退出运行未闭。
 固定源码快照`cg2d-re-exit-table-heap-source-20261005`。
+
+## SSX01 标准流即时退出登记映射（2026-10-05）
+
+[具名SPEC](cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure)及
+[原证据](cg2d_standard_stream_exit_migration_evidence.json)补18既有根的当前
+std::atexit提供者关联；原18构造动作/登记点/无参callback、18data槽与36分离段保持。
+原数字target53B406保留，original_target_symbol保存旧提供者；不按新库地址虚造原ID。
+全254唯一原指令/936B只本组静态，146辅助条不新增处置。
+
+18变化根为D03 adapted，宿主非零返回/登记表私有差异不记原体等价；
+1189其余记录、18pending/4分类及3无独立ID保持，语义仍1207/1204有效原ID。
+审核141/3680、限定证据90，快照`cg2d-re-standard-stream-exit-source-20261005`。
+不新增活动Init/模块/owner，17待接、全registry/facet、正常快速callable退出
+及SDK运行继续开放，任务10/60、叶0/182和全局门禁不变。

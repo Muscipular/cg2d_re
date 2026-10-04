@@ -81,7 +81,8 @@
         "doc/cg2d_world_state_lifecycle_spec.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_active_initializer_order_spec.md",
-        "doc/cg2d_exit_table_heap_migration_spec.md"
+        "doc/cg2d_exit_table_heap_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -182,7 +183,23 @@
         "F:00146CAE",
         "F:0013C8CD",
         "F:0013B399",
-        "F:0013B418"
+        "F:0013B418",
+        "F:00148252",
+        "F:00149339",
+        "F:00148170",
+        "F:0014819D",
+        "F:0014922A",
+        "F:00149257",
+        "F:00149284",
+        "F:001491D6",
+        "F:00149200",
+        "F:001481CA",
+        "F:0014820E",
+        "F:0014827F",
+        "F:001482AE",
+        "F:001492B1",
+        "F:001492F5",
+        "F:00149368"
       ],
       "closure_task_ids": [
         "C02",
@@ -199,7 +216,8 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -210,7 +228,8 @@
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "AIS01六图形/资源调用已统一至当前LegacyMouse原相对位置且旧三模块删除，多字节前置；当前68槽/29仅绑定补登记不代全90/17流locale活动归属、全CRT/快速退出/SDK和运行，音频继续暂停",
-        "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭"
+        "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
+        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -223,7 +242,8 @@
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline"
       ]
     },
     {
@@ -247,7 +267,8 @@
         "doc/cg2d_exception_text_heap_migration_spec.md",
         "doc/cg2d_native_cpp_exception_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md",
-        "doc/cg2d_exit_table_heap_migration_spec.md"
+        "doc/cg2d_exit_table_heap_migration_spec.md",
+        "doc/cg2d_standard_stream_exit_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -342,7 +363,25 @@
         "F:0014A57E",
         "F:0013B406",
         "F:0013B399",
-        "F:0013B418"
+        "F:0013B418",
+        "F:00148252",
+        "F:00149339",
+        "F:00148170",
+        "F:0014819D",
+        "F:0014922A",
+        "F:00149257",
+        "F:00149284",
+        "F:001491D6",
+        "F:00149200",
+        "F:001481CA",
+        "F:0014820E",
+        "F:0014827F",
+        "F:001482AE",
+        "F:001492B1",
+        "F:001492F5",
+        "F:00149368",
+        "F:00053E00",
+        "F:00053E40"
       ],
       "closure_task_ids": [
         "C01",
@@ -359,7 +398,8 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -371,7 +411,8 @@
         "EXH01异常基类拥有文本域已成对宿主承接，完整ownsText/空失败/源重读保持；对象storage/类型信息缓存及其他域未迁移，实际抛出/SDK/完整C08/C11与运行仍未闭",
         "NCE01六本机类型/单owner与九当前throw点已接，五一次原copy/三payload转移/一throw重抛保消息和清理；实际编译生成ABI/按值捕获/SDK、旧C06/硬件SEH/完整CRT和运行仍未闭",
         "LCH01实现对象64B存储/异常与正常释放、两宿主登记已配对；facet/向量仍原域、名称NSH01；经典55315C全表caller/活动流归属、完整C03/C04/C08/C11与codecvt/SDK/运行仍未闭",
-        "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭"
+        "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
+        "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -385,7 +426,8 @@
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
         "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline"
       ]
     },
     {
@@ -8569,6 +8611,156 @@
       "observation": "仅46完整变化根/79辅助体、原首末refs与六限定CPP补丁",
       "expected": "原边界/操作数及6补丁外全文/旧语义政策保持，两根adapted标明private差异",
       "actual": "原体与6补丁归档，现仅局部静态；SDK/机器ABI/运行及故障等价未验"
+    },
+    {
+      "id": "E-STANDARD-STREAM-EXIT-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "18分离根108条/396B、146辅助唯一条/540B及18原C++槽；doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-exit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-acceptance",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#std::atexit",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorBuffer_548252",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorStream_549339",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputBuffer_548170",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputBuffer_54819D",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputBuffer_54922A",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputBuffer_549257",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorBuffer_549284",
+        "src/platform/LegacyIos.cpp#RegisterLegacyNarrowStandardInitializer_5491D6",
+        "src/platform/LegacyIos.cpp#RegisterLegacyWideStandardInitializer_549200",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputStream_5481CA",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputStream_54820E",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorStream_54827F",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowLogStream_5482AE",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputStream_5492B1",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputStream_5492F5",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideLogStream_549368",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowEarlyStandardStreams_453E00",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideEarlyStandardStreams_453E40"
+      ],
+      "differences": [
+        {
+          "description": "D03仅18实际登记表职责迁std::atexit，构造后即时登记同一callback/失败不回滚；宿主扩容/失败时机和非零返回值接受，不称原0/-1位型或表内核等价",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        },
+        {
+          "description": "当前没有新增活动Init/模块/owner或迁移其它53B406 caller；17待接/registry完整容量与codecvt生产/全应用正常快速callable退出和SDK运行仍未闭",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "18真实构造后的即时退出登记域",
+      "expected": "18std::atexit同原无参callback，先构造后登记，传出宿主S32",
+      "actual": "18直接提供者已实施，无归一化/重试/失败回滚"
+    },
+    {
+      "id": "E-STANDARD-STREAM-EXIT-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "18分离根108条/396B、146辅助唯一条/540B及18原C++槽；doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-exit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-acceptance",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#std::atexit",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorBuffer_548252",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorStream_549339",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputBuffer_548170",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputBuffer_54819D",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputBuffer_54922A",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputBuffer_549257",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorBuffer_549284",
+        "src/platform/LegacyIos.cpp#RegisterLegacyNarrowStandardInitializer_5491D6",
+        "src/platform/LegacyIos.cpp#RegisterLegacyWideStandardInitializer_549200",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputStream_5481CA",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputStream_54820E",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorStream_54827F",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowLogStream_5482AE",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputStream_5492B1",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputStream_5492F5",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideLogStream_549368",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowEarlyStandardStreams_453E00",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideEarlyStandardStreams_453E40"
+      ],
+      "differences": [
+        {
+          "description": "D03仅18实际登记表职责迁std::atexit，构造后即时登记同一callback/失败不回滚；宿主扩容/失败时机和非零返回值接受，不称原0/-1位型或表内核等价",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        },
+        {
+          "description": "当前没有新增活动Init/模块/owner或迁移其它53B406 caller；17待接/registry完整容量与codecvt生产/全应用正常快速callable退出和SDK运行仍未闭",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原构造/回调、唯一实际对象/计数与返回消费",
+      "expected": "无双登记/新owner/提前活动、构造异常和登记失败消费保持",
+      "actual": "全构造/回调和存储原文保持，仅cpp/hpp声明/定义，当前活动投影未增"
+    },
+    {
+      "id": "E-STANDARD-STREAM-EXIT-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "18分离根108条/396B、146辅助唯一条/540B及18原C++槽；doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-stream-exit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-acceptance",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#std::atexit",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorBuffer_548252",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorStream_549339",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputBuffer_548170",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputBuffer_54819D",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputBuffer_54922A",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputBuffer_549257",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideErrorBuffer_549284",
+        "src/platform/LegacyIos.cpp#RegisterLegacyNarrowStandardInitializer_5491D6",
+        "src/platform/LegacyIos.cpp#RegisterLegacyWideStandardInitializer_549200",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowInputStream_5481CA",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowOutputStream_54820E",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowErrorStream_54827F",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowLogStream_5482AE",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideInputStream_5492B1",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideOutputStream_5492F5",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideLogStream_549368",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowEarlyStandardStreams_453E00",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideEarlyStandardStreams_453E40"
+      ],
+      "differences": [
+        {
+          "description": "D03仅18实际登记表职责迁std::atexit，构造后即时登记同一callback/失败不回滚；宿主扩容/失败时机和非零返回值接受，不称原0/-1位型或表内核等价",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        },
+        {
+          "description": "当前没有新增活动Init/模块/owner或迁移其它53B406 caller；17待接/registry完整容量与codecvt生产/全应用正常快速callable退出和SDK运行仍未闭",
+          "decision_ref": "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "分离主/尾完整原体、真实调用/槽与限定源码差异",
+      "expected": "18变化根/254唯一原指令，20补丁外源/其余语义和政策保持",
+      "actual": "18记录定点对齐、18具名adapted/三限定证据，其余保持"
     }
   ],
   "task_acceptance": [
@@ -8670,7 +8862,8 @@
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
       ]
     },
     {
@@ -8684,7 +8877,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
       ]
     },
     {
@@ -8709,7 +8903,8 @@
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
       ]
     },
     {
@@ -9815,6 +10010,150 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00148252",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149339",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00148170",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014819D",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014922A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149257",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149284",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001491D6",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149200",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001481CA",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014820E",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014827F",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001482AE",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001492B1",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001492F5",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149368",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00053E00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00053E40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
       ]
     }
   ],

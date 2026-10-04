@@ -7,9 +7,9 @@
 #include "LegacyFileBuffer.hpp"
 #include "LegacyLocale.hpp"
 #include "LegacyMultibyte.hpp"
-#include "LegacyRuntimeExit.hpp"
 
 #include <bit>
+#include <cstdlib>
 #include <type_traits>
 
 namespace cg::platform {
@@ -810,13 +810,13 @@ void DestroyLegacyWideErrorStreamAtExit_54935E()
 std::int32_t InitializeLegacyNarrowErrorBuffer_548252()
 {
     ConstructLegacyNarrowErrorBufferLate_54825C();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowErrorBufferAtExit_548275);
+    return std::atexit(DestroyLegacyNarrowErrorBufferAtExit_548275);
 }
 
 std::int32_t InitializeLegacyWideErrorStream_549339()
 {
     RegisterLegacyWideErrorStreamLate_549343();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideErrorStreamAtExit_54935E);
+    return std::atexit(DestroyLegacyWideErrorStreamAtExit_54935E);
 }
 
 LegacyNarrowFileBuffer* ConstructLegacyNarrowInputBufferLate_54817A()
@@ -832,7 +832,7 @@ void DestroyLegacyNarrowInputBufferAtExit_548193()
 std::int32_t InitializeLegacyNarrowInputBuffer_548170()
 {
     ConstructLegacyNarrowInputBufferLate_54817A();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowInputBufferAtExit_548193);
+    return std::atexit(DestroyLegacyNarrowInputBufferAtExit_548193);
 }
 
 LegacyNarrowFileBuffer* ConstructLegacyNarrowOutputBufferLate_5481A7()
@@ -848,7 +848,7 @@ void DestroyLegacyNarrowOutputBufferAtExit_5481C0()
 std::int32_t InitializeLegacyNarrowOutputBuffer_54819D()
 {
     ConstructLegacyNarrowOutputBufferLate_5481A7();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowOutputBufferAtExit_5481C0);
+    return std::atexit(DestroyLegacyNarrowOutputBufferAtExit_5481C0);
 }
 
 LegacyWideFileBuffer* ConstructLegacyWideInputBufferLate_549234()
@@ -864,7 +864,7 @@ void DestroyLegacyWideInputBufferAtExit_54924D()
 std::int32_t InitializeLegacyWideInputBuffer_54922A()
 {
     ConstructLegacyWideInputBufferLate_549234();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideInputBufferAtExit_54924D);
+    return std::atexit(DestroyLegacyWideInputBufferAtExit_54924D);
 }
 
 LegacyWideFileBuffer* ConstructLegacyWideOutputBufferLate_549261()
@@ -880,7 +880,7 @@ void DestroyLegacyWideOutputBufferAtExit_54927A()
 std::int32_t InitializeLegacyWideOutputBuffer_549257()
 {
     ConstructLegacyWideOutputBufferLate_549261();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideOutputBufferAtExit_54927A);
+    return std::atexit(DestroyLegacyWideOutputBufferAtExit_54927A);
 }
 
 LegacyWideFileBuffer* ConstructLegacyWideErrorBufferLate_54928E()
@@ -896,7 +896,7 @@ void DestroyLegacyWideErrorBufferAtExit_5492A7()
 std::int32_t InitializeLegacyWideErrorBuffer_549284()
 {
     ConstructLegacyWideErrorBufferLate_54928E();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideErrorBufferAtExit_5492A7);
+    return std::atexit(DestroyLegacyWideErrorBufferAtExit_5492A7);
 }
 
 void* ConstructLegacyNarrowStandardInitializer_5491E0()
@@ -907,7 +907,7 @@ void* ConstructLegacyNarrowStandardInitializer_5491E0()
 std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6()
 {
     ConstructLegacyNarrowStandardInitializer_5491E0();
-    return RegisterLegacyAtExit_53B406(ReleaseLegacyNarrowStandardStreams_5491F6);
+    return std::atexit(ReleaseLegacyNarrowStandardStreams_5491F6);
 }
 
 void* ConstructLegacyWideStandardInitializer_54920A()
@@ -918,7 +918,7 @@ void* ConstructLegacyWideStandardInitializer_54920A()
 std::int32_t RegisterLegacyWideStandardInitializer_549200()
 {
     ConstructLegacyWideStandardInitializer_54920A();
-    return RegisterLegacyAtExit_53B406(ReleaseLegacyWideStandardStreams_549220);
+    return std::atexit(ReleaseLegacyWideStandardStreams_549220);
 }
 
 LegacyNarrowInputStream* RegisterLegacyNarrowInputStreamLate_5481D4()
@@ -934,7 +934,7 @@ void DestroyLegacyNarrowInputStreamAtExit_5481EF()
 std::int32_t InitializeLegacyNarrowInputStream_5481CA()
 {
     RegisterLegacyNarrowInputStreamLate_5481D4();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowInputStreamAtExit_5481EF);
+    return std::atexit(DestroyLegacyNarrowInputStreamAtExit_5481EF);
 }
 
 LegacyNarrowOutputStream* RegisterLegacyNarrowOutputStreamLate_548218()
@@ -950,7 +950,7 @@ void DestroyLegacyNarrowOutputStreamAtExit_548233()
 std::int32_t InitializeLegacyNarrowOutputStream_54820E()
 {
     RegisterLegacyNarrowOutputStreamLate_548218();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowOutputStreamAtExit_548233);
+    return std::atexit(DestroyLegacyNarrowOutputStreamAtExit_548233);
 }
 
 LegacyNarrowOutputStream* RegisterLegacyNarrowErrorStreamLate_548289()
@@ -966,7 +966,7 @@ void DestroyLegacyNarrowErrorStreamAtExit_5482A4()
 std::int32_t InitializeLegacyNarrowErrorStream_54827F()
 {
     RegisterLegacyNarrowErrorStreamLate_548289();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowErrorStreamAtExit_5482A4);
+    return std::atexit(DestroyLegacyNarrowErrorStreamAtExit_5482A4);
 }
 
 LegacyNarrowOutputStream* RegisterLegacyNarrowLogStreamLate_5482B8()
@@ -982,7 +982,7 @@ void DestroyLegacyNarrowLogStreamAtExit_5482D3()
 std::int32_t InitializeLegacyNarrowLogStream_5482AE()
 {
     RegisterLegacyNarrowLogStreamLate_5482B8();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowLogStreamAtExit_5482D3);
+    return std::atexit(DestroyLegacyNarrowLogStreamAtExit_5482D3);
 }
 
 LegacyWideInputStream* RegisterLegacyWideInputStreamLate_5492BB()
@@ -998,7 +998,7 @@ void DestroyLegacyWideInputStreamAtExit_5492D6()
 std::int32_t InitializeLegacyWideInputStream_5492B1()
 {
     RegisterLegacyWideInputStreamLate_5492BB();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideInputStreamAtExit_5492D6);
+    return std::atexit(DestroyLegacyWideInputStreamAtExit_5492D6);
 }
 
 LegacyWideOutputStream* RegisterLegacyWideOutputStreamLate_5492FF()
@@ -1014,7 +1014,7 @@ void DestroyLegacyWideOutputStreamAtExit_54931A()
 std::int32_t InitializeLegacyWideOutputStream_5492F5()
 {
     RegisterLegacyWideOutputStreamLate_5492FF();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideOutputStreamAtExit_54931A);
+    return std::atexit(DestroyLegacyWideOutputStreamAtExit_54931A);
 }
 
 LegacyWideOutputStream* RegisterLegacyWideLogStreamLate_549372()
@@ -1030,7 +1030,7 @@ void DestroyLegacyWideLogStreamAtExit_54938D()
 std::int32_t InitializeLegacyWideLogStream_549368()
 {
     RegisterLegacyWideLogStreamLate_549372();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyWideLogStreamAtExit_54938D);
+    return std::atexit(DestroyLegacyWideLogStreamAtExit_54938D);
 }
 
 namespace {
@@ -1098,7 +1098,7 @@ void ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30()
 std::int32_t InitializeLegacyNarrowEarlyStandardStreams_453E00()
 {
     ConstructLegacyNarrowEarlyStandardInitializer_453E10();
-    return RegisterLegacyAtExit_53B406(ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30);
+    return std::atexit(ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30);
 }
 
 void* ConstructLegacyWideEarlyStandardInitializer_453E50()
@@ -1115,7 +1115,7 @@ void ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70()
 std::int32_t InitializeLegacyWideEarlyStandardStreams_453E40()
 {
     ConstructLegacyWideEarlyStandardInitializer_453E50();
-    return RegisterLegacyAtExit_53B406(ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70);
+    return std::atexit(ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70);
 }
 
 } // namespace cg::platform

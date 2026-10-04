@@ -76,3 +76,16 @@ std::malloc/std::realloc/std::free/UCRT _msize。容量来自实际块，原U32/
 两变化根为adapted，分桶/内部对齐/容量/地址/低内存及宿主错误机制按D02，
 其它环境/对象/业务原堆、已迁NSH01/EXH01/LCH01与宿主登记组保持。
 本步仅局部静态，不关闭C03/C04/C08/C11或完整CRT/启动/SDK/运行。
+
+## SSX01 标准流登记提供者当前边界（2026-10-05）
+
+[SSX01](cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision)
+只将18个实际标准流即时登记由兼容53B406改宿主std::atexit，
+与LCH01两locale登记共同准备后续活动序接入。
+原构造完成后登记同一callback、构造异常传播、失败不回滚和完整宿主S32保持；
+原0/-1与宿主非零返回的具体位型不称相同，只有原表调用不消费EAX已有证。
+
+退出表内部增长/错误机制按D03，原14存储/四Init、引用/计数/FILE/locale/
+虚调用/flush和所有构析body及分配域保持，不强转SDK对象/新增保护或活动调用。
+17活动项/真实facet与完整registry、正常/快速/callable退出和SDK运行仍待，
+C02/C03/C04与整个CRT不闭；ETH01兼容退出表及其他原caller保持。

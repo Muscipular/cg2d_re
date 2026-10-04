@@ -999,3 +999,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **边界与剩余**：宿主私有对齐/容量/分桶/地址/低内存及内部错误按D02接受，不称原体/全部堆等价。17初始化项仍未新增活动接线，62完整父/计算alias、兼容/宿主流与退出归属、其它CRT域、SDK/异常/重入和完整正常快速退出运行仍待。未构建/查产物/测试/运行/摘要，RPLAN.24异常不专项或记安全/故障等价；音频暂停、原格式明文、单线程保持。精确12项，快照`cg2d-re-exit-table-heap-source-20261005`，用户原六项不暂存。
 
 **ETH01交付检查**：12项严格UTF-8无BOM/LF、666个本地Markdown链接、42项限定证据/决议引用和Git差异格式通过；measure生成与独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁未提升。
+
+## SSX01 标准流即时退出登记域开发（2026-10-05）
+
+- **实际开发**：先写[SSX01 SPEC](../doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision)，再改LegacyIos.cpp十八真实RegisterLegacyAtExit为直接std::atexit；移旧RuntimeExit头/增cstdlib。实际16晚段+2早段，此前口头19计数纠正。每根先原构造，完成后立即登记同一callback，直接返宿主S32；异常传播/登记失败不回滚，无once、归一化或新包装。
+- **原基线**：[归档](../doc/cg2d_standard_stream_exit_migration_evidence.json)含18根36分离段108条/396B、18真实call/callback/原C++槽；36构造回调辅助144列表条去共享尾后126条/496B，原包装/表消费20条/44B，总254唯一条/936B。原表调用不消费EAX，原包装0/-1与宿主非零位型差异按D03记录；18唯一直接data入向不排除计算alias。
+- **保持与接线**：20限定补丁外整CPP、36构造/回调和其他src/include不变，14被动流/缓冲、四Init/计数/引用/虚调用/flush/FILE/locale及分配域原文保持。只准备该登记组，不新增活动Init或模块，当前66应用+2 SDK配置不变，16晚段+经典locale共17仍待。兼容表/其余原caller不改，不将SDK流强转Legacy。
+- **集中静态和台账**：源码原完整分离边/配对/真实槽、20补丁与18构造→登记→S32检查通过；18既有语义定点更新/1189其余及全部政策保持。18新adapted/3限定E，语义1207/1204有效ID，审核141/3680、证据90；18pending/4分类/3无ID、任务10/60及叶0/182保持。C02/C03/C04均open；编码引用差异/measure生成和独立-Check见交付条。
+- **剩余与交付**：完整registry容量/较大正常索引/计算alias、真实facet/codecvt生产与分配域、全应用活动原序及normal/quick/callable/异常终止和SDK/运行待验。不构建/查产物/测试/运行/摘要，异常不专项模拟或记安全/故障等价；原格式明文、音频暂停、单线程保持。精确12项，快照`cg2d-re-standard-stream-exit-source-20261005`，用户原六项不暂存。
+
+**SSX01交付检查**：12项严格UTF-8无BOM/LF、674个本地Markdown链接、78项限定登记/决议引用及Git差异格式通过；measure生成和独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。

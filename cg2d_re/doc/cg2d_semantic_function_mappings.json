@@ -12871,9 +12871,11 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_font_measure.md"
+        "doc/cg2d_font_measure.md",
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_evidence.json"
       ],
-      "boundary": "直接读首字节，NUL返回0；否则按高位逐次推进1/2字节并读取当前字体度量。推进后先读新首字节再累加，没有字节预算、空指针/字体范围固定0返回或尾字节校验。异常不专项模拟。"
+      "boundary": "直接读首字节，NUL返回0；否则按高位逐次推进1/2字节并读取当前字体度量。推进后先读新首字节再累加，没有字节预算、空指针/字体范围固定0返回或尾字节校验。异常不专项模拟。；RIN01原459248/4594C2两父测宽点始终沿原采样调用，第二点使用strlen前缓存的同一文本；叶/其他caller源码不改，不提升全局处置或运行。"
     },
     {
       "original_entry": "0x44B2E0",
@@ -14155,9 +14157,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_input_render.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_evidence.json"
       ],
-      "boundary": "仅读实参低W8的bit7，置位返回2否则1；六caller七调用点在原位置使用同一位判定。不是Unicode长度、合法双字节验证或NUL检查，不额外读取后续字节。"
+      "boundary": "仅读实参低W8的bit7，置位返回2否则1；六caller七调用点在原位置使用同一位判定。不是Unicode长度、合法双字节验证或NUL检查，不额外读取后续字节。；RIN01原4592D2位判定仍在父属性扫描内联消费，额外预扫描已撤销；7条支持只本组取证，不提升本叶/其他caller全局处置。"
     },
     {
       "original_entry": "0x44B600",
@@ -38928,9 +38932,11 @@
       "evidence_documents": [
         "doc/cg2d_input_render.md",
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_evidence.json"
       ],
-      "boundary": "保留原两种进制参数、S32/W32解释与返回目标身份。候选原已有外层12B清零和字体门禁不在本步增删；网络的目标栈槽、后续strlen与复制不改。未新增进制/容量/空指针检查，不借此批准其他CRT、wire格式或加密接线。"
+      "boundary": "保留原两种进制参数、S32/W32解释与返回目标身份。候选原已有外层12B清零和字体门禁不在本步增删；网络的目标栈槽、后续strlen与复制不改。未新增进制/容量/空指针检查，不借此批准其他CRT、wire格式或加密接线。；RIN01已撤销当时RenderInput父局部12B预清和额外字体拒绝，4593E7实际返回用于序号绘制；本叶/协议callee与数值/容量合同不改，异常/运行未验。"
     },
     {
       "original_entry": "0x54AC0A",
@@ -135764,6 +135770,356 @@
           "source": "src/world/SceneState.cpp",
           "symbol": "DrawNormalScene_51C7D0",
           "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x4590E0",
+      "inventory_id": "F:000590E0",
+      "status": "RIN01完整357条父、21直接caller与共享数据局部静态已对照；RPLAN.24异常不记安全/故障等价，完整输入/SDK/运行未验",
+      "sources": [
+        {
+          "path": "src/world/RenderInput.cpp",
+          "symbols": [
+            "RenderInput_4590E0",
+            "DrawCandidateEntry",
+            "DrawCandidates",
+            "CandidateText",
+            "FormatDecimalW32",
+            "gImeDescriptionX5595EC",
+            "gImeDescriptionY5595F0"
+          ],
+          "relationship": "既有父完整实现；额外probe/拒绝/预清撤销，实际转换返回、原S16坐标及有效/skip候选条件重读对齐"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "RenderInput_4590E0"
+          ],
+          "relationship": "既有唯一真实声明；未扩大公共头"
+        },
+        {
+          "path": "src/world/WorldUpdate.cpp",
+          "symbols": [
+            "Update"
+          ],
+          "relationship": "51C430三个既有直接caller，完整父未由本组审核"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DrawBattleScene_43CBB0",
+            "DrawNormalScene_51C7D0"
+          ],
+          "relationship": "43CBB0十/51C7D0八个既有直接caller，完整父/间接边未由本组审核"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_render.md",
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_evidence.json",
+        "doc/cg2d_font_measure.md",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原[4590E0,45957E)完整357条；说明/组合/候选初始和每项U32 count原门禁保留。移除额外NUL/属性预扫描、辅助空对象/字体/重复Count拒绝及影子valid/宽度补0，两键态/序号局部不预清。原坐标5595F0→5595EC按S16实际存储Y/X读取；Itoa实际返回用于序号文字。组合/属性及候选各取样点、正文两表读取、strlen缓存/原signed长度下限2和units、选择框/原字节及坐标截断保持。有效项框后才重读候选，跳过项沿本轮表，页大小先读再增i/无符号比较。未知坐标writer/候选分配边界/完整父和寿命、SDK/画面未验，异常域不加保护或作故障等价。",
+      "instruction_count": 357,
+      "function_chunks": [
+        {
+          "start": "0x4590E0",
+          "end_exclusive": "0x45957E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/RenderInput.cpp",
+        "symbol": "RenderInput_4590E0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_render_contract": {
+        "spec": "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "evidence": "doc/cg2d_input_render_alignment_evidence.json",
+        "original_guards_retained": true,
+        "prescan": false,
+        "local_keyboard_or_number_preclear": false,
+        "extra_null_font_count_guards": false,
+        "coordinate_width": "S16",
+        "coordinate_reads": "Y→X",
+        "itoa_return_consumed": true,
+        "processed_item_candidate_reload": true,
+        "skipped_item_retains_current_iteration_list": true,
+        "page_size_sample_before_increment": true,
+        "original_signed_length_minimum": 2,
+        "full_data_and_indirect_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "rng_calls": 0
+      },
+      "incoming_call_connections": [
+        {
+          "from": "0x43cd7f",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43cde1",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43ce02",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43ce1e",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43ce50",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43cfe5",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43d050",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43d114",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43d1e3",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x43d3ef",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51c4b7",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51c514",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51c54d",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51c8df",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51caca",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51cddf",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51d0a7",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51d19b",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51d20a",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51d291",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        },
+        {
+          "from": "0x51d436",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "full_parent_body_reviewed": false
+        }
+      ],
+      "outgoing_original_call_sites": [
+        {
+          "address": "0x459112",
+          "text": "call    sub_459090",
+          "size": 5
+        },
+        {
+          "address": "0x45911e",
+          "text": "call    ds:GetKeyboardState",
+          "size": 6
+        },
+        {
+          "address": "0x45914f",
+          "text": "call    ds:GetKeyboardLayout",
+          "size": 6
+        },
+        {
+          "address": "0x459156",
+          "text": "call    ImmGetDescriptionA",
+          "size": 5
+        },
+        {
+          "address": "0x4591cc",
+          "text": "call    Renderer__DrawText",
+          "size": 5
+        },
+        {
+          "address": "0x459232",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x459248",
+          "text": "call    TextMeasure",
+          "size": 5
+        },
+        {
+          "address": "0x459282",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
+        },
+        {
+          "address": "0x4592d2",
+          "text": "call    sub_44B250",
+          "size": 5
+        },
+        {
+          "address": "0x459389",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
+        },
+        {
+          "address": "0x4593e7",
+          "text": "call    __itoa",
+          "size": 5
+        },
+        {
+          "address": "0x459413",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x459473",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x4594c2",
+          "text": "call    TextMeasure",
+          "size": 5
+        },
+        {
+          "address": "0x459551",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
         }
       ]
     }

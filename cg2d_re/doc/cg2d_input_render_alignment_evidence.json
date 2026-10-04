@@ -1,0 +1,2665 @@
+{
+  "schema_version": 1,
+  "group": "RIN01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前cg2d.exe已打开IDA经MCP只读Python；未重开/修改/保存或导出",
+  "baseline_reference": "doc/cg2d_input_render.md；F:000590E0/F:0004B250",
+  "implementation_reference": "Git命名快照 cg2d-re-input-render-source-20261005",
+  "functions": [
+    {
+      "entry": "0x4590e0",
+      "end": "0x45957e",
+      "chunks": [
+        [
+          "0x4590e0",
+          "0x45957e"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x4590e0",
+          "text": "sub     esp, 118h",
+          "size": 6
+        },
+        {
+          "address": "0x4590e6",
+          "text": "mov     al, gImeInputStr",
+          "size": 5
+        },
+        {
+          "address": "0x4590eb",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x4590ec",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x4590ed",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x4590ee",
+          "text": "xor     ebp, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x4590f0",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x4590f1",
+          "text": "mov     [esp+128h+var_114], ebp",
+          "size": 4
+        },
+        {
+          "address": "0x4590f5",
+          "text": "mov     [esp+128h+var_108], ebp",
+          "size": 4
+        },
+        {
+          "address": "0x4590f9",
+          "text": "mov     [esp+128h+var_110], ebp",
+          "size": 4
+        },
+        {
+          "address": "0x4590fd",
+          "text": "mov     [esp+128h+var_118], offset gImeInputStr",
+          "size": 8
+        },
+        {
+          "address": "0x459105",
+          "text": "mov     dword ptr [esp+128h+Buffer], offset byte_73EEE0",
+          "size": 8
+        },
+        {
+          "address": "0x45910d",
+          "text": "mov     byte_73EFF0, al",
+          "size": 5
+        },
+        {
+          "address": "0x459112",
+          "text": "call    sub_459090",
+          "size": 5
+        },
+        {
+          "address": "0x459117",
+          "text": "lea     ecx, [esp+128h+KeyState]",
+          "size": 4
+        },
+        {
+          "address": "0x45911b",
+          "text": "mov     ebx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45911d",
+          "text": "push    ecx; lpKeyState",
+          "size": 1
+        },
+        {
+          "address": "0x45911e",
+          "text": "call    ds:GetKeyboardState",
+          "size": 6
+        },
+        {
+          "address": "0x459124",
+          "text": "mov     eax, dword_D460C8",
+          "size": 5
+        },
+        {
+          "address": "0x459129",
+          "text": "movsx   ecx, [esp+128h+var_EC]",
+          "size": 5
+        },
+        {
+          "address": "0x45912e",
+          "text": "cmp     eax, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x459130",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x459135",
+          "text": "jnz     loc_4591D9",
+          "size": 6
+        },
+        {
+          "address": "0x45913b",
+          "text": "cmp     eax, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x45913d",
+          "text": "jz      loc_4591D9",
+          "size": 6
+        },
+        {
+          "address": "0x459143",
+          "text": "cmp     ebx, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x459145",
+          "text": "jz      short loc_459164",
+          "size": 2
+        },
+        {
+          "address": "0x459147",
+          "text": "push    64h ; 'd'; uBufLen",
+          "size": 2
+        },
+        {
+          "address": "0x459149",
+          "text": "push    offset szDescription; lpszDescription",
+          "size": 5
+        },
+        {
+          "address": "0x45914e",
+          "text": "push    ebp; idThread",
+          "size": 1
+        },
+        {
+          "address": "0x45914f",
+          "text": "call    ds:GetKeyboardLayout",
+          "size": 6
+        },
+        {
+          "address": "0x459155",
+          "text": "push    eax; HKL",
+          "size": 1
+        },
+        {
+          "address": "0x459156",
+          "text": "call    ImmGetDescriptionA",
+          "size": 5
+        },
+        {
+          "address": "0x45915b",
+          "text": "mov     byte_73ED7A, 0",
+          "size": 7
+        },
+        {
+          "address": "0x459162",
+          "text": "jmp     short loc_4591AF",
+          "size": 2
+        },
+        {
+          "address": "0x459164",
+          "text": "cmp     ecx, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x459166",
+          "text": "jz      short loc_45918A",
+          "size": 2
+        },
+        {
+          "address": "0x459168",
+          "text": "mov     edi, offset aAbc_4; \"英數/ＡＢＣ\"",
+          "size": 5
+        },
+        {
+          "address": "0x45916d",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x459170",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x459172",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x459174",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x459176",
+          "text": "sub     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x459178",
+          "text": "mov     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45917a",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x45917c",
+          "text": "mov     edi, offset szDescription",
+          "size": 5
+        },
+        {
+          "address": "0x459181",
+          "text": "shr     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x459184",
+          "text": "rep movsd",
+          "size": 2
+        },
+        {
+          "address": "0x459186",
+          "text": "mov     ecx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459188",
+          "text": "jmp     short loc_4591AA",
+          "size": 2
+        },
+        {
+          "address": "0x45918a",
+          "text": "mov     edi, offset aAbc_3; \"英數/ａｂｃ\"",
+          "size": 5
+        },
+        {
+          "address": "0x45918f",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x459192",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x459194",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x459196",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x459198",
+          "text": "sub     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45919a",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45919c",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x45919e",
+          "text": "mov     edi, offset szDescription",
+          "size": 5
+        },
+        {
+          "address": "0x4591a3",
+          "text": "shr     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4591a6",
+          "text": "rep movsd",
+          "size": 2
+        },
+        {
+          "address": "0x4591a8",
+          "text": "mov     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4591aa",
+          "text": "and     ecx, 3",
+          "size": 3
+        },
+        {
+          "address": "0x4591ad",
+          "text": "rep movsb",
+          "size": 2
+        },
+        {
+          "address": "0x4591af",
+          "text": "mov     cx, word_5595F0",
+          "size": 7
+        },
+        {
+          "address": "0x4591b6",
+          "text": "mov     dx, word_5595EC",
+          "size": 7
+        },
+        {
+          "address": "0x4591bd",
+          "text": "push    ebp; a8",
+          "size": 1
+        },
+        {
+          "address": "0x4591be",
+          "text": "push    ebp; a7",
+          "size": 1
+        },
+        {
+          "address": "0x4591bf",
+          "text": "push    offset szDescription; a6",
+          "size": 5
+        },
+        {
+          "address": "0x4591c4",
+          "text": "push    8; a5",
+          "size": 2
+        },
+        {
+          "address": "0x4591c6",
+          "text": "push    1; a4",
+          "size": 2
+        },
+        {
+          "address": "0x4591c8",
+          "text": "push    3; a3",
+          "size": 2
+        },
+        {
+          "address": "0x4591ca",
+          "text": "push    ecx; a2",
+          "size": 1
+        },
+        {
+          "address": "0x4591cb",
+          "text": "push    edx; a1",
+          "size": 1
+        },
+        {
+          "address": "0x4591cc",
+          "text": "call    Renderer__DrawText",
+          "size": 5
+        },
+        {
+          "address": "0x4591d1",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x4591d6",
+          "text": "add     esp, 20h",
+          "size": 3
+        },
+        {
+          "address": "0x4591d9",
+          "text": "cmp     ebx, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x4591db",
+          "text": "jz      loc_459573",
+          "size": 6
+        },
+        {
+          "address": "0x4591e1",
+          "text": "mov     cl, gImeInputStr",
+          "size": 6
+        },
+        {
+          "address": "0x4591e7",
+          "text": "test    cl, cl",
+          "size": 2
+        },
+        {
+          "address": "0x4591e9",
+          "text": "jz      loc_459573",
+          "size": 6
+        },
+        {
+          "address": "0x4591ef",
+          "text": "cmp     eax, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x4591f1",
+          "text": "jz      loc_459573",
+          "size": 6
+        },
+        {
+          "address": "0x4591f7",
+          "text": "mov     ebx, [eax+138h]",
+          "size": 6
+        },
+        {
+          "address": "0x4591fd",
+          "text": "mov     dl, [eax+138h]",
+          "size": 6
+        },
+        {
+          "address": "0x459203",
+          "text": "mov     ecx, [eax+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x459209",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x45920b",
+          "text": "neg     ebx",
+          "size": 2
+        },
+        {
+          "address": "0x45920d",
+          "text": "sbb     bl, bl",
+          "size": 2
+        },
+        {
+          "address": "0x45920f",
+          "text": "push    offset gImeInputStr",
+          "size": 5
+        },
+        {
+          "address": "0x459214",
+          "text": "and     bl, 0Eh",
+          "size": 3
+        },
+        {
+          "address": "0x459217",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x459219",
+          "text": "add     bl, 0D2h",
+          "size": 3
+        },
+        {
+          "address": "0x45921c",
+          "text": "inc     dl",
+          "size": 2
+        },
+        {
+          "address": "0x45921e",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45921f",
+          "text": "mov     ecx, [eax+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x459225",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x459226",
+          "text": "mov     edx, [eax+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x45922c",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45922d",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x45922e",
+          "text": "mov     [esp+144h+a5], bl",
+          "size": 4
+        },
+        {
+          "address": "0x459232",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x459237",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x45923c",
+          "text": "mov     ecx, [eax+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x459242",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x459243",
+          "text": "push    offset gImeInputStr",
+          "size": 5
+        },
+        {
+          "address": "0x459248",
+          "text": "call    TextMeasure",
+          "size": 5
+        },
+        {
+          "address": "0x45924d",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x459253",
+          "text": "mov     edi, dword ptr [esp+14Ch+a5]",
+          "size": 4
+        },
+        {
+          "address": "0x459257",
+          "text": "push    1; a7",
+          "size": 2
+        },
+        {
+          "address": "0x459259",
+          "text": "push    1; a6",
+          "size": 2
+        },
+        {
+          "address": "0x45925b",
+          "text": "mov     edx, [ecx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x459261",
+          "text": "mov     esi, [ecx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x459267",
+          "text": "mov     ecx, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x45926d",
+          "text": "push    edi; a5",
+          "size": 1
+        },
+        {
+          "address": "0x45926e",
+          "text": "add     eax, esi",
+          "size": 2
+        },
+        {
+          "address": "0x459270",
+          "text": "lea     ecx, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x459273",
+          "text": "mov     ecx, gFontList.doubleHeight[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x45927a",
+          "text": "add     ecx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x45927c",
+          "text": "dec     edx",
+          "size": 1
+        },
+        {
+          "address": "0x45927d",
+          "text": "push    ecx; a4",
+          "size": 1
+        },
+        {
+          "address": "0x45927e",
+          "text": "push    eax; a3",
+          "size": 1
+        },
+        {
+          "address": "0x45927f",
+          "text": "dec     esi",
+          "size": 1
+        },
+        {
+          "address": "0x459280",
+          "text": "push    edx; a2",
+          "size": 1
+        },
+        {
+          "address": "0x459281",
+          "text": "push    esi; a1",
+          "size": 1
+        },
+        {
+          "address": "0x459282",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
+        },
+        {
+          "address": "0x459287",
+          "text": "add     esp, 40h",
+          "size": 3
+        },
+        {
+          "address": "0x45928a",
+          "text": "mov     edi, 1",
+          "size": 5
+        },
+        {
+          "address": "0x45928f",
+          "text": "mov     ecx, dword ptr [esp+128h+Buffer]",
+          "size": 4
+        },
+        {
+          "address": "0x459293",
+          "text": "mov     al, [ecx]",
+          "size": 2
+        },
+        {
+          "address": "0x459295",
+          "text": "cmp     al, 1",
+          "size": 2
+        },
+        {
+          "address": "0x459297",
+          "text": "jz      short loc_45929D",
+          "size": 2
+        },
+        {
+          "address": "0x459299",
+          "text": "cmp     al, 3",
+          "size": 2
+        },
+        {
+          "address": "0x45929b",
+          "text": "jnz     short loc_4592B1",
+          "size": 2
+        },
+        {
+          "address": "0x45929d",
+          "text": "mov     ecx, [esp+128h+var_110]",
+          "size": 4
+        },
+        {
+          "address": "0x4592a1",
+          "text": "mov     esi, [esp+128h+var_114]",
+          "size": 4
+        },
+        {
+          "address": "0x4592a5",
+          "text": "test    ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4592a7",
+          "text": "jnz     short loc_4592B5",
+          "size": 2
+        },
+        {
+          "address": "0x4592a9",
+          "text": "mov     ebp, esi",
+          "size": 2
+        },
+        {
+          "address": "0x4592ab",
+          "text": "mov     [esp+128h+var_110], edi",
+          "size": 4
+        },
+        {
+          "address": "0x4592af",
+          "text": "jmp     short loc_4592B5",
+          "size": 2
+        },
+        {
+          "address": "0x4592b1",
+          "text": "mov     esi, [esp+128h+var_114]",
+          "size": 4
+        },
+        {
+          "address": "0x4592b5",
+          "text": "cmp     al, 2",
+          "size": 2
+        },
+        {
+          "address": "0x4592b7",
+          "text": "jz      short loc_4592BD",
+          "size": 2
+        },
+        {
+          "address": "0x4592b9",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x4592bb",
+          "text": "jnz     short loc_4592CB",
+          "size": 2
+        },
+        {
+          "address": "0x4592bd",
+          "text": "cmp     [esp+128h+var_110], edi",
+          "size": 4
+        },
+        {
+          "address": "0x4592c1",
+          "text": "jge     loc_45934A",
+          "size": 6
+        },
+        {
+          "address": "0x4592c7",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x4592c9",
+          "text": "jz      short loc_459346",
+          "size": 2
+        },
+        {
+          "address": "0x4592cb",
+          "text": "mov     edx, [esp+128h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x4592cf",
+          "text": "mov     al, [edx]",
+          "size": 2
+        },
+        {
+          "address": "0x4592d1",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x4592d2",
+          "text": "call    sub_44B250",
+          "size": 5
+        },
+        {
+          "address": "0x4592d7",
+          "text": "mov     ecx, 2",
+          "size": 5
+        },
+        {
+          "address": "0x4592dc",
+          "text": "add     esp, 4",
+          "size": 3
+        },
+        {
+          "address": "0x4592df",
+          "text": "cmp     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4592e1",
+          "text": "jnz     short loc_459316",
+          "size": 2
+        },
+        {
+          "address": "0x4592e3",
+          "text": "mov     eax, [esp+128h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x4592e7",
+          "text": "mov     edx, dword ptr [esp+128h+Buffer]",
+          "size": 4
+        },
+        {
+          "address": "0x4592eb",
+          "text": "add     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4592ed",
+          "text": "add     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4592ef",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x4592f5",
+          "text": "mov     [esp+128h+var_118], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4592f9",
+          "text": "mov     dword ptr [esp+128h+Buffer], edx",
+          "size": 4
+        },
+        {
+          "address": "0x4592fd",
+          "text": "mov     eax, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x459303",
+          "text": "lea     edx, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x459306",
+          "text": "add     esi, gFontList.doubleWidth[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x45930d",
+          "text": "mov     [esp+128h+var_114], esi",
+          "size": 4
+        },
+        {
+          "address": "0x459311",
+          "text": "jmp     loc_45928F",
+          "size": 5
+        },
+        {
+          "address": "0x459316",
+          "text": "mov     edx, [esp+128h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x45931a",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x45931f",
+          "text": "mov     ecx, dword ptr [esp+128h+Buffer]",
+          "size": 4
+        },
+        {
+          "address": "0x459323",
+          "text": "inc     edx",
+          "size": 1
+        },
+        {
+          "address": "0x459324",
+          "text": "mov     eax, [eax+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x45932a",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45932b",
+          "text": "mov     dword ptr [esp+128h+Buffer], ecx",
+          "size": 4
+        },
+        {
+          "address": "0x45932f",
+          "text": "mov     [esp+128h+var_118], edx",
+          "size": 4
+        },
+        {
+          "address": "0x459333",
+          "text": "lea     ecx, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x459336",
+          "text": "add     esi, gFontList.sWidth[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x45933d",
+          "text": "mov     [esp+128h+var_114], esi",
+          "size": 4
+        },
+        {
+          "address": "0x459341",
+          "text": "jmp     loc_45928F",
+          "size": 5
+        },
+        {
+          "address": "0x459346",
+          "text": "mov     esi, [esp+128h+var_108]",
+          "size": 4
+        },
+        {
+          "address": "0x45934a",
+          "text": "cmp     [esp+128h+var_110], edi",
+          "size": 4
+        },
+        {
+          "address": "0x45934e",
+          "text": "jl      short loc_459391",
+          "size": 2
+        },
+        {
+          "address": "0x459350",
+          "text": "mov     edx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x459356",
+          "text": "push    edi; a7",
+          "size": 1
+        },
+        {
+          "address": "0x459357",
+          "text": "inc     bl",
+          "size": 2
+        },
+        {
+          "address": "0x459359",
+          "text": "push    0FCh; a6",
+          "size": 5
+        },
+        {
+          "address": "0x45935e",
+          "text": "mov     eax, [edx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x459364",
+          "text": "mov     ecx, [edx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x45936a",
+          "text": "mov     edx, [edx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x459370",
+          "text": "push    ebx; a5",
+          "size": 1
+        },
+        {
+          "address": "0x459371",
+          "text": "lea     edx, [edx+edx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x459374",
+          "text": "mov     edx, gFontList.doubleHeight[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x45937b",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45937d",
+          "text": "dec     eax",
+          "size": 1
+        },
+        {
+          "address": "0x45937e",
+          "text": "push    edx; a4",
+          "size": 1
+        },
+        {
+          "address": "0x45937f",
+          "text": "lea     edx, [ecx+esi]",
+          "size": 3
+        },
+        {
+          "address": "0x459382",
+          "text": "push    edx; a3",
+          "size": 1
+        },
+        {
+          "address": "0x459383",
+          "text": "push    eax; a2",
+          "size": 1
+        },
+        {
+          "address": "0x459384",
+          "text": "lea     eax, [ecx+ebp-1]",
+          "size": 4
+        },
+        {
+          "address": "0x459388",
+          "text": "push    eax; a1",
+          "size": 1
+        },
+        {
+          "address": "0x459389",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
+        },
+        {
+          "address": "0x45938e",
+          "text": "add     esp, 1Ch",
+          "size": 3
+        },
+        {
+          "address": "0x459391",
+          "text": "mov     ecx, gImmCandidateList",
+          "size": 6
+        },
+        {
+          "address": "0x459397",
+          "text": "test    ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x459399",
+          "text": "jz      loc_459573",
+          "size": 6
+        },
+        {
+          "address": "0x45939f",
+          "text": "mov     edx, [ecx+14h]",
+          "size": 3
+        },
+        {
+          "address": "0x4593a2",
+          "text": "xor     ebx, ebx",
+          "size": 2
+        },
+        {
+          "address": "0x4593a4",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4593a6",
+          "text": "test    edx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x4593a8",
+          "text": "mov     [esp+128h+var_118], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4593ac",
+          "text": "jbe     loc_459573",
+          "size": 6
+        },
+        {
+          "address": "0x4593b2",
+          "text": "mov     edx, [ecx+10h]",
+          "size": 3
+        },
+        {
+          "address": "0x4593b5",
+          "text": "mov     esi, [ecx+8]",
+          "size": 3
+        },
+        {
+          "address": "0x4593b8",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4593ba",
+          "text": "cmp     edx, esi",
+          "size": 2
+        },
+        {
+          "address": "0x4593bc",
+          "text": "jnb     loc_459563",
+          "size": 6
+        },
+        {
+          "address": "0x4593c2",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x4593c8",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x4593ca",
+          "text": "push    0Ah; Radix",
+          "size": 2
+        },
+        {
+          "address": "0x4593cc",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x4593cd",
+          "text": "mov     edi, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x4593d3",
+          "text": "lea     ecx, [esp+130h+Buffer]",
+          "size": 4
+        },
+        {
+          "address": "0x4593d7",
+          "text": "push    ecx; Buffer",
+          "size": 1
+        },
+        {
+          "address": "0x4593d8",
+          "text": "push    eax; Value",
+          "size": 1
+        },
+        {
+          "address": "0x4593d9",
+          "text": "lea     edx, [edi+edi*2]",
+          "size": 3
+        },
+        {
+          "address": "0x4593dc",
+          "text": "mov     [esp+138h+var_114], ebx",
+          "size": 4
+        },
+        {
+          "address": "0x4593e0",
+          "text": "mov     esi, gFontList.doubleHeight[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x4593e7",
+          "text": "call    __itoa",
+          "size": 5
+        },
+        {
+          "address": "0x4593ec",
+          "text": "add     esp, 0Ch",
+          "size": 3
+        },
+        {
+          "address": "0x4593ef",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x4593f0",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x4593f5",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x4593f7",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x4593f8",
+          "text": "mov     edx, [eax+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x4593fe",
+          "text": "push    4",
+          "size": 2
+        },
+        {
+          "address": "0x459400",
+          "text": "add     edx, esi",
+          "size": 2
+        },
+        {
+          "address": "0x459402",
+          "text": "imul    esi, ebx",
+          "size": 3
+        },
+        {
+          "address": "0x459405",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x459406",
+          "text": "mov     edx, [eax+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x45940c",
+          "text": "add     esi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x45940e",
+          "text": "lea     eax, [esi+ebp+5]",
+          "size": 4
+        },
+        {
+          "address": "0x459412",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x459413",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x459418",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x45941e",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x459420",
+          "text": "lea     esi, [ebx+1]",
+          "size": 3
+        },
+        {
+          "address": "0x459423",
+          "text": "mov     ecx, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x459429",
+          "text": "mov     ebx, esi",
+          "size": 2
+        },
+        {
+          "address": "0x45942b",
+          "text": "lea     edx, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x45942e",
+          "text": "mov     eax, gFontList.doubleHeight[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x459435",
+          "text": "mov     edx, gImmCandidateList",
+          "size": 6
+        },
+        {
+          "address": "0x45943b",
+          "text": "mov     edi, [edx+10h]",
+          "size": 3
+        },
+        {
+          "address": "0x45943e",
+          "text": "mov     edx, [esp+148h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x459442",
+          "text": "add     edi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459444",
+          "text": "mov     edx, gImmCandidateList",
+          "size": 6
+        },
+        {
+          "address": "0x45944a",
+          "text": "mov     edi, [edx+edi*4+18h]",
+          "size": 4
+        },
+        {
+          "address": "0x45944e",
+          "text": "add     edi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459450",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x459451",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x459453",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x459454",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x45945a",
+          "text": "push    4",
+          "size": 2
+        },
+        {
+          "address": "0x45945c",
+          "text": "mov     edx, [ecx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x459462",
+          "text": "mov     edi, [ecx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x459468",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45946a",
+          "text": "imul    eax, ebx",
+          "size": 3
+        },
+        {
+          "address": "0x45946d",
+          "text": "add     eax, edi",
+          "size": 2
+        },
+        {
+          "address": "0x45946f",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x459470",
+          "text": "add     eax, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x459472",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x459473",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x459478",
+          "text": "mov     eax, gImmCandidateList",
+          "size": 5
+        },
+        {
+          "address": "0x45947d",
+          "text": "mov     edx, [esp+160h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x459481",
+          "text": "add     esp, 38h",
+          "size": 3
+        },
+        {
+          "address": "0x459484",
+          "text": "mov     ecx, [eax+10h]",
+          "size": 3
+        },
+        {
+          "address": "0x459487",
+          "text": "add     ecx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459489",
+          "text": "mov     edx, [eax+ecx*4+18h]",
+          "size": 4
+        },
+        {
+          "address": "0x45948d",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x459490",
+          "text": "lea     edi, [edx+eax]",
+          "size": 3
+        },
+        {
+          "address": "0x459493",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x459495",
+          "text": "mov     [esp+128h+var_108], edi",
+          "size": 4
+        },
+        {
+          "address": "0x459499",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x45949b",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45949d",
+          "text": "dec     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45949e",
+          "text": "cmp     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4594a1",
+          "text": "jge     short loc_4594A8",
+          "size": 2
+        },
+        {
+          "address": "0x4594a3",
+          "text": "mov     ecx, 2",
+          "size": 5
+        },
+        {
+          "address": "0x4594a8",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4594aa",
+          "text": "cdq",
+          "size": 1
+        },
+        {
+          "address": "0x4594ab",
+          "text": "sub     eax, edx",
+          "size": 2
+        },
+        {
+          "address": "0x4594ad",
+          "text": "mov     edx, [esp+128h+var_108]",
+          "size": 4
+        },
+        {
+          "address": "0x4594b1",
+          "text": "sar     eax, 1",
+          "size": 2
+        },
+        {
+          "address": "0x4594b3",
+          "text": "add     ebx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4594b5",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x4594ba",
+          "text": "mov     ecx, [eax+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x4594c0",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x4594c1",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x4594c2",
+          "text": "call    TextMeasure",
+          "size": 5
+        },
+        {
+          "address": "0x4594c7",
+          "text": "mov     edi, [esp+130h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x4594cb",
+          "text": "mov     [esp+130h+var_110], eax",
+          "size": 4
+        },
+        {
+          "address": "0x4594cf",
+          "text": "mov     eax, gImmCandidateList",
+          "size": 5
+        },
+        {
+          "address": "0x4594d4",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x4594d7",
+          "text": "mov     ecx, [eax+10h]",
+          "size": 3
+        },
+        {
+          "address": "0x4594da",
+          "text": "mov     edx, [eax+0Ch]",
+          "size": 3
+        },
+        {
+          "address": "0x4594dd",
+          "text": "add     ecx, edi",
+          "size": 2
+        },
+        {
+          "address": "0x4594df",
+          "text": "cmp     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4594e1",
+          "text": "mov     edx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x4594e7",
+          "text": "mov     ecx, [edx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x4594ed",
+          "text": "jnz     short loc_459510",
+          "size": 2
+        },
+        {
+          "address": "0x4594ef",
+          "text": "mov     edi, [edx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x4594f5",
+          "text": "mov     edx, [edx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x4594fb",
+          "text": "lea     eax, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x4594fe",
+          "text": "push    1",
+          "size": 2
+        },
+        {
+          "address": "0x459500",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x459502",
+          "text": "push    0D9h",
+          "size": 5
+        },
+        {
+          "address": "0x459507",
+          "text": "mov     ecx, gFontList.doubleHeight[eax*8]",
+          "size": 7
+        },
+        {
+          "address": "0x45950e",
+          "text": "jmp     short loc_459532",
+          "size": 2
+        },
+        {
+          "address": "0x459510",
+          "text": "mov     edi, [edx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x459516",
+          "text": "mov     edx, [edx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x45951c",
+          "text": "lea     ecx, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x45951f",
+          "text": "push    1; a7",
+          "size": 2
+        },
+        {
+          "address": "0x459521",
+          "text": "push    0FCh; a6",
+          "size": 5
+        },
+        {
+          "address": "0x459526",
+          "text": "push    0D8h; a5",
+          "size": 5
+        },
+        {
+          "address": "0x45952b",
+          "text": "mov     ecx, gFontList.doubleHeight[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x459532",
+          "text": "imul    esi, ecx",
+          "size": 3
+        },
+        {
+          "address": "0x459535",
+          "text": "lea     eax, [edi+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x459538",
+          "text": "add     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45953a",
+          "text": "imul    ecx, [esp+134h+var_114]",
+          "size": 5
+        },
+        {
+          "address": "0x45953f",
+          "text": "push    eax; a4",
+          "size": 1
+        },
+        {
+          "address": "0x459540",
+          "text": "mov     eax, [esp+138h+var_110]",
+          "size": 4
+        },
+        {
+          "address": "0x459544",
+          "text": "add     esi, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459546",
+          "text": "add     ecx, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459548",
+          "text": "add     esi, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45954a",
+          "text": "add     ecx, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x45954c",
+          "text": "add     esi, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x45954e",
+          "text": "push    esi; a3",
+          "size": 1
+        },
+        {
+          "address": "0x45954f",
+          "text": "push    edi; a2",
+          "size": 1
+        },
+        {
+          "address": "0x459550",
+          "text": "push    ecx; a1",
+          "size": 1
+        },
+        {
+          "address": "0x459551",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "size": 5
+        },
+        {
+          "address": "0x459556",
+          "text": "mov     ecx, gImmCandidateList",
+          "size": 6
+        },
+        {
+          "address": "0x45955c",
+          "text": "mov     eax, [esp+144h+var_118]",
+          "size": 4
+        },
+        {
+          "address": "0x459560",
+          "text": "add     esp, 1Ch",
+          "size": 3
+        },
+        {
+          "address": "0x459563",
+          "text": "mov     edx, [ecx+14h]",
+          "size": 3
+        },
+        {
+          "address": "0x459566",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x459567",
+          "text": "cmp     eax, edx",
+          "size": 2
+        },
+        {
+          "address": "0x459569",
+          "text": "mov     [esp+128h+var_118], eax",
+          "size": 4
+        },
+        {
+          "address": "0x45956d",
+          "text": "jb      loc_4593B2",
+          "size": 6
+        },
+        {
+          "address": "0x459573",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x459574",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x459575",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x459576",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x459577",
+          "text": "add     esp, 118h",
+          "size": 6
+        },
+        {
+          "address": "0x45957d",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x43cd7f",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43cde1",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43ce02",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43ce1e",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43ce50",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43cfe5",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d050",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d114",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d1e3",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d3ef",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x51c4b7",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51c514",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51c54d",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51c8df",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51caca",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51cddf",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d0a7",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d19b",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d20a",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d291",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d436",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        }
+      ]
+    },
+    {
+      "entry": "0x44b250",
+      "end": "0x44b25e",
+      "chunks": [
+        [
+          "0x44b250",
+          "0x44b25e"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x44b250",
+          "text": "mov     al, [esp+arg_0]",
+          "size": 4
+        },
+        {
+          "address": "0x44b254",
+          "text": "and     al, 80h",
+          "size": 2
+        },
+        {
+          "address": "0x44b256",
+          "text": "neg     al",
+          "size": 2
+        },
+        {
+          "address": "0x44b258",
+          "text": "sbb     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44b25a",
+          "text": "neg     eax",
+          "size": 2
+        },
+        {
+          "address": "0x44b25c",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x44b25d",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x44a5ae",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x44a580"
+        },
+        {
+          "from": "0x44aabf",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x44aa90"
+        },
+        {
+          "from": "0x4592d2",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x4590e0"
+        },
+        {
+          "from": "0x47675d",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x476740"
+        },
+        {
+          "from": "0x476798",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x476740"
+        },
+        {
+          "from": "0x4a761d",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x4a7590"
+        },
+        {
+          "from": "0x4a76c4",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x4a7640"
+        }
+      ]
+    }
+  ],
+  "instruction_counts": {
+    "body": 357,
+    "byte_step_support": 7,
+    "unique_total": 364,
+    "full_caller_bodies_reviewed": false
+  },
+  "coordinate_slots": [
+    {
+      "address": "0x5595ec",
+      "bytes2": [
+        30,
+        2
+      ],
+      "refs": [
+        {
+          "from": "0x4591b6",
+          "type": 3,
+          "owner": "0x4590e0",
+          "text": "mov     dx, word_5595EC"
+        }
+      ]
+    },
+    {
+      "address": "0x5595f0",
+      "bytes2": [
+        205,
+        1
+      ],
+      "refs": [
+        {
+          "from": "0x4591af",
+          "type": 3,
+          "owner": "0x4590e0",
+          "text": "mov     cx, word_5595F0"
+        }
+      ]
+    }
+  ],
+  "coordinate_loaded_data": [
+    {
+      "address": "0x5595ec",
+      "segment": ".data",
+      "permissions": 6,
+      "word": 542
+    },
+    {
+      "address": "0x5595f0",
+      "segment": ".data",
+      "permissions": 6,
+      "word": 461
+    }
+  ],
+  "description_constants": [
+    {
+      "site": "0x459168",
+      "address": "0x5596a0",
+      "bytes": [
+        173,
+        94,
+        188,
+        198,
+        47,
+        162,
+        207,
+        162,
+        208,
+        162,
+        209,
+        0
+      ]
+    },
+    {
+      "site": "0x45918a",
+      "address": "0x559694",
+      "bytes": [
+        173,
+        94,
+        188,
+        198,
+        47,
+        162,
+        233,
+        162,
+        234,
+        162,
+        235,
+        0
+      ]
+    }
+  ],
+  "incoming_call_connections": [
+    {
+      "from": "0x43cd7f",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43cde1",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43ce02",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43ce1e",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43ce50",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43cfe5",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43d050",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43d114",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43d1e3",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x43d3ef",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51c4b7",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51c514",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51c54d",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51c8df",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51caca",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51cddf",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51d0a7",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51d19b",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51d20a",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51d291",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    },
+    {
+      "from": "0x51d436",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "full_parent_body_reviewed": false
+    }
+  ],
+  "outgoing_call_sites": [
+    {
+      "address": "0x459112",
+      "text": "call    sub_459090",
+      "size": 5
+    },
+    {
+      "address": "0x45911e",
+      "text": "call    ds:GetKeyboardState",
+      "size": 6
+    },
+    {
+      "address": "0x45914f",
+      "text": "call    ds:GetKeyboardLayout",
+      "size": 6
+    },
+    {
+      "address": "0x459156",
+      "text": "call    ImmGetDescriptionA",
+      "size": 5
+    },
+    {
+      "address": "0x4591cc",
+      "text": "call    Renderer__DrawText",
+      "size": 5
+    },
+    {
+      "address": "0x459232",
+      "text": "call    Renderer__DrawText2",
+      "size": 5
+    },
+    {
+      "address": "0x459248",
+      "text": "call    TextMeasure",
+      "size": 5
+    },
+    {
+      "address": "0x459282",
+      "text": "call    Renderer__DrawGraphic_Hover",
+      "size": 5
+    },
+    {
+      "address": "0x4592d2",
+      "text": "call    sub_44B250",
+      "size": 5
+    },
+    {
+      "address": "0x459389",
+      "text": "call    Renderer__DrawGraphic_Hover",
+      "size": 5
+    },
+    {
+      "address": "0x4593e7",
+      "text": "call    __itoa",
+      "size": 5
+    },
+    {
+      "address": "0x459413",
+      "text": "call    Renderer__DrawText2",
+      "size": 5
+    },
+    {
+      "address": "0x459473",
+      "text": "call    Renderer__DrawText2",
+      "size": 5
+    },
+    {
+      "address": "0x4594c2",
+      "text": "call    TextMeasure",
+      "size": 5
+    },
+    {
+      "address": "0x459551",
+      "text": "call    Renderer__DrawGraphic_Hover",
+      "size": 5
+    }
+  ],
+  "source_contract": {
+    "source": "src/world/RenderInput.cpp",
+    "removed_extra_helpers": [
+      "IsValidFontType",
+      "HasSafeCompositionText",
+      "CanScanCompositionAttributes"
+    ],
+    "keyboard_state_local_precleared": false,
+    "candidate_number_local_precleared": false,
+    "original_description_and_composition_entry_guards_retained": true,
+    "original_candidate_entry_null_and_page_size_guards_retained": true,
+    "item_unsigned_count_gate_retained": true,
+    "internal_redundant_count_guards": 0,
+    "composition_prescan": false,
+    "attribute_prescan": false,
+    "extra_null_or_font_guards": 0,
+    "shadow_valid_or_width_flags": false,
+    "coordinate_width": "S16",
+    "coordinate_read_order": [
+      "gImeDescriptionY5595F0",
+      "gImeDescriptionX5595EC"
+    ],
+    "itoa_return_consumed": true,
+    "number_buffer_bytes": 12,
+    "length_cache_reused_for_measure": true,
+    "original_signed_length_minimum": 2,
+    "candidate_list_reload_only_after_processed_entry": true,
+    "skipped_entry_retains_iteration_list": true,
+    "page_size_read_before_index_increment": true,
+    "new_interfaces": 0,
+    "new_dependencies": 0,
+    "new_owners": 0,
+    "rng_calls": 0
+  },
+  "data_connections": [
+    {
+      "original_addresses": [
+        "0x5595EC",
+        "0x5595F0"
+      ],
+      "source": "src/world/RenderInput.cpp",
+      "native_symbols": [
+        "gImeDescriptionX5595EC",
+        "gImeDescriptionY5595F0"
+      ],
+      "types": [
+        "int16_t",
+        "int16_t"
+      ],
+      "initial_values": [
+        542,
+        461
+      ],
+      "direct_readers": 1,
+      "unknown_indirect_writers_closed": false
+    },
+    {
+      "original_address": "0xD460C8",
+      "source": "src/world/RenderInput.cpp",
+      "native_symbol": "gValueD460C8",
+      "type": "int32_t",
+      "changed": false
+    },
+    {
+      "original_addresses": [
+        "0x73ED70",
+        "0x73EDD8",
+        "0x73EDE0",
+        "0x73EEE0",
+        "0x73EFEC",
+        "0x73EFF0"
+      ],
+      "source": "src/platform/WindowProcedure.cpp",
+      "native_symbols": [
+        "gImeDescription",
+        "gImeContext",
+        "gImeComposition",
+        "gImeAttributes",
+        "gImeCandidateList",
+        "gImeState73EFF0"
+      ],
+      "producer_sources": [
+        "src/platform/ImeLifecycle.cpp",
+        "src/platform/ImeComposition.cpp",
+        "src/platform/WindowProcedure.cpp"
+      ],
+      "owner_changed": false,
+      "full_lifecycle_reviewed": false
+    },
+    {
+      "original_address": "0x626C04",
+      "source": "src/Input.cpp",
+      "native_symbol": "gCurrentInputData",
+      "type": "InputContext*非拥有",
+      "sampling": "每原阶段取样；不是全函数一次快照",
+      "changed_definition": false
+    },
+    {
+      "original_address": "0x558F68",
+      "source": "src/render/Font.cpp",
+      "native_symbol": "gFontMetrics",
+      "normal_entries": 14,
+      "changed_definition": false
+    }
+  ],
+  "candidate_stage_reads": [
+    {
+      "site": "0x4593B2",
+      "reads": [
+        "本轮列表pageStart",
+        "本轮列表count"
+      ],
+      "then": "U32 pageStart+i<count；跳过项不调用/更新units"
+    },
+    {
+      "site": "0x4593C2",
+      "reads": [
+        "current",
+        "numberFont",
+        "numberHeight"
+      ],
+      "then": "原Itoa消费返回"
+    },
+    {
+      "site": "0x4593F0",
+      "reads": [
+        "current",
+        "numberY",
+        "numberX"
+      ],
+      "then": "序号文字"
+    },
+    {
+      "site": "0x459418",
+      "reads": [
+        "current",
+        "bodyFont",
+        "bodyHeight"
+      ],
+      "then": "正文单位数+1、两个列表读取"
+    },
+    {
+      "sites": [
+        "0x459435",
+        "0x459444"
+      ],
+      "reads": [
+        "当前列表pageStart",
+        "再取列表offset/地址"
+      ],
+      "then": "缓存本次正文绘制指针"
+    },
+    {
+      "site": "0x459454",
+      "reads": [
+        "current",
+        "bodyY",
+        "bodyX"
+      ],
+      "then": "正文文字"
+    },
+    {
+      "site": "0x459478",
+      "reads": [
+        "当前列表pageStart/offset/文本"
+      ],
+      "then": "strlen并缓存同一文本给后续TextMeasure"
+    },
+    {
+      "site": "0x4594B5",
+      "reads": [
+        "current",
+        "measureFont"
+      ],
+      "then": "TextMeasure使用缓存文本"
+    },
+    {
+      "site": "0x4594CF",
+      "reads": [
+        "当前列表pageStart",
+        "selection"
+      ],
+      "then": "U32 selectedIndex比较"
+    },
+    {
+      "site": "0x4594E1",
+      "reads": [
+        "current",
+        "boxFont",
+        "boxY",
+        "boxX",
+        "boxHeight"
+      ],
+      "then": "选择框"
+    },
+    {
+      "site": "0x459556",
+      "reads": [
+        "当前列表"
+      ],
+      "then": "仅有效项框调用完成后执行"
+    },
+    {
+      "site": "0x459563",
+      "reads": [
+        "本轮/重取表pageSize"
+      ],
+      "then": "递增索引后无符号比较"
+    }
+  ],
+  "reuse_references": [
+    "doc/cg2d_font_measure.md",
+    "doc/cg2d_ime_lifecycle.md",
+    "doc/cg2d_window_procedure.md",
+    "doc/cg2d_ime_composition_alignment_spec.md",
+    "doc/cg2d_input_caret_alignment_spec.md"
+  ],
+  "exceptional_domain": {
+    "rule": "RPLAN.24",
+    "items": [
+      "API失败后的未写局部字节",
+      "原重读点空对象/候选",
+      "域外字体/偏移/越界",
+      "数学溢出"
+    ],
+    "fault_emulation_added": false,
+    "fault_equivalence_claimed": false,
+    "x64_memory_safety_claimed": false
+  },
+  "verification": {
+    "method": "static",
+    "bounded_body_verified": true,
+    "bounded_callers_and_shared_reads_verified": true,
+    "full_data_and_indirect_lifecycle_closed": false,
+    "runtime_verified": false,
+    "build_performed": false,
+    "tests_added_or_executed": false,
+    "hash_performed": false
+  },
+  "remaining": [
+    "完整三父/间接alias和说明坐标未知writer",
+    "候选通知/释放实际API重入和完整寿命",
+    "其他编辑/焦点/原编码与SDK、最终画面/运行门禁"
+  ],
+  "original_slot_identities": [
+    {
+      "site": "0x4590e6",
+      "address": "0x73ede0",
+      "name": "gImeInputStr"
+    },
+    {
+      "site": "0x459105",
+      "address": "0x73eee0",
+      "name": "byte_73EEE0"
+    },
+    {
+      "site": "0x45910d",
+      "address": "0x73eff0",
+      "name": "byte_73EFF0"
+    },
+    {
+      "site": "0x459130",
+      "address": "0x626c04",
+      "name": "gCurrentInputData"
+    },
+    {
+      "site": "0x459149",
+      "address": "0x73ed70",
+      "name": "szDescription"
+    },
+    {
+      "site": "0x459391",
+      "address": "0x73efec",
+      "name": "gImmCandidateList"
+    },
+    {
+      "site": "0x459124",
+      "address": "0xd460c8",
+      "name": "dword_D460C8"
+    }
+  ]
+}

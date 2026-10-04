@@ -81,3 +81,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [ICA01源码收口](cg2d_input_caret_alignment_spec.md#input-caret-source-closure)沿EIC01组合/属性/游标生产，撤销44A410绘制辅助空对象/字体门禁和256B预扫描，恢复始终真实测宽；测宽前后两个共享当前对象样本保持，原光标字节A2 78 00静态借用入队，不复制/转码。相位用尾部本次S32计算值比较，发布后不另读共享槽。
 
 仅该本体及16直接caller/四callee点的局部静态；完整输入绘制/编辑、焦点/共享寿命和SDK/运行仍待T01–T03。RPLAN.24异常访问不作安全/故障等价结论，不把删保护或127原指令当整链验收。
+
+## 2026-10-05：组合/属性及候选绘制消费对齐
+
+[RIN01](cg2d_input_render_alignment_spec.md#input-render-source-closure)沿EIC01/ICA01继续完成4590E0本体差异：撤销额外预扫描/拒绝/局部预清，实际S16说明坐标与Itoa返回消费；候选有效项/跳过项按原条件读取表，页大小先读再递增。组合/属性原字节/索引、两测宽及文字/框取样、DWORD候选偏移和owner保持，无Unicode迁移或新默认文本。
+
+364原指令、21直接caller及当前存储为局部I/W/S，完整焦点/IME重入、候选寿命/间接alias与SDK/画面运行未验；未知坐标writer仍待，不把原异常域、文档/本体或局部数量当全链验收。

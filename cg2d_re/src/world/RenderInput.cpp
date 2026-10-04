@@ -21,10 +21,12 @@
 namespace cg::world::detail {
 
 std::int32_t gValueD460C8 = 0;
+// 原.data两说明坐标；本体按Y→X独立读取，保持S16和已加载初值。
+std::int16_t gImeDescriptionX5595EC = 542;
+std::int16_t gImeDescriptionY5595F0 = 461;
 
 namespace {
 
-inline constexpr std::size_t kImeBufferCapacity = 256;
 inline constexpr std::array<std::uint8_t, 12> kLowercaseDescription {{
     0xAD, 0x5E, 0xBC, 0xC6, 0x2F, 0xA2,
     0xE9, 0xA2, 0xEA, 0xA2, 0xEB, 0x00,
@@ -85,69 +87,12 @@ std::int8_t LowS8(const std::int32_t value) noexcept
         std::bit_cast<std::uint32_t>(value)));
 }
 
-bool IsValidFontType(const std::int32_t fontType) noexcept
-{
-    return fontType >= 0
-        && fontType < static_cast<std::int32_t>(render::kFontTypeCount);
-}
-
 std::uint32_t ReadField138Bits(
     const input::InputContext& context) noexcept
 {
     std::uint32_t bits = 0;
     std::memcpy(&bits, context.field138, sizeof(bits));
     return bits;
-}
-
-bool HasSafeCompositionText() noexcept
-{
-    std::size_t offset = 0;
-    while (offset < kImeBufferCapacity) {
-        const std::uint8_t firstByte = static_cast<std::uint8_t>(
-            static_cast<unsigned char>(platform::gImeComposition[offset]));
-        if (firstByte == 0) {
-            return true;
-        }
-        if ((firstByte & 0x80U) != 0U) {
-            if (offset + 1U >= kImeBufferCapacity) {
-                return false;
-            }
-            offset += 2U;
-        } else {
-            ++offset;
-        }
-    }
-    return false;
-}
-
-bool CanScanCompositionAttributes() noexcept
-{
-    std::size_t compositionOffset = 0;
-    std::size_t attributeOffset = 0;
-    bool foundTarget = false;
-
-    while (compositionOffset < kImeBufferCapacity
-           && attributeOffset < kImeBufferCapacity) {
-        const std::uint8_t attribute =
-            platform::gImeAttributes[attributeOffset];
-        if (attribute == 1U || attribute == 3U) {
-            foundTarget = true;
-        }
-        if (attribute == 0U || (attribute == 2U && foundTarget)) {
-            return true;
-        }
-
-        const std::uint8_t firstByte = static_cast<std::uint8_t>(
-            static_cast<unsigned char>(
-                platform::gImeComposition[compositionOffset]));
-        const std::size_t step = (firstByte & 0x80U) != 0U ? 2U : 1U;
-        if (step == 2U && compositionOffset + 1U >= kImeBufferCapacity) {
-            return false;
-        }
-        compositionOffset += step;
-        attributeOffset += step;
-    }
-    return false;
 }
 
 const CANDIDATELIST* CurrentCandidateList() noexcept
@@ -172,25 +117,18 @@ const char* CandidateText(
     const CANDIDATELIST* const candidateList,
     const std::uint32_t pageIndex) noexcept
 {
-    if (candidateList == nullptr) {
-        return nullptr;
-    }
-
     const std::uint32_t candidateIndex =
         candidateList->dwPageStart + pageIndex;
-    if (candidateIndex >= candidateList->dwCount) {
-        return nullptr;
-    }
     return reinterpret_cast<const char*>(candidateList)
         + ReadCandidateOffset(candidateList, candidateIndex);
 }
 
-void FormatDecimalW32(
+char* FormatDecimalW32(
     const std::uint32_t valueBits,
     std::array<char, 12>& destination) noexcept
 {
-    static_cast<void>(platform::Itoa_54ABDD(
-        std::bit_cast<std::int32_t>(valueBits), destination.data(), 10));
+    return platform::Itoa_54ABDD(
+        std::bit_cast<std::int32_t>(valueBits), destination.data(), 10);
 }
 
 void DrawCandidateEntry(
@@ -199,172 +137,75 @@ void DrawCandidateEntry(
     std::int32_t& units)
 {
     const std::int32_t oldUnits = units;
+    input::InputContext* const numberFontContext = input::gCurrentInputData;
+    const std::int32_t numberFontType = numberFontContext->field13C;
+    const std::int32_t numberHeight = render::gFontMetrics[
+        static_cast<std::size_t>(numberFontType)].doubleHeight;
+    std::array<char, 12> numberText;
+    const char* const formattedNumber = FormatDecimalW32(pageIndex + 1U, numberText);
 
-    input::InputContext* const numberFontContext =
-        input::gCurrentInputData;
-    std::int32_t numberFontType = 0;
-    std::int32_t numberHeight = 0;
-    bool canDrawNumber = false;
-    if (numberFontContext != nullptr) {
-        numberFontType = numberFontContext->field13C;
-        if (IsValidFontType(numberFontType)) {
-            numberHeight = render::gFontMetrics[
-                static_cast<std::size_t>(numberFontType)].doubleHeight;
-            canDrawNumber = true;
-        }
-    }
+    input::InputContext* const numberPositionContext = input::gCurrentInputData;
+    const std::int32_t numberY = numberPositionContext->y;
+    const std::int32_t numberXBase = numberPositionContext->x;
+    const std::int32_t numberX = AddW32(
+        AddW32(AddW32(numberXBase, MulW32(oldUnits, numberHeight)), targetStart), 5);
+    static_cast<void>(render::DrawText2_456670(
+        LowS16(numberX), LowS16(AddW32(numberY, numberHeight)),
+        4, LowS8(numberFontType), 0, formattedNumber, 0));
 
-    std::array<char, 12> numberText {};
-    FormatDecimalW32(pageIndex + 1U, numberText);
-
-    input::InputContext* const numberPositionContext =
-        input::gCurrentInputData;
-    if (canDrawNumber && numberPositionContext != nullptr) {
-        const std::int32_t numberY = numberPositionContext->y;
-        const std::int32_t numberXBase = numberPositionContext->x;
-        const std::int32_t numberX = AddW32(
-            AddW32(
-                AddW32(
-                    numberXBase,
-                    MulW32(oldUnits, numberHeight)),
-                targetStart),
-            5);
-        const std::int32_t drawY = AddW32(
-            numberY,
-            numberHeight);
-        static_cast<void>(render::DrawText2_456670(
-            LowS16(numberX),
-            LowS16(drawY),
-            4,
-            LowS8(numberFontType),
-            0,
-            numberText.data(),
-            0));
-    }
-
-    const std::int32_t bodyUnits = AddW32(oldUnits, 1);
     input::InputContext* const bodyFontContext = input::gCurrentInputData;
-    std::int32_t bodyFontType = 0;
-    std::int32_t bodyHeight = 0;
-    bool canDrawBody = false;
-    if (bodyFontContext != nullptr) {
-        bodyFontType = bodyFontContext->field13C;
-        if (IsValidFontType(bodyFontType)) {
-            bodyHeight = render::gFontMetrics[
-                static_cast<std::size_t>(bodyFontType)].doubleHeight;
-            canDrawBody = true;
-        }
-    }
-
+    const std::int32_t bodyUnits = AddW32(oldUnits, 1);
+    const std::int32_t bodyFontType = bodyFontContext->field13C;
+    units = bodyUnits;
+    const std::int32_t bodyHeight = render::gFontMetrics[
+        static_cast<std::size_t>(bodyFontType)].doubleHeight;
     const CANDIDATELIST* const pageStartList = CurrentCandidateList();
-    if (pageStartList == nullptr) {
-        return;
-    }
-    const std::uint32_t bodyCandidateIndex =
-        pageStartList->dwPageStart + pageIndex;
+    const std::uint32_t bodyCandidateIndex = pageStartList->dwPageStart + pageIndex;
     const CANDIDATELIST* const offsetList = CurrentCandidateList();
-    const char* bodyText = nullptr;
-    if (offsetList != nullptr
-        && bodyCandidateIndex < offsetList->dwCount) {
-        bodyText = reinterpret_cast<const char*>(offsetList)
-            + ReadCandidateOffset(offsetList, bodyCandidateIndex);
-    }
-
-    input::InputContext* const bodyPositionContext =
-        input::gCurrentInputData;
-    if (canDrawBody
-        && bodyText != nullptr
-        && bodyPositionContext != nullptr) {
-        const std::int32_t bodyY = bodyPositionContext->y;
-        const std::int32_t bodyXBase = bodyPositionContext->x;
-        const std::int32_t bodyX = AddW32(
-            AddW32(
-                bodyXBase,
-                MulW32(bodyUnits, bodyHeight)),
-            targetStart);
-        const std::int32_t drawY = AddW32(
-            bodyY,
-            bodyHeight);
-        static_cast<void>(render::DrawText2_456670(
-            LowS16(bodyX),
-            LowS16(drawY),
-            4,
-            LowS8(bodyFontType),
-            0,
-            bodyText,
-            0));
-    }
+    const char* const bodyText = reinterpret_cast<const char*>(offsetList)
+        + ReadCandidateOffset(offsetList, bodyCandidateIndex);
+    input::InputContext* const bodyPositionContext = input::gCurrentInputData;
+    const std::int32_t bodyY = bodyPositionContext->y;
+    const std::int32_t bodyXBase = bodyPositionContext->x;
+    const std::int32_t bodyX = AddW32(
+        AddW32(bodyXBase, MulW32(bodyUnits, bodyHeight)), targetStart);
+    static_cast<void>(render::DrawText2_456670(
+        LowS16(bodyX), LowS16(AddW32(bodyY, bodyHeight)),
+        4, LowS8(bodyFontType), 0, bodyText, 0));
 
     const CANDIDATELIST* const lengthList = CurrentCandidateList();
     const char* const measuredText = CandidateText(lengthList, pageIndex);
-    if (measuredText == nullptr) {
-        return;
-    }
-
-    const std::uint32_t lengthBits = static_cast<std::uint32_t>(
-        std::strlen(measuredText));
+    const std::uint32_t lengthBits = static_cast<std::uint32_t>(std::strlen(measuredText));
     std::int32_t length = std::bit_cast<std::int32_t>(lengthBits);
     if (length < 2) {
         length = 2;
     }
     units = AddW32(bodyUnits, length / 2);
-
     input::InputContext* const measureContext = input::gCurrentInputData;
-    std::int32_t measuredWidth = 0;
-    bool hasMeasuredWidth = false;
-    if (measureContext != nullptr) {
-        const std::int32_t measureFontType = measureContext->field13C;
-        measuredWidth = login::detail::TextMeasure(
-            measuredText,
-            measureFontType);
-        hasMeasuredWidth = true;
-    }
+    const std::int32_t measureFontType = measureContext->field13C;
+    const std::int32_t measuredWidth = login::detail::TextMeasure(measuredText, measureFontType);
 
     const CANDIDATELIST* const selectionList = CurrentCandidateList();
-    if (selectionList == nullptr) {
-        return;
-    }
-    const std::uint32_t selectedIndex =
-        selectionList->dwPageStart + pageIndex;
-    if (selectedIndex >= selectionList->dwCount) {
-        return;
-    }
-    const bool isSelected = selectionList->dwSelection == selectedIndex;
-
+    const std::uint32_t selectionPageStart = selectionList->dwPageStart;
+    const std::uint32_t selection = selectionList->dwSelection;
+    const std::uint32_t selectedIndex = selectionPageStart + pageIndex;
+    const bool isSelected = selection == selectedIndex;
     input::InputContext* const boxContext = input::gCurrentInputData;
-    if (!hasMeasuredWidth || boxContext == nullptr) {
-        return;
-    }
     const std::int32_t boxFontType = boxContext->field13C;
     const std::int32_t boxY = boxContext->y;
     const std::int32_t boxX = boxContext->x;
-    if (!IsValidFontType(boxFontType)) {
-        return;
-    }
     const std::int32_t boxHeight = render::gFontMetrics[
         static_cast<std::size_t>(boxFontType)].doubleHeight;
     const std::int32_t left = AddW32(
-        AddW32(boxX, MulW32(oldUnits, boxHeight)),
-        targetStart);
+        AddW32(boxX, MulW32(oldUnits, boxHeight)), targetStart);
     const std::int32_t top = AddW32(boxY, boxHeight);
     const std::int32_t right = AddW32(
-        AddW32(
-            AddW32(
-                boxX,
-                MulW32(bodyUnits, boxHeight)),
-            targetStart),
-        measuredWidth);
-    const std::int32_t bottom = AddW32(
-        boxY,
-        MulW32(boxHeight, 2));
+        AddW32(AddW32(boxX, MulW32(bodyUnits, boxHeight)), targetStart), measuredWidth);
+    const std::int32_t bottom = AddW32(boxY, MulW32(boxHeight, 2));
     login::detail::DrawGraphicHover(
-        LowU16(left),
-        LowU16(top),
-        LowU16(right),
-        LowU16(bottom),
+        LowU16(left), LowU16(top), LowU16(right), LowU16(bottom),
         isSelected ? std::uint8_t {0xD9} : std::uint8_t {0xD8},
-        isSelected ? 0U : 252U,
-        1);
+        isSelected ? 0U : 252U, 1);
 }
 
 void DrawCandidates(
@@ -373,17 +214,19 @@ void DrawCandidates(
 {
     std::int32_t units = 0;
     std::uint32_t pageIndex = 0;
+    std::uint32_t pageSize;
     do {
-        const std::uint32_t candidateIndex =
-            candidateList->dwPageStart + pageIndex;
-        if (candidateIndex < candidateList->dwCount) {
+        const std::uint32_t pageStart = candidateList->dwPageStart;
+        const std::uint32_t count = candidateList->dwCount;
+        const std::uint32_t candidateIndex = pageStart + pageIndex;
+        if (candidateIndex < count) {
             DrawCandidateEntry(pageIndex, targetStart, units);
+            // 原459556只在有效项绘框后重读；跳过项沿本轮表。
+            candidateList = CurrentCandidateList();
         }
-
+        pageSize = candidateList->dwPageSize;
         pageIndex += 1U;
-        candidateList = CurrentCandidateList();
-    } while (candidateList != nullptr
-             && pageIndex < candidateList->dwPageSize);
+    } while (pageIndex < pageSize);
 }
 
 } // namespace
@@ -402,7 +245,7 @@ void RenderInput_4590E0()
         static_cast<unsigned char>(initialCompositionByte));
     const std::int32_t isIme = platform::IsImeKeyboardLayout_459090();
 
-    std::array<BYTE, 256> keyboardState {};
+    std::array<BYTE, 256> keyboardState;
     static_cast<void>(GetKeyboardState(keyboardState.data()));
 
     const std::int32_t descriptionGate = gValueD460C8;
@@ -426,9 +269,11 @@ void RenderInput_4590E0()
                 description.size());
         }
 
+        const std::int16_t descriptionY = gImeDescriptionY5595F0;
+        const std::int16_t descriptionX = gImeDescriptionX5595EC;
         static_cast<void>(render::DrawText_456780(
-            542,
-            461,
+            descriptionX,
+            descriptionY,
             3,
             1,
             8,
@@ -445,58 +290,30 @@ void RenderInput_4590E0()
     }
     const std::uint32_t field138Bits = ReadField138Bits(*context);
     const std::uint8_t baseLayer = field138Bits == 0U ? 0xD2U : 0xE0U;
-    if (HasSafeCompositionText()) {
-        const std::uint8_t compositionModeByte = context->field138[0];
-        const std::int32_t compositionFontType = context->field13C;
-        const std::int8_t compositionMode = std::bit_cast<std::int8_t>(
-            static_cast<std::uint8_t>(compositionModeByte + 1U));
-        const std::int32_t compositionY = context->y;
-        const std::int32_t compositionX = context->x;
-        static_cast<void>(render::DrawText2_456670(
-            LowS16(compositionX),
-            LowS16(compositionY),
-            compositionMode,
-            LowS8(compositionFontType),
-            0,
-            platform::gImeComposition,
-            0));
+    const std::uint8_t compositionModeByte = context->field138[0];
+    const std::int32_t compositionFontType = context->field13C;
+    const std::int8_t compositionMode = std::bit_cast<std::int8_t>(
+        static_cast<std::uint8_t>(compositionModeByte + 1U));
+    const std::int32_t compositionY = context->y;
+    const std::int32_t compositionX = context->x;
+    static_cast<void>(render::DrawText2_456670(
+        LowS16(compositionX), LowS16(compositionY), compositionMode,
+        LowS8(compositionFontType), 0, platform::gImeComposition, 0));
 
-        input::InputContext* const measureContext =
-            input::gCurrentInputData;
-        std::int32_t compositionWidth = 0;
-        bool hasCompositionWidth = false;
-        if (measureContext != nullptr) {
-            compositionWidth = login::detail::TextMeasure(
-                platform::gImeComposition,
-                measureContext->field13C);
-            hasCompositionWidth = true;
-        }
+    input::InputContext* const measureContext = input::gCurrentInputData;
+    const std::int32_t compositionWidth = login::detail::TextMeasure(
+        platform::gImeComposition, measureContext->field13C);
+    input::InputContext* const boxContext = input::gCurrentInputData;
+    const std::int32_t boxY = boxContext->y;
+    const std::int32_t boxX = boxContext->x;
+    const std::int32_t boxFontType = boxContext->field13C;
+    const std::int32_t boxHeight = render::gFontMetrics[
+        static_cast<std::size_t>(boxFontType)].doubleHeight;
+    login::detail::DrawGraphicHover(
+        LowU16(SubW32(boxX, 1)), LowU16(SubW32(boxY, 1)),
+        LowU16(AddW32(boxX, compositionWidth)), LowU16(AddW32(boxY, boxHeight)),
+        baseLayer, 1, 1);
 
-        input::InputContext* const boxContext = input::gCurrentInputData;
-        if (hasCompositionWidth && boxContext != nullptr) {
-            const std::int32_t boxY = boxContext->y;
-            const std::int32_t boxX = boxContext->x;
-            const std::int32_t boxFontType = boxContext->field13C;
-            if (IsValidFontType(boxFontType)) {
-                const std::int32_t boxHeight = render::gFontMetrics[
-                    static_cast<std::size_t>(boxFontType)].doubleHeight;
-                login::detail::DrawGraphicHover(
-                    LowU16(SubW32(boxX, 1)),
-                    LowU16(SubW32(boxY, 1)),
-                    LowU16(AddW32(boxX, compositionWidth)),
-                    LowU16(AddW32(boxY, boxHeight)),
-                    baseLayer,
-                    1,
-                    1);
-            }
-        }
-    }
-
-    if (!CanScanCompositionAttributes()) {
-        return;
-    }
-
-    bool attributeScanValid = true;
     while (true) {
         const std::uint8_t attribute =
             platform::gImeAttributes[attributeOffset];
@@ -524,15 +341,7 @@ void RenderInput_4590E0()
             attributeOffset += 2U;
             input::InputContext* const metricContext =
                 input::gCurrentInputData;
-            if (metricContext == nullptr) {
-                attributeScanValid = false;
-                break;
-            }
             const std::int32_t metricFontType = metricContext->field13C;
-            if (!IsValidFontType(metricFontType)) {
-                attributeScanValid = false;
-                break;
-            }
             const render::FontMetrics& metrics = render::gFontMetrics[
                 static_cast<std::size_t>(metricFontType)];
             scannedWidth = AddW32(scannedWidth, metrics.doubleWidth);
@@ -540,50 +349,27 @@ void RenderInput_4590E0()
             input::InputContext* const metricContext =
                 input::gCurrentInputData;
             compositionOffset += 1U;
-            if (metricContext == nullptr) {
-                attributeScanValid = false;
-                break;
-            }
             const std::int32_t metricFontType = metricContext->field13C;
             attributeOffset += 1U;
-            if (!IsValidFontType(metricFontType)) {
-                attributeScanValid = false;
-                break;
-            }
             const render::FontMetrics& metrics = render::gFontMetrics[
                 static_cast<std::size_t>(metricFontType)];
             scannedWidth = AddW32(scannedWidth, metrics.sWidth);
         }
     }
 
-    if (!attributeScanValid && !foundTarget) {
-        return;
-    }
-
-    if (foundTarget && attributeScanValid) {
-        input::InputContext* const highlightContext =
-            input::gCurrentInputData;
-        if (highlightContext != nullptr) {
-            const std::int32_t highlightY = highlightContext->y;
-            const std::int32_t highlightX = highlightContext->x;
-            const std::int32_t highlightFontType =
-                highlightContext->field13C;
-            if (IsValidFontType(highlightFontType)) {
-                const std::int32_t highlightHeight = render::gFontMetrics[
-                    static_cast<std::size_t>(
-                        highlightFontType)].doubleHeight;
-                login::detail::DrawGraphicHover(
-                    LowU16(SubW32(
-                        AddW32(highlightX, targetStart),
-                        1)),
-                    LowU16(SubW32(highlightY, 1)),
-                    LowU16(AddW32(highlightX, scannedWidth)),
-                    LowU16(AddW32(highlightY, highlightHeight)),
-                    static_cast<std::uint8_t>(baseLayer + 1U),
-                    252,
-                    1);
-            }
-        }
+    if (foundTarget) {
+        input::InputContext* const highlightContext = input::gCurrentInputData;
+        const std::int32_t highlightY = highlightContext->y;
+        const std::int32_t highlightX = highlightContext->x;
+        const std::int32_t highlightFontType = highlightContext->field13C;
+        const std::int32_t highlightHeight = render::gFontMetrics[
+            static_cast<std::size_t>(highlightFontType)].doubleHeight;
+        login::detail::DrawGraphicHover(
+            LowU16(SubW32(AddW32(highlightX, targetStart), 1)),
+            LowU16(SubW32(highlightY, 1)),
+            LowU16(AddW32(highlightX, scannedWidth)),
+            LowU16(AddW32(highlightY, highlightHeight)),
+            static_cast<std::uint8_t>(baseLayer + 1U), 252, 1);
     }
 
     const CANDIDATELIST* const candidateList = CurrentCandidateList();

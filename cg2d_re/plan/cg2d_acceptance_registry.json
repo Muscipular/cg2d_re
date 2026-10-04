@@ -561,12 +561,14 @@
         "doc/cg2d_ime_lifecycle.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md",
-        "doc/cg2d_input_caret_alignment_spec.md"
+        "doc/cg2d_input_caret_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00106340",
         "F:00059580",
-        "F:0004A410"
+        "F:0004A410",
+        "F:000590E0"
       ],
       "closure_task_ids": [
         "T01",
@@ -578,20 +580,23 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明",
-        "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价"
+        "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
+        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline"
       ]
     },
     {
@@ -606,11 +611,13 @@
         "doc/cg2d_font_measure.md",
         "doc/cg2d_text_pending_queue.md",
         "doc/cg2d_ime_composition_alignment_spec.md",
-        "doc/cg2d_input_caret_alignment_spec.md"
+        "doc/cg2d_input_caret_alignment_spec.md",
+        "doc/cg2d_input_render_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
-        "F:0004A410"
+        "F:0004A410",
+        "F:000590E0"
       ],
       "closure_task_ids": [
         "T01",
@@ -624,18 +631,21 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明",
-        "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价"
+        "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
+        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline"
       ]
     },
     {
@@ -7197,6 +7207,99 @@
       "observation": "仅83+33+11原指令/三字节与限定源码差异",
       "expected": "两helper/辅助门禁删除、恒调用及相位本次判定之外源码全文保持；旧台账/其他源码与全局政策不改",
       "actual": "127唯一指令/实际绑定与原字节可追踪，限定源重放与台账检查归档；不记异常x64安全/故障等价或最终画面通过"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4590E0完整357/44B250七条、21caller/两S16坐标和两12B说明；doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-render-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-acceptance",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "doc/cg2d_input_render_alignment_evidence.json",
+        "src/world/RenderInput.cpp#RenderInput_4590E0",
+        "src/world/RenderInput.cpp#DrawCandidateEntry",
+        "src/world/RenderInput.cpp#DrawCandidates",
+        "src/world/RenderInput.cpp#FormatDecimalW32",
+        "src/world/RenderInput.cpp#gImeDescriptionX5595EC",
+        "src/world/RenderInput.cpp#gImeDescriptionY5595F0",
+        "src/world/WorldUpdateDependencies.hpp#RenderInput_4590E0",
+        "src/world/WorldUpdate.cpp#RenderInput_4590E0",
+        "src/world/SceneState.cpp#RenderInput_4590E0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-RENDER-I-20261005",
+      "gate": "I",
+      "observation": "仅4590E0适用正常/原门禁、组合/属性/候选源码",
+      "expected": "移除额外probe/拒绝/预清，实际坐标/转换返回/候选条件重读；原字节/分支/字段参数保持",
+      "actual": "既有完整父落码、两个S16槽实际读；原说明/组合/候选门禁/长度下限2保持，异常域不作安全/故障等价"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4590E0完整357/44B250七条、21caller/两S16坐标和两12B说明；doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-render-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-acceptance",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "doc/cg2d_input_render_alignment_evidence.json",
+        "src/world/RenderInput.cpp#RenderInput_4590E0",
+        "src/world/RenderInput.cpp#DrawCandidateEntry",
+        "src/world/RenderInput.cpp#DrawCandidates",
+        "src/world/RenderInput.cpp#FormatDecimalW32",
+        "src/world/RenderInput.cpp#gImeDescriptionX5595EC",
+        "src/world/RenderInput.cpp#gImeDescriptionY5595F0",
+        "src/world/WorldUpdateDependencies.hpp#RenderInput_4590E0",
+        "src/world/WorldUpdate.cpp#RenderInput_4590E0",
+        "src/world/SceneState.cpp#RenderInput_4590E0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-RENDER-W-20261005",
+      "gate": "W",
+      "observation": "仅21直接caller及实际共享IME/候选阶段取样",
+      "expected": "各对象/列表按原点读取，strlen同一文本缓存，处理项/跳过项候选指针和页大小/索引顺序对应",
+      "actual": "原21调用不改；实际转换返回、无新owner/副本，条件重读与数据边界有具名证据；完整父/间接边/寿命和SDK运行未验"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原4590E0完整357/44B250七条、21caller/两S16坐标和两12B说明；doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-render-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-acceptance",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "doc/cg2d_input_render_alignment_evidence.json",
+        "src/world/RenderInput.cpp#RenderInput_4590E0",
+        "src/world/RenderInput.cpp#DrawCandidateEntry",
+        "src/world/RenderInput.cpp#DrawCandidates",
+        "src/world/RenderInput.cpp#FormatDecimalW32",
+        "src/world/RenderInput.cpp#gImeDescriptionX5595EC",
+        "src/world/RenderInput.cpp#gImeDescriptionY5595F0",
+        "src/world/WorldUpdateDependencies.hpp#RenderInput_4590E0",
+        "src/world/WorldUpdate.cpp#RenderInput_4590E0",
+        "src/world/SceneState.cpp#RenderInput_4590E0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-RENDER-S-20261005",
+      "gate": "S",
+      "observation": "仅357+7原指令、坐标/字节与限定源差异",
+      "expected": "源码只具名块/两个S16槽/局部预清及条件尾变更；旧台账和其他源码/全局政策保持",
+      "actual": "364唯一指令与已加载字节/坐标可追踪，限定源重放及三既有依赖/新根同步；不推全功能或异常/画面通过"
     }
   ],
   "task_acceptance": [
@@ -7383,7 +7486,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
       ]
     },
     {
@@ -7392,7 +7496,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
       ]
     }
   ],
@@ -8173,6 +8278,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000590E0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
       ]
     }
   ],

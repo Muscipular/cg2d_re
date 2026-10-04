@@ -109,3 +109,7 @@
 [ICA01](cg2d_input_caret_alignment_spec.md#input-caret-source-closure)把44A410@44A4E1恢复为始终调用既有Font::measure；删除父的正游标/有效字体判断及组合预扫描。maxBytes<=0严格先返0由本叶已有原门禁处理，字体范围/空指针不加拒绝，不能由父替代调用或多读组合串。
 
 本叶33条与当前源码只作为原父依赖对照，Font.cpp和其他caller一字未改。两对象样本、后取字体/X及前取排队参数保持；83+33+11为本组127唯一指令，不重复增加本叶已审数量或称完整字体/文本/视觉验收。
+
+## 2026-10-05：输入法绘制父的两次TextMeasure
+
+[RIN01](cg2d_input_render_alignment_spec.md#input-render-source-closure)恢复4590E0@459248组合测宽与4594C2候选测宽的原流程：前者文字返回后重取当前字体，后者用strlen前缓存的同一文本及新取字体；父不预扫描/拒绝或补宽度0。两参数TextMeasure及Font.cpp、其他caller保持，不把本组父修正推为全字体/文本/视觉验收。

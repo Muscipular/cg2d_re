@@ -171,8 +171,8 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | G03 / 模式2/3/4 | MakeSurface尺寸/格式门禁、接口/设备生产与探测已有 | 模式切换/回退、裁剪、采样/混合、提交及重建真实流程 | [纹理](../doc/cg2d_texture_rendering.md)、[呈现](../doc/cg2d_sdl_presenter.md)；像素/实际driver留V04 |
 | G04 / 渲染替换差异 | SDL自动driver、CPU Back/Temp、DX原生ABI豁免已批 | 逐上层函数核RAND、W32/S16、坐标/色键/生命周期/提交序 | 仅DX边界豁免HRESULT/COM，不豁免上层；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
 | G05 / 原图标/光标 | 使用关系有记录，原资源取得/权限未闭合 | 明确合法可用原资源与读取条件 | 不重开原EXE、不造替代图/下载；[启动](../doc/cg2d_startup_flow.md)、[资源来源](../doc/cg2d_resource_sources.md) |
-| T01 / 文本生产消费合同 | 原字节测宽/绘制/格式点及EIC01组合提交已有；ICA01两光标样本/静态字节与相位局部已对照 | 各来源编码、容量/NUL、共享存储、字节索引/像素单位及完整父/消费者继续逐链归档 | 保持open；[文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)、[ICA01](../doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure)；不推全工程代码页/验收 |
-| T02 / 输入/IME差异 | EIC01组合提交已修正；ICA01光标撤销额外门禁/预扫描，真实测宽与本次相位判定落码 | 其他编辑/RenderInput门禁、预清、快照、焦点及索引/生命周期，实际IME/SDK与运行仍未验 | 保持open；[ICA01](../doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure)、[EIC01](../doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)；D05保持A系，RPLAN.24异常域不作故障等价 |
+| T01 / 文本生产消费合同 | 原字节/格式、EIC01提交、ICA01光标与RIN01组合/候选消费/取样局部已对照 | 各来源编码、容量/NUL、共享存储、字节/像素单位及完整父/生命周期继续逐链归档 | 保持open；[文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)、[RIN01](../doc/cg2d_input_render_alignment_spec.md#input-render-source-closure)；不推全工程代码页/验收 |
+| T02 / 输入/IME差异 | EIC01提交、ICA01光标及RIN01组合/属性/候选本体差异已落码；原条件取样/转换返回保持 | 其他编辑、焦点/索引、原API候选生产/间接alias与完整生命周期，SDK/画面及运行未验 | 保持open；[RIN01](../doc/cg2d_input_render_alignment_spec.md#input-render-source-closure)、[ICA01](../doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure)、[EIC01](../doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)；D05/RPLAN.24保持 |
 | T03 / 字体与显示 | 原字节TextOutA、共享Back DIB和case4已接 | 目标字体、字形、原字节显示边界及现有失败/超长处理的适用范围 | [字体](../doc/cg2d_font_measure.md)、[文本SPEC](../doc/cg2d_text_encoding_spec.md)；原数据不被显示副本反写，实际画面留V04 |
 
 ### 6.4 全量覆盖与最终验收

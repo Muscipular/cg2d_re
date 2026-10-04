@@ -436,6 +436,11 @@ struct LegacyPairedEmptyExitStaticInitializer {
 };
 
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
+
+// SLN01原553134：独立完整SDK Init对象持有窄流生命周期。
+// 自动析构由SDK承接；不另登记旧5491F6或改Legacy计数/登记表。
+std::ios_base::Init gSdkNarrowLateInit553134;
+
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
 
 // SCL01原55315C：晚段经典对象职责由宿主完整locale持有并清理。

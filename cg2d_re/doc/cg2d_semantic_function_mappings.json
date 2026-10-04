@@ -19303,7 +19303,7 @@
     {
       "original_entry": "0x5491D6",
       "inventory_id": "F:001491D6",
-      "status": "SSX01标准流实际退出登记已成组std::atexit/原构造与回调保持；17活动接线/完整流生命周期及SDK运行未验",
+      "status": "SLN01原553134晚段窄Init已接完整公开SDK对象实际构析；旧兼容本体保持，15活动项/完整标准流与SDK运行未闭",
       "original_end_exclusive": "0x5491E0",
       "instruction_count": 6,
       "sources": [
@@ -19314,9 +19314,11 @@
             "std::cin",
             "std::cout",
             "std::cerr",
-            "std::clog"
+            "std::clog",
+            "gSdkNarrowLateInit553134",
+            "std::ios_base::Init"
           ],
-          "relationship": "；旧宿主职责关联保留，不作为本次原本体直接提供者"
+          "relationship": "SLN01原553134完整公开SDK Init实际构造/自动析构活动职责；SDK私有计数/注册/flush差异具名adapted，既有应用pubsync保留，不当旧兼容本体直接定义或镜像"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -19330,7 +19332,7 @@
           "symbols": [
             "RegisterLegacyNarrowStandardInitializer_5491D6"
           ],
-          "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+          "relationship": "显式真实接口/返回，SI01完整独立Init身份对象已定义；旧显式接口保留，不与SDK对象互转"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -19348,9 +19350,11 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_exit_migration_spec.md",
-        "doc/cg2d_standard_stream_exit_migration_evidence.json"
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "doc/cg2d_sdk_late_narrow_init_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json"
       ],
-      "boundary": "CRT553134先调用5491E0处理1086539的窄共享控制器，再登记5491F6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。",
+      "boundary": "CRT553134先调用5491E0处理1086539的窄共享控制器，再登记5491F6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；SSX01当前该根先原实际构造，完成后std::atexit登记同一原无参callback，直接传出宿主S32；构造异常传播/登记失败不回滚，无新模块/活动调用或双owner。原数字53B406和表槽保留为历史映射，D03登记私有失败/非零返回差异不记原体等价；全应用/快速/callable退出及间接alias继续未验。；2026-10-05 SLN01同TU553130后/553158前新增独立std::ios_base::Init对象，由SDK实际构造/自动析构及私有计数/清理成组承接553134。旧5491D6/5491E0/5491F6与592894/1086539/registry/14被动对象不调用或镜像，不双登记、强转或补影子计数。SDK私有末次flush为cerr→clog→cout/指针门禁/现代sentry，与原cout→cerr→clog/5495EE及原注册失败数值时点非原体等价，按D02/D03 adapted；应用侧pubsync和业务登记/清理保持。宽_Winit受_CRTBLD隐藏，不复制声明/改宏或把窄Init冒充宽；当前70项/15待接，完整Legacy消费者/alias/容量/全应用退出与运行未闭。",
       "original_chunks": [
         [
           "0x5491D6",
@@ -19396,7 +19400,7 @@
         }
       ],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要",
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SSX01本组18分离根108条/396B及146辅助唯一条/540B、18真实data槽和20限定源码补丁静态通过；无构建/测试/运行/摘要；SLN01三完整根19条/81B、三加载槽/两身份取址与SDK公开类型/实现/宽门禁，限定单插入/70项原序静态；不构建/测试/运行/摘要",
       "standard_init_identity_contract": {
         "decision": "SI01",
         "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md",
@@ -19427,12 +19431,34 @@
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
+      },
+      "sdk_late_narrow_init_activation": {
+        "group": "SLN01",
+        "spec": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "original_slot": "0x553134",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "type": "std::ios_base::Init",
+        "variable": "gSdkNarrowLateInit553134",
+        "sdk_complete_type": true,
+        "actual_sdk_constructor": true,
+        "automatic_sdk_destructor": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "private_counter_and_flush_adapted": true,
+        "original_private_flush_equivalent": false,
+        "wide_init_connected": false,
+        "current_cpp_projection_slots": 70,
+        "remaining_stream_pending": 15,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x5491E0",
       "inventory_id": "F:001491E0",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SLN01原553134晚段窄Init已接完整公开SDK对象实际构析；旧兼容本体保持，15活动项/完整标准流与SDK运行未闭",
       "original_end_exclusive": "0x5491EA",
       "instruction_count": 2,
       "sources": [
@@ -19443,9 +19469,11 @@
             "std::cin",
             "std::cout",
             "std::cerr",
-            "std::clog"
+            "std::clog",
+            "gSdkNarrowLateInit553134",
+            "std::ios_base::Init"
           ],
-          "relationship": "；旧宿主职责关联保留，不作为本次原本体直接提供者"
+          "relationship": "SLN01原553134完整公开SDK Init实际构造/自动析构活动职责；SDK私有计数/注册/flush差异具名adapted，既有应用pubsync保留，不当旧兼容本体直接定义或镜像"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -19459,7 +19487,7 @@
           "symbols": [
             "ConstructLegacyNarrowStandardInitializer_5491E0"
           ],
-          "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+          "relationship": "显式真实接口/返回，SI01完整独立Init身份对象已定义；旧显式接口保留，不与SDK对象互转"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -19475,9 +19503,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json"
       ],
-      "boundary": "以1086539为this进入5482DD窄侧共享控制器；复用592894计数，不建立第二套业务流。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "以1086539为this进入5482DD窄侧共享控制器；复用592894计数，不建立第二套业务流。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；2026-10-05 SLN01同TU553130后/553158前新增独立std::ios_base::Init对象，由SDK实际构造/自动析构及私有计数/清理成组承接553134。旧5491D6/5491E0/5491F6与592894/1086539/registry/14被动对象不调用或镜像，不双登记、强转或补影子计数。SDK私有末次flush为cerr→clog→cout/指针门禁/现代sentry，与原cout→cerr→clog/5495EE及原注册失败数值时点非原体等价，按D02/D03 adapted；应用侧pubsync和业务登记/清理保持。宽_Winit受_CRTBLD隐藏，不复制声明/改宏或把窄Init冒充宽；当前70项/15待接，完整Legacy消费者/alias/容量/全应用退出与运行未闭。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x5491E0",
@@ -19504,7 +19534,7 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行",
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；SLN01三完整根19条/81B、三加载槽/两身份取址与SDK公开类型/实现/宽门禁，限定单插入/70项原序静态；不构建/测试/运行/摘要",
       "standard_init_identity_contract": {
         "decision": "SI01",
         "decision_ref": "doc/cg2d_standard_stream_init_identity_spec.md",
@@ -19519,12 +19549,34 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "sdk_late_narrow_init_activation": {
+        "group": "SLN01",
+        "spec": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "original_slot": "0x553134",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "type": "std::ios_base::Init",
+        "variable": "gSdkNarrowLateInit553134",
+        "sdk_complete_type": true,
+        "actual_sdk_constructor": true,
+        "automatic_sdk_destructor": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "private_counter_and_flush_adapted": true,
+        "original_private_flush_equivalent": false,
+        "wide_init_connected": false,
+        "current_cpp_projection_slots": 70,
+        "remaining_stream_pending": 15,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x5491F6",
       "inventory_id": "F:001491F6",
-      "status": "既有显式标准流本体/原固定地址接线保留；SI01四Init实际身份对象已定义，登记/整组生命周期/SDK与运行未闭",
+      "status": "SLN01原553134晚段窄Init已接完整公开SDK对象实际构析；旧兼容本体保持，15活动项/完整标准流与SDK运行未闭",
       "original_end_exclusive": "0x549200",
       "instruction_count": 11,
       "sources": [
@@ -19535,9 +19587,11 @@
             "std::cin",
             "std::cout",
             "std::cerr",
-            "std::clog"
+            "std::clog",
+            "gSdkNarrowLateInit553134",
+            "std::ios_base::Init"
           ],
-          "relationship": "；旧宿主职责关联保留，不作为本次原本体直接提供者"
+          "relationship": "SLN01原553134完整公开SDK Init实际构造/自动析构活动职责；SDK私有计数/注册/flush差异具名adapted，既有应用pubsync保留，不当旧兼容本体直接定义或镜像"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -19591,9 +19645,11 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_pe_zero_initialization_evidence.json",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json"
       ],
-      "boundary": "以1086539为this跳入共享54843C退出尾；先减592894，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x5491EA，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。",
+      "boundary": "以1086539为this跳入共享54843C退出尾；先减592894，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x5491EA，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。；SI01四Init实际对象已定义，只承接被保存/返回的地址身份，旧完整尺寸未知保留；早期未定义/不完整类型保留已由具名表示裁决覆盖，原函数/计数/流/登记算法不改。；2026-10-05 SLN01同TU553130后/553158前新增独立std::ios_base::Init对象，由SDK实际构造/自动析构及私有计数/清理成组承接553134。旧5491D6/5491E0/5491F6与592894/1086539/registry/14被动对象不调用或镜像，不双登记、强转或补影子计数。SDK私有末次flush为cerr→clog→cout/指针门禁/现代sentry，与原cout→cerr→clog/5495EE及原注册失败数值时点非原体等价，按D02/D03 adapted；应用侧pubsync和业务登记/清理保持。宽_Winit受_CRTBLD隐藏，不复制声明/改宏或把窄Init冒充宽；当前70项/15待接，完整Legacy消费者/alias/容量/全应用退出与运行未闭。",
       "original_chunks": [
         [
           "0x5491F6",
@@ -19637,7 +19693,7 @@
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法；SLN01三完整根19条/81B、三加载槽/两身份取址与SDK公开类型/实现/宽门禁，限定单插入/70项原序静态；不构建/测试/运行/摘要",
       "standard_stream_crt_parent_call_connections": [],
       "standard_stream_crt_incoming_callback_references": [
         {
@@ -19711,6 +19767,28 @@
         "runtime_verified": false,
         "controller_saves_and_returns_input": true,
         "scope": "仅本组四对象与5482DD/549397的Init参数流；退出本体不读取Init"
+      },
+      "sdk_late_narrow_init_activation": {
+        "group": "SLN01",
+        "spec": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "original_slot": "0x553134",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "type": "std::ios_base::Init",
+        "variable": "gSdkNarrowLateInit553134",
+        "sdk_complete_type": true,
+        "actual_sdk_constructor": true,
+        "automatic_sdk_destructor": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "private_counter_and_flush_adapted": true,
+        "original_private_flush_equivalent": false,
+        "wide_init_connected": false,
+        "current_cpp_projection_slots": 70,
+        "remaining_stream_pending": 15,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {

@@ -278,7 +278,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md",
         "doc/cg2d_file_buffer_output_alignment_spec.md",
         "doc/cg2d_file_position_width_spec.md",
-        "doc/cg2d_sdk_classic_locale_spec.md"
+        "doc/cg2d_sdk_classic_locale_spec.md",
+        "doc/cg2d_sdk_late_narrow_init_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -399,7 +400,8 @@
         "F:00148B68",
         "F:00148BEA",
         "F:001498B7",
-        "F:001498EE"
+        "F:001498EE",
+        "F:001491F6"
       ],
       "closure_task_ids": [
         "C01",
@@ -421,7 +423,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
         "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -438,7 +441,8 @@
         "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
         "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭",
         "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产",
-        "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭"
+        "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭",
+        "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -457,7 +461,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
         "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline"
       ]
     },
     {
@@ -9220,6 +9225,108 @@
       "observation": "原根/槽与限定源码差异",
       "expected": "三原根9条/33B及三个加载槽、十三共享槽直接引用可追",
       "actual": "仅一include与一模块适配插入；现行执行门禁/完整门禁保持"
+    },
+    {
+      "id": "E-SDK-LATE-NARROW-INIT-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原553134三完整根19条/81B、三连续加载槽/两身份取址及SI01地址-only边界；doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-late-narrow-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-acceptance",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyMouse.cpp#gSdkNarrowLateInit553134"
+      ],
+      "differences": [
+        {
+          "description": "完整公开SDK Init成组承担计数/自动退出；SDK窄flush的指针门禁/顺序/现代sentry及注册失败时点不与原体一致，按D02/D03 adapted，应用登记及原pubsync刷新不跳过",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        },
+        {
+          "description": "宽_Winit受_CRTBLD隐藏，不修改宏/复制声明；只接窄Init，70非完整90，15活动项/Legacy消费者/fullregistry/facet/alias和SDK退出运行仍待",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整公开SDK Init活动生命周期",
+      "expected": "独立Init实际构造/自动析构；不造空包装或使用隐藏宽类型",
+      "actual": "一真实std::ios_base::Init定义；旧兼容对象/登记保持不混用"
+    },
+    {
+      "id": "E-SDK-LATE-NARROW-INIT-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原553134三完整根19条/81B、三连续加载槽/两身份取址及SI01地址-only边界；doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-late-narrow-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-acceptance",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyMouse.cpp#gSdkNarrowLateInit553134"
+      ],
+      "differences": [
+        {
+          "description": "完整公开SDK Init成组承担计数/自动退出；SDK窄flush的指针门禁/顺序/现代sentry及注册失败时点不与原体一致，按D02/D03 adapted，应用登记及原pubsync刷新不跳过",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        },
+        {
+          "description": "宽_Winit受_CRTBLD隐藏，不修改宏/复制声明；只接窄Init，70非完整90，15活动项/Legacy消费者/fullregistry/facet/alias和SDK退出运行仍待",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原553134相对序及私有计数/退出承接",
+      "expected": "553130后/553158前；原69绑定和应用pubsync/登记保持",
+      "actual": "当前70绑定与15待接；SDK私有计数/flush顺序及注册差异按D03 adapted"
+    },
+    {
+      "id": "E-SDK-LATE-NARROW-INIT-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原553134三完整根19条/81B、三连续加载槽/两身份取址及SI01地址-only边界；doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-late-narrow-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-acceptance",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "src/platform/LegacyMouse.cpp#gSdkNarrowLateInit553134"
+      ],
+      "differences": [
+        {
+          "description": "完整公开SDK Init成组承担计数/自动退出；SDK窄flush的指针门禁/顺序/现代sentry及注册失败时点不与原体一致，按D02/D03 adapted，应用登记及原pubsync刷新不跳过",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        },
+        {
+          "description": "宽_Winit受_CRTBLD隐藏，不修改宏/复制声明；只接窄Init，70非完整90，15活动项/Legacy消费者/fullregistry/facet/alias和SDK退出运行仍待",
+          "decision_ref": "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原根/槽/身份与限定插入",
+      "expected": "19条/81B、三槽/两取址及SDK声明/实现/宽门禁可追",
+      "actual": "单插入重放全文一致；其他源/政策/未知容量保持，未运行"
     }
   ],
   "task_acceptance": [
@@ -9310,7 +9417,8 @@
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -9325,7 +9433,8 @@
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -9342,7 +9451,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -9370,7 +9480,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
-        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -9739,7 +9850,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -10556,7 +10668,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     },
     {
@@ -10701,6 +10814,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001491F6",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
       ]
     }
   ],

@@ -1,6 +1,6 @@
 # 当前活动初始化的原顺序接线 SPEC
 
-> **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
+> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
 
 > AIS01；2026-10-05按工程委托采用。上位：[启动/生命周期方案](cg2d_crt_startup_lifecycle_spec.md)。本组将六个已有图形/资源provider移入同一活动翻译单元，修正现有多字节前置位置；不启用旧CRT整表，不把当前投影当全部原功能已接通。
 
@@ -155,3 +155,15 @@ C02/C03/C04/C09/G01与全局门禁继续open；源级当前投影顺序不代完
 [局部裁决](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision)不激活旧54A3E3、
 不镜像旧三槽或双登记54A3FA。SDK私有清理时机差异具名adapted，
 全应用序/退出与R仍待，C02/C03/C04/C09不关闭。
+
+## SLN01 后续窄 Init 生命周期
+
+[当前证据](cg2d_sdk_late_narrow_init_evidence.json)在SCL01的69项基础上，
+只新增553134的完整std::ios_base::Init/gSdkNarrowLateInit553134，
+声明在553130之后、553158之前；SDK实际构造/自动析构承担私有计数和退出。
+旧69项源绑定、四配对/全部应用登记及SDK经典项保持。
+
+当前70项/15待接；[具名裁决](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision)
+明确SDK末次窄flush顺序/门禁/sentry及自动注册不与原体一致。
+不改Legacy计数/对象、不双登记，隐藏宽_Winit不强接；
+全90/应用退出与运行继续开放。

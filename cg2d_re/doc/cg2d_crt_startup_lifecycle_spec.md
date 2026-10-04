@@ -1,6 +1,6 @@
 # CRT 启动与生命周期迁移子 SPEC
 
-> **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
+> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
 
 > D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，上位实施方案；局部实现见下方各组合同，全应用启动/退出仍未闭。
 > 决定：由宿主MSVC/UCRT完成自身初始化/终止；原应用可见初始化和退出显式承接，不能同时启用两套owner。
@@ -115,3 +115,15 @@
 最新当前投影69，16标准流仍待；此1项不解决Legacy消费者归属、
 registry全容量/facet/计算alias或全应用normal/quick/callable退出与运行。
 C02/C03/C04/C09保持open，不能把宿主query称原体/原登记失败数值等价。
+
+## 晚段窄 Init 的完整宿主生命周期（SLN01）
+
+[本组合同](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)
+将553134接为独立完整std::ios_base::Init对象，同TU位于553130后/553158前；
+SDK真实构造/自动析构、私有计数和末次刷新成组承接。
+SDK窄flush顺序/指针门禁/现代sentry及注册时点差异按D02/D03 adapted，
+既有应用侧原pubsync、全部业务即时登记/清理保持。
+
+旧5491D6/E0/F6接口和592894/1086539/registry/14被动对象不调用或镜像；
+当前70项/15待接（宽Init1/流缓冲14），宽_Winit受_CRTBLD隐藏。
+不改宏/复制声明，C02/C03/C04/C09/fullCRT及SDK运行仍待。

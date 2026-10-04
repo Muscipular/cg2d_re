@@ -1049,3 +1049,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余/交付**：SDK具体构析/失败和旧消费者活动归属、16标准流/全registry容量/facet与codecvt/alias、全应用normal/quick/callable退出及运行未闭。未构建/查产物/新增或执行测试/运行/摘要，单线程、RPLAN.24和原格式明文保持。精确13项，快照`cg2d-re-sdk-classic-locale-source-20261005`，用户既有六项不暂存。
 
 **SCL01交付检查**：13项严格UTF-8无BOM/LF、704个本地Markdown链接、30项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。
+
+## SLN01 晚段窄标准流宿主 Init 生命周期（2026-10-05）
+
+- **开发**：先写[SLN01 SPEC](../doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision)，再在LegacyMouse.cpp的原553130后/553158前新增独立完整std::ios_base::Init/gSdkNarrowLateInit553134。实际SDK构造/自动析构承担计数/私有退出；旧5491D6/E0/F6接口、592894/1086539/registry和14被动对象不调用或镜像，不双登记/造影子计数。
+- **原/宿主基线**：[归档](../doc/cg2d_sdk_late_narrow_init_evidence.json)保三完整根19条/81B、三加载槽/两Init取址；SI01地址-only控制器边界复用。SDK公开Init与iostream.cpp计数/末次刷新可追；窄SDK顺序cerr→clog→cout、门禁/sentry/自动注册与原cout→cerr→clog/无sentry/登记返回并非原体等价，按D02/D03 adapted，应用pubsync/业务清理保留。
+- **实际缺口裁决**：SDK宽_Winit声明受_CRTBLD隐藏，不能由普通客户端使用；不改宏/复制内部声明或把窄Init冒充宽。只553134由待接转活动，旧69绑定/四配对/经典项保持，新70项与原90槽和同TU声明序逐项核对，待接16→15（宽Init1＋14流缓冲）；原null/暂停音频/键盘排除保持。
+- **静态与台账**：单插入全文重放/其他src/include保持，三语义定点/1204其他及全政策保持。两已有adapted追加引用、5491F6新增adapted，审核149→150/3680，限定E102→105；语义1207/1204有效ID、18pending/4分类/3无ID、任务10/60、叶0/182不变。C02/C03/C04/C09均open，完整门禁/R不提升。
+- **剩余与交付**：宽Init/14流缓冲、Legacy消费者/全registry容量/facet/codecvt/alias、SDK实际构析/失败/ABI及全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要，单线程/RPLAN.24和原格式明文保持。精确13项，快照`cg2d-re-sdk-late-narrow-init-source-20261005`，用户既有六项不暂存。
+
+**SLN01交付检查**：13项严格UTF-8无BOM/LF、709个本地Markdown链接、30项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。

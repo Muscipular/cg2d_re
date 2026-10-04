@@ -1,5 +1,7 @@
 # 标准流四个 Init 对象的地址承载 SPEC
 
+> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
+
 > 2026-10-04；C03 本组实施。工程裁决 SI01，依据用户具名工程委托、[D02/D03](cg2d_closure_decisions_spec.md) 与 [启动生命周期](cg2d_crt_startup_lifecycle_spec.md)。先证明被消费的契约，再定义存储。原完整对象尺寸仍未知；不从相邻地址推断 sizeof。
 
 <a id="standard-init-identity-baseline"></a>
@@ -60,3 +62,15 @@ SI01本线表示与原完整尺寸未知分别登记，实际对象定义已补�
 14已有语义记录与53C8CD数据关联同步，语义仍1144条/1141有效F ID、18pending保留。四构造前缀登记adapted；原屏幕键盘专用六启动/构析身份登记excluded，沿既有97入口授权与原两表槽证据，不新增排除范围、实现或空回调。已审函数处置27→37/3680。
 
 归档 E-STANDARD-INIT-IDENTITY-I/W/S-20261004 三条限定局部证据，实现固定至 Git 命名快照 cg2d-re-standard-init-identity-source-20261004。C03仍open，登记数据/容量、全应用原序、Legacy/宿主活动构析归属及完整流/locale/codecvt、SDK与运行未闭；叶验收仍0/182、完整功能门禁不提升。没有构建、产物检查、测试、运行或文件摘要。
+
+## SLN01 晚段窄 Init 的活动提供者
+
+[后续合同](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)
+使用完整公开SDK std::ios_base::Init接原553134的活动职责。
+SI01四个独立Legacy身份对象/原接口继续保留，不转换布局或复制SDK对象，
+不据新实例sizeof断言原尺寸；旧三根不由新活动对象调用或登记。
+
+SDK自身计数/自动退出/现代flush按D02/D03具名adapted；
+旧控制器七阶段/字段和兼容计数保持，新活动1项不证明Legacy消费者已接。
+SDK宽_Winit声明受_CRTBLD隐藏，本组不强接原553138；
+当前70项/15待接，完整C03/容量/alias/退出及运行仍未闭。

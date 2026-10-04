@@ -305,4 +305,15 @@ LegacyWideOutputStream* RegisterLegacyWideLogStreamLate_549372();
 void DestroyLegacyWideLogStreamAtExit_54938D();
 std::int32_t InitializeLegacyWideLogStream_549368();
 
+// 原C++表前段两个独立Init对象仅实际地址声明，容量/初值未证，不造对象替身。
+extern LegacyStandardStreamInitializer gLegacyNarrowEarlyStandardInitializer628FE9;
+void* ConstructLegacyNarrowEarlyStandardInitializer_453E10();
+void ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30();
+std::int32_t InitializeLegacyNarrowEarlyStandardStreams_453E00();
+
+extern LegacyStandardStreamInitializer gLegacyWideEarlyStandardInitializer628FE8;
+void* ConstructLegacyWideEarlyStandardInitializer_453E50();
+void ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70();
+std::int32_t InitializeLegacyWideEarlyStandardStreams_453E40();
+
 } // namespace cg::platform

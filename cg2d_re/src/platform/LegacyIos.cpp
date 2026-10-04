@@ -1043,4 +1043,38 @@ void ClearLegacyIos_549F62(
     // 原抛出若返回仅离开函数，未另设正常Tidy或恢复state；SDK提供者仍待。
 }
 
+void* ConstructLegacyNarrowEarlyStandardInitializer_453E10()
+{
+    return InitializeLegacyNarrowStandardStreams_5482DD(&gLegacyNarrowEarlyStandardInitializer628FE9);
+}
+
+void ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30()
+{
+    // 原this地址仅mov后尾跳共享计数/刷新chunk，未被共享本体消费；复用已过真实实现。
+    ReleaseLegacyNarrowStandardStreams_5491F6();
+}
+
+std::int32_t InitializeLegacyNarrowEarlyStandardStreams_453E00()
+{
+    ConstructLegacyNarrowEarlyStandardInitializer_453E10();
+    return RegisterLegacyAtExit_53B406(ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30);
+}
+
+void* ConstructLegacyWideEarlyStandardInitializer_453E50()
+{
+    return InitializeLegacyWideStandardStreams_549397(&gLegacyWideEarlyStandardInitializer628FE8);
+}
+
+void ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70()
+{
+    // 原this地址仅mov后尾跳共享计数/刷新chunk，未被共享本体消费；复用已过真实实现。
+    ReleaseLegacyWideStandardStreams_549220();
+}
+
+std::int32_t InitializeLegacyWideEarlyStandardStreams_453E40()
+{
+    ConstructLegacyWideEarlyStandardInitializer_453E50();
+    return RegisterLegacyAtExit_53B406(ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70);
+}
+
 } // namespace cg::platform

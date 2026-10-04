@@ -97,3 +97,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 ## 2026-10-05：追加副本与原字节边界
 
 [IAP01](cg2d_input_append_alignment_spec.md#input-append-source-closure)只撤销额外追加状态拒绝及289B tail/288B oldText预清，真实复制padding/NUL与Count289/288/288保持；拼接仍287减strlen低U32。原S8过滤、bit7末单元0～3、CR折叠/行预算与条件回滚保持，00接受/更新计数不新增一致性拒绝。完整文本绘制/输入父、共享寿命/间接alias、SDK与运行继续待验；不作异常域安全或故障等价声明。
+
+## 2026-10-05：输入绘制原字节生产与重读
+
+[ITD01](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)恢复多行逐字节预算、复制前/后和分类后各阶段取值及逐段低W8模式；单行先写记录，星号每步重读数量，普通后缀含NUL低U32/逐W32再W8复制。原DBCS/CR、完全不截断分支和字节/像素单位保持，不新增Unicode转换或容量保护。
+
+裁宽测宽返回后才取宽度限制，每次超宽重新取原后缀；三完整模式索引/队列计数与两锚点真实测宽按原点。仅根332/测宽支持33条局部I/W/S，不提升完整输入/文本/队列寿命或运行，RPLAN.24异常域不记安全/故障等价。网络继续原格式明文，星号仅原输入遮显。

@@ -31138,9 +31138,11 @@
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_input_append_alignment_spec.md",
-        "doc/cg2d_input_append_alignment_evidence.json"
+        "doc/cg2d_input_append_alignment_evidence.json",
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_input_text_alignment_evidence.json"
       ],
-      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中当前范围内三十七处已接，另两处随已批准屏幕键盘回填段排除，仅原入口引用在当前范围收口，完整父链未据此验收。IAP01已撤销44ADB0额外安全拒绝及两副本预清；IED01已撤销44B1D0 copied预清；S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制已接，现有scan/maxCharBits为原U32计数，256B目标与caller末NUL/分类/推进保持；既有预清、局部门禁和快照差异保留，不称原重复采样全路径等价或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；37已接+2范围排除对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。 5444C4原3B省略号复制已接，原Filename尾59B借用/两次U32长度与后续前缀/三个追加次序保持，不添加末NUL、缓冲或保护；不是全部原父或CRT运行完成。",
+      "boundary": "LegacyTime既有原U32计数、源对齐块读取、候选后复读及分段补零直接本体逐字保持；count0返回原target，满count且无NUL不额外写终止。540CA1/540D5A两TZ原调用保持，44B1EC/44AE01/44AE16/44AFF7四Input及4E638F/4E646B两交易复制已接；39原引用中当前范围内三十七处已接，另两处随已批准屏幕键盘回填段排除，仅原入口引用在当前范围收口，完整父链未据此验收。IAP01已撤销44ADB0额外安全拒绝及两副本预清；IED01已撤销44B1D0 copied预清；S32分类补NUL/对象重取/总长光标回写与交易四1024B缓冲/拼接/金额先于socket/回传次序不改；无新增保护、限长、补终止或故障模拟，完整父链/CRT/运行验收仍待。 摊位编辑两/浏览三/上架三复制已接，56/16、16/16/56、275/32/112完整U32计数、同源目标、caller尾NUL与下一串长度/socket取样次序保持；核心算法与声明不改。 战斗M四3B复制已接，三取头的NUL早退/独立S32游标及事件推进NUL仍复制、next/末NUL/发布次序保持；不改原25头查找、22槽初始化和结束动作，不触碰424620待批补值或原借用生命周期。 物品加工名称两原点/三宿主表达式已接，原64B共享CC40D8和发送后源选择、pending/复制/图号重取次序保持，不另加末NUL；两父其他正文及计时父两宿主格式不动。 窗口交易公开两1024B复制已接，原四载荷区/仅源首字节清零、物品后宠物生产、金额先于socket及发送后窗口/状态顺序保持，不新增转义或末NUL。 输入多行456914/456955两复制保持真实核心，ITD01撤销destination预清/额外拒绝和固定快照；scan/复制前copyBudget为原低U32计数，复制后和分类后按原重新取预算写NUL/删孤立高位字节/推进，实际padding/NUL保持；完整父/消费与运行未验，不计安全或故障等价。 分色前缀4FBA72已接，原EBP低W32长度改U32并同用于已批准宿主分配/复制/末NUL，双$增量、绘制/测宽/释放/颜色次序保持。 网络回复名称/提示三复制已接，cursor U32/512/2024计数及原64B名称末NUL/两个命令缓冲不另终止、扫描/借用子串+5回传/提示顺序保持。 商店详情4B79C2原29B名称复制已接，768B原缓冲/长度>28的???旧字节/同一CC3210目标与后续第11字段/正文顺序保持。45FCE7/465094只随既有534AB0成功回填段排除，不恢复屏幕键盘、排除整个输入父或把排除计实现；37已接+2范围排除对应原39引用。 协议防护四复制和登录前缀一复制已接，Count/槽号原U32、两表0x5000B/0x400B槽与32B辅助清区保持；纠正三独立尾字节判断1清B/2置A/3先B后A，以及每段起点LF/NUL直接结束，不增加caller终止、保护或影子状态。原两CryptInt初始化和两表S8业务累加顺序逐字保持且未执行，不作任何文件hash校验。 5444C4原3B省略号复制已接，原Filename尾59B借用/两次U32长度与后续前缀/三个追加次序保持，不添加末NUL、缓冲或保护；不是全部原父或CRT运行完成。",
       "original_direct_reference_count": 39,
       "copy_call_connections": [
         {
@@ -31417,7 +31419,7 @@
           "target_symbol": "StrNCpy_53BEC0",
           "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
           "count_width": "U32",
-          "relationship": "回车段复制至同一256B destination，caller末NUL及现有行推进/绘制保持；原标准memcpy交真实限长复制，不改变预清或门禁"
+          "relationship": "回车段复制至256B destination，scan原U32、caller末NUL和推进保持；ITD01撤销额外预清/门禁，实际复制填充保持"
         },
         {
           "parent_entry": "0x4568A0",
@@ -31426,9 +31428,9 @@
           "symbol": "DrawInputText_4568A0",
           "target_entry": "0x53BEC0",
           "target_symbol": "StrNCpy_53BEC0",
-          "count_kind": "原+148H低W32/U32，现有maxCharBits直接传入",
+          "count_kind": "原45693B先保存+148H S32预算，再扫描余长；copyBudget按低U32传入",
           "count_width": "U32",
-          "relationship": "定长段复制至同一256B destination，caller末NUL/44B190分类/删孤立高位字节及推进保持；既有快照和保护差异不称原等价"
+          "relationship": "定长段真实复制后45695A重取预算写NUL，分类后456979再取预算删孤立高位尾/推进；ITD01撤销额外预清/门禁及固定快照，保真实复制填充/原字段取样"
         },
         {
           "parent_entry": "0x4FBA30",
@@ -31589,6 +31591,18 @@
         "local_preclears_removed": 2,
         "original_guards_and_copy_padding_retained": true,
         "shared_control_single_snapshot_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "input_text_draw_alignment": {
+        "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "evidence": "doc/cg2d_input_text_alignment_evidence.json",
+        "changed_source": "src/render/InputText.cpp",
+        "root_entry": "0x4568A0",
+        "root_bounded_static_verified": true,
+        "extra_guards_and_destination_preclear_removed": true,
+        "original_guards_and_copy_padding_retained": true,
         "runtime_verified": false,
         "fault_equivalence_claimed": false,
         "full_lifecycle_closed": false
@@ -93379,7 +93393,7 @@
     {
       "original_entry": "0x4568A0",
       "inventory_id": "F:000568A0",
-      "status": "既有输入多行两限长复制已接真实核心；既有边界差异及完整运行未验",
+      "status": "ITD01完整332条绘制根局部静态已对照；额外门禁/预清/固定快照撤销，完整输入渲染/运行未验",
       "original_end_exclusive": "0x456D27",
       "instruction_count": 332,
       "original_direct_reference_count": 32,
@@ -93390,7 +93404,8 @@
           "path": "src/render/InputText.cpp",
           "symbols": [
             "DrawInputText_4568A0"
-          ]
+          ],
+          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持"
         }
       ],
       "copy_call_connections": [
@@ -93403,7 +93418,7 @@
           "target_symbol": "StrNCpy_53BEC0",
           "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
           "count_width": "U32",
-          "relationship": "回车段复制至同一256B destination，caller末NUL及现有行推进/绘制保持；原标准memcpy交真实限长复制，不改变预清或门禁"
+          "relationship": "回车段复制至256B destination，scan原U32、caller末NUL和推进保持；ITD01撤销额外预清/门禁，实际复制填充保持"
         },
         {
           "parent_entry": "0x4568A0",
@@ -93412,9 +93427,9 @@
           "symbol": "DrawInputText_4568A0",
           "target_entry": "0x53BEC0",
           "target_symbol": "StrNCpy_53BEC0",
-          "count_kind": "原+148H低W32/U32，现有maxCharBits直接传入",
+          "count_kind": "原45693B先保存+148H S32预算，再扫描余长；copyBudget按低U32传入",
           "count_width": "U32",
-          "relationship": "定长段复制至同一256B destination，caller末NUL/44B190分类/删孤立高位字节及推进保持；既有快照和保护差异不称原等价"
+          "relationship": "定长段真实复制后45695A重取预算写NUL，分类后456979再取预算删孤立高位尾/推进；ITD01撤销额外预清/门禁及固定快照，保真实复制填充/原字段取样"
         }
       ],
       "inbound_reference_groups": [
@@ -93628,10 +93643,244 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_input_text_draw.md"
+        "doc/cg2d_input_text_draw.md",
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_input_text_alignment_evidence.json"
       ],
-      "verification_level": "原父332条统计、复制相邻55条/两个真实U32参数/32原代码引用与25父；整份源码限定两标识符/两Count表达式/一个既有头包含，核心/声明保持、两合同追加及JSON一个既有父/共享项限定差异静态核对；不重验其余277条或各调用方，未构建或执行",
-      "boundary": "仅多行回车/定长段两复制接真实53BEC0；现有U32 scan/maxCharBits直接作原计数，同一256B destination与caller补NUL、44B190分类/孤立高位字节删除/推进/逐段绘制保持。保留既有destination预清、局部NUL/容量/零推进/上下文/队列/字体门禁及maxCharBits/textLength快照，不称原拒绝、原+148H重复取样全路径等价或故障等价。字段138H memcpy、单行直接队列/计数重读/末锚点及其余正文逐字保持，不新建保护/私有状态或改变对象生命周期，不触碰4021A0待批补值。完整输入/渲染/数据生产/跨板块运行验收仍待，音频/加解密不恢复。"
+      "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价",
+      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。",
+      "input_text_draw_alignment": {
+        "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "evidence": "doc/cg2d_input_text_alignment_evidence.json",
+        "changed_source": "src/render/InputText.cpp",
+        "root_entry": "0x4568A0",
+        "root_bounded_static_verified": true,
+        "extra_guards_and_destination_preclear_removed": true,
+        "original_guards_and_copy_padding_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "native_parent_bindings": [
+        {
+          "parent_entry": "0x4014b0",
+          "call_sites": [
+            "0x401718"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4014B0"
+        },
+        {
+          "parent_entry": "0x4021a0",
+          "call_sites": [
+            "0x40265f"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4021A0"
+        },
+        {
+          "parent_entry": "0x43cbb0",
+          "call_sites": [
+            "0x43ce16",
+            "0x43d3ea"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0"
+        },
+        {
+          "parent_entry": "0x45ca20",
+          "call_sites": [
+            "0x45cb9c",
+            "0x45cba6"
+          ],
+          "source": "src/LoginInputController.cpp",
+          "symbol": "ProcessLoginInput_45CA20"
+        },
+        {
+          "parent_entry": "0x45fa70",
+          "call_sites": [
+            "0x45fbd6",
+            "0x45fbe0",
+            "0x45fbea"
+          ],
+          "source": "src/LoginCapability3InputController.cpp",
+          "symbol": "ProcessCapability3Input_45FA70"
+        },
+        {
+          "parent_entry": "0x4631d0",
+          "call_sites": [
+            "0x46417d"
+          ],
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0"
+        },
+        {
+          "parent_entry": "0x464e30",
+          "call_sites": [
+            "0x464f93",
+            "0x464f9d"
+          ],
+          "source": "src/LoginInputController.cpp",
+          "symbol": "ProcessCapability4Input_464E30"
+        },
+        {
+          "parent_entry": "0x49cad0",
+          "call_sites": [
+            "0x49ccad"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49CAD0"
+        },
+        {
+          "parent_entry": "0x4a58e0",
+          "call_sites": [
+            "0x4a5963"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A58E0"
+        },
+        {
+          "parent_entry": "0x4a7590",
+          "call_sites": [
+            "0x4a75d8"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A7590",
+          "delegated_helper": "ScrollInputAndDraw",
+          "helper_leaf_lexical_call_count": 1
+        },
+        {
+          "parent_entry": "0x4a7640",
+          "call_sites": [
+            "0x4a767f"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A7640",
+          "delegated_helper": "ScrollInputAndDraw",
+          "helper_leaf_lexical_call_count": 1
+        },
+        {
+          "parent_entry": "0x4cb920",
+          "call_sites": [
+            "0x4cb9a3"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CB920"
+        },
+        {
+          "parent_entry": "0x4cced0",
+          "call_sites": [
+            "0x4cd143"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CCED0"
+        },
+        {
+          "parent_entry": "0x4d3210",
+          "call_sites": [
+            "0x4d33e4"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D3210"
+        },
+        {
+          "parent_entry": "0x4df730",
+          "call_sites": [
+            "0x4dff78"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DF730"
+        },
+        {
+          "parent_entry": "0x4ea1b0",
+          "call_sites": [
+            "0x4ea5e4"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4EA1B0"
+        },
+        {
+          "parent_entry": "0x4eb1c0",
+          "call_sites": [
+            "0x4eb742"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4EB1C0"
+        },
+        {
+          "parent_entry": "0x4f2130",
+          "call_sites": [
+            "0x4f2454"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F2130"
+        },
+        {
+          "parent_entry": "0x4fa050",
+          "call_sites": [
+            "0x4fa2f6"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FA050"
+        },
+        {
+          "parent_entry": "0x4fd6a0",
+          "call_sites": [
+            "0x4fd8fc"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FD6A0"
+        },
+        {
+          "parent_entry": "0x501fd0",
+          "call_sites": [
+            "0x502708"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_501FD0"
+        },
+        {
+          "parent_entry": "0x51c7d0",
+          "call_sites": [
+            "0x51d193",
+            "0x51d202",
+            "0x51d42e"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0"
+        },
+        {
+          "parent_entry": "0x52dce0",
+          "call_sites": [
+            "0x52e0fc"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_52DCE0"
+        },
+        {
+          "parent_entry": "0x52ed50",
+          "call_sites": [
+            "0x52f2e6"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_52ED50"
+        },
+        {
+          "parent_entry": "0x530ba0",
+          "call_sites": [
+            "0x532263"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_530BA0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/InputText.cpp",
+        "symbol": "DrawInputText_4568A0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4FBA30",

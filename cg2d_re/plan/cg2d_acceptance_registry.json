@@ -564,7 +564,8 @@
         "doc/cg2d_input_caret_alignment_spec.md",
         "doc/cg2d_input_render_alignment_spec.md",
         "doc/cg2d_input_edit_alignment_spec.md",
-        "doc/cg2d_input_append_alignment_spec.md"
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_text_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -579,7 +580,8 @@
         "F:0004AA90",
         "F:0004B1D0",
         "F:0004ADB0",
-        "F:0004B190"
+        "F:0004B190",
+        "F:000568A0"
       ],
       "closure_task_ids": [
         "T01",
@@ -594,7 +596,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
         "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-decision"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -603,7 +606,8 @@
         "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
         "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价",
-        "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价"
+        "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
+        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -613,7 +617,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
         "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-baseline"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline"
       ]
     },
     {
@@ -631,7 +636,8 @@
         "doc/cg2d_input_caret_alignment_spec.md",
         "doc/cg2d_input_render_alignment_spec.md",
         "doc/cg2d_input_edit_alignment_spec.md",
-        "doc/cg2d_input_append_alignment_spec.md"
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_text_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -645,7 +651,8 @@
         "F:0004AA90",
         "F:0004B1D0",
         "F:0004ADB0",
-        "F:0004B190"
+        "F:0004B190",
+        "F:000568A0"
       ],
       "closure_task_ids": [
         "T01",
@@ -662,7 +669,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
         "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-decision"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -670,7 +678,8 @@
         "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
         "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价",
-        "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价"
+        "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
+        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -679,7 +688,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
         "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-baseline"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline"
       ]
     },
     {
@@ -7517,6 +7527,99 @@
       "observation": "仅两完整体203条与五限定源码替换",
       "expected": "五补丁之外Input.cpp全文不变，两既有根/两核心当前状态及旧登记外部保持",
       "actual": "原完整体/点可追踪，限定源及数据静态；不推全部输入/CRT或运行完成"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "绘制完整332条及测宽支持33条/实际点；doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-draw-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/InputText.cpp#ReadRenderMode",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/Font.cpp#Font::measure",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/ui/WindowRuntime.cpp#ScrollInputAndDraw",
+        "src/ui/WindowRuntime.cpp#Sub_4A7590",
+        "src/ui/WindowRuntime.cpp#Sub_4A7640"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-TEXT-DRAW-I-20261005",
+      "gate": "I",
+      "observation": "仅4568A0适用正常原路径及支持33测宽",
+      "expected": "附加拒绝/预清/固定快照撤销；原分阶段预算/模式、文本生产/裁宽/锚点与原门禁保持",
+      "actual": "实际源码恢复原取样与复制/星号循环/三测宽，保非写字段/不补NUL分支；异常域不计安全/故障等价"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "绘制完整332条及测宽支持33条/实际点；doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-draw-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/InputText.cpp#ReadRenderMode",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/Font.cpp#Font::measure",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/ui/WindowRuntime.cpp#ScrollInputAndDraw",
+        "src/ui/WindowRuntime.cpp#Sub_4A7590",
+        "src/ui/WindowRuntime.cpp#Sub_4A7640"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-TEXT-DRAW-W-20261005",
+      "gate": "W",
+      "observation": "仅十真实目标、32原点/25父及31词法接线/共享槽",
+      "expected": "原记录/模式/计数/原后缀重取、真实测宽及现有token/owner保持；两滚动父共享真实helper",
+      "actual": "32原点关联25当前父，其中2父委托1helper，计数/尾模式/层/当前对象与现有声明保持，完整父及寿命未验"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "绘制完整332条及测宽支持33条/实际点；doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-draw-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/InputText.cpp#ReadRenderMode",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/Font.cpp#Font::measure",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/ui/WindowRuntime.cpp#ScrollInputAndDraw",
+        "src/ui/WindowRuntime.cpp#Sub_4A7590",
+        "src/ui/WindowRuntime.cpp#Sub_4A7640"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-TEXT-DRAW-S-20261005",
+      "gate": "S",
+      "observation": "仅根332/支持33体365条、实际operand与限定源码",
+      "expected": "三限定源块外全文保持，两既有语义当前更新及登记限定增量外保持",
+      "actual": "365条支持可追踪，源/数据限定静态；完整DrawText2/QueueText/消费与SDK/画面运行未验"
     }
   ],
   "task_acceptance": [
@@ -7706,7 +7809,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
         "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
       ]
     },
     {
@@ -7718,7 +7822,8 @@
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
         "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
-        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure"
+        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
       ]
     }
   ],
@@ -8579,6 +8684,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000568A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
       ]
     }
   ],

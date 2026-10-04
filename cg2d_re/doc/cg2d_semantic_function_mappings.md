@@ -1487,3 +1487,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_input_append_alignment_spec.md#input-append-source-closure)更新既有44ADB0/44B190两根及53BEC0/53C790中本组当前状态；1190条/1187有效ID、18pending/4分类引用保持，不因补证据重复加函数。两完整体203条、六真实目标与四追加/五分类点具名，追加删除额外门禁/私有常量与两预清，末单元叶和真实字符串核心/其它源码保持。
 
 两equivalent令已审100→102/3680；三E-INPUT-APPEND-I/W/S-20261005令54→57，固定Git命名快照cg2d-re-input-append-source-20261005。只局部适用原路径，完整输入/文本门禁、T01/T02和库存闭包仍open；10/60任务、0/182叶保持。SDK/库优化、完整父/别名/焦点/共享寿命和运行未验，异常域不计安全/故障等价。
+
+## 2026-10-05：ITD01输入文本绘制当前对齐
+
+[局部SPEC](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)更新既有4568A0及53BEC0中两多行复制说明；1190条/1187有效ID、18pending/4分类引用保持。根完整332条与测宽33支持合365，十真实目标/32原点/25父具名；两滚动父复用一真实helper，因此31词法调用不能直接当缺一个原点。
+
+实际源码撤销额外保护/预清/固定快照，恢复分阶段行预算/模式、记录先写、星号数量重读/原字节复制、裁宽及两锚点调用；现有token/owner保持。只有绘制根新equivalent令102→103/3680，测宽支持不计新处置；三E-INPUT-TEXT-DRAW-I/W/S-20261005令57→60，固定Git命名快照cg2d-re-input-text-draw-source-20261005。T01/T02仍open、10/60任务、0/182叶/完整门禁保持，完整父/下游消费/寿命与SDK/运行未验。

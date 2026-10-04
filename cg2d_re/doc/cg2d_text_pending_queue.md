@@ -70,8 +70,10 @@ signed W32 `count <= 0`；通过后单次采样上述悬停索引，按顺序返
 
 `DrawInputText_4568A0` 的多行路径复用本入口逐段入队；单行路径则按原
 `0x456A8D..0x456C4C` 直接写同一 `gTextPendingRecords`、六个尾令牌和字体层状态，
-不写 `marker` 与 `field108`，且使用入口捕获的文本计数更新尾令牌和计数，不复制
-`DrawText2` 的重读计数分支。完整行为与安全门禁见 `cg2d_input_text_draw.md`。
+不写 `marker` 与 `field108`。初始记录用入口计数，裁宽两分支及非空续尾各按原点
+重读计数，末尾递增共享当前值；三个完整模式索引分别读取当前字段。
+当前行为见[ITD01](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)；
+本组只改输入绘制，DrawText2/QueueText自身差异与完整消费/寿命仍待。
 
 ## `DrawText3` 固定字体包装
 

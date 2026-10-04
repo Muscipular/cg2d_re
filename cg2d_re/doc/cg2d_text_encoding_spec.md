@@ -100,5 +100,6 @@ A6 F8 AA 41 BE B9 B3 73 B1 B5 A4 A4 00
 GDI 与 SDL 共享同一 Back mapping，由 render 私有边界管理
 DC/bitmap；公开队列接口没有 Windows 类型。
 本步没有改变 Font 创建、IME、协议或存档编码，不能视为全项目
-来源编码已定案。DrawAllQueued case 4、目标机器字体显示与最终
-画面仍需完成；不构建/测试/运行，不宣称字形一致已验收。
+来源编码已定案。DrawAllQueued case 4 已有对 RenderTextToSurface_456D70 的
+真实源码接线，并保留设备场景结束/重开顺序；目标机器字体、字形与最终
+画面仍未验。本次只同步该源码状态，不构建/测试/运行，不宣称字形一致已验收。

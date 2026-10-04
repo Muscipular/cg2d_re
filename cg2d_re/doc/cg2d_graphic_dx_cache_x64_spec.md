@@ -518,7 +518,7 @@ union GraphicQueueReference {
 本小步已更新主记录、全部现有写点、静态布局断言及依赖注释，
 保留文本 token 与 -2 前缀写语义。后续 §16 已完整承接 `RenderChara`
 对象名称字段、绘制位置、颜色掩码、文本入队和容量门禁；不是只写对象
-发布尾段。本布局实现不预记命中、DrawAllQueued 或画面已完成。
+发布尾段。本布局小步不预记命中、DrawAllQueued 或画面完成；后续507140两caller命中、DrawAllQueued派发与case 4文本调用已有源码，完整场景生产/生命周期、设备模式与画面仍未验，不能据布局或单函数接线计整体验收。
 
 补核发现 `RenderChara` 的 `628FC8` 就是已落位的
 `gFrameParity628FC8`，不新建“可见性”槽；名称分支的
@@ -528,7 +528,7 @@ union GraphicQueueReference {
 
 **状态：按用户委托采用 48B 联合字段方案，六处普通零写与一处文本 token 写已更新。**
 仅作静态差异和引用检查；静态断言尚未编译执行，不构建、测试或运行客户端。
-非零对象生产者后续已落实于 §16；命中及 DrawAllQueued 仍未闭合。
+非零对象生产者后续已落实于 §16；命中和 DrawAllQueued 的本体/指定接线后续已有，完整场景、共享owner、生命周期及画面未闭合。当前源码状态见[唯一进度](../plan/cg2d_full_reconstruction_progress.md)、[文本消费合同](cg2d_text_encoding_spec.md)，不重写本布局小步的验证结论。
 
 ## 16. RenderChara 的对象存储与数值承接
 

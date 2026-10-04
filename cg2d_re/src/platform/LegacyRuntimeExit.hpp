@@ -20,6 +20,20 @@ std::int32_t RegisterLegacyAtExit_53B406(LegacyRuntimeExitCallback callback);
 // 原53B418；分配32槽，仅清首槽；失败走原运行库错误24。
 LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418();
 
+// 原53C45E/53C4E0/53C560的元素this回调；新端显式传非拥有地址，返回不消费。
+using LegacyArrayElementCallback = void (*)(void*);
+// storage为首元素，elementBytes保持U32，elementCount保持S32；无空回调/数量补保护。
+void ConstructLegacyArray_53C45E(
+    void* storage, std::uint32_t elementBytes, std::int32_t elementCount,
+    LegacyArrayElementCallback constructor, LegacyArrayElementCallback destructor);
+void DestroyLegacyArray_53C4E0(
+    void* storage, std::uint32_t elementBytes, std::int32_t elementCount,
+    LegacyArrayElementCallback destructor);
+// onePast为已完成/剩余前缀的尾地址，先递减数量/地址再析构；C++二次异常走原终止。
+void UnwindLegacyArray_53C560(
+    void* onePast, std::uint32_t elementBytes, std::int32_t elementCount,
+    LegacyArrayElementCallback destructor);
+
 // 原53C9B5；按[first,last)正序调非空回调，不读返回值。
 void RunLegacyInitializers_53C9B5(
     LegacyRuntimeExitCallback* first, LegacyRuntimeExitCallback* last);

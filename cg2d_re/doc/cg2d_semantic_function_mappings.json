@@ -24169,6 +24169,13 @@
           "symbols": [
             "TerminateLegacyRuntime_540A5C"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "FilterLegacyArrayUnwindException_5405F5"
+          ],
+          "relationship": "本轮数组展开原筛选真实终止父消费，不改已过终止/abort或宿主槽"
         }
       ],
       "native_reference": {
@@ -24181,7 +24188,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "共享1086064非空时调用；原scope表外层finally进入abort，内层恒1过滤吞钩子SEH异常。用MSVC原生嵌套__try/__except/__finally实现，不切换宿主线程terminate槽，不重建x86注册链；已接原abort，未执行异常/终止或验证编译器异常框架。",
+      "boundary": "共享1086064非空时调用；原scope表外层finally进入abort，内层恒1过滤吞钩子SEH异常。用MSVC原生嵌套__try/__except/__finally实现，不切换宿主线程terminate槽，不重建x86注册链；已接原abort，未执行异常/终止或验证编译器异常框架。；2026-10-04新增数组展开筛选540606真实父尾调，仅E06D7363命中；原终止/abort源码和运行门禁保持。",
       "original_direct_reference_count": 9,
       "function_chunks": [
         {
@@ -24227,7 +24234,20 @@
           "reference_kind": "data"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、scope/共享表及初值；新增源码静态核对，未执行",
+      "array_lifetime_parent_call_connections": [
+        {
+          "parent_entry": "0x5405F5",
+          "call_site": "0x540606",
+          "target_entry": "0x540A5C",
+          "target_symbol": "TerminateLegacyRuntime_540A5C",
+          "target_source": "src/platform/LegacyRuntimeError.cpp",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "arguments": "仅ExceptionCode == E06D7363时无参真实终止",
+          "relationship": "原尾跳终止本体，其他代码return0继续搜索，不用宿主std::terminate"
+        }
+      ]
     },
     {
       "original_entry": "0x548143",
@@ -39971,7 +39991,7 @@
     {
       "original_entry": "0x53C45E",
       "inventory_id": "F:0013C45E",
-      "status": "三组实际数组的正序构造已映射；原SEH展开不计等价验收",
+      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
       "original_end_exclusive": "0x53C4E0",
       "instruction_count": 44,
       "original_direct_reference_count": 3,
@@ -39981,35 +40001,99 @@
           "symbols": [
             "ConstructWorldObjects"
           ],
-          "relationship": "43D770以1000项及43D7C0双成员回调进入；现有原生记录正序构造"
+          "relationship": "43D770以1000项及43D7C0双成员回调进入；现有原生记录正序构造；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ConstructPetRuntimeValues"
           ],
-          "relationship": "518530以5项及4CD360六成员回调进入；主宠物唯一owner"
+          "relationship": "518530以5项及4CD360六成员回调进入；主宠物唯一owner；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "ConstructStallBrowsePetValues"
           ],
-          "relationship": "4CD2A0片段以5项及4CD360进入；浏览宠物独立owner，已有C++失败前缀清理"
+          "relationship": "4CD2A0片段以5项及4CD360进入；浏览宠物独立owner，已有C++失败前缀清理；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "ConstructLegacyArray_53C45E"
+          ],
+          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "ConstructLegacyArray_53C45E",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "真实显式元素地址callback接口；构造返回不消费，空/负/零无额外保护"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_world_objects.md",
         "doc/cg2d_scene_state.md",
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。"
+      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "function_chunks": [
+        {
+          "start": "0x53C45E",
+          "end_exclusive": "0x53C4E0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "ConstructLegacyArray_53C45E",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
+      "array_lifetime_internal_call_connections": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C4DA",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
+          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
+        }
+      ],
+      "array_lifetime_indirect_call_connections": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C499",
+          "parameter": "constructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "current 非拥有元素地址，返回不消费",
+          "relationship": "调用成功返回后才前移地址/增加完成数"
+        }
+      ],
+      "array_lifetime_scope_connections": [
+        {
+          "parent_entry": "0x53C45E",
+          "scope_table": "0x54F930",
+          "previous_level": -1,
+          "filter_entry": null,
+          "finally_entry": "0x53C4C8",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "native": "__try/__finally，complete W32初0/正常末1，未完成传当前/成功数"
+        }
+      ]
     },
     {
       "original_entry": "0x53C4E0",
       "inventory_id": "F:0013C4E0",
-      "status": "三组实际数组的逆序析构已映射；原异常继续清理不计等价验收",
+      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
       "original_end_exclusive": "0x53C560",
       "instruction_count": 42,
       "original_direct_reference_count": 3,
@@ -40019,35 +40103,99 @@
           "symbols": [
             "DestroyWorldObjects"
           ],
-          "relationship": "43D7A0以1000项及43D810双成员析构回调进入"
+          "relationship": "43D7A0以1000项及43D810双成员析构回调进入；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "DestroyPetRuntimeValues"
           ],
-          "relationship": "518560以5项及4CD2D0六成员析构回调进入"
+          "relationship": "518560以5项及4CD2D0六成员析构回调进入；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "DestroyStallBrowsePetValues"
           ],
-          "relationship": "4CD280片段以5项及4CD2D0进入，保持浏览独立存储"
+          "relationship": "4CD280片段以5项及4CD2D0进入，保持浏览独立存储；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "DestroyLegacyArray_53C4E0"
+          ],
+          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "DestroyLegacyArray_53C4E0",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "真实显式元素地址callback接口；构造返回不消费，空/负/零无额外保护"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_world_objects.md",
         "doc/cg2d_scene_state.md",
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。"
+      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "function_chunks": [
+        {
+          "start": "0x53C4E0",
+          "end_exclusive": "0x53C560"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "DestroyLegacyArray_53C4E0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
+      "array_lifetime_internal_call_connections": [
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C55A",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
+          "relationship": "原共享finally继续前缀清理，不重试失败析构"
+        }
+      ],
+      "array_lifetime_indirect_call_connections": [
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C522",
+          "parameter": "destructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "先递减数量/地址后的current，返回不消费",
+          "relationship": "失败时current/剩余数直接交原展开"
+        }
+      ],
+      "array_lifetime_scope_connections": [
+        {
+          "parent_entry": "0x53C4E0",
+          "scope_table": "0x54F940",
+          "previous_level": -1,
+          "filter_entry": null,
+          "finally_entry": "0x53C548",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "native": "__try/__finally，W32乘积算尾；未完成传失败当前/递减后数"
+        }
+      ]
     },
     {
       "original_entry": "0x53C560",
       "inventory_id": "F:0013C560",
-      "status": "原已完成前缀逆序展开已取证；浏览宠物C++适配已关联，SEH过滤未承接",
+      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
       "original_end_exclusive": "0x53C5BE",
       "instruction_count": 35,
       "original_direct_reference_count": 2,
@@ -40057,14 +40205,100 @@
           "symbols": [
             "ConstructStallBrowsePetValues"
           ],
-          "relationship": "既有完成计数catch按六成员前缀逆序回收后重抛；只关联C++适配"
+          "relationship": "既有完成计数catch按六成员前缀逆序回收后重抛；只关联C++适配；旧数组正常/C++适配关联保留，非本轮原CRT本体直接provider"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "UnwindLegacyArray_53C560"
+          ],
+          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "UnwindLegacyArray_53C560",
+            "LegacyArrayElementCallback"
+          ],
+          "relationship": "真实显式元素地址callback接口；构造返回不消费，空/负/零无额外保护"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。"
+      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "function_chunks": [
+        {
+          "start": "0x53C560",
+          "end_exclusive": "0x53C5BE"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "UnwindLegacyArray_53C560",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
+      "array_lifetime_internal_call_connections": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C59F",
+          "target_entry": "0x5405F5",
+          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
+          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
+        }
+      ],
+      "array_lifetime_indirect_call_connections": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C597",
+          "parameter": "destructor",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "同一前缀先递减数量/地址后的current",
+          "relationship": "原析构异常筛选，仅C++代码终止，其他SEH继续搜索"
+        }
+      ],
+      "array_lifetime_scope_connections": [
+        {
+          "parent_entry": "0x53C560",
+          "scope_table": "0x54F950",
+          "previous_level": -1,
+          "filter_entry": "0x53C59C",
+          "handler_entry": "0x53C5A6",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "native": "__try/__except，真实5405F5筛选，原处理仅本帧恢复/尾声"
+        }
+      ],
+      "array_lifetime_parent_call_connections": [
+        {
+          "parent_entry": "0x53C45E",
+          "call_site": "0x53C4DA",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "ConstructLegacyArray_53C45E",
+          "arguments": "当前尾地址、U32步长、成功完成S32数、原析构callback",
+          "relationship": "原共享finally仅未完成时展开，不计失败构造元素"
+        },
+        {
+          "parent_entry": "0x53C4E0",
+          "call_site": "0x53C55A",
+          "target_entry": "0x53C560",
+          "target_symbol": "UnwindLegacyArray_53C560",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "DestroyLegacyArray_53C4E0",
+          "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
+          "relationship": "原共享finally继续前缀清理，不重试失败析构"
+        }
+      ]
     },
     {
       "original_entry": "0x53FA5B",
@@ -41570,11 +41804,11 @@
     {
       "original_entry": "0x5405F5",
       "inventory_id": "F:001405F5",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
       "original_end_exclusive": "0x54060B",
       "instruction_count": 7,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
       "inbound_evidence": [
         {
           "address": "0x53C59F",
@@ -41585,11 +41819,56 @@
           "parent_entry": "0x540557"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "FilterLegacyArrayUnwindException_5405F5"
+          ],
+          "relationship": "原数组正常/异常finally或筛选真实本体，原生SEH/S32数量/U32步长/字节指针，仅已证地址拓宽"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "读取异常代码，非E06D7363返回0，命中尾跳已登记540A5C终止入口；不可改为普通catch后继续或重抛。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "boundary": "读取异常代码，非E06D7363返回0，命中尾跳已登记540A5C终止入口；不可改为普通catch后继续或重抛。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "function_chunks": [
+        {
+          "start": "0x5405F5",
+          "end_exclusive": "0x54060B"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "symbol": "FilterLegacyArrayUnwindException_5405F5",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_lifetime_internal_call_connections": [
+        {
+          "parent_entry": "0x5405F5",
+          "call_site": "0x540606",
+          "target_entry": "0x540A5C",
+          "target_symbol": "TerminateLegacyRuntime_540A5C",
+          "target_source": "src/platform/LegacyRuntimeError.cpp",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "arguments": "仅ExceptionCode == E06D7363时无参真实终止",
+          "relationship": "原尾跳终止本体，其他代码return0继续搜索，不用宿主std::terminate"
+        }
+      ],
+      "array_lifetime_parent_call_connections": [
+        {
+          "parent_entry": "0x53C560",
+          "call_site": "0x53C59F",
+          "target_entry": "0x5405F5",
+          "target_symbol": "FilterLegacyArrayUnwindException_5405F5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "UnwindLegacyArray_53C560",
+          "arguments": "原生GetExceptionInformation()，仅本帧异常info",
+          "relationship": "原53C59C筛选片段真实调用，非普通catch后重抛"
+        }
+      ]
     },
     {
       "original_entry": "0x54060B",

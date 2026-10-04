@@ -1765,3 +1765,10 @@ cinit只取一次当前58F864浮点callback，非空调缓存，加载初值53B4
 工程裁决：既有SceneState/WindowRuntime与公开头文件新增三个显式入口。456FD0先真实ConstructSceneTransitionValue再53B406登记DestroySceneTransitionValue；4CD240先既有ConstructStallBrowsePetValues，再沿原尾跳登记路径53B406登记DestroyStallBrowsePetValues，两者完整S32传出，失败不额外回滚/析构。477160仅一条jmp477170，显式void入口调用已过InitializeNumberSpacing_477170；原void调度不消费结果，不造固定返回、退出登记或析构。已过构析/随机、唯一状态对象、数字步进与当前宿主初始化均不改。
 
 三个原入口分别6/2/1条，总9条。4CD240尾跳4CD260属于IDA4CD250合并函数，追加块[4CD260,4CD26C)四条登记证据和原归属，不扩4CD240的function_chunks、不虚增原身份；实际call4CD265与callback4CD270按入口执行路径另列。新增4call/1目标尾调/1块尾跳/2callback，Cpp553054/553098/5530A4仅同步真实provider关联，整90表仍extern/不启用。五记录、四源文件及SPEC/映射/进度七文件，语义1110/未决18/分类4及strlen19+4宿主+1待保持；新增静态后独立提交，不复检旧本体、不编译/测试/执行/hash。宿主双执行/析构迁移、退出登记/堆模式3、完整SDK与运行未闭。
+
+
+### 玩家与世界状态十三CRT项局部SPEC（2026-10-04）
+
+工程裁决：在既有SceneState新增13个独立S32入口（467B90..467EF0，对应553064..553094）及公开声明，源内私有26个真实构造/无参退出叶。每项先调用原构造叶、完成后53B406登记本项原callback、完整S32透传，失败不回滚或补析构；三个双对象项玩家XY、C27FF8/C27FE8、9A7F88/9A7F98保留构造次序和逆序退出，其他十项各一对象。16个实际对象沿既有owner，不新增对象、RNG或状态；401C70/401CF0原叶动作复用，构造每对象一次原随机消费，末尾构造真实this返回。467D60虽旧IDA标注void，实际末jmp401C70且原调用方忽略结果；私有源码按实际指针返回，不造固定值。
+
+39原函数含各自chunks142条（13登记78/26叶64），58原call/尾调（32call/26尾调）、13callback及13Cpp槽状态同步41既有记录，指令数/原对象数组/身份保持；语义1110/未决18/分类4与strlen19+4宿主+1待不变。新增显式函数不被当前宿主调用，旧分组InitializePlayerCoordinates/WorldCoordinateStates/WorldMoveStates/RippleGate及std::atexit算法逐字保持，不做未经批准的双执行/生命周期迁移。整90表仍extern/不启用。局部新增静态后五文件独立提交，不复检已过叶算法、构建、测试、执行或hash核验；登记/堆模式3、完整SDK与实际启动退出运行仍待。

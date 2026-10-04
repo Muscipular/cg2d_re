@@ -58,6 +58,21 @@ std::int32_t InitializeLegacySceneTransitionValue_456FD0();
 void ConstructSceneTransitionValue();
 void DestroySceneTransitionValue();
 
+// 原CRT 553064..553094的十三个独立入口；构造/退出沿同一状态，完整S32登记结果传出。
+std::int32_t InitializeLegacyPlayerCoordinates_467B90(); // 553064：9EE8A8→9EE8C0构造。
+std::int32_t InitializeLegacyPlayerSnapshotX_467BF0(); // 553068：C751C0构造。
+std::int32_t InitializeLegacyPlayerSnapshotY_467C30(); // 55306C：C751B0构造。
+std::int32_t InitializeLegacyWorldCoordinateState_467C70(); // 553070：9EE8D0构造。
+std::int32_t InitializeLegacyWorldCoordinateState_467CB0(); // 553074：9EE8E0构造。
+std::int32_t InitializeLegacyWorldCoordinatePair_467CF0(); // 553078：C27FF8→C27FE8构造。
+std::int32_t InitializeLegacyWorldMoveTargets_467D50(); // 55307C：9A7F88→9A7F98构造。
+std::int32_t InitializeLegacyWorldMoveState_467DB0(); // 553080：C821E8构造。
+std::int32_t InitializeLegacyWorldMoveState_467DF0(); // 553084：9E03C0构造。
+std::int32_t InitializeLegacyWorldMoveState_467E30(); // 553088：9FB918构造。
+std::int32_t InitializeLegacyWorldMoveState_467E70(); // 55308C：AF0FE8构造。
+std::int32_t InitializeLegacyWorldMoveState_467EB0(); // 553090：C821D8构造。
+std::int32_t InitializeLegacyRippleGate_467EF0(); // 553094：9A7FA8构造。
+
 // 原553064：先构造X/Y，再登记按Y/X逆序析构的一个退出回调。
 void InitializePlayerCoordinates();
 

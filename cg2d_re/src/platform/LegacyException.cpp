@@ -603,4 +603,16 @@ const LegacyExceptionTryBlockMapEntry* GetLegacyTryRange_53B75B(
     return table + index;
 }
 
+std::int32_t ValidateLegacyExceptionRead_54509E(
+    const void* const memory, const std::uint32_t byteCount)
+{
+    return ::IsBadReadPtr(memory, static_cast<UINT_PTR>(byteCount)) == FALSE ? 1 : 0;
+}
+
+std::int32_t ValidateLegacyExceptionWrite_5450BA(
+    void* const memory, const std::uint32_t byteCount)
+{
+    return ::IsBadWritePtr(memory, static_cast<UINT_PTR>(byteCount)) == FALSE ? 1 : 0;
+}
+
 } // namespace cg::platform

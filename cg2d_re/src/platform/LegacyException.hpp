@@ -102,6 +102,11 @@ const LegacyExceptionTryBlockMapEntry* GetLegacyTryRange_53B75B(
     const LegacyExceptionFuncInfoPrefix* information, std::int32_t nesting,
     std::int32_t state, std::uint32_t* firstIndex, std::uint32_t* lastIndex);
 
+// 原CRT两验证叶：地址拓宽/长度保持U32，原API非零返回0，零返回1。
+// 仅供原异常链调用，不新增业务保护或专项模拟坏指针。
+std::int32_t ValidateLegacyExceptionRead_54509E(const void* memory, std::uint32_t byteCount);
+std::int32_t ValidateLegacyExceptionWrite_5450BA(void* memory, std::uint32_t byteCount);
+
 struct LegacyExceptionObject;
 
 // 原5501C8的两个真实方法槽；原生显式this，不是宿主C++虚表/RTTI/ThrowInfo。

@@ -75,3 +75,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [EIC01源码收口](cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)撤销459580三处额外负长度拒绝与局部结果预清，恢复S32结果数量/循环及signed LONG终止下标；原255上限、四标志独立序、七API每次重读HIMC、逐字节AppendChar和游标/相位保留。继续IMM32 A原字节与同一共享256B存储，不新增Unicode转换/owner或用API失败补值。
 
 原负长度/未写局部访问依RPLAN.24，不专项模拟故障、不记安全/故障等价通过。此项只归档适用路径的限定I/W/S；输入绘制/编辑等其他门禁、预清/快照差异、完整焦点/生命周期及SDK/运行仍待T01–T03，不把该本体修正当完整文本验收。
+
+## 2026-10-05：输入光标消费取样对齐
+
+[ICA01源码收口](cg2d_input_caret_alignment_spec.md#input-caret-source-closure)沿EIC01组合/属性/游标生产，撤销44A410绘制辅助空对象/字体门禁和256B预扫描，恢复始终真实测宽；测宽前后两个共享当前对象样本保持，原光标字节A2 78 00静态借用入队，不复制/转码。相位用尾部本次S32计算值比较，发布后不另读共享槽。
+
+仅该本体及16直接caller/四callee点的局部静态；完整输入绘制/编辑、焦点/共享寿命和SDK/运行仍待T01–T03。RPLAN.24异常访问不作安全/故障等价结论，不把删保护或127原指令当整链验收。

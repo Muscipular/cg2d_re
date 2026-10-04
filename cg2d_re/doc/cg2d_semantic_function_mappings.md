@@ -1463,3 +1463,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)补459580真实完整97条本体映射，并更新已有5349B0的七原API关联；1181→1182条、1178→1179有效F ID，18pending/4分类引用不变。低W16/低U8接口、四独立标志/原255上限、每次共享HIMC读取及逐字节AppendChar保持；三额外负值拒绝/结果预清撤销，数量和循环S32、终止signed LONG，不加Unicode策略/owner。
 
 本体适用正常/原上限/多标志路径局部equivalent归档，已审90→91/3680，限定I/W/S证据42→45。RPLAN.24负值/未写字节异常域不计安全或故障等价；10条窗口邻窗/共享槽xref不代完整父/所有消费者。固定Git命名快照cg2d-re-ime-composition-source-20261005；T01/T02继续open，关闭10/60、叶验收0/182、完整门禁与SDK/运行保持未验。
+
+## 2026-10-05：ICA01输入光标实际测宽与相位
+
+[局部SPEC](cg2d_input_caret_alignment_spec.md#input-caret-source-closure)新增44A410完整83条本体及16原直接caller/四callee点映射，既有44B2E0只补父调用/证据关联；1182→1183条、1179→1180有效F ID，18pending/4分类引用保持。移除额外空对象/字体/正游标门禁与预扫描，恢复始终真实测宽；两个上下文样本及静态原字节/坐标参数保持，相位用本次计算值判定后发布，不在写后读槽。
+
+一适用路径equivalent使已审91→92/3680，三限定I/W/S使45→48；RPLAN.24异常域不记安全/故障等价，33条叶和三父11条邻窗不提升完整父/其余callee处置。固定Git命名快照cg2d-re-input-caret-source-20261005；T01/T02、完整输入/文本门禁及SDK/运行仍未验，关闭10/60、叶0/182不变。

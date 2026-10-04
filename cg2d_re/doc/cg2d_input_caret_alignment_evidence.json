@@ -1,0 +1,1178 @@
+{
+  "schema_version": 1,
+  "group": "ICA01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前cg2d.exe已打开IDA经MCP只读Python，未修改/重开/保存或导出",
+  "baseline_reference": "doc/cg2d_input_caret.md；原库存F:0004A410/F:0004B2E0",
+  "implementation_reference": "Git命名快照 cg2d-re-input-caret-source-20261005",
+  "functions": [
+    {
+      "entry": "0x44a410",
+      "end": "0x44a535",
+      "chunks": [
+        [
+          "0x44a410",
+          "0x44a535"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x44a410",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x44a415",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a417",
+          "text": "jz      locret_44A534",
+          "size": 6
+        },
+        {
+          "address": "0x44a41d",
+          "text": "cmp     eax, offset stru_626AA0",
+          "size": 5
+        },
+        {
+          "address": "0x44a422",
+          "text": "jnz     short loc_44A431",
+          "size": 2
+        },
+        {
+          "address": "0x44a424",
+          "text": "mov     eax, dword_C9A96C",
+          "size": 5
+        },
+        {
+          "address": "0x44a429",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a42b",
+          "text": "jz      locret_44A534",
+          "size": 6
+        },
+        {
+          "address": "0x44a431",
+          "text": "cmp     dword_626C0C, 14h",
+          "size": 7
+        },
+        {
+          "address": "0x44a438",
+          "text": "jl      loc_44A51A",
+          "size": 6
+        },
+        {
+          "address": "0x44a43e",
+          "text": "call    sub_459090",
+          "size": 5
+        },
+        {
+          "address": "0x44a443",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a445",
+          "text": "jnz     short loc_44A497",
+          "size": 2
+        },
+        {
+          "address": "0x44a447",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x44a44d",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x44a44f",
+          "text": "push    offset asc_554924; \"│\"",
+          "size": 5
+        },
+        {
+          "address": "0x44a454",
+          "text": "mov     edx, [ecx+140h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a45a",
+          "text": "mov     eax, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x44a460",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a461",
+          "text": "mov     dl, [ecx+138h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a467",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x44a468",
+          "text": "inc     dl",
+          "size": 2
+        },
+        {
+          "address": "0x44a46a",
+          "text": "lea     eax, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x44a46d",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a46e",
+          "text": "mov     edx, [ecx+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a474",
+          "text": "mov     ecx, [ecx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a47a",
+          "text": "mov     eax, gFontList.doubleWidth[eax*8]",
+          "size": 7
+        },
+        {
+          "address": "0x44a481",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a482",
+          "text": "cdq",
+          "size": 1
+        },
+        {
+          "address": "0x44a483",
+          "text": "sub     eax, edx",
+          "size": 2
+        },
+        {
+          "address": "0x44a485",
+          "text": "sar     eax, 1",
+          "size": 2
+        },
+        {
+          "address": "0x44a487",
+          "text": "sub     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a489",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x44a48a",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x44a48f",
+          "text": "add     esp, 1Ch",
+          "size": 3
+        },
+        {
+          "address": "0x44a492",
+          "text": "jmp     loc_44A51A",
+          "size": 5
+        },
+        {
+          "address": "0x44a497",
+          "text": "mov     al, gImeInputStr",
+          "size": 5
+        },
+        {
+          "address": "0x44a49c",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x44a49e",
+          "text": "jz      short loc_44A447",
+          "size": 2
+        },
+        {
+          "address": "0x44a4a0",
+          "text": "mov     al, byte_73EEE0",
+          "size": 5
+        },
+        {
+          "address": "0x44a4a5",
+          "text": "test    al, al",
+          "size": 2
+        },
+        {
+          "address": "0x44a4a7",
+          "text": "jnz     short loc_44A51A",
+          "size": 2
+        },
+        {
+          "address": "0x44a4a9",
+          "text": "mov     eax, gCurrentInputData",
+          "size": 5
+        },
+        {
+          "address": "0x44a4ae",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x44a4af",
+          "text": "push    0",
+          "size": 2
+        },
+        {
+          "address": "0x44a4b1",
+          "text": "push    offset asc_554924; \"│\"",
+          "size": 5
+        },
+        {
+          "address": "0x44a4b6",
+          "text": "mov     edx, [eax+140h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4bc",
+          "text": "mov     ecx, [eax+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4c2",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a4c3",
+          "text": "mov     dl, [eax+138h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4c9",
+          "text": "mov     eax, [eax+124h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4cf",
+          "text": "inc     dl",
+          "size": 2
+        },
+        {
+          "address": "0x44a4d1",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x44a4d2",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a4d3",
+          "text": "mov     edx, gTmpTextLength",
+          "size": 6
+        },
+        {
+          "address": "0x44a4d9",
+          "text": "push    eax",
+          "size": 1
+        },
+        {
+          "address": "0x44a4da",
+          "text": "push    edx",
+          "size": 1
+        },
+        {
+          "address": "0x44a4db",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x44a4dc",
+          "text": "push    offset gImeInputStr",
+          "size": 5
+        },
+        {
+          "address": "0x44a4e1",
+          "text": "call    Font__measure",
+          "size": 5
+        },
+        {
+          "address": "0x44a4e6",
+          "text": "mov     ecx, gCurrentInputData",
+          "size": 6
+        },
+        {
+          "address": "0x44a4ec",
+          "text": "mov     esi, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a4ee",
+          "text": "add     esp, 0Ch",
+          "size": 3
+        },
+        {
+          "address": "0x44a4f1",
+          "text": "mov     eax, [ecx+13Ch]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4f7",
+          "text": "mov     ecx, [ecx+120h]",
+          "size": 6
+        },
+        {
+          "address": "0x44a4fd",
+          "text": "lea     eax, [eax+eax*2]",
+          "size": 3
+        },
+        {
+          "address": "0x44a500",
+          "text": "mov     eax, gFontList.doubleWidth[eax*8]",
+          "size": 7
+        },
+        {
+          "address": "0x44a507",
+          "text": "cdq",
+          "size": 1
+        },
+        {
+          "address": "0x44a508",
+          "text": "sub     eax, edx",
+          "size": 2
+        },
+        {
+          "address": "0x44a50a",
+          "text": "sar     eax, 1",
+          "size": 2
+        },
+        {
+          "address": "0x44a50c",
+          "text": "sub     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44a50e",
+          "text": "add     esi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x44a510",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x44a511",
+          "text": "call    Renderer__DrawText2",
+          "size": 5
+        },
+        {
+          "address": "0x44a516",
+          "text": "add     esp, 1Ch",
+          "size": 3
+        },
+        {
+          "address": "0x44a519",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x44a51a",
+          "text": "mov     eax, dword_626C0C",
+          "size": 5
+        },
+        {
+          "address": "0x44a51f",
+          "text": "inc     eax",
+          "size": 1
+        },
+        {
+          "address": "0x44a520",
+          "text": "cmp     eax, 28h ; '('",
+          "size": 3
+        },
+        {
+          "address": "0x44a523",
+          "text": "mov     dword_626C0C, eax",
+          "size": 5
+        },
+        {
+          "address": "0x44a528",
+          "text": "jl      short locret_44A534",
+          "size": 2
+        },
+        {
+          "address": "0x44a52a",
+          "text": "mov     dword_626C0C, 0",
+          "size": 10
+        },
+        {
+          "address": "0x44a534",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "inbound_refs": [
+        {
+          "from": "0x43cde6",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43ce23",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43ce46",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43cfdb",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d046",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d10a",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d1d9",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x43d3f4",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0"
+        },
+        {
+          "from": "0x51c4bc",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51c519",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51c552",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430"
+        },
+        {
+          "from": "0x51cde4",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d1a0",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d20f",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d296",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        },
+        {
+          "from": "0x51d43b",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0"
+        }
+      ]
+    }
+  ],
+  "support_functions": [
+    {
+      "entry": "0x44b2e0",
+      "end": "0x44b32a",
+      "chunks": [
+        [
+          "0x44b2e0",
+          "0x44b32a"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x44b2e0",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x44b2e1",
+          "text": "mov     ebx, [esp+4+arg_8]",
+          "size": 4
+        },
+        {
+          "address": "0x44b2e5",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x44b2e6",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x44b2e7",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x44b2e8",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x44b2ea",
+          "text": "xor     edi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x44b2ec",
+          "text": "test    ebx, ebx",
+          "size": 2
+        },
+        {
+          "address": "0x44b2ee",
+          "text": "jle     short loc_44B325",
+          "size": 2
+        },
+        {
+          "address": "0x44b2f0",
+          "text": "mov     ecx, [esp+10h+arg_4]",
+          "size": 4
+        },
+        {
+          "address": "0x44b2f4",
+          "text": "mov     esi, [esp+10h+arg_0]",
+          "size": 4
+        },
+        {
+          "address": "0x44b2f8",
+          "text": "mov     dl, [esi]",
+          "size": 2
+        },
+        {
+          "address": "0x44b2fa",
+          "text": "test    dl, dl",
+          "size": 2
+        },
+        {
+          "address": "0x44b2fc",
+          "text": "jz      short loc_44B325",
+          "size": 2
+        },
+        {
+          "address": "0x44b2fe",
+          "text": "test    dl, 80h",
+          "size": 3
+        },
+        {
+          "address": "0x44b301",
+          "text": "jz      short loc_44B313",
+          "size": 2
+        },
+        {
+          "address": "0x44b303",
+          "text": "lea     edx, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x44b306",
+          "text": "add     esi, 2",
+          "size": 3
+        },
+        {
+          "address": "0x44b309",
+          "text": "inc     edi",
+          "size": 1
+        },
+        {
+          "address": "0x44b30a",
+          "text": "mov     ebp, gFontList.doubleWidth[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x44b311",
+          "text": "jmp     short loc_44B31E",
+          "size": 2
+        },
+        {
+          "address": "0x44b313",
+          "text": "lea     edx, [ecx+ecx*2]",
+          "size": 3
+        },
+        {
+          "address": "0x44b316",
+          "text": "inc     esi",
+          "size": 1
+        },
+        {
+          "address": "0x44b317",
+          "text": "mov     ebp, gFontList.sWidth[edx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x44b31e",
+          "text": "add     eax, ebp",
+          "size": 2
+        },
+        {
+          "address": "0x44b320",
+          "text": "inc     edi",
+          "size": 1
+        },
+        {
+          "address": "0x44b321",
+          "text": "cmp     edi, ebx",
+          "size": 2
+        },
+        {
+          "address": "0x44b323",
+          "text": "jl      short loc_44B2F8",
+          "size": 2
+        },
+        {
+          "address": "0x44b325",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x44b326",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x44b327",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x44b328",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x44b329",
+          "text": "retn",
+          "size": 1
+        }
+      ]
+    }
+  ],
+  "parent_windows": [
+    {
+      "range": [
+        "0x43cddb",
+        "0x43cdeb"
+      ],
+      "instructions": [
+        {
+          "address": "0x43cddc",
+          "text": "call    Window__Render",
+          "size": 5
+        },
+        {
+          "address": "0x43cde1",
+          "text": "call    World__RenderInput",
+          "size": 5
+        },
+        {
+          "address": "0x43cde6",
+          "text": "call    sub_44A410",
+          "size": 5
+        }
+      ]
+    },
+    {
+      "range": [
+        "0x51c4ac",
+        "0x51c4c1"
+      ],
+      "instructions": [
+        {
+          "address": "0x51c4ad",
+          "text": "call    Yobi__UpdateAll; jumptable 0051C48C default case",
+          "size": 5
+        },
+        {
+          "address": "0x51c4b2",
+          "text": "call    World__RenderChara",
+          "size": 5
+        },
+        {
+          "address": "0x51c4b7",
+          "text": "call    World__RenderInput",
+          "size": 5
+        },
+        {
+          "address": "0x51c4bc",
+          "text": "call    sub_44A410",
+          "size": 5
+        }
+      ]
+    },
+    {
+      "range": [
+        "0x51cdd4",
+        "0x51cde9"
+      ],
+      "instructions": [
+        {
+          "address": "0x51cdd5",
+          "text": "call    sub_44A1B0",
+          "size": 5
+        },
+        {
+          "address": "0x51cdda",
+          "text": "call    Window__Render",
+          "size": 5
+        },
+        {
+          "address": "0x51cddf",
+          "text": "call    World__RenderInput",
+          "size": 5
+        },
+        {
+          "address": "0x51cde4",
+          "text": "call    sub_44A410",
+          "size": 5
+        }
+      ]
+    }
+  ],
+  "instruction_counts": {
+    "body": 83,
+    "support_measure": 33,
+    "parent_windows": 11,
+    "unique_total": 127,
+    "full_parents_reviewed": false
+  },
+  "original_caret_constant": {
+    "address": "0x554924",
+    "bytes": [
+      162,
+      120,
+      0
+    ],
+    "length_including_nul": 3,
+    "native_symbol": "kCaretText",
+    "source": "src/InputCaret.cpp",
+    "lifetime": "既有静态三字节数组，借用入队，未改"
+  },
+  "incoming_call_connections": [
+    {
+      "from": "0x43cde6",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43ce23",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43ce46",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43cfdb",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43d046",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43d10a",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43d1d9",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x43d3f4",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x43cbb0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51c4bc",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51c519",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51c552",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c430",
+      "source": "src/world/WorldUpdate.cpp",
+      "symbol": "Update",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51cde4",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51d1a0",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51d20f",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51d296",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    },
+    {
+      "from": "0x51d43b",
+      "type": 17,
+      "iscode": true,
+      "owner": "0x51c7d0",
+      "source": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+    }
+  ],
+  "outgoing_call_connections": [
+    {
+      "parent_entry": "0x44A410",
+      "call_site": "0x44A43E",
+      "target_entry": "0x459090",
+      "native_symbol": "cg::platform::IsImeKeyboardLayout_459090",
+      "source": "src/InputCaret.cpp",
+      "role": "入口门禁/20相位后外部布局查询；随后绘制重新读取当前对象"
+    },
+    {
+      "parent_entry": "0x44A410",
+      "call_site": "0x44A48A",
+      "target_entry": "0x456670",
+      "native_symbol": "cg::render::DrawText2_456670",
+      "source": "src/InputCaret.cpp",
+      "source_caller": "DrawBasicCaret",
+      "role": "原基础X/低S16坐标、低S8模式/字体/颜色、借用光标字节/value7=0；返回弃"
+    },
+    {
+      "parent_entry": "0x44A410",
+      "call_site": "0x44A4E1",
+      "target_entry": "0x44B2E0",
+      "native_symbol": "cg::render::Font::measure",
+      "source": "src/InputCaret.cpp",
+      "source_caller": "DrawImeCaret",
+      "role": "始终调用；非正游标只在原叶maxBytes门禁返回0，不由父预扫描/拒绝或固定宽度"
+    },
+    {
+      "parent_entry": "0x44A410",
+      "call_site": "0x44A511",
+      "target_entry": "0x456670",
+      "native_symbol": "cg::render::DrawText2_456670",
+      "source": "src/InputCaret.cpp",
+      "source_caller": "DrawImeCaret",
+      "role": "测宽后字体/X计算X，其他排队参数保持测宽前值；返回弃"
+    }
+  ],
+  "global_reads": [
+    {
+      "site": "0x44A410",
+      "identity": "0x626C04",
+      "role": "入口当前对象/两原早退"
+    },
+    {
+      "site": "0x44A431",
+      "identity": "0x626C0C",
+      "role": "signed>=20决定绘制；低相位仍推进尾"
+    },
+    {
+      "site": "0x44A447",
+      "identity": "0x626C04",
+      "role": "外部IME查询后基础绘制重读"
+    },
+    {
+      "site": "0x44A497",
+      "identity": "0x73EDE0",
+      "role": "IME首组合字节非空"
+    },
+    {
+      "site": "0x44A4A0",
+      "identity": "0x73EEE0",
+      "role": "首属性0才组合绘制；非0仍推进"
+    },
+    {
+      "site": "0x44A4A9",
+      "identity": "0x626C04",
+      "role": "测宽前颜色/完整字体/模式/Y样本"
+    },
+    {
+      "site": "0x44A4D3",
+      "identity": "0x73EFE0",
+      "role": "完整S32游标传入真实测宽"
+    },
+    {
+      "site": "0x44A4E6",
+      "identity": "0x626C04",
+      "role": "测宽后取当前字体/X，不复用前一对象或重取旧排队参数"
+    },
+    {
+      "site": "0x44A51A",
+      "identity": "0x626C0C",
+      "role": "尾部重新读取一个当前相位，下一值比较先于发布"
+    }
+  ],
+  "global_writes": [
+    {
+      "site": "0x44A523",
+      "identity": "0x626C0C",
+      "role": "先发布本次下一S32值，判定不用槽再次读取"
+    },
+    {
+      "site": "0x44A52A",
+      "identity": "0x626C0C",
+      "role": "下一值signed>=40才写0"
+    }
+  ],
+  "data_connections": [
+    {
+      "identity": "0x626C04",
+      "native_symbol": "cg::input::gCurrentInputData",
+      "source": "src/Input.cpp",
+      "type": "InputContext*非拥有",
+      "changed": false
+    },
+    {
+      "identity": "0x626C0C",
+      "native_symbol": "cg::input::gValue626C0C",
+      "source": "src/Input.cpp",
+      "type": "int32_t",
+      "changed_definition": false
+    },
+    {
+      "identity": "0x626AA0",
+      "native_symbol": "cg::input::gInputContext626AA0",
+      "source": "src/Input.cpp",
+      "role": "原入口身份判断",
+      "changed": false
+    },
+    {
+      "identity": "0xC9A96C",
+      "native_symbol": "cg::input::gValueC9A96C",
+      "source": "src/Input.cpp",
+      "type": "int32_t",
+      "role": "626AA0的原禁用门禁",
+      "changed": false
+    },
+    {
+      "identities": [
+        "0x73EDE0",
+        "0x73EEE0",
+        "0x73EFE0"
+      ],
+      "native_symbols": [
+        "gImeComposition",
+        "gImeAttributes",
+        "gImeCompositionCursorPosition"
+      ],
+      "source": "src/platform/WindowProcedure.cpp",
+      "type": "char[256]/uint8_t[256]/int32_t",
+      "producer_source": "src/platform/ImeComposition.cpp",
+      "producer_reference": "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
+      "changed": false
+    },
+    {
+      "identity": "0x558F68",
+      "native_symbol": "cg::render::gFontMetrics",
+      "source": "src/render/Font.cpp",
+      "normal_entries": 14,
+      "role": "唯一度量；完整字体读doubleWidth/2向零",
+      "changed": false
+    }
+  ],
+  "source_changes": {
+    "source": "src/InputCaret.cpp",
+    "removed_private_helpers": [
+      "IsValidFontType",
+      "CanMeasureImeComposition"
+    ],
+    "removed_auxiliary_null_guards": 3,
+    "removed_direct_metric_font_guards": 2,
+    "removed_measure_font_and_positive_cursor_gate": true,
+    "measure_now_unconditional": true,
+    "phase_comparison": "保存本次nextPhase/判定后发布，不在写后读槽",
+    "new_interfaces": 0,
+    "new_owners": 0,
+    "new_dependencies": 0
+  },
+  "contract": {
+    "original_entry_null_and_special_guards_retained": true,
+    "entry_phase_signed_threshold": 20,
+    "ime_empty_uses_basic": true,
+    "ime_first_attribute_nonzero_skips_draw_only": true,
+    "pre_and_post_measure_context_samples_retained": true,
+    "pre_measure_fields": [
+      "color",
+      "font",
+      "mode_low_u8_plus_1",
+      "y"
+    ],
+    "post_measure_fields": [
+      "font",
+      "x"
+    ],
+    "coordinate_width": "低S16",
+    "mode_font_color_width": "低S8",
+    "phase_width": "S32",
+    "phase_reset_threshold": 40,
+    "phase_read_after_publish": false,
+    "rng_calls": 0
+  },
+  "exceptional_domain": {
+    "rule": "RPLAN.24",
+    "items": [
+      "外部调用后空上下文",
+      "字体范围外访问",
+      "组合缓冲越界",
+      "S32运算溢出"
+    ],
+    "guards_added": false,
+    "new_fault_or_overflow_emulation": false,
+    "fault_equivalence_claimed": false,
+    "x64_safety_claimed": false
+  },
+  "verification": {
+    "method": "static",
+    "body_verified": true,
+    "bounded_wiring_verified": true,
+    "full_parent_or_indirect_edges_closed": false,
+    "runtime_verified": false,
+    "build_performed": false,
+    "tests_added_or_executed": false,
+    "hash_performed": false
+  },
+  "remaining": [
+    "其他RenderInput/编辑门禁、预清与取样差异",
+    "完整父状态/焦点/绘制重入/间接别名与生命周期",
+    "实际字体/画面和SDK/IME运行门禁"
+  ]
+}

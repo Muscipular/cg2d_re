@@ -12889,9 +12889,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_font_measure.md",
-        "doc/cg2d_input_caret.md"
+        "doc/cg2d_input_caret.md",
+        "doc/cg2d_input_caret_alignment_spec.md",
+        "doc/cg2d_input_caret_alignment_evidence.json"
       ],
-      "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。"
+      "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。；ICA01补原44A4E1父点恒调用与前后当前对象取样证据，父额外字体/正游标门禁与组合预扫描已撤销；本叶/其他caller源码保持，未提升全功能或运行验收。"
     },
     {
       "original_entry": "0x45D990",
@@ -135503,6 +135505,265 @@
           "native_symbol": "Sub_459580",
           "role": "lParam32低W16；返回弃/窗口返回0",
           "source": "src/platform/WindowProcedure.cpp"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A410",
+      "inventory_id": "F:0004A410",
+      "status": "ICA01完整83条光标父及16caller/四callee点局部静态已对照；RPLAN.24异常域不记安全/故障等价，完整输入/SDK/运行未验",
+      "sources": [
+        {
+          "path": "src/InputCaret.cpp",
+          "symbols": [
+            "Sub_44A410",
+            "DrawBasicCaret",
+            "DrawImeCaret",
+            "AdvanceCaretPhase"
+          ],
+          "relationship": "真实入口两原门禁/IME分派、恒调用测宽与前后取样、原字节入队和本次相位计算值比较；撤销额外probe/拒绝"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_44A410"
+          ],
+          "relationship": "既有唯一共享声明；三父真实调用保持"
+        },
+        {
+          "path": "src/world/WorldUpdate.cpp",
+          "symbols": [
+            "Update"
+          ],
+          "relationship": "51C430三个既有直接点，完整父/传递依赖未由本组审核"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DrawBattleScene_43CBB0",
+            "DrawNormalScene_51C7D0"
+          ],
+          "relationship": "43CBB0八/51C7D0五个既有直接点，完整父/间接边未由本组审核"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_caret.md",
+        "doc/cg2d_input_caret_alignment_spec.md",
+        "doc/cg2d_input_caret_alignment_evidence.json",
+        "doc/cg2d_font_measure.md",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原[44A410,44A535)完整83条；原入口空对象/626AA0且C9A96C=0早退不推进。signed相位>=20才IME查询/绘制，组合空走基础、首属性非0只跳绘制；组合路径始终真实44B2E0，测宽前颜色/完整字体/模式低U8/Y和测宽后当前字体/X样本保持。删除三辅助空对象/两直接字体拒绝与父正游标/字体判断及组合预扫描，不在发布后重读相位比较。A2 78 00静态借用、S16坐标/S8参数/原X公式及value7=0/返回弃不改。相位尾重读一次/计算/比较/发布新值、>=40才0；RPLAN.24异常域不模拟或记安全/故障等价，三父/完整输入和SDK/运行未验。",
+      "instruction_count": 83,
+      "function_chunks": [
+        {
+          "start": "0x44A410",
+          "end_exclusive": "0x44A535"
+        }
+      ],
+      "native_provider": {
+        "source": "src/InputCaret.cpp",
+        "symbol": "Sub_44A410",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_caret_contract": {
+        "spec": "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
+        "evidence": "doc/cg2d_input_caret_alignment_evidence.json",
+        "original_entry_guards_retained": true,
+        "measure_called_unconditionally": true,
+        "extra_null_guards": 0,
+        "extra_font_guards": 0,
+        "composition_prescan": false,
+        "pre_and_post_context_samples": true,
+        "phase_comparison_uses_calculated_value": true,
+        "phase_read_after_publish": false,
+        "full_caller_bodies_verified": false,
+        "fault_equivalence_claimed": false,
+        "rng_calls": 0
+      },
+      "outgoing_call_connections": [
+        {
+          "parent_entry": "0x44A410",
+          "call_site": "0x44A43E",
+          "target_entry": "0x459090",
+          "native_symbol": "cg::platform::IsImeKeyboardLayout_459090",
+          "source": "src/InputCaret.cpp",
+          "role": "入口门禁/20相位后外部布局查询；随后绘制重新读取当前对象"
+        },
+        {
+          "parent_entry": "0x44A410",
+          "call_site": "0x44A48A",
+          "target_entry": "0x456670",
+          "native_symbol": "cg::render::DrawText2_456670",
+          "source": "src/InputCaret.cpp",
+          "source_caller": "DrawBasicCaret",
+          "role": "原基础X/低S16坐标、低S8模式/字体/颜色、借用光标字节/value7=0；返回弃"
+        },
+        {
+          "parent_entry": "0x44A410",
+          "call_site": "0x44A4E1",
+          "target_entry": "0x44B2E0",
+          "native_symbol": "cg::render::Font::measure",
+          "source": "src/InputCaret.cpp",
+          "source_caller": "DrawImeCaret",
+          "role": "始终调用；非正游标只在原叶maxBytes门禁返回0，不由父预扫描/拒绝或固定宽度"
+        },
+        {
+          "parent_entry": "0x44A410",
+          "call_site": "0x44A511",
+          "target_entry": "0x456670",
+          "native_symbol": "cg::render::DrawText2_456670",
+          "source": "src/InputCaret.cpp",
+          "source_caller": "DrawImeCaret",
+          "role": "测宽后字体/X计算X，其他排队参数保持测宽前值；返回弃"
+        }
+      ],
+      "incoming_call_connections": [
+        {
+          "from": "0x43cde6",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43ce23",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43ce46",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43cfdb",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43d046",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43d10a",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43d1d9",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x43d3f4",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x43cbb0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51c4bc",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51c519",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51c552",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c430",
+          "source": "src/world/WorldUpdate.cpp",
+          "symbol": "Update",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51cde4",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51d1a0",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51d20f",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51d296",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
+        },
+        {
+          "from": "0x51d43b",
+          "type": 17,
+          "iscode": true,
+          "owner": "0x51c7d0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0",
+          "scope": "仅原直接点/当前函数绑定，完整父/传递依赖未由本组审核"
         }
       ]
     }

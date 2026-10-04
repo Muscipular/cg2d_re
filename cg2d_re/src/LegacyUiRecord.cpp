@@ -228,6 +228,39 @@ std::int32_t gLegacyTradeTargetPageCC3208 = 0; // 原虚拟零初值；旧51翻�
 
 namespace {
 
+// 原[593A00,593F74)：1040B显示区、S32时间、4B保留区与348B输入共用连续owner。
+// 装填可沿原顺序写入第17行并覆盖相邻已证字段，不扩大显示容量或新增裁剪。
+struct LegacyLogStorage {
+    std::array<char, 1040> rows;
+    std::int32_t time593E10;
+    std::array<std::byte, 4> reserved593E14;
+    input::InputContext input593E18;
+};
+static_assert(offsetof(LegacyLogStorage, time593E10) == 1040);
+static_assert(offsetof(LegacyLogStorage, input593E18) == 1048);
+static_assert(sizeof(LegacyLogStorage) == 1396);
+LegacyLogStorage gLegacyLogStorage593A00 {}; // PE.data未载入尾，沿既有节头填零证据。
+LegacyPanelRecord gLegacyLogPanel553440 {
+    20, 10, 600, 438, 98, {31501, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+std::int32_t gLegacyLogPageCount553504 = 1;
+std::int32_t gLegacyLogPage553508 = 1;
+platform::LegacyFile* gLegacyLogFile593F78 = nullptr;
+std::int32_t gLegacyLogError593F7C = 0;
+std::int32_t gLegacyLogLineCount593F80 = 0;
+platform::LegacyTm53B8C6* gLegacyLogCalendar593F88 = nullptr; // 借用原共享localtime九槽。
+input::InputContext* gLegacyLogInput593F8C = nullptr; // 借同一连续owner，不另建输入副本。
+constexpr char kLegacyLogFailure55358C[] = "\xB5\x4C\xAA\x6B\xB6\x7D\xB1\xD2\xAB\x5F\xC0\x49\xAA\xCC\xA4\xE9\xBB\x78";
+constexpr char kLegacyLogAfterDay553534[] = "\xAB\xE1\xA4\x40\xA4\xD1\xAA\xBA\xA4\xE9\xBB\x78\xA1\x43";
+constexpr char kLegacyLogBeforeDay553544[] = "\xAB\x65\xA4\x40\xA4\xD1\xAA\xBA\xA4\xE9\xBB\x78\xA1\x43";
+constexpr char kLegacyLogWrite553554[] = "\xBC\x67\xA4\x4A\xA4\xE9\xBB\x78\xA1\x43";
+constexpr char kLegacyLogLast553560[] = "\xB3\xCC\xAB\xE1\xA4\x40\xAD\xB6";
+constexpr char kLegacyLogFirst55356C[] = "\xB2\xC4\xA4\x40\xAD\xB6";
+constexpr char kLegacyLogNext553574[] = "\xA4\x55\xA4\x40\xAD\xB6\xA1\x43";
+constexpr char kLegacyLogPrevious553580[] = "\xA4\x57\xA4\x40\xAD\xB6\xA1\x43";
+constexpr char kLegacyLogWriteFormat5535A0[] = "\x0A\x20%02d:%02d:%02d\x81\x40%s";
+constexpr char kLegacyLogClose55331C[] = "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
+
 // 原旧53/54共享状态；虚拟零仅承载映像初值，布局/文本/输入生产仍待。
 LegacyPanelRecord gLegacyDialogPanelD2D9C8 {};
 LegacyPanelRecord gLegacyLineDialogPanelCC4150 {};
@@ -1690,6 +1723,311 @@ LegacyPanelRecord gLegacyProfilePanel5857D0 {
       {1, 187, 416, 77, 16, kLegacyProfileTab5858A8}, {}, {}}},
     0, 0, {}, {},
 };
+
+// 原[402020,402196)：两个打开阶段、忽略fgets返回的显示行计数及S32页数返回。
+std::int32_t ReloadLegacyLog_402020()
+{
+    char path[256];
+    char buffer[1000] {}; // D01/P03：只在入口定义一次原未写首轮，其后复用。
+    platform::LegacyTm53B8C6* calendar = gLegacyLogCalendar593F88;
+    if (calendar == nullptr) {
+        static_cast<void>(platform::ReadLegacyTime32_53BA26(&gLegacyLogStorage593A00.time593E10));
+        calendar = platform::LocalTime_53B8C6(&gLegacyLogStorage593A00.time593E10);
+        gLegacyLogCalendar593F88 = calendar;
+    }
+    const std::int32_t month = calendar->month0based;
+    const std::int32_t day = calendar->day;
+    const std::int32_t year = calendar->yearMinus1900;
+    platform::FormatLegacyString_53B304(world::detail::gLogFileName554648,
+        "chat_%02d%02d%02d.txt", year % 100, AddW32(month, 1), day);
+    platform::FormatLegacyString_53B304(path, "%s\\%s", "Log",
+        world::detail::gLogFileName554648);
+    platform::LegacyFile* current = platform::OpenLegacyStream_53B2F1(path, "rt");
+    gLegacyLogFile593F78 = current;
+    if (current == nullptr) {
+        gLegacyLogError593F7C = 1;
+        return 0;
+    }
+    gLegacyLogError593F7C = 0;
+    static_cast<void>(platform::CloseLegacyStream_53B1D0(current));
+    current = platform::OpenLegacyStream_53B2F1(path, "a+t");
+    gLegacyLogFile593F78 = current;
+    if (current == nullptr) {
+        gLegacyLogError593F7C = 1;
+        return 0;
+    }
+    ui::detail::gLogDisplayGate593F84 = 1;
+    gLegacyLogLineCount593F80 = 0;
+    while ((current->flags & 0x10u) == 0) {
+        static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, current));
+        const auto length = static_cast<std::int32_t>(std::strlen(buffer));
+        if (length > 65) {
+            gLegacyLogLineCount593F80 = AddW32(gLegacyLogLineCount593F80, (length - 1) / 65);
+        }
+        const std::int32_t count = gLegacyLogLineCount593F80;
+        current = gLegacyLogFile593F78;
+        gLegacyLogLineCount593F80 = AddW32(count, 1);
+    }
+    const std::int32_t pageCount = AddW32(gLegacyLogLineCount593F80 / 16, 1);
+    gLegacyLogPageCount553504 = pageCount;
+    if (gLegacyLogPage553508 >= pageCount) {
+        gLegacyLogPage553508 = pageCount;
+    }
+    return pageCount;
+}
+
+// 原[4021A0,402B26)：旧98完整页面；关闭路径可回原生输入T*，正常尾为原W32结果。
+std::uintptr_t Sub_4021A0(const std::int32_t opened)
+{
+    char buffer[1000] {}; // D01/P04：独立对象，跳页/正文/页号格式复用，不逐轮清零。
+    const std::int32_t x = gLegacyLogPanel553440.x;
+    const std::int32_t y = gLegacyLogPanel553440.y;
+    LegacyPanelButtonRecord previous {AddW32(x, 59), AddW32(y, 376), AddW32(x, 46), AddW32(y, 365), 26, 22, 22895, 22896};
+    LegacyPanelButtonRecord next {AddW32(x, 213), AddW32(y, 376), AddW32(x, 200), AddW32(y, 365), 26, 22, 22897, 22898};
+    LegacyPanelButtonRecord first {AddW32(x, 23), AddW32(y, 376), AddW32(x, 10), AddW32(y, 365), 26, 22, 22893, 22894};
+    LegacyPanelButtonRecord last {AddW32(x, 249), AddW32(y, 376), AddW32(x, 236), AddW32(y, 365), 26, 22, 22899, 22900};
+    LegacyPanelButtonRecord write {AddW32(x, 557), AddW32(y, 416), AddW32(x, 529), AddW32(y, 406), 56, 20, 23216, 23217};
+    LegacyPanelButtonRecord beforeDay {AddW32(x, 383), AddW32(y, 376), AddW32(x, 369), AddW32(y, 365), 26, 22, 22895, 22896};
+    LegacyPanelButtonRecord afterDay {AddW32(x, 553), AddW32(y, 376), AddW32(x, 540), AddW32(y, 365), 26, 22, 22897, 22898};
+    const std::int32_t state = Sub_503160(opened, &gLegacyLogPanel553440, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        if (gLegacyLogFile593F78 != nullptr) {
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+            gLegacyLogFile593F78 = nullptr;
+        }
+        std::uintptr_t result = static_cast<std::uint32_t>(
+            input::IsCurrentContext_503E40(gLegacyLogInput593F8C));
+        if (result != 0) {
+            input::SetContext_44B330(&input::gInputContext626AA0);
+            result = reinterpret_cast<std::uintptr_t>(&input::gInputContext626AA0);
+        }
+        gLegacyLogInput593F8C = nullptr;
+        return result;
+    }
+    if (gLegacyLogFile593F78 == nullptr && gLegacyLogError593F7C == 0) {
+        static_cast<void>(ReloadLegacyLog_402020());
+    }
+    if (gLegacyLogInput593F8C == nullptr) {
+        const std::int32_t inputY = AddW32(gLegacyLogPanel553440.y, 408);
+        const std::int32_t inputX = AddW32(gLegacyLogPanel553440.x, 21);
+        gLegacyLogInput593F8C = &gLegacyLogStorage593A00.input593E18;
+        gLegacyLogStorage593A00.input593E18.text[0] = '\0';
+        gLegacyLogStorage593A00.input593E18.totalByteLength = 0;
+        gLegacyLogStorage593A00.input593E18.caretByteOffset = 0;
+        input::InitializeContext_449CF0(&gLegacyLogStorage593A00.input593E18,
+            inputX, inputY, 2, 0, 0, nullptr, 1, 52, 18, 0);
+        input::SetContext_44B330(gLegacyLogInput593F8C);
+    }
+    if (gLegacyLogError593F7C != 0) {
+        static_cast<void>(DrawText(
+            static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 10)),
+            static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 40)),
+            2, 0, 0, kLegacyLogFailure55358C, 0, 0));
+    } else {
+        if (ui::detail::gLogDisplayGate593F84 == 1) {
+            static_cast<void>(platform::SeekLegacyStream_53BC41(gLegacyLogFile593F78, 0, 0));
+            std::int32_t skipped = 0;
+            while (skipped < AddW32(15 * gLegacyLogPage553508, -15)) {
+                static_cast<void>(platform::ReadLegacyStreamLine_53B226(buffer, 1000, gLegacyLogFile593F78));
+                auto length = static_cast<std::int32_t>(std::strlen(buffer));
+                while (length > 65) {
+                    skipped = AddW32(skipped, 1);
+                    if (skipped >= AddW32(15 * gLegacyLogPage553508, -15)) {
+                        break;
+                    }
+                    length -= 65;
+                }
+                skipped = AddW32(skipped, 1);
+            }
+            platform::LegacyFile* current = gLegacyLogFile593F78;
+            std::memset(gLegacyLogStorage593A00.rows.data(), 0, 1040);
+            auto* const display = reinterpret_cast<char*>(&gLegacyLogStorage593A00);
+            std::int32_t row = 0;
+            for (;;) {
+                std::int32_t column = 0;
+                char* const readResult = platform::ReadLegacyStreamLine_53B226(buffer, 1000, current);
+                current = gLegacyLogFile593F78;
+                if (readResult == nullptr) {
+                    const std::uint32_t flags = current->flags;
+                    if ((flags & 0x10u) != 0) {
+                        break;
+                    }
+                    if ((flags & 0x20u) != 0) {
+                        gLegacyLogError593F7C = 1;
+                        break;
+                    }
+                } else if (buffer[0] != '\0') {
+                    const char* source = buffer;
+                    std::int32_t offset = 65 * row;
+                    do {
+                        if (column >= 63 && (static_cast<std::uint8_t>(*source) & 0x80u) != 0) {
+                            display[offset + column] = '\0';
+                            column = 0;
+                            if (offset >= 1040) {
+                                break;
+                            }
+                            ++row;
+                            offset += 65;
+                        }
+                        if ((static_cast<std::uint8_t>(*source) & 0x80u) != 0) {
+                            display[offset + column++] = *source++;
+                        }
+                        display[offset + column++] = *source++;
+                        if (column >= 64) {
+                            display[offset + column] = '\0';
+                            column = 0;
+                            if (offset >= 1040) {
+                                break;
+                            }
+                            ++row;
+                            offset += 65;
+                        }
+                    } while (*source != '\0');
+                }
+                if (++row >= 16) {
+                    break;
+                }
+            }
+            ui::detail::gLogDisplayGate593F84 = 0;
+        }
+        for (std::int32_t row = 0; row < 16; ++row) {
+            static_cast<void>(DrawText(
+                static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 10)),
+                static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 40 + 20 * row)),
+                2, 0, 0, gLegacyLogStorage593A00.rows.data() + 65 * row, 0, 0));
+        }
+        platform::FormatLegacyString_53B304(buffer, "%3d / %3d",
+            gLegacyLogPage553508, gLegacyLogPageCount553504);
+        static_cast<void>(DrawText(
+            static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 80)),
+            static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 370)),
+            2, 0, 0, buffer, 0, 0));
+        render::DrawInputText_4568A0(gLegacyLogInput593F8C);
+        if ((QueryPanelButtonState(&previous) & 1) != 0) {
+            if (gLegacyLogPage553508 > 1) {
+                gLegacyLogPage553508 = AddW32(gLegacyLogPage553508, -1);
+                ui::detail::gLogDisplayGate593F84 = 1;
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        } else if ((QueryPanelButtonState(&next) & 1) != 0
+            && gLegacyLogPage553508 < gLegacyLogPageCount553504) {
+            gLegacyLogPage553508 = AddW32(gLegacyLogPage553508, 1);
+            ui::detail::gLogDisplayGate593F84 = 1;
+            static_cast<void>(audio::PlaySe_52C450(78, 320));
+        }
+        if ((QueryPanelButtonState(&first) & 1) != 0) {
+            if (gLegacyLogPage553508 > 1) {
+                gLegacyLogPage553508 = 1;
+                ui::detail::gLogDisplayGate593F84 = 1;
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        } else if ((QueryPanelButtonState(&last) & 1) != 0) {
+            if (gLegacyLogPage553508 < gLegacyLogPageCount553504) {
+                gLegacyLogPage553508 = gLegacyLogPageCount553504;
+                ui::detail::gLogDisplayGate593F84 = 1;
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+            }
+        } else if ((QueryPanelButtonState(&write) & 1) != 0 || (platform::gKeyStates[13] & 2u) != 0) {
+            if (gLegacyLogInput593F8C->text[0] != '\0') {
+                static_cast<void>(platform::SeekLegacyStream_53BC41(gLegacyLogFile593F78, 0, 2));
+                platform::LegacyTm53B8C6* const time = gLegacyLogCalendar593F88;
+                const char* const inputText = gLegacyLogInput593F8C->text;
+                const std::int32_t seconds = time->seconds;
+                const std::int32_t minutes = time->minutes;
+                const std::int32_t hours = time->hours;
+                platform::FormatLegacyStream_53BC0F(gLegacyLogFile593F78, kLegacyLogWriteFormat5535A0,
+                    hours, minutes, seconds, inputText);
+                static_cast<void>(platform::FlushLegacyStream_53BB02(gLegacyLogFile593F78));
+                gLegacyLogInput593F8C->text[0] = '\0';
+                gLegacyLogInput593F8C->totalByteLength = 0;
+                gLegacyLogInput593F8C->caretByteOffset = 0;
+                const std::int32_t inputY = AddW32(gLegacyLogPanel553440.y, 408);
+                const std::int32_t inputX = AddW32(gLegacyLogPanel553440.x, 21);
+                input::InitializeContext_449CF0(gLegacyLogInput593F8C,
+                    inputX, inputY, 2, 0, 0, nullptr, 1, 52, 18, 0);
+                static_cast<void>(audio::PlaySe_52C450(78, 320));
+                ui::detail::gLogDisplayGate593F84 = 1;
+            } else {
+                static_cast<void>(audio::PlaySe_52C450(55, 320));
+            }
+        }
+        Sub_5035E0(&previous, 213, 1, gValueD69768, 0);
+        Sub_5035E0(&next, 213, 1, gValueD69768, 0);
+        Sub_5035E0(&first, 213, 1, gValueD69768, 0);
+        Sub_5035E0(&last, 213, 1, gValueD69768, 0);
+        Sub_5035E0(&write, 213, 1, gValueD69768, 0);
+    }
+    if ((QueryPanelButtonState(&beforeDay) & 1) != 0) {
+        if (gLegacyLogFile593F78 != nullptr) {
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+        }
+        platform::LegacyTm53B8C6* time = gLegacyLogCalendar593F88;
+        if (time->day == 1) {
+            time->day = 31;
+            time = gLegacyLogCalendar593F88;
+            if (time->month0based != 0) {
+                time->month0based = AddW32(time->month0based, -1);
+            } else {
+                time->yearMinus1900 = AddW32(time->yearMinus1900, -1);
+                gLegacyLogCalendar593F88->month0based = 11;
+            }
+        } else {
+            time->day = AddW32(time->day, -1);
+        }
+        static_cast<void>(ReloadLegacyLog_402020());
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((QueryPanelButtonState(&afterDay) & 1) != 0) {
+        if (gLegacyLogFile593F78 != nullptr) {
+            static_cast<void>(platform::CloseLegacyStream_53B1D0(gLegacyLogFile593F78));
+        }
+        platform::LegacyTm53B8C6* time = gLegacyLogCalendar593F88;
+        if (time->day != 32) {
+            time->day = AddW32(time->day, 1);
+        } else {
+            time->day = 1;
+            time = gLegacyLogCalendar593F88;
+            if (time->month0based == 11) {
+                time->yearMinus1900 = AddW32(time->yearMinus1900, 1);
+                gLegacyLogCalendar593F88->month0based = 0;
+            } else {
+                time->month0based = AddW32(time->month0based, 1);
+            }
+        }
+        static_cast<void>(ReloadLegacyLog_402020());
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    }
+    static_cast<void>(DrawText(
+        static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.x, 400)),
+        static_cast<std::int16_t>(AddW32(gLegacyLogPanel553440.y, 370)),
+        2, 0, 0, world::detail::gLogFileName554648, 0, 0));
+    Sub_5035E0(&beforeDay, 213, 1, gValueD69768, 0);
+    Sub_5035E0(&afterDay, 213, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacyLogPanel553440) != 0) {
+        hint = kLegacyLogClose55331C;
+    } else if ((QueryPanelButtonState(&previous) & 0x40) != 0) {
+        hint = kLegacyLogPrevious553580;
+    } else if ((QueryPanelButtonState(&next) & 0x40) != 0) {
+        hint = kLegacyLogNext553574;
+    } else if ((QueryPanelButtonState(&first) & 0x40) != 0) {
+        hint = kLegacyLogFirst55356C;
+    } else if ((QueryPanelButtonState(&last) & 0x40) != 0) {
+        hint = kLegacyLogLast553560;
+    } else if ((QueryPanelButtonState(&write) & 0x40) != 0) {
+        hint = kLegacyLogWrite553554;
+    } else if ((QueryPanelButtonState(&beforeDay) & 0x40) != 0) {
+        hint = kLegacyLogBeforeDay553544;
+    } else if ((QueryPanelButtonState(&afterDay) & 0x40) != 0) {
+        hint = kLegacyLogAfterDay553534;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return static_cast<std::uintptr_t>(Sub_503440(&gLegacyLogPanel553440, 1));
+}
 
 std::int32_t Sub_455490()
 {

@@ -117,6 +117,10 @@ extern std::int32_t gLegacySplitSourceCC3E60; // 旧16拆分，来源/目标/数
 extern std::int32_t gLegacySplitTargetCC21DC;
 extern std::int32_t gLegacySplitAmountC8A948;
 extern std::int32_t gLegacyLastUsedItemCB01EC; // 4E4460后续消费的真实使用来源。
+// 原402020旧日志载入；0打开失败，否则S32总页数，1000B局部按D01仅入口清零。
+std::int32_t ReloadLegacyLog_402020();
+// 原4021A0旧98完整页面；正常W32/关闭原生InputContext地址返回，外层旧路由仍待。
+std::uintptr_t Sub_4021A0(std::int32_t opened);
 // 原CRT 55302C..553050；只公开真实初始化入口，记录存储保持私有。
 std::int32_t Sub_455490();
 std::int32_t Sub_4554A0(); // 62B39C=640-556C30，返回写入值。

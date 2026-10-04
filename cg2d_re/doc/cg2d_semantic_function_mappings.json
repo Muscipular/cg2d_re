@@ -25,7 +25,7 @@
       "scope": "三个函数边界条目及已登记未归属区间用途；4C2634与本文件映射重叠时按稳定ID去重，4D6650并入工厂失败返回，4C48EB只分类为指定五字节NOP填充，不扩大为其他代码排除。"
     }
   ],
-  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中2项源码接线/核对已完成，6项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。P08/P18工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
+  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中4项源码接线/核对已完成，4项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。源码工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
   "pending_records": [
     {
       "original_entry": "0x424620",
@@ -52,9 +52,9 @@
     {
       "original_entry": "0x402020",
       "inventory_id": "F:00002020",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "日志读取本体未完成",
-      "remaining_requirement": "D01已决定本函数1000B行缓冲入口清零一次；完整读行/失败路径仍待，不逐轮清零。",
+      "status": "具名适配完整本体/内部接线源码已对齐，完整功能未验",
+      "implementation_state": "完整102条装载/计数本体及页面内两caller已接",
+      "remaining_requirement": "P03/P04源码工作项已关闭；57CAE8旧路由、文件/输入/音频全链及运行仍待，不以本体存在代功能验收",
       "evidence_documents": [
         "doc/ui_windows/legacy_log_viewer.md"
       ],
@@ -63,9 +63,9 @@
     {
       "original_entry": "0x4021A0",
       "inventory_id": "F:000021A0",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "旧98日志页面本体未完成",
-      "remaining_requirement": "D01已单独决定本函数1000B跳页缓冲入口清零一次；保留原返回消费与显示EOF判断。",
+      "status": "具名适配完整本体/内部接线源码已对齐，完整功能未验",
+      "implementation_state": "完整686条旧页面和独立1000B入口适配已接",
+      "remaining_requirement": "P03/P04源码工作项已关闭；57CAE8旧路由、文件/输入/音频全链及运行仍待，不以本体存在代功能验收",
       "evidence_documents": [
         "doc/ui_windows/legacy_log_viewer.md"
       ],
@@ -124655,6 +124655,76 @@
         "instruction_count_source": "doc/ui_windows/shared_battle.md",
         "implementation_state": "既有本体，非本轮新增代码"
       }
+    },
+    {
+      "original_entry": "0x402020",
+      "inventory_id": "F:00002020",
+      "status": "完整旧日志装载/计数本体及4021A0两内部caller源码已实现；具名P03入口适配已接，运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "ReloadLegacyLog_402020"
+          ],
+          "relationship": "真实原102条语义，两个打开阶段、共享calendar/文件名、原忽略fgets后的计数和S32页数返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_log_viewer.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "P03仅本函数1000B局部入口清零一次；其后复用。原流/错误/页数/共享593F84保持；原两caller弃返回，成功返回S32页数非FILE*。私有state映射原身份，借唯一全局文件名/localtime。旧98外层路由和运行未闭。",
+      "instruction_count": 102,
+      "function_chunks": [
+        {
+          "start": "0x402020",
+          "end_exclusive": "0x402196"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "ReloadLegacyLog_402020",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "本轮原788条对应两函数新增源码逐段静态及具体文件/格式原点核对；未构建/测试/运行"
+    },
+    {
+      "original_entry": "0x4021A0",
+      "inventory_id": "F:000021A0",
+      "status": "旧98完整686条页面本体及402020两内部调用源码已实现；具名P04入口适配已接，外层路由/运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4021A0"
+          ],
+          "relationship": "完整旧页面：状态0/2、输入/文件关闭、15跳页/16行、原双字节装填、写入/日期及提示尾"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_log_viewer.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "P04独立1000B局部入口一次清零，原忽略fgets/EOF/error分工保持；[593A00,593F74)连续owner承接1040B显示、S32时间/4B保留/348B输入，完整对象字符视图保留相邻覆盖，不扩大显示容量或加裁剪。关闭返回原生T*不截W32，正常尾W32。日期day==32、15/16计数不正规化，旧表实际间接caller与运行仍待。",
+      "instruction_count": 686,
+      "function_chunks": [
+        {
+          "start": "0x4021A0",
+          "end_exclusive": "0x402B26"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4021A0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "新增完整本体、两buffer、结构偏移/边界、原提示字节、文件/输入/按钮优先与返回合同静态；无构建/测试/运行"
     }
   ]
 }

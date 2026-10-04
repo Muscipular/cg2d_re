@@ -1,4 +1,5 @@
 #include "LegacyStdio.hpp"
+#include "LegacyHeap.hpp"
 #include "LegacyLowIo.hpp"
 #include "LegacyRuntimeError.hpp"
 #include "LegacyMultibyte.hpp"
@@ -8,6 +9,7 @@
 
 #include <bit>
 #include <cstring>
+#include <cstdlib>
 
 namespace cg::platform {
 
@@ -24,6 +26,36 @@ std::uint32_t gLegacyStreamAllocationCount108603C = 0;
 std::uint32_t gLegacyDefaultStreamFlags10862AC = 0;
 char* gLegacyTemporaryBuffers1086040[2] {};
 
+namespace {
+
+// SCH01仅stdio索引表清零域；元素地址已拓宽，count/乘积/handler仍W32。
+LegacyFile** CallocateLegacyStdioTable_53BFF8(
+    const std::uint32_t count, const std::uint32_t elementBytes)
+{
+    std::uint32_t bytes = count * elementBytes;
+    if (bytes <= 0xFFFFFFE0u) {
+        if (bytes == 0) {
+            bytes = 1;
+        }
+        bytes = (bytes + 15u) & 0xFFFFFFF0u;
+    }
+    for (;;) {
+        LegacyFile** table = nullptr;
+        if (bytes <= 0xFFFFFFE0u) {
+            table = static_cast<LegacyFile**>(std::calloc(1u, bytes));
+        }
+        // 保原成功短路及失败后new-mode/真实处理器读取，不造表容量/状态。
+        if (table != nullptr || gLegacyHeapNewMode1086150 == 0) {
+            return table;
+        }
+        if (CallLegacyHeapNewHandler_541A28(bytes) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+} // namespace
+
 void InitializeLegacyStdio_53E9A5()
 {
     std::int32_t limit = gLegacyStreamLimit1087AE0;
@@ -35,12 +67,12 @@ void InitializeLegacyStdio_53E9A5()
         gLegacyStreamLimit1087AE0 = limit;
     }
     gLegacyStreamTable1086AC4 = static_cast<LegacyFile**>(
-        CallocateLegacyMemory_53BFF8(static_cast<std::uint32_t>(limit),
+        CallocateLegacyStdioTable_53BFF8(static_cast<std::uint32_t>(limit),
             static_cast<std::uint32_t>(sizeof(LegacyFile*))));
     if (gLegacyStreamTable1086AC4 == nullptr) {
         gLegacyStreamLimit1087AE0 = 20;
         gLegacyStreamTable1086AC4 = static_cast<LegacyFile**>(
-            CallocateLegacyMemory_53BFF8(20,
+            CallocateLegacyStdioTable_53BFF8(20,
                 static_cast<std::uint32_t>(sizeof(LegacyFile*))));
         if (gLegacyStreamTable1086AC4 == nullptr) {
             ExitLegacyRuntimeError_53DEAB(26);

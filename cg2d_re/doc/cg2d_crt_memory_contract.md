@@ -624,3 +624,14 @@ mode3的541FB1/541C88/542466本步仅声明真实依赖，16B小块原生双链�
 原首末/登记/倒序/quick及错误24和业务字段不改；原通用53FA5B/53FCFB及环境扩容、
 facet/向量/其他对象原域保留，不能据此将原全部allocator标宿主或原体等价。
 完整活动启动/62父/间接alias/重入、原堆其它域和SDK/运行继续未验。
+
+## SCH01 stdio 表块的宿主清零提供者（2026-10-05）
+
+[局部合同](cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure)
+只迁移53E9A5两个指针数组生产点；既有sizeof(LegacyFile*)地址尺度保持，
+count/乘积/对齐bytes/new-mode与541A28请求仍W32，真实SDKcalloc清零。
+通用53BFF8的72条原体保留，21应用点和其他malloc/free域不改。
+
+原表进程期保留，已知消费不整表free/resize/query；5446AD释放的是FILE项，
+两者不可混用。未知alias/释放、完整所有权/错误机制与SDK运行仍待，
+不补原没有的整表free/析构或修重复初始化泄漏；C08/C11不提前关闭。

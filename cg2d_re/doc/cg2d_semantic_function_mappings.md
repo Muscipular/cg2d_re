@@ -1736,3 +1736,18 @@ C10/C03/全FILE和CRT继续open，任务10/60、叶0/182/完整门禁不提升�
 70有序源投影＋15宿主预先提供＝85对应，非85调用；
 原null/暂停音频/键盘排除及Legacy容量/alias/facet/codecvt/SDK运行仍待。
 任务10/60、叶0/182和完整门禁不提升。
+
+## SCH01 stdio 指针表清零域（2026-10-05）
+
+[具名合同](cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure)
+与[证据](cg2d_stdio_table_heap_evidence.json)保初始化59条/165B、
+calloc72条/177B及三消费者129条/317B，合260条/659B；
+两实际calloc与十表引用、已知23直属caller中的2表/21应用分列。
+
+F:0013E9A5两生产点切私有SDKcalloc并保持父失败/消费；
+F:0013BFF8只增加本域关联，通用旧体及21应用域不改，不全局替换或重复审核。
+两旧记录定点/1205其他与政策保持，初始化一新adapted使150→151/3680；
+限定E108→111，语义1207/1204有效ID、18pending/4分类引用保持。
+
+已知全表无free/query/resize不造新操作；未知alias/完整owner/SDK运行仍待。
+任务10/60、叶0/182、C01/C08/C10/C11和完整门禁不提升。

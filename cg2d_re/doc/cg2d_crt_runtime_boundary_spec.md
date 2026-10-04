@@ -89,3 +89,15 @@ std::malloc/std::realloc/std::free/UCRT _msize。容量来自实际块，原U32/
 虚调用/flush和所有构析body及分配域保持，不强转SDK对象/新增保护或活动调用。
 17活动项/真实facet与完整registry、正常/快速/callable退出和SDK运行仍待，
 C02/C03/C04与整个CRT不闭；ETH01兼容退出表及其他原caller保持。
+
+## SCH01 stdio 指针索引表清零域（2026-10-05）
+
+[本组源码](cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure)
+将53E9C7/53E9E0的表块分配/清零成组切私有std::calloc，
+保低W32乘积/原对齐上界、新模式/真实handler与512/20/错误26。
+SDK内部尾零/容量/分桶/失败策略按D02 adapted，21应用calloc和通用旧堆不改。
+
+进程期表数组与其FILE对象/字节缓冲分域；已知无整表free/query/resize，
+不造新生命周期动作或C5调用，原借用/动态FILE项std释放保持。
+未知alias/free、完整STDIO/容量/owner及正常快速退出/SDK运行未闭，
+C01/C08/C10/C11不关闭，其他域继续逐组迁移。

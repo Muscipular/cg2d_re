@@ -39358,7 +39358,7 @@
     {
       "original_entry": "0x53E9A5",
       "inventory_id": "F:0013E9A5",
-      "status": "原FILE清理或描述符本体已实现；分配/打开/读取及业务迁移未闭合",
+      "status": "SCH01stdio索引表两分配/清零点已接SDK，父512/20/错误26及消费者保持；未新增活动STDIO，完整owner/alias/CRT运行未闭",
       "original_end_exclusive": "0x53EA4A",
       "instruction_count": 59,
       "original_direct_reference_count": 1,
@@ -39386,9 +39386,11 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_table_heap_spec.md",
+        "doc/cg2d_stdio_table_heap_evidence.json"
       ],
-      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -39401,7 +39403,7 @@
           "reference_kind": "data"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、原静态字段/共享表；新增源码静态核对，未执行",
+      "verification_level": "完整原指令、全部直接入向、原静态字段/共享表；新增源码静态核对，未执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要",
       "native_reference": {
         "component": "本机UCRT生命周期职责参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_file.cpp",
@@ -39420,7 +39422,28 @@
           "source_table_symbol": "gLegacyCInitializationTable55316C",
           "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
         }
-      ]
+      ],
+      "stdio_table_heap_contract": {
+        "group": "SCH01",
+        "spec": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "source": "src/platform/LegacyStdio.cpp",
+        "symbol": "CallocateLegacyStdioTable_53BFF8",
+        "table_global": "gLegacyStreamTable1086AC4",
+        "type": "LegacyFile**",
+        "sdk_provider": "std::calloc",
+        "domain": "stdio pointer table allocate/clear only",
+        "call_sites": [
+          "0x53E9C7",
+          "0x53E9E0"
+        ],
+        "u32_product_preserved": true,
+        "aligned_handler_preserved": true,
+        "general_allocator_changed": false,
+        "new_entire_table_free": false,
+        "new_activity": false,
+        "unknown_alias_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53EA4A",
@@ -78172,11 +78195,11 @@
     {
       "original_entry": "0x53BFF8",
       "inventory_id": "F:0013BFF8",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待",
+      "status": "通用旧calloc原体保留；SCH01两个stdio表直属点已分域SDK，21应用点沿既有合同；其他alias/原模式3及完整CRT运行未闭",
       "original_end_exclusive": "0x53C0A9",
       "instruction_count": 72,
       "original_direct_reference_count": 23,
-      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行",
+      "verification_level": "七外层本体444条/179入向完整指令、清零/复制/重试分支及原堆限定接线静态核对；未构建、链接或执行；仅原填充call邻窗与限定标识符/数量低U32接线静态核对，未构建或执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要",
       "function_chunks": [
         {
           "start": "0x53BFF8",
@@ -78289,12 +78312,22 @@
           "symbols": [
             "CallocateLegacyMemory_53BFF8"
           ]
+        },
+        {
+          "path": "src/platform/LegacyStdio.cpp",
+          "symbols": [
+            "CallocateLegacyStdioTable_53BFF8",
+            "InitializeLegacyStdio_53E9A5"
+          ],
+          "relationship": "SCH01仅两个stdio指针表生产点的真实SDK清零提供者；共享72条原体/其他域保持，不宣称全原callee ABI等价"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_stdio_table_heap_spec.md",
+        "doc/cg2d_stdio_table_heap_evidence.json"
       ],
-      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。",
+      "boundary": "真实U32乘积、上限/0→1/16B对齐、每轮模式采样和失败门禁重读。mode3小块清原请求，mode2小块清对齐容量，普通HeapAlloc(flags8)；处理器接收当前长度。两stdio原调用保持并已接本体，21应用原入向未迁移；模式3/完整启动仍待，未用宿主calloc补原堆。；2026-10-04仅既有原填充点改接真实FillLegacyMemory_5419D0，当前容量/目标/数值/时点及原失败/owner保持；其余父正文不重验。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。",
       "memory_fill_connections": [
         {
           "target_entry": "0x5419D0",
@@ -78303,7 +78336,28 @@
           "symbol": "CallocateLegacyMemory_53BFF8",
           "relationship": "mode3先push原乘积；mode2@53C0A2先push当前对齐ESI、jmp53C091；同一原call，不算两原点"
         }
-      ]
+      ],
+      "stdio_table_heap_contract": {
+        "group": "SCH01",
+        "spec": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "source": "src/platform/LegacyStdio.cpp",
+        "symbol": "CallocateLegacyStdioTable_53BFF8",
+        "table_global": "gLegacyStreamTable1086AC4",
+        "type": "LegacyFile**",
+        "sdk_provider": "std::calloc",
+        "domain": "stdio pointer table allocate/clear only",
+        "call_sites": [
+          "0x53E9C7",
+          "0x53E9E0"
+        ],
+        "u32_product_preserved": true,
+        "aligned_handler_preserved": true,
+        "general_allocator_changed": false,
+        "new_entire_table_free": false,
+        "new_activity": false,
+        "unknown_alias_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x53DA45",

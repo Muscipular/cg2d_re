@@ -4290,3 +4290,16 @@ volatile U32定义，覆盖历史“仅声明”的当前状态，不重复实�
 FILE重取、fseek/fsetpos/fgetpos完整0、scratch条件/state/erase、原四字段写序/
 复制返回保持；原栈未写字节/机器ABI和实际SDK/文件/全CRT运行仍未验。
 本轮仅核对既有实现/术语与四限定映射，C10/C03和完整门禁继续open。
+
+## SCH01 stdio 索引表的真实生产（2026-10-05）
+
+[源码合同](cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure)
+已将53E9C7/53E9E0两清零表分配点接私有SDKcalloc，
+保限制0→512/小于20→20、首空→20回退、次空→错误26，
+20实际静态FILE地址逐次全局表存储及三句柄失效descriptor=-1。
+底层描述符仍须真实先生产，不启用C5/旧cinit或借SDK FILE。
+
+五根260条/659B、两个实际call/23 calloc入向/十表引用与限定源码归档；
+SDK分桶/尾零/容量/失败策略适配，不声称原私有calloc体等价。
+已知表只allocate/clear/借用，动态FILE项Malloc/Free保持；
+全表未知alias/free/完整启动退出及SDK正常失败运行不据此关闭。

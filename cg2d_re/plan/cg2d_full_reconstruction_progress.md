@@ -1069,3 +1069,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余/交付**：标准流槽不再因未重复旧CRT构造列待接；完整Legacy消费者/registry容量/较大索引/facet/codecvt/alias/R1、SDK实际构析/失败及全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要；原格式明文/音频暂停/单线程/RPLAN.24保持。精确14项，快照`cg2d-re-sdk-standard-stream-owners-source-20261005`，用户既有六项不暂存。
 
 **SSO01交付检查**：14项严格UTF-8无BOM/LF、717个本地Markdown链接、45项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。
+
+## SCH01 stdio 指针索引表宿主清零域（2026-10-05）
+
+- **开发**：先记[SCH01 SPEC](../doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision)，再把LegacyStdio.cpp的53E9C7/53E9E0两表allocate/clear点接私有LegacyFile**清零提供者/std::calloc；低W32乘积、原零变1/16对齐/上界、成功短路及失败new-mode/541A28(bytes)重试保持。通用旧calloc/其余源/21应用calloc和动态FILE的Malloc/Free不改。
+- **基线/父消费**：[归档](../doc/cg2d_stdio_table_heap_evidence.json)含五完整根260条/659B，23 calloc直属入向中2为本表/21应用点沿既有合同；十表引用与512/20/错误26、20次实际静态FILE存储/三标准句柄消费对应。SDK私有分桶/尾零/容量/低内存及错误策略adapted，不称原体等价；未新增活动STDIO/C5/旧cinit。
+- **生命周期边界**：表是进程期指针块，与FILE对象/缓冲分域；已知表消费无整表free/query/resize，不发明退出动作或修重初始化泄漏。5446AD仍只释放动态FILE项/重取表后归空；直接引用不排除未知alias/free，完整owner/退出与R1仍待。
+- **静态/台账**：一源四类限定差全文重放和其他src/include/原calloc及三消费者保持通过。两旧语义定点/1205其他与政策保持，初始化一新adapted使150→151/3680，限定E108→111；语义1207/1204有效ID、18pending/4分类/3无ID、任务10/60、叶0/182和完整门禁不变，C01/C08/C10/C11均open。
+- **剩余/交付**：scratch/codecvt仅见置空/消费无真实非空producer，未擅自迁移其释放；描述符块未造原无清理。兼容全表容量/alias/真实消费者、其他分配域/SDK实际失败和全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要，单线程/RPLAN.24/原格式明文和音频暂停保持。精确13项，快照`cg2d-re-stdio-table-heap-source-20261005`，用户既有六项不暂存。
+
+**SCH01交付检查**：13项严格UTF-8无BOM/LF、731个本地Markdown链接、36项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。

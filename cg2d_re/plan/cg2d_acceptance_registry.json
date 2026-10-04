@@ -280,7 +280,8 @@
         "doc/cg2d_file_position_width_spec.md",
         "doc/cg2d_sdk_classic_locale_spec.md",
         "doc/cg2d_sdk_late_narrow_init_spec.md",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md",
+        "doc/cg2d_stdio_table_heap_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -402,7 +403,9 @@
         "F:00148BEA",
         "F:001498B7",
         "F:001498EE",
-        "F:001491F6"
+        "F:001491F6",
+        "F:0013E9A5",
+        "F:0013BFF8"
       ],
       "closure_task_ids": [
         "C01",
@@ -426,7 +429,8 @@
         "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -445,7 +449,8 @@
         "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产",
         "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭",
         "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭",
-        "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭"
+        "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭",
+        "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -466,7 +471,8 @@
         "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline"
       ]
     },
     {
@@ -9448,6 +9454,114 @@
       "observation": "限定原/源与机器归档",
       "expected": "90条15根、105前缀/319身份边界、74起点/80窗口引用及SDK八源可追",
       "actual": "限定两文件接口差重放，21旧语义定点/其余政策保持；不构建/运行"
+    },
+    {
+      "id": "E-STDIO-TABLE-HEAP-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根260条/659B、两真实calloc/23已证直属caller/十表引用；doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stdio-table-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-acceptance",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_evidence.json",
+        "src/platform/LegacyStdio.cpp#CallocateLegacyStdioTable_53BFF8",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#CloseAllLegacyStreams_5446AD",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8"
+      ],
+      "differences": [
+        {
+          "description": "仅进程期表块的分配/清零SDK承接；原模式3/2私有分桶/尾零/容量与SDK失败/errno策略按D02 adapted，保逻辑表项/handler和父正常失败；不变更动态FILE/缓冲及21应用域",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        },
+        {
+          "description": "已知全表无释放/容量查询/扩容不造新操作或活动启动；10直接引用不排除未知alias/free，完整owner/STDIO/CRT与运行未闭",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两stdio索引表生产点",
+      "expected": "同一真实SDK清零提供者、LegacyFile**结果，无旧mode3表分配",
+      "actual": "两callee已切；U32数量与既有8B指针尺度不改，oldcalloc/21应用点保持"
+    },
+    {
+      "id": "E-STDIO-TABLE-HEAP-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根260条/659B、两真实calloc/23已证直属caller/十表引用；doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stdio-table-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-acceptance",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_evidence.json",
+        "src/platform/LegacyStdio.cpp#CallocateLegacyStdioTable_53BFF8",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#CloseAllLegacyStreams_5446AD",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8"
+      ],
+      "differences": [
+        {
+          "description": "仅进程期表块的分配/清零SDK承接；原模式3/2私有分桶/尾零/容量与SDK失败/errno策略按D02 adapted，保逻辑表项/handler和父正常失败；不变更动态FILE/缓冲及21应用域",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        },
+        {
+          "description": "已知全表无释放/容量查询/扩容不造新操作或活动启动；10直接引用不排除未知alias/free，完整owner/STDIO/CRT与运行未闭",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "calloc条件/失败与初始化/消费者",
+      "expected": "低W32乘积/对齐/new-mode/handler、512/20/错误26/20写入/3句柄及FILE项释放保持",
+      "actual": "仅本表allocate/clear成组；无新整表释放/query/resize或启动，未知alias/全退出未闭"
+    },
+    {
+      "id": "E-STDIO-TABLE-HEAP-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根260条/659B、两真实calloc/23已证直属caller/十表引用；doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stdio-table-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-acceptance",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_evidence.json",
+        "src/platform/LegacyStdio.cpp#CallocateLegacyStdioTable_53BFF8",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#CloseAllLegacyStreams_5446AD",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8"
+      ],
+      "differences": [
+        {
+          "description": "仅进程期表块的分配/清零SDK承接；原模式3/2私有分桶/尾零/容量与SDK失败/errno策略按D02 adapted，保逻辑表项/handler和父正常失败；不变更动态FILE/缓冲及21应用域",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        },
+        {
+          "description": "已知全表无释放/容量查询/扩容不造新操作或活动启动；10直接引用不排除未知alias/free，完整owner/STDIO/CRT与运行未闭",
+          "decision_ref": "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原根/数值call及限定源变化",
+      "expected": "五根260条/659B、两数字call/23calloc入向/十表引用可追",
+      "actual": "一源四类限定差重放，原heap及三消费者未变；表对象分域，不称原私有尾/失败等价"
     }
   ],
   "task_acceptance": [
@@ -9615,7 +9729,8 @@
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -9626,7 +9741,8 @@
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
-        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure"
+        "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -9650,7 +9766,8 @@
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
       ],
       "task_id": "C01",
       "state": "open"
@@ -9699,7 +9816,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure"
+        "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
       ]
     }
   ],
@@ -10968,6 +11086,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013E9A5",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
       ]
     }
   ],

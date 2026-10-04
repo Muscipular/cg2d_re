@@ -202,4 +202,31 @@ LegacyWideInputStream* RegisterConstructLegacyWideInput_5496AB(
 void DestroyLegacyWideInput_5492E0(LegacyWideInputStream* storage);
 void* DeleteLegacyWideInputFromIos_549D67(LegacyIosBaseStorage* virtualBase, std::uint32_t flags);
 
+// 原独立标准流初始化计数；已加载初值-1，S32/两次实际读取，不增锁或一次性门禁。
+extern volatile std::int32_t gLegacyNarrowStandardInitCount592894;
+extern volatile std::int32_t gLegacyWideStandardInitCount5929EC;
+// 原14个全局对象仅真实外部声明；首字节未加载，不推零初值/完整SDK分配或建立影子owner。
+template <typename Character>
+struct LegacyFileBufferStorage;
+extern LegacyFileBufferStorage<char> gLegacyNarrowStandardInputBuffer1086470;
+extern LegacyFileBufferStorage<char> gLegacyNarrowStandardOutputBuffer1086348;
+extern LegacyFileBufferStorage<char> gLegacyNarrowStandardErrorBuffer10863D8;
+extern LegacyNarrowInputStream gLegacyNarrowStandardInput1086430;
+extern LegacyNarrowOutputStream gLegacyNarrowStandardOutput10863A0;
+extern LegacyNarrowOutputStream gLegacyNarrowStandardError10864C8;
+extern LegacyNarrowOutputStream gLegacyNarrowStandardLog1086310;
+// 原控制器this仅保存/返回，不读取字段；不猜Init对象容量或自动接启动。
+void* InitializeLegacyNarrowStandardStreams_5482DD(void* initializer);
+extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardInputBuffer1086610;
+extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardOutputBuffer10865B8;
+extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardErrorBuffer10866A0;
+extern LegacyWideInputStream gLegacyWideStandardInput1086578;
+extern LegacyWideOutputStream gLegacyWideStandardOutput1086668;
+extern LegacyWideOutputStream gLegacyWideStandardError1086500;
+extern LegacyWideOutputStream gLegacyWideStandardLog1086540;
+// 原控制器this仅保存/返回，不读取字段；不猜Init对象容量或自动接启动。
+void* InitializeLegacyWideStandardStreams_549397(void* initializer);
+// 原构造展开只当前state的一次54843B；两实参是原实际地址，叶不消费/不析构对象。
+void UnwindLegacyStandardStream_54843B(void* currentObject, void* fixedObject);
+
 } // namespace cg::platform

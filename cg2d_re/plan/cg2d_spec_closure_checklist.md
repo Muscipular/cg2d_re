@@ -120,7 +120,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | C01 / CRT 总策略 | 受限宿主承接已定，本轮未迁移 | 按启动/运行库两个子SPEC实施 | 私有差异与业务保留项分列；[宿主总SPEC](../doc/cg2d_crt_host_migration_spec.md) |
 | C02 / C++90 初始化表 | 原90槽/多个provider已有，四图形/DBF具名构析已接 | 逐槽区分宿主内部与应用显式构析，保留原应用相对顺序 | 不再要求造完整私有CRT启动替宿主；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C03 / 四Init与登记 | 14流/七共享槽、SI01四Init对象与SR01登记0～8实际前缀已有 | 原完整容量/较大正常索引/间接别名、全应用序及Legacy/宿主活动流构析归属仍待 | 保持open；[SI01收口](../doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)、[SR01收口](../doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure)，native前缀不推原容量 |
-| C04 / 构析与入口迁移 | 四容器、保护四项和世界状态17项已接唯一活动构析/即时宿主登记 | 沿全应用原序成组移动，各模块当前调用需同小步移除；其余owner/完整异常清理待 | 保持open；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md)、[保护四项](../doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure)、[世界17项](../doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure)；全序/快速退出/SDK未验 |
+| C04 / 构析与入口迁移 | 四容器、保护四项、世界17项及UI/输入五项已接唯一活动路径；选择器固定退出已恢复 | 全应用序成组移动并同小步移除当前模块调用；标准流/其他owner与完整异常清理待 | 保持open；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md)、[世界17项](../doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure)、[UI/输入五项](../doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure)；全序/快速退出/SDK未验 |
 | C05 / codecvt | 旧消费者与方法槽在，真实生产未闭 | 宿主内部用完整宿主流类型；保留Legacy消费者仍补真实facet生产 | 不造空表/桥半类型/猜编码；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C06 / 异常查找捕获 | 旧数据/部分叶已有，父未闭 | 私有5402AB/5407BC职责由真实本机异常设施承接，caller成组映射 | 保留业务异常/清理，不记旧内核已还原；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C07 / 抛出与SDK | 旧准备链已有，抛出未接 | 编译器生成真实异常ABI，不手造ThrowInfo/RVA，明确消息/复制/重抛映射 | 不把Legacy对象硬转宿主异常；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |

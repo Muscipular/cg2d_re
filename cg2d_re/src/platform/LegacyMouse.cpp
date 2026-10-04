@@ -235,7 +235,7 @@ const RippleGateStaticInitializer gRippleGateStaticInitializer;
 struct WindowNumberSpacingStaticInitializer {
     WindowNumberSpacingStaticInitializer()
     {
-        cg::ui::InitializeNumberSpacing_477170();
+        cg::ui::InitializeLegacyNumberSpacing_477160();
     }
 };
 
@@ -252,17 +252,13 @@ struct ItemSelectorsStaticInitializer {
 const ItemSelectorsStaticInitializer gItemSelectorsStaticInitializer;
 
 // 原CRT 5530A4；成功构造后才登记析构，浏览区不与玩家宠物共享。
-struct StallBrowsePetsStaticInitializer {
+struct StallBrowsePetsStaticInitializer final {
     StallBrowsePetsStaticInitializer()
     {
-        cg::ui::ConstructStallBrowsePetValues();
-    }
-
-    ~StallBrowsePetsStaticInitializer()
-    {
-        cg::ui::DestroyStallBrowsePetValues();
+        static_cast<void>(cg::ui::InitializeLegacyStallBrowsePetValues_4CD240());
     }
 };
+static_assert(std::is_trivially_destructible_v<StallBrowsePetsStaticInitializer>);
 
 const StallBrowsePetsStaticInitializer gStallBrowsePetsStaticInitializer;
 
@@ -347,26 +343,13 @@ struct LegacyBottomBarStaticInitializer {
 
 const LegacyBottomBarStaticInitializer gLegacyBottomBarStaticInitializer;
 
-struct LegacyMouseStaticInitializer {
+struct LegacyMouseStaticInitializer final {
     LegacyMouseStaticInitializer()
     {
-        legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseX);
-        legacy_crypt_int::ConstructZero_401C70(&gLegacyMouseState.mouseY);
-        for (LegacyCryptInt& coordinate : gLegacyMouseState.buttonCoordinates) {
-            legacy_crypt_int::ConstructZero_401C70(&coordinate);
-        }
-    }
-
-    ~LegacyMouseStaticInitializer()
-    {
-        for (std::size_t index = 8; index != 0; --index) {
-            legacy_crypt_int::Destroy_401CF0(
-                &gLegacyMouseState.buttonCoordinates[index - 1]);
-        }
-        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseY);
-        legacy_crypt_int::Destroy_401CF0(&gLegacyMouseState.mouseX);
+        static_cast<void>(cg::platform::InitializeLegacyMouseRuntime_506340());
     }
 };
+static_assert(std::is_trivially_destructible_v<LegacyMouseStaticInitializer>);
 
 const LegacyMouseStaticInitializer gLegacyMouseStaticInitializer;
 
@@ -445,7 +428,7 @@ void ReleaseLegacyMouseRuntimeAtExit_506370()
 std::int32_t InitializeLegacyMouseRuntime_506340()
 {
     ConstructLegacyMouseRuntime_506350();
-    return RegisterLegacyAtExit_53B406(ReleaseLegacyMouseRuntimeAtExit_506370);
+    return std::atexit(ReleaseLegacyMouseRuntimeAtExit_506370);
 }
 
 std::int32_t ResetLegacyMouseState_506870()

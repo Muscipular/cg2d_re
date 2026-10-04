@@ -1,0 +1,1702 @@
+{
+  "description": "UI/输入五项活动构析：5原Init17条、4CD260/506360所属八登记指令；两个选择器退出固定this+78，不重读preview槽。",
+  "source": "当前已打开cg2d.exe IDA只读Python，未重开/重载/修改/保存/导出原文件或数据库。",
+  "functions": [
+    {
+      "entry": "0x477160",
+      "root": "0x477160",
+      "chunks": [
+        [
+          "0x477160",
+          "0x477165"
+        ]
+      ],
+      "n": 1,
+      "asm": [
+        [
+          "0x477160",
+          "jmp     sub_477170"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553098",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x4883f0",
+      "root": "0x4883f0",
+      "chunks": [
+        [
+          "0x4883f0",
+          "0x4883fa"
+        ],
+        [
+          "0x488410",
+          "0x48841c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x4883f0",
+          "call    unknown_libname_44; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x4883f5",
+          "jmp     loc_488410"
+        ],
+        [
+          "0x488410",
+          "push    offset sub_488420; void (__cdecl *)()"
+        ],
+        [
+          "0x488415",
+          "call    _atexit"
+        ],
+        [
+          "0x48841a",
+          "pop     ecx"
+        ],
+        [
+          "0x48841b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55309c",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x4998f0",
+      "root": "0x4998f0",
+      "chunks": [
+        [
+          "0x4998f0",
+          "0x4998fa"
+        ],
+        [
+          "0x499910",
+          "0x49991c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x4998f0",
+          "call    unknown_libname_45; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x4998f5",
+          "jmp     loc_499910"
+        ],
+        [
+          "0x499910",
+          "push    offset unknown_libname_46; void (__cdecl *)()"
+        ],
+        [
+          "0x499915",
+          "call    _atexit"
+        ],
+        [
+          "0x49991a",
+          "pop     ecx"
+        ],
+        [
+          "0x49991b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5530a0",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x4cd240",
+      "root": "0x4cd240",
+      "chunks": [
+        [
+          "0x4cd240",
+          "0x4cd24a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x4cd240",
+          "call    sub_4CD250"
+        ],
+        [
+          "0x4cd245",
+          "jmp     loc_4CD260"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5530a4",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x506340",
+      "root": "0x506340",
+      "chunks": [
+        [
+          "0x506340",
+          "0x50634a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x506340",
+          "call    unknown_libname_47; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x506345",
+          "jmp     loc_506360"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5530f8",
+          null,
+          1
+        ]
+      ]
+    }
+  ],
+  "table": [
+    [
+      "0x553098",
+      "0x477160"
+    ],
+    [
+      "0x55309c",
+      "0x4883f0"
+    ],
+    [
+      "0x5530a0",
+      "0x4998f0"
+    ],
+    [
+      "0x5530a4",
+      "0x4cd240"
+    ],
+    [
+      "0x5530f8",
+      "0x506340"
+    ]
+  ],
+  "aggregate_original_functions": [
+    {
+      "entry": "0x477170",
+      "chunks": [
+        [
+          "0x477170",
+          "0x4771a9"
+        ]
+      ],
+      "n": 13,
+      "asm": [
+        [
+          "0x477170",
+          "mov     eax, ds:dword_54F2A8"
+        ],
+        [
+          "0x477175",
+          "mov     ecx, ds:dword_54F2AC"
+        ],
+        [
+          "0x47717b",
+          "mov     edx, ds:dword_54F2B0"
+        ],
+        [
+          "0x477181",
+          "add     eax, 5"
+        ],
+        [
+          "0x477184",
+          "mov     dword_D67AC4, eax"
+        ],
+        [
+          "0x477189",
+          "mov     eax, ds:dword_54F2B4"
+        ],
+        [
+          "0x47718e",
+          "add     ecx, 0Ah"
+        ],
+        [
+          "0x477191",
+          "add     edx, 0Bh"
+        ],
+        [
+          "0x477194",
+          "add     eax, 7"
+        ],
+        [
+          "0x477197",
+          "mov     dword_D67AC8, ecx"
+        ],
+        [
+          "0x47719d",
+          "mov     dword_D67ACC, edx"
+        ],
+        [
+          "0x4771a3",
+          "mov     dword_D67AD0, eax"
+        ],
+        [
+          "0x4771a8",
+          "retn"
+        ]
+      ]
+    },
+    {
+      "entry": "0x488400",
+      "chunks": [
+        [
+          "0x488400",
+          "0x48840a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x488400",
+          "mov     ecx, offset stru_CF3B10"
+        ],
+        [
+          "0x488405",
+          "jmp     sub_4C61B0"
+        ]
+      ]
+    },
+    {
+      "entry": "0x488420",
+      "chunks": [
+        [
+          "0x488420",
+          "0x488504"
+        ],
+        [
+          "0x54b8b0",
+          "0x54b938"
+        ]
+      ],
+      "n": 75,
+      "asm": [
+        [
+          "0x488420",
+          "mov     ecx, offset stru_CF3B10"
+        ],
+        [
+          "0x488425",
+          "jmp     loc_488430"
+        ],
+        [
+          "0x488430",
+          "push    0FFFFFFFFh"
+        ],
+        [
+          "0x488432",
+          "push    offset loc_54B92E"
+        ],
+        [
+          "0x488437",
+          "mov     eax, large fs:0"
+        ],
+        [
+          "0x48843d",
+          "push    eax"
+        ],
+        [
+          "0x48843e",
+          "mov     large fs:0, esp"
+        ],
+        [
+          "0x488445",
+          "push    ecx"
+        ],
+        [
+          "0x488446",
+          "push    esi"
+        ],
+        [
+          "0x488447",
+          "lea     esi, [ecx+78h]"
+        ],
+        [
+          "0x48844a",
+          "mov     [esp+14h+var_10], esi"
+        ],
+        [
+          "0x48844e",
+          "lea     ecx, [esi+210h]"
+        ],
+        [
+          "0x488454",
+          "mov     [esp+14h+var_4], 8"
+        ],
+        [
+          "0x48845c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x488461",
+          "lea     ecx, [esi+200h]"
+        ],
+        [
+          "0x488467",
+          "mov     byte ptr [esp+14h+var_4], 7"
+        ],
+        [
+          "0x48846c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x488471",
+          "lea     ecx, [esi+1F0h]"
+        ],
+        [
+          "0x488477",
+          "mov     byte ptr [esp+14h+var_4], 6"
+        ],
+        [
+          "0x48847c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x488481",
+          "lea     ecx, [esi+1E0h]"
+        ],
+        [
+          "0x488487",
+          "mov     byte ptr [esp+14h+var_4], 5"
+        ],
+        [
+          "0x48848c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x488491",
+          "lea     ecx, [esi+1C0h]"
+        ],
+        [
+          "0x488497",
+          "mov     byte ptr [esp+14h+var_4], 4"
+        ],
+        [
+          "0x48849c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884a1",
+          "lea     ecx, [esi+1B0h]"
+        ],
+        [
+          "0x4884a7",
+          "mov     byte ptr [esp+14h+var_4], 3"
+        ],
+        [
+          "0x4884ac",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884b1",
+          "lea     ecx, [esi+1A0h]"
+        ],
+        [
+          "0x4884b7",
+          "mov     byte ptr [esp+14h+var_4], 2"
+        ],
+        [
+          "0x4884bc",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884c1",
+          "lea     ecx, [esi+190h]"
+        ],
+        [
+          "0x4884c7",
+          "mov     byte ptr [esp+14h+var_4], 1"
+        ],
+        [
+          "0x4884cc",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884d1",
+          "lea     ecx, [esi+180h]"
+        ],
+        [
+          "0x4884d7",
+          "mov     byte ptr [esp+14h+var_4], 0"
+        ],
+        [
+          "0x4884dc",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884e1",
+          "lea     ecx, [esi+170h]"
+        ],
+        [
+          "0x4884e7",
+          "mov     [esp+14h+var_4], 0FFFFFFFFh"
+        ],
+        [
+          "0x4884ef",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x4884f4",
+          "mov     ecx, [esp+14h+var_C]"
+        ],
+        [
+          "0x4884f8",
+          "pop     esi"
+        ],
+        [
+          "0x4884f9",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x488500",
+          "add     esp, 10h"
+        ],
+        [
+          "0x488503",
+          "retn"
+        ],
+        [
+          "0x54b8b0",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8b3",
+          "add     ecx, 170h"
+        ],
+        [
+          "0x54b8b9",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b8be",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8c1",
+          "add     ecx, 180h"
+        ],
+        [
+          "0x54b8c7",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b8cc",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8cf",
+          "add     ecx, 190h"
+        ],
+        [
+          "0x54b8d5",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b8da",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8dd",
+          "add     ecx, 1A0h"
+        ],
+        [
+          "0x54b8e3",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b8e8",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8eb",
+          "add     ecx, 1B0h"
+        ],
+        [
+          "0x54b8f1",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b8f6",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b8f9",
+          "add     ecx, 1C0h"
+        ],
+        [
+          "0x54b8ff",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b904",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b907",
+          "add     ecx, 1E0h"
+        ],
+        [
+          "0x54b90d",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b912",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b915",
+          "add     ecx, 1F0h"
+        ],
+        [
+          "0x54b91b",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b920",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54b923",
+          "add     ecx, 200h"
+        ],
+        [
+          "0x54b929",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54b92e",
+          "mov     eax, offset stru_550A28"
+        ],
+        [
+          "0x54b933",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ]
+    },
+    {
+      "entry": "0x499900",
+      "chunks": [
+        [
+          "0x499900",
+          "0x49990a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x499900",
+          "mov     ecx, offset unk_D2F338"
+        ],
+        [
+          "0x499905",
+          "jmp     sub_4C61B0"
+        ]
+      ]
+    },
+    {
+      "entry": "0x499920",
+      "chunks": [
+        [
+          "0x499920",
+          "0x49992a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x499920",
+          "mov     ecx, offset unk_D2F338"
+        ],
+        [
+          "0x499925",
+          "jmp     loc_488430"
+        ]
+      ]
+    },
+    {
+      "entry": "0x4cd250",
+      "chunks": [
+        [
+          "0x4cd250",
+          "0x4cd2c4"
+        ]
+      ],
+      "n": 27,
+      "asm": [
+        [
+          "0x4cd250",
+          "mov     ecx, offset byte_D046D8"
+        ],
+        [
+          "0x4cd255",
+          "jmp     loc_4CD2A0"
+        ],
+        [
+          "0x4cd260",
+          "push    offset loc_4CD270; void (__cdecl *)()"
+        ],
+        [
+          "0x4cd265",
+          "call    _atexit"
+        ],
+        [
+          "0x4cd26a",
+          "pop     ecx"
+        ],
+        [
+          "0x4cd26b",
+          "retn"
+        ],
+        [
+          "0x4cd270",
+          "mov     ecx, offset byte_D046D8"
+        ],
+        [
+          "0x4cd275",
+          "jmp     loc_4CD280"
+        ],
+        [
+          "0x4cd280",
+          "push    offset sub_4CD2D0; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x4cd285",
+          "push    5; int"
+        ],
+        [
+          "0x4cd287",
+          "add     ecx, 0F83Ch"
+        ],
+        [
+          "0x4cd28d",
+          "push    5110h; unsigned int"
+        ],
+        [
+          "0x4cd292",
+          "push    ecx; void *"
+        ],
+        [
+          "0x4cd293",
+          "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        ],
+        [
+          "0x4cd298",
+          "retn"
+        ],
+        [
+          "0x4cd2a0",
+          "push    esi"
+        ],
+        [
+          "0x4cd2a1",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x4cd2a3",
+          "push    offset sub_4CD2D0; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x4cd2a8",
+          "push    offset sub_4CD360; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x4cd2ad",
+          "push    5; int"
+        ],
+        [
+          "0x4cd2af",
+          "lea     eax, [esi+0F83Ch]"
+        ],
+        [
+          "0x4cd2b5",
+          "push    5110h; unsigned int"
+        ],
+        [
+          "0x4cd2ba",
+          "push    eax; void *"
+        ],
+        [
+          "0x4cd2bb",
+          "call    ??_L@YGXPAXIHP6EX0@Z1@Z; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))"
+        ],
+        [
+          "0x4cd2c0",
+          "mov     eax, esi"
+        ],
+        [
+          "0x4cd2c2",
+          "pop     esi"
+        ],
+        [
+          "0x4cd2c3",
+          "retn"
+        ]
+      ]
+    },
+    {
+      "entry": "0x506350",
+      "chunks": [
+        [
+          "0x506350",
+          "0x50652e"
+        ],
+        [
+          "0x54ba70",
+          "0x54bacb"
+        ],
+        [
+          "0x54bad0",
+          "0x54bb2b"
+        ]
+      ],
+      "n": 162,
+      "asm": [
+        [
+          "0x506350",
+          "mov     ecx, offset mouseX"
+        ],
+        [
+          "0x506355",
+          "jmp     loc_506460"
+        ],
+        [
+          "0x506360",
+          "push    offset loc_506370; void (__cdecl *)()"
+        ],
+        [
+          "0x506365",
+          "call    _atexit"
+        ],
+        [
+          "0x50636a",
+          "pop     ecx"
+        ],
+        [
+          "0x50636b",
+          "retn"
+        ],
+        [
+          "0x506370",
+          "mov     ecx, offset mouseX"
+        ],
+        [
+          "0x506375",
+          "jmp     loc_506380"
+        ],
+        [
+          "0x506380",
+          "push    0FFFFFFFFh"
+        ],
+        [
+          "0x506382",
+          "push    offset loc_54BAC1"
+        ],
+        [
+          "0x506387",
+          "mov     eax, large fs:0"
+        ],
+        [
+          "0x50638d",
+          "push    eax"
+        ],
+        [
+          "0x50638e",
+          "mov     large fs:0, esp"
+        ],
+        [
+          "0x506395",
+          "sub     esp, 8"
+        ],
+        [
+          "0x506398",
+          "push    esi"
+        ],
+        [
+          "0x506399",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x50639b",
+          "push    edi"
+        ],
+        [
+          "0x50639c",
+          "mov     [esp+1Ch+var_14], esi"
+        ],
+        [
+          "0x5063a0",
+          "mov     [esp+1Ch+var_4], 0"
+        ],
+        [
+          "0x5063a8",
+          "lea     edi, [esi+80h]"
+        ],
+        [
+          "0x5063ae",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5063b2",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5063b5",
+          "mov     byte ptr [esp+1Ch+var_4], 4"
+        ],
+        [
+          "0x5063ba",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x5063bf",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x5063c1",
+          "mov     byte ptr [esp+1Ch+var_4], 3"
+        ],
+        [
+          "0x5063c6",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x5063cb",
+          "lea     edi, [esi+60h]"
+        ],
+        [
+          "0x5063ce",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5063d2",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5063d5",
+          "mov     byte ptr [esp+1Ch+var_4], 5"
+        ],
+        [
+          "0x5063da",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x5063df",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x5063e1",
+          "mov     byte ptr [esp+1Ch+var_4], 2"
+        ],
+        [
+          "0x5063e6",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x5063eb",
+          "lea     edi, [esi+40h]"
+        ],
+        [
+          "0x5063ee",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5063f2",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5063f5",
+          "mov     byte ptr [esp+1Ch+var_4], 6"
+        ],
+        [
+          "0x5063fa",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x5063ff",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x506401",
+          "mov     byte ptr [esp+1Ch+var_4], 1"
+        ],
+        [
+          "0x506406",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x50640b",
+          "lea     edi, [esi+20h]"
+        ],
+        [
+          "0x50640e",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x506412",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x506415",
+          "mov     byte ptr [esp+1Ch+var_4], 7"
+        ],
+        [
+          "0x50641a",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x50641f",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x506421",
+          "mov     byte ptr [esp+1Ch+var_4], 0"
+        ],
+        [
+          "0x506426",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x50642b",
+          "lea     ecx, [esi+10h]"
+        ],
+        [
+          "0x50642e",
+          "mov     [esp+1Ch+var_4], 8"
+        ],
+        [
+          "0x506436",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x50643b",
+          "mov     ecx, esi"
+        ],
+        [
+          "0x50643d",
+          "mov     [esp+1Ch+var_4], 0FFFFFFFFh"
+        ],
+        [
+          "0x506445",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x50644a",
+          "mov     ecx, [esp+1Ch+var_C]"
+        ],
+        [
+          "0x50644e",
+          "pop     edi"
+        ],
+        [
+          "0x50644f",
+          "pop     esi"
+        ],
+        [
+          "0x506450",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x506457",
+          "add     esp, 14h"
+        ],
+        [
+          "0x50645a",
+          "retn"
+        ],
+        [
+          "0x506460",
+          "push    0FFFFFFFFh"
+        ],
+        [
+          "0x506462",
+          "push    offset loc_54BB21"
+        ],
+        [
+          "0x506467",
+          "mov     eax, large fs:0"
+        ],
+        [
+          "0x50646d",
+          "push    eax"
+        ],
+        [
+          "0x50646e",
+          "mov     large fs:0, esp"
+        ],
+        [
+          "0x506475",
+          "sub     esp, 8"
+        ],
+        [
+          "0x506478",
+          "push    esi"
+        ],
+        [
+          "0x506479",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x50647b",
+          "push    edi"
+        ],
+        [
+          "0x50647c",
+          "mov     [esp+1Ch+var_14], esi"
+        ],
+        [
+          "0x506480",
+          "call    sub_401C70"
+        ],
+        [
+          "0x506485",
+          "lea     ecx, [esi+10h]"
+        ],
+        [
+          "0x506488",
+          "mov     [esp+1Ch+var_4], 0"
+        ],
+        [
+          "0x506490",
+          "call    sub_401C70"
+        ],
+        [
+          "0x506495",
+          "lea     edi, [esi+20h]"
+        ],
+        [
+          "0x506498",
+          "mov     [esp+1Ch+var_4], 1"
+        ],
+        [
+          "0x5064a0",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x5064a2",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5064a6",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064ab",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5064ae",
+          "mov     byte ptr [esp+1Ch+var_4], 2"
+        ],
+        [
+          "0x5064b3",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064b8",
+          "lea     edi, [esi+40h]"
+        ],
+        [
+          "0x5064bb",
+          "mov     byte ptr [esp+1Ch+var_4], 3"
+        ],
+        [
+          "0x5064c0",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x5064c2",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5064c6",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064cb",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5064ce",
+          "mov     byte ptr [esp+1Ch+var_4], 4"
+        ],
+        [
+          "0x5064d3",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064d8",
+          "lea     edi, [esi+60h]"
+        ],
+        [
+          "0x5064db",
+          "mov     byte ptr [esp+1Ch+var_4], 5"
+        ],
+        [
+          "0x5064e0",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x5064e2",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x5064e6",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064eb",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x5064ee",
+          "mov     byte ptr [esp+1Ch+var_4], 6"
+        ],
+        [
+          "0x5064f3",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5064f8",
+          "lea     edi, [esi+80h]"
+        ],
+        [
+          "0x5064fe",
+          "mov     byte ptr [esp+1Ch+var_4], 7"
+        ],
+        [
+          "0x506503",
+          "mov     ecx, edi"
+        ],
+        [
+          "0x506505",
+          "mov     [esp+1Ch+var_10], edi"
+        ],
+        [
+          "0x506509",
+          "call    sub_401C70"
+        ],
+        [
+          "0x50650e",
+          "lea     ecx, [edi+10h]"
+        ],
+        [
+          "0x506511",
+          "mov     byte ptr [esp+1Ch+var_4], 8"
+        ],
+        [
+          "0x506516",
+          "call    sub_401C70"
+        ],
+        [
+          "0x50651b",
+          "mov     ecx, [esp+1Ch+var_C]"
+        ],
+        [
+          "0x50651f",
+          "mov     eax, esi"
+        ],
+        [
+          "0x506521",
+          "pop     edi"
+        ],
+        [
+          "0x506522",
+          "pop     esi"
+        ],
+        [
+          "0x506523",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x50652a",
+          "add     esp, 14h"
+        ],
+        [
+          "0x50652d",
+          "retn"
+        ],
+        [
+          "0x54ba70",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54ba73",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54ba78",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54ba7b",
+          "add     ecx, 20h ; ' '"
+        ],
+        [
+          "0x54ba7e",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54ba83",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54ba86",
+          "add     ecx, 40h ; '@'"
+        ],
+        [
+          "0x54ba89",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54ba8e",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54ba91",
+          "add     ecx, 60h ; '`'"
+        ],
+        [
+          "0x54ba94",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54ba99",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54ba9c",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54baa1",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54baa4",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54baa9",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54baac",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bab1",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bab4",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bab9",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54babc",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bac1",
+          "mov     eax, offset stru_550B88"
+        ],
+        [
+          "0x54bac6",
+          "jmp     ___CxxFrameHandler"
+        ],
+        [
+          "0x54bad0",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54bad3",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bad8",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54badb",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54bae0",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bae3",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bae8",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54baeb",
+          "add     ecx, 20h ; ' '"
+        ],
+        [
+          "0x54baee",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54baf3",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54baf6",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bafb",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54bafe",
+          "add     ecx, 40h ; '@'"
+        ],
+        [
+          "0x54bb01",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54bb06",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb09",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb0e",
+          "mov     ecx, [ebp-14h]"
+        ],
+        [
+          "0x54bb11",
+          "add     ecx, 60h ; '`'"
+        ],
+        [
+          "0x54bb14",
+          "jmp     sub_506530"
+        ],
+        [
+          "0x54bb19",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb1c",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb21",
+          "mov     eax, offset stru_550BF0"
+        ],
+        [
+          "0x54bb26",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ]
+    }
+  ],
+  "query_ownership": [
+    {
+      "query": "0x477170",
+      "owner": "0x477170",
+      "inbound": [
+        [
+          "0x477160",
+          "0x477160",
+          19
+        ]
+      ]
+    },
+    {
+      "query": "0x488400",
+      "owner": "0x488400",
+      "inbound": [
+        [
+          "0x4883f0",
+          "0x4883f0",
+          17
+        ]
+      ]
+    },
+    {
+      "query": "0x488420",
+      "owner": "0x488420",
+      "inbound": [
+        [
+          "0x488410",
+          "0x4883f0",
+          1
+        ]
+      ]
+    },
+    {
+      "query": "0x499900",
+      "owner": "0x499900",
+      "inbound": [
+        [
+          "0x4998f0",
+          "0x4998f0",
+          17
+        ]
+      ]
+    },
+    {
+      "query": "0x499920",
+      "owner": "0x499920",
+      "inbound": [
+        [
+          "0x499910",
+          "0x4998f0",
+          1
+        ]
+      ]
+    },
+    {
+      "query": "0x4cd250",
+      "owner": "0x4cd250",
+      "inbound": [
+        [
+          "0x4cd240",
+          "0x4cd240",
+          17
+        ]
+      ]
+    },
+    {
+      "query": "0x4cd260",
+      "owner": "0x4cd250",
+      "inbound": [
+        [
+          "0x4cd245",
+          "0x4cd240",
+          19
+        ]
+      ]
+    },
+    {
+      "query": "0x506350",
+      "owner": "0x506350",
+      "inbound": [
+        [
+          "0x506340",
+          "0x506340",
+          17
+        ]
+      ]
+    },
+    {
+      "query": "0x506360",
+      "owner": "0x506350",
+      "inbound": [
+        [
+          "0x506345",
+          "0x506340",
+          19
+        ]
+      ]
+    }
+  ],
+  "original_unique_instruction_count": 300,
+  "supplemental_registration": [
+    {
+      "parent": "0x4CD240",
+      "owner": "0x4CD250",
+      "start": "0x4CD260",
+      "end_exclusive": "0x4CD26C",
+      "asm": [
+        [
+          "0x4cd260",
+          "push    offset loc_4CD270; void (__cdecl *)()"
+        ],
+        [
+          "0x4cd265",
+          "call    _atexit"
+        ],
+        [
+          "0x4cd26a",
+          "pop     ecx"
+        ],
+        [
+          "0x4cd26b",
+          "retn"
+        ]
+      ]
+    },
+    {
+      "parent": "0x506340",
+      "owner": "0x506350",
+      "start": "0x506360",
+      "end_exclusive": "0x50636C",
+      "asm": [
+        [
+          "0x506360",
+          "push    offset loc_506370; void (__cdecl *)()"
+        ],
+        [
+          "0x506365",
+          "call    _atexit"
+        ],
+        [
+          "0x50636a",
+          "pop     ecx"
+        ],
+        [
+          "0x50636b",
+          "retn"
+        ]
+      ]
+    }
+  ],
+  "native_bindings": [
+    {
+      "entry": "0x477160",
+      "id": "F:00077160",
+      "slot": "0x553098",
+      "init": "InitializeLegacyNumberSpacing_477160",
+      "ctor": "InitializeNumberSpacing_477170",
+      "ctorEntry": "0x477170",
+      "dtr": null,
+      "dtrEntry": null,
+      "source": "src/ui/WindowRuntime.cpp",
+      "header": "include/cg/ui/WindowRuntime.hpp",
+      "moduleType": "WindowNumberSpacingStaticInitializer",
+      "moduleNamespace": "cg::ui",
+      "forwarder": null
+    },
+    {
+      "entry": "0x4883F0",
+      "id": "F:000883F0",
+      "slot": "0x55309C",
+      "init": "InitializeLegacyFirstItemSelector_4883F0",
+      "ctor": "ConstructLegacyFirstItemSelector_488400",
+      "ctorEntry": "0x488400",
+      "dtr": "ReleaseLegacyFirstItemSelectorAtExit_488420",
+      "dtrEntry": "0x488420",
+      "source": "src/ui/WindowRuntime.cpp",
+      "header": "include/cg/ui/WindowRuntime.hpp",
+      "moduleType": "ItemSelectorsStaticInitializer",
+      "moduleNamespace": "cg::ui",
+      "forwarder": "InitializeItemSelectors"
+    },
+    {
+      "entry": "0x4998F0",
+      "id": "F:000998F0",
+      "slot": "0x5530A0",
+      "init": "InitializeLegacySecondItemSelector_4998F0",
+      "ctor": "ConstructLegacySecondItemSelector_499900",
+      "ctorEntry": "0x499900",
+      "dtr": "ReleaseLegacySecondItemSelectorAtExit_499920",
+      "dtrEntry": "0x499920",
+      "source": "src/ui/WindowRuntime.cpp",
+      "header": "include/cg/ui/WindowRuntime.hpp",
+      "moduleType": "ItemSelectorsStaticInitializer",
+      "moduleNamespace": "cg::ui",
+      "forwarder": "InitializeItemSelectors"
+    },
+    {
+      "entry": "0x4CD240",
+      "id": "F:000CD240",
+      "slot": "0x5530A4",
+      "init": "InitializeLegacyStallBrowsePetValues_4CD240",
+      "ctor": "ConstructStallBrowsePetValues",
+      "ctorEntry": "0x4CD250",
+      "dtr": "DestroyStallBrowsePetValues",
+      "dtrEntry": "0x4CD270",
+      "source": "src/ui/WindowRuntime.cpp",
+      "header": "include/cg/ui/WindowRuntime.hpp",
+      "moduleType": "StallBrowsePetsStaticInitializer",
+      "moduleNamespace": "cg::ui",
+      "forwarder": null
+    },
+    {
+      "entry": "0x506340",
+      "id": "F:00106340",
+      "slot": "0x5530F8",
+      "init": "InitializeLegacyMouseRuntime_506340",
+      "ctor": "ConstructLegacyMouseRuntime_506350",
+      "ctorEntry": "0x506350",
+      "dtr": "ReleaseLegacyMouseRuntimeAtExit_506370",
+      "dtrEntry": "0x506370",
+      "source": "src/platform/LegacyMouse.cpp",
+      "header": "include/cg/platform/LegacyMouse.hpp",
+      "moduleType": "LegacyMouseStaticInitializer",
+      "moduleNamespace": "cg::platform",
+      "forwarder": null
+    }
+  ],
+  "native_lifecycle_contract": {
+    "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+    "module_source": "src/platform/LegacyMouse.cpp",
+    "module_types": [
+      "WindowNumberSpacingStaticInitializer",
+      "ItemSelectorsStaticInitializer",
+      "StallBrowsePetsStaticInitializer",
+      "LegacyMouseStaticInitializer"
+    ],
+    "init_provider_count": 5,
+    "host_immediate_registration_count": 4,
+    "direct_module_init_count": 3,
+    "indirect_module_init_count": 2,
+    "canonical_forwarder": "InitializeItemSelectors",
+    "automatic_destructor_adapters_removed": 2,
+    "selector_exit_fixed_owner": true,
+    "selector_exit_rereads_mutable_preview_slot": false,
+    "selector_original_fixed_owner_addresses": [
+      "0xCF3B10",
+      "0xD2F338"
+    ],
+    "original_preview_embedded_offset": "0x78",
+    "number_spacing_has_exit_registration": false,
+    "owner_data_unchanged": true,
+    "value_rng_algorithms_unchanged": true,
+    "array_and_member_algorithms_unchanged": true,
+    "init_original_instruction_count": 17,
+    "supplemental_registration_instruction_count": 8,
+    "supplemental_registration_owners": [
+      "0x4CD250",
+      "0x506350"
+    ],
+    "member_eh_and_array_seh_closed": false,
+    "full_cpp_table_defined": false,
+    "whole_application_order_closed": false,
+    "must_remove_module_calls_on_whole_application_order_migration": true,
+    "runtime_verified": false,
+    "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+  }
+}

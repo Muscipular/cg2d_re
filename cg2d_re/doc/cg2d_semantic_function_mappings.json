@@ -449,9 +449,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
+      "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
       "array_lifetime_consumer_call_connections": [
         {
           "parent_entry": "0x4CD250",
@@ -522,7 +524,46 @@
           "argument_role": "destructor",
           "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
-      ]
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x4CD2D0",
@@ -894,9 +935,11 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "由InitializeItemSelectors在CF3B10构造后独立登记的回调调用既有十槽逆序析构；不free或清UI选择，不与D2F338合并登记。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
       "instruction_count": 75,
       "function_chunks": [
         {
@@ -935,7 +978,46 @@
           "native_preview_index": 0,
           "relationship": "原固定this前缀尾入同一十槽析构/EH体；native沿同一固定预览复用已有源码，原共享体73条不重复实现/重核；非伪数值call，EH/SDK实际运行门禁保持"
         }
-      ]
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x5219C0",
@@ -5833,7 +5915,7 @@
     {
       "original_entry": "0x477160",
       "inventory_id": "F:00077160",
-      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
       "original_role": "数字间距CRT尾跳入口",
       "sources": [
         {
@@ -5841,7 +5923,7 @@
           "symbols": [
             "WindowNumberSpacingStaticInitializer"
           ],
-          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
+          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -5854,7 +5936,7 @@
           "symbols": [
             "InitializeLegacyNumberSpacing_477160"
           ],
-          "relationship": "新增原单尾跳入口，显式调用已过477170，不造登记/析构或固定返回"
+          "relationship": "具名数字步进入口仅转同一叶，无新登记/析构"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
@@ -5867,9 +5949,11 @@
       "evidence_documents": [
         "doc/ui_windows/shared_runtime.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
+      "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。",
       "instruction_count": 1,
       "function_chunks": [
         {
@@ -5877,7 +5961,7 @@
           "end_exclusive": "0x477165"
         }
       ],
-      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
       "scene_crypt_crt_call_connections": [
         {
           "parent_entry": "0x477160",
@@ -5889,7 +5973,54 @@
           "transfer": "jmp",
           "relationship": "原单jmp目标源码复用；不新加登记、固定返回或析构"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x477165",
+      "inbound_evidence": [
+        {
+          "address": "0x553098",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x401C10",
@@ -7474,7 +7605,7 @@
     {
       "original_entry": "0x506340",
       "inventory_id": "F:00106340",
-      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
+      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
       "original_role": "鼠标CRT启动入口",
       "sources": [
         {
@@ -7482,14 +7613,14 @@
           "symbols": [
             "LegacyMouseStaticInitializer"
           ],
-          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "InitializeLegacyMouseRuntime_506340"
           ],
-          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/platform/LegacyMouse.hpp",
@@ -7503,17 +7634,19 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "原5530F8先调506350，再尾跳506360登记506370退出；现有同一静态对象承接正常构造后登记及逆序析构。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。",
       "instruction_count": 2,
       "function_chunks": [
         {
           "start": "0x506340",
-          "end_exclusive": "0x50634A"
+          "end_exclusive": "0x50634a"
         }
       ],
-      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
       "runtime_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x506340",
@@ -7530,14 +7663,17 @@
           "parent_entry": "0x506340",
           "call_site": "0x506365",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyMouse.cpp",
           "symbol": "InitializeLegacyMouseRuntime_506340",
           "transfer": "call",
           "arguments": "ReleaseLegacyMouseRuntimeAtExit_506370 整体无参callback",
           "original_instruction_owner": "0x506350",
           "original_registration_block": "0x506360",
-          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+          "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
       "runtime_state_crt_callback_references": [
@@ -7549,7 +7685,7 @@
           "source": "src/platform/LegacyMouse.cpp",
           "symbol": "InitializeLegacyMouseRuntime_506340",
           "original_instruction_owner": "0x506350",
-          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+          "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
         }
       ],
       "runtime_state_crt_supplemental_registration_blocks": [
@@ -7593,7 +7729,54 @@
           ],
           "relationship": "入口自身两条，尾入构造函数所属四条登记块，不扩大root function_chunks或新计原身份"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x50634a",
+      "inbound_evidence": [
+        {
+          "address": "0x5530f8",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x506350",
@@ -7621,9 +7804,11 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "元数据含506360/370/380/460及54BA70/54BAD0异常块；正常构造+00..+90每10H一次，退出反序。异常展开不能由正常逆序循环自动认定已接线。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
       "instruction_count": 162,
       "function_chunks": [
         {
@@ -7667,7 +7852,46 @@
           "original_this_address": "0xD68CF8",
           "relationship": "同一合并函数内构造/退出固定this前缀单列，normal动作源码沿已证十值/六值；原FS/EH与故障不因普通循环认定等价，不增callback原身份"
         }
-      ]
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x506530",
@@ -8303,7 +8527,7 @@
     {
       "original_entry": "0x4883F0",
       "inventory_id": "F:000883F0",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
       "original_role": "首个物品选择器CRT及独立退出登记",
       "sources": [
         {
@@ -8311,21 +8535,21 @@
           "symbols": [
             "InitializeItemSelectors"
           ],
-          "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          "relationship": "选择器公开void包装仅按原两项序转调真实Init，取消重复构造和退出时可改preview槽lambda"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "ItemSelectorsStaticInitializer"
           ],
-          "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "InitializeLegacyFirstItemSelector_4883F0"
           ],
-          "relationship": "原构造/真实53B406登记及完整S32返回"
+          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
@@ -8338,21 +8562,23 @@
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "原55309C调用488400构造CF3B10后在488410登记488420；InitializeItemSelectors先完成第一对象构造、立即登记，忽略登记失败后继续第二项。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "原55309C调用488400构造CF3B10后在488410登记488420；InitializeItemSelectors先完成第一对象构造、立即登记，忽略登记失败后继续第二项。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。",
       "instruction_count": 6,
       "function_chunks": [
         {
-          "start": "0x4883F0",
-          "end_exclusive": "0x4883FA"
+          "start": "0x4883f0",
+          "end_exclusive": "0x4883fa"
         },
         {
           "start": "0x488410",
-          "end_exclusive": "0x48841C"
+          "end_exclusive": "0x48841c"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
       "item_selector_crt_internal_call_connections": [
         {
           "parent_entry": "0x4883F0",
@@ -8369,12 +8595,15 @@
           "parent_entry": "0x4883F0",
           "call_site": "0x488415",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
           "transfer": "call",
           "arguments": "ReleaseLegacyFirstItemSelectorAtExit_488420 整体无参callback",
-          "relationship": "原本项构造后独立登记，完整S32/失败不补回滚或析构"
+          "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
       "item_selector_crt_callback_references": [
@@ -8385,9 +8614,56 @@
           "callback_symbol": "ReleaseLegacyFirstItemSelectorAtExit_488420",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyFirstItemSelector_4883F0",
-          "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
+          "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x4883fa",
+      "inbound_evidence": [
+        {
+          "address": "0x55309c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x488400",
@@ -8477,7 +8753,7 @@
     {
       "original_entry": "0x4998F0",
       "inventory_id": "F:000998F0",
-      "status": "两选择器CRT六入口前缀及真实登记/共享源码接线已实现；十成员EH/整表/宿主迁移与运行未闭",
+      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
       "original_role": "第二物品选择器CRT及独立退出登记",
       "sources": [
         {
@@ -8485,21 +8761,21 @@
           "symbols": [
             "InitializeItemSelectors"
           ],
-          "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          "relationship": "选择器公开void包装仅按原两项序转调真实Init，取消重复构造和退出时可改preview槽lambda"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "ItemSelectorsStaticInitializer"
           ],
-          "relationship": "；旧宿主/共享职责关联保留，新增入口直接提供者另列"
+          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "InitializeLegacySecondItemSelector_4998F0"
           ],
-          "relationship": "原构造/真实53B406登记及完整S32返回"
+          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
@@ -8512,21 +8788,23 @@
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "原5530A0调用499900构造D2F338后在499910登记499920；InitializeItemSelectors在第一项登记后构造第二项并独立登记，明确忽略返回，不补重试。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "原5530A0调用499900构造D2F338后在499910登记499920；InitializeItemSelectors在第一项登记后构造第二项并独立登记，明确忽略返回，不补重试。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。",
       "instruction_count": 6,
       "function_chunks": [
         {
-          "start": "0x4998F0",
-          "end_exclusive": "0x4998FA"
+          "start": "0x4998f0",
+          "end_exclusive": "0x4998fa"
         },
         {
           "start": "0x499910",
-          "end_exclusive": "0x49991C"
+          "end_exclusive": "0x49991c"
         }
       ],
-      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过",
+      "verification_level": "；本轮六函数新20条/6call尾调/2callback/2共享引用/固定内嵌地址边界新增静态，既有构析算法不重核，非EH或运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
       "item_selector_crt_internal_call_connections": [
         {
           "parent_entry": "0x4998F0",
@@ -8543,12 +8821,15 @@
           "parent_entry": "0x4998F0",
           "call_site": "0x499915",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
           "transfer": "call",
           "arguments": "ReleaseLegacySecondItemSelectorAtExit_499920 整体无参callback",
-          "relationship": "原本项构造后独立登记，完整S32/失败不补回滚或析构"
+          "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
       "item_selector_crt_callback_references": [
@@ -8559,9 +8840,56 @@
           "callback_symbol": "ReleaseLegacySecondItemSelectorAtExit_499920",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacySecondItemSelector_4998F0",
-          "relationship": "原每选择器整体无参退出地址；十成员共享逆序体源码沿既有实现"
+          "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x4998fa",
+      "inbound_evidence": [
+        {
+          "address": "0x5530a0",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x499900",
@@ -8686,9 +9014,11 @@
       "evidence_documents": [
         "doc/ui_windows/shared_items.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。",
+      "boundary": "原设置ECX=D2F338后尾跳488430公共析构；第二项退出回调使用同源preview调用DestroyWindowSelectorPreview，只按十槽逆序析构，不释放静态对象或清选择。；2026-10-04六独立原入口/构造和退出前缀源码落位，两个CRT项分别构造后53B406登记整体无参callback/完整S32；构造只绑定已有CF3B10/D2F338内嵌+78静态预览（索引0/1）再4C61B0真实this返回，退出从固定静态地址复用488430对应十槽共享源码，不改为读取可变preview槽。新原前缀/登记20条，488420含73条既有共享/EH体，六函数原计93条，共享体不重新实现或记新原身份；无新对象/RNG、once、预清/保护、回滚或额外析构。旧宿主适配和共享算法保持，整Cpp90仍extern/未启用；十成员EH/SDK、实际生命周期迁移及完整启动退出运行未闭。；本组实际活动路径已统一到具名Init/即时宿主登记；选择器固定退出目标不从可改preview槽重取。原正常成员/数组源码及原合并归属保持，原完整EH/SEH、跨模块/快速退出与SDK运行仍待，聚合指令存在不代验收。",
       "instruction_count": 2,
       "function_chunks": [
         {
@@ -8723,7 +9053,46 @@
           "native_preview_index": 1,
           "relationship": "原固定this前缀尾入同一十槽析构/EH体；native沿同一固定预览复用已有源码，原共享体73条不重复实现/重核；非伪数值call，EH/SDK实际运行门禁保持"
         }
-      ]
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
+      }
     },
     {
       "original_entry": "0x534980",
@@ -13384,9 +13753,9 @@
     {
       "original_entry": "0x4CD240",
       "inventory_id": "F:000CD240",
-      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组UI/输入具名Init与唯一模块活动路径已接；固定选择器退出恢复，完整EH/SEH/应用序与运行未闭",
       "original_role": "浏览宠物CRT包装",
-      "original_end_exclusive": "0x4CD24A",
+      "original_end_exclusive": "0x4cd24a",
       "instruction_count": 2,
       "sources": [
         {
@@ -13394,7 +13763,7 @@
           "symbols": [
             "StallBrowsePetsStaticInitializer"
           ],
-          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
+          "relationship": "当前唯一模块位置转调具名Init/规范包装；浏览/鼠标无并行自动析构，数字仅原叶动作；全表接通须同小步移除此调用"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -13408,7 +13777,7 @@
           "symbols": [
             "InitializeLegacyStallBrowsePetValues_4CD240"
           ],
-          "relationship": "新增原显式构造/退出登记入口、完整S32传出，沿已有本体/对象"
+          "relationship": "本项构造→即时std::atexit原固定退出/真实宿主S32，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/ui/WindowRuntime.hpp",
@@ -13421,16 +13790,18 @@
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
-      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
+      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：四具名Init即时宿主登记原固定退出，数字步进仅具名尾调；选择器规范包装转调两Init，退出固定借两个原内嵌owner，不再重读可改preview槽。浏览/鼠标两模块自动析构取消，类型/位置和原构析/值/RNG/数组/成员源码保持；无新owner/补值/保护/回滚/once。原17根+8所属登记指令不拆合并F身份，完整成员EH/数组SEH/全应用序/快速退出/SDK与运行未闭。",
       "function_chunks": [
         {
-          "start": "0x4CD240",
-          "end_exclusive": "0x4CD24A"
+          "start": "0x4cd240",
+          "end_exclusive": "0x4cd24a"
         }
       ],
-      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过；2026-10-04本组五槽/17根与八所属登记指令、选择器固定this/+78和新增活动路径静态；原成员/数组/值RNG算法不改，未构建/运行",
       "scene_crypt_crt_call_connections": [
         {
           "parent_entry": "0x4CD240",
@@ -13446,14 +13817,17 @@
           "parent_entry": "0x4CD240",
           "call_site": "0x4CD265",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
           "transfer": "call",
           "arguments": "DestroyStallBrowsePetValues 无参callback",
           "original_instruction_owner": "0x4CD250",
           "execution_context": "本入口jmp4CD260后执行既有4CD250登记块，不扩大入口原function_chunks",
-          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+          "relationship": "原数值目标/所属块仍是基线，实际宿主即时登记同一固定退出并透传宿主S32；无回滚/补析构，不计原体新调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
         }
       ],
       "scene_crypt_crt_callback_references": [
@@ -13465,7 +13839,7 @@
           "source": "src/ui/WindowRuntime.cpp",
           "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
           "original_instruction_owner": "0x4CD250",
-          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
+          "relationship": "本项构造完成后实际宿主即时登记原固定退出；两选择器固定内嵌owner不重读可改preview，浏览/鼠标取消自动适配析构"
         }
       ],
       "scene_crypt_crt_shared_block_references": [
@@ -13514,6 +13888,52 @@
             "-0x1"
           ]
         ]
+      },
+      "inbound_evidence": [
+        {
+          "address": "0x5530a4",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
       }
     },
     {
@@ -23301,7 +23721,9 @@
         "doc/cg2d_startup_protection_lifecycle_spec.md",
         "doc/cg2d_startup_protection_lifecycle_evidence.json",
         "doc/cg2d_world_state_lifecycle_spec.md",
-        "doc/cg2d_world_state_lifecycle_evidence.json"
+        "doc/cg2d_world_state_lifecycle_evidence.json",
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_evidence.json"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -23890,7 +24312,11 @@
           "source": "src/ui/WindowRuntime.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
+          "relationship": "本组五项模块实际转调同一provider，固定退出/四即时宿主登记；数字无新增退出；整Cpp90/全应用序仍待，接全表须移除四模块调用",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "StallBrowsePetsStaticInitializer",
+          "canonical_forwarder": null,
+          "host_exit_registration": "std::atexit"
         },
         {
           "reference_site": "0x553098",
@@ -23899,7 +24325,11 @@
           "source": "src/ui/WindowRuntime.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
+          "relationship": "本组五项模块实际转调同一provider，固定退出/四即时宿主登记；数字无新增退出；整Cpp90/全应用序仍待，接全表须移除四模块调用",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WindowNumberSpacingStaticInitializer",
+          "canonical_forwarder": null,
+          "host_exit_registration": "无原退出登记"
         }
       ],
       "world_state_cpp_initialization_bindings": [
@@ -24081,7 +24511,11 @@
           "source": "src/ui/WindowRuntime.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮两真实provider/固定内嵌对象接线，整90表仍extern不启用"
+          "relationship": "本组五项模块实际转调同一provider，固定退出/四即时宿主登记；数字无新增退出；整Cpp90/全应用序仍待，接全表须移除四模块调用",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "ItemSelectorsStaticInitializer",
+          "canonical_forwarder": "InitializeItemSelectors",
+          "host_exit_registration": "std::atexit"
         },
         {
           "reference_site": "0x5530A0",
@@ -24090,7 +24524,11 @@
           "source": "src/ui/WindowRuntime.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮两真实provider/固定内嵌对象接线，整90表仍extern不启用"
+          "relationship": "本组五项模块实际转调同一provider，固定退出/四即时宿主登记；数字无新增退出；整Cpp90/全应用序仍待，接全表须移除四模块调用",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "ItemSelectorsStaticInitializer",
+          "canonical_forwarder": "InitializeItemSelectors",
+          "host_exit_registration": "std::atexit"
         }
       ],
       "runtime_state_cpp_initialization_bindings": [
@@ -24101,7 +24539,11 @@
           "source": "src/platform/LegacyMouse.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+          "relationship": "本组五项模块实际转调同一provider，固定退出/四即时宿主登记；数字无新增退出；整Cpp90/全应用序仍待，接全表须移除四模块调用",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "LegacyMouseStaticInitializer",
+          "canonical_forwarder": null,
+          "host_exit_registration": "std::atexit"
         },
         {
           "reference_site": "0x5530FC",
@@ -24364,6 +24806,45 @@
         "must_remove_module_adapters_when_whole_application_order_wired": true,
         "runtime_verified": false,
         "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      },
+      "ui_input_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WindowNumberSpacingStaticInitializer",
+          "ItemSelectorsStaticInitializer",
+          "StallBrowsePetsStaticInitializer",
+          "LegacyMouseStaticInitializer"
+        ],
+        "init_provider_count": 5,
+        "host_immediate_registration_count": 4,
+        "direct_module_init_count": 3,
+        "indirect_module_init_count": 2,
+        "canonical_forwarder": "InitializeItemSelectors",
+        "automatic_destructor_adapters_removed": 2,
+        "selector_exit_fixed_owner": true,
+        "selector_exit_rereads_mutable_preview_slot": false,
+        "selector_original_fixed_owner_addresses": [
+          "0xCF3B10",
+          "0xD2F338"
+        ],
+        "original_preview_embedded_offset": "0x78",
+        "number_spacing_has_exit_registration": false,
+        "owner_data_unchanged": true,
+        "value_rng_algorithms_unchanged": true,
+        "array_and_member_algorithms_unchanged": true,
+        "init_original_instruction_count": 17,
+        "supplemental_registration_instruction_count": 8,
+        "supplemental_registration_owners": [
+          "0x4CD250",
+          "0x506350"
+        ],
+        "member_eh_and_array_seh_closed": false,
+        "full_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_calls_on_whole_application_order_migration": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03实际宿主承接四项私有退出登记；数字步进只有原尾调，不新增退出。固定选择器退出不重读可改preview槽，其他原owner/字段/值/RNG/数组/成员源码保持；全应用原序/快速退出、完整成员EH/数组SEH/SDK和运行未闭。"
       }
     },
     {

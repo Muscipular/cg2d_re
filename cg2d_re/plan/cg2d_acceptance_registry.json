@@ -78,7 +78,8 @@
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_world_state_lifecycle_spec.md"
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -134,7 +135,12 @@
         "F:00067EB0",
         "F:00067EF0",
         "F:001183D0",
-        "F:00118520"
+        "F:00118520",
+        "F:00077160",
+        "F:000883F0",
+        "F:000998F0",
+        "F:000CD240",
+        "F:00106340"
       ],
       "closure_task_ids": [
         "C02",
@@ -157,7 +163,8 @@
         "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
         "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
-        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -167,7 +174,8 @@
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
       ]
     },
     {
@@ -185,7 +193,8 @@
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_world_state_lifecycle_spec.md"
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -222,7 +231,12 @@
         "F:00067EB0",
         "F:00067EF0",
         "F:001183D0",
-        "F:00118520"
+        "F:00118520",
+        "F:00077160",
+        "F:000883F0",
+        "F:000998F0",
+        "F:000CD240",
+        "F:00106340"
       ],
       "closure_task_ids": [
         "C01",
@@ -243,7 +257,8 @@
         "基线成员及门禁证据尚待逐项归档",
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
         "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
-        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -251,7 +266,8 @@
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
       ]
     },
     {
@@ -436,9 +452,12 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_input_context.md",
         "doc/cg2d_ime_composition.md",
-        "doc/cg2d_ime_lifecycle.md"
+        "doc/cg2d_ime_lifecycle.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00106340"
+      ],
       "closure_task_ids": [
         "T01",
         "T02",
@@ -450,11 +469,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+      ]
     },
     {
       "id": "FUNC-TEXT",
@@ -708,9 +730,15 @@
       "scope": "included",
       "baseline_documents": [
         "doc/ui_windows/shared_runtime.md",
-        "doc/ui_windows/shared_legacy_panels.md"
+        "doc/ui_windows/shared_legacy_panels.md",
+        "doc/cg2d_ui_input_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00077160",
+        "F:000883F0",
+        "F:000998F0",
+        "F:000CD240"
+      ],
       "closure_task_ids": [
         "U04",
         "U10",
@@ -726,11 +754,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+      ]
     },
     {
       "id": "FUNC-YOBI",
@@ -6192,6 +6223,117 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-UI-INPUT-LIFECYCLE-I-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：5Init全部17条/5槽、4CD260/506360八条所属登记及原固定选择器this+78；doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-input-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-acceptance",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "src/ui/WindowRuntime.cpp#InitializeItemSelectors",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacyFirstItemSelectorAtExit_488420",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacySecondItemSelectorAtExit_499920",
+        "src/platform/LegacyMouse.cpp#WindowNumberSpacingStaticInitializer",
+        "src/platform/LegacyMouse.cpp#StallBrowsePetsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacyMouseStaticInitializer"
+      ],
+      "observation": "仅五UI/输入具名provider、四实际宿主登记及固定退出",
+      "expected": "四项构造后即时登记同一固定退出；数字只有同一叶，不新增退出；原存储/成员/值RNG不改",
+      "actual": "两选择器/浏览宠物/鼠标已接真实std::atexit，数字模块接具名477160，两个自动析构取消",
+      "differences": [
+        {
+          "description": "D02/D03宿主std::atexit承接四项私有退出登记，构造后即时登记原固定回调/真实宿主S32保留；不记53B406原体等价/新源码调用，数字无新退出",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        },
+        {
+          "description": "本组只维持四模块当前位置，整表接通必须同小步移除调用；完整成员EH/数组SEH、跨模块/快速退出和SDK运行未闭，固定选择器目标修复为原合同而非获准行为差异",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-UI-INPUT-LIFECYCLE-W-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：5Init全部17条/5槽、4CD260/506360八条所属登记及原固定选择器this+78；doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-input-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-acceptance",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "src/ui/WindowRuntime.cpp#InitializeItemSelectors",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacyFirstItemSelectorAtExit_488420",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacySecondItemSelectorAtExit_499920",
+        "src/platform/LegacyMouse.cpp#WindowNumberSpacingStaticInitializer",
+        "src/platform/LegacyMouse.cpp#StallBrowsePetsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacyMouseStaticInitializer"
+      ],
+      "observation": "仅四模块位置到五provider及两选择器固定owner",
+      "expected": "选择器公开包装依原两项序转调不短路，退出固定this+78对应owner，不重读可改preview；浏览/鼠标单一退出",
+      "actual": "重复选择器构造/lambda主体取消，真实固定退出提供者进入活动路径，四当前模块调用保持位置，整表接入须同小步移除",
+      "differences": [
+        {
+          "description": "D02/D03宿主std::atexit承接四项私有退出登记，构造后即时登记原固定回调/真实宿主S32保留；不记53B406原体等价/新源码调用，数字无新退出",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        },
+        {
+          "description": "本组只维持四模块当前位置，整表接通必须同小步移除调用；完整成员EH/数组SEH、跨模块/快速退出和SDK运行未闭，固定选择器目标修复为原合同而非获准行为差异",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-UI-INPUT-LIFECYCLE-S-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：5Init全部17条/5槽、4CD260/506360八条所属登记及原固定选择器this+78；doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-input-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-acceptance",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_evidence.json",
+        "src/ui/WindowRuntime.cpp#InitializeItemSelectors",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacyFirstItemSelectorAtExit_488420",
+        "src/ui/WindowRuntime.cpp#ReleaseLegacySecondItemSelectorAtExit_499920",
+        "src/platform/LegacyMouse.cpp#WindowNumberSpacingStaticInitializer",
+        "src/platform/LegacyMouse.cpp#StallBrowsePetsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#LegacyMouseStaticInitializer"
+      ],
+      "observation": "仅五槽/17根+8所属登记指令、固定目标和本组源码差异",
+      "expected": "原合并归属不拆分；数字无额外登记，固定选择器退出符合原this+78，构析/数组/成员源码保持；EH/SEH未闭明确",
+      "actual": "七聚合原身份283条作归属/固定owner证据，300唯一指令归档；限定改动外源码全文保持，不据聚合指令宣完整EH/SDK通过",
+      "differences": [
+        {
+          "description": "D02/D03宿主std::atexit承接四项私有退出登记，构造后即时登记原固定回调/真实宿主S32保留；不记53B406原体等价/新源码调用，数字无新退出",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        },
+        {
+          "description": "本组只维持四模块当前位置，整表接通必须同小步移除调用；完整成员EH/数组SEH、跨模块/快速退出和SDK运行未闭，固定选择器目标修复为原合同而非获准行为差异",
+          "decision_ref": "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -6290,7 +6432,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     },
     {
@@ -6300,7 +6443,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     },
     {
@@ -6898,6 +7042,46 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00077160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000883F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000998F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000CD240",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00106340",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
       ]
     }
   ],

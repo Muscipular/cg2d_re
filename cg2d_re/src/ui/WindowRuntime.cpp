@@ -44504,34 +44504,26 @@ void ReleaseLegacySecondItemSelectorAtExit_499920()
 std::int32_t InitializeLegacyFirstItemSelector_4883F0()
 {
     ConstructLegacyFirstItemSelector_488400();
-    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacyFirstItemSelectorAtExit_488420);
+    return std::atexit(ReleaseLegacyFirstItemSelectorAtExit_488420);
 }
 
 // 原CRT 5530A0：先本项构造，再真实登记整体无参退出，完整S32透传。
 std::int32_t InitializeLegacySecondItemSelector_4998F0()
 {
     ConstructLegacySecondItemSelector_499900();
-    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacySecondItemSelectorAtExit_499920);
+    return std::atexit(ReleaseLegacySecondItemSelectorAtExit_499920);
 }
 
 void InitializeItemSelectors()
 {
-    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);
-    static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorCF3B10));
-    static_cast<void>(std::atexit([] { // 原488410登记488420。
-        login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorCF3B10.preview);
-    }));
-    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);
-    static_cast<void>(detail::Sub_4C61B0(&detail::gItemSelectorD2F338));
-    static_cast<void>(std::atexit([] { // 原499910登记499920。
-        login::detail::DestroyWindowSelectorPreview(detail::gItemSelectorD2F338.preview);
-    }));
+    static_cast<void>(InitializeLegacyFirstItemSelector_4883F0());
+    static_cast<void>(InitializeLegacySecondItemSelector_4998F0());
 }
 
 std::int32_t InitializeLegacyStallBrowsePetValues_4CD240()
 {
     ConstructStallBrowsePetValues();
-    return platform::RegisterLegacyAtExit_53B406(DestroyStallBrowsePetValues);
+    return std::atexit(DestroyStallBrowsePetValues);
 }
 
 void ConstructStallBrowsePetValues()

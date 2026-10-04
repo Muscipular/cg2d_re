@@ -562,13 +562,21 @@
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md",
         "doc/cg2d_input_caret_alignment_spec.md",
-        "doc/cg2d_input_render_alignment_spec.md"
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00106340",
         "F:00059580",
         "F:0004A410",
-        "F:000590E0"
+        "F:000590E0",
+        "F:0004A5D0",
+        "F:0004A7D0",
+        "F:0004A540",
+        "F:0004A580",
+        "F:0004A990",
+        "F:0004AA90",
+        "F:0004B1D0"
       ],
       "closure_task_ids": [
         "T01",
@@ -581,14 +589,16 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-decision"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明",
         "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
-        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -596,7 +606,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline"
       ]
     },
     {
@@ -612,12 +623,20 @@
         "doc/cg2d_text_pending_queue.md",
         "doc/cg2d_ime_composition_alignment_spec.md",
         "doc/cg2d_input_caret_alignment_spec.md",
-        "doc/cg2d_input_render_alignment_spec.md"
+        "doc/cg2d_input_render_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
         "F:0004A410",
-        "F:000590E0"
+        "F:000590E0",
+        "F:0004A5D0",
+        "F:0004A7D0",
+        "F:0004A540",
+        "F:0004A580",
+        "F:0004A990",
+        "F:0004AA90",
+        "F:0004B1D0"
       ],
       "closure_task_ids": [
         "T01",
@@ -632,20 +651,23 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-decision",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-decision"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明",
         "ICA01仅44A410原入口/IME分派、两取样、原字节/相位及16直接caller局部静态；三父/其他输入绘制与完整间接边、焦点/生命周期、SDK/运行未验，RPLAN.24异常域不记安全/故障等价",
-        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-baseline",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline"
       ]
     },
     {
@@ -7300,6 +7322,99 @@
       "observation": "仅357+7原指令、坐标/字节与限定源差异",
       "expected": "源码只具名块/两个S16槽/局部预清及条件尾变更；旧台账和其他源码/全局政策保持",
       "actual": "364唯一指令与已加载字节/坐标可追踪，限定源重放及三既有依赖/新根同步；不推全功能或异常/画面通过"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整原体521条/原局部区及六分派/七边界点；doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-edit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-acceptance",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "src/Input.cpp#Sub_44A5D0",
+        "src/Input.cpp#Sub_44A7D0",
+        "src/Input.cpp#Sub_44A540",
+        "src/Input.cpp#Sub_44A580",
+        "src/Input.cpp#Sub_44A990",
+        "src/Input.cpp#Sub_44AA90",
+        "src/Input.cpp#ClassifyAnsiBoundary_44B1D0",
+        "src/InputKeyDispatch.cpp#ProcessKeyInput_4596D0",
+        "src/InputKeyDispatchDependencies.hpp"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-EDIT-I-20261005",
+      "gate": "I",
+      "observation": "仅七编辑/边界本体适用正常/原门禁与字段路径",
+      "expected": "预算原先保存/低W32、终行重新扫描、五预清撤销、退格条件重取；左右保持原字段别名",
+      "actual": "五变化体落码、两未改叶保持；原门禁/返回/复制填充、校正/相位无新增保护，异常域不记故障等价"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整原体521条/原局部区及六分派/七边界点；doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-edit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-acceptance",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "src/Input.cpp#Sub_44A5D0",
+        "src/Input.cpp#Sub_44A7D0",
+        "src/Input.cpp#Sub_44A540",
+        "src/Input.cpp#Sub_44A580",
+        "src/Input.cpp#Sub_44A990",
+        "src/Input.cpp#Sub_44AA90",
+        "src/Input.cpp#ClassifyAnsiBoundary_44B1D0",
+        "src/InputKeyDispatch.cpp#ProcessKeyInput_4596D0",
+        "src/InputKeyDispatchDependencies.hpp"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-EDIT-W-20261005",
+      "gate": "W",
+      "observation": "仅六实际分派/七边界点与共享对象取样",
+      "expected": "真实分类/复制、局部表/尾串及条件重取/保存字段别名保持；不改变owner/接口或原caller",
+      "actual": "分派/声明及现有唯一数据不改，终行/钳制内取样按原点；完整分派/AppendChar/焦点与寿命/SDK运行未验"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整原体521条/原局部区及六分派/七边界点；doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-edit-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-acceptance",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "src/Input.cpp#Sub_44A5D0",
+        "src/Input.cpp#Sub_44A7D0",
+        "src/Input.cpp#Sub_44A540",
+        "src/Input.cpp#Sub_44A580",
+        "src/Input.cpp#Sub_44A990",
+        "src/Input.cpp#Sub_44AA90",
+        "src/Input.cpp#ClassifyAnsiBoundary_44B1D0",
+        "src/InputKeyDispatch.cpp#ProcessKeyInput_4596D0",
+        "src/InputKeyDispatchDependencies.hpp"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-INPUT-EDIT-S-20261005",
+      "gate": "S",
+      "observation": "仅七完整体521条、原局部区与限定源码差异",
+      "expected": "编辑块六补丁与边界copied预清之外全文保持，六新映射/一更新及旧台账/其他源码保持",
+      "actual": "原完整指令/实际点可追踪，限定源/数据静态核对；521条不推全功能/异常安全/故障等价或运行通过"
     }
   ],
   "task_acceptance": [
@@ -7487,7 +7602,8 @@
       "evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
       ]
     },
     {
@@ -7497,7 +7613,8 @@
       "evidence_refs": [
         "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
         "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
-        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
+        "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
       ]
     }
   ],
@@ -8286,6 +8403,62 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004A5D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004A7D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004A540",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004A580",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004A990",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004AA90",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0004B1D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
       ]
     }
   ],

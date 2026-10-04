@@ -244,7 +244,7 @@ std::int32_t ClassifyAnsiBoundary_44B1D0(
     const char* source,
     const std::int32_t count)
 {
-    std::array<char, InputTextCapacity> copied {};
+    std::array<char, InputTextCapacity> copied;
     platform::StrNCpy_53BEC0(
         copied.data(),
         source,
@@ -347,7 +347,7 @@ void Sub_44A5D0()
         return;
     }
 
-    std::array<std::int32_t, InputTextCapacity> lineLengths {};
+    std::array<std::int32_t, InputTextCapacity> lineLengths;
     std::int32_t offset = 0;
     std::int32_t lineCount = 0;
     std::int32_t targetLine = 0;
@@ -376,14 +376,15 @@ void Sub_44A5D0()
         }
 
         if (!foundCarriageReturn) {
-            const std::size_t remaining = std::strlen(context->text + start);
-            if (remaining < static_cast<std::uint32_t>(
-                    context->maxCharPerLine)) {
+            const std::int32_t maxBytes = context->maxCharPerLine;
+            const std::uint32_t remaining = static_cast<std::uint32_t>(
+                std::strlen(context->text + start));
+            if (remaining < static_cast<std::uint32_t>(maxBytes)) {
                 break;
             }
 
             const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + start, context->maxCharPerLine);
+                context->text + start, maxBytes);
             context = gCurrentInputData;
             offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
             lineLengths[lineCount++] = offset - start;
@@ -484,7 +485,7 @@ void Sub_44A7D0()
         return;
     }
 
-    std::array<std::int32_t, InputTextCapacity> lineLengths {};
+    std::array<std::int32_t, InputTextCapacity> lineLengths;
     std::int32_t offset = 0;
     std::int32_t lineCount = 0;
     std::int32_t targetLine = 0;
@@ -513,20 +514,22 @@ void Sub_44A7D0()
         }
 
         if (!foundCarriageReturn) {
-            const std::size_t remaining = std::strlen(context->text + start);
-            if (remaining < static_cast<std::uint32_t>(
-                    context->maxCharPerLine)) {
+            const std::int32_t maxBytes = context->maxCharPerLine;
+            const std::uint32_t remaining = static_cast<std::uint32_t>(
+                std::strlen(context->text + start));
+            if (remaining < static_cast<std::uint32_t>(maxBytes)) {
                 if (!foundCaretLine) {
                     targetLine = lineCount;
                     column = context->caretByteOffset - offset;
                 }
-                lineLengths[lineCount] =
-                    static_cast<std::int32_t>(remaining + 1);
+                const std::uint32_t terminalLength = static_cast<std::uint32_t>(
+                    std::strlen(context->text + offset));
+                lineLengths[lineCount] = std::bit_cast<std::int32_t>(terminalLength + 1U);
                 break;
             }
 
             const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
-                context->text + start, context->maxCharPerLine);
+                context->text + start, maxBytes);
             context = gCurrentInputData;
             offset += context->maxCharPerLine - (boundary == 3 ? 1 : 0);
             lineLengths[lineCount++] = offset - start;
@@ -567,16 +570,17 @@ void Sub_44A990()
         ClassifyAnsiBoundary_44B1D0(context->text, context->caretByteOffset);
     InputContext* const copyContext = gCurrentInputData;
     const std::int32_t caret = copyContext->caretByteOffset;
-    std::array<char, InputTextCapacity> tail {};
+    std::array<char, InputTextCapacity> tail;
     std::strcpy(tail.data(), copyContext->text + caret);
     copyContext->text[caret - width] = '\0';
     std::strcat(gCurrentInputData->text, tail.data());
 
     gCurrentInputData->totalByteLength -= width;
     gCurrentInputData->caretByteOffset -= width;
-    InputContext* const result = gCurrentInputData;
+    InputContext* result = gCurrentInputData;
     if (result->caretByteOffset < 0) {
         result->caretByteOffset = 0;
+        result = gCurrentInputData;
     }
     if (result->text[0] == '\0') {
         result->totalByteLength = 0;
@@ -599,7 +603,7 @@ InputContext* Sub_44AA90()
         ? 2 : 1;
     InputContext* const copyContext = gCurrentInputData;
     const std::int32_t copyCaret = copyContext->caretByteOffset;
-    std::array<char, InputTextCapacity> tail {};
+    std::array<char, InputTextCapacity> tail;
     std::strcpy(tail.data(), copyContext->text + copyCaret + width);
     std::strcpy(copyContext->text + copyCaret, tail.data());
 

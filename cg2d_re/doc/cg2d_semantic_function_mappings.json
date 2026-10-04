@@ -30711,7 +30711,7 @@
     {
       "original_entry": "0x44B1D0",
       "inventory_id": "F:0004B1D0",
-      "status": "分类复制已接真实53BEC0；原U32计数与S32分类保持，运行未验",
+      "status": "IED01完整44条边界与七原点已静态对照；额外局部预清撤销，运行未验",
       "original_end_exclusive": "0x44B244",
       "instruction_count": 44,
       "sources": [
@@ -30727,9 +30727,11 @@
         "doc/cg2d_input_context.md",
         "doc/cg2d_input_append.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json"
       ],
-      "boundary": "原Count低W32以U32交真实StrNCpy_53BEC0，随后原S32偏移补NUL、S32扫描；高位字节与下一NUL判断给出0/1/2/3。保留既有局部预清零差异；越界/负数量不专项模拟、不添加门禁、不称故障等价。七处编辑调用保持。 本步只替换复制标识符，显式NUL/分类次序及原返回不改。",
+      "boundary": "原Count低W32以U32交真实StrNCpy_53BEC0，随后原S32偏移补NUL、S32扫描；高位字节与下一NUL判断给出0/1/2/3。IED01撤销既有局部预清，原复制填充/终止保持；越界/负数量不专项模拟、不添加门禁、不称故障等价。七处编辑调用保持。 本步只替换复制标识符，显式NUL/分类次序及原返回不改。；七编辑/边界本组521条只局部适用路径，完整输入/别名/SDK与运行未验。",
       "copy_call_connections": [
         {
           "parent_entry": "0x44B1D0",
@@ -30741,7 +30743,17 @@
           "count_kind": "原Count低W32作为U32",
           "relationship": "复制后仍按原S32位置写NUL并分类，返回弃用；局部预清零差异保持"
         }
-      ]
+      ],
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "source": "src/Input.cpp",
+        "symbol": "ClassifyAnsiBoundary_44B1D0",
+        "source_changed": true,
+        "copied_precleared": false,
+        "native_strncpy_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x44B190",
@@ -136120,6 +136132,414 @@
           "address": "0x459551",
           "text": "call    Renderer__DrawGraphic_Hover",
           "size": 5
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A5D0",
+      "inventory_id": "F:0004A5D0",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 153,
+      "function_chunks": [
+        {
+          "start": "0x44a5d0",
+          "end_exclusive": "0x44a7cd"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A5D0"
+          ],
+          "relationship": "既有完整编辑本体；原门禁/返回/共享字段/相位保持，具名数量/取样/局部预清差异修正"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44A5D0"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44A5D0"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44A5D0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x4596ef",
+          "target_entry": "0x44a5d0",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44A5D0",
+          "return_discarded": true
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A7D0",
+      "inventory_id": "F:0004A7D0",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 137,
+      "function_chunks": [
+        {
+          "start": "0x44a7d0",
+          "end_exclusive": "0x44a989"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A7D0"
+          ],
+          "relationship": "既有完整编辑本体；原门禁/返回/共享字段/相位保持，具名数量/取样/局部预清差异修正"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44A7D0"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44A7D0"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44A7D0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x4596fc",
+          "target_entry": "0x44a7d0",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44A7D0",
+          "return_discarded": true
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A540",
+      "inventory_id": "F:0004A540",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x44a540",
+          "end_exclusive": "0x44a580"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A540"
+          ],
+          "relationship": "两已正确叶保持原字段地址，不改变源码或改为重取全局"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44A540"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44A540"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44A540",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": false,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x459709",
+          "target_entry": "0x44a540",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44A540",
+          "return_discarded": true
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A580",
+      "inventory_id": "F:0004A580",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 22,
+      "function_chunks": [
+        {
+          "start": "0x44a580",
+          "end_exclusive": "0x44a5c8"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A580"
+          ],
+          "relationship": "两已正确叶保持原字段地址，不改变源码或改为重取全局"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44A580"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44A580"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44A580",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": false,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x459716",
+          "target_entry": "0x44a580",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44A580",
+          "return_discarded": true
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44A990",
+      "inventory_id": "F:0004A990",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 79,
+      "function_chunks": [
+        {
+          "start": "0x44a990",
+          "end_exclusive": "0x44aa8d"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44A990"
+          ],
+          "relationship": "既有完整编辑本体；原门禁/返回/共享字段/相位保持，具名数量/取样/局部预清差异修正"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44A990"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44A990"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44A990",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x459723",
+          "target_entry": "0x44a990",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44A990",
+          "return_discarded": true
+        }
+      ]
+    },
+    {
+      "original_entry": "0x44AA90",
+      "inventory_id": "F:0004AA90",
+      "status": "IED01完整编辑本体/唯一分派调用局部静态已对照；完整输入/SDK/运行未验",
+      "instruction_count": 65,
+      "function_chunks": [
+        {
+          "start": "0x44aa90",
+          "end_exclusive": "0x44ab59"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_44AA90"
+          ],
+          "relationship": "既有完整编辑本体；原门禁/返回/共享字段/相位保持，具名数量/取样/局部预清差异修正"
+        },
+        {
+          "path": "src/InputKeyDispatchDependencies.hpp",
+          "symbols": [
+            "Sub_44AA90"
+          ],
+          "relationship": "既有唯一私有声明，未改"
+        },
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0",
+            "Sub_44AA90"
+          ],
+          "relationship": "唯一原分派调用/返回弃保持；完整分派与音频未由本组验收"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_input_edit_alignment_spec.md",
+        "doc/cg2d_input_edit_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "native_provider": {
+        "source": "src/Input.cpp",
+        "symbol": "Sub_44AA90",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "input_edit_alignment": {
+        "spec": "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "evidence": "doc/cg2d_input_edit_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_field_owner_retained": true,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "incoming_call_connections": [
+        {
+          "parent_entry": "0x4596D0",
+          "call_site": "0x459730",
+          "target_entry": "0x44aa90",
+          "source": "src/InputKeyDispatch.cpp",
+          "native_symbol": "Sub_44AA90",
+          "return_discarded": true
         }
       ]
     }

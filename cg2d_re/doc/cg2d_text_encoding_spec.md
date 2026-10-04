@@ -87,3 +87,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [RIN01](cg2d_input_render_alignment_spec.md#input-render-source-closure)沿EIC01/ICA01继续完成4590E0本体差异：撤销额外预扫描/拒绝/局部预清，实际S16说明坐标与Itoa返回消费；候选有效项/跳过项按原条件读取表，页大小先读再递增。组合/属性原字节/索引、两测宽及文字/框取样、DWORD候选偏移和owner保持，无Unicode迁移或新默认文本。
 
 364原指令、21直接caller及当前存储为局部I/W/S，完整焦点/IME重入、候选寿命/间接alias与SDK/画面运行未验；未知坐标writer仍待，不把原异常域、文档/本体或局部数量当全链验收。
+
+## 2026-10-05：方向/删除编辑的字节数量与取样
+
+[IED01](cg2d_input_edit_alignment_spec.md#input-edit-source-closure)恢复上下扫描S32行宽先保存、余串低U32比较/分类，终行在目标/列确定后重新扫描；五局部预清撤销，实际复制填充/显式NUL和原高位字节规则保持。退格原钳制后重新取result，左右保存字段别名不改，无Unicode索引、默认正文或新owner。
+
+521原指令/六caller及七分类点只归档局部I/W/S，AppendChar/其他编辑、完整焦点/IME/寿命和SDK/运行继续待T01/T02；原异常域不模拟或记安全/故障等价，不以七ID处置当全文本门禁通过。

@@ -8,13 +8,13 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1304/3680（35.43%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 2376 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1310/3680（35.6%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 2370 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1184条/1181个原ID | 无独立ID记录另列3条 |
+| 语义登记 | 1190条/1187个原ID | 无独立ID记录另列3条 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 93/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 100/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置0 / 0 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -46,8 +46,8 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-CHARACTER | included：角色选择与创建 | [cg2d_character_select_scene](../doc/cg2d_character_select_scene.md)、[cg2d_creation_gate_adaptation_spec](../doc/cg2d_creation_gate_adaptation_spec.md) | 1/11 | P08、U03、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-NETWORK | included：网络帧与协议处理 | [cg2d_network_compatibility_spec](../doc/cg2d_network_compatibility_spec.md)、[cg2d_network_runtime](../doc/cg2d_network_runtime.md)、[cg2d_network_dispatch](../doc/cg2d_network_dispatch.md)、[cg2d_network_plaintext_frame_spec](../doc/cg2d_network_plaintext_frame_spec.md) | 2/34 | P09、P10、P16、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-SAVED | included：配置与存档 | [cg2d_saved_state_initialize](../doc/cg2d_saved_state_initialize.md)、[cg2d_saved_state_loader](../doc/cg2d_saved_state_loader.md)、[cg2d_saved_state_persist](../doc/cg2d_saved_state_persist.md)、[cg2d_current_saved_record](../doc/cg2d_current_saved_record.md) | 0/2 | U10、V02、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md) | 4/38 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-TEXT | included：文本与字体显示 | [cg2d_text_encoding_spec](../doc/cg2d_text_encoding_spec.md)、[cg2d_font_measure](../doc/cg2d_font_measure.md)、[cg2d_text_pending_queue](../doc/cg2d_text_pending_queue.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md) | 3/8 | T01、T03、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md) | 11/44 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-TEXT | included：文本与字体显示 | [cg2d_text_encoding_spec](../doc/cg2d_text_encoding_spec.md)、[cg2d_font_measure](../doc/cg2d_font_measure.md)、[cg2d_text_pending_queue](../doc/cg2d_text_pending_queue.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md) | 10/15 | T01、T03、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-MAP | included：地图与世界数据 | [cg2d_map_scene_drawing](../doc/cg2d_map_scene_drawing.md)、[cg2d_map_draw_cache](../doc/cg2d_map_draw_cache.md)、[cg2d_world_objects](../doc/cg2d_world_objects.md)、[cg2d_world_state_lifecycle_spec](../doc/cg2d_world_state_lifecycle_spec.md) | 17/26 | U11、G01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-RESOURCE | included：资源加载与来源 | [cg2d_resource_sources](../doc/cg2d_resource_sources.md)、[cg2d_resource_implementation](../doc/cg2d_resource_implementation.md)、[cg2d_graphic_decode](../doc/cg2d_graphic_decode.md)、[cg2d_graphic_info](../doc/cg2d_graphic_info.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md) | 11/60 | G01、G05、V01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-ANIMATION | included：动画索引与播放 | [cg2d_animation_runtime](../doc/cg2d_animation_runtime.md) | 0/14 | G01、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

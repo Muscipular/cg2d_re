@@ -1475,3 +1475,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_input_render_alignment_spec.md#input-render-source-closure)新增4590E0完整357条/21原caller映射，已有44B250/44B2A0/54ABDD只更新父证据/当前说明，原叶和其他caller源码保持；1183→1184条、1180→1181有效ID，18pending/4分类引用不变。两S16坐标按已加载值实际读，Itoa返回消费；组合/属性/候选额外probe、拒绝及两局部预清撤销，skip项不重读表/有效项绘框后重读、页大小先读再增。
 
 一适用路径equivalent令已审92→93/3680，三限定I/W/S使48→51。364原指令/21直接引用不代完整父/间接边与候选寿命；RPLAN.24异常不记安全/故障等价，T01/T02继续open，10/60关闭、0/182叶和完整SDK/画面运行不提升。固定Git命名快照cg2d-re-input-render-source-20261005。
+
+## 2026-10-05：IED01七编辑/分类体局部对齐
+
+[局部SPEC](cg2d_input_edit_alignment_spec.md#input-edit-source-closure)补六编辑本体映射，已有44B1D0更新当前预清撤销/实际复制合同；1184→1190条、1181→1187有效ID，18pending/4分类引用保持。七体521条和实际单caller/七边界点具名；五变化体修正预算保存/低W32、终行重新扫描、五预清与退格条件取样，两左右体原字段地址保持。
+
+七适用路径equivalent使已审93→100/3680，三限定I/W/S使51→54，固定Git命名快照cg2d-re-input-edit-source-20261005。完整分派/AppendChar/焦点/输入寿命及SDK/运行仍未验，异常域不计安全/故障等价；T01/T02继续open，10/60任务/0叶和完整门禁保持。

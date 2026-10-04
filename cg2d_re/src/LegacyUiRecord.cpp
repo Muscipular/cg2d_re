@@ -910,6 +910,18 @@ void WriteLegacyStorageSelection(char* const record, const std::int16_t value)
     std::memcpy(record + 2, &value, sizeof(value));
 }
 
+// 原旧19唯一585640面板；5856E0借同一selected，非列表页签副本。
+LegacyPanelRecord gLegacySkillDetail585640 {
+    0, 0, 272, 448, 19, {22770, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacySkillDetailNoFp58A9D4[] = "\xC5\x5D\xAA\x6B\xA4\xA3\xA8\xAC\xA1\x43";
+constexpr char kLegacySkillDetailNoSpace58A9C4[] = "\xAA\xAB\xAB\x7E\xC4\xE6\xBA\xA1\xA4\x46\xA1\x43";
+constexpr char kLegacySkillDetailHiddenFp58A9BC[] = "\x3F\x3F\x3F\x3F";
+constexpr char kLegacySkillDetailUse58A9AC[] = "\xA8\xCF\xA5\xCE\xB3\x6F\xAD\xD3\xA7\xDE\xAF\xE0\xA1\x43";
+constexpr char kLegacySkillDetailBack554088[] = "\xA6\x5E\xA8\xEC\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
+constexpr char kLegacySkillDetailUnavailable58A994[] = "\xB2\x7B\xA6\x62\xA5\x69\xA5\x48\xB6\x69\xA6\xE6\xBA\xEB\xC6\x46\xC5\xDC\xA8\xAD\xA1\x43";
+constexpr char kLegacySkillDetailTransform554104[] = "\xB6\x69\xA6\xE6\xBA\xEB\xC6\x46\xC5\xDC\xA8\xAD\xA1\x43";
+constexpr char kLegacySkillDetailRelease554114[] = "\xB8\xD1\xB0\xA3\xBA\xEB\xC6\x46\xC5\xDC\xA8\xAD\xA1\x43";
 constexpr char kLegacySkillClose55331C[] =
     "\xC3\xF6\xB3\xAC\xB3\x6F\xAD\xD3\xB5\xF8\xB5\xA1\xA1\x43";
 constexpr char kLegacySkillOpen5864C8[] =
@@ -15919,6 +15931,302 @@ std::uintptr_t Sub_4FBB40(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyMoneyPanel584DA8, 1);
+}
+
+// 原[4FF650,500358)完整919条；原反编译char不能覆盖实际EAX完整返回合同。
+std::uint32_t Sub_4FF650(const std::int32_t opened)
+{
+    LegacyPanelButtonRecord transform {}; // D01/P02：仅原第四32B按钮在入口清零一次。
+    LegacyPanelButtonRecord back;
+    LegacyPanelButtonRecord previous;
+    LegacyPanelButtonRecord next;
+    char buffer[256]; // 原格式/说明共用，不扩大第四按钮适配。
+    if (character_select::state::gPukVersion >= 7
+        && world::detail::gSkillsF1BAFC[std::bit_cast<std::int16_t>(
+            world::detail::gSkillPairsF63370[std::bit_cast<std::int8_t>(
+                ui::detail::gSkillPairIndexD67AD8)].index)].canRebirth != 0
+        && world::detail::ReadPlayerValue08() != 0) {
+        const std::int32_t x = gLegacySkillDetail585640.x;
+        const std::int32_t y = gLegacySkillDetail585640.y;
+        back = {AddW32(x, 41), AddW32(y, 430), AddW32(x, 15), AddW32(y, 423),
+            52, 14, 238517, 238518};
+        transform = {AddW32(x, 98), AddW32(y, 430), AddW32(x, 72), AddW32(y, 423),
+            52, 14, 238519, 238520};
+        previous = {AddW32(x, 144), AddW32(y, 430), AddW32(x, 130), AddW32(y, 420),
+            28, 20, 238515, 238516};
+        next = {AddW32(x, 226), AddW32(y, 430), AddW32(x, 212), AddW32(y, 420),
+            28, 20, 238513, 238514};
+    } else {
+        const std::int32_t x = gLegacySkillDetail585640.x;
+        const std::int32_t y = gLegacySkillDetail585640.y;
+        back = {AddW32(x, 70), AddW32(y, 430), AddW32(x, 30), AddW32(y, 420),
+            80, 20, 22766, 22767};
+        previous = {AddW32(x, 139), AddW32(y, 430), AddW32(x, 125), AddW32(y, 420),
+            28, 20, 22762, 22763};
+        next = {AddW32(x, 229), AddW32(y, 430), AddW32(x, 215), AddW32(y, 420),
+            28, 20, 22764, 22765};
+    }
+    const std::int32_t state = Sub_503160(opened, &gLegacySkillDetail585640, nullptr, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::uint32_t selection = audio::ReadLegacyPanelSelectionCC236C();
+        std::uint32_t result = selection - 25u;
+        switch (selection) {
+        case 25:
+        case 29:
+        case 34:
+        case 38:
+            return result;
+        default:
+            break;
+        }
+        if (audio::ReadLegacyPanelSelectionCC2370() != 31) {
+            const std::uint8_t pending = gLegacySkillPendingD67C48;
+            result = (result & 0xFFFFFF00u) | pending;
+            if (pending != 0) {
+                gLegacySkillPendingD67C48 = 0;
+            } else {
+                const std::uint8_t active = ui::detail::gValue5F9754;
+                result = (result & 0xFFFFFF00u) | active;
+                if (active != 0) {
+                    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                    const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    result = static_cast<std::uint32_t>(network::Sub_511DD0(socket, x, y, 62));
+                    ui::detail::gValue5F9754 = 0;
+                }
+            }
+        }
+        return result;
+    }
+    std::int32_t count = 0;
+    for (const auto& pair : world::detail::gSkillPairsF63370) {
+        if (pair.used != 0) {
+            ++count;
+        }
+    }
+    const auto selected = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const auto initialIndex = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[selected].index);
+    auto& initialSkill = world::detail::gSkillsF1BAFC[initialIndex];
+    std::int32_t hovered = -1;
+    for (std::int32_t row = 0; row < 15; ++row) {
+        const std::int32_t y = gLegacySkillDetail585640.y;
+        const std::int32_t x = gLegacySkillDetail585640.x;
+        if (Sub_5049A0(AddW32(x, 12), AddW32(y, 80 + 24 * row),
+                AddW32(x, 260), AddW32(y, 100 + 24 * row), -1) != 0
+            && std::strlen(initialSkill.techniques3C[row].name.data()) != 0) {
+            hovered = row;
+            break;
+        }
+    }
+    bool handled = false;
+    if (hovered >= 0) {
+        const std::uint8_t clicks = static_cast<std::uint8_t>(gValueD68D9C);
+        const std::int32_t kind = initialSkill.canRebirth;
+        if ((clicks & 1u) != 0 && kind >= 1 && kind <= 4) {
+            handled = true;
+            if (kind == 4 || kind == 3) {
+                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                const std::int32_t fp = initialSkill.techniques3C[hovered].value7C;
+                const std::int32_t reduction = initialSkill.fpReduce;
+                const std::int32_t cost = std::bit_cast<std::int32_t>(
+                    static_cast<std::uint32_t>(fp) * static_cast<std::uint32_t>(reduction)) / 100;
+                const bool insufficient = world::detail::IsPlayerFpLessThan(cost);
+                if (kind == 4) {
+                    if (insufficient) {
+                        world::detail::Sub_44B050(kLegacySkillDetailNoFp58A9D4, 4, 3);
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else if (world::detail::Sub_518C60() <= 0) {
+                        world::detail::Sub_44B050(kLegacySkillDetailNoSpace58A9C4, 4, 3);
+                        static_cast<void>(audio::PlaySe_52C450(55, 320));
+                    } else {
+                        static_cast<void>(audio::Sub_504180(38));
+                        ui::detail::WriteSkillExtraDelayCF46C4(2000);
+                    }
+                } else if (insufficient) {
+                    const std::int32_t request = ui::detail::ReadSkillRequestD64E13();
+                    const std::int32_t newFp = initialSkill.techniques3C[request].value7C;
+                    const std::int32_t newReduction = initialSkill.fpReduce;
+                    gLegacyRequiredFpCC31D8 = std::bit_cast<std::int32_t>(
+                        static_cast<std::uint32_t>(newFp) * static_cast<std::uint32_t>(newReduction)) / 100;
+                    static_cast<void>(audio::Sub_504180(34));
+                } else {
+                    const std::uintptr_t socket = platform::gConnectionSocket;
+                    static_cast<void>(network::Sub_511C30(socket, initialIndex));
+                    gLegacySkillPendingD67C48 = 1;
+                }
+            } else if (kind == 2) {
+                const std::uint32_t id = gLegacySkillDetail585640.id;
+                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                static_cast<void>(audio::Sub_5042D0(id));
+                static_cast<void>(audio::Sub_504180(31));
+            } else {
+                const std::uint32_t id = gLegacySkillDetail585640.id;
+                ui::detail::WriteSkillRequestD64E13(static_cast<std::uint8_t>(hovered));
+                gLegacyRecipePageD67D0C = 0;
+                static_cast<void>(audio::Sub_5042D0(id));
+                const std::int32_t skillId = initialSkill.skillId;
+                if (skillId == 255 || skillId == 606 || skillId == 2026) {
+                    static_cast<void>(audio::Sub_504180(29));
+                    static_cast<void>(audio::Sub_504180(30));
+                } else {
+                    static_cast<void>(audio::Sub_504180(25));
+                }
+            }
+        }
+    }
+    if (!handled) {
+        if ((QueryPanelButtonState(&previous) & 0x10) != 0) {
+            ui::detail::gSkillPairIndexD67AD8 = static_cast<std::uint8_t>(ui::detail::gSkillPairIndexD67AD8 - 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            if (std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8) < 0) {
+                ui::detail::gSkillPairIndexD67AD8 = static_cast<std::uint8_t>(count - 1);
+            }
+        } else if ((QueryPanelButtonState(&next) & 0x10) != 0) {
+            ui::detail::gSkillPairIndexD67AD8 = static_cast<std::uint8_t>(ui::detail::gSkillPairIndexD67AD8 + 1);
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+            if (std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8) >= count) {
+                ui::detail::gSkillPairIndexD67AD8 = 0;
+            }
+        } else if ((QueryPanelButtonState(&back) & 1) != 0) {
+            static_cast<void>(audio::Sub_5042D0(gLegacySkillDetail585640.id));
+            static_cast<void>(audio::Sub_5042D0(31));
+            static_cast<void>(audio::Sub_504180(18));
+            gLegacySkillList585708.selected = gLegacySkillDetail585640.selected;
+        } else if ((QueryPanelButtonState(&transform) & 1) != 0
+            && initialSkill.canRebirth != 0
+            && world::detail::ReadPlayerValue08() != 0
+            && world::detail::ReadPlayerTimerRemaining0C() > 0) {
+            const bool active = ui::detail::gValue5F9754 != 0;
+            const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+            const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+            const std::uintptr_t socket = platform::gConnectionSocket;
+            static_cast<void>(network::Sub_511DD0(socket, x, y, active ? 62 : 61));
+            ui::detail::gValue5F9754 = active ? 0 : 1;
+            static_cast<void>(audio::PlaySe_52C450(51, 320));
+        }
+    }
+    const auto drawSelection = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8);
+    const auto drawIndex = std::bit_cast<std::int16_t>(world::detail::gSkillPairsF63370[drawSelection].index);
+    auto& skill = world::detail::gSkillsF1BAFC[drawIndex];
+    for (std::int32_t row = 0; row < 15; ++row) {
+        auto& technique = skill.techniques3C[row];
+        if (std::strlen(technique.name.data()) == 0) {
+            continue;
+        }
+        const std::int8_t color = technique.value8C != 0 ? 0 : 7;
+        static_cast<void>(DrawText(
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 36)),
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 81 + 24 * row)),
+            2, 0, color, technique.name.data(), 0, 0));
+        const std::int32_t kind = skill.canRebirth;
+        if (kind == 1 || kind == 2) {
+            static_cast<void>(DrawText(
+                static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 224)),
+                static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 83 + 24 * row)),
+                2, 1, 0, kLegacySkillDetailHiddenFp58A9BC, 0, 0));
+        } else {
+            const std::int32_t reduction = skill.fpReduce;
+            const std::int32_t fp = technique.value7C;
+            const std::int32_t cost = std::bit_cast<std::int32_t>(
+                static_cast<std::uint32_t>(reduction) * static_cast<std::uint32_t>(fp)) / 100;
+            platform::FormatLegacyString_53B304(buffer, "%4d", cost);
+            static_cast<void>(DrawText(
+                static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 224)),
+                static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 83 + 24 * row)),
+                2, 1, color, buffer, 0, 0));
+        }
+        const std::int32_t x = gLegacySkillDetail585640.x;
+        static_cast<void>(DrawGraphic(AddW32(x, 136), AddW32(x, 90 + 24 * row), 212, 22761, 0, nullptr));
+    }
+    const char* const name = skill.name.data();
+    const std::int32_t width = TextMeasure(name, 0);
+    static_cast<void>(DrawText(
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 86 - width / 2)),
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 34)), 2, 0, 0, name, 0, 0));
+    const std::int32_t maxLevel = skill.maxLevel;
+    const std::int32_t level = skill.level;
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", level, maxLevel);
+    static_cast<void>(DrawText(
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 206)),
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 36)), 2, 1, 0, buffer, 0, 0));
+    platform::FormatLegacyString_53B304(buffer, "%8d", skill.experience);
+    static_cast<void>(DrawText(
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 60)),
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
+    if (skill.level < skill.maxLevel) {
+        platform::FormatLegacyString_53B304(buffer, "%8d", skill.nextExperience);
+        static_cast<void>(DrawText(
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 193)),
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, buffer, 0, 0));
+    } else {
+        static_cast<void>(DrawText(
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 193)),
+            static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 59)), 2, 1, 0, kLegacyGatherLimit589858, 0, 0));
+    }
+    const std::int32_t page = std::bit_cast<std::int8_t>(ui::detail::gSkillPairIndexD67AD8) + 1;
+    platform::FormatLegacyString_53B304(buffer, "%2d/%2d", page, count);
+    static_cast<void>(DrawText(
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 164)),
+        static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 423)), 2, 1, 0, buffer, 0, 0));
+    if (hovered >= 0) {
+        const char* const description = skill.techniques3C[hovered].description.data();
+        for (std::int32_t line = 0; line < 4; ++line) {
+            if (input::ExtractLegacyLine_503AB0(buffer, 256, description, line, 26) != 0) {
+                static_cast<void>(DrawText(
+                    static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.x, 19)),
+                    static_cast<std::int16_t>(AddW32(gLegacySkillDetail585640.y, 336 + 18 * line)),
+                    2, 0, 0, buffer, 0, 0));
+            }
+        }
+        const std::int32_t kind = skill.canRebirth;
+        if (kind >= 1 && kind <= 4) {
+            const std::int32_t y = gLegacySkillDetail585640.y;
+            const std::uint32_t image = gValueD69768;
+            const std::int32_t x = gLegacySkillDetail585640.x;
+            DrawGraphicHover(Low16(AddW32(x, 12)), Low16(AddW32(y, 80 + 24 * hovered)),
+                Low16(AddW32(x, 260)), Low16(AddW32(y, 100 + 24 * hovered)), 214, image, 0);
+        }
+    }
+    Sub_5035E0(&back, 212, 1, gValueD69768, 0);
+    if (skill.canRebirth != 0) {
+        const std::int32_t style = world::detail::ReadPlayerValue08() != 0
+            && world::detail::ReadPlayerTimerRemaining0C() > 0 ? 0 : 1;
+        Sub_5035E0(&transform, 212, 1, gValueD69768, style);
+    }
+    Sub_5035E0(&previous, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&next, 212, 1, gValueD69768, 0);
+    const char* hint = nullptr;
+    if (Sub_503590(&gLegacySkillDetail585640) != 0) {
+        hint = kLegacySkillClose55331C;
+    } else {
+        bool useSkill = false;
+        if (hovered >= 0) {
+            const std::int32_t kind = skill.canRebirth;
+            useSkill = kind >= 1 && kind < 4;
+        }
+        if (useSkill) {
+            hint = kLegacySkillDetailUse58A9AC;
+        } else if ((QueryPanelButtonState(&back) & 0x40) != 0) {
+            hint = kLegacySkillDetailBack554088;
+        } else if ((QueryPanelButtonState(&previous) & 0x40) != 0
+            || (QueryPanelButtonState(&next) & 0x40) != 0) {
+            hint = kLegacyTitlePage58A98C;
+        } else if ((QueryPanelButtonState(&transform) & 0x40) != 0) {
+            if (world::detail::ReadPlayerValue08() == 0 || world::detail::ReadPlayerTimerRemaining0C() <= 0) {
+                hint = kLegacySkillDetailUnavailable58A994;
+            } else {
+                hint = ui::detail::gValue5F9754 == 0
+                    ? kLegacySkillDetailTransform554104 : kLegacySkillDetailRelease554114;
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacySkillDetail585640, 1);
 }
 
 std::int32_t Sub_500370(const std::int32_t opened)

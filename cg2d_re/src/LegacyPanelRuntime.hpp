@@ -108,7 +108,7 @@ extern std::array<char, 64> gLegacyItemWorkNameCC40D8; // 4F24A0/4F2A30的固定
 extern std::int32_t gLegacyItemWorkImageCC320C;
 extern std::int32_t gLegacyCraftPhaseD67D00; // 旧选择26/27共享，不是现代窗口11状态。
 extern std::int32_t gLegacyGemPhaseD68A8C; // 旧29/30共享阶段，独立于D68A7C字符串探针。
-extern std::int32_t gLegacyRecipePageD67D0C; // 旧25页号；4FF650待实现的复位须写同一槽。
+extern std::int32_t gLegacyRecipePageD67D0C; // 旧25页号；4FF650真实复位写同一槽。
 extern std::int32_t gLegacyInventoryValueC8B388; // 旧14特殊使用只见写0，不猜其他用途。
 extern std::int32_t gLegacySpecialUseItemC8A96C; // 旧79的原物品槽/列/行。
 extern std::int32_t gLegacySpecialUseColumnCF4AA8;
@@ -369,6 +369,7 @@ std::uint32_t Sub_4FF1A0(std::int32_t opened); // 旧选择编号11，S16索引�
 std::int32_t Sub_4FF340(); // 原CRT 5530C4入口，尾跳旧按钮设置构造。
 std::int32_t Sub_4FF350(); // D687B8四条文字记录，所有初始颜色为0。
 std::uint32_t Sub_4FF4C0(std::int32_t opened); // 旧选择编号12，测宽后右对齐绘字与完整交互。
+std::uint32_t Sub_4FF650(std::int32_t opened); // 旧19完整详情，第四32B局部按P02清零；返回完整W32。
 std::int32_t Sub_500370(std::int32_t opened); // 旧技能列表完整交互/绘制，不同于窗口主表18。
 std::uintptr_t Sub_5006F0(std::int32_t opened); // 三子页总入口；混合W32/上下文T*仅在返回边界拓宽。
 std::int32_t Sub_5008C0(std::int32_t x, std::int32_t y); // 旧人物基本资料、属性条及前后排按钮。

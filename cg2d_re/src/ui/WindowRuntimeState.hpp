@@ -1278,7 +1278,8 @@ extern std::int32_t gSelectedItemCB1DF4;
 extern std::int32_t gSelectedItemCB0A44;
 extern std::int32_t gSelectedItem57EE0C; // 原装载初值-1，窗口51只做单向迁移。
 extern std::uint8_t gSkillPairIndexD67AD8; // 配方查询按S8解释。
-std::int32_t ReadSkillRequestD64E13() noexcept; // 旧技能请求读取同源低S8；不补造4FF650生产。
+std::int32_t ReadSkillRequestD64E13() noexcept; // 旧技能请求读取同源低S8，4FF650实际写者已接。
+void WriteSkillRequestD64E13(std::uint8_t value) noexcept; // 4FF650四原写点共用私有唯一D64E13。
 std::uint32_t ReadSkillExtraDelayCF46C4() noexcept; // 新旧技能面板共用额外时长。
 void WriteSkillExtraDelayCF46C4(std::uint32_t delay) noexcept;
 std::int32_t ReadGatherResultD2D820() noexcept; // 旧选择39借用窗口12同源回复。

@@ -1595,6 +1595,11 @@ std::int32_t ReadSkillRequestD64E13() noexcept
     return std::bit_cast<std::int8_t>(gSkillRequestByteD64E13);
 }
 
+void WriteSkillRequestD64E13(const std::uint8_t value) noexcept
+{
+    gSkillRequestByteD64E13 = value;
+}
+
 std::uint32_t ReadSkillExtraDelayCF46C4() noexcept
 {
     return gSkillExtraDelayCF46C4;

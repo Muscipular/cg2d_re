@@ -8591,7 +8591,7 @@
     {
       "original_entry": "0x5481CA",
       "inventory_id": "F:001481CA",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5481D4",
       "instruction_count": 6,
       "sources": [
@@ -8600,14 +8600,30 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowInputStream_5481CA"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyNarrowInputStream_5481CA"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT55311C先调用5481D4处理1086430的窄输入流，再登记5481EF退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT55311C先调用5481D4处理1086430的窄输入流，再登记5481EF退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x5481CA",
@@ -8617,12 +8633,54 @@
           "0x5481E3",
           "0x5481EF"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5481CA",
+          "call_site": "0x5481CA",
+          "target_entry": "0x5481D4",
+          "target_symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5481CA",
+          "call_site": "0x5481E8",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "arguments": "DestroyLegacyNarrowInputStreamAtExit_5481EF 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x5481CA",
+          "reference_site": "0x5481E3",
+          "callback_entry": "0x5481EF",
+          "callback_symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "object": "gLegacyNarrowStandardInput1086430",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x5481CA",
+          "reference_site": "0x55311C",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x5481D4",
       "inventory_id": "F:001481D4",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5481E3",
       "instruction_count": 5,
       "sources": [
@@ -8631,19 +8689,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowInputStreamLate_5481D4"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyNarrowInputStreamLate_5481D4"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给1086430传0、1并调用54859F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给1086430传0、1并调用54859F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5481D4",
+          "call_site": "0x5481DD",
+          "target_entry": "0x54859F",
+          "target_symbol": "RegisterConstructLegacyNarrowInput_54859F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+          "arguments": "&gLegacyNarrowStandardInput1086430, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5481CA",
+          "call_site": "0x5481CA",
+          "target_entry": "0x5481D4",
+          "target_symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5481EF",
       "inventory_id": "F:001481EF",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5481F9",
       "instruction_count": 2,
       "sources": [
@@ -8652,19 +8751,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowInputStreamAtExit_5481EF"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyNarrowInputStreamAtExit_5481EF"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以1086430为this进入5481F9，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以1086430为this进入5481F9，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5481EF",
+          "call_site": "0x5481F4",
+          "target_entry": "0x5481F9",
+          "target_symbol": "DestroyLegacyNarrowInput_5481F9",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+          "arguments": "&gLegacyNarrowStandardInput1086430",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x5481CA",
+          "reference_site": "0x5481E3",
+          "callback_entry": "0x5481EF",
+          "callback_symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "object": "gLegacyNarrowStandardInput1086430",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x54820E",
       "inventory_id": "F:0014820E",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x548218",
       "instruction_count": 6,
       "sources": [
@@ -8673,14 +8813,30 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowOutputStream_54820E"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyNarrowOutputStream_54820E"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT553120先调用548218处理10863A0的窄输出流，再登记548233退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT553120先调用548218处理10863A0的窄输出流，再登记548233退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x54820E",
@@ -8690,12 +8846,54 @@
           "0x548227",
           "0x548233"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x54820E",
+          "call_site": "0x54820E",
+          "target_entry": "0x548218",
+          "target_symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x54820E",
+          "call_site": "0x54822C",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "arguments": "DestroyLegacyNarrowOutputStreamAtExit_548233 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x54820E",
+          "reference_site": "0x548227",
+          "callback_entry": "0x548233",
+          "callback_symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "object": "gLegacyNarrowStandardOutput10863A0",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x54820E",
+          "reference_site": "0x553120",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x548218",
       "inventory_id": "F:00148218",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x548227",
       "instruction_count": 5,
       "sources": [
@@ -8704,19 +8902,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowOutputStreamLate_548218"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyNarrowOutputStreamLate_548218"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给10863A0传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给10863A0传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x548218",
+          "call_site": "0x548221",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+          "arguments": "&gLegacyNarrowStandardOutput10863A0, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x54820E",
+          "call_site": "0x54820E",
+          "target_entry": "0x548218",
+          "target_symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x548233",
       "inventory_id": "F:00148233",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x54823D",
       "instruction_count": 2,
       "sources": [
@@ -8725,14 +8964,55 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowOutputStreamAtExit_548233"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyNarrowOutputStreamAtExit_548233"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以10863A0为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以10863A0为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x548233",
+          "call_site": "0x548238",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+          "arguments": "&gLegacyNarrowStandardOutput10863A0",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x54820E",
+          "reference_site": "0x548227",
+          "callback_entry": "0x548233",
+          "callback_symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "object": "gLegacyNarrowStandardOutput10863A0",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x548252",
@@ -8921,7 +9201,7 @@
     {
       "original_entry": "0x54827F",
       "inventory_id": "F:0014827F",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x548289",
       "instruction_count": 6,
       "sources": [
@@ -8930,14 +9210,30 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cerr"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowErrorStream_54827F"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyNarrowErrorStream_54827F"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT553128先调用548289处理10864C8的窄错误流，再登记5482A4退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT553128先调用548289处理10864C8的窄错误流，再登记5482A4退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x54827F",
@@ -8947,12 +9243,54 @@
           "0x548298",
           "0x5482A4"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x54827F",
+          "call_site": "0x54827F",
+          "target_entry": "0x548289",
+          "target_symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x54827F",
+          "call_site": "0x54829D",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "arguments": "DestroyLegacyNarrowErrorStreamAtExit_5482A4 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x54827F",
+          "reference_site": "0x548298",
+          "callback_entry": "0x5482A4",
+          "callback_symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "object": "gLegacyNarrowStandardError10864C8",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x54827F",
+          "reference_site": "0x553128",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x548289",
       "inventory_id": "F:00148289",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x548298",
       "instruction_count": 5,
       "sources": [
@@ -8961,19 +9299,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cerr"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowErrorStreamLate_548289"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyNarrowErrorStreamLate_548289"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给10864C8传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给10864C8传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x548289",
+          "call_site": "0x548292",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+          "arguments": "&gLegacyNarrowStandardError10864C8, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x54827F",
+          "call_site": "0x54827F",
+          "target_entry": "0x548289",
+          "target_symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5482A4",
       "inventory_id": "F:001482A4",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5482AE",
       "instruction_count": 2,
       "sources": [
@@ -8982,19 +9361,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::cerr"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowErrorStreamAtExit_5482A4"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyNarrowErrorStreamAtExit_5482A4"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以10864C8为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以10864C8为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5482A4",
+          "call_site": "0x5482A9",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+          "arguments": "&gLegacyNarrowStandardError10864C8",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x54827F",
+          "reference_site": "0x548298",
+          "callback_entry": "0x5482A4",
+          "callback_symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "object": "gLegacyNarrowStandardError10864C8",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x5482AE",
       "inventory_id": "F:001482AE",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5482B8",
       "instruction_count": 6,
       "sources": [
@@ -9003,14 +9423,30 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::clog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowLogStream_5482AE"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyNarrowLogStream_5482AE"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT55312C先调用5482B8处理1086310的窄日志流，再登记5482D3退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT55312C先调用5482B8处理1086310的窄日志流，再登记5482D3退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x5482AE",
@@ -9020,12 +9456,54 @@
           "0x5482C7",
           "0x5482D3"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5482AE",
+          "call_site": "0x5482AE",
+          "target_entry": "0x5482B8",
+          "target_symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5482AE",
+          "call_site": "0x5482CC",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "arguments": "DestroyLegacyNarrowLogStreamAtExit_5482D3 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x5482AE",
+          "reference_site": "0x5482C7",
+          "callback_entry": "0x5482D3",
+          "callback_symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "object": "gLegacyNarrowStandardLog1086310",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x5482AE",
+          "reference_site": "0x55312C",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x5482B8",
       "inventory_id": "F:001482B8",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5482C7",
       "instruction_count": 5,
       "sources": [
@@ -9034,19 +9512,60 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::clog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowLogStreamLate_5482B8"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyNarrowLogStreamLate_5482B8"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给1086310传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给1086310传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5482B8",
+          "call_site": "0x5482C1",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+          "arguments": "&gLegacyNarrowStandardLog1086310, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5482AE",
+          "call_site": "0x5482AE",
+          "target_entry": "0x5482B8",
+          "target_symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5482D3",
       "inventory_id": "F:001482D3",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5482DD",
       "instruction_count": 2,
       "sources": [
@@ -9055,14 +9574,55 @@
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
             "std::clog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowLogStreamAtExit_5482D3"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyNarrowLogStreamAtExit_5482D3"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以1086310为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以1086310为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5482D3",
+          "call_site": "0x5482D8",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+          "arguments": "&gLegacyNarrowStandardLog1086310",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x5482AE",
+          "reference_site": "0x5482C7",
+          "callback_entry": "0x5482D3",
+          "callback_symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "object": "gLegacyNarrowStandardLog1086310",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x54922A",
@@ -9685,7 +10245,7 @@
     {
       "original_entry": "0x5492B1",
       "inventory_id": "F:001492B1",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5492BB",
       "instruction_count": 6,
       "sources": [
@@ -9694,14 +10254,30 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyWideInputStream_5492B1"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyWideInputStream_5492B1"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT553148先调用5492BB处理1086578的宽输入流，再登记5492D6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT553148先调用5492BB处理1086578的宽输入流，再登记5492D6退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x5492B1",
@@ -9711,12 +10287,54 @@
           "0x5492CA",
           "0x5492D6"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5492B1",
+          "call_site": "0x5492B1",
+          "target_entry": "0x5492BB",
+          "target_symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5492B1",
+          "call_site": "0x5492CF",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "arguments": "DestroyLegacyWideInputStreamAtExit_5492D6 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x5492B1",
+          "reference_site": "0x5492CA",
+          "callback_entry": "0x5492D6",
+          "callback_symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "object": "gLegacyWideStandardInput1086578",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x5492B1",
+          "reference_site": "0x553148",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x5492BB",
       "inventory_id": "F:001492BB",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5492CA",
       "instruction_count": 5,
       "sources": [
@@ -9725,19 +10343,60 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyWideInputStreamLate_5492BB"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyWideInputStreamLate_5492BB"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给1086578传0、1并调用5496AB，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给1086578传0、1并调用5496AB，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5492BB",
+          "call_site": "0x5492C4",
+          "target_entry": "0x5496AB",
+          "target_symbol": "RegisterConstructLegacyWideInput_5496AB",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+          "arguments": "&gLegacyWideStandardInput1086578, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5492B1",
+          "call_site": "0x5492B1",
+          "target_entry": "0x5492BB",
+          "target_symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5492D6",
       "inventory_id": "F:001492D6",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5492E0",
       "instruction_count": 2,
       "sources": [
@@ -9746,19 +10405,60 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcin"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideInputStreamAtExit_5492D6"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyWideInputStreamAtExit_5492D6"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以1086578为this进入5492E0，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以1086578为this进入5492E0，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5492D6",
+          "call_site": "0x5492DB",
+          "target_entry": "0x5492E0",
+          "target_symbol": "DestroyLegacyWideInput_5492E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+          "arguments": "&gLegacyWideStandardInput1086578",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x5492B1",
+          "reference_site": "0x5492CA",
+          "callback_entry": "0x5492D6",
+          "callback_symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "object": "gLegacyWideStandardInput1086578",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x5492F5",
       "inventory_id": "F:001492F5",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x5492FF",
       "instruction_count": 6,
       "sources": [
@@ -9767,14 +10467,30 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyWideOutputStream_5492F5"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyWideOutputStream_5492F5"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT55314C先调用5492FF处理1086668的宽输出流，再登记54931A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT55314C先调用5492FF处理1086668的宽输出流，再登记54931A退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x5492F5",
@@ -9784,12 +10500,54 @@
           "0x54930E",
           "0x54931A"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5492F5",
+          "call_site": "0x5492F5",
+          "target_entry": "0x5492FF",
+          "target_symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5492F5",
+          "call_site": "0x549313",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "arguments": "DestroyLegacyWideOutputStreamAtExit_54931A 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x5492F5",
+          "reference_site": "0x54930E",
+          "callback_entry": "0x54931A",
+          "callback_symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "object": "gLegacyWideStandardOutput1086668",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x5492F5",
+          "reference_site": "0x55314C",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x5492FF",
       "inventory_id": "F:001492FF",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x54930E",
       "instruction_count": 5,
       "sources": [
@@ -9798,19 +10556,60 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyWideOutputStreamLate_5492FF"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyWideOutputStreamLate_5492FF"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给1086668传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给1086668传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x5492FF",
+          "call_site": "0x549308",
+          "target_entry": "0x54958F",
+          "target_symbol": "RegisterConstructLegacyWideOutput_54958F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+          "arguments": "&gLegacyWideStandardOutput1086668, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5492F5",
+          "call_site": "0x5492F5",
+          "target_entry": "0x5492FF",
+          "target_symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x54931A",
       "inventory_id": "F:0014931A",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x549324",
       "instruction_count": 2,
       "sources": [
@@ -9819,14 +10618,55 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wcout"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideOutputStreamAtExit_54931A"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyWideOutputStreamAtExit_54931A"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以1086668为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以1086668为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x54931A",
+          "call_site": "0x54931F",
+          "target_entry": "0x549324",
+          "target_symbol": "DestroyLegacyWideOutput_549324",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+          "arguments": "&gLegacyWideStandardOutput1086668",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x5492F5",
+          "reference_site": "0x54930E",
+          "callback_entry": "0x54931A",
+          "callback_symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "object": "gLegacyWideStandardOutput1086668",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x549339",
@@ -10012,7 +10852,7 @@
     {
       "original_entry": "0x549368",
       "inventory_id": "F:00149368",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x549372",
       "instruction_count": 6,
       "sources": [
@@ -10021,14 +10861,30 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wclog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyWideLogStream_549368"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyWideLogStream_549368"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "CRT553154先调用549372处理1086540的宽日志流，再登记54938D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。",
+      "boundary": "CRT553154先调用549372处理1086540的宽日志流，再登记54938D退出；含分离登记尾。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
       "original_chunks": [
         [
           "0x549368",
@@ -10038,12 +10894,54 @@
           "0x549381",
           "0x54938D"
         ]
+      ],
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x549368",
+          "call_site": "0x549368",
+          "target_entry": "0x549372",
+          "target_symbol": "RegisterLegacyWideLogStreamLate_549372",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x549368",
+          "call_site": "0x549386",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "arguments": "DestroyLegacyWideLogStreamAtExit_54938D 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_callback_references": [
+        {
+          "parent_entry": "0x549368",
+          "reference_site": "0x549381",
+          "callback_entry": "0x54938D",
+          "callback_symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "object": "gLegacyWideStandardLog1086540",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_object_crt_startup_data_references": [
+        {
+          "entry": "0x549368",
+          "reference_site": "0x553154",
+          "relationship": "实际原CRT表data引用；本轮只实现显式入口，当前启动表未启用迁移"
+        }
       ]
     },
     {
       "original_entry": "0x549372",
       "inventory_id": "F:00149372",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x549381",
       "instruction_count": 5,
       "sources": [
@@ -10052,19 +10950,60 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wclog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyWideLogStreamLate_549372"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "RegisterLegacyWideLogStreamLate_549372"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "给1086540传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "给1086540传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x549372",
+          "call_site": "0x54937B",
+          "target_entry": "0x54958F",
+          "target_symbol": "RegisterConstructLegacyWideOutput_54958F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideLogStreamLate_549372",
+          "arguments": "&gLegacyWideStandardLog1086540, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x549368",
+          "call_site": "0x549368",
+          "target_entry": "0x549372",
+          "target_symbol": "RegisterLegacyWideLogStreamLate_549372",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "arguments": "无参原晚段动作，结果不作成功门禁",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x54938D",
       "inventory_id": "F:0014938D",
-      "status": "已有宿主标准流生命周期映射；内部ABI、失败与退出时序未验",
+      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
       "original_end_exclusive": "0x549397",
       "instruction_count": 2,
       "sources": [
@@ -10073,14 +11012,55 @@
           "symbols": [
             "WideStandardStreamsStaticInitializer",
             "std::wclog"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本次原本体直接提供者"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideLogStreamAtExit_54938D"
+          ],
+          "relationship": "真实固定对象/原0与1/同对象无参callback/53B406顺序和返回，只显式接线"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyWideLogStreamAtExit_54938D"
+          ],
+          "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "以1086540为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。"
+      "boundary": "以1086540为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "standard_stream_object_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x54938D",
+          "call_site": "0x549392",
+          "target_entry": "0x549324",
+          "target_symbol": "DestroyLegacyWideOutput_549324",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+          "arguments": "&gLegacyWideStandardLog1086540",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ],
+      "standard_stream_object_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x549368",
+          "reference_site": "0x549381",
+          "callback_entry": "0x54938D",
+          "callback_symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "object": "gLegacyWideStandardLog1086540",
+          "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ]
     },
     {
       "original_entry": "0x5491D6",
@@ -12947,13 +13927,27 @@
             "InitializeLegacyWideErrorBuffer_549284"
           ],
           "relationship": "新标准流CRT原实际父点或callback地址来源，已过本体/数组不改、不重复验或计整体启动退出"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowInputStream_5481CA",
+            "InitializeLegacyNarrowOutputStream_54820E",
+            "InitializeLegacyNarrowErrorStream_54827F",
+            "InitializeLegacyNarrowLogStream_5482AE",
+            "InitializeLegacyWideInputStream_5492B1",
+            "InitializeLegacyWideOutputStream_5492F5",
+            "InitializeLegacyWideLogStream_549368"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -13330,7 +14324,79 @@
           "arguments": "对应原实际无参退出callback"
         }
       ],
-      "standard_stream_crt_incoming_callback_references": []
+      "standard_stream_crt_incoming_callback_references": [],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5481CA",
+          "call_site": "0x5481E8",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+          "arguments": "DestroyLegacyNarrowInputStreamAtExit_5481EF 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x54820E",
+          "call_site": "0x54822C",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+          "arguments": "DestroyLegacyNarrowOutputStreamAtExit_548233 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x54827F",
+          "call_site": "0x54829D",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+          "arguments": "DestroyLegacyNarrowErrorStreamAtExit_5482A4 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5482AE",
+          "call_site": "0x5482CC",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+          "arguments": "DestroyLegacyNarrowLogStreamAtExit_5482D3 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5492B1",
+          "call_site": "0x5492CF",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideInputStream_5492B1",
+          "arguments": "DestroyLegacyWideInputStreamAtExit_5492D6 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5492F5",
+          "call_site": "0x549313",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideOutputStream_5492F5",
+          "arguments": "DestroyLegacyWideOutputStreamAtExit_54931A 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x549368",
+          "call_site": "0x549386",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideLogStream_549368",
+          "arguments": "DestroyLegacyWideLogStreamAtExit_54938D 无参callback",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x53B418",
@@ -48357,13 +49423,20 @@
             "LegacyNarrowInputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowInputStreamLate_5481D4"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄输入流登记构造：第二参控制虚基初始化，按虚基偏移写istream虚表并_Addstd；不读取第一参来绑定新的filebuf，返回this。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "窄输入流登记构造：第二参控制虚基初始化，按虚基偏移写istream虚表并_Addstd；不读取第一参来绑定新的filebuf，返回this。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyNarrowInputStream",
@@ -48463,7 +49536,19 @@
         },
         "source_contract": "virtualBaseBits全W32非0才写本类vbtable/固定ios.registryIndex0/basic_ios表；bit0标记完成，仅此时主体异常清固定ios子对象，正常不自动清理",
         "boundary": "保留原state0条件清理，不搬x86FS/EH/SDK元数据或称二次清理失败和完整x64 EH通过"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5481D4",
+          "call_site": "0x5481DD",
+          "target_entry": "0x54859F",
+          "target_symbol": "RegisterConstructLegacyNarrowInput_54859F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+          "arguments": "&gLegacyNarrowStandardInput1086430, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x54970A",
@@ -51137,13 +52222,20 @@
             "LegacyWideInputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyWideInputStreamLate_5492BB"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽输入流登记构造：第二参控制虚基初始化，通过虚基偏移发布虚表并_Addstd；不作流数据绑定。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "宽输入流登记构造：第二参控制虚基初始化，通过虚基偏移发布虚表并_Addstd；不作流数据绑定。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyWideInputStream",
@@ -51243,7 +52335,19 @@
         },
         "source_contract": "virtualBaseBits全W32非0才写本类vbtable/固定ios.registryIndex0/basic_ios表；bit0标记完成，仅此时主体异常清固定ios子对象，正常不自动清理",
         "boundary": "保留原state0条件清理，不搬x86FS/EH/SDK元数据或称二次清理失败和完整x64 EH通过"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5492BB",
+          "call_site": "0x5492C4",
+          "target_entry": "0x5496AB",
+          "target_symbol": "RegisterConstructLegacyWideInput_5496AB",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+          "arguments": "&gLegacyWideStandardInput1086578, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5486B1",
@@ -56056,12 +57160,22 @@
             "LegacyNarrowOutputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyNarrowOutputStreamLate_548218",
+            "RegisterLegacyNarrowErrorStreamLate_548289",
+            "RegisterLegacyNarrowLogStreamLate_5482B8"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "窄输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyNarrowOutputStream",
@@ -56156,7 +57270,39 @@
         },
         "source_contract": "virtualBaseBits全W32非0才写本类vbtable/固定ios.registryIndex0/basic_ios表；bit0标记完成，仅此时主体异常清固定ios子对象，正常不自动清理",
         "boundary": "保留原state0条件清理，不搬x86FS/EH/SDK元数据或称二次清理失败和完整x64 EH通过"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x548218",
+          "call_site": "0x548221",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+          "arguments": "&gLegacyNarrowStandardOutput10863A0, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x548289",
+          "call_site": "0x548292",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+          "arguments": "&gLegacyNarrowStandardError10864C8, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5482B8",
+          "call_site": "0x5482C1",
+          "target_entry": "0x5484CD",
+          "target_symbol": "RegisterConstructLegacyNarrowOutput_5484CD",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+          "arguments": "&gLegacyNarrowStandardLog1086310, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x548537",
@@ -56565,12 +57711,21 @@
             "RegisterLegacyWideErrorStreamLate_549343"
           ],
           "relationship": "新标准流退出/晚段真实原父点，既有本体或clear声明不改/复检，不虚置成功或更换堆域"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "RegisterLegacyWideOutputStreamLate_5492FF",
+            "RegisterLegacyWideLogStreamLate_549372"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54934C，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。",
+      "boundary": "宽输出流登记构造：第二W32控制虚基初始化，写ostream虚表后调用54A25E登记；第一参数未消费，不进行缓冲绑定或basic_ios::init。返回this、ret8；异常尾条件清理this+4。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54934C，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyWideOutputStream",
@@ -56676,6 +57831,28 @@
           "symbol": "RegisterLegacyWideErrorStreamLate_549343",
           "relationship": "原真实call/尾调：退出计数/动态sync失败重取/晚段原字段或登记参数保持，不自动启用CRT/回滚失败",
           "arguments": "&真实宽error对象, 0 W32, 1 W32"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5492FF",
+          "call_site": "0x549308",
+          "target_entry": "0x54958F",
+          "target_symbol": "RegisterConstructLegacyWideOutput_54958F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+          "arguments": "&gLegacyWideStandardOutput1086668, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x549372",
+          "call_site": "0x54937B",
+          "target_entry": "0x54958F",
+          "target_symbol": "RegisterConstructLegacyWideOutput_54958F",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "RegisterLegacyWideLogStreamLate_549372",
+          "arguments": "&gLegacyWideStandardLog1086540, 0 W32未消费实参, 1 W32虚基标记",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
       ]
     },
@@ -57042,12 +58219,20 @@
             "LegacyNarrowInputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowInputStreamAtExit_5481EF"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "窄输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyNarrowInputStream",
@@ -57126,7 +58311,19 @@
         "offset_width": 32,
         "relationship": "原两个已加载W32数值保留类型；地址字段拓宽导致真实本类ios成员位置改8/16，按offsetof承接，非拷原x86偏移到新端",
         "boundary": "只本类已证布局常量，不推未知继承/其他vbtable偏移或错误指针故障等价"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5481EF",
+          "call_site": "0x5481F4",
+          "target_entry": "0x5481F9",
+          "target_symbol": "DestroyLegacyNarrowInput_5481F9",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+          "arguments": "&gLegacyNarrowStandardInput1086430",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x54823D",
@@ -57175,12 +58372,22 @@
             "LegacyNarrowOutputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowOutputStreamAtExit_548233",
+            "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+            "DestroyLegacyNarrowLogStreamAtExit_5482D3"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "窄输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳54852C；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyNarrowOutputStream",
@@ -57254,7 +58461,39 @@
         "offset_width": 32,
         "relationship": "原两个已加载W32数值保留类型；地址字段拓宽导致真实本类ios成员位置改8/16，按offsetof承接，非拷原x86偏移到新端",
         "boundary": "只本类已证布局常量，不推未知继承/其他vbtable偏移或错误指针故障等价"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x548233",
+          "call_site": "0x548238",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+          "arguments": "&gLegacyNarrowStandardOutput10863A0",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5482A4",
+          "call_site": "0x5482A9",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+          "arguments": "&gLegacyNarrowStandardError10864C8",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x5482D3",
+          "call_site": "0x5482D8",
+          "target_entry": "0x54823D",
+          "target_symbol": "DestroyLegacyNarrowOutput_54823D",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+          "arguments": "&gLegacyNarrowStandardLog1086310",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x5492E0",
@@ -57295,12 +58534,20 @@
             "LegacyWideInputStream"
           ],
           "relationship": "输出96B/输入104B消费视图，实际basic_ios88B子对象/地址拓宽，W32原字段不扩"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideInputStreamAtExit_5492D6"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。",
+      "boundary": "宽输入流析构：经原vbtable偏移恢复istream虚表，再将this调整+8尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyWideInputStream",
@@ -57379,7 +58626,19 @@
         "offset_width": 32,
         "relationship": "原两个已加载W32数值保留类型；地址字段拓宽导致真实本类ios成员位置改8/16，按offsetof承接，非拷原x86偏移到新端",
         "boundary": "只本类已证布局常量，不推未知继承/其他vbtable偏移或错误指针故障等价"
-      }
+      },
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x5492D6",
+          "call_site": "0x5492DB",
+          "target_entry": "0x5492E0",
+          "target_symbol": "DestroyLegacyWideInput_5492E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+          "arguments": "&gLegacyWideStandardInput1086578",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        }
+      ]
     },
     {
       "original_entry": "0x549324",
@@ -57435,12 +58694,21 @@
             "DestroyLegacyWideErrorStreamAtExit_54935E"
           ],
           "relationship": "新标准流退出/晚段真实原父点，既有本体或clear声明不改/复检，不虚置成功或更换堆域"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideOutputStreamAtExit_54931A",
+            "DestroyLegacyWideLogStreamAtExit_54938D"
+          ],
+          "relationship": "新七项标准流对象CRT真实父调用或callback；旧原目标/调用数组不改、不复检"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x549363，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。",
+      "boundary": "宽输出流析构：经原vbtable偏移恢复ostream虚表，再将this调整+4尾跳549638；不直接释放FILE/缓冲。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04本次16新原394条/28数值call及尾调、四vbtable两W32/四删除槽0实现。虚基构造flag完整W32/输出是否init仅低U8，登记构造首Word未消费/不绑定buffer或清输入count；完整输入每正常路径count0。表写与父调用各重取当前vbtable投影，异常/析构父沿原固定本类ios位置；4/8B随真实指针布局迁native8/16、字段宽32不扩。删除调整到真实所属对象后析构/flags bit0同域释放，返回地址非拥有void*。旧依赖/业务不复检；当前global owner生产/标准流控制器、clear真实抛出/登记数组初值容量、SDK/完整运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x549363，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyWideOutputStream",
@@ -57525,6 +58793,28 @@
           "symbol": "DestroyLegacyWideErrorStreamAtExit_54935E",
           "relationship": "原真实call/尾调：退出计数/动态sync失败重取/晚段原字段或登记参数保持，不自动启用CRT/回滚失败",
           "arguments": "原实际errorBuffer/error对象或对应晚段入口"
+        }
+      ],
+      "standard_stream_object_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x54931A",
+          "call_site": "0x54931F",
+          "target_entry": "0x549324",
+          "target_symbol": "DestroyLegacyWideOutput_549324",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+          "arguments": "&gLegacyWideStandardOutput1086668",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
+        },
+        {
+          "parent_entry": "0x54938D",
+          "call_site": "0x549392",
+          "target_entry": "0x549324",
+          "target_symbol": "DestroyLegacyWideOutput_549324",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+          "arguments": "&gLegacyWideStandardLog1086540",
+          "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
       ]
     },

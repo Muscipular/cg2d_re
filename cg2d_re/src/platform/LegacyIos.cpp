@@ -878,4 +878,116 @@ std::int32_t RegisterLegacyWideStandardInitializer_549200()
     return RegisterLegacyAtExit_53B406(ReleaseLegacyWideStandardStreams_549220);
 }
 
+LegacyNarrowInputStream* RegisterLegacyNarrowInputStreamLate_5481D4()
+{
+    return RegisterConstructLegacyNarrowInput_54859F(&gLegacyNarrowStandardInput1086430, 0, 1);
+}
+
+void DestroyLegacyNarrowInputStreamAtExit_5481EF()
+{
+    DestroyLegacyNarrowInput_5481F9(&gLegacyNarrowStandardInput1086430);
+}
+
+std::int32_t InitializeLegacyNarrowInputStream_5481CA()
+{
+    RegisterLegacyNarrowInputStreamLate_5481D4();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowInputStreamAtExit_5481EF);
+}
+
+LegacyNarrowOutputStream* RegisterLegacyNarrowOutputStreamLate_548218()
+{
+    return RegisterConstructLegacyNarrowOutput_5484CD(&gLegacyNarrowStandardOutput10863A0, 0, 1);
+}
+
+void DestroyLegacyNarrowOutputStreamAtExit_548233()
+{
+    DestroyLegacyNarrowOutput_54823D(&gLegacyNarrowStandardOutput10863A0);
+}
+
+std::int32_t InitializeLegacyNarrowOutputStream_54820E()
+{
+    RegisterLegacyNarrowOutputStreamLate_548218();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowOutputStreamAtExit_548233);
+}
+
+LegacyNarrowOutputStream* RegisterLegacyNarrowErrorStreamLate_548289()
+{
+    return RegisterConstructLegacyNarrowOutput_5484CD(&gLegacyNarrowStandardError10864C8, 0, 1);
+}
+
+void DestroyLegacyNarrowErrorStreamAtExit_5482A4()
+{
+    DestroyLegacyNarrowOutput_54823D(&gLegacyNarrowStandardError10864C8);
+}
+
+std::int32_t InitializeLegacyNarrowErrorStream_54827F()
+{
+    RegisterLegacyNarrowErrorStreamLate_548289();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowErrorStreamAtExit_5482A4);
+}
+
+LegacyNarrowOutputStream* RegisterLegacyNarrowLogStreamLate_5482B8()
+{
+    return RegisterConstructLegacyNarrowOutput_5484CD(&gLegacyNarrowStandardLog1086310, 0, 1);
+}
+
+void DestroyLegacyNarrowLogStreamAtExit_5482D3()
+{
+    DestroyLegacyNarrowOutput_54823D(&gLegacyNarrowStandardLog1086310);
+}
+
+std::int32_t InitializeLegacyNarrowLogStream_5482AE()
+{
+    RegisterLegacyNarrowLogStreamLate_5482B8();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyNarrowLogStreamAtExit_5482D3);
+}
+
+LegacyWideInputStream* RegisterLegacyWideInputStreamLate_5492BB()
+{
+    return RegisterConstructLegacyWideInput_5496AB(&gLegacyWideStandardInput1086578, 0, 1);
+}
+
+void DestroyLegacyWideInputStreamAtExit_5492D6()
+{
+    DestroyLegacyWideInput_5492E0(&gLegacyWideStandardInput1086578);
+}
+
+std::int32_t InitializeLegacyWideInputStream_5492B1()
+{
+    RegisterLegacyWideInputStreamLate_5492BB();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideInputStreamAtExit_5492D6);
+}
+
+LegacyWideOutputStream* RegisterLegacyWideOutputStreamLate_5492FF()
+{
+    return RegisterConstructLegacyWideOutput_54958F(&gLegacyWideStandardOutput1086668, 0, 1);
+}
+
+void DestroyLegacyWideOutputStreamAtExit_54931A()
+{
+    DestroyLegacyWideOutput_549324(&gLegacyWideStandardOutput1086668);
+}
+
+std::int32_t InitializeLegacyWideOutputStream_5492F5()
+{
+    RegisterLegacyWideOutputStreamLate_5492FF();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideOutputStreamAtExit_54931A);
+}
+
+LegacyWideOutputStream* RegisterLegacyWideLogStreamLate_549372()
+{
+    return RegisterConstructLegacyWideOutput_54958F(&gLegacyWideStandardLog1086540, 0, 1);
+}
+
+void DestroyLegacyWideLogStreamAtExit_54938D()
+{
+    DestroyLegacyWideOutput_549324(&gLegacyWideStandardLog1086540);
+}
+
+std::int32_t InitializeLegacyWideLogStream_549368()
+{
+    RegisterLegacyWideLogStreamLate_549372();
+    return RegisterLegacyAtExit_53B406(DestroyLegacyWideLogStreamAtExit_54938D);
+}
+
 } // namespace cg::platform

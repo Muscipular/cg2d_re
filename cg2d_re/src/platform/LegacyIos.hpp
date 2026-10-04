@@ -270,4 +270,39 @@ void* ConstructLegacyWideStandardInitializer_54920A();
 std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6();
 std::int32_t RegisterLegacyWideStandardInitializer_549200();
 
+// 原窄输入流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyNarrowInputStream* RegisterLegacyNarrowInputStreamLate_5481D4();
+void DestroyLegacyNarrowInputStreamAtExit_5481EF();
+std::int32_t InitializeLegacyNarrowInputStream_5481CA();
+
+// 原窄输出流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyNarrowOutputStream* RegisterLegacyNarrowOutputStreamLate_548218();
+void DestroyLegacyNarrowOutputStreamAtExit_548233();
+std::int32_t InitializeLegacyNarrowOutputStream_54820E();
+
+// 原窄错误流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyNarrowOutputStream* RegisterLegacyNarrowErrorStreamLate_548289();
+void DestroyLegacyNarrowErrorStreamAtExit_5482A4();
+std::int32_t InitializeLegacyNarrowErrorStream_54827F();
+
+// 原窄日志流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyNarrowOutputStream* RegisterLegacyNarrowLogStreamLate_5482B8();
+void DestroyLegacyNarrowLogStreamAtExit_5482D3();
+std::int32_t InitializeLegacyNarrowLogStream_5482AE();
+
+// 原宽输入流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyWideInputStream* RegisterLegacyWideInputStreamLate_5492BB();
+void DestroyLegacyWideInputStreamAtExit_5492D6();
+std::int32_t InitializeLegacyWideInputStream_5492B1();
+
+// 原宽输出流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyWideOutputStream* RegisterLegacyWideOutputStreamLate_5492FF();
+void DestroyLegacyWideOutputStreamAtExit_54931A();
+std::int32_t InitializeLegacyWideOutputStream_5492F5();
+
+// 原宽日志流CRT三入口：登记构造(0,1)/同对象析构/真实退出登记返回。
+LegacyWideOutputStream* RegisterLegacyWideLogStreamLate_549372();
+void DestroyLegacyWideLogStreamAtExit_54938D();
+std::int32_t InitializeLegacyWideLogStream_549368();
+
 } // namespace cg::platform

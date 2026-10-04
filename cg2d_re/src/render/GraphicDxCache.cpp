@@ -20,11 +20,13 @@
 #include <algorithm>
 #include <bit>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <map>
 #include <memory>
 #include <new>
 #include <tuple>
+#include <type_traits>
 
 namespace cg::render {
 
@@ -166,10 +168,75 @@ struct SurfaceTransformKeyLess {
 
 using SurfaceTransformCache =
     std::map<SurfaceTransformKey, TextureSurface*, SurfaceTransformKeyLess>;
-SurfaceTransformCache gSurfaceTransforms629300;
-SurfaceTransformCache gSurfaceTransforms62A630;
+
+// 被动存储不自动构析；唯一活动路径是下方两个原相邻槽的宿主登记。
+// std::map 只拥有私有节点，surface 键和值均沿原业务清理借用。
+alignas(SurfaceTransformCache)
+std::byte gSurfaceTransforms629300[sizeof(SurfaceTransformCache)] {};
+alignas(SurfaceTransformCache)
+std::byte gSurfaceTransforms62A630[sizeof(SurfaceTransformCache)] {};
+
+SurfaceTransformCache& BorrowSurfaceTransformCache629300() noexcept
+{
+    return *std::launder(
+        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms629300));
+}
+
+SurfaceTransformCache& BorrowSurfaceTransformCache62A630() noexcept
+{
+    return *std::launder(
+        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms62A630));
+}
+
+// 原 44CC30/44CD40：固定 this 构造并返回同一对象；节点/空节点由宿主 STL 承接。
+SurfaceTransformCache* ConstructSurfaceTransformCache629300_44CC30()
+{
+    return std::construct_at(
+        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms629300));
+}
+
+SurfaceTransformCache* ConstructSurfaceTransformCache62A630_44CD40()
+{
+    return std::construct_at(
+        reinterpret_cast<SurfaceTransformCache*>(gSurfaceTransforms62A630));
+}
+
+// 原 44CC60/44CD70 共用 44CC70：只销毁节点，不调用面释放或场景业务清理。
+void DestroySurfaceTransformCache629300_44CC60()
+{
+    std::destroy_at(&BorrowSurfaceTransformCache629300());
+}
+
+void DestroySurfaceTransformCache62A630_44CD70()
+{
+    std::destroy_at(&BorrowSurfaceTransformCache62A630());
+}
+
+struct SurfaceTransformCacheStartup final {
+    SurfaceTransformCacheStartup()
+    {
+        // 原 553018 -> 55301C；各自构造后立即登记，不按第一次登记结果短路。
+        static_cast<void>(InitializeSurfaceTransformCache629300_44CC20());
+        static_cast<void>(InitializeSurfaceTransformCache62A630_44CD30());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<SurfaceTransformCacheStartup>);
+SurfaceTransformCacheStartup gSurfaceTransformCacheStartup;
 
 } // namespace
+
+std::int32_t InitializeSurfaceTransformCache629300_44CC20()
+{
+    static_cast<void>(ConstructSurfaceTransformCache629300_44CC30());
+    return std::atexit(DestroySurfaceTransformCache629300_44CC60);
+}
+
+std::int32_t InitializeSurfaceTransformCache62A630_44CD30()
+{
+    static_cast<void>(ConstructSurfaceTransformCache62A630_44CD40());
+    return std::atexit(DestroySurfaceTransformCache62A630_44CD70);
+}
 
 DxGraphicEntry* gGraphicDxCache103CFA4 = nullptr;
 std::array<TextureNode, kTextureNodeCapacity> gTextureNodes {};
@@ -676,7 +743,7 @@ TextureSurface* TransformTextureSurface_44CD80(
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
     auto& cache = world::gCurrentSceneType == 10
-        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
     const auto found = cache.find(key);
     if (found != cache.end()) {
         if (found->second != nullptr) {
@@ -718,7 +785,7 @@ TextureSurface* TransformTextureSurface_44CD80(
         {keyRectangle[0], keyRectangle[1], keyRectangle[2], keyRectangle[3]}
     };
     auto& publishedCache = world::gCurrentSceneType == 10
-        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
     publishedCache[publishedKey] = transformed;
     return publishedCache[publishedKey];
 }
@@ -726,7 +793,7 @@ TextureSurface* TransformTextureSurface_44CD80(
 void ClearSurfaceTransformCache_44D490()
 {
     auto& cache = world::gCurrentSceneType == 10
-        ? gSurfaceTransforms62A630 : gSurfaceTransforms629300;
+        ? BorrowSurfaceTransformCache62A630() : BorrowSurfaceTransformCache629300();
     auto current = cache.begin();
     while (current != cache.end()) {
         gTextureSurfaceOwner.Release(current->second);

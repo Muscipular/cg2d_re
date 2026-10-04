@@ -72,15 +72,26 @@
       "baseline_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_client_shutdown.md",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0004CC20",
+        "F:0004CC30",
+        "F:0004CC60",
+        "F:0004CD30",
+        "F:0004CD40",
+        "F:0004CD70",
+        "F:00053FB0",
+        "F:00054780"
+      ],
       "closure_task_ids": [
         "C02",
         "C03",
         "C04",
         "V01",
-        "V02"
+        "V02",
+        "C09"
       ],
       "dependencies": [
         "FUNC-CRT"
@@ -90,11 +101,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
+        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline"
+      ]
     },
     {
       "id": "FUNC-CRT",
@@ -472,9 +486,19 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_texture_rendering.md",
         "doc/cg2d_sdl_presenter.md",
-        "doc/cg2d_sub_507140.md"
+        "doc/cg2d_sub_507140.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0004CC20",
+        "F:0004CC30",
+        "F:0004CC60",
+        "F:0004CD30",
+        "F:0004CD40",
+        "F:0004CD70",
+        "F:00053FB0",
+        "F:00054780"
+      ],
       "closure_task_ids": [
         "C09",
         "G01",
@@ -491,11 +515,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
+        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline"
+      ]
     },
     {
       "id": "FUNC-UI",
@@ -5359,6 +5386,108 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-GRAPHIC-TREES-I-20261004",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：八身份178条、553018/55301C相邻槽、两个16B存储及14/12直接引用；doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-trees-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "src/render/GraphicDxCache.cpp#SurfaceTransformCacheStartup",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache629300_44CC20",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache62A630_44CD30",
+        "src/render/GraphicDxCache.cpp#ClearSurfaceTransformCache_44D490",
+        "include/cg/render/GraphicDxCache.hpp"
+      ],
+      "observation": "仅C09本组两固定owner的实际构造/登记/节点析构实现",
+      "expected": "取消自动map构析，两块被动存储各有真实构造和固定析构；仅一次实际宿主登记，没有空节点/计数镜像",
+      "actual": "两个std::construct_at/两个std::destroy_at、两个透传S32的std::atexit及具名提供者已落位；未构建/运行",
+      "differences": [
+        {
+          "description": "D02/D03宿主STL承接私有节点/共享空节点及分配/异常，退出登记使用真实std::atexit；不复造旧节点布局/计数或声明原体等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前保留同模块启动位置并只按本组相邻两槽执行；全应用相对顺序仍沿C02/C04待接，届时须同时移除本模块适配以免双执行",
+          "decision_ref": "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-GRAPHIC-TREES-W-20261004",
+      "feature_id": "FUNC-RENDER",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：八身份178条、553018/55301C相邻槽、两个16B存储及14/12直接引用；doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-trees-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "src/render/GraphicDxCache.cpp#SurfaceTransformCacheStartup",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache629300_44CC20",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache62A630_44CD30",
+        "src/render/GraphicDxCache.cpp#ClearSurfaceTransformCache_44D490",
+        "include/cg/render/GraphicDxCache.hpp"
+      ],
+      "observation": "仅本组模块启动、即时登记与三个业务选择位置的寿命接线",
+      "expected": "先第一树构造/立即登记，再第二树构造/立即登记；查询/发布/清理同一owner；退出节点不释放surface",
+      "actual": "唯一无析构启动对象按两原槽顺序调用；三个原场景选择点借用实际对象，原逐面清理顺序保持；全应用顺序另验",
+      "differences": [
+        {
+          "description": "D02/D03宿主STL承接私有节点/共享空节点及分配/异常，退出登记使用真实std::atexit；不复造旧节点布局/计数或声明原体等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前保留同模块启动位置并只按本组相邻两槽执行；全应用相对顺序仍沿C02/C04待接，届时须同时移除本模块适配以免双执行",
+          "decision_ref": "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-GRAPHIC-TREES-S-20261004",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：八身份178条、553018/55301C相邻槽、两个16B存储及14/12直接引用；doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-trees-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "src/render/GraphicDxCache.cpp#SurfaceTransformCacheStartup",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache629300_44CC20",
+        "src/render/GraphicDxCache.cpp#InitializeSurfaceTransformCache62A630_44CD30",
+        "src/render/GraphicDxCache.cpp#ClearSurfaceTransformCache_44D490",
+        "include/cg/render/GraphicDxCache.hpp"
+      ],
+      "observation": "仅八原身份178条/原两槽/两存储直接引用及新增源码的静态对照",
+      "expected": "共享段/chunks不重计，返回实际宿主结果，旧自动map和旧私有布局没有并行活动，具名差异不外推",
+      "actual": "逐原指令/相邻槽/14与12直接引用对照本组；两构析职责分开、唯一存储和三消费者符合合同；未测试/运行",
+      "differences": [
+        {
+          "description": "D02/D03宿主STL承接私有节点/共享空节点及分配/异常，退出登记使用真实std::atexit；不复造旧节点布局/计数或声明原体等价",
+          "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md"
+        },
+        {
+          "description": "当前保留同模块启动位置并只按本组相邻两槽执行；全应用相对顺序仍沿C02/C04待接，届时须同时移除本模块适配以免双执行",
+          "decision_ref": "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -5441,6 +5570,14 @@
       "evidence_refs": [
         "doc/cg2d_battle_attack_targets_spec.md#attack-target-source-closure"
       ]
+    },
+    {
+      "task_id": "C09",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure"
+      ]
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
@@ -5515,6 +5652,78 @@
       "evidence_refs": [
         "doc/cg2d_battle_attack_targets_spec.md#attack-target-source-closure",
         "doc/cg2d_local_determinism_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CC20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CC30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CC60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CD30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CD40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:0004CD70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00053FB0",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00054780",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ]
     }
   ],

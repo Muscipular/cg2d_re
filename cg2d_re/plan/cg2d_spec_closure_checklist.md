@@ -125,7 +125,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | C06 / 异常查找捕获 | 旧数据/部分叶已有，父未闭 | 私有5402AB/5407BC职责由真实本机异常设施承接，caller成组映射 | 保留业务异常/清理，不记旧内核已还原；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C07 / 抛出与SDK | 旧准备链已有，抛出未接 | 编译器生成真实异常ABI，不手造ThrowInfo/RVA，明确消息/复制/重抛映射 | 不把Legacy对象硬转宿主异常；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C08 / 原堆模式3 | 旧外层/模式2已有；宿主域承接已定 | 从实际CRT域整组迁移分配/扩容/容量/释放，不再复造16B双链 | 不跨堆、读旧块头或补假叶；业务可见冲突保留兼容；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
-| C09 / 图形双树 | 业务缓存已有，生命周期未闭 | 私有节点/空节点归宿主容器；应用清理时点/逐surface释放仍接全 | 不能只凭map存在称完成；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
+| C09 / 图形双树 | 本组双存储/具名构析/即时宿主登记已接；局部I/W/S归档 | 全应用原相对序及完整逐surface清理仍待；接全表时同时移除模块适配 | 保持open；[本组源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)，不以本组替全启动/退出 |
 | C10 / FILE 剩余原调用 | 核心/业务及filebuf库点已部分迁移 | 按下表逐个原点找父和阻断原因，只补当前差集 | [stdio](../doc/cg2d_stdio_contract.md)；不能把所有余点当可立即迁移，也不因计数齐而宣称文件验收 |
 | C11 / 应用分配域 | 原堆内部与已有宿主窄裁决并存；21应用calloc边界保留 | 逐调用登记批准范围、分配/释放配对与失败消费；需要迁移才依方案执行 | [内存合同](../doc/cg2d_crt_memory_contract.md)；不把21点统一改原堆或统一当未实现 |
 | C12 / 字符串与格式剩余 | 已接点及分类计数见§2 | 长度余1与格式余23逐原点处理；范围排除/音频/替换/待事实或实施不混算 | [字符串](../doc/cg2d_legacy_string_compare.md)、[stdio](../doc/cg2d_stdio_contract.md)；格式余1沿P07补事实，旧点不重做 |

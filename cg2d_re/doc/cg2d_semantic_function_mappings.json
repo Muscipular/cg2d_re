@@ -5357,124 +5357,303 @@
     {
       "original_entry": "0x44CC20",
       "inventory_id": "F:0004CC20",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "CRT553018第一变换缓存树登记",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
-            "gSurfaceTransforms629300"
-          ]
+            "InitializeSurfaceTransformCache629300_44CC20",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "先44CC30构造629300树，再登记44CC60；按既有std::map适配承接生命周期，跨模块CRT及异常时机未验。"
+      "boundary": "553018：固定629300构造完成后立即登记自身无参退出，透传真实宿主S32；本模块启动适配是唯一活动caller，原整表仍未启用。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x44CC20",
+          "end_exclusive": "0x44CC2A"
+        },
+        {
+          "start": "0x44CC50",
+          "end_exclusive": "0x44CC5C"
+        }
+      ],
+      "original_end_exclusive": "0x44CC2A",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "InitializeSurfaceTransformCache629300_44CC20",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "InitializeSurfaceTransformCache629300_44CC20",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44CC30",
       "inventory_id": "F:0004CC30",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "第一变换缓存树构造入口",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
+            "ConstructSurfaceTransformCache629300_44CC30",
             "gSurfaceTransforms629300",
-            "SurfaceTransformCache"
-          ]
+            "gSurfaceTransforms62A630"
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "原以629300为this调用453FB0；当前类型化map默认构造，不复制局部allocator残值。"
+      "boundary": "固定629300被动存储std::construct_at，返回实际同一map对象；原局部allocator/私有节点分配由D02宿主承接，不新增业务参数。",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x44CC30",
+          "end_exclusive": "0x44CC47"
+        }
+      ],
+      "original_end_exclusive": "0x44CC47",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "ConstructSurfaceTransformCache629300_44CC30",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "ConstructSurfaceTransformCache629300_44CC30",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44CC60",
       "inventory_id": "F:0004CC60",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "变换缓存树公共析构",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
+            "DestroySurfaceTransformCache629300_44CC60",
             "gSurfaceTransforms629300",
             "gSurfaceTransforms62A630"
-          ]
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "入口选629300，44CC70是两树共用销毁段；原释放树节点/表头及共享哨兵，不逐值释放surface。当前map保持非拥有值，业务释放仍由44D490承接。"
+      "boundary": "固定629300的std::destroy_at只销毁STL节点；44CC70共用原体含在本身份，不释放surface，业务44D490沿已有时点处理。",
+      "instruction_count": 71,
+      "function_chunks": [
+        {
+          "start": "0x44CC60",
+          "end_exclusive": "0x44CD27"
+        }
+      ],
+      "original_end_exclusive": "0x44CD27",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "DestroySurfaceTransformCache629300_44CC60",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "DestroySurfaceTransformCache629300_44CC60",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44CD30",
       "inventory_id": "F:0004CD30",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "CRT55301C第二变换缓存树登记",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
+            "InitializeSurfaceTransformCache62A630_44CD30",
+            "gSurfaceTransforms629300",
             "gSurfaceTransforms62A630"
-          ]
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "先44CD40构造62A630树，再登记44CD70；和第一缓存保持两个独立容器，不用共用影子树。"
+      "boundary": "相邻55301C：固定62A630构造后立即登记自身退出；第一项登记结果不短路此项，宿主回调逆序且未运行。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x44CD30",
+          "end_exclusive": "0x44CD3A"
+        },
+        {
+          "start": "0x44CD60",
+          "end_exclusive": "0x44CD6C"
+        }
+      ],
+      "original_end_exclusive": "0x44CD3A",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "InitializeSurfaceTransformCache62A630_44CD30",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "InitializeSurfaceTransformCache62A630_44CD30",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44CD40",
       "inventory_id": "F:0004CD40",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "第二变换缓存树构造入口",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
-            "gSurfaceTransforms62A630",
-            "SurfaceTransformCache"
-          ]
+            "ConstructSurfaceTransformCache62A630_44CD40",
+            "gSurfaceTransforms629300",
+            "gSurfaceTransforms62A630"
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "原以62A630为this调用453FB0，当前由第二个类型化map构造承接。"
+      "boundary": "第二独立被动存储std::construct_at，返回实际同一map对象，不用第一树/影子状态/旧节点字节布局。",
+      "instruction_count": 9,
+      "function_chunks": [
+        {
+          "start": "0x44CD40",
+          "end_exclusive": "0x44CD57"
+        }
+      ],
+      "original_end_exclusive": "0x44CD57",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "ConstructSurfaceTransformCache62A630_44CD40",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "ConstructSurfaceTransformCache62A630_44CD40",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x44CD70",
       "inventory_id": "F:0004CD70",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "第二变换缓存树析构尾跳",
       "sources": [
         {
           "path": "src/render/GraphicDxCache.cpp",
           "symbols": [
+            "DestroySurfaceTransformCache62A630_44CD70",
+            "gSurfaceTransforms629300",
             "gSurfaceTransforms62A630"
-          ]
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "原两指令设置第二树地址并跳44CC70公共段，不能把unknown_libname标签当空叶；当前第二map析构承接。"
+      "boundary": "实际两指令选第二树后尾入44CC70；source固定第二map的std::destroy_at，无空叶/面释放或场景选择。",
+      "instruction_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x44CD70",
+          "end_exclusive": "0x44CD7A"
+        }
+      ],
+      "original_end_exclusive": "0x44CD7A",
+      "host_lifecycle_provider": {
+        "disposition": "adapted",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "DestroySurfaceTransformCache62A630_44CD70",
+        "source_body_implemented": true,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验"
+      },
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "DestroySurfaceTransformCache62A630_44CD70",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x453FB0",
       "inventory_id": "F:00053FB0",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "双变换缓存空树构造叶",
       "sources": [
         {
@@ -5483,14 +5662,37 @@
             "SurfaceTransformCache",
             "gSurfaceTransforms629300",
             "gSurfaceTransforms62A630"
-          ]
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_455490_initialization.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
       ],
-      "boundary": "原为两树建立48B节点表头/共享哨兵及引用计数，目标指针字段由原生map拓宽；原节点字节、allocator、树形和分配时机沿既有容器适配边界。"
+      "boundary": "两构造都由真实宿主map承接私有48B节点、共享空节点及计数；原存储/引用/唯一键仍有对应，不伪造62B0AC/62B0B0，非原体逐指令等价。",
+      "instruction_count": 50,
+      "function_chunks": [
+        {
+          "start": "0x453FB0",
+          "end_exclusive": "0x454043"
+        }
+      ],
+      "original_end_exclusive": "0x454043",
+      "host_lifecycle_provider": {
+        "disposition": "host",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "SurfaceTransformCache",
+        "source_body_implemented": false,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验",
+        "host_provider_connected_in_source": true,
+        "original_private_body_reimplemented": false
+      }
     },
     {
       "original_entry": "0x453E00",
@@ -10700,9 +10902,10 @@
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ],
-      "boundary": "原350条指令先保存迭代后继，再摘除/平衡并释放单节点、计数减1、发布后继。现有map::erase及map成员析构承接节点生命周期；值的表面释放仍由父清理调用，不把树节点delete等同TextureSurface释放。树形、节点地址与分配异常不据此宣称等价。"
+      "boundary": "原350条指令先保存迭代后继，再摘除/平衡并释放单节点、计数减1、发布后继。现有map::erase及具名std::destroy_at节点析构承接节点生命周期；值的表面释放仍由父清理调用，不把树节点delete等同TextureSurface释放。树形、节点地址与分配异常不据此宣称等价。"
     },
     {
       "original_entry": "0x454420",
@@ -10773,7 +10976,7 @@
     {
       "original_entry": "0x454780",
       "inventory_id": "F:00054780",
-      "status": "已批准变换缓存容器适配映射，运行未验",
+      "status": "C09本组唯一被动存储/显式宿主构析与即时登记已接；全应用相对顺序及完整运行未验",
       "original_role": "递归释放树节点",
       "original_end_exclusive": "0x4547BB",
       "instruction_count": 25,
@@ -10784,14 +10987,34 @@
             "SurfaceTransformCache",
             "gSurfaceTransforms629300",
             "gSurfaceTransforms62A630"
-          ]
+          ],
+          "relationship": "本组实际单owner提供者与宿主私有节点承接，旧自动map构析已取消；不是原x86私有节点实现"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
       ],
-      "boundary": "右子树递归、左子树迭代，delete只释放节点，不释放+28表面值。仅44CC60公共销毁段及自身直接调用；map成员析构承接，不代替44D490业务表面释放。"
+      "boundary": "原只delete树节点，无surface释放；现两个具名std::destroy_at沿STL真实销毁节点。节点地址/树形/异常/分配与共享空节点按D02/D03承接。",
+      "function_chunks": [
+        {
+          "start": "0x454780",
+          "end_exclusive": "0x4547BB"
+        }
+      ],
+      "host_lifecycle_provider": {
+        "disposition": "host",
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "SurfaceTransformCache",
+        "source_body_implemented": false,
+        "runtime_verified": false,
+        "decision_ref": "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "scope": "仅本组模块构造/即时登记/节点退出；全应用序与surface清理另验",
+        "host_provider_connected_in_source": true,
+        "original_private_body_reimplemented": false
+      }
     },
     {
       "original_entry": "0x4547C0",
@@ -10927,9 +11150,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ],
-      "boundary": "44CC60@44CCCE和454050@45405F调用；右子树最左项或沿父链上行，含表头分支。map::erase返回后继和成员析构承接；不把残留EAX节点值暴露为业务返回。"
+      "boundary": "44CC60@44CCCE和454050@45405F调用；右子树最左项或沿父链上行，含表头分支。map::erase返回后继和具名节点析构承接；不把残留EAX节点值暴露为业务返回。"
     },
     {
       "original_entry": "0x454BE0",
@@ -11015,7 +11239,8 @@
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_graphic_dx_cache.md",
-        "doc/cg2d_external_keyboard_wrapper.md"
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ]
     },
     {
@@ -21345,7 +21570,8 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_transform_lifecycle_spec.md"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -22107,6 +22333,30 @@
           "source_body_implemented": true,
           "native_table_defined": false,
           "relationship": "世界对象表原真实provider，整90表仍extern/不启用"
+        }
+      ],
+      "graphic_transform_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x553018",
+          "target_entry": "0x44CC20",
+          "target_symbol": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+          "source": "src/render/GraphicDxCache.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true,
+          "original_exit_callback": "0x44CC60",
+          "relationship": "当前唯一本模块适配调用真实provider；宿主atexit承担登记，原整90表仍extern，接原应用序必须同时移除适配"
+        },
+        {
+          "reference_site": "0x55301C",
+          "target_entry": "0x44CD30",
+          "target_symbol": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+          "source": "src/render/GraphicDxCache.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "module_provider_active": true,
+          "original_exit_callback": "0x44CD70",
+          "relationship": "本组第二相邻项在第一项构造/即时登记后执行；全应用相对序、快速退出与运行未验"
         }
       ]
     },

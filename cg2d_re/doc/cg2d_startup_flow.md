@@ -1905,3 +1905,11 @@ Cpp5530F8/5530FC/553100只记录真实provider，整90表仍extern未启用，�
 数量保持S32，内联指针只原生拓宽，原生+08为列表起点，2/3项结构24/32B；源当前数组字节/S32查找证据/原生绑定保存到[cg2d_exception_catchable_array_evidence.json](cg2d_exception_catchable_array_evidence.json)。结构只承接这五数组，不生成宿主SDK相对RVA格式或自动安装/启用。LegacyCppThrowInfo继续不透明，5402AB查找/handler与帧父、54B123/SDK抛出传播仍未接线，不将数据层生产计整链完成。
 
 六文件三既有记录新增静态后独立提交，1110/未决18/分类4及全部业务/IO数组保持，无新原函数身份；旧匹配/PMD/成员算法不改或回核，未编译、测试、运行或hash核验，普通日志追加。
+
+### C09双变换树单owner构析与即时宿主登记（2026-10-04）
+
+依据D02/D03与先行[本组子SPEC](cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)，原553018/55301C相邻两槽各构造后即时登记；八原身份178条/chunks与原14/12数据直接引用核定。旧44CC60/44CD70只毁节点，44D490在原两个业务时点逐面释放/清值/摘项，不能互换职责。
+
+既有GraphicDxCache.cpp本组取消两自动map构析，改两块被动存储、固定construct_at/destroy_at及两个具名S32入口的真实std::atexit，唯一无析构模块适配按两原槽调用，不消费结果/短路/重复登记。三个原查询/发布/清理选择点同源借用，TextureSurfaceOwner保持。节点、共享空节点/计数、私有分配和退出表按获批宿主职责承接，不虚造旧槽/旧表头或原体等价。
+
+本组当前宿主位置已接，全应用原相对序与C++90仍未闭；C02/C04接全表时须同小步移除模块适配，不能双执行。C09保持open，全surface/场景/快速退出和运行待验；不构建/测试/运行/计算摘要。本组八记录更新、八函数处置和三局部I/W/S归档，语义1144/18pending/全功能门禁保持。

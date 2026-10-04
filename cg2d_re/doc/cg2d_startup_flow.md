@@ -1969,3 +1969,9 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 前述“54B123仅声明/SDK未提供”的当前源码缺口，由[NCE01](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)在全部九原入向成组承接：五Raise真实本机prvalue/一次原copy，三个准备payload无增引用转移，clear当前异常直接throw;。六独立本机tag保原logic/length/range/runtime/failure层级及原全局exception；copy/非删除析构/what都调用既有原叶。
 
 原SDK声明与未定义ThrowInfo传址退出当前路径，原取证/类型描述符/捕获数组保留；不复造54B123同名body或x64私有元数据。临时串清理、原字段/方法表/消息和算法不改，不改全应用初始化序。实际compiler ABI/捕获展开/SDK、C06/硬件SEH、其他CRT和运行仍待，不以本机类存在宣称完整启动或异常验收。
+
+## LCH01全局/经典locale的当前提供者（2026-10-05）
+
+[本组SPEC与收口](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)更新先前原堆/原退出表接线状态：54A404当前唯一实现对象生产改私有宿主pair，Ctor失败及正常删除同域；54A450先发布global再std::atexit登记原54A4BD并弃返回，54A3F3仍先仅RET晚段，再std::atexit登记原54A3FA/直接S32。三共享槽与引用/名称/默认构造发布时点、两个退出不清槽本体保持。
+
+55315C经典初始化的全应用表caller继续待接，不新增模块/抢先登记；宿主SDK经典locale与Legacy实际实现对象分开，不以两接口存在称原经典引用已在活动退出归零。facet/向量仍原域、名称NSH01；全应用相对序、活动流构析/快速退出与C03/C04/完整CRT及运行继续开放。新增局部证据不代启动、链接或SDK验收。

@@ -1445,3 +1445,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [NCE01局部SPEC](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)同步九原根和十四copy/析构/what原叶共23既有记录。九原数字throw点保留，当前提供者为八实际throw和一throw重抛；原54B123 body不还原，退役的可调用/opaque声明关联单列历史，不作为当前source。五Raise copy点移入本机payload构造，不加第二次复制；三准备payload不增共享引用转移。
 
 原五ThrowInfo真实unwind与十三捕获类型支持六本机tag层级/切片回调，原数据数组保留且不桥SDK。原204归属含共享尾、唯一198；1152/1149、18pending/4分类引用不变。九原根adapted使已审87/3680，三限定E累计36；C06/C07、生成ABI/捕获/SDK/硬件SEH/运行及完整功能门禁开放，源码关闭10/60不变。
+
+## LCH01实现对象域与退出映射（2026-10-05）
+
+[局部SPEC](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)与[原证据](cg2d_locale_object_heap_migration_evidence.json)将54A404/54A59B/54A3E3三变化体、九构析/引用边界及53C9CF/53B4E7/53C3BE/541A28/53B406五共享提供者共十七既有记录对齐。五实际改callee保原数字target/旧symbol与参数历史，当前改私有对象pair/两std::atexit，不把宿主目标当原共享本体或新增F身份。
+
+原方法表/字段/引用重读/名称与异常清理保持；base facet/vector仍原域，名称NSH01，经典全表caller未接。1152条/1149有效ID、18pending/4分类引用及其他语义元数据不变。已审只新增三变化体至90，三局部证据累计39；全功能分母/完整CRT、生命周期/SDK及运行仍未闭。

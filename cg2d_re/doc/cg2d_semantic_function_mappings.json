@@ -19017,7 +19017,7 @@
     {
       "original_entry": "0x54A3E3",
       "inventory_id": "F:0014A3E3",
-      "status": "原经典locale晚段构造与退出登记本体已实现；实际CRT表及宿主迁移未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A3ED",
       "instruction_count": 6,
       "sources": [
@@ -19034,7 +19034,7 @@
           "symbols": [
             "InitializeLegacyClassicLocale_54A3E3"
           ],
-          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考"
+          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19051,9 +19051,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。",
+      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_chunks": [
         [
           "0x54A3E3",
@@ -19089,9 +19090,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyClassicLocale_54A3E3",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "arguments": "DestroyLegacyClassicLocale_54A3FA",
-          "relationship": "原真实退出表登记，完整S32返回直接传出，不改固定成功/宿主atexit"
+          "relationship": "LCH01先原RET晚段再宿主登记，直接S32；55315C全表caller仍待，不抢先启用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "original_arguments": "DestroyLegacyClassicLocale_54A3FA",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "locale_classic_exit_callback_binding": {
@@ -19101,18 +19106,94 @@
         "symbol": "InitializeLegacyClassicLocale_54A3E3",
         "callback_entry": "0x54A3FA",
         "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
-        "relationship": "真实函数地址登记；这里只登记，不即时清理或重复宿主析构"
+        "relationship": "LCH01实际std::atexit登记同一原回调；经典全表caller仍未接，不即时清理/新增模块或重复SDK析构"
       },
       "original_initializer_table_slot": {
         "address": "0x55315C",
         "loaded": true,
         "target": "0x54a3e3"
+      },
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
       }
     },
     {
       "original_entry": "0x54A3ED",
       "inventory_id": "F:0014A3ED",
-      "status": "原经典locale晚段构造与退出登记本体已实现；实际CRT表及宿主迁移未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A3EE",
       "instruction_count": 1,
       "sources": [
@@ -19129,7 +19210,7 @@
           "symbols": [
             "ConstructLegacyClassicLocaleLate_54A3ED"
           ],
-          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考"
+          "relationship": "原6条初始化/单RET晚段构造的真实原生本体；宿主职责仅保留历史参考；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19146,9 +19227,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。",
+      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行",
       "inbound_evidence": [
         {
@@ -19157,12 +19239,88 @@
           "kind": 17
         }
       ],
-      "locale_classic_initializer_internal_call_connections": []
+      "locale_classic_initializer_internal_call_connections": [],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A3FA",
       "inventory_id": "F:0014A3FA",
-      "status": "原locale全局/经典生产、默认构造与清理本体已实现；实际启动/退出迁移和完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A404",
       "instruction_count": 2,
       "sources": [
@@ -19179,7 +19337,7 @@
           "symbols": [
             "DestroyLegacyClassicLocale_54A3FA"
           ],
-          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义"
+          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19193,7 +19351,7 @@
           "symbols": [
             "InitializeLegacyClassicLocale_54A3E3"
           ],
-          "relationship": "新增原54A3EE回调地址绑定，实际原生退出表登记；既有经典析构本体不改"
+          "relationship": "新增原54A3EE回调地址绑定，实际原生退出表登记；既有经典析构本体不改；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         }
       ],
       "native_provider": {
@@ -19203,9 +19361,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。",
+      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
@@ -19258,14 +19417,90 @@
           "symbol": "InitializeLegacyClassicLocale_54A3E3",
           "callback_entry": "0x54A3FA",
           "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
-          "relationship": "真实函数地址登记；这里只登记，不即时清理或重复宿主析构"
+          "relationship": "LCH01实际std::atexit登记同一原回调；经典全表caller仍未接，不即时清理/新增模块或重复SDK析构"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A404",
       "inventory_id": "F:0014A404",
-      "status": "原locale全局/经典生产、默认构造与清理本体已实现；实际启动/退出迁移和完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A4BD",
       "instruction_count": 65,
       "sources": [
@@ -19282,7 +19517,7 @@
           "symbols": [
             "InitializeLegacyGlobalLocale_54A404"
           ],
-          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义"
+          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19299,9 +19534,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "首次建立全局实现1086730：原分配0x28并构造、登记54A4BD、类别3F/名称C、再增加经典引用并写108672C/1086728；已有全局直接返回。宿主_Init按真实原生布局承载惰性全局与经典对象，不沿用原x86大小。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。",
+      "boundary": "首次建立全局实现1086730：原分配0x28并构造、登记54A4BD、类别3F/名称C、再增加经典引用并写108672C/1086728；已有全局直接返回。宿主_Init按真实原生布局承载惰性全局与经典对象，不沿用原x86大小。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_chunks": [
         [
           "0x54A404",
@@ -19312,7 +19548,7 @@
           "0x54C3B0"
         ]
       ],
-      "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行",
+      "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行；LCH01本组对象pair/两登记与82变化体/187边界静态对照，运行未验",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
         "original_initialization_contract": "doc/cg2d_startup_flow.md原对象、初始化与引用；三槽未加载虚拟零区",
@@ -19352,7 +19588,7 @@
             "loaded": true
           }
         ],
-        "source_scope": "只Ctor非空分配块调用为state1保护区；异常删除原块并重抛，其余state0原ret空清理",
+        "source_scope": "只Ctor非空块调用为state1；LCH01同域free分配块/重抛，未完成对象不完整析构，原空分配后续不保护",
         "allocation_original_bytes": 40,
         "allocation_native_bytes": 64,
         "boundary": "构造失败不析构未完成对象，分配调用异常不误删未产生指针，不模拟FS/handler/SEH；原null结果的后续不补保护"
@@ -19364,9 +19600,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53C9CF",
-          "target_symbol": "AllocateLegacyHeapWithHandler_53C3BE",
-          "arguments": "U32(sizeof64B),1",
-          "relationship": "原40B仅地址拓宽64B，原new叶传handler1"
+          "target_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "arguments": "U32(sizeof(LegacyLocaleImplementation))",
+          "relationship": "LCH01仅实现对象storage宿主分配，原40→既有64B/真实handler1，不预清字段",
+          "original_target_symbol": "AllocateLegacyHeapWithHandler_53C3BE",
+          "original_arguments": "U32(sizeof64B),1",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A404",
@@ -19384,9 +19624,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "arguments": "ReleaseLegacyGlobalLocale_54A4BD",
-          "relationship": "先发布global再真实登记，返回弃、不失败回滚或重复std登记"
+          "relationship": "LCH01先发布global再宿主登记同一原回调，返回弃/失败不回滚，不双登记",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "original_arguments": "ReleaseLegacyGlobalLocale_54A4BD",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A404",
@@ -19414,16 +19658,96 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53B4E7",
-          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "target_symbol": "FreeLegacyLocaleObject_53B4E7",
           "arguments": "allocation",
-          "relationship": "Ctor状态1展开只delete块，未完成对象不额外析构"
+          "relationship": "LCH01 Ctor状态1同域释放/重抛，未完成对象不完整析构",
+          "original_target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "original_arguments": "allocation",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A4BD",
       "inventory_id": "F:0014A4BD",
-      "status": "原locale全局/经典生产、默认构造与清理本体已实现；实际启动/退出迁移和完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A505",
       "instruction_count": 30,
       "sources": [
@@ -19440,7 +19764,7 @@
           "symbols": [
             "ReleaseLegacyGlobalLocale_54A4BD"
           ],
-          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义"
+          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19457,9 +19781,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "全局指针非空时按原0/FFFFFFFF门禁减少引用，计数零才调用删除析构；原不将1086730置空。宿主tidy_global具有释放职责但会清全局指针，此差异未记为等价。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。",
+      "boundary": "全局指针非空时按原0/FFFFFFFF门禁减少引用，计数零才调用删除析构；原不将1086730置空。宿主tidy_global具有释放职责但会清全局指针，此差异未记为等价。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_chunks": [
         [
           "0x54A4BD",
@@ -19495,12 +19820,88 @@
         "native_slot_bytes": 8,
         "boundary": "实际原生共享域，初始null来自既有虚拟零合同，不用IDA FF/不镜像SDK，清理不额外置空；与宿主标准流生产接线仍待"
       },
-      "locale_global_internal_call_connections": []
+      "locale_global_internal_call_connections": [],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54865E",
       "inventory_id": "F:0014865E",
-      "status": "原locale全局/经典生产、默认构造与清理本体已实现；实际启动/退出迁移和完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54867D",
       "instruction_count": 13,
       "sources": [
@@ -19517,7 +19918,7 @@
           "symbols": [
             "ConstructLegacyLocale_54865E"
           ],
-          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义"
+          "relationship": "真实原三槽/原堆对象与名称生产、原退出表/引用时点及清理不清槽，原宿主职责不当直接定义；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19557,9 +19958,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "默认locale构造先54A404并立即保存返回到对象实现槽，再重新取当前全局按原门禁增加一份引用；七个直接调用来自窄/宽filebuf及ios_base初始化。宿主默认locale通过_Init(true)取得同源共享实现，应用无需再建对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F22/0x549EAE，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548612/0x548632/0x54971E/0x54973E；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增ios_base真实原父点0x54A2A0；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。",
+      "boundary": "默认locale构造先54A404并立即保存返回到对象实现槽，再重新取当前全局按原门禁增加一份引用；七个直接调用来自窄/宽filebuf及ios_base初始化。宿主默认locale通过_Init(true)取得同源共享实现，应用无需再建对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F22/0x549EAE，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548612/0x548632/0x54971E/0x54973E；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增ios_base真实原父点0x54A2A0；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行；新增ios_base父数值call/尾调与新增消费静态，不执行",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
@@ -19709,12 +20111,88 @@
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyIosBase_54A293"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54867D",
       "inventory_id": "F:0014867D",
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x548695",
       "instruction_count": 11,
       "sources": [
@@ -19731,7 +20209,7 @@
           "symbols": [
             "DestroyLegacyLocale_54867D"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -19784,9 +20262,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F17/0x549EA3，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54C176/0x54C189/0x54C2D6/0x54C2E9/0x548822/0x548830/0x54C1A6/0x549979/0x549987/0x54C306/0x5486BA/0x549773；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增ios_base真实原父点0x54A20E/0x54C382；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。",
+      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F17/0x549EA3，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54C176/0x54C189/0x54C2D6/0x54C2E9/0x548822/0x548830/0x54C1A6/0x549979/0x549987/0x54C306/0x5486BA/0x549773；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增ios_base真实原父点0x54A20E/0x54C382；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行；新增ios_base父数值call/尾调与新增消费静态，不执行",
       "native_storage": {
         "source": "src/platform/LegacyLocale.hpp",
@@ -20039,12 +20518,88 @@
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "DestroyLegacyIosBase_54A1D0"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x548695",
       "inventory_id": "F:00148695",
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x5486B1",
       "instruction_count": 13,
       "sources": [
@@ -20061,7 +20616,7 @@
           "symbols": [
             "DecrementLegacyLocaleFacet_548695"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -20081,9 +20636,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原W32计数仅0<count<FFFFFFFF时递减，最后为零才返回this；宿主facet::_Decref采用原子递减，没有相同0/FFFFFFFF门禁。本条仅关联正常引用释放职责，不作为该原叶所有计数输入的替代实现或完整通过。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "boundary": "原W32计数仅0<count<FFFFFFFF时递减，最后为零才返回this；宿主facet::_Decref采用原子递减，没有相同0/FFFFFFFF门禁。本条仅关联正常引用释放职责，不作为该原叶所有计数输入的替代实现或完整通过。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyLocale.hpp",
@@ -20159,12 +20715,88 @@
           "native_this_bridge": "DeleteLegacyLocaleImplementationFromFacet"
         }
       ],
-      "internal_call_connections": []
+      "internal_call_connections": [],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A505",
       "inventory_id": "F:0014A505",
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A57E",
       "instruction_count": 46,
       "sources": [
@@ -20181,7 +20813,7 @@
           "symbols": [
             "ConstructLegacyLocaleImplementation_54A505"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -20198,7 +20830,7 @@
           "symbols": [
             "InitializeLegacyGlobalLocale_54A404"
           ],
-          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         }
       ],
       "native_provider": {
@@ -20208,9 +20840,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原引用1，facet向量/数量/类别为0，透明标记取低字节，名称整理为*后改_Locimp虚表；宿主_Locimp(bool)有相同默认职责，内部布局/字符串和异常过程未判等。原清理尾包含54A577，不新增函数ID。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增真实locale全局原点0x54A437；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。",
+      "boundary": "原引用1，facet向量/数量/类别为0，透明标记取低字节，名称整理为*后改_Locimp虚表；宿主_Locimp(bool)有相同默认职责，内部布局/字符串和异常过程未判等。原清理尾包含54A577，不新增函数ID。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增真实locale全局原点0x54A437；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_chunks": [
         [
           "0x54A505",
@@ -20364,12 +20997,88 @@
           "arguments": "allocation, 0",
           "relationship": "仅分配非空Ctor，原W32完整0，失败同域delete块"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A59B",
       "inventory_id": "F:0014A59B",
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A5B7",
       "instruction_count": 11,
       "sources": [
@@ -20386,7 +21095,7 @@
           "symbols": [
             "DeleteLegacyLocaleImplementation_54A59B"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -20406,9 +21115,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原先54A5B7析构、flags bit0为1才释放对象，再返回原指针；宿主虚析构/delete承担资源释放。原flags独立调用域和返回地址不由本机公开API直接提供，不据此声称ABI一致。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "boundary": "原先54A5B7析构、flags bit0为1才释放对象，再返回原指针；宿主虚析构/delete承担资源释放。原flags独立调用域和返回地址不由本机公开API直接提供，不据此声称ABI一致。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyLocale.hpp",
@@ -20501,16 +21211,96 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "DeleteLegacyLocaleImplementation_54A59B",
           "target_entry": "0x53B4E7",
-          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "target_symbol": "FreeLegacyLocaleObject_53B4E7",
           "arguments": "storage",
-          "relationship": "析构后flags bit0原堆对象delete"
+          "relationship": "LCH01完整析构后flags bit0释放实现对象同域storage；facet/向量仍原域",
+          "original_target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "original_arguments": "storage",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x54A5B7",
       "inventory_id": "F:0014A5B7",
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "original_end_exclusive": "0x54A638",
       "instruction_count": 60,
       "sources": [
@@ -20527,7 +21317,7 @@
           "symbols": [
             "DestroyLegacyLocaleImplementation_54A5B7"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -20547,9 +21337,10 @@
       },
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原反序遍历facet非空项、按计数减引用及零时删除，随后释放向量和名称；宿主_Locimp_dtor加成员自然析构承担此职责。包括54A30D共享名称清理和异常尾，特殊计数与异常展开仍有未验差异。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "boundary": "原反序遍历facet非空项、按计数减引用及零时删除，随后释放向量和名称；宿主_Locimp_dtor加成员自然析构承担此职责。包括54A30D共享名称清理和异常尾，特殊计数与异常展开仍有未验差异。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_chunks": [
         [
           "0x54A5B7",
@@ -20694,7 +21485,83 @@
           "arguments": "&storage->name, true",
           "relationship": "原共享名称清理尾状态1→0，不新增原函数ID"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x53A200",
@@ -20768,7 +21635,14 @@
           "symbols": [
             "InitializeLegacyGlobalLocale_54A404"
           ],
-          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "AllocateLegacyLocaleObject_53C9CF"
+          ],
+          "relationship": "LCH01私有宿主对象分配，保U32上界/零请求与原541A28实际循环；非原共享提供者全部body"
         }
       ],
       "evidence_documents": [
@@ -20776,9 +21650,10 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B079",
@@ -20814,9 +21689,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53C9CF",
-          "target_symbol": "AllocateLegacyHeapWithHandler_53C3BE",
-          "arguments": "U32(sizeof64B),1",
-          "relationship": "原40B仅地址拓宽64B，原new叶传handler1"
+          "target_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "arguments": "U32(sizeof(LegacyLocaleImplementation))",
+          "relationship": "LCH01仅实现对象storage宿主分配，原40→既有64B/真实handler1，不预清字段",
+          "original_target_symbol": "AllocateLegacyHeapWithHandler_53C3BE",
+          "original_arguments": "U32(sizeof64B),1",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "narrow_string_heap_migration_contract": {
@@ -20868,6 +21747,82 @@
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
         "runtime_verified": false
+      },
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
       }
     },
     {
@@ -20915,6 +21870,13 @@
             "AllocateLegacyExceptionTextBytes_53C9CF"
           ],
           "relationship": "EXH01仅文本域承接原上界/enable1循环；原53C3BE其他域本体保持，不计原体等价"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "AllocateLegacyLocaleObject_53C9CF"
+          ],
+          "relationship": "LCH01私有宿主对象分配，保U32上界/零请求与原541A28实际循环；非原共享提供者全部body"
         }
       ],
       "evidence_documents": [
@@ -20922,9 +21884,10 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_direct_reference_count": 2,
       "inbound_evidence": [
         {
@@ -20986,6 +21949,82 @@
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
         "runtime_verified": false
+      },
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
       }
     },
     {
@@ -21112,14 +22151,14 @@
             "DeleteLegacyLocaleFacet_54A57E",
             "DeleteLegacyLocaleImplementation_54A59B"
           ],
-          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围"
+          "relationship": "原locale构析新增父实际调用，原堆域、名称/清理时点和字段复用，不改既有本体/宿主范围；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.cpp",
           "symbols": [
             "InitializeLegacyGlobalLocale_54A404"
           ],
-          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyFileBuffer.cpp",
@@ -21151,6 +22190,13 @@
             "DeleteLegacyExceptionTypeDescriptor_54AC7B"
           ],
           "relationship": "新增type_info真实原父，按原实际原堆缓存/对象和门禁同域释放；旧本体/宿主适配保持"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "FreeLegacyLocaleObject_53B4E7"
+          ],
+          "relationship": "仅LCH01实现对象storage的Ctor失败/正常删除同域宿主释放；base facet及vector仍原域"
         }
       ],
       "evidence_documents": [
@@ -21158,9 +22204,10 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -21282,9 +22329,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "DeleteLegacyLocaleImplementation_54A59B",
           "target_entry": "0x53B4E7",
-          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "target_symbol": "FreeLegacyLocaleObject_53B4E7",
           "arguments": "storage",
-          "relationship": "析构后flags bit0原堆对象delete"
+          "relationship": "LCH01完整析构后flags bit0释放实现对象同域storage；facet/向量仍原域",
+          "original_target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "original_arguments": "storage",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "locale_global_parent_call_connections": [
@@ -21294,9 +22345,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53B4E7",
-          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "target_symbol": "FreeLegacyLocaleObject_53B4E7",
           "arguments": "allocation",
-          "relationship": "Ctor状态1展开只delete块，未完成对象不额外析构"
+          "relationship": "LCH01 Ctor状态1同域释放/重抛，未完成对象不完整析构",
+          "original_target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "original_arguments": "allocation",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "file_buffer_lifetime_parent_call_connections": [
@@ -21428,6 +22483,82 @@
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
         "runtime_verified": false
+      },
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
       }
     },
     {
@@ -21475,6 +22606,13 @@
             "AllocateLegacyExceptionTextBytes_53C9CF"
           ],
           "relationship": "EXH01失败每轮真实调用同一541A28，参数仍原U32 byteCount，处理器重读/非零重试/异常传播保持"
+        },
+        {
+          "path": "src/platform/LegacyLocale.cpp",
+          "symbols": [
+            "AllocateLegacyLocaleObject_53C9CF"
+          ],
+          "relationship": "LCH01私有宿主对象分配，保U32上界/零请求与原541A28实际循环；非原共享提供者全部body"
         }
       ],
       "evidence_documents": [
@@ -21482,9 +22620,10 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "original_direct_reference_count": 5,
       "inbound_evidence": [
         {
@@ -21579,6 +22718,82 @@
         "native_parent_is_original_source_body": false,
         "arguments": "原U32 byteCount，不使用零请求宿主替代量或私有对齐量",
         "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+      },
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
       }
     },
     {
@@ -21645,14 +22860,14 @@
           "symbols": [
             "InitializeLegacyGlobalLocale_54A404"
           ],
-          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+          "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.cpp",
           "symbols": [
             "InitializeLegacyClassicLocale_54A3E3"
           ],
-          "relationship": "新增原54A3F3真实登记点，原S32返回传出；既有退出表本体不改"
+          "relationship": "新增原54A3F3真实登记点，原S32返回传出；既有退出表本体不改；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyIos.cpp",
@@ -21779,9 +22994,10 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。；2026-10-04世界对象表原43D795登记/43D7A0callback真实源码接线，旧表/宿主范围和运行门禁保持。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。；2026-10-04世界对象表原43D795登记/43D7A0callback真实源码接线，旧表/宿主范围和运行门禁保持。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -22047,9 +23263,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyGlobalLocale_54A404",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "arguments": "ReleaseLegacyGlobalLocale_54A4BD",
-          "relationship": "先发布global再真实登记，返回弃、不失败回滚或重复std登记"
+          "relationship": "LCH01先发布global再宿主登记同一原回调，返回弃/失败不回滚，不双登记",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "original_arguments": "ReleaseLegacyGlobalLocale_54A4BD",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "locale_classic_initializer_parent_call_connections": [
@@ -22059,9 +23279,13 @@
           "source": "src/platform/LegacyLocale.cpp",
           "symbol": "InitializeLegacyClassicLocale_54A3E3",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "arguments": "DestroyLegacyClassicLocale_54A3FA",
-          "relationship": "原真实退出表登记，完整S32返回直接传出，不改固定成功/宿主atexit"
+          "relationship": "LCH01先原RET晚段再宿主登记，直接S32；55315C全表caller仍待，不抢先启用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "original_arguments": "DestroyLegacyClassicLocale_54A3FA",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+          "native_target_is_original_source_body": false
         }
       ],
       "standard_stream_exit_parent_call_connections": [
@@ -22781,7 +24005,83 @@
           "symbol": "InitializeLegacyWorldObjects_43D760",
           "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x53B418",
@@ -128002,7 +129302,7 @@
           "symbols": [
             "DeleteLegacyLocaleFacet_54A57E"
           ],
-          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现"
+          "relationship": "原真实字段/引用门禁/方法槽及原堆生命周期，Ctor参数两U8和析构状态/重取次序；原宿主职责关联保留但不算直接实现；当前按LCH01分对象/向量/facet/名称域及宿主登记，不将历史原堆/原表措辞作为当前callee"
         },
         {
           "path": "src/platform/LegacyLocale.hpp",
@@ -128016,11 +129316,12 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
-      "status": "原locale对象构析/引用叶本体已实现；全局生产/宿主对象迁移、其他facet与完整运行未闭合",
+      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
       "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
-      "boundary": "；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。",
+      "boundary": "；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
       "native_storage": {
         "source": "src/platform/LegacyLocale.hpp",
         "type": "LegacyLocaleImplementation",
@@ -128106,7 +129407,83 @@
           "arguments": "storage",
           "relationship": "原flags判定先于方法表写，后同域delete"
         }
-      ]
+      ],
+      "locale_object_heap_migration_contract": {
+        "group": "LCH01",
+        "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "object_storage": {
+          "type": "LegacyLocaleImplementation",
+          "original_size": 40,
+          "native_size": 64,
+          "producer_entry": "0x54A404",
+          "producer_call_site": "0x54A422",
+          "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+          "normal_release_entry": "0x54A59B",
+          "normal_release_call_site": "0x54A5AB",
+          "unwind_release_call_site": "0x54C39F",
+          "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+          "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+          "original_body_equivalent": false
+        },
+        "heap_policy": {
+          "request_type": "U32",
+          "max_request": "0xFFFFFFE0",
+          "zero_host_request": 1,
+          "handler": "CallLegacyHeapNewHandler_541A28",
+          "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+          "clear_storage": false
+        },
+        "exit_registration": [
+          {
+            "parent_entry": "0x54A404",
+            "call_site": "0x54A450",
+            "callback_entry": "0x54A4BD",
+            "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+            "provider": "std::atexit",
+            "return_consumption": "弃返回，登记前发布global，失败不回滚",
+            "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+          },
+          {
+            "parent_entry": "0x54A3E3",
+            "call_site": "0x54A3F3",
+            "callback_entry": "0x54A3FA",
+            "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+            "provider": "std::atexit",
+            "return_consumption": "直接返回宿主登记S32结果",
+            "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+          }
+        ],
+        "retained_domains": [
+          "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+          "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+          "名称仍NSH01共享窄字符串域",
+          "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+        ],
+        "preserved": [
+          "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+          "原Ctor低/高U8及methods/fields/name发布顺序",
+          "Ctor失败只释放本组块，不析构未完成对象",
+          "正常Delete先真实析构再flags&1释放，返回原地址",
+          "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+          "默认Ctor先发布_Init返回再重读当前global增引用"
+        ],
+        "source_boundaries": {
+          "layout_unchanged": true,
+          "new_public_api": false,
+          "new_dependency": false,
+          "rtti": false,
+          "full_initializer_order_closed": false,
+          "codecvt_production_closed": false,
+          "runtime_validated": false
+        },
+        "open_tasks": [
+          "C03",
+          "C04",
+          "C05",
+          "C08",
+          "C11"
+        ]
+      }
     },
     {
       "original_entry": "0x4D7440",

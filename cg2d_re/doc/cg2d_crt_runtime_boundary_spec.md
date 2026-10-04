@@ -57,3 +57,9 @@ codecvt的工程方向是宿主内部转换器由宿主完整流类型持有；�
 [NCE01源码收口](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)已将当前九原54B123入向成组迁移：五Raise在本机prvalue中一次本族copy，两字符串异常/ios failure已准备payload无增引用转移，clear当前异常用throw;。六独立native_cpp类型保原五层级/全局exception，单一compiler owner按原copy/非删除析构与what处理业务payload。
 
 旧可调用54B123/五opaque ThrowInfo声明撤销；原数据/数字call保留，不手造SDK/FS或将旧对象直接当本机异常。所有旧copy/析构/what/方法表和临时串清理正文保持。C06私有查找/硬件SEH、实际compiler ABI/捕获/SDK及运行仍未闭，C06/C07保持open，不把原198指令或新增类型源码计为完整门禁。
+
+## 8. LCH01实现对象域及两退出登记
+
+[LCH01源码收口](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)已将当前唯一_Locimp对象64B存储的分配、Ctor失败释放、正常flags删除成对宿主承接，保U32请求/原handler；两实际退出登记改std::atexit同一原回调，原发布/返回消费、引用与清理保持。base facet/向量仍旧域、名称仍NSH01，未迁移SDK/其余对象或删除原虚清理。
+
+经典55315C全表caller仍未接，不新增模块或提前登记；原活动流与宿主流归属、全应用序/快速退出、codecvt与完整C03/C04/C08/C11及运行未闭。局部域闭合不代全CRT或原私有内核等价。

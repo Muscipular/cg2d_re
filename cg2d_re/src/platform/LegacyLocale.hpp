@@ -39,7 +39,7 @@ static_assert(offsetof(LegacyLocaleImplementation, transparent) == 32);
 static_assert(offsetof(LegacyLocaleImplementation, name) == 40);
 static_assert(sizeof(LegacyLocaleImplementation) == 64);
 
-// 不初始化全局locale/登记退出或宿主迁移；所有调用只接真实原生字段/原堆域。
+// 显式原生locale接口；LCH01实现对象块由私有宿主pair承接，facet/向量仍原域。
 LegacyLocaleImplementation* ConstructLegacyLocaleImplementation_54A505(
     LegacyLocaleImplementation* storage, std::uint32_t transparencyWord);
 LegacyLocaleFacet* DecrementLegacyLocaleFacet_548695(LegacyLocaleFacet* storage);
@@ -55,13 +55,13 @@ extern LegacyLocaleImplementation* gLegacyClassicLocaleObject1086728;
 extern LegacyLocaleImplementation* gLegacyClassicLocaleImplementation108672C;
 extern LegacyLocaleImplementation* gLegacyGlobalLocaleImplementation1086730;
 
-// 原全局惰性生产/默认对象构造/退出释放；首次生产登记仅真实原退出表。
+// 原全局惰性生产/默认对象构造/退出释放；首次发布后std::atexit登记同一原回调。
 LegacyLocaleImplementation* InitializeLegacyGlobalLocale_54A404();
 LegacyLocaleImplementation** ConstructLegacyLocale_54865E(
     LegacyLocaleImplementation** implementationSlot);
 void ReleaseLegacyGlobalLocale_54A4BD();
 void DestroyLegacyClassicLocale_54A3FA();
-// 原55315C初始化项：晚段仅RET，随后真实退出登记，返回S32登记结果。
+// 原55315C初始化项：晚段仅RET，随后std::atexit登记，返宿主S32；全表caller仍待接。
 void ConstructLegacyClassicLocaleLate_54A3ED();
 std::int32_t InitializeLegacyClassicLocale_54A3E3();
 

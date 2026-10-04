@@ -197,7 +197,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
         "doc/cg2d_exception_text_heap_migration_spec.md",
-        "doc/cg2d_native_cpp_exception_spec.md"
+        "doc/cg2d_native_cpp_exception_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -277,7 +278,20 @@
         "F:0014A08C",
         "F:0014A1B8",
         "F:0014A142",
-        "F:0014A062"
+        "F:0014A062",
+        "F:0014A404",
+        "F:0014A59B",
+        "F:0014A3E3",
+        "F:0014A3ED",
+        "F:0014A3FA",
+        "F:0014A4BD",
+        "F:0014A505",
+        "F:0014A5B7",
+        "F:0014867D",
+        "F:00148695",
+        "F:0014865E",
+        "F:0014A57E",
+        "F:0013B406"
       ],
       "closure_task_ids": [
         "C01",
@@ -292,7 +306,8 @@
       "dependencies": [],
       "acceptance_focus": "分配域配对、文件/格式可见结果、异常映射和正常失败",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -302,7 +317,8 @@
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "NSH01窄字符串字节域已成对宿主分配/释放并保真实处理器循环、九本体/共享/逻辑容量；其他CRT域、C08/C11全组、实际抛出/SDK与运行仍未闭，两个共享入口处置不代表全部原caller",
         "EXH01异常基类拥有文本域已成对宿主承接，完整ownsText/空失败/源重读保持；对象storage/类型信息缓存及其他域未迁移，实际抛出/SDK/完整C08/C11与运行仍未闭",
-        "NCE01六本机类型/单owner与九当前throw点已接，五一次原copy/三payload转移/一throw重抛保消息和清理；实际编译生成ABI/按值捕获/SDK、旧C06/硬件SEH/完整CRT和运行仍未闭"
+        "NCE01六本机类型/单owner与九当前throw点已接，五一次原copy/三payload转移/一throw重抛保消息和清理；实际编译生成ABI/按值捕获/SDK、旧C06/硬件SEH/完整CRT和运行仍未闭",
+        "LCH01实现对象64B存储/异常与正常释放、两宿主登记已配对；facet/向量仍原域、名称NSH01；经典55315C全表caller/活动流归属、完整C03/C04/C08/C11与codecvt/SDK/运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -314,7 +330,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
-        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline"
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline"
       ]
     },
     {
@@ -6729,6 +6746,120 @@
       "observation": "仅198唯一原指令/五类型表与新增差异",
       "expected": "原callback/方法表/数据不改，限定接口接线之外全文同前提交；无手造SDK/RTTI/额外对象释放",
       "actual": "两Cpp/旧头扣除NCE01变化后全文一致，六类源码/23既有语义可追踪；无旧声明/地址当前调用，未编译或运行验证"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：十二原体269唯一指令、三变化体82/九边界187，550154两写者/54A505唯一直接caller、三槽与五原数字target；复用NSH01五提供者85，总354；doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-locale-object-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-acceptance",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyLocale.cpp#AllocateLegacyLocaleObject_53C9CF",
+        "src/platform/LegacyLocale.cpp#FreeLegacyLocaleObject_53B4E7",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyGlobalLocale_54A404",
+        "src/platform/LegacyLocale.cpp#DeleteLegacyLocaleImplementation_54A59B",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyClassicLocale_54A3E3",
+        "src/platform/LegacyLocale.hpp#LegacyLocaleImplementation"
+      ],
+      "differences": [
+        {
+          "description": "D02/D03仅_Locimp对象块私有分配及两退出表承接std::malloc/std::free/std::atexit；原U32请求/真实处理器与业务字段/引用/清理保持，库内部地址/分桶/登记失败时点按宿主",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        },
+        {
+          "description": "base facet/向量仍原域、名称仍NSH01；经典55315C全表caller、活动流归属/完整退出与codecvt/SDK仍未闭，两个登记接口不算活动生命周期完成",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-LOCALE-OBJECT-LIFECYCLE-I-20261005",
+      "gate": "I",
+      "observation": "仅实现对象三heap原点与两退出登记",
+      "expected": "同域分配/失败释放/正常flags删除，保U32/原处理器；两登记使用实际宿主返回",
+      "actual": "私有对象pair已实现，54A422/54C39F/54A5AB成对，原两回调/发布与RET晚段/S32消费已接"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：十二原体269唯一指令、三变化体82/九边界187，550154两写者/54A505唯一直接caller、三槽与五原数字target；复用NSH01五提供者85，总354；doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-locale-object-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-acceptance",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyLocale.cpp#AllocateLegacyLocaleObject_53C9CF",
+        "src/platform/LegacyLocale.cpp#FreeLegacyLocaleObject_53B4E7",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyGlobalLocale_54A404",
+        "src/platform/LegacyLocale.cpp#DeleteLegacyLocaleImplementation_54A59B",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyClassicLocale_54A3E3",
+        "src/platform/LegacyLocale.hpp#LegacyLocaleImplementation"
+      ],
+      "differences": [
+        {
+          "description": "D02/D03仅_Locimp对象块私有分配及两退出表承接std::malloc/std::free/std::atexit；原U32请求/真实处理器与业务字段/引用/清理保持，库内部地址/分桶/登记失败时点按宿主",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        },
+        {
+          "description": "base facet/向量仍原域、名称仍NSH01；经典55315C全表caller、活动流归属/完整退出与codecvt/SDK仍未闭，两个登记接口不算活动生命周期完成",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-LOCALE-OBJECT-LIFECYCLE-W-20261005",
+      "gate": "W",
+      "observation": "仅唯一当前实现对象生产、三槽引用与域分隔",
+      "expected": "Ctor异常不完整析构，正常先析构后flags释放；facet/vector/name分别原域，两个退出不清槽",
+      "actual": "原字段/引用回读/构析顺序全文保持，base facet/vector旧释放保留；经典全表caller未启用/未双登记"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：十二原体269唯一指令、三变化体82/九边界187，550154两写者/54A505唯一直接caller、三槽与五原数字target；复用NSH01五提供者85，总354；doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-locale-object-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-baseline",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-acceptance",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "doc/cg2d_narrow_string_heap_migration_evidence.json",
+        "src/platform/LegacyLocale.cpp#AllocateLegacyLocaleObject_53C9CF",
+        "src/platform/LegacyLocale.cpp#FreeLegacyLocaleObject_53B4E7",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyGlobalLocale_54A404",
+        "src/platform/LegacyLocale.cpp#DeleteLegacyLocaleImplementation_54A59B",
+        "src/platform/LegacyLocale.cpp#InitializeLegacyClassicLocale_54A3E3",
+        "src/platform/LegacyLocale.hpp#LegacyLocaleImplementation"
+      ],
+      "differences": [
+        {
+          "description": "D02/D03仅_Locimp对象块私有分配及两退出表承接std::malloc/std::free/std::atexit；原U32请求/真实处理器与业务字段/引用/清理保持，库内部地址/分桶/登记失败时点按宿主",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        },
+        {
+          "description": "base facet/向量仍原域、名称仍NSH01；经典55315C全表caller、活动流归属/完整退出与codecvt/SDK仍未闭，两个登记接口不算活动生命周期完成",
+          "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-LOCALE-OBJECT-LIFECYCLE-S-20261005",
+      "gate": "S",
+      "observation": "仅12原体/五callee和17既有语义变化",
+      "expected": "269/85/354分母与原数字target准确，源码仅pair/include/五callee/域注释；原未变源码/台账差集不重验",
+      "actual": "两源码限定逆换全文同前提交，17语义之外与元数据完全一致；原数字target/12体269/提供者85已核，未编译/运行"
     }
   ],
   "task_acceptance": [
@@ -6839,7 +6970,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
       ]
     },
     {
@@ -6856,14 +6988,16 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
-        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
       ]
     },
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
-        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -6872,7 +7006,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
-        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -6891,6 +7026,14 @@
         "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
       ],
       "task_id": "C07",
+      "state": "open"
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+      ],
+      "task_id": "C01",
       "state": "open"
     }
   ],
@@ -7625,6 +7768,30 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A404",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A59B",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A3E3",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
       ]
     }
   ],

@@ -604,3 +604,9 @@ mode3的541FB1/541C88/542466本步仅声明真实依赖，16B小块原生双链�
 [NCE01单owner裁决](cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision)把compiler持有的异常对象storage与48B业务payload分开。原message仍NSH01、基类拥有text仍EXH01；本机析构按实际族只调用一次原非删除析构，不把compiler对象storage交原堆free/删除析构。what借原消息及静态回退，不造std::string消息副本。
 
 五Raise复制发生于本机对象prvalue构造，对应原一次本族copy；三准备体以trivially-copyable payload转移，不增加共享引用、不清原临时字段/再析构POD临时，原临时message清理保持。基础/派生按值切片对应各自原copy/清理。原回调算法/域和其他块不变；C06/C07实际SDK/捕获展开、完整CRT和运行仍未验。
+
+## LCH01 locale实现对象存储与清理当前状态（2026-10-05）
+
+[具名裁决与源码](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)已将唯一当前54A404生产的64B实现对象存储及54C39F/54A5AB两失败/正常释放成对std::malloc/std::free，保原40B地址拓宽、U32上界、真实541A28循环与原请求；块不预清，Ctor状态1只释放分配块，不完整析构未完成对象。正常Delete先既有54A5B7，再flags&1释放对象，返回原地址。
+
+54A57E base facet对象与54A5B7 facets向量仍原FreeLegacyHeapMemory，名称仍NSH01，共享计数/引用/别名与三槽不清保持；两退出登记改宿主同回调，经典全表caller未启用。未知facet/vector生产不因本组关闭，六裸字节/21应用calloc、SDK及其他CRT对象不变。C08/C11继续open；本组269+复用85的354局部指令与三heap点不代全部原共享分配/释放入向、实际失败/完整退出或运行验收。

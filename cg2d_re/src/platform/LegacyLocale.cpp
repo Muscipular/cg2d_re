@@ -1,8 +1,9 @@
 #include "LegacyLocale.hpp"
 
 #include "LegacyHeap.hpp"
-#include "LegacyRuntimeExit.hpp"
 #include "cg/platform/LegacyTime.hpp"
+
+#include <cstdlib>
 
 namespace cg::platform {
 
@@ -12,6 +13,31 @@ LegacyLocaleImplementation* gLegacyClassicLocaleImplementation108672C = nullptr;
 LegacyLocaleImplementation* gLegacyGlobalLocaleImplementation1086730 = nullptr;
 
 namespace {
+
+// LCH01只承接_Locimp对象块；保原53C3BE上界与enableHandler=1循环。
+void* AllocateLegacyLocaleObject_53C9CF(const std::uint32_t byteCount)
+{
+    if (byteCount > 0xFFFFFFE0u) {
+        return nullptr;
+    }
+    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;
+    for (;;) {
+        void* const result = std::malloc(requested);
+        if (result != nullptr) {
+            return result;
+        }
+        // 每轮使用同一原处理器/原请求；处理器异常继续向外传播。
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 与上述对象块成对；facet/向量及共享名称继续各自原有分配域。
+void FreeLegacyLocaleObject_53B4E7(void* const memory)
+{
+    std::free(memory);
+}
 
 LegacyLocaleFacet* DeleteLegacyLocaleImplementationFromFacet(
     LegacyLocaleFacet* const storage, const std::uint32_t flags)
@@ -139,7 +165,7 @@ LegacyLocaleImplementation* DeleteLegacyLocaleImplementation_54A59B(
 {
     DestroyLegacyLocaleImplementation_54A5B7(storage);
     if ((flags & 1u) != 0) {
-        FreeLegacyHeapMemory_53C0A9(storage);
+        FreeLegacyLocaleObject_53B4E7(storage);
     }
     return storage;
 }
@@ -148,23 +174,23 @@ LegacyLocaleImplementation* InitializeLegacyGlobalLocale_54A404()
 {
     LegacyLocaleImplementation* result = gLegacyGlobalLocaleImplementation1086730;
     if (result == nullptr) {
-        // 原0x28只因地址拓宽变64B，其余数值保持U32；原53C9CF→53C3BE(U32,1)。
+        // 原0x28只因地址拓宽变64B；LCH01对象域保U32请求/原处理器，字段不预清。
         auto* const allocation = static_cast<LegacyLocaleImplementation*>(
-            AllocateLegacyHeapWithHandler_53C3BE(
-                static_cast<std::uint32_t>(sizeof(LegacyLocaleImplementation)), 1));
+            AllocateLegacyLocaleObject_53C9CF(
+                static_cast<std::uint32_t>(sizeof(LegacyLocaleImplementation))));
         LegacyLocaleImplementation* initialized = nullptr;
         if (allocation != nullptr) {
             try {
                 initialized = ConstructLegacyLocaleImplementation_54A505(allocation, 0);
             } catch (...) {
                 // 原state1只删除分配块，随后state0空清理；不额外调用完整析构。
-                FreeLegacyHeapMemory_53C0A9(allocation);
+                FreeLegacyLocaleObject_53B4E7(allocation);
                 throw;
             }
         }
         // 原分配空也照常发布/登记，不新增保护或失败回滚。
         gLegacyGlobalLocaleImplementation1086730 = initialized;
-        RegisterLegacyAtExit_53B406(ReleaseLegacyGlobalLocale_54A4BD);
+        std::atexit(ReleaseLegacyGlobalLocale_54A4BD);
         gLegacyGlobalLocaleImplementation1086730->categories = 0x3Fu;
         LegacyNarrowString* const name = &gLegacyGlobalLocaleImplementation1086730->name;
         const std::uint32_t length = StrLen_53F9E0(gLegacyLocaleC55457C);
@@ -228,7 +254,7 @@ void ConstructLegacyClassicLocaleLate_54A3ED()
 std::int32_t InitializeLegacyClassicLocale_54A3E3()
 {
     ConstructLegacyClassicLocaleLate_54A3ED();
-    return RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA);
+    return std::atexit(DestroyLegacyClassicLocale_54A3FA);
 }
 
 } // namespace cg::platform

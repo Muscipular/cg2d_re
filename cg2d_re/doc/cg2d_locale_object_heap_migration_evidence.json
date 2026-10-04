@@ -1,0 +1,1817 @@
+{
+  "description": "LCH01 locale实现对象存储及两退出登记的完整原体/方法表/三槽证据；仅本组宿主承接，不证明全功能",
+  "source": "当前已打开cg2d.exe IDA数据库只读Python，2026-10-05；未修改/重载/保存或运行",
+  "functions": [
+    {
+      "entry": "0x54a404",
+      "name": "?_Init@locale@std@@CAPAV_Locimp@12@XZ",
+      "chunks": [
+        [
+          "0x54a404",
+          "0x54a4bd"
+        ],
+        [
+          "0x54c394",
+          "0x54c3b0"
+        ]
+      ],
+      "instruction_count": 65,
+      "instructions": [
+        {
+          "address": "0x54a404",
+          "asm": "mov     eax, offset loc_54C3A6"
+        },
+        {
+          "address": "0x54a409",
+          "asm": "call    __EH_prolog"
+        },
+        {
+          "address": "0x54a40e",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x54a40f",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a414",
+          "asm": "and     [ebp+var_4], 0"
+        },
+        {
+          "address": "0x54a418",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x54a41a",
+          "asm": "jnz     loc_54A4B1"
+        },
+        {
+          "address": "0x54a420",
+          "asm": "push    28h ; '('; Size"
+        },
+        {
+          "address": "0x54a422",
+          "asm": "call    ??2@YAPAXI@Z"
+        },
+        {
+          "address": "0x54a427",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a428",
+          "asm": "mov     ecx, eax; this"
+        },
+        {
+          "address": "0x54a42a",
+          "asm": "mov     [ebp+lpMem], ecx"
+        },
+        {
+          "address": "0x54a42d",
+          "asm": "test    ecx, ecx"
+        },
+        {
+          "address": "0x54a42f",
+          "asm": "mov     byte ptr [ebp+var_4], 1"
+        },
+        {
+          "address": "0x54a433",
+          "asm": "jz      short loc_54A43E"
+        },
+        {
+          "address": "0x54a435",
+          "asm": "push    0; bool"
+        },
+        {
+          "address": "0x54a437",
+          "asm": "call    ??0_Locimp@locale@std@@AAE@_N@Z"
+        },
+        {
+          "address": "0x54a43c",
+          "asm": "jmp     short loc_54A440"
+        },
+        {
+          "address": "0x54a43e",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "address": "0x54a440",
+          "asm": "and     byte ptr [ebp+var_4], 0"
+        },
+        {
+          "address": "0x54a444",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54a445",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x54a446",
+          "asm": "push    offset sub_54A4BD; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54a44b",
+          "asm": "mov     dword_1086730, eax"
+        },
+        {
+          "address": "0x54a450",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54a455",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a45a",
+          "asm": "mov     esi, offset aC"
+        },
+        {
+          "address": "0x54a45f",
+          "asm": "push    esi; Str"
+        },
+        {
+          "address": "0x54a460",
+          "asm": "mov     dword ptr [eax+10h], 3Fh ; '?'"
+        },
+        {
+          "address": "0x54a467",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a46c",
+          "asm": "lea     edi, [eax+18h]"
+        },
+        {
+          "address": "0x54a46f",
+          "asm": "call    _strlen"
+        },
+        {
+          "address": "0x54a474",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a475",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a476",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x54a477",
+          "asm": "push    esi; Src"
+        },
+        {
+          "address": "0x54a478",
+          "asm": "mov     ecx, edi"
+        },
+        {
+          "address": "0x54a47a",
+          "asm": "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        },
+        {
+          "address": "0x54a47f",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a484",
+          "asm": "pop     edi"
+        },
+        {
+          "address": "0x54a485",
+          "asm": "mov     dword_108672C, eax"
+        },
+        {
+          "address": "0x54a48a",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54a48b",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x54a48e",
+          "asm": "cmp     ecx, 0FFFFFFFFh"
+        },
+        {
+          "address": "0x54a491",
+          "asm": "jnb     short loc_54A49C"
+        },
+        {
+          "address": "0x54a493",
+          "asm": "inc     ecx"
+        },
+        {
+          "address": "0x54a494",
+          "asm": "mov     [eax+4], ecx"
+        },
+        {
+          "address": "0x54a497",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a49c",
+          "asm": "mov     ecx, offset dword_1086728"
+        },
+        {
+          "address": "0x54a4a1",
+          "asm": "test    ecx, ecx"
+        },
+        {
+          "address": "0x54a4a3",
+          "asm": "jz      short loc_54A4B1"
+        },
+        {
+          "address": "0x54a4a5",
+          "asm": "mov     ecx, dword_108672C"
+        },
+        {
+          "address": "0x54a4ab",
+          "asm": "mov     dword_1086728, ecx"
+        },
+        {
+          "address": "0x54a4b1",
+          "asm": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "address": "0x54a4b4",
+          "asm": "mov     large fs:0, ecx"
+        },
+        {
+          "address": "0x54a4bb",
+          "asm": "leave"
+        },
+        {
+          "address": "0x54a4bc",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54c394",
+          "asm": "lea     ecx, [ebp+var_4]; Microsoft VisualC 2-14/net runtime"
+        },
+        {
+          "address": "0x54c397",
+          "asm": "jmp     nullsub_4"
+        },
+        {
+          "address": "0x54c39c",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x54c39f",
+          "asm": "call    delete"
+        },
+        {
+          "address": "0x54c3a4",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54c3a5",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54c3a6",
+          "asm": "mov     eax, offset stru_551708"
+        },
+        {
+          "address": "0x54c3ab",
+          "asm": "jmp     ___CxxFrameHandler"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x548661",
+          "type": 17,
+          "parent_entry": "0x54865e"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a59b",
+      "name": "??_G_Locimp@locale@std@@UAEPAXI@Z",
+      "chunks": [
+        [
+          "0x54a59b",
+          "0x54a5b7"
+        ]
+      ],
+      "instruction_count": 11,
+      "instructions": [
+        {
+          "address": "0x54a59b",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54a59c",
+          "asm": "mov     esi, ecx"
+        },
+        {
+          "address": "0x54a59e",
+          "asm": "call    ??1_Locimp@locale@std@@UAE@XZ"
+        },
+        {
+          "address": "0x54a5a3",
+          "asm": "test    [esp+4+arg_0], 1"
+        },
+        {
+          "address": "0x54a5a8",
+          "asm": "jz      short loc_54A5B1"
+        },
+        {
+          "address": "0x54a5aa",
+          "asm": "push    esi; lpMem"
+        },
+        {
+          "address": "0x54a5ab",
+          "asm": "call    delete"
+        },
+        {
+          "address": "0x54a5b0",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a5b1",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x54a5b3",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54a5b4",
+          "asm": "retn    4"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x550154",
+          "type": 1,
+          "parent_entry": null
+        }
+      ]
+    },
+    {
+      "entry": "0x54a3e3",
+      "name": "sub_54A3E3",
+      "chunks": [
+        [
+          "0x54a3e3",
+          "0x54a3ed"
+        ],
+        [
+          "0x54a3ee",
+          "0x54a3fa"
+        ]
+      ],
+      "instruction_count": 6,
+      "instructions": [
+        {
+          "address": "0x54a3e3",
+          "asm": "call    nullsub_9"
+        },
+        {
+          "address": "0x54a3e8",
+          "asm": "jmp     loc_54A3EE"
+        },
+        {
+          "address": "0x54a3ee",
+          "asm": "push    offset sub_54A3FA; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54a3f3",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54a3f8",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a3f9",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x55315c",
+          "type": 1,
+          "parent_entry": null
+        }
+      ]
+    },
+    {
+      "entry": "0x54a3ed",
+      "name": "nullsub_9",
+      "chunks": [
+        [
+          "0x54a3ed",
+          "0x54a3ee"
+        ]
+      ],
+      "instruction_count": 1,
+      "instructions": [
+        {
+          "address": "0x54a3ed",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x54a3e3",
+          "type": 17,
+          "parent_entry": "0x54a3e3"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a3fa",
+      "name": "sub_54A3FA",
+      "chunks": [
+        [
+          "0x54a3fa",
+          "0x54a404"
+        ]
+      ],
+      "instruction_count": 2,
+      "instructions": [
+        {
+          "address": "0x54a3fa",
+          "asm": "mov     ecx, offset dword_1086728; this"
+        },
+        {
+          "address": "0x54a3ff",
+          "asm": "jmp     ??1locale@std@@QAE@XZ; std::locale::~locale(void)"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x54a3ee",
+          "type": 1,
+          "parent_entry": "0x54a3e3"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a4bd",
+      "name": "sub_54A4BD",
+      "chunks": [
+        [
+          "0x54a4bd",
+          "0x54a505"
+        ],
+        [
+          "0x54c3b0",
+          "0x54c3c2"
+        ]
+      ],
+      "instruction_count": 30,
+      "instructions": [
+        {
+          "address": "0x54a4bd",
+          "asm": "mov     eax, offset loc_54C3B8"
+        },
+        {
+          "address": "0x54a4c2",
+          "asm": "call    __EH_prolog"
+        },
+        {
+          "address": "0x54a4c7",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a4cc",
+          "asm": "and     [esp+0Ch+var_4], 0"
+        },
+        {
+          "address": "0x54a4d1",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x54a4d3",
+          "asm": "jz      short loc_54A4F8"
+        },
+        {
+          "address": "0x54a4d5",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x54a4d8",
+          "asm": "test    ecx, ecx"
+        },
+        {
+          "address": "0x54a4da",
+          "asm": "jbe     short loc_54A4E5"
+        },
+        {
+          "address": "0x54a4dc",
+          "asm": "cmp     ecx, 0FFFFFFFFh"
+        },
+        {
+          "address": "0x54a4df",
+          "asm": "jnb     short loc_54A4E5"
+        },
+        {
+          "address": "0x54a4e1",
+          "asm": "dec     ecx"
+        },
+        {
+          "address": "0x54a4e2",
+          "asm": "mov     [eax+4], ecx"
+        },
+        {
+          "address": "0x54a4e5",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x54a4e8",
+          "asm": "neg     ecx"
+        },
+        {
+          "address": "0x54a4ea",
+          "asm": "sbb     ecx, ecx"
+        },
+        {
+          "address": "0x54a4ec",
+          "asm": "not     ecx"
+        },
+        {
+          "address": "0x54a4ee",
+          "asm": "and     ecx, eax"
+        },
+        {
+          "address": "0x54a4f0",
+          "asm": "jz      short loc_54A4F8"
+        },
+        {
+          "address": "0x54a4f2",
+          "asm": "mov     eax, [ecx]"
+        },
+        {
+          "address": "0x54a4f4",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54a4f6",
+          "asm": "call    dword ptr [eax]"
+        },
+        {
+          "address": "0x54a4f8",
+          "asm": "mov     ecx, [esp+0Ch+var_C]"
+        },
+        {
+          "address": "0x54a4fc",
+          "asm": "mov     large fs:0, ecx"
+        },
+        {
+          "address": "0x54a503",
+          "asm": "leave"
+        },
+        {
+          "address": "0x54a504",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54c3b0",
+          "asm": "lea     ecx, [ebp+var_4]"
+        },
+        {
+          "address": "0x54c3b3",
+          "asm": "jmp     nullsub_4"
+        },
+        {
+          "address": "0x54c3b8",
+          "asm": "mov     eax, offset stru_551738"
+        },
+        {
+          "address": "0x54c3bd",
+          "asm": "jmp     ___CxxFrameHandler"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x54a446",
+          "type": 1,
+          "parent_entry": "0x54a404"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a505",
+      "name": "??0_Locimp@locale@std@@AAE@_N@Z",
+      "chunks": [
+        [
+          "0x54a505",
+          "0x54a57e"
+        ],
+        [
+          "0x54c3c4",
+          "0x54c3d6"
+        ]
+      ],
+      "instruction_count": 46,
+      "instructions": [
+        {
+          "address": "0x54a505",
+          "asm": "mov     eax, offset loc_54C3CC"
+        },
+        {
+          "address": "0x54a50a",
+          "asm": "call    __EH_prolog"
+        },
+        {
+          "address": "0x54a50f",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x54a510",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x54a511",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54a512",
+          "asm": "mov     esi, ecx"
+        },
+        {
+          "address": "0x54a514",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x54a515",
+          "asm": "mov     [ebp+var_10], esi"
+        },
+        {
+          "address": "0x54a518",
+          "asm": "mov     dword ptr [esi+4], 1"
+        },
+        {
+          "address": "0x54a51f",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a525",
+          "asm": "mov     cl, [ebp+arg_0]"
+        },
+        {
+          "address": "0x54a528",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "address": "0x54a52a",
+          "asm": "mov     [esi+14h], cl"
+        },
+        {
+          "address": "0x54a52d",
+          "asm": "mov     cl, [ebp+arg_3]"
+        },
+        {
+          "address": "0x54a530",
+          "asm": "lea     edi, [esi+18h]"
+        },
+        {
+          "address": "0x54a533",
+          "asm": "mov     [esi+8], eax"
+        },
+        {
+          "address": "0x54a536",
+          "asm": "mov     [esi+0Ch], eax"
+        },
+        {
+          "address": "0x54a539",
+          "asm": "mov     [esi+10h], eax"
+        },
+        {
+          "address": "0x54a53c",
+          "asm": "mov     [edi], cl"
+        },
+        {
+          "address": "0x54a53e",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x54a53f",
+          "asm": "mov     ecx, edi"
+        },
+        {
+          "address": "0x54a541",
+          "asm": "mov     [ebp+var_4], eax"
+        },
+        {
+          "address": "0x54a544",
+          "asm": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        },
+        {
+          "address": "0x54a549",
+          "asm": "mov     ebx, offset asc_55014C"
+        },
+        {
+          "address": "0x54a54e",
+          "asm": "push    ebx; Str"
+        },
+        {
+          "address": "0x54a54f",
+          "asm": "call    _strlen"
+        },
+        {
+          "address": "0x54a554",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a555",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x54a556",
+          "asm": "push    ebx; Src"
+        },
+        {
+          "address": "0x54a557",
+          "asm": "mov     ecx, edi"
+        },
+        {
+          "address": "0x54a559",
+          "asm": "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        },
+        {
+          "address": "0x54a55e",
+          "asm": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "address": "0x54a561",
+          "asm": "mov     dword ptr [esi], offset ??_7_Locimp@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a567",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x54a569",
+          "asm": "pop     edi"
+        },
+        {
+          "address": "0x54a56a",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54a56b",
+          "asm": "pop     ebx"
+        },
+        {
+          "address": "0x54a56c",
+          "asm": "mov     large fs:0, ecx"
+        },
+        {
+          "address": "0x54a573",
+          "asm": "leave"
+        },
+        {
+          "address": "0x54a574",
+          "asm": "retn    4"
+        },
+        {
+          "address": "0x54a577",
+          "asm": "mov     dword ptr [ecx], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a57d",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54c3c4",
+          "asm": "mov     ecx, [ebp+var_10]"
+        },
+        {
+          "address": "0x54c3c7",
+          "asm": "jmp     loc_54A577"
+        },
+        {
+          "address": "0x54c3cc",
+          "asm": "mov     eax, offset stru_551760"
+        },
+        {
+          "address": "0x54c3d1",
+          "asm": "jmp     ___CxxFrameHandler"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x54a437",
+          "type": 17,
+          "parent_entry": "0x54a404"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a5b7",
+      "name": "??1_Locimp@locale@std@@UAE@XZ",
+      "chunks": [
+        [
+          "0x54a5b7",
+          "0x54a638"
+        ],
+        [
+          "0x54a30d",
+          "0x54a315"
+        ],
+        [
+          "0x54c3d8",
+          "0x54c3fd"
+        ]
+      ],
+      "instruction_count": 60,
+      "instructions": [
+        {
+          "address": "0x54a5b7",
+          "asm": "mov     eax, offset loc_54C3F3"
+        },
+        {
+          "address": "0x54a5bc",
+          "asm": "call    __EH_prolog"
+        },
+        {
+          "address": "0x54a5c1",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x54a5c2",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54a5c3",
+          "asm": "mov     esi, ecx"
+        },
+        {
+          "address": "0x54a5c5",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x54a5c6",
+          "asm": "mov     [ebp+var_10], esi"
+        },
+        {
+          "address": "0x54a5c9",
+          "asm": "mov     dword ptr [esi], offset ??_7_Locimp@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a5cf",
+          "asm": "mov     edi, [esi+0Ch]"
+        },
+        {
+          "address": "0x54a5d2",
+          "asm": "mov     [ebp+var_4], 2"
+        },
+        {
+          "address": "0x54a5d9",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x54a5db",
+          "asm": "jbe     short loc_54A60D"
+        },
+        {
+          "address": "0x54a5dd",
+          "asm": "mov     eax, [esi+8]"
+        },
+        {
+          "address": "0x54a5e0",
+          "asm": "dec     edi"
+        },
+        {
+          "address": "0x54a5e1",
+          "asm": "mov     eax, [eax+edi*4]"
+        },
+        {
+          "address": "0x54a5e4",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x54a5e6",
+          "asm": "jz      short loc_54A5D9"
+        },
+        {
+          "address": "0x54a5e8",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x54a5eb",
+          "asm": "test    ecx, ecx"
+        },
+        {
+          "address": "0x54a5ed",
+          "asm": "jbe     short loc_54A5F8"
+        },
+        {
+          "address": "0x54a5ef",
+          "asm": "cmp     ecx, 0FFFFFFFFh"
+        },
+        {
+          "address": "0x54a5f2",
+          "asm": "jnb     short loc_54A5F8"
+        },
+        {
+          "address": "0x54a5f4",
+          "asm": "dec     ecx"
+        },
+        {
+          "address": "0x54a5f5",
+          "asm": "mov     [eax+4], ecx"
+        },
+        {
+          "address": "0x54a5f8",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x54a5fb",
+          "asm": "neg     ecx"
+        },
+        {
+          "address": "0x54a5fd",
+          "asm": "sbb     ecx, ecx"
+        },
+        {
+          "address": "0x54a5ff",
+          "asm": "not     ecx"
+        },
+        {
+          "address": "0x54a601",
+          "asm": "and     ecx, eax"
+        },
+        {
+          "address": "0x54a603",
+          "asm": "jz      short loc_54A5D9"
+        },
+        {
+          "address": "0x54a605",
+          "asm": "mov     eax, [ecx]"
+        },
+        {
+          "address": "0x54a607",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54a609",
+          "asm": "call    dword ptr [eax]"
+        },
+        {
+          "address": "0x54a60b",
+          "asm": "jmp     short loc_54A5D9"
+        },
+        {
+          "address": "0x54a60d",
+          "asm": "push    dword ptr [esi+8]; lpMem"
+        },
+        {
+          "address": "0x54a610",
+          "asm": "call    free"
+        },
+        {
+          "address": "0x54a615",
+          "asm": "and     byte ptr [ebp+var_4], 0"
+        },
+        {
+          "address": "0x54a619",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a61a",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54a61c",
+          "asm": "lea     ecx, [esi+18h]"
+        },
+        {
+          "address": "0x54a61f",
+          "asm": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        },
+        {
+          "address": "0x54a624",
+          "asm": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "address": "0x54a627",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a62d",
+          "asm": "pop     edi"
+        },
+        {
+          "address": "0x54a62e",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54a62f",
+          "asm": "mov     large fs:0, ecx"
+        },
+        {
+          "address": "0x54a636",
+          "asm": "leave"
+        },
+        {
+          "address": "0x54a637",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54a30d",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54a30f",
+          "asm": "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        },
+        {
+          "address": "0x54a314",
+          "asm": "retn"
+        },
+        {
+          "address": "0x54c3d8",
+          "asm": "mov     ecx, [ebp+var_10]; Microsoft VisualC 2-14/net runtime"
+        },
+        {
+          "address": "0x54c3db",
+          "asm": "jmp     loc_54A577"
+        },
+        {
+          "address": "0x54c3e0",
+          "asm": "mov     ecx, [ebp+var_10]"
+        },
+        {
+          "address": "0x54c3e3",
+          "asm": "add     ecx, 18h"
+        },
+        {
+          "address": "0x54c3e6",
+          "asm": "jmp     ??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+        },
+        {
+          "address": "0x54c3eb",
+          "asm": "lea     ecx, [ebp+var_4]"
+        },
+        {
+          "address": "0x54c3ee",
+          "asm": "jmp     nullsub_4"
+        },
+        {
+          "address": "0x54c3f3",
+          "asm": "mov     eax, offset stru_551788"
+        },
+        {
+          "address": "0x54c3f8",
+          "asm": "jmp     ___CxxFrameHandler"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x54a59e",
+          "type": 17,
+          "parent_entry": "0x54a59b"
+        }
+      ]
+    },
+    {
+      "entry": "0x54867d",
+      "name": "??1locale@std@@QAE@XZ",
+      "chunks": [
+        [
+          "0x54867d",
+          "0x548695"
+        ]
+      ],
+      "instruction_count": 11,
+      "instructions": [
+        {
+          "address": "0x54867d",
+          "asm": "mov     ecx, [ecx]; this"
+        },
+        {
+          "address": "0x54867f",
+          "asm": "test    ecx, ecx"
+        },
+        {
+          "address": "0x548681",
+          "asm": "jz      short locret_548694"
+        },
+        {
+          "address": "0x548683",
+          "asm": "call    ?_Decref@facet@locale@std@@QAEPAV123@XZ"
+        },
+        {
+          "address": "0x548688",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x54868a",
+          "asm": "jz      short locret_548694"
+        },
+        {
+          "address": "0x54868c",
+          "asm": "mov     edx, [eax]"
+        },
+        {
+          "address": "0x54868e",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x548690",
+          "asm": "mov     ecx, eax"
+        },
+        {
+          "address": "0x548692",
+          "asm": "call    dword ptr [edx]"
+        },
+        {
+          "address": "0x548694",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x5486ba",
+          "type": 19,
+          "parent_entry": "0x5486b1"
+        },
+        {
+          "address": "0x548822",
+          "type": 17,
+          "parent_entry": "0x5487de"
+        },
+        {
+          "address": "0x548830",
+          "type": 17,
+          "parent_entry": "0x5487de"
+        },
+        {
+          "address": "0x548f17",
+          "type": 17,
+          "parent_entry": "0x548efc"
+        },
+        {
+          "address": "0x549773",
+          "type": 19,
+          "parent_entry": "0x54976a"
+        },
+        {
+          "address": "0x549979",
+          "type": 17,
+          "parent_entry": "0x549935"
+        },
+        {
+          "address": "0x549987",
+          "type": 17,
+          "parent_entry": "0x549935"
+        },
+        {
+          "address": "0x549ea3",
+          "type": 17,
+          "parent_entry": "0x549e88"
+        },
+        {
+          "address": "0x54a20e",
+          "type": 17,
+          "parent_entry": "0x54a1d0"
+        },
+        {
+          "address": "0x54a3ff",
+          "type": 19,
+          "parent_entry": "0x54a3fa"
+        },
+        {
+          "address": "0x54c176",
+          "type": 19,
+          "parent_entry": "0x5485fe"
+        },
+        {
+          "address": "0x54c189",
+          "type": 19,
+          "parent_entry": "0x5485fe"
+        },
+        {
+          "address": "0x54c1a6",
+          "type": 19,
+          "parent_entry": "0x5487de"
+        },
+        {
+          "address": "0x54c2d6",
+          "type": 19,
+          "parent_entry": "0x54970a"
+        },
+        {
+          "address": "0x54c2e9",
+          "type": 19,
+          "parent_entry": "0x54970a"
+        },
+        {
+          "address": "0x54c306",
+          "type": 19,
+          "parent_entry": "0x549935"
+        },
+        {
+          "address": "0x54c382",
+          "type": 19,
+          "parent_entry": "0x54a1d0"
+        }
+      ]
+    },
+    {
+      "entry": "0x548695",
+      "name": "?_Decref@facet@locale@std@@QAEPAV123@XZ",
+      "chunks": [
+        [
+          "0x548695",
+          "0x5486b1"
+        ]
+      ],
+      "instruction_count": 13,
+      "instructions": [
+        {
+          "address": "0x548695",
+          "asm": "mov     eax, [ecx+4]"
+        },
+        {
+          "address": "0x548698",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x54869a",
+          "asm": "jbe     short loc_5486A5"
+        },
+        {
+          "address": "0x54869c",
+          "asm": "cmp     eax, 0FFFFFFFFh"
+        },
+        {
+          "address": "0x54869f",
+          "asm": "jnb     short loc_5486A5"
+        },
+        {
+          "address": "0x5486a1",
+          "asm": "dec     eax"
+        },
+        {
+          "address": "0x5486a2",
+          "asm": "mov     [ecx+4], eax"
+        },
+        {
+          "address": "0x5486a5",
+          "asm": "mov     eax, [ecx+4]"
+        },
+        {
+          "address": "0x5486a8",
+          "asm": "neg     eax"
+        },
+        {
+          "address": "0x5486aa",
+          "asm": "sbb     eax, eax"
+        },
+        {
+          "address": "0x5486ac",
+          "asm": "not     eax"
+        },
+        {
+          "address": "0x5486ae",
+          "asm": "and     eax, ecx"
+        },
+        {
+          "address": "0x5486b0",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x548683",
+          "type": 17,
+          "parent_entry": "0x54867d"
+        }
+      ]
+    },
+    {
+      "entry": "0x54865e",
+      "name": "??0locale@std@@QAE@XZ",
+      "chunks": [
+        [
+          "0x54865e",
+          "0x54867d"
+        ]
+      ],
+      "instruction_count": 13,
+      "instructions": [
+        {
+          "address": "0x54865e",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54865f",
+          "asm": "mov     esi, ecx"
+        },
+        {
+          "address": "0x548661",
+          "asm": "call    ?_Init@locale@std@@CAPAV_Locimp@12@XZ"
+        },
+        {
+          "address": "0x548666",
+          "asm": "mov     [esi], eax"
+        },
+        {
+          "address": "0x548668",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54866d",
+          "asm": "mov     ecx, [eax+4]"
+        },
+        {
+          "address": "0x548670",
+          "asm": "cmp     ecx, 0FFFFFFFFh"
+        },
+        {
+          "address": "0x548673",
+          "asm": "jnb     short loc_548679"
+        },
+        {
+          "address": "0x548675",
+          "asm": "inc     ecx"
+        },
+        {
+          "address": "0x548676",
+          "asm": "mov     [eax+4], ecx"
+        },
+        {
+          "address": "0x548679",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x54867b",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54867c",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x548612",
+          "type": 17,
+          "parent_entry": "0x5485fe"
+        },
+        {
+          "address": "0x548632",
+          "type": 17,
+          "parent_entry": "0x5485fe"
+        },
+        {
+          "address": "0x548f22",
+          "type": 17,
+          "parent_entry": "0x548efc"
+        },
+        {
+          "address": "0x54971e",
+          "type": 17,
+          "parent_entry": "0x54970a"
+        },
+        {
+          "address": "0x54973e",
+          "type": 17,
+          "parent_entry": "0x54970a"
+        },
+        {
+          "address": "0x549eae",
+          "type": 17,
+          "parent_entry": "0x549e88"
+        },
+        {
+          "address": "0x54a2a0",
+          "type": 17,
+          "parent_entry": "0x54a293"
+        }
+      ]
+    },
+    {
+      "entry": "0x54a57e",
+      "name": "unknown_libname_87",
+      "chunks": [
+        [
+          "0x54a57e",
+          "0x54a59b"
+        ]
+      ],
+      "instruction_count": 11,
+      "instructions": [
+        {
+          "address": "0x54a57e",
+          "asm": "test    [esp+arg_0], 1"
+        },
+        {
+          "address": "0x54a583",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x54a584",
+          "asm": "mov     esi, ecx"
+        },
+        {
+          "address": "0x54a586",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a58c",
+          "asm": "jz      short loc_54A595"
+        },
+        {
+          "address": "0x54a58e",
+          "asm": "push    esi; lpMem"
+        },
+        {
+          "address": "0x54a58f",
+          "asm": "call    delete"
+        },
+        {
+          "address": "0x54a594",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54a595",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x54a597",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x54a598",
+          "asm": "retn    4"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x55015c",
+          "type": 1,
+          "parent_entry": null
+        }
+      ]
+    }
+  ],
+  "data": [
+    {
+      "address": "0x550154",
+      "loaded": true,
+      "value_u32": 5547419,
+      "inbound": [
+        {
+          "address": "0x54a561",
+          "type": 1,
+          "parent_entry": "0x54a505",
+          "asm": "mov     dword ptr [esi], offset ??_7_Locimp@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a5c9",
+          "type": 1,
+          "parent_entry": "0x54a5b7",
+          "asm": "mov     dword ptr [esi], offset ??_7_Locimp@locale@std@@6B@"
+        }
+      ]
+    },
+    {
+      "address": "0x55015c",
+      "loaded": true,
+      "value_u32": 5547390,
+      "inbound": [
+        {
+          "address": "0x54a51f",
+          "type": 1,
+          "parent_entry": "0x54a505",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a577",
+          "type": 1,
+          "parent_entry": "0x54a505",
+          "asm": "mov     dword ptr [ecx], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a586",
+          "type": 1,
+          "parent_entry": "0x54a57e",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        },
+        {
+          "address": "0x54a627",
+          "type": 1,
+          "parent_entry": "0x54a5b7",
+          "asm": "mov     dword ptr [esi], offset ??_7facet@locale@std@@6B@"
+        }
+      ]
+    },
+    {
+      "address": "0x1086728",
+      "loaded": false,
+      "value_u32": null,
+      "inbound": [
+        {
+          "address": "0x54a3fa",
+          "type": 1,
+          "parent_entry": "0x54a3fa",
+          "asm": "mov     ecx, offset dword_1086728; this"
+        },
+        {
+          "address": "0x54a49c",
+          "type": 1,
+          "parent_entry": "0x54a404",
+          "asm": "mov     ecx, offset dword_1086728"
+        },
+        {
+          "address": "0x54a4ab",
+          "type": 2,
+          "parent_entry": "0x54a404",
+          "asm": "mov     dword_1086728, ecx"
+        }
+      ]
+    },
+    {
+      "address": "0x108672c",
+      "loaded": false,
+      "value_u32": null,
+      "inbound": [
+        {
+          "address": "0x54a485",
+          "type": 2,
+          "parent_entry": "0x54a404",
+          "asm": "mov     dword_108672C, eax"
+        },
+        {
+          "address": "0x54a4a5",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     ecx, dword_108672C"
+        }
+      ]
+    },
+    {
+      "address": "0x1086730",
+      "loaded": false,
+      "value_u32": null,
+      "inbound": [
+        {
+          "address": "0x548668",
+          "type": 3,
+          "parent_entry": "0x54865e",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a40f",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a44b",
+          "type": 2,
+          "parent_entry": "0x54a404",
+          "asm": "mov     dword_1086730, eax"
+        },
+        {
+          "address": "0x54a455",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a467",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a47f",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a497",
+          "type": 3,
+          "parent_entry": "0x54a404",
+          "asm": "mov     eax, dword_1086730"
+        },
+        {
+          "address": "0x54a4c7",
+          "type": 3,
+          "parent_entry": "0x54a4bd",
+          "asm": "mov     eax, dword_1086730"
+        }
+      ]
+    },
+    {
+      "address": "0x55315c",
+      "loaded": true,
+      "value_u32": 5546979,
+      "inbound": []
+    }
+  ],
+  "unique_original_instruction_count": 269,
+  "changed_original_instruction_count": 82,
+  "reused_provider_reference": {
+    "path": "doc/cg2d_narrow_string_heap_migration_evidence.json",
+    "entries": [
+      "0x53C9CF",
+      "0x53B4E7",
+      "0x53C3BE",
+      "0x541A28",
+      "0x53C3EA"
+    ],
+    "instruction_count": 85,
+    "description": "复用完整原提供者指令；未重取/修改提供者，本组仍调实际541A28"
+  },
+  "total_unique_instruction_count": 354,
+  "native_boundary_contract": {
+    "group": "LCH01",
+    "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+    "object_storage": {
+      "type": "LegacyLocaleImplementation",
+      "original_size": 40,
+      "native_size": 64,
+      "producer_entry": "0x54A404",
+      "producer_call_site": "0x54A422",
+      "producer_symbol": "AllocateLegacyLocaleObject_53C9CF",
+      "normal_release_entry": "0x54A59B",
+      "normal_release_call_site": "0x54A5AB",
+      "unwind_release_call_site": "0x54C39F",
+      "release_symbol": "FreeLegacyLocaleObject_53B4E7",
+      "domain": "私有std::malloc/std::free，仅_Locimp对象块",
+      "original_body_equivalent": false
+    },
+    "heap_policy": {
+      "request_type": "U32",
+      "max_request": "0xFFFFFFE0",
+      "zero_host_request": 1,
+      "handler": "CallLegacyHeapNewHandler_541A28",
+      "handler_request": "原byteCount，每轮读取原108614C；空/零结束、非零重试，异常传播",
+      "clear_storage": false
+    },
+    "exit_registration": [
+      {
+        "parent_entry": "0x54A404",
+        "call_site": "0x54A450",
+        "callback_entry": "0x54A4BD",
+        "callback_symbol": "ReleaseLegacyGlobalLocale_54A4BD",
+        "provider": "std::atexit",
+        "return_consumption": "弃返回，登记前发布global，失败不回滚",
+        "current_root_caller": "ConstructLegacyLocale_54865E及已有filebuf/ios消费者"
+      },
+      {
+        "parent_entry": "0x54A3E3",
+        "call_site": "0x54A3F3",
+        "callback_entry": "0x54A3FA",
+        "callback_symbol": "DestroyLegacyClassicLocale_54A3FA",
+        "provider": "std::atexit",
+        "return_consumption": "直接返回宿主登记S32结果",
+        "current_root_caller": "55315C全应用初始化表仍未接通；只改真实接口，不擅自启用模块或提前登记"
+      }
+    ],
+    "retained_domains": [
+      "DeleteLegacyLocaleFacet_54A57E对象仍原FreeLegacyHeapMemory",
+      "DestroyLegacyLocaleImplementation_54A5B7的facets向量仍原FreeLegacyHeapMemory",
+      "名称仍NSH01共享窄字符串域",
+      "SDK locale/std::FILE/其他CRT对象、六裸字节与21应用calloc保持"
+    ],
+    "preserved": [
+      "三唯一指针槽、完整引用0/FFFFFFFF门禁及重读",
+      "原Ctor低/高U8及methods/fields/name发布顺序",
+      "Ctor失败只释放本组块，不析构未完成对象",
+      "正常Delete先真实析构再flags&1释放，返回原地址",
+      "逆序facet循环每轮重取向量、名称/基类表异常顺序、两个退出不清槽",
+      "默认Ctor先发布_Init返回再重读当前global增引用"
+    ],
+    "source_boundaries": {
+      "layout_unchanged": true,
+      "new_public_api": false,
+      "new_dependency": false,
+      "rtti": false,
+      "full_initializer_order_closed": false,
+      "codecvt_production_closed": false,
+      "runtime_validated": false
+    },
+    "open_tasks": [
+      "C03",
+      "C04",
+      "C05",
+      "C08",
+      "C11"
+    ]
+  },
+  "direct_call_targets": [
+    {
+      "call_site": "0x54a422",
+      "code_refs": [
+        "0x53c9cf"
+      ],
+      "asm": "call    ??2@YAPAXI@Z"
+    },
+    {
+      "call_site": "0x54c39f",
+      "code_refs": [
+        "0x53b4e7"
+      ],
+      "asm": "call    delete"
+    },
+    {
+      "call_site": "0x54a5ab",
+      "code_refs": [
+        "0x53b4e7"
+      ],
+      "asm": "call    delete"
+    },
+    {
+      "call_site": "0x54a450",
+      "code_refs": [
+        "0x53b406"
+      ],
+      "asm": "call    _atexit"
+    },
+    {
+      "call_site": "0x54a3f3",
+      "code_refs": [
+        "0x53b406"
+      ],
+      "asm": "call    _atexit"
+    },
+    {
+      "call_site": "0x54a610",
+      "code_refs": [
+        "0x53c0a9"
+      ],
+      "asm": "call    free"
+    },
+    {
+      "call_site": "0x54a58f",
+      "code_refs": [
+        "0x53b4e7"
+      ],
+      "asm": "call    delete"
+    }
+  ],
+  "native_call_connections": [
+    {
+      "parent_entry": "0x54A404",
+      "call_site": "0x54A422",
+      "target_entry": "0x53C9CF",
+      "symbol": "InitializeLegacyGlobalLocale_54A404",
+      "target_symbol": "AllocateLegacyLocaleObject_53C9CF",
+      "arguments": "U32(sizeof(LegacyLocaleImplementation))",
+      "relationship": "LCH01仅实现对象storage宿主分配，原40→既有64B/真实handler1，不预清字段",
+      "source": "src/platform/LegacyLocale.cpp",
+      "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+      "native_target_is_original_source_body": false
+    },
+    {
+      "parent_entry": "0x54A404",
+      "call_site": "0x54C39F",
+      "target_entry": "0x53B4E7",
+      "symbol": "InitializeLegacyGlobalLocale_54A404",
+      "target_symbol": "FreeLegacyLocaleObject_53B4E7",
+      "arguments": "allocation",
+      "relationship": "LCH01 Ctor状态1同域释放/重抛，未完成对象不完整析构",
+      "source": "src/platform/LegacyLocale.cpp",
+      "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+      "native_target_is_original_source_body": false
+    },
+    {
+      "parent_entry": "0x54A59B",
+      "call_site": "0x54A5AB",
+      "target_entry": "0x53B4E7",
+      "symbol": "DeleteLegacyLocaleImplementation_54A59B",
+      "target_symbol": "FreeLegacyLocaleObject_53B4E7",
+      "arguments": "storage",
+      "relationship": "LCH01完整析构后flags bit0释放实现对象同域storage；facet/向量仍原域",
+      "source": "src/platform/LegacyLocale.cpp",
+      "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+      "native_target_is_original_source_body": false
+    },
+    {
+      "parent_entry": "0x54A404",
+      "call_site": "0x54A450",
+      "target_entry": "0x53B406",
+      "symbol": "InitializeLegacyGlobalLocale_54A404",
+      "target_symbol": "std::atexit",
+      "arguments": "ReleaseLegacyGlobalLocale_54A4BD",
+      "relationship": "LCH01先发布global再宿主登记同一原回调，返回弃/失败不回滚，不双登记",
+      "source": "src/platform/LegacyLocale.cpp",
+      "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+      "native_target_is_original_source_body": false
+    },
+    {
+      "parent_entry": "0x54A3E3",
+      "call_site": "0x54A3F3",
+      "target_entry": "0x53B406",
+      "symbol": "InitializeLegacyClassicLocale_54A3E3",
+      "target_symbol": "std::atexit",
+      "arguments": "DestroyLegacyClassicLocale_54A3FA",
+      "relationship": "LCH01先原RET晚段再宿主登记，直接S32；55315C全表caller仍待，不抢先启用",
+      "source": "src/platform/LegacyLocale.cpp",
+      "decision_ref": "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-decision",
+      "native_target_is_original_source_body": false
+    }
+  ]
+}

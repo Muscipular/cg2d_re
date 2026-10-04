@@ -47,4 +47,10 @@ std::int32_t ScanLegacyInput_53DEF4(
     LegacyFile* stream, const char* format, std::va_list arguments);
 std::int32_t ScanLegacyString_53CADC(const char* buffer, const char* format, ...);
 
+// 原U64两helper，参数/返回各64位而非地址；原生无符号算符，不增除零保护或替代值。
+std::uint64_t RemainderLegacyUnsigned64_5447A0(
+    std::uint64_t dividend, std::uint64_t divisor);
+std::uint64_t DivideLegacyUnsigned64_53CB10(
+    std::uint64_t dividend, std::uint64_t divisor);
+
 } // namespace cg::platform

@@ -386,8 +386,9 @@ std::int32_t FormatLegacyOutput_53EB28(LegacyFile* const stream,
                     if (previousPrecision <= 0 && value == 0) {
                         break;
                     }
-                    std::int32_t digit = static_cast<std::int32_t>(value % radix) + '0';
-                    value /= radix;
+                    std::int32_t digit = static_cast<std::int32_t>(
+                        RemainderLegacyUnsigned64_5447A0(value, radix)) + '0';
+                    value = DivideLegacyUnsigned64_53CB10(value, radix);
                     if (digit > '9') {
                         digit += digitOffset;
                     }
@@ -503,6 +504,18 @@ std::int32_t FormatLegacyStream_53BC0F(LegacyFile* const stream, const char* con
     va_end(arguments);
     EndLegacyTemporaryBuffer_53EAEB(started, stream);
     return result;
+}
+
+std::uint64_t RemainderLegacyUnsigned64_5447A0(
+    const std::uint64_t dividend, const std::uint64_t divisor)
+{
+    return dividend % divisor;
+}
+
+std::uint64_t DivideLegacyUnsigned64_53CB10(
+    const std::uint64_t dividend, const std::uint64_t divisor)
+{
+    return dividend / divisor;
 }
 
 } // namespace cg::platform

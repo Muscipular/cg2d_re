@@ -33932,7 +33932,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。 原Z空源53EEAA直跳53EF59与普通浮点push共一原长度点，现两个表达式均承接且只计一个原点。",
+      "boundary": "原623条及89B分类/转移、八目标逐项接为完整状态机；宽度/精度、h/l/I64、整数512上限、s/S/c/C/Z/n及原分段输出/错误传播保持。原生va_list按语义区分地址/数值，p固定完整指针十六进制位数，Z仅指针拓宽，n仍W16/W32。浮点精度163/512、分配回退、三个真实初始trap槽调用及字段尾释放已表达；e/f/g排版分发及底层数字生产已实现，六槽安装本体已实现，真实启动父仍待，不能将浮点计为完成。三包装已接，14处无界和全部9处有界标题业务调用已迁移；其他无界/流输出、真实启动与完整运行仍待。 本步仅真实长度/复制接线，原共用表达式/目标和数值转换、缓存/字段发布与后续全部正文保持；三源码合六标识符/三个已有头，不重验已过浮点算法或越过真实启动/运行未决。 原Z空源53EEAA直跳53EF59与普通浮点push共一原长度点，现两个表达式均承接且只计一个原点。；本次仅将原53F122余数/53F134商接两个显式U64真实数值helper，先余数低W32+30H后求商/完整U64 value发布保持；旧格式状态机/业务数组不回核，完整父/真实启动与运行未闭。",
       "function_chunks": [
         {
           "start": "0x53EB28",
@@ -33975,6 +33975,28 @@
           "source_expression_group": "format_shared_full_length",
           "result_width": "U32",
           "relationship": "原Z空源push后直跳同一长度call，浮点后缀/符号后普通入口；现两个表达式承接一原点，原S32 textLength保持"
+        }
+      ],
+      "unsigned64_arithmetic_internal_call_connections": [
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53F122",
+          "target_entry": "0x5447A0",
+          "target_symbol": "RemainderLegacyUnsigned64_5447A0",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "arguments": "原完整U64 value / 原局部radix(8/10/16)，cdq后的非负原高W32为0",
+          "relationship": "原先余数，取低W32加30H产生digit，随后另一次求商；无补值/合并、旧分类/格式算法不回核"
+        },
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53F134",
+          "target_entry": "0x53CB10",
+          "target_symbol": "DivideLegacyUnsigned64_53CB10",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "arguments": "原同一U64 value与同一次radix，保存完整U64商",
+          "relationship": "余数取字符后才商/发布value；旧整数解析/精度、缓存/字符串输出不改或复检"
         }
       ]
     },
@@ -34434,7 +34456,7 @@
     {
       "original_entry": "0x53CB10",
       "inventory_id": "F:0013CB10",
-      "status": "系统时间消费域已由无符号64位除法承接；格式输出消费域仍待父链验收",
+      "status": "原无符号U64算术合同已由显式原生本体实现；全部已证直接消费者源码接线，完整父/运行与故障等价未验",
       "original_end_exclusive": "0x53CB78",
       "instruction_count": 43,
       "original_direct_reference_count": 2,
@@ -34445,27 +34467,172 @@
             "ReadSystemSeconds_4589D0"
           ],
           "relationship": "4589FF调用的除数高W32为0、低W32为10000000；当前uint64_t表达式保留完整商"
+        },
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "DivideLegacyUnsigned64_53CB10"
+          ],
+          "relationship": "真实U64参数/返回的无符号完整U64整数商，x64原生算符沿原数学合同，不经宿主CRT包装"
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "DivideLegacyUnsigned64_53CB10"
+          ],
+          "relationship": "显式两U64接口，原两W32拼成的数值不截断/转有符号，非地址缓存"
+        },
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "FormatLegacyOutput_53EB28"
+          ],
+          "relationship": "余数取字符后才商/发布value；旧整数解析/精度、缓存/字符串输出不改或复检"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ReadSystemSeconds_4589D0"
+          ],
+          "relationship": "沿既有时间域真实64位数值职责，仅原生/显式helper接线，GetSystemTimeAsFileTime/读取顺序和余量/计时消费者不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "原为U64/U64整数商，EDX:EAX返回；现有时间源不增加符号扩展、浮点换算或W32截断。第二引用53F134属于53EB28格式输出，不随时间域记为全部实现。除零异常不专项模拟，不擅加保护。"
+      "boundary": "原为U64/U64整数商，EDX:EAX返回；现有时间源不增加符号扩展、浮点换算或W32截断。第二引用53F134属于53EB28格式输出，不随时间域记为全部实现。除零异常不专项模拟，不擅加保护。；2026-10-04两原helper共87条完整指令数学合同实现：原高除数0用两段DIV，高非0经同比归一化/乘回校正得完整unsigned U64商/余数；新端固定uint64参数/返回、原生%与/，无浮点、有符号化或W32截断，不补保护/默认值/故障模拟。原三直接点全部显式源码接线，格式先余数低W32+30H再完整商，时钟原FILETIME/10000000。仅正常数值/source合同与新调用核对，除零故障沿既有RPLAN.24不专项，旧格式/取时算法不复检，完整父/启动和运行未验。",
+      "verification_level": "；两完整新helper指令/三原数值call及新增原生标量/源码差异静态，未执行算法或故障样例",
+      "unsigned64_arithmetic_native_contract": {
+        "parameters": [
+          "unsigned U64 dividend",
+          "unsigned U64 divisor"
+        ],
+        "return": "unsigned U64",
+        "source": "DivideLegacyUnsigned64_53CB10",
+        "uses_language_operator": "/",
+        "new_fault_guard": false,
+        "original_direct_consumers": [
+          {
+            "parent_entry": "0x53EB28",
+            "call_site": "0x53F134",
+            "target_entry": "0x53CB10",
+            "target_symbol": "DivideLegacyUnsigned64_53CB10",
+            "source": "src/platform/LegacyFormat.cpp",
+            "symbol": "FormatLegacyOutput_53EB28",
+            "arguments": "原同一U64 value与同一次radix，保存完整U64商",
+            "relationship": "余数取字符后才商/发布value；旧整数解析/精度、缓存/字符串输出不改或复检"
+          },
+          {
+            "parent_entry": "0x4589D0",
+            "call_site": "0x4589FF",
+            "target_entry": "0x53CB10",
+            "target_symbol": "DivideLegacyUnsigned64_53CB10",
+            "source": "src/platform/MainLoopSupport.cpp",
+            "symbol": "ReadSystemSeconds_4589D0",
+            "arguments": "原当时FILETIME低/高W32组成U64；原除数高W32=0、低W32=10000000",
+            "relationship": "沿既有时间域真实64位数值职责，仅原生/显式helper接线，GetSystemTimeAsFileTime/读取顺序和余量/计时消费者不改/复检"
+          }
+        ],
+        "normal_arithmetic_source_implemented": true,
+        "whole_parent_or_runtime_verified": false
+      },
+      "unsigned64_arithmetic_parent_call_connections": [
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53F134",
+          "target_entry": "0x53CB10",
+          "target_symbol": "DivideLegacyUnsigned64_53CB10",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "arguments": "原同一U64 value与同一次radix，保存完整U64商",
+          "relationship": "余数取字符后才商/发布value；旧整数解析/精度、缓存/字符串输出不改或复检"
+        },
+        {
+          "parent_entry": "0x4589D0",
+          "call_site": "0x4589FF",
+          "target_entry": "0x53CB10",
+          "target_symbol": "DivideLegacyUnsigned64_53CB10",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ReadSystemSeconds_4589D0",
+          "arguments": "原当时FILETIME低/高W32组成U64；原除数高W32=0、低W32=10000000",
+          "relationship": "沿既有时间域真实64位数值职责，仅原生/显式helper接线，GetSystemTimeAsFileTime/读取顺序和余量/计时消费者不改/复检"
+        }
+      ]
     },
     {
       "original_entry": "0x5447A0",
       "inventory_id": "F:001447A0",
-      "status": "原无符号64位余数及唯一格式输出消费者已取证；完整父链未实现等价验收",
+      "status": "原无符号U64算术合同已由显式原生本体实现；全部已证直接消费者源码接线，完整父/运行与故障等价未验",
       "original_end_exclusive": "0x544815",
       "instruction_count": 44,
       "original_direct_reference_count": 1,
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "RemainderLegacyUnsigned64_5447A0"
+          ],
+          "relationship": "真实U64参数/返回的无符号完整U64余数，x64原生算符沿原数学合同，不经宿主CRT包装"
+        },
+        {
+          "path": "src/platform/LegacyFormat.hpp",
+          "symbols": [
+            "RemainderLegacyUnsigned64_5447A0"
+          ],
+          "relationship": "显式两U64接口，原两W32拼成的数值不截断/转有符号，非地址缓存"
+        },
+        {
+          "path": "src/platform/LegacyFormat.cpp",
+          "symbols": [
+            "FormatLegacyOutput_53EB28"
+          ],
+          "relationship": "原先余数，取低W32加30H产生digit，随后另一次求商；无补值/合并、旧分类/格式算法不回核"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_main_loop.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "唯一调用53F122@53EB28，原先余数后商，取余数低W32加30h产生字符，随后保存完整U64商。仅确认整数运算合同，不据此批准CRT宿主承接或称格式输出实现完成。"
+      "boundary": "唯一调用53F122@53EB28，原先余数后商，取余数低W32加30h产生字符，随后保存完整U64商。仅确认整数运算合同，不据此批准CRT宿主承接或称格式输出实现完成。；2026-10-04两原helper共87条完整指令数学合同实现：原高除数0用两段DIV，高非0经同比归一化/乘回校正得完整unsigned U64商/余数；新端固定uint64参数/返回、原生%与/，无浮点、有符号化或W32截断，不补保护/默认值/故障模拟。原三直接点全部显式源码接线，格式先余数低W32+30H再完整商，时钟原FILETIME/10000000。仅正常数值/source合同与新调用核对，除零故障沿既有RPLAN.24不专项，旧格式/取时算法不复检，完整父/启动和运行未验。",
+      "verification_level": "；两完整新helper指令/三原数值call及新增原生标量/源码差异静态，未执行算法或故障样例",
+      "unsigned64_arithmetic_native_contract": {
+        "parameters": [
+          "unsigned U64 dividend",
+          "unsigned U64 divisor"
+        ],
+        "return": "unsigned U64",
+        "source": "RemainderLegacyUnsigned64_5447A0",
+        "uses_language_operator": "%",
+        "new_fault_guard": false,
+        "original_direct_consumers": [
+          {
+            "parent_entry": "0x53EB28",
+            "call_site": "0x53F122",
+            "target_entry": "0x5447A0",
+            "target_symbol": "RemainderLegacyUnsigned64_5447A0",
+            "source": "src/platform/LegacyFormat.cpp",
+            "symbol": "FormatLegacyOutput_53EB28",
+            "arguments": "原完整U64 value / 原局部radix(8/10/16)，cdq后的非负原高W32为0",
+            "relationship": "原先余数，取低W32加30H产生digit，随后另一次求商；无补值/合并、旧分类/格式算法不回核"
+          }
+        ],
+        "normal_arithmetic_source_implemented": true,
+        "whole_parent_or_runtime_verified": false
+      },
+      "unsigned64_arithmetic_parent_call_connections": [
+        {
+          "parent_entry": "0x53EB28",
+          "call_site": "0x53F122",
+          "target_entry": "0x5447A0",
+          "target_symbol": "RemainderLegacyUnsigned64_5447A0",
+          "source": "src/platform/LegacyFormat.cpp",
+          "symbol": "FormatLegacyOutput_53EB28",
+          "arguments": "原完整U64 value / 原局部radix(8/10/16)，cdq后的非负原高W32为0",
+          "relationship": "原先余数，取低W32加30H产生digit，随后另一次求商；无补值/合并、旧分类/格式算法不回核"
+        }
+      ]
     },
     {
       "original_entry": "0x544620",

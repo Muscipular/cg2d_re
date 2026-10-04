@@ -1,6 +1,7 @@
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
 #include "LegacyStdio.hpp"
+#include "LegacyFormat.hpp"
 
 #include "cg/LegacyAudio.hpp"
 #include "cg/YobiRuntime.hpp"
@@ -744,7 +745,8 @@ std::uint64_t ReadSystemSeconds_4589D0()
     SystemTimeToFileTime(&systemTime, &fileTime);
     const std::uint32_t high = fileTime.dwHighDateTime;
     const std::uint32_t low = fileTime.dwLowDateTime;
-    return ((static_cast<std::uint64_t>(high) << 32) | low) / 10000000u;
+    return DivideLegacyUnsigned64_53CB10(
+        (static_cast<std::uint64_t>(high) << 32) | low, 10000000u);
 }
 
 int CheckSystemSeconds_458A10(std::int32_t seconds)

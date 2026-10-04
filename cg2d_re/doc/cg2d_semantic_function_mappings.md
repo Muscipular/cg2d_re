@@ -1545,3 +1545,23 @@ Take保一次对齐宽/首head/帧和候选图号取样、清head/绑定阶段�
 3无独立ID/18 pending/4分类引用及10/60关闭、0/182叶验收/全局闭包不提升。
 完整父、文件/资源/共享失效、间接alias和节点场景/退出寿命、
 SDK/机器ABI/画面运行仍未验；没有构建、测试、运行或摘要，异常不记安全/故障等价。
+
+## GUP01节点上传与同record双色表借用对照（2026-10-05）
+
+[局部SPEC/源码结论](cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure)和
+[只读证据](cg2d_graphic_upload_alignment_evidence.json)保存520B10完整227条/690B、
+三实际caller局部36条、11绝对data operand及五实际callee。
+节点上传本体已按原条件读取/保存首choice与count、固定entry、尺寸/表/两上传阶段修正；
+三W16快照、原失败五槽、清黑/独立空表收尾/普通AutoMap/flag及返回保持。
+
+资源侧既有BorrowIndependentPaletteColors32单次取record，借出原色/色调两表地址，
+仅这一个caller及声明/定义同步；record存在后才读取mode选择。
+私有0xB04/原两表/索引和记录池不变，无新结构公开、owner/副本/范围保护。
+两原缩放点共用DrawScaledNodes，整数点由DrawIntegerNodes承接；
+三caller不代完整父或原机器调用轨迹。既有450400 CPU核心和source/stride边界不改。
+
+三限定文件补丁外全文、1200旧语义及登记政策外部保持；仅新增F:00120B10：
+1201语义/1198有效原ID、115/3680审核、局部证据75。
+3无独立ID/18 pending/4分类引用、10/60关闭/0/182叶验收/完整门禁与全局闭包不变。
+原额外dataref不升格数据身份；完整父/模式/上游、间接alias、资源表/节点失效与借用清理、
+SDK/机器ABI/像素画面未验；没有构建/测试/运行/摘要，异常不记安全/故障等价。

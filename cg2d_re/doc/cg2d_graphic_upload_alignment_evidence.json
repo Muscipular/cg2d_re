@@ -1,0 +1,1766 @@
+{
+  "schema_version": 1,
+  "group": "GUP01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前已打开cg2d.exe数据库只读MCP，不重开/保存/导出",
+  "baseline_reference": "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+  "implementation_reference": "Git固定命名快照 cg2d-re-graphic-upload-source-20261005",
+  "function": {
+    "entry": "0x520b10",
+    "end": "0x520dc2",
+    "total": 227,
+    "chunks": [
+      [
+        "0x520b10",
+        "0x520dc2"
+      ]
+    ],
+    "references": [
+      {
+        "from": "0x521032",
+        "type": 17,
+        "parent": "0x520dd0"
+      },
+      {
+        "from": "0x52124e",
+        "type": 17,
+        "parent": "0x520dd0"
+      },
+      {
+        "from": "0x521573",
+        "type": 17,
+        "parent": "0x520dd0"
+      }
+    ],
+    "instructions": [
+      {
+        "address": "0x520b10",
+        "size": 3,
+        "text": "sub     esp, 8"
+      },
+      {
+        "address": "0x520b13",
+        "size": 1,
+        "text": "push    ebx"
+      },
+      {
+        "address": "0x520b14",
+        "size": 1,
+        "text": "push    ebp"
+      },
+      {
+        "address": "0x520b15",
+        "size": 4,
+        "text": "mov     ebp, [esp+10h+graphic]"
+      },
+      {
+        "address": "0x520b19",
+        "size": 5,
+        "text": "mov     eax, gPaletteActived"
+      },
+      {
+        "address": "0x520b1e",
+        "size": 6,
+        "text": "mov     ecx, gFrameIndex_mb"
+      },
+      {
+        "address": "0x520b24",
+        "size": 1,
+        "text": "push    esi"
+      },
+      {
+        "address": "0x520b25",
+        "size": 3,
+        "text": "mov     esi, [ebp+8]"
+      },
+      {
+        "address": "0x520b28",
+        "size": 3,
+        "text": "mov     dl, [ebp+21h]"
+      },
+      {
+        "address": "0x520b2b",
+        "size": 1,
+        "text": "push    edi"
+      },
+      {
+        "address": "0x520b2c",
+        "size": 6,
+        "text": "mov     edi, gGraphicInfoDxCache"
+      },
+      {
+        "address": "0x520b32",
+        "size": 3,
+        "text": "shl     esi, 4"
+      },
+      {
+        "address": "0x520b35",
+        "size": 2,
+        "text": "add     esi, edi"
+      },
+      {
+        "address": "0x520b37",
+        "size": 4,
+        "text": "mov     [esp+18h+var_8], eax"
+      },
+      {
+        "address": "0x520b3b",
+        "size": 3,
+        "text": "test    dl, 4"
+      },
+      {
+        "address": "0x520b3e",
+        "size": 4,
+        "text": "mov     [esp+18h+var_4], ecx"
+      },
+      {
+        "address": "0x520b42",
+        "size": 2,
+        "text": "jz      short loc_520B50"
+      },
+      {
+        "address": "0x520b44",
+        "size": 2,
+        "text": "xor     eax, eax"
+      },
+      {
+        "address": "0x520b46",
+        "size": 2,
+        "text": "xor     ecx, ecx"
+      },
+      {
+        "address": "0x520b48",
+        "size": 4,
+        "text": "mov     [esp+18h+var_8], eax"
+      },
+      {
+        "address": "0x520b4c",
+        "size": 4,
+        "text": "mov     [esp+18h+var_4], ecx"
+      },
+      {
+        "address": "0x520b50",
+        "size": 4,
+        "text": "mov     edi, [esp+18h+texture]"
+      },
+      {
+        "address": "0x520b54",
+        "size": 4,
+        "text": "mov     dx, [edi+14h]"
+      },
+      {
+        "address": "0x520b58",
+        "size": 3,
+        "text": "movsx   ebx, dx"
+      },
+      {
+        "address": "0x520b5b",
+        "size": 2,
+        "text": "cmp     ebx, eax"
+      },
+      {
+        "address": "0x520b5d",
+        "size": 2,
+        "text": "jnz     short loc_520B75"
+      },
+      {
+        "address": "0x520b5f",
+        "size": 4,
+        "text": "movsx   ebx, word ptr [edi+16h]"
+      },
+      {
+        "address": "0x520b63",
+        "size": 2,
+        "text": "cmp     ebx, ecx"
+      },
+      {
+        "address": "0x520b65",
+        "size": 2,
+        "text": "jnz     short loc_520B75"
+      },
+      {
+        "address": "0x520b67",
+        "size": 4,
+        "text": "mov     bx, [edi+18h]"
+      },
+      {
+        "address": "0x520b6b",
+        "size": 4,
+        "text": "cmp     bx, [ebp+22h]"
+      },
+      {
+        "address": "0x520b6f",
+        "size": 6,
+        "text": "jz      loc_520DB5"
+      },
+      {
+        "address": "0x520b75",
+        "size": 2,
+        "text": "xor     ebx, ebx"
+      },
+      {
+        "address": "0x520b77",
+        "size": 6,
+        "text": "cmp     dword_103CF10, ebx"
+      },
+      {
+        "address": "0x520b7d",
+        "size": 2,
+        "text": "jz      short loc_520B9F"
+      },
+      {
+        "address": "0x520b7f",
+        "size": 3,
+        "text": "cmp     [esi+0Eh], bl"
+      },
+      {
+        "address": "0x520b82",
+        "size": 2,
+        "text": "jz      short loc_520B9F"
+      },
+      {
+        "address": "0x520b84",
+        "size": 3,
+        "text": "cmp     dx, bx"
+      },
+      {
+        "address": "0x520b87",
+        "size": 2,
+        "text": "jl      short loc_520B9F"
+      },
+      {
+        "address": "0x520b89",
+        "size": 6,
+        "text": "mov     edx, dword_1020ECC"
+      },
+      {
+        "address": "0x520b8f",
+        "size": 3,
+        "text": "cmp     edx, 0Ah"
+      },
+      {
+        "address": "0x520b92",
+        "size": 6,
+        "text": "jge     loc_520DB5"
+      },
+      {
+        "address": "0x520b98",
+        "size": 1,
+        "text": "inc     edx"
+      },
+      {
+        "address": "0x520b99",
+        "size": 6,
+        "text": "mov     dword_1020ECC, edx"
+      },
+      {
+        "address": "0x520b9f",
+        "size": 4,
+        "text": "movsx   edx, word ptr [edi+14h]"
+      },
+      {
+        "address": "0x520ba3",
+        "size": 2,
+        "text": "cmp     edx, eax"
+      },
+      {
+        "address": "0x520ba5",
+        "size": 2,
+        "text": "jnz     short loc_520BBD"
+      },
+      {
+        "address": "0x520ba7",
+        "size": 4,
+        "text": "movsx   eax, word ptr [edi+16h]"
+      },
+      {
+        "address": "0x520bab",
+        "size": 2,
+        "text": "cmp     eax, ecx"
+      },
+      {
+        "address": "0x520bad",
+        "size": 2,
+        "text": "jnz     short loc_520BBD"
+      },
+      {
+        "address": "0x520baf",
+        "size": 4,
+        "text": "mov     cx, [edi+18h]"
+      },
+      {
+        "address": "0x520bb3",
+        "size": 4,
+        "text": "cmp     cx, [ebp+22h]"
+      },
+      {
+        "address": "0x520bb7",
+        "size": 6,
+        "text": "jz      loc_520DB5"
+      },
+      {
+        "address": "0x520bbd",
+        "size": 3,
+        "text": "mov     eax, [ebp+8]"
+      },
+      {
+        "address": "0x520bc0",
+        "size": 6,
+        "text": "mov     ecx, gGraphicDataBuffer"
+      },
+      {
+        "address": "0x520bc6",
+        "size": 2,
+        "text": "cmp     ecx, eax"
+      },
+      {
+        "address": "0x520bc8",
+        "size": 2,
+        "text": "jz      short loc_520C1E"
+      },
+      {
+        "address": "0x520bca",
+        "size": 5,
+        "text": "push    offset gCurrentGraphicPaletteSize"
+      },
+      {
+        "address": "0x520bcf",
+        "size": 5,
+        "text": "push    offset gCurrentGraphicHight"
+      },
+      {
+        "address": "0x520bd4",
+        "size": 5,
+        "text": "push    offset gCurrentGraphicWidth"
+      },
+      {
+        "address": "0x520bd9",
+        "size": 5,
+        "text": "push    offset gGraphicDataPtr"
+      },
+      {
+        "address": "0x520bde",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520bdf",
+        "size": 5,
+        "text": "call    Graphic__readGraphicDataByIndex",
+        "mnemonic": "call",
+        "operand_type": 7,
+        "operand_value": "0x45a900"
+      },
+      {
+        "address": "0x520be4",
+        "size": 3,
+        "text": "add     esp, 14h"
+      },
+      {
+        "address": "0x520be7",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520be9",
+        "size": 2,
+        "text": "jnz     short loc_520C15"
+      },
+      {
+        "address": "0x520beb",
+        "size": 1,
+        "text": "pop     edi"
+      },
+      {
+        "address": "0x520bec",
+        "size": 1,
+        "text": "pop     esi"
+      },
+      {
+        "address": "0x520bed",
+        "size": 6,
+        "text": "mov     gGraphicDataPtr.buffer, ebx"
+      },
+      {
+        "address": "0x520bf3",
+        "size": 6,
+        "text": "mov     gCurrentGraphicHight, ebx"
+      },
+      {
+        "address": "0x520bf9",
+        "size": 6,
+        "text": "mov     gCurrentGraphicWidth, ebx"
+      },
+      {
+        "address": "0x520bff",
+        "size": 6,
+        "text": "mov     gCurrentGraphicPaletteSize, ebx"
+      },
+      {
+        "address": "0x520c05",
+        "size": 1,
+        "text": "pop     ebp"
+      },
+      {
+        "address": "0x520c06",
+        "size": 10,
+        "text": "mov     gGraphicDataBuffer, 0FFFFFFFFh"
+      },
+      {
+        "address": "0x520c10",
+        "size": 1,
+        "text": "pop     ebx"
+      },
+      {
+        "address": "0x520c11",
+        "size": 3,
+        "text": "add     esp, 8"
+      },
+      {
+        "address": "0x520c14",
+        "size": 1,
+        "text": "retn"
+      },
+      {
+        "address": "0x520c15",
+        "size": 3,
+        "text": "mov     edx, [ebp+8]"
+      },
+      {
+        "address": "0x520c18",
+        "size": 6,
+        "text": "mov     gGraphicDataBuffer, edx"
+      },
+      {
+        "address": "0x520c1e",
+        "size": 4,
+        "text": "movsx   ecx, word ptr [edi+0Ch]"
+      },
+      {
+        "address": "0x520c22",
+        "size": 6,
+        "text": "mov     edx, gTextureSizeW"
+      },
+      {
+        "address": "0x520c28",
+        "size": 4,
+        "text": "movsx   eax, word ptr [esi+4]"
+      },
+      {
+        "address": "0x520c2c",
+        "size": 4,
+        "text": "mov     [esp+18h+texture], edx"
+      },
+      {
+        "address": "0x520c30",
+        "size": 2,
+        "text": "add     edx, ecx"
+      },
+      {
+        "address": "0x520c32",
+        "size": 2,
+        "text": "cmp     edx, eax"
+      },
+      {
+        "address": "0x520c34",
+        "size": 2,
+        "text": "jle     short loc_520C3C"
+      },
+      {
+        "address": "0x520c36",
+        "size": 2,
+        "text": "sub     eax, ecx"
+      },
+      {
+        "address": "0x520c38",
+        "size": 4,
+        "text": "mov     [esp+18h+texture], eax"
+      },
+      {
+        "address": "0x520c3c",
+        "size": 6,
+        "text": "mov     edx, gTextureSizeH"
+      },
+      {
+        "address": "0x520c42",
+        "size": 4,
+        "text": "movsx   ecx, word ptr [edi+0Eh]"
+      },
+      {
+        "address": "0x520c46",
+        "size": 4,
+        "text": "movsx   eax, word ptr [esi+6]"
+      },
+      {
+        "address": "0x520c4a",
+        "size": 2,
+        "text": "mov     ebp, edx"
+      },
+      {
+        "address": "0x520c4c",
+        "size": 3,
+        "text": "lea     ebx, [ecx+ebp]"
+      },
+      {
+        "address": "0x520c4f",
+        "size": 2,
+        "text": "cmp     ebx, eax"
+      },
+      {
+        "address": "0x520c51",
+        "size": 2,
+        "text": "jle     short loc_520C57"
+      },
+      {
+        "address": "0x520c53",
+        "size": 2,
+        "text": "sub     eax, ecx"
+      },
+      {
+        "address": "0x520c55",
+        "size": 2,
+        "text": "mov     ebp, eax"
+      },
+      {
+        "address": "0x520c57",
+        "size": 4,
+        "text": "mov     eax, [esp+18h+texture]"
+      },
+      {
+        "address": "0x520c5b",
+        "size": 6,
+        "text": "mov     ecx, gTextureSizeW"
+      },
+      {
+        "address": "0x520c61",
+        "size": 2,
+        "text": "cmp     eax, ecx"
+      },
+      {
+        "address": "0x520c63",
+        "size": 2,
+        "text": "jl      short loc_520C69"
+      },
+      {
+        "address": "0x520c65",
+        "size": 2,
+        "text": "cmp     ebp, edx"
+      },
+      {
+        "address": "0x520c67",
+        "size": 2,
+        "text": "jge     short loc_520C74"
+      },
+      {
+        "address": "0x520c69",
+        "size": 2,
+        "text": "mov     ecx, [edi]"
+      },
+      {
+        "address": "0x520c6b",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520c6c",
+        "size": 5,
+        "text": "call    Texture__FillBlack",
+        "mnemonic": "call",
+        "operand_type": 7,
+        "operand_value": "0x451310"
+      },
+      {
+        "address": "0x520c71",
+        "size": 3,
+        "text": "add     esp, 4"
+      },
+      {
+        "address": "0x520c74",
+        "size": 4,
+        "text": "mov     ebx, [esp+18h+graphic]"
+      },
+      {
+        "address": "0x520c78",
+        "size": 4,
+        "text": "mov     ax, [ebx+22h]"
+      },
+      {
+        "address": "0x520c7c",
+        "size": 3,
+        "text": "test    ax, ax"
+      },
+      {
+        "address": "0x520c7f",
+        "size": 2,
+        "text": "jz      short loc_520CCE"
+      },
+      {
+        "address": "0x520c81",
+        "size": 3,
+        "text": "movsx   edx, ax"
+      },
+      {
+        "address": "0x520c84",
+        "size": 5,
+        "text": "mov     eax, gPaletteDataCache"
+      },
+      {
+        "address": "0x520c89",
+        "size": 3,
+        "text": "mov     eax, [eax+edx*8]"
+      },
+      {
+        "address": "0x520c8c",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520c8e",
+        "size": 6,
+        "text": "jz      loc_520D9B"
+      },
+      {
+        "address": "0x520c94",
+        "size": 4,
+        "text": "test    byte ptr [ebx+21h], 4"
+      },
+      {
+        "address": "0x520c98",
+        "size": 2,
+        "text": "jnz     short loc_520CA1"
+      },
+      {
+        "address": "0x520c9a",
+        "size": 5,
+        "text": "add     eax, 404h"
+      },
+      {
+        "address": "0x520c9f",
+        "size": 2,
+        "text": "jmp     short loc_520CA4"
+      },
+      {
+        "address": "0x520ca1",
+        "size": 3,
+        "text": "add     eax, 4"
+      },
+      {
+        "address": "0x520ca4",
+        "size": 4,
+        "text": "movsx   edx, word ptr [esi+6]"
+      },
+      {
+        "address": "0x520ca8",
+        "size": 4,
+        "text": "mov     ecx, [esp+18h+texture]"
+      },
+      {
+        "address": "0x520cac",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520cad",
+        "size": 4,
+        "text": "movsx   eax, word ptr [edi+0Eh]"
+      },
+      {
+        "address": "0x520cb1",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520cb3",
+        "size": 1,
+        "text": "push    ebp"
+      },
+      {
+        "address": "0x520cb4",
+        "size": 2,
+        "text": "sub     edx, eax"
+      },
+      {
+        "address": "0x520cb6",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520cb7",
+        "size": 4,
+        "text": "movsx   ecx, word ptr [edi+0Ch]"
+      },
+      {
+        "address": "0x520cbb",
+        "size": 1,
+        "text": "dec     edx"
+      },
+      {
+        "address": "0x520cbc",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "address": "0x520cbd",
+        "size": 2,
+        "text": "mov     edx, [edi]"
+      },
+      {
+        "address": "0x520cbf",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520cc0",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "address": "0x520cc1",
+        "size": 5,
+        "text": "call    Texture__LoadFromBuffer",
+        "mnemonic": "call",
+        "operand_type": 7,
+        "operand_value": "0x450400"
+      },
+      {
+        "address": "0x520cc6",
+        "size": 3,
+        "text": "add     esp, 1Ch"
+      },
+      {
+        "address": "0x520cc9",
+        "size": 5,
+        "text": "jmp     loc_520D9B"
+      },
+      {
+        "address": "0x520cce",
+        "size": 3,
+        "text": "mov     eax, [esi+8]"
+      },
+      {
+        "address": "0x520cd1",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520cd3",
+        "size": 2,
+        "text": "jz      short loc_520CF8"
+      },
+      {
+        "address": "0x520cd5",
+        "size": 4,
+        "text": "mov     ecx, [esp+18h+var_8]"
+      },
+      {
+        "address": "0x520cd9",
+        "size": 3,
+        "text": "mov     edx, [eax+4]"
+      },
+      {
+        "address": "0x520cdc",
+        "size": 2,
+        "text": "cmp     edx, ecx"
+      },
+      {
+        "address": "0x520cde",
+        "size": 2,
+        "text": "jnz     short loc_520CEB"
+      },
+      {
+        "address": "0x520ce0",
+        "size": 4,
+        "text": "mov     edx, [esp+18h+var_4]"
+      },
+      {
+        "address": "0x520ce4",
+        "size": 3,
+        "text": "mov     ecx, [eax+8]"
+      },
+      {
+        "address": "0x520ce7",
+        "size": 2,
+        "text": "cmp     ecx, edx"
+      },
+      {
+        "address": "0x520ce9",
+        "size": 2,
+        "text": "jz      short loc_520CF8"
+      },
+      {
+        "address": "0x520ceb",
+        "size": 6,
+        "text": "mov     dword ptr [eax], 0FFFFFFFFh"
+      },
+      {
+        "address": "0x520cf1",
+        "size": 7,
+        "text": "mov     dword ptr [esi+8], 0"
+      },
+      {
+        "address": "0x520cf8",
+        "size": 3,
+        "text": "mov     eax, [esi+8]"
+      },
+      {
+        "address": "0x520cfb",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520cfd",
+        "size": 2,
+        "text": "jnz     short loc_520D57"
+      },
+      {
+        "address": "0x520cff",
+        "size": 5,
+        "text": "mov     eax, gCurrentGraphicPaletteSize"
+      },
+      {
+        "address": "0x520d04",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520d06",
+        "size": 2,
+        "text": "jle     short loc_520D33"
+      },
+      {
+        "address": "0x520d08",
+        "size": 5,
+        "text": "mov     eax, gCurrentGraphicWidth"
+      },
+      {
+        "address": "0x520d0d",
+        "size": 3,
+        "text": "mov     cl, [ebx+21h]"
+      },
+      {
+        "address": "0x520d10",
+        "size": 7,
+        "text": "imul    eax, gCurrentGraphicHight"
+      },
+      {
+        "address": "0x520d17",
+        "size": 6,
+        "text": "mov     edx, gGraphicDataPtr.buffer"
+      },
+      {
+        "address": "0x520d1d",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520d1f",
+        "size": 2,
+        "text": "not     cl"
+      },
+      {
+        "address": "0x520d21",
+        "size": 3,
+        "text": "shr     cl, 2"
+      },
+      {
+        "address": "0x520d24",
+        "size": 2,
+        "text": "add     eax, edx"
+      },
+      {
+        "address": "0x520d26",
+        "size": 3,
+        "text": "mov     edx, [ebx+8]"
+      },
+      {
+        "address": "0x520d29",
+        "size": 3,
+        "text": "and     cl, 1"
+      },
+      {
+        "address": "0x520d2c",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520d2d",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520d2e",
+        "size": 2,
+        "text": "push    2"
+      },
+      {
+        "address": "0x520d30",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "address": "0x520d31",
+        "size": 2,
+        "text": "jmp     short loc_520D4C"
+      },
+      {
+        "address": "0x520d33",
+        "size": 3,
+        "text": "mov     al, [ebx+21h]"
+      },
+      {
+        "address": "0x520d36",
+        "size": 2,
+        "text": "test    al, 4"
+      },
+      {
+        "address": "0x520d38",
+        "size": 2,
+        "text": "jz      short loc_520D57"
+      },
+      {
+        "address": "0x520d3a",
+        "size": 2,
+        "text": "not     al"
+      },
+      {
+        "address": "0x520d3c",
+        "size": 3,
+        "text": "shr     al, 2"
+      },
+      {
+        "address": "0x520d3f",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520d41",
+        "size": 2,
+        "text": "and     al, 1"
+      },
+      {
+        "address": "0x520d43",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520d45",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520d46",
+        "size": 3,
+        "text": "mov     eax, [ebx+8]"
+      },
+      {
+        "address": "0x520d49",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520d4b",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520d4c",
+        "size": 5,
+        "text": "call    Renderer__LoadDXPalette",
+        "mnemonic": "call",
+        "operand_type": 7,
+        "operand_value": "0x44e290"
+      },
+      {
+        "address": "0x520d51",
+        "size": 3,
+        "text": "add     esp, 14h"
+      },
+      {
+        "address": "0x520d54",
+        "size": 3,
+        "text": "mov     [esi+8], eax"
+      },
+      {
+        "address": "0x520d57",
+        "size": 3,
+        "text": "mov     eax, [esi+8]"
+      },
+      {
+        "address": "0x520d5a",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520d5c",
+        "size": 2,
+        "text": "jz      short loc_520D63"
+      },
+      {
+        "address": "0x520d5e",
+        "size": 3,
+        "text": "add     eax, 10h"
+      },
+      {
+        "address": "0x520d61",
+        "size": 2,
+        "text": "jmp     short loc_520D65"
+      },
+      {
+        "address": "0x520d63",
+        "size": 2,
+        "text": "xor     eax, eax"
+      },
+      {
+        "address": "0x520d65",
+        "size": 4,
+        "text": "movsx   edx, word ptr [esi+6]"
+      },
+      {
+        "address": "0x520d69",
+        "size": 4,
+        "text": "mov     ecx, [esp+18h+texture]"
+      },
+      {
+        "address": "0x520d6d",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "address": "0x520d6e",
+        "size": 4,
+        "text": "movsx   eax, word ptr [edi+0Eh]"
+      },
+      {
+        "address": "0x520d72",
+        "size": 2,
+        "text": "push    0"
+      },
+      {
+        "address": "0x520d74",
+        "size": 1,
+        "text": "push    ebp"
+      },
+      {
+        "address": "0x520d75",
+        "size": 2,
+        "text": "sub     edx, eax"
+      },
+      {
+        "address": "0x520d77",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520d78",
+        "size": 4,
+        "text": "movsx   ecx, word ptr [edi+0Ch]"
+      },
+      {
+        "address": "0x520d7c",
+        "size": 1,
+        "text": "dec     edx"
+      },
+      {
+        "address": "0x520d7d",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "address": "0x520d7e",
+        "size": 2,
+        "text": "mov     edx, [edi]"
+      },
+      {
+        "address": "0x520d80",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "address": "0x520d81",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "address": "0x520d82",
+        "size": 5,
+        "text": "call    Texture__LoadFromBuffer",
+        "mnemonic": "call",
+        "operand_type": 7,
+        "operand_value": "0x450400"
+      },
+      {
+        "address": "0x520d87",
+        "size": 4,
+        "text": "mov     byte ptr [esi+0Eh], 0"
+      },
+      {
+        "address": "0x520d8b",
+        "size": 5,
+        "text": "mov     eax, gCurrentGraphicPaletteSize"
+      },
+      {
+        "address": "0x520d90",
+        "size": 3,
+        "text": "add     esp, 1Ch"
+      },
+      {
+        "address": "0x520d93",
+        "size": 2,
+        "text": "test    eax, eax"
+      },
+      {
+        "address": "0x520d95",
+        "size": 2,
+        "text": "jle     short loc_520D9B"
+      },
+      {
+        "address": "0x520d97",
+        "size": 4,
+        "text": "mov     byte ptr [esi+0Eh], 1"
+      },
+      {
+        "address": "0x520d9b",
+        "size": 5,
+        "text": "mov     ax, word ptr [esp+18h+var_8]"
+      },
+      {
+        "address": "0x520da0",
+        "size": 5,
+        "text": "mov     cx, word ptr [esp+18h+var_4]"
+      },
+      {
+        "address": "0x520da5",
+        "size": 4,
+        "text": "mov     [edi+14h], ax"
+      },
+      {
+        "address": "0x520da9",
+        "size": 4,
+        "text": "mov     [edi+16h], cx"
+      },
+      {
+        "address": "0x520dad",
+        "size": 4,
+        "text": "mov     dx, [ebx+22h]"
+      },
+      {
+        "address": "0x520db1",
+        "size": 4,
+        "text": "mov     [edi+18h], dx"
+      },
+      {
+        "address": "0x520db5",
+        "size": 1,
+        "text": "pop     edi"
+      },
+      {
+        "address": "0x520db6",
+        "size": 1,
+        "text": "pop     esi"
+      },
+      {
+        "address": "0x520db7",
+        "size": 1,
+        "text": "pop     ebp"
+      },
+      {
+        "address": "0x520db8",
+        "size": 5,
+        "text": "mov     eax, 1"
+      },
+      {
+        "address": "0x520dbd",
+        "size": 1,
+        "text": "pop     ebx"
+      },
+      {
+        "address": "0x520dbe",
+        "size": 3,
+        "text": "add     esp, 8"
+      },
+      {
+        "address": "0x520dc1",
+        "size": 1,
+        "text": "retn"
+      }
+    ]
+  },
+  "caller_windows": [
+    {
+      "call": "0x521032",
+      "parent": "0x520dd0",
+      "instructions": [
+        {
+          "address": "0x521028",
+          "size": 2,
+          "text": "cmp     eax, ebp",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52102a",
+          "size": 6,
+          "text": "jg      loc_5211D7",
+          "operand_type": 7,
+          "operand_value": "0x5211d7"
+        },
+        {
+          "address": "0x521030",
+          "size": 1,
+          "text": "push    esi",
+          "operand_type": 1,
+          "operand_value": "0x6"
+        },
+        {
+          "address": "0x521031",
+          "size": 1,
+          "text": "push    edi",
+          "operand_type": 1,
+          "operand_value": "0x7"
+        },
+        {
+          "address": "0x521032",
+          "size": 5,
+          "text": "call    Graphic__LoadTexture",
+          "operand_type": 7,
+          "operand_value": "0x520b10"
+        },
+        {
+          "address": "0x521037",
+          "size": 3,
+          "text": "add     esp, 8",
+          "operand_type": 1,
+          "operand_value": "0x4"
+        },
+        {
+          "address": "0x52103a",
+          "size": 2,
+          "text": "test    eax, eax",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52103c",
+          "size": 6,
+          "text": "jz      loc_5211D7",
+          "operand_type": 7,
+          "operand_value": "0x5211d7"
+        },
+        {
+          "address": "0x521042",
+          "size": 8,
+          "text": "mov     [esp+64h+rc_1.left], 0",
+          "operand_type": 4,
+          "operand_value": "0x44"
+        },
+        {
+          "address": "0x52104a",
+          "size": 4,
+          "text": "movsx   eax, word ptr [esi+0Ch]",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52104e",
+          "size": 2,
+          "text": "cmp     eax, ebx",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x521050",
+          "size": 2,
+          "text": "jge     short loc_52105A",
+          "operand_type": 7,
+          "operand_value": "0x52105a"
+        }
+      ]
+    },
+    {
+      "call": "0x52124e",
+      "parent": "0x520dd0",
+      "instructions": [
+        {
+          "address": "0x521242",
+          "size": 4,
+          "text": "mov     dword ptr [esp+64h+a1], ecx",
+          "operand_type": 4,
+          "operand_value": "0x10"
+        },
+        {
+          "address": "0x521246",
+          "size": 6,
+          "text": "jg      loc_5213B0",
+          "operand_type": 7,
+          "operand_value": "0x5213b0"
+        },
+        {
+          "address": "0x52124c",
+          "size": 1,
+          "text": "push    esi",
+          "operand_type": 1,
+          "operand_value": "0x6"
+        },
+        {
+          "address": "0x52124d",
+          "size": 1,
+          "text": "push    edi",
+          "operand_type": 1,
+          "operand_value": "0x7"
+        },
+        {
+          "address": "0x52124e",
+          "size": 5,
+          "text": "call    Graphic__LoadTexture",
+          "operand_type": 7,
+          "operand_value": "0x520b10"
+        },
+        {
+          "address": "0x521253",
+          "size": 3,
+          "text": "add     esp, 8",
+          "operand_type": 1,
+          "operand_value": "0x4"
+        },
+        {
+          "address": "0x521256",
+          "size": 2,
+          "text": "test    eax, eax",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x521258",
+          "size": 6,
+          "text": "jz      loc_5213B0",
+          "operand_type": 7,
+          "operand_value": "0x5213b0"
+        },
+        {
+          "address": "0x52125e",
+          "size": 8,
+          "text": "mov     [esp+64h+rc_1.left], 0",
+          "operand_type": 4,
+          "operand_value": "0x44"
+        },
+        {
+          "address": "0x521266",
+          "size": 4,
+          "text": "movsx   eax, word ptr [esi+0Ch]",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52126a",
+          "size": 2,
+          "text": "cmp     eax, ebx",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52126c",
+          "size": 2,
+          "text": "jge     short loc_521276",
+          "operand_type": 7,
+          "operand_value": "0x521276"
+        }
+      ]
+    },
+    {
+      "call": "0x521573",
+      "parent": "0x520dd0",
+      "instructions": [
+        {
+          "address": "0x521569",
+          "size": 2,
+          "text": "cmp     eax, ebx",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52156b",
+          "size": 6,
+          "text": "jg      loc_5216C0",
+          "operand_type": 7,
+          "operand_value": "0x5216c0"
+        },
+        {
+          "address": "0x521571",
+          "size": 1,
+          "text": "push    esi",
+          "operand_type": 1,
+          "operand_value": "0x6"
+        },
+        {
+          "address": "0x521572",
+          "size": 1,
+          "text": "push    edi",
+          "operand_type": 1,
+          "operand_value": "0x7"
+        },
+        {
+          "address": "0x521573",
+          "size": 5,
+          "text": "call    Graphic__LoadTexture",
+          "operand_type": 7,
+          "operand_value": "0x520b10"
+        },
+        {
+          "address": "0x521578",
+          "size": 3,
+          "text": "add     esp, 8",
+          "operand_type": 1,
+          "operand_value": "0x4"
+        },
+        {
+          "address": "0x52157b",
+          "size": 2,
+          "text": "test    eax, eax",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52157d",
+          "size": 6,
+          "text": "jz      loc_5216C0",
+          "operand_type": 7,
+          "operand_value": "0x5216c0"
+        },
+        {
+          "address": "0x521583",
+          "size": 2,
+          "text": "xor     ebp, ebp",
+          "operand_type": 1,
+          "operand_value": "0x5"
+        },
+        {
+          "address": "0x521585",
+          "size": 4,
+          "text": "mov     [esp+64h+rc_1.left], ebp",
+          "operand_type": 4,
+          "operand_value": "0x44"
+        },
+        {
+          "address": "0x521589",
+          "size": 4,
+          "text": "movsx   eax, word ptr [esi+0Ch]",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        },
+        {
+          "address": "0x52158d",
+          "size": 2,
+          "text": "cmp     eax, ebp",
+          "operand_type": 1,
+          "operand_value": "0x0"
+        }
+      ]
+    }
+  ],
+  "data_operands": [
+    {
+      "instruction": "0x520b19",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x628fd0",
+      "name": "gPaletteActived",
+      "data_refs": [
+        "0x628fd0"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520b1e",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x628fdc",
+      "name": "gFrameIndex_mb",
+      "data_refs": [
+        "0x628fdc"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520b2c",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x103cfa4",
+      "name": "gGraphicInfoDxCache",
+      "data_refs": [
+        "0x103cfa4"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520b77",
+      "operand": 0,
+      "kind": 2,
+      "value": "0x103cf10",
+      "name": "dword_103CF10",
+      "data_refs": [
+        "0x103cf10"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520b89",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x1020ecc",
+      "name": "dword_1020ECC",
+      "data_refs": [
+        "0x1020ecc"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520c22",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x103cf2c",
+      "name": "gTextureSizeW",
+      "data_refs": [
+        "0x103cf2c"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520c3c",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x103cf28",
+      "name": "gTextureSizeH",
+      "data_refs": [
+        "0x103cf28"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520c84",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x103cf1c",
+      "name": "gPaletteDataCache",
+      "data_refs": [
+        "0x103cf1c"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520d08",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x1020ed4",
+      "name": "gCurrentGraphicWidth",
+      "data_refs": [
+        "0x1020ed4"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520d10",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x1020ed0",
+      "name": "gCurrentGraphicHight",
+      "data_refs": [
+        "0x1020ed0"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    },
+    {
+      "instruction": "0x520d17",
+      "operand": 1,
+      "kind": 2,
+      "value": "0x1020ec0",
+      "name": "gGraphicDataPtr",
+      "data_refs": [
+        "0x1020ec0",
+        "0xff00000000006f9c"
+      ],
+      "absolute_operand_proven": true,
+      "extra_data_refs_interpreted": false
+    }
+  ],
+  "instruction_counts": {
+    "complete_root": 227,
+    "root_bytes": 690,
+    "caller_windows": 36,
+    "original_call_references": 3
+  },
+  "source_patch_contract": [
+    {
+      "path": "cg2d_re/src/render/GraphicDxCache.cpp",
+      "label": "节点上传完整227条原阶段",
+      "literal_before": "std::int32_t LoadGraphicTexture_520B10(\n    const GraphicCacheItem32* const graphic, TextureNode* const texture)\n{\n    std::int32_t paletteChoice = gActivePalette;\n    std::int32_t paletteVersion = gPaletteFrameVersion;\n    DxGraphicEntry& entry = gGraphicDxCache103CFA4[graphic->imageNo];\n    const std::uint8_t mixMode = graphic->descriptor[0x0D];\n    if ((mixMode & 4u) != 0) {\n        paletteChoice = 0;\n        paletteVersion = 0;\n    }\n    std::int16_t paletteIndex;\n    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));\n    if (texture->paletteChoice == paletteChoice\n        && texture->paletteVersion == paletteVersion\n        && texture->paletteIndex == paletteIndex) {\n        return 1;\n    }\n    if (gRenderQueueMode103CF10 != 0 && entry.flag != 0 && texture->paletteChoice >= 0) {\n        if (gGraphicPaletteUploadCount >= 10) {\n            return 1;\n        }\n        ++gGraphicPaletteUploadCount;\n    }\n    // 原 520B9F：限流分支之后再次核对同一组三字段。\n    if (texture->paletteChoice == paletteChoice\n        && texture->paletteVersion == paletteVersion\n        && texture->paletteIndex == paletteIndex) {\n        return 1;\n    }\n    if (resource::gGraphicDataBuffer != graphic->imageNo) {\n        if (resource::ReadGraphicDataByIndex(\n                graphic->imageNo, &resource::gGraphicDataPtr,\n                &resource::gCurrentGraphicWidth, &resource::gCurrentGraphicHeight,\n                &resource::gCurrentGraphicPaletteSize) == 0) {\n            resource::gGraphicDataPtr = nullptr;\n            resource::gCurrentGraphicHeight = 0;\n            resource::gCurrentGraphicWidth = 0;\n            resource::gCurrentGraphicPaletteSize = 0;\n            resource::gGraphicDataBuffer = -1;\n            return 0;\n        }\n        resource::gGraphicDataBuffer = graphic->imageNo;\n    }\n\n    const auto graphicWidth = static_cast<std::int16_t>(entry.width);\n    const auto graphicHeight = static_cast<std::int16_t>(entry.height);\n    std::int32_t width = gTextureSizeW;\n    if (texture->blockX + width > graphicWidth) {\n        width = graphicWidth - texture->blockX;\n    }\n    std::int32_t height = gTextureSizeH;\n    if (texture->blockY + height > graphicHeight) {\n        height = graphicHeight - texture->blockY;\n    }\n    if (width < gTextureSizeW || height < gTextureSizeH) {\n        FillTextureBlack_451310(texture->surface);\n    }\n\n    const bool applyTone = (graphic->descriptor[0x0D] & 4u) == 0;\n    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));\n    if (paletteIndex != 0) {\n        const std::uint32_t* const colors =\n            resource::BorrowIndependentPaletteColors32(paletteIndex, applyTone);\n        if (colors != nullptr) {\n            LoadTextureFromBuffer32_450400(\n                texture->surface, texture->blockX, graphicHeight - texture->blockY - 1,\n                width, height, resource::gGraphicDataPtr,\n                static_cast<std::int32_t>(resource::gCurrentGraphicWidth),\n                reinterpret_cast<const std::uint8_t*>(colors));\n        }\n    } else {\n        if (entry.palette != nullptr\n            && (entry.palette->activePalIndex != paletteChoice\n                || entry.palette->frameIndex != static_cast<std::uint32_t>(paletteVersion))) {\n            entry.palette->imageNo = -1;\n            entry.palette = nullptr;\n        }\n        if (entry.palette == nullptr) {\n            if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {\n                entry.palette = LoadGraphicPalette32_44E290(\n                    graphic->imageNo, 2, applyTone ? 1 : 0,\n                    resource::gGraphicDataPtr\n                        + resource::gCurrentGraphicWidth * resource::gCurrentGraphicHeight,\n                    nullptr);\n            } else if (!applyTone) {\n                entry.palette = LoadGraphicPalette32_44E290(\n                    graphic->imageNo, 0, 0, nullptr, nullptr);\n            }\n        }\n        const std::uint8_t* const colors =\n            entry.palette == nullptr ? nullptr : entry.palette->payload.data();\n        LoadTextureFromBuffer32_450400(\n            texture->surface, texture->blockX, graphicHeight - texture->blockY - 1,\n            width, height, resource::gGraphicDataPtr,\n            static_cast<std::int32_t>(resource::gCurrentGraphicWidth), colors);\n        entry.flag = 0;\n        if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {\n            entry.flag = 1;\n        }\n    }\n    texture->paletteChoice = static_cast<std::int16_t>(paletteChoice);\n    texture->paletteVersion = static_cast<std::int16_t>(paletteVersion);\n    std::memcpy(&texture->paletteIndex, graphic->descriptor.data() + 0x0E,\n        sizeof(texture->paletteIndex));\n    return 1;\n}\n\n",
+      "replacement": "std::int32_t LoadGraphicTexture_520B10(\n    const GraphicCacheItem32* const graphic, TextureNode* const texture)\n{\n    std::int32_t paletteChoice = gActivePalette;\n    std::int32_t paletteVersion = gPaletteFrameVersion;\n    const std::int32_t initialImageNo = graphic->imageNo;\n    const std::uint8_t initialMixMode = graphic->descriptor[0x0D];\n    DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;\n    DxGraphicEntry& entry = dxBase[initialImageNo];\n    if ((initialMixMode & 4u) != 0) {\n        paletteChoice = 0;\n        paletteVersion = 0;\n    }\n\n    const std::int16_t oldPaletteChoice = texture->paletteChoice;\n    if (oldPaletteChoice == paletteChoice\n        && texture->paletteVersion == paletteVersion) {\n        const std::int16_t oldPaletteIndex = texture->paletteIndex;\n        std::int16_t paletteIndex;\n        std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));\n        if (oldPaletteIndex == paletteIndex) {\n            return 1;\n        }\n    }\n    if (gRenderQueueMode103CF10 != 0 && entry.flag != 0 && oldPaletteChoice >= 0) {\n        const std::int32_t uploadCount = gGraphicPaletteUploadCount;\n        if (uploadCount >= 10) {\n            return 1;\n        }\n        gGraphicPaletteUploadCount = uploadCount + 1;\n    }\n\n    // 原 520B9F：限流分支后重新核三字段，索引只在前两项相同时读取。\n    if (texture->paletteChoice == paletteChoice\n        && texture->paletteVersion == paletteVersion) {\n        const std::int16_t oldPaletteIndex = texture->paletteIndex;\n        std::int16_t paletteIndex;\n        std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));\n        if (oldPaletteIndex == paletteIndex) {\n            return 1;\n        }\n    }\n\n    const std::int32_t requestedImageNo = graphic->imageNo;\n    const std::int32_t bufferedImageNo = resource::gGraphicDataBuffer;\n    if (bufferedImageNo != requestedImageNo) {\n        if (resource::ReadGraphicDataByIndex(\n                requestedImageNo, &resource::gGraphicDataPtr,\n                &resource::gCurrentGraphicWidth, &resource::gCurrentGraphicHeight,\n                &resource::gCurrentGraphicPaletteSize) == 0) {\n            resource::gGraphicDataPtr = nullptr;\n            resource::gCurrentGraphicHeight = 0;\n            resource::gCurrentGraphicWidth = 0;\n            resource::gCurrentGraphicPaletteSize = 0;\n            resource::gGraphicDataBuffer = -1;\n            return 0;\n        }\n        resource::gGraphicDataBuffer = graphic->imageNo;\n    }\n\n    const std::int32_t blockX = texture->blockX;\n    std::int32_t width = gTextureSizeW;\n    const std::int32_t graphicWidth = std::bit_cast<std::int16_t>(entry.width);\n    if (blockX + width > graphicWidth) {\n        width = graphicWidth - blockX;\n    }\n    const std::int32_t textureHeight = gTextureSizeH;\n    const std::int32_t blockY = texture->blockY;\n    const std::int32_t graphicHeight = std::bit_cast<std::int16_t>(entry.height);\n    std::int32_t height = textureHeight;\n    if (blockY + height > graphicHeight) {\n        height = graphicHeight - blockY;\n    }\n    const std::int32_t textureWidth = gTextureSizeW;\n    if (width < textureWidth || height < textureHeight) {\n        FillTextureBlack_451310(texture->surface);\n    }\n\n    std::int16_t paletteIndex;\n    std::memcpy(&paletteIndex, graphic->descriptor.data() + 0x0E, sizeof(paletteIndex));\n    if (paletteIndex != 0) {\n        const std::uint32_t* originalColors;\n        const std::uint32_t* tonedColors;\n        resource::BorrowIndependentPaletteColors32(paletteIndex, originalColors, tonedColors);\n        if (originalColors != nullptr) {\n            const std::uint8_t mixMode = graphic->descriptor[0x0D];\n            const std::uint32_t* const colors =\n                (mixMode & 4u) == 0 ? tonedColors : originalColors;\n            const std::int32_t sourceHeight = std::bit_cast<std::int16_t>(entry.height);\n            const std::int32_t sourceBlockY = texture->blockY;\n            const std::int32_t sourceBlockX = texture->blockX;\n            TextureSurface* const surface = texture->surface;\n            LoadTextureFromBuffer32_450400(\n                surface, sourceBlockX, sourceHeight - sourceBlockY - 1,\n                width, height, resource::gGraphicDataPtr,\n                static_cast<std::int32_t>(resource::gCurrentGraphicWidth),\n                reinterpret_cast<const std::uint8_t*>(colors));\n        }\n    } else {\n        PaletteCacheItem* const oldPalette = entry.palette;\n        if (oldPalette != nullptr\n            && (oldPalette->activePalIndex != paletteChoice\n                || oldPalette->frameIndex != static_cast<std::uint32_t>(paletteVersion))) {\n            oldPalette->imageNo = -1;\n            entry.palette = nullptr;\n        }\n        if (entry.palette == nullptr) {\n            if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {\n                const std::uint32_t sourceWidth = resource::gCurrentGraphicWidth;\n                const std::uint8_t mixMode = graphic->descriptor[0x0D];\n                const std::uint32_t sourceHeight = resource::gCurrentGraphicHeight;\n                const std::uint8_t* const source = resource::gGraphicDataPtr;\n                const std::uint8_t* const paletteTriples =\n                    source + sourceWidth * sourceHeight;\n                const std::int32_t imageNo = graphic->imageNo;\n                entry.palette = LoadGraphicPalette32_44E290(\n                    imageNo, 2, (mixMode & 4u) == 0 ? 1 : 0, paletteTriples, nullptr);\n            } else {\n                const std::uint8_t mixMode = graphic->descriptor[0x0D];\n                if ((mixMode & 4u) != 0) {\n                    const std::int32_t imageNo = graphic->imageNo;\n                    entry.palette = LoadGraphicPalette32_44E290(\n                        imageNo, 0, 0, nullptr, nullptr);\n                }\n            }\n        }\n        PaletteCacheItem* const uploadPalette = entry.palette;\n        const std::uint8_t* const colors =\n            uploadPalette == nullptr ? nullptr : uploadPalette->payload.data();\n        const std::int32_t sourceHeight = std::bit_cast<std::int16_t>(entry.height);\n        const std::int32_t sourceBlockY = texture->blockY;\n        const std::int32_t sourceBlockX = texture->blockX;\n        TextureSurface* const surface = texture->surface;\n        LoadTextureFromBuffer32_450400(\n            surface, sourceBlockX, sourceHeight - sourceBlockY - 1,\n            width, height, resource::gGraphicDataPtr,\n            static_cast<std::int32_t>(resource::gCurrentGraphicWidth), colors);\n        entry.flag = 0;\n        if (static_cast<std::int32_t>(resource::gCurrentGraphicPaletteSize) > 0) {\n            entry.flag = 1;\n        }\n    }\n    texture->paletteChoice = static_cast<std::int16_t>(paletteChoice);\n    texture->paletteVersion = static_cast<std::int16_t>(paletteVersion);\n    std::memcpy(&texture->paletteIndex, graphic->descriptor.data() + 0x0E,\n        sizeof(texture->paletteIndex));\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/GraphicRead.cpp",
+      "label": "一次借记录两色表，选择留给上传端",
+      "literal_before": "const std::uint32_t* BorrowIndependentPaletteColors32(\n    const std::int16_t index, const bool applyTone)\n{\n    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;\n    if (record == nullptr) {\n        return nullptr;\n    }\n    return applyTone ? record->tonedColors : record->originalColors;\n}",
+      "replacement": "void BorrowIndependentPaletteColors32(\n    const std::int16_t index,\n    const std::uint32_t*& originalColors,\n    const std::uint32_t*& tonedColors)\n{\n    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;\n    if (record == nullptr) {\n        originalColors = nullptr;\n        tonedColors = nullptr;\n        return;\n    }\n    originalColors = record->originalColors;\n    tonedColors = record->tonedColors;\n}"
+    },
+    {
+      "path": "cg2d_re/include/cg/GraphicRead.hpp",
+      "label": "同次借用的资源侧声明",
+      "literal_before": "// 原 520C81..520CA1：借同一记录的 W32 色表，记录为空时返回空，不检查索引范围。\n// 调用者已由 523140 处理绘制索引；池释放后该非拥有引用失效。\nconst std::uint32_t* BorrowIndependentPaletteColors32(std::int16_t index, bool applyTone);",
+      "replacement": "// 原 520C81..520CA1：一次借同一记录的原色/色调 W32 表地址；记录空则两者为空。\n// 不检查索引范围；调用者取得地址后才读取绘制混合位，选择同一记录的色表。\n// 调用者已由 523140 处理绘制索引；池释放后这两个非拥有引用失效。\nvoid BorrowIndependentPaletteColors32(\n    std::int16_t index,\n    const std::uint32_t*& originalColors,\n    const std::uint32_t*& tonedColors);"
+    }
+  ],
+  "native_call_connections": [
+    {
+      "calls": [
+        "0x521032",
+        "0x521573"
+      ],
+      "parent": "0x520DD0",
+      "target": "0x520B10",
+      "path": "src/render/DrawAllQueued.cpp",
+      "symbol": "DrawScaledNodes",
+      "callee": "LoadGraphicTexture_520B10",
+      "source_calls": 1,
+      "relationship": "动态/固定缩放两原点经既有同一helper复用"
+    },
+    {
+      "calls": [
+        "0x52124E"
+      ],
+      "parent": "0x520DD0",
+      "target": "0x520B10",
+      "path": "src/render/DrawAllQueued.cpp",
+      "symbol": "DrawIntegerNodes",
+      "callee": "LoadGraphicTexture_520B10",
+      "source_calls": 1,
+      "relationship": "原整数节点点由既有helper承接"
+    }
+  ],
+  "original_calls": [
+    {
+      "address": "0x520bdf",
+      "size": 5,
+      "text": "call    Graphic__readGraphicDataByIndex",
+      "mnemonic": "call",
+      "operand_type": 7,
+      "operand_value": "0x45a900"
+    },
+    {
+      "address": "0x520c6c",
+      "size": 5,
+      "text": "call    Texture__FillBlack",
+      "mnemonic": "call",
+      "operand_type": 7,
+      "operand_value": "0x451310"
+    },
+    {
+      "address": "0x520cc1",
+      "size": 5,
+      "text": "call    Texture__LoadFromBuffer",
+      "mnemonic": "call",
+      "operand_type": 7,
+      "operand_value": "0x450400"
+    },
+    {
+      "address": "0x520d4c",
+      "size": 5,
+      "text": "call    Renderer__LoadDXPalette",
+      "mnemonic": "call",
+      "operand_type": 7,
+      "operand_value": "0x44e290"
+    },
+    {
+      "address": "0x520d82",
+      "size": 5,
+      "text": "call    Texture__LoadFromBuffer",
+      "mnemonic": "call",
+      "operand_type": 7,
+      "operand_value": "0x450400"
+    }
+  ],
+  "independent_palette_borrow": {
+    "original": "0x520C81..0x520CA1",
+    "source": "src/GraphicRead.cpp",
+    "header": "include/cg/GraphicRead.hpp",
+    "symbol": "BorrowIndependentPaletteColors32",
+    "old_arguments": [
+      "S16 index",
+      "bool applyTone"
+    ],
+    "new_arguments": [
+      "S16 index",
+      "const U32*& originalColors",
+      "const U32*& tonedColors"
+    ],
+    "original_record_samples": 1,
+    "new_record_samples": 1,
+    "source_calls": 1,
+    "record_private": true,
+    "new_global_type": false,
+    "new_owner": false,
+    "new_index_guard": false,
+    "original_offsets": {
+      "original_colors": 4,
+      "toned_colors": 1028,
+      "source_bgr": 2052,
+      "record_size": 2820
+    }
+  },
+  "source_contract": {
+    "entry_dx_fixed": true,
+    "first_choice_saved_for_limit": true,
+    "conditional_first_and_second_index_reads": true,
+    "upload_count_sampled_once": true,
+    "block_dimensions_by_original_stage": true,
+    "black_uses_saved_height_limit": true,
+    "mode_only_after_independent_record_present": true,
+    "ordinary_palette_mode_read_by_branch": true,
+    "upload_reloads_entry_height_and_node_fields": true,
+    "ordinary_flag_and_final_snapshot_order_retained": true
+  },
+  "cpu_boundary": {
+    "source": "src/render/GraphicDxCache.cpp",
+    "symbol": "LoadTextureFromBuffer32_450400",
+    "body_changed": false,
+    "signature_changed": false,
+    "explicit_source_stride_approved_reference": "doc/cg2d_graphic_dx_cache.md#59-cpu-节点面的-32-位索引写入核心",
+    "full_pixel_runtime_verified": false
+  },
+  "important_points": [
+    "520B25图号→520B28 mode→520B2C DX基址；ESI entry固定，本组不改为全局新基址",
+    "520B54首choice保存DX供520B84限流；两匹配的graphic+22只有前两项相同才读取，先nodeIndex后graphicIndex",
+    "520B89 count一次取样后原S32>=10返回1/增后写",
+    "520C1E..520C67 blockX/width/entryWidth；HeightLimit/blockY/entryHeight；清黑Wlimit重读而Hlimit保存",
+    "520C84记录先取，空记录直接到520D9B不读mode；非空才选择同record两色表",
+    "520D08 Width→D0D mode→D10 Height→D17 Data→D26图号；非正sizeD33才mode零表分支",
+    "520CA4/520D65上传前新height，后nodeY/nodeX/surface；普通flag0后取size再可能1，最后两个W16后最新+22",
+    "520D17 IDA附加报告0xff00000000006f9c只保留为未解释dataref；绝对operand为1020EC0，不据附加xref制造数据身份/分类"
+  ],
+  "verification": {
+    "level": "仅根227条与原三caller局部/双色表借用静态",
+    "build": false,
+    "tests_added": false,
+    "tests_executed": false,
+    "runtime": false,
+    "hash": false,
+    "full_parent_verified": false,
+    "full_lifecycle_closed": false,
+    "fault_equivalence_claimed": false,
+    "full_pixel_verified": false
+  },
+  "remaining": [
+    "完整DrawAllQueued/各模式与所有上游参数/借用",
+    "资源与普通/独立表初始化/刷新/失效/退出清理全链",
+    "间接alias/原SDK和机器ABI/CPU显示边界",
+    "同输入/资源/初值的像素/画面、限流和寿命运行"
+  ]
+}

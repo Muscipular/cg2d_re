@@ -775,7 +775,8 @@
         "doc/cg2d_graphic_decode.md",
         "doc/cg2d_graphic_info.md",
         "doc/cg2d_resource_container_lifecycle_spec.md",
-        "doc/cg2d_graphic_load_alignment_spec.md"
+        "doc/cg2d_graphic_load_alignment_spec.md",
+        "doc/cg2d_graphic_upload_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -790,7 +791,8 @@
         "F:00122690",
         "F:001226A0",
         "F:00122570",
-        "F:001222D0"
+        "F:001222D0",
+        "F:00120B10"
       ],
       "closure_task_ids": [
         "G01",
@@ -802,18 +804,21 @@
       "acceptance_focus": "原来源、格式/解码、失败、索引/调色板及加载释放",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-decision"
+        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-decision",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
-        "GDL01两装载/建链根248条仅局部静态，低W16/两基址、对齐/链首/帧和图号/两扫描尾原取样已修；25父/文件/分配/面/上传、共享失效/间接alias及节点场景/退出寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "GDL01两装载/建链根248条仅局部静态，低W16/两基址、对齐/链首/帧和图号/两扫描尾原取样已修；25父/文件/分配/面/上传、共享失效/间接alias及节点场景/退出寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "GUP01节点上传227条仅局部静态，条件索引/首choice和count、尺寸/两表/上传阶段及同record双色表借用已修；完整DrawAllQueued/模式/上游、资源表初始化/失效/间接alias和借用清理寿命、SDK/机器ABI/像素画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
-        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-baseline"
+        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-baseline",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline"
       ]
     },
     {
@@ -862,7 +867,8 @@
         "doc/cg2d_text_queue_alignment_spec.md",
         "doc/cg2d_font_lifecycle_alignment_spec.md",
         "doc/cg2d_graphic_sort_alignment_spec.md",
-        "doc/cg2d_graphic_load_alignment_spec.md"
+        "doc/cg2d_graphic_load_alignment_spec.md",
+        "doc/cg2d_graphic_upload_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -883,7 +889,8 @@
         "F:00120790",
         "F:001222A0",
         "F:00122570",
-        "F:001222D0"
+        "F:001222D0",
+        "F:00120B10"
       ],
       "closure_task_ids": [
         "C09",
@@ -902,7 +909,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
         "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision",
-        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-decision"
+        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-decision",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -910,7 +918,8 @@
         "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "GQS01两排序根103条/13局部原调用窗口只局部静态，原钳制后AX/每项两次共享取样/最终S16数量已修；完整父参数/上游/命中消费、间接alias及队列资源寿命、机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价",
-        "GDL01两装载/建链根248条仅局部静态，低W16/两基址、对齐/链首/帧和图号/两扫描尾原取样已修；25父/文件/分配/面/上传、共享失效/间接alias及节点场景/退出寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "GDL01两装载/建链根248条仅局部静态，低W16/两基址、对齐/链首/帧和图号/两扫描尾原取样已修；25父/文件/分配/面/上传、共享失效/间接alias及节点场景/退出寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "GUP01节点上传227条仅局部静态，条件索引/首choice和count、尺寸/两表/上传阶段及同record双色表借用已修；完整DrawAllQueued/模式/上游、资源表初始化/失效/间接alias和借用清理寿命、SDK/机器ABI/像素画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -919,7 +928,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
         "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
-        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-baseline"
+        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-baseline",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline"
       ]
     },
     {
@@ -8055,6 +8065,93 @@
       "observation": "仅两完整248条与指定原数据/调用、五限定源补丁",
       "expected": "原两体/消息及两扫描尾、五限定补丁外源/旧Take格式属性及登记外部不变，非空差异具名",
       "actual": "248指令/833B与消息24B/operand保存，两根映射和限定处置；799命中父只作依赖取证，机器ABI/画面运行未验"
+    },
+    {
+      "id": "E-GRAPHIC-UPLOAD-I-20261005",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整227条/690B、三caller局部36条、原data/calls；doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-upload-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-acceptance",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure",
+        "doc/cg2d_graphic_upload_alignment_evidence.json",
+        "src/render/GraphicDxCache.cpp#LoadGraphicTexture_520B10",
+        "src/GraphicRead.cpp#BorrowIndependentPaletteColors32",
+        "include/cg/GraphicRead.hpp#BorrowIndependentPaletteColors32",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/DrawAllQueued.cpp#DrawIntegerNodes",
+        "src/render/DrawAllQueued.cpp#DrawScaledNodes",
+        "src/render/GraphicPaletteCache.cpp#LoadGraphicPalette32_44E290"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "仅节点上传根适用原正常/原限流/资源失败及两表分支",
+      "expected": "条件读取/保存首choice与count、尺寸/混合位/表及两上传阶段落实；原返回/失败/清黑/flag和快照保持",
+      "actual": "根本体实际修正，借用三处同步无新表/范围保护；异常不计安全/故障等价"
+    },
+    {
+      "id": "E-GRAPHIC-UPLOAD-W-20261005",
+      "feature_id": "FUNC-RENDER",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整227条/690B、三caller局部36条、原data/calls；doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-upload-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-acceptance",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure",
+        "doc/cg2d_graphic_upload_alignment_evidence.json",
+        "src/render/GraphicDxCache.cpp#LoadGraphicTexture_520B10",
+        "src/GraphicRead.cpp#BorrowIndependentPaletteColors32",
+        "include/cg/GraphicRead.hpp#BorrowIndependentPaletteColors32",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/DrawAllQueued.cpp#DrawIntegerNodes",
+        "src/render/DrawAllQueued.cpp#DrawScaledNodes",
+        "src/render/GraphicPaletteCache.cpp#LoadGraphicPalette32_44E290"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "仅三原call/两helper复用、单次双色表借用及既有CPU/普通palette边界",
+      "expected": "双色表来自一次同私有record取样、原单一借用caller/声明/定义同步，既有owner和原两上传/三调用保持",
+      "actual": "新两遍历helper承接三原点，同record借用后才选mode；完整父/模式/间接alias/资源与表寿命未验"
+    },
+    {
+      "id": "E-GRAPHIC-UPLOAD-S-20261005",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "完整227条/690B、三caller局部36条、原data/calls；doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-upload-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-acceptance",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure",
+        "doc/cg2d_graphic_upload_alignment_evidence.json",
+        "src/render/GraphicDxCache.cpp#LoadGraphicTexture_520B10",
+        "src/GraphicRead.cpp#BorrowIndependentPaletteColors32",
+        "include/cg/GraphicRead.hpp#BorrowIndependentPaletteColors32",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/DrawAllQueued.cpp#DrawIntegerNodes",
+        "src/render/DrawAllQueued.cpp#DrawScaledNodes",
+        "src/render/GraphicPaletteCache.cpp#LoadGraphicPalette32_44E290"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "仅完整227条、data/call/window及三限定文件补丁",
+      "expected": "原完整边界/原条件索引与阶段可追、限定补丁外源及全部旧台账保持，额外dataref不当新身份",
+      "actual": "227条/690B、三窗36条及11operand/calls有证，根新映射/限定处置；CPU/机器ABI/像素运行未验"
     }
   ],
   "task_acceptance": [
@@ -8179,7 +8276,8 @@
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
-        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure"
+        "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure",
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure"
       ]
     },
     {
@@ -9221,6 +9319,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00120B10",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure"
       ]
     }
   ],

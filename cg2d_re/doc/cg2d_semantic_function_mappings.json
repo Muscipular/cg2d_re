@@ -137520,6 +137520,71 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x520B10",
+      "inventory_id": "F:00120B10",
+      "status": "GUP01完整227条上传根/双色表同次借用和指定接线局部静态已对照；完整父/像素/寿命与运行未验",
+      "original_end_exclusive": "0x520DC2",
+      "instruction_count": 227,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "LoadGraphicTexture_520B10"
+          ],
+          "relationship": "原条件索引/保存首choice与count、尺寸/混合位/普通表和上传参数各阶段实际修正，原失败/清黑/表/flag/三快照及返回保持"
+        },
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "BorrowIndependentPaletteColors32"
+          ],
+          "relationship": "一次借同一私有record两色表地址，调用者record存在后读取mode选择；无独立原函数身份/新owner/数据副本"
+        },
+        {
+          "path": "include/cg/GraphicRead.hpp",
+          "symbols": [
+            "BorrowIndependentPaletteColors32"
+          ],
+          "relationship": "仅原单一callee声明改两const U32*非拥有输出，不公开私有record"
+        },
+        {
+          "path": "src/render/DrawAllQueued.cpp",
+          "symbols": [
+            "DrawIntegerNodes",
+            "DrawScaledNodes"
+          ],
+          "relationship": "原三个call由两真实helper承接，动态/固定缩放复用；完整父另验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_graphic_upload_alignment_spec.md",
+        "doc/cg2d_graphic_upload_alignment_evidence.json"
+      ],
+      "boundary": "入口palette/version→图号→mode→DX基址，entry保持原固定地址。首choice S16保存供限流，两次匹配各有条件version/索引取样，索引先node再graphic+22；count一次取样>=10返回1否则原增写。资源图号/缓冲与真实读取、失败ptr/high/width/palette/图号-1→0保持。块尺寸按blockX/Wlimit/DXwidth、Hlimit/blockY/DXheight，清黑重新取Wlimit/保存Hlimit。独立record先取、空不读mode/不上传/不AutoMap，存在才选同record原/色调表；普通表保存旧p/失效、mode按paletteSize分支取样、真实领取/AutoMap保持。两上传前新height/nodeY/nodeX/surface，现有CPU source/stride接口与提供者不改；普通flag先0再当前size>0可能1，三W16快照以最新+22收尾。完整父/模式/资源/间接alias/借用及清理、SDK/机器ABI/像素运行未验，异常依RPLAN.24不记安全/故障等价。",
+      "verification_level": "完整227条/690B、三原caller36条局部窗口/11数据operand与原实际calls；三限定文件补丁外全文和旧语义/登记外部保持，未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "LoadGraphicTexture_520B10",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "graphic_upload_alignment": {
+        "spec": "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure",
+        "evidence": "doc/cg2d_graphic_upload_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_returns_retained": true,
+        "new_private_record_exposure": false,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

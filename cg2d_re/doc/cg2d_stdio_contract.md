@@ -3885,3 +3885,21 @@ length/range原抛出父仍仅声明，三族Raise均未实现；ThrowInfo/SDK c
 仅新增四本体/三唯一槽/唯一声明、原C字节/64B原堆/状态1清理、发布注册/多次回读/经典引用/默认保存时点/退出不清、8目标及五文件限定差异/UTF-8无BOM/LF静态核对；旧六叶和核心不复检。未构建、运行、加测或SHA/hash校验，未称ABI/并发/失败或退出运行验收。
 
 原生生产源码具备不等于入口已运行：实际cinit/启动、标准流/ios上游与SDK迁移、经典登记、退出表容量/原堆模式3、其他facet/完整异常及运行仍待，原完成功能门禁不降低。
+
+
+## 2026-10-04 窄宽filebuf初始化/关闭局部 SPEC 与实施裁决
+
+实现548EFC/549E88两Init和548ED5/549E61两close，四原体108条、全部入向；本线程依已受托工程方案裁决沿已完成Locale/Reset/真实FILE，不改变宿主标准流或扩大CRT提案。
+
+真实已证原+00..+53视图：streambuf首成员52B与+34 locale、+38/+3C/+40/+44 W32、+48 U8 mode旗、+4C locale、+50 FILE。新首成员96B，baseLocale96、四状态104/108/112/116、旗120、privateLocale128、FILE136，整体144B，只有地址拓宽。不能作为SDK streambuf/FILE互转或创建新owner；原vft与基类locale本组不写，不预清未消费padding。
+
+- Init先U8旗=(mode==1)。mode0旧privateLocale析构→测试同字段固定地址→默认构造→44清0；别的mode不重构或清44。然后共用549EDE reset。原符号IAEX说明void，IDA自动int不当返回约定，未增mode范围门禁。
+- 窄只在FILE非空且旗0时，按原顺序绑定readCurrent→FILE.current，readBase/writeBase→FILE.base，writeCurrent→FILE.current，readRemaining/writeRemaining→FILE.remaining；两侧实际三字段成对别名，余量S32。宽不接FILE字节游标/余量。再发布FILE指针，不把FILE字段清零。
+- 状态来源不同：窄1087B00，宽1087AF8；每入口两独立W32读取，先写40，取第二值后清38再写3C。既有合同仅“未加载、真实可变依赖”，不能用IDA FF/固定0补初值。新增两个extern volatile真实数据声明仅保持两次采样，**未定义实际存储/初值**；不是镜像或影子状态，不引入锁/原子，数据绑定未闭合。
+- 两close只FILE非空且真实53B1D0返回完整0才Init(nullptr,2)/返this；非0返空，filebuf原绑定保留。FILE自身close已有副作用不因此声称不变，不能失败后仍清槽或以宿主close代替。
+
+新LegacyFileBuffer.cpp/.hpp与构建清单单行，四现有记录提升，四既有依赖根8原点+两内部点共10，语义仍1110。fclose原业务86点保持，另列两新filebuf库点，实际88/96（业务/库分类不误改原池）。旧Locale/Reset/FILE核心和其他已接点不复检。
+
+仅新四叶/唯一声明、真实字段与六槽别名/宽不绑定、模式/Locale次序与两种子独立采样（声明边界）、close成功失败/10目标及六文件八记录限定差异/UTF-8无BOM/LF静态核对。未构建、运行、加测或SHA/hash校验，不把布局静态声明/源码本体当链接或ABI运行通过。
+
+种子真实数据初值/存储、实际完整构造/析构owner、虚表路由、上游标准流/退出及SDK迁移、原堆模式3/异常和运行仍未闭；当前两新数据符号仍未定义，不以本板块豁免总PLAN或启动/链接验收。

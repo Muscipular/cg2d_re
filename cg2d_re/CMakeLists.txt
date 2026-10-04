@@ -76,6 +76,7 @@ add_library(cg2d_re_startup STATIC
     src/platform/LegacyHeap.cpp
     src/platform/LegacyNarrowString.cpp
     src/platform/LegacyStreamBuffer.cpp
+    src/platform/LegacyFileBuffer.cpp
     src/platform/LegacyIos.cpp
     src/platform/LegacyLocale.cpp
     src/platform/LegacyException.cpp

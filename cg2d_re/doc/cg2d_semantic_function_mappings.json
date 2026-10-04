@@ -4955,6 +4955,13 @@
           "symbols": [
             "WinMain"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
@@ -4962,7 +4969,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。",
+      "boundary": "保留CGstart文件命令行、互斥量、updated门禁、窗口类注册及初始化调用次序，忽略初始化各返回并最终返回0。当前在静态库中，PE图标/光标与最终链接仍未完成。 argument.ini四原调用统一LegacyFile/真实格式，465889按同流flags低U8/10H直接检查；do先清line前1025B、S32 count1024读取忽略返回、strlen作S32累计，4096门槛先于追加，EOF先追加空串才结束；打开失败仍发布空命令行。其他启动正文不变，不补读错误门槛或未知字节。 本步4657C8/4658CD接真实53BE40，原CGstart/updated字节、commandLine/gCommandLine借用源、文件替换与互斥量先于updated检查保持，整份入口仅两标识符/已有公开头增量。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_end_exclusive": "0x4659ED",
       "instruction_count": 164,
       "original_direct_reference_count": 1,
@@ -5078,6 +5085,18 @@
           "push_site": "0x4658C2",
           "address": "0x55D020",
           "bytes": "7570646174656400"
+        }
+      ],
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE7E",
+          "target_entry": "0x465790",
+          "target_symbol": "WinMain",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "GetModuleHandleA(nullptr)真实instance,nullptr,借用commandLine,原U16 show或10",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
         }
       ]
     },
@@ -14416,13 +14435,20 @@
           "symbols": [
             "InitializeLegacyExitTable_53B418"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按原32个指针槽分配，仅槽步长拓宽；53B41D的U32请求已交真实原堆AllocateLegacyHeapMemory_53C3AC，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；初分配、53B399容量查询/扩容已统一原堆，原CRT初始化调用、模式3核心和宿主静态登记迁移仍待；未作运行/异常验收。",
+      "boundary": "按原32个指针槽分配，仅槽步长拓宽；53B41D的U32请求已交真实原堆AllocateLegacyHeapMemory_53C3AC，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；初分配、53B399容量查询/扩容已统一原堆，原CRT初始化调用、模式3核心和宿主静态登记迁移仍待；未作运行/异常验收。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_direct_reference_count": 1,
       "function_chunks": [
         {
@@ -14450,6 +14476,19 @@
           "target_symbol": "AllocateLegacyHeapMemory_53C3AC",
           "target_path": "src/platform/LegacyHeap.cpp"
         }
+      ],
+      "crt_c_initializer_incoming_bindings": [
+        {
+          "table": "0x55316C",
+          "index": 1,
+          "reference_site": "0x553170",
+          "target_entry": "0x53B418",
+          "target_symbol": "InitializeLegacyExitTable_53B418",
+          "native_adapter": "InitializeLegacyExitTableForCrt",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
       ]
     },
     {
@@ -14470,13 +14509,20 @@
           "symbols": [
             "ExitLegacyRuntime_53C8FA"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "真实调用53C91C(code,0,0)，保留普通表及两组终止次序；原start未接，FILE/登记依赖未闭合，不再以宿主exit替本体。",
+      "boundary": "真实调用53C91C(code,0,0)，保留普通表及两组终止次序；原start未接，FILE/登记依赖未闭合，不再以宿主exit替本体。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_direct_reference_count": 1,
       "function_chunks": [
         {
@@ -14496,7 +14542,19 @@
         "symbol": "exit",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE87",
+          "target_entry": "0x53C8FA",
+          "target_symbol": "ExitLegacyRuntime_53C8FA",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "WinMain返回完整S32",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x53C90B",
@@ -14516,13 +14574,20 @@
           "symbols": [
             "QuickExitLegacyRuntime_53C90B"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "真实调用53C91C(code,1,0)，跳普通表但仍执行第二终止表；58F8A0初始指向本函数，53DEAB已接。不换成std::quick_exit或直接ExitProcess；过滤器本体及恢复已接，完整启动、FILE/登记及运行仍未闭合；callable固定0的已证非返回路径标注noreturn。",
+      "boundary": "真实调用53C91C(code,1,0)，跳普通表但仍执行第二终止表；58F8A0初始指向本函数，53DEAB已接。不换成std::quick_exit或直接ExitProcess；过滤器本体及恢复已接，完整启动、FILE/登记及运行仍未闭合；callable固定0的已证非返回路径标注noreturn。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_direct_reference_count": 5,
       "function_chunks": [
         {
@@ -14558,7 +14623,19 @@
         "symbol": "_exit",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DEA6",
+          "target_entry": "0x53C90B",
+          "target_symbol": "QuickExitLegacyRuntime_53C90B",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "原已缓存Code位型S32，SEH选择handler后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x53C91C",
@@ -14628,13 +14705,20 @@
           "symbols": [
             "RunLegacyInitializers_53C9B5"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原生指针槽按[first,last)地址正序遍历非空回调，忽略返回；两组真实终止表已接，完整启动初始化表/运行未接。",
+      "boundary": "原生指针槽按[first,last)地址正序遍历非空回调，忽略返回；两组真实终止表已接，完整启动初始化表/运行未接。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "original_direct_reference_count": 4,
       "function_chunks": [
         {
@@ -14666,7 +14750,29 @@
         "symbol": "_initterm",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53C8CD",
+          "call_site": "0x53C8E2",
+          "target_entry": "0x53C9B5",
+          "target_symbol": "RunLegacyInitializers_53C9B5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "InitializeLegacyCrt_53C8CD",
+          "arguments": "真实C表[0,5)，首null/四目标",
+          "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
+        },
+        {
+          "parent_entry": "0x53C8CD",
+          "call_site": "0x53C8F1",
+          "target_entry": "0x53C9B5",
+          "target_symbol": "RunLegacyInitializers_53C9B5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "InitializeLegacyCrt_53C8CD",
+          "arguments": "真实C++表[0,90)，仅extern/完整迁移未启用",
+          "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
+        }
+      ]
     },
     {
       "original_entry": "0x53BDEF",
@@ -15118,14 +15224,35 @@
           "symbols": [
             "LegacyMultibyteStaticInitializer"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_multibyte.md",
         "doc/cg2d_resource_sources.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "CRT553178实际调用，门禁0时setmbcp(-3)，随后置1，不按失败重试；当前调用不消费返回，用void承接，不伪造原门禁非零时未定义EAX。三个旧环境/参数辅助本体不因这项接线计为已重建。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。"
+      "boundary": "CRT553178实际调用，门禁0时setmbcp(-3)，随后置1，不按失败重试；当前调用不消费返回，用void承接，不伪造原门禁非零时未定义EAX。三个旧环境/参数辅助本体不因这项接线计为已重建。 未执行NLS/目录操作、编译、测试或客户端运行，不计整个CRT已完成。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "crt_c_initializer_incoming_bindings": [
+        {
+          "table": "0x55316C",
+          "index": 3,
+          "reference_site": "0x553178",
+          "target_entry": "0x546CAE",
+          "target_symbol": "InitializeLegacyMultibyte_546CAE",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
+      ]
     },
     {
       "original_entry": "0x53DD2F",
@@ -15458,7 +15585,7 @@
     {
       "original_entry": "0x53C8CD",
       "inventory_id": "F:0013C8CD",
-      "status": "仅宿主CRT启动职责关联；表返回/失败及最终入口未验",
+      "status": "原CRT父入口/初始化调度源码已实现；C表真实绑定、C++90表/OS存储及实际启动迁移和SDK运行未闭",
       "original_end_exclusive": "0x53C8FA",
       "instruction_count": 12,
       "sources": [
@@ -15467,7 +15594,21 @@
           "symbols": [
             "WinMain"
           ],
-          "relationship": "应用入口依赖宿主CRT启动，非原库函数直接定义；当前仅静态库"
+          "relationship": "应用入口依赖宿主CRT启动，非原库函数直接定义；当前仅静态库；旧局部/宿主职责关联保留，不作为本次完整父源码提供者"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整原顺序/失败/SEH或浮点缓存/C表和两调度实现，不自动启用入口/宿主迁移"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "显式原生接口；CPP90表/OS四字段只extern不补初值或未知绑定"
         }
       ],
       "native_provider": {
@@ -15480,7 +15621,502 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。"
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。",
+      "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
+      "crt_parent_internal_call_connections": [
+        {
+          "parent_entry": "0x53C8CD",
+          "call_site": "0x53C8E2",
+          "target_entry": "0x53C9B5",
+          "target_symbol": "RunLegacyInitializers_53C9B5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "InitializeLegacyCrt_53C8CD",
+          "arguments": "真实C表[0,5)，首null/四目标",
+          "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
+        },
+        {
+          "parent_entry": "0x53C8CD",
+          "call_site": "0x53C8F1",
+          "target_entry": "0x53C9B5",
+          "target_symbol": "RunLegacyInitializers_53C9B5",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "InitializeLegacyCrt_53C8CD",
+          "arguments": "真实C++表[0,90)，仅extern/完整迁移未启用",
+          "relationship": "原先缓存浮点初始化回调后先C再C++，既有正序void调度不改，不增失败返回短路"
+        }
+      ],
+      "crt_float_initialization_reference": {
+        "parent_entry": "0x53C8CD",
+        "call_site": "0x53C8D6",
+        "original_slot": "0x58F864",
+        "original_loaded_target": "0x53B447",
+        "target_entry": "0x53B447",
+        "target_symbol": "InitializeLegacyFloatingPoint_53B447",
+        "source_symbol": "gLegacyFloatingInitializer58F864",
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "relationship": "入口仅取一次当前函数地址，非空调用缓存地址；加载初值真实函数定义，原算法不改/复检"
+      },
+      "crt_initialization_tables": [
+        {
+          "original_first": "0x55316C",
+          "original_last": "0x553180",
+          "slot_count": 5,
+          "native_slot_bytes": 8,
+          "source_symbol": "gLegacyCInitializationTable55316C",
+          "source_definition_implemented": true,
+          "values": [
+            [
+              "0x55316C",
+              "0x0"
+            ],
+            [
+              "0x553170",
+              "0x53B418"
+            ],
+            [
+              "0x553174",
+              "0x53E9A5"
+            ],
+            [
+              "0x553178",
+              "0x546CAE"
+            ],
+            [
+              "0x55317C",
+              "0x545080"
+            ]
+          ],
+          "boundary": "实际五槽/四真目标，只有返回类型适配，原void调度不读取返回"
+        },
+        {
+          "original_first": "0x553000",
+          "original_last": "0x553168",
+          "slot_count": 90,
+          "native_slot_bytes": 8,
+          "source_symbol": "gLegacyCppInitializationTable553000",
+          "source_definition_implemented": false,
+          "values": [
+            [
+              "0x553000",
+              "0x0"
+            ],
+            [
+              "0x553004",
+              "0x401C10"
+            ],
+            [
+              "0x553008",
+              "0x404120"
+            ],
+            [
+              "0x55300C",
+              "0x404160"
+            ],
+            [
+              "0x553010",
+              "0x4041A0"
+            ],
+            [
+              "0x553014",
+              "0x43D760"
+            ],
+            [
+              "0x553018",
+              "0x44CC20"
+            ],
+            [
+              "0x55301C",
+              "0x44CD30"
+            ],
+            [
+              "0x553020",
+              "0x453E00"
+            ],
+            [
+              "0x553024",
+              "0x453E40"
+            ],
+            [
+              "0x553028",
+              "0x454C00"
+            ],
+            [
+              "0x55302C",
+              "0x455490"
+            ],
+            [
+              "0x553030",
+              "0x4554C0"
+            ],
+            [
+              "0x553034",
+              "0x455540"
+            ],
+            [
+              "0x553038",
+              "0x4555C0"
+            ],
+            [
+              "0x55303C",
+              "0x455640"
+            ],
+            [
+              "0x553040",
+              "0x4556C0"
+            ],
+            [
+              "0x553044",
+              "0x455740"
+            ],
+            [
+              "0x553048",
+              "0x4557C0"
+            ],
+            [
+              "0x55304C",
+              "0x455840"
+            ],
+            [
+              "0x553050",
+              "0x455930"
+            ],
+            [
+              "0x553054",
+              "0x456FD0"
+            ],
+            [
+              "0x553058",
+              "0x4597E0"
+            ],
+            [
+              "0x55305C",
+              "0x459850"
+            ],
+            [
+              "0x553060",
+              "0x45B370"
+            ],
+            [
+              "0x553064",
+              "0x467B90"
+            ],
+            [
+              "0x553068",
+              "0x467BF0"
+            ],
+            [
+              "0x55306C",
+              "0x467C30"
+            ],
+            [
+              "0x553070",
+              "0x467C70"
+            ],
+            [
+              "0x553074",
+              "0x467CB0"
+            ],
+            [
+              "0x553078",
+              "0x467CF0"
+            ],
+            [
+              "0x55307C",
+              "0x467D50"
+            ],
+            [
+              "0x553080",
+              "0x467DB0"
+            ],
+            [
+              "0x553084",
+              "0x467DF0"
+            ],
+            [
+              "0x553088",
+              "0x467E30"
+            ],
+            [
+              "0x55308C",
+              "0x467E70"
+            ],
+            [
+              "0x553090",
+              "0x467EB0"
+            ],
+            [
+              "0x553094",
+              "0x467EF0"
+            ],
+            [
+              "0x553098",
+              "0x477160"
+            ],
+            [
+              "0x55309C",
+              "0x4883F0"
+            ],
+            [
+              "0x5530A0",
+              "0x4998F0"
+            ],
+            [
+              "0x5530A4",
+              "0x4CD240"
+            ],
+            [
+              "0x5530A8",
+              "0x4FC420"
+            ],
+            [
+              "0x5530AC",
+              "0x4FCB90"
+            ],
+            [
+              "0x5530B0",
+              "0x4FD9F0"
+            ],
+            [
+              "0x5530B4",
+              "0x4FDE10"
+            ],
+            [
+              "0x5530B8",
+              "0x4FE490"
+            ],
+            [
+              "0x5530BC",
+              "0x4FEB00"
+            ],
+            [
+              "0x5530C0",
+              "0x4FF020"
+            ],
+            [
+              "0x5530C4",
+              "0x4FF340"
+            ],
+            [
+              "0x5530C8",
+              "0x502930"
+            ],
+            [
+              "0x5530CC",
+              "0x502C30"
+            ],
+            [
+              "0x5530D0",
+              "0x502C60"
+            ],
+            [
+              "0x5530D4",
+              "0x502C80"
+            ],
+            [
+              "0x5530D8",
+              "0x502CA0"
+            ],
+            [
+              "0x5530DC",
+              "0x502D20"
+            ],
+            [
+              "0x5530E0",
+              "0x502DA0"
+            ],
+            [
+              "0x5530E4",
+              "0x502E20"
+            ],
+            [
+              "0x5530E8",
+              "0x502EA0"
+            ],
+            [
+              "0x5530EC",
+              "0x502F20"
+            ],
+            [
+              "0x5530F0",
+              "0x502FA0"
+            ],
+            [
+              "0x5530F4",
+              "0x503020"
+            ],
+            [
+              "0x5530F8",
+              "0x506340"
+            ],
+            [
+              "0x5530FC",
+              "0x5183D0"
+            ],
+            [
+              "0x553100",
+              "0x518520"
+            ],
+            [
+              "0x553104",
+              "0x522620"
+            ],
+            [
+              "0x553108",
+              "0x522690"
+            ],
+            [
+              "0x55310C",
+              "0x537A30"
+            ],
+            [
+              "0x553110",
+              "0x537AE0"
+            ],
+            [
+              "0x553114",
+              "0x548170"
+            ],
+            [
+              "0x553118",
+              "0x54819D"
+            ],
+            [
+              "0x55311C",
+              "0x5481CA"
+            ],
+            [
+              "0x553120",
+              "0x54820E"
+            ],
+            [
+              "0x553124",
+              "0x548252"
+            ],
+            [
+              "0x553128",
+              "0x54827F"
+            ],
+            [
+              "0x55312C",
+              "0x5482AE"
+            ],
+            [
+              "0x553130",
+              "0x549194"
+            ],
+            [
+              "0x553134",
+              "0x5491D6"
+            ],
+            [
+              "0x553138",
+              "0x549200"
+            ],
+            [
+              "0x55313C",
+              "0x54922A"
+            ],
+            [
+              "0x553140",
+              "0x549257"
+            ],
+            [
+              "0x553144",
+              "0x549284"
+            ],
+            [
+              "0x553148",
+              "0x5492B1"
+            ],
+            [
+              "0x55314C",
+              "0x5492F5"
+            ],
+            [
+              "0x553150",
+              "0x549339"
+            ],
+            [
+              "0x553154",
+              "0x549368"
+            ],
+            [
+              "0x553158",
+              "0x549F20"
+            ],
+            [
+              "0x55315C",
+              "0x54A3E3"
+            ],
+            [
+              "0x553160",
+              "0x54A638"
+            ],
+            [
+              "0x553164",
+              "0x54A981"
+            ]
+          ],
+          "boundary": "只真实extern，完整90回调/宿主迁移/音频暂停不启用；不是空表/占位值"
+        }
+      ],
+      "crt_c_initializer_bindings": [
+        {
+          "table": "0x55316C",
+          "index": 0,
+          "reference_site": "0x55316C",
+          "target_entry": null,
+          "target_symbol": null,
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原null槽保持"
+        },
+        {
+          "table": "0x55316C",
+          "index": 1,
+          "reference_site": "0x553170",
+          "target_entry": "0x53B418",
+          "target_symbol": "InitializeLegacyExitTable_53B418",
+          "native_adapter": "InitializeLegacyExitTableForCrt",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        },
+        {
+          "table": "0x55316C",
+          "index": 2,
+          "reference_site": "0x553174",
+          "target_entry": "0x53E9A5",
+          "target_symbol": "InitializeLegacyStdio_53E9A5",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        },
+        {
+          "table": "0x55316C",
+          "index": 3,
+          "reference_site": "0x553178",
+          "target_entry": "0x546CAE",
+          "target_symbol": "InitializeLegacyMultibyte_546CAE",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        },
+        {
+          "table": "0x55316C",
+          "index": 4,
+          "reference_site": "0x55317C",
+          "target_entry": "0x545080",
+          "target_symbol": "InstallLegacyExceptionFilter_545080",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
+      ]
     },
     {
       "original_entry": "0x53FD5C",
@@ -18582,6 +19218,13 @@
           "symbols": [
             "FastLegacyRuntimeErrorExit_53DED0"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "native_reference": {
@@ -18594,7 +19237,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "仅模式1先原banner，随后报告指定错误并直接ExitProcess(255)。本体和内部报告调用已实现；不改成53DEAB的间接退出表，不调用宿主fastfail。原53DDB5@53DE1B尚未接新函数，未执行退出/运行验收。",
+      "boundary": "仅模式1先原banner，随后报告指定错误并直接ExitProcess(255)。本体和内部报告调用已实现；不改成53DEAB的间接退出表，不调用宿主fastfail。原53DDB5@53DE1B尚未接新函数，未执行退出/运行验收。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "verification_level": "完整原指令、直接入向、消息原字节及虚拟存储；新增源码静态核对，未执行",
       "original_direct_reference_count": 1,
       "function_chunks": [
@@ -18607,6 +19250,18 @@
         {
           "address": "0x53DE1B",
           "parent_entry": "0x53DDB5"
+        }
+      ],
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE1B",
+          "target_entry": "0x53DED0",
+          "target_symbol": "FastLegacyRuntimeErrorExit_53DED0",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "28 S32，仅原heap返回0，保护区外",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
         }
       ]
     },
@@ -24890,6 +25545,13 @@
           "symbols": [
             "InitializeLegacyStdio_53E9A5"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
@@ -24897,7 +25559,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。",
+      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -24916,7 +25578,20 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_file.cpp",
         "symbol": "__acrt_initialize_stdio",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
-      }
+      },
+      "crt_c_initializer_incoming_bindings": [
+        {
+          "table": "0x55316C",
+          "index": 2,
+          "reference_site": "0x553174",
+          "target_entry": "0x53E9A5",
+          "target_symbol": "InitializeLegacyStdio_53E9A5",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
+      ]
     },
     {
       "original_entry": "0x53EA4A",
@@ -24984,6 +25659,13 @@
           "symbols": [
             "InitializeLegacyDescriptors_53F52D"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
@@ -24991,7 +25673,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "按32项原生记录分配/发布并仅写flags、HANDLE和pipeByte；继承块S32 N/W8 flags保持，HANDLE按x64拓宽且未对齐读取。句柄区用未裁N定位，继承数S32裁2048，扩容失败只缩到已分配容量。FPIPE绕过GetFileType，API后重读继承字段；fd0..2保留原标准句柄/类型分支，不加句柄0提前拒绝。返回SetHandleCount；原start调用时点及跨位宽父块未验。",
+      "boundary": "按32项原生记录分配/发布并仅写flags、HANDLE和pipeByte；继承块S32 N/W8 flags保持，HANDLE按x64拓宽且未对齐读取。句柄区用未裁N定位，继承数S32裁2048，扩容失败只缩到已分配容量。FPIPE绕过GetFileType，API后重读继承字段；fd0..2保留原标准句柄/类型分支，不加句柄0提前拒绝。返回SetHandleCount；原start调用时点及跨位宽父块未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "function_chunks": [
         {
           "start": "0x53F52D",
@@ -25010,7 +25692,19 @@
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/ioinit.cpp",
         "symbol": "__acrt_initialize_lowio",
         "relationship": "宿主差异或原生继承ABI参考，不作为本体提供者"
-      }
+      },
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE24",
+          "target_entry": "0x53F52D",
+          "target_symbol": "InitializeLegacyDescriptors_53F52D",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参/返回未消费，tryLevel0第一项",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x543711",
@@ -34174,6 +34868,13 @@
           "symbols": [
             "Cg2dClearLegacyX87Exceptions"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
@@ -34181,7 +34882,7 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "顺序调用六槽安装→系统/原x87除法探测并发布1085FC0 W32→默认精度→FNCLEX，不增加门禁或恢复旧控制字。全部内部依赖已接，真实CRT父53C8CD/58F864时点仍待接，不提前插入WinMain或全局构造。",
+      "boundary": "顺序调用六槽安装→系统/原x87除法探测并发布1085FC0 W32→默认精度→FNCLEX，不增加门禁或恢复旧控制字。全部内部依赖已接，真实CRT父53C8CD/58F864时点仍待接，不提前插入WinMain或全局构造。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作x64启动编译条件参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/exe_common.inl",
@@ -34211,7 +34912,20 @@
         "initialization": "沿既有虚拟零区合同；不读取未加载数据值",
         "writer": "0x53B451",
         "remaining_consumer": "0x542FE2数学片段尚待接线"
-      }
+      },
+      "crt_float_initializer_incoming_references": [
+        {
+          "parent_entry": "0x53C8CD",
+          "call_site": "0x53C8D6",
+          "original_slot": "0x58F864",
+          "original_loaded_target": "0x53B447",
+          "target_entry": "0x53B447",
+          "target_symbol": "InitializeLegacyFloatingPoint_53B447",
+          "source_symbol": "gLegacyFloatingInitializer58F864",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "relationship": "入口仅取一次当前函数地址，非空调用缓存地址；加载初值真实函数定义，原算法不改/复检"
+        }
+      ]
     },
     {
       "original_entry": "0x53B45E",
@@ -35051,13 +35765,20 @@
           "symbols": [
             "InitializeLegacyHeap_541BB8"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。",
+      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
@@ -35069,7 +35790,19 @@
           "parent_entry": "0x53DDB5"
         }
       ],
-      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行"
+      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE0F",
+          "target_entry": "0x541BB8",
+          "target_symbol": "InitializeLegacyHeap_541BB8",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x541C15",
@@ -36746,12 +37479,19 @@
           "symbols": [
             "InstallLegacyExceptionFilter_545080"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "InitializeLegacyCrt_53C8CD"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "将真实54503A交SetUnhandledExceptionFilter并保存返回到唯一10862E0；未新增静态对象主动安装。过滤器本体及恢复调用已接，原CRT55317C初始化时点和宿主x64四参数记录适配仍未验。",
+      "boundary": "将真实54503A交SetUnhandledExceptionFilter并保存返回到唯一10862E0；未新增静态对象主动安装。过滤器本体及恢复调用已接，原CRT55317C初始化时点和宿主x64四参数记录适配仍未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
@@ -36764,7 +37504,20 @@
           "end_exclusive": "0x545091"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "crt_c_initializer_incoming_bindings": [
+        {
+          "table": "0x55316C",
+          "index": 4,
+          "reference_site": "0x55317C",
+          "target_entry": "0x545080",
+          "target_symbol": "InstallLegacyExceptionFilter_545080",
+          "native_adapter": null,
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "source_table_symbol": "gLegacyCInitializationTable55316C",
+          "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
+        }
+      ]
     },
     {
       "original_entry": "0x545091",
@@ -60451,12 +61204,31 @@
           "symbols": [
             "InitializeLegacyArguments_544047"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "按原门禁初始化多字节、查询260B静态Filename、读取原始命令行并发布1086018。两次5440E0分别计数/写入，U32分配量仅char*槽步长拓宽，失败53DEAB(8)，再先发布argv后发布slots-1的argc并返回S32。Malloc沿既有std批准，不释放旧argv、不补NUL、不混宿主argv；完整启动及退出叶未闭合。"
+      "boundary": "按原门禁初始化多字节、查询260B静态Filename、读取原始命令行并发布1086018。两次5440E0分别计数/写入，U32分配量仅char*槽步长拓宽，失败53DEAB(8)，再先发布argv后发布slots-1的argc并返回S32。Malloc沿既有std批准，不释放旧argv、不补NUL、不混宿主argv；完整启动及退出叶未闭合。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE3E",
+          "target_entry": "0x544047",
+          "target_symbol": "InitializeLegacyArguments_544047",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参/原S32返回未消费，命令行与环境原块发布后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x543F36",
@@ -60490,12 +61262,31 @@
           "symbols": [
             "SliceLegacyWinMainCommandLine_543F36"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "无参本体先按1087AEC初始化，再读唯一非拥有1087AE4指针；首引号逐字节和546CCA lead推进，未引号U8>20H推进，共同跳非NUL且U8<=20H后返回借用指针。53DE29..53DE34的GetCommandLineA发布片段另以CaptureLegacyCommandLine_53DE29实现，不计独立原函数或完整53DDB5启动。WinMain现有实参保持，完整生产时点/启动尚未接；不添加空串、空指针门禁、复制或释放。"
+      "boundary": "无参本体先按1087AEC初始化，再读唯一非拥有1087AE4指针；首引号逐字节和546CCA lead推进，未引号U8>20H推进，共同跳非NUL且U8<=20H后返回借用指针。53DE29..53DE34的GetCommandLineA发布片段另以CaptureLegacyCommandLine_53DE29实现，不计独立原函数或完整53DDB5启动。WinMain现有实参保持，完整生产时点/启动尚未接；不添加空串、空指针门禁、复制或释放。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE5A",
+          "target_entry": "0x543F36",
+          "target_symbol": "SliceLegacyWinMainCommandLine_543F36",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参，GetStartupInfoA之后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x54B20C",
@@ -60672,12 +61463,31 @@
           "symbols": [
             "FilterLegacyRuntimeException_543DB2"
           ]
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
-      "boundary": "按异常码查同一10项表：缺项/空处理器交UnhandledExceptionFilter，5清槽返1，1返-1。自定义发布当前异常上下文，清相关处理器后调用；FPE按原七异常码设置子类型，正常返回先恢复子类型再恢复上下文，与raise恢复顺序不同。所有回调异常直接传播，不用宿主信号表；原start父调用未接。",
+      "boundary": "按异常码查同一10项表：缺项/空处理器交UnhandledExceptionFilter，5清槽返1，1返-1。自定义发布当前异常上下文，清相关处理器后调用；FPE按原七异常码设置子类型，正常返回先恢复子类型再恢复上下文，与raise恢复顺序不同。所有回调异常直接传播，不用宿主信号表；原start父调用未接。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
       "verification_level": "完整原指令、全部直接入向、共享表及初值；新增源码静态核对，未执行",
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
+      ],
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE98",
+          "target_entry": "0x543DB2",
+          "target_symbol": "FilterLegacyRuntimeException_543DB2",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "原information真实指针/先保存其ExceptionCode到本帧U32槽；原筛选完整S32返回",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
       ]
     },
     {
@@ -108942,14 +109752,33 @@
             "GetLegacyEnvironmentBlock_544294"
           ],
           "relationship": "原宽/窄API后端、双NUL数量、两次ACP转换/失败释放或真实541620复制；返回指定Malloc拥有的原字节块"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "真实原132条；10862A4仅该父使用，首次W失败才A/缓存成功后端；空首字符只计一个NUL。宽路径CP0/flags0先询容量、分配成功才转换，失败释放结果、必释放W系统块；窄路径分配后541620复制、必释放A系统块。无新门槛/清目标/回退改选/UTF8转换，API与原块owner区分；未实现完整启动/退出、未运行或异常验收。",
-      "verification_level": "原完整132条/唯一入向及专用后端三引用、窄复制541620实际call只读取证；两源码限定新增、真实依赖/失败释放/指针与W32及文档/JSON静态核对，未构建或执行"
+      "boundary": "真实原132条；10862A4仅该父使用，首次W失败才A/缓存成功后端；空首字符只计一个NUL。宽路径CP0/flags0先询容量、分配成功才转换，失败释放结果、必释放W系统块；窄路径分配后541620复制、必释放A系统块。无新门槛/清目标/回退改选/UTF8转换，API与原块owner区分；未实现完整启动/退出、未运行或异常验收。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "verification_level": "原完整132条/唯一入向及专用后端三引用、窄复制541620实际call只读取证；两源码限定新增、真实依赖/失败释放/指针与W32及文档/JSON静态核对，未构建或执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE34",
+          "target_entry": "0x544294",
+          "target_symbol": "GetLegacyEnvironmentBlock_544294",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "通过既有CaptureLegacyEnvironment_53DE34原片段：真实生产并立即发布1086030，非新增原身份",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x543F8E",
@@ -108974,6 +109803,13 @@
             "gLegacyEnvironmentInitialized1087AE8"
           ],
           "relationship": "同源原块输入/两遍生产char*表；数值W32、表槽地址x64，发布/错误9/原块释放清槽/末空槽/标志顺序保持"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
         }
       ],
       "evidence_documents": [
@@ -109009,13 +109845,25 @@
           "relationship": "第二遍每非=项U32长度+1；先发布项槽再判空"
         }
       ],
-      "boundary": "只在1087AEC=0初始化原多字节；两遍均给=项取长度，过滤分别在取长度前计数和取长度后复制。表/项分配失败均错误9，若间接退出槽返回沿原继续，不加保护。Free原块→清原槽→末空槽→标志1。GetEnv既有std范围不改、原表不挂宿主environ，完整startup/cinit/环境更新/退出仍待；不称原内存快照/运行等价。",
-      "verification_level": "原完整71条/唯一直接caller、三个原槽全部引用、544294同源生产/53DE34发布片段及三真实字符串call；两文件限定新增/唯一声明/失败顺序与x64表分配/W32和JSON差异静态核对，未构建或执行"
+      "boundary": "只在1087AEC=0初始化原多字节；两遍均给=项取长度，过滤分别在取长度前计数和取长度后复制。表/项分配失败均错误9，若间接退出槽返回沿原继续，不加保护。Free原块→清原槽→末空槽→标志1。GetEnv既有std范围不改、原表不挂宿主environ，完整startup/cinit/环境更新/退出仍待；不称原内存快照/运行等价。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "verification_level": "原完整71条/唯一直接caller、三个原槽全部引用、544294同源生产/53DE34发布片段及三真实字符串call；两文件限定新增/唯一声明/失败顺序与x64表分配/W32和JSON差异静态核对，未构建或执行",
+      "crt_parent_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE43",
+          "target_entry": "0x543F8E",
+          "target_symbol": "InitializeLegacyEnvironment_543F8E",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参，argv之后/原块→表生产",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ]
     },
     {
       "original_entry": "0x53DDB5",
       "inventory_id": "F:0013DDB5",
-      "status": "仅原命令行/argv既有辅助及新增环境块发布片段；完整CRT启动未实现/未验",
+      "status": "原CRT父入口/初始化调度源码已实现；C表真实绑定、C++90表/OS存储及实际启动迁移和SDK运行未闭",
       "original_end_exclusive": "0x53DEAB",
       "instruction_count": 78,
       "sources": [
@@ -109024,7 +109872,21 @@
           "symbols": [
             "CaptureLegacyEnvironment_53DE34"
           ],
-          "relationship": "仅53DE34调用544294、53DE39发布1086030；独立命名片段，不作为完整原启动本体"
+          "relationship": "仅53DE34调用544294、53DE39发布1086030；独立命名片段，不作为完整原启动本体；旧局部/宿主职责关联保留，不作为本次完整父源码提供者"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.cpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "本次完整原顺序/失败/SEH或浮点缓存/C表和两调度实现，不自动启用入口/宿主迁移"
+        },
+        {
+          "path": "src/platform/LegacyRuntimeExit.hpp",
+          "symbols": [
+            "RunLegacyProcessEntry_53DDB5"
+          ],
+          "relationship": "显式原生接口；CPP90表/OS四字段只extern不补初值或未知绑定"
         }
       ],
       "evidence_documents": [
@@ -109038,8 +109900,191 @@
           "entry_symbol": "CaptureLegacyEnvironment_53DE34"
         }
       ],
-      "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。",
-      "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行"
+      "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。",
+      "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
+      "crt_parent_internal_call_connections": [
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE0F",
+          "target_entry": "0x541BB8",
+          "target_symbol": "InitializeLegacyHeap_541BB8",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE1B",
+          "target_entry": "0x53DED0",
+          "target_symbol": "FastLegacyRuntimeErrorExit_53DED0",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "28 S32，仅原heap返回0，保护区外",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE24",
+          "target_entry": "0x53F52D",
+          "target_symbol": "InitializeLegacyDescriptors_53F52D",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参/返回未消费，tryLevel0第一项",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE34",
+          "target_entry": "0x544294",
+          "target_symbol": "GetLegacyEnvironmentBlock_544294",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "通过既有CaptureLegacyEnvironment_53DE34原片段：真实生产并立即发布1086030，非新增原身份",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE3E",
+          "target_entry": "0x544047",
+          "target_symbol": "InitializeLegacyArguments_544047",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参/原S32返回未消费，命令行与环境原块发布后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE43",
+          "target_entry": "0x543F8E",
+          "target_symbol": "InitializeLegacyEnvironment_543F8E",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参，argv之后/原块→表生产",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE48",
+          "target_entry": "0x53C8CD",
+          "target_symbol": "InitializeLegacyCrt_53C8CD",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参，envp之后/StartupInfo之前",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE5A",
+          "target_entry": "0x543F36",
+          "target_symbol": "SliceLegacyWinMainCommandLine_543F36",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "无参，GetStartupInfoA之后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE7E",
+          "target_entry": "0x465790",
+          "target_symbol": "WinMain",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "GetModuleHandleA(nullptr)真实instance,nullptr,借用commandLine,原U16 show或10",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE87",
+          "target_entry": "0x53C8FA",
+          "target_symbol": "ExitLegacyRuntime_53C8FA",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "WinMain返回完整S32",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DE98",
+          "target_entry": "0x543DB2",
+          "target_symbol": "FilterLegacyRuntimeException_543DB2",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "原information真实指针/先保存其ExceptionCode到本帧U32槽；原筛选完整S32返回",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        },
+        {
+          "parent_entry": "0x53DDB5",
+          "call_site": "0x53DEA6",
+          "target_entry": "0x53C90B",
+          "target_symbol": "QuickExitLegacyRuntime_53C90B",
+          "source": "src/platform/LegacyRuntimeExit.cpp",
+          "symbol": "RunLegacyProcessEntry_53DDB5",
+          "arguments": "原已缓存Code位型S32，SEH选择handler后",
+          "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
+        }
+      ],
+      "crt_process_api_references": [
+        {
+          "site": "0x53DDDB",
+          "api": "GetVersion",
+          "effect": "返回缓存，依序minor/major/combined/build四W32"
+        },
+        {
+          "site": "0x53DE29",
+          "api": "GetCommandLineA",
+          "effect": "通过既有CaptureLegacyCommandLine_53DE29片段获取/发布1087AE4，保持独立次序"
+        },
+        {
+          "site": "0x53DE54",
+          "api": "GetStartupInfoA",
+          "effect": "仅dwFlags先置0，其他STARTUPINFOA不预清；x64 SDK结构边界"
+        },
+        {
+          "site": "0x53DE77",
+          "api": "GetModuleHandleA",
+          "effect": "nullptr，结果直接传WinMain instance；不补默认/空保护"
+        }
+      ],
+      "crt_process_seh_contract": {
+        "scope_table": "0x54F960",
+        "previous_level": -1,
+        "filter": "0x53DE8C",
+        "handler": "0x53DEA0",
+        "try_start": "0x53DE21",
+        "native_filter_helper": "FilterLegacyProcessException_53DE8C",
+        "cached_code_type": "U32 bit pattern",
+        "handler_code_type": "S32 bit_cast",
+        "body_implemented": true,
+        "native_runtime_verified": false,
+        "boundary": "编译器原生__try/__except仅对应已证scope/Code采样，旧x86 FS/表结构不搬x64；保护区外GetVersion/heap/错误28，C++/SDK/EH完整运行未验"
+      },
+      "crt_os_version_publication": [
+        {
+          "site": "0x53DDE5",
+          "address": "0x1085FF8",
+          "symbol": "gLegacyRuntimeOsMinor1085FF8",
+          "value": "(GetVersion()>>8)&FF"
+        },
+        {
+          "site": "0x53DDF3",
+          "address": "0x1085FF4",
+          "symbol": "gLegacyRuntimeOsMajor1085FF4",
+          "value": "GetVersion()&FF"
+        },
+        {
+          "site": "0x53DDFE",
+          "address": "0x1085FF0",
+          "symbol": "gLegacyRuntimeOsCombined1085FF0",
+          "value": "(major<<8)+minor"
+        },
+        {
+          "site": "0x53DE07",
+          "address": "0x1085FEC",
+          "symbol": "gLegacyRuntimeOsBuild1085FEC",
+          "value": "GetVersion()>>16，保留高flag位"
+        }
+      ]
     },
     {
       "original_entry": "0x54A67A",

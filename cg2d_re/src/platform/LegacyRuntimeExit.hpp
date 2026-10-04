@@ -36,4 +36,19 @@ void CloseLegacyConsole_54B20C();
 void InstallLegacyExceptionFilter_545080();
 void RestoreLegacyExceptionFilter_545091();
 
+// 原浮点初始化槽及C表真实原生定义；首null/四目标顺序，不消费返回。
+extern LegacyRuntimeExitCallback gLegacyFloatingInitializer58F864;
+extern LegacyRuntimeExitCallback gLegacyCInitializationTable55316C[5];
+// 原C++[553000,553168)90槽仅真实外部声明；原完整表/宿主迁移及音频仍未启用。
+extern LegacyRuntimeExitCallback gLegacyCppInitializationTable553000[90];
+void InitializeLegacyCrt_53C8CD();
+
+// 原GetVersion发布四个W32字段，实际共享存储初值未证，仅extern，不補零。
+extern std::uint32_t gLegacyRuntimeOsMinor1085FF8;
+extern std::uint32_t gLegacyRuntimeOsMajor1085FF4;
+extern std::uint32_t gLegacyRuntimeOsCombined1085FF0;
+extern std::uint32_t gLegacyRuntimeOsBuild1085FEC;
+// 原完整入口源码顺序/原生SEH筛选与两退出，当前不替换宿主入口或自动调用。
+[[noreturn]] void RunLegacyProcessEntry_53DDB5();
+
 } // namespace cg::platform

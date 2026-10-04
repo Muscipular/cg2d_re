@@ -1723,3 +1723,16 @@ CRT宿主总提案仍待批。暂时阻断这两个异常链，已证其他真�
 - 54A3ED原仅RET，真实实现不写对象、不清三个经典/全局槽、不调默认locale构造及引用生产；这不是替未知行为制作空占位。原早段默认构造可已生产经典实现，晚段不得覆盖。54A3E3只调已证晚段本体并登记真实已实现经典析构，既有全局54A404独立登记54A4BD，两入口职责不混。
 - 本线程按工程委托裁决：在既有LegacyLocale源码加显式两个接口，初始化直接传出RegisterLegacyAtExit_53B406返回，不加宿主std::atexit或静态对象，不改LegacyMouse标准流。55315C原CRT表调用迁移仍待，不将本组手动挂入新启动或重复执行SDK初始化。
 - 验证只新增源/JSON及两文档差异、单RET无写、调用顺序/S32直接返回、原生回调绑定。未构建/测试/运行；完整CRT启动表、退出表容量/模式3及宿主对象迁移保持原未完成门禁。既有locale生产/析构本体不复检。
+
+
+### 原CRT父入口与cinit源码接线局部SPEC（2026-10-04）
+
+本线程工程裁决：在既有LegacyRuntimeExit实现53DDB5/53C8CD完整源码顺序（78+12条），使用已过真实依赖、当前Win32 SDK边界及原生__try/__except表达原SEH范围；不启用新的进程入口、不修改ClientEntry.cpp的WinMain，不代批既有宿主CRT迁移提案或恢复暂停音频。两个捕获片段复用已有定义，argv/envp/已过叶不重复实现或回核。
+
+53DDB5先缓存GetVersion返回，依序1085FF8 minor=高第二U8、1085FF4 major=低U8、1085FF0=(major<<8)+minor、1085FEC=完整高16；四字段保持W32，仅extern共享存储，未证初值不补零。heap(0)返回0走真实快速错误28，均在原TryLevel-1区。53DE21起保护区依序ioinit→CommandLine获取发布→Environment原块获取发布→argv→envp→cinit；不重排前述生产。随后只StartupInfo.dwFlags预置0，GetStartupInfoA填SDK结构，原命令行切片，show为实际U16 wShowWindow或10，GetModuleHandleA(nullptr)结果/前实例nullptr传既有WinMain，原S32返回传正常exit。无空句柄保护或替代值。
+
+原scope54F960三W32为prev=-1/filter53DE8C/handler53DEA0。新原生SEH仅从原TryLevel0起保护；筛选片段单次取information真实地址→缓存ExceptionRecord.Code/保存本帧U32→真实543DB2，完整S32筛选结果交__except，选择handler时沿缓存Code位型bit_cast S32传真实quick_exit。两片段适配不是新原函数身份，不用C++catch替SEH、不移植x86 FS/元数据、不预清Code/完整StartupInfo；异常/SDK/x64实际传播不因源码表示称通过。
+
+cinit只取一次当前58F864浮点callback，非空调缓存，加载初值53B447接真实函数定义；随后既有void正序调度C[55316C,553180)五槽，再C++[553000,553168)90槽。C表定义首null、53B418/53E9A5/546CAE/545080四目标，返回不消费；只有53B418指针返回作明确void适配，无函数地址擦除或非零失败短路。C++90表只真实extern，原95表槽数值取证进入记录，不写空表/未知callback替身、不得据此外推整表已迁移；C++全局owner、重复初始化和音频暂停门禁仍保留。
+
+新增14数值call（父12/cinit两表）、4父Win32 API、1浮点间调、C表4绑定及两个主源码本体静态核对，19记录同步；旧本体/调用/业务数组保持，语义1110/未决18/分类引用4，strlen19真实+4宿主+1待/24不变。只两个既有源码文件及局部文档变更，Current宿主入口未改/未调用。实际C++90回调绑定/四OS存储、标准流全局初值/登记生产、模式3/三种子、实际抛出/SDK/完整启动退出与运行仍未闭。未构建、测试、执行、运行或hash核验。

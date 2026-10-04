@@ -313,8 +313,12 @@ void TextureSurfaceBinding::Bind(TextureSurface* const surface) noexcept
 
 void ResetTextureNodes_523310() noexcept
 {
+    const std::int32_t count = gTextureNodeCount;
     gTextureScanIndex = 0;
-    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {
+    if (count <= 0) {
+        return;
+    }
+    for (std::int32_t index = 0; index < count; ++index) {
         auto& node = gTextureNodes[static_cast<std::size_t>(index)];
         node.imageNo = -1;
         node.reuseState = 0;
@@ -660,22 +664,28 @@ std::int32_t BuildSurfaceCache_5231A0()
     }
 
     bool fallback = false;
-    for (std::size_t index = 0; index < kTextureNodeCapacity; ++index) {
+    std::int32_t completed = 0;
+    for (; completed < static_cast<std::int32_t>(kTextureNodeCapacity); ++completed) {
+        TextureNode& node = gTextureNodes[static_cast<std::size_t>(completed)];
         if (!fallback) {
-            const auto width = static_cast<std::int16_t>(gTextureSizeW);
-            const auto height = static_cast<std::int16_t>(gTextureSizeH);
-            gTextureNodes[index].surface = CreateTextureSurface_44C6D0(width, height, 0, 0x4000);
-            if (gTextureNodes[index].surface != nullptr) {
+            std::int16_t height;
+            std::memcpy(&height, &gTextureSizeH, sizeof(height));
+            std::int16_t width;
+            std::memcpy(&width, &gTextureSizeW, sizeof(width));
+            node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x4000);
+            if (node.surface != nullptr) {
                 ++gTexturePreferredCount;
                 continue;
             }
             fallback = true;
         }
 
-        const auto width = static_cast<std::int16_t>(gTextureSizeW);
-        const auto height = static_cast<std::int16_t>(gTextureSizeH);
-        gTextureNodes[index].surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
-        if (gTextureNodes[index].surface == nullptr) {
+        std::int16_t height;
+        std::memcpy(&height, &gTextureSizeH, sizeof(height));
+        std::int16_t width;
+        std::memcpy(&width, &gTextureSizeW, sizeof(width));
+        node.surface = CreateTextureSurface_44C6D0(width, height, 0, 0x800);
+        if (node.surface == nullptr) {
             platform::ShowLegacyMessage(
                 kTextureNodeCreateFailed, kSurfaceFailureCaption, 0x10);
             return 0;
@@ -683,7 +693,7 @@ std::int32_t BuildSurfaceCache_5231A0()
         ++gTextureFallbackCount;
     }
 
-    gTextureNodeCount = static_cast<std::int32_t>(kTextureNodeCapacity);
+    gTextureNodeCount = completed;
     ResetTextureNodes_523310();
     static_cast<void>(InvalidateGraphicRefs_523350());
     return 1;

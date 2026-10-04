@@ -2301,3 +2301,20 @@ GraphicPaletteCache.cpp 八处修改恢复入口池保存/回收发布重取、�
 初始化/释放/帧老化、父上传、双变换树和纹理入口不改。
 仅适用共享分流/32位色局部静态；16/24位不计新增实现，
 完整上游/父与 pool/owner 寿命和 SDL 像素运行仍待，G01/G04保持 open。
+
+## GCL01 老化、重置与建面阶段源码收口（2026-10-05）
+
+按[具名SPEC](cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure)
+和[146条完整原体/四边52条窗口](cg2d_cache_lifecycle_alignment_evidence.json)
+完成Age44E230、Reset523310及Build5231A0三本体修改。
+Age负图号沿旧池前进，非负计数读写沿当次池并在尾重取；
+Reset先取actualcount再清scan、按保存次数只写原三字段；
+Build两节点工厂前均height→width低W16取样，只在整轮成功后发布S32局部完成数。
+原失败/统计/表面先发布、首失败同槽转持续fallback、失败count0/保前缀跳成功尾
+及完整成功Reset→Invalidate→ret1保持。
+
+初始化457747消费Build失败，重建466C11丢弃Build返回后消费InitPalette；
+绘制521428公共尾和唯一5232D7 Reset均有实际源码连接。
+池创建释放、失效、工厂/SurfaceState、原消息字节和所有其它源/头保持。
+仅局部静态，G01/G02/G04与完整资源寿命/模式画面门禁继续open，
+不将已有API替换扩为上层豁免，不声称异常安全/故障或机器ABI等价。

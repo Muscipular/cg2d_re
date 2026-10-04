@@ -203,18 +203,22 @@ PaletteCacheItem* LoadGraphicPalette32_44E290(
 
 void AgeGraphicPaletteCache_44E230() noexcept
 {
-    for (std::size_t index = 0; index < kGraphicPaletteDynamicCount; ++index) {
-        const std::int32_t imageNo = gGraphicDataCacheList[index].imageNo;
+    PaletteCacheItem* pool = gGraphicDataCacheList;
+    for (std::int32_t index = 0;
+         index < static_cast<std::int32_t>(kGraphicPaletteDynamicCount); ++index) {
+        const std::int32_t imageNo = pool[index].imageNo;
         if (imageNo < 0) {
             continue;
         }
-        if (gGraphicDataCacheList[index].dirtyCount >= 1) {
+        if (pool[index].dirtyCount >= 1) {
             gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].palette = nullptr;
             gGraphicDataCacheList[index].imageNo = -1;
+            pool = gGraphicDataCacheList;
         }
-        const std::int32_t count = gGraphicDataCacheList[index].dirtyCount;
-        gGraphicDataCacheList[index].dirtyCount = std::bit_cast<std::int32_t>(
+        const std::int32_t count = pool[index].dirtyCount;
+        pool[index].dirtyCount = std::bit_cast<std::int32_t>(
             std::bit_cast<std::uint32_t>(count) + 1u);
+        pool = gGraphicDataCacheList;
     }
 }
 

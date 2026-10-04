@@ -1597,3 +1597,18 @@ SDK/机器ABI/像素画面未验；没有构建/测试/运行/摘要，异常不
 1202旧条目和所有分类/pending政策保持；当前1204条、1201有效原ID，
 3无独立ID、18pending及4分类引用不变；审核118/3680，限定证据81，
 功能全局门禁保持。源码快照：`cg2d-re-palette-cache-source-20261005`。
+
+## GCL01 缓存老化、重置与建面映射（2026-10-05）
+
+[具名SPEC](cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure)及
+[146条原体/52条局部窗口](cg2d_cache_lifecycle_alignment_evidence.json)
+补唯一44E230→F:0004E230、523310→F:00123310、5231A0→F:001231A0。
+分别对应GraphicPaletteCache的Age及GraphicDxCache的Reset/Build；
+本步只修原池取样、入口count、height/width低W16和局部完整数发布。
+四原边的返回消费/公共尾保持；26data、四dtype_word与3IAT/7直接call区分。
+
+未改的44E0C0/44E110/523350合计51条为依赖取证，不增本轮审核。
+1204旧记录及分类/pending政策保持，当前1207条/1204有效原ID，
+3无独立ID、18pending、4分类引用不变；审核121/3680、限定证据84。
+固定快照`cg2d-re-cache-lifecycle-source-20261005`；
+完整父/callee/间接alias/资源寿命和像素运行未验，不提升整体验收。

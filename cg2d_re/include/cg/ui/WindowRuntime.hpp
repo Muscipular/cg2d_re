@@ -38,6 +38,9 @@ void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的�
 void InitializeLegacyNumberSpacing_477160();
 void InitializeNumberSpacing_477170(); // 原CRT 553098，四种数字图片步进的唯一初始化。
 // 原CRT 55309C/5530A0：每项构造后独立登记退出；登记失败仍继续，不释放静态预览。
+// 原CRT 55309C/5530A0两独立选择器入口，各自构造后登记整体退出，完整S32传出。
+std::int32_t InitializeLegacyFirstItemSelector_4883F0(); // 原CF3B10及其内嵌预览。
+std::int32_t InitializeLegacySecondItemSelector_4998F0(); // 原D2F338及其内嵌预览。
 void InitializeItemSelectors();
 // 原CRT 5530A4入口先构造后真实退出登记，返回完整S32。
 std::int32_t InitializeLegacyStallBrowsePetValues_4CD240();

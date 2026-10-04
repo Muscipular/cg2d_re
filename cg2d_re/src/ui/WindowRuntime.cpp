@@ -44465,6 +44465,50 @@ void Sub_50E570(const std::uintptr_t, const std::int32_t value)
     }
 }
 
+namespace {
+
+// 原488400固定CF3B10；原内嵌+78预览沿已有唯一静态对象绑定。
+detail::WindowItemSelectorState* ConstructLegacyFirstItemSelector_488400()
+{
+    detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);
+    return detail::Sub_4C61B0(&detail::gItemSelectorCF3B10);
+}
+
+// 原488420尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
+void ReleaseLegacyFirstItemSelectorAtExit_488420()
+{
+    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(0));
+}
+
+// 原499900固定D2F338；原内嵌+78预览沿已有唯一静态对象绑定。
+detail::WindowItemSelectorState* ConstructLegacySecondItemSelector_499900()
+{
+    detail::gItemSelectorD2F338.preview = login::detail::BorrowWindowSelectorPreview(1);
+    return detail::Sub_4C61B0(&detail::gItemSelectorD2F338);
+}
+
+// 原499920尾入公共488430；固定原内嵌对象，不从可改preview槽重取退出目标。
+void ReleaseLegacySecondItemSelectorAtExit_499920()
+{
+    login::detail::DestroyWindowSelectorPreview(login::detail::BorrowWindowSelectorPreview(1));
+}
+
+} // namespace
+
+// 原CRT 55309C：先本项构造，再真实登记整体无参退出，完整S32透传。
+std::int32_t InitializeLegacyFirstItemSelector_4883F0()
+{
+    ConstructLegacyFirstItemSelector_488400();
+    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacyFirstItemSelectorAtExit_488420);
+}
+
+// 原CRT 5530A0：先本项构造，再真实登记整体无参退出，完整S32透传。
+std::int32_t InitializeLegacySecondItemSelector_4998F0()
+{
+    ConstructLegacySecondItemSelector_499900();
+    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacySecondItemSelectorAtExit_499920);
+}
+
 void InitializeItemSelectors()
 {
     detail::gItemSelectorCF3B10.preview = login::detail::BorrowWindowSelectorPreview(0);

@@ -632,23 +632,74 @@ bool IsValidPetIndex_51C410(const std::int32_t index) noexcept
     return index >= 0 && index < 5;
 }
 
+namespace {
+
+// 原4CD360六成员构造；只清理已成功成员的逆序前缀，不处理当前失败成员。
+detail::PetRuntimeRecord* ConstructLegacyPetElement_4CD360(detail::PetRuntimeRecord* const record)
+{
+    std::uint32_t completed = 0;
+    try {
+        for (platform::LegacyCryptInt& value : record->values0C) {
+            platform::legacy_crypt_int::ConstructZero_401C70(&value);
+            ++completed;
+        }
+    } catch (...) {
+        while (completed != 0) {
+            --completed;
+            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[completed]);
+        }
+        throw;
+    }
+    return record;
+}
+
+// 原4CD2D0先递减成员位置再析构；失败继续更低成员，不重试或清其他宠物字段。
+void DestroyLegacyPetElement_4CD2D0(detail::PetRuntimeRecord* const record)
+{
+    std::uint32_t remaining = 6;
+    try {
+        while (remaining != 0) {
+            --remaining;
+            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[remaining]);
+        }
+    } catch (...) {
+        while (remaining != 0) {
+            --remaining;
+            platform::legacy_crypt_int::Destroy_401CF0(&record->values0C[remaining]);
+        }
+        throw;
+    }
+}
+
+} // namespace
+
+namespace detail {
+
+// 主宠物与浏览宠物只共享元素算法，storage始终是调用方本次提供的实际记录。
+void ConstructLegacyPetElementForArray(void* const storage)
+{
+    static_cast<void>(ConstructLegacyPetElement_4CD360(static_cast<PetRuntimeRecord*>(storage)));
+}
+
+void DestroyLegacyPetElementForArray(void* const storage)
+{
+    DestroyLegacyPetElement_4CD2D0(static_cast<PetRuntimeRecord*>(storage));
+}
+
+} // namespace detail
+
 void ConstructPetRuntimeValues()
 {
-    for (detail::PetRuntimeRecord& record : detail::gPetRuntimeF633F8) {
-        for (platform::LegacyCryptInt& value : record.values0C) {
-            platform::legacy_crypt_int::ConstructZero_401C70(&value);
-        }
-    }
+    platform::ConstructLegacyArray_53C45E(
+        detail::gPetRuntimeF633F8.data(), static_cast<std::uint32_t>(sizeof(detail::PetRuntimeRecord)),
+        5, detail::ConstructLegacyPetElementForArray, detail::DestroyLegacyPetElementForArray);
 }
 
 void DestroyPetRuntimeValues()
 {
-    for (std::size_t record = 5; record != 0; --record) {
-        for (std::size_t value = 6; value != 0; --value) {
-            platform::legacy_crypt_int::Destroy_401CF0(
-                &detail::gPetRuntimeF633F8[record - 1].values0C[value - 1]);
-        }
-    }
+    platform::DestroyLegacyArray_53C4E0(
+        detail::gPetRuntimeF633F8.data(), static_cast<std::uint32_t>(sizeof(detail::PetRuntimeRecord)),
+        5, detail::DestroyLegacyPetElementForArray);
 }
 
 std::int32_t InitializeLegacySceneTransitionValue_456FD0()

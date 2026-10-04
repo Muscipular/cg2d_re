@@ -682,6 +682,10 @@ static_assert(offsetof(PetPairRecord, used) == 0);
 static_assert(offsetof(PetPairRecord, index) == 2);
 static_assert(offsetof(PetPairRecord, value) == 4);
 static_assert(sizeof(PetPairRecord) == 8);
+// 原4CD360/4CD2D0的显式数组回调适配；借用本次storage，不使用固定全局或建立owner。
+void ConstructLegacyPetElementForArray(void* storage);
+void DestroyLegacyPetElementForArray(void* storage);
+
 extern std::array<PetRuntimeRecord, 5> gPetRuntimeF633F8;
 extern std::array<PetPairRecord, 5> gPetPairsDE0B08;
 extern std::int32_t gPetCountDE0B00;

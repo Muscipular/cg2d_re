@@ -212,49 +212,205 @@
     {
       "original_entry": "0x43D7C0",
       "inventory_id": "F:0003D7C0",
-      "status": "已有实现映射，运行未验",
+      "status": "原世界双成员/宠物六成员typed构析及三数组回调接线源码已实现；成员C++与数组SEH/SDK运行未验",
       "sources": [
         {
           "path": "src/world/WorldObjectState.cpp",
           "symbols": [
             "ConstructWorldObjects"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
-          "symbols": []
+          "symbols": [],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructLegacyWorldElement_43D7C0",
+            "ConstructLegacyWorldElementForArray"
+          ],
+          "relationship": "本轮原typed成员本体/真实this返回或void析构，显式地址适配供原数组helper，不函数指针强转"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_world_objects.md"
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "每项按coordinate0C、coordinate1C构造；由统一CRT组按1000项正序调用。"
+      "boundary": "每项按coordinate0C、coordinate1C构造；由统一CRT组按1000项正序调用。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x43D7C0",
+          "end_exclusive": "0x43D807"
+        },
+        {
+          "start": "0x54B850",
+          "end_exclusive": "0x54B865"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "ConstructLegacyWorldElement_43D7C0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_element_internal_call_connections": [
+        {
+          "parent_entry": "0x43D7C0",
+          "call_site": "0x43D7E0",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructLegacyWorldElement_43D7C0",
+          "original_this_offset": "0xC",
+          "native_field": "record->coordinate0C",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x43D7C0",
+          "call_site": "0x43D7F0",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructLegacyWorldElement_43D7C0",
+          "original_this_offset": "0x1C",
+          "native_field": "record->coordinate1C",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        }
+      ],
+      "array_element_incoming_callback_references": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "callback_entry": "0x43D7C0",
+          "callback_symbol": "ConstructLegacyWorldElement_43D7C0",
+          "source_adapter": "ConstructLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "ConstructWorldObjects",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
+      ],
+      "array_element_cpp_scope_associations": {
+        "original_func_info": "0x5509A8",
+        "source_symbol": "ConstructLegacyWorldElement_43D7C0",
+        "boundary": "原成员状态完成/剩余前缀用native C++清理和重抛表达；不复制x86Info/FS链，叶无C++抛出事实保持，编译器/EH或故障等价未验"
+      },
+      "verification_level": "；4成员148条/16正常成员call、三组6helper父点/9回调参数与新端字段新增静态，未测试/执行或复验旧叶"
     },
     {
       "original_entry": "0x43D810",
       "inventory_id": "F:0003D810",
-      "status": "已有实现映射，运行未验",
+      "status": "原世界双成员/宠物六成员typed构析及三数组回调接线源码已实现；成员C++与数组SEH/SDK运行未验",
       "sources": [
         {
           "path": "src/world/WorldObjectState.cpp",
           "symbols": [
             "DestroyWorldObjects"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
-          "symbols": []
+          "symbols": [],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "DestroyLegacyWorldElement_43D810",
+            "DestroyLegacyWorldElementForArray"
+          ],
+          "relationship": "本轮原typed成员本体/真实this返回或void析构，显式地址适配供原数组helper，不函数指针强转"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_world_objects.md"
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "每项按coordinate1C、coordinate0C析构；表逆序，不释放action。"
+      "boundary": "每项按coordinate1C、coordinate0C析构；表逆序，不释放action。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x43D810",
+          "end_exclusive": "0x43D85D"
+        },
+        {
+          "start": "0x54B870",
+          "end_exclusive": "0x54B885"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/WorldObjectState.cpp",
+        "symbol": "DestroyLegacyWorldElement_43D810",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_element_internal_call_connections": [
+        {
+          "parent_entry": "0x43D810",
+          "call_site": "0x43D838",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyLegacyWorldElement_43D810",
+          "original_this_offset": "0x1C",
+          "native_field": "record->coordinate1C",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x43D810",
+          "call_site": "0x43D848",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyLegacyWorldElement_43D810",
+          "original_this_offset": "0xC",
+          "native_field": "record->coordinate0C",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        }
+      ],
+      "array_element_incoming_callback_references": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "callback_entry": "0x43D810",
+          "callback_symbol": "DestroyLegacyWorldElement_43D810",
+          "source_adapter": "DestroyLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "ConstructWorldObjects",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x43D7A0",
+          "call_site": "0x43D7B4",
+          "callback_entry": "0x43D810",
+          "callback_symbol": "DestroyLegacyWorldElement_43D810",
+          "source_adapter": "DestroyLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "DestroyWorldObjects",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
+      ],
+      "array_element_cpp_scope_associations": {
+        "original_func_info": "0x5509D0",
+        "source_symbol": "DestroyLegacyWorldElement_43D810",
+        "boundary": "原成员状态完成/剩余前缀用native C++清理和重抛表达；不复制x86Info/FS链，叶无C++抛出事实保持，编译器/EH或故障等价未验"
+      },
+      "verification_level": "；4成员148条/16正常成员call、三组6helper父点/9回调参数与新端字段新增静态，未测试/执行或复验旧叶"
     },
     {
       "original_entry": "0x4CD250",
       "inventory_id": "F:000CD250",
-      "status": "已有实现映射，运行未验",
+      "status": "三组世界/主宠物/浏览宠物原数组helper真实父调用及typed回调接线已实现；SEH/SDK运行未验",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -266,66 +422,428 @@
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": []
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "ConstructStallBrowsePetValues",
+            "DestroyStallBrowsePetValues"
+          ],
+          "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
       ],
       "evidence_documents": [
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。"
+      "boundary": "IDA函数包含正常构造、退出登记及析构跳转块；沿5530A4对应中央静态对象承接，不能把线性地址范围当单次执行。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "target_entry": "0x53C45E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "ConstructStallBrowsePetValues",
+          "storage": "detail::gStallBrowseD046D8.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD2A0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD293",
+          "target_entry": "0x53C4E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "DestroyStallBrowsePetValues",
+          "storage": "detail::gStallBrowseD046D8.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD280",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ],
+      "array_lifetime_consumer_callback_references": [
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "callback_entry": "0x4CD360",
+          "callback_symbol": "ConstructLegacyPetElement_4CD360",
+          "source_adapter": "detail::ConstructLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD293",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "DestroyStallBrowsePetValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
+      ]
     },
     {
       "original_entry": "0x4CD2D0",
       "inventory_id": "F:000CD2D0",
-      "status": "已有实现映射，运行未验",
+      "status": "原世界双成员/宠物六成员typed构析及三数组回调接线源码已实现；成员C++与数组SEH/SDK运行未验",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "DestroyPetRuntimeValues"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "DestroyStallBrowsePetValues"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
-          "symbols": []
+          "symbols": [],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyLegacyPetElement_4CD2D0",
+            "detail::DestroyLegacyPetElementForArray"
+          ],
+          "relationship": "本轮原typed成员本体/真实this返回或void析构，显式地址适配供原数组helper，不函数指针强转"
         }
       ],
       "evidence_documents": [
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "共享六成员析构叶；主宠物和浏览宠物各复用自身唯一owner，记录与字段均逆序。"
+      "boundary": "共享六成员析构叶；主宠物和浏览宠物各复用自身唯一owner，记录与字段均逆序。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x4CD2D0",
+          "end_exclusive": "0x4CD351"
+        },
+        {
+          "start": "0x54B9D0",
+          "end_exclusive": "0x54BA11"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "DestroyLegacyPetElement_4CD2D0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_element_internal_call_connections": [
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD2F8",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0x5C",
+          "native_field": "record->values0C[5]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD305",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0x4C",
+          "native_field": "record->values0C[4]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD312",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0x3C",
+          "native_field": "record->values0C[3]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD31F",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0x2C",
+          "native_field": "record->values0C[2]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD32C",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0x1C",
+          "native_field": "record->values0C[1]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD2D0",
+          "call_site": "0x4CD33C",
+          "target_entry": "0x401CF0",
+          "target_symbol": "platform::legacy_crypt_int::Destroy_401CF0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0",
+          "original_this_offset": "0xC",
+          "native_field": "record->values0C[0]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        }
+      ],
+      "array_element_incoming_callback_references": [
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "ConstructPetRuntimeValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x518560",
+          "call_site": "0x518571",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "DestroyPetRuntimeValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD293",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "DestroyStallBrowsePetValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
+      ],
+      "array_element_cpp_scope_associations": {
+        "original_func_info": "0x550AF8",
+        "source_symbol": "DestroyLegacyPetElement_4CD2D0",
+        "boundary": "原成员状态完成/剩余前缀用native C++清理和重抛表达；不复制x86Info/FS链，叶无C++抛出事实保持，编译器/EH或故障等价未验"
+      },
+      "verification_level": "；4成员148条/16正常成员call、三组6helper父点/9回调参数与新端字段新增静态，未测试/执行或复验旧叶"
     },
     {
       "original_entry": "0x4CD360",
       "inventory_id": "F:000CD360",
-      "status": "已有实现映射，运行未验",
+      "status": "原世界双成员/宠物六成员typed构析及三数组回调接线源码已实现；成员C++与数组SEH/SDK运行未验",
       "sources": [
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "ConstructPetRuntimeValues"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "ConstructStallBrowsePetValues"
-          ]
+          ],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
         },
         {
           "path": "src/platform/LegacyMouse.cpp",
-          "symbols": []
+          "symbols": [],
+          "relationship": "；旧循环职责关联保留，新typed本体/签名适配直接提供者另列"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructLegacyPetElement_4CD360",
+            "detail::ConstructLegacyPetElementForArray"
+          ],
+          "relationship": "本轮原typed成员本体/真实this返回或void析构，显式地址适配供原数组helper，不函数指针强转"
         }
       ],
       "evidence_documents": [
-        "doc/ui_windows/window_68.md"
+        "doc/ui_windows/window_68.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "共享六成员构造叶；主宠物与浏览宠物均按+0C..+5C构造，不合并实体或RNG调用。"
+      "boundary": "共享六成员构造叶；主宠物与浏览宠物均按+0C..+5C构造，不合并实体或RNG调用。；2026-10-04原typed成员构析四体148条、this返回和同一记录成员次序落位；失败仅清已完成/剩余前缀，不重试失败成员，四签名适配不增原身份、不强转函数指针。三组真实数组helper父调用已接，成员C++与数组SEH分层，主/浏览只共算法；不模拟非法指针/溢出，不造对象/预清/保护/RNG或改布局，原C++/FS/EH/SDK及完整运行仍未验。",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x4CD360",
+          "end_exclusive": "0x4CD3DB"
+        },
+        {
+          "start": "0x54BA20",
+          "end_exclusive": "0x54BA61"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "ConstructLegacyPetElement_4CD360",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "array_element_internal_call_connections": [
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD380",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0xC",
+          "native_field": "record->values0C[0]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD390",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0x1C",
+          "native_field": "record->values0C[1]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD39D",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0x2C",
+          "native_field": "record->values0C[2]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD3AA",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0x3C",
+          "native_field": "record->values0C[3]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD3B7",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0x4C",
+          "native_field": "record->values0C[4]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        },
+        {
+          "parent_entry": "0x4CD360",
+          "call_site": "0x4CD3C4",
+          "target_entry": "0x401C70",
+          "target_symbol": "platform::legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360",
+          "original_this_offset": "0x5C",
+          "native_field": "record->values0C[5]",
+          "relationship": "原成员正常调用顺序/同一实际记录地址；失败只清理已完成或剩余前缀，不预清数据/释放借用资源"
+        }
+      ],
+      "array_element_incoming_callback_references": [
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "callback_entry": "0x4CD360",
+          "callback_symbol": "ConstructLegacyPetElement_4CD360",
+          "source_adapter": "detail::ConstructLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "ConstructPetRuntimeValues",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "callback_entry": "0x4CD360",
+          "callback_symbol": "ConstructLegacyPetElement_4CD360",
+          "source_adapter": "detail::ConstructLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/ui/WindowRuntime.cpp",
+          "consumer_symbol": "ConstructStallBrowsePetValues",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
+      ],
+      "array_element_cpp_scope_associations": {
+        "original_func_info": "0x550B40",
+        "source_symbol": "ConstructLegacyPetElement_4CD360",
+        "boundary": "原成员状态完成/剩余前缀用native C++清理和重抛表达；不复制x86Info/FS链，叶无C++抛出事实保持，编译器/EH或故障等价未验"
+      },
+      "verification_level": "；4成员148条/16正常成员call、三组6helper父点/9回调参数与新端字段新增静态，未测试/执行或复验旧叶"
     },
     {
       "original_entry": "0x488420",
@@ -5883,7 +6401,7 @@
     {
       "original_entry": "0x518530",
       "inventory_id": "F:00118530",
-      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
+      "status": "三组世界/主宠物/浏览宠物原数组helper真实父调用及typed回调接线已实现；SEH/SDK运行未验",
       "original_role": "五宠物构造迭代",
       "sources": [
         {
@@ -5899,6 +6417,13 @@
             "ConstructPetRuntimeValues"
           ],
           "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConstructPetRuntimeValues"
+          ],
+          "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
       ],
       "evidence_documents": [
@@ -5907,7 +6432,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原EH vector constructor以5110H步长正序构造五条，每条4CD360构造六个CryptInt；新端遍历唯一五记录及各六值，不按旧步长寻址新端。失败展开路径不由正常循环映射认定完成。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "原EH vector constructor以5110H步长正序构造五条，每条4CD360构造六个CryptInt；新端遍历唯一五记录及各六值，不按旧步长寻址新端。失败展开路径不由正常循环映射认定完成。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
       "instruction_count": 7,
       "function_chunks": [
         {
@@ -5928,12 +6453,55 @@
           "arguments": "无参；真实this返回不做成功门禁",
           "relationship": "原518530实际源码沿既有五记录构造循环，不声称53C45E/EH独立本体或运行已验"
         }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "target_entry": "0x53C45E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructPetRuntimeValues",
+          "storage": "detail::gPetRuntimeF633F8.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ],
+      "array_lifetime_consumer_callback_references": [
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "callback_entry": "0x4CD360",
+          "callback_symbol": "ConstructLegacyPetElement_4CD360",
+          "source_adapter": "detail::ConstructLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "ConstructPetRuntimeValues",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "ConstructPetRuntimeValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
       ]
     },
     {
       "original_entry": "0x518560",
       "inventory_id": "F:00118560",
-      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
+      "status": "三组世界/主宠物/浏览宠物原数组helper真实父调用及typed回调接线已实现；SEH/SDK运行未验",
       "original_role": "五宠物析构迭代",
       "sources": [
         {
@@ -5949,6 +6517,13 @@
             "DestroyPetRuntimeValues"
           ],
           "relationship": "同一固定this构析前缀或既有五宠物正常循环真实父接线；FS/EH仍未运行验收"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DestroyPetRuntimeValues"
+          ],
+          "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
       ],
       "evidence_documents": [
@@ -5957,7 +6532,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "原EH vector destructor按五条逆序调用4CD2D0；新端记录4..0、各值5..0逆序析构，不清图号或释放附属对象。宿主退出和异常路径未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
       "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
       "runtime_state_crt_incoming_callback_references": [
         {
@@ -5968,6 +6543,36 @@
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPetRuntime_518520",
           "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x518560",
+          "call_site": "0x518571",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyPetRuntimeValues",
+          "storage": "detail::gPetRuntimeF633F8.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ],
+      "array_lifetime_consumer_callback_references": [
+        {
+          "parent_entry": "0x518560",
+          "call_site": "0x518571",
+          "callback_entry": "0x4CD2D0",
+          "callback_symbol": "DestroyLegacyPetElement_4CD2D0",
+          "source_adapter": "detail::DestroyLegacyPetElementForArray",
+          "source_adapter_file": "src/world/SceneState.cpp",
+          "consumer_source": "src/world/SceneState.cpp",
+          "consumer_symbol": "DestroyPetRuntimeValues",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
       ]
     },
@@ -10569,7 +11174,7 @@
     {
       "original_entry": "0x43D770",
       "inventory_id": "F:0003D770",
-      "status": "已有命名或父函数合并映射，运行未验",
+      "status": "三组世界/主宠物/浏览宠物原数组helper真实父调用及typed回调接线已实现；SEH/SDK运行未验",
       "original_role": "世界对象数组构造",
       "original_end_exclusive": "0x43D78F",
       "instruction_count": 7,
@@ -10592,13 +11197,21 @@
             "InitializeLegacyWorldObjects_43D760"
           ],
           "relationship": "本轮真实CRT父入口消费原构造源码，既有正常循环不改或重核"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "ConstructWorldObjects"
+          ],
+          "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原向量构造器对1000项按正序调用43D7C0，每项先+0C后+1C构造CryptInt；现有唯一数组构造保留顺序与2000次RNG。原13C步长不复制为x64布局，原SEH及完整跨模块CRT时序不据此宣称等价。；2026-10-04真实43D760父入口已调用本已有正常构造源码，算法/RNG/原数组与EH门禁保持。",
+      "boundary": "原向量构造器对1000项按正序调用43D7C0，每项先+0C后+1C构造CryptInt；现有唯一数组构造保留顺序与2000次RNG。原13C步长不复制为x64布局，原SEH及完整跨模块CRT时序不据此宣称等价。；2026-10-04真实43D760父入口已调用本已有正常构造源码，算法/RNG/原数组与EH门禁保持。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
       "world_objects_crt_parent_call_connections": [
         {
           "parent_entry": "0x43D760",
@@ -10611,12 +11224,55 @@
           "arguments": "无参；既有1000项/逐项双CryptInt源码",
           "relationship": "真实构造正常路径源码调用，唯一数组/2000次原随机消费保持；不声称53C45E本体或SEH已验"
         }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "target_entry": "0x53C45E",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructWorldObjects",
+          "storage": "detail::gWorldObjects.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "constructor": "0x43D7C0",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ],
+      "array_lifetime_consumer_callback_references": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "callback_entry": "0x43D7C0",
+          "callback_symbol": "ConstructLegacyWorldElement_43D7C0",
+          "source_adapter": "ConstructLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "ConstructWorldObjects",
+          "argument_role": "constructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        },
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "callback_entry": "0x43D810",
+          "callback_symbol": "DestroyLegacyWorldElement_43D810",
+          "source_adapter": "DestroyLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "ConstructWorldObjects",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
+        }
       ]
     },
     {
       "original_entry": "0x43D7A0",
       "inventory_id": "F:0003D7A0",
-      "status": "已有命名或父函数合并映射，运行未验",
+      "status": "三组世界/主宠物/浏览宠物原数组helper真实父调用及typed回调接线已实现；SEH/SDK运行未验",
       "original_role": "世界对象数组析构",
       "original_end_exclusive": "0x43D7BA",
       "instruction_count": 6,
@@ -10639,13 +11295,21 @@
             "InitializeLegacyWorldObjects_43D760"
           ],
           "relationship": "本轮真实53B406登记本已有整体无参退出源码，原算法不改"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "DestroyWorldObjects"
+          ],
+          "relationship": "原循环/平铺清理改接实际数组helper，数量/实际owner/RNG与数据字段不变"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原43D760登记的退出入口以1000项调用向量析构器；现有999至0逆序且每项先coordinate1C后coordinate0C，不释放YobiAction借用值，不把重置入口当作析构。；2026-10-04真实43D760/53B406已登记此已有整体退出源码，逆序/借用资源保持，SDK/完整退出仍未验。",
+      "boundary": "原43D760登记的退出入口以1000项调用向量析构器；现有999至0逆序且每项先coordinate1C后coordinate0C，不释放YobiAction借用值，不把重置入口当作析构。；2026-10-04真实43D760/53B406已登记此已有整体退出源码，逆序/借用资源保持，SDK/完整退出仍未验。；2026-10-04真实53C45E/53C4E0父点和typed成员回调调用；世界1000/主5/浏览5独立storage，用新端sizeof保持U32步长，不套旧13C/5110。浏览平铺catch由成员C++前缀与数组SEH完整记录前缀替代，失败元素不计完成数，不重试失败析构。不改宿主登记/业务字段/全局/RNG，原ABI/异常与完整运行未验。",
       "world_objects_crt_incoming_callback_references": [
         {
           "parent_entry": "0x43D760",
@@ -10655,6 +11319,36 @@
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "InitializeLegacyWorldObjects_43D760",
           "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
+        }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x43D7A0",
+          "call_site": "0x43D7B4",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyWorldObjects",
+          "storage": "detail::gWorldObjects.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
+      ],
+      "array_lifetime_consumer_callback_references": [
+        {
+          "parent_entry": "0x43D7A0",
+          "call_site": "0x43D7B4",
+          "callback_entry": "0x43D810",
+          "callback_symbol": "DestroyLegacyWorldElement_43D810",
+          "source_adapter": "DestroyLegacyWorldElementForArray",
+          "source_adapter_file": "src/world/WorldObjectState.cpp",
+          "consumer_source": "src/world/WorldObjectState.cpp",
+          "consumer_symbol": "DestroyWorldObjects",
+          "argument_role": "destructor",
+          "relationship": "真实回调地址与typed返回/签名适配单列；两个宠物owner只共算法，不改实际storage"
         }
       ]
     },
@@ -39991,7 +40685,7 @@
     {
       "original_entry": "0x53C45E",
       "inventory_id": "F:0013C45E",
-      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
+      "status": "原数组生命周期本体及三组构析消费者真实接线已实现；原生成员C++/SEH及SDK完整运行未验",
       "original_end_exclusive": "0x53C4E0",
       "instruction_count": 44,
       "original_direct_reference_count": 3,
@@ -40040,7 +40734,7 @@
         "doc/ui_windows/window_68.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "boundary": "原构造成功返回后才前移并增加完成数；异常尾把当前地址和已完成数交53C560。当前CryptInt/NextRandom没有C++抛出路径，不能仅凭World/主宠物无catch判现有缺陷或新增故障注入。浏览宠物既有catch保留；不声称旧FS/SEH或完整启动已验。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。",
       "function_chunks": [
         {
           "start": "0x53C45E",
@@ -40088,12 +40782,60 @@
           "symbol": "ConstructLegacyArray_53C45E",
           "native": "__try/__finally，complete W32初0/正常末1，未完成传当前/成功数"
         }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x43D770",
+          "call_site": "0x43D789",
+          "target_entry": "0x53C45E",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructWorldObjects",
+          "storage": "detail::gWorldObjects.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "constructor": "0x43D7C0",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x518530",
+          "call_site": "0x518546",
+          "target_entry": "0x53C45E",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructPetRuntimeValues",
+          "storage": "detail::gPetRuntimeF633F8.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD2BB",
+          "target_entry": "0x53C45E",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "ConstructStallBrowsePetValues",
+          "storage": "detail::gStallBrowseD046D8.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "constructor": "0x4CD360",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD2A0",
+          "target_symbol": "platform::ConstructLegacyArray_53C45E",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
       ]
     },
     {
       "original_entry": "0x53C4E0",
       "inventory_id": "F:0013C4E0",
-      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
+      "status": "原数组生命周期本体及三组构析消费者真实接线已实现；原生成员C++/SEH及SDK完整运行未验",
       "original_end_exclusive": "0x53C560",
       "instruction_count": 42,
       "original_direct_reference_count": 3,
@@ -40142,7 +40884,7 @@
         "doc/ui_windows/window_68.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。",
       "function_chunks": [
         {
           "start": "0x53C4E0",
@@ -40190,12 +40932,57 @@
           "symbol": "DestroyLegacyArray_53C4E0",
           "native": "__try/__finally，W32乘积算尾；未完成传失败当前/递减后数"
         }
+      ],
+      "array_lifetime_consumer_call_connections": [
+        {
+          "parent_entry": "0x43D7A0",
+          "call_site": "0x43D7B4",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyWorldObjects",
+          "storage": "detail::gWorldObjects.data()",
+          "count": 1000,
+          "original_stride": "0x13C",
+          "native_stride": "sizeof(detail::WorldObjectRecord)",
+          "destructor": "0x43D810",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x518560",
+          "call_site": "0x518571",
+          "target_entry": "0x53C4E0",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyPetRuntimeValues",
+          "storage": "detail::gPetRuntimeF633F8.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        },
+        {
+          "parent_entry": "0x4CD250",
+          "call_site": "0x4CD293",
+          "target_entry": "0x53C4E0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "DestroyStallBrowsePetValues",
+          "storage": "detail::gStallBrowseD046D8.pets.data()",
+          "count": 5,
+          "original_stride": "0x5110",
+          "native_stride": "sizeof(world::detail::PetRuntimeRecord)",
+          "destructor": "0x4CD2D0",
+          "original_fragment_entry": "0x4CD280",
+          "target_symbol": "platform::DestroyLegacyArray_53C4E0",
+          "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
+        }
       ]
     },
     {
       "original_entry": "0x53C560",
       "inventory_id": "F:0013C560",
-      "status": "原数组构造/析构/展开及C++终止筛选四本体源码已实现；三组原消费者接线/原生SEH与SDK运行未闭",
+      "status": "原数组生命周期本体及三组构析消费者真实接线已实现；原生成员C++/SEH及SDK完整运行未验",
       "original_end_exclusive": "0x53C5BE",
       "instruction_count": 35,
       "original_direct_reference_count": 2,
@@ -40228,7 +41015,7 @@
         "doc/ui_windows/window_68.md",
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。",
+      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。",
       "function_chunks": [
         {
           "start": "0x53C560",
@@ -40297,6 +41084,25 @@
           "symbol": "DestroyLegacyArray_53C4E0",
           "arguments": "失败对象当前地址、U32步长、先递减S32剩余数、析构callback",
           "relationship": "原共享finally继续前缀清理，不重试失败析构"
+        }
+      ],
+      "array_lifetime_consumer_call_connections": [],
+      "array_lifetime_member_cleanup_sources": [
+        {
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "ConstructLegacyWorldElement_43D7C0"
+        },
+        {
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "DestroyLegacyWorldElement_43D810"
+        },
+        {
+          "source": "src/world/SceneState.cpp",
+          "symbol": "ConstructLegacyPetElement_4CD360"
+        },
+        {
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DestroyLegacyPetElement_4CD2D0"
         }
       ]
     },

@@ -44531,33 +44531,18 @@ std::int32_t InitializeLegacyStallBrowsePetValues_4CD240()
 
 void ConstructStallBrowsePetValues()
 {
-    std::size_t completed = 0;
-    try {
-        for (world::detail::PetRuntimeRecord& pet : detail::gStallBrowseD046D8.pets) {
-            for (platform::LegacyCryptInt& value : pet.values0C) {
-                platform::legacy_crypt_int::ConstructZero_401C70(&value);
-                ++completed;
-            }
-        }
-    } catch (...) {
-        // 六成员连续前缀对应原成员SEH清理，再逆序回退先前完整宠物。
-        while (completed != 0) {
-            --completed;
-            platform::legacy_crypt_int::Destroy_401CF0(
-                &detail::gStallBrowseD046D8.pets[completed / 6].values0C[completed % 6]);
-        }
-        throw;
-    }
+    platform::ConstructLegacyArray_53C45E(
+        detail::gStallBrowseD046D8.pets.data(),
+        static_cast<std::uint32_t>(sizeof(world::detail::PetRuntimeRecord)), 5,
+        world::detail::ConstructLegacyPetElementForArray, world::detail::DestroyLegacyPetElementForArray);
 }
 
 void DestroyStallBrowsePetValues()
 {
-    for (std::size_t pet = detail::gStallBrowseD046D8.pets.size(); pet != 0; --pet) {
-        auto& values = detail::gStallBrowseD046D8.pets[pet - 1].values0C;
-        for (std::size_t value = values.size(); value != 0; --value) {
-            platform::legacy_crypt_int::Destroy_401CF0(&values[value - 1]);
-        }
-    }
+    platform::DestroyLegacyArray_53C4E0(
+        detail::gStallBrowseD046D8.pets.data(),
+        static_cast<std::uint32_t>(sizeof(world::detail::PetRuntimeRecord)), 5,
+        world::detail::DestroyLegacyPetElementForArray);
 }
 
 void InitializeLegacyNumberSpacing_477160()

@@ -306,6 +306,47 @@ void __cdecl Sub_4464D0()
 
 } // namespace detail
 
+namespace {
+
+// 原43D7C0按0C/1C构造；第一成员成功后才承担其C++失败清理，返回真实对象。
+detail::WorldObjectRecord* ConstructLegacyWorldElement_43D7C0(detail::WorldObjectRecord* const record)
+{
+    platform::legacy_crypt_int::ConstructZero_401C70(&record->coordinate0C);
+    try {
+        platform::legacy_crypt_int::ConstructZero_401C70(&record->coordinate1C);
+    } catch (...) {
+        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+        throw;
+    }
+    return record;
+}
+
+// 原43D810逆序1C/0C，首析构失败只继续剩余0C，不重试失败成员。
+void DestroyLegacyWorldElement_43D810(detail::WorldObjectRecord* const record)
+{
+    try {
+        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate1C);
+    } catch (...) {
+        platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+        throw;
+    }
+    platform::legacy_crypt_int::Destroy_401CF0(&record->coordinate0C);
+}
+
+// 原迭代器不消费构造返回；只适配显式元素地址/函数签名，不计新原身份。
+void ConstructLegacyWorldElementForArray(void* const storage)
+{
+    static_cast<void>(ConstructLegacyWorldElement_43D7C0(
+        static_cast<detail::WorldObjectRecord*>(storage)));
+}
+
+void DestroyLegacyWorldElementForArray(void* const storage)
+{
+    DestroyLegacyWorldElement_43D810(static_cast<detail::WorldObjectRecord*>(storage));
+}
+
+} // namespace
+
 // 原CRT 553014：千项对象构造完成后，真实登记整体退出并透传完整S32。
 std::int32_t InitializeLegacyWorldObjects_43D760()
 {
@@ -315,19 +356,17 @@ std::int32_t InitializeLegacyWorldObjects_43D760()
 
 void ConstructWorldObjects()
 {
-    for (auto& record : detail::gWorldObjects) {
-        platform::legacy_crypt_int::ConstructZero_401C70(&record.coordinate0C);
-        platform::legacy_crypt_int::ConstructZero_401C70(&record.coordinate1C);
-    }
+    platform::ConstructLegacyArray_53C45E(
+        detail::gWorldObjects.data(), static_cast<std::uint32_t>(sizeof(detail::WorldObjectRecord)),
+        static_cast<std::int32_t>(detail::kWorldObjectCapacity),
+        ConstructLegacyWorldElementForArray, DestroyLegacyWorldElementForArray);
 }
 
 void DestroyWorldObjects()
 {
-    for (std::size_t index = detail::gWorldObjects.size(); index != 0; --index) {
-        auto& record = detail::gWorldObjects[index - 1];
-        platform::legacy_crypt_int::Destroy_401CF0(&record.coordinate1C);
-        platform::legacy_crypt_int::Destroy_401CF0(&record.coordinate0C);
-    }
+    platform::DestroyLegacyArray_53C4E0(
+        detail::gWorldObjects.data(), static_cast<std::uint32_t>(sizeof(detail::WorldObjectRecord)),
+        static_cast<std::int32_t>(detail::kWorldObjectCapacity), DestroyLegacyWorldElementForArray);
 }
 
 } // namespace cg::world

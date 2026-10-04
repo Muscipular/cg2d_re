@@ -1963,3 +1963,9 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 [EXH01源码收口](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure)已将exception基类拥有text的两分配/一释放成对接宿主，原完整U32标志、空分配状态、发布/源重读/复制与不清槽析构保持。对象删除仍先54B100文本析构，再flags&1交原堆释放storage；what/回退、派生和所有SDK抛出声明源码未改。
 
 本步不迁移整个exception对象、自动构析或启动表，不将Legacy方法表/捕获元数据当宿主异常ABI。NSH01与本域独立，其他CRT域、C06/C07/SDK和全应用生命周期仍待；仅局部静态证据，不解除运行限制。
+
+## 2026-10-05：NCE01实际本机抛出接线
+
+前述“54B123仅声明/SDK未提供”的当前源码缺口，由[NCE01](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)在全部九原入向成组承接：五Raise真实本机prvalue/一次原copy，三个准备payload无增引用转移，clear当前异常直接throw;。六独立本机tag保原logic/length/range/runtime/failure层级及原全局exception；copy/非删除析构/what都调用既有原叶。
+
+原SDK声明与未定义ThrowInfo传址退出当前路径，原取证/类型描述符/捕获数组保留；不复造54B123同名body或x64私有元数据。临时串清理、原字段/方法表/消息和算法不改，不改全应用初始化序。实际compiler ABI/捕获展开/SDK、C06/硬件SEH、其他CRT和运行仍待，不以本机类存在宣称完整启动或异常验收。

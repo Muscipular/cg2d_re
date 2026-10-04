@@ -218,8 +218,8 @@ LegacyLogicErrorObject* DeleteLegacyLogicError_54A792(
     LegacyLogicErrorObject* storage, std::uint32_t flags);
 const char* GetLegacyLogicErrorText_54A062(const LegacyLogicErrorObject* storage);
 
-// 原54A738：已接真实本族复制/原抛出依赖，SDK提供者未闭，不补固定异常。
-void RaiseLegacyLogicError_54A738(LegacyExceptionObject* storage);
+// NCE01原54A738：一次本族copy后真实本机LogicError抛出；SDK运行未验。
+[[noreturn]] void RaiseLegacyLogicError_54A738(LegacyExceptionObject* storage);
 
 // 只复用已证48B存储视图；原方法表/ThrowInfo身份各自独立，不是C++抛出类型合并。
 using LegacyStringLengthErrorObject = LegacyLogicErrorObject;
@@ -228,8 +228,8 @@ LegacyStringLengthErrorObject* DeleteLegacyStringLengthError_54A865(
     LegacyStringLengthErrorObject* storage, std::uint32_t flags);
 LegacyStringLengthErrorObject* CopyConstructLegacyStringLengthError_54A881(
     LegacyStringLengthErrorObject* storage, const LegacyStringLengthErrorObject* source);
-// 原54A848实际本族拷贝/ThrowInfo接线已实现；SDK提供者未闭，不补固定异常。
-void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* storage);
+// NCE01原54A848：一次本族copy后真实本机LengthError抛出；SDK运行未验。
+[[noreturn]] void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* storage);
 
 using LegacyStringRangeErrorObject = LegacyLogicErrorObject;
 void DestroyLegacyStringRangeError_54A8F3(LegacyStringRangeErrorObject* storage);
@@ -237,8 +237,8 @@ LegacyStringRangeErrorObject* DeleteLegacyStringRangeError_54A94D(
     LegacyStringRangeErrorObject* storage, std::uint32_t flags);
 LegacyStringRangeErrorObject* CopyConstructLegacyStringRangeError_54A969(
     LegacyStringRangeErrorObject* storage, const LegacyStringRangeErrorObject* source);
-// 原54A930实际本族拷贝/ThrowInfo接线已实现；SDK提供者未闭，不补固定异常。
-void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* storage);
+// NCE01原54A930：一次本族copy后真实本机RangeError抛出；SDK运行未验。
+[[noreturn]] void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* storage);
 
 // 只复用已证48B字段视图；runtime_error/failure的原表、父调用和SDK类型迁移独立。
 using LegacyRuntimeErrorObject = LegacyLogicErrorObject;
@@ -255,23 +255,13 @@ LegacyStreamFailureObject* DeleteLegacyStreamFailure_54A19C(
     LegacyStreamFailureObject* storage, std::uint32_t flags);
 LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
     LegacyStreamFailureObject* storage, const LegacyStreamFailureObject* source);
-// 原两复制后抛出入口已接真实本族复制，SDK提供者未闭，不代换宿主异常/x86元数据。
-void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* storage);
-void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* storage);
+// NCE01原两Raise：对应RuntimeError/StreamFailure真实抛出，复制/析构沿本族；SDK运行未验。
+[[noreturn]] void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* storage);
+[[noreturn]] void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* storage);
 
 // 原5500EC实际表供clear显式换表；仅导出既有真实定义，槽与旧算法保持。
 extern const LegacyExceptionRaiseMethodTable gLegacyStreamFailureMethods5500EC;
 
-// 原5515E8元数据身份仅地址传出；x64布局/生产和SDK类型匹配未闭，不复制原x86内容。
-struct LegacyCppThrowInfo;
-extern const LegacyCppThrowInfo gLegacyStreamFailureThrowInfo5515E8;
-// 原54B123真实两地址依赖仅声明；null/null是原重抛，不补实现、固定异常或正常返回值。
-void ThrowLegacyCppException_54B123(void* exceptionObject, const LegacyCppThrowInfo* throwInfo);
-
-// 原其余四类ThrowInfo仅实际身份地址声明；五族布局/生产和SDK类型仍独立未闭。
-extern const LegacyCppThrowInfo gLegacyLogicErrorThrowInfo551880;
-extern const LegacyCppThrowInfo gLegacyStringLengthErrorThrowInfo551810;
-extern const LegacyCppThrowInfo gLegacyStringRangeErrorThrowInfo551938;
-extern const LegacyCppThrowInfo gLegacyRuntimeErrorThrowInfo551658;
+// NCE01原五ThrowInfo身份保留于原端证据；当前调用由NativeCppException.hpp真实类型承接。
 
 } // namespace cg::platform

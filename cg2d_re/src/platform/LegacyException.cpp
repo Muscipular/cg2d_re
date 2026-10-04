@@ -1,4 +1,5 @@
 #include "LegacyException.hpp"
+#include "NativeCppException.hpp"
 
 #include "LegacyHeap.hpp"
 #include "cg/platform/LegacyTime.hpp"
@@ -391,7 +392,7 @@ LegacyLogicErrorObject* DeleteLegacyLogicError_54A792(
     return storage;
 }
 
-// 原54A062在五个原虚表共用；当前只接实际logic_error，其他owner仍待。
+// 原54A062五表共用；NCE01五派生what沿同一message getter，旧本体保持。
 const char* GetLegacyLogicErrorText_54A062(const LegacyLogicErrorObject* const storage)
 {
     const char* const text = storage->message.buffer;
@@ -553,39 +554,34 @@ LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
     return storage;
 }
 
-void RaiseLegacyLogicError_54A738(LegacyExceptionObject* const storage)
+[[noreturn]] void RaiseLegacyLogicError_54A738(LegacyExceptionObject* const storage)
 {
-    LegacyLogicErrorObject copied;
-    CopyConstructLegacyLogicError_54A7AE(&copied, reinterpret_cast<const LegacyLogicErrorObject*>(storage));
-    ThrowLegacyCppException_54B123(&copied, &gLegacyLogicErrorThrowInfo551880);
+    // 本机prvalue构造中仅一次本族原copy；compiler持有payload并完成最终清理。
+    throw native_cpp::LogicError(*reinterpret_cast<const LegacyLogicErrorObject*>(storage));
 }
 
-void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* const storage)
+[[noreturn]] void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* const storage)
 {
-    LegacyStringLengthErrorObject copied;
-    CopyConstructLegacyStringLengthError_54A881(&copied, reinterpret_cast<const LegacyStringLengthErrorObject*>(storage));
-    ThrowLegacyCppException_54B123(&copied, &gLegacyStringLengthErrorThrowInfo551810);
+    // 本机prvalue构造中仅一次本族原copy；compiler持有payload并完成最终清理。
+    throw native_cpp::LengthError(*reinterpret_cast<const LegacyStringLengthErrorObject*>(storage));
 }
 
-void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* const storage)
+[[noreturn]] void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* const storage)
 {
-    LegacyStringRangeErrorObject copied;
-    CopyConstructLegacyStringRangeError_54A969(&copied, reinterpret_cast<const LegacyStringRangeErrorObject*>(storage));
-    ThrowLegacyCppException_54B123(&copied, &gLegacyStringRangeErrorThrowInfo551938);
+    // 本机prvalue构造中仅一次本族原copy；compiler持有payload并完成最终清理。
+    throw native_cpp::RangeError(*reinterpret_cast<const LegacyStringRangeErrorObject*>(storage));
 }
 
-void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* const storage)
+[[noreturn]] void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* const storage)
 {
-    LegacyRuntimeErrorObject copied;
-    CopyConstructLegacyRuntimeError_54A0E5(&copied, reinterpret_cast<const LegacyRuntimeErrorObject*>(storage));
-    ThrowLegacyCppException_54B123(&copied, &gLegacyRuntimeErrorThrowInfo551658);
+    // 本机prvalue构造中仅一次本族原copy；compiler持有payload并完成最终清理。
+    throw native_cpp::RuntimeError(*reinterpret_cast<const LegacyRuntimeErrorObject*>(storage));
 }
 
-void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* const storage)
+[[noreturn]] void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* const storage)
 {
-    LegacyStreamFailureObject copied;
-    CopyConstructLegacyStreamFailure_54A1B8(&copied, reinterpret_cast<const LegacyStreamFailureObject*>(storage));
-    ThrowLegacyCppException_54B123(&copied, &gLegacyStreamFailureThrowInfo5515E8);
+    // 本机prvalue构造中仅一次本族原copy；compiler持有payload并完成最终清理。
+    throw native_cpp::StreamFailure(*reinterpret_cast<const LegacyStreamFailureObject*>(storage));
 }
 
 namespace {
@@ -610,7 +606,7 @@ void ThrowLegacyStringLength_54A67A()
         // 原state0从54A6AE开始，assign失败尚未进入临时串保护区。
         ConstructLegacyLogicError_54A6D4(&exception, &message);
         exception.base.methods = &gLegacyStringLengthErrorMethods550164.base;
-        ThrowLegacyCppException_54B123(&exception, &gLegacyStringLengthErrorThrowInfo551810);
+        throw native_cpp::LengthError(native_cpp::AdoptPayload{}, exception);
     } catch (...) {
         // 原54C400通过共享54A30D，只清临时串，不额外析构exception。
         TidyLegacyNarrowString_548E29(&message, true);
@@ -632,7 +628,7 @@ void ThrowLegacyStringRange_54A899()
         // 原state0从54A8CD开始，assign失败尚未进入临时串保护区。
         ConstructLegacyLogicError_54A6D4(&exception, &message);
         exception.base.methods = &gLegacyStringRangeErrorMethods550194.base;
-        ThrowLegacyCppException_54B123(&exception, &gLegacyStringRangeErrorThrowInfo551938);
+        throw native_cpp::RangeError(native_cpp::AdoptPayload{}, exception);
     } catch (...) {
         // 原54C464通过共享54A30D，只清临时串，不额外析构exception。
         TidyLegacyNarrowString_548E29(&message, true);
@@ -788,5 +784,165 @@ std::int32_t ValidateLegacyExceptionWrite_5450BA(
 {
     return ::IsBadWritePtr(memory, static_cast<UINT_PTR>(byteCount)) == FALSE ? 1 : 0;
 }
+
+namespace native_cpp {
+
+Exception::Exception(const Exception& source) : kind_(Kind::Base)
+{
+    CopyConstructLegacyException_54B0B6(&payload_.base, &source.payload_.base);
+}
+
+Exception::Exception(const Kind kind, const LegacyLogicErrorObject& source) : kind_(kind)
+{
+    switch (kind_) {
+    case Kind::Base:
+        CopyConstructLegacyException_54B0B6(&payload_.base, &source.base);
+        break;
+    case Kind::Logic:
+        CopyConstructLegacyLogicError_54A7AE(&payload_, &source);
+        break;
+    case Kind::Length:
+        CopyConstructLegacyStringLengthError_54A881(&payload_, &source);
+        break;
+    case Kind::Range:
+        CopyConstructLegacyStringRangeError_54A969(&payload_, &source);
+        break;
+    case Kind::Runtime:
+        CopyConstructLegacyRuntimeError_54A0E5(&payload_, &source);
+        break;
+    case Kind::StreamFailure:
+        CopyConstructLegacyStreamFailure_54A1B8(&payload_, &source);
+        break;
+    }
+}
+
+Exception::Exception(
+    AdoptPayload, const Kind kind, const LegacyLogicErrorObject& prepared) noexcept
+    : kind_(kind)
+{
+    static_assert(std::is_trivially_copyable_v<LegacyLogicErrorObject>);
+    // 原构造已完成；只有本机对象最终析构，不再增加引用或清原临时字段。
+    std::memcpy(&payload_, &prepared, sizeof(payload_));
+}
+
+Exception::~Exception() noexcept(false)
+{
+    switch (kind_) {
+    case Kind::Base:
+        DestroyLegacyException_54B100(&payload_.base);
+        break;
+    case Kind::Logic:
+        DestroyLegacyLogicError_54A755(&payload_);
+        break;
+    case Kind::Length:
+        DestroyLegacyStringLengthError_54A80B(&payload_);
+        break;
+    case Kind::Range:
+        DestroyLegacyStringRangeError_54A8F3(&payload_);
+        break;
+    case Kind::Runtime:
+        DestroyLegacyRuntimeError_54A08C(&payload_);
+        break;
+    case Kind::StreamFailure:
+        DestroyLegacyStreamFailure_54A142(&payload_);
+        break;
+    }
+}
+
+const char* Exception::what() const noexcept
+{
+    return kind_ == Kind::Base
+        ? GetLegacyExceptionText_54B116(&payload_.base)
+        : GetLegacyLogicErrorText_54A062(&payload_);
+}
+
+LogicError::LogicError(const LegacyLogicErrorObject& source)
+    : Exception(Kind::Logic, source)
+{
+}
+
+LogicError::LogicError(const LogicError& source)
+    : Exception(Kind::Logic, source.payload())
+{
+}
+
+LogicError::LogicError(const Kind kind, const LegacyLogicErrorObject& source)
+    : Exception(kind, source)
+{
+}
+
+LogicError::LogicError(
+    AdoptPayload tag, const Kind kind, const LegacyLogicErrorObject& prepared) noexcept
+    : Exception(tag, kind, prepared)
+{
+}
+
+LengthError::LengthError(const LegacyStringLengthErrorObject& source)
+    : LogicError(Kind::Length, source)
+{
+}
+
+LengthError::LengthError(const LengthError& source)
+    : LogicError(Kind::Length, source.payload())
+{
+}
+
+LengthError::LengthError(AdoptPayload tag, const LegacyStringLengthErrorObject& prepared) noexcept
+    : LogicError(tag, Kind::Length, prepared)
+{
+}
+
+RangeError::RangeError(const LegacyStringRangeErrorObject& source)
+    : LogicError(Kind::Range, source)
+{
+}
+
+RangeError::RangeError(const RangeError& source)
+    : LogicError(Kind::Range, source.payload())
+{
+}
+
+RangeError::RangeError(AdoptPayload tag, const LegacyStringRangeErrorObject& prepared) noexcept
+    : LogicError(tag, Kind::Range, prepared)
+{
+}
+
+RuntimeError::RuntimeError(const LegacyRuntimeErrorObject& source)
+    : Exception(Kind::Runtime, source)
+{
+}
+
+RuntimeError::RuntimeError(const RuntimeError& source)
+    : Exception(Kind::Runtime, source.payload())
+{
+}
+
+RuntimeError::RuntimeError(const Kind kind, const LegacyRuntimeErrorObject& source)
+    : Exception(kind, source)
+{
+}
+
+RuntimeError::RuntimeError(
+    AdoptPayload tag, const Kind kind, const LegacyRuntimeErrorObject& prepared) noexcept
+    : Exception(tag, kind, prepared)
+{
+}
+
+StreamFailure::StreamFailure(const LegacyStreamFailureObject& source)
+    : RuntimeError(Kind::StreamFailure, source)
+{
+}
+
+StreamFailure::StreamFailure(const StreamFailure& source)
+    : RuntimeError(Kind::StreamFailure, source.payload())
+{
+}
+
+StreamFailure::StreamFailure(AdoptPayload tag, const LegacyStreamFailureObject& prepared) noexcept
+    : RuntimeError(tag, Kind::StreamFailure, prepared)
+{
+}
+
+} // namespace native_cpp
 
 } // namespace cg::platform

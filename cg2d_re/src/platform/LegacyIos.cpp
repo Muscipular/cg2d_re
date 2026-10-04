@@ -2,6 +2,7 @@
 
 #include "LegacyHeap.hpp"
 #include "LegacyException.hpp"
+#include "NativeCppException.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "LegacyFileBuffer.hpp"
 #include "LegacyLocale.hpp"
@@ -1052,7 +1053,7 @@ void ClearLegacyIos_549F62(
         return;
     }
     if (static_cast<std::uint8_t>(rethrowBits) != 0u) {
-        ThrowLegacyCppException_54B123(nullptr, nullptr);
+        throw;
     }
 
     const char* messageText;
@@ -1074,13 +1075,13 @@ void ClearLegacyIos_549F62(
         // 原state0从549FD1开始，assign失败尚未进入此临时串展开保护区。
         ConstructLegacyRuntimeError_549FFE(&failure, &message);
         failure.base.methods = &gLegacyStreamFailureMethods5500EC.base;
-        ThrowLegacyCppException_54B123(&failure, &gLegacyStreamFailureThrowInfo5515E8);
+        throw native_cpp::StreamFailure(native_cpp::AdoptPayload{}, failure);
     } catch (...) {
         // 原54C318→共享54A30D→548E29(true)，只清临时串，不额外析构failure。
         TidyLegacyNarrowString_548E29(&message, true);
         throw;
     }
-    // 原抛出若返回仅离开函数，未另设正常Tidy或恢复state；SDK提供者仍待。
+    // NCE01本机throw无正常返回；临时串清理仍由上方原catch完成。
 }
 
 void* ConstructLegacyNarrowEarlyStandardInitializer_453E10()

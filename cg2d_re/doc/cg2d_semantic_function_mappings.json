@@ -48224,7 +48224,7 @@
     {
       "original_entry": "0x54B123",
       "inventory_id": "F:0014B123",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成；五捕获数组实际数据已生产，ThrowInfo/查找父与SDK接线仍待",
+      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成；五捕获数组实际数据已生产，ThrowInfo/查找父与SDK接线仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54B15D",
       "instruction_count": 24,
       "original_direct_reference_count": 9,
@@ -48276,13 +48276,6 @@
           "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
         },
         {
-          "path": "src/platform/LegacyException.hpp",
-          "symbols": [
-            "ThrowLegacyCppException_54B123"
-          ],
-          "relationship": "仅真实两地址声明/null-null重抛；元数据opaque extern，无新端provider实现"
-        },
-        {
           "path": "src/platform/LegacyException.cpp",
           "symbols": [
             "RaiseLegacyLogicError_54A738",
@@ -48305,14 +48298,27 @@
             "gLegacyStringRangeCatchableArray551928"
           ],
           "relationship": "五实际内联捕获数组/13原序共享引用，现有六捕获记录地址真实绑定，SDK/父暂未接"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "Exception",
+            "LogicError",
+            "LengthError",
+            "RangeError",
+            "RuntimeError",
+            "StreamFailure"
+          ],
+          "relationship": "NCE01实际本机类型/继承及单owner接口；不是54B123同名原体或旧ThrowInfo数据生产"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_array_evidence.json"
+        "doc/cg2d_exception_catchable_array_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "复制5501E8八W32模板，写本次对象/ThrowInfo后RaiseException；模板为E06D7363、flags1、参数数3和19930520魔数。宿主采用ULONG_PTR且可增加图像基址，未实施旧三参数包装。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；新增原clear真实父点0x549F89/0x549FE9源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A738@0x54A750/0x54A848@0x54A860/0x54A930@0x54A948/0x54A06F@0x54A087/0x54A17F@0x54A197/0x54A67A@0x54A6CE/0x54A899@0x54A8ED源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。",
+      "boundary": "复制5501E8八W32模板，写本次对象/ThrowInfo后RaiseException；模板为E06D7363、flags1、参数数3和19930520魔数。宿主采用ULONG_PTR且可增加图像基址，未实施旧三参数包装。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；新增原clear真实父点0x549F89/0x549FE9源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A738@0x54A750/0x54A848@0x54A860/0x54A930@0x54A948/0x54A06F@0x54A087/0x54A17F@0x54A197/0x54A67A@0x54A6CE/0x54A899@0x54A8ED源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作原生异常记录对照",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/throw.cpp",
@@ -48323,21 +48329,29 @@
           "parent_entry": "0x549F62",
           "call_site": "0x549F89",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw;",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "ClearLegacyIos_549F62",
-          "arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
-          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x549F62",
           "call_site": "0x549FE9",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::StreamFailure(AdoptPayload{}, failure)",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "ClearLegacyIos_549F62",
-          "arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
-          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_throw_parent_call_connections": [
@@ -48345,71 +48359,99 @@
           "parent_entry": "0x54A738",
           "call_site": "0x54A750",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LogicError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyLogicError_54A738",
-          "arguments": "&copied,&gLegacyLogicErrorThrowInfo551880原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyLogicErrorThrowInfo551880原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A848",
           "call_site": "0x54A860",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LengthError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStringLengthError_54A848",
-          "arguments": "&copied,&gLegacyStringLengthErrorThrowInfo551810原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStringLengthErrorThrowInfo551810原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A930",
           "call_site": "0x54A948",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RangeError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStringRangeError_54A930",
-          "arguments": "&copied,&gLegacyStringRangeErrorThrowInfo551938原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStringRangeErrorThrowInfo551938原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A06F",
           "call_site": "0x54A087",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RuntimeError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyRuntimeError_54A06F",
-          "arguments": "&copied,&gLegacyRuntimeErrorThrowInfo551658原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyRuntimeErrorThrowInfo551658原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A17F",
           "call_site": "0x54A197",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::StreamFailure(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStreamFailure_54A17F",
-          "arguments": "&copied,&gLegacyStreamFailureThrowInfo5515E8原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStreamFailureThrowInfo5515E8原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A67A",
           "call_site": "0x54A6CE",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LengthError(AdoptPayload{}, exception)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ThrowLegacyStringLength_54A67A",
-          "arguments": "&exception,&gLegacyStringLengthErrorThrowInfo551810仅实际元数据身份",
-          "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&exception,&gLegacyStringLengthErrorThrowInfo551810仅实际元数据身份",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A899",
           "call_site": "0x54A8ED",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RangeError(AdoptPayload{}, exception)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ThrowLegacyStringRange_54A899",
-          "arguments": "&exception,&gLegacyStringRangeErrorThrowInfo551938仅实际元数据身份",
-          "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&exception,&gLegacyStringRangeErrorThrowInfo551938仅实际元数据身份",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "catchable_array_data_bindings": [
@@ -48431,7 +48473,8 @@
           "storage_implemented": true,
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
-          "runtime_verified": false
+          "runtime_verified": false,
+          "native_logical_hierarchy_mapped": true
         },
         {
           "original_address": "0x551648",
@@ -48449,7 +48492,8 @@
           "storage_implemented": true,
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
-          "runtime_verified": false
+          "runtime_verified": false,
+          "native_logical_hierarchy_mapped": true
         },
         {
           "original_address": "0x551800",
@@ -48469,7 +48513,8 @@
           "storage_implemented": true,
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
-          "runtime_verified": false
+          "runtime_verified": false,
+          "native_logical_hierarchy_mapped": true
         },
         {
           "original_address": "0x551870",
@@ -48487,7 +48532,8 @@
           "storage_implemented": true,
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
-          "runtime_verified": false
+          "runtime_verified": false,
+          "native_logical_hierarchy_mapped": true
         },
         {
           "original_address": "0x551928",
@@ -48507,9 +48553,61 @@
           "storage_implemented": true,
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
-          "runtime_verified": false
+          "runtime_verified": false,
+          "native_logical_hierarchy_mapped": true
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ],
+      "native_boundary_provider": {
+        "source": "src/platform/LegacyException.cpp",
+        "header": "src/platform/NativeCppException.hpp",
+        "kind": "实际C++ throw/throw;及compiler生成异常ABI",
+        "original_source_body_implemented": false,
+        "original_opaque_sdk_declarations_retired": true,
+        "current_throw_sites": 8,
+        "current_rethrow_sites": 1,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54503A",
@@ -49487,7 +49585,7 @@
     {
       "original_entry": "0x54B0B6",
       "inventory_id": "F:0014B0B6",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54B100",
       "instruction_count": 31,
       "original_direct_reference_count": 3,
@@ -49543,14 +49641,22 @@
             "CopyLegacyExceptionForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/Base真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_exception_catchable_data_evidence.json",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A0FC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A0FC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -49671,12 +49777,53 @@
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
         "runtime_verified": false
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "Base",
+        "target_symbol": "CopyConstructLegacyException_54B0B6",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54B100",
       "inventory_id": "F:0014B100",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54B116",
       "instruction_count": 7,
       "original_direct_reference_count": 15,
@@ -49785,13 +49932,21 @@
             "DestroyLegacyStreamFailure_54A142"
           ],
           "relationship": "原runtime_error/failure新增父实际调用，顺序/成员别名/state0基类清理及同域原堆保持；本体不改"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/Base真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54C32F/0x54C357/0x54A0B7/0x54C343/0x54A16D/0x54C36B；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54C32F/0x54C357/0x54A0B7/0x54C343/0x54A16D/0x54C36B；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -50016,12 +50171,53 @@
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
         "runtime_verified": false
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "Base",
+        "target_symbol": "DestroyLegacyException_54B100",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54B116",
       "inventory_id": "F:0014B116",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54B123",
       "instruction_count": 5,
       "original_direct_reference_count": 1,
@@ -50047,13 +50243,21 @@
             "LegacyExceptionMethodTable"
           ],
           "relationship": "已证原+0/+4/+8地址拓宽/完整U32标志视图，显式this及生命周期"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::what"
+          ],
+          "relationship": "NCE01本机payload what/Base真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
+      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -50154,6 +50358,47 @@
         "other_allocation_domains_unchanged": true,
         "whole_crt_heap_migration_closed": false,
         "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::what",
+        "role": "what",
+        "family": "Base",
+        "target_symbol": "GetLegacyExceptionText_54B116",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
         "runtime_verified": false
       }
     },
@@ -68187,7 +68432,7 @@
     {
       "original_entry": "0x549F62",
       "inventory_id": "F:00149F62",
-      "status": "原clear状态/消息及failure准备和展开已源码实现；54B123/ThrowInfo实际提供者与完整SDK运行未闭",
+      "status": "原clear状态/消息及failure准备和展开已源码实现；54B123/ThrowInfo实际提供者与完整SDK运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x549FFE",
       "instruction_count": 60,
       "original_direct_reference_count": 4,
@@ -68260,18 +68505,17 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "ThrowLegacyCppException_54B123",
-            "gLegacyStreamFailureThrowInfo5515E8",
             "gLegacyStreamFailureMethods5500EC"
           ],
-          "relationship": "现有failure表真实导出，抛出/provider和元数据身份仅外部声明，不补布局/实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548E8E/0x549DF1，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增标准流退出/晚段原实际点0x54962E，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04原clear60条含两共享/handler chunk的状态、消息/failure准备和单state展开已源码实现，接7原call：先state&7发布后取exceptionMask相交，零直接返回；低U8重抛null/null，按已缓存相交低bit4/2/其余选原三消息。第二栈字最高U8(bits>>24)仅复制临时串prefix首字节，不预清对象；Tidy(false)/真实strlen/assign在保护区外，state0从runtime_error构造前开始，随后实际failure表/真实5515E8地址传出，异常只临时串Tidy(true)，不额外清failure/回滚state/正常Tidy。54B123与不完整ThrowInfo仅真实extern声明，未补x86数据/宿主异常/SDK实现，完整抛出仍未闭。",
+      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548E8E/0x549DF1，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增标准流退出/晚段原实际点0x54962E，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04原clear60条含两共享/handler chunk的状态、消息/failure准备和单state展开已源码实现，接7原call：先state&7发布后取exceptionMask相交，零直接返回；低U8重抛null/null，按已缓存相交低bit4/2/其余选原三消息。第二栈字最高U8(bits>>24)仅复制临时串prefix首字节，不预清对象；Tidy(false)/真实strlen/assign在保护区外，state0从runtime_error构造前开始，随后实际failure表/真实5515E8地址传出，异常只临时串Tidy(true)，不额外清failure/回滚state/正常Tidy。54B123与不完整ThrowInfo仅真实extern声明，未补x86数据/宿主异常/SDK实现，完整抛出仍未闭。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "new_original_clear_evidence": {
         "instruction_count": 60,
         "chunks": [
@@ -68342,11 +68586,15 @@
           "parent_entry": "0x549F62",
           "call_site": "0x549F89",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw;",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "ClearLegacyIos_549F62",
-          "arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
-          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x549F62",
@@ -68392,11 +68640,15 @@
           "parent_entry": "0x549F62",
           "call_site": "0x549FE9",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::StreamFailure(AdoptPayload{}, failure)",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "ClearLegacyIos_549F62",
-          "arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
-          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x549F62",
@@ -68497,6 +68749,48 @@
           "original_address": "0x5515E8",
           "source_symbol": "gLegacyStreamFailureThrowInfo5515E8",
           "relationship": "不完整类型extern，仅地址身份/SDK提供者未实现"
+        }
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ThrowLegacyCppException_54B123",
+            "gLegacyStreamFailureThrowInfo5515E8"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
         }
       ]
     },
@@ -122968,7 +123262,7 @@
     {
       "original_entry": "0x54A67A",
       "inventory_id": "F:0014A67A",
-      "status": "原字符串异常消息/对象及抛出调用和展开本体已源码实现；实际54B123/ThrowInfo与SDK/x64传播未闭",
+      "status": "原字符串异常消息/对象及抛出调用和展开本体已源码实现；实际54B123/ThrowInfo与SDK/x64传播未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A6D4",
       "instruction_count": 35,
       "sources": [
@@ -122998,9 +123292,10 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。；2026-10-04本体35条含共享清理/handler源码实现：__EH_prolog最后push实际返回地址于新EBP-10，var_D=EBP-0D读小端最高U8，本原端返回0x54A684该字节为0，按已证值只写message首prefix，不是未初始化读取/任意补0。真实原消息/Tidy(false)/strlen/assign后才state0，原logic构造后本族实际表/0x551810传给仅声明54B123；异常仅临时message Tidy(true)，无额外异常对象析构/正常清理或回滚。SDK provider/元数据x64生产及完整传播和运行仍未实现，不以源码准备齐备计完整抛出。",
+      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。；2026-10-04本体35条含共享清理/handler源码实现：__EH_prolog最后push实际返回地址于新EBP-10，var_D=EBP-0D读小端最高U8，本原端返回0x54A684该字节为0，按已证值只写message首prefix，不是未初始化读取/任意补0。真实原消息/Tidy(false)/strlen/assign后才state0，原logic构造后本族实际表/0x551810传给仅声明54B123；异常仅临时message Tidy(true)，无额外异常对象析构/正常清理或回滚。SDK provider/元数据x64生产及完整传播和运行仍未实现，不以源码准备齐备计完整抛出。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "verification_level": "稳定入口/统计与新原调用点、唯一声明静态核对；原35条正文未验/未实现，不计body完成；新35条/10条prolog栈生产顺序、消息/FuncInfo及新增源码静态，不计真实SDK运行",
       "new_string_inbound_evidence": [
         {
@@ -123055,11 +123350,15 @@
           "parent_entry": "0x54A67A",
           "call_site": "0x54A6CE",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LengthError(AdoptPayload{}, exception)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ThrowLegacyStringLength_54A67A",
-          "arguments": "&exception,&gLegacyStringLengthErrorThrowInfo551810仅实际元数据身份",
-          "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&exception,&gLegacyStringLengthErrorThrowInfo551810仅实际元数据身份",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A67A",
@@ -123132,12 +123431,44 @@
         "source_body_implemented": true,
         "throw_provider_implemented": false,
         "boundary": "按当前权威原地址的实际生产byte0，源码只显式字段写/真实依赖和展开；不读取本机返回地址/未初始化字节，不生成SDK/x86元数据"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54A899",
       "inventory_id": "F:0014A899",
-      "status": "原字符串异常消息/对象及抛出调用和展开本体已源码实现；实际54B123/ThrowInfo与SDK/x64传播未闭",
+      "status": "原字符串异常消息/对象及抛出调用和展开本体已源码实现；实际54B123/ThrowInfo与SDK/x64传播未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A8F3",
       "instruction_count": 35,
       "sources": [
@@ -123167,9 +123498,10 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
-      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。；2026-10-04新增54A315@54A328真实门禁调用；仍仅声明，不计异常构造/抛出完成。；2026-10-04本体35条含共享清理/handler源码实现：__EH_prolog最后push实际返回地址于新EBP-10，var_D=EBP-0D读小端最高U8，本原端返回0x54A8A3该字节为0，按已证值只写message首prefix，不是未初始化读取/任意补0。真实原消息/Tidy(false)/strlen/assign后才state0，原logic构造后本族实际表/0x551938传给仅声明54B123；异常仅临时message Tidy(true)，无额外异常对象析构/正常清理或回滚。SDK provider/元数据x64生产及完整传播和运行仍未实现，不以源码准备齐备计完整抛出。",
+      "boundary": "原条数/终点只统计，本体未实现；新字符串调用保持真实异常依赖，不用宿主length_error/out_of_range代批原异常类型/分配/抛出合同；原长度核心其他调用点仍未接。完整CRT宿主提案、x64异常ABI及运行未验。；2026-10-04新增54A315@54A328真实门禁调用；仍仅声明，不计异常构造/抛出完成。；2026-10-04本体35条含共享清理/handler源码实现：__EH_prolog最后push实际返回地址于新EBP-10，var_D=EBP-0D读小端最高U8，本原端返回0x54A8A3该字节为0，按已证值只写message首prefix，不是未初始化读取/任意补0。真实原消息/Tidy(false)/strlen/assign后才state0，原logic构造后本族实际表/0x551938传给仅声明54B123；异常仅临时message Tidy(true)，无额外异常对象析构/正常清理或回滚。SDK provider/元数据x64生产及完整传播和运行仍未实现，不以源码准备齐备计完整抛出。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "verification_level": "稳定入口/统计与新原调用点、唯一声明静态核对；原35条正文未验/未实现，不计body完成；新35条/10条prolog栈生产顺序、消息/FuncInfo及新增源码静态，不计真实SDK运行",
       "new_string_inbound_evidence": [
         {
@@ -123224,11 +123556,15 @@
           "parent_entry": "0x54A899",
           "call_site": "0x54A8ED",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RangeError(AdoptPayload{}, exception)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ThrowLegacyStringRange_54A899",
-          "arguments": "&exception,&gLegacyStringRangeErrorThrowInfo551938仅实际元数据身份",
-          "relationship": "原字符串异常真实消息/对象/抛出依赖或共享state0清理；原前缀来自EH prolog返回地址最高U8，SDK provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&exception,&gLegacyStringRangeErrorThrowInfo551938仅实际元数据身份",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         },
         {
           "parent_entry": "0x54A899",
@@ -123309,6 +123645,38 @@
         "source_body_implemented": true,
         "throw_provider_implemented": false,
         "boundary": "按当前权威原地址的实际生产byte0，源码只显式字段写/真实依赖和展开；不读取本机返回地址/未初始化字节，不生成SDK/x86元数据"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -123499,7 +123867,7 @@
     {
       "original_entry": "0x54A7AE",
       "inventory_id": "F:0014A7AE",
-      "status": "原logic_error对象本体与真实base/成员接线已实现；Raise/派生异常及完整传播和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原logic_error对象本体与真实base/成员接线已实现；Raise/派生异常及完整传播和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A80B",
       "instruction_count": 37,
       "original_direct_reference_count": 4,
@@ -123575,11 +123943,19 @@
             "CopyLegacyLogicErrorForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/Logic真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -123655,7 +124031,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A888/0x54A970；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；本次五Raise/两字符串异常新增实际父点0x54A738@0x54A742源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A888/0x54A970；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；本次五Raise/两字符串异常新增实际父点0x54A738@0x54A742源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "unwind_contract": {
         "original_func_info": "0x5518B8",
         "magic": "0x19930520",
@@ -123701,9 +124077,12 @@
           "target_entry": "0x54A7AE",
           "target_symbol": "CopyConstructLegacyLogicError_54A7AE",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyLogicError_54A738",
-          "arguments": "&copied,原this实际LegacyLogicErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Logic；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyLogicError_54A738",
+          "original_arguments": "&copied,原this实际LegacyLogicErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         }
       ],
       "catchable_object_data_bindings": [
@@ -123723,12 +124102,53 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "Logic",
+        "target_symbol": "CopyConstructLegacyLogicError_54A7AE",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A755",
       "inventory_id": "F:0014A755",
-      "status": "原logic_error对象本体与真实base/成员接线已实现；Raise/派生异常及完整传播和运行未闭合",
+      "status": "原logic_error对象本体与真实base/成员接线已实现；Raise/派生异常及完整传播和运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A792",
       "instruction_count": 23,
       "original_direct_reference_count": 2,
@@ -123778,10 +124198,18 @@
             "RaiseLegacyLogicError_54A738"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/Logic真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -123857,7 +124285,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "unwind_contract": {
         "original_func_info": "0x551890",
         "magic": "0x19930520",
@@ -123873,6 +124301,47 @@
         ],
         "source_scope": "仅Tidy(true)，normal base Destroy在保护区外",
         "boundary": "只实现源级C++清理，不模拟x86 FS/prolog/FrameHandler，不称全异常/SEH或x64 ABI运行验证"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "Logic",
+        "target_symbol": "DestroyLegacyLogicError_54A755",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
@@ -124003,7 +124472,7 @@
     {
       "original_entry": "0x54A062",
       "inventory_id": "F:0014A062",
-      "status": "原五族共用what本体及五原方法表槽真实原生绑定已实现；完整owner/类型与抛出传播及运行未闭合",
+      "status": "原五族共用what本体及五原方法表槽真实原生绑定已实现；完整owner/类型与抛出传播及运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A06F",
       "instruction_count": 5,
       "original_direct_reference_count": 5,
@@ -124073,10 +124542,18 @@
             "RaiseLegacyLogicError_54A738"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::what"
+          ],
+          "relationship": "NCE01本机payload what/Derived真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -124152,7 +124629,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；2026-10-04新增runtime/failure两what槽，五原方法数据引用均有原生真实方法表绑定，原核心逐字保持。仅5/5方法槽接线，未称完整五owner生产/生命周期、SDK类型/ThrowInfo/x64传播或运行完成。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "构造先借当前593850共享文本调真实54B079，拷贝先真实54B0B6；其后只复制源成员首前缀U8、Tidy(false)、assign(源,0,当时npos)，完成才装logic_error方法表。三FuncInfo的唯一state0动作仅54B100，源级catch(...)按此清基类并重抛，不能额外Tidy成员或回滚；析构先logic方法表/Tidy(true)，成员失败仍清基类，正常基类析构在保护区外；删除先析构后flags bit0原堆释放/返原地址；what取实际成员buffer，空时借既有55013B+1同背板。三槽第三Raise仅声明，完整SDK类型/ThrowInfo/x64传播及运行和父调用未闭合。；2026-10-04新增runtime/failure两what槽，五原方法数据引用均有原生真实方法表绑定，原核心逐字保持。仅5/5方法槽接线，未称完整五owner生产/生命周期、SDK类型/ThrowInfo/x64传播或运行完成。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "shared_exception_method_table_connections": [
         {
           "original_slot": "0x550188",
@@ -124214,12 +124691,53 @@
           "native_slot_offset": 8,
           "relationship": "原共用入口读同+10成员buffer，原生32位置；空借同55013B+1背板，存储视图不合并SDK类型"
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::what",
+        "role": "what",
+        "family": "Derived",
+        "target_symbol": "GetLegacyLogicErrorText_54A062",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A738",
       "inventory_id": "F:0014A738",
-      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭",
+      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A755",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
@@ -124262,15 +124780,21 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "RaiseLegacyLogicError_54A738",
-            "gLegacyLogicErrorThrowInfo551880",
-            "ThrowLegacyCppException_54B123"
+            "RaiseLegacyLogicError_54A738"
           ],
-          "relationship": "原生this/48B视图，元数据仅opaque extern实际身份，SDK提供者未实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "LogicError"
+          ],
+          "relationship": "本机独立tag与原捕获层级；原copy/析构仍作为payload提供者，不把旧对象直接当SDK异常"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -124346,7 +124870,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原54A738以54A7AE复制this到28B（1CH）对象后经TI2logic_error调CxxThrowException，原体无正常返回尾；当前只真实声明。不得用私有改名异常、宿主直接throw、固定返回或原x86ThrowInfo直接搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A7AE本族复制完成后只0x551880真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。",
+      "boundary": "原54A738以54A7AE复制this到28B（1CH）对象后经TI2logic_error调CxxThrowException，原体无正常返回尾；当前只真实声明。不得用私有改名异常、宿主直接throw、固定返回或原x86ThrowInfo直接搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A7AE本族复制完成后只0x551880真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "exception_raise_internal_call_connections": [
         {
           "parent_entry": "0x54A738",
@@ -124354,19 +124878,26 @@
           "target_entry": "0x54A7AE",
           "target_symbol": "CopyConstructLegacyLogicError_54A7AE",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyLogicError_54A738",
-          "arguments": "&copied,原this实际LegacyLogicErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Logic；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyLogicError_54A738",
+          "original_arguments": "&copied,原this实际LegacyLogicErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A738",
           "call_site": "0x54A750",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LogicError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyLogicError_54A738",
-          "arguments": "&copied,&gLegacyLogicErrorThrowInfo551880原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyLogicErrorThrowInfo551880原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_raise_throw_info_reference": {
@@ -124375,13 +124906,56 @@
         "source_symbol": "gLegacyLogicErrorThrowInfo551880",
         "provider_implemented": false,
         "native_layout_defined": false,
-        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身"
-      }
+        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身",
+        "current_usage": "仅原数据基线；当前throw不再传原地址/opaque对象"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "gLegacyLogicErrorThrowInfo551880",
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ]
     },
     {
       "original_entry": "0x54A80B",
       "inventory_id": "F:0014A80B",
-      "status": "原长度异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合",
+      "status": "原长度异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A848",
       "instruction_count": 23,
       "original_direct_reference_count": 2,
@@ -124430,10 +125004,18 @@
             "RaiseLegacyStringLengthError_54A848"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/Length真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -124478,7 +125060,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原长度异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "原长度异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A80B",
@@ -124523,6 +125105,47 @@
         },
         "source_scope": "只Tidy(true)保护区；异常仅base Destroy+重抛，正常base Destroy在区外",
         "boundary": "源级C++清理，不模拟x86 FS/prolog/FrameHandler或称SEH/x64运行通过"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "Length",
+        "target_symbol": "DestroyLegacyStringLengthError_54A80B",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
@@ -124643,7 +125266,7 @@
     {
       "original_entry": "0x54A881",
       "inventory_id": "F:0014A881",
-      "status": "原长度异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原长度异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A899",
       "instruction_count": 8,
       "original_direct_reference_count": 2,
@@ -124696,11 +125319,19 @@
             "CopyLegacyStringLengthErrorForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/Length真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -124745,7 +125376,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原长度异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次五Raise/两字符串异常新增实际父点0x54A848@0x54A852源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "原长度异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次五Raise/两字符串异常新增实际父点0x54A848@0x54A852源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A881",
@@ -124765,9 +125396,12 @@
           "target_entry": "0x54A881",
           "target_symbol": "CopyConstructLegacyStringLengthError_54A881",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStringLengthError_54A848",
-          "arguments": "&copied,原this实际LegacyStringLengthErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Length；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStringLengthError_54A848",
+          "original_arguments": "&copied,原this实际LegacyStringLengthErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         }
       ],
       "catchable_object_data_bindings": [
@@ -124787,12 +125421,53 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "Length",
+        "target_symbol": "CopyConstructLegacyStringLengthError_54A881",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A848",
       "inventory_id": "F:0014A848",
-      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭",
+      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A865",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
@@ -124835,15 +125510,21 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "RaiseLegacyStringLengthError_54A848",
-            "gLegacyStringLengthErrorThrowInfo551810",
-            "ThrowLegacyCppException_54B123"
+            "RaiseLegacyStringLengthError_54A848"
           ],
-          "relationship": "原生this/48B视图，元数据仅opaque extern实际身份，SDK提供者未实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "LengthError"
+          ],
+          "relationship": "本机独立tag与原捕获层级；原copy/析构仍作为payload提供者，不把旧对象直接当SDK异常"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -124888,7 +125569,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原54A848先经本族实际拷贝生成28B对象，后按独立ThrowInfo调CxxThrowException，无正常返回尾。当前仅真实声明；不能用宿主直接throw/私有改名类型/原x86元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A881本族复制完成后只0x551810真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。",
+      "boundary": "原54A848先经本族实际拷贝生成28B对象，后按独立ThrowInfo调CxxThrowException，无正常返回尾。当前仅真实声明；不能用宿主直接throw/私有改名类型/原x86元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A881本族复制完成后只0x551810真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "exception_raise_internal_call_connections": [
         {
           "parent_entry": "0x54A848",
@@ -124896,19 +125577,26 @@
           "target_entry": "0x54A881",
           "target_symbol": "CopyConstructLegacyStringLengthError_54A881",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStringLengthError_54A848",
-          "arguments": "&copied,原this实际LegacyStringLengthErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Length；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStringLengthError_54A848",
+          "original_arguments": "&copied,原this实际LegacyStringLengthErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A848",
           "call_site": "0x54A860",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::LengthError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStringLengthError_54A848",
-          "arguments": "&copied,&gLegacyStringLengthErrorThrowInfo551810原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStringLengthErrorThrowInfo551810原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_raise_throw_info_reference": {
@@ -124917,13 +125605,56 @@
         "source_symbol": "gLegacyStringLengthErrorThrowInfo551810",
         "provider_implemented": false,
         "native_layout_defined": false,
-        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身"
-      }
+        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身",
+        "current_usage": "仅原数据基线；当前throw不再传原地址/opaque对象"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "gLegacyStringLengthErrorThrowInfo551810",
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ]
     },
     {
       "original_entry": "0x54A8F3",
       "inventory_id": "F:0014A8F3",
-      "status": "原位置异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合",
+      "status": "原位置异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A930",
       "instruction_count": 23,
       "original_direct_reference_count": 3,
@@ -124977,10 +125708,18 @@
             "RaiseLegacyStringRangeError_54A930"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/Range真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -125025,7 +125764,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原位置异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "原位置异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A8F3",
@@ -125070,6 +125809,47 @@
         },
         "source_scope": "只Tidy(true)保护区；异常仅base Destroy+重抛，正常base Destroy在区外",
         "boundary": "源级C++清理，不模拟x86 FS/prolog/FrameHandler或称SEH/x64运行通过"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "Range",
+        "target_symbol": "DestroyLegacyStringRangeError_54A8F3",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
@@ -125190,7 +125970,7 @@
     {
       "original_entry": "0x54A969",
       "inventory_id": "F:0014A969",
-      "status": "原位置异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原位置异常拷贝/析构本体与真实父/方法槽已实现；Raise/原抛出类型及完整运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A981",
       "instruction_count": 8,
       "original_direct_reference_count": 2,
@@ -125243,11 +126023,19 @@
             "CopyLegacyStringRangeErrorForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/Range真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -125292,7 +126080,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原位置异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次五Raise/两字符串异常新增实际父点0x54A930@0x54A93A源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "原位置异常与logic_error共用已证base+string字段；拷贝先54A7AE真实父，完成后才换独立三槽方法表。各自析构原先写logic_error表而不是最派生表，再Tidy(true)，失败state0只54B100并重抛，正常基类析构在保护区外；删除先本族实际析构入口，后flags低位1同域53B4E7/53C0A9并返原地址，不清其他值/添保护或自动析构。第三Raise仅声明，未完成原抛出父/SDK类型/ThrowInfo/x64传播及运行。；本次五Raise/两字符串异常新增实际父点0x54A930@0x54A93A源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A969",
@@ -125312,9 +126100,12 @@
           "target_entry": "0x54A969",
           "target_symbol": "CopyConstructLegacyStringRangeError_54A969",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStringRangeError_54A930",
-          "arguments": "&copied,原this实际LegacyStringRangeErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Range；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStringRangeError_54A930",
+          "original_arguments": "&copied,原this实际LegacyStringRangeErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         }
       ],
       "catchable_object_data_bindings": [
@@ -125334,12 +126125,53 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "Range",
+        "target_symbol": "CopyConstructLegacyStringRangeError_54A969",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A930",
       "inventory_id": "F:0014A930",
-      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭",
+      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A94D",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
@@ -125382,15 +126214,21 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "RaiseLegacyStringRangeError_54A930",
-            "gLegacyStringRangeErrorThrowInfo551938",
-            "ThrowLegacyCppException_54B123"
+            "RaiseLegacyStringRangeError_54A930"
           ],
-          "relationship": "原生this/48B视图，元数据仅opaque extern实际身份，SDK提供者未实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "RangeError"
+          ],
+          "relationship": "本机独立tag与原捕获层级；原copy/析构仍作为payload提供者，不把旧对象直接当SDK异常"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -125435,7 +126273,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原54A930先经本族实际拷贝生成28B对象，后按独立ThrowInfo调CxxThrowException，无正常返回尾。当前仅真实声明；不能用宿主直接throw/私有改名类型/原x86元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A969本族复制完成后只0x551938真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。",
+      "boundary": "原54A930先经本族实际拷贝生成28B对象，后按独立ThrowInfo调CxxThrowException，无正常返回尾。当前仅真实声明；不能用宿主直接throw/私有改名类型/原x86元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A969本族复制完成后只0x551938真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "exception_raise_internal_call_connections": [
         {
           "parent_entry": "0x54A930",
@@ -125443,19 +126281,26 @@
           "target_entry": "0x54A969",
           "target_symbol": "CopyConstructLegacyStringRangeError_54A969",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStringRangeError_54A930",
-          "arguments": "&copied,原this实际LegacyStringRangeErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Range；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStringRangeError_54A930",
+          "original_arguments": "&copied,原this实际LegacyStringRangeErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A930",
           "call_site": "0x54A948",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RangeError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStringRangeError_54A930",
-          "arguments": "&copied,&gLegacyStringRangeErrorThrowInfo551938原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStringRangeErrorThrowInfo551938原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_raise_throw_info_reference": {
@@ -125464,8 +126309,51 @@
         "source_symbol": "gLegacyStringRangeErrorThrowInfo551938",
         "provider_implemented": false,
         "native_layout_defined": false,
-        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身"
-      }
+        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身",
+        "current_usage": "仅原数据基线；当前throw不再传原地址/opaque对象"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "gLegacyStringRangeErrorThrowInfo551938",
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ]
     },
     {
       "original_entry": "0x549FFE",
@@ -125648,7 +126536,7 @@
     {
       "original_entry": "0x54A0E5",
       "inventory_id": "F:0014A0E5",
-      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A142",
       "instruction_count": 37,
       "original_direct_reference_count": 3,
@@ -125710,11 +126598,19 @@
             "CopyLegacyRuntimeErrorForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/Runtime真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -125759,7 +126655,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次五Raise/两字符串异常新增实际父点0x54A06F@0x54A079源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次五Raise/两字符串异常新增实际父点0x54A06F@0x54A079源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A0E5",
@@ -125822,9 +126718,12 @@
           "target_entry": "0x54A0E5",
           "target_symbol": "CopyConstructLegacyRuntimeError_54A0E5",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyRuntimeError_54A06F",
-          "arguments": "&copied,原this实际LegacyRuntimeErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Runtime；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyRuntimeError_54A06F",
+          "original_arguments": "&copied,原this实际LegacyRuntimeErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         }
       ],
       "catchable_object_data_bindings": [
@@ -125844,12 +126743,53 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "Runtime",
+        "target_symbol": "CopyConstructLegacyRuntimeError_54A0E5",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A08C",
       "inventory_id": "F:0014A08C",
-      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "status": "原runtime_error对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A0C9",
       "instruction_count": 23,
       "original_direct_reference_count": 2,
@@ -125898,10 +126838,18 @@
             "RaiseLegacyRuntimeError_54A06F"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/Runtime真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -125946,7 +126894,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A08C",
@@ -125991,6 +126939,47 @@
         },
         "source_scope": "只成员Tidy(true)保护区，normal base Destroy在区外",
         "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "Runtime",
+        "target_symbol": "DestroyLegacyRuntimeError_54A08C",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
@@ -126111,7 +127100,7 @@
     {
       "original_entry": "0x54A06F",
       "inventory_id": "F:0014A06F",
-      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭",
+      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A08C",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
@@ -126154,15 +127143,21 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "RaiseLegacyRuntimeError_54A06F",
-            "gLegacyRuntimeErrorThrowInfo551658",
-            "ThrowLegacyCppException_54B123"
+            "RaiseLegacyRuntimeError_54A06F"
           ],
-          "relationship": "原生this/48B视图，元数据仅opaque extern实际身份，SDK提供者未实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "RuntimeError"
+          ],
+          "relationship": "本机独立tag与原捕获层级；原copy/析构仍作为payload提供者，不把旧对象直接当SDK异常"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -126207,7 +127202,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原54A06F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A0E5本族复制完成后只0x551658真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。",
+      "boundary": "原54A06F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A0E5本族复制完成后只0x551658真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "exception_raise_internal_call_connections": [
         {
           "parent_entry": "0x54A06F",
@@ -126215,19 +127210,26 @@
           "target_entry": "0x54A0E5",
           "target_symbol": "CopyConstructLegacyRuntimeError_54A0E5",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyRuntimeError_54A06F",
-          "arguments": "&copied,原this实际LegacyRuntimeErrorObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=Runtime；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyRuntimeError_54A06F",
+          "original_arguments": "&copied,原this实际LegacyRuntimeErrorObject对象地址",
+          "native_parent_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A06F",
           "call_site": "0x54A087",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::RuntimeError(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyRuntimeError_54A06F",
-          "arguments": "&copied,&gLegacyRuntimeErrorThrowInfo551658原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyRuntimeErrorThrowInfo551658原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_raise_throw_info_reference": {
@@ -126236,13 +127238,56 @@
         "source_symbol": "gLegacyRuntimeErrorThrowInfo551658",
         "provider_implemented": false,
         "native_layout_defined": false,
-        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身"
-      }
+        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身",
+        "current_usage": "仅原数据基线；当前throw不再传原地址/opaque对象"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "gLegacyRuntimeErrorThrowInfo551658",
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ]
     },
     {
       "original_entry": "0x54A1B8",
       "inventory_id": "F:0014A1B8",
-      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A1D0",
       "instruction_count": 8,
       "original_direct_reference_count": 2,
@@ -126295,11 +127340,19 @@
             "CopyLegacyStreamFailureForCatch"
           ],
           "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception"
+          ],
+          "relationship": "NCE01本机payload copy/StreamFailure真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -126344,7 +127397,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次五Raise/两字符串异常新增实际父点0x54A17F@0x54A189源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次五Raise/两字符串异常新增实际父点0x54A17F@0x54A189源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A1B8",
@@ -126364,9 +127417,12 @@
           "target_entry": "0x54A1B8",
           "target_symbol": "CopyConstructLegacyStreamFailure_54A1B8",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStreamFailure_54A17F",
-          "arguments": "&copied,原this实际LegacyStreamFailureObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=StreamFailure；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStreamFailure_54A17F",
+          "original_arguments": "&copied,原this实际LegacyStreamFailureObject对象地址",
+          "native_parent_is_original_source_body": false
         }
       ],
       "catchable_object_data_bindings": [
@@ -126386,12 +127442,53 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::Exception",
+        "role": "copy",
+        "family": "StreamFailure",
+        "target_symbol": "CopyConstructLegacyStreamFailure_54A1B8",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54A142",
       "inventory_id": "F:0014A142",
-      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合",
+      "status": "原ios_base::failure对象本体及base/成员/方法槽真实接线已实现；Raise及完整流状态异常和运行未闭合；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A17F",
       "instruction_count": 23,
       "original_direct_reference_count": 2,
@@ -126440,10 +127537,18 @@
             "RaiseLegacyStreamFailure_54A17F"
           ],
           "relationship": "已有方法表的对应Raise槽新源码提供者，仅更新关联状态，不重复验旧算法"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01本机payload destroy/StreamFailure真实原叶接线；旧本体保持，不增原身份或释放compiler对象storage"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -126488,7 +127593,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。",
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；本次仅同步对应Raise槽真实源码状态/未实现SDK提供者门禁，原对象本体/调用数组不改或复检。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x54A142",
@@ -126533,6 +127638,47 @@
         },
         "source_scope": "只成员Tidy(true)保护区，normal base Destroy在区外",
         "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "native_cpp_member_binding": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "Exception::~Exception",
+        "role": "destroy",
+        "family": "StreamFailure",
+        "target_symbol": "DestroyLegacyStreamFailure_54A142",
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "runtime_verified": false
       }
     },
     {
@@ -126653,7 +127799,7 @@
     {
       "original_entry": "0x54A17F",
       "inventory_id": "F:0014A17F",
-      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭",
+      "status": "原本族Raise复制/ThrowInfo调用本体已源码实现；实际54B123/元数据x64与SDK传播及运行未闭；NCE01八实际本机throw/一重抛及六类型owner已源码接通；原SDK核心不复造，C06/完整SDK运行未验",
       "original_end_exclusive": "0x54A19C",
       "instruction_count": 10,
       "original_direct_reference_count": 1,
@@ -126696,15 +127842,21 @@
         {
           "path": "src/platform/LegacyException.hpp",
           "symbols": [
-            "RaiseLegacyStreamFailure_54A17F",
-            "gLegacyStreamFailureThrowInfo5515E8",
-            "ThrowLegacyCppException_54B123"
+            "RaiseLegacyStreamFailure_54A17F"
           ],
-          "relationship": "原生this/48B视图，元数据仅opaque extern实际身份，SDK提供者未实现"
+          "relationship": "NCE01保此处剩余真实原字段/调用声明；旧可调用SDK与opaque ThrowInfo撤销，转本机类型/throw"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "StreamFailure"
+          ],
+          "relationship": "本机独立tag与原捕获层级；原copy/析构仍作为payload提供者，不把旧对象直接当SDK异常"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -126749,7 +127901,7 @@
         ],
         "boundary": "三槽对应真实源码目标；本次仅补第三槽Raise本体，其copy和独立ThrowInfo调用接线，54B123/元数据实际provider未实现；不是SDK/编译器C++vft、RTTI或完整抛出类型"
       },
-      "boundary": "原54A17F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A1B8本族复制完成后只0x5515E8真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。",
+      "boundary": "原54A17F经本族copy复制28B后按独立ThrowInfo调CxxThrowException，无正常返回尾；当前仅真实声明，保留SDK类型/ThrowInfo/x64传播未决，不以私有类型/宿主直接throw/旧元数据搬x64替代。；2026-10-04五Raise共50原指令/10真实call源码实现：本入口0x54A1B8本族复制完成后只0x5515E8真实元数据身份/54B123，不额外换表或自动析构，不清对象/增捕获或固定返回；原无正常返回尾由未来真实抛出提供者承接，当前54B123与SDK/元数据生产仍未实现，不计完整抛出等价。；2026-10-05 NCE01：原异常种类/层级、消息/复制/非删除析构采用compiler持有payload；五Raise一次原copy、三准备体无增引用转移、当前异常throw重抛。旧ThrowInfo/54B123声明已撤销，保原数字基线，不记原私有ABI等价；C06/硬件SEH/编译链接展开及运行未闭。",
       "exception_raise_internal_call_connections": [
         {
           "parent_entry": "0x54A17F",
@@ -126757,19 +127909,26 @@
           "target_entry": "0x54A1B8",
           "target_symbol": "CopyConstructLegacyStreamFailure_54A1B8",
           "source": "src/platform/LegacyException.cpp",
-          "symbol": "RaiseLegacyStreamFailure_54A17F",
-          "arguments": "&copied,原this实际LegacyStreamFailureObject对象地址",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "symbol": "Exception::Exception",
+          "arguments": "本机kind=StreamFailure；&payload_,&source，一次原本族copy",
+          "relationship": "原Raise copy数值基线；新parent是NCE01payload构造，prvalue直接构造不增第二次复制",
+          "original_source_symbol": "RaiseLegacyStreamFailure_54A17F",
+          "original_arguments": "&copied,原this实际LegacyStreamFailureObject对象地址",
+          "native_parent_is_original_source_body": false
         },
         {
           "parent_entry": "0x54A17F",
           "call_site": "0x54A197",
           "target_entry": "0x54B123",
-          "target_symbol": "ThrowLegacyCppException_54B123",
+          "target_symbol": "throw native_cpp::StreamFailure(原this实际payload)",
           "source": "src/platform/LegacyException.cpp",
           "symbol": "RaiseLegacyStreamFailure_54A17F",
-          "arguments": "&copied,&gLegacyStreamFailureThrowInfo5515E8原实际元数据身份；x64提供者未闭",
-          "relationship": "原Raise先本族真实复制再原独立ThrowInfo/54B123，不新增表写/自动析构或固定异常；SDK真实provider未实现"
+          "arguments": "NCE01当前本机语言边界，旧参数单列为基线",
+          "relationship": "原数字call点保留；当前实际throw/throw;及单payload owner承接，不调用原54B123 body或opaque ThrowInfo",
+          "original_target_symbol": "ThrowLegacyCppException_54B123",
+          "original_arguments": "&copied,&gLegacyStreamFailureThrowInfo5515E8原实际元数据身份；x64提供者未闭",
+          "native_target_is_original_source_body": false,
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
         }
       ],
       "exception_raise_throw_info_reference": {
@@ -126778,8 +127937,51 @@
         "source_symbol": "gLegacyStreamFailureThrowInfo5515E8",
         "provider_implemented": false,
         "native_layout_defined": false,
-        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身"
-      }
+        "relationship": "仅实际数据身份的非拥有地址，不搬原x86内容/定义替身",
+        "current_usage": "仅原数据基线；当前throw不再传原地址/opaque对象"
+      },
+      "native_cpp_exception_boundary_contract": {
+        "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "native_header": "src/platform/NativeCppException.hpp",
+        "implementation": "src/platform/LegacyException.cpp",
+        "namespace": "cg::platform::native_cpp",
+        "native_base": "Exception",
+        "host_std_exception_inheritance": false,
+        "original_base_descriptor_name": ".?AVexception@@",
+        "throw_site_count": 8,
+        "rethrow_site_count": 1,
+        "raise_copy_callback_count": 5,
+        "prepared_payload_transfers": 3,
+        "native_payload_type": "LegacyLogicErrorObject",
+        "native_payload_is_sdk_exception_object": false,
+        "payload_size": 48,
+        "payload_layout_unchanged": true,
+        "prepared_payload_transfer_is_byte_copy": true,
+        "prepared_payload_transfer_adds_shared_reference": false,
+        "payload_is_not_zero_initialized": true,
+        "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+        "base_slice_destructor": "DestroyLegacyException_54B100",
+        "derived_slice_uses_corresponding_original_copy": true,
+        "nondeleting_destructor_selected_by_owned_family": true,
+        "body_copy_and_cleanup_callbacks_unchanged": true,
+        "legacy_throw_info_referenced_by_current_throw": false,
+        "legacy_54B123_source_body_implemented": false,
+        "native_throw_info_generated_by_compiler": true,
+        "native_typed_catches_and_sdk_verified": false,
+        "rtti_used": false,
+        "separate_native_seh_migration_closed": false,
+        "runtime_verified": false
+      },
+      "retired_opaque_sdk_sources": [
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "gLegacyStreamFailureThrowInfo5515E8",
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "历史原SDK地址/声明关系；NCE01后不作为当前source提供者"
+        }
+      ]
     },
     {
       "original_entry": "0x54A57E",

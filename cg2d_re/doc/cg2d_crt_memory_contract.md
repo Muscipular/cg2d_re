@@ -598,3 +598,9 @@ mode3的541FB1/541C88/542466本步仅声明真实依赖，16B小块原生双链�
 前述NSH01时点未迁移的异常基类text，现按[EXH01裁决](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision)独立成组承接。原54B090/54B0D8两分配与54B10F拥有文本释放改调同一私有宿主入口；保原strlen+1 U32/上界、零请求宿主1与真实541A28处理器，每轮失败传原byteCount，不复制旧分桶/对齐。
 
 方法表→拥有位型/长度→分配→发布text→非空才重读源复制及Ctor最后ownsText=1原序保持；空分配不改借用/清标志。Copy保任意非零U32位型，零只借用；析构先判拥有再恢复方法表，非零释放text，不清槽/标志。54B06D对象storage仍原堆，what/回退及派生清理/SDK声明源码保持，不把字符块和对象/类型信息缓存混用。C08/C11、异常抛出/捕获ABI和运行继续开放。
+
+## 2026-10-05：NCE01compiler异常对象与业务块清理
+
+[NCE01单owner裁决](cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision)把compiler持有的异常对象storage与48B业务payload分开。原message仍NSH01、基类拥有text仍EXH01；本机析构按实际族只调用一次原非删除析构，不把compiler对象storage交原堆free/删除析构。what借原消息及静态回退，不造std::string消息副本。
+
+五Raise复制发生于本机对象prvalue构造，对应原一次本族copy；三准备体以trivially-copyable payload转移，不增加共享引用、不清原临时字段/再析构POD临时，原临时message清理保持。基础/派生按值切片对应各自原copy/清理。原回调算法/域和其他块不变；C06/C07实际SDK/捕获展开、完整CRT和运行仍未验。

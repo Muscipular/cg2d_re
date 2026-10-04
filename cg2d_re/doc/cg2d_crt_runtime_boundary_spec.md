@@ -51,3 +51,9 @@ codecvt的工程方向是宿主内部转换器由宿主完整流类型持有；�
 [EXH01局部源码](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure)已将两文本分配和一拥有析构释放成对接私有std::malloc/std::free，保原请求/上界/真实处理器、完整ownsText位型、源指针重读、分配空仍原拥有状态及不清槽的析构行为。NSH01的共享标记字符串块与该基类文本是独立owner，不能混作一个对象。
 
 对象54B06D仍原堆释放，what/回退/派生构析/捕获适配/抛出声明及其他域源码保持；无宿主异常ABI转换。九既有语义、三变化体处置和三限定证据只收口EXH01，C08/C11与C06/C07、完整CRT/SDK及运行仍未闭，不把原共享53B4E7全部释放都改成宿主。
+
+## 7. NCE01九抛出点与五类本机异常
+
+[NCE01源码收口](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)已将当前九原54B123入向成组迁移：五Raise在本机prvalue中一次本族copy，两字符串异常/ios failure已准备payload无增引用转移，clear当前异常用throw;。六独立native_cpp类型保原五层级/全局exception，单一compiler owner按原copy/非删除析构与what处理业务payload。
+
+旧可调用54B123/五opaque ThrowInfo声明撤销；原数据/数字call保留，不手造SDK/FS或将旧对象直接当本机异常。所有旧copy/析构/what/方法表和临时串清理正文保持。C06私有查找/硬件SEH、实际compiler ABI/捕获/SDK及运行仍未闭，C06/C07保持open，不把原198指令或新增类型源码计为完整门禁。

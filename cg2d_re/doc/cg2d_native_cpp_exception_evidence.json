@@ -1,0 +1,1370 @@
+{
+  "description": "NCE01五类本机C++异常、九抛出/重抛原点成组迁移；原私有54B123不复造，C06/完整SDK及运行未闭",
+  "source": "2026-10-05当前已打开cg2d.exe会话只读Python",
+  "functions": [
+    {
+      "entry": "0x54b123",
+      "chunks": [
+        [
+          "0x54b123",
+          "0x54b15d"
+        ]
+      ],
+      "n": 24,
+      "asm": [
+        [
+          "0x54b123",
+          "push    ebp"
+        ],
+        [
+          "0x54b124",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54b126",
+          "sub     esp, 20h"
+        ],
+        [
+          "0x54b129",
+          "mov     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54b12c",
+          "push    esi"
+        ],
+        [
+          "0x54b12d",
+          "push    edi"
+        ],
+        [
+          "0x54b12e",
+          "push    8"
+        ],
+        [
+          "0x54b130",
+          "pop     ecx"
+        ],
+        [
+          "0x54b131",
+          "mov     esi, offset dword_5501E8"
+        ],
+        [
+          "0x54b136",
+          "lea     edi, [ebp+dwExceptionCode]"
+        ],
+        [
+          "0x54b139",
+          "rep movsd"
+        ],
+        [
+          "0x54b13b",
+          "mov     [ebp+var_8], eax"
+        ],
+        [
+          "0x54b13e",
+          "mov     eax, [ebp+pThrowInfo]"
+        ],
+        [
+          "0x54b141",
+          "mov     [ebp+var_4], eax"
+        ],
+        [
+          "0x54b144",
+          "lea     eax, [ebp+Arguments]"
+        ],
+        [
+          "0x54b147",
+          "push    eax; lpArguments"
+        ],
+        [
+          "0x54b148",
+          "push    [ebp+nNumberOfArguments]; nNumberOfArguments"
+        ],
+        [
+          "0x54b14b",
+          "push    [ebp+dwExceptionFlags]; dwExceptionFlags"
+        ],
+        [
+          "0x54b14e",
+          "push    [ebp+dwExceptionCode]; dwExceptionCode"
+        ],
+        [
+          "0x54b151",
+          "call    ds:RaiseException"
+        ],
+        [
+          "0x54b157",
+          "pop     edi"
+        ],
+        [
+          "0x54b158",
+          "pop     esi"
+        ],
+        [
+          "0x54b159",
+          "leave"
+        ],
+        [
+          "0x54b15a",
+          "retn    8"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x549f89",
+          17,
+          "0x549f62"
+        ],
+        [
+          "0x549fe9",
+          17,
+          "0x549f62"
+        ],
+        [
+          "0x54a087",
+          17,
+          "0x54a06f"
+        ],
+        [
+          "0x54a197",
+          17,
+          "0x54a17f"
+        ],
+        [
+          "0x54a6ce",
+          17,
+          "0x54a67a"
+        ],
+        [
+          "0x54a750",
+          17,
+          "0x54a738"
+        ],
+        [
+          "0x54a860",
+          17,
+          "0x54a848"
+        ],
+        [
+          "0x54a8ed",
+          17,
+          "0x54a899"
+        ],
+        [
+          "0x54a948",
+          17,
+          "0x54a930"
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a738",
+      "chunks": [
+        [
+          "0x54a738",
+          "0x54a755"
+        ]
+      ],
+      "n": 10,
+      "asm": [
+        [
+          "0x54a738",
+          "push    ebp"
+        ],
+        [
+          "0x54a739",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54a73b",
+          "sub     esp, 1Ch"
+        ],
+        [
+          "0x54a73e",
+          "push    ecx; struct exception *"
+        ],
+        [
+          "0x54a73f",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a742",
+          "call    sub_54A7AE"
+        ],
+        [
+          "0x54a747",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a74a",
+          "push    offset __TI2?AVlogic_error@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a74f",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a750",
+          "call    __CxxThrowException@8; _CxxThrowException(x,x)"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55018c",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a848",
+      "chunks": [
+        [
+          "0x54a848",
+          "0x54a865"
+        ]
+      ],
+      "n": 10,
+      "asm": [
+        [
+          "0x54a848",
+          "push    ebp"
+        ],
+        [
+          "0x54a849",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54a84b",
+          "sub     esp, 1Ch"
+        ],
+        [
+          "0x54a84e",
+          "push    ecx; struct exception *"
+        ],
+        [
+          "0x54a84f",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a852",
+          "call    sub_54A881"
+        ],
+        [
+          "0x54a857",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a85a",
+          "push    offset __TI3?AVlength_error@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a85f",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a860",
+          "call    __CxxThrowException@8; _CxxThrowException(x,x)"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55016c",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a930",
+      "chunks": [
+        [
+          "0x54a930",
+          "0x54a94d"
+        ]
+      ],
+      "n": 10,
+      "asm": [
+        [
+          "0x54a930",
+          "push    ebp"
+        ],
+        [
+          "0x54a931",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54a933",
+          "sub     esp, 1Ch"
+        ],
+        [
+          "0x54a936",
+          "push    ecx; struct exception *"
+        ],
+        [
+          "0x54a937",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a93a",
+          "call    sub_54A969"
+        ],
+        [
+          "0x54a93f",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a942",
+          "push    offset __TI3?AVout_of_range@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a947",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a948",
+          "call    __CxxThrowException@8; _CxxThrowException(x,x)"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55019c",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a06f",
+      "chunks": [
+        [
+          "0x54a06f",
+          "0x54a08c"
+        ]
+      ],
+      "n": 10,
+      "asm": [
+        [
+          "0x54a06f",
+          "push    ebp"
+        ],
+        [
+          "0x54a070",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54a072",
+          "sub     esp, 1Ch"
+        ],
+        [
+          "0x54a075",
+          "push    ecx; struct exception *"
+        ],
+        [
+          "0x54a076",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a079",
+          "call    sub_54A0E5"
+        ],
+        [
+          "0x54a07e",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a081",
+          "push    offset __TI2?AVruntime_error@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a086",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a087",
+          "call    __CxxThrowException@8; _CxxThrowException(x,x)"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x550138",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a17f",
+      "chunks": [
+        [
+          "0x54a17f",
+          "0x54a19c"
+        ]
+      ],
+      "n": 10,
+      "asm": [
+        [
+          "0x54a17f",
+          "push    ebp"
+        ],
+        [
+          "0x54a180",
+          "mov     ebp, esp"
+        ],
+        [
+          "0x54a182",
+          "sub     esp, 1Ch"
+        ],
+        [
+          "0x54a185",
+          "push    ecx; struct exception *"
+        ],
+        [
+          "0x54a186",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a189",
+          "call    sub_54A1B8"
+        ],
+        [
+          "0x54a18e",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a191",
+          "push    offset __TI3?AVfailure@ios_base@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a196",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a197",
+          "call    __CxxThrowException@8; _CxxThrowException(x,x)"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5500f4",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a67a",
+      "chunks": [
+        [
+          "0x54a67a",
+          "0x54a6d4"
+        ],
+        [
+          "0x54a30d",
+          "0x54a315"
+        ],
+        [
+          "0x54c400",
+          "0x54c412"
+        ]
+      ],
+      "n": 35,
+      "asm": [
+        [
+          "0x54a67a",
+          "mov     eax, offset loc_54C408"
+        ],
+        [
+          "0x54a67f",
+          "call    __EH_prolog"
+        ],
+        [
+          "0x54a684",
+          "sub     esp, 30h"
+        ],
+        [
+          "0x54a687",
+          "mov     al, [ebp+var_D]"
+        ],
+        [
+          "0x54a68a",
+          "push    esi"
+        ],
+        [
+          "0x54a68b",
+          "push    0"
+        ],
+        [
+          "0x54a68d",
+          "lea     ecx, [ebp+var_20]"
+        ],
+        [
+          "0x54a690",
+          "mov     [ebp+var_20], al"
+        ],
+        [
+          "0x54a693",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x54a698",
+          "mov     esi, offset aStringTooLong"
+        ],
+        [
+          "0x54a69d",
+          "push    esi; Str"
+        ],
+        [
+          "0x54a69e",
+          "call    _strlen"
+        ],
+        [
+          "0x54a6a3",
+          "pop     ecx"
+        ],
+        [
+          "0x54a6a4",
+          "push    eax; Size"
+        ],
+        [
+          "0x54a6a5",
+          "push    esi; Src"
+        ],
+        [
+          "0x54a6a6",
+          "lea     ecx, [ebp+var_20]"
+        ],
+        [
+          "0x54a6a9",
+          "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        [
+          "0x54a6ae",
+          "and     [ebp+var_4], 0"
+        ],
+        [
+          "0x54a6b2",
+          "lea     eax, [ebp+var_20]"
+        ],
+        [
+          "0x54a6b5",
+          "push    eax"
+        ],
+        [
+          "0x54a6b6",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a6b9",
+          "call    sub_54A6D4"
+        ],
+        [
+          "0x54a6be",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a6c1",
+          "push    offset __TI3?AVlength_error@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a6c6",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a6c7",
+          "mov     [ebp+pExceptionObject], offset ??_7length_error@std@@6B@"
+        ],
+        [
+          "0x54a6ce",
+          "call    __CxxThrowException@8"
+        ],
+        [
+          "0x54a6d3",
+          "pop     esi"
+        ],
+        [
+          "0x54a30d",
+          "push    1"
+        ],
+        [
+          "0x54a30f",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x54a314",
+          "retn"
+        ],
+        [
+          "0x54c400",
+          "lea     ecx, [ebp+var_20]; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x54c403",
+          "jmp     ??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+        ],
+        [
+          "0x54c408",
+          "mov     eax, offset stru_551820"
+        ],
+        [
+          "0x54c40d",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x548d7e",
+          17,
+          "0x548d69"
+        ],
+        [
+          "0x548fad",
+          17,
+          "0x548fa0"
+        ]
+      ]
+    },
+    {
+      "entry": "0x54a899",
+      "chunks": [
+        [
+          "0x54a899",
+          "0x54a8f3"
+        ],
+        [
+          "0x54a30d",
+          "0x54a315"
+        ],
+        [
+          "0x54c464",
+          "0x54c476"
+        ]
+      ],
+      "n": 35,
+      "asm": [
+        [
+          "0x54a899",
+          "mov     eax, offset loc_54C46C"
+        ],
+        [
+          "0x54a89e",
+          "call    __EH_prolog"
+        ],
+        [
+          "0x54a8a3",
+          "sub     esp, 30h"
+        ],
+        [
+          "0x54a8a6",
+          "mov     al, [ebp+var_D]"
+        ],
+        [
+          "0x54a8a9",
+          "push    esi"
+        ],
+        [
+          "0x54a8aa",
+          "push    0"
+        ],
+        [
+          "0x54a8ac",
+          "lea     ecx, [ebp+var_20]"
+        ],
+        [
+          "0x54a8af",
+          "mov     [ebp+var_20], al"
+        ],
+        [
+          "0x54a8b2",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x54a8b7",
+          "mov     esi, offset aInvalidStringP"
+        ],
+        [
+          "0x54a8bc",
+          "push    esi; Str"
+        ],
+        [
+          "0x54a8bd",
+          "call    _strlen"
+        ],
+        [
+          "0x54a8c2",
+          "pop     ecx"
+        ],
+        [
+          "0x54a8c3",
+          "push    eax; Size"
+        ],
+        [
+          "0x54a8c4",
+          "push    esi; Src"
+        ],
+        [
+          "0x54a8c5",
+          "lea     ecx, [ebp+var_20]"
+        ],
+        [
+          "0x54a8c8",
+          "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        [
+          "0x54a8cd",
+          "and     [ebp+var_4], 0"
+        ],
+        [
+          "0x54a8d1",
+          "lea     eax, [ebp+var_20]"
+        ],
+        [
+          "0x54a8d4",
+          "push    eax"
+        ],
+        [
+          "0x54a8d5",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a8d8",
+          "call    sub_54A6D4"
+        ],
+        [
+          "0x54a8dd",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x54a8e0",
+          "push    offset __TI3?AVout_of_range@std@@; pThrowInfo"
+        ],
+        [
+          "0x54a8e5",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x54a8e6",
+          "mov     [ebp+pExceptionObject], offset ??_7out_of_range@std@@6B@"
+        ],
+        [
+          "0x54a8ed",
+          "call    __CxxThrowException@8"
+        ],
+        [
+          "0x54a8f2",
+          "pop     esi"
+        ],
+        [
+          "0x54a30d",
+          "push    1"
+        ],
+        [
+          "0x54a30f",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x54a314",
+          "retn"
+        ],
+        [
+          "0x54c464",
+          "lea     ecx, [ebp+var_20]; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x54c467",
+          "jmp     ??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+        ],
+        [
+          "0x54c46c",
+          "mov     eax, offset stru_551948"
+        ],
+        [
+          "0x54c471",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x548dd0",
+          17,
+          "0x548dc2"
+        ],
+        [
+          "0x54a328",
+          17,
+          "0x54a315"
+        ]
+      ]
+    },
+    {
+      "entry": "0x549f62",
+      "chunks": [
+        [
+          "0x549f62",
+          "0x549ffe"
+        ],
+        [
+          "0x54a30d",
+          "0x54a315"
+        ],
+        [
+          "0x54c318",
+          "0x54c32a"
+        ]
+      ],
+      "n": 60,
+      "asm": [
+        [
+          "0x549f62",
+          "mov     eax, offset loc_54C320"
+        ],
+        [
+          "0x549f67",
+          "call    __EH_prolog"
+        ],
+        [
+          "0x549f6c",
+          "sub     esp, 2Ch"
+        ],
+        [
+          "0x549f6f",
+          "mov     eax, [ebp+arg_0]"
+        ],
+        [
+          "0x549f72",
+          "push    ebx"
+        ],
+        [
+          "0x549f73",
+          "and     eax, 7"
+        ],
+        [
+          "0x549f76",
+          "mov     [ecx+4], eax"
+        ],
+        [
+          "0x549f79",
+          "mov     ecx, [ecx+8]"
+        ],
+        [
+          "0x549f7c",
+          "and     ecx, eax"
+        ],
+        [
+          "0x549f7e",
+          "jz      short loc_549FEF"
+        ],
+        [
+          "0x549f80",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x549f82",
+          "cmp     [ebp+arg_4], bl"
+        ],
+        [
+          "0x549f85",
+          "jz      short loc_549F8E"
+        ],
+        [
+          "0x549f87",
+          "push    ebx; pThrowInfo"
+        ],
+        [
+          "0x549f88",
+          "push    ebx; pExceptionObject"
+        ],
+        [
+          "0x549f89",
+          "call    __CxxThrowException@8"
+        ],
+        [
+          "0x549f8e",
+          "test    cl, 4"
+        ],
+        [
+          "0x549f91",
+          "push    esi"
+        ],
+        [
+          "0x549f92",
+          "jz      short loc_549F9B"
+        ],
+        [
+          "0x549f94",
+          "mov     esi, offset Src"
+        ],
+        [
+          "0x549f99",
+          "jmp     short loc_549FAA"
+        ],
+        [
+          "0x549f9b",
+          "test    cl, 2"
+        ],
+        [
+          "0x549f9e",
+          "mov     esi, offset aIosFailbitSet"
+        ],
+        [
+          "0x549fa3",
+          "jnz     short loc_549FAA"
+        ],
+        [
+          "0x549fa5",
+          "mov     esi, offset aIosEofbitSet"
+        ],
+        [
+          "0x549faa",
+          "mov     al, [ebp+arg_7]"
+        ],
+        [
+          "0x549fad",
+          "push    ebx"
+        ],
+        [
+          "0x549fae",
+          "lea     ecx, [ebp+var_1C]"
+        ],
+        [
+          "0x549fb1",
+          "mov     [ebp+var_1C], al"
+        ],
+        [
+          "0x549fb4",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x549fb9",
+          "push    esi; Str"
+        ],
+        [
+          "0x549fba",
+          "call    _strlen"
+        ],
+        [
+          "0x549fbf",
+          "pop     ecx"
+        ],
+        [
+          "0x549fc0",
+          "push    eax; Size"
+        ],
+        [
+          "0x549fc1",
+          "push    esi; Src"
+        ],
+        [
+          "0x549fc2",
+          "lea     ecx, [ebp+var_1C]"
+        ],
+        [
+          "0x549fc5",
+          "call    ?assign@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEAAV12@PBDI@Z"
+        ],
+        [
+          "0x549fca",
+          "lea     eax, [ebp+var_1C]"
+        ],
+        [
+          "0x549fcd",
+          "lea     ecx, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x549fd0",
+          "push    eax"
+        ],
+        [
+          "0x549fd1",
+          "mov     [ebp+var_4], ebx"
+        ],
+        [
+          "0x549fd4",
+          "call    sub_549FFE"
+        ],
+        [
+          "0x549fd9",
+          "lea     eax, [ebp+pExceptionObject]"
+        ],
+        [
+          "0x549fdc",
+          "push    offset __TI3?AVfailure@ios_base@std@@; pThrowInfo"
+        ],
+        [
+          "0x549fe1",
+          "push    eax; pExceptionObject"
+        ],
+        [
+          "0x549fe2",
+          "mov     [ebp+pExceptionObject], offset ??_7failure@ios_base@std@@6B@"
+        ],
+        [
+          "0x549fe9",
+          "call    __CxxThrowException@8"
+        ],
+        [
+          "0x549fee",
+          "pop     esi"
+        ],
+        [
+          "0x549fef",
+          "mov     ecx, [ebp+var_C]"
+        ],
+        [
+          "0x549ff2",
+          "pop     ebx"
+        ],
+        [
+          "0x549ff3",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x549ffa",
+          "leave"
+        ],
+        [
+          "0x549ffb",
+          "retn    8"
+        ],
+        [
+          "0x54a30d",
+          "push    1"
+        ],
+        [
+          "0x54a30f",
+          "call    ?_Tidy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEX_N@Z"
+        ],
+        [
+          "0x54a314",
+          "retn"
+        ],
+        [
+          "0x54c318",
+          "lea     ecx, [ebp+var_1C]"
+        ],
+        [
+          "0x54c31b",
+          "jmp     ??1?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@XZ"
+        ],
+        [
+          "0x54c320",
+          "mov     eax, offset stru_5515F8"
+        ],
+        [
+          "0x54c325",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x548e8e",
+          17,
+          "0x548e65"
+        ],
+        [
+          "0x54962e",
+          17,
+          "0x5495ee"
+        ],
+        [
+          "0x549df1",
+          17,
+          "0x549dbe"
+        ],
+        [
+          "0x54a2c3",
+          17,
+          "0x54a293"
+        ]
+      ]
+    }
+  ],
+  "original_sum_instruction_count": 204,
+  "original_unique_instruction_count": 198,
+  "shared_chunk_notice": "54A30D共享尾被三个原根纳入；保原归属，不加独立身份，不以204计唯一覆盖",
+  "throw_infos": [
+    {
+      "throw_info": "0x5515e8",
+      "words": [
+        "0x0",
+        "0x54a142",
+        "0x0",
+        "0x5515d8"
+      ],
+      "count": 3,
+      "types": [
+        {
+          "catchable": "0x5515b8",
+          "properties": 0,
+          "descriptor": "0x592b60",
+          "name": ".?AVfailure@ios_base@std@@",
+          "copy": "0x54a1b8"
+        },
+        {
+          "catchable": "0x551598",
+          "properties": 0,
+          "descriptor": "0x592b40",
+          "name": ".?AVruntime_error@std@@",
+          "copy": "0x54a0e5"
+        },
+        {
+          "catchable": "0x551578",
+          "properties": 0,
+          "descriptor": "0x592b28",
+          "name": ".?AVexception@@",
+          "copy": "0x54b0b6"
+        }
+      ],
+      "unwind_instruction": "mov     eax, offset loc_54C370"
+    },
+    {
+      "throw_info": "0x551658",
+      "words": [
+        "0x0",
+        "0x54a08c",
+        "0x0",
+        "0x551648"
+      ],
+      "count": 2,
+      "types": [
+        {
+          "catchable": "0x551598",
+          "properties": 0,
+          "descriptor": "0x592b40",
+          "name": ".?AVruntime_error@std@@",
+          "copy": "0x54a0e5"
+        },
+        {
+          "catchable": "0x551578",
+          "properties": 0,
+          "descriptor": "0x592b28",
+          "name": ".?AVexception@@",
+          "copy": "0x54b0b6"
+        }
+      ],
+      "unwind_instruction": "mov     eax, offset loc_54C348"
+    },
+    {
+      "throw_info": "0x551810",
+      "words": [
+        "0x0",
+        "0x54a80b",
+        "0x0",
+        "0x551800"
+      ],
+      "count": 3,
+      "types": [
+        {
+          "catchable": "0x5517e0",
+          "properties": 0,
+          "descriptor": "0x592bf0",
+          "name": ".?AVlength_error@std@@",
+          "copy": "0x54a881"
+        },
+        {
+          "catchable": "0x5517c0",
+          "properties": 0,
+          "descriptor": "0x592bd0",
+          "name": ".?AVlogic_error@std@@",
+          "copy": "0x54a7ae"
+        },
+        {
+          "catchable": "0x551578",
+          "properties": 0,
+          "descriptor": "0x592b28",
+          "name": ".?AVexception@@",
+          "copy": "0x54b0b6"
+        }
+      ],
+      "unwind_instruction": "mov     eax, offset loc_54C458"
+    },
+    {
+      "throw_info": "0x551880",
+      "words": [
+        "0x0",
+        "0x54a755",
+        "0x0",
+        "0x551870"
+      ],
+      "count": 2,
+      "types": [
+        {
+          "catchable": "0x5517c0",
+          "properties": 0,
+          "descriptor": "0x592bd0",
+          "name": ".?AVlogic_error@std@@",
+          "copy": "0x54a7ae"
+        },
+        {
+          "catchable": "0x551578",
+          "properties": 0,
+          "descriptor": "0x592b28",
+          "name": ".?AVexception@@",
+          "copy": "0x54b0b6"
+        }
+      ],
+      "unwind_instruction": "mov     eax, offset loc_54C430"
+    },
+    {
+      "throw_info": "0x551938",
+      "words": [
+        "0x0",
+        "0x54a8f3",
+        "0x0",
+        "0x551928"
+      ],
+      "count": 3,
+      "types": [
+        {
+          "catchable": "0x551908",
+          "properties": 0,
+          "descriptor": "0x592c10",
+          "name": ".?AVout_of_range@std@@",
+          "copy": "0x54a969"
+        },
+        {
+          "catchable": "0x5517c0",
+          "properties": 0,
+          "descriptor": "0x592bd0",
+          "name": ".?AVlogic_error@std@@",
+          "copy": "0x54a7ae"
+        },
+        {
+          "catchable": "0x551578",
+          "properties": 0,
+          "descriptor": "0x592b28",
+          "name": ".?AVexception@@",
+          "copy": "0x54b0b6"
+        }
+      ],
+      "unwind_instruction": "mov     eax, offset loc_54C480"
+    }
+  ],
+  "original_exception_record_seed": {
+    "entry": "0x5501E8",
+    "words": [
+      "0xE06D7363",
+      "0x1",
+      "0x0",
+      "0x0",
+      "0x3",
+      "0x19930520",
+      "0x0",
+      "0x0"
+    ]
+  },
+  "native_family_mappings": [
+    {
+      "kind": "Logic",
+      "type": "LogicError",
+      "base": "Exception",
+      "raise": "RaiseLegacyLogicError_54A738",
+      "entry": "0x54A738",
+      "copy": "CopyConstructLegacyLogicError_54A7AE",
+      "copyEntry": "0x54A7AE",
+      "destroy": "DestroyLegacyLogicError_54A755",
+      "destroyEntry": "0x54A755",
+      "rawType": "LegacyLogicErrorObject",
+      "info": "0x551880",
+      "infoSymbol": "gLegacyLogicErrorThrowInfo551880",
+      "throwSite": "0x54A750",
+      "copySite": "0x54A742"
+    },
+    {
+      "kind": "Length",
+      "type": "LengthError",
+      "base": "LogicError",
+      "raise": "RaiseLegacyStringLengthError_54A848",
+      "entry": "0x54A848",
+      "copy": "CopyConstructLegacyStringLengthError_54A881",
+      "copyEntry": "0x54A881",
+      "destroy": "DestroyLegacyStringLengthError_54A80B",
+      "destroyEntry": "0x54A80B",
+      "rawType": "LegacyStringLengthErrorObject",
+      "info": "0x551810",
+      "infoSymbol": "gLegacyStringLengthErrorThrowInfo551810",
+      "throwSite": "0x54A860",
+      "copySite": "0x54A852"
+    },
+    {
+      "kind": "Range",
+      "type": "RangeError",
+      "base": "LogicError",
+      "raise": "RaiseLegacyStringRangeError_54A930",
+      "entry": "0x54A930",
+      "copy": "CopyConstructLegacyStringRangeError_54A969",
+      "copyEntry": "0x54A969",
+      "destroy": "DestroyLegacyStringRangeError_54A8F3",
+      "destroyEntry": "0x54A8F3",
+      "rawType": "LegacyStringRangeErrorObject",
+      "info": "0x551938",
+      "infoSymbol": "gLegacyStringRangeErrorThrowInfo551938",
+      "throwSite": "0x54A948",
+      "copySite": "0x54A93A"
+    },
+    {
+      "kind": "Runtime",
+      "type": "RuntimeError",
+      "base": "Exception",
+      "raise": "RaiseLegacyRuntimeError_54A06F",
+      "entry": "0x54A06F",
+      "copy": "CopyConstructLegacyRuntimeError_54A0E5",
+      "copyEntry": "0x54A0E5",
+      "destroy": "DestroyLegacyRuntimeError_54A08C",
+      "destroyEntry": "0x54A08C",
+      "rawType": "LegacyRuntimeErrorObject",
+      "info": "0x551658",
+      "infoSymbol": "gLegacyRuntimeErrorThrowInfo551658",
+      "throwSite": "0x54A087",
+      "copySite": "0x54A079"
+    },
+    {
+      "kind": "StreamFailure",
+      "type": "StreamFailure",
+      "base": "RuntimeError",
+      "raise": "RaiseLegacyStreamFailure_54A17F",
+      "entry": "0x54A17F",
+      "copy": "CopyConstructLegacyStreamFailure_54A1B8",
+      "copyEntry": "0x54A1B8",
+      "destroy": "DestroyLegacyStreamFailure_54A142",
+      "destroyEntry": "0x54A142",
+      "rawType": "LegacyStreamFailureObject",
+      "info": "0x5515E8",
+      "infoSymbol": "gLegacyStreamFailureThrowInfo5515E8",
+      "throwSite": "0x54A197",
+      "copySite": "0x54A189"
+    }
+  ],
+  "native_boundary_contract": {
+    "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+    "native_header": "src/platform/NativeCppException.hpp",
+    "implementation": "src/platform/LegacyException.cpp",
+    "namespace": "cg::platform::native_cpp",
+    "native_base": "Exception",
+    "host_std_exception_inheritance": false,
+    "original_base_descriptor_name": ".?AVexception@@",
+    "throw_site_count": 8,
+    "rethrow_site_count": 1,
+    "raise_copy_callback_count": 5,
+    "prepared_payload_transfers": 3,
+    "native_payload_type": "LegacyLogicErrorObject",
+    "native_payload_is_sdk_exception_object": false,
+    "payload_size": 48,
+    "payload_layout_unchanged": true,
+    "prepared_payload_transfer_is_byte_copy": true,
+    "prepared_payload_transfer_adds_shared_reference": false,
+    "payload_is_not_zero_initialized": true,
+    "base_slice_copy_callback": "CopyConstructLegacyException_54B0B6",
+    "base_slice_destructor": "DestroyLegacyException_54B100",
+    "derived_slice_uses_corresponding_original_copy": true,
+    "nondeleting_destructor_selected_by_owned_family": true,
+    "body_copy_and_cleanup_callbacks_unchanged": true,
+    "legacy_throw_info_referenced_by_current_throw": false,
+    "legacy_54B123_source_body_implemented": false,
+    "native_throw_info_generated_by_compiler": true,
+    "native_typed_catches_and_sdk_verified": false,
+    "rtti_used": false,
+    "separate_native_seh_migration_closed": false,
+    "runtime_verified": false
+  }
+}

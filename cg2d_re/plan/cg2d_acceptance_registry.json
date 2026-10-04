@@ -196,7 +196,8 @@
         "doc/cg2d_world_state_lifecycle_spec.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_narrow_string_heap_migration_spec.md",
-        "doc/cg2d_exception_text_heap_migration_spec.md"
+        "doc/cg2d_exception_text_heap_migration_spec.md",
+        "doc/cg2d_native_cpp_exception_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -256,7 +257,27 @@
         "F:0014B0B6",
         "F:0014B100",
         "F:0014B05D",
-        "F:0014B116"
+        "F:0014B116",
+        "F:0014B123",
+        "F:0014A738",
+        "F:0014A848",
+        "F:0014A930",
+        "F:0014A06F",
+        "F:0014A17F",
+        "F:0014A67A",
+        "F:0014A899",
+        "F:00149F62",
+        "F:0014A7AE",
+        "F:0014A755",
+        "F:0014A881",
+        "F:0014A80B",
+        "F:0014A969",
+        "F:0014A8F3",
+        "F:0014A0E5",
+        "F:0014A08C",
+        "F:0014A1B8",
+        "F:0014A142",
+        "F:0014A062"
       ],
       "closure_task_ids": [
         "C01",
@@ -280,7 +301,8 @@
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "NSH01窄字符串字节域已成对宿主分配/释放并保真实处理器循环、九本体/共享/逻辑容量；其他CRT域、C08/C11全组、实际抛出/SDK与运行仍未闭，两个共享入口处置不代表全部原caller",
-        "EXH01异常基类拥有文本域已成对宿主承接，完整ownsText/空失败/源重读保持；对象storage/类型信息缓存及其他域未迁移，实际抛出/SDK/完整C08/C11与运行仍未闭"
+        "EXH01异常基类拥有文本域已成对宿主承接，完整ownsText/空失败/源重读保持；对象storage/类型信息缓存及其他域未迁移，实际抛出/SDK/完整C08/C11与运行仍未闭",
+        "NCE01六本机类型/单owner与九当前throw点已接，五一次原copy/三payload转移/一throw重抛保消息和清理；实际编译生成ABI/按值捕获/SDK、旧C06/硬件SEH/完整CRT和运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -291,7 +313,8 @@
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
-        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline"
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline"
       ]
     },
     {
@@ -6583,6 +6606,129 @@
       "observation": "仅164原唯一指令、九语义记录及限定源码差异",
       "expected": "两私有入口/cstdlib、三callee及域注释以外同前提交全文一致，头只改注释，不改其他domain/SDK",
       "actual": "三变化体63条+两个未改边界16条/复用85条可达，文本/对象source关联分开；静态对照不支持整个CRT或运行结论"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：九根204含共享尾/198唯一指令、九入向与五真实ThrowInfo unwind/十三捕获层级；doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-native-cpp-exception-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-acceptance",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
+        "doc/cg2d_native_cpp_exception_evidence.json",
+        "src/platform/NativeCppException.hpp#Exception",
+        "src/platform/NativeCppException.hpp#LogicError",
+        "src/platform/NativeCppException.hpp#LengthError",
+        "src/platform/NativeCppException.hpp#RangeError",
+        "src/platform/NativeCppException.hpp#RuntimeError",
+        "src/platform/NativeCppException.hpp#StreamFailure",
+        "src/platform/LegacyException.cpp#Exception::Exception",
+        "src/platform/LegacyException.cpp#Exception::~Exception",
+        "src/platform/LegacyException.cpp#Exception::what",
+        "src/platform/LegacyIos.cpp#ClearLegacyIos_549F62"
+      ],
+      "differences": [
+        {
+          "description": "D02本机compiler承接私有异常记录/抛出/复制与释放存储，不复造54B123/旧ThrowInfo/RVA/FS或原C++ABI；独立native_cpp tag保原逻辑继承，旧全局exception不自动映为std::exception；原业务payload/消息与回调保持",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        },
+        {
+          "description": "五Raise本机prvalue中一次原copy；三准备体按POD转移不增引用或额外原临时析构，当前重抛用throw；实际按值捕获/生成ABI/SDK/硬件SEH与完整C06/C07、运行仍未验",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-NATIVE-CPP-EXCEPTION-I-20261005",
+      "gate": "I",
+      "observation": "仅六本机类型/单payload owner、五copy与三转移/一当前异常重抛",
+      "expected": "真实C++类型/throw，保原捕获层级/消息/原copy与unwind，切片按本族，不造默认异常/SDK假体",
+      "actual": "六类型与单owner已实现，基础/五派生copy及清理绑定原叶，原Getter输出不变，五一次copy/三Adopt/throw重抛已接"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：九根204含共享尾/198唯一指令、九入向与五真实ThrowInfo unwind/十三捕获层级；doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-native-cpp-exception-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-acceptance",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
+        "doc/cg2d_native_cpp_exception_evidence.json",
+        "src/platform/NativeCppException.hpp#Exception",
+        "src/platform/NativeCppException.hpp#LogicError",
+        "src/platform/NativeCppException.hpp#LengthError",
+        "src/platform/NativeCppException.hpp#RangeError",
+        "src/platform/NativeCppException.hpp#RuntimeError",
+        "src/platform/NativeCppException.hpp#StreamFailure",
+        "src/platform/LegacyException.cpp#Exception::Exception",
+        "src/platform/LegacyException.cpp#Exception::~Exception",
+        "src/platform/LegacyException.cpp#Exception::what",
+        "src/platform/LegacyIos.cpp#ClearLegacyIos_549F62"
+      ],
+      "differences": [
+        {
+          "description": "D02本机compiler承接私有异常记录/抛出/复制与释放存储，不复造54B123/旧ThrowInfo/RVA/FS或原C++ABI；独立native_cpp tag保原逻辑继承，旧全局exception不自动映为std::exception；原业务payload/消息与回调保持",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        },
+        {
+          "description": "五Raise本机prvalue中一次原copy；三准备体按POD转移不增引用或额外原临时析构，当前重抛用throw；实际按值捕获/生成ABI/SDK/硬件SEH与完整C06/C07、运行仍未验",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-NATIVE-CPP-EXCEPTION-W-20261005",
+      "gate": "W",
+      "observation": "仅全部九当前原throw入向与同一清理生命周期",
+      "expected": "五Raise/两字符串父/clear八throw和一throw重抛，原临时串清理保持；旧SDK声明退出当前路径",
+      "actual": "九原点完整迁移，三准备payload无增引用转移，原catch临时串清理保持；旧54B123与五opaque声明撤销，无当前SDK地址传出"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe只读IDA：九根204含共享尾/198唯一指令、九入向与五真实ThrowInfo unwind/十三捕获层级；doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-native-cpp-exception-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-acceptance",
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
+        "doc/cg2d_native_cpp_exception_evidence.json",
+        "src/platform/NativeCppException.hpp#Exception",
+        "src/platform/NativeCppException.hpp#LogicError",
+        "src/platform/NativeCppException.hpp#LengthError",
+        "src/platform/NativeCppException.hpp#RangeError",
+        "src/platform/NativeCppException.hpp#RuntimeError",
+        "src/platform/NativeCppException.hpp#StreamFailure",
+        "src/platform/LegacyException.cpp#Exception::Exception",
+        "src/platform/LegacyException.cpp#Exception::~Exception",
+        "src/platform/LegacyException.cpp#Exception::what",
+        "src/platform/LegacyIos.cpp#ClearLegacyIos_549F62"
+      ],
+      "differences": [
+        {
+          "description": "D02本机compiler承接私有异常记录/抛出/复制与释放存储，不复造54B123/旧ThrowInfo/RVA/FS或原C++ABI；独立native_cpp tag保原逻辑继承，旧全局exception不自动映为std::exception；原业务payload/消息与回调保持",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        },
+        {
+          "description": "五Raise本机prvalue中一次原copy；三准备体按POD转移不增引用或额外原临时析构，当前重抛用throw；实际按值捕获/生成ABI/SDK/硬件SEH与完整C06/C07、运行仍未验",
+          "decision_ref": "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-NATIVE-CPP-EXCEPTION-S-20261005",
+      "gate": "S",
+      "observation": "仅198唯一原指令/五类型表与新增差异",
+      "expected": "原callback/方法表/数据不改，限定接口接线之外全文同前提交；无手造SDK/RTTI/额外对象释放",
+      "actual": "两Cpp/旧头扣除NCE01变化后全文一致，六类源码/23既有语义可追踪；无旧声明/地址当前调用，未编译或运行验证"
     }
   ],
   "task_acceptance": [
@@ -6729,6 +6875,22 @@
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
       ],
       "task_id": "C11",
+      "state": "open"
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ],
+      "task_id": "C06",
+      "state": "open"
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ],
+      "task_id": "C07",
       "state": "open"
     }
   ],
@@ -7391,6 +7553,78 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014B123",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A738",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A848",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A930",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A06F",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A17F",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A67A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A899",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00149F62",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
       ]
     }
   ],

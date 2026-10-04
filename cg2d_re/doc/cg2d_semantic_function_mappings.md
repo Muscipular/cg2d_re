@@ -1439,3 +1439,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure)关联三变化体54B079/54B0B6/54B100、两未改边界54B05D/54B116及四共享提供者共九既有记录。原63/16及复用85条共164唯一指令；新私有入口/宿主责任不新增原身份，也不计全部53C9CF/53B4E7入向已迁移。
 
 两原文本分配/一释放的当前callee更新为EXH01私有宿主入口；对象54B06D仍旧原堆callee。原合并source拆成文本与对象两关联，所有其他对象/域关系保持。三变化体按本组适配使已审75→78/3680，共享两入口只增加证据引用，三限定E累计33；语义1152/1149、18pending/4分类引用保持。C08/C11/C06/C07及完整CRT/SDK/运行开放，源码关闭10/60与全功能门禁不提升。
+
+## 2026-10-05：NCE01本机异常与原成员映射
+
+[NCE01局部SPEC](cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)同步九原根和十四copy/析构/what原叶共23既有记录。九原数字throw点保留，当前提供者为八实际throw和一throw重抛；原54B123 body不还原，退役的可调用/opaque声明关联单列历史，不作为当前source。五Raise copy点移入本机payload构造，不加第二次复制；三准备payload不增共享引用转移。
+
+原五ThrowInfo真实unwind与十三捕获类型支持六本机tag层级/切片回调，原数据数组保留且不桥SDK。原204归属含共享尾、唯一198；1152/1149、18pending/4分类引用不变。九原根adapted使已审87/3680，三限定E累计36；C06/C07、生成ABI/捕获/SDK/硬件SEH/运行及完整功能门禁开放，源码关闭10/60不变。

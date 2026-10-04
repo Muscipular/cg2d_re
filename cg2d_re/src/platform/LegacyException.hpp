@@ -28,6 +28,20 @@ struct LegacyExceptionTypeDescriptorPrefix final {
 static_assert(sizeof(LegacyExceptionTypeDescriptorPrefix) == 16);
 static_assert(offsetof(LegacyExceptionTypeDescriptorPrefix, cachedName) == 8);
 
+// 六个已加载TypeDescriptor的数据存储；前缀为首成员，后接精确原ASCII名称/NUL。
+// 模板只承载已证字节，不定义原SDK RTTI/ThrowInfo、额外字段或自动构析。
+template <std::size_t NameBytes>
+struct LegacyExceptionTypeDescriptorStorage final {
+    LegacyExceptionTypeDescriptorPrefix prefix; // 供5404FA/54AC66/54AC7B显式接口读取或清理。
+    char name[NameBytes]; // 原+08起内联名称，原生+16；不读取cachedName代替名称。
+};
+extern LegacyExceptionTypeDescriptorStorage<16> gLegacyExceptionType592B28;
+extern LegacyExceptionTypeDescriptorStorage<24> gLegacyRuntimeErrorType592B40;
+extern LegacyExceptionTypeDescriptorStorage<27> gLegacyStreamFailureType592B60;
+extern LegacyExceptionTypeDescriptorStorage<22> gLegacyLogicErrorType592BD0;
+extern LegacyExceptionTypeDescriptorStorage<23> gLegacyStringLengthErrorType592BF0;
+extern LegacyExceptionTypeDescriptorStorage<23> gLegacyStringRangeErrorType592C10;
+
 // 原5501C0只有删除析构一槽；5501C4是另一类RTTI数据，不并入本表。
 struct LegacyExceptionTypeDescriptorMethods final {
     LegacyExceptionTypeDescriptorPrefix* (*deletingDestructor)(

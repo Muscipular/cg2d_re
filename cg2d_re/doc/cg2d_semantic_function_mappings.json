@@ -43346,11 +43346,11 @@
     {
       "original_entry": "0x5404FA",
       "inventory_id": "F:001404FA",
-      "status": "原异常类型匹配完整语义本体源码已实现；实际元数据生产/异常父链及SDK运行未闭",
+      "status": "原类型匹配本体/六实际描述符数据已实现；handler/catchable/ThrowInfo生产、异常父链及SDK运行未闭",
       "original_end_exclusive": "0x540557",
       "instruction_count": 42,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板；新42条、字段读取时序与唯一5450F0真实调用静态核对，不回核已过比较算法或运行",
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板；新42条、字段读取时序与唯一5450F0真实调用静态核对，不回核已过比较算法或运行；新六已加载字节/名称NUL及原生首成员/实际单槽数据生产静态，未编译或运行",
       "inbound_evidence": [
         {
           "address": "0x5403BA",
@@ -43375,12 +43375,38 @@
             "MatchLegacyExceptionType_5404FA"
           ],
           "relationship": "仅已证读取前缀/原生非拥有地址/内联名称起点，无初值、全局元数据或完整SDK布局"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "已加载六描述符的两个地址/缓存0/精确内联名称实际被动存储；显式接口可消费，捕获/SDK表尚未接"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionTypeDescriptorStorage",
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "精确已证名称字节数据/前缀首成员及公开地址，不创建宿主RTTI或ThrowInfo"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_type_descriptor_data_evidence.json"
       ],
-      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整本体落位：handler.type空或内联名称首U8为0时直接返回S32 1且不读catchable/throwInfo；其余先比较同一描述符地址，不同才以真实StrCmp_5450F0比较原序两内联名称。同型/同名后核catchable低U8位02要求handler低U8位08，再一次读取ThrowInfo首W32，位01/02分别要求handler对应低U8位，否则S32 0。两个TypeDescriptor地址只拓宽，名称从已证两地址前缀之后取，不读缓存名；Handler/Catchable只定义W32+地址读取前缀，ThrowInfo只定义首W32视图。无空指针/范围保护或预清；真实原生元数据生产、5402AB唯一父、54B123/SDK异常主链仍未闭，不能直接转换原x86元数据或据此前缀声称原生SDK类型已生成。",
+      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整本体落位：handler.type空或内联名称首U8为0时直接返回S32 1且不读catchable/throwInfo；其余先比较同一描述符地址，不同才以真实StrCmp_5450F0比较原序两内联名称。同型/同名后核catchable低U8位02要求handler低U8位08，再一次读取ThrowInfo首W32，位01/02分别要求handler对应低U8位，否则S32 0。两个TypeDescriptor地址只拓宽，名称从已证两地址前缀之后取，不读缓存名；Handler/Catchable只定义W32+地址读取前缀，ThrowInfo只定义首W32视图。无空指针/范围保护或预清；真实原生元数据生产、5402AB唯一父、54B123/SDK异常主链仍未闭，不能直接转换原x86元数据或据此前缀声称原生SDK类型已生成。；2026-10-04六个已加载描述符592B28/B40/B60/BD0/BF0/C10确认+00=5501C0/+04=0，原ASCII名称含NUL长度16/24/27/22/23/23，新增实际同名被动原生定义，前缀16B/名称+16、两个地址拓宽，复用既有真实单槽方法表。保留名称字节/独立身份与可写缓存，首成员/名称偏移/trivial静态断言，不正规化名字/复制原未消费尾填充或安装RTTI。现有匹配/析构可按前缀读取数据；捕获/ThrowInfo表与父链尚未接，缓存运行时生产、SDK类型兼容及完整生命周期未验，不据此生成ThrowInfo/闭合54B123或旧帧。旧算法/方法表/原堆不改或复核。",
       "function_chunks": [
         {
           "start": "0x5404FA",
@@ -43401,6 +43427,92 @@
           "source_symbol": "MatchLegacyExceptionType_5404FA",
           "callee_symbol": "StrCmp_5450F0",
           "source_call_implemented": true,
+          "runtime_verified": false
+        }
+      ],
+      "type_descriptor_data_producers": [
+        {
+          "original_address": "0x592B28",
+          "symbol": "gLegacyExceptionType592B28",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVexception@@",
+          "name_bytes_including_nul": 16,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B40",
+          "symbol": "gLegacyRuntimeErrorType592B40",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVruntime_error@std@@",
+          "name_bytes_including_nul": 24,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B60",
+          "symbol": "gLegacyStreamFailureType592B60",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVfailure@ios_base@std@@",
+          "name_bytes_including_nul": 27,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BD0",
+          "symbol": "gLegacyLogicErrorType592BD0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlogic_error@std@@",
+          "name_bytes_including_nul": 22,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BF0",
+          "symbol": "gLegacyStringLengthErrorType592BF0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlength_error@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592C10",
+          "symbol": "gLegacyStringRangeErrorType592C10",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVout_of_range@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
           "runtime_verified": false
         }
       ]
@@ -44338,7 +44450,7 @@
     {
       "original_entry": "0x54AC66",
       "inventory_id": "F:0014AC66",
-      "status": "原type_info析构/删除及真实单槽方法表已实现；描述符生产/宿主SDK元数据与运行未闭",
+      "status": "原type_info析构/删除、单槽及六描述符数据已实现；缓存运行时生产/SDK元数据与完整生命周期运行未闭",
       "original_end_exclusive": "0x54AC7B",
       "instruction_count": 8,
       "original_direct_reference_count": 1,
@@ -44365,13 +44477,39 @@
             "DestroyLegacyExceptionTypeDescriptor_54AC66"
           ],
           "relationship": "已证两地址前缀/真实单槽显式this及W32 flags，不自动构析或生成RTTI"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "已加载六描述符的两个地址/缓存0/精确内联名称实际被动存储；显式接口可消费，捕获/SDK表尚未接"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionTypeDescriptorStorage",
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "精确已证名称字节数据/前缀首成员及公开地址，不创建宿主RTTI或ThrowInfo"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_type_descriptor_data_evidence.json"
       ],
-      "boundary": "type_info析构先恢复vft，再取+4指针，非空才free；不清被释放指针槽，非空析构不是无操作。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04实际源码及原生8B单槽表落位，5501C0只含54AC7B，5501C4是exception的RTTI locator，未把该数据或前置5501BC locator纳入新表。54AC66先恢复本族表，再读取实际cachedName，非空调同域FreeLegacyHeapMemory_53C0A9，不清缓存或内联名称；54AC7B先完整析构，再仅flags bit0经原53B4E7薄叶的53C0A9释放storage，保持原对象地址返回。只消费实际原堆对象/缓存，不能释放宿主type_info或其他allocator块；真实描述符生产/名称缓存完整owner和SDK异常链、运行待。旧类型匹配算法/既有堆体不改、不复检，不复制x86 RTTI/自动钩挂宿主。",
-      "verification_level": "完整原8/11条、三个numeric调用及5501C0单槽/邻接数据身份与新增源码静态；无构建或运行，旧依赖本体不复检",
+      "boundary": "type_info析构先恢复vft，再取+4指针，非空才free；不清被释放指针槽，非空析构不是无操作。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04实际源码及原生8B单槽表落位，5501C0只含54AC7B，5501C4是exception的RTTI locator，未把该数据或前置5501BC locator纳入新表。54AC66先恢复本族表，再读取实际cachedName，非空调同域FreeLegacyHeapMemory_53C0A9，不清缓存或内联名称；54AC7B先完整析构，再仅flags bit0经原53B4E7薄叶的53C0A9释放storage，保持原对象地址返回。只消费实际原堆对象/缓存，不能释放宿主type_info或其他allocator块；真实描述符生产/名称缓存完整owner和SDK异常链、运行待。旧类型匹配算法/既有堆体不改、不复检，不复制x86 RTTI/自动钩挂宿主。；2026-10-04六个已加载描述符592B28/B40/B60/BD0/BF0/C10确认+00=5501C0/+04=0，原ASCII名称含NUL长度16/24/27/22/23/23，新增实际同名被动原生定义，前缀16B/名称+16、两个地址拓宽，复用既有真实单槽方法表。保留名称字节/独立身份与可写缓存，首成员/名称偏移/trivial静态断言，不正规化名字/复制原未消费尾填充或安装RTTI。现有匹配/析构可按前缀读取数据；捕获/ThrowInfo表与父链尚未接，缓存运行时生产、SDK类型兼容及完整生命周期未验，不据此生成ThrowInfo/闭合54B123或旧帧。旧算法/方法表/原堆不改或复核。",
+      "verification_level": "完整原8/11条、三个numeric调用及5501C0单槽/邻接数据身份与新增源码静态；无构建或运行，旧依赖本体不复检；新六已加载字节/名称NUL及原生首成员/实际单槽数据生产静态，未编译或运行",
       "function_chunks": [
         {
           "start": "0x54AC66",
@@ -44397,12 +44535,98 @@
           "source_call_implemented": true,
           "runtime_verified": false
         }
+      ],
+      "type_descriptor_data_producers": [
+        {
+          "original_address": "0x592B28",
+          "symbol": "gLegacyExceptionType592B28",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVexception@@",
+          "name_bytes_including_nul": 16,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B40",
+          "symbol": "gLegacyRuntimeErrorType592B40",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVruntime_error@std@@",
+          "name_bytes_including_nul": 24,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B60",
+          "symbol": "gLegacyStreamFailureType592B60",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVfailure@ios_base@std@@",
+          "name_bytes_including_nul": 27,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BD0",
+          "symbol": "gLegacyLogicErrorType592BD0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlogic_error@std@@",
+          "name_bytes_including_nul": 22,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BF0",
+          "symbol": "gLegacyStringLengthErrorType592BF0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlength_error@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592C10",
+          "symbol": "gLegacyStringRangeErrorType592C10",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVout_of_range@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x54AC7B",
       "inventory_id": "F:0014AC7B",
-      "status": "原type_info析构/删除及真实单槽方法表已实现；描述符生产/宿主SDK元数据与运行未闭",
+      "status": "原type_info析构/删除、单槽及六描述符数据已实现；缓存运行时生产/SDK元数据与完整生命周期运行未闭",
       "original_end_exclusive": "0x54AC97",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
@@ -44429,13 +44653,39 @@
             "DeleteLegacyExceptionTypeDescriptor_54AC7B"
           ],
           "relationship": "已证两地址前缀/真实单槽显式this及W32 flags，不自动构析或生成RTTI"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "已加载六描述符的两个地址/缓存0/精确内联名称实际被动存储；显式接口可消费，捕获/SDK表尚未接"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionTypeDescriptorStorage",
+            "gLegacyExceptionType592B28",
+            "gLegacyRuntimeErrorType592B40",
+            "gLegacyStreamFailureType592B60",
+            "gLegacyLogicErrorType592BD0",
+            "gLegacyStringLengthErrorType592BF0",
+            "gLegacyStringRangeErrorType592C10"
+          ],
+          "relationship": "精确已证名称字节数据/前缀首成员及公开地址，不创建宿主RTTI或ThrowInfo"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_type_descriptor_data_evidence.json"
       ],
-      "boundary": "type_info虚表数据引用；先完整析构，再按标志低位1决定delete对象，返回保存的原对象地址，即使已释放也不改返空。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04实际源码及原生8B单槽表落位，5501C0只含54AC7B，5501C4是exception的RTTI locator，未把该数据或前置5501BC locator纳入新表。54AC66先恢复本族表，再读取实际cachedName，非空调同域FreeLegacyHeapMemory_53C0A9，不清缓存或内联名称；54AC7B先完整析构，再仅flags bit0经原53B4E7薄叶的53C0A9释放storage，保持原对象地址返回。只消费实际原堆对象/缓存，不能释放宿主type_info或其他allocator块；真实描述符生产/名称缓存完整owner和SDK异常链、运行待。旧类型匹配算法/既有堆体不改、不复检，不复制x86 RTTI/自动钩挂宿主。",
-      "verification_level": "完整原8/11条、三个numeric调用及5501C0单槽/邻接数据身份与新增源码静态；无构建或运行，旧依赖本体不复检",
+      "boundary": "type_info虚表数据引用；先完整析构，再按标志低位1决定delete对象，返回保存的原对象地址，即使已释放也不改返空。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04实际源码及原生8B单槽表落位，5501C0只含54AC7B，5501C4是exception的RTTI locator，未把该数据或前置5501BC locator纳入新表。54AC66先恢复本族表，再读取实际cachedName，非空调同域FreeLegacyHeapMemory_53C0A9，不清缓存或内联名称；54AC7B先完整析构，再仅flags bit0经原53B4E7薄叶的53C0A9释放storage，保持原对象地址返回。只消费实际原堆对象/缓存，不能释放宿主type_info或其他allocator块；真实描述符生产/名称缓存完整owner和SDK异常链、运行待。旧类型匹配算法/既有堆体不改、不复检，不复制x86 RTTI/自动钩挂宿主。；2026-10-04六个已加载描述符592B28/B40/B60/BD0/BF0/C10确认+00=5501C0/+04=0，原ASCII名称含NUL长度16/24/27/22/23/23，新增实际同名被动原生定义，前缀16B/名称+16、两个地址拓宽，复用既有真实单槽方法表。保留名称字节/独立身份与可写缓存，首成员/名称偏移/trivial静态断言，不正规化名字/复制原未消费尾填充或安装RTTI。现有匹配/析构可按前缀读取数据；捕获/ThrowInfo表与父链尚未接，缓存运行时生产、SDK类型兼容及完整生命周期未验，不据此生成ThrowInfo/闭合54B123或旧帧。旧算法/方法表/原堆不改或复核。",
+      "verification_level": "完整原8/11条、三个numeric调用及5501C0单槽/邻接数据身份与新增源码静态；无构建或运行，旧依赖本体不复检；新六已加载字节/名称NUL及原生首成员/实际单槽数据生产静态，未编译或运行",
       "function_chunks": [
         {
           "start": "0x54AC7B",
@@ -44485,7 +44735,93 @@
         "source_binding_implemented": true,
         "descriptors_produced": false,
         "runtime_verified": false
-      }
+      },
+      "type_descriptor_data_producers": [
+        {
+          "original_address": "0x592B28",
+          "symbol": "gLegacyExceptionType592B28",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVexception@@",
+          "name_bytes_including_nul": 16,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B40",
+          "symbol": "gLegacyRuntimeErrorType592B40",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVruntime_error@std@@",
+          "name_bytes_including_nul": 24,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592B60",
+          "symbol": "gLegacyStreamFailureType592B60",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVfailure@ios_base@std@@",
+          "name_bytes_including_nul": 27,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BD0",
+          "symbol": "gLegacyLogicErrorType592BD0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlogic_error@std@@",
+          "name_bytes_including_nul": 22,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592BF0",
+          "symbol": "gLegacyStringLengthErrorType592BF0",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVlength_error@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        },
+        {
+          "original_address": "0x592C10",
+          "symbol": "gLegacyStringRangeErrorType592C10",
+          "original_methods": "0x5501C0",
+          "original_cached_name_initial": "0x00000000",
+          "decorated_name": ".?AVout_of_range@std@@",
+          "name_bytes_including_nul": 23,
+          "source": "src/platform/LegacyException.cpp",
+          "source_storage_implemented": true,
+          "existing_explicit_interfaces_usable": true,
+          "catchable_throwinfo_tables_connected": false,
+          "sdk_type_compatibility_verified": false,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54B05D",

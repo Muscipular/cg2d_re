@@ -7,6 +7,7 @@
 #include <Windows.h>
 
 #include <bit>
+#include <type_traits>
 #include <cstring>
 
 namespace cg::platform {
@@ -93,6 +94,50 @@ const LegacyExceptionRaiseMethodTable gLegacyStreamFailureMethods5500EC{
     {DeleteLegacyStreamFailureFromBase, GetLegacyLogicErrorTextFromBase},
     RaiseLegacyStreamFailure_54A17F
 };
+
+// 原六TypeDescriptor已加载内容：同族单槽、缓存0及精确装饰名；不注册宿主RTTI/自动析构。
+LegacyExceptionTypeDescriptorStorage<16> gLegacyExceptionType592B28{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVexception@@"
+};
+LegacyExceptionTypeDescriptorStorage<24> gLegacyRuntimeErrorType592B40{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVruntime_error@std@@"
+};
+LegacyExceptionTypeDescriptorStorage<27> gLegacyStreamFailureType592B60{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVfailure@ios_base@std@@"
+};
+LegacyExceptionTypeDescriptorStorage<22> gLegacyLogicErrorType592BD0{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVlogic_error@std@@"
+};
+LegacyExceptionTypeDescriptorStorage<23> gLegacyStringLengthErrorType592BF0{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVlength_error@std@@"
+};
+LegacyExceptionTypeDescriptorStorage<23> gLegacyStringRangeErrorType592C10{
+    {&gLegacyTypeDescriptorMethods5501C0, nullptr},
+    ".?AVout_of_range@std@@"
+};
+static_assert(offsetof(decltype(gLegacyExceptionType592B28), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyExceptionType592B28), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyExceptionType592B28)>);
+static_assert(offsetof(decltype(gLegacyRuntimeErrorType592B40), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyRuntimeErrorType592B40), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyRuntimeErrorType592B40)>);
+static_assert(offsetof(decltype(gLegacyStreamFailureType592B60), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyStreamFailureType592B60), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyStreamFailureType592B60)>);
+static_assert(offsetof(decltype(gLegacyLogicErrorType592BD0), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyLogicErrorType592BD0), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyLogicErrorType592BD0)>);
+static_assert(offsetof(decltype(gLegacyStringLengthErrorType592BF0), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyStringLengthErrorType592BF0), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyStringLengthErrorType592BF0)>);
+static_assert(offsetof(decltype(gLegacyStringRangeErrorType592C10), prefix) == 0);
+static_assert(offsetof(decltype(gLegacyStringRangeErrorType592C10), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
+static_assert(std::is_trivial_v<decltype(gLegacyStringRangeErrorType592C10)>);
 
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
     LegacyExceptionObject* const storage, const char* const* const sourceText)

@@ -63,7 +63,7 @@ static_assert(offsetof(LegacySmallHeap3Region, base) == 16);
 static_assert(offsetof(LegacySmallHeap3Region, control) == 24);
 static_assert(sizeof(LegacySmallHeap3Region) == 32);
 
-// 仅内部原堆实现可用；不能用于释放既有宿主malloc或裸字节适配分配的内存。
+// 原Win32堆/池元数据保留；mode3通用操作按M3H01为SDK域，mode1/2仍原域。
 extern HANDLE gLegacyHeap10869A4;
 extern std::int32_t gLegacyHeapMode10869A8;
 extern std::uint32_t gLegacySmallHeap3Capacity1086988;
@@ -79,13 +79,13 @@ extern LegacyHeapNewHandler gLegacyHeapNewHandler108614C;
 extern std::int32_t gLegacyHeapNewMode1086150;
 std::int32_t CallLegacyHeapNewHandler_541A28(std::uint32_t byteCount);
 
-// 原堆专用malloc/free调用域；现有Malloc_53C3AC/Free_53C0A9宿主合同保持。
+// 同域malloc/free：mode3为SDK块，mode1/2为原块；模式须在块存活期稳定，禁止混域。
 void* AllocateLegacyHeapBlock_53C3EA(std::uint32_t byteCount);
 void* AllocateLegacyHeapWithHandler_53C3BE(std::uint32_t byteCount, std::int32_t enableHandler);
 void* AllocateLegacyHeapMemory_53C3AC(std::uint32_t byteCount);
 void FreeLegacyHeapMemory_53C0A9(void* memory);
 
-// 模式3真实核心依赖声明；16B拆分/合并原生布局尚待，不提供假本体。
+// 原模式3核心仅留身份/参考；通用mode3用SDK，不造旧16B链或同名假体。
 void* AllocateLegacySmallHeap3Block_541FB1(std::uint32_t byteCount);
 void FreeLegacySmallHeap3Block_541C88(LegacySmallHeap3Region* region, void* memory);
 std::int32_t ResizeLegacySmallHeap3Block_542466(

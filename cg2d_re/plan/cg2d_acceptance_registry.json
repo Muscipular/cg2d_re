@@ -281,7 +281,8 @@
         "doc/cg2d_sdk_classic_locale_spec.md",
         "doc/cg2d_sdk_late_narrow_init_spec.md",
         "doc/cg2d_sdk_standard_stream_owners_spec.md",
-        "doc/cg2d_stdio_table_heap_spec.md"
+        "doc/cg2d_stdio_table_heap_spec.md",
+        "doc/cg2d_mode3_heap_facade_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -405,7 +406,11 @@
         "F:001498EE",
         "F:001491F6",
         "F:0013E9A5",
-        "F:0013BFF8"
+        "F:0013BFF8",
+        "F:0013C3EA",
+        "F:0013C0A9",
+        "F:0013FA5B",
+        "F:0013FCFB"
       ],
       "closure_task_ids": [
         "C01",
@@ -430,7 +435,8 @@
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -450,7 +456,8 @@
         "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭",
         "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭",
         "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭",
-        "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭"
+        "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭",
+        "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -472,7 +479,8 @@
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline"
       ]
     },
     {
@@ -9562,6 +9570,120 @@
       "observation": "原根/数值call及限定源变化",
       "expected": "五根260条/659B、两数字call/23calloc入向/十表引用可追",
       "actual": "一源四类限定差重放，原heap及三消费者未变；表对象分域，不称原私有尾/失败等价"
+    },
+    {
+      "id": "E-MODE3-HEAP-FACADE-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根449条/1167B、三旧核心七call与mode六直接引用；doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-heap-facade-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-acceptance",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB",
+        "src/platform/LegacyHeap.hpp#gLegacyHeapMode10869A8",
+        "include/cg/platform/LegacyMemory.hpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "mode3全族为SDK域，私有分桶/地址/容量/零尾/复制尾/失败策略adapted；realloc不再按旧区域分类，失败handler统一原输入数量，旧部分fallback的对齐数量不同，不称精确失败/私有布局等价",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        },
+        {
+          "description": "mode1/2/初始化与原元数据保留，存活块要求模式稳定/同域；未知owner/外来块/alias/R1、实际SDK ABI/失败/退出与全CRT未闭，不以移除七调用代完整验收",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "五mode3同域实际SDK操作",
+      "expected": "malloc/calloc/realloc/free/msize齐备，无旧核心或Win32 fallback混入",
+      "actual": "五分支已SDK承接，原三未实现核心七当前CPP调用消除，无假体"
+    },
+    {
+      "id": "E-MODE3-HEAP-FACADE-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根449条/1167B、三旧核心七call与mode六直接引用；doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-heap-facade-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-acceptance",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB",
+        "src/platform/LegacyHeap.hpp#gLegacyHeapMode10869A8",
+        "include/cg/platform/LegacyMemory.hpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "mode3全族为SDK域，私有分桶/地址/容量/零尾/复制尾/失败策略adapted；realloc不再按旧区域分类，失败handler统一原输入数量，旧部分fallback的对齐数量不同，不称精确失败/私有布局等价",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        },
+        {
+          "description": "mode1/2/初始化与原元数据保留，存活块要求模式稳定/同域；未知owner/外来块/alias/R1、实际SDK ABI/失败/退出与全CRT未闭，不以移除七调用代完整验收",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "请求/失败/内容与独立域",
+      "expected": "外层W32/NULL零/上界/new-mode/handler保持，SDK失败旧块可用；模式1/2和元数据原文保持",
+      "actual": "mode3 realloc失败统一原输入数量，旧物理对齐/分桶/复制尾/失败策略D02 adapted；未知owner/模式寿命未闭"
+    },
+    {
+      "id": "E-MODE3-HEAP-FACADE-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五完整根449条/1167B、三旧核心七call与mode六直接引用；doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-heap-facade-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-acceptance",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_heap_facade_evidence.json",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB",
+        "src/platform/LegacyHeap.hpp#gLegacyHeapMode10869A8",
+        "include/cg/platform/LegacyMemory.hpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "mode3全族为SDK域，私有分桶/地址/容量/零尾/复制尾/失败策略adapted；realloc不再按旧区域分类，失败handler统一原输入数量，旧部分fallback的对齐数量不同，不称精确失败/私有布局等价",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        },
+        {
+          "description": "mode1/2/初始化与原元数据保留，存活块要求模式稳定/同域；未知owner/外来块/alias/R1、实际SDK ABI/失败/退出与全CRT未闭，不以移除七调用代完整验收",
+          "decision_ref": "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原449/1167及分支限定差",
+      "expected": "五完整原根、七数字call/mode六引用与源码分支/头注释可追",
+      "actual": "一CPP/两头限定重放；原模式1/2/其他源与政策保持，SDK/运行不宣称"
     }
   ],
   "task_acceptance": [
@@ -9730,7 +9852,8 @@
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -9742,7 +9865,8 @@
         "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -9767,7 +9891,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
       ],
       "task_id": "C01",
       "state": "open"
@@ -11094,6 +11219,46 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C3EA",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C0A9",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013BFF8",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013FA5B",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013FCFB",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
       ]
     }
   ],

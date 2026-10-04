@@ -635,3 +635,16 @@ count/乘积/对齐bytes/new-mode与541A28请求仍W32，真实SDKcalloc清零�
 原表进程期保留，已知消费不整表free/resize/query；5446AD释放的是FILE项，
 两者不可混用。未知alias/释放、完整所有权/错误机制与SDK运行仍待，
 不补原没有的整表free/析构或修重复初始化泄漏；C08/C11不提前关闭。
+
+## M3H01 通用模式3分配族当前域（2026-10-05）
+
+[具名合同](cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)
+将五通用mode3操作成组改std::malloc/calloc/realloc/free/UCRT_msize；
+模式1/2及原元数据保留，新旧块不得混域，mode3返回块存活期模式须稳定。
+原未实现三核心七CPP调用已消除，不读memory-4/旧区域，不模拟旧池；
+初始化/threshold/mode存储不改，selector3不是SDK分桶报告。
+
+外层W32请求/条件和失败旧块有效保持，realloc的handler统一原输入byteCount；
+旧部分fallback对齐数量/私有复制尾/地址容量与SDK错误策略按D02 adapted。
+五原完整根449条/1167B及限定源码/头注释归档，
+21应用calloc/六裸字节/其他已迁域保持；完整caller/owner/alias/R1、SDK及运行不闭。

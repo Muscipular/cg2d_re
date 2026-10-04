@@ -1751,3 +1751,17 @@ F:0013BFF8只增加本域关联，通用旧体及21应用域不改，不全局�
 
 已知全表无free/query/resize不造新操作；未知alias/完整owner/SDK运行仍待。
 任务10/60、叶0/182、C01/C08/C10/C11和完整门禁不提升。
+
+## M3H01 通用堆模式3五操作（2026-10-05）
+
+[合同](cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)
+与[证据](cg2d_mode3_heap_facade_evidence.json)保五完整根449条/1167B、
+七原核心call及mode五读一写。
+53C3EA/53C0A9/53BFF8/53FA5B/53FCFB的mode3分支同域SDK化，
+mode1/2及其余源码/原元数据保持；三个旧核心不造假体或移除库存身份。
+
+SDK私有分桶/容量/错误策略和realloc handler统一原输入数量具名adapted，
+不称某fallback对齐回调/私有复制尾/ABI等价；
+模式寿命稳定/同域及全部未知owner/alias仍待。
+五旧记录定点/1202其他及政策保持，审核151→156/3680、限定E111→114；
+语义1207/1204有效ID、18pending/4分类引用保持，任务10/60、叶0/182与完整门禁不提升。

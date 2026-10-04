@@ -1,0 +1,2671 @@
+{
+  "schema_version": 1,
+  "group": "M3H01",
+  "recorded_on": "2026-10-05",
+  "baseline_source": "当前已开cg2d.exe/ida-17524只读Python；原会话未修改/保存/重载；calloc复用SCH01当前原完整体",
+  "snapshot": "cg2d-re-mode3-heap-facade-source-20261005",
+  "primary_function_count": 5,
+  "primary_instruction_count": 449,
+  "primary_byte_count": 1167,
+  "primary": [
+    {
+      "entry": "0x53c3ea",
+      "chunks": [
+        [
+          "0x53c3ea",
+          "0x53c45e"
+        ]
+      ],
+      "instruction_count": 46,
+      "byte_count": 116,
+      "instructions": [
+        {
+          "address": "0x53c3ea",
+          "asm": "mov     eax, dword_10869A8"
+        },
+        {
+          "address": "0x53c3ef",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c3f0",
+          "asm": "mov     esi, [esp+4+arg_0]"
+        },
+        {
+          "address": "0x53c3f4",
+          "asm": "cmp     eax, 3"
+        },
+        {
+          "address": "0x53c3f7",
+          "asm": "jnz     short loc_53C40E"
+        },
+        {
+          "address": "0x53c3f9",
+          "asm": "cmp     esi, dword_10869A0"
+        },
+        {
+          "address": "0x53c3ff",
+          "asm": "ja      short loc_53C440"
+        },
+        {
+          "address": "0x53c401",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c402",
+          "asm": "call    ___sbh_alloc_block"
+        },
+        {
+          "address": "0x53c407",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c409",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c40a",
+          "asm": "jz      short loc_53C440"
+        },
+        {
+          "address": "0x53c40c",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c40d",
+          "asm": "retn"
+        },
+        {
+          "address": "0x53c40e",
+          "asm": "cmp     eax, 2"
+        },
+        {
+          "address": "0x53c411",
+          "asm": "jnz     short loc_53C440"
+        },
+        {
+          "address": "0x53c413",
+          "asm": "mov     eax, [esp+4+arg_0]"
+        },
+        {
+          "address": "0x53c417",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c419",
+          "asm": "jz      short loc_53C423"
+        },
+        {
+          "address": "0x53c41b",
+          "asm": "lea     esi, [eax+0Fh]"
+        },
+        {
+          "address": "0x53c41e",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53c421",
+          "asm": "jmp     short loc_53C426"
+        },
+        {
+          "address": "0x53c423",
+          "asm": "push    10h"
+        },
+        {
+          "address": "0x53c425",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c426",
+          "asm": "cmp     esi, dword_591E7C"
+        },
+        {
+          "address": "0x53c42c",
+          "asm": "ja      short loc_53C44D"
+        },
+        {
+          "address": "0x53c42e",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53c430",
+          "asm": "shr     eax, 4"
+        },
+        {
+          "address": "0x53c433",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c434",
+          "asm": "call    sub_542A54"
+        },
+        {
+          "address": "0x53c439",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c43b",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c43c",
+          "asm": "jnz     short loc_53C45C"
+        },
+        {
+          "address": "0x53c43e",
+          "asm": "jmp     short loc_53C44D"
+        },
+        {
+          "address": "0x53c440",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53c442",
+          "asm": "jnz     short loc_53C447"
+        },
+        {
+          "address": "0x53c444",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x53c446",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c447",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53c44a",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53c44d",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53c44e",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53c450",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53c456",
+          "asm": "call    ds:HeapAlloc"
+        },
+        {
+          "address": "0x53c45c",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c45d",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "from": "0x53c3c9",
+          "type": 17,
+          "parent": "0x53c3be"
+        }
+      ]
+    },
+    {
+      "entry": "0x53c0a9",
+      "chunks": [
+        [
+          "0x53c0a9",
+          "0x53c112"
+        ]
+      ],
+      "instruction_count": 45,
+      "byte_count": 105,
+      "instructions": [
+        {
+          "address": "0x53c0a9",
+          "asm": "push    ebp"
+        },
+        {
+          "address": "0x53c0aa",
+          "asm": "mov     ebp, esp"
+        },
+        {
+          "address": "0x53c0ac",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x53c0ad",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c0ae",
+          "asm": "mov     esi, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53c0b1",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53c0b3",
+          "asm": "jz      short loc_53C10F"
+        },
+        {
+          "address": "0x53c0b5",
+          "asm": "mov     eax, dword_10869A8"
+        },
+        {
+          "address": "0x53c0ba",
+          "asm": "cmp     eax, 3"
+        },
+        {
+          "address": "0x53c0bd",
+          "asm": "jnz     short loc_53C0D5"
+        },
+        {
+          "address": "0x53c0bf",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c0c0",
+          "asm": "call    ___sbh_find_block"
+        },
+        {
+          "address": "0x53c0c5",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c0c6",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c0c8",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c0c9",
+          "asm": "jz      short loc_53C101"
+        },
+        {
+          "address": "0x53c0cb",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c0cc",
+          "asm": "call    sub_541C88"
+        },
+        {
+          "address": "0x53c0d1",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c0d2",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c0d3",
+          "asm": "jmp     short loc_53C10F"
+        },
+        {
+          "address": "0x53c0d5",
+          "asm": "cmp     eax, 2"
+        },
+        {
+          "address": "0x53c0d8",
+          "asm": "jnz     short loc_53C100"
+        },
+        {
+          "address": "0x53c0da",
+          "asm": "lea     eax, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53c0dd",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c0de",
+          "asm": "lea     eax, [ebp+var_4]"
+        },
+        {
+          "address": "0x53c0e1",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c0e2",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c0e3",
+          "asm": "call    sub_5429B8"
+        },
+        {
+          "address": "0x53c0e8",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53c0eb",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c0ed",
+          "asm": "jz      short loc_53C100"
+        },
+        {
+          "address": "0x53c0ef",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c0f0",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53c0f3",
+          "asm": "push    [ebp+var_4]"
+        },
+        {
+          "address": "0x53c0f6",
+          "asm": "call    sub_542A0F"
+        },
+        {
+          "address": "0x53c0fb",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53c0fe",
+          "asm": "jmp     short loc_53C10F"
+        },
+        {
+          "address": "0x53c100",
+          "asm": "push    esi; lpMem"
+        },
+        {
+          "address": "0x53c101",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53c103",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53c109",
+          "asm": "call    ds:HeapFree"
+        },
+        {
+          "address": "0x53c10f",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c110",
+          "asm": "leave"
+        },
+        {
+          "address": "0x53c111",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "from": "0x404b4c",
+          "type": 17,
+          "parent": "0x404ae0"
+        },
+        {
+          "from": "0x404d1d",
+          "type": 17,
+          "parent": "0x404d10"
+        },
+        {
+          "from": "0x404d26",
+          "type": 17,
+          "parent": "0x404d10"
+        },
+        {
+          "from": "0x404d70",
+          "type": 17,
+          "parent": "0x404d60"
+        },
+        {
+          "from": "0x404d7c",
+          "type": 17,
+          "parent": "0x404d60"
+        },
+        {
+          "from": "0x4217bc",
+          "type": 17,
+          "parent": "0x421750"
+        },
+        {
+          "from": "0x4217d0",
+          "type": 17,
+          "parent": "0x421750"
+        },
+        {
+          "from": "0x43bee6",
+          "type": 17,
+          "parent": "0x43bed0"
+        },
+        {
+          "from": "0x442e0d",
+          "type": 17,
+          "parent": "0x442dc0"
+        },
+        {
+          "from": "0x443553",
+          "type": 17,
+          "parent": "0x442f70"
+        },
+        {
+          "from": "0x4463d4",
+          "type": 17,
+          "parent": "0x4462e0"
+        },
+        {
+          "from": "0x4465ae",
+          "type": 17,
+          "parent": "0x4464d0"
+        },
+        {
+          "from": "0x453b5f",
+          "type": 17,
+          "parent": "0x453760"
+        },
+        {
+          "from": "0x453c0e",
+          "type": 17,
+          "parent": "0x453760"
+        },
+        {
+          "from": "0x453c18",
+          "type": 17,
+          "parent": "0x453760"
+        },
+        {
+          "from": "0x453dc7",
+          "type": 17,
+          "parent": "0x453760"
+        },
+        {
+          "from": "0x453dcd",
+          "type": 17,
+          "parent": "0x453760"
+        },
+        {
+          "from": "0x4575b4",
+          "type": 17,
+          "parent": "0x4574e0"
+        },
+        {
+          "from": "0x4575c6",
+          "type": 17,
+          "parent": "0x4574e0"
+        },
+        {
+          "from": "0x4575d8",
+          "type": 17,
+          "parent": "0x4574e0"
+        },
+        {
+          "from": "0x45767a",
+          "type": 17,
+          "parent": "0x457670"
+        },
+        {
+          "from": "0x45768c",
+          "type": 17,
+          "parent": "0x457670"
+        },
+        {
+          "from": "0x45769e",
+          "type": 17,
+          "parent": "0x457670"
+        },
+        {
+          "from": "0x45906e",
+          "type": 17,
+          "parent": "0x459040"
+        },
+        {
+          "from": "0x45a6ca",
+          "type": 17,
+          "parent": "0x45a6c0"
+        },
+        {
+          "from": "0x45b477",
+          "type": 17,
+          "parent": "0x45b440"
+        },
+        {
+          "from": "0x45b4bf",
+          "type": 17,
+          "parent": "0x45b440"
+        },
+        {
+          "from": "0x45b4f8",
+          "type": 17,
+          "parent": "0x45b440"
+        },
+        {
+          "from": "0x45b687",
+          "type": 17,
+          "parent": "0x45b650"
+        },
+        {
+          "from": "0x45b6cf",
+          "type": 17,
+          "parent": "0x45b650"
+        },
+        {
+          "from": "0x45b708",
+          "type": 17,
+          "parent": "0x45b650"
+        },
+        {
+          "from": "0x45bde9",
+          "type": 17,
+          "parent": "0x45bb20"
+        },
+        {
+          "from": "0x467832",
+          "type": 17,
+          "parent": "0x466dc0"
+        },
+        {
+          "from": "0x467872",
+          "type": 17,
+          "parent": "0x466dc0"
+        },
+        {
+          "from": "0x4678a1",
+          "type": 17,
+          "parent": "0x466dc0"
+        },
+        {
+          "from": "0x47134f",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x471376",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x4713a5",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x4713be",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x4713d7",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x4713ff",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x47140f",
+          "type": 17,
+          "parent": "0x471270"
+        },
+        {
+          "from": "0x49c919",
+          "type": 17,
+          "parent": "0x49c710"
+        },
+        {
+          "from": "0x49c93b",
+          "type": 17,
+          "parent": "0x49c710"
+        },
+        {
+          "from": "0x49ce32",
+          "type": 17,
+          "parent": "0x49cdf0"
+        },
+        {
+          "from": "0x49ce4f",
+          "type": 17,
+          "parent": "0x49cdf0"
+        },
+        {
+          "from": "0x4ad0ae",
+          "type": 17,
+          "parent": "0x4ad090"
+        },
+        {
+          "from": "0x4ad0c7",
+          "type": 17,
+          "parent": "0x4ad090"
+        },
+        {
+          "from": "0x4fbab5",
+          "type": 17,
+          "parent": "0x4fba30"
+        },
+        {
+          "from": "0x506595",
+          "type": 17,
+          "parent": "0x506580"
+        },
+        {
+          "from": "0x516bd6",
+          "type": 17,
+          "parent": "0x516b60"
+        },
+        {
+          "from": "0x516bf7",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c03",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c0f",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c1a",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c26",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c32",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c3d",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c49",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c55",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c68",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516c7f",
+          "type": 17,
+          "parent": "0x5081a0"
+        },
+        {
+          "from": "0x516fcd",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x516fd8",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x516fe4",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x516ff0",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x516ffb",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x517007",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x517013",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x51701e",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x51702a",
+          "type": 17,
+          "parent": "0x516da0"
+        },
+        {
+          "from": "0x519e0c",
+          "type": 17,
+          "parent": "0x519d50"
+        },
+        {
+          "from": "0x51a6d0",
+          "type": 17,
+          "parent": "0x51a6a0"
+        },
+        {
+          "from": "0x52b91a",
+          "type": 17,
+          "parent": "0x52b8e0"
+        },
+        {
+          "from": "0x52c234",
+          "type": 17,
+          "parent": "0x52c160"
+        },
+        {
+          "from": "0x52c264",
+          "type": 17,
+          "parent": "0x52c160"
+        },
+        {
+          "from": "0x52c313",
+          "type": 17,
+          "parent": "0x52c160"
+        },
+        {
+          "from": "0x53b213",
+          "type": 17,
+          "parent": "0x53b1d0"
+        },
+        {
+          "from": "0x53b4eb",
+          "type": 17,
+          "parent": "0x53b4e7"
+        },
+        {
+          "from": "0x53f283",
+          "type": 17,
+          "parent": "0x53eb28"
+        },
+        {
+          "from": "0x53f3a2",
+          "type": 17,
+          "parent": "0x53f38f"
+        },
+        {
+          "from": "0x53fa80",
+          "type": 17,
+          "parent": "0x53fa5b"
+        },
+        {
+          "from": "0x540c6f",
+          "type": 17,
+          "parent": "0x540b1d"
+        },
+        {
+          "from": "0x54402b",
+          "type": 17,
+          "parent": "0x543f8e"
+        },
+        {
+          "from": "0x544353",
+          "type": 17,
+          "parent": "0x544294"
+        },
+        {
+          "from": "0x5446e8",
+          "type": 17,
+          "parent": "0x5446ad"
+        },
+        {
+          "from": "0x547f58",
+          "type": 17,
+          "parent": "0x547e8a"
+        },
+        {
+          "from": "0x548004",
+          "type": 17,
+          "parent": "0x547e8a"
+        },
+        {
+          "from": "0x54a610",
+          "type": 17,
+          "parent": "0x54a5b7"
+        },
+        {
+          "from": "0x54ac74",
+          "type": 17,
+          "parent": "0x54ac66"
+        }
+      ]
+    },
+    {
+      "entry": "0x53bff8",
+      "chunks": [
+        [
+          "0x53bff8",
+          "0x53c0a9"
+        ]
+      ],
+      "instruction_count": 72,
+      "byte_count": 177,
+      "instructions": [
+        {
+          "address": "0x53bff8",
+          "asm": "push    ebp"
+        },
+        {
+          "address": "0x53bff9",
+          "asm": "mov     ebp, esp"
+        },
+        {
+          "address": "0x53bffb",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53bffc",
+          "asm": "mov     esi, [ebp+Size]"
+        },
+        {
+          "address": "0x53bfff",
+          "asm": "imul    esi, [ebp+arg_4]"
+        },
+        {
+          "address": "0x53c003",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53c006",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x53c007",
+          "asm": "mov     [ebp+Size], esi"
+        },
+        {
+          "address": "0x53c00a",
+          "asm": "ja      short loc_53C019"
+        },
+        {
+          "address": "0x53c00c",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53c00e",
+          "asm": "jnz     short loc_53C013"
+        },
+        {
+          "address": "0x53c010",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x53c012",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c013",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53c016",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53c019",
+          "asm": "xor     edi, edi"
+        },
+        {
+          "address": "0x53c01b",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53c01e",
+          "asm": "ja      short loc_53C078"
+        },
+        {
+          "address": "0x53c020",
+          "asm": "mov     eax, dword_10869A8"
+        },
+        {
+          "address": "0x53c025",
+          "asm": "cmp     eax, 3"
+        },
+        {
+          "address": "0x53c028",
+          "asm": "jnz     short loc_53C044"
+        },
+        {
+          "address": "0x53c02a",
+          "asm": "mov     eax, [ebp+Size]"
+        },
+        {
+          "address": "0x53c02d",
+          "asm": "cmp     eax, dword_10869A0"
+        },
+        {
+          "address": "0x53c033",
+          "asm": "ja      short loc_53C063"
+        },
+        {
+          "address": "0x53c035",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c036",
+          "asm": "call    ___sbh_alloc_block"
+        },
+        {
+          "address": "0x53c03b",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53c03d",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c03e",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53c040",
+          "asm": "jnz     short loc_53C08E"
+        },
+        {
+          "address": "0x53c042",
+          "asm": "jmp     short loc_53C063"
+        },
+        {
+          "address": "0x53c044",
+          "asm": "cmp     eax, 2"
+        },
+        {
+          "address": "0x53c047",
+          "asm": "jnz     short loc_53C063"
+        },
+        {
+          "address": "0x53c049",
+          "asm": "cmp     esi, dword_591E7C"
+        },
+        {
+          "address": "0x53c04f",
+          "asm": "ja      short loc_53C063"
+        },
+        {
+          "address": "0x53c051",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53c053",
+          "asm": "shr     eax, 4"
+        },
+        {
+          "address": "0x53c056",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53c057",
+          "asm": "call    sub_542A54"
+        },
+        {
+          "address": "0x53c05c",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53c05e",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c05f",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53c061",
+          "asm": "jnz     short loc_53C0A2"
+        },
+        {
+          "address": "0x53c063",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53c064",
+          "asm": "push    8; dwFlags"
+        },
+        {
+          "address": "0x53c066",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53c06c",
+          "asm": "call    ds:HeapAlloc; ;0x8 -> HEAP_ZERO_MEMORY"
+        },
+        {
+          "address": "0x53c072",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53c074",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53c076",
+          "asm": "jnz     short loc_53C09C"
+        },
+        {
+          "address": "0x53c078",
+          "asm": "cmp     dword_1086150, 0"
+        },
+        {
+          "address": "0x53c07f",
+          "asm": "jz      short loc_53C09C"
+        },
+        {
+          "address": "0x53c081",
+          "asm": "push    esi; Size"
+        },
+        {
+          "address": "0x53c082",
+          "asm": "call    __callnewh"
+        },
+        {
+          "address": "0x53c087",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53c089",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53c08a",
+          "asm": "jz      short loc_53C0A5"
+        },
+        {
+          "address": "0x53c08c",
+          "asm": "jmp     short loc_53C019"
+        },
+        {
+          "address": "0x53c08e",
+          "asm": "push    [ebp+Size]; Size"
+        },
+        {
+          "address": "0x53c091",
+          "asm": "push    0; Val"
+        },
+        {
+          "address": "0x53c093",
+          "asm": "push    edi; void *"
+        },
+        {
+          "address": "0x53c094",
+          "asm": "call    _memset"
+        },
+        {
+          "address": "0x53c099",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53c09c",
+          "asm": "mov     eax, edi"
+        },
+        {
+          "address": "0x53c09e",
+          "asm": "pop     edi"
+        },
+        {
+          "address": "0x53c09f",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53c0a0",
+          "asm": "pop     ebp"
+        },
+        {
+          "address": "0x53c0a1",
+          "asm": "retn"
+        },
+        {
+          "address": "0x53c0a2",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53c0a3",
+          "asm": "jmp     short loc_53C091"
+        },
+        {
+          "address": "0x53c0a5",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "address": "0x53c0a7",
+          "asm": "jmp     short loc_53C09E"
+        }
+      ],
+      "inbound": [
+        {
+          "from": "0x404a48",
+          "type": 17,
+          "parent": "0x404a40"
+        },
+        {
+          "from": "0x404a59",
+          "type": 17,
+          "parent": "0x404a40"
+        },
+        {
+          "from": "0x404aeb",
+          "type": 17,
+          "parent": "0x404ae0"
+        },
+        {
+          "from": "0x404b3a",
+          "type": 17,
+          "parent": "0x404ae0"
+        },
+        {
+          "from": "0x421880",
+          "type": 17,
+          "parent": "0x4217f0"
+        },
+        {
+          "from": "0x4218da",
+          "type": 17,
+          "parent": "0x4217f0"
+        },
+        {
+          "from": "0x467841",
+          "type": 17,
+          "parent": "0x466dc0"
+        },
+        {
+          "from": "0x4678b0",
+          "type": 17,
+          "parent": "0x466dc0"
+        },
+        {
+          "from": "0x4714de",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x471546",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x4715c6",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x471607",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x47165b",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x47167f",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x471737",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x471753",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x471768",
+          "type": 17,
+          "parent": "0x471440"
+        },
+        {
+          "from": "0x49c8af",
+          "type": 17,
+          "parent": "0x49c710"
+        },
+        {
+          "from": "0x49c8da",
+          "type": 17,
+          "parent": "0x49c710"
+        },
+        {
+          "from": "0x4ad2d1",
+          "type": 17,
+          "parent": "0x4ad180"
+        },
+        {
+          "from": "0x4ad5da",
+          "type": 17,
+          "parent": "0x4ad470"
+        },
+        {
+          "from": "0x53e9c7",
+          "type": 17,
+          "parent": "0x53e9a5"
+        },
+        {
+          "from": "0x53e9e0",
+          "type": 17,
+          "parent": "0x53e9a5"
+        }
+      ]
+    },
+    {
+      "entry": "0x53fa5b",
+      "chunks": [
+        [
+          "0x53fa5b",
+          "0x53fcfb"
+        ]
+      ],
+      "instruction_count": 246,
+      "byte_count": 672,
+      "instructions": [
+        {
+          "address": "0x53fa5b",
+          "asm": "push    ebp"
+        },
+        {
+          "address": "0x53fa5c",
+          "asm": "mov     ebp, esp"
+        },
+        {
+          "address": "0x53fa5e",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x53fa5f",
+          "asm": "cmp     [ebp+lpMem], 0"
+        },
+        {
+          "address": "0x53fa63",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fa64",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fa65",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x53fa66",
+          "asm": "jnz     short loc_53FA76"
+        },
+        {
+          "address": "0x53fa68",
+          "asm": "push    [ebp+dwBytes]; Size"
+        },
+        {
+          "address": "0x53fa6b",
+          "asm": "call    _malloc"
+        },
+        {
+          "address": "0x53fa70",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fa71",
+          "asm": "jmp     loc_53FCF6"
+        },
+        {
+          "address": "0x53fa76",
+          "asm": "mov     esi, [ebp+dwBytes]"
+        },
+        {
+          "address": "0x53fa79",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53fa7b",
+          "asm": "jnz     short loc_53FA8B"
+        },
+        {
+          "address": "0x53fa7d",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x53fa80",
+          "asm": "call    free"
+        },
+        {
+          "address": "0x53fa85",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fa86",
+          "asm": "jmp     loc_53FCF4"
+        },
+        {
+          "address": "0x53fa8b",
+          "asm": "mov     eax, dword_10869A8"
+        },
+        {
+          "address": "0x53fa90",
+          "asm": "cmp     eax, 3"
+        },
+        {
+          "address": "0x53fa93",
+          "asm": "jnz     loc_53FB9B"
+        },
+        {
+          "address": "0x53fa99",
+          "asm": "xor     edi, edi"
+        },
+        {
+          "address": "0x53fa9b",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53fa9e",
+          "asm": "ja      loc_53FB77"
+        },
+        {
+          "address": "0x53faa4",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53faa7",
+          "asm": "call    ___sbh_find_block"
+        },
+        {
+          "address": "0x53faac",
+          "asm": "mov     ebx, eax"
+        },
+        {
+          "address": "0x53faae",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53faaf",
+          "asm": "test    ebx, ebx"
+        },
+        {
+          "address": "0x53fab1",
+          "asm": "jz      loc_53FB52"
+        },
+        {
+          "address": "0x53fab7",
+          "asm": "cmp     esi, dword_10869A0"
+        },
+        {
+          "address": "0x53fabd",
+          "asm": "ja      short loc_53FB0B"
+        },
+        {
+          "address": "0x53fabf",
+          "asm": "mov     edi, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fac2",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fac3",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x53fac4",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fac5",
+          "asm": "call    ___sbh_resize_block"
+        },
+        {
+          "address": "0x53faca",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53facd",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53facf",
+          "asm": "jnz     short loc_53FB07"
+        },
+        {
+          "address": "0x53fad1",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fad2",
+          "asm": "call    ___sbh_alloc_block"
+        },
+        {
+          "address": "0x53fad7",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fad9",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fada",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fadc",
+          "asm": "jz      short loc_53FB0B"
+        },
+        {
+          "address": "0x53fade",
+          "asm": "mov     ebx, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fae1",
+          "asm": "mov     eax, [ebx-4]"
+        },
+        {
+          "address": "0x53fae4",
+          "asm": "dec     eax"
+        },
+        {
+          "address": "0x53fae5",
+          "asm": "cmp     eax, esi"
+        },
+        {
+          "address": "0x53fae7",
+          "asm": "jb      short loc_53FAEB"
+        },
+        {
+          "address": "0x53fae9",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53faeb",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x53faec",
+          "asm": "push    ebx; Src"
+        },
+        {
+          "address": "0x53faed",
+          "asm": "push    edi; void *"
+        },
+        {
+          "address": "0x53faee",
+          "asm": "call    _memcpy_0"
+        },
+        {
+          "address": "0x53faf3",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53faf4",
+          "asm": "call    ___sbh_find_block"
+        },
+        {
+          "address": "0x53faf9",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fafc",
+          "asm": "mov     ebx, eax"
+        },
+        {
+          "address": "0x53fafe",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53faff",
+          "asm": "call    sub_541C88"
+        },
+        {
+          "address": "0x53fb04",
+          "asm": "add     esp, 18h"
+        },
+        {
+          "address": "0x53fb07",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fb09",
+          "asm": "jnz     short loc_53FB4E"
+        },
+        {
+          "address": "0x53fb0b",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53fb0d",
+          "asm": "jnz     short loc_53FB12"
+        },
+        {
+          "address": "0x53fb0f",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x53fb11",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fb12",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53fb15",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53fb18",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53fb19",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fb1b",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fb21",
+          "asm": "call    ds:HeapAlloc"
+        },
+        {
+          "address": "0x53fb27",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fb29",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fb2b",
+          "asm": "jz      short loc_53FB4E"
+        },
+        {
+          "address": "0x53fb2d",
+          "asm": "mov     ecx, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fb30",
+          "asm": "mov     eax, [ecx-4]"
+        },
+        {
+          "address": "0x53fb33",
+          "asm": "dec     eax"
+        },
+        {
+          "address": "0x53fb34",
+          "asm": "cmp     eax, esi"
+        },
+        {
+          "address": "0x53fb36",
+          "asm": "jb      short loc_53FB3A"
+        },
+        {
+          "address": "0x53fb38",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53fb3a",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x53fb3b",
+          "asm": "push    ecx; Src"
+        },
+        {
+          "address": "0x53fb3c",
+          "asm": "push    edi; void *"
+        },
+        {
+          "address": "0x53fb3d",
+          "asm": "call    _memcpy_0"
+        },
+        {
+          "address": "0x53fb42",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fb45",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fb46",
+          "asm": "call    sub_541C88"
+        },
+        {
+          "address": "0x53fb4b",
+          "asm": "add     esp, 14h"
+        },
+        {
+          "address": "0x53fb4e",
+          "asm": "test    ebx, ebx"
+        },
+        {
+          "address": "0x53fb50",
+          "asm": "jnz     short loc_53FB73"
+        },
+        {
+          "address": "0x53fb52",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53fb54",
+          "asm": "jnz     short loc_53FB59"
+        },
+        {
+          "address": "0x53fb56",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x53fb58",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fb59",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53fb5c",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53fb5f",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53fb60",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x53fb63",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fb65",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fb6b",
+          "asm": "call    ds:HeapReAlloc"
+        },
+        {
+          "address": "0x53fb71",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fb73",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fb75",
+          "asm": "jnz     short loc_53FB94"
+        },
+        {
+          "address": "0x53fb77",
+          "asm": "cmp     dword_1086150, 0"
+        },
+        {
+          "address": "0x53fb7e",
+          "asm": "jz      short loc_53FB94"
+        },
+        {
+          "address": "0x53fb80",
+          "asm": "push    esi; Size"
+        },
+        {
+          "address": "0x53fb81",
+          "asm": "call    __callnewh"
+        },
+        {
+          "address": "0x53fb86",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fb88",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fb89",
+          "asm": "jnz     loc_53FA99"
+        },
+        {
+          "address": "0x53fb8f",
+          "asm": "jmp     loc_53FCF4"
+        },
+        {
+          "address": "0x53fb94",
+          "asm": "mov     eax, edi"
+        },
+        {
+          "address": "0x53fb96",
+          "asm": "jmp     loc_53FCF6"
+        },
+        {
+          "address": "0x53fb9b",
+          "asm": "cmp     eax, 2"
+        },
+        {
+          "address": "0x53fb9e",
+          "asm": "jnz     loc_53FCB6"
+        },
+        {
+          "address": "0x53fba4",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53fba7",
+          "asm": "ja      short loc_53FBB8"
+        },
+        {
+          "address": "0x53fba9",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53fbab",
+          "asm": "jbe     short loc_53FBB5"
+        },
+        {
+          "address": "0x53fbad",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53fbb0",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53fbb3",
+          "asm": "jmp     short loc_53FBB8"
+        },
+        {
+          "address": "0x53fbb5",
+          "asm": "push    10h"
+        },
+        {
+          "address": "0x53fbb7",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fbb8",
+          "asm": "xor     edi, edi"
+        },
+        {
+          "address": "0x53fbba",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53fbbd",
+          "asm": "ja      loc_53FC98"
+        },
+        {
+          "address": "0x53fbc3",
+          "asm": "lea     eax, [ebp+dwBytes]"
+        },
+        {
+          "address": "0x53fbc6",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53fbc7",
+          "asm": "lea     eax, [ebp+var_4]"
+        },
+        {
+          "address": "0x53fbca",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53fbcb",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fbce",
+          "asm": "call    sub_5429B8"
+        },
+        {
+          "address": "0x53fbd3",
+          "asm": "mov     ebx, eax"
+        },
+        {
+          "address": "0x53fbd5",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53fbd8",
+          "asm": "test    ebx, ebx"
+        },
+        {
+          "address": "0x53fbda",
+          "asm": "jz      loc_53FC7C"
+        },
+        {
+          "address": "0x53fbe0",
+          "asm": "cmp     esi, dword_591E7C"
+        },
+        {
+          "address": "0x53fbe6",
+          "asm": "jnb     short loc_53FC40"
+        },
+        {
+          "address": "0x53fbe8",
+          "asm": "mov     edi, esi"
+        },
+        {
+          "address": "0x53fbea",
+          "asm": "shr     edi, 4"
+        },
+        {
+          "address": "0x53fbed",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x53fbee",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fbef",
+          "asm": "push    [ebp+dwBytes]"
+        },
+        {
+          "address": "0x53fbf2",
+          "asm": "push    [ebp+var_4]"
+        },
+        {
+          "address": "0x53fbf5",
+          "asm": "call    sub_542D80"
+        },
+        {
+          "address": "0x53fbfa",
+          "asm": "add     esp, 10h"
+        },
+        {
+          "address": "0x53fbfd",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fbff",
+          "asm": "jz      short loc_53FC06"
+        },
+        {
+          "address": "0x53fc01",
+          "asm": "mov     edi, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fc04",
+          "asm": "jmp     short loc_53FC38"
+        },
+        {
+          "address": "0x53fc06",
+          "asm": "push    edi"
+        },
+        {
+          "address": "0x53fc07",
+          "asm": "call    sub_542A54"
+        },
+        {
+          "address": "0x53fc0c",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fc0e",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fc0f",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fc11",
+          "asm": "jz      short loc_53FC40"
+        },
+        {
+          "address": "0x53fc13",
+          "asm": "movzx   eax, byte ptr [ebx]"
+        },
+        {
+          "address": "0x53fc16",
+          "asm": "shl     eax, 4"
+        },
+        {
+          "address": "0x53fc19",
+          "asm": "cmp     eax, esi"
+        },
+        {
+          "address": "0x53fc1b",
+          "asm": "jb      short loc_53FC1F"
+        },
+        {
+          "address": "0x53fc1d",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53fc1f",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x53fc20",
+          "asm": "push    [ebp+lpMem]; Src"
+        },
+        {
+          "address": "0x53fc23",
+          "asm": "push    edi; void *"
+        },
+        {
+          "address": "0x53fc24",
+          "asm": "call    _memcpy_0"
+        },
+        {
+          "address": "0x53fc29",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fc2a",
+          "asm": "push    [ebp+dwBytes]"
+        },
+        {
+          "address": "0x53fc2d",
+          "asm": "push    [ebp+var_4]"
+        },
+        {
+          "address": "0x53fc30",
+          "asm": "call    sub_542A0F"
+        },
+        {
+          "address": "0x53fc35",
+          "asm": "add     esp, 18h"
+        },
+        {
+          "address": "0x53fc38",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fc3a",
+          "asm": "jnz     loc_53FB94"
+        },
+        {
+          "address": "0x53fc40",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53fc41",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fc43",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fc49",
+          "asm": "call    ds:HeapAlloc"
+        },
+        {
+          "address": "0x53fc4f",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fc51",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fc53",
+          "asm": "jz      short loc_53FC98"
+        },
+        {
+          "address": "0x53fc55",
+          "asm": "movzx   eax, byte ptr [ebx]"
+        },
+        {
+          "address": "0x53fc58",
+          "asm": "shl     eax, 4"
+        },
+        {
+          "address": "0x53fc5b",
+          "asm": "cmp     eax, esi"
+        },
+        {
+          "address": "0x53fc5d",
+          "asm": "jb      short loc_53FC61"
+        },
+        {
+          "address": "0x53fc5f",
+          "asm": "mov     eax, esi"
+        },
+        {
+          "address": "0x53fc61",
+          "asm": "push    eax; Size"
+        },
+        {
+          "address": "0x53fc62",
+          "asm": "push    [ebp+lpMem]; Src"
+        },
+        {
+          "address": "0x53fc65",
+          "asm": "push    edi; void *"
+        },
+        {
+          "address": "0x53fc66",
+          "asm": "call    _memcpy_0"
+        },
+        {
+          "address": "0x53fc6b",
+          "asm": "push    ebx"
+        },
+        {
+          "address": "0x53fc6c",
+          "asm": "push    [ebp+dwBytes]"
+        },
+        {
+          "address": "0x53fc6f",
+          "asm": "push    [ebp+var_4]"
+        },
+        {
+          "address": "0x53fc72",
+          "asm": "call    sub_542A0F"
+        },
+        {
+          "address": "0x53fc77",
+          "asm": "add     esp, 18h"
+        },
+        {
+          "address": "0x53fc7a",
+          "asm": "jmp     short loc_53FC90"
+        },
+        {
+          "address": "0x53fc7c",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53fc7d",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x53fc80",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fc82",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fc88",
+          "asm": "call    ds:HeapReAlloc"
+        },
+        {
+          "address": "0x53fc8e",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "address": "0x53fc90",
+          "asm": "test    edi, edi"
+        },
+        {
+          "address": "0x53fc92",
+          "asm": "jnz     loc_53FB94"
+        },
+        {
+          "address": "0x53fc98",
+          "asm": "cmp     dword_1086150, 0"
+        },
+        {
+          "address": "0x53fc9f",
+          "asm": "jz      loc_53FB94"
+        },
+        {
+          "address": "0x53fca5",
+          "asm": "push    esi; Size"
+        },
+        {
+          "address": "0x53fca6",
+          "asm": "call    __callnewh"
+        },
+        {
+          "address": "0x53fcab",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fcad",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fcae",
+          "asm": "jnz     loc_53FBB8"
+        },
+        {
+          "address": "0x53fcb4",
+          "asm": "jmp     short loc_53FCF4"
+        },
+        {
+          "address": "0x53fcb6",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "address": "0x53fcb8",
+          "asm": "cmp     esi, 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53fcbb",
+          "asm": "ja      short loc_53FCE0"
+        },
+        {
+          "address": "0x53fcbd",
+          "asm": "test    esi, esi"
+        },
+        {
+          "address": "0x53fcbf",
+          "asm": "jnz     short loc_53FCC4"
+        },
+        {
+          "address": "0x53fcc1",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x53fcc3",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fcc4",
+          "asm": "add     esi, 0Fh"
+        },
+        {
+          "address": "0x53fcc7",
+          "asm": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "address": "0x53fcca",
+          "asm": "push    esi; dwBytes"
+        },
+        {
+          "address": "0x53fccb",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x53fcce",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fcd0",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fcd6",
+          "asm": "call    ds:HeapReAlloc"
+        },
+        {
+          "address": "0x53fcdc",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fcde",
+          "asm": "jnz     short loc_53FCF6"
+        },
+        {
+          "address": "0x53fce0",
+          "asm": "cmp     dword_1086150, 0"
+        },
+        {
+          "address": "0x53fce7",
+          "asm": "jz      short loc_53FCF6"
+        },
+        {
+          "address": "0x53fce9",
+          "asm": "push    esi; Size"
+        },
+        {
+          "address": "0x53fcea",
+          "asm": "call    __callnewh"
+        },
+        {
+          "address": "0x53fcef",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fcf1",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fcf2",
+          "asm": "jnz     short loc_53FCB6"
+        },
+        {
+          "address": "0x53fcf4",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "address": "0x53fcf6",
+          "asm": "pop     edi"
+        },
+        {
+          "address": "0x53fcf7",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fcf8",
+          "asm": "pop     ebx"
+        },
+        {
+          "address": "0x53fcf9",
+          "asm": "leave"
+        },
+        {
+          "address": "0x53fcfa",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "from": "0x53b3ce",
+          "type": 17,
+          "parent": "0x53b399"
+        },
+        {
+          "from": "0x547f77",
+          "type": 17,
+          "parent": "0x547e8a"
+        },
+        {
+          "from": "0x547f9f",
+          "type": 17,
+          "parent": "0x547e8a"
+        }
+      ]
+    },
+    {
+      "entry": "0x53fcfb",
+      "chunks": [
+        [
+          "0x53fcfb",
+          "0x53fd5c"
+        ]
+      ],
+      "instruction_count": 40,
+      "byte_count": 97,
+      "instructions": [
+        {
+          "address": "0x53fcfb",
+          "asm": "push    ebp"
+        },
+        {
+          "address": "0x53fcfc",
+          "asm": "mov     ebp, esp"
+        },
+        {
+          "address": "0x53fcfe",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x53fcff",
+          "asm": "push    ecx"
+        },
+        {
+          "address": "0x53fd00",
+          "asm": "mov     eax, dword_10869A8"
+        },
+        {
+          "address": "0x53fd05",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fd06",
+          "asm": "cmp     eax, 3"
+        },
+        {
+          "address": "0x53fd09",
+          "asm": "jnz     short loc_53FD24"
+        },
+        {
+          "address": "0x53fd0b",
+          "asm": "mov     esi, [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fd0e",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fd0f",
+          "asm": "call    ___sbh_find_block"
+        },
+        {
+          "address": "0x53fd14",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fd16",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x53fd17",
+          "asm": "jz      short loc_53FD21"
+        },
+        {
+          "address": "0x53fd19",
+          "asm": "mov     eax, [esi-4]"
+        },
+        {
+          "address": "0x53fd1c",
+          "asm": "sub     eax, 9"
+        },
+        {
+          "address": "0x53fd1f",
+          "asm": "jmp     short loc_53FD59"
+        },
+        {
+          "address": "0x53fd21",
+          "asm": "push    esi"
+        },
+        {
+          "address": "0x53fd22",
+          "asm": "jmp     short loc_53FD4B"
+        },
+        {
+          "address": "0x53fd24",
+          "asm": "cmp     eax, 2"
+        },
+        {
+          "address": "0x53fd27",
+          "asm": "jnz     short loc_53FD48"
+        },
+        {
+          "address": "0x53fd29",
+          "asm": "lea     eax, [ebp+var_4]"
+        },
+        {
+          "address": "0x53fd2c",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53fd2d",
+          "asm": "lea     eax, [ebp+var_8]"
+        },
+        {
+          "address": "0x53fd30",
+          "asm": "push    eax"
+        },
+        {
+          "address": "0x53fd31",
+          "asm": "push    [ebp+lpMem]"
+        },
+        {
+          "address": "0x53fd34",
+          "asm": "call    sub_5429B8"
+        },
+        {
+          "address": "0x53fd39",
+          "asm": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53fd3c",
+          "asm": "test    eax, eax"
+        },
+        {
+          "address": "0x53fd3e",
+          "asm": "jz      short loc_53FD48"
+        },
+        {
+          "address": "0x53fd40",
+          "asm": "movzx   eax, byte ptr [eax]"
+        },
+        {
+          "address": "0x53fd43",
+          "asm": "shl     eax, 4"
+        },
+        {
+          "address": "0x53fd46",
+          "asm": "jmp     short loc_53FD59"
+        },
+        {
+          "address": "0x53fd48",
+          "asm": "push    [ebp+lpMem]; lpMem"
+        },
+        {
+          "address": "0x53fd4b",
+          "asm": "push    0; dwFlags"
+        },
+        {
+          "address": "0x53fd4d",
+          "asm": "push    hHeap; hHeap"
+        },
+        {
+          "address": "0x53fd53",
+          "asm": "call    ds:HeapSize"
+        },
+        {
+          "address": "0x53fd59",
+          "asm": "pop     esi"
+        },
+        {
+          "address": "0x53fd5a",
+          "asm": "leave"
+        },
+        {
+          "address": "0x53fd5b",
+          "asm": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "from": "0x53b3a0",
+          "type": 17,
+          "parent": "0x53b399"
+        },
+        {
+          "from": "0x53b3bf",
+          "type": 17,
+          "parent": "0x53b399"
+        }
+      ]
+    }
+  ],
+  "original_dependency_references": [
+    {
+      "address": "0x10869a8",
+      "refs": [
+        {
+          "from": "0x53c020",
+          "type": 3,
+          "parent": "0x53bff8"
+        },
+        {
+          "from": "0x53c0b5",
+          "type": 3,
+          "parent": "0x53c0a9"
+        },
+        {
+          "from": "0x53c3ea",
+          "type": 3,
+          "parent": "0x53c3ea"
+        },
+        {
+          "from": "0x53fa8b",
+          "type": 3,
+          "parent": "0x53fa5b"
+        },
+        {
+          "from": "0x53fd00",
+          "type": 3,
+          "parent": "0x53fcfb"
+        },
+        {
+          "from": "0x541be0",
+          "type": 2,
+          "parent": "0x541bb8"
+        }
+      ]
+    },
+    {
+      "address": "0x541fb1",
+      "refs": [
+        {
+          "from": "0x53c036",
+          "type": 17,
+          "parent": "0x53bff8"
+        },
+        {
+          "from": "0x53c402",
+          "type": 17,
+          "parent": "0x53c3ea"
+        },
+        {
+          "from": "0x53fad2",
+          "type": 17,
+          "parent": "0x53fa5b"
+        }
+      ]
+    },
+    {
+      "address": "0x541c88",
+      "refs": [
+        {
+          "from": "0x53c0cc",
+          "type": 17,
+          "parent": "0x53c0a9"
+        },
+        {
+          "from": "0x53faff",
+          "type": 17,
+          "parent": "0x53fa5b"
+        },
+        {
+          "from": "0x53fb46",
+          "type": 17,
+          "parent": "0x53fa5b"
+        }
+      ]
+    },
+    {
+      "address": "0x542466",
+      "refs": [
+        {
+          "from": "0x53fac5",
+          "type": 17,
+          "parent": "0x53fa5b"
+        }
+      ]
+    },
+    {
+      "address": "0x53fcfb",
+      "refs": [
+        {
+          "from": "0x53b3a0",
+          "type": 17,
+          "parent": "0x53b399"
+        },
+        {
+          "from": "0x53b3bf",
+          "type": 17,
+          "parent": "0x53b399"
+        }
+      ]
+    }
+  ],
+  "source_branch_patches": [
+    {
+      "old": "#include <cstring>\n",
+      "new": "#include <cstring>\n#include <cstdlib>\n#include <malloc.h>\n"
+    },
+    {
+      "old": "    if (mode == 3) {\n        if (byteCount <= gLegacySmallHeap3Threshold10869A0) {\n            void* const result = AllocateLegacySmallHeap3Block_541FB1(byteCount);\n            if (result != nullptr) {\n                return result;\n            }\n        }\n    }",
+      "new": "    if (mode == 3) {\n        // M3H01模式3为SDK块；失败不回落Win32堆，零请求仍有真实存储。\n        return std::malloc(byteCount == 0 ? 1u : byteCount);\n    }"
+    },
+    {
+      "old": "    if (mode == 3) {\n        auto* const region = FindLegacySmallHeap3Region_541C5D(memory);\n        if (region != nullptr) {\n            FreeLegacySmallHeap3Block_541C88(region, memory);\n            return;\n        }\n    }",
+      "new": "    if (mode == 3) {\n        std::free(memory);\n        return;\n    }"
+    },
+    {
+      "old": "            if (mode == 3) {\n                if (original <= gLegacySmallHeap3Threshold10869A0) {\n                    result = AllocateLegacySmallHeap3Block_541FB1(original);\n                    if (result != nullptr) {\n                        static_cast<void>(FillLegacyMemory_5419D0(result, 0, original));\n                        return result;\n                    }\n                }\n            }",
+      "new": "            if (mode == 3) {\n                // 与mode3 malloc/realloc/free/size同一SDK域，不再读取旧块头。\n                result = std::calloc(1u, bytes);\n                if (result != nullptr) {\n                    return result;\n                }\n            }"
+    },
+    {
+      "old": "            result = ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, bytes);\n            if (result != nullptr) {\n                return result;\n            }",
+      "new": "            if (mode != 3) {\n                result = ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, bytes);\n                if (result != nullptr) {\n                    return result;\n                }\n            }"
+    },
+    {
+      "old": "    if (mode == 3) {\n        for (;;) {\n            void* result = nullptr;\n            if (byteCount <= 0xFFFFFFE0u) {\n                auto* region = FindLegacySmallHeap3Region_541C5D(memory);\n                if (region != nullptr) {\n                    if (byteCount <= gLegacySmallHeap3Threshold10869A0) {\n                        result = memory;\n                        if (ResizeLegacySmallHeap3Block_542466(region, memory, byteCount) == 0) {\n                            result = AllocateLegacySmallHeap3Block_541FB1(byteCount);\n                            if (result != nullptr) {\n                                std::uint32_t copied;\n                                std::memcpy(&copied,\n                                    static_cast<const std::byte*>(memory) - 4, sizeof(copied));\n                                --copied;\n                                if (copied >= byteCount) {\n                                    copied = byteCount;\n                                }\n                                CopyLegacyMemory_541620(result, memory, copied);\n                                region = FindLegacySmallHeap3Region_541C5D(memory);\n                                FreeLegacySmallHeap3Block_541C88(region, memory);\n                            }\n                        }\n                    }\n                    if (result == nullptr) {\n                        if (byteCount == 0) {\n                            byteCount = 1;\n                        }\n                        byteCount = (byteCount + 15u) & 0xFFFFFFF0u;\n                        result = ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);\n                        if (result != nullptr) {\n                            std::uint32_t copied;\n                            std::memcpy(&copied,\n                                static_cast<const std::byte*>(memory) - 4, sizeof(copied));\n                            --copied;\n                            if (copied >= byteCount) {\n                                copied = byteCount;\n                            }\n                            CopyLegacyMemory_541620(result, memory, copied);\n                            FreeLegacySmallHeap3Block_541C88(region, memory);\n                        }\n                    }\n                }\n                // 原53FB4E消费局部所属区域值，不借此修复旧失败/重入情形。\n                if (region == nullptr) {\n                    if (byteCount == 0) {\n                        byteCount = 1;\n                    }\n                    byteCount = (byteCount + 15u) & 0xFFFFFFF0u;\n                    result = ::HeapReAlloc(gLegacyHeap10869A4, 0, memory, byteCount);\n                }\n                if (result != nullptr) {\n                    return result;\n                }\n            }\n            if (gLegacyHeapNewMode1086150 == 0) {\n                return result;\n            }\n            if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n                return nullptr;\n            }\n        }\n    }",
+      "new": "    if (mode == 3) {\n        for (;;) {\n            void* result = nullptr;\n            if (byteCount <= 0xFFFFFFE0u) {\n                result = std::realloc(memory, byteCount);\n                if (result != nullptr) {\n                    return result;\n                }\n            }\n            // SDK模式3不再按旧区域分桶；handler使用原输入数量，见M3H01。\n            if (gLegacyHeapNewMode1086150 == 0) {\n                return result;\n            }\n            if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n                return nullptr;\n            }\n        }\n    }"
+    },
+    {
+      "old": "    if (mode == 3) {\n        if (FindLegacySmallHeap3Region_541C5D(memory) != nullptr) {\n            std::uint32_t size;\n            std::memcpy(&size, static_cast<const std::byte*>(memory) - 4, sizeof(size));\n            return size - 9u;\n        }\n    }",
+      "new": "    if (mode == 3) {\n        return static_cast<std::uint32_t>(::_msize(memory));\n    }"
+    }
+  ],
+  "header_comment_patches": {
+    "cg2d_re/src/platform/LegacyHeap.hpp": [
+      {
+        "old": "// 仅内部原堆实现可用；不能用于释放既有宿主malloc或裸字节适配分配的内存。",
+        "new": "// 原Win32堆/池元数据保留；mode3通用操作按M3H01为SDK域，mode1/2仍原域。"
+      },
+      {
+        "old": "// 原堆专用malloc/free调用域；现有Malloc_53C3AC/Free_53C0A9宿主合同保持。",
+        "new": "// 同域malloc/free：mode3为SDK块，mode1/2为原块；模式须在块存活期稳定，禁止混域。"
+      },
+      {
+        "old": "// 模式3真实核心依赖声明；16B拆分/合并原生布局尚待，不提供假本体。",
+        "new": "// 原模式3核心仅留身份/参考；通用mode3用SDK，不造旧16B链或同名假体。"
+      }
+    ],
+    "cg2d_re/include/cg/platform/LegacyMemory.hpp": [
+      {
+        "old": "// 原53FCFB；两模式及普通原堆容量查询。只可用于原堆块，不能混用宿主分配。",
+        "new": "// 原53FCFB；mode3返回真实SDK块容量，mode1/2仍原容量；须与本域及稳定模式配对。"
+      },
+      {
+        "old": "// 原53BFF8/53FA5B真实原堆入口；只与原堆释放配对，禁止混用宿主块。",
+        "new": "// 原53BFF8/53FA5B：mode3分配/清零/扩容为同一SDK域，mode1/2仍原域，禁止跨域。"
+      },
+      {
+        "old": "// 本体已实现，模式3小块核心、完整分配器归属及启动仍待闭合。",
+        "new": "// M3H01保W32与父失败消费；旧核心不模拟，完整所有权/模式寿命、SDK及启动运行仍待。"
+      }
+    ]
+  },
+  "domain_contract": {
+    "scope": "通用兼容分配族mode3，mode1/2及原Win32元数据独立域不变",
+    "mode_selector": "gLegacyHeapMode10869A8=3仅兼容选择，不表示SDK复造原池",
+    "mode_stable_for_live_blocks": true,
+    "foreign_mode1_or_mode2_blocks_accepted": false,
+    "allocation": "std::malloc(U32请求，零转1)",
+    "clear_allocation": "std::calloc(1,既有对齐bytes)",
+    "resize": "std::realloc(memory,原输入byteCount)，失败旧块保持",
+    "release": "std::free(memory)",
+    "usable_size": "UCRT _msize实际容量→原U32数量",
+    "new_mode_and_handler_retained": true,
+    "resize_handler_contract": "SDK模式3每次失败传原输入byteCount；旧部分fallback先对齐的物理请求/失败策略按D02 adapted",
+    "legacy_prefix_read": false,
+    "legacy_region_search": false,
+    "old_mode3_core_calls": false,
+    "old_mode3_core_definitions_added": false,
+    "new_allocation_tag_registry": false,
+    "metadata_or_initializer_changed": false,
+    "other_domains_changed": false,
+    "old_failure_callback_quantum_equivalent": false,
+    "original_private_copy_tail_equivalent": false,
+    "unknown_owners_closed": false,
+    "runtime_verified": false
+  },
+  "verification": {
+    "method": "static",
+    "runtime_verified": false,
+    "original_body_equivalent": false,
+    "full_feature_accepted": false,
+    "new_startup_activity": false
+  }
+}

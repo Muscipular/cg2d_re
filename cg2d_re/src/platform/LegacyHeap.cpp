@@ -2,6 +2,8 @@
 #include "cg/platform/LegacyMemory.hpp"
 
 #include <cstring>
+#include <cstdlib>
+#include <malloc.h>
 
 namespace cg::platform {
 
@@ -76,11 +78,7 @@ std::uint32_t GetLegacyAllocationSize_53FCFB(void* const memory)
 {
     const std::int32_t mode = gLegacyHeapMode10869A8;
     if (mode == 3) {
-        if (FindLegacySmallHeap3Region_541C5D(memory) != nullptr) {
-            std::uint32_t size;
-            std::memcpy(&size, static_cast<const std::byte*>(memory) - 4, sizeof(size));
-            return size - 9u;
-        }
+        return static_cast<std::uint32_t>(::_msize(memory));
     } else if (mode == 2) {
         LegacySmallHeap2Region* region;
         std::byte* page;
@@ -616,12 +614,8 @@ void* AllocateLegacyHeapBlock_53C3EA(std::uint32_t byteCount)
 {
     const std::int32_t mode = gLegacyHeapMode10869A8;
     if (mode == 3) {
-        if (byteCount <= gLegacySmallHeap3Threshold10869A0) {
-            void* const result = AllocateLegacySmallHeap3Block_541FB1(byteCount);
-            if (result != nullptr) {
-                return result;
-            }
-        }
+        // M3H01模式3为SDK块；失败不回落Win32堆，零请求仍有真实存储。
+        return std::malloc(byteCount == 0 ? 1u : byteCount);
     } else if (mode == 2) {
         byteCount = byteCount != 0 ? (byteCount + 15u) & 0xFFFFFFF0u : 16u;
         if (byteCount <= gLegacySmallHeap2Threshold591E7C) {
@@ -670,11 +664,8 @@ void FreeLegacyHeapMemory_53C0A9(void* const memory)
     }
     const std::int32_t mode = gLegacyHeapMode10869A8;
     if (mode == 3) {
-        auto* const region = FindLegacySmallHeap3Region_541C5D(memory);
-        if (region != nullptr) {
-            FreeLegacySmallHeap3Block_541C88(region, memory);
-            return;
-        }
+        std::free(memory);
+        return;
     } else if (mode == 2) {
         LegacySmallHeap2Region* region;
         std::byte* page;
@@ -703,12 +694,10 @@ void* CallocateLegacyMemory_53BFF8(
         if (bytes <= 0xFFFFFFE0u) {
             const std::int32_t mode = gLegacyHeapMode10869A8;
             if (mode == 3) {
-                if (original <= gLegacySmallHeap3Threshold10869A0) {
-                    result = AllocateLegacySmallHeap3Block_541FB1(original);
-                    if (result != nullptr) {
-                        static_cast<void>(FillLegacyMemory_5419D0(result, 0, original));
-                        return result;
-                    }
+                // 与mode3 malloc/realloc/free/size同一SDK域，不再读取旧块头。
+                result = std::calloc(1u, bytes);
+                if (result != nullptr) {
+                    return result;
                 }
             } else if (mode == 2 && bytes <= gLegacySmallHeap2Threshold591E7C) {
                 result = AllocateLegacySmallHeap2Block_542A54(
@@ -718,9 +707,11 @@ void* CallocateLegacyMemory_53BFF8(
                     return result;
                 }
             }
-            result = ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, bytes);
-            if (result != nullptr) {
-                return result;
+            if (mode != 3) {
+                result = ::HeapAlloc(gLegacyHeap10869A4, HEAP_ZERO_MEMORY, bytes);
+                if (result != nullptr) {
+                    return result;
+                }
             }
         }
         if (gLegacyHeapNewMode1086150 == 0) {
@@ -746,57 +737,12 @@ void* ReallocateLegacyMemory_53FA5B(void* const memory, std::uint32_t byteCount)
         for (;;) {
             void* result = nullptr;
             if (byteCount <= 0xFFFFFFE0u) {
-                auto* region = FindLegacySmallHeap3Region_541C5D(memory);
-                if (region != nullptr) {
-                    if (byteCount <= gLegacySmallHeap3Threshold10869A0) {
-                        result = memory;
-                        if (ResizeLegacySmallHeap3Block_542466(region, memory, byteCount) == 0) {
-                            result = AllocateLegacySmallHeap3Block_541FB1(byteCount);
-                            if (result != nullptr) {
-                                std::uint32_t copied;
-                                std::memcpy(&copied,
-                                    static_cast<const std::byte*>(memory) - 4, sizeof(copied));
-                                --copied;
-                                if (copied >= byteCount) {
-                                    copied = byteCount;
-                                }
-                                CopyLegacyMemory_541620(result, memory, copied);
-                                region = FindLegacySmallHeap3Region_541C5D(memory);
-                                FreeLegacySmallHeap3Block_541C88(region, memory);
-                            }
-                        }
-                    }
-                    if (result == nullptr) {
-                        if (byteCount == 0) {
-                            byteCount = 1;
-                        }
-                        byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
-                        result = ::HeapAlloc(gLegacyHeap10869A4, 0, byteCount);
-                        if (result != nullptr) {
-                            std::uint32_t copied;
-                            std::memcpy(&copied,
-                                static_cast<const std::byte*>(memory) - 4, sizeof(copied));
-                            --copied;
-                            if (copied >= byteCount) {
-                                copied = byteCount;
-                            }
-                            CopyLegacyMemory_541620(result, memory, copied);
-                            FreeLegacySmallHeap3Block_541C88(region, memory);
-                        }
-                    }
-                }
-                // 原53FB4E消费局部所属区域值，不借此修复旧失败/重入情形。
-                if (region == nullptr) {
-                    if (byteCount == 0) {
-                        byteCount = 1;
-                    }
-                    byteCount = (byteCount + 15u) & 0xFFFFFFF0u;
-                    result = ::HeapReAlloc(gLegacyHeap10869A4, 0, memory, byteCount);
-                }
+                result = std::realloc(memory, byteCount);
                 if (result != nullptr) {
                     return result;
                 }
             }
+            // SDK模式3不再按旧区域分桶；handler使用原输入数量，见M3H01。
             if (gLegacyHeapNewMode1086150 == 0) {
                 return result;
             }

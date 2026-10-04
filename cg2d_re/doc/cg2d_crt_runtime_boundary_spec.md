@@ -101,3 +101,18 @@ SDK内部尾零/容量/分桶/失败策略按D02 adapted，21应用calloc和通�
 不造新生命周期动作或C5调用，原借用/动态FILE项std释放保持。
 未知alias/free、完整STDIO/容量/owner及正常快速退出/SDK运行未闭，
 C01/C08/C10/C11不关闭，其他域继续逐组迁移。
+
+## M3H01 通用模式3五操作同域宿主承接（2026-10-05）
+
+[本组源码](cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)
+已将通用mode3的分配/清零/扩容/释放/容量查询同时接SDK，
+消除541FB1/541C88/542466七当前CPP调用及旧块前缀读取，
+不造16B双链/压缩指针/影子容量或同名空体。
+mode1/2、raw区域元数据/初始化与既有独立迁移域原文保持。
+
+API数量W32、外层条件/NULL零/new-mode和失败旧块有效保持；
+SDK分桶/容量/私有复制尾/错误策略为D02 adapted，
+realloc失败handler统一原输入数量，旧某fallback物理对齐参数不同。
+原selector3只兼容选择，实际mode3为SDK域；模式须在块存活期稳定，原Win32块不混入。
+全部owner/未知alias/R1和SDK实际ABI/失败/正常快速退出运行仍待，
+C01/C08/C11不完整关闭。

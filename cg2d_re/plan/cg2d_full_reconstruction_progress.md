@@ -1079,3 +1079,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余/交付**：scratch/codecvt仅见置空/消费无真实非空producer，未擅自迁移其释放；描述符块未造原无清理。兼容全表容量/alias/真实消费者、其他分配域/SDK实际失败和全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要，单线程/RPLAN.24/原格式明文和音频暂停保持。精确13项，快照`cg2d-re-stdio-table-heap-source-20261005`，用户既有六项不暂存。
 
 **SCH01交付检查**：13项严格UTF-8无BOM/LF、731个本地Markdown链接、36项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。
+
+## M3H01 通用兼容堆模式3成组宿主承接（2026-10-05）
+
+- **开发**：先记[M3H01 SPEC](../doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision)，再将通用五mode3分支成组std::malloc/calloc/realloc/free/UCRT_msize；calloc SDK失败不回落Win32堆，其他mode3失败/释放也不混域。三未实现原核心七CPP调用消除，容量/扩容不读旧块前缀/区域链，无假体/压缩指针/影子容量。
+- **基线与范围**：[归档](../doc/cg2d_mode3_heap_facade_evidence.json)保五完整根449条/1167B、七原call/mode五读一写；当前源码只初始化写mode。mode1/2、初始化/区域元数据/threshold、外层malloc上界/handler、其他已迁域及全部业务清理原文保持，selector3仅兼容选择，不报告SDK已还原旧池。
+- **明确差异**：SDK容量/分桶/地址/私有复制尾/失败策略按D02 adapted；realloc SDK失败统一传原输入byteCount，旧某fallback先对齐的回调数值不同，不声称原失败/ABI等价。原NULL→malloc/非空零→free空返、API W32/失败旧块可用及calloc对齐bytes/new-mode保持；存活模式必须稳定、SDK/Win32及模式2块不混入同一路径，未知owner/alias待全量核定。
+- **静态/台账**：一CPP五分支/一个calloc防混域条件及include、两头注释限定重放通过，其他src/include保持。五旧语义定点/1202其他与政策保持，五新adapted使151→156/3680，限定E111→114；语义1207/1204有效ID、18pending/4分类/3无ID、任务10/60、叶0/182和完整门禁/R不变，C01/C08/C11均open。
+- **剩余/交付**：模式3工程不再卡16B双链，但完整owner/模式寿命/未知alias/R1、SDK真实失败/ABI/normal/quick/callable退出及全CRT仍待。未构建/查产物/新增或执行测试/运行/摘要；单线程/RPLAN.24、原格式明文和音频暂停保持。精确14项，快照`cg2d-re-mode3-heap-facade-source-20261005`，用户既有六项不暂存。
+
+**M3H01交付检查**：14项严格UTF-8无BOM/LF、718个本地Markdown链接、42项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。

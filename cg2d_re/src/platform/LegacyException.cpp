@@ -28,7 +28,7 @@ const char* GetLegacyLogicErrorTextFromBase(const LegacyExceptionObject* const s
         reinterpret_cast<const LegacyLogicErrorObject*>(storage));
 }
 
-// 原550184三槽；Raise只真实声明，完整抛出/类型迁移仍未闭，不能改空槽。
+// 原550184三槽；Raise已接真实复制/抛出依赖，完整SDK类型迁移仍未闭。
 const LegacyExceptionRaiseMethodTable gLegacyLogicErrorMethods550184{
     {DeleteLegacyLogicErrorFromBase, GetLegacyLogicErrorTextFromBase},
     RaiseLegacyLogicError_54A738
@@ -363,6 +363,93 @@ LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
     CopyConstructLegacyRuntimeError_54A0E5(storage, source);
     storage->base.methods = &gLegacyStreamFailureMethods5500EC.base;
     return storage;
+}
+
+void RaiseLegacyLogicError_54A738(LegacyExceptionObject* const storage)
+{
+    LegacyLogicErrorObject copied;
+    CopyConstructLegacyLogicError_54A7AE(&copied, reinterpret_cast<const LegacyLogicErrorObject*>(storage));
+    ThrowLegacyCppException_54B123(&copied, &gLegacyLogicErrorThrowInfo551880);
+}
+
+void RaiseLegacyStringLengthError_54A848(LegacyExceptionObject* const storage)
+{
+    LegacyStringLengthErrorObject copied;
+    CopyConstructLegacyStringLengthError_54A881(&copied, reinterpret_cast<const LegacyStringLengthErrorObject*>(storage));
+    ThrowLegacyCppException_54B123(&copied, &gLegacyStringLengthErrorThrowInfo551810);
+}
+
+void RaiseLegacyStringRangeError_54A930(LegacyExceptionObject* const storage)
+{
+    LegacyStringRangeErrorObject copied;
+    CopyConstructLegacyStringRangeError_54A969(&copied, reinterpret_cast<const LegacyStringRangeErrorObject*>(storage));
+    ThrowLegacyCppException_54B123(&copied, &gLegacyStringRangeErrorThrowInfo551938);
+}
+
+void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* const storage)
+{
+    LegacyRuntimeErrorObject copied;
+    CopyConstructLegacyRuntimeError_54A0E5(&copied, reinterpret_cast<const LegacyRuntimeErrorObject*>(storage));
+    ThrowLegacyCppException_54B123(&copied, &gLegacyRuntimeErrorThrowInfo551658);
+}
+
+void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* const storage)
+{
+    LegacyStreamFailureObject copied;
+    CopyConstructLegacyStreamFailure_54A1B8(&copied, reinterpret_cast<const LegacyStreamFailureObject*>(storage));
+    ThrowLegacyCppException_54B123(&copied, &gLegacyStreamFailureThrowInfo5515E8);
+}
+
+namespace {
+
+// 原两字符串异常消息已加载；保留ASCII/NUL字节，不改宿主异常文本。
+const char gLegacyStringTooLongMessage550170[16] = "string too long";
+const char gLegacyInvalidStringPositionMessage5501A0[24] = "invalid string position";
+
+} // namespace
+
+void ThrowLegacyStringLength_54A67A()
+{
+    LegacyNarrowString message;
+    // 原EH prolog临时保存返回地址，var_D读其最高U8；两已证原地址该字节均为0。
+    message.prefix00[0] = 0u;
+    TidyLegacyNarrowString_548E29(&message, false);
+    const std::uint32_t messageBytes = StrLen_53F9E0(gLegacyStringTooLongMessage550170);
+    AssignLegacyNarrowString_549055(&message, gLegacyStringTooLongMessage550170, messageBytes);
+
+    LegacyStringLengthErrorObject exception;
+    try {
+        // 原state0从54A6AE开始，assign失败尚未进入临时串保护区。
+        ConstructLegacyLogicError_54A6D4(&exception, &message);
+        exception.base.methods = &gLegacyStringLengthErrorMethods550164.base;
+        ThrowLegacyCppException_54B123(&exception, &gLegacyStringLengthErrorThrowInfo551810);
+    } catch (...) {
+        // 原54C400通过共享54A30D，只清临时串，不额外析构exception。
+        TidyLegacyNarrowString_548E29(&message, true);
+        throw;
+    }
+}
+
+void ThrowLegacyStringRange_54A899()
+{
+    LegacyNarrowString message;
+    // 原EH prolog临时保存返回地址，var_D读其最高U8；两已证原地址该字节均为0。
+    message.prefix00[0] = 0u;
+    TidyLegacyNarrowString_548E29(&message, false);
+    const std::uint32_t messageBytes = StrLen_53F9E0(gLegacyInvalidStringPositionMessage5501A0);
+    AssignLegacyNarrowString_549055(&message, gLegacyInvalidStringPositionMessage5501A0, messageBytes);
+
+    LegacyStringRangeErrorObject exception;
+    try {
+        // 原state0从54A8CD开始，assign失败尚未进入临时串保护区。
+        ConstructLegacyLogicError_54A6D4(&exception, &message);
+        exception.base.methods = &gLegacyStringRangeErrorMethods550194.base;
+        ThrowLegacyCppException_54B123(&exception, &gLegacyStringRangeErrorThrowInfo551938);
+    } catch (...) {
+        // 原54C464通过共享54A30D，只清临时串，不额外析构exception。
+        TidyLegacyNarrowString_548E29(&message, true);
+        throw;
+    }
 }
 
 } // namespace cg::platform

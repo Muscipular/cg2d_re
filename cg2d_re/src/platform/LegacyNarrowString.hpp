@@ -21,7 +21,7 @@ static_assert(sizeof(LegacyNarrowString) == 24);
 extern std::uint32_t gLegacyNarrowStringNpos550040; // 原已加载FFFFFFFF；原比较时读取。
 extern char gLegacyNarrowStringEmpty55013B[2]; // 原标记/首NUL；空串指针取+1。
 
-// 原54A67A/54A899；真实长度/位置异常依赖仍仅声明，不补默认结果。
+// 原54A67A/54A899已接真实消息/对象与抛出依赖；前缀来源已证，实际SDK提供者待。
 void ThrowLegacyStringLength_54A67A();
 void ThrowLegacyStringRange_54A899();
 

@@ -4121,3 +4121,24 @@ FuncInfo551260/551418 magic19930520/maxState7，七unwind prev全FFFFFFFF：只�
 FuncInfo5515F8：magic19930520、maxState1、unwindMap551618唯一prev=-1/action54C318；展开通过共享54A30D内54A30F调用Tidy(true)，本体只在该保护区异常时清临时message并重抛。这里state0是EH状态，不是输入stateBits为0；assign失败不额外清理。三个消息原字节定义，5515E8仅不完整类型extern地址，不定义数据、SDK类型或RaiseException包装。
 
 新增原消费：549F89/549FE9→54B123，549FB4/54A30F→548E29，549FBA→53F9E0，549FC5→549055，549FD4→549FFE，共7原call；共用清理chunk不增原身份。strlen新增一真实点成为17/24，另4已批宿主/3待；原算法及旧数组保持，语义1110/未决18/分类引用4不变。静态验收限新增原证据/源码和元数据，实际54B123/ThrowInfo生产、SDK catch类型/x64传播、上游全局owner、模式3及完整运行继续未闭。未构建、测试、运行或hash核验。
+
+
+### 五族Raise与两字符串异常准备局部SPEC（2026-10-04）
+
+工程裁决：五Raise及两字符串异常共七本体源码实现，按各原函数含共享chunk统计120条/22原call；原throw provider与实际x64 ThrowInfo仍只真实声明，不代换宿主异常、生成SDK/原x86元数据或启用CRT。只核新增本体/父点与下述前缀生产，不复检已过copy/字符串算法。
+
+五Raise实际先本族copy生成已有48B视图，再直接传同一临时对象/独立ThrowInfo身份给54B123，入口不额外换表、清对象、加捕获/自动析构或固定返回。原无正常返回尾，由未来真实抛出provider承接；当前不计完整抛出。五既有slot2（原+8/原生16）接真实源码，槽目标保持；四其余ThrowInfo增加不完整类型extern，failure复用5515E8，不定义布局/数据。
+
+| 原Raise | 真实复制入口 | 独立ThrowInfo身份 | 既有实际三槽表 |
+| --- | --- | --- | --- |
+| 0x54A738 | 0x54A7AE | 0x551880 | gLegacyLogicErrorMethods550184 |
+| 0x54A848 | 0x54A881 | 0x551810 | gLegacyStringLengthErrorMethods550164 |
+| 0x54A930 | 0x54A969 | 0x551938 | gLegacyStringRangeErrorMethods550194 |
+| 0x54A06F | 0x54A0E5 | 0x551658 | gLegacyRuntimeErrorMethods550130 |
+| 0x54A17F | 0x54A1B8 | 0x5515E8 | gLegacyStreamFailureMethods5500EC |
+
+两字符串异常的prefix生产已沿__EH_prolog54AC98完整10条确定：prolog保存原返回地址于EAX、建立EBP后在54ACB5将它push到新EBP-10；ret只恢复栈指针，不清这四字节。54A67A/54A899随后sub esp及读取var_D（EBP-0D），该位置是小端返回Word第3字节。两原prolog返回点54A684/54A8A3最高U8均0，源码仅message.prefix00[0]=0，来自当前权威原端真实生产，不是任意补值、C++未初始化读取或宿主返回地址模拟；其他对象字节不预清。原实际运行/重定位与整体SDK门禁不由此静态结果豁免。
+
+两入口原消息550170/5501A0分别为string too long/invalid string position及末NUL。Tidy(false)/真实strlen/assign在state-1，54A6AE/54A8CD进入state0后ConstructLogic54A6D4，再换真实本族表、传各551810/551938给原抛出依赖；不额外自动析构异常对象、正常Tidy或回滚。FuncInfo551820/551948均maxState1/prev=-1，唯一action54C400/54C464通过共享54A30D内54A30F作临时message Tidy(true)，assign失败不加清理。共用chunk不增原身份，五Raise原copy不替换成共用手工换表。
+
+新增22原call、五方法槽源码状态及前缀/消息/FuncInfo证据入29真实记录；23条既有表记录只同步对应Raise槽/SDK门禁，旧算法不回核；两strlen真实点54A69E/54A8BD接齐为19/24，另4已批宿主/1待。语义1110/未决18/分类引用4与旧业务数组保持。七函数的准备/源级展开完成不等于实际54B123/ThrowInfo生产、SDK catch类型/x64传播、全局owner、完整CRT启动退出、模式3或运行通过。未构建、测试、运行或hash核验。

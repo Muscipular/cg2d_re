@@ -432,3 +432,8 @@ Gninc/Pninc返回旧指针，六槽先重绑再按写侧/读侧清六值，其�
 ### 2026-10-04：ios_base clear状态及failure准备
 
 实现549F62状态/消息/failure准备与单state展开源码（60条含共享清理/handler chunk）/7原call。先state&7发布再读mask相交，零直接返回；低U8重抛null/null、最高U8(bits>>24)只写临时串首prefix，原三消息Tidy(false)/strlen/assign在保护区外；state0从runtime_error构造前开始，真实failure表/元数据地址传出，异常仅message Tidy(true)，不预清、正常Tidy或state回滚。既有failure表仅导出；54B123与opaque ThrowInfo仍仅extern真实依赖，不造SDK提供者/x86数据或宿主异常。局部SPEC在stdio_contract，七文件新增静态通过后独立提交；6记录同步，strlen17真实+4已批宿主+3待/24，语义1110/未决18/分类引用4保持，旧算法不回核。未构建、测试、运行或hash核验。实际抛出/SDK传播、全局存储/登记生产、全CRT启动退出、模式3/三种子/转换器全表与完整运行仍待，总目标保持。
+
+
+### 2026-10-04：五族Raise及两字符串异常准备接线
+
+完成七原本体准备/调用与源级展开（按各函数含共享chunk120条）/22原call。五Raise各真实本族copy后直接独立ThrowInfo/54B123，无额外换表、对象预清/捕获/自动析构或固定返回；五既有slot2接源码，四新opaque extern身份与failure旧身份保持。两字符串前缀沿EH prolog最后保存返回地址于EBP-10、var_D读取最高U8确定，本原端54A684/54A8A3均0，只写首prefix而非任意补值；原消息/Tidy(false)/strlen/assign后state0，logic构造/本表/真实抛出依赖，异常只message Tidy(true)，不正常清理/回滚。原copy/字符串/表算法不回核；54B123/实际元数据及SDK传播仍未实现。局部SPEC在stdio_contract，六文件新增静态通过后独立提交；29记录同步（含23条既有表的槽状态关联），strlen19真实+4宿主+1待/24、语义1110/未决18/分类引用4保持。未构建、测试、运行或hash核验。实际抛出/x64传播、全局存储/登记、全CRT启动退出/模式3、三种子/转换器全表及完整运行仍待，总目标保持。

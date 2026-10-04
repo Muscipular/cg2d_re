@@ -2,6 +2,7 @@
 
 #include "LegacyHeap.hpp"
 #include "LegacyLocale.hpp"
+#include "LegacyMultibyte.hpp"
 
 #include <bit>
 
@@ -113,6 +114,96 @@ LegacyIosBaseStorage* DeleteLegacyIosBase_54A220(
     LegacyIosBaseStorage* const storage, const std::uint32_t flags)
 {
     DestroyLegacyIosBase_54A1D0(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+namespace {
+
+// 登记表承载实际base地址；本组只按对应basic_ios表还原真实首成员，不覆盖独立ios_base。
+LegacyIosBaseStorage* NarrowIosDeleteMethod(
+    LegacyIosBaseStorage* const storage, const std::uint32_t flags)
+{
+    return reinterpret_cast<LegacyIosBaseStorage*>(DeleteLegacyNarrowIos_548CF6(
+        reinterpret_cast<LegacyNarrowBasicIos*>(storage), flags));
+}
+
+LegacyIosBaseStorage* WideIosDeleteMethod(
+    LegacyIosBaseStorage* const storage, const std::uint32_t flags)
+{
+    return reinterpret_cast<LegacyIosBaseStorage*>(DeleteLegacyWideIos_549D4B(
+        reinterpret_cast<LegacyWideBasicIos*>(storage), flags));
+}
+
+} // namespace
+
+const LegacyIosBaseMethods gLegacyNarrowBasicIosMethods54FFBC{
+    NarrowIosDeleteMethod
+};
+const LegacyIosBaseMethods gLegacyWideBasicIosMethods550058{
+    WideIosDeleteMethod
+};
+
+void InitializeLegacyNarrowIos_548E65(
+    LegacyNarrowBasicIos* const storage, LegacyStreamBufferObject<char>* const buffer,
+    const std::uint32_t registerBits)
+{
+    storage->tiedStream = nullptr;
+    storage->buffer = buffer;
+    storage->fill = 0x20;
+    InitializeLegacyIosBase_54A293(&storage->base);
+    if (storage->buffer == nullptr) {
+        ClearLegacyIos_549F62(&storage->base, storage->base.stateBits | 4u, 0);
+    }
+    if (static_cast<std::uint8_t>(registerBits) != 0) {
+        RegisterLegacyStandardStream_54A25E(&storage->base);
+    }
+}
+
+void InitializeLegacyWideIos_549DBE(
+    LegacyWideBasicIos* const storage,
+    LegacyStreamBufferObject<std::uint16_t>* const buffer, const std::uint32_t registerBits)
+{
+    storage->tiedStream = nullptr;
+    storage->buffer = buffer;
+    storage->fill = Btowc_54AAD5(0x20);
+    InitializeLegacyIosBase_54A293(&storage->base);
+    if (storage->buffer == nullptr) {
+        ClearLegacyIos_549F62(&storage->base, storage->base.stateBits | 4u, 0);
+    }
+    if (static_cast<std::uint8_t>(registerBits) != 0) {
+        RegisterLegacyStandardStream_54A25E(&storage->base);
+    }
+}
+
+void DestroyLegacyNarrowIos_54852C(LegacyNarrowBasicIos* const storage)
+{
+    storage->base.virtualTable = &gLegacyNarrowBasicIosMethods54FFBC;
+    DestroyLegacyIosBase_54A1D0(&storage->base);
+}
+
+void DestroyLegacyWideIos_549638(LegacyWideBasicIos* const storage)
+{
+    storage->base.virtualTable = &gLegacyWideBasicIosMethods550058;
+    DestroyLegacyIosBase_54A1D0(&storage->base);
+}
+
+LegacyNarrowBasicIos* DeleteLegacyNarrowIos_548CF6(
+    LegacyNarrowBasicIos* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyNarrowIos_54852C(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyWideBasicIos* DeleteLegacyWideIos_549D4B(
+    LegacyWideBasicIos* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyWideIos_549638(storage);
     if ((flags & 1u) != 0) {
         FreeLegacyHeapMemory_53C0A9(storage);
     }

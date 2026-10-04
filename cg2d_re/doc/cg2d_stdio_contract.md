@@ -4030,3 +4030,14 @@ setbuf各只读一次FILE，空或真实setvbuf完整非0返空，成功返实�
 析构先写实际ios_base表，再采样registryIndex；index0直接Tidy，非0递减该U8计数，随后重新取对象索引并按低S8有符号>0跳过Tidy。正常尾调用真实locale析构；原FuncInfo 5516E0 magic19930520/maxState1、state0 prev-1/action54C37C，正常locale清理前仍state0，因此try覆盖门禁/Tidy及正常locale，catch再次真实locale清理再传播。没有清注册槽/索引、减为0才清理或额外空值保护。删除入口先完整析构，正常返回后flags bit0才原delete53B4E7→53C0A9同域释放，返回缓存原地址、不在释放后解引用。
 
 工程裁决：保留已有64B真实对象布局/数字W32和节点地址/locale单槽，550144已加载槽0为54A220，新增8B真实原生方法消费前缀/const定义，不推完整表长度/SDK虚表/RTTI。9原记录同步新本体/7接线和clear仅声明，语义身份不增；正常/展开原清理按源级catch表达，不称二次清理失败、SDK EH/catch或运行等价。登记实际数据生产、clear/failure抛出、basic_ios/标准流owner、启动退出/模式3/三个种子与完整运行仍待，仅新增静态核对，不构建、测试、运行或hash核验。
+
+
+### 2026-10-04 增量SPEC：窄宽basic_ios初始化及显式构析
+
+范围548E65/549DBE初始化、54852C/549638析构尾调、548CF6/549D4B删除，共22+26+2+2+11+11=74新原指令；13原call/尾调和54FFBC/550058两方法槽0。既有Btowc、ios_base与原堆依赖只接新父点，不修改旧算法、不重复计本体或把声明当链接/运行通过。
+
+采用既有64B LegacyIosBaseStorage真实首成员，加原+28 buffer地址→native64、+2C tie地址→native72、+30填充char低U8/宽U16→native80，原生消费字段视图88B。buffer为真实streambuf对象非拥有地址；tie为真实ostream地址，仅前向声明其未证类型，不错误互转basic_ios或补虚基/完整分配。两个实际表只已证槽0，消费前缀各8B；复用ios_base真实首成员接口，由两地址适配调用各basic_ios删除目标，函数地址不擦除/强转，删除返回后只地址互转不读成员。不生成SDK vft/RTTI或自动owner。
+
+初始化原序：tie空、buffer输入、窄20H低U8或真实Btowc_54AAD5(20H)返回U16填充，然后真实base_Init。返回后重新读buffer，空才将当时完整stateBits的低bit4置位传给真实clear(storage,stateBits|4,0 W32)；原重复两次OR低AL与一次按位置bit相同，不新增状态门禁或固定成功。最后registerBits只低U8非0才真实_Addstd；原两CMP字节807C240C00/operand dtype0，不把高24位当登记真。任一父异常沿原自然停止，本组不加catch。宽填充不得固定20H或因Btowc FFFF替换/重试。
+
+两析构先写各自真实basic_ios表再ios_base析构，即使父再次写表也不折叠顺序；原尾调作真实源级父调用，不称尾栈或SDK虚基ABI等价。两删除先本类完整析构，flags bit0才原53B4E7→53C0A9同域Free，返回缓存原地址；本组原this不作-4/-8调整，不扩大到其他四包装/istream/ostream。12记录同步新本体、13连接与两槽0，旧基类64B/字段/调用数组保持；clear仍真实声明/完整failure抛出未实现，登记数据初值容量、标准流构造虚基/tie生产/owner、启动退出/模式3、三个种子/转换器全表和SDK/EH/运行仍待。仅新增静态核对，不构建/测试/运行或hash核验。

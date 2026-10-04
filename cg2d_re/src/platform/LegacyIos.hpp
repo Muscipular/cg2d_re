@@ -77,4 +77,50 @@ void DestroyLegacyIosBase_54A1D0(LegacyIosBaseStorage* storage);
 LegacyIosBaseStorage* DeleteLegacyIosBase_54A220(
     LegacyIosBaseStorage* storage, std::uint32_t flags);
 
+// 原basic_ios在ios_base之后的已消费+28/+2C/+30字段；仅已证地址拓宽。
+// tie为真实ostream对象地址，尚未定义其虚基布局，不当作basic_ios地址互转。
+template <typename Character>
+struct LegacyStreamBufferObject;
+template <typename Character>
+struct LegacyOutputStreamStorage;
+template <typename Character>
+struct LegacyBasicIosStorage final {
+    LegacyIosBaseStorage base;                         // 原+00..+27，真实首成员。
+    LegacyStreamBufferObject<Character>* buffer;       // 原+28，真实非拥有streambuf。
+    LegacyOutputStreamStorage<Character>* tiedStream;  // 原+2C，真实非拥有ostream。
+    Character fill;                                   // 原+30，窄低U8/宽U16。
+};
+using LegacyNarrowBasicIos = LegacyBasicIosStorage<char>;
+using LegacyWideBasicIos = LegacyBasicIosStorage<std::uint16_t>;
+static_assert(offsetof(LegacyNarrowBasicIos, base) == 0);
+static_assert(offsetof(LegacyNarrowBasicIos, buffer) == 64);
+static_assert(offsetof(LegacyNarrowBasicIos, tiedStream) == 72);
+static_assert(offsetof(LegacyNarrowBasicIos, fill) == 80);
+static_assert(sizeof(LegacyNarrowBasicIos) == 88);
+static_assert(offsetof(LegacyWideBasicIos, base) == 0);
+static_assert(offsetof(LegacyWideBasicIos, buffer) == 64);
+static_assert(offsetof(LegacyWideBasicIos, tiedStream) == 72);
+static_assert(offsetof(LegacyWideBasicIos, fill) == 80);
+static_assert(sizeof(LegacyWideBasicIos) == 88);
+
+// 原两basic_ios表只已证删除槽0；沿真实ios_base首成员接口适配，8B为消费前缀。
+// 不推完整SDK/虚基或分配布局，不擦除函数地址。
+extern const LegacyIosBaseMethods gLegacyNarrowBasicIosMethods54FFBC;
+extern const LegacyIosBaseMethods gLegacyWideBasicIosMethods550058;
+
+// 原init：base返回后重取buffer、空才clear；registerBits只检查低U8。
+void InitializeLegacyNarrowIos_548E65(
+    LegacyNarrowBasicIos* storage, LegacyStreamBufferObject<char>* buffer,
+    std::uint32_t registerBits);
+void InitializeLegacyWideIos_549DBE(
+    LegacyWideBasicIos* storage, LegacyStreamBufferObject<std::uint16_t>* buffer,
+    std::uint32_t registerBits);
+// 原析构先写各自basic_ios表再真实ios_base析构；本组this不作-4/-8调整。
+void DestroyLegacyNarrowIos_54852C(LegacyNarrowBasicIos* storage);
+void DestroyLegacyWideIos_549638(LegacyWideBasicIos* storage);
+LegacyNarrowBasicIos* DeleteLegacyNarrowIos_548CF6(
+    LegacyNarrowBasicIos* storage, std::uint32_t flags);
+LegacyWideBasicIos* DeleteLegacyWideIos_549D4B(
+    LegacyWideBasicIos* storage, std::uint32_t flags);
+
 } // namespace cg::platform

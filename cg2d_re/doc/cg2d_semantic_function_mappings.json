@@ -23176,6 +23176,13 @@
           "symbols": [
             "Btowc_54AAD5"
           ]
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyWideIos_549DBE"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "evidence_documents": [
@@ -23183,7 +23190,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "S32输入仅-1立即返W16 FFFF，其他只取低U8。局部W32状态按原清零，W16目标不预清，长度1/空locale实际调用Mbrtowc_54A9C3；负返回转WEOF，否则取真实目标。549DBE父入口未接，不将宿主宽流默认行为判为已调用本体；未写局部的特殊失败语义未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。",
+      "boundary": "S32输入仅-1立即返W16 FFFF，其他只取低U8。局部W32状态按原清零，W16目标不预清，长度1/空locale实际调用Mbrtowc_54A9C3；负返回转WEOF，否则取真实目标。549DBE原父新增已接真实Btowc调用，标准流owner/运行仍待，不将宿主宽流默认行为判为已调用本体；未写局部的特殊失败语义未验。 不恢复暂停音频或接受待批CRT提案，不构建/执行转换。；2026-10-04新增basic_ios真实原点0x549DCE，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "native_references": [
         {
           "component": "UCRT 10.0.26100.0",
@@ -23204,7 +23211,19 @@
           "parent_entry": "0x549DBE"
         }
       ],
-      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行"
+      "verification_level": "完整原指令与全部直接入向；新增源码集中静态核对，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DCE",
+          "target_entry": "0x54AAD5",
+          "target_symbol": "Btowc_54AAD5",
+          "arguments": "0x20 S32",
+          "relationship": "真实可变locale转换返回U16写fill，不固定宽空格",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        }
+      ]
     },
     {
       "original_entry": "0x53B304",
@@ -39440,22 +39459,168 @@
     {
       "original_entry": "0x548CF6",
       "inventory_id": "F:00148CF6",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x548D12",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "inbound_evidence": [
         {
           "address": "0x54FFBC",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DeleteLegacyNarrowIos_548CF6"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DeleteLegacyNarrowIos_548CF6",
+            "LegacyNarrowBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄析构包装this：this调54852C，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "窄析构包装this：this调54852C，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyNarrowBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+30",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "char低U8 20H原字节"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x548CF6",
+          "call_site": "0x548CF9",
+          "target_entry": "0x54852C",
+          "target_symbol": "DestroyLegacyNarrowIos_54852C",
+          "arguments": "storage",
+          "relationship": "先完整实际basic_ios析构",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyNarrowIos_548CF6"
+        },
+        {
+          "parent_entry": "0x548CF6",
+          "call_site": "0x548D06",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0正常析构后同域Free，缓存原地址不解引用",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyNarrowIos_548CF6",
+          "resolved_target_entry": "0x53C0A9"
+        }
+      ],
+      "basic_ios_parent_call_connections": [],
+      "basic_ios_method_table": {
+        "original_address": "0x54FFBC",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyNarrowBasicIosMethods54FFBC",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x54FFBC",
+            "target_entry": "0x548CF6",
+            "target_symbol": "DeleteLegacyNarrowIos_548CF6",
+            "native_callback_symbol": "NarrowIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x548D12",
@@ -40412,22 +40577,168 @@
     {
       "original_entry": "0x549D4B",
       "inventory_id": "F:00149D4B",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x549D67",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "inbound_evidence": [
         {
           "address": "0x550058",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DeleteLegacyWideIos_549D4B"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DeleteLegacyWideIos_549D4B",
+            "LegacyWideBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽析构包装this：this调549638，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "宽析构包装this：this调549638，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyWideBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+31",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "U16实际Btowc返回"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x549D4B",
+          "call_site": "0x549D4E",
+          "target_entry": "0x549638",
+          "target_symbol": "DestroyLegacyWideIos_549638",
+          "arguments": "storage",
+          "relationship": "先完整实际basic_ios析构",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyWideIos_549D4B"
+        },
+        {
+          "parent_entry": "0x549D4B",
+          "call_site": "0x549D5B",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0正常析构后同域Free，不作this偏移",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyWideIos_549D4B",
+          "resolved_target_entry": "0x53C0A9"
+        }
+      ],
+      "basic_ios_parent_call_connections": [],
+      "basic_ios_method_table": {
+        "original_address": "0x550058",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyWideBasicIosMethods550058",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x550058",
+            "target_entry": "0x549D4B",
+            "target_symbol": "DeleteLegacyWideIos_549D4B",
+            "native_callback_symbol": "WideIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x549D67",
@@ -50668,11 +50979,11 @@
     {
       "original_entry": "0x548E65",
       "inventory_id": "F:00148E65",
-      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x548EA5",
       "instruction_count": 22,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "function_chunks": [
         {
           "start": "0x548E65",
@@ -50689,20 +51000,175 @@
           "parent_entry": "0x548537"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowIos_548E65"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyNarrowIos_548E65",
+            "LegacyNarrowBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "窄basic_ios初始化：先清tie槽+2C、写buffer+28、填充U8空格到+30，再base Init；buffer空时沿clear设置bit4，第二参数非零才_Addstd。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+      "boundary": "窄basic_ios初始化：先清tie槽+2C、写buffer+28、填充U8空格到+30，再base Init；buffer空时沿clear设置bit4，第二参数非零才_Addstd。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyNarrowBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+30",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "char低U8 20H原字节"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E77",
+          "target_entry": "0x54A293",
+          "target_symbol": "InitializeLegacyIosBase_54A293",
+          "arguments": "&storage->base",
+          "relationship": "tie0/buffer/低U8填充之后真实base_Init",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        },
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E8E",
+          "target_entry": "0x549F62",
+          "target_symbol": "ClearLegacyIos_549F62",
+          "arguments": "&storage->base, stateBits|4, 0",
+          "relationship": "base_Init返回后重取buffer，为空才实际clear声明，不固定成功",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        },
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E9C",
+          "target_entry": "0x54A25E",
+          "target_symbol": "RegisterLegacyStandardStream_54A25E",
+          "arguments": "&storage->base",
+          "relationship": "最后仅registerBits低U8非0才真实登记",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        }
+      ],
+      "basic_ios_parent_call_connections": [],
+      "basic_ios_method_table": {
+        "original_address": "0x54FFBC",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyNarrowBasicIosMethods54FFBC",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x54FFBC",
+            "target_entry": "0x548CF6",
+            "target_symbol": "DeleteLegacyNarrowIos_548CF6",
+            "native_callback_symbol": "NarrowIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x549DBE",
       "inventory_id": "F:00149DBE",
-      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x549E08",
       "instruction_count": 26,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "function_chunks": [
         {
           "start": "0x549DBE",
@@ -50719,11 +51185,176 @@
           "parent_entry": "0x549643"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyWideIos_549DBE"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "InitializeLegacyWideIos_549DBE",
+            "LegacyWideBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "宽basic_ios初始化：先清tie/写buffer，实际btowc(20H)的AX写+30，再base Init；空buffer和登记门禁同窄入口，不用固定宽空格替代btowc。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。"
+      "boundary": "宽basic_ios初始化：先清tie/写buffer，实际btowc(20H)的AX写+30，再base Init；空buffer和登记门禁同窄入口，不用固定宽空格替代btowc。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyWideBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+31",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "U16实际Btowc返回"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DCE",
+          "target_entry": "0x54AAD5",
+          "target_symbol": "Btowc_54AAD5",
+          "arguments": "0x20 S32",
+          "relationship": "真实可变locale转换返回U16写fill，不固定宽空格",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DDA",
+          "target_entry": "0x54A293",
+          "target_symbol": "InitializeLegacyIosBase_54A293",
+          "arguments": "&storage->base",
+          "relationship": "tie0/buffer/实际Btowc返回后真实base_Init",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DF1",
+          "target_entry": "0x549F62",
+          "target_symbol": "ClearLegacyIos_549F62",
+          "arguments": "&storage->base, stateBits|4, 0",
+          "relationship": "base_Init返回后重取buffer，空才实际clear，不补额外保护",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DFF",
+          "target_entry": "0x54A25E",
+          "target_symbol": "RegisterLegacyStandardStream_54A25E",
+          "arguments": "&storage->base",
+          "relationship": "仅低U8登记门禁，异常发生则不继续登记",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        }
+      ],
+      "basic_ios_parent_call_connections": [],
+      "basic_ios_method_table": {
+        "original_address": "0x550058",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyWideBasicIosMethods550058",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x550058",
+            "target_entry": "0x549D4B",
+            "target_symbol": "DeleteLegacyWideIos_549D4B",
+            "native_callback_symbol": "WideIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x549F62",
@@ -50732,7 +51363,7 @@
       "original_end_exclusive": "0x549FFE",
       "instruction_count": 60,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；新增ios_base父数值call/尾调与新增消费静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
       "function_chunks": [
         {
           "start": "0x549F62",
@@ -50772,12 +51403,20 @@
             "ClearLegacyIos_549F62"
           ],
           "relationship": "仅真实原入口声明，W32 state/重抛栈字；未实现，不补固定成功/抛出或计全部状态生命周期完成"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowIos_548E65",
+            "InitializeLegacyWideIos_549DBE"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。",
+      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548E8E/0x549DF1，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "new_original_clear_evidence": {
         "instruction_count": 60,
         "chunks": [
@@ -50808,6 +51447,28 @@
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyIosBase_54A293"
         }
+      ],
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E8E",
+          "target_entry": "0x549F62",
+          "target_symbol": "ClearLegacyIos_549F62",
+          "arguments": "&storage->base, stateBits|4, 0",
+          "relationship": "base_Init返回后重取buffer，为空才实际clear声明，不固定成功",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DF1",
+          "target_entry": "0x549F62",
+          "target_symbol": "ClearLegacyIos_549F62",
+          "arguments": "&storage->base, stateBits|4, 0",
+          "relationship": "base_Init返回后重取buffer，空才实际clear，不补额外保护",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        }
       ]
     },
     {
@@ -50817,7 +51478,7 @@
       "original_end_exclusive": "0x54A220",
       "instruction_count": 29,
       "original_direct_reference_count": 3,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
       "function_chunks": [
         {
           "start": "0x54A1D0",
@@ -50857,12 +51518,20 @@
             "LegacyIosBaseStorage"
           ],
           "relationship": "显式原生this/W32/实际外部全局数组声明，不初始化影子状态"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowIos_54852C",
+            "DestroyLegacyWideIos_549638"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "ios_base析构：恢复ios_base虚表；登记索引为0直接Tidy，非0先减共享U8计数，按有符号>0决定跳过Tidy；正常尾析构+20 locale。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。",
+      "boundary": "ios_base析构：恢复ios_base虚表；登记索引为0直接Tidy，非0先减共享U8计数，按有符号>0决定跳过Tidy；正常尾析构+20 locale。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548532/0x54963E，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -50990,7 +51659,29 @@
           }
         ],
         "boundary": "原已加载槽0真实目标/8B源码消费前缀，不推完整方法表长度、SDK虚表/RTTI/ThrowInfo或完整owner验收"
-      }
+      },
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x54852C",
+          "call_site": "0x548532",
+          "target_entry": "0x54A1D0",
+          "target_symbol": "DestroyLegacyIosBase_54A1D0",
+          "arguments": "&storage->base",
+          "relationship": "先发布各自basic_ios方法表再真实ios_base析构，不增本地catch",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowIos_54852C"
+        },
+        {
+          "parent_entry": "0x549638",
+          "call_site": "0x54963E",
+          "target_entry": "0x54A1D0",
+          "target_symbol": "DestroyLegacyIosBase_54A1D0",
+          "arguments": "&storage->base",
+          "relationship": "原尾调表达为真实源级父调用，不推SDK虚基ABI通过",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideIos_549638"
+        }
+      ]
     },
     {
       "original_entry": "0x54A220",
@@ -51313,7 +52004,7 @@
       "original_end_exclusive": "0x54A293",
       "instruction_count": 17,
       "original_direct_reference_count": 6,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
       "function_chunks": [
         {
           "start": "0x54A25E",
@@ -51361,12 +52052,20 @@
             "LegacyIosBaseStorage"
           ],
           "relationship": "显式原生this/W32/实际外部全局数组声明，不初始化影子状态"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowIos_548E65",
+            "InitializeLegacyWideIos_549DBE"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "标准流登记：从对象+24索引查登记槽，遇空或同this停止；扫至索引8仍写槽并增对应U8计数，不新增超界拒绝或容量推断。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。",
+      "boundary": "标准流登记：从对象+24索引查登记槽，遇空或同this停止；扫至索引8仍写槽并增对应U8计数，不新增超界拒绝或容量推断。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E9C/0x549DFF，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -51463,7 +52162,29 @@
           }
         ],
         "boundary": "原已加载槽0真实目标/8B源码消费前缀，不推完整方法表长度、SDK虚表/RTTI/ThrowInfo或完整owner验收"
-      }
+      },
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E9C",
+          "target_entry": "0x54A25E",
+          "target_symbol": "RegisterLegacyStandardStream_54A25E",
+          "arguments": "&storage->base",
+          "relationship": "最后仅registerBits低U8非0才真实登记",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DFF",
+          "target_entry": "0x54A25E",
+          "target_symbol": "RegisterLegacyStandardStream_54A25E",
+          "arguments": "&storage->base",
+          "relationship": "仅低U8登记门禁，异常发生则不继续登记",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        }
+      ]
     },
     {
       "original_entry": "0x54A293",
@@ -51472,7 +52193,7 @@
       "original_end_exclusive": "0x54A2CB",
       "instruction_count": 21,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
       "function_chunks": [
         {
           "start": "0x54A293",
@@ -51504,12 +52225,20 @@
             "LegacyIosBaseStorage"
           ],
           "relationship": "显式原生this/W32/实际外部全局数组声明，不初始化影子状态"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "InitializeLegacyNarrowIos_548E65",
+            "InitializeLegacyWideIos_549DBE"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "ios_base初始化：先构造+20 locale，清异常掩码，写flags=201H/precision=6/width=0/两链头=0，再clear(0,false)；不清整个对象或登记索引。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。",
+      "boundary": "ios_base初始化：先构造+20 locale，清异常掩码，写flags=201H/precision=6/width=0/两链头=0，再clear(0,false)；不清整个对象或登记索引。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E77/0x549DDA，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -51627,7 +52356,29 @@
           }
         ],
         "boundary": "原已加载槽0真实目标/8B源码消费前缀，不推完整方法表长度、SDK虚表/RTTI/ThrowInfo或完整owner验收"
-      }
+      },
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x548E65",
+          "call_site": "0x548E77",
+          "target_entry": "0x54A293",
+          "target_symbol": "InitializeLegacyIosBase_54A293",
+          "arguments": "&storage->base",
+          "relationship": "tie0/buffer/低U8填充之后真实base_Init",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyNarrowIos_548E65"
+        },
+        {
+          "parent_entry": "0x549DBE",
+          "call_site": "0x549DDA",
+          "target_entry": "0x54A293",
+          "target_symbol": "InitializeLegacyIosBase_54A293",
+          "arguments": "&storage->base",
+          "relationship": "tie0/buffer/实际Btowc返回后真实base_Init",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "InitializeLegacyWideIos_549DBE"
+        }
+      ]
     },
     {
       "original_entry": "0x54A2CB",
@@ -52286,11 +53037,11 @@
     {
       "original_entry": "0x54852C",
       "inventory_id": "F:0014852C",
-      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x548537",
       "instruction_count": 2,
       "original_direct_reference_count": 7,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "function_chunks": [
         {
           "start": "0x54852C",
@@ -52327,20 +53078,166 @@
           "parent_entry": "0x54859F"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyNarrowIos_54852C"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyNarrowIos_54852C",
+            "LegacyNarrowBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "窄basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+      "boundary": "窄basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyNarrowBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+30",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "char低U8 20H原字节"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x54852C",
+          "call_site": "0x548532",
+          "target_entry": "0x54A1D0",
+          "target_symbol": "DestroyLegacyIosBase_54A1D0",
+          "arguments": "&storage->base",
+          "relationship": "先发布各自basic_ios方法表再真实ios_base析构，不增本地catch",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyNarrowIos_54852C"
+        }
+      ],
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x548CF6",
+          "call_site": "0x548CF9",
+          "target_entry": "0x54852C",
+          "target_symbol": "DestroyLegacyNarrowIos_54852C",
+          "arguments": "storage",
+          "relationship": "先完整实际basic_ios析构",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyNarrowIos_548CF6"
+        }
+      ],
+      "basic_ios_method_table": {
+        "original_address": "0x54FFBC",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyNarrowBasicIosMethods54FFBC",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x54FFBC",
+            "target_entry": "0x548CF6",
+            "target_symbol": "DeleteLegacyNarrowIos_548CF6",
+            "native_callback_symbol": "NarrowIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x549638",
       "inventory_id": "F:00149638",
-      "status": "原标准流启动/析构本体已取证；内部ABI承接未实现/未验收",
+      "status": "原窄宽basic_ios初始化/析构/删除六本体已实现；clear/登记生产/标准流虚基owner与运行未闭",
       "original_end_exclusive": "0x549643",
       "instruction_count": 2,
       "original_direct_reference_count": 7,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04完整新74条/全部原数值call与两槽0，新寄存参数cmp低U8字节807C240C00/operand dtype0，新增源码/映射静态，未执行",
       "function_chunks": [
         {
           "start": "0x549638",
@@ -52377,11 +53274,157 @@
           "parent_entry": "0x5496AB"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DestroyLegacyWideIos_549638"
+          ],
+          "relationship": "真实base首成员/缓冲/tie/fill及既有依赖，原低U8登记/重取字段/析构删除次序"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "DestroyLegacyWideIos_549638",
+            "LegacyWideBasicIos"
+          ],
+          "relationship": "88B原生已消费字段视图，指针拓宽/原char-U16及W32，ostream仅真实前向声明"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "宽basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。"
+      "boundary": "宽basic_ios析构：先恢复basic_ios虚表，然后尾跳54A1D0的ios_base析构；其共享登记/回调/locale顺序沿已证父链，不能替换为空体。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04依本次六新原74条实现：tie0/实buf/窄U8或真实Btowc U16→base_Init，返回后重取buffer、空才stateBits|4/clear，registerBits只低U8；两析构先真实独立表再ios_base，delete flags bit0同域释放返回缓存原地址/不作this-4/-8。两槽0/8B前缀绑定经实际64B base首成员地址适配，88B消费视图不推原分配或虚基；clear/登记全局生产/标准流owner、SDK EH与完整运行仍待，不回核旧算法。",
+      "native_storage": {
+        "source": "src/platform/LegacyIos.hpp",
+        "type": "LegacyWideBasicIos",
+        "native_size": 88,
+        "original_consumed_range": "+00..+31",
+        "fields": {
+          "base": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际64B LegacyIosBaseStorage首成员",
+            "storage": {
+              "source": "src/platform/LegacyIos.hpp",
+              "type": "LegacyIosBaseStorage",
+              "original_consumed_range": "+00..+27",
+              "native_size": 64,
+              "fields": {
+                "virtualTable": {
+                  "original_offset": 0,
+                  "native_offset": 0,
+                  "type": "const void*，原实际ios_base方法槽0消费前缀8B"
+                },
+                "stateBits": {
+                  "original_offset": 4,
+                  "native_offset": 8,
+                  "type": "W32位型"
+                },
+                "exceptionBits": {
+                  "original_offset": 8,
+                  "native_offset": 12,
+                  "type": "W32位型"
+                },
+                "formatBits": {
+                  "original_offset": 12,
+                  "native_offset": 16,
+                  "type": "W32位型"
+                },
+                "precisionBits": {
+                  "original_offset": 16,
+                  "native_offset": 20,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "widthBits": {
+                  "original_offset": 20,
+                  "native_offset": 24,
+                  "type": "W32，未消费符号性不推定"
+                },
+                "valueHead": {
+                  "original_offset": 24,
+                  "native_offset": 32,
+                  "type": "LegacyIosValueNodeHeader*，仅已证next头"
+                },
+                "callbackHead": {
+                  "original_offset": 28,
+                  "native_offset": 40,
+                  "type": "LegacyIosCallbackNode*"
+                },
+                "localeImplementation": {
+                  "original_offset": 32,
+                  "native_offset": 48,
+                  "type": "真实单locale实现指针，新增_Init/析构接既有原本体"
+                },
+                "registryIndex": {
+                  "original_offset": 36,
+                  "native_offset": 56,
+                  "type": "U32，原jnb/jb"
+                }
+              },
+              "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+            }
+          },
+          "buffer": {
+            "original_offset": 40,
+            "native_offset": 64,
+            "type": "真实LegacyStreamBufferObject<Char/U16>*非拥有地址"
+          },
+          "tiedStream": {
+            "original_offset": 44,
+            "native_offset": 72,
+            "type": "真实LegacyOutputStreamStorage<Char/U16>*非拥有地址；类型仅前向声明，非basic_ios地址"
+          },
+          "fill": {
+            "original_offset": 48,
+            "native_offset": 80,
+            "type": "U16实际Btowc返回"
+          }
+        },
+        "boundary": "88B为本组原生已消费字段对象，不推完整原对象分配/istream-ostream及虚基布局；只拓宽已证地址，原基类64B/W32不改，不自动构析/初始化或SDK对象互转"
+      },
+      "basic_ios_internal_call_connections": [
+        {
+          "parent_entry": "0x549638",
+          "call_site": "0x54963E",
+          "target_entry": "0x54A1D0",
+          "target_symbol": "DestroyLegacyIosBase_54A1D0",
+          "arguments": "&storage->base",
+          "relationship": "原尾调表达为真实源级父调用，不推SDK虚基ABI通过",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DestroyLegacyWideIos_549638"
+        }
+      ],
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x549D4B",
+          "call_site": "0x549D4E",
+          "target_entry": "0x549638",
+          "target_symbol": "DestroyLegacyWideIos_549638",
+          "arguments": "storage",
+          "relationship": "先完整实际basic_ios析构",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyWideIos_549D4B"
+        }
+      ],
+      "basic_ios_method_table": {
+        "original_address": "0x550058",
+        "source": "src/platform/LegacyIos.cpp",
+        "native_symbol": "gLegacyWideBasicIosMethods550058",
+        "native_type": "LegacyIosBaseMethods",
+        "native_consumed_prefix_bytes": 8,
+        "bindings": [
+          {
+            "slot": 0,
+            "original_slot_address": "0x550058",
+            "target_entry": "0x549D4B",
+            "target_symbol": "DeleteLegacyWideIos_549D4B",
+            "native_callback_symbol": "WideIosDeleteMethod",
+            "native_slot_offset": 0
+          }
+        ],
+        "boundary": "已加载槽0真实目标/8B源码消费前缀，真实base首成员this地址适配，同一typed接口无函数地址擦除；不推完整表/SDK虚基/RTTI或原分配大小，不在删除返回后读成员"
+      }
     },
     {
       "original_entry": "0x53BFF8",
@@ -55763,6 +56806,14 @@
             "DeleteLegacyIosBase_54A220"
           ],
           "relationship": "新增ios_base真实原父实际点/展开动作；依赖既有本体不修改/复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "DeleteLegacyNarrowIos_548CF6",
+            "DeleteLegacyWideIos_549D4B"
+          ],
+          "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
         }
       ],
       "inbound_evidence": [
@@ -56132,8 +57183,8 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_legacy_string_compare.md"
       ],
-      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行；新增ios_base父数值call/尾调与新增消费静态，不执行",
-      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。；2026-10-04新增locale构析原点0x54A610，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增ios_base真实原父点0x54A230；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。",
+      "verification_level": "完整原指令/所有直接入向和本步指定调用域静态核对；未构建、链接或执行；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
+      "boundary": "真实原堆free只对空值直接返回，非空采样模式，mode3查区域后调真实待实现541C88，mode2查块成功才消费区域/页输出并调542A0F；其他/未命中HeapFree(共享原堆,0,原输入)。只供真实realloc零长度路径等原堆块使用，不迁移90个原入向或将宿主块交原堆。 分色0x4FBAB5改经既有Free_53C0A9宿主窄接口，与原同源std::malloc/std::free生命周期保持；长度低W32/U32，不消费真实原堆块，不增加原堆入向全迁移计数。；2026-10-04新增locale构析原点0x54A610，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增ios_base真实原父点0x54A230；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548D06/0x549D5B，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
       "host_contract_call_connections": [
         {
           "parent_entry": "0x4FBA30",
@@ -56167,6 +57218,30 @@
           "relationship": "flags bit0才原delete转53C0A9同域释放，缓存地址返回",
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "DeleteLegacyIosBase_54A220",
+          "resolved_target_entry": "0x53C0A9"
+        }
+      ],
+      "basic_ios_parent_call_connections": [
+        {
+          "parent_entry": "0x548CF6",
+          "call_site": "0x548D06",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0正常析构后同域Free，缓存原地址不解引用",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyNarrowIos_548CF6",
+          "resolved_target_entry": "0x53C0A9"
+        },
+        {
+          "parent_entry": "0x549D4B",
+          "call_site": "0x549D5B",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0正常析构后同域Free，不作this偏移",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "DeleteLegacyWideIos_549D4B",
           "resolved_target_entry": "0x53C0A9"
         }
       ]

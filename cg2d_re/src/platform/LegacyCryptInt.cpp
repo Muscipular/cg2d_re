@@ -1,7 +1,6 @@
 #include "cg/platform/LegacyCryptInt.hpp"
 
 #include "MainLoopDependencies.hpp"
-#include "LegacyRuntimeExit.hpp"
 
 #include <bit>
 #include <cstdlib>
@@ -33,7 +32,7 @@ std::uint32_t NextMask()
 std::int32_t InitializeLegacyStartupValues_401C10()
 {
     ConstructStartupValues_401C20();
-    return RegisterLegacyAtExit_53B406(DestroyStartupValues_401C50);
+    return std::atexit(DestroyStartupValues_401C50);
 }
 
 void ConstructStartupValues_401C20()

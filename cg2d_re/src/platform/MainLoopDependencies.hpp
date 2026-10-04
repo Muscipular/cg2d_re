@@ -27,15 +27,15 @@ using cg::network::NetworkLoop_507DF0;
 std::uint32_t ResetSystemLog_44B5A0(); // 打开失败返回 0，成功透传 fclose 的 W32。
 
 // 原CRT 553008/55300C/553010；各自独立登记退出，复用保护逻辑的唯一状态。
-// 原553008入口：先构造同一对象，再以原53B406登记对应退出回调。
+// 原553008入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
 std::int32_t InitializeLegacyProtectionChecksum1_404120();
 void ConstructProtectionChecksum1_404130(); // 原594070。
 void DestroyProtectionChecksum1_404150();
-// 原55300C入口：先构造同一对象，再以原53B406登记对应退出回调。
+// 原55300C入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
 std::int32_t InitializeLegacyProtectionChecksum2_404160();
 void ConstructProtectionChecksum2_404170(); // 原594080。
 void DestroyProtectionChecksum2_404190();
-// 原553010入口：先构造同一对象，再以原53B406登记对应退出回调。
+// 原553010入口：先构造同一对象，再即时以宿主std::atexit登记同一退出回调；完整应用序未闭。
 std::int32_t InitializeLegacyProtectionProcessState_4041A0();
 void ConstructProtectionProcessState_4041B0(); // 原59E548。
 void DestroyProtectionProcessState_4041D0();

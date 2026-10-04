@@ -1,6 +1,5 @@
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
-#include "LegacyRuntimeExit.hpp"
 #include "LegacyStdio.hpp"
 #include "LegacyFormat.hpp"
 
@@ -17,6 +16,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <tlhelp32.h>
 
@@ -242,7 +242,7 @@ std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本�
 std::int32_t InitializeLegacyProtectionChecksum1_404120()
 {
     ConstructProtectionChecksum1_404130();
-    return RegisterLegacyAtExit_53B406(DestroyProtectionChecksum1_404150);
+    return std::atexit(DestroyProtectionChecksum1_404150);
 }
 
 void ConstructProtectionChecksum1_404130()
@@ -258,7 +258,7 @@ void DestroyProtectionChecksum1_404150()
 std::int32_t InitializeLegacyProtectionChecksum2_404160()
 {
     ConstructProtectionChecksum2_404170();
-    return RegisterLegacyAtExit_53B406(DestroyProtectionChecksum2_404190);
+    return std::atexit(DestroyProtectionChecksum2_404190);
 }
 
 void ConstructProtectionChecksum2_404170()
@@ -274,7 +274,7 @@ void DestroyProtectionChecksum2_404190()
 std::int32_t InitializeLegacyProtectionProcessState_4041A0()
 {
     ConstructProtectionProcessState_4041B0();
-    return RegisterLegacyAtExit_53B406(DestroyProtectionProcessState_4041D0);
+    return std::atexit(DestroyProtectionProcessState_4041D0);
 }
 
 void ConstructProtectionProcessState_4041B0()

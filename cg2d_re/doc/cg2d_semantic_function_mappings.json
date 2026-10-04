@@ -5244,15 +5244,16 @@
     {
       "original_entry": "0x401C10",
       "inventory_id": "F:00001C10",
-      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
+      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
       "original_role": "CRT553004启动双CryptInt登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "StartupCryptValuesStaticInitializer"
+            "StartupProtectionValuesStartup",
+            "gStartupProtectionValuesStartup"
           ],
-          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
+          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
         },
         {
           "path": "src/platform/LegacyCryptInt.cpp",
@@ -5266,34 +5267,36 @@
           "symbols": [
             "InitializeLegacyStartupValues_401C10"
           ],
-          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
         },
         {
           "path": "include/cg/platform/LegacyCryptInt.hpp",
           "symbols": [
             "InitializeLegacyStartupValues_401C10"
           ],
-          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
+          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
       ],
-      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。",
       "instruction_count": 6,
       "function_chunks": [
         {
-          "start": "0x401C10",
-          "end_exclusive": "0x401C1A"
+          "start": "0x401c10",
+          "end_exclusive": "0x401c1a"
         },
         {
-          "start": "0x401C40",
-          "end_exclusive": "0x401C4C"
+          "start": "0x401c40",
+          "end_exclusive": "0x401c4c"
         }
       ],
-      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
       "startup_crypt_internal_call_connections": [
         {
           "parent_entry": "0x401C10",
@@ -5309,11 +5312,14 @@
           "parent_entry": "0x401C10",
           "call_site": "0x401C45",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "InitializeLegacyStartupValues_401C10",
           "arguments": "DestroyStartupValues_401C50 无参退出callback",
-          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+          "relationship": "原数值调用目标保留为基线，实际宿主即时登记承接私有职责；透传宿主S32，失败不新增回滚/析构，不能计新增53B406源级调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
       "startup_crypt_callback_references": [
@@ -5324,22 +5330,64 @@
           "callback_symbol": "DestroyStartupValues_401C50",
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "InitializeLegacyStartupValues_401C10",
-          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+          "relationship": "原固定无参析构现由实际std::atexit在本项构造后即时登记；模块适配已取消自动析构，无双执行"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x401C1A",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553004",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
     },
     {
       "original_entry": "0x404120",
       "inventory_id": "F:00004120",
-      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
+      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
       "original_role": "CRT553008第一保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "ProtectionChecksum1StaticInitializer"
+            "StartupProtectionValuesStartup",
+            "gStartupProtectionValuesStartup"
           ],
-          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
+          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -5353,34 +5401,36 @@
           "symbols": [
             "InitializeLegacyProtectionChecksum1_404120"
           ],
-          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
             "InitializeLegacyProtectionChecksum1_404120"
           ],
-          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
+          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
       ],
-      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。",
       "instruction_count": 6,
       "function_chunks": [
         {
           "start": "0x404120",
-          "end_exclusive": "0x40412A"
+          "end_exclusive": "0x40412a"
         },
         {
           "start": "0x404140",
-          "end_exclusive": "0x40414C"
+          "end_exclusive": "0x40414c"
         }
       ],
-      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
       "startup_crypt_internal_call_connections": [
         {
           "parent_entry": "0x404120",
@@ -5396,11 +5446,14 @@
           "parent_entry": "0x404120",
           "call_site": "0x404145",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionChecksum1_404120",
           "arguments": "DestroyProtectionChecksum1_404150 无参退出callback",
-          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+          "relationship": "原数值调用目标保留为基线，实际宿主即时登记承接私有职责；透传宿主S32，失败不新增回滚/析构，不能计新增53B406源级调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
       "startup_crypt_callback_references": [
@@ -5411,22 +5464,64 @@
           "callback_symbol": "DestroyProtectionChecksum1_404150",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionChecksum1_404120",
-          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+          "relationship": "原固定无参析构现由实际std::atexit在本项构造后即时登记；模块适配已取消自动析构，无双执行"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x40412A",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553008",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
     },
     {
       "original_entry": "0x404160",
       "inventory_id": "F:00004160",
-      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
+      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
       "original_role": "CRT55300C第二保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "ProtectionChecksum2StaticInitializer"
+            "StartupProtectionValuesStartup",
+            "gStartupProtectionValuesStartup"
           ],
-          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
+          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -5440,34 +5535,36 @@
           "symbols": [
             "InitializeLegacyProtectionChecksum2_404160"
           ],
-          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
             "InitializeLegacyProtectionChecksum2_404160"
           ],
-          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
+          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
       ],
-      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。",
       "instruction_count": 6,
       "function_chunks": [
         {
           "start": "0x404160",
-          "end_exclusive": "0x40416A"
+          "end_exclusive": "0x40416a"
         },
         {
           "start": "0x404180",
-          "end_exclusive": "0x40418C"
+          "end_exclusive": "0x40418c"
         }
       ],
-      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
       "startup_crypt_internal_call_connections": [
         {
           "parent_entry": "0x404160",
@@ -5483,11 +5580,14 @@
           "parent_entry": "0x404160",
           "call_site": "0x404185",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionChecksum2_404160",
           "arguments": "DestroyProtectionChecksum2_404190 无参退出callback",
-          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+          "relationship": "原数值调用目标保留为基线，实际宿主即时登记承接私有职责；透传宿主S32，失败不新增回滚/析构，不能计新增53B406源级调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
       "startup_crypt_callback_references": [
@@ -5498,22 +5598,64 @@
           "callback_symbol": "DestroyProtectionChecksum2_404190",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionChecksum2_404160",
-          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+          "relationship": "原固定无参析构现由实际std::atexit在本项构造后即时登记；模块适配已取消自动析构，无双执行"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x40416A",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55300c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
     },
     {
       "original_entry": "0x4041A0",
       "inventory_id": "F:000041A0",
-      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
+      "status": "本组五唯一值owner/四Init即时宿主登记与唯一模块适配已接；原全应用序/完整退出和运行未闭",
       "original_role": "CRT553010进程保护状态登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
-            "ProtectionProcessStateStaticInitializer"
+            "StartupProtectionValuesStartup",
+            "gStartupProtectionValuesStartup"
           ],
-          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
+          "relationship": "本组唯一无析构模块适配实际调用四Init，逐项完成构造/即时登记且丢弃结果不短路；整应用序接通须同小步移除"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -5527,34 +5669,36 @@
           "symbols": [
             "InitializeLegacyProtectionProcessState_4041A0"
           ],
-          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+          "relationship": "既有构造→即时std::atexit原固定析构，返回真实宿主S32；D02/D03承接私有退出表，不记53B406原体新调用"
         },
         {
           "path": "src/platform/MainLoopDependencies.hpp",
           "symbols": [
             "InitializeLegacyProtectionProcessState_4041A0"
           ],
-          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
+          "relationship": "具名Init显式接口，本组单一活动模块调用；原整Cpp90及完整应用序未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
       ],
-      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。；本组D02/D03实施更新早期不std::atexit/宿主迁移未启用保留：四Init改真实宿主即时登记，四旧自动构析适配改一个无析构模块适配，五固定owner/原构析及RNG源码保持。模块正序调用/丢弃结果不短路，无once/懒调用/回滚/保护/第二owner；std::atexit不记53B406原体等价或源级调用，全应用原序/快速退出和运行仍未闭，接全表需同小步移除适配。",
       "instruction_count": 6,
       "function_chunks": [
         {
-          "start": "0x4041A0",
-          "end_exclusive": "0x4041AA"
+          "start": "0x4041a0",
+          "end_exclusive": "0x4041aa"
         },
         {
-          "start": "0x4041C0",
-          "end_exclusive": "0x4041CC"
+          "start": "0x4041c0",
+          "end_exclusive": "0x4041cc"
         }
       ],
-      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过；2026-10-04本组12原身份44条/四表槽、全部入向与实际构造→宿主即时登记→固定退出静态；原值/RNG与构析源码未变，未构建/运行",
       "startup_crypt_internal_call_connections": [
         {
           "parent_entry": "0x4041A0",
@@ -5570,11 +5714,14 @@
           "parent_entry": "0x4041A0",
           "call_site": "0x4041C5",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionProcessState_4041A0",
           "arguments": "DestroyProtectionProcessState_4041D0 无参退出callback",
-          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+          "relationship": "原数值调用目标保留为基线，实际宿主即时登记承接私有职责；透传宿主S32，失败不新增回滚/析构，不能计新增53B406源级调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
         }
       ],
       "startup_crypt_callback_references": [
@@ -5585,9 +5732,50 @@
           "callback_symbol": "DestroyProtectionProcessState_4041D0",
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionProcessState_4041A0",
-          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+          "relationship": "原固定无参析构现由实际std::atexit在本项构造后即时登记；模块适配已取消自动析构，无双执行"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x4041AA",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553010",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
     },
     {
       "original_entry": "0x43D760",
@@ -22222,7 +22410,9 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
-        "doc/cg2d_standard_stream_registry_evidence.json"
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -22748,7 +22938,10 @@
           "source": "src/platform/LegacyCryptInt.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+          "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_symbol": "gStartupProtectionValuesStartup"
         },
         {
           "reference_site": "0x553008",
@@ -22757,7 +22950,10 @@
           "source": "src/platform/MainLoopSupport.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+          "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_symbol": "gStartupProtectionValuesStartup"
         },
         {
           "reference_site": "0x55300C",
@@ -22766,7 +22962,10 @@
           "source": "src/platform/MainLoopSupport.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+          "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_symbol": "gStartupProtectionValuesStartup"
         },
         {
           "reference_site": "0x553010",
@@ -22775,7 +22974,10 @@
           "source": "src/platform/MainLoopSupport.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+          "relationship": "本组四相邻入口已由唯一模块适配依原序调用，完成构造后即时宿主登记，无自动析构并行；完整Cpp90与全应用序未启用，接全表须同小步移除适配",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_symbol": "gStartupProtectionValuesStartup"
         }
       ],
       "scene_crypt_cpp_initialization_bindings": [
@@ -23137,6 +23339,38 @@
         "new_index_guard": false,
         "runtime_verified": false,
         "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
+      },
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
       }
     },
     {
@@ -126291,6 +126525,856 @@
         "runtime_verified": false
       },
       "verification_level": "原连续3089条、五20B表/六跳表、280原call及310源表达式各共享路径、字段/输出/初值/跨轮/收尾与既有三父接线静态核对；未构建/测试/运行"
+    },
+    {
+      "original_entry": "0x401C20",
+      "inventory_id": "F:00001C20",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "构造：0x5939C8/0x5939D8，0x553004项固定owner",
+      "original_end_exclusive": "0x401C34",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x401C20",
+          "end_exclusive": "0x401C34"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x401C10",
+          "parent_entry": "0x401C10",
+          "kind": 17
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "ConstructStartupValues_401C20",
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "ConstructStartupValues_401C20"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "original_object_addresses": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "source_symbols": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x401C20",
+          "call_site": "0x401C25",
+          "target_entry": "0x401C70",
+          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "ConstructStartupValues_401C20",
+          "arguments": "&gStartupValue5939C8；原固定0x5939C8",
+          "relationship": "固定owner正序真实构造，不增加RNG调用"
+        },
+        {
+          "parent_entry": "0x401C20",
+          "call_site": "0x401C2F",
+          "target_entry": "0x401C70",
+          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "ConstructStartupValues_401C20",
+          "arguments": "&gStartupValue5939D8；原固定0x5939D8",
+          "relationship": "固定owner正序真实构造，不增加RNG调用"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x401C50",
+      "inventory_id": "F:00001C50",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "退出析构：0x5939C8/0x5939D8，0x553004项固定owner",
+      "original_end_exclusive": "0x401C64",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x401C50",
+          "end_exclusive": "0x401C64"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x401C40",
+          "parent_entry": "0x401C10",
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "DestroyStartupValues_401C50",
+            "gStartupValue5939C8",
+            "gStartupValue5939D8"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "DestroyStartupValues_401C50"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "original_object_addresses": [
+          "0x5939C8",
+          "0x5939D8"
+        ],
+        "source_symbols": [
+          "gStartupValue5939C8",
+          "gStartupValue5939D8"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x401C50",
+          "call_site": "0x401C55",
+          "target_entry": "0x401CF0",
+          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "DestroyStartupValues_401C50",
+          "arguments": "&gStartupValue5939D8；原固定0x5939D8",
+          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+        },
+        {
+          "parent_entry": "0x401C50",
+          "call_site": "0x401C5F",
+          "target_entry": "0x401CF0",
+          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "DestroyStartupValues_401C50",
+          "arguments": "&gStartupValue5939C8；原固定0x5939C8",
+          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x404130",
+      "inventory_id": "F:00004130",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "构造：0x594070，0x553008项固定owner",
+      "original_end_exclusive": "0x40413A",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x404130",
+          "end_exclusive": "0x40413A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404120",
+          "parent_entry": "0x404120",
+          "kind": 17
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionChecksum1_404130",
+            "gProtectionChecksum1"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "ConstructProtectionChecksum1_404130"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x594070"
+        ],
+        "source_symbols": [
+          "gProtectionChecksum1"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x404130",
+          "call_site": "0x404135",
+          "target_entry": "0x401C70",
+          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ConstructProtectionChecksum1_404130",
+          "arguments": "&gProtectionChecksum1；原固定0x594070",
+          "relationship": "固定owner正序真实构造，不增加RNG调用"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x404150",
+      "inventory_id": "F:00004150",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "退出析构：0x594070，0x553008项固定owner",
+      "original_end_exclusive": "0x40415A",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x404150",
+          "end_exclusive": "0x40415A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404140",
+          "parent_entry": "0x404120",
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "DestroyProtectionChecksum1_404150",
+            "gProtectionChecksum1"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "DestroyProtectionChecksum1_404150"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x594070"
+        ],
+        "source_symbols": [
+          "gProtectionChecksum1"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x404150",
+          "call_site": "0x404155",
+          "target_entry": "0x401CF0",
+          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "DestroyProtectionChecksum1_404150",
+          "arguments": "&gProtectionChecksum1；原固定0x594070",
+          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x404170",
+      "inventory_id": "F:00004170",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "构造：0x594080，0x55300C项固定owner",
+      "original_end_exclusive": "0x40417A",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x404170",
+          "end_exclusive": "0x40417A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404160",
+          "parent_entry": "0x404160",
+          "kind": 17
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionChecksum2_404170",
+            "gProtectionChecksum2"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "ConstructProtectionChecksum2_404170"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x594080"
+        ],
+        "source_symbols": [
+          "gProtectionChecksum2"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x404170",
+          "call_site": "0x404175",
+          "target_entry": "0x401C70",
+          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ConstructProtectionChecksum2_404170",
+          "arguments": "&gProtectionChecksum2；原固定0x594080",
+          "relationship": "固定owner正序真实构造，不增加RNG调用"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x404190",
+      "inventory_id": "F:00004190",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "退出析构：0x594080，0x55300C项固定owner",
+      "original_end_exclusive": "0x40419A",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x404190",
+          "end_exclusive": "0x40419A"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x404180",
+          "parent_entry": "0x404160",
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "DestroyProtectionChecksum2_404190",
+            "gProtectionChecksum2"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "DestroyProtectionChecksum2_404190"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x594080"
+        ],
+        "source_symbols": [
+          "gProtectionChecksum2"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x404190",
+          "call_site": "0x404195",
+          "target_entry": "0x401CF0",
+          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "DestroyProtectionChecksum2_404190",
+          "arguments": "&gProtectionChecksum2；原固定0x594080",
+          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x4041B0",
+      "inventory_id": "F:000041B0",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "构造：0x59E548，0x553010项固定owner",
+      "original_end_exclusive": "0x4041BA",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x4041B0",
+          "end_exclusive": "0x4041BA"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4041A0",
+          "parent_entry": "0x4041A0",
+          "kind": 17
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "ConstructProtectionProcessState_4041B0",
+            "gProtectionProcessState"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "ConstructProtectionProcessState_4041B0"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x59E548"
+        ],
+        "source_symbols": [
+          "gProtectionProcessState"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x4041B0",
+          "call_site": "0x4041B5",
+          "target_entry": "0x401C70",
+          "target_symbol": "legacy_crypt_int::ConstructZero_401C70",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "ConstructProtectionProcessState_4041B0",
+          "arguments": "&gProtectionProcessState；原固定0x59E548",
+          "relationship": "固定owner正序真实构造，不增加RNG调用"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
+    },
+    {
+      "original_entry": "0x4041D0",
+      "inventory_id": "F:000041D0",
+      "status": "本组固定owner构析源码沿既有函数；独立身份/完整指令与实际宿主活动路径已登记，完整启动退出/运行未验",
+      "original_role": "退出析构：0x59E548，0x553010项固定owner",
+      "original_end_exclusive": "0x4041DA",
+      "instruction_count": 2,
+      "original_direct_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x4041D0",
+          "end_exclusive": "0x4041DA"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4041C0",
+          "parent_entry": "0x4041A0",
+          "kind": 1
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "DestroyProtectionProcessState_4041D0",
+            "gProtectionProcessState"
+          ],
+          "relationship": "已有同名固定owner构析本体不修改；本组实际活动入口/退出登记承接"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "DestroyProtectionProcessState_4041D0"
+          ],
+          "relationship": "既有无参动作接口，原caller不消费构析尾调返回寄存器"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+      ],
+      "verification_level": "本组十二身份44条/四相邻原槽、直接入向及实际调用/登记/退出静态；构析值/RNG算法原文保持，未构建/运行",
+      "boundary": "固定实际LegacyCryptInt值存储，不建立第二owner；构造沿原401C70，析构沿原401CF0；两值第一项正序构造/反序析构，单值其他项同源。已有值/RNG算法不修改，本组仅取消自动适配析构、接即时宿主登记；不称旧CRT退出表逐指令等价，全应用相对序与运行未验。",
+      "native_storage": {
+        "type": "LegacyCryptInt",
+        "source": "src/platform/MainLoopSupport.cpp",
+        "original_object_addresses": [
+          "0x59E548"
+        ],
+        "source_symbols": [
+          "gProtectionProcessState"
+        ],
+        "original_object_bytes": 16,
+        "native_object_bytes": 16,
+        "storage_changed": false,
+        "owns_other_objects": false
+      },
+      "internal_call_connections": [
+        {
+          "parent_entry": "0x4041D0",
+          "call_site": "0x4041D5",
+          "target_entry": "0x401CF0",
+          "target_symbol": "legacy_crypt_int::Destroy_401CF0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "DestroyProtectionProcessState_4041D0",
+          "arguments": "&gProtectionProcessState；原固定0x59E548",
+          "relationship": "固定owner原逆序真实析构，只原动作，不释放值存储"
+        }
+      ],
+      "startup_protection_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_type": "StartupProtectionValuesStartup",
+        "module_symbol": "gStartupProtectionValuesStartup",
+        "module_destructor_trivial": true,
+        "initialization_order": [
+          "0x401C10",
+          "0x404120",
+          "0x404160",
+          "0x4041A0"
+        ],
+        "original_table_slots": [
+          "0x553004",
+          "0x553008",
+          "0x55300C",
+          "0x553010"
+        ],
+        "original_objects_count": 5,
+        "native_owner_count": 5,
+        "storage_unchanged": true,
+        "value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+        "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+        "automatic_value_destructors_removed": true,
+        "whole_native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapter_when_whole_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      }
     }
   ]
 }

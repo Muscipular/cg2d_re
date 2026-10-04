@@ -1,0 +1,566 @@
+{
+  "functions": [
+    {
+      "entry": "0x401c10",
+      "root": "0x401c10",
+      "chunks": [
+        [
+          "0x401c10",
+          "0x401c1a"
+        ],
+        [
+          "0x401c40",
+          "0x401c4c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x401c10",
+          "call    unknown_libname_1; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x401c15",
+          "jmp     loc_401C40"
+        ],
+        [
+          "0x401c40",
+          "push    offset unknown_libname_2; void (__cdecl *)()"
+        ],
+        [
+          "0x401c45",
+          "call    _atexit"
+        ],
+        [
+          "0x401c4a",
+          "pop     ecx"
+        ],
+        [
+          "0x401c4b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553004",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x401c20",
+      "root": "0x401c20",
+      "chunks": [
+        [
+          "0x401c20",
+          "0x401c34"
+        ]
+      ],
+      "n": 4,
+      "asm": [
+        [
+          "0x401c20",
+          "mov     ecx, offset stru_5939C8"
+        ],
+        [
+          "0x401c25",
+          "call    sub_401C70"
+        ],
+        [
+          "0x401c2a",
+          "mov     ecx, offset unk_5939D8"
+        ],
+        [
+          "0x401c2f",
+          "jmp     sub_401C70"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x401c10",
+          "0x401c10",
+          17
+        ]
+      ]
+    },
+    {
+      "entry": "0x401c50",
+      "root": "0x401c50",
+      "chunks": [
+        [
+          "0x401c50",
+          "0x401c64"
+        ]
+      ],
+      "n": 4,
+      "asm": [
+        [
+          "0x401c50",
+          "mov     ecx, offset unk_5939D8"
+        ],
+        [
+          "0x401c55",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x401c5a",
+          "mov     ecx, offset stru_5939C8"
+        ],
+        [
+          "0x401c5f",
+          "jmp     CryptInt_delete"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x401c40",
+          "0x401c10",
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x404120",
+      "root": "0x404120",
+      "chunks": [
+        [
+          "0x404120",
+          "0x40412a"
+        ],
+        [
+          "0x404140",
+          "0x40414c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x404120",
+          "call    unknown_libname_3; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x404125",
+          "jmp     loc_404140"
+        ],
+        [
+          "0x404140",
+          "push    offset unknown_libname_4; void (__cdecl *)()"
+        ],
+        [
+          "0x404145",
+          "call    _atexit"
+        ],
+        [
+          "0x40414a",
+          "pop     ecx"
+        ],
+        [
+          "0x40414b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553008",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x404130",
+      "root": "0x404130",
+      "chunks": [
+        [
+          "0x404130",
+          "0x40413a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x404130",
+          "mov     ecx, offset unk_594070"
+        ],
+        [
+          "0x404135",
+          "jmp     sub_401C70"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x404120",
+          "0x404120",
+          17
+        ]
+      ]
+    },
+    {
+      "entry": "0x404150",
+      "root": "0x404150",
+      "chunks": [
+        [
+          "0x404150",
+          "0x40415a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x404150",
+          "mov     ecx, offset unk_594070"
+        ],
+        [
+          "0x404155",
+          "jmp     CryptInt_delete"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x404140",
+          "0x404120",
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x404160",
+      "root": "0x404160",
+      "chunks": [
+        [
+          "0x404160",
+          "0x40416a"
+        ],
+        [
+          "0x404180",
+          "0x40418c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x404160",
+          "call    unknown_libname_5; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x404165",
+          "jmp     loc_404180"
+        ],
+        [
+          "0x404180",
+          "push    offset unknown_libname_6; void (__cdecl *)()"
+        ],
+        [
+          "0x404185",
+          "call    _atexit"
+        ],
+        [
+          "0x40418a",
+          "pop     ecx"
+        ],
+        [
+          "0x40418b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55300c",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x404170",
+      "root": "0x404170",
+      "chunks": [
+        [
+          "0x404170",
+          "0x40417a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x404170",
+          "mov     ecx, offset unk_594080"
+        ],
+        [
+          "0x404175",
+          "jmp     sub_401C70"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x404160",
+          "0x404160",
+          17
+        ]
+      ]
+    },
+    {
+      "entry": "0x404190",
+      "root": "0x404190",
+      "chunks": [
+        [
+          "0x404190",
+          "0x40419a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x404190",
+          "mov     ecx, offset unk_594080"
+        ],
+        [
+          "0x404195",
+          "jmp     CryptInt_delete"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x404180",
+          "0x404160",
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x4041a0",
+      "root": "0x4041a0",
+      "chunks": [
+        [
+          "0x4041a0",
+          "0x4041aa"
+        ],
+        [
+          "0x4041c0",
+          "0x4041cc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x4041a0",
+          "call    unknown_libname_7; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x4041a5",
+          "jmp     loc_4041C0"
+        ],
+        [
+          "0x4041c0",
+          "push    offset unknown_libname_8; void (__cdecl *)()"
+        ],
+        [
+          "0x4041c5",
+          "call    _atexit"
+        ],
+        [
+          "0x4041ca",
+          "pop     ecx"
+        ],
+        [
+          "0x4041cb",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553010",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x4041b0",
+      "root": "0x4041b0",
+      "chunks": [
+        [
+          "0x4041b0",
+          "0x4041ba"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x4041b0",
+          "mov     ecx, offset gProccessId"
+        ],
+        [
+          "0x4041b5",
+          "jmp     sub_401C70"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x4041a0",
+          "0x4041a0",
+          17
+        ]
+      ]
+    },
+    {
+      "entry": "0x4041d0",
+      "root": "0x4041d0",
+      "chunks": [
+        [
+          "0x4041d0",
+          "0x4041da"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x4041d0",
+          "mov     ecx, offset gProccessId"
+        ],
+        [
+          "0x4041d5",
+          "jmp     CryptInt_delete"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x4041c0",
+          "0x4041a0",
+          1
+        ]
+      ]
+    }
+  ],
+  "table": [
+    [
+      "0x553004",
+      "0x401c10"
+    ],
+    [
+      "0x553008",
+      "0x404120"
+    ],
+    [
+      "0x55300c",
+      "0x404160"
+    ],
+    [
+      "0x553010",
+      "0x4041a0"
+    ]
+  ],
+  "description": "启动保护值四项：十二原身份44条、四相邻表槽与直接入向；本组只迁移活动构析/登记，不改值算法。",
+  "source": "当前已打开cg2d.exe IDA，只读Python；无重开/重载/修改/保存/导出原数据库或文件。",
+  "native_bindings": [
+    {
+      "slot": "0x553004",
+      "entry": "0x401C10",
+      "init": "InitializeLegacyStartupValues_401C10",
+      "qualified": "cg::platform::legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+      "ctorEntry": "0x401C20",
+      "ctor": "ConstructStartupValues_401C20",
+      "dtrEntry": "0x401C50",
+      "dtr": "DestroyStartupValues_401C50",
+      "source": "src/platform/LegacyCryptInt.cpp",
+      "header": "include/cg/platform/LegacyCryptInt.hpp",
+      "objects": [
+        "gStartupValue5939C8",
+        "gStartupValue5939D8"
+      ],
+      "originalObjects": [
+        "0x5939C8",
+        "0x5939D8"
+      ]
+    },
+    {
+      "slot": "0x553008",
+      "entry": "0x404120",
+      "init": "InitializeLegacyProtectionChecksum1_404120",
+      "qualified": "cg::platform::InitializeLegacyProtectionChecksum1_404120",
+      "ctorEntry": "0x404130",
+      "ctor": "ConstructProtectionChecksum1_404130",
+      "dtrEntry": "0x404150",
+      "dtr": "DestroyProtectionChecksum1_404150",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "objects": [
+        "gProtectionChecksum1"
+      ],
+      "originalObjects": [
+        "0x594070"
+      ]
+    },
+    {
+      "slot": "0x55300C",
+      "entry": "0x404160",
+      "init": "InitializeLegacyProtectionChecksum2_404160",
+      "qualified": "cg::platform::InitializeLegacyProtectionChecksum2_404160",
+      "ctorEntry": "0x404170",
+      "ctor": "ConstructProtectionChecksum2_404170",
+      "dtrEntry": "0x404190",
+      "dtr": "DestroyProtectionChecksum2_404190",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "objects": [
+        "gProtectionChecksum2"
+      ],
+      "originalObjects": [
+        "0x594080"
+      ]
+    },
+    {
+      "slot": "0x553010",
+      "entry": "0x4041A0",
+      "init": "InitializeLegacyProtectionProcessState_4041A0",
+      "qualified": "cg::platform::InitializeLegacyProtectionProcessState_4041A0",
+      "ctorEntry": "0x4041B0",
+      "ctor": "ConstructProtectionProcessState_4041B0",
+      "dtrEntry": "0x4041D0",
+      "dtr": "DestroyProtectionProcessState_4041D0",
+      "source": "src/platform/MainLoopSupport.cpp",
+      "header": "src/platform/MainLoopDependencies.hpp",
+      "objects": [
+        "gProtectionProcessState"
+      ],
+      "originalObjects": [
+        "0x59E548"
+      ]
+    }
+  ],
+  "runtime_verified": false,
+  "whole_application_order_closed": false,
+  "native_lifecycle_contract": {
+    "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+    "module_source": "src/platform/LegacyMouse.cpp",
+    "module_type": "StartupProtectionValuesStartup",
+    "module_symbol": "gStartupProtectionValuesStartup",
+    "module_destructor_trivial": true,
+    "initialization_order": [
+      "0x401C10",
+      "0x404120",
+      "0x404160",
+      "0x4041A0"
+    ],
+    "original_table_slots": [
+      "0x553004",
+      "0x553008",
+      "0x55300C",
+      "0x553010"
+    ],
+    "original_objects_count": 5,
+    "native_owner_count": 5,
+    "storage_unchanged": true,
+    "value_algorithms_unchanged": true,
+    "rng_algorithms_unchanged": true,
+    "callback_registration": "std::atexit，原固定无参析构，构造完成后即时登记",
+    "registration_result": "真实宿主S32；模块caller每次丢弃，不短路",
+    "automatic_value_destructors_removed": true,
+    "whole_native_cpp_table_defined": false,
+    "whole_application_order_closed": false,
+    "must_remove_module_adapter_when_whole_order_wired": true,
+    "runtime_verified": false,
+    "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+  }
+}

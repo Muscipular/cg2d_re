@@ -76,7 +76,8 @@
         "doc/cg2d_graphic_transform_lifecycle_spec.md",
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
-        "doc/cg2d_standard_stream_registry_prefix_spec.md"
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -103,7 +104,19 @@
         "F:001491E0",
         "F:0014920A",
         "F:0014A25E",
-        "F:0014A1D0"
+        "F:0014A1D0",
+        "F:00001C10",
+        "F:00001C20",
+        "F:00001C50",
+        "F:00004120",
+        "F:00004130",
+        "F:00004150",
+        "F:00004160",
+        "F:00004170",
+        "F:00004190",
+        "F:000041A0",
+        "F:000041B0",
+        "F:000041D0"
       ],
       "closure_task_ids": [
         "C02",
@@ -124,7 +137,8 @@
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
         "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
         "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
-        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭"
+        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
+        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -132,7 +146,8 @@
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
-        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline"
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline"
       ]
     },
     {
@@ -148,7 +163,8 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
-        "doc/cg2d_standard_stream_registry_prefix_spec.md"
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_startup_protection_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -156,7 +172,19 @@
         "F:001491E0",
         "F:0014920A",
         "F:0014A25E",
-        "F:0014A1D0"
+        "F:0014A1D0",
+        "F:00001C10",
+        "F:00001C20",
+        "F:00001C50",
+        "F:00004120",
+        "F:00004130",
+        "F:00004150",
+        "F:00004160",
+        "F:00004170",
+        "F:00004190",
+        "F:000041A0",
+        "F:000041B0",
+        "F:000041D0"
       ],
       "closure_task_ids": [
         "C01",
@@ -175,13 +203,15 @@
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭"
+        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
+        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
-        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline"
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline"
       ]
     },
     {
@@ -5872,6 +5902,114 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STARTUP-PROTECTION-I-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：十二原身份44条含四登记chunk、四相邻553004..553010槽及全部直接入向；doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-startup-protection-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-acceptance",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#StartupProtectionValuesStartup",
+        "src/platform/LegacyCryptInt.cpp#InitializeLegacyStartupValues_401C10",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum1_404120",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum2_404160",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionProcessState_4041A0"
+      ],
+      "observation": "仅启动保护值四具名入口/五owner和固定退出提供者",
+      "expected": "四项构造完成后即时真实宿主登记，同一固定owner/回调；值/RNG函数不改",
+      "actual": "既有四Init改std::atexit原无参析构，五存储保持，无新增私有退出表/影子对象",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接本组退出表私有设施，保留完成构造后即时登记/原固定回调并传出真实宿主S32；不称53B406原体等价/新原源码调用，模块原caller丢弃返回而继续后项",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        },
+        {
+          "description": "本组当前同模块适配只保相邻四项唯一构析/现有前置位置；整应用原序接通时必须同小步移除，跨模块/快速退出与运行不在本组验收",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STARTUP-PROTECTION-W-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：十二原身份44条含四登记chunk、四相邻553004..553010槽及全部直接入向；doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-startup-protection-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-acceptance",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#StartupProtectionValuesStartup",
+        "src/platform/LegacyCryptInt.cpp#InitializeLegacyStartupValues_401C10",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum1_404120",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum2_404160",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionProcessState_4041A0"
+      ],
+      "observation": "仅553004..553010四相邻项的唯一模块活动构析",
+      "expected": "逐项调用构造→登记且不短路；退出只来自已成功登记回调，无自动析构并行",
+      "actual": "四旧自动构析适配合并为无析构模块适配，四真实Init正序调用并丢弃结果；整表接通须同时移除此适配",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接本组退出表私有设施，保留完成构造后即时登记/原固定回调并传出真实宿主S32；不称53B406原体等价/新原源码调用，模块原caller丢弃返回而继续后项",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        },
+        {
+          "description": "本组当前同模块适配只保相邻四项唯一构析/现有前置位置；整应用原序接通时必须同小步移除，跨模块/快速退出与运行不在本组验收",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STARTUP-PROTECTION-S-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：十二原身份44条含四登记chunk、四相邻553004..553010槽及全部直接入向；doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-startup-protection-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-acceptance",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#StartupProtectionValuesStartup",
+        "src/platform/LegacyCryptInt.cpp#InitializeLegacyStartupValues_401C10",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum1_404120",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionChecksum2_404160",
+        "src/platform/MainLoopSupport.cpp#InitializeLegacyProtectionProcessState_4041A0"
+      ],
+      "observation": "仅十二原身份44条/四表槽及本组代码差异静态",
+      "expected": "原顺序/固定owner/退出逆序保持，原构析/值/RNG算法不变；宿主私有差异具名而不外推",
+      "actual": "12原身份/chunks及四表槽已归档，限定登记/模块适配/include和声明注释之外源码与前提交全文一致，完整启动/运行未验",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接本组退出表私有设施，保留完成构造后即时登记/原固定回调并传出真实宿主S32；不称53B406原体等价/新原源码调用，模块原caller丢弃返回而继续后项",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        },
+        {
+          "description": "本组当前同模块适配只保相邻四项唯一构析/现有前置位置；整应用原序接通时必须同小步移除，跨模块/快速退出与运行不在本组验收",
+          "decision_ref": "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -5968,7 +6106,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
     {
@@ -5976,7 +6115,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     },
     {
@@ -6342,6 +6482,102 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00001C10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00001C20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00001C50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004120",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004130",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004150",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004170",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00004190",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000041A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000041B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000041D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
       ]
     }
   ],

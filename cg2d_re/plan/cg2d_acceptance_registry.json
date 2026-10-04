@@ -195,7 +195,8 @@
         "doc/cg2d_startup_protection_lifecycle_spec.md",
         "doc/cg2d_world_state_lifecycle_spec.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
-        "doc/cg2d_narrow_string_heap_migration_spec.md"
+        "doc/cg2d_narrow_string_heap_migration_spec.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -250,7 +251,12 @@
         "F:0013C9CF",
         "F:0013B4E7",
         "F:0013C3BE",
-        "F:00141A28"
+        "F:00141A28",
+        "F:0014B079",
+        "F:0014B0B6",
+        "F:0014B100",
+        "F:0014B05D",
+        "F:0014B116"
       ],
       "closure_task_ids": [
         "C01",
@@ -273,7 +279,8 @@
         "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
-        "NSH01窄字符串字节域已成对宿主分配/释放并保真实处理器循环、九本体/共享/逻辑容量；其他CRT域、C08/C11全组、实际抛出/SDK与运行仍未闭，两个共享入口处置不代表全部原caller"
+        "NSH01窄字符串字节域已成对宿主分配/释放并保真实处理器循环、九本体/共享/逻辑容量；其他CRT域、C08/C11全组、实际抛出/SDK与运行仍未闭，两个共享入口处置不代表全部原caller",
+        "EXH01异常基类拥有文本域已成对宿主承接，完整ownsText/空失败/源重读保持；对象storage/类型信息缓存及其他域未迁移，实际抛出/SDK/完整C08/C11与运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -283,7 +290,8 @@
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
-        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline"
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-baseline",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline"
       ]
     },
     {
@@ -6458,6 +6466,123 @@
       "observation": "仅143原指令/三原点与限定源码差异",
       "expected": "两源入口/cstdlib和一头注释之外全文同前提交；原身份/原始关系保留，仅本域新source联系",
       "actual": "五根85条+58消费窗口原事实可达，13既有语义记录同步具名边界；限定静态核对，不支持整个CRT或运行结论"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe当前只读IDA：三变化体63条、对象删除/what16条，加复用NSH01提供者85条，共164唯一指令；doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-exception-text-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-acceptance",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_evidence.json",
+        "src/platform/LegacyException.cpp#AllocateLegacyExceptionTextBytes_53C9CF",
+        "src/platform/LegacyException.cpp#FreeLegacyExceptionTextBytes_53B4E7",
+        "src/platform/LegacyException.cpp#ConstructLegacyExceptionText_54B079",
+        "src/platform/LegacyException.cpp#CopyConstructLegacyException_54B0B6",
+        "src/platform/LegacyException.cpp#DestroyLegacyException_54B100",
+        "src/platform/LegacyException.cpp#DeleteLegacyException_54B05D",
+        "src/platform/LegacyException.cpp#GetLegacyExceptionText_54B116",
+        "src/platform/LegacyException.hpp#LegacyExceptionObject"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接EXH01拥有文本私有分配/释放，实际地址/分桶/物理对齐/容量及失败时机按宿主；原U32请求、拒绝上界/零请求、真实处理器和文本状态/复制保持，不计原私有分配器全体等价",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        },
+        {
+          "description": "仅基类拥有text域成组迁移，借用分支、对象storage/类型信息缓存/其他CRT域继续原合同；不改变派生/what/抛出声明，完整C08/C11与C06/C07/SDK/运行未闭",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-EXCEPTION-TEXT-HEAP-I-20261005",
+      "gate": "I",
+      "observation": "仅EXH01文本两分配/一拥有释放及原可见状态",
+      "expected": "成对宿主提供者，保原上界/零请求/处理器及完整拥有位型、空分配状态和源指针重读",
+      "actual": "两构造接同一私有宿主分配，基类析构接配对释放；原方法/strlen/发布/非空才复制/ownsText位型与空失败保持"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe当前只读IDA：三变化体63条、对象删除/what16条，加复用NSH01提供者85条，共164唯一指令；doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-exception-text-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-acceptance",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_evidence.json",
+        "src/platform/LegacyException.cpp#AllocateLegacyExceptionTextBytes_53C9CF",
+        "src/platform/LegacyException.cpp#FreeLegacyExceptionTextBytes_53B4E7",
+        "src/platform/LegacyException.cpp#ConstructLegacyExceptionText_54B079",
+        "src/platform/LegacyException.cpp#CopyConstructLegacyException_54B0B6",
+        "src/platform/LegacyException.cpp#DestroyLegacyException_54B100",
+        "src/platform/LegacyException.cpp#DeleteLegacyException_54B05D",
+        "src/platform/LegacyException.cpp#GetLegacyExceptionText_54B116",
+        "src/platform/LegacyException.hpp#LegacyExceptionObject"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接EXH01拥有文本私有分配/释放，实际地址/分桶/物理对齐/容量及失败时机按宿主；原U32请求、拒绝上界/零请求、真实处理器和文本状态/复制保持，不计原私有分配器全体等价",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        },
+        {
+          "description": "仅基类拥有text域成组迁移，借用分支、对象storage/类型信息缓存/其他CRT域继续原合同；不改变派生/what/抛出声明，完整C08/C11与C06/C07/SDK/运行未闭",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-EXCEPTION-TEXT-HEAP-W-20261005",
+      "gate": "W",
+      "observation": "仅拥有/借用文本与对象分离、同一基类caller接线",
+      "expected": "非零拥有text来自本域两构造并由同一析构释放，借用不释放；54B05D对象仍原堆",
+      "actual": "两分配/一文本释放同域，对象54B06D仍FreeLegacyHeapMemory；what/回退、派生正常/失败清理源码保持"
+    },
+    {
+      "feature_id": "FUNC-CRT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe当前只读IDA：三变化体63条、对象删除/what16条，加复用NSH01提供者85条，共164唯一指令；doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-exception-text-heap-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-baseline",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-acceptance",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_evidence.json",
+        "src/platform/LegacyException.cpp#AllocateLegacyExceptionTextBytes_53C9CF",
+        "src/platform/LegacyException.cpp#FreeLegacyExceptionTextBytes_53B4E7",
+        "src/platform/LegacyException.cpp#ConstructLegacyExceptionText_54B079",
+        "src/platform/LegacyException.cpp#CopyConstructLegacyException_54B0B6",
+        "src/platform/LegacyException.cpp#DestroyLegacyException_54B100",
+        "src/platform/LegacyException.cpp#DeleteLegacyException_54B05D",
+        "src/platform/LegacyException.cpp#GetLegacyExceptionText_54B116",
+        "src/platform/LegacyException.hpp#LegacyExceptionObject"
+      ],
+      "differences": [
+        {
+          "description": "D02宿主承接EXH01拥有文本私有分配/释放，实际地址/分桶/物理对齐/容量及失败时机按宿主；原U32请求、拒绝上界/零请求、真实处理器和文本状态/复制保持，不计原私有分配器全体等价",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        },
+        {
+          "description": "仅基类拥有text域成组迁移，借用分支、对象storage/类型信息缓存/其他CRT域继续原合同；不改变派生/what/抛出声明，完整C08/C11与C06/C07/SDK/运行未闭",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-EXCEPTION-TEXT-HEAP-S-20261005",
+      "gate": "S",
+      "observation": "仅164原唯一指令、九语义记录及限定源码差异",
+      "expected": "两私有入口/cstdlib、三callee及域注释以外同前提交全文一致，头只改注释，不改其他domain/SDK",
+      "actual": "三变化体63条+两个未改边界16条/复用85条可达，文本/对象source关联分开；静态对照不支持整个CRT或运行结论"
     }
   ],
   "task_acceptance": [
@@ -6591,7 +6716,8 @@
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -6599,7 +6725,8 @@
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -7229,7 +7356,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
       ]
     },
     {
@@ -7237,7 +7365,32 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure"
+        "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure",
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014B079",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014B0B6",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014B100",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure"
       ]
     }
   ],

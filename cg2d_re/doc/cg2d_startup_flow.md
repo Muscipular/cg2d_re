@@ -1957,3 +1957,9 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 原九字符串本体及调用方存储/顺序保持；[NSH01源码收口](cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure)仅成对替换同一私有字节入口分配/释放为宿主，保上界/原请求及真实541A28处理器循环、共享U8与逻辑容量。字符串对象、locale/异常其他块和标准流完整构析仍沿各自当前合同，不把标记字节误作旧堆块头，也不改全应用初始化序或登记。
 
 此为C08/C11独立域进展；全CPP90、标准流/codecvt、其他CRT分配域和异常ABI/运行仍未闭，不以本域迁移启用假表或称完整启动已验收。
+
+## 2026-10-05：EXH01异常文本与对象域分离
+
+[EXH01源码收口](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure)已将exception基类拥有text的两分配/一释放成对接宿主，原完整U32标志、空分配状态、发布/源重读/复制与不清槽析构保持。对象删除仍先54B100文本析构，再flags&1交原堆释放storage；what/回退、派生和所有SDK抛出声明源码未改。
+
+本步不迁移整个exception对象、自动构析或启动表，不将Legacy方法表/捕获元数据当宿主异常ABI。NSH01与本域独立，其他CRT域、C06/C07/SDK和全应用生命周期仍待；仅局部静态证据，不解除运行限制。

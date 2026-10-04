@@ -7,6 +7,7 @@
 #include <Windows.h>
 
 #include <bit>
+#include <cstdlib>
 #include <type_traits>
 #include <cstring>
 
@@ -16,6 +17,31 @@ namespace cg::platform {
 void (*gLegacyInconsistencyHandler58FB74)() = TerminateLegacyRuntime_540A5C;
 
 namespace {
+
+// EXH01异常基类拥有文本域；保原53C3BE上界与enableHandler=1循环。
+void* AllocateLegacyExceptionTextBytes_53C9CF(const std::uint32_t byteCount)
+{
+    if (byteCount > 0xFFFFFFE0u) {
+        return nullptr;
+    }
+    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;
+    for (;;) {
+        void* const result = std::malloc(requested);
+        if (result != nullptr) {
+            return result;
+        }
+        // 每轮使用同一原处理器/原请求；处理器异常继续向外传播。
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 只释放上述入口产生的拥有文本；对象storage及类型信息缓存继续其原域。
+void FreeLegacyExceptionTextBytes_53B4E7(void* const memory)
+{
+    std::free(memory);
+}
 
 // 六条已证无虚基复制记录的签名适配；真实成员本体返回不被原捕获构造消费。
 void CopyLegacyExceptionForCatch(void* const destination, const void* const source)
@@ -247,9 +273,9 @@ LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
 {
     storage->methods = &gLegacyExceptionMethods5501C8;
     const std::uint32_t textBytes = StrLen_53F9E0(*sourceText) + 1u;
-    // 原53C9CF只传(U32,1)给53C3BE；沿原堆域，不混入宿主裸字节适配。
+    // EXH01仅文本字节域宿主承接；原U32请求/处理器与发布及空失败顺序保持。
     char* const allocatedText = static_cast<char*>(
-        AllocateLegacyHeapWithHandler_53C3BE(textBytes, 1));
+        AllocateLegacyExceptionTextBytes_53C9CF(textBytes));
     storage->text = allocatedText;
     if (allocatedText != nullptr) {
         StrCpy_544DB0(allocatedText, *sourceText);
@@ -267,7 +293,7 @@ LegacyExceptionObject* CopyConstructLegacyException_54B0B6(
     if (ownsText != 0) {
         const std::uint32_t textBytes = StrLen_53F9E0(source->text) + 1u;
         char* const allocatedText = static_cast<char*>(
-            AllocateLegacyHeapWithHandler_53C3BE(textBytes, 1));
+            AllocateLegacyExceptionTextBytes_53C9CF(textBytes));
         storage->text = allocatedText;
         if (allocatedText != nullptr) {
             StrCpy_544DB0(allocatedText, source->text);
@@ -283,8 +309,8 @@ void DestroyLegacyException_54B100(LegacyExceptionObject* const storage)
     const bool ownsText = storage->ownsText != 0;
     storage->methods = &gLegacyExceptionMethods5501C8;
     if (ownsText) {
-        // 原53B4E7只转原53C0A9；不清文本槽/标志，不补重复析构保护。
-        FreeLegacyHeapMemory_53C0A9(storage->text);
+        // EXH01只释放拥有文本；不清文本槽/标志，不补重复析构保护。
+        FreeLegacyExceptionTextBytes_53B4E7(storage->text);
     }
 }
 

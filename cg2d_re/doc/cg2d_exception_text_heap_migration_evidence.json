@@ -1,0 +1,1040 @@
+{
+  "description": "EXH01异常基类拥有文本域宿主成组迁移；对象存储原域与SDK抛出不迁移",
+  "source": "2026-10-05当前已打开cg2d.exe只读IDA；三变化体及对象删除/what共79条新完整原指令，提供者85条复用NSH01原证据",
+  "changed_functions": [
+    {
+      "entry": "0x54b079",
+      "chunks": [
+        [
+          "0x54b079",
+          "0x54b0b6"
+        ]
+      ],
+      "n": 25,
+      "asm": [
+        [
+          "0x54b079",
+          "push    esi"
+        ],
+        [
+          "0x54b07a",
+          "push    edi"
+        ],
+        [
+          "0x54b07b",
+          "mov     edi, [esp+8+arg_0]"
+        ],
+        [
+          "0x54b07f",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x54b081",
+          "mov     dword ptr [esi], offset ??_7exception@@6B@"
+        ],
+        [
+          "0x54b087",
+          "push    dword ptr [edi]; Str"
+        ],
+        [
+          "0x54b089",
+          "call    _strlen"
+        ],
+        [
+          "0x54b08e",
+          "inc     eax"
+        ],
+        [
+          "0x54b08f",
+          "push    eax; Size"
+        ],
+        [
+          "0x54b090",
+          "call    ??2@YAPAXI@Z"
+        ],
+        [
+          "0x54b095",
+          "pop     ecx"
+        ],
+        [
+          "0x54b096",
+          "mov     [esi+4], eax"
+        ],
+        [
+          "0x54b099",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b09b",
+          "pop     ecx"
+        ],
+        [
+          "0x54b09c",
+          "jz      short loc_54B0A8"
+        ],
+        [
+          "0x54b09e",
+          "push    dword ptr [edi]; Source"
+        ],
+        [
+          "0x54b0a0",
+          "push    eax; Destination"
+        ],
+        [
+          "0x54b0a1",
+          "call    _strcpy"
+        ],
+        [
+          "0x54b0a6",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0a7",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0a8",
+          "mov     dword ptr [esi+8], 1"
+        ],
+        [
+          "0x54b0af",
+          "mov     eax, esi"
+        ],
+        [
+          "0x54b0b1",
+          "pop     edi"
+        ],
+        [
+          "0x54b0b2",
+          "pop     esi"
+        ],
+        [
+          "0x54b0b3",
+          "retn    4"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x54a01d",
+          17,
+          "0x549ffe"
+        ],
+        [
+          "0x54a6f3",
+          17,
+          "0x54a6d4"
+        ]
+      ]
+    },
+    {
+      "entry": "0x54b0b6",
+      "chunks": [
+        [
+          "0x54b0b6",
+          "0x54b100"
+        ]
+      ],
+      "n": 31,
+      "asm": [
+        [
+          "0x54b0b6",
+          "push    esi"
+        ],
+        [
+          "0x54b0b7",
+          "push    edi"
+        ],
+        [
+          "0x54b0b8",
+          "mov     edi, [esp+8+arg_0]"
+        ],
+        [
+          "0x54b0bc",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x54b0be",
+          "mov     dword ptr [esi], offset ??_7exception@@6B@"
+        ],
+        [
+          "0x54b0c4",
+          "mov     eax, [edi+8]"
+        ],
+        [
+          "0x54b0c7",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b0c9",
+          "mov     [esi+8], eax"
+        ],
+        [
+          "0x54b0cc",
+          "jz      short loc_54B0F3"
+        ],
+        [
+          "0x54b0ce",
+          "push    dword ptr [edi+4]; Str"
+        ],
+        [
+          "0x54b0d1",
+          "call    _strlen"
+        ],
+        [
+          "0x54b0d6",
+          "inc     eax"
+        ],
+        [
+          "0x54b0d7",
+          "push    eax; Size"
+        ],
+        [
+          "0x54b0d8",
+          "call    ??2@YAPAXI@Z"
+        ],
+        [
+          "0x54b0dd",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0de",
+          "mov     [esi+4], eax"
+        ],
+        [
+          "0x54b0e1",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b0e3",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0e4",
+          "jz      short loc_54B0F9"
+        ],
+        [
+          "0x54b0e6",
+          "push    dword ptr [edi+4]; Source"
+        ],
+        [
+          "0x54b0e9",
+          "push    eax; Destination"
+        ],
+        [
+          "0x54b0ea",
+          "call    _strcpy"
+        ],
+        [
+          "0x54b0ef",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0f0",
+          "pop     ecx"
+        ],
+        [
+          "0x54b0f1",
+          "jmp     short loc_54B0F9"
+        ],
+        [
+          "0x54b0f3",
+          "mov     eax, [edi+4]"
+        ],
+        [
+          "0x54b0f6",
+          "mov     [esi+4], eax"
+        ],
+        [
+          "0x54b0f9",
+          "mov     eax, esi"
+        ],
+        [
+          "0x54b0fb",
+          "pop     edi"
+        ],
+        [
+          "0x54b0fc",
+          "pop     esi"
+        ],
+        [
+          "0x54b0fd",
+          "retn    4"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x54a0fc",
+          17,
+          "0x54a0e5"
+        ],
+        [
+          "0x54a7c5",
+          17,
+          "0x54a7ae"
+        ],
+        [
+          "0x551590",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54b100",
+      "chunks": [
+        [
+          "0x54b100",
+          "0x54b116"
+        ]
+      ],
+      "n": 7,
+      "asm": [
+        [
+          "0x54b100",
+          "cmp     dword ptr [ecx+8], 0"
+        ],
+        [
+          "0x54b104",
+          "mov     dword ptr [ecx], offset ??_7exception@@6B@; const exception::`vftable'"
+        ],
+        [
+          "0x54b10a",
+          "jz      short locret_54B115"
+        ],
+        [
+          "0x54b10c",
+          "push    dword ptr [ecx+4]; lpMem"
+        ],
+        [
+          "0x54b10f",
+          "call    delete"
+        ],
+        [
+          "0x54b114",
+          "pop     ecx"
+        ],
+        [
+          "0x54b115",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x54a0b7",
+          17,
+          "0x54a08c"
+        ],
+        [
+          "0x54a16d",
+          17,
+          "0x54a142"
+        ],
+        [
+          "0x54a780",
+          17,
+          "0x54a755"
+        ],
+        [
+          "0x54a836",
+          17,
+          "0x54a80b"
+        ],
+        [
+          "0x54a91e",
+          17,
+          "0x54a8f3"
+        ],
+        [
+          "0x54b060",
+          17,
+          "0x54b05d"
+        ],
+        [
+          "0x54c32f",
+          19,
+          "0x549ffe"
+        ],
+        [
+          "0x54c343",
+          19,
+          "0x54a08c"
+        ],
+        [
+          "0x54c357",
+          19,
+          "0x54a0e5"
+        ],
+        [
+          "0x54c36b",
+          19,
+          "0x54a142"
+        ],
+        [
+          "0x54c417",
+          19,
+          "0x54a6d4"
+        ],
+        [
+          "0x54c42b",
+          19,
+          "0x54a755"
+        ],
+        [
+          "0x54c43f",
+          19,
+          "0x54a7ae"
+        ],
+        [
+          "0x54c453",
+          19,
+          "0x54a80b"
+        ],
+        [
+          "0x54c47b",
+          19,
+          "0x54a8f3"
+        ]
+      ]
+    }
+  ],
+  "unchanged_boundary_functions": [
+    {
+      "entry": "0x54b05d",
+      "chunks": [
+        [
+          "0x54b05d",
+          "0x54b079"
+        ]
+      ],
+      "n": 11,
+      "asm": [
+        [
+          "0x54b05d",
+          "push    esi"
+        ],
+        [
+          "0x54b05e",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x54b060",
+          "call    sub_54B100"
+        ],
+        [
+          "0x54b065",
+          "test    [esp+4+arg_0], 1"
+        ],
+        [
+          "0x54b06a",
+          "jz      short loc_54B073"
+        ],
+        [
+          "0x54b06c",
+          "push    esi; lpMem"
+        ],
+        [
+          "0x54b06d",
+          "call    delete"
+        ],
+        [
+          "0x54b072",
+          "pop     ecx"
+        ],
+        [
+          "0x54b073",
+          "mov     eax, esi"
+        ],
+        [
+          "0x54b075",
+          "pop     esi"
+        ],
+        [
+          "0x54b076",
+          "retn    4"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5501c8",
+          1,
+          null
+        ]
+      ]
+    },
+    {
+      "entry": "0x54b116",
+      "chunks": [
+        [
+          "0x54b116",
+          "0x54b123"
+        ]
+      ],
+      "n": 5,
+      "asm": [
+        [
+          "0x54b116",
+          "mov     eax, [ecx+4]"
+        ],
+        [
+          "0x54b119",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b11b",
+          "jnz     short locret_54B122"
+        ],
+        [
+          "0x54b11d",
+          "mov     eax, offset aUnknownExcepti"
+        ],
+        [
+          "0x54b122",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5501cc",
+          1,
+          null
+        ]
+      ]
+    }
+  ],
+  "reused_provider_functions": [
+    {
+      "entry": "0x53c9cf",
+      "chunks": [
+        [
+          "0x53c9cf",
+          "0x53c9dd"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x53c9cf",
+          "push    1; int"
+        ],
+        [
+          "0x53c9d1",
+          "push    [esp+4+Size]; Size"
+        ],
+        [
+          "0x53c9d5",
+          "call    __nh_malloc"
+        ],
+        [
+          "0x53c9da",
+          "pop     ecx"
+        ],
+        [
+          "0x53c9db",
+          "pop     ecx"
+        ],
+        [
+          "0x53c9dc",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x54b090",
+          17,
+          "0x54b079"
+        ],
+        [
+          "0x54b0d8",
+          17,
+          "0x54b0b6"
+        ]
+      ],
+      "inbound_total": 57,
+      "inbound_scope": "仅本组两文本分配、一文本释放与一对象释放；其他原入向不收口"
+    },
+    {
+      "entry": "0x53b4e7",
+      "chunks": [
+        [
+          "0x53b4e7",
+          "0x53b4f2"
+        ]
+      ],
+      "n": 4,
+      "asm": [
+        [
+          "0x53b4e7",
+          "push    [esp+lpMem]; lpMem"
+        ],
+        [
+          "0x53b4eb",
+          "call    free"
+        ],
+        [
+          "0x53b4f0",
+          "pop     ecx"
+        ],
+        [
+          "0x53b4f1",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x54b06d",
+          17,
+          "0x54b05d"
+        ],
+        [
+          "0x54b10f",
+          17,
+          "0x54b100"
+        ]
+      ],
+      "inbound_total": 120,
+      "inbound_scope": "仅本组两文本分配、一文本释放与一对象释放；其他原入向不收口"
+    },
+    {
+      "entry": "0x53c3be",
+      "chunks": [
+        [
+          "0x53c3be",
+          "0x53c3ea"
+        ]
+      ],
+      "n": 16,
+      "asm": [
+        [
+          "0x53c3be",
+          "cmp     [esp+Size], 0FFFFFFE0h"
+        ],
+        [
+          "0x53c3c3",
+          "ja      short loc_53C3E7"
+        ],
+        [
+          "0x53c3c5",
+          "push    [esp+Size]"
+        ],
+        [
+          "0x53c3c9",
+          "call    sub_53C3EA"
+        ],
+        [
+          "0x53c3ce",
+          "test    eax, eax"
+        ],
+        [
+          "0x53c3d0",
+          "pop     ecx"
+        ],
+        [
+          "0x53c3d1",
+          "jnz     short locret_53C3E9"
+        ],
+        [
+          "0x53c3d3",
+          "cmp     [esp+arg_4], eax"
+        ],
+        [
+          "0x53c3d7",
+          "jz      short locret_53C3E9"
+        ],
+        [
+          "0x53c3d9",
+          "push    [esp+Size]; Size"
+        ],
+        [
+          "0x53c3dd",
+          "call    __callnewh"
+        ],
+        [
+          "0x53c3e2",
+          "test    eax, eax"
+        ],
+        [
+          "0x53c3e4",
+          "pop     ecx"
+        ],
+        [
+          "0x53c3e5",
+          "jnz     short loc_53C3C5"
+        ],
+        [
+          "0x53c3e7",
+          "xor     eax, eax"
+        ],
+        [
+          "0x53c3e9",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x53c3b6",
+          17,
+          "0x53c3ac"
+        ],
+        [
+          "0x53c9d5",
+          17,
+          "0x53c9cf"
+        ]
+      ],
+      "inbound_total": 2,
+      "inbound_scope": "该提供者完整直接入向"
+    },
+    {
+      "entry": "0x541a28",
+      "chunks": [
+        [
+          "0x541a28",
+          "0x541a43"
+        ]
+      ],
+      "n": 13,
+      "asm": [
+        [
+          "0x541a28",
+          "mov     eax, dword_108614C"
+        ],
+        [
+          "0x541a2d",
+          "test    eax, eax"
+        ],
+        [
+          "0x541a2f",
+          "jz      short loc_541A40"
+        ],
+        [
+          "0x541a31",
+          "push    [esp+Size]"
+        ],
+        [
+          "0x541a35",
+          "call    eax ; dword_108614C"
+        ],
+        [
+          "0x541a37",
+          "test    eax, eax"
+        ],
+        [
+          "0x541a39",
+          "pop     ecx"
+        ],
+        [
+          "0x541a3a",
+          "jz      short loc_541A40"
+        ],
+        [
+          "0x541a3c",
+          "push    1"
+        ],
+        [
+          "0x541a3e",
+          "pop     eax"
+        ],
+        [
+          "0x541a3f",
+          "retn"
+        ],
+        [
+          "0x541a40",
+          "xor     eax, eax"
+        ],
+        [
+          "0x541a42",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x53c082",
+          17,
+          "0x53bff8"
+        ],
+        [
+          "0x53c3dd",
+          17,
+          "0x53c3be"
+        ],
+        [
+          "0x53fb81",
+          17,
+          "0x53fa5b"
+        ],
+        [
+          "0x53fca6",
+          17,
+          "0x53fa5b"
+        ],
+        [
+          "0x53fcea",
+          17,
+          "0x53fa5b"
+        ]
+      ],
+      "inbound_total": 5,
+      "inbound_scope": "该提供者完整直接入向"
+    },
+    {
+      "entry": "0x53c3ea",
+      "chunks": [
+        [
+          "0x53c3ea",
+          "0x53c45e"
+        ]
+      ],
+      "n": 46,
+      "asm": [
+        [
+          "0x53c3ea",
+          "mov     eax, dword_10869A8"
+        ],
+        [
+          "0x53c3ef",
+          "push    esi"
+        ],
+        [
+          "0x53c3f0",
+          "mov     esi, [esp+4+arg_0]"
+        ],
+        [
+          "0x53c3f4",
+          "cmp     eax, 3"
+        ],
+        [
+          "0x53c3f7",
+          "jnz     short loc_53C40E"
+        ],
+        [
+          "0x53c3f9",
+          "cmp     esi, dword_10869A0"
+        ],
+        [
+          "0x53c3ff",
+          "ja      short loc_53C440"
+        ],
+        [
+          "0x53c401",
+          "push    esi"
+        ],
+        [
+          "0x53c402",
+          "call    ___sbh_alloc_block"
+        ],
+        [
+          "0x53c407",
+          "test    eax, eax"
+        ],
+        [
+          "0x53c409",
+          "pop     ecx"
+        ],
+        [
+          "0x53c40a",
+          "jz      short loc_53C440"
+        ],
+        [
+          "0x53c40c",
+          "pop     esi"
+        ],
+        [
+          "0x53c40d",
+          "retn"
+        ],
+        [
+          "0x53c40e",
+          "cmp     eax, 2"
+        ],
+        [
+          "0x53c411",
+          "jnz     short loc_53C440"
+        ],
+        [
+          "0x53c413",
+          "mov     eax, [esp+4+arg_0]"
+        ],
+        [
+          "0x53c417",
+          "test    eax, eax"
+        ],
+        [
+          "0x53c419",
+          "jz      short loc_53C423"
+        ],
+        [
+          "0x53c41b",
+          "lea     esi, [eax+0Fh]"
+        ],
+        [
+          "0x53c41e",
+          "and     esi, 0FFFFFFF0h"
+        ],
+        [
+          "0x53c421",
+          "jmp     short loc_53C426"
+        ],
+        [
+          "0x53c423",
+          "push    10h"
+        ],
+        [
+          "0x53c425",
+          "pop     esi"
+        ],
+        [
+          "0x53c426",
+          "cmp     esi, dword_591E7C"
+        ],
+        [
+          "0x53c42c",
+          "ja      short loc_53C44D"
+        ],
+        [
+          "0x53c42e",
+          "mov     eax, esi"
+        ],
+        [
+          "0x53c430",
+          "shr     eax, 4"
+        ],
+        [
+          "0x53c433",
+          "push    eax"
+        ],
+        [
+          "0x53c434",
+          "call    sub_542A54"
+        ],
+        [
+          "0x53c439",
+          "test    eax, eax"
+        ],
+        [
+          "0x53c43b",
+          "pop     ecx"
+        ],
+        [
+          "0x53c43c",
+          "jnz     short loc_53C45C"
+        ],
+        [
+          "0x53c43e",
+          "jmp     short loc_53C44D"
+        ],
+        [
+          "0x53c440",
+          "test    esi, esi"
+        ],
+        [
+          "0x53c442",
+          "jnz     short loc_53C447"
+        ],
+        [
+          "0x53c444",
+          "push    1"
+        ],
+        [
+          "0x53c446",
+          "pop     esi"
+        ],
+        [
+          "0x53c447",
+          "add     esi, 0Fh"
+        ],
+        [
+          "0x53c44a",
+          "and     esi, 0FFFFFFF0h"
+        ],
+        [
+          "0x53c44d",
+          "push    esi; dwBytes"
+        ],
+        [
+          "0x53c44e",
+          "push    0; dwFlags"
+        ],
+        [
+          "0x53c450",
+          "push    hHeap; hHeap"
+        ],
+        [
+          "0x53c456",
+          "call    ds:HeapAlloc"
+        ],
+        [
+          "0x53c45c",
+          "pop     esi"
+        ],
+        [
+          "0x53c45d",
+          "retn"
+        ]
+      ]
+    }
+  ],
+  "original_unique_instruction_count": 164,
+  "call_connections": [
+    {
+      "parent_entry": "0x54B079",
+      "call_site": "0x54B090",
+      "target_entry": "0x53C9CF",
+      "symbol": "ConstructLegacyExceptionText_54B079",
+      "target_leaf": "AllocateLegacyExceptionTextBytes_53C9CF",
+      "relationship": "方法表→独立strlen+1 U32→分配→发布text→非空才重读*sourceText并复制→ownsText=1，含空失败"
+    },
+    {
+      "parent_entry": "0x54B0B6",
+      "call_site": "0x54B0D8",
+      "target_entry": "0x53C9CF",
+      "symbol": "CopyConstructLegacyException_54B0B6",
+      "target_leaf": "AllocateLegacyExceptionTextBytes_53C9CF",
+      "relationship": "先复制完整U32 ownsText，非零才分配/发布/重读源text复制；零时借用，无默认拥有或借用补偿"
+    },
+    {
+      "parent_entry": "0x54B100",
+      "call_site": "0x54B10F",
+      "target_entry": "0x53B4E7",
+      "symbol": "DestroyLegacyException_54B100",
+      "target_leaf": "FreeLegacyExceptionTextBytes_53B4E7",
+      "relationship": "拥有判定→恢复方法表→非零释放text；不清槽/标志、不增二次析构保护"
+    },
+    {
+      "parent_entry": "0x54B05D",
+      "call_site": "0x54B06D",
+      "target_entry": "0x53B4E7",
+      "symbol": "DeleteLegacyException_54B05D",
+      "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+      "relationship": "对象存储仍原域：先完整54B100，再flags&1释放storage，保实际this返回，不交宿主文本free"
+    }
+  ],
+  "native_domain_contract": {
+    "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+    "source": "src/platform/LegacyException.cpp",
+    "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+    "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+    "host_allocator": "std::malloc",
+    "host_deallocator": "std::free",
+    "byte_count_type": "U32",
+    "existing_max_request": "0xFFFFFFE0",
+    "zero_request_host_size": 1,
+    "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+    "new_handler_request_is_original_byte_count": true,
+    "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+    "borrowed_text_is_not_freed": true,
+    "allocation_null_published_before_branch": true,
+    "constructor_ownership_one_even_on_null": true,
+    "copy_ownership_bit_pattern_unchanged": true,
+    "source_pointer_reread_after_allocation": true,
+    "destructor_does_not_clear_text_or_flag": true,
+    "object_delete_stays_original_heap": true,
+    "object_delete_flag_mask": 1,
+    "what_and_fallback_unchanged": true,
+    "layout_and_method_tables_unchanged": true,
+    "other_allocation_domains_unchanged": true,
+    "whole_crt_heap_migration_closed": false,
+    "native_throw_and_sdk_closed": false,
+    "runtime_verified": false
+  }
+}

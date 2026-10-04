@@ -20732,7 +20732,7 @@
     {
       "original_entry": "0x53C9CF",
       "inventory_id": "F:0013C9CF",
-      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆接线已实现，完整new/堆/运行未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
+      "status": "六宿主裸字节适配保持；窄字符串及异常对象内部原堆接线已实现，完整new/堆/运行未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x53C9DD",
       "instruction_count": 6,
       "sources": [
@@ -20761,7 +20761,7 @@
             "ConstructLegacyExceptionText_54B079",
             "CopyConstructLegacyException_54B0B6"
           ],
-          "relationship": "原异常对象两new点按原53C9CF只传(U32,1)给真实53C3BE，文本结果先发布且与同域释放配对"
+          "relationship": "EXH01两原文本分配点转同一私有宿主入口，保原U32/enable1循环与真实处理器；结果发布、源重读/复制及空失败状态保持，其他对象域不改"
         },
         {
           "path": "src/platform/LegacyLocale.cpp",
@@ -20775,9 +20775,10 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_narrow_string_heap_migration_spec.md"
+        "doc/cg2d_narrow_string_heap_migration_spec.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
+      "boundary": "原仅传enableHandler=1和U32请求给53C3BE。当前六个已证裸字节缓冲调用使用AllocateLegacyByteBuffer，无法继续时返回空而非强制bad_alloc；未覆盖其他对象new或标准容器内部配置。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04新增独立原窄字符串原堆域真实6条桥接，直接调AllocateLegacyHeapWithHandler_53C3BE(U32,1)，未改六宿主裸适配/其余对象new，也不混入标准容器。模式3/完整原堆和运行仍待。；2026-10-04另接原exception对象两个53C9CF分配点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04新增真实locale全局原点0x54A422；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B079",
@@ -20785,9 +20786,12 @@
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ConstructLegacyExceptionText_54B079",
           "target_entry": "0x53C9CF",
-          "target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "target_leaf": "AllocateLegacyExceptionTextBytes_53C9CF",
           "byte_count": "textBytes U32",
-          "enable_handler": 1
+          "enable_handler": 1,
+          "original_target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "current_domain": "EXH01宿主拥有文本；原target_entry仅作基线，不计原53C3BE本体调用",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
         },
         {
           "parent_entry": "0x54B0B6",
@@ -20795,9 +20799,12 @@
           "source": "src/platform/LegacyException.cpp",
           "symbol": "CopyConstructLegacyException_54B0B6",
           "target_entry": "0x53C9CF",
-          "target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "target_leaf": "AllocateLegacyExceptionTextBytes_53C9CF",
           "byte_count": "textBytes U32",
-          "enable_handler": 1
+          "enable_handler": 1,
+          "original_target_leaf": "AllocateLegacyHeapWithHandler_53C3BE",
+          "current_domain": "EXH01宿主拥有文本；原target_entry仅作基线，不计原53C3BE本体调用",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
         }
       ],
       "locale_global_parent_call_connections": [
@@ -20833,12 +20840,40 @@
         "other_allocation_domains_unchanged": true,
         "whole_crt_heap_migration_closed": false,
         "runtime_verified": false
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x53C3BE",
       "inventory_id": "F:0013C3BE",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x53C3EA",
       "instruction_count": 16,
       "sources": [
@@ -20873,15 +20908,23 @@
             "AllocateLegacyNarrowStringBytes_53C9CF"
           ],
           "relationship": "仅NSH01字节域承接原上界/enable1循环；原53C3BE其他域本体保持，不计此helper为原体等价"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "AllocateLegacyExceptionTextBytes_53C9CF"
+          ],
+          "relationship": "EXH01仅文本域承接原上界/enable1循环；原53C3BE其他域本体保持，不计原体等价"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_narrow_string_heap_migration_spec.md"
+        "doc/cg2d_narrow_string_heap_migration_spec.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
+      "boundary": "既有六处裸字节调用域：原上限FFFFFFE0、失败处理器返回非零才重试、空/零处理器返回空。本次仅承接上述六个caller的enableHandler=1域；原其他enableHandler取值和原私有堆完整实现不因该映射完成。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由AllocateLegacyHeapWithHandler_53C3BE实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "original_direct_reference_count": 2,
       "inbound_evidence": [
         {
@@ -20914,6 +20957,34 @@
         "string_algorithms_unchanged": true,
         "other_allocation_domains_unchanged": true,
         "whole_crt_heap_migration_closed": false,
+        "runtime_verified": false
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
         "runtime_verified": false
       }
     },
@@ -20968,7 +21039,7 @@
     {
       "original_entry": "0x53B4E7",
       "inventory_id": "F:0013B4E7",
-      "status": "六宿主裸字节适配保持；窄字符串/异常对象与ios链原堆释放已接，完整delete/生产及生命周期未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
+      "status": "六宿主裸字节适配保持；窄字符串/异常对象与ios链原堆释放已接，完整delete/生产及生命周期未验；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x53B4F2",
       "instruction_count": 4,
       "sources": [
@@ -20994,10 +21065,16 @@
         {
           "path": "src/platform/LegacyException.cpp",
           "symbols": [
-            "DestroyLegacyException_54B100",
+            "DestroyLegacyException_54B100"
+          ],
+          "relationship": "EXH01仅ownsText完整U32非零释放拥有文本，私有宿主配对；方法表/状态/原清理顺序保持"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
             "DeleteLegacyException_54B05D"
           ],
-          "relationship": "原异常拥有文本/flag1对象两delete点按原53B4E7转53C0A9同域释放，不释放宿主裸适配块"
+          "relationship": "对象storage仍原FreeLegacyHeapMemory域；基类文本析构后flags&1释放对象，不交EXH01文本free"
         },
         {
           "path": "src/platform/LegacyException.cpp",
@@ -21080,9 +21157,10 @@
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_narrow_string_heap_migration_spec.md"
+        "doc/cg2d_narrow_string_heap_migration_spec.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04新增原type_info实际父点0x54AC8B；完整析构后flags低位1才经原delete薄叶同域释放，保持原地址返回。只消费原生原堆描述符/缓存，不释放宿主type_info/其他allocator，不改旧堆体/既有连接或迁移全量入向；描述符/缓存生产、原堆模式3及SDK与完整运行仍待。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -21090,9 +21168,12 @@
           "source": "src/platform/LegacyException.cpp",
           "symbol": "DestroyLegacyException_54B100",
           "target_entry": "0x53B4E7",
-          "target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "target_leaf": "FreeLegacyExceptionTextBytes_53B4E7",
           "condition": "原完整U32拥有标志非0",
-          "memory": "storage->text"
+          "memory": "storage->text",
+          "original_target_leaf": "FreeLegacyHeapMemory_53C0A9",
+          "current_domain": "EXH01拥有text非零才宿主释放，不清槽/标志",
+          "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
         },
         {
           "parent_entry": "0x54B05D",
@@ -21102,7 +21183,8 @@
           "target_entry": "0x53B4E7",
           "target_leaf": "FreeLegacyHeapMemory_53C0A9",
           "condition": "先54B100，再flags低位1",
-          "memory": "storage"
+          "memory": "storage",
+          "current_domain": "对象storage仍原堆；先EXH01文本析构，flags&1再原域释放，源码未改"
         }
       ],
       "logic_error_parent_call_connections": [
@@ -21318,12 +21400,40 @@
         "other_allocation_domains_unchanged": true,
         "whole_crt_heap_migration_closed": false,
         "runtime_verified": false
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x541A28",
       "inventory_id": "F:00141A28",
-      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭",
+      "status": "真实原堆外层本体与模式2调用已实现；宿主窄合同保持，模式3/完整启动仍待；NSH01仅窄字符串字节域宿主成组承接，其他对象/CRT原堆域及完整运行未闭；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x541A43",
       "instruction_count": 13,
       "sources": [
@@ -21358,15 +21468,23 @@
             "AllocateLegacyNarrowStringBytes_53C9CF"
           ],
           "relationship": "NSH01每轮失败真实调用既有541A28，原byteCount实参/重读处理器/返回与异常传播保持"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "AllocateLegacyExceptionTextBytes_53C9CF"
+          ],
+          "relationship": "EXH01失败每轮真实调用同一541A28，参数仍原U32 byteCount，处理器重读/非零重试/异常传播保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_narrow_string_heap_migration_spec.md"
+        "doc/cg2d_narrow_string_heap_migration_spec.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。",
+      "boundary": "既有六处裸字节调用域：原每次读取108614C，非空才传原请求长度调用，结果非零为继续，不捕获异常。当前借_query_new_handler读取实际宿主处理器，不另建影子槽，处理器异常向外传播；宿主锁/CRT内部状态不按旧布局复制。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。 原堆完整分支另由CallLegacyHeapNewHandler_541A28实现，私有处理器/门禁和模式2已接，模式3核心未实现，禁止混用宿主块。；2026-10-04 NSH01：九字符串本体及逻辑容量/共享标记保持，两私有字节入口成对std::malloc/std::free，保原上界/零请求及541A28真实处理器循环；旧原堆仅在其他域继续，不把宿主块交旧块头/释放，完整CRT/异常SDK/运行未验。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "original_direct_reference_count": 5,
       "inbound_evidence": [
         {
@@ -21423,6 +21541,44 @@
         "native_parent_is_original_source_body": false,
         "arguments": "原U32 byteCount，不是零请求替代值或内部对齐量",
         "decision_ref": "doc/cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-decision"
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
+      },
+      "exception_text_host_handler_connection": {
+        "original_parent_entry": "0x53C3BE",
+        "original_call_site": "0x53C3DD",
+        "source": "src/platform/LegacyException.cpp",
+        "native_parent_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "target_symbol": "CallLegacyHeapNewHandler_541A28",
+        "native_parent_is_original_source_body": false,
+        "arguments": "原U32 byteCount，不使用零请求宿主替代量或私有对齐量",
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision"
       }
     },
     {
@@ -49062,7 +49218,7 @@
     {
       "original_entry": "0x54B05D",
       "inventory_id": "F:0014B05D",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x54B079",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
@@ -49091,9 +49247,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "exception虚表数据引用；先54B100清理文本，再按标志低位1决定delete对象，返回原对象地址。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
+      "boundary": "exception虚表数据引用；先54B100清理文本，再按标志低位1决定delete对象，返回原对象地址。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -49109,7 +49266,7 @@
           "text": {
             "original_offset": 4,
             "native_offset": 8,
-            "type": "char*，原堆拥有或借用"
+            "type": "char*，EXH01宿主拥有或借用；对象存储另属原堆"
           },
           "ownsText": {
             "original_offset": 8,
@@ -49117,7 +49274,7 @@
             "type": "U32完整原位型，不截为U8"
           }
         },
-        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo互转；拥有文本EXH01宿主，对象原域不变，其他CRT/完整异常SDK及运行仍待"
       },
       "method_table": {
         "original_address": "0x5501C8",
@@ -49139,12 +49296,40 @@
           }
         ],
         "boundary": "仅已加载两个槽，真实原生函数指针；不是宿主C++异常vft或RTTI/ThrowInfo"
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54B079",
       "inventory_id": "F:0014B079",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x54B0B6",
       "instruction_count": 25,
       "original_direct_reference_count": 2,
@@ -49191,9 +49376,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A6F3；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A01D；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
+      "boundary": "文本构造先写vft，以strlen(*参数)+1调用原operator new，先发布+4结果，非空才复制；无论分配成败都把+8拥有标志写1并返回this。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A6F3；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A01D；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -49214,7 +49400,7 @@
           "text": {
             "original_offset": 4,
             "native_offset": 8,
-            "type": "char*，原堆拥有或借用"
+            "type": "char*，EXH01宿主拥有或借用；对象存储另属原堆"
           },
           "ownsText": {
             "original_offset": 8,
@@ -49222,7 +49408,7 @@
             "type": "U32完整原位型，不截为U8"
           }
         },
-        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo互转；拥有文本EXH01宿主，对象原域不变，其他CRT/完整异常SDK及运行仍待"
       },
       "method_table": {
         "original_address": "0x5501C8",
@@ -49268,12 +49454,40 @@
           "arguments": "&storage->base, &baseText",
           "relationship": "先实际593850源槽和基类文本构造"
         }
-      ]
+      ],
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54B0B6",
       "inventory_id": "F:0014B0B6",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；六对象捕获类型数据及真实复制目标绑定已实现，捕获父/SDK仍待；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x54B100",
       "instruction_count": 31,
       "original_direct_reference_count": 3,
@@ -49333,9 +49547,10 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A0FC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "拷贝构造先复制+8标志；非零才strlen/分配并非空复制文本，零则直接借源+4；分配失败保留复制的非零标志，不自动改借用或抛新异常。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54A7C5；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增runtime_error/failure实际原父点0x54A0FC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -49356,7 +49571,7 @@
           "text": {
             "original_offset": 4,
             "native_offset": 8,
-            "type": "char*，原堆拥有或借用"
+            "type": "char*，EXH01宿主拥有或借用；对象存储另属原堆"
           },
           "ownsText": {
             "original_offset": 8,
@@ -49364,7 +49579,7 @@
             "type": "U32完整原位型，不截为U8"
           }
         },
-        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo互转；拥有文本EXH01宿主，对象原域不变，其他CRT/完整异常SDK及运行仍待"
       },
       "method_table": {
         "original_address": "0x5501C8",
@@ -49428,12 +49643,40 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54B100",
       "inventory_id": "F:0014B100",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x54B116",
       "instruction_count": 7,
       "original_direct_reference_count": 15,
@@ -49545,9 +49788,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54C32F/0x54C357/0x54A0B7/0x54C343/0x54A16D/0x54C36B；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。",
+      "boundary": "先检查+8拥有标志并写回vft，非零时delete(+4)；不清文本槽或拥有标志，包含多处成员展开引用。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-04接原logic_error父实际调用0x54C417/0x54C43F/0x54C42B/0x54A780；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A836/0x54C453/0x54A91E/0x54C47B；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54C32F/0x54C357/0x54A0B7/0x54C343/0x54A16D/0x54C36B；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作文本所有权差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/std_exception.cpp",
@@ -49568,7 +49812,7 @@
           "text": {
             "original_offset": 4,
             "native_offset": 8,
-            "type": "char*，原堆拥有或借用"
+            "type": "char*，EXH01宿主拥有或借用；对象存储另属原堆"
           },
           "ownsText": {
             "original_offset": 8,
@@ -49576,7 +49820,7 @@
             "type": "U32完整原位型，不截为U8"
           }
         },
-        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo互转；拥有文本EXH01宿主，对象原域不变，其他CRT/完整异常SDK及运行仍待"
       },
       "method_table": {
         "original_address": "0x5501C8",
@@ -49744,12 +49988,40 @@
           "arguments": "&storage->base",
           "relationship": "state0唯一基类清理/原jmp"
         }
-      ]
+      ],
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54B116",
       "inventory_id": "F:0014B116",
-      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合",
+      "status": "原exception对象五叶本体与真实两槽方法表已实现；完整对象生产/异常类型和传播及运行未闭合；EXH01仅异常拥有文本域成对宿主承接，对象原堆/完整异常ABI及运行未闭",
       "original_end_exclusive": "0x54B123",
       "instruction_count": 5,
       "original_direct_reference_count": 1,
@@ -49778,9 +50050,10 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_exception_text_heap_migration_spec.md"
       ],
-      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。",
+      "boundary": "返回+4文本指针；为空时返回5501D0静态Unknown exception字串。属于虚表实际方法，不是恒定文本占位。 本步不实现旧对象布局/全局处理器，不启用RTTI；CRT宿主提案仍待确认。；2026-10-04真实原native本体与原两槽5501C8/5501CC映射已接，仅原方法地址拓宽。拥有标志原写/读/比较均为W32；构造先方法表/真实U32长度+1/原堆分配结果发布/非空复制后才写1，复制先发布原U32标志，拥有路径源文本在分配和发布后重新读取、借用路径直接取源指针；析构先取拥有判断再回写方法表，非零才同域释放，不清text/标志；删除析构先文本析构再flags低位1决定原堆对象释放且返回原地址。what只有空文本才用原18B常量，不预清/补保护/钳制/抛新异常。没有宿主std::exception或C++抛出/ThrowInfo迁移，父链/原堆模式3/SDK类型对应及完整运行未闭。；2026-10-05 EXH01：两文本分配/一拥有析构释放成对std::malloc/std::free，保原上界/零请求与541A28处理器、完整ownsText/空失败/源重读；对象54B06D仍原域，what/回退/所有派生及SDK源码不改，不计完整CRT或抛出运行通过。",
       "verification_level": "undefined；本轮五叶79条、两个原方法表加载槽及18B空文本后备、W32拥有标志/源重取/先发布/原堆域/构析顺序和新两源码/单行构建清单/九记录限定静态核对；旧核心和已接点不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyException.hpp",
@@ -49796,7 +50069,7 @@
           "text": {
             "original_offset": 4,
             "native_offset": 8,
-            "type": "char*，原堆拥有或借用"
+            "type": "char*，EXH01宿主拥有或借用；对象存储另属原堆"
           },
           "ownsText": {
             "original_offset": 8,
@@ -49804,7 +50077,7 @@
             "type": "U32完整原位型，不截为U8"
           }
         },
-        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo相互转换；原堆模式3/对象生产及完整C++异常传播仍待"
+        "boundary": "视图不自动构析，不与宿主std::exception/C++虚表/ThrowInfo互转；拥有文本EXH01宿主，对象原域不变，其他CRT/完整异常SDK及运行仍待"
       },
       "method_table": {
         "original_address": "0x5501C8",
@@ -49854,6 +50127,34 @@
         ],
         "loaded": true,
         "nul": 0
+      },
+      "exception_text_heap_migration_contract": {
+        "decision_ref": "doc/cg2d_exception_text_heap_migration_spec.md#exception-text-heap-decision",
+        "source": "src/platform/LegacyException.cpp",
+        "allocator_symbol": "AllocateLegacyExceptionTextBytes_53C9CF",
+        "deallocator_symbol": "FreeLegacyExceptionTextBytes_53B4E7",
+        "host_allocator": "std::malloc",
+        "host_deallocator": "std::free",
+        "byte_count_type": "U32",
+        "existing_max_request": "0xFFFFFFE0",
+        "zero_request_host_size": 1,
+        "new_handler_symbol": "CallLegacyHeapNewHandler_541A28",
+        "new_handler_request_is_original_byte_count": true,
+        "owned_text_domain": "LegacyExceptionObject.text且ownsText完整U32非零；两构造入口按strlen+1产生",
+        "borrowed_text_is_not_freed": true,
+        "allocation_null_published_before_branch": true,
+        "constructor_ownership_one_even_on_null": true,
+        "copy_ownership_bit_pattern_unchanged": true,
+        "source_pointer_reread_after_allocation": true,
+        "destructor_does_not_clear_text_or_flag": true,
+        "object_delete_stays_original_heap": true,
+        "object_delete_flag_mask": 1,
+        "what_and_fallback_unchanged": true,
+        "layout_and_method_tables_unchanged": true,
+        "other_allocation_domains_unchanged": true,
+        "whole_crt_heap_migration_closed": false,
+        "native_throw_and_sdk_closed": false,
+        "runtime_verified": false
       }
     },
     {

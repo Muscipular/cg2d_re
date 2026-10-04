@@ -45,3 +45,9 @@ codecvt的工程方向是宿主内部转换器由宿主完整流类型持有；�
 [局部SPEC与源码收口](cg2d_narrow_string_heap_migration_spec.md#narrow-string-heap-source-closure)已将现有LegacyNarrowString的两私有字节入口成对改std::malloc/std::free；保原上界、零请求与真实541A28处理器循环。九字符串本体/逻辑容量/共享U8及分配→复制→释放不变，不查询宿主可用容量或旧堆块头。
 
 该字节域从原对象存储/异常基类文本/locale facets/filebuf对象等其他CRT域分开；其他域继续原堆，现有六裸字节和21应用calloc不改。两个共享入口只按本域审核，非原全部57/120入向闭合。C08/C11仍open，C06/C07实际抛出/SDK及运行仍待；静态局部证据不代整个CRT迁移。
+
+## 6. EXH01异常基类拥有文本域实施
+
+[EXH01局部源码](cg2d_exception_text_heap_migration_spec.md#exception-text-heap-source-closure)已将两文本分配和一拥有析构释放成对接私有std::malloc/std::free，保原请求/上界/真实处理器、完整ownsText位型、源指针重读、分配空仍原拥有状态及不清槽的析构行为。NSH01的共享标记字符串块与该基类文本是独立owner，不能混作一个对象。
+
+对象54B06D仍原堆释放，what/回退/派生构析/捕获适配/抛出声明及其他域源码保持；无宿主异常ABI转换。九既有语义、三变化体处置和三限定证据只收口EXH01，C08/C11与C06/C07、完整CRT/SDK及运行仍未闭，不把原共享53B4E7全部释放都改成宿主。

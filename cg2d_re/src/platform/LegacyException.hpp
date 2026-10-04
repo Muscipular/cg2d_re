@@ -171,7 +171,7 @@ struct LegacyExceptionMethodTable final {
 // 原exception已证+00/+04/+08；仅地址拓宽，拥有标志是完整W32，不是U8。
 struct LegacyExceptionObject final {
     const LegacyExceptionMethodTable* methods; // 原+00；当前真实两槽原生方法表。
-    char* text;                               // 原+04；借用或原堆拥有文本。
+    char* text;                               // 原+04；借用或EXH01宿主拥有文本。
     std::uint32_t ownsText;                    // 原+08；保留任意非零位型。
 };
 static_assert(offsetof(LegacyExceptionObject, text) == 8);
@@ -179,7 +179,7 @@ static_assert(offsetof(LegacyExceptionObject, ownsText) == 16);
 static_assert(sizeof(LegacyExceptionObject) == 24);
 static_assert(sizeof(LegacyExceptionMethodTable) == 16);
 
-// 不自动构析/抛出；实际对象/文本必须沿原堆域与显式生命周期使用。
+// 不自动构析/抛出；对象存储仍原堆，拥有文本沿EXH01成对宿主入口/显式生命周期。
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
     LegacyExceptionObject* storage, const char* const* sourceText);
 LegacyExceptionObject* CopyConstructLegacyException_54B0B6(

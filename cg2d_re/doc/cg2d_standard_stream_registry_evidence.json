@@ -1,0 +1,335 @@
+{
+  "description": "SR01标准流登记数据已证前缀：实际原指令/引用及既有PE载入初值；完整原数组容量和合法较大索引仍未知。",
+  "source": "当前已打开cg2d.exe IDA，只读Python；未重开/加载/保存/导出原文件或数据库。",
+  "functions": [
+    {
+      "ea": "0x54a25e",
+      "root": "0x54a25e",
+      "chunks": [
+        [
+          "0x54a25e",
+          "0x54a293"
+        ]
+      ],
+      "n": 17,
+      "asm": [
+        [
+          "0x54a25e",
+          "cmp     dword ptr [ecx+24h], 8"
+        ],
+        [
+          "0x54a262",
+          "jnb     short loc_54A27F"
+        ],
+        [
+          "0x54a264",
+          "mov     eax, [ecx+24h]"
+        ],
+        [
+          "0x54a267",
+          "mov     edx, dword_10866F8[eax*4]"
+        ],
+        [
+          "0x54a26e",
+          "test    edx, edx"
+        ],
+        [
+          "0x54a270",
+          "jz      short loc_54A27F"
+        ],
+        [
+          "0x54a272",
+          "cmp     edx, ecx"
+        ],
+        [
+          "0x54a274",
+          "jz      short loc_54A27F"
+        ],
+        [
+          "0x54a276",
+          "inc     eax"
+        ],
+        [
+          "0x54a277",
+          "cmp     eax, 8"
+        ],
+        [
+          "0x54a27a",
+          "mov     [ecx+24h], eax"
+        ],
+        [
+          "0x54a27d",
+          "jb      short loc_54A264"
+        ],
+        [
+          "0x54a27f",
+          "mov     eax, [ecx+24h]"
+        ],
+        [
+          "0x54a282",
+          "mov     dword_10866F8[eax*4], ecx"
+        ],
+        [
+          "0x54a289",
+          "mov     ecx, [ecx+24h]"
+        ],
+        [
+          "0x54a28c",
+          "inc     byte_108671C[ecx]"
+        ],
+        [
+          "0x54a292",
+          "retn"
+        ]
+      ],
+      "refs": [
+        [
+          "0x548516",
+          "0x5484cd",
+          17
+        ],
+        [
+          "0x5485e8",
+          "0x54859f",
+          17
+        ],
+        [
+          "0x548e9c",
+          "0x548e65",
+          17
+        ],
+        [
+          "0x5495d8",
+          "0x54958f",
+          17
+        ],
+        [
+          "0x5496f4",
+          "0x5496ab",
+          17
+        ],
+        [
+          "0x549dff",
+          "0x549dbe",
+          17
+        ]
+      ]
+    },
+    {
+      "ea": "0x54a1d0",
+      "n": 29,
+      "chunks": [
+        [
+          "0x54a1d0",
+          "0x54a220"
+        ],
+        [
+          "0x54c37c",
+          "0x54c391"
+        ]
+      ],
+      "asm": [
+        [
+          "0x54a1d0",
+          "mov     eax, offset loc_54C387"
+        ],
+        [
+          "0x54a1d5",
+          "call    __EH_prolog"
+        ],
+        [
+          "0x54a1da",
+          "push    ecx"
+        ],
+        [
+          "0x54a1db",
+          "push    esi"
+        ],
+        [
+          "0x54a1dc",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x54a1de",
+          "mov     [ebp+var_10], esi"
+        ],
+        [
+          "0x54a1e1",
+          "mov     dword ptr [esi], offset ??_7ios_base@std@@6B@"
+        ],
+        [
+          "0x54a1e7",
+          "mov     eax, [esi+24h]"
+        ],
+        [
+          "0x54a1ea",
+          "and     [ebp+var_4], 0"
+        ],
+        [
+          "0x54a1ee",
+          "test    eax, eax"
+        ],
+        [
+          "0x54a1f0",
+          "jbe     short loc_54A204"
+        ],
+        [
+          "0x54a1f2",
+          "dec     byte_108671C[eax]"
+        ],
+        [
+          "0x54a1f8",
+          "mov     eax, [esi+24h]"
+        ],
+        [
+          "0x54a1fb",
+          "cmp     byte_108671C[eax], 0"
+        ],
+        [
+          "0x54a202",
+          "jg      short loc_54A20B"
+        ],
+        [
+          "0x54a204",
+          "mov     ecx, esi; this"
+        ],
+        [
+          "0x54a206",
+          "call    ?_Tidy@ios_base@std@@AAEXXZ"
+        ],
+        [
+          "0x54a20b",
+          "lea     ecx, [esi+20h]; this"
+        ],
+        [
+          "0x54a20e",
+          "call    ??1locale@std@@QAE@XZ"
+        ],
+        [
+          "0x54a213",
+          "mov     ecx, [ebp+var_C]"
+        ],
+        [
+          "0x54a216",
+          "pop     esi"
+        ],
+        [
+          "0x54a217",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x54a21e",
+          "leave"
+        ],
+        [
+          "0x54a21f",
+          "retn"
+        ],
+        [
+          "0x54c37c",
+          "mov     ecx, [ebp+var_10]; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x54c37f",
+          "add     ecx, 20h ; ' '; this"
+        ],
+        [
+          "0x54c382",
+          "jmp     ??1locale@std@@QAE@XZ"
+        ],
+        [
+          "0x54c387",
+          "mov     eax, offset stru_5516E0"
+        ],
+        [
+          "0x54c38c",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ]
+    }
+  ],
+  "direct_prefix_references": [
+    {
+      "range": [
+        "0x10866f8",
+        "0x108671c"
+      ],
+      "refs": [
+        {
+          "to": "0x10866f8",
+          "from": "0x54a267",
+          "owner": "0x54a25e"
+        },
+        {
+          "to": "0x10866f8",
+          "from": "0x54a282",
+          "owner": "0x54a25e"
+        }
+      ]
+    },
+    {
+      "range": [
+        "0x108671c",
+        "0x1086725"
+      ],
+      "refs": [
+        {
+          "to": "0x108671c",
+          "from": "0x54a1f2",
+          "owner": "0x54a1d0"
+        },
+        {
+          "to": "0x108671c",
+          "from": "0x54a1fb",
+          "owner": "0x54a1d0"
+        },
+        {
+          "to": "0x108671c",
+          "from": "0x54a28c",
+          "owner": "0x54a25e"
+        }
+      ]
+    }
+  ],
+  "initialization": {
+    "evidence_document": "doc/cg2d_pe_zero_initialization_evidence.json",
+    "image_base": "0x400000",
+    "zero_tail": [
+      "0x593000",
+      "0x1087B08"
+    ],
+    "registry_original_consumed_prefix": [
+      "0x10866F8",
+      "0x108671C"
+    ],
+    "references_original_consumed_prefix": [
+      "0x108671C",
+      "0x1086725"
+    ],
+    "registry_original_prefix_bytes": 36,
+    "references_original_prefix_bytes": 9,
+    "original_prefix_slots": 9,
+    "registry_initial_pointer_bits": 0,
+    "references_initial_u8": 0,
+    "reason": "原实际.data节头VirtualSize超出SizeOfRawData，完整前缀在OS填零尾内；不将IDA未加载单项当初值。",
+    "runtime_reset_inferred": false
+  },
+  "native_storage": {
+    "source": "src/platform/LegacyIos.cpp",
+    "declaration": "src/platform/LegacyIos.hpp",
+    "prefix_constant": "kLegacyStandardStreamRegistryPrefixSlots",
+    "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+    "references_symbol": "gLegacyStandardStreamReferences108671C",
+    "native_prefix_slots": 9,
+    "registry_native_pointer_bytes": 8,
+    "registry_native_prefix_bytes": 72,
+    "references_native_element_bytes": 1,
+    "references_native_prefix_bytes": 9,
+    "complete_original_array_capacity": null,
+    "complete_original_array_capacity_proven": false,
+    "all_normal_indices_proven": false,
+    "all_indirect_aliases_proven": false,
+    "runtime_verified": false,
+    "boundary": "仅0..8已证消费前缀；原入口>=8不增拒绝/保护，不认定>8都异常/不可达。未知正常大索引/别名后续依原证补全，C03/R02不关闭。"
+  }
+}

@@ -22220,7 +22220,9 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_graphic_transform_lifecycle_spec.md",
         "doc/cg2d_resource_container_lifecycle_spec.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_standard_stream_registry_evidence.json"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -23108,7 +23110,34 @@
           "evidence": "doc/cg2d_external_keyboard_scope.json",
           "native_callable_provided": false
         }
-      ]
+      ],
+      "standard_stream_registry_prefix_storage": {
+        "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "original_consumed_indices": [
+          0,
+          8
+        ],
+        "native_prefix_slots": 9,
+        "complete_original_capacity": null,
+        "complete_original_capacity_proven": false,
+        "all_normal_indices_proven": false,
+        "all_indirect_aliases_proven": false,
+        "original_evidence": "doc/cg2d_standard_stream_registry_evidence.json",
+        "initialization_evidence": "doc/cg2d_pe_zero_initialization_evidence.json",
+        "original_initialization": "原.data PE填零尾内36B/9B消费前缀，初始指针位型/U8为0",
+        "source": "src/platform/LegacyIos.cpp",
+        "declaration": "src/platform/LegacyIos.hpp",
+        "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+        "references_symbol": "gLegacyStandardStreamReferences108671C",
+        "native_registry_bytes": 72,
+        "native_references_bytes": 9,
+        "nonowning_registry_pointers": true,
+        "new_runtime_initialization": false,
+        "original_algorithms_unchanged": true,
+        "new_index_guard": false,
+        "runtime_verified": false,
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
+      }
     },
     {
       "original_entry": "0x53FD5C",
@@ -66141,11 +66170,11 @@
     {
       "original_entry": "0x54A1D0",
       "inventory_id": "F:0014A1D0",
-      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭",
+      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭；SR01已证登记0..8被动前缀已有，原完整容量/较大正常索引及全生命周期仍待",
       "original_end_exclusive": "0x54A220",
       "instruction_count": 29,
       "original_direct_reference_count": 3,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行；2026-10-04仅SR01原46条/五前缀直接引用、PE初值与新增存储静态；旧函数原文不变，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A1D0",
@@ -66193,12 +66222,30 @@
             "DestroyLegacyWideIos_549638"
           ],
           "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyStandardStreamRegistry10866F8",
+            "gLegacyStandardStreamReferences108671C"
+          ],
+          "relationship": "SR01同名唯一被动登记前缀；无新增运行时清槽/拥有/构析"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "kLegacyStandardStreamRegistryPrefixSlots"
+          ],
+          "relationship": "native9为已证0..8承载前缀，非原完整数组容量证明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "ios_base析构：恢复ios_base虚表；登记索引为0直接Tidy，非0先减共享U8计数，按有符号>0决定跳过Tidy；正常尾析构+20 locale。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548532/0x54963E，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
+      "boundary": "ios_base析构：恢复ios_base虚表；登记索引为0直接Tidy，非0先减共享U8计数，按有符号>0决定跳过Tidy；正常尾析构+20 locale。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548532/0x54963E，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；SR01按具名裁决补同名0..8实际被动数组，原PE载入零已证，只有地址元素拓宽；native9槽不证明原完整容量。原扫描/发布重读、U8增减/重读、S8门禁与正常/展开locale源码不变；不新增保护，不将>8都认定异常/不可达，较大正常索引/间接别名及C03完整生命周期仍未闭。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -66256,7 +66303,7 @@
             "type": "U32，原jnb/jb"
           }
         },
-        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。；SR01更新登记提供者为真实已证前缀，原完整容量仍未知，其他原体/owner与运行未闭。"
       },
       "ios_lifecycle_internal_call_connections": [
         {
@@ -66294,22 +66341,22 @@
         "registry": {
           "original_address": "0x10866F8",
           "native_symbol": "gLegacyStandardStreamRegistry10866F8",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern LegacyIosBaseStorage* []，实际原指针元素拓宽",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA int[9]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "LegacyIosBaseStorage* [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一非拥有被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀指针位型0；native初始nullptr，无运行时清槽",
+          "capacity": "本线已证0..8前缀9槽/72B；原完整容量未知，IDA int[9]非证明",
           "index_contract": "原U32扫描小于8；结束后包括8/入口大于等于8仍原索引写槽"
         },
         "references": {
           "original_address": "0x108671C",
           "native_symbol": "gLegacyStandardStreamReferences108671C",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern U8 []，原计数宽度不变",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA char[12]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "U8 [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀U8零；无运行时复位",
+          "capacity": "本线已证0..8前缀9B；原完整容量未知，IDA char[12]非证明",
           "read_contract": "原U8增减，析构递减后重取对象U32索引，低S8有符号jg决定跳过Tidy"
         },
-        "boundary": "仅原真实全局声明和消费者，不定容量/预清/新增超界保护或影子表；异常索引和跨区域别名/故障不专项模拟或称等价"
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
       },
       "ios_base_method_table": {
         "original_address": "0x550144",
@@ -66348,16 +66395,43 @@
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "DestroyLegacyWideIos_549638"
         }
-      ]
+      ],
+      "standard_registry_prefix_contract": {
+        "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "original_consumed_indices": [
+          0,
+          8
+        ],
+        "native_prefix_slots": 9,
+        "complete_original_capacity": null,
+        "complete_original_capacity_proven": false,
+        "all_normal_indices_proven": false,
+        "all_indirect_aliases_proven": false,
+        "original_evidence": "doc/cg2d_standard_stream_registry_evidence.json",
+        "initialization_evidence": "doc/cg2d_pe_zero_initialization_evidence.json",
+        "original_initialization": "原.data PE填零尾内36B/9B消费前缀，初始指针位型/U8为0",
+        "source": "src/platform/LegacyIos.cpp",
+        "declaration": "src/platform/LegacyIos.hpp",
+        "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+        "references_symbol": "gLegacyStandardStreamReferences108671C",
+        "native_registry_bytes": 72,
+        "native_references_bytes": 9,
+        "nonowning_registry_pointers": true,
+        "new_runtime_initialization": false,
+        "original_algorithms_unchanged": true,
+        "new_index_guard": false,
+        "runtime_verified": false,
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
+      }
     },
     {
       "original_entry": "0x54A220",
       "inventory_id": "F:0014A220",
-      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭",
+      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭；SR01已证登记0..8被动前缀已有，原完整容量/较大正常索引及全生命周期仍待",
       "original_end_exclusive": "0x54A23C",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；仅新方法接口与真实原删除目标的静态绑定，旧算法未重验",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；仅新方法接口与真实原删除目标的静态绑定，旧算法未重验；2026-10-04仅SR01原46条/五前缀直接引用、PE初值与新增存储静态；旧函数原文不变，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A220",
@@ -66392,12 +66466,30 @@
             "IosBaseDeleteMethod"
           ],
           "relationship": "仅统一删除槽void*返回接口适配真实原本体，旧析构/delete算法不改/复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyStandardStreamRegistry10866F8",
+            "gLegacyStandardStreamReferences108671C"
+          ],
+          "relationship": "SR01同名唯一被动登记前缀；无新增运行时清槽/拥有/构析"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "kLegacyStandardStreamRegistryPrefixSlots"
+          ],
+          "relationship": "native9为已证0..8承载前缀，非原完整数组容量证明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "删除型析构包装：调真实ios_base析构，flag bit0才delete，返回保存的原地址。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新原this调整删除入口证实槽返回所属对象地址；方法接口改非拥有void*，基类加地址返回适配调用原Delete，旧本体不改/复检。无函数地址擦除/整数地址存储或生命周期改变。",
+      "boundary": "删除型析构包装：调真实ios_base析构，flag bit0才delete，返回保存的原地址。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新原this调整删除入口证实槽返回所属对象地址；方法接口改非拥有void*，基类加地址返回适配调用原Delete，旧本体不改/复检。无函数地址擦除/整数地址存储或生命周期改变。；SR01按具名裁决补同名0..8实际被动数组，原PE载入零已证，只有地址元素拓宽；native9槽不证明原完整容量。原扫描/发布重读、U8增减/重读、S8门禁与正常/展开locale源码不变；不新增保护，不将>8都认定异常/不可达，较大正常索引/间接别名及C03完整生命周期仍未闭。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -66455,7 +66547,7 @@
             "type": "U32，原jnb/jb"
           }
         },
-        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。；SR01更新登记提供者为真实已证前缀，原完整容量仍未知，其他原体/owner与运行未闭。"
       },
       "ios_lifecycle_internal_call_connections": [
         {
@@ -66484,22 +66576,22 @@
         "registry": {
           "original_address": "0x10866F8",
           "native_symbol": "gLegacyStandardStreamRegistry10866F8",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern LegacyIosBaseStorage* []，实际原指针元素拓宽",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA int[9]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "LegacyIosBaseStorage* [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一非拥有被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀指针位型0；native初始nullptr，无运行时清槽",
+          "capacity": "本线已证0..8前缀9槽/72B；原完整容量未知，IDA int[9]非证明",
           "index_contract": "原U32扫描小于8；结束后包括8/入口大于等于8仍原索引写槽"
         },
         "references": {
           "original_address": "0x108671C",
           "native_symbol": "gLegacyStandardStreamReferences108671C",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern U8 []，原计数宽度不变",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA char[12]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "U8 [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀U8零；无运行时复位",
+          "capacity": "本线已证0..8前缀9B；原完整容量未知，IDA char[12]非证明",
           "read_contract": "原U8增减，析构递减后重取对象U32索引，低S8有符号jg决定跳过Tidy"
         },
-        "boundary": "仅原真实全局声明和消费者，不定容量/预清/新增超界保护或影子表；异常索引和跨区域别名/故障不专项模拟或称等价"
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
       },
       "ios_base_method_table": {
         "original_address": "0x550144",
@@ -66518,6 +66610,33 @@
         ],
         "boundary": "原已加载槽0真实目标/8B源码消费前缀，不推完整方法表长度、SDK虚表/RTTI/ThrowInfo或完整owner验收",
         "return_contract": "非拥有void*传出真实所属对象地址；基类此处仍返回原base地址，其他原入口可返回调整后的owner地址"
+      },
+      "standard_registry_prefix_contract": {
+        "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "original_consumed_indices": [
+          0,
+          8
+        ],
+        "native_prefix_slots": 9,
+        "complete_original_capacity": null,
+        "complete_original_capacity_proven": false,
+        "all_normal_indices_proven": false,
+        "all_indirect_aliases_proven": false,
+        "original_evidence": "doc/cg2d_standard_stream_registry_evidence.json",
+        "initialization_evidence": "doc/cg2d_pe_zero_initialization_evidence.json",
+        "original_initialization": "原.data PE填零尾内36B/9B消费前缀，初始指针位型/U8为0",
+        "source": "src/platform/LegacyIos.cpp",
+        "declaration": "src/platform/LegacyIos.hpp",
+        "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+        "references_symbol": "gLegacyStandardStreamReferences108671C",
+        "native_registry_bytes": 72,
+        "native_references_bytes": 9,
+        "nonowning_registry_pointers": true,
+        "new_runtime_initialization": false,
+        "original_algorithms_unchanged": true,
+        "new_index_guard": false,
+        "runtime_verified": false,
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
       }
     },
     {
@@ -66676,11 +66795,11 @@
     {
       "original_entry": "0x54A25E",
       "inventory_id": "F:0014A25E",
-      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭",
+      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭；SR01已证登记0..8被动前缀已有，原完整容量/较大正常索引及全生命周期仍待",
       "original_end_exclusive": "0x54A293",
       "instruction_count": 17,
       "original_direct_reference_count": 6,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新owner父数值原调用/尾调与新增静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新owner父数值原调用/尾调与新增静态，不执行；2026-10-04仅SR01原46条/五前缀直接引用、PE初值与新增存储静态；旧函数原文不变，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A25E",
@@ -66746,12 +66865,30 @@
             "RegisterConstructLegacyWideInput_5496AB"
           ],
           "relationship": "新istream/ostream原实际父call/展开尾调接线，旧本体/原调用数组不变、不复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyStandardStreamRegistry10866F8",
+            "gLegacyStandardStreamReferences108671C"
+          ],
+          "relationship": "SR01同名唯一被动登记前缀；无新增运行时清槽/拥有/构析"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "kLegacyStandardStreamRegistryPrefixSlots"
+          ],
+          "relationship": "native9为已证0..8承载前缀，非原完整数组容量证明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "标准流登记：从对象+24索引查登记槽，遇空或同this停止；扫至索引8仍写槽并增对应U8计数，不新增超界拒绝或容量推断。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E9C/0x549DFF，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增输入/输出流owner本体的真实原点0x548516/0x5485E8/0x5495D8/0x5496F4，虚基投影/低U8与W32门禁/条件展开及固定本类清理保持；标准流全局生产/clear/SDK与完整运行仍待，不据本步当整链/启动验收。",
+      "boundary": "标准流登记：从对象+24索引查登记槽，遇空或同this停止；扫至索引8仍写槽并增对应U8计数，不新增超界拒绝或容量推断。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E9C/0x549DFF，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增输入/输出流owner本体的真实原点0x548516/0x5485E8/0x5495D8/0x5496F4，虚基投影/低U8与W32门禁/条件展开及固定本类清理保持；标准流全局生产/clear/SDK与完整运行仍待，不据本步当整链/启动验收。；SR01按具名裁决补同名0..8实际被动数组，原PE载入零已证，只有地址元素拓宽；native9槽不证明原完整容量。原扫描/发布重读、U8增减/重读、S8门禁与正常/展开locale源码不变；不新增保护，不将>8都认定异常/不可达，较大正常索引/间接别名及C03完整生命周期仍未闭。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -66809,29 +66946,29 @@
             "type": "U32，原jnb/jb"
           }
         },
-        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。；SR01更新登记提供者为真实已证前缀，原完整容量仍未知，其他原体/owner与运行未闭。"
       },
       "ios_lifecycle_internal_call_connections": [],
       "ios_registry_globals": {
         "registry": {
           "original_address": "0x10866F8",
           "native_symbol": "gLegacyStandardStreamRegistry10866F8",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern LegacyIosBaseStorage* []，实际原指针元素拓宽",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA int[9]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "LegacyIosBaseStorage* [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一非拥有被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀指针位型0；native初始nullptr，无运行时清槽",
+          "capacity": "本线已证0..8前缀9槽/72B；原完整容量未知，IDA int[9]非证明",
           "index_contract": "原U32扫描小于8；结束后包括8/入口大于等于8仍原索引写槽"
         },
         "references": {
           "original_address": "0x108671C",
           "native_symbol": "gLegacyStandardStreamReferences108671C",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern U8 []，原计数宽度不变",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA char[12]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "U8 [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀U8零；无运行时复位",
+          "capacity": "本线已证0..8前缀9B；原完整容量未知，IDA char[12]非证明",
           "read_contract": "原U8增减，析构递减后重取对象U32索引，低S8有符号jg决定跳过Tidy"
         },
-        "boundary": "仅原真实全局声明和消费者，不定容量/预清/新增超界保护或影子表；异常索引和跨区域别名/故障不专项模拟或称等价"
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
       },
       "ios_base_method_table": {
         "original_address": "0x550144",
@@ -66912,16 +67049,43 @@
           "relationship": "原真实call/尾调，构造再取虚基/析构固定成员/删除flags低位与原堆域保持",
           "arguments": "&重新投影当前basic_ios->base"
         }
-      ]
+      ],
+      "standard_registry_prefix_contract": {
+        "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "original_consumed_indices": [
+          0,
+          8
+        ],
+        "native_prefix_slots": 9,
+        "complete_original_capacity": null,
+        "complete_original_capacity_proven": false,
+        "all_normal_indices_proven": false,
+        "all_indirect_aliases_proven": false,
+        "original_evidence": "doc/cg2d_standard_stream_registry_evidence.json",
+        "initialization_evidence": "doc/cg2d_pe_zero_initialization_evidence.json",
+        "original_initialization": "原.data PE填零尾内36B/9B消费前缀，初始指针位型/U8为0",
+        "source": "src/platform/LegacyIos.cpp",
+        "declaration": "src/platform/LegacyIos.hpp",
+        "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+        "references_symbol": "gLegacyStandardStreamReferences108671C",
+        "native_registry_bytes": 72,
+        "native_references_bytes": 9,
+        "nonowning_registry_pointers": true,
+        "new_runtime_initialization": false,
+        "original_algorithms_unchanged": true,
+        "new_index_guard": false,
+        "runtime_verified": false,
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
+      }
     },
     {
       "original_entry": "0x54A293",
       "inventory_id": "F:0014A293",
-      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭",
+      "status": "原ios_base登记/初始化/析构/删除四本体已实现；clear抛出/登记全局生产与owner未闭；SR01已证登记0..8被动前缀已有，原完整容量/较大正常索引及全生命周期仍待",
       "original_end_exclusive": "0x54A2CB",
       "instruction_count": 21,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04本次新完整原指令/数值call及FuncInfo state0→54C37C、550144槽0与新增源码静态，未执行；新增basic_ios原父数值call/尾调与消费静态，不执行；2026-10-04仅SR01原46条/五前缀直接引用、PE初值与新增存储静态；旧函数原文不变，未构建或运行",
       "function_chunks": [
         {
           "start": "0x54A293",
@@ -66961,12 +67125,30 @@
             "InitializeLegacyWideIos_549DBE"
           ],
           "relationship": "新增basic_ios实际原父call/尾调；依赖既有本体或真实clear声明，旧算法不改/复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyStandardStreamRegistry10866F8",
+            "gLegacyStandardStreamReferences108671C"
+          ],
+          "relationship": "SR01同名唯一被动登记前缀；无新增运行时清槽/拥有/构析"
+        },
+        {
+          "path": "src/platform/LegacyIos.hpp",
+          "symbols": [
+            "kLegacyStandardStreamRegistryPrefixSlots"
+          ],
+          "relationship": "native9为已证0..8承载前缀，非原完整数组容量证明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "ios_base初始化：先构造+20 locale，清异常掩码，写flags=201H/precision=6/width=0/两链头=0，再clear(0,false)；不清整个对象或登记索引。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E77/0x549DDA，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。",
+      "boundary": "ios_base初始化：先构造+20 locale，清异常掩码，写flags=201H/precision=6/width=0/两链头=0，再clear(0,false)；不清整个对象或登记索引。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04依本次新原78条含析构展开chunk实现；保持对象64B，登记扫至8仍写最终槽后重取index增U8，析构递减后重取index/低S8有符号门禁，正常locale清理前state0及展开同一locale清理。delete只flags bit0同域Free/缓存地址；Init先locale、六字段/两链再真实clear(0,0)，不清registryIndex/方法表，不补clear或全局初值/容量。实际550144槽0接真实删除目标，SDK EH/完整抛出/owner与运行仍待；旧库本体不改/复检。；2026-10-04新增basic_ios真实原点0x548E77/0x549DDA，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；SR01按具名裁决补同名0..8实际被动数组，原PE载入零已证，只有地址元素拓宽；native9槽不证明原完整容量。原扫描/发布重读、U8增减/重读、S8门禁与正常/展开locale源码不变；不新增保护，不将>8都认定异常/不可达，较大正常索引/间接别名及C03完整生命周期仍未闭。",
       "native_storage": {
         "source": "src/platform/LegacyIos.hpp",
         "type": "LegacyIosBaseStorage",
@@ -67024,7 +67206,7 @@
             "type": "U32，原jnb/jb"
           }
         },
-        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。"
+        "boundary": "既有64B真实字段/地址拓宽保持，新增登记/初始化/析构/删除真实本体；原方法槽0已定义8B消费前缀，不推SDK/完整分配。登记数组/计数仅真实extern未定容量初值，不自动构析/宿主互转/影子登记表。clear仅真实声明、抛出/全值节点/节点生产/完整owner与运行待。；SR01更新登记提供者为真实已证前缀，原完整容量仍未知，其他原体/owner与运行未闭。"
       },
       "ios_lifecycle_internal_call_connections": [
         {
@@ -67052,22 +67234,22 @@
         "registry": {
           "original_address": "0x10866F8",
           "native_symbol": "gLegacyStandardStreamRegistry10866F8",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern LegacyIosBaseStorage* []，实际原指针元素拓宽",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA int[9]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "LegacyIosBaseStorage* [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一非拥有被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀指针位型0；native初始nullptr，无运行时清槽",
+          "capacity": "本线已证0..8前缀9槽/72B；原完整容量未知，IDA int[9]非证明",
           "index_contract": "原U32扫描小于8；结束后包括8/入口大于等于8仍原索引写槽"
         },
         "references": {
           "original_address": "0x108671C",
           "native_symbol": "gLegacyStandardStreamReferences108671C",
-          "source": "src/platform/LegacyIos.hpp",
-          "declaration": "extern U8 []，原计数宽度不变",
-          "initial_value": "未加载，未定义/不补零",
-          "capacity": "本步不推实际容量；IDA char[12]为分析注释，非原文件分配证据",
+          "source": "src/platform/LegacyIos.cpp",
+          "declaration": "U8 [kLegacyStandardStreamRegistryPrefixSlots]，同名唯一被动前缀",
+          "initial_value": "原PE填零尾证0..8前缀U8零；无运行时复位",
+          "capacity": "本线已证0..8前缀9B；原完整容量未知，IDA char[12]非证明",
           "read_contract": "原U8增减，析构递减后重取对象U32索引，低S8有符号jg决定跳过Tidy"
         },
-        "boundary": "仅原真实全局声明和消费者，不定容量/预清/新增超界保护或影子表；异常索引和跨区域别名/故障不专项模拟或称等价"
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
       },
       "ios_base_method_table": {
         "original_address": "0x550144",
@@ -67106,7 +67288,34 @@
           "source": "src/platform/LegacyIos.cpp",
           "symbol": "InitializeLegacyWideIos_549DBE"
         }
-      ]
+      ],
+      "standard_registry_prefix_contract": {
+        "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "original_consumed_indices": [
+          0,
+          8
+        ],
+        "native_prefix_slots": 9,
+        "complete_original_capacity": null,
+        "complete_original_capacity_proven": false,
+        "all_normal_indices_proven": false,
+        "all_indirect_aliases_proven": false,
+        "original_evidence": "doc/cg2d_standard_stream_registry_evidence.json",
+        "initialization_evidence": "doc/cg2d_pe_zero_initialization_evidence.json",
+        "original_initialization": "原.data PE填零尾内36B/9B消费前缀，初始指针位型/U8为0",
+        "source": "src/platform/LegacyIos.cpp",
+        "declaration": "src/platform/LegacyIos.hpp",
+        "registry_symbol": "gLegacyStandardStreamRegistry10866F8",
+        "references_symbol": "gLegacyStandardStreamReferences108671C",
+        "native_registry_bytes": 72,
+        "native_references_bytes": 9,
+        "nonowning_registry_pointers": true,
+        "new_runtime_initialization": false,
+        "original_algorithms_unchanged": true,
+        "new_index_guard": false,
+        "runtime_verified": false,
+        "boundary": "SR01只承载0..8已证前缀；原>=8路径无新增保护，>8不认定为异常/不可达。完整原容量、较大正常索引/别名和全生命周期仍待原证，C03/R02及完整功能门禁未闭。"
+      }
     },
     {
       "original_entry": "0x54A2CB",

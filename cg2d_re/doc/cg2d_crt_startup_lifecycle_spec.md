@@ -54,3 +54,7 @@
 ## 7. C03 / SI01 四Init地址承载
 
 [SI01子SPEC](cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)基于原311条及八固定引用的地址-only契约，已补四独立平凡原生对象；控制器/计数/14流及登记/退出本体保持。原完整尺寸未知保留，native sizeof不是原容量证据；仅本组无Init字段消费路径适用D02表示承接，其他布局/间接消费仍待。原55310C/553110归既有屏幕键盘排除，不恢复专用构造。C03整项/全表活动序、登记数据/容量、Legacy与宿主双套流归属和运行继续未闭。
+
+## 8. C03 / SR01登记数据已证前缀
+
+[SR01子SPEC](cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure)已补0～8登记指针/U8计数的唯一同名被动存储，PE填零尾证明载入初值；只拓宽实际地址元素，登记/析构及其所有父函数原文保持。9仅已证消费前缀，原完整数组容量、正常较大索引与间接别名仍未知，不能把>8默认为异常/不可达或据此缩减验收。无新增保护/清槽/拥有、自动构析或宿主流互转；C03整项、数据闭包与全应用原序/活动归属/运行仍未闭。

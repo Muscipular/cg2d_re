@@ -119,7 +119,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 |---|---|---|---|
 | C01 / CRT 总策略 | 受限宿主承接已定，本轮未迁移 | 按启动/运行库两个子SPEC实施 | 私有差异与业务保留项分列；[宿主总SPEC](../doc/cg2d_crt_host_migration_spec.md) |
 | C02 / C++90 初始化表 | 原90槽/多个provider已有，四图形/DBF具名构析已接 | 逐槽区分宿主内部与应用显式构析，保留原应用相对顺序 | 不再要求造完整私有CRT启动替宿主；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
-| C03 / 四Init与登记 | 14流/七共享槽及SI01四Init真实地址对象已有 | 登记数据/容量、全应用序及Legacy/宿主活动流构析归属仍待 | 保持open；[SI01收口](../doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)，原尺寸未知不填成1B |
+| C03 / 四Init与登记 | 14流/七共享槽、SI01四Init对象与SR01登记0～8实际前缀已有 | 原完整容量/较大正常索引/间接别名、全应用序及Legacy/宿主活动流构析归属仍待 | 保持open；[SI01收口](../doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure)、[SR01收口](../doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure)，native前缀不推原容量 |
 | C04 / 构析与入口迁移 | 原provider/数组helper及四容器本组唯一宿主构析已接 | 宿主启动后沿原应用序显式执行，每owner一套活动构析 | 排除双执行/跨域释放，62析构逐项归属；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C05 / codecvt | 旧消费者与方法槽在，真实生产未闭 | 宿主内部用完整宿主流类型；保留Legacy消费者仍补真实facet生产 | 不造空表/桥半类型/猜编码；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |
 | C06 / 异常查找捕获 | 旧数据/部分叶已有，父未闭 | 私有5402AB/5407BC职责由真实本机异常设施承接，caller成组映射 | 保留业务异常/清理，不记旧内核已还原；[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md) |

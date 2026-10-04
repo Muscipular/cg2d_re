@@ -35,6 +35,13 @@ LegacyWideOutputStream gLegacyWideStandardOutput1086668{};
 LegacyWideOutputStream gLegacyWideStandardError1086500{};
 LegacyWideOutputStream gLegacyWideStandardLog1086540{};
 
+// SR01仅补原0..8消费前缀，原PE载入初始零；9不是完整原容量证明。
+// 指针非拥有且仅地址拓宽，U8仍原宽；不自动构析/清槽或增加索引保护。
+LegacyIosBaseStorage* gLegacyStandardStreamRegistry10866F8[kLegacyStandardStreamRegistryPrefixSlots]{};
+std::uint8_t gLegacyStandardStreamReferences108671C[kLegacyStandardStreamRegistryPrefixSlots]{};
+static_assert(sizeof(gLegacyStandardStreamRegistry10866F8) == 72);
+static_assert(sizeof(gLegacyStandardStreamReferences108671C) == 9);
+
 void CallLegacyIosCallbacks_54A23C(
     LegacyIosBaseStorage* const storage, const std::int32_t event)
 {

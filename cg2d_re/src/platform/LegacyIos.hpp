@@ -17,9 +17,11 @@ struct LegacyIosBaseMethods final {
 static_assert(sizeof(LegacyIosBaseMethods) == 8);
 extern const LegacyIosBaseMethods gLegacyIosBaseMethods550144;
 
-// 原登记地址数组/独立U8计数，仅真实外部声明；未加载初值/实际容量不补证为零或9/12。
-extern LegacyIosBaseStorage* gLegacyStandardStreamRegistry10866F8[];
-extern std::uint8_t gLegacyStandardStreamReferences108671C[];
+// 原0..8已证登记前缀；9仅本线承载，不证明原完整数组容量，见SR01子SPEC。
+// 原PE初始零已证；运行仍沿原登记/析构，入口>=8不新增拒绝/保护。
+inline constexpr std::size_t kLegacyStandardStreamRegistryPrefixSlots = 9;
+extern LegacyIosBaseStorage* gLegacyStandardStreamRegistry10866F8[kLegacyStandardStreamRegistryPrefixSlots];
+extern std::uint8_t gLegacyStandardStreamReferences108671C[kLegacyStandardStreamRegistryPrefixSlots];
 
 // 原回调call后由caller清12B栈：event/this/index三参，返回寄存器不消费。
 using LegacyIosCallback = void (__cdecl *)(

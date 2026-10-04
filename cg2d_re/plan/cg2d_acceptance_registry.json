@@ -75,7 +75,8 @@
         "doc/cg2d_crt_startup_lifecycle_spec.md",
         "doc/cg2d_graphic_transform_lifecycle_spec.md",
         "doc/cg2d_resource_container_lifecycle_spec.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -100,7 +101,9 @@
         "F:00053E10",
         "F:00053E50",
         "F:001491E0",
-        "F:0014920A"
+        "F:0014920A",
+        "F:0014A25E",
+        "F:0014A1D0"
       ],
       "closure_task_ids": [
         "C02",
@@ -121,14 +124,15 @@
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
         "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
         "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
-        "四Init按SI01仅地址身份的原生对象已定义；原完整尺寸未知保留，登记数组/全应用序/活动流构析与运行仍未闭"
+        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline"
       ]
     },
     {
@@ -143,13 +147,16 @@
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_standard_stream_init_identity_spec.md"
+        "doc/cg2d_standard_stream_init_identity_spec.md",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
         "F:00053E50",
         "F:001491E0",
-        "F:0014920A"
+        "F:0014920A",
+        "F:0014A25E",
+        "F:0014A1D0"
       ],
       "closure_task_ids": [
         "C01",
@@ -168,12 +175,13 @@
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "四Init按SI01仅地址身份的原生对象已定义；原完整尺寸未知保留，登记数组/全应用序/活动流构析与运行仍未闭"
+        "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline"
       ]
     },
     {
@@ -5753,6 +5761,117 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-REGISTRY-PREFIX-I-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：54A25E17条、54A1D0全部29条/展开chunk、两消费前缀五直接引用及原六父点；已保存PE .data填零尾证初值；doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-registry-prefix-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-acceptance",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyIos.hpp#kLegacyStandardStreamRegistryPrefixSlots",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamRegistry10866F8",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamReferences108671C",
+        "src/platform/LegacyIos.cpp#RegisterLegacyStandardStream_54A25E",
+        "src/platform/LegacyIos.cpp#DestroyLegacyIosBase_54A1D0"
+      ],
+      "observation": "仅SR01两登记数据实际定义及0..8消费前缀",
+      "expected": "两个唯一数组按已证PE初值被动承载，地址拓宽/U8原宽，含第8槽",
+      "actual": "LegacyIos已定义9个非拥有实际指针/9个U8，原生前缀72B/9B，无新增初始化/构析副作用",
+      "differences": [
+        {
+          "description": "SR01仅定义消费者证明的0..8前缀，native9槽不是原完整容量证明；>8原入口仍无保护、不认定都异常，正常较大索引/间接别名继续开放且后续依事实补全，不能降低验收范围",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        },
+        {
+          "description": "原地址元素由真实x64非拥有LegacyIosBaseStorage*表达，前缀36B拓宽72B；计数仍9个U8，原正常读写/索引重读/清理序保持；不模拟越界故障",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-REGISTRY-PREFIX-W-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：54A25E17条、54A1D0全部29条/展开chunk、两消费前缀五直接引用及原六父点；已保存PE .data填零尾证初值；doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-registry-prefix-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-acceptance",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyIos.hpp#kLegacyStandardStreamRegistryPrefixSlots",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamRegistry10866F8",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamReferences108671C",
+        "src/platform/LegacyIos.cpp#RegisterLegacyStandardStream_54A25E",
+        "src/platform/LegacyIos.cpp#DestroyLegacyIosBase_54A1D0"
+      ],
+      "observation": "仅登记/析构对同一被动存储的读写与六已存在父点",
+      "expected": "保留写后重取索引、减后重取索引和locale正常/展开顺序，不接宿主流或第二owner",
+      "actual": "两原全局声明已接同名实际定义，六原父点保持，索引8仍可发布，原函数全文不变",
+      "differences": [
+        {
+          "description": "SR01仅定义消费者证明的0..8前缀，native9槽不是原完整容量证明；>8原入口仍无保护、不认定都异常，正常较大索引/间接别名继续开放且后续依事实补全，不能降低验收范围",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        },
+        {
+          "description": "原地址元素由真实x64非拥有LegacyIosBaseStorage*表达，前缀36B拓宽72B；计数仍9个U8，原正常读写/索引重读/清理序保持；不模拟越界故障",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-STANDARD-REGISTRY-PREFIX-S-20261004",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：54A25E17条、54A1D0全部29条/展开chunk、两消费前缀五直接引用及原六父点；已保存PE .data填零尾证初值；doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-standard-registry-prefix-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-acceptance",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure",
+        "doc/cg2d_standard_stream_registry_evidence.json",
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "src/platform/LegacyIos.hpp#kLegacyStandardStreamRegistryPrefixSlots",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamRegistry10866F8",
+        "src/platform/LegacyIos.cpp#gLegacyStandardStreamReferences108671C",
+        "src/platform/LegacyIos.cpp#RegisterLegacyStandardStream_54A25E",
+        "src/platform/LegacyIos.cpp#DestroyLegacyIosBase_54A1D0"
+      ],
+      "observation": "仅46原指令/chunk、两前缀五直接引用和PE初值关联及本组新增差异",
+      "expected": "存储之外原算法不变；不以native9槽证明原完整容量或全部合法索引",
+      "actual": "原17登记/29析构和原范围引用已归档，36B/9B完全在PE填零尾，源码扣新增数据/声明后与前提交全文一致；容量/间接闭包仍未知",
+      "differences": [
+        {
+          "description": "SR01仅定义消费者证明的0..8前缀，native9槽不是原完整容量证明；>8原入口仍无保护、不认定都异常，正常较大索引/间接别名继续开放且后续依事实补全，不能降低验收范围",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        },
+        {
+          "description": "原地址元素由真实x64非拥有LegacyIosBaseStorage*表达，前缀36B拓宽72B；计数仍9个U8，原正常读写/索引重读/清理序保持；不模拟越界故障",
+          "decision_ref": "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -5873,7 +5992,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
       ]
     }
   ],
@@ -6206,6 +6326,22 @@
       "evidence_refs": [
         "doc/cg2d_external_keyboard_scope.json",
         "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A25E",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014A1D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure"
       ]
     }
   ],

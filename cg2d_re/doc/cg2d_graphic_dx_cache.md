@@ -2274,3 +2274,16 @@ CPU 面直接取已创建尺寸和像素。分配失败的上层回退仍保留�
 集中静态核对四数组/三个消费点、字节/NUL/长度及限定差异；不实际触发分配失败、
 显示消息框、运行客户端或故障样例，不构建、查产物、新增/执行测试或哈希校验。
 ANSI实际显示、消息回调重入和完整图形生命周期仍未运行验收。SDL新增诊断及暂停音频不改。
+
+## GQD01绘制阶段DX基址与节点借用（2026-10-05）
+
+[当前对照](cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure)和
+[原证据](cg2d_queued_draw_alignment_evidence.json)核完整769条/13跳表。
+DX指针不是全函数统一重读：普通界限宽高沿520EEA，只有负X/Y修正分支新取，
+final裁剪/head沿最后保存基址；空链palette沿旧值，遍历完才在5213BB重取。
+固定比例的当前宽/head/空链palette沿5214E9，非空链尾5216CB重取。
+
+DrawAllQueued.cpp已实际修六处，两个private节点循环接原head而不重新查表；
+队列/节点/普通与独立表owner、48B/40B布局及全部循环/矩形/上传/native算法保持。
+初始Back存活门禁为已批准IsLost映射，不误删成额外NULL保护；模式/全部父、
+间接alias/借用寿命与初始化/场景/退出清理及像素运行仍未验。

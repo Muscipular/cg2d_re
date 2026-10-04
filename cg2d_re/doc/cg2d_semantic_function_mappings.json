@@ -137585,6 +137585,68 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x520DD0",
+      "inventory_id": "F:00120DD0",
+      "status": "GQD01完整769条适用批准范围/六基址与链头阶段实修局部静态；完整父/资源寿命和模式画面运行未验",
+      "original_end_exclusive": "0x521832",
+      "instruction_count": 769,
+      "original_chunks": [
+        [
+          "0x520DD0",
+          "0x521832"
+        ]
+      ],
+      "original_direct_reference_count": 14,
+      "sources": [
+        {
+          "path": "src/render/DrawAllQueued.cpp",
+          "symbols": [
+            "DrawAllQueued_520DD0",
+            "DrawSprite",
+            "DrawFixedScaleSprite",
+            "DrawIntegerNodes",
+            "DrawScaledNodes"
+          ],
+          "relationship": "完整13批次/三纹理/两节点helper已有，六补丁恢复普通/固定DX基址与head/dirty阶段；公开分发/矩形/循环/native算法保持"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "DrawAllQueued_520DD0",
+            "GraphicCacheItem32",
+            "GraphicCache3"
+          ],
+          "relationship": "既有真实声明与唯一x64队列承载保持，非地址宽度不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_queued_draw_alignment_spec.md",
+        "doc/cg2d_queued_draw_alignment_evidence.json"
+      ],
+      "boundary": "入口上传count清0与获批Back IsLost→CPU存活失败门禁保持，正常非正计数仍按Has/Begin/End走完整公共尾。S16 count/cacheIndex/W8 batch与0..12分发、各资源/几何门禁、描述符/S32原点、x87 C3分派/三比例/各轴取样、矩形/镜像/三回调和busy/next写序保持。普通bounds保存DX base，负X/Y分支分别按原时点重取，final clip/head沿保存base；固定宽基址沿head。空head palette沿旧base，有链处理结束后才重取base再dirtyCount0，helpers只接原head不另定位。各批次/Frame/版本老化/特殊旗与队列重读保持，所有公开/native/owner不改。原COM操作偏移未解析，不当绝对callee。14原call经13源码关系承接，仅局部窗口/实际连接，完整父/callee/间接alias及资源对象清理、SDK/机器ABI/像素画面未验，RPLAN.24异常不记安全/故障等价。",
+      "verification_level": "完整769条/2658B、13跳表、14callers112条窗口和原data/call类型；六限定CPP补丁外全文/公开分发与其它源、所有旧语义/登记外部保持，未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/DrawAllQueued.cpp",
+        "symbol": "DrawAllQueued_520DD0",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "queued_draw_alignment": {
+        "spec": "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure",
+        "evidence": "doc/cg2d_queued_draw_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_tails_retained": true,
+        "existing_cpu_back_gate_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

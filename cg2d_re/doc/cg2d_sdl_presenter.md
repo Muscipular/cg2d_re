@@ -1966,3 +1966,19 @@ Primary三格式点留替换证据，不称其原故障或像素实现重新验�
 [FLC01](cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)保存初始化330/释放15/消费213共558条原完整体。Font.cpp仅初始化五限定差异改码：原本地三族选择/保存S8族号、width-face-height取样与unsigned派生钳制。释放/消费原两分支及GDI顺序、同一字体/颜色/Back和已批准DC资源承接不改。
 
 原消费唯一521727与当前case4真实接线、初始化原push0及退出Font释放均有当前源码；不从旧“未接”重造实现，不发明可变头或业务writer。原COM44H/68H仍作为未解析间接操作，不能当绝对callee/COM错误等价。完整初始化退出/排序父、间接alias/DC/句柄寿命、SDK/字形/画面运行仍未验；本组不改变截图/其它同页功能或批准的native适配。
+
+## GQD01队列绘制DX基址与空链收尾增量（2026-10-05）
+
+[局部SPEC及源码结论](cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure)、
+[只读证据](cg2d_queued_draw_alignment_evidence.json)保存完整520DD0 769条/2658B、
+13跳表、14原调用点及局部窗口112条。本体已有完整13批次，本次实际修六处DX基址/head传递。
+
+普通矩形初界限的宽高沿520EEA同次基址，负X/Y各在修正后520F25/520F41新取；
+最后宽高/初始head沿保存基址。head空时5213C1的palette亦沿它，
+非空链处理完才5213BB重取全局基址后读palette。
+固定比例沿5214E9当前宽的基址取head，空链5216D1沿它，非空尾5216CB才重取。
+两个private遍历只接真实head，原上传/矩形/循环/next/dirty与公开分发一字不改。
+
+原IsLost→CPU Back存活映射沿本页已批准合同保留，Back失效早返不执行所有尾操作；
+COM偏移只记间接操作。14逻辑点由13源码调用承接，两fade父loop共公共帧尾，
+FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/callee/模式/资源借用清理及画面运行未验。

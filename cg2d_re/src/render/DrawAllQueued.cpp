@@ -62,10 +62,10 @@ TextureRectangle MakeNodeRectangle(
 void DrawIntegerNodes(
     GraphicCacheItem32* const graphic, const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y,
-    const std::int32_t width, const std::int32_t height)
+    const std::int32_t width, const std::int32_t height,
+    TextureNode* const head)
 {
-    for (TextureNode* node = gGraphicDxCache103CFA4[imageNo].head;
-         node != nullptr; node = node->next) {
+    for (TextureNode* node = head; node != nullptr; node = node->next) {
         const std::uint32_t frame = platform::gFrameCount;
         const std::int32_t blockX = node->blockX;
         node->reuseState = frame;
@@ -118,10 +118,9 @@ void DrawScaledNodes(
     GraphicCacheItem32* const graphic, const std::int32_t imageNo,
     const std::int32_t x, const std::int32_t y,
     const std::int32_t width, const std::int32_t height,
-    const bool useActionScale, const float fixedScale)
+    const bool useActionScale, const float fixedScale, TextureNode* const head)
 {
-    for (TextureNode* node = gGraphicDxCache103CFA4[imageNo].head;
-         node != nullptr; node = node->next) {
+    for (TextureNode* node = head; node != nullptr; node = node->next) {
         const std::uint32_t frame = platform::gFrameCount;
         const std::int32_t blockY = node->blockY;
         node->reuseState = frame;
@@ -228,25 +227,41 @@ void DrawSprite(GraphicCacheItem32* const graphic)
     std::int32_t x = sourceX;
     std::int32_t y = sourceY;
     std::int32_t height = sourceHeight;
-    if (x + width < 0 || y + height < 0
-        || x > ReadGraphicDxWidth(imageNo) || y > ReadGraphicDxHeight(imageNo)) {
+    if (x + width < 0 || y + height < 0) {
+        return;
+    }
+    DxGraphicEntry* dxBase = gGraphicDxCache103CFA4;
+    const std::int32_t initialWidth =
+        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+    if (x > initialWidth) {
+        return;
+    }
+    const std::int32_t initialHeight =
+        std::bit_cast<std::int16_t>(dxBase[imageNo].height);
+    if (y > initialHeight) {
         return;
     }
     if (x < 0) {
+        const std::int32_t originX = graphic->x;
         width += x;
-        graphic->x -= x;
+        graphic->x = originX - x;
         x = 0;
+        dxBase = gGraphicDxCache103CFA4;
     }
     if (y < 0) {
+        const std::int32_t originY = graphic->y;
         height += y;
-        graphic->y -= y;
+        graphic->y = originY - y;
         y = 0;
+        dxBase = gGraphicDxCache103CFA4;
     }
-    const std::int32_t fullWidth = ReadGraphicDxWidth(imageNo);
+    const std::int32_t fullWidth =
+        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
     if (x + width > fullWidth) {
         width = fullWidth - x;
     }
-    const std::int32_t fullHeight = ReadGraphicDxHeight(imageNo);
+    const std::int32_t fullHeight =
+        std::bit_cast<std::int16_t>(dxBase[imageNo].height);
     if (y + height > fullHeight) {
         height = fullHeight - y;
     }
@@ -264,12 +279,16 @@ void DrawSprite(GraphicCacheItem32* const graphic)
             integerPath = scaleY == 1.0f || std::isnan(scaleY);
         }
     }
-    if (integerPath) {
-        DrawIntegerNodes(graphic, imageNo, x, y, width, height);
-    } else {
-        DrawScaledNodes(graphic, imageNo, x, y, width, height, true, 1.0f);
+    TextureNode* const head = dxBase[imageNo].head;
+    if (head != nullptr) {
+        if (integerPath) {
+            DrawIntegerNodes(graphic, imageNo, x, y, width, height, head);
+        } else {
+            DrawScaledNodes(graphic, imageNo, x, y, width, height, true, 1.0f, head);
+        }
+        dxBase = gGraphicDxCache103CFA4;
     }
-    PaletteCacheItem* const palette = gGraphicDxCache103CFA4[imageNo].palette;
+    PaletteCacheItem* const palette = dxBase[imageNo].palette;
     if (palette != nullptr) {
         palette->dirtyCount = 0;
     }
@@ -298,7 +317,9 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
     if (width < 0 || height < 0) {
         return;
     }
-    const std::int32_t currentWidth = ReadGraphicDxWidth(imageNo);
+    DxGraphicEntry* dxBase = gGraphicDxCache103CFA4;
+    const std::int32_t currentWidth =
+        std::bit_cast<std::int16_t>(dxBase[imageNo].width);
     if (currentWidth < 0 || height < 0) {
         return;
     }
@@ -308,8 +329,12 @@ void DrawFixedScaleSprite(GraphicCacheItem32* const graphic, const float scale)
     if (width <= 0 || height <= 0) {
         return;
     }
-    DrawScaledNodes(graphic, imageNo, 0, 0, width, height, false, scale);
-    PaletteCacheItem* const palette = gGraphicDxCache103CFA4[imageNo].palette;
+    TextureNode* const head = dxBase[imageNo].head;
+    if (head != nullptr) {
+        DrawScaledNodes(graphic, imageNo, 0, 0, width, height, false, scale, head);
+        dxBase = gGraphicDxCache103CFA4;
+    }
+    PaletteCacheItem* const palette = dxBase[imageNo].palette;
     if (palette != nullptr) {
         palette->dirtyCount = 0;
     }

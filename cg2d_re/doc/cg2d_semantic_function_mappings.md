@@ -1565,3 +1565,21 @@ SDK/机器ABI/画面运行仍未验；没有构建、测试、运行或摘要，
 3无独立ID/18 pending/4分类引用、10/60关闭/0/182叶验收/完整门禁与全局闭包不变。
 原额外dataref不升格数据身份；完整父/模式/上游、间接alias、资源表/节点失效与借用清理、
 SDK/机器ABI/像素画面未验；没有构建/测试/运行/摘要，异常不记安全/故障等价。
+
+## GQD01完整批次根与DX基址/head阶段对照（2026-10-05）
+
+[局部SPEC/源码结论](cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure)及
+[只读证据](cg2d_queued_draw_alignment_evidence.json)保存520DD0完整769条/2658B、
+13跳表、14caller局部112条；32调用操作含7未解析COM偏移，不能把偏移当callee。
+原14点由13源码调用承接，两个fade父loop共公共帧尾，FadeIn最终直接调用另列。
+
+六处DrawAllQueued.cpp补丁恢复普通/固定DX bound/clip/head/dirty各阶段；
+两个private helper从保存head开始，空链沿原旧基址收尾、非空处理完才重取。
+公开13批次/各原门禁和native IsLost映射、三纹理/矩形及两循环算法/失败继续/next、
+队列count新读、版本老化/特殊flag写尾保持；未改任何父、owner、公共接口或其他源/头。
+
+新增唯一F:00120DD0，1201旧语义/登记外部保持：
+1202条/1199有效原ID、审核116/3680、局部证据78；
+3无独立ID/18 pending/4分类引用及10/60关闭/0/182叶验收/完整门禁/全局闭包不提升。
+完整父/callee、全部上游/间接alias与资源对象借用/清理、SDK/机器浮点ABI/画面运行未验，
+未构建/测试/运行/摘要，异常不记安全/故障等价。

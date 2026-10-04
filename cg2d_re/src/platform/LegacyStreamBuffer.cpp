@@ -1,5 +1,7 @@
 #include "LegacyStreamBuffer.hpp"
 
+#include "LegacyHeap.hpp"
+
 #include <cstring>
 
 namespace cg::platform {
@@ -205,5 +207,37 @@ template void DefaultLegacyStreamNoOp_5487D0<char>(
     LegacyNarrowStreamBuffer*, std::uint32_t);
 template void DefaultLegacyStreamNoOp_5487D0<std::uint16_t>(
     LegacyWideStreamBuffer*, std::uint32_t);
+
+void DestroyLegacyNarrowStreamBuffer_5486B1(LegacyNarrowStreamBufferObject* const storage)
+{
+    storage->buffer.virtualTable = &gLegacyNarrowStreamBufferMethods55000C;
+    DestroyLegacyLocale_54867D(&storage->localeImplementation);
+}
+
+void DestroyLegacyWideStreamBuffer_54976A(LegacyWideStreamBufferObject* const storage)
+{
+    storage->buffer.virtualTable = &gLegacyWideStreamBufferMethods5500A8;
+    DestroyLegacyLocale_54867D(&storage->localeImplementation);
+}
+
+LegacyNarrowStreamBufferObject* DeleteLegacyNarrowStreamBuffer_548D31(
+    LegacyNarrowStreamBufferObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyNarrowStreamBuffer_5486B1(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyWideStreamBufferObject* DeleteLegacyWideStreamBuffer_549D86(
+    LegacyWideStreamBufferObject* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyWideStreamBuffer_54976A(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
 
 } // namespace cg::platform

@@ -9770,7 +9770,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "默认locale构造先54A404并立即保存返回到对象实现槽，再重新取当前全局按原门禁增加一份引用；七个直接调用来自窄/宽filebuf及ios_base初始化。宿主默认locale通过_Init(true)取得同源共享实现，应用无需再建对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F22/0x549EAE，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548612/0x548632/0x54971E/0x54973E；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "默认locale构造先54A404并立即保存返回到对象实现槽，再重新取当前全局按原门禁增加一份引用；七个直接调用来自窄/宽filebuf及ios_base初始化。宿主默认locale通过_Init(true)取得同源共享实现，应用无需再建对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F22/0x549EAE，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548612/0x548632/0x54971E/0x54973E；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
@@ -9875,7 +9875,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x54865E",
           "target_symbol": "ConstructLegacyLocale_54865E",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "基类locale构造先行，异常未进入state0，不误清未完成locale"
         },
         {
@@ -9895,7 +9895,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54865E",
           "target_symbol": "ConstructLegacyLocale_54865E",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "基类locale构造先行，异常未进入state0，不误清未完成locale"
         },
         {
@@ -9956,11 +9956,17 @@
             "ConstructLegacyNarrowFileBuffer_5485FE",
             "ConstructLegacyWideFileBuffer_54970A",
             "DestroyLegacyNarrowFileBuffer_5487DE",
-            "DestroyLegacyWideFileBuffer_549935",
+            "DestroyLegacyWideFileBuffer_549935"
+          ],
+          "relationship": "新增原filebuf/基类构析父实际调用，原字段/原堆/阶段顺序保持；依赖既有本体不改或复检"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
             "DestroyLegacyNarrowStreamBuffer_5486B1",
             "DestroyLegacyWideStreamBuffer_54976A"
           ],
-          "relationship": "新增原filebuf/基类构析父实际调用，原字段/原堆/阶段顺序保持；依赖既有本体不改或复检"
+          "relationship": "已过原基类析构机械迁入既有streambuf文件，只恢复真实表/析构真实locale槽，不重验旧行为"
         }
       ],
       "native_provider": {
@@ -9972,7 +9978,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F17/0x549EA3，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54C176/0x54C189/0x54C2D6/0x54C2E9/0x548822/0x548830/0x54C1A6/0x549979/0x549987/0x54C306/0x5486BA/0x549773；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "先检查对象实现非空，再548695递减，返回非空才虚调用带删除标记1的析构；宿主~locale拥有对应引用释放职责，非对象所有者不直接delete共享实现。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04新增真实原locale六本体与原生方法槽。Ctor先ref1/facet表，透明取W32低U8、名称首prefix取同W32高U8，vector/count/categories0，Tidy(false)/原星strlen/assign完成后Locimp表，失败只facet表恢复。Decref仅0<count<FFFFFFFF时减并重新读count，零返this（含零输入），其余空。locale析构只非空impl，Decref返非空才原槽0(flags1)，不清对象实现槽。facet删除先保存flags bit0判定再写表/同域释放；Locimp析构入口取count一次、每轮先重取vector再退index、非空facet按原内联门禁/重读零判断才虚删；结束直接原free当时vector（含空），不清向量字段，正常/失败按原state2→名称/state0→facet表次序且名称失败不二次析构。Locimp删除先实际dtor后flags/原堆释放/返原地址。未初始化1086730/经典全局或登记退出，未改LegacyMouse宿主流/locale，其他facet生产/SDK迁移/模式3及运行仍待。；2026-10-04新增filebuf实际原点0x548F17/0x549EA3，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54C176/0x54C189/0x54C2D6/0x54C2E9/0x548822/0x548830/0x54C1A6/0x549979/0x549987/0x54C306/0x5486BA/0x549773；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "verification_level": "；本轮六本体152条统计（含原共享清理chunk）、全部原入向、40B分配/64B字段与两方法槽/2B星字节、参数EBP+0B原同W32高U8、0/FFFFFFFF门禁和重读、逆序向量重取/三state清理及限定新增静态核对；旧核心不复检，未构建或运行",
       "native_storage": {
         "source": "src/platform/LegacyLocale.hpp",
@@ -10090,7 +10096,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "state0原展开只清+34，不额外恢复基类表"
         },
         {
@@ -10110,7 +10116,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "state0原展开只清+34，不额外恢复基类表"
         },
         {
@@ -10140,7 +10146,7 @@
           "symbol": "DestroyLegacyNarrowFileBuffer_5487DE",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "正常切回基类表再+34locale，原仍state1；失败仍完整展开"
         },
         {
@@ -10170,7 +10176,7 @@
           "symbol": "DestroyLegacyWideFileBuffer_549935",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "正常切回基类表再+34locale，原仍state1；失败仍完整展开"
         },
         {
@@ -10186,21 +10192,21 @@
         {
           "parent_entry": "0x5486B1",
           "call_site": "0x5486BA",
-          "source": "src/platform/LegacyFileBuffer.cpp",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
           "symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->localeImplementation",
           "relationship": "真实窄基类表写后尾调+34locale，不重置缓冲或释放整对象"
         },
         {
           "parent_entry": "0x54976A",
           "call_site": "0x549773",
-          "source": "src/platform/LegacyFileBuffer.cpp",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
           "symbol": "DestroyLegacyWideStreamBuffer_54976A",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->localeImplementation",
           "relationship": "真实宽基类表写后尾调+34locale，不重置缓冲或释放整对象"
         }
       ]
@@ -11167,6 +11173,14 @@
             "DeleteLegacyWideFileBuffer_549DA2"
           ],
           "relationship": "新增原删除析构叶实际调用，完整析构→flags/原堆顺序保持，旧本体不改/复检"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DeleteLegacyNarrowStreamBuffer_548D31",
+            "DeleteLegacyWideStreamBuffer_549D86"
+          ],
+          "relationship": "新增streambuf删除析构真实原点，实际104B基类对象与同域释放，已过依赖行为不复检"
         }
       ],
       "evidence_documents": [
@@ -11174,7 +11188,7 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。",
+      "boundary": "原调用free，本次由FreeLegacyByteBuffer配对释放新分配器产生的块及接受空指针。必须与std::free/operator delete及其他allocator分开，不能据此将任意原delete调用转成本函数；既有Free_53C0A9标准库裁决不变。只做静态核对，不表示全部CRT、分配失败场景或客户端运行验收通过。；2026-10-04原窄字符串内部真实4条delete桥接调原堆FreeLegacyHeapMemory_53C0A9，和内部53C9CF原堆分配配对；不释放宿主/六裸适配块，不扩其他对象delete。模式3/完整运行未验。；2026-10-04另接原exception对象两个53B4E7释放点，按原薄叶实际53C3BE(U32,1)/53C0A9原堆域配对；六宿主裸适配和原窄字符串范围不改，未把任意对象/宿主内存或SDK异常纳入。原模式3/x64链表和完整堆及运行仍未闭。；2026-10-04接原logic_error父实际调用0x54A7A2；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A875/0x54A95D；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A0D9/0x54A1AC；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04实际ios双链54A2E0/54A2FA两delete点按原薄叶转53C0A9，保存next在释放前、回调返回后才取值链、先缓存回调头再清值头及末清回调头；只原堆节点，节点上游生产/全owner/模式3和运行未闭，其他已批宿主与字符串/异常释放范围不改。；2026-10-04新增locale构析原点0x54A58F/0x54A5AB，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54C39F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548819/0x549970；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04新增filebuf scalar deleting真实原点0x548D5D/0x549DB2；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "exception_original_heap_connections": [
         {
           "parent_entry": "0x54B100",
@@ -11351,6 +11365,28 @@
           "relationship": "完整析构正常返回后flags bit0非0才同域原堆delete，不混SDK块",
           "source": "src/platform/LegacyFileBuffer.cpp",
           "symbol": "DeleteLegacyWideFileBuffer_549DA2"
+        }
+      ],
+      "stream_base_delete_parent_call_connections": [
+        {
+          "parent_entry": "0x548D31",
+          "call_site": "0x548D41",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0非0才同域原堆delete整个原分配地址，缓存this返回，无数组删除",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyNarrowStreamBuffer_548D31"
+        },
+        {
+          "parent_entry": "0x549D86",
+          "call_site": "0x549D96",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0非0才同域原堆delete整个原分配地址，缓存this返回，无数组删除",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyWideStreamBuffer_549D86"
         }
       ]
     },
@@ -37500,22 +37536,86 @@
     {
       "original_entry": "0x548D31",
       "inventory_id": "F:00148D31",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原窄宽streambuf删除析构本体已实现；真实基类表定义/路由和上游owner未闭",
       "original_end_exclusive": "0x548D4D",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "新增两体22条/四数值call、104B实际基类/152B派生偏移与首成员投影、两旧基类本体机械迁位保持/原四父点投影、七文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x55000C",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DeleteLegacyNarrowStreamBuffer_548D31"
+          ],
+          "relationship": "真实原两11条删除本体，先完整基类析构再flags bit0原堆释放与缓存地址返回"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DeleteLegacyNarrowStreamBuffer_548D31"
+          ],
+          "relationship": "104B真实基类对象/首成员接口，数值/地址宽度与原顺序保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄streambuf析构包装：this调5486B1，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "窄streambuf析构包装：this调5486B1，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实基类104B对象/派生首成员子对象，先实际窄/宽基类析构，再flags bit0非0时同域原堆delete，末返缓存this，不加null/数组删除/异常回滚。基类仅表写/真实locale槽清理，原六值缓冲不重置，不消耗派生字段；真实基类表定义/路由与上游owner/模式3/SDK/x64传播/运行未闭。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "stream_base_delete_internal_call_connections": [
+        {
+          "parent_entry": "0x548D31",
+          "call_site": "0x548D34",
+          "target_entry": "0x5486B1",
+          "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
+          "arguments": "storage",
+          "relationship": "真实104B基类对象，完整基类析构正常返回后才检测flags bit0",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyNarrowStreamBuffer_548D31"
+        },
+        {
+          "parent_entry": "0x548D31",
+          "call_site": "0x548D41",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0非0才同域原堆delete整个原分配地址，缓存this返回，无数组删除",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyNarrowStreamBuffer_548D31"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x55000c",
+          "target": "0x548d31",
+          "kind": 1,
+          "boundary": "原基类槽0引用，仅证目标；当前真实表仍仅声明，不当新端路由完成"
+        }
+      ]
     },
     {
       "original_entry": "0x548D4D",
@@ -37624,22 +37724,29 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，不能失败后仍清绑定。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548803；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "窄close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，不能失败后仍清绑定。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548803；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -37677,7 +37784,7 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "state_seed_dependencies": {
         "source": "src/platform/LegacyFileBuffer.hpp",
@@ -37770,22 +37877,29 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄_Init：先写+48=(mode==1)；mode0重建+4C locale并清+44。共同reset后，FILE非空且+48为0才把六间接槽绑定FILE字段；最后发布FILE和转换状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548648；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "窄_Init：先写+48=(mode==1)；mode0重建+4C locale并清+44。共同reset后，FILE非空且+48为0才把六间接槽绑定FILE字段；最后发布FILE和转换状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548648；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -37823,7 +37937,7 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "state_seed_dependencies": {
         "source": "src/platform/LegacyFileBuffer.hpp",
@@ -37863,7 +37977,7 @@
           "symbol": "InitializeLegacyNarrowFileBuffer_548EFC",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE<char>",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "Locale后共用reset，再实际FILE三字段成对别名"
         }
       ],
@@ -38048,22 +38162,86 @@
     {
       "original_entry": "0x549D86",
       "inventory_id": "F:00149D86",
-      "status": "原流缓冲绑定或位置入口已取证；新端承接与生命周期未实现/未验收",
+      "status": "原窄宽streambuf删除析构本体已实现；真实基类表定义/路由和上游owner未闭",
       "original_end_exclusive": "0x549DA2",
       "instruction_count": 11,
       "original_direct_reference_count": 1,
-      "verification_level": "完整代码指令及全部直接入向，区分虚表数据引用",
+      "verification_level": "新增两体22条/四数值call、104B实际基类/152B派生偏移与首成员投影、两旧基类本体机械迁位保持/原四父点投影、七文件新增静态核对；未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x5500A8",
           "parent_entry": null
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DeleteLegacyWideStreamBuffer_549D86"
+          ],
+          "relationship": "真实原两11条删除本体，先完整基类析构再flags bit0原堆释放与缓存地址返回"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.hpp",
+          "symbols": [
+            "DeleteLegacyWideStreamBuffer_549D86"
+          ],
+          "relationship": "104B真实基类对象/首成员接口，数值/地址宽度与原顺序保持"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽streambuf析构包装：this调54976A，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。"
+      "boundary": "宽streambuf析构包装：this调54976A，flag低位1才delete；返回原地址。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实基类104B对象/派生首成员子对象，先实际窄/宽基类析构，再flags bit0非0时同域原堆delete，末返缓存this，不加null/数组删除/异常回滚。基类仅表写/真实locale槽清理，原六值缓冲不重置，不消耗派生字段；真实基类表定义/路由与上游owner/模式3/SDK/x64传播/运行未闭。",
+      "native_storage": {
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
+        "fields": {
+          "buffer": {
+            "original_offset": 0,
+            "native_offset": 0,
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+          },
+          "localeImplementation": {
+            "original_offset": 52,
+            "native_offset": 96,
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+          }
+        },
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
+      },
+      "stream_base_delete_internal_call_connections": [
+        {
+          "parent_entry": "0x549D86",
+          "call_site": "0x549D89",
+          "target_entry": "0x54976A",
+          "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
+          "arguments": "storage",
+          "relationship": "真实104B基类对象，完整基类析构正常返回后才检测flags bit0",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyWideStreamBuffer_549D86"
+        },
+        {
+          "parent_entry": "0x549D86",
+          "call_site": "0x549D96",
+          "target_entry": "0x53B4E7",
+          "target_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "arguments": "storage",
+          "relationship": "flags bit0非0才同域原堆delete整个原分配地址，缓存this返回，无数组删除",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyWideStreamBuffer_549D86"
+        }
+      ],
+      "original_virtual_table_data_references": [
+        {
+          "address": "0x5500a8",
+          "target": "0x549d86",
+          "kind": 1,
+          "boundary": "原基类槽0引用，仅证目标；当前真实表仍仅声明，不当新端路由完成"
+        }
+      ]
     },
     {
       "original_entry": "0x549DA2",
@@ -38172,22 +38350,29 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，保留失败时对象状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54995A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "宽close：FILE非空且fclose返回0才_Init(nullptr,2)并返回this；其他返回空，保留失败时对象状态。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x54995A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -38225,7 +38410,7 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "state_seed_dependencies": {
         "source": "src/platform/LegacyFileBuffer.hpp",
@@ -38318,22 +38503,29 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽_Init：模式/locale/reset顺序同窄入口，但不把内部游标/计数链接到FILE字段；发布FILE后两次取1087AF8到+40/+3C并清+38。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x549754；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "宽_Init：模式/locale/reset顺序同窄入口，但不把内部游标/计数链接到FILE字段；发布FILE后两次取1087AF8到+40/+3C并清+38。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04真实原生filebuf144B视图/原生FILE48B及Locale，Init先U8 mode==1，mode0先旧locale析构再固定字段地址测试/默认构造再清44，reset后窄FILE非空且旗0才按原顺序六槽共用实际FILE current/base/remaining，宽不链接FILE。发布FILE后，窄独立两次读1087B00、宽独立两次读1087AF8，先40/再取第二次/清38/写3C。两种子仍真实外部声明，未补原初值/实际存储或故障模拟。close只原FILE非空和真实fclose==0才Init(nullptr,2)返this，否则返空且filebuf不重绑；原FILE自身close副作用不假定不变。无宿主互转/影子字段/额外保护/回滚，实际Ctor/虚表/owner、种子生产/数据与SDK/完整运行仍待。；2026-10-04新析构消费确认+44是真实窄字符串指针，改scratchString原生8B/native120，后标志128/私有locale136/FILE144，整体152B；旧W32/144B字段记录仅历史。mode0清空指针，其他mode仍不清；窄宽Init/Close其余时点与已接原点保持。新增真实构析父点已接，完整表/种子/owner与运行待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x549754；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -38371,7 +38563,7 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "state_seed_dependencies": {
         "source": "src/platform/LegacyFileBuffer.hpp",
@@ -38411,7 +38603,7 @@
           "symbol": "InitializeLegacyWideFileBuffer_549E88",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE<U16>",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "宽共用reset，不接FILE字节游标/余量"
         }
       ],
@@ -38490,7 +38682,7 @@
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "缓冲槽重绑定：把六间接槽重绑到对象自身，再依次清写侧基址/游标/余量、读侧基址/游标/余量；不整对象清零。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE窄宽共用六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。；当前四原入向548623/548F2E/54972F/549EBA均同一原入口，C++只实例化char/U16，不重复原ID。；2026-10-04新增filebuf实际原点0x548F2E/0x549EBA，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548623/0x54972F；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "缓冲槽重绑定：把六间接槽重绑到对象自身，再依次清写侧基址/游标/余量、读侧基址/游标/余量；不整对象清零。 不以宿主流或通用析构自动认定等价；CRT提案仍待确认。；2026-10-04直接实际间接槽实现，原既有对象字段原生视图96B，指针拓宽，计数仍S32字符数。Gndec先计数再移动并重取槽返回新指针；Gninc/Pninc计数后锁定该次槽、发布新值并返回旧指针。549EDE窄宽共用六槽重绑与写/读六值清除，不清虚表地址/其他字段。未定义或路由旧虚表、不借宿主对象、无私有计数副本，实际owner/locale/上游FILE绑定及运行仍待。；当前四原入向548623/548F2E/54972F/549EBA均同一原入口，C++只实例化char/U16，不重复原ID。；2026-10-04新增filebuf实际原点0x548F2E/0x549EBA，Locale先行/共用reset/窄FILE别名及真实close==0才模式2、失败不重绑；旧本体/已有点未改，不互转宿主数据。两状态种子只声明、实际对象Ctor/虚表/SDK/完整运行仍未闭。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548623/0x54972F；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyStreamBufferStorage<char/U16>",
@@ -38558,7 +38750,7 @@
           "symbol": "InitializeLegacyNarrowFileBuffer_548EFC",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE<char>",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "Locale后共用reset，再实际FILE三字段成对别名"
         },
         {
@@ -38568,7 +38760,7 @@
           "symbol": "InitializeLegacyWideFileBuffer_549E88",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE<U16>",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "宽共用reset，不接FILE字节游标/余量"
         }
       ],
@@ -38580,7 +38772,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "先基类方法表，reset失败state0仅清基类locale"
         },
         {
@@ -38590,7 +38782,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "先基类方法表，reset失败state0仅清基类locale"
         }
       ]
@@ -39090,22 +39282,29 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄filebuf完整构造：先+34 locale、基类虚表/reset，再+4C locale、派生虚表和_Init(FILE,0)，返回this；分离异常块有按阶段清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。",
+      "boundary": "窄filebuf完整构造：先+34 locale、基类虚表/reset，再+4C locale、派生虚表和_Init(FILE,0)，返回this；分离异常块有按阶段清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -39143,13 +39342,13 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x55000C",
           "native_symbol": "gLegacyNarrowStreamBufferMethods55000C",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -39248,7 +39447,7 @@
         {
           "original_address": "0x54FFD4",
           "native_symbol": "gLegacyNarrowFileBufferMethods54FFD4",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -39353,7 +39552,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x54865E",
           "target_symbol": "ConstructLegacyLocale_54865E",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "基类locale构造先行，异常未进入state0，不误清未完成locale"
         },
         {
@@ -39363,7 +39562,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "先基类方法表，reset失败state0仅清基类locale"
         },
         {
@@ -39393,7 +39592,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "state0原展开只清+34，不额外恢复基类表"
         },
         {
@@ -39403,7 +39602,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x5486B1",
           "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state1 prev=-1，仅完整基类析构；不再执行state0"
         },
         {
@@ -39506,22 +39705,29 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄filebuf析构：先恢复派生虚表；+48非零才close，弃返回；+44非空则Tidy(true)及delete，再+4C locale、基类虚表、+34 locale，不清+44槽。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04新增filebuf scalar deleting真实原点0x548D50；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。",
+      "boundary": "窄filebuf析构：先恢复派生虚表；+48非零才close，弃返回；+44非空则Tidy(true)及delete，再+4C locale、基类虚表、+34 locale，不清+44槽。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04新增filebuf scalar deleting真实原点0x548D50；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -39559,13 +39765,13 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x55000C",
           "native_symbol": "gLegacyNarrowStreamBufferMethods55000C",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -39664,7 +39870,7 @@
         {
           "original_address": "0x54FFD4",
           "native_symbol": "gLegacyNarrowFileBufferMethods54FFD4",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -39809,7 +40015,7 @@
           "symbol": "DestroyLegacyNarrowFileBuffer_5487DE",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "正常切回基类表再+34locale，原仍state1；失败仍完整展开"
         },
         {
@@ -39819,7 +40025,7 @@
           "symbol": "DestroyLegacyNarrowFileBuffer_5487DE",
           "target_entry": "0x5486B1",
           "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state0展开完整基类析构，恢复基类表后清+34"
         },
         {
@@ -39949,22 +40155,29 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽filebuf完整构造：先+34 locale与基类reset，再+4C locale及_Init(FILE,0)；虚表为宽字符版本，保留阶段异常清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。",
+      "boundary": "宽filebuf完整构造：先+34 locale与基类reset，再+4C locale及_Init(FILE,0)；虚表为宽字符版本，保留阶段异常清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -40002,13 +40215,13 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x5500A8",
           "native_symbol": "gLegacyWideStreamBufferMethods5500A8",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -40107,7 +40320,7 @@
         {
           "original_address": "0x550070",
           "native_symbol": "gLegacyWideFileBufferMethods550070",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -40212,7 +40425,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54865E",
           "target_symbol": "ConstructLegacyLocale_54865E",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "基类locale构造先行，异常未进入state0，不误清未完成locale"
         },
         {
@@ -40222,7 +40435,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x549EDE",
           "target_symbol": "ResetLegacyStreamBuffer_549EDE",
-          "arguments": "&storage->buffer",
+          "arguments": "&storage->base.buffer",
           "relationship": "先基类方法表，reset失败state0仅清基类locale"
         },
         {
@@ -40252,7 +40465,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "state0原展开只清+34，不额外恢复基类表"
         },
         {
@@ -40262,7 +40475,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54976A",
           "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state1 prev=-1，仅完整基类析构；不再执行state0"
         },
         {
@@ -40365,22 +40578,29 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽filebuf析构：条件close、旧窄字符串Tidy/delete、+4C后+34 locale的次序保持，不能将字符串改成宽存储。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04新增filebuf scalar deleting真实原点0x549DA5；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。",
+      "boundary": "宽filebuf析构：条件close、旧窄字符串Tidy/delete、+4C后+34 locale的次序保持，不能将字符串改成宽存储。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04新增filebuf scalar deleting真实原点0x549DA5；先完整析构、后flags bit0同域释放和缓存原地址保持，已接构析不复检；四方法表/种子/完整owner与运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
         "original_consumed_range": "+00..+53",
         "native_size": 152,
         "fields": {
-          "buffer": {
+          "base": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
-          },
-          "baseLocale": {
-            "original_offset": 52,
-            "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
+            "type": "实际LegacyStreamBufferObject<Char/U16>104B首成员",
+            "fields": {
+              "buffer": {
+                "original_offset": 0,
+                "native_offset": 0,
+                "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
+              },
+              "localeImplementation": {
+                "original_offset": 52,
+                "native_offset": 96,
+                "type": "LegacyLocaleImplementation*，真实单指针locale槽"
+              }
+            }
           },
           "state38Bits": {
             "original_offset": 56,
@@ -40418,13 +40638,13 @@
             "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。；2026-10-04基类改真实104B首成员base，buffer/locale路径为base.buffer/base.localeImplementation；物理偏移/152B整体与原调用顺序保持。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x5500A8",
           "native_symbol": "gLegacyWideStreamBufferMethods5500A8",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -40523,7 +40743,7 @@
         {
           "original_address": "0x550070",
           "native_symbol": "gLegacyWideFileBufferMethods550070",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -40668,7 +40888,7 @@
           "symbol": "DestroyLegacyWideFileBuffer_549935",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->base.localeImplementation",
           "relationship": "正常切回基类表再+34locale，原仍state1；失败仍完整展开"
         },
         {
@@ -40678,7 +40898,7 @@
           "symbol": "DestroyLegacyWideFileBuffer_549935",
           "target_entry": "0x54976A",
           "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state0展开完整基类析构，恢复基类表后清+34"
         },
         {
@@ -40756,7 +40976,7 @@
     {
       "original_entry": "0x5486B1",
       "inventory_id": "F:001486B1",
-      "status": "原窄宽filebuf/基类构析六本体已实现；真实方法表定义、种子及启动owner迁移/运行未闭",
+      "status": "原基类析构本体已实现且接真实104B子对象；方法表定义/路由、owner迁移与运行未闭",
       "original_end_exclusive": "0x5486BF",
       "instruction_count": 3,
       "original_direct_reference_count": 3,
@@ -40780,84 +41000,56 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFileBuffer.cpp",
+          "path": "src/platform/LegacyStreamBuffer.cpp",
           "symbols": [
             "DestroyLegacyNarrowStreamBuffer_5486B1"
           ],
-          "relationship": "原构析/阶段展开真实源本体，原生指针/原堆/真实依赖次序保持；不当宿主SDK ABI等价"
+          "relationship": "已过原基类析构机械迁入既有streambuf文件，只恢复真实表/析构真实locale槽，不重验旧行为"
         },
         {
-          "path": "src/platform/LegacyFileBuffer.hpp",
+          "path": "src/platform/LegacyStreamBuffer.hpp",
           "symbols": [
             "DestroyLegacyNarrowStreamBuffer_5486B1"
           ],
-          "relationship": "实际152B字段视图与显式接口，方法表仅真实声明"
+          "relationship": "已过原基类析构接口改接真实104B基类对象，locale96/缓冲0投影保持，原方法表仅声明"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DeleteLegacyNarrowStreamBuffer_548D31"
+          ],
+          "relationship": "新增streambuf删除析构真实原点，实际104B基类对象与同域释放，已过依赖行为不复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "窄基类析构只重写streambuf虚表，this+34尾调locale析构；不关闭FILE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。",
+      "boundary": "窄基类析构只重写streambuf虚表，this+34尾调locale析构；不关闭FILE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
-        "source": "src/platform/LegacyFileBuffer.hpp",
-        "type": "LegacyNarrowFileBuffer",
-        "original_consumed_range": "+00..+53",
-        "native_size": 152,
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyNarrowStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
         "fields": {
           "buffer": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
           },
-          "baseLocale": {
+          "localeImplementation": {
             "original_offset": 52,
             "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
-          },
-          "state38Bits": {
-            "original_offset": 56,
-            "native_offset": 104,
-            "type": "W32"
-          },
-          "state3CBits": {
-            "original_offset": 60,
-            "native_offset": 108,
-            "type": "W32第二采样"
-          },
-          "state40Bits": {
-            "original_offset": 64,
-            "native_offset": 112,
-            "type": "W32第一采样"
-          },
-          "modeOneFlag": {
-            "original_offset": 72,
-            "native_offset": 128,
-            "type": "U8，mode==1取0/1"
-          },
-          "privateLocale": {
-            "original_offset": 76,
-            "native_offset": 136,
-            "type": "真实locale单指针字段"
-          },
-          "file": {
-            "original_offset": 80,
-            "native_offset": 144,
-            "type": "LegacyFile*"
-          },
-          "scratchString": {
-            "original_offset": 68,
-            "native_offset": 120,
-            "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x55000C",
           "native_symbol": "gLegacyNarrowStreamBufferMethods55000C",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -40952,116 +41144,17 @@
               "type": "void __stdcall(int)"
             }
           ]
-        },
-        {
-          "original_address": "0x54FFD4",
-          "native_symbol": "gLegacyNarrowFileBufferMethods54FFD4",
-          "source": "src/platform/LegacyFileBuffer.hpp",
-          "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
-          "original_slots": [
-            {
-              "slot": 0,
-              "address": "0x54ffd4",
-              "target": "0x548d4d",
-              "name": "sub_548D4D",
-              "type": "LPVOID __thiscall(LPVOID lpMem, char)"
-            },
-            {
-              "slot": 1,
-              "address": "0x54ffd8",
-              "target": "0x548843",
-              "name": "?overflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
-              "type": "int __thiscall(std::filebuf *this, int)"
-            },
-            {
-              "slot": 2,
-              "address": "0x54ffdc",
-              "target": "0x548979",
-              "name": "?pbackfail@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
-              "type": "int __thiscall(std::filebuf *this, int)"
-            },
-            {
-              "slot": 3,
-              "address": "0x54ffe0",
-              "target": "0x54977f",
-              "name": "sub_54977F",
-              "type": "int()"
-            },
-            {
-              "slot": 4,
-              "address": "0x54ffe4",
-              "target": "0x548a26",
-              "name": "?underflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
-              "type": "int __thiscall(std::filebuf *this)"
-            },
-            {
-              "slot": 5,
-              "address": "0x54ffe8",
-              "target": "0x548a53",
-              "name": "?uflow@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
-              "type": "int __thiscall(std::filebuf *this)"
-            },
-            {
-              "slot": 6,
-              "address": "0x54ffec",
-              "target": "0x5486e6",
-              "name": "?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPADH@Z",
-              "type": "int __thiscall(signed __int32 **this, char *, int)"
-            },
-            {
-              "slot": 7,
-              "address": "0x54fff0",
-              "target": "0x54875a",
-              "name": "?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHPBDH@Z",
-              "type": "int __thiscall(signed __int32 **this, unsigned __int8 *Src, int)"
-            },
-            {
-              "slot": 8,
-              "address": "0x54fff4",
-              "target": "0x548b68",
-              "name": "unknown_libname_73",
-              "type": "void *__thiscall(int this, void *, int Offset, int Origin, int)"
-            },
-            {
-              "slot": 9,
-              "address": "0x54fff8",
-              "target": "0x548bea",
-              "name": "unknown_libname_74",
-              "type": "int *__thiscall(int this, int *, int, int, fpos_t, int, int, int)"
-            },
-            {
-              "slot": 10,
-              "address": "0x54fffc",
-              "target": "0x548cac",
-              "name": "?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z",
-              "type": "FILE **__thiscall(FILE **this, char *Buffer, size_t Size)"
-            },
-            {
-              "slot": 11,
-              "address": "0x550000",
-              "target": "0x549d13",
-              "name": "unknown_libname_80",
-              "type": "int __thiscall(FILE **this)"
-            },
-            {
-              "slot": 12,
-              "address": "0x550004",
-              "target": "0x5487d0",
-              "name": "nullsub_8",
-              "type": "void __stdcall(int)"
-            }
-          ]
         }
       ],
       "file_buffer_lifetime_internal_call_connections": [
         {
           "parent_entry": "0x5486B1",
           "call_site": "0x5486BA",
-          "source": "src/platform/LegacyFileBuffer.cpp",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
           "symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->localeImplementation",
           "relationship": "真实窄基类表写后尾调+34locale，不重置缓冲或释放整对象"
         }
       ],
@@ -41073,7 +41166,7 @@
           "symbol": "ConstructLegacyNarrowFileBuffer_5485FE",
           "target_entry": "0x5486B1",
           "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state1 prev=-1，仅完整基类析构；不再执行state0"
         },
         {
@@ -41083,15 +41176,27 @@
           "symbol": "DestroyLegacyNarrowFileBuffer_5487DE",
           "target_entry": "0x5486B1",
           "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state0展开完整基类析构，恢复基类表后清+34"
+        }
+      ],
+      "stream_base_delete_parent_call_connections": [
+        {
+          "parent_entry": "0x548D31",
+          "call_site": "0x548D34",
+          "target_entry": "0x5486B1",
+          "target_symbol": "DestroyLegacyNarrowStreamBuffer_5486B1",
+          "arguments": "storage",
+          "relationship": "真实104B基类对象，完整基类析构正常返回后才检测flags bit0",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyNarrowStreamBuffer_548D31"
         }
       ]
     },
     {
       "original_entry": "0x54976A",
       "inventory_id": "F:0014976A",
-      "status": "原窄宽filebuf/基类构析六本体已实现；真实方法表定义、种子及启动owner迁移/运行未闭",
+      "status": "原基类析构本体已实现且接真实104B子对象；方法表定义/路由、owner迁移与运行未闭",
       "original_end_exclusive": "0x549778",
       "instruction_count": 3,
       "original_direct_reference_count": 3,
@@ -41115,84 +41220,56 @@
       ],
       "sources": [
         {
-          "path": "src/platform/LegacyFileBuffer.cpp",
+          "path": "src/platform/LegacyStreamBuffer.cpp",
           "symbols": [
             "DestroyLegacyWideStreamBuffer_54976A"
           ],
-          "relationship": "原构析/阶段展开真实源本体，原生指针/原堆/真实依赖次序保持；不当宿主SDK ABI等价"
+          "relationship": "已过原基类析构机械迁入既有streambuf文件，只恢复真实表/析构真实locale槽，不重验旧行为"
         },
         {
-          "path": "src/platform/LegacyFileBuffer.hpp",
+          "path": "src/platform/LegacyStreamBuffer.hpp",
           "symbols": [
             "DestroyLegacyWideStreamBuffer_54976A"
           ],
-          "relationship": "实际152B字段视图与显式接口，方法表仅真实声明"
+          "relationship": "已过原基类析构接口改接真实104B基类对象，locale96/缓冲0投影保持，原方法表仅声明"
+        },
+        {
+          "path": "src/platform/LegacyStreamBuffer.cpp",
+          "symbols": [
+            "DeleteLegacyWideStreamBuffer_549D86"
+          ],
+          "relationship": "新增streambuf删除析构真实原点，实际104B基类对象与同域释放，已过依赖行为不复检"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "宽基类析构同职责但使用宽虚表，this+34尾调locale析构。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。",
+      "boundary": "宽基类析构同职责但使用宽虚表，this+34尾调locale析构。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。",
       "native_storage": {
-        "source": "src/platform/LegacyFileBuffer.hpp",
-        "type": "LegacyWideFileBuffer",
-        "original_consumed_range": "+00..+53",
-        "native_size": 152,
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "type": "LegacyWideStreamBufferObject",
+        "original_consumed_range": "+00..+37",
+        "native_size": 104,
         "fields": {
           "buffer": {
             "original_offset": 0,
             "native_offset": 0,
-            "type": "实际LegacyStreamBufferStorage<Char/U16>96B"
+            "type": "实际LegacyStreamBufferStorage<Char/U16>96B，真实首成员"
           },
-          "baseLocale": {
+          "localeImplementation": {
             "original_offset": 52,
             "native_offset": 96,
-            "type": "LegacyLocaleImplementation*，显式基类构析"
-          },
-          "state38Bits": {
-            "original_offset": 56,
-            "native_offset": 104,
-            "type": "W32"
-          },
-          "state3CBits": {
-            "original_offset": 60,
-            "native_offset": 108,
-            "type": "W32第二采样"
-          },
-          "state40Bits": {
-            "original_offset": 64,
-            "native_offset": 112,
-            "type": "W32第一采样"
-          },
-          "modeOneFlag": {
-            "original_offset": 72,
-            "native_offset": 128,
-            "type": "U8，mode==1取0/1"
-          },
-          "privateLocale": {
-            "original_offset": 76,
-            "native_offset": 136,
-            "type": "真实locale单指针字段"
-          },
-          "file": {
-            "original_offset": 80,
-            "native_offset": 144,
-            "type": "LegacyFile*"
-          },
-          "scratchString": {
-            "original_offset": 68,
-            "native_offset": 120,
-            "type": "LegacyNarrowString*，窄宽共同窄字符串，mode0清空/显式析构缓存后Tidy与同域delete"
+            "type": "LegacyLocaleImplementation*，真实单指针locale槽"
           }
         },
-        "boundary": "仅显式原本体构析，+44新增消费证据确认为地址，原U32记录/144B被本节152B布局取代；地址拓宽、数值/标志不扩。不互转SDK对象/FILE；四实际方法表仅声明未定义/路由，两个原种子仅声明，不补零/FF，实际启动owner/虚删/运行未闭。"
+        "boundary": "完整已证基类字段视图104B；filebuf实际首成员base，非以完整152B filebuf类型覆盖独立基类，不猜完整分配器规模；显式析构/删除，无自动SDK对象、额外字段/影子locale或生命周期。实际基类方法表仅声明，定义/路由/owner/模式3和运行待。"
       },
       "native_method_table_dependencies": [
         {
           "original_address": "0x5500A8",
           "native_symbol": "gLegacyWideStreamBufferMethods5500A8",
-          "source": "src/platform/LegacyFileBuffer.hpp",
+          "source": "src/platform/LegacyStreamBuffer.hpp",
           "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
           "original_slots": [
             {
@@ -41287,116 +41364,17 @@
               "type": "void __stdcall(int)"
             }
           ]
-        },
-        {
-          "original_address": "0x550070",
-          "native_symbol": "gLegacyWideFileBufferMethods550070",
-          "source": "src/platform/LegacyFileBuffer.hpp",
-          "status": "真实不透明extern对象声明，未定义，未路由，不计原52槽为新本体/接线",
-          "original_slots": [
-            {
-              "slot": 0,
-              "address": "0x550070",
-              "target": "0x549da2",
-              "name": "sub_549DA2",
-              "type": "LPVOID __thiscall(LPVOID lpMem, char)"
-            },
-            {
-              "slot": 1,
-              "address": "0x550074",
-              "target": "0x54999a",
-              "name": "?overflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
-              "type": "__int16 __thiscall(int this, int Character)"
-            },
-            {
-              "slot": 2,
-              "address": "0x550078",
-              "target": "0x549ae2",
-              "name": "?pbackfail@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
-              "type": "__int16 __thiscall(int this, int Character)"
-            },
-            {
-              "slot": 3,
-              "address": "0x55007c",
-              "target": "0x54977f",
-              "name": "sub_54977F",
-              "type": "int()"
-            },
-            {
-              "slot": 4,
-              "address": "0x550080",
-              "target": "0x549b99",
-              "name": "?underflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ",
-              "type": "__int16 __thiscall(std::basic_filebuf<unsigned short> *this)"
-            },
-            {
-              "slot": 5,
-              "address": "0x550084",
-              "target": "0x549bc7",
-              "name": "?uflow@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEGXZ",
-              "type": "wint_t __thiscall(int this)"
-            },
-            {
-              "slot": 6,
-              "address": "0x550088",
-              "target": "0x5497a8",
-              "name": "?xsgetn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPAGH@Z",
-              "type": "int __thiscall(std::basic_streambuf<unsigned short> *this, unsigned __int16 *, int)"
-            },
-            {
-              "slot": 7,
-              "address": "0x55008c",
-              "target": "0x54982f",
-              "name": "?xsputn@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHPBGH@Z",
-              "type": "int __thiscall(std::basic_streambuf<unsigned short> *this, const unsigned __int16 *, int)"
-            },
-            {
-              "slot": 8,
-              "address": "0x550090",
-              "target": "0x548b68",
-              "name": "unknown_libname_73",
-              "type": "void *__thiscall(int this, void *, int Offset, int Origin, int)"
-            },
-            {
-              "slot": 9,
-              "address": "0x550094",
-              "target": "0x548bea",
-              "name": "unknown_libname_74",
-              "type": "int *__thiscall(int this, int *, int, int, fpos_t, int, int, int)"
-            },
-            {
-              "slot": 10,
-              "address": "0x550098",
-              "target": "0x549ce5",
-              "name": "?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z",
-              "type": "FILE **__thiscall(FILE **this, char *Buffer, int)"
-            },
-            {
-              "slot": 11,
-              "address": "0x55009c",
-              "target": "0x549d13",
-              "name": "unknown_libname_80",
-              "type": "int __thiscall(FILE **this)"
-            },
-            {
-              "slot": 12,
-              "address": "0x5500a0",
-              "target": "0x5487d0",
-              "name": "nullsub_8",
-              "type": "void __stdcall(int)"
-            }
-          ]
         }
       ],
       "file_buffer_lifetime_internal_call_connections": [
         {
           "parent_entry": "0x54976A",
           "call_site": "0x549773",
-          "source": "src/platform/LegacyFileBuffer.cpp",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
           "symbol": "DestroyLegacyWideStreamBuffer_54976A",
           "target_entry": "0x54867D",
           "target_symbol": "DestroyLegacyLocale_54867D",
-          "arguments": "&storage->baseLocale",
+          "arguments": "&storage->localeImplementation",
           "relationship": "真实宽基类表写后尾调+34locale，不重置缓冲或释放整对象"
         }
       ],
@@ -41408,7 +41386,7 @@
           "symbol": "ConstructLegacyWideFileBuffer_54970A",
           "target_entry": "0x54976A",
           "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state1 prev=-1，仅完整基类析构；不再执行state0"
         },
         {
@@ -41418,8 +41396,20 @@
           "symbol": "DestroyLegacyWideFileBuffer_549935",
           "target_entry": "0x54976A",
           "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
-          "arguments": "storage",
+          "arguments": "&storage->base",
           "relationship": "state0展开完整基类析构，恢复基类表后清+34"
+        }
+      ],
+      "stream_base_delete_parent_call_connections": [
+        {
+          "parent_entry": "0x549D86",
+          "call_site": "0x549D89",
+          "target_entry": "0x54976A",
+          "target_symbol": "DestroyLegacyWideStreamBuffer_54976A",
+          "arguments": "storage",
+          "relationship": "真实104B基类对象，完整基类析构正常返回后才检测flags bit0",
+          "source": "src/platform/LegacyStreamBuffer.cpp",
+          "symbol": "DeleteLegacyWideStreamBuffer_549D86"
         }
       ]
     },

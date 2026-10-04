@@ -14,20 +14,11 @@ namespace cg::platform {
 extern volatile std::uint32_t gLegacyNarrowFileState1087B00;
 extern volatile std::uint32_t gLegacyWideFileState1087AF8;
 
-// 四个真实原表仅声明，完整槽接口/本体绑定待；不定义空表/牌值或接SDK vft。
-struct LegacyNarrowStreamBufferMethods;
-struct LegacyWideStreamBufferMethods;
-extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;
-extern const LegacyNarrowStreamBufferMethods gLegacyNarrowFileBufferMethods54FFD4;
-extern const LegacyWideStreamBufferMethods gLegacyWideStreamBufferMethods5500A8;
-extern const LegacyWideStreamBufferMethods gLegacyWideFileBufferMethods550070;
-
 // 原basic_filebuf已证+00..+53视图；+44消费确认为窄字符串地址，同其他地址拓宽。
 // 仅显式函数构析，不自动构造owner或接宿主streambuf/FILE。
 template <typename Character>
 struct LegacyFileBufferStorage final {
-    LegacyStreamBufferStorage<Character> buffer;   // 原+00..+33；实际首成员。
-    LegacyLocaleImplementation* baseLocale;       // 原+34；真实基类locale。
+    LegacyStreamBufferObject<Character> base;     // 原+00..+37；实际首成员基类子对象。
     std::uint32_t state38Bits;                    // 原+38；本组清0。
     std::uint32_t state3CBits;                    // 原+3C；第二次种子读取。
     std::uint32_t state40Bits;                    // 原+40；第一次种子读取。
@@ -38,7 +29,8 @@ struct LegacyFileBufferStorage final {
 };
 using LegacyNarrowFileBuffer = LegacyFileBufferStorage<char>;
 using LegacyWideFileBuffer = LegacyFileBufferStorage<std::uint16_t>;
-static_assert(offsetof(LegacyNarrowFileBuffer, baseLocale) == 96);
+static_assert(offsetof(LegacyNarrowFileBuffer, base) == 0);
+static_assert(offsetof(LegacyWideFileBuffer, base) == 0);
 static_assert(offsetof(LegacyNarrowFileBuffer, state38Bits) == 104);
 static_assert(offsetof(LegacyNarrowFileBuffer, state3CBits) == 108);
 static_assert(offsetof(LegacyNarrowFileBuffer, state40Bits) == 112);
@@ -69,8 +61,6 @@ LegacyWideFileBuffer* ConstructLegacyWideFileBuffer_54970A(
     LegacyWideFileBuffer* storage, LegacyFile* file);
 void DestroyLegacyNarrowFileBuffer_5487DE(LegacyNarrowFileBuffer* storage);
 void DestroyLegacyWideFileBuffer_549935(LegacyWideFileBuffer* storage);
-void DestroyLegacyNarrowStreamBuffer_5486B1(LegacyNarrowFileBuffer* storage);
-void DestroyLegacyWideStreamBuffer_54976A(LegacyWideFileBuffer* storage);
 
 // 原scalar deleting入口；先显式析构，再flags bit0同域释放，返原地址。
 LegacyNarrowFileBuffer* DeleteLegacyNarrowFileBuffer_548D4D(

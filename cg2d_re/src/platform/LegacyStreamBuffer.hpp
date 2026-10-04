@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <cstdint>
 
+#include "LegacyLocale.hpp"
+
 namespace cg::platform {
 
 // 原streambuf已证+00..+33视图：真实指针拓宽，余量S32；不含未决locale/派生字段。
@@ -35,6 +37,30 @@ static_assert(sizeof(LegacyNarrowStreamBuffer) == 96);
 static_assert(offsetof(LegacyWideStreamBuffer, readCurrentSlot) == 56);
 static_assert(offsetof(LegacyWideStreamBuffer, readRemainingSlot) == 80);
 static_assert(sizeof(LegacyWideStreamBuffer) == 96);
+
+// 四个真实原表仅声明，完整槽接口/本体绑定待；不定义空表/牌值或接SDK vft。
+struct LegacyNarrowStreamBufferMethods;
+struct LegacyWideStreamBufferMethods;
+extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;
+extern const LegacyNarrowStreamBufferMethods gLegacyNarrowFileBufferMethods54FFD4;
+extern const LegacyWideStreamBufferMethods gLegacyWideStreamBufferMethods5500A8;
+extern const LegacyWideStreamBufferMethods gLegacyWideFileBufferMethods550070;
+
+// 原streambuf完整已证前缀+00..+37，作为真实首成员子对象承载基类locale。
+// 仅显式构析，不使用C++虚函数/SDK私有ABI，也不新增影子locale槽。
+template <typename Character>
+struct LegacyStreamBufferObject final {
+    LegacyStreamBufferStorage<Character> buffer;    // 原+00..+33，实际首成员。
+    LegacyLocaleImplementation* localeImplementation; // 原+34，单指针locale。
+};
+using LegacyNarrowStreamBufferObject = LegacyStreamBufferObject<char>;
+using LegacyWideStreamBufferObject = LegacyStreamBufferObject<std::uint16_t>;
+static_assert(offsetof(LegacyNarrowStreamBufferObject, buffer) == 0);
+static_assert(offsetof(LegacyNarrowStreamBufferObject, localeImplementation) == 96);
+static_assert(sizeof(LegacyNarrowStreamBufferObject) == 104);
+static_assert(offsetof(LegacyWideStreamBufferObject, buffer) == 0);
+static_assert(offsetof(LegacyWideStreamBufferObject, localeImplementation) == 96);
+static_assert(sizeof(LegacyWideStreamBufferObject) == 104);
 
 // 原默认字符叶不读取this/栈参；未消费W32实参保持不透明，不推定业务符号性。
 std::int32_t DefaultLegacyNarrowCharacter_5486BF(
@@ -101,5 +127,13 @@ LegacyStreamPosition* DefaultLegacySeekPosition_5498EE(
 template <typename Character>
 void DefaultLegacyStreamNoOp_5487D0(
     LegacyStreamBufferStorage<Character>* storage, std::uint32_t ignoredStackValue);
+
+// 原基类析构与scalar deleting；独立对象/filebuf实际基类子对象使用相同存储。
+void DestroyLegacyNarrowStreamBuffer_5486B1(LegacyNarrowStreamBufferObject* storage);
+void DestroyLegacyWideStreamBuffer_54976A(LegacyWideStreamBufferObject* storage);
+LegacyNarrowStreamBufferObject* DeleteLegacyNarrowStreamBuffer_548D31(
+    LegacyNarrowStreamBufferObject* storage, std::uint32_t flags);
+LegacyWideStreamBufferObject* DeleteLegacyWideStreamBuffer_549D86(
+    LegacyWideStreamBufferObject* storage, std::uint32_t flags);
 
 } // namespace cg::platform

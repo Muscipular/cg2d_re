@@ -34,9 +34,13 @@ std::int32_t RenderWindows_504120(); // 转生计时到期发送/清标志后，
 void CloseWindowsByCategory_472240(std::uint32_t mask); // 按原71槽顺序关闭并清槽。
 void CancelWindowDrag_476410(); // 回调后重读阶段，最后进入2或6，不等同通用重置。
 void ApplyObservationInputGate_440ADB(); // 同源5F9754及D67B08前八个U8的观察进入写序。
+// 原CRT 553098入口仅尾跳既有初始化，无退出登记。
+void InitializeLegacyNumberSpacing_477160();
 void InitializeNumberSpacing_477170(); // 原CRT 553098，四种数字图片步进的唯一初始化。
 // 原CRT 55309C/5530A0：每项构造后独立登记退出；登记失败仍继续，不释放静态预览。
 void InitializeItemSelectors();
+// 原CRT 5530A4入口先构造后真实退出登记，返回完整S32。
+std::int32_t InitializeLegacyStallBrowsePetValues_4CD240();
 void ConstructStallBrowsePetValues(); // 原CRT 5530A4，浏览区五宠物各六CryptInt顺序构造。
 void DestroyStallBrowsePetValues(); // 原4CD270退出链，记录与成员都逆序，不释放浏览区。
 void DrawCurrentWindow_4729B0(); // 严格visible==1的七类分派，尾部清文本层3并绘范围提示。

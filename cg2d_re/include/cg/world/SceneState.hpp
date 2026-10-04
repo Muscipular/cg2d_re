@@ -53,6 +53,8 @@ void InitializeRippleGate(); // 原553094：构造后独立登记退出，登记
 std::int32_t ReadRippleGateOnce();
 
 // 原456FE0/457000，73ECD0场景共享CryptInt；CRT排在World表后、玩家坐标前。
+// 原CRT 553054入口先构造后真实退出登记，返回完整S32。
+std::int32_t InitializeLegacySceneTransitionValue_456FD0();
 void ConstructSceneTransitionValue();
 void DestroySceneTransitionValue();
 

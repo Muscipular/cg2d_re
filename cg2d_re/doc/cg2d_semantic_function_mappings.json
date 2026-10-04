@@ -2260,27 +2260,63 @@
     {
       "original_entry": "0x477160",
       "inventory_id": "F:00077160",
-      "status": "已有调用点内联或尾跳映射，运行未验",
+      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
       "original_role": "数字间距CRT尾跳入口",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WindowNumberSpacingStaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
           "symbols": [
             "InitializeNumberSpacing_477170"
           ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeLegacyNumberSpacing_477160"
+          ],
+          "relationship": "新增原单尾跳入口，显式调用已过477170，不造登记/析构或固定返回"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "InitializeLegacyNumberSpacing_477160"
+          ],
+          "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_runtime.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。"
+      "boundary": "原CRT553098条目仅一条jmp477170。现有中央初始化对象直接调用真实477170本体，位于Ripple之后，不新增返回包装、RNG或析构。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
+      "instruction_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x477160",
+          "end_exclusive": "0x477165"
+        }
+      ],
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "scene_crypt_crt_call_connections": [
+        {
+          "parent_entry": "0x477160",
+          "call_site": "0x477160",
+          "target_entry": "0x477170",
+          "target_symbol": "InitializeNumberSpacing_477170",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyNumberSpacing_477160",
+          "transfer": "jmp",
+          "relationship": "原单jmp目标源码复用；不新加登记、固定返回或析构"
+        }
+      ]
     },
     {
       "original_entry": "0x401C10",
@@ -8000,7 +8036,7 @@
     {
       "original_entry": "0x4CD240",
       "inventory_id": "F:000CD240",
-      "status": "已有命名或父函数合并映射，运行未验",
+      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
       "original_role": "浏览宠物CRT包装",
       "original_end_exclusive": "0x4CD24A",
       "instruction_count": 2,
@@ -8009,7 +8045,8 @@
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "StallBrowsePetsStaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -8017,13 +8054,119 @@
             "ConstructStallBrowsePetValues",
             "DestroyStallBrowsePetValues"
           ]
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeLegacyStallBrowsePetValues_4CD240"
+          ],
+          "relationship": "新增原显式构造/退出登记入口、完整S32传出，沿已有本体/对象"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "InitializeLegacyStallBrowsePetValues_4CD240"
+          ],
+          "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。"
+      "boundary": "CRT5530A4入口先call4CD250，再尾跳4CD260登记4CD270；后两位置由既有4CD250合并函数块映射覆盖。当前独立静态对象承接成功构造后退出登记与逆序销毁，不把4CD240返回当宠物对象指针。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
+      "function_chunks": [
+        {
+          "start": "0x4CD240",
+          "end_exclusive": "0x4CD24A"
+        }
+      ],
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "scene_crypt_crt_call_connections": [
+        {
+          "parent_entry": "0x4CD240",
+          "call_site": "0x4CD240",
+          "target_entry": "0x4CD250",
+          "target_symbol": "ConstructStallBrowsePetValues",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "transfer": "call",
+          "relationship": "原真实构造call，沿已过同一对象/构析本体"
+        },
+        {
+          "parent_entry": "0x4CD240",
+          "call_site": "0x4CD265",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "transfer": "call",
+          "arguments": "DestroyStallBrowsePetValues 无参callback",
+          "original_instruction_owner": "0x4CD250",
+          "execution_context": "本入口jmp4CD260后执行既有4CD250登记块，不扩大入口原function_chunks",
+          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+        }
+      ],
+      "scene_crypt_crt_callback_references": [
+        {
+          "parent_entry": "0x4CD240",
+          "reference_site": "0x4CD260",
+          "callback_entry": "0x4CD270",
+          "callback_symbol": "DestroyStallBrowsePetValues",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "original_instruction_owner": "0x4CD250",
+          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
+        }
+      ],
+      "scene_crypt_crt_shared_block_references": [
+        {
+          "parent_entry": "0x4CD240",
+          "branch_site": "0x4CD245",
+          "original_shared_block": "0x4CD260",
+          "original_shared_end_exclusive": "0x4CD26C",
+          "original_instruction_owner": "0x4CD250",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "relationship": "原入口仅2条，尾跳4CD250所属登记块4CD260..26C四条；源码同路径接53B406/4CD270，块不计新原函数或入口chunks"
+        }
+      ],
+      "scene_crypt_crt_supplemental_evidence": {
+        "start": "0x4CD260",
+        "end_exclusive": "0x4CD26C",
+        "original_function_owner": "0x4CD250",
+        "instructions": [
+          [
+            "0x4cd260",
+            "push    offset loc_4CD270; void (__cdecl *)()",
+            "push",
+            "0x4cd270",
+            "-0x1"
+          ],
+          [
+            "0x4cd265",
+            "call    _atexit",
+            "call",
+            "0x53b406",
+            "-0x1"
+          ],
+          [
+            "0x4cd26a",
+            "pop     ecx",
+            "pop",
+            "0x1",
+            "-0x1"
+          ],
+          [
+            "0x4cd26b",
+            "retn",
+            "retn",
+            "-0x1",
+            "-0x1"
+          ]
+        ]
+      }
     },
     {
       "original_entry": "0x403660",
@@ -8171,7 +8314,7 @@
     {
       "original_entry": "0x456FD0",
       "inventory_id": "F:00056FD0",
-      "status": "已有命名或父链合并映射，运行未验",
+      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
       "original_end_exclusive": "0x456FDA",
       "instruction_count": 6,
       "sources": [
@@ -8179,7 +8322,8 @@
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "SceneTransitionValueStaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
         },
         {
           "path": "src/world/SceneState.cpp",
@@ -8187,13 +8331,28 @@
             "ConstructSceneTransitionValue",
             "DestroySceneTransitionValue"
           ]
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeLegacySceneTransitionValue_456FD0"
+          ],
+          "relationship": "新增原显式构造/退出登记入口、完整S32传出，沿已有本体/对象"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "InitializeLegacySceneTransitionValue_456FD0"
+          ],
+          "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_login_request.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。",
+      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
       "original_chunks": [
         [
           "0x456FD0",
@@ -8203,6 +8362,51 @@
           "0x456FF0",
           "0x456FFC"
         ]
+      ],
+      "function_chunks": [
+        {
+          "start": "0x456FD0",
+          "end_exclusive": "0x456FDA"
+        },
+        {
+          "start": "0x456FF0",
+          "end_exclusive": "0x456FFC"
+        }
+      ],
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "scene_crypt_crt_call_connections": [
+        {
+          "parent_entry": "0x456FD0",
+          "call_site": "0x456FD0",
+          "target_entry": "0x456FE0",
+          "target_symbol": "ConstructSceneTransitionValue",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "transfer": "call",
+          "relationship": "原真实构造call，沿已过同一对象/构析本体"
+        },
+        {
+          "parent_entry": "0x456FD0",
+          "call_site": "0x456FF5",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "transfer": "call",
+          "arguments": "DestroySceneTransitionValue 无参callback",
+          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+        }
+      ],
+      "scene_crypt_crt_callback_references": [
+        {
+          "parent_entry": "0x456FD0",
+          "reference_site": "0x456FF0",
+          "callback_entry": "0x457000",
+          "callback_symbol": "DestroySceneTransitionValue",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
+        }
       ]
     },
     {
@@ -14559,6 +14763,20 @@
             "InitializeLegacyProtectionProcessState_4041A0"
           ],
           "relationship": "本轮三独立保护状态原CRT登记父入口"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "InitializeLegacySceneTransitionValue_456FD0"
+          ],
+          "relationship": "本轮场景切换值真实CRT登记父入口"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "InitializeLegacyStallBrowsePetValues_4CD240"
+          ],
+          "relationship": "本轮摊位浏览宠物入口尾跳后真实登记父执行路径"
         }
       ],
       "evidence_documents": [
@@ -14566,7 +14784,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -15116,6 +15334,53 @@
           "source": "src/platform/MainLoopSupport.cpp",
           "symbol": "InitializeLegacyProtectionProcessState_4041A0",
           "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        }
+      ],
+      "scene_crypt_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x456FD0",
+          "call_site": "0x456FF5",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "transfer": "call",
+          "arguments": "DestroySceneTransitionValue 无参callback",
+          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+        },
+        {
+          "parent_entry": "0x4CD240",
+          "call_site": "0x4CD265",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "transfer": "call",
+          "arguments": "DestroyStallBrowsePetValues 无参callback",
+          "original_instruction_owner": "0x4CD250",
+          "execution_context": "本入口jmp4CD260后执行既有4CD250登记块，不扩大入口原function_chunks",
+          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+        }
+      ],
+      "scene_crypt_crt_callback_references": [
+        {
+          "parent_entry": "0x456FD0",
+          "reference_site": "0x456FF0",
+          "callback_entry": "0x457000",
+          "callback_symbol": "DestroySceneTransitionValue",
+          "source": "src/world/SceneState.cpp",
+          "symbol": "InitializeLegacySceneTransitionValue_456FD0",
+          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
+        },
+        {
+          "parent_entry": "0x4CD240",
+          "reference_site": "0x4CD260",
+          "callback_entry": "0x4CD270",
+          "callback_symbol": "DestroyStallBrowsePetValues",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "InitializeLegacyStallBrowsePetValues_4CD240",
+          "original_instruction_owner": "0x4CD250",
+          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
         }
       ]
     },
@@ -16323,7 +16588,7 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。",
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
       "crt_parent_internal_call_connections": [
         {
@@ -16875,6 +17140,35 @@
           "source_body_implemented": true,
           "native_table_defined": false,
           "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+        }
+      ],
+      "scene_crypt_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x553054",
+          "target_entry": "0x456FD0",
+          "target_symbol": "cg::world::InitializeLegacySceneTransitionValue_456FD0",
+          "source": "src/world/SceneState.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x5530A4",
+          "target_entry": "0x4CD240",
+          "target_symbol": "cg::ui::InitializeLegacyStallBrowsePetValues_4CD240",
+          "source": "src/ui/WindowRuntime.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x553098",
+          "target_entry": "0x477160",
+          "target_symbol": "cg::ui::InitializeLegacyNumberSpacing_477160",
+          "source": "src/ui/WindowRuntime.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
         }
       ]
     },

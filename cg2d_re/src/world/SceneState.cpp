@@ -6,6 +6,7 @@
 #include "../LoginInputDependencies.hpp"
 #include "../LoginRequestDependencies.hpp"
 #include "../ui/WindowRuntimeState.hpp"
+#include "../platform/LegacyRuntimeExit.hpp"
 #include "cg/Input.hpp"
 #include "cg/Blacklist.hpp"
 #include "cg/LegacyRecordOrder.hpp"
@@ -617,6 +618,12 @@ void DestroyPetRuntimeValues()
                 &detail::gPetRuntimeF633F8[record - 1].values0C[value - 1]);
         }
     }
+}
+
+std::int32_t InitializeLegacySceneTransitionValue_456FD0()
+{
+    ConstructSceneTransitionValue();
+    return platform::RegisterLegacyAtExit_53B406(DestroySceneTransitionValue);
 }
 
 void ConstructSceneTransitionValue()

@@ -9,6 +9,7 @@
 #include "../platform/LegacyFormat.hpp"
 #include "../platform/LegacyLowio.hpp"
 #include "../platform/LegacyStdio.hpp"
+#include "../platform/LegacyRuntimeExit.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/WindowProcedureState.hpp"
 #include "../world/MailState.hpp"
@@ -44478,6 +44479,12 @@ void InitializeItemSelectors()
     }));
 }
 
+std::int32_t InitializeLegacyStallBrowsePetValues_4CD240()
+{
+    ConstructStallBrowsePetValues();
+    return platform::RegisterLegacyAtExit_53B406(DestroyStallBrowsePetValues);
+}
+
 void ConstructStallBrowsePetValues()
 {
     std::size_t completed = 0;
@@ -44507,6 +44514,11 @@ void DestroyStallBrowsePetValues()
             platform::legacy_crypt_int::Destroy_401CF0(&values[value - 1]);
         }
     }
+}
+
+void InitializeLegacyNumberSpacing_477160()
+{
+    InitializeNumberSpacing_477170();
 }
 
 void InitializeNumberSpacing_477170()

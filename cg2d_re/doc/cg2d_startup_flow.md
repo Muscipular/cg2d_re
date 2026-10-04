@@ -1758,3 +1758,10 @@ cinit只取一次当前58F864浮点callback，非空调缓存，加载初值53B4
 工程裁决：在既有LegacyCryptInt/MainLoopSupport新增401C10、404120、404160、4041A0四个显式S32入口及原头文件声明，先调用既有401C20/404130/404170/4041B0无参构造，再53B406登记401C50/404150/404190/4041D0无参退出回调，完整S32结果透传。沿同一启动双对象/三个独立保护状态及已过构析/随机消费，无第二份对象、额外RNG、once、回滚、固定成功或std::atexit代换；当前LegacyMouse宿主自动初始化不迁移、不调用新入口。
 
 原四函数各两chunk/6条，总24条，仅新增入口取证；八原数值call及四原push callback地址同步。553004/08/0C/10仅记录真实provider状态，既有构析源和表槽值保持；Cpp90仍extern，不填部分空表、开启父入口或把未知生命周期计为通过。六语义记录更新，1110/未决18/分类4及strlen19+4宿主+1待保持；局部新增静态后独立提交，不回核已过本体、不编译/测试/执行/hash核验。退出表容量/扩容与模式3、宿主双执行/析构迁移和完整运行仍待。
+
+
+### 场景值、摊位浏览区与数字步进CRT入口局部SPEC（2026-10-04）
+
+工程裁决：既有SceneState/WindowRuntime与公开头文件新增三个显式入口。456FD0先真实ConstructSceneTransitionValue再53B406登记DestroySceneTransitionValue；4CD240先既有ConstructStallBrowsePetValues，再沿原尾跳登记路径53B406登记DestroyStallBrowsePetValues，两者完整S32传出，失败不额外回滚/析构。477160仅一条jmp477170，显式void入口调用已过InitializeNumberSpacing_477170；原void调度不消费结果，不造固定返回、退出登记或析构。已过构析/随机、唯一状态对象、数字步进与当前宿主初始化均不改。
+
+三个原入口分别6/2/1条，总9条。4CD240尾跳4CD260属于IDA4CD250合并函数，追加块[4CD260,4CD26C)四条登记证据和原归属，不扩4CD240的function_chunks、不虚增原身份；实际call4CD265与callback4CD270按入口执行路径另列。新增4call/1目标尾调/1块尾跳/2callback，Cpp553054/553098/5530A4仅同步真实provider关联，整90表仍extern/不启用。五记录、四源文件及SPEC/映射/进度七文件，语义1110/未决18/分类4及strlen19+4宿主+1待保持；新增静态后独立提交，不复检旧本体、不编译/测试/执行/hash。宿主双执行/析构迁移、退出登记/堆模式3、完整SDK与运行未闭。

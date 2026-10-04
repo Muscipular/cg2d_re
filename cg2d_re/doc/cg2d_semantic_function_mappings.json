@@ -974,41 +974,43 @@
     {
       "original_entry": "0x467B90",
       "inventory_id": "F:00067B90",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "PlayerCoordinatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializePlayerCoordinates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyPlayerCoordinates_467B90"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyPlayerCoordinates_467B90"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553064",
       "original_role": "构造并登记退出",
@@ -1017,18 +1019,18 @@
         "0x9EE8C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553064先调用0x467BA0，再登记0x467BD0；InitializePlayerCoordinates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553064先调用0x467BA0，再登记0x467BD0；InitializePlayerCoordinates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467B90",
-          "end_exclusive": "0x467B9A"
+          "start": "0x467b90",
+          "end_exclusive": "0x467b9a"
         },
         {
-          "start": "0x467BC0",
-          "end_exclusive": "0x467BCC"
+          "start": "0x467bc0",
+          "end_exclusive": "0x467bcc"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467B90",
@@ -1045,12 +1047,15 @@
           "parent_entry": "0x467B90",
           "call_site": "0x467BC5",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerCoordinates_467B90",
           "transfer": "call",
           "arguments": "DestroyLegacyPlayerCoordinates_467BD0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -1061,9 +1066,54 @@
           "callback_symbol": "DestroyLegacyPlayerCoordinates_467BD0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerCoordinates_467B90",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467b9a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553064",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467BA0",
@@ -1230,41 +1280,43 @@
     {
       "original_entry": "0x467BF0",
       "inventory_id": "F:00067BF0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldCoordinateStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldCoordinateStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyPlayerSnapshotX_467BF0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyPlayerSnapshotX_467BF0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553068",
       "original_role": "构造并登记退出",
@@ -1272,18 +1324,18 @@
         "0xC751C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553068先调用0x467C00，再登记0x467C20；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467BF0",
-          "end_exclusive": "0x467BFA"
+          "start": "0x467bf0",
+          "end_exclusive": "0x467bfa"
         },
         {
-          "start": "0x467C10",
-          "end_exclusive": "0x467C1C"
+          "start": "0x467c10",
+          "end_exclusive": "0x467c1c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467BF0",
@@ -1300,12 +1352,15 @@
           "parent_entry": "0x467BF0",
           "call_site": "0x467C15",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerSnapshotX_467BF0",
           "transfer": "call",
           "arguments": "DestroyLegacyPlayerSnapshotX_467C20 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -1316,9 +1371,54 @@
           "callback_symbol": "DestroyLegacyPlayerSnapshotX_467C20",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerSnapshotX_467BF0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467bfa",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553068",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467C00",
@@ -1457,41 +1557,43 @@
     {
       "original_entry": "0x467C30",
       "inventory_id": "F:00067C30",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldCoordinateStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldCoordinateStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyPlayerSnapshotY_467C30"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyPlayerSnapshotY_467C30"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x55306C",
       "original_role": "构造并登记退出",
@@ -1499,18 +1601,18 @@
         "0xC751B0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x55306C先调用0x467C40，再登记0x467C60；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467C30",
-          "end_exclusive": "0x467C3A"
+          "start": "0x467c30",
+          "end_exclusive": "0x467c3a"
         },
         {
-          "start": "0x467C50",
-          "end_exclusive": "0x467C5C"
+          "start": "0x467c50",
+          "end_exclusive": "0x467c5c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467C30",
@@ -1527,12 +1629,15 @@
           "parent_entry": "0x467C30",
           "call_site": "0x467C55",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerSnapshotY_467C30",
           "transfer": "call",
           "arguments": "DestroyLegacyPlayerSnapshotY_467C60 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -1543,9 +1648,54 @@
           "callback_symbol": "DestroyLegacyPlayerSnapshotY_467C60",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerSnapshotY_467C30",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467c3a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55306c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467C40",
@@ -1684,41 +1834,43 @@
     {
       "original_entry": "0x467C70",
       "inventory_id": "F:00067C70",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldCoordinateStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldCoordinateStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldCoordinateState_467C70"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldCoordinateState_467C70"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553070",
       "original_role": "构造并登记退出",
@@ -1726,18 +1878,18 @@
         "0x9EE8D0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553070先调用0x467C80，再登记0x467CA0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553070先调用0x467C80，再登记0x467CA0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467C70",
-          "end_exclusive": "0x467C7A"
+          "start": "0x467c70",
+          "end_exclusive": "0x467c7a"
         },
         {
-          "start": "0x467C90",
-          "end_exclusive": "0x467C9C"
+          "start": "0x467c90",
+          "end_exclusive": "0x467c9c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467C70",
@@ -1754,12 +1906,15 @@
           "parent_entry": "0x467C70",
           "call_site": "0x467C95",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinateState_467C70",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldCoordinateState_467CA0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -1770,9 +1925,54 @@
           "callback_symbol": "DestroyLegacyWorldCoordinateState_467CA0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinateState_467C70",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467c7a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553070",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467C80",
@@ -1911,41 +2111,43 @@
     {
       "original_entry": "0x467CB0",
       "inventory_id": "F:00067CB0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldCoordinateStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldCoordinateStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldCoordinateState_467CB0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldCoordinateState_467CB0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553074",
       "original_role": "构造并登记退出",
@@ -1953,18 +2155,18 @@
         "0x9EE8E0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553074先调用0x467CC0，再登记0x467CE0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553074先调用0x467CC0，再登记0x467CE0；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467CB0",
-          "end_exclusive": "0x467CBA"
+          "start": "0x467cb0",
+          "end_exclusive": "0x467cba"
         },
         {
-          "start": "0x467CD0",
-          "end_exclusive": "0x467CDC"
+          "start": "0x467cd0",
+          "end_exclusive": "0x467cdc"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467CB0",
@@ -1981,12 +2183,15 @@
           "parent_entry": "0x467CB0",
           "call_site": "0x467CD5",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinateState_467CB0",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldCoordinateState_467CE0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -1997,9 +2202,54 @@
           "callback_symbol": "DestroyLegacyWorldCoordinateState_467CE0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinateState_467CB0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467cba",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553074",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467CC0",
@@ -2138,41 +2388,43 @@
     {
       "original_entry": "0x467CF0",
       "inventory_id": "F:00067CF0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldCoordinateStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldCoordinateStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldCoordinatePair_467CF0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldCoordinatePair_467CF0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553078",
       "original_role": "构造并登记退出",
@@ -2181,18 +2433,18 @@
         "0xC27FE8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553078先调用0x467D00，再登记0x467D30；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553078先调用0x467D00，再登记0x467D30；InitializeWorldCoordinateStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467CF0",
-          "end_exclusive": "0x467CFA"
+          "start": "0x467cf0",
+          "end_exclusive": "0x467cfa"
         },
         {
-          "start": "0x467D20",
-          "end_exclusive": "0x467D2C"
+          "start": "0x467d20",
+          "end_exclusive": "0x467d2c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467CF0",
@@ -2209,12 +2461,15 @@
           "parent_entry": "0x467CF0",
           "call_site": "0x467D25",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinatePair_467CF0",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldCoordinatePair_467D30 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -2225,9 +2480,54 @@
           "callback_symbol": "DestroyLegacyWorldCoordinatePair_467D30",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldCoordinatePair_467CF0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467cfa",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553078",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467D00",
@@ -2394,41 +2694,43 @@
     {
       "original_entry": "0x467D50",
       "inventory_id": "F:00067D50",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveTargets_467D50"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveTargets_467D50"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x55307C",
       "original_role": "构造并登记退出",
@@ -2437,18 +2739,18 @@
         "0x9A7F98"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55307C先调用0x467D60，再登记0x467D90；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x55307C先调用0x467D60，再登记0x467D90；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467D50",
-          "end_exclusive": "0x467D5A"
+          "start": "0x467d50",
+          "end_exclusive": "0x467d5a"
         },
         {
-          "start": "0x467D80",
-          "end_exclusive": "0x467D8C"
+          "start": "0x467d80",
+          "end_exclusive": "0x467d8c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467D50",
@@ -2465,12 +2767,15 @@
           "parent_entry": "0x467D50",
           "call_site": "0x467D85",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveTargets_467D50",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveTargets_467D90 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -2481,9 +2786,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveTargets_467D90",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveTargets_467D50",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467d5a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55307c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467D60",
@@ -2650,41 +3000,43 @@
     {
       "original_entry": "0x467DB0",
       "inventory_id": "F:00067DB0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467DB0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467DB0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553080",
       "original_role": "构造并登记退出",
@@ -2692,18 +3044,18 @@
         "0xC821E8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553080先调用0x467DC0，再登记0x467DE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553080先调用0x467DC0，再登记0x467DE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467DB0",
-          "end_exclusive": "0x467DBA"
+          "start": "0x467db0",
+          "end_exclusive": "0x467dba"
         },
         {
-          "start": "0x467DD0",
-          "end_exclusive": "0x467DDC"
+          "start": "0x467dd0",
+          "end_exclusive": "0x467ddc"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467DB0",
@@ -2720,12 +3072,15 @@
           "parent_entry": "0x467DB0",
           "call_site": "0x467DD5",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467DB0",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveState_467DE0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -2736,9 +3091,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveState_467DE0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467DB0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467dba",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553080",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467DC0",
@@ -2877,41 +3277,43 @@
     {
       "original_entry": "0x467DF0",
       "inventory_id": "F:00067DF0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467DF0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467DF0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553084",
       "original_role": "构造并登记退出",
@@ -2919,18 +3321,18 @@
         "0x9E03C0"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553084先调用0x467E00，再登记0x467E20；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553084先调用0x467E00，再登记0x467E20；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467DF0",
-          "end_exclusive": "0x467DFA"
+          "start": "0x467df0",
+          "end_exclusive": "0x467dfa"
         },
         {
-          "start": "0x467E10",
-          "end_exclusive": "0x467E1C"
+          "start": "0x467e10",
+          "end_exclusive": "0x467e1c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467DF0",
@@ -2947,12 +3349,15 @@
           "parent_entry": "0x467DF0",
           "call_site": "0x467E15",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467DF0",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveState_467E20 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -2963,9 +3368,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveState_467E20",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467DF0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467dfa",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553084",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467E00",
@@ -3104,41 +3554,43 @@
     {
       "original_entry": "0x467E30",
       "inventory_id": "F:00067E30",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467E30"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467E30"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553088",
       "original_role": "构造并登记退出",
@@ -3146,18 +3598,18 @@
         "0x9FB918"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553088先调用0x467E40，再登记0x467E60；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553088先调用0x467E40，再登记0x467E60；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467E30",
-          "end_exclusive": "0x467E3A"
+          "start": "0x467e30",
+          "end_exclusive": "0x467e3a"
         },
         {
-          "start": "0x467E50",
-          "end_exclusive": "0x467E5C"
+          "start": "0x467e50",
+          "end_exclusive": "0x467e5c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467E30",
@@ -3174,12 +3626,15 @@
           "parent_entry": "0x467E30",
           "call_site": "0x467E55",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467E30",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveState_467E60 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -3190,9 +3645,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveState_467E60",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467E30",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467e3a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553088",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467E40",
@@ -3331,41 +3831,43 @@
     {
       "original_entry": "0x467E70",
       "inventory_id": "F:00067E70",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467E70"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467E70"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x55308C",
       "original_role": "构造并登记退出",
@@ -3373,18 +3875,18 @@
         "0xAF0FE8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x55308C先调用0x467E80，再登记0x467EA0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x55308C先调用0x467E80，再登记0x467EA0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467E70",
-          "end_exclusive": "0x467E7A"
+          "start": "0x467e70",
+          "end_exclusive": "0x467e7a"
         },
         {
-          "start": "0x467E90",
-          "end_exclusive": "0x467E9C"
+          "start": "0x467e90",
+          "end_exclusive": "0x467e9c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467E70",
@@ -3401,12 +3903,15 @@
           "parent_entry": "0x467E70",
           "call_site": "0x467E95",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467E70",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveState_467EA0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -3417,9 +3922,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveState_467EA0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467E70",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467e7a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x55308c",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467E80",
@@ -3558,41 +4108,43 @@
     {
       "original_entry": "0x467EB0",
       "inventory_id": "F:00067EB0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldMoveStatesStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeWorldMoveStates"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467EB0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyWorldMoveState_467EB0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553090",
       "original_role": "构造并登记退出",
@@ -3600,18 +4152,18 @@
         "0xC821D8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553090先调用0x467EC0，再登记0x467EE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553090先调用0x467EC0，再登记0x467EE0；InitializeWorldMoveStates在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467EB0",
-          "end_exclusive": "0x467EBA"
+          "start": "0x467eb0",
+          "end_exclusive": "0x467eba"
         },
         {
-          "start": "0x467ED0",
-          "end_exclusive": "0x467EDC"
+          "start": "0x467ed0",
+          "end_exclusive": "0x467edc"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467EB0",
@@ -3628,12 +4180,15 @@
           "parent_entry": "0x467EB0",
           "call_site": "0x467ED5",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467EB0",
           "transfer": "call",
           "arguments": "DestroyLegacyWorldMoveState_467EE0 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -3644,9 +4199,54 @@
           "callback_symbol": "DestroyLegacyWorldMoveState_467EE0",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyWorldMoveState_467EB0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467eba",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553090",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467EC0",
@@ -3785,41 +4385,43 @@
     {
       "original_entry": "0x467EF0",
       "inventory_id": "F:00067EF0",
-      "status": "玩家/世界坐标与移动、Ripple CRT三十九入口/叶源码已实现；整表/宿主迁移及完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "RippleGateStaticInitializer"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeRippleGate"
           ],
-          "relationship": "；旧宿主分组构析职责关联保留，不作为本轮独立原函数直接提供者"
+          "relationship": "公开void包装现在依各组原槽序仅转调真实Init，丢弃每次返回不短路；不重复构造或lambda登记"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyRippleGate_467EF0"
           ],
-          "relationship": "原独立CRT入口，真实构造/原登记/完整S32，不开启当前表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyRippleGate_467EF0"
           ],
-          "relationship": "显式原入口声明；私有构析叶仅本源内部使用，不扩大状态接口"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "crt_slot": "0x553094",
       "original_role": "构造并登记退出",
@@ -3827,18 +4429,18 @@
         "0x9A7FA8"
       ],
       "instruction_count": 6,
-      "boundary": "原0x553094先调用0x467F00，再登记0x467F20；InitializeRippleGate在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。",
+      "boundary": "原0x553094先调用0x467F00，再登记0x467F20；InitializeRippleGate在本表项构造完成后立即std::atexit登记对应回调，丢弃登记返回后继续，无聚合重复登记。；2026-10-04补出13独立CRT入口及26真实构造/退出叶，共39函数142条，按实际对象地址和原call/尾调传入已过401C70/401CF0；每项先构造再53B406登记原无参callback，返回完整S32，双对象构造/退出互逆，构造尾调真实this传回（含467D60旧void标注按实际尾调，调用方不消费）。旧宿主分组/std::atexit路径保持，新增显式入口未调用，不引入对象、RNG、once、预清、保护、回滚或额外析构；整90表/退出登记依赖/模式3及SDK完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "function_chunks": [
         {
-          "start": "0x467EF0",
-          "end_exclusive": "0x467EFA"
+          "start": "0x467ef0",
+          "end_exclusive": "0x467efa"
         },
         {
-          "start": "0x467F10",
-          "end_exclusive": "0x467F1C"
+          "start": "0x467f10",
+          "end_exclusive": "0x467f1c"
         }
       ],
-      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过",
+      "verification_level": "；仅新39函数142条/58call尾调/13callback与Cpp槽新增静态，旧叶算法/对象/RNG不改或重核，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "world_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x467EF0",
@@ -3855,12 +4457,15 @@
           "parent_entry": "0x467EF0",
           "call_site": "0x467F15",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyRippleGate_467EF0",
           "transfer": "call",
           "arguments": "DestroyLegacyRippleGate_467F20 无参callback",
-          "relationship": "原独立表项先构造后登记，失败返回透传/无额外回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_state_crt_callback_references": [
@@ -3871,9 +4476,54 @@
           "callback_symbol": "DestroyLegacyRippleGate_467F20",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyRippleGate_467EF0",
-          "relationship": "原真实无参退出地址，单对象或双对象逆序/同一固定对象，不使用宿主登记替换"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x467efa",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553094",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x467F00",
@@ -5780,7 +6430,7 @@
     {
       "original_entry": "0x43D760",
       "inventory_id": "F:0003D760",
-      "status": "世界对象表真实CRT入口源码及整体退出登记已实现；原SEH/整表/宿主迁移和完整运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "original_role": "CRT553014世界对象表登记",
       "sources": [
         {
@@ -5788,7 +6438,7 @@
           "symbols": [
             "WorldObjectsStaticInitializer"
           ],
-          "relationship": "；旧宿主/构析职责关联保留，新显式入口直接提供者另列"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/WorldObjectState.cpp",
@@ -5803,31 +6453,33 @@
           "symbols": [
             "InitializeLegacyWorldObjects_43D760"
           ],
-          "relationship": "原千项构造后真实53B406/整体callback/完整S32，本次不启用整表"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/WorldObjects.hpp",
           "symbols": [
             "InitializeLegacyWorldObjects_43D760"
           ],
-          "relationship": "显式真实CRT入口声明，不新增数组/owner或当前宿主调用"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
-      "boundary": "原调用43D770后登记43D7A0；既有世界对象正序构造/逆序析构承接，逐项两成员叶另有既存映射。；2026-10-04原43D760显式S32入口源码落位，先实际ConstructWorldObjects，再原53B406登记DestroyWorldObjects/完整S32；原六条/两chunk/2call/1callback与553014真实provider同步。沿已过唯一1000项数组，每项双值正序构造/整体双逆序退出，2000次原RNG和借用资源保持；无新对象、once、懒构造、预清/保护、回滚、补析构或宿主迁移。当前整90表仍extern未启用，原FS/EH/53C45E展开不据normal循环认定等价，SDK/登记/模式3及实际完整启动退出仍待。",
+      "boundary": "原调用43D770后登记43D7A0；既有世界对象正序构造/逆序析构承接，逐项两成员叶另有既存映射。；2026-10-04原43D760显式S32入口源码落位，先实际ConstructWorldObjects，再原53B406登记DestroyWorldObjects/完整S32；原六条/两chunk/2call/1callback与553014真实provider同步。沿已过唯一1000项数组，每项双值正序构造/整体双逆序退出，2000次原RNG和借用资源保持；无新对象、once、懒构造、预清/保护、回滚、补析构或宿主迁移。当前整90表仍extern未启用，原FS/EH/53C45E展开不据normal循环认定等价，SDK/登记/模式3及实际完整启动退出仍待。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "instruction_count": 6,
       "function_chunks": [
         {
-          "start": "0x43D760",
-          "end_exclusive": "0x43D76A"
+          "start": "0x43d760",
+          "end_exclusive": "0x43d76a"
         },
         {
-          "start": "0x43D790",
-          "end_exclusive": "0x43D79C"
+          "start": "0x43d790",
+          "end_exclusive": "0x43d79c"
         }
       ],
       "world_objects_crt_internal_call_connections": [
@@ -5846,12 +6498,15 @@
           "parent_entry": "0x43D760",
           "call_site": "0x43D795",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "InitializeLegacyWorldObjects_43D760",
           "transfer": "call",
           "arguments": "DestroyWorldObjects 整体无参callback",
-          "relationship": "原构造完成后登记/完整S32，失败不补回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "world_objects_crt_callback_references": [
@@ -5862,10 +6517,55 @@
           "callback_symbol": "DestroyWorldObjects",
           "source": "src/world/WorldObjectState.cpp",
           "symbol": "InitializeLegacyWorldObjects_43D760",
-          "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
       ],
-      "verification_level": "；仅新原入口两chunk六条/2call/1callback及Cpp槽接线静态，既有千项算法不重核，SEH/运行未验"
+      "verification_level": "；仅新原入口两chunk六条/2call/1callback及Cpp槽接线静态，既有千项算法不重核，SEH/运行未验；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
+      "original_end_exclusive": "0x43d76a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553014",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x44CC20",
@@ -6998,7 +7698,7 @@
     {
       "original_entry": "0x5183D0",
       "inventory_id": "F:001183D0",
-      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "original_role": "玩家CRT启动入口",
       "sources": [
         {
@@ -7006,38 +7706,40 @@
           "symbols": [
             "PlayerRuntimeValuesStaticInitializer"
           ],
-          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyPlayerRuntime_5183D0"
           ],
-          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyPlayerRuntime_5183D0"
           ],
-          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
-      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "原5530FC先调5183E0，再尾跳5183F0登记退出；现有玩家静态适配在鼠标后、宠物前。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "instruction_count": 2,
       "function_chunks": [
         {
-          "start": "0x5183D0",
-          "end_exclusive": "0x5183DA"
+          "start": "0x5183d0",
+          "end_exclusive": "0x5183da"
         }
       ],
-      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "runtime_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x5183D0",
@@ -7054,14 +7756,17 @@
           "parent_entry": "0x5183D0",
           "call_site": "0x5183F5",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerRuntime_5183D0",
           "transfer": "call",
           "arguments": "ReleaseLegacyPlayerRuntimeAtExit_518400 整体无参callback",
           "original_instruction_owner": "0x5183E0",
           "original_registration_block": "0x5183F0",
-          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "runtime_state_crt_callback_references": [
@@ -7073,7 +7778,7 @@
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPlayerRuntime_5183D0",
           "original_instruction_owner": "0x5183E0",
-          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
       ],
       "runtime_state_crt_supplemental_registration_blocks": [
@@ -7117,7 +7822,52 @@
           ],
           "relationship": "入口自身两条，尾入构造函数所属四条登记块，不扩大root function_chunks或新计原身份"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x5183da",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x5530fc",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x5183E0",
@@ -7153,9 +7903,11 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
-      "boundary": "元数据同时含5183F0/518400/518410/5184A0及54BB50/54BBA0异常块；正常顺序+18/+28/+38/+48/+58/+68，退出反序，复用唯一玩家owner。异常展开与宿主完整退出未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "元数据同时含5183F0/518400/518410/5184A0及54BB50/54BBA0异常块；正常顺序+18/+28/+38/+48/+58/+68，退出反序，复用唯一玩家owner。异常展开与宿主完整退出未验。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；本组只有所属5183F0四条登记职责迁至实际宿主，原106条/三chunks归属保留；现有六值正常构析源码不改，完整玩家EH/SDK与运行未闭，未扩大root5183D0或增身份。",
       "instruction_count": 106,
       "function_chunks": [
         {
@@ -7199,12 +7951,48 @@
           "original_this_address": "0xFDA700",
           "relationship": "同一合并函数内构造/退出固定this前缀单列，normal动作源码沿已证十值/六值；原FS/EH与故障不因普通循环认定等价，不增callback原身份"
         }
-      ]
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x518520",
       "inventory_id": "F:00118520",
-      "status": "鼠标/玩家/主宠物CRT独立入口及固定构析接线已实现；原EH/整表/迁移与完整退出运行未闭",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
       "original_role": "五宠物CRT启动与退出登记",
       "sources": [
         {
@@ -7212,42 +8000,44 @@
           "symbols": [
             "PetRuntimeValuesStaticInitializer"
           ],
-          "relationship": "；旧宿主/正常构析职责关联保留，新增显式入口直接提供者另列"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
           "symbols": [
             "InitializeLegacyPetRuntime_518520"
           ],
-          "relationship": "原构造/真实登记/完整S32，当前表未启用"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacyPetRuntime_518520"
           ],
-          "relationship": "独立真实接口声明，构造/退出前缀源内私有，现宿主不迁移"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_scene_state.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
-      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。",
+      "boundary": "原553100调用518530后尾跳同一元数据函数的518550登记518560；不为分离登记块创建额外稳定ID。；2026-10-04新增三个显式CRT登记入口及鼠标/玩家四私有构造/退出前缀，构造后真实53B406/整体无参callback/完整S32；鼠标和玩家root各2条加所属构造函数四条登记块，宠物root原6条，root chunks/原合并归属不改。鼠标同一十值原序/逆序、玩家既有六值原序/逆序/真实FDA700 owner指针，主宠物既有五×六值循环及回调保持；新root执行18条加两构造/两退出前缀8条，总26条新增接线证据，不把既有normal/EH合并主体重记新实现。无新对象/RNG、once、预清、保护、回滚、额外析构或故障注入。原构析/53C45E正常映射不等于FS/EH验收，旧宿主未迁，整90表仍extern未启用；模式3/SDK/完整启动退出运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "instruction_count": 6,
       "function_chunks": [
         {
           "start": "0x518520",
-          "end_exclusive": "0x51852A"
+          "end_exclusive": "0x51852a"
         },
         {
           "start": "0x518550",
-          "end_exclusive": "0x51855C"
+          "end_exclusive": "0x51855c"
         }
       ],
-      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁",
+      "verification_level": "；本轮7新源码函数、三表项26条新增接线/6call/3callback/2合并登记块及固定this静态，不回核既有世界/宠物算法或替代EH运行门禁；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "runtime_state_crt_internal_call_connections": [
         {
           "parent_entry": "0x518520",
@@ -7264,12 +8054,15 @@
           "parent_entry": "0x518520",
           "call_site": "0x518555",
           "target_entry": "0x53B406",
-          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPetRuntime_518520",
           "transfer": "call",
           "arguments": "DestroyPetRuntimeValues 整体无参callback",
-          "relationship": "构造完成后原登记/完整S32，合并登记块原归属单列，不补失败回滚或析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "runtime_state_crt_callback_references": [
@@ -7280,9 +8073,54 @@
           "callback_symbol": "DestroyPetRuntimeValues",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPetRuntime_518520",
-          "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_end_exclusive": "0x51852a",
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553100",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x518530",
@@ -12824,8 +13662,8 @@
     {
       "original_entry": "0x456FD0",
       "inventory_id": "F:00056FD0",
-      "status": "场景值/摊位宠物与数字步进CRT三入口源码已实现；整表/宿主迁移及完整退出运行未闭",
-      "original_end_exclusive": "0x456FDA",
+      "status": "本组世界状态具名Init即时宿主登记/唯一模块路径已接；全应用序、成员/数组异常及SDK运行未闭",
+      "original_end_exclusive": "0x456fda",
       "instruction_count": 6,
       "sources": [
         {
@@ -12833,7 +13671,7 @@
           "symbols": [
             "SceneTransitionValueStaticInitializer"
           ],
-          "relationship": "旧宿主职责关联保留，不作为本轮原入口直接源码提供者"
+          "relationship": "本组当前唯一模块位置调用：四直接Init/13经规范包装，不并行自动退出；全应用序接通须同小步移除这些调用"
         },
         {
           "path": "src/world/SceneState.cpp",
@@ -12847,22 +13685,24 @@
           "symbols": [
             "InitializeLegacySceneTransitionValue_456FD0"
           ],
-          "relationship": "新增原显式构造/退出登记入口、完整S32传出，沿已有本体/对象"
+          "relationship": "同一构造→即时std::atexit原固定无参析构/真实宿主S32；D02/D03承接退出表，不计53B406原体新源码调用"
         },
         {
           "path": "include/cg/world/SceneState.hpp",
           "symbols": [
             "InitializeLegacySceneTransitionValue_456FD0"
           ],
-          "relationship": "显式原入口接口，当前整Cpp表/宿主迁移未启用"
+          "relationship": "具名Init显式接口，本组模块实际单一路径已接，完整Cpp90/全应用序仍待"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_login_request.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
-      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。",
+      "boundary": "CRT553054包装先构造73ECD0再在分离尾456FF0..456FFC登记析构；当前独立静态对象承接。指令数包含两个chunk，不把主块end_ea当完整登记末界，不宣称全进程CRT/异常时序已验。；2026-10-04三个CRT真实入口源码独立落位，456FD0两chunk六条先既有场景值构造后登记；4CD240自身两条，尾跳4CD250所属4CD260..26C登记块四条，源码沿同一路径登记4CD270并透传完整S32，不改IDA归属或把登记块算新函数；477160一条jmp只调用既有477170，调度未消费结果且既有目标void接口，不造返回值/析构。已有对象、构析/数字步进/异常及RNG算法保持，旧宿主未迁移；整表/登记依赖与完整运行未闭。；D02/D03本组活动路径更新：17Init构造后即时宿主登记同一退出，四模块自动析构取消、四公开包装转调13Init并丢弃结果不短路。现有位置、owner/字段/构析及值/RNG算法保持；无once/补值/保护/回滚/第二owner。原53B406数值目标是基线而非当前原体调用；全应用原序接通须移除八模块调用，全成员EH/数组SEH/快速退出、SDK与运行未闭，不以局部相邻序或106原合并指令证明完成。",
       "original_chunks": [
         [
           "0x456FD0",
@@ -12875,15 +13715,15 @@
       ],
       "function_chunks": [
         {
-          "start": "0x456FD0",
-          "end_exclusive": "0x456FDA"
+          "start": "0x456fd0",
+          "end_exclusive": "0x456fda"
         },
         {
-          "start": "0x456FF0",
-          "end_exclusive": "0x456FFC"
+          "start": "0x456ff0",
+          "end_exclusive": "0x456ffc"
         }
       ],
-      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过",
+      "verification_level": "；新三入口原9条及尾跳登记块4条、4call/1目标尾调/1块尾跳/2callback新增静态，旧本体不重验，非运行通过；2026-10-04仅本组17槽/98原Init及所属四条登记块、固定原构造/回调与新增活动接线静态；旧值/RNG/数组/成员算法原文保持，完整EH/SEH/SDK和运行仍未验",
       "scene_crypt_crt_call_connections": [
         {
           "parent_entry": "0x456FD0",
@@ -12899,12 +13739,15 @@
           "parent_entry": "0x456FD0",
           "call_site": "0x456FF5",
           "target_entry": "0x53B406",
-          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "target_symbol": "std::atexit",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacySceneTransitionValue_456FD0",
           "transfer": "call",
           "arguments": "DestroySceneTransitionValue 无参callback",
-          "relationship": "构造完成后原登记完整S32透传，失败无回滚/析构"
+          "relationship": "原数值目标/所属块保留为基线，实际宿主即时登记原固定退出；透传宿主S32，无回滚/额外析构，不计原53B406新源码调用",
+          "original_target_symbol": "RegisterLegacyAtExit_53B406",
+          "native_target_is_original_source_body": false,
+          "approved_decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
         }
       ],
       "scene_crypt_crt_callback_references": [
@@ -12915,9 +13758,53 @@
           "callback_symbol": "DestroySceneTransitionValue",
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacySceneTransitionValue_456FD0",
-          "relationship": "原无参析构callback地址；构析对象/顺序沿既有真实源码，不直接析构或迁移宿主"
+          "relationship": "原固定无参退出现由本项构造后实际std::atexit即时登记；同一owner与原清理序，取消并行自动析构/重复lambda主体"
         }
-      ]
+      ],
+      "original_direct_reference_count": 1,
+      "inbound_evidence": [
+        {
+          "address": "0x553054",
+          "parent_entry": null,
+          "kind": 1
+        }
+      ],
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+      }
     },
     {
       "original_entry": "0x456FE0",
@@ -22412,7 +23299,9 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
         "doc/cg2d_standard_stream_registry_evidence.json",
         "doc/cg2d_startup_protection_lifecycle_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_evidence.json"
+        "doc/cg2d_startup_protection_lifecycle_evidence.json",
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_evidence.json"
       ],
       "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
@@ -22988,7 +23877,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个真实provider接口，整90表仍extern/不启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "SceneTransitionValueStaticInitializer",
+          "canonical_forwarder": null
         },
         {
           "reference_site": "0x5530A4",
@@ -23017,7 +23910,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "PlayerCoordinatesStaticInitializer",
+          "canonical_forwarder": "InitializePlayerCoordinates"
         },
         {
           "reference_site": "0x553068",
@@ -23026,7 +23923,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldCoordinateStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldCoordinateStates"
         },
         {
           "reference_site": "0x55306C",
@@ -23035,7 +23936,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldCoordinateStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldCoordinateStates"
         },
         {
           "reference_site": "0x553070",
@@ -23044,7 +23949,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldCoordinateStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldCoordinateStates"
         },
         {
           "reference_site": "0x553074",
@@ -23053,7 +23962,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldCoordinateStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldCoordinateStates"
         },
         {
           "reference_site": "0x553078",
@@ -23062,7 +23975,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldCoordinateStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldCoordinateStates"
         },
         {
           "reference_site": "0x55307C",
@@ -23071,7 +23988,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x553080",
@@ -23080,7 +24001,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x553084",
@@ -23089,7 +24014,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x553088",
@@ -23098,7 +24027,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x55308C",
@@ -23107,7 +24040,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x553090",
@@ -23116,7 +24053,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldMoveStatesStaticInitializer",
+          "canonical_forwarder": "InitializeWorldMoveStates"
         },
         {
           "reference_site": "0x553094",
@@ -23125,7 +24066,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮十三真实provider，整90表仍extern/当前未启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "RippleGateStaticInitializer",
+          "canonical_forwarder": "InitializeRippleGate"
         }
       ],
       "item_selector_cpp_initialization_bindings": [
@@ -23165,7 +24110,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "PlayerRuntimeValuesStaticInitializer",
+          "canonical_forwarder": null
         },
         {
           "reference_site": "0x553100",
@@ -23174,7 +24123,11 @@
           "source": "src/world/SceneState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "PetRuntimeValuesStaticInitializer",
+          "canonical_forwarder": null
         }
       ],
       "world_objects_cpp_initialization_bindings": [
@@ -23185,7 +24138,11 @@
           "source": "src/world/WorldObjectState.cpp",
           "source_body_implemented": true,
           "native_table_defined": false,
-          "relationship": "世界对象表原真实provider，整90表仍extern/不启用"
+          "relationship": "本组17项实际模块路径接同一Init/即时宿主登记，四自动析构和重复包装主体已取消；整Cpp90/全应用序未启用，接全表须同小步移除八模块调用",
+          "host_exit_registration": "std::atexit",
+          "module_adapter_source": "src/platform/LegacyMouse.cpp",
+          "module_adapter_type": "WorldObjectsStaticInitializer",
+          "canonical_forwarder": null
         }
       ],
       "graphic_transform_cpp_initialization_bindings": [
@@ -23371,6 +24328,42 @@
         "must_remove_module_adapter_when_whole_order_wired": true,
         "runtime_verified": false,
         "boundary": "D02/D03只承接本组退出表私有机制；不称53B406旧体等价/新源码调用，不新增owner/保护/once/回滚/RNG。全应用原序/跨模块/快速退出及C02/C04/完整功能门禁仍开放。"
+      },
+      "world_state_lifecycle_contract": {
+        "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "module_source": "src/platform/LegacyMouse.cpp",
+        "module_types": [
+          "WorldObjectsStaticInitializer",
+          "SceneTransitionValueStaticInitializer",
+          "PlayerCoordinatesStaticInitializer",
+          "WorldCoordinateStatesStaticInitializer",
+          "WorldMoveStatesStaticInitializer",
+          "RippleGateStaticInitializer",
+          "PlayerRuntimeValuesStaticInitializer",
+          "PetRuntimeValuesStaticInitializer"
+        ],
+        "native_init_count": 17,
+        "host_immediate_registration_count": 17,
+        "automatic_destructor_adapters_removed": 4,
+        "canonical_forwarder_count": 4,
+        "duplicate_forwarder_construct_register_logic_removed": true,
+        "direct_module_init_count": 4,
+        "indirect_module_init_count": 13,
+        "owner_data_unchanged": true,
+        "leaf_value_algorithms_unchanged": true,
+        "rng_algorithms_unchanged": true,
+        "array_helper_connections_unchanged": true,
+        "member_cleanup_algorithms_unchanged": true,
+        "existing_full_player_eh_coverage_closed": false,
+        "original_init_instruction_count": 98,
+        "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+        "player_supplemental_registration_instruction_owner": "0x5183E0",
+        "player_supplemental_registration_instruction_count": 4,
+        "native_cpp_table_defined": false,
+        "whole_application_order_closed": false,
+        "must_remove_module_adapters_when_whole_application_order_wired": true,
+        "runtime_verified": false,
+        "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
       }
     },
     {

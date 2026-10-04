@@ -53,12 +53,12 @@ void InitializeRippleGate(); // 原553094：构造后独立登记退出，登记
 std::int32_t ReadRippleGateOnce();
 
 // 原456FE0/457000，73ECD0场景共享CryptInt；CRT排在World表后、玩家坐标前。
-// 原CRT 553054入口先构造后真实退出登记，返回完整S32。
+// 原CRT 553054入口先构造后宿主std::atexit即时登记同一退出，传出真实S32；全应用序待。
 std::int32_t InitializeLegacySceneTransitionValue_456FD0();
 void ConstructSceneTransitionValue();
 void DestroySceneTransitionValue();
 
-// 原CRT 553064..553094的十三个独立入口；构造/退出沿同一状态，完整S32登记结果传出。
+// 原CRT 553064..553094的十三个独立入口；构造/退出沿同一状态，宿主std::atexit即时登记结果完整S32传出；全应用序待。
 std::int32_t InitializeLegacyPlayerCoordinates_467B90(); // 553064：9EE8A8→9EE8C0构造。
 std::int32_t InitializeLegacyPlayerSnapshotX_467BF0(); // 553068：C751C0构造。
 std::int32_t InitializeLegacyPlayerSnapshotY_467C30(); // 55306C：C751B0构造。

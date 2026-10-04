@@ -77,7 +77,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_spec.md"
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -116,7 +117,24 @@
         "F:00004190",
         "F:000041A0",
         "F:000041B0",
-        "F:000041D0"
+        "F:000041D0",
+        "F:0003D760",
+        "F:00056FD0",
+        "F:00067B90",
+        "F:00067BF0",
+        "F:00067C30",
+        "F:00067C70",
+        "F:00067CB0",
+        "F:00067CF0",
+        "F:00067D50",
+        "F:00067DB0",
+        "F:00067DF0",
+        "F:00067E30",
+        "F:00067E70",
+        "F:00067EB0",
+        "F:00067EF0",
+        "F:001183D0",
+        "F:00118520"
       ],
       "closure_task_ids": [
         "C02",
@@ -138,7 +156,8 @@
         "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
         "四图形/DBF容器本组构析已接；全应用原序、四Init/所有owner及完整装载/清理仍未闭，B/I/W/S与R整体未验",
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
-        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配"
+        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -147,7 +166,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-baseline",
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
       ]
     },
     {
@@ -164,7 +184,8 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_standard_stream_init_identity_spec.md",
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
-        "doc/cg2d_startup_protection_lifecycle_spec.md"
+        "doc/cg2d_startup_protection_lifecycle_spec.md",
+        "doc/cg2d_world_state_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -184,7 +205,24 @@
         "F:00004190",
         "F:000041A0",
         "F:000041B0",
-        "F:000041D0"
+        "F:000041D0",
+        "F:0003D760",
+        "F:00056FD0",
+        "F:00067B90",
+        "F:00067BF0",
+        "F:00067C30",
+        "F:00067C70",
+        "F:00067CB0",
+        "F:00067CF0",
+        "F:00067D50",
+        "F:00067DB0",
+        "F:00067DF0",
+        "F:00067E30",
+        "F:00067E70",
+        "F:00067EB0",
+        "F:00067EF0",
+        "F:001183D0",
+        "F:00118520"
       ],
       "closure_task_ids": [
         "C01",
@@ -204,14 +242,16 @@
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
-        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配"
+        "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
       ]
     },
     {
@@ -458,9 +498,28 @@
       "baseline_documents": [
         "doc/cg2d_map_scene_drawing.md",
         "doc/cg2d_map_draw_cache.md",
-        "doc/cg2d_world_objects.md"
+        "doc/cg2d_world_objects.md",
+        "doc/cg2d_world_state_lifecycle_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0003D760",
+        "F:00056FD0",
+        "F:00067B90",
+        "F:00067BF0",
+        "F:00067C30",
+        "F:00067C70",
+        "F:00067CB0",
+        "F:00067CF0",
+        "F:00067D50",
+        "F:00067DB0",
+        "F:00067DF0",
+        "F:00067E30",
+        "F:00067E70",
+        "F:00067EB0",
+        "F:00067EF0",
+        "F:001183D0",
+        "F:00118520"
+      ],
       "closure_task_ids": [
         "U11",
         "G01",
@@ -475,11 +534,14 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
+      ]
     },
     {
       "id": "FUNC-RESOURCE",
@@ -6010,6 +6072,126 @@
       ],
       "result": "pass",
       "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-WORLD-STATE-LIFECYCLE-I-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：17Init全部98条/17原槽与直接入向；5183F0四条登记属5183E0；7聚合身份136条只保布局/归属，不代完整EH；doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-world-state-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-acceptance",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_world_state_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#WorldObjectsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#SceneTransitionValueStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PlayerRuntimeValuesStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PetRuntimeValuesStaticInitializer",
+        "src/world/WorldObjectState.cpp#InitializeLegacyWorldObjects_43D760",
+        "src/world/SceneState.cpp#InitializePlayerCoordinates",
+        "src/world/SceneState.cpp#InitializeWorldCoordinateStates",
+        "src/world/SceneState.cpp#InitializeWorldMoveStates",
+        "src/world/SceneState.cpp#InitializeRippleGate"
+      ],
+      "observation": "仅本组17具名Init的构造/即时宿主登记和原固定退出",
+      "expected": "17项完成构造后即时宿主登记，同一owner/原回调；存储和数组、成员算法不改",
+      "actual": "世界表/场景/13坐标移动Ripple/玩家与主宠物的17Init已接std::atexit，四自动适配析构取消",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接17项私有退出登记，原固定owner/构造后即时登记/回调与真实宿主S32保留；不称53B406原体等价/新源级调用，无失败回滚或补析构",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        },
+        {
+          "description": "八现有模块位置只维持本组前置条件，各自转同一provider；全应用原序接通必须同小步移除调用。跨模块/快速退出/玩家完整EH/数组SEH/SDK与运行未闭，局部证据不外推",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-WORLD-STATE-LIFECYCLE-W-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：17Init全部98条/17原槽与直接入向；5183F0四条登记属5183E0；7聚合身份136条只保布局/归属，不代完整EH；doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-world-state-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-acceptance",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_world_state_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#WorldObjectsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#SceneTransitionValueStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PlayerRuntimeValuesStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PetRuntimeValuesStaticInitializer",
+        "src/world/WorldObjectState.cpp#InitializeLegacyWorldObjects_43D760",
+        "src/world/SceneState.cpp#InitializePlayerCoordinates",
+        "src/world/SceneState.cpp#InitializeWorldCoordinateStates",
+        "src/world/SceneState.cpp#InitializeWorldMoveStates",
+        "src/world/SceneState.cpp#InitializeRippleGate"
+      ],
+      "observation": "仅八现有模块位置到17个统一provider的活动构析",
+      "expected": "四直接模块和四经公开包装保持原位置；包装依各组原槽序逐项调用、丢弃结果不短路；无重复登记主体",
+      "actual": "四包装已规范转调13Init，四直接模块调用其余4Init且析构平凡；全表接入须同小步移除八模块调用",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接17项私有退出登记，原固定owner/构造后即时登记/回调与真实宿主S32保留；不称53B406原体等价/新源级调用，无失败回滚或补析构",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        },
+        {
+          "description": "八现有模块位置只维持本组前置条件，各自转同一provider；全应用原序接通必须同小步移除调用。跨模块/快速退出/玩家完整EH/数组SEH/SDK与运行未闭，局部证据不外推",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-WORLD-STATE-LIFECYCLE-S-20261004",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA：17Init全部98条/17原槽与直接入向；5183F0四条登记属5183E0；7聚合身份136条只保布局/归属，不代完整EH；doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-world-state-lifecycle-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-acceptance",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+        "doc/cg2d_world_state_lifecycle_evidence.json",
+        "src/platform/LegacyMouse.cpp#WorldObjectsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#SceneTransitionValueStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PlayerRuntimeValuesStaticInitializer",
+        "src/platform/LegacyMouse.cpp#PetRuntimeValuesStaticInitializer",
+        "src/world/WorldObjectState.cpp#InitializeLegacyWorldObjects_43D760",
+        "src/world/SceneState.cpp#InitializePlayerCoordinates",
+        "src/world/SceneState.cpp#InitializeWorldCoordinateStates",
+        "src/world/SceneState.cpp#InitializeWorldMoveStates",
+        "src/world/SceneState.cpp#InitializeRippleGate"
+      ],
+      "observation": "仅17原槽/98原Init及所属5183F0四登记指令和本组差异",
+      "expected": "原数值/身份/chunks不拆分；固定构造/回调一致，原owner、字段、值/RNG及数组/成员源码不变；EH/SEH未闭明确",
+      "actual": "本组234唯一指令含7聚合身份作归属证据，限定登记/包装/模块与注释之外源码全文不变；不称106原玩家合并段的完整EH或SDK验收",
+      "differences": [
+        {
+          "description": "D02/D03实际宿主std::atexit承接17项私有退出登记，原固定owner/构造后即时登记/回调与真实宿主S32保留；不称53B406原体等价/新源级调用，无失败回滚或补析构",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        },
+        {
+          "description": "八现有模块位置只维持本组前置条件，各自转同一provider；全应用原序接通必须同小步移除调用。跨模块/快速退出/玩家完整EH/数组SEH/SDK与运行未闭，局部证据不外推",
+          "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
     }
   ],
   "task_acceptance": [
@@ -6107,7 +6289,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
     {
@@ -6116,7 +6299,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+        "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     },
     {
@@ -6578,6 +6762,142 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0003D760",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00056FD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067B90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067BF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067C30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067C70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067CB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067CF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067D50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067DB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067DF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067E70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067EB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00067EF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001183D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00118520",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure"
       ]
     }
   ],

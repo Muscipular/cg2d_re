@@ -8,6 +8,7 @@
 #include "cg/world/SceneState.hpp"
 #include "cg/world/WorldObjects.hpp"
 
+#include <cstdlib>
 #include <cstring>
 
 namespace cg::world {
@@ -351,7 +352,7 @@ void DestroyLegacyWorldElementForArray(void* const storage)
 std::int32_t InitializeLegacyWorldObjects_43D760()
 {
     ConstructWorldObjects();
-    return platform::RegisterLegacyAtExit_53B406(DestroyWorldObjects);
+    return std::atexit(DestroyWorldObjects);
 }
 
 void ConstructWorldObjects()

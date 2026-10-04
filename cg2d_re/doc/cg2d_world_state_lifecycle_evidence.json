@@ -1,0 +1,2169 @@
+{
+  "description": "世界状态17项活动构析迁移：17原Init98条，玩家合并四条登记块属5183E0；辅助原7身份136条只作布局/归属证据，不称全EH已验。",
+  "source": "当前已打开cg2d.exe IDA，只读Python，无重开/重载/修改/保存/导出原文件或数据库。",
+  "functions": [
+    {
+      "entry": "0x43d760",
+      "root": "0x43d760",
+      "chunks": [
+        [
+          "0x43d760",
+          "0x43d76a"
+        ],
+        [
+          "0x43d790",
+          "0x43d79c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x43d760",
+          "call    sub_43D770"
+        ],
+        [
+          "0x43d765",
+          "jmp     loc_43D790"
+        ],
+        [
+          "0x43d790",
+          "push    offset sub_43D7A0; void (__cdecl *)()"
+        ],
+        [
+          "0x43d795",
+          "call    _atexit"
+        ],
+        [
+          "0x43d79a",
+          "pop     ecx"
+        ],
+        [
+          "0x43d79b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x43d760",
+          "0x43d770",
+          17
+        ],
+        [
+          "0x43d795",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553014",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x456fd0",
+      "root": "0x456fd0",
+      "chunks": [
+        [
+          "0x456fd0",
+          "0x456fda"
+        ],
+        [
+          "0x456ff0",
+          "0x456ffc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x456fd0",
+          "call    unknown_libname_15; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x456fd5",
+          "jmp     loc_456FF0"
+        ],
+        [
+          "0x456ff0",
+          "push    offset unknown_libname_16; void (__cdecl *)()"
+        ],
+        [
+          "0x456ff5",
+          "call    _atexit"
+        ],
+        [
+          "0x456ffa",
+          "pop     ecx"
+        ],
+        [
+          "0x456ffb",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x456fd0",
+          "0x456fe0",
+          17
+        ],
+        [
+          "0x456ff5",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553054",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467b90",
+      "root": "0x467b90",
+      "chunks": [
+        [
+          "0x467b90",
+          "0x467b9a"
+        ],
+        [
+          "0x467bc0",
+          "0x467bcc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467b90",
+          "call    unknown_libname_17; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467b95",
+          "jmp     loc_467BC0"
+        ],
+        [
+          "0x467bc0",
+          "push    offset sub_467BD0; void (__cdecl *)()"
+        ],
+        [
+          "0x467bc5",
+          "call    _atexit"
+        ],
+        [
+          "0x467bca",
+          "pop     ecx"
+        ],
+        [
+          "0x467bcb",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467b90",
+          "0x467ba0",
+          17
+        ],
+        [
+          "0x467bc5",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553064",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467bf0",
+      "root": "0x467bf0",
+      "chunks": [
+        [
+          "0x467bf0",
+          "0x467bfa"
+        ],
+        [
+          "0x467c10",
+          "0x467c1c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467bf0",
+          "call    unknown_libname_19; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467bf5",
+          "jmp     loc_467C10"
+        ],
+        [
+          "0x467c10",
+          "push    offset unknown_libname_20; void (__cdecl *)()"
+        ],
+        [
+          "0x467c15",
+          "call    _atexit"
+        ],
+        [
+          "0x467c1a",
+          "pop     ecx"
+        ],
+        [
+          "0x467c1b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467bf0",
+          "0x467c00",
+          17
+        ],
+        [
+          "0x467c15",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553068",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467c30",
+      "root": "0x467c30",
+      "chunks": [
+        [
+          "0x467c30",
+          "0x467c3a"
+        ],
+        [
+          "0x467c50",
+          "0x467c5c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467c30",
+          "call    unknown_libname_21; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467c35",
+          "jmp     loc_467C50"
+        ],
+        [
+          "0x467c50",
+          "push    offset unknown_libname_22; void (__cdecl *)()"
+        ],
+        [
+          "0x467c55",
+          "call    _atexit"
+        ],
+        [
+          "0x467c5a",
+          "pop     ecx"
+        ],
+        [
+          "0x467c5b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467c30",
+          "0x467c40",
+          17
+        ],
+        [
+          "0x467c55",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55306c",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467c70",
+      "root": "0x467c70",
+      "chunks": [
+        [
+          "0x467c70",
+          "0x467c7a"
+        ],
+        [
+          "0x467c90",
+          "0x467c9c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467c70",
+          "call    unknown_libname_23; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467c75",
+          "jmp     loc_467C90"
+        ],
+        [
+          "0x467c90",
+          "push    offset unknown_libname_24; void (__cdecl *)()"
+        ],
+        [
+          "0x467c95",
+          "call    _atexit"
+        ],
+        [
+          "0x467c9a",
+          "pop     ecx"
+        ],
+        [
+          "0x467c9b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467c70",
+          "0x467c80",
+          17
+        ],
+        [
+          "0x467c95",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553070",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467cb0",
+      "root": "0x467cb0",
+      "chunks": [
+        [
+          "0x467cb0",
+          "0x467cba"
+        ],
+        [
+          "0x467cd0",
+          "0x467cdc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467cb0",
+          "call    unknown_libname_25; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467cb5",
+          "jmp     loc_467CD0"
+        ],
+        [
+          "0x467cd0",
+          "push    offset unknown_libname_26; void (__cdecl *)()"
+        ],
+        [
+          "0x467cd5",
+          "call    _atexit"
+        ],
+        [
+          "0x467cda",
+          "pop     ecx"
+        ],
+        [
+          "0x467cdb",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467cb0",
+          "0x467cc0",
+          17
+        ],
+        [
+          "0x467cd5",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553074",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467cf0",
+      "root": "0x467cf0",
+      "chunks": [
+        [
+          "0x467cf0",
+          "0x467cfa"
+        ],
+        [
+          "0x467d20",
+          "0x467d2c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467cf0",
+          "call    unknown_libname_27; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467cf5",
+          "jmp     loc_467D20"
+        ],
+        [
+          "0x467d20",
+          "push    offset unknown_libname_28; void (__cdecl *)()"
+        ],
+        [
+          "0x467d25",
+          "call    _atexit"
+        ],
+        [
+          "0x467d2a",
+          "pop     ecx"
+        ],
+        [
+          "0x467d2b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467cf0",
+          "0x467d00",
+          17
+        ],
+        [
+          "0x467d25",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553078",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467d50",
+      "root": "0x467d50",
+      "chunks": [
+        [
+          "0x467d50",
+          "0x467d5a"
+        ],
+        [
+          "0x467d80",
+          "0x467d8c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467d50",
+          "call    sub_467D60; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467d55",
+          "jmp     loc_467D80"
+        ],
+        [
+          "0x467d80",
+          "push    offset sub_467D90; void (__cdecl *)()"
+        ],
+        [
+          "0x467d85",
+          "call    _atexit"
+        ],
+        [
+          "0x467d8a",
+          "pop     ecx"
+        ],
+        [
+          "0x467d8b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467d50",
+          "0x467d60",
+          17
+        ],
+        [
+          "0x467d85",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55307c",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467db0",
+      "root": "0x467db0",
+      "chunks": [
+        [
+          "0x467db0",
+          "0x467dba"
+        ],
+        [
+          "0x467dd0",
+          "0x467ddc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467db0",
+          "call    unknown_libname_31; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467db5",
+          "jmp     loc_467DD0"
+        ],
+        [
+          "0x467dd0",
+          "push    offset unknown_libname_32; void (__cdecl *)()"
+        ],
+        [
+          "0x467dd5",
+          "call    _atexit"
+        ],
+        [
+          "0x467dda",
+          "pop     ecx"
+        ],
+        [
+          "0x467ddb",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467db0",
+          "0x467dc0",
+          17
+        ],
+        [
+          "0x467dd5",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553080",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467df0",
+      "root": "0x467df0",
+      "chunks": [
+        [
+          "0x467df0",
+          "0x467dfa"
+        ],
+        [
+          "0x467e10",
+          "0x467e1c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467df0",
+          "call    unknown_libname_33; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467df5",
+          "jmp     loc_467E10"
+        ],
+        [
+          "0x467e10",
+          "push    offset unknown_libname_34; void (__cdecl *)()"
+        ],
+        [
+          "0x467e15",
+          "call    _atexit"
+        ],
+        [
+          "0x467e1a",
+          "pop     ecx"
+        ],
+        [
+          "0x467e1b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467df0",
+          "0x467e00",
+          17
+        ],
+        [
+          "0x467e15",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553084",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467e30",
+      "root": "0x467e30",
+      "chunks": [
+        [
+          "0x467e30",
+          "0x467e3a"
+        ],
+        [
+          "0x467e50",
+          "0x467e5c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467e30",
+          "call    unknown_libname_35; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467e35",
+          "jmp     loc_467E50"
+        ],
+        [
+          "0x467e50",
+          "push    offset unknown_libname_36; void (__cdecl *)()"
+        ],
+        [
+          "0x467e55",
+          "call    _atexit"
+        ],
+        [
+          "0x467e5a",
+          "pop     ecx"
+        ],
+        [
+          "0x467e5b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467e30",
+          "0x467e40",
+          17
+        ],
+        [
+          "0x467e55",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553088",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467e70",
+      "root": "0x467e70",
+      "chunks": [
+        [
+          "0x467e70",
+          "0x467e7a"
+        ],
+        [
+          "0x467e90",
+          "0x467e9c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467e70",
+          "call    unknown_libname_37; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467e75",
+          "jmp     loc_467E90"
+        ],
+        [
+          "0x467e90",
+          "push    offset unknown_libname_38; void (__cdecl *)()"
+        ],
+        [
+          "0x467e95",
+          "call    _atexit"
+        ],
+        [
+          "0x467e9a",
+          "pop     ecx"
+        ],
+        [
+          "0x467e9b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467e70",
+          "0x467e80",
+          17
+        ],
+        [
+          "0x467e95",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x55308c",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467eb0",
+      "root": "0x467eb0",
+      "chunks": [
+        [
+          "0x467eb0",
+          "0x467eba"
+        ],
+        [
+          "0x467ed0",
+          "0x467edc"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467eb0",
+          "call    unknown_libname_39; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467eb5",
+          "jmp     loc_467ED0"
+        ],
+        [
+          "0x467ed0",
+          "push    offset unknown_libname_40; void (__cdecl *)()"
+        ],
+        [
+          "0x467ed5",
+          "call    _atexit"
+        ],
+        [
+          "0x467eda",
+          "pop     ecx"
+        ],
+        [
+          "0x467edb",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467eb0",
+          "0x467ec0",
+          17
+        ],
+        [
+          "0x467ed5",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553090",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x467ef0",
+      "root": "0x467ef0",
+      "chunks": [
+        [
+          "0x467ef0",
+          "0x467efa"
+        ],
+        [
+          "0x467f10",
+          "0x467f1c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x467ef0",
+          "call    unknown_libname_41; Microsoft VisualC 2-14/net runtime"
+        ],
+        [
+          "0x467ef5",
+          "jmp     loc_467F10"
+        ],
+        [
+          "0x467f10",
+          "push    offset unknown_libname_42; void (__cdecl *)()"
+        ],
+        [
+          "0x467f15",
+          "call    _atexit"
+        ],
+        [
+          "0x467f1a",
+          "pop     ecx"
+        ],
+        [
+          "0x467f1b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x467ef0",
+          "0x467f00",
+          17
+        ],
+        [
+          "0x467f15",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553094",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x5183d0",
+      "root": "0x5183d0",
+      "chunks": [
+        [
+          "0x5183d0",
+          "0x5183da"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x5183d0",
+          "call    sub_5183E0"
+        ],
+        [
+          "0x5183d5",
+          "jmp     loc_5183F0"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x5183d0",
+          "0x5183e0",
+          17
+        ],
+        [
+          "0x5183d5",
+          "0x5183f0",
+          19
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5530fc",
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "entry": "0x518520",
+      "root": "0x518520",
+      "chunks": [
+        [
+          "0x518520",
+          "0x51852a"
+        ],
+        [
+          "0x518550",
+          "0x51855c"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x518520",
+          "call    sub_518530"
+        ],
+        [
+          "0x518525",
+          "jmp     loc_518550"
+        ],
+        [
+          "0x518550",
+          "push    offset sub_518560; void (__cdecl *)()"
+        ],
+        [
+          "0x518555",
+          "call    _atexit"
+        ],
+        [
+          "0x51855a",
+          "pop     ecx"
+        ],
+        [
+          "0x51855b",
+          "retn"
+        ]
+      ],
+      "outbound": [
+        [
+          "0x518520",
+          "0x518530",
+          17
+        ],
+        [
+          "0x518555",
+          "0x53b406",
+          17
+        ]
+      ],
+      "inbound": [
+        [
+          "0x553100",
+          null,
+          1
+        ]
+      ]
+    }
+  ],
+  "table": [
+    [
+      "0x553014",
+      "0x43d760"
+    ],
+    [
+      "0x553054",
+      "0x456fd0"
+    ],
+    [
+      "0x553064",
+      "0x467b90"
+    ],
+    [
+      "0x553068",
+      "0x467bf0"
+    ],
+    [
+      "0x55306c",
+      "0x467c30"
+    ],
+    [
+      "0x553070",
+      "0x467c70"
+    ],
+    [
+      "0x553074",
+      "0x467cb0"
+    ],
+    [
+      "0x553078",
+      "0x467cf0"
+    ],
+    [
+      "0x55307c",
+      "0x467d50"
+    ],
+    [
+      "0x553080",
+      "0x467db0"
+    ],
+    [
+      "0x553084",
+      "0x467df0"
+    ],
+    [
+      "0x553088",
+      "0x467e30"
+    ],
+    [
+      "0x55308c",
+      "0x467e70"
+    ],
+    [
+      "0x553090",
+      "0x467eb0"
+    ],
+    [
+      "0x553094",
+      "0x467ef0"
+    ],
+    [
+      "0x5530fc",
+      "0x5183d0"
+    ],
+    [
+      "0x553100",
+      "0x518520"
+    ]
+  ],
+  "aggregate_original_functions": [
+    {
+      "query": "0x43d770",
+      "entry": "0x43d770",
+      "chunks": [
+        [
+          "0x43d770",
+          "0x43d78f"
+        ]
+      ],
+      "n": 7,
+      "asm": [
+        [
+          "0x43d770",
+          "push    offset sub_43D810; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x43d775",
+          "push    offset sub_43D7C0; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x43d77a",
+          "push    3E8h; int"
+        ],
+        [
+          "0x43d77f",
+          "push    13Ch; unsigned int"
+        ],
+        [
+          "0x43d784",
+          "push    offset gWorld__ObjList; void *"
+        ],
+        [
+          "0x43d789",
+          "call    ??_L@YGXPAXIHP6EX0@Z1@Z; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))"
+        ],
+        [
+          "0x43d78e",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x43d760",
+          "0x43d760",
+          17
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x43d770",
+          "inbound": [
+            [
+              "0x43d760",
+              "0x43d760",
+              17
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x43d7a0",
+      "entry": "0x43d7a0",
+      "chunks": [
+        [
+          "0x43d7a0",
+          "0x43d7ba"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x43d7a0",
+          "push    offset sub_43D810; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x43d7a5",
+          "push    3E8h; int"
+        ],
+        [
+          "0x43d7aa",
+          "push    13Ch; unsigned int"
+        ],
+        [
+          "0x43d7af",
+          "push    offset gWorld__ObjList; void *"
+        ],
+        [
+          "0x43d7b4",
+          "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        ],
+        [
+          "0x43d7b9",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x43d790",
+          "0x43d760",
+          1
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x43d7a0",
+          "inbound": [
+            [
+              "0x43d790",
+              "0x43d760",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x456fe0",
+      "entry": "0x456fe0",
+      "chunks": [
+        [
+          "0x456fe0",
+          "0x456fea"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x456fe0",
+          "mov     ecx, offset stru_73ECD0"
+        ],
+        [
+          "0x456fe5",
+          "jmp     sub_401C70"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x456fd0",
+          "0x456fd0",
+          17
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x456fe0",
+          "inbound": [
+            [
+              "0x456fd0",
+              "0x456fd0",
+              17
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x457000",
+      "entry": "0x457000",
+      "chunks": [
+        [
+          "0x457000",
+          "0x45700a"
+        ]
+      ],
+      "n": 2,
+      "asm": [
+        [
+          "0x457000",
+          "mov     ecx, offset stru_73ECD0"
+        ],
+        [
+          "0x457005",
+          "jmp     CryptInt_delete"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x456ff0",
+          "0x456fd0",
+          1
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x457000",
+          "inbound": [
+            [
+              "0x456ff0",
+              "0x456fd0",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x5183e0",
+      "entry": "0x5183e0",
+      "chunks": [
+        [
+          "0x5183e0",
+          "0x51851b"
+        ],
+        [
+          "0x54bb50",
+          "0x54bb91"
+        ],
+        [
+          "0x54bba0",
+          "0x54bbe1"
+        ]
+      ],
+      "n": 106,
+      "asm": [
+        [
+          "0x5183e0",
+          "mov     ecx, offset gPlayerDataVal"
+        ],
+        [
+          "0x5183e5",
+          "jmp     loc_5184A0"
+        ],
+        [
+          "0x5183f0",
+          "push    offset loc_518400; void (__cdecl *)()"
+        ],
+        [
+          "0x5183f5",
+          "call    _atexit"
+        ],
+        [
+          "0x5183fa",
+          "pop     ecx"
+        ],
+        [
+          "0x5183fb",
+          "retn"
+        ],
+        [
+          "0x518400",
+          "mov     ecx, offset gPlayerDataVal"
+        ],
+        [
+          "0x518405",
+          "jmp     loc_518410"
+        ],
+        [
+          "0x518410",
+          "push    0FFFFFFFFh"
+        ],
+        [
+          "0x518412",
+          "push    offset loc_54BB87"
+        ],
+        [
+          "0x518417",
+          "mov     eax, large fs:0"
+        ],
+        [
+          "0x51841d",
+          "push    eax"
+        ],
+        [
+          "0x51841e",
+          "mov     large fs:0, esp"
+        ],
+        [
+          "0x518425",
+          "push    ecx"
+        ],
+        [
+          "0x518426",
+          "push    esi"
+        ],
+        [
+          "0x518427",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x518429",
+          "mov     [esp+14h+var_10], esi"
+        ],
+        [
+          "0x51842d",
+          "lea     ecx, [esi+68h]"
+        ],
+        [
+          "0x518430",
+          "mov     [esp+14h+var_4], 4"
+        ],
+        [
+          "0x518438",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x51843d",
+          "lea     ecx, [esi+58h]"
+        ],
+        [
+          "0x518440",
+          "mov     byte ptr [esp+14h+var_4], 3"
+        ],
+        [
+          "0x518445",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x51844a",
+          "lea     ecx, [esi+48h]"
+        ],
+        [
+          "0x51844d",
+          "mov     byte ptr [esp+14h+var_4], 2"
+        ],
+        [
+          "0x518452",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x518457",
+          "lea     ecx, [esi+38h]"
+        ],
+        [
+          "0x51845a",
+          "mov     byte ptr [esp+14h+var_4], 1"
+        ],
+        [
+          "0x51845f",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x518464",
+          "lea     ecx, [esi+28h]"
+        ],
+        [
+          "0x518467",
+          "mov     byte ptr [esp+14h+var_4], 0"
+        ],
+        [
+          "0x51846c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x518471",
+          "lea     ecx, [esi+18h]"
+        ],
+        [
+          "0x518474",
+          "mov     [esp+14h+var_4], 0FFFFFFFFh"
+        ],
+        [
+          "0x51847c",
+          "call    CryptInt_delete"
+        ],
+        [
+          "0x518481",
+          "mov     ecx, [esp+14h+var_C]"
+        ],
+        [
+          "0x518485",
+          "pop     esi"
+        ],
+        [
+          "0x518486",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x51848d",
+          "add     esp, 10h"
+        ],
+        [
+          "0x518490",
+          "retn"
+        ],
+        [
+          "0x5184a0",
+          "push    0FFFFFFFFh"
+        ],
+        [
+          "0x5184a2",
+          "push    offset loc_54BBD7"
+        ],
+        [
+          "0x5184a7",
+          "mov     eax, large fs:0"
+        ],
+        [
+          "0x5184ad",
+          "push    eax"
+        ],
+        [
+          "0x5184ae",
+          "mov     large fs:0, esp"
+        ],
+        [
+          "0x5184b5",
+          "push    ecx"
+        ],
+        [
+          "0x5184b6",
+          "push    esi"
+        ],
+        [
+          "0x5184b7",
+          "mov     esi, ecx"
+        ],
+        [
+          "0x5184b9",
+          "mov     [esp+14h+var_10], esi"
+        ],
+        [
+          "0x5184bd",
+          "lea     ecx, [esi+18h]"
+        ],
+        [
+          "0x5184c0",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5184c5",
+          "lea     ecx, [esi+28h]"
+        ],
+        [
+          "0x5184c8",
+          "mov     [esp+14h+var_4], 0"
+        ],
+        [
+          "0x5184d0",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5184d5",
+          "lea     ecx, [esi+38h]"
+        ],
+        [
+          "0x5184d8",
+          "mov     byte ptr [esp+14h+var_4], 1"
+        ],
+        [
+          "0x5184dd",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5184e2",
+          "lea     ecx, [esi+48h]"
+        ],
+        [
+          "0x5184e5",
+          "mov     byte ptr [esp+14h+var_4], 2"
+        ],
+        [
+          "0x5184ea",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5184ef",
+          "lea     ecx, [esi+58h]"
+        ],
+        [
+          "0x5184f2",
+          "mov     byte ptr [esp+14h+var_4], 3"
+        ],
+        [
+          "0x5184f7",
+          "call    sub_401C70"
+        ],
+        [
+          "0x5184fc",
+          "lea     ecx, [esi+68h]"
+        ],
+        [
+          "0x5184ff",
+          "mov     byte ptr [esp+14h+var_4], 4"
+        ],
+        [
+          "0x518504",
+          "call    sub_401C70"
+        ],
+        [
+          "0x518509",
+          "mov     ecx, [esp+14h+var_C]"
+        ],
+        [
+          "0x51850d",
+          "mov     eax, esi"
+        ],
+        [
+          "0x51850f",
+          "pop     esi"
+        ],
+        [
+          "0x518510",
+          "mov     large fs:0, ecx"
+        ],
+        [
+          "0x518517",
+          "add     esp, 10h"
+        ],
+        [
+          "0x51851a",
+          "retn"
+        ],
+        [
+          "0x54bb50",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb53",
+          "add     ecx, 18h"
+        ],
+        [
+          "0x54bb56",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb5b",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb5e",
+          "add     ecx, 28h ; '('"
+        ],
+        [
+          "0x54bb61",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb66",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb69",
+          "add     ecx, 38h ; '8'"
+        ],
+        [
+          "0x54bb6c",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb71",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb74",
+          "add     ecx, 48h ; 'H'"
+        ],
+        [
+          "0x54bb77",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb7c",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bb7f",
+          "add     ecx, 58h ; 'X'"
+        ],
+        [
+          "0x54bb82",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bb87",
+          "mov     eax, offset stru_550C80"
+        ],
+        [
+          "0x54bb8c",
+          "jmp     ___CxxFrameHandler"
+        ],
+        [
+          "0x54bba0",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bba3",
+          "add     ecx, 18h"
+        ],
+        [
+          "0x54bba6",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bbab",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bbae",
+          "add     ecx, 28h ; '('"
+        ],
+        [
+          "0x54bbb1",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bbb6",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bbb9",
+          "add     ecx, 38h ; '8'"
+        ],
+        [
+          "0x54bbbc",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bbc1",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bbc4",
+          "add     ecx, 48h ; 'H'"
+        ],
+        [
+          "0x54bbc7",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bbcc",
+          "mov     ecx, [ebp-10h]"
+        ],
+        [
+          "0x54bbcf",
+          "add     ecx, 58h ; 'X'"
+        ],
+        [
+          "0x54bbd2",
+          "jmp     CryptInt_delete"
+        ],
+        [
+          "0x54bbd7",
+          "mov     eax, offset stru_550CC8"
+        ],
+        [
+          "0x54bbdc",
+          "jmp     ___CxxFrameHandler"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x5183d0",
+          "0x5183d0",
+          17
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x5183e0",
+          "inbound": [
+            [
+              "0x5183d0",
+              "0x5183d0",
+              17
+            ]
+          ]
+        },
+        {
+          "query": "0x5183f0",
+          "inbound": [
+            [
+              "0x5183d5",
+              "0x5183d0",
+              19
+            ]
+          ]
+        },
+        {
+          "query": "0x518400",
+          "inbound": [
+            [
+              "0x5183f0",
+              "0x5183e0",
+              1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x518530",
+      "entry": "0x518530",
+      "chunks": [
+        [
+          "0x518530",
+          "0x51854c"
+        ]
+      ],
+      "n": 7,
+      "asm": [
+        [
+          "0x518530",
+          "push    offset sub_4CD2D0; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x518535",
+          "push    offset sub_4CD360; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x51853a",
+          "push    5; int"
+        ],
+        [
+          "0x51853c",
+          "push    5110h; unsigned int"
+        ],
+        [
+          "0x518541",
+          "push    offset gPetData; void *"
+        ],
+        [
+          "0x518546",
+          "call    ??_L@YGXPAXIHP6EX0@Z1@Z; `eh vector constructor iterator'(void *,uint,int,void (*)(void *),void (*)(void *))"
+        ],
+        [
+          "0x51854b",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x518520",
+          "0x518520",
+          17
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x518530",
+          "inbound": [
+            [
+              "0x518520",
+              "0x518520",
+              17
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "query": "0x518560",
+      "entry": "0x518560",
+      "chunks": [
+        [
+          "0x518560",
+          "0x518577"
+        ]
+      ],
+      "n": 6,
+      "asm": [
+        [
+          "0x518560",
+          "push    offset sub_4CD2D0; void (__thiscall *)(void *)"
+        ],
+        [
+          "0x518565",
+          "push    5; int"
+        ],
+        [
+          "0x518567",
+          "push    5110h; unsigned int"
+        ],
+        [
+          "0x51856c",
+          "push    offset gPetData; void *"
+        ],
+        [
+          "0x518571",
+          "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        ],
+        [
+          "0x518576",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x518550",
+          "0x518520",
+          1
+        ]
+      ],
+      "queried_addresses": [
+        {
+          "query": "0x518560",
+          "inbound": [
+            [
+              "0x518550",
+              "0x518520",
+              1
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "original_unique_instruction_count": 234,
+  "player_supplemental_registration": [
+    [
+      "0x5183f0",
+      "push    offset loc_518400; void (__cdecl *)()"
+    ],
+    [
+      "0x5183f5",
+      "call    _atexit"
+    ],
+    [
+      "0x5183fa",
+      "pop     ecx"
+    ],
+    [
+      "0x5183fb",
+      "retn"
+    ]
+  ],
+  "native_bindings": [
+    {
+      "entry": "0x43D760",
+      "id": "F:0003D760",
+      "init": "InitializeLegacyWorldObjects_43D760",
+      "ctorEntry": "0x43D770",
+      "ctor": "ConstructWorldObjects",
+      "dtrEntry": "0x43D7A0",
+      "dtr": "DestroyWorldObjects",
+      "source": "src/world/WorldObjectState.cpp",
+      "slot": "0x553014",
+      "forwarder": null,
+      "moduleType": "WorldObjectsStaticInitializer",
+      "header": "include/cg/world/WorldObjects.hpp"
+    },
+    {
+      "entry": "0x456FD0",
+      "id": "F:00056FD0",
+      "init": "InitializeLegacySceneTransitionValue_456FD0",
+      "ctorEntry": "0x456FE0",
+      "ctor": "ConstructSceneTransitionValue",
+      "dtrEntry": "0x457000",
+      "dtr": "DestroySceneTransitionValue",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553054",
+      "forwarder": null,
+      "moduleType": "SceneTransitionValueStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467B90",
+      "id": "F:00067B90",
+      "init": "InitializeLegacyPlayerCoordinates_467B90",
+      "ctorEntry": "0x467BA0",
+      "ctor": "ConstructLegacyPlayerCoordinates_467BA0",
+      "dtrEntry": "0x467BD0",
+      "dtr": "DestroyLegacyPlayerCoordinates_467BD0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553064",
+      "forwarder": "InitializePlayerCoordinates",
+      "moduleType": "PlayerCoordinatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467BF0",
+      "id": "F:00067BF0",
+      "init": "InitializeLegacyPlayerSnapshotX_467BF0",
+      "ctorEntry": "0x467C00",
+      "ctor": "ConstructLegacyPlayerSnapshotX_467C00",
+      "dtrEntry": "0x467C20",
+      "dtr": "DestroyLegacyPlayerSnapshotX_467C20",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553068",
+      "forwarder": "InitializeWorldCoordinateStates",
+      "moduleType": "WorldCoordinateStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467C30",
+      "id": "F:00067C30",
+      "init": "InitializeLegacyPlayerSnapshotY_467C30",
+      "ctorEntry": "0x467C40",
+      "ctor": "ConstructLegacyPlayerSnapshotY_467C40",
+      "dtrEntry": "0x467C60",
+      "dtr": "DestroyLegacyPlayerSnapshotY_467C60",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x55306C",
+      "forwarder": "InitializeWorldCoordinateStates",
+      "moduleType": "WorldCoordinateStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467C70",
+      "id": "F:00067C70",
+      "init": "InitializeLegacyWorldCoordinateState_467C70",
+      "ctorEntry": "0x467C80",
+      "ctor": "ConstructLegacyWorldCoordinateState_467C80",
+      "dtrEntry": "0x467CA0",
+      "dtr": "DestroyLegacyWorldCoordinateState_467CA0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553070",
+      "forwarder": "InitializeWorldCoordinateStates",
+      "moduleType": "WorldCoordinateStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467CB0",
+      "id": "F:00067CB0",
+      "init": "InitializeLegacyWorldCoordinateState_467CB0",
+      "ctorEntry": "0x467CC0",
+      "ctor": "ConstructLegacyWorldCoordinateState_467CC0",
+      "dtrEntry": "0x467CE0",
+      "dtr": "DestroyLegacyWorldCoordinateState_467CE0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553074",
+      "forwarder": "InitializeWorldCoordinateStates",
+      "moduleType": "WorldCoordinateStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467CF0",
+      "id": "F:00067CF0",
+      "init": "InitializeLegacyWorldCoordinatePair_467CF0",
+      "ctorEntry": "0x467D00",
+      "ctor": "ConstructLegacyWorldCoordinatePair_467D00",
+      "dtrEntry": "0x467D30",
+      "dtr": "DestroyLegacyWorldCoordinatePair_467D30",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553078",
+      "forwarder": "InitializeWorldCoordinateStates",
+      "moduleType": "WorldCoordinateStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467D50",
+      "id": "F:00067D50",
+      "init": "InitializeLegacyWorldMoveTargets_467D50",
+      "ctorEntry": "0x467D60",
+      "ctor": "ConstructLegacyWorldMoveTargets_467D60",
+      "dtrEntry": "0x467D90",
+      "dtr": "DestroyLegacyWorldMoveTargets_467D90",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x55307C",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467DB0",
+      "id": "F:00067DB0",
+      "init": "InitializeLegacyWorldMoveState_467DB0",
+      "ctorEntry": "0x467DC0",
+      "ctor": "ConstructLegacyWorldMoveState_467DC0",
+      "dtrEntry": "0x467DE0",
+      "dtr": "DestroyLegacyWorldMoveState_467DE0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553080",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467DF0",
+      "id": "F:00067DF0",
+      "init": "InitializeLegacyWorldMoveState_467DF0",
+      "ctorEntry": "0x467E00",
+      "ctor": "ConstructLegacyWorldMoveState_467E00",
+      "dtrEntry": "0x467E20",
+      "dtr": "DestroyLegacyWorldMoveState_467E20",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553084",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467E30",
+      "id": "F:00067E30",
+      "init": "InitializeLegacyWorldMoveState_467E30",
+      "ctorEntry": "0x467E40",
+      "ctor": "ConstructLegacyWorldMoveState_467E40",
+      "dtrEntry": "0x467E60",
+      "dtr": "DestroyLegacyWorldMoveState_467E60",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553088",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467E70",
+      "id": "F:00067E70",
+      "init": "InitializeLegacyWorldMoveState_467E70",
+      "ctorEntry": "0x467E80",
+      "ctor": "ConstructLegacyWorldMoveState_467E80",
+      "dtrEntry": "0x467EA0",
+      "dtr": "DestroyLegacyWorldMoveState_467EA0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x55308C",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467EB0",
+      "id": "F:00067EB0",
+      "init": "InitializeLegacyWorldMoveState_467EB0",
+      "ctorEntry": "0x467EC0",
+      "ctor": "ConstructLegacyWorldMoveState_467EC0",
+      "dtrEntry": "0x467EE0",
+      "dtr": "DestroyLegacyWorldMoveState_467EE0",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553090",
+      "forwarder": "InitializeWorldMoveStates",
+      "moduleType": "WorldMoveStatesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x467EF0",
+      "id": "F:00067EF0",
+      "init": "InitializeLegacyRippleGate_467EF0",
+      "ctorEntry": "0x467F00",
+      "ctor": "ConstructLegacyRippleGate_467F00",
+      "dtrEntry": "0x467F20",
+      "dtr": "DestroyLegacyRippleGate_467F20",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553094",
+      "forwarder": "InitializeRippleGate",
+      "moduleType": "RippleGateStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x5183D0",
+      "id": "F:001183D0",
+      "init": "InitializeLegacyPlayerRuntime_5183D0",
+      "ctorEntry": "0x5183E0",
+      "ctor": "ConstructLegacyPlayerRuntime_5183E0",
+      "dtrEntry": "0x518400",
+      "dtr": "ReleaseLegacyPlayerRuntimeAtExit_518400",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x5530FC",
+      "forwarder": null,
+      "moduleType": "PlayerRuntimeValuesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    },
+    {
+      "entry": "0x518520",
+      "id": "F:00118520",
+      "init": "InitializeLegacyPetRuntime_518520",
+      "ctorEntry": "0x518530",
+      "ctor": "ConstructPetRuntimeValues",
+      "dtrEntry": "0x518560",
+      "dtr": "DestroyPetRuntimeValues",
+      "source": "src/world/SceneState.cpp",
+      "slot": "0x553100",
+      "forwarder": null,
+      "moduleType": "PetRuntimeValuesStaticInitializer",
+      "header": "include/cg/world/SceneState.hpp"
+    }
+  ],
+  "native_lifecycle_contract": {
+    "decision_ref": "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-decision",
+    "module_source": "src/platform/LegacyMouse.cpp",
+    "module_types": [
+      "WorldObjectsStaticInitializer",
+      "SceneTransitionValueStaticInitializer",
+      "PlayerCoordinatesStaticInitializer",
+      "WorldCoordinateStatesStaticInitializer",
+      "WorldMoveStatesStaticInitializer",
+      "RippleGateStaticInitializer",
+      "PlayerRuntimeValuesStaticInitializer",
+      "PetRuntimeValuesStaticInitializer"
+    ],
+    "native_init_count": 17,
+    "host_immediate_registration_count": 17,
+    "automatic_destructor_adapters_removed": 4,
+    "canonical_forwarder_count": 4,
+    "duplicate_forwarder_construct_register_logic_removed": true,
+    "direct_module_init_count": 4,
+    "indirect_module_init_count": 13,
+    "owner_data_unchanged": true,
+    "leaf_value_algorithms_unchanged": true,
+    "rng_algorithms_unchanged": true,
+    "array_helper_connections_unchanged": true,
+    "member_cleanup_algorithms_unchanged": true,
+    "existing_full_player_eh_coverage_closed": false,
+    "original_init_instruction_count": 98,
+    "player_supplemental_registration_block": "0x5183F0..0x5183FC",
+    "player_supplemental_registration_instruction_owner": "0x5183E0",
+    "player_supplemental_registration_instruction_count": 4,
+    "native_cpp_table_defined": false,
+    "whole_application_order_closed": false,
+    "must_remove_module_adapters_when_whole_application_order_wired": true,
+    "runtime_verified": false,
+    "boundary": "D02/D03仅宿主承接本组私有退出登记；每项构造后即时登记原固定回调/真实S32，caller丢弃不短路。原1000世界表/主宠物5数组/玩家六值/场景和坐标同一存储与原算法保持；全应用原序/快速退出/数组SEH、玩家完整EH/SDK/运行未闭，不能据模块相对位置升级整体验收。"
+  }
+}

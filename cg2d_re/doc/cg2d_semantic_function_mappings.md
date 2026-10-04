@@ -1415,3 +1415,9 @@ GraphicInfo的既有std::sort属于图号容器链，本步未证明与这十处
 [本组生命周期合同](cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure)更新四Init的实际宿主即时登记/唯一无析构模块适配和53C8CD关联，补已在原库存中的401C20/401C50、404130/404150、404170/404190、4041B0/4041D0八叶。其原构析/值/RNG源码未改；十二完整原身份44条、四相邻槽、唯一活动构析归档，后置登记chunk不另建F身份。
 
 机器语义1144→1152条、有效F ID1141→1149，18pending和4独立分类引用保持；51函数处置/21局部证据及10关闭任务均非整体完成率。四旧自动适配类型已移除，sources改指真实StartupProtectionValuesStartup；原53B406数值call仍为基线，native目标明确std::atexit且原体未被本组源码调用。完整应用序/快速退出/其余owner、全量分类与运行仍待。
+
+## 2026-10-04：世界状态17项活动构析迁移
+
+[本组合同](cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure)更新17已有Init、玩家合并登记载体5183E0与53C8CD关联，共19记录；不新增原身份/语义总数，1152条/1149有效F ID、18pending/4分类引用保持。原98Init指令、所属5183F0四登记指令和7聚合原身份136条只支撑明确局部观察，不以106原合并体证明玩家完整EH已落码/验收。
+
+native登记目标明确std::atexit，原53B406数值目标/所属块保留为基线且标记原体未由本组源码调用；四模块自动析构取消，四公开包装转调13Init。17根adapted使已审51→68，局部证据累计24，完整分类/数据与全功能门禁仍待；原owner/值/RNG、数组和成员源码不改，C02/C04与运行未闭。

@@ -43,17 +43,13 @@ static_assert(std::is_trivially_destructible_v<StartupProtectionValuesStartup>);
 
 const StartupProtectionValuesStartup gStartupProtectionValuesStartup;
 
-struct WorldObjectsStaticInitializer {
+struct WorldObjectsStaticInitializer final {
     WorldObjectsStaticInitializer()
     {
-        cg::world::ConstructWorldObjects();
-    }
-
-    ~WorldObjectsStaticInitializer()
-    {
-        cg::world::DestroyWorldObjects();
+        static_cast<void>(cg::world::InitializeLegacyWorldObjects_43D760());
     }
 };
+static_assert(std::is_trivially_destructible_v<WorldObjectsStaticInitializer>);
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
 
@@ -179,17 +175,13 @@ struct LegacyUi455490StaticInitializer {
 const LegacyUi455490StaticInitializer gLegacyUi455490StaticInitializer;
 
 // 原CRT 553054介于World表553014和玩家坐标553064之间；未落位的其他项不填空体。
-struct SceneTransitionValueStaticInitializer {
+struct SceneTransitionValueStaticInitializer final {
     SceneTransitionValueStaticInitializer()
     {
-        cg::world::ConstructSceneTransitionValue();
-    }
-
-    ~SceneTransitionValueStaticInitializer()
-    {
-        cg::world::DestroySceneTransitionValue();
+        static_cast<void>(cg::world::InitializeLegacySceneTransitionValue_456FD0());
     }
 };
+static_assert(std::is_trivially_destructible_v<SceneTransitionValueStaticInitializer>);
 
 const SceneTransitionValueStaticInitializer gSceneTransitionValueStaticInitializer;
 
@@ -379,31 +371,23 @@ struct LegacyMouseStaticInitializer {
 const LegacyMouseStaticInitializer gLegacyMouseStaticInitializer;
 
 // 原CRT表5530FC/553100紧接鼠标5530F8，退出按声明逆序。
-struct PlayerRuntimeValuesStaticInitializer {
+struct PlayerRuntimeValuesStaticInitializer final {
     PlayerRuntimeValuesStaticInitializer()
     {
-        cg::world::ConstructPlayerRuntimeValues();
-    }
-
-    ~PlayerRuntimeValuesStaticInitializer()
-    {
-        cg::world::DestroyPlayerRuntimeValues();
+        static_cast<void>(cg::world::InitializeLegacyPlayerRuntime_5183D0());
     }
 };
+static_assert(std::is_trivially_destructible_v<PlayerRuntimeValuesStaticInitializer>);
 
 const PlayerRuntimeValuesStaticInitializer gPlayerRuntimeValuesStaticInitializer;
 
-struct PetRuntimeValuesStaticInitializer {
+struct PetRuntimeValuesStaticInitializer final {
     PetRuntimeValuesStaticInitializer()
     {
-        cg::world::ConstructPetRuntimeValues();
-    }
-
-    ~PetRuntimeValuesStaticInitializer()
-    {
-        cg::world::DestroyPetRuntimeValues();
+        static_cast<void>(cg::world::InitializeLegacyPetRuntime_518520());
     }
 };
+static_assert(std::is_trivially_destructible_v<PetRuntimeValuesStaticInitializer>);
 
 const PetRuntimeValuesStaticInitializer gPetRuntimeValuesStaticInitializer;
 

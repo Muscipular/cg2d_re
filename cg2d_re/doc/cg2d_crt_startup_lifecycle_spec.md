@@ -62,3 +62,7 @@
 ## 9. C02/C04 启动保护四项活动构析
 
 [本组子SPEC](cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure)已将553004～553010四项切为完成构造后即时宿主登记，并取消四自动适配析构；唯一无析构模块适配正序调用真实Init，五实际值owner与原构析/RNG/保护算法保持。宿主只承接本组私有退出表职责，全应用原序接通时须同小步移除模块适配，不可双执行；其他组、快速退出/跨模块顺序和运行未闭，C02/C04仍open。
+
+## 10. C02/C04 世界状态17项规范活动路径
+
+[本组合同](cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure)接17Init的真实宿主即时登记；四世界/场景/玩家/主宠物模块适配取消自动析构，四坐标/移动/Ripple包装转调13Init，取消重复构造/lambda主体。数组/成员、值/RNG与owner原文保持；17槽及玩家所属四条登记块分别核定，不拆5183E0合并身份。接全应用原序时必须同小步移除八当前模块调用；全应用/快速退出、完整成员EH/数组SEH、其他owner与SDK运行未闭，C02/C04继续open。

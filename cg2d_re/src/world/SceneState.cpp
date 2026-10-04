@@ -597,14 +597,14 @@ void ReleaseLegacyPlayerRuntimeAtExit_518400()
 std::int32_t InitializeLegacyPlayerRuntime_5183D0()
 {
     ConstructLegacyPlayerRuntime_5183E0();
-    return platform::RegisterLegacyAtExit_53B406(ReleaseLegacyPlayerRuntimeAtExit_518400);
+    return std::atexit(ReleaseLegacyPlayerRuntimeAtExit_518400);
 }
 
 // 原CRT 553100：构造后原整体退出登记，完整S32透传。
 std::int32_t InitializeLegacyPetRuntime_518520()
 {
     ConstructPetRuntimeValues();
-    return platform::RegisterLegacyAtExit_53B406(DestroyPetRuntimeValues);
+    return std::atexit(DestroyPetRuntimeValues);
 }
 
 void ConstructPlayerRuntimeValues()
@@ -705,7 +705,7 @@ void DestroyPetRuntimeValues()
 std::int32_t InitializeLegacySceneTransitionValue_456FD0()
 {
     ConstructSceneTransitionValue();
-    return platform::RegisterLegacyAtExit_53B406(DestroySceneTransitionValue);
+    return std::atexit(DestroySceneTransitionValue);
 }
 
 void ConstructSceneTransitionValue()
@@ -888,169 +888,124 @@ void DestroyLegacyRippleGate_467F20()
 std::int32_t InitializeLegacyPlayerCoordinates_467B90()
 {
     ConstructLegacyPlayerCoordinates_467BA0();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyPlayerCoordinates_467BD0);
+    return std::atexit(DestroyLegacyPlayerCoordinates_467BD0);
 }
 
 // 原CRT 553068：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyPlayerSnapshotX_467BF0()
 {
     ConstructLegacyPlayerSnapshotX_467C00();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyPlayerSnapshotX_467C20);
+    return std::atexit(DestroyLegacyPlayerSnapshotX_467C20);
 }
 
 // 原CRT 55306C：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyPlayerSnapshotY_467C30()
 {
     ConstructLegacyPlayerSnapshotY_467C40();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyPlayerSnapshotY_467C60);
+    return std::atexit(DestroyLegacyPlayerSnapshotY_467C60);
 }
 
 // 原CRT 553070：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldCoordinateState_467C70()
 {
     ConstructLegacyWorldCoordinateState_467C80();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldCoordinateState_467CA0);
+    return std::atexit(DestroyLegacyWorldCoordinateState_467CA0);
 }
 
 // 原CRT 553074：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldCoordinateState_467CB0()
 {
     ConstructLegacyWorldCoordinateState_467CC0();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldCoordinateState_467CE0);
+    return std::atexit(DestroyLegacyWorldCoordinateState_467CE0);
 }
 
 // 原CRT 553078：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldCoordinatePair_467CF0()
 {
     ConstructLegacyWorldCoordinatePair_467D00();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldCoordinatePair_467D30);
+    return std::atexit(DestroyLegacyWorldCoordinatePair_467D30);
 }
 
 // 原CRT 55307C：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveTargets_467D50()
 {
     ConstructLegacyWorldMoveTargets_467D60();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveTargets_467D90);
+    return std::atexit(DestroyLegacyWorldMoveTargets_467D90);
 }
 
 // 原CRT 553080：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveState_467DB0()
 {
     ConstructLegacyWorldMoveState_467DC0();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveState_467DE0);
+    return std::atexit(DestroyLegacyWorldMoveState_467DE0);
 }
 
 // 原CRT 553084：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveState_467DF0()
 {
     ConstructLegacyWorldMoveState_467E00();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveState_467E20);
+    return std::atexit(DestroyLegacyWorldMoveState_467E20);
 }
 
 // 原CRT 553088：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveState_467E30()
 {
     ConstructLegacyWorldMoveState_467E40();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveState_467E60);
+    return std::atexit(DestroyLegacyWorldMoveState_467E60);
 }
 
 // 原CRT 55308C：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveState_467E70()
 {
     ConstructLegacyWorldMoveState_467E80();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveState_467EA0);
+    return std::atexit(DestroyLegacyWorldMoveState_467EA0);
 }
 
 // 原CRT 553090：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyWorldMoveState_467EB0()
 {
     ConstructLegacyWorldMoveState_467EC0();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyWorldMoveState_467EE0);
+    return std::atexit(DestroyLegacyWorldMoveState_467EE0);
 }
 
 // 原CRT 553094：本项构造完成后立即真实登记退出，透传完整S32。
 std::int32_t InitializeLegacyRippleGate_467EF0()
 {
     ConstructLegacyRippleGate_467F00();
-    return platform::RegisterLegacyAtExit_53B406(DestroyLegacyRippleGate_467F20);
+    return std::atexit(DestroyLegacyRippleGate_467F20);
 }
 
 // 原553064/467B90：两对象构造完才登记467BD0，保留atexit失败后继续的路径。
 void InitializePlayerCoordinates()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerX);
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerY);
-    static_cast<void>(std::atexit([] {
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerY);
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerX);
-    }));
+    static_cast<void>(InitializeLegacyPlayerCoordinates_467B90());
 }
 
 // 原553068..553078：每一原表项完成即登记其退出，不能延迟到六对象全部完成。
 void InitializeWorldCoordinateStates()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotX);
-    static_cast<void>(std::atexit([] { // 原467C20。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotX);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gPlayerSnapshotY);
-    static_cast<void>(std::atexit([] { // 原467C60。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gPlayerSnapshotY);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8D0);
-    static_cast<void>(std::atexit([] { // 原467CA0。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8D0);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9EE8E0);
-    static_cast<void>(std::atexit([] { // 原467CE0。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9EE8E0);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FF8);
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC27FE8);
-    static_cast<void>(std::atexit([] { // 原467D30：本项两对象逆序。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FE8);
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC27FF8);
-    }));
+    static_cast<void>(InitializeLegacyPlayerSnapshotX_467BF0());
+    static_cast<void>(InitializeLegacyPlayerSnapshotY_467C30());
+    static_cast<void>(InitializeLegacyWorldCoordinateState_467C70());
+    static_cast<void>(InitializeLegacyWorldCoordinateState_467CB0());
+    static_cast<void>(InitializeLegacyWorldCoordinatePair_467CF0());
 }
 
 // 原55307C..553090：首项构造目标X/Y，其余五项各构造一个对象并独立登记。
 void InitializeWorldMoveStates()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F88);
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9A7F98);
-    static_cast<void>(std::atexit([] { // 原467D90：本项两对象逆序。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F98);
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9A7F88);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821E8);
-    static_cast<void>(std::atexit([] { // 原467DE0。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821E8);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9E03C0);
-    static_cast<void>(std::atexit([] { // 原467E20。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9E03C0);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValue9FB918);
-    static_cast<void>(std::atexit([] { // 原467E60。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValue9FB918);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueAF0FE8);
-    static_cast<void>(std::atexit([] { // 原467EA0。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueAF0FE8);
-    }));
-    platform::legacy_crypt_int::ConstructZero_401C70(&detail::gValueC821D8);
-    static_cast<void>(std::atexit([] { // 原467EE0。
-        platform::legacy_crypt_int::Destroy_401CF0(&detail::gValueC821D8);
-    }));
+    static_cast<void>(InitializeLegacyWorldMoveTargets_467D50());
+    static_cast<void>(InitializeLegacyWorldMoveState_467DB0());
+    static_cast<void>(InitializeLegacyWorldMoveState_467DF0());
+    static_cast<void>(InitializeLegacyWorldMoveState_467E30());
+    static_cast<void>(InitializeLegacyWorldMoveState_467E70());
+    static_cast<void>(InitializeLegacyWorldMoveState_467EB0());
 }
 
 // 原553094/467EF0：最后构造Ripple门禁并登记467F20。
 void InitializeRippleGate()
 {
-    platform::legacy_crypt_int::ConstructZero_401C70(&gRippleGate);
-    static_cast<void>(std::atexit([] {
-        platform::legacy_crypt_int::Destroy_401CF0(&gRippleGate);
-    }));
+    static_cast<void>(InitializeLegacyRippleGate_467EF0());
 }
 
 std::int32_t ReadRippleGateOnce()

@@ -26254,7 +26254,7 @@
     {
       "original_entry": "0x5450F0",
       "inventory_id": "F:001450F0",
-      "status": "现有地址化比较本体及TZ消费已关联；其余caller/运行未验",
+      "status": "原比较真实本体、唯一共享声明及两原调用2/2源码接线齐备；完整父/SDK/编译链接与运行未验",
       "original_end_exclusive": "0x545174",
       "instruction_count": 54,
       "sources": [
@@ -26265,6 +26265,20 @@
             "RefreshTz_540B1D"
           ],
           "relationship": "已有实际实现及540C5A缓存相等比较"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrCmp_5450F0"
+          ],
+          "relationship": "真实跨翻译单元S32/__cdecl/两指针接口唯一声明"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "MatchLegacyExceptionType_5404FA"
+          ],
+          "relationship": "已有540520真实名称比较，新增公共声明使接口闭合；正文不改"
         }
       ],
       "evidence_documents": [
@@ -26272,7 +26286,42 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "左1/2/4字节块读取、右逐字节按需，U8先比较后NUL，精确返回-1/0/+1。另一原caller5404FA也只判零但其父链不据此完成，不以宿主strcmp不规定的非零幅值替代本体。"
+      "boundary": "左1/2/4字节块读取、右逐字节按需，U8先比较后NUL，精确返回-1/0/+1。另一原caller5404FA也只判零但其父链不据此完成，不以宿主strcmp不规定的非零幅值替代本体。；2026-10-04补LegacyTime.hpp原S32/__cdecl/两字节指针唯一声明，当前540520与540C5A均已有实际调用，替代前述其余caller待接阶段结论；原54条算法/两父正文不变，不把2/2源码接线算当前编译链接或完整SDK/运行。",
+      "verification_level": "；本步fresh原两直接xref与现有两个CPP表达式/唯一头声明签名和include、限定两记录及文档增量静态核对；旧核心/父体不复检，未构建/测试/运行/hash",
+      "strcmp_call_connections": [
+        {
+          "parent_entry": "0x5404FA",
+          "call_site": "0x540520",
+          "source": "src/platform/LegacyException.cpp",
+          "symbol": "MatchLegacyExceptionType_5404FA",
+          "target_entry": "0x5450F0",
+          "target_symbol": "StrCmp_5450F0",
+          "arguments": "handlerName,catchableName",
+          "relationship": "非空/名称非空/描述符身份不同后真实名称比较；非零返回0，原条件和属性读取保持"
+        },
+        {
+          "parent_entry": "0x540B1D",
+          "call_site": "0x540C5A",
+          "source": "src/platform/LegacyTime.cpp",
+          "symbol": "RefreshTz_540B1D",
+          "target_entry": "0x5450F0",
+          "target_symbol": "StrCmp_5450F0",
+          "arguments": "gTzCache_108611C,tz",
+          "relationship": "原非空缓存门禁后判零，原缓存/分配/释放和时区处理正文保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x540520",
+          "parent_entry": "0x5404fa",
+          "kind": 17
+        },
+        {
+          "address": "0x540c5a",
+          "parent_entry": "0x540b1d",
+          "kind": 17
+        }
+      ]
     },
     {
       "original_entry": "0x53F9E0",
@@ -43993,7 +44042,7 @@
       "original_end_exclusive": "0x540557",
       "instruction_count": 42,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板；新42条、字段读取时序与唯一5450F0真实调用静态核对，不回核已过比较算法或运行；新六已加载字节/名称NUL及原生首成员/实际单槽数据生产静态，未编译或运行；仅新六已加载数据/40B布局/六typed适配与原目标绑定静态，旧本体不回核，无编译或运行；仅新五原数组字节/S32数量、13顺序引用与共享身份静态，旧体不回核，无编译或运行",
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板；新42条、字段读取时序与唯一5450F0真实调用静态核对，不回核已过比较算法或运行；新六已加载字节/名称NUL及原生首成员/实际单槽数据生产静态，未编译或运行；仅新六已加载数据/40B布局/六typed适配与原目标绑定静态，旧本体不回核，无编译或运行；仅新五原数组字节/S32数量、13顺序引用与共享身份静态，旧体不回核，无编译或运行；本步仅真实比较声明/定义一致、include和限定新增差异静态核对，旧42条匹配本体不复检",
       "inbound_evidence": [
         {
           "address": "0x5403BA",
@@ -44080,7 +44129,7 @@
         "doc/cg2d_exception_catchable_data_evidence.json",
         "doc/cg2d_exception_catchable_array_evidence.json"
       ],
-      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整本体落位：handler.type空或内联名称首U8为0时直接返回S32 1且不读catchable/throwInfo；其余先比较同一描述符地址，不同才以真实StrCmp_5450F0比较原序两内联名称。同型/同名后核catchable低U8位02要求handler低U8位08，再一次读取ThrowInfo首W32，位01/02分别要求handler对应低U8位，否则S32 0。两个TypeDescriptor地址只拓宽，名称从已证两地址前缀之后取，不读缓存名；Handler/Catchable只定义W32+地址读取前缀，ThrowInfo只定义首W32视图。无空指针/范围保护或预清；真实原生元数据生产、5402AB唯一父、54B123/SDK异常主链仍未闭，不能直接转换原x86元数据或据此前缀声称原生SDK类型已生成。；2026-10-04六个已加载描述符592B28/B40/B60/BD0/BF0/C10确认+00=5501C0/+04=0，原ASCII名称含NUL长度16/24/27/22/23/23，新增实际同名被动原生定义，前缀16B/名称+16、两个地址拓宽，复用既有真实单槽方法表。保留名称字节/独立身份与可写缓存，首成员/名称偏移/trivial静态断言，不正规化名字/复制原未消费尾填充或安装RTTI。现有匹配/析构可按前缀读取数据；捕获/ThrowInfo表与父链尚未接，缓存运行时生产、SDK类型兼容及完整生命周期未验，不据此生成ThrowInfo/闭合54B123或旧帧。旧算法/方法表/原堆不改或复核。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。",
+      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整本体落位：handler.type空或内联名称首U8为0时直接返回S32 1且不读catchable/throwInfo；其余先比较同一描述符地址，不同才以真实StrCmp_5450F0比较原序两内联名称。同型/同名后核catchable低U8位02要求handler低U8位08，再一次读取ThrowInfo首W32，位01/02分别要求handler对应低U8位，否则S32 0。两个TypeDescriptor地址只拓宽，名称从已证两地址前缀之后取，不读缓存名；Handler/Catchable只定义W32+地址读取前缀，ThrowInfo只定义首W32视图。无空指针/范围保护或预清；真实原生元数据生产、5402AB唯一父、54B123/SDK异常主链仍未闭，不能直接转换原x86元数据或据此前缀声称原生SDK类型已生成。；2026-10-04六个已加载描述符592B28/B40/B60/BD0/BF0/C10确认+00=5501C0/+04=0，原ASCII名称含NUL长度16/24/27/22/23/23，新增实际同名被动原生定义，前缀16B/名称+16、两个地址拓宽，复用既有真实单槽方法表。保留名称字节/独立身份与可写缓存，首成员/名称偏移/trivial静态断言，不正规化名字/复制原未消费尾填充或安装RTTI。现有匹配/析构可按前缀读取数据；捕获/ThrowInfo表与父链尚未接，缓存运行时生产、SDK类型兼容及完整生命周期未验，不据此生成ThrowInfo/闭合54B123或旧帧。旧算法/方法表/原堆不改或复核。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。；2026-10-04依赖StrCmp_5450F0补既有LegacyTime.hpp唯一共享声明，现有include/540520实际调用/两参和分支保持；只收口声明可见性，不称C++编译/SDK传播通过。",
       "function_chunks": [
         {
           "start": "0x5404FA",
@@ -44384,6 +44433,16 @@
           "sdk_throwinfo_connected": false,
           "handler_parent_connected": false,
           "runtime_verified": false
+        }
+      ],
+      "declared_dependency_bindings": [
+        {
+          "original_call_site": "0x540520",
+          "header": "include/cg/platform/LegacyTime.hpp",
+          "target_entry": "0x5450F0",
+          "target_symbol": "StrCmp_5450F0",
+          "signature": "std::int32_t __cdecl (const char*, const char*)",
+          "implementation": "src/platform/LegacyTime.cpp"
         }
       ]
     },

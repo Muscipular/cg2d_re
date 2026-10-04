@@ -44,7 +44,7 @@ static_assert(sizeof(LegacyIosCallbackNode) == 24);
 // 不自动构析/初始化，不与宿主std::ios_base互转，不建立登记表/回调影子状态。
 struct LegacyIosBaseStorage final {
     const void* virtualTable;                         // 原+00；真实原生方法表前缀，不接SDK虚表。
-    std::uint32_t stateBits;                          // 原+04；clear保持真实声明，抛出承接待。
+    std::uint32_t stateBits;                          // 原+04；clear先发布低三位，实际SDK抛出提供者待。
     std::uint32_t exceptionBits;                      // 原+08。
     std::uint32_t formatBits;                         // 原+0C。
     std::uint32_t precisionBits;                      // 原+10；本组不解释符号性。
@@ -70,7 +70,7 @@ void TidyLegacyIos_54A2CB(LegacyIosBaseStorage* storage);
 void RegisterLegacyStandardStream_54A25E(LegacyIosBaseStorage* storage);
 // 原54A293：locale先构造，再六字段/两链初始化，最后真实clear(0,0)。
 void InitializeLegacyIosBase_54A293(LegacyIosBaseStorage* storage);
-// 原clear未实现；W32 state与重抛栈字低U8保持，不能替固定成功/宿主异常。
+// 原clear状态/failure准备及展开已实现；低U8重抛/最高U8临时串前缀，实际SDK抛出待。
 void ClearLegacyIos_549F62(
     LegacyIosBaseStorage* storage, std::uint32_t stateBits, std::uint32_t rethrowBits);
 // 原完整析构及删除；共享U8按S8门禁，正常/展开locale次序与原堆域保持。

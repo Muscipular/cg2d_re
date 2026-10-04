@@ -1,6 +1,8 @@
 #include "LegacyIos.hpp"
 
 #include "LegacyHeap.hpp"
+#include "LegacyException.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "LegacyFileBuffer.hpp"
 #include "LegacyLocale.hpp"
 #include "LegacyMultibyte.hpp"
@@ -988,6 +990,57 @@ std::int32_t InitializeLegacyWideLogStream_549368()
 {
     RegisterLegacyWideLogStreamLate_549372();
     return RegisterLegacyAtExit_53B406(DestroyLegacyWideLogStreamAtExit_54938D);
+}
+
+namespace {
+
+// 原三段已加载ASCII消息，含NUL字节保持；不是宿主异常消息替换。
+const char gLegacyIosBadBitMessage55011C[16] = "ios::badbit set";
+const char gLegacyIosFailBitMessage550108[17] = "ios::failbit set";
+const char gLegacyIosEofBitMessage5500F8[16] = "ios::eofbit set";
+
+} // namespace
+
+void ClearLegacyIos_549F62(
+    LegacyIosBaseStorage* const storage, const std::uint32_t stateBits,
+    const std::uint32_t rethrowBits)
+{
+    const std::uint32_t publishedState = stateBits & 7u;
+    storage->stateBits = publishedState;
+    const std::uint32_t matchedExceptions = storage->exceptionBits & publishedState;
+    if (matchedExceptions == 0u) {
+        return;
+    }
+    if (static_cast<std::uint8_t>(rethrowBits) != 0u) {
+        ThrowLegacyCppException_54B123(nullptr, nullptr);
+    }
+
+    const char* messageText;
+    if ((matchedExceptions & 4u) != 0u) {
+        messageText = gLegacyIosBadBitMessage55011C;
+    } else if ((matchedExceptions & 2u) != 0u) {
+        messageText = gLegacyIosFailBitMessage550108;
+    } else {
+        messageText = gLegacyIosEofBitMessage5500F8;
+    }
+    LegacyNarrowString message;
+    message.prefix00[0] = static_cast<std::uint8_t>(rethrowBits >> 24u);
+    TidyLegacyNarrowString_548E29(&message, false);
+    const std::uint32_t messageBytes = StrLen_53F9E0(messageText);
+    AssignLegacyNarrowString_549055(&message, messageText, messageBytes);
+
+    LegacyStreamFailureObject failure;
+    try {
+        // 原state0从549FD1开始，assign失败尚未进入此临时串展开保护区。
+        ConstructLegacyRuntimeError_549FFE(&failure, &message);
+        failure.base.methods = &gLegacyStreamFailureMethods5500EC.base;
+        ThrowLegacyCppException_54B123(&failure, &gLegacyStreamFailureThrowInfo5515E8);
+    } catch (...) {
+        // 原54C318→共享54A30D→548E29(true)，只清临时串，不额外析构failure。
+        TidyLegacyNarrowString_548E29(&message, true);
+        throw;
+    }
+    // 原抛出若返回仅离开函数，未另设正常Tidy或恢复state；SDK提供者仍待。
 }
 
 } // namespace cg::platform

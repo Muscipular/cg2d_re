@@ -107,4 +107,13 @@ LegacyStreamFailureObject* CopyConstructLegacyStreamFailure_54A1B8(
 void RaiseLegacyRuntimeError_54A06F(LegacyExceptionObject* storage);
 void RaiseLegacyStreamFailure_54A17F(LegacyExceptionObject* storage);
 
+// 原5500EC实际表供clear显式换表；仅导出既有真实定义，槽与旧算法保持。
+extern const LegacyExceptionRaiseMethodTable gLegacyStreamFailureMethods5500EC;
+
+// 原5515E8元数据身份仅地址传出；x64布局/生产和SDK类型匹配未闭，不复制原x86内容。
+struct LegacyCppThrowInfo;
+extern const LegacyCppThrowInfo gLegacyStreamFailureThrowInfo5515E8;
+// 原54B123真实两地址依赖仅声明；null/null是原重抛，不补实现、固定异常或正常返回值。
+void ThrowLegacyCppException_54B123(void* exceptionObject, const LegacyCppThrowInfo* throwInfo);
+
 } // namespace cg::platform

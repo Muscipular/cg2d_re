@@ -4110,3 +4110,14 @@ FuncInfo551260/551418 magic19930520/maxState7，七unwind prev全FFFFFFFF：只�
 | 宽日志 | 553154 | 549368 / 549372 / 54938D | 54958F / 549324 |
 
 晚段仅将真实对象地址、原未消费W32实参0及完整W32虚基标记1传给已过登记构造；沿其真实表写/登记，保留实际this返回，不另行basic_ios初始化、清输入count、缓冲重绑或FILE/locale重建。七全局对象仍为既有extern消费视图，本步不推未加载初值/容量或建立影子owner。新增28数值call/尾调、七callback地址与七CRT data引用记入各真实语义记录，原数组保持，语义1110/未决18/分类引用4不变。验收限完整新原指令与新增源码/元数据静态；全局存储/登记数据生产、真实CRT调用与退出扩容、clear实际抛出、SDK/模式3及完整运行继续未闭，不以源码入口齐备代替启动完成。未构建、测试、运行或hash核验。
+
+
+### ios_base clear状态与failure准备局部SPEC（2026-10-04）
+
+工程裁决：沿原549F62的60条完整指令（含共享54A30D与handler/54C318 chunk）实现状态发布、消息/failure准备及源级单state展开，54B123与5515E8实际x64 ThrowInfo提供者仅真实声明，绝不以宿主固定异常或x86元数据替换。现有5500EC真实方法表仅移出匿名namespace导出，原槽/构析算法保持；不为少量边界新增文件，不启用CRT。
+
+先state&7写真实字段，再读取异常掩码相交；零直接返回，不构造临时串。非零且第二W32低U8非0调用原重抛依赖(null,null)，随后原相交bit4/bit2/其余选择已加载55011C/550108/5500F8的ASCII消息及NUL。第二W32的最高U8（原arg_7，即bits>>24）只写临时串prefix首字节，其余未写字节不预清。原Tidy(false)→真实strlen→assign在state-1区；保护区从549FD1/runtime_error构造前开始，构造已过48B视图后换真实failure表，再传实际对象/5515E8元数据身份。无自动构析failure、无state回滚或正常Tidy，抛出若返回保持原离开路径。
+
+FuncInfo5515F8：magic19930520、maxState1、unwindMap551618唯一prev=-1/action54C318；展开通过共享54A30D内54A30F调用Tidy(true)，本体只在该保护区异常时清临时message并重抛。这里state0是EH状态，不是输入stateBits为0；assign失败不额外清理。三个消息原字节定义，5515E8仅不完整类型extern地址，不定义数据、SDK类型或RaiseException包装。
+
+新增原消费：549F89/549FE9→54B123，549FB4/54A30F→548E29，549FBA→53F9E0，549FC5→549055，549FD4→549FFE，共7原call；共用清理chunk不增原身份。strlen新增一真实点成为17/24，另4已批宿主/3待；原算法及旧数组保持，语义1110/未决18/分类引用4不变。静态验收限新增原证据/源码和元数据，实际54B123/ThrowInfo生产、SDK catch类型/x64传播、上游全局owner、模式3及完整运行继续未闭。未构建、测试、运行或hash核验。

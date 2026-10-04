@@ -427,3 +427,8 @@ Gninc/Pninc返回旧指针，六槽先重绑再按写侧/读侧清六值，其�
 ### 2026-10-04：七项标准流对象CRT入口链
 
 完成窄输入/输出/错误/日志及宽输入/输出/日志21新原本体（91条含登记尾chunk）/28原call或尾调/七callback与七CRT表data引用。晚段同一实际对象以原W32参数0/1调用已过登记构造/返回this，callback析构同对象；CRT动作后真实53B406/完整S32返回，不增once、成功门禁或失败回滚。既有全局extern/旧算法与业务数组保持，不自动启用当前CRT。局部SPEC在stdio_contract增量，五文件新增静态通过后独立提交；30记录同步，语义1110/未决18/分类引用4不变。未构建、测试、运行或hash核验。全局存储初值/登记数据、全CRT启动退出/扩容、clear真抛出/SDK、模式3/三种子/转换器全表与完整运行仍待，总目标保持。
+
+
+### 2026-10-04：ios_base clear状态及failure准备
+
+实现549F62状态/消息/failure准备与单state展开源码（60条含共享清理/handler chunk）/7原call。先state&7发布再读mask相交，零直接返回；低U8重抛null/null、最高U8(bits>>24)只写临时串首prefix，原三消息Tidy(false)/strlen/assign在保护区外；state0从runtime_error构造前开始，真实failure表/元数据地址传出，异常仅message Tidy(true)，不预清、正常Tidy或state回滚。既有failure表仅导出；54B123与opaque ThrowInfo仍仅extern真实依赖，不造SDK提供者/x86数据或宿主异常。局部SPEC在stdio_contract，七文件新增静态通过后独立提交；6记录同步，strlen17真实+4已批宿主+3待/24，语义1110/未决18/分类引用4保持，旧算法不回核。未构建、测试、运行或hash核验。实际抛出/SDK传播、全局存储/登记生产、全CRT启动退出、模式3/三种子/转换器全表与完整运行仍待，总目标保持。

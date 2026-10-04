@@ -73,12 +73,12 @@ LegacyExceptionObject* DeleteLegacyStreamFailureFromBase(
     DeleteLegacyStreamFailure_54A19C(reinterpret_cast<LegacyStreamFailureObject*>(storage), flags);
     return storage;
 }
+} // namespace
+
 const LegacyExceptionRaiseMethodTable gLegacyStreamFailureMethods5500EC{
     {DeleteLegacyStreamFailureFromBase, GetLegacyLogicErrorTextFromBase},
     RaiseLegacyStreamFailure_54A17F
 };
-
-} // namespace
 
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
     LegacyExceptionObject* const storage, const char* const* const sourceText)

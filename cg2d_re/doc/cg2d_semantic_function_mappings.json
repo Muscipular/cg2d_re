@@ -19084,7 +19084,7 @@
     {
       "original_entry": "0x53F9E0",
       "inventory_id": "F:0013F9E0",
-      "status": "既有长度核心及16原调用已接；4原引用已批宿主承接，其他4原引用/完整父与运行未验",
+      "status": "既有长度核心及17原调用已接；4原引用已批宿主承接，其他3原引用/完整父与运行未验",
       "original_end_exclusive": "0x53FA5B",
       "instruction_count": 44,
       "sources": [
@@ -19174,6 +19174,13 @@
             "InitializeLegacyGlobalLocale_54A404"
           ],
           "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62"
+          ],
+          "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
         }
       ],
       "evidence_documents": [
@@ -19183,7 +19190,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。；2026-10-04新增locale构析原点0x54A54F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A46F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。；2026-10-04新增locale构析原点0x54A54F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A46F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FBA源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -19361,6 +19368,13 @@
           "source_expression": "gLegacyLocaleC55457C",
           "result_width": "U32",
           "relationship": "先global发布/原退出登记/类别，再重取名称地址和C真实长度，未固定1"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FBA",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "relationship": "原已选消息地址重新取真实U32长度再assign，依赖算法不改/复检；SDK抛出完整链未闭"
         }
       ],
       "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行；新54B079/54B0B6两个异常对象真实调用点与源重取/目标发布/原堆域和限定新增静态核对，核心/已接点未复检，未构建或执行",
@@ -19424,6 +19438,18 @@
           "target_symbol": "StrLen_53F9E0",
           "arguments": "gLegacyLocaleC55457C",
           "relationship": "原C已加载2B，类别后/名称地址重取后真实长度"
+        }
+      ],
+      "ios_clear_parent_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FBA",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "原当时所选真实消息地址",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
         }
       ]
     },
@@ -36303,16 +36329,54 @@
           "parent_entry": "0x54A930"
         }
       ],
-      "sources": [],
-      "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+      "sources": [
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62"
+          ],
+          "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ThrowLegacyCppException_54B123"
+          ],
+          "relationship": "仅真实两地址声明/null-null重抛；元数据opaque extern，无新端provider实现"
+        }
       ],
-      "boundary": "复制5501E8八W32模板，写本次对象/ThrowInfo后RaiseException；模板为E06D7363、flags1、参数数3和19930520魔数。宿主采用ULONG_PTR且可增加图像基址，未实施旧三参数包装。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。",
+      "evidence_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "boundary": "复制5501E8八W32模板，写本次对象/ThrowInfo后RaiseException；模板为E06D7363、flags1、参数数3和19930520魔数。宿主采用ULONG_PTR且可增加图像基址，未实施旧三参数包装。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；新增原clear真实父点0x549F89/0x549FE9源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作原生异常记录对照",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/throw.cpp",
         "symbol": "_CxxThrowException"
-      }
+      },
+      "ios_clear_parent_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549F89",
+          "target_entry": "0x54B123",
+          "target_symbol": "ThrowLegacyCppException_54B123",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FE9",
+          "target_entry": "0x54B123",
+          "target_symbol": "ThrowLegacyCppException_54B123",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        }
+      ]
     },
     {
       "original_entry": "0x54503A",
@@ -38690,12 +38754,20 @@
             "DestroyLegacyWideFileBuffer_549935"
           ],
           "relationship": "新增原filebuf/基类构析父实际调用，原字段/原堆/阶段顺序保持；依赖既有本体不改或复检"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62"
+          ],
+          "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04新增locale构析原点0x54A544/0x54A61F/0x54A30F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548813/0x54996A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。",
+      "boundary": "Tidy：释放标志非零且buffer非空时，前缀标记0/FF则delete(buffer-1)，其余减引用；随后依次清+4/+8/+C，不清其他对象字节。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04接原logic_error父实际调用0x54A70A/0x54A7DD/0x54A775；原base先行、成员首U8与Tidy/共享赋值、state0只清基类、析构/flags同域释放顺序在局部SPEC登记。此依赖本体不改、不重验；Raise/派生异常与ThrowInfo/x64传播/完整生命周期及运行仍未闭合。；2026-10-04新增原长度/位置异常实际父点0x54A82B/0x54A913；copy父完成后各自换表，析构先logic表/Tidy和state0只基类，删除flags/原堆域保持。依赖本体未改/不复检，原Raise/ThrowInfo/SDK类型/x64传播及完整运行仍待。；2026-10-04新增runtime_error/failure实际原父点0x54A034/0x54A114/0x54A0AC/0x54A162；原基类先行、成员Tidy/共享assign/表时点及state0只清基类、flags同域释放保持；旧本体/已接点不复检，不据此完成Raise/549F62及SDK类型/ThrowInfo/x64传播或运行。；2026-10-04新增locale构析原点0x54A544/0x54A61F/0x54A30F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增窄宽filebuf/基类构析实际原点0x548813/0x54996A；原mode0私有locale双构造、条件close、+44窄字符串同域释放及state清理次序保持，依赖旧本体不重验，方法表/种子/上游与运行未闭。；新增原clear真实父点0x549FB4/0x54A30F源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -38881,6 +38953,28 @@
           "target_symbol": "TidyLegacyNarrowString_548E29",
           "arguments": "scratch, true",
           "relationship": "两字符类均同一个+44窄字符串指针，close后仅取一次；先Tidy"
+        }
+      ],
+      "ios_clear_parent_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FB4",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,false",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x54A30F",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,true，展开共享chunk内真实调用",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
         }
       ]
     },
@@ -39449,12 +39543,20 @@
             "InitializeLegacyGlobalLocale_54A404"
           ],
           "relationship": "原全局locale新增真实父点，发布/注册/名称与Ctor异常同域释放时点保持；不改旧本体或宿主范围"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62"
+          ],
+          "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增locale构析原点0x54A559，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A47A；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。",
+      "boundary": "assign(ptr,count)：Grow(count,true)后只在AL非零时memcpy_0、写长度及NUL，返回this。 CRT宿主提案仍待确认，不以现有std::string替代关系记为已实现。；2026-10-04按原代码/捕获表实现，原+04地址拓宽、+08/+0C数值仍W32；+00..+03原未解释字节保持。字符串块仅原堆分配/释放，不交宿主std::string或六处字节适配；已批准宿主四入口、21应用calloc不改。54A67A/54A899异常依赖仅真实声明，模式3/完整启动、其余构析/标准流/filebuf和运行未闭合；本体不计完整生命周期或调用链验收。；2026-10-04新增locale构析原点0x54A559，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A47A；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FC5源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。",
       "native_storage": {
         "type": "LegacyNarrowString",
         "source": "src/platform/LegacyNarrowString.hpp",
@@ -39519,6 +39621,18 @@
           "target_symbol": "AssignLegacyNarrowString_549055",
           "arguments": "name, gLegacyLocaleC55457C, length",
           "relationship": "实际名称共享字符串赋值，完成后重新读global→经典实现"
+        }
+      ],
+      "ios_clear_parent_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FC5",
+          "target_entry": "0x549055",
+          "target_symbol": "AssignLegacyNarrowString_549055",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,messageText,原当时StrLen完整U32",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
         }
       ]
     },
@@ -54881,11 +54995,11 @@
     {
       "original_entry": "0x549F62",
       "inventory_id": "F:00149F62",
-      "status": "原流状态及退出本体已取证；内部登记和异常承接未实现/未验收；新增真实声明，完整clear本体/SDK抛出继续未实现",
+      "status": "原clear状态/消息及failure准备和展开已源码实现；54B123/ThrowInfo实际提供者与完整SDK运行未闭",
       "original_end_exclusive": "0x549FFE",
       "instruction_count": 60,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新增真实父点与消费静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；新增ios_base父数值call/尾调与新增消费静态，不执行；新增basic_ios原父数值call/尾调与消费静态，不执行；新增真实父点与消费静态，不执行；新clear原指令/FuncInfo/三消息字节与新增源码静态，实际SDK/EH不计通过",
       "function_chunks": [
         {
           "start": "0x549F62",
@@ -54940,12 +55054,32 @@
             "FlushLegacyOutput_5495EE"
           ],
           "relationship": "新标准流退出/晚段真实原父点，既有本体或clear声明不改/复检，不虚置成功或更换堆域"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62",
+            "gLegacyIosBadBitMessage55011C",
+            "gLegacyIosFailBitMessage550108",
+            "gLegacyIosEofBitMessage5500F8"
+          ],
+          "relationship": "原状态/掩码、低U8重抛、最高U8前缀、真实字符串与failure/单state展开接线"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ThrowLegacyCppException_54B123",
+            "gLegacyStreamFailureThrowInfo5515E8",
+            "gLegacyStreamFailureMethods5500EC"
+          ],
+          "relationship": "现有failure表真实导出，抛出/provider和元数据身份仅外部声明，不补布局/实现"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548E8E/0x549DF1，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增标准流退出/晚段原实际点0x54962E，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。",
+      "boundary": "ios_base清状态/抛出：先state&7写+4，再与异常掩码+8相交；非零且重抛标志真则CxxThrowException(nullptr,nullptr)，否则按bit4、bit2、其余选择消息并构造failure抛出。含两个分離清理chunk。 不建立旧登记表影子或用宿主std状态数值直接替换原字段，CRT提案保持待确认。；2026-10-04新增ios_base真实原父点0x54A2C3；登记/初始化/析构消费者按真实字段/采样/清理接线，旧本体与业务数组不改/复检，clear真实抛出、登记全局初值容量/owner和完整运行待。；2026-10-04新增basic_ios真实原点0x548E8E/0x549DF1，低U8登记/真实Btowc及base/字段重取/失败停止、原析构/堆域保持；原依赖不修改/复检。完整clear抛出、登记全局/虚基owner及SDK/运行继续待。；2026-10-04新增标准流退出/晚段原实际点0x54962E，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04原clear60条含两共享/handler chunk的状态、消息/failure准备和单state展开已源码实现，接7原call：先state&7发布后取exceptionMask相交，零直接返回；低U8重抛null/null，按已缓存相交低bit4/2/其余选原三消息。第二栈字最高U8(bits>>24)仅复制临时串prefix首字节，不预清对象；Tidy(false)/真实strlen/assign在保护区外，state0从runtime_error构造前开始，随后实际failure表/真实5515E8地址传出，异常只临时串Tidy(true)，不额外清failure/回滚state/正常Tidy。54B123与不完整ThrowInfo仅真实extern声明，未补x86数据/宿主异常/SDK实现，完整抛出仍未闭。",
       "new_original_clear_evidence": {
         "instruction_count": 60,
         "chunks": [
@@ -54962,8 +55096,8 @@
             "0x54c32a"
           ]
         ],
-        "contract": "先state&7发布再mask相交；原重抛检查第二栈字低U8，构造string首prefix字节读取该栈字高U8；选择原三消息，真实runtime_error构造后换独立failure表再CxxThrowException，state0仅临时stringTidy(true)",
-        "boundary": "完整60新证供后续真实抛出/provider实现，不等于实现；无宿主固定异常/原x86 ThrowInfo转用"
+        "contract": "先state&7发布后exceptionMask相交；低U8判重抛，最高U8(bits>>24)复制string首prefix；三真实消息/Tidy(false)/strlen/assign在保护区外，state0从runtime_error构造前开始，实际failure表及元数据身份传给仅声明抛出依赖；state0唯一清临时串",
+        "boundary": "状态/failure准备与源级展开本次实现；54B123/ThrowInfo实际x64/SDK提供者及完整运行继续未闭，不搬原x86元数据"
       },
       "ios_lifecycle_parent_call_connections": [
         {
@@ -55009,6 +55143,168 @@
           "symbol": "FlushLegacyOutput_5495EE",
           "relationship": "原真实call/尾调：退出计数/动态sync失败重取/晚段原字段或登记参数保持，不自动启用CRT/回滚失败",
           "arguments": "&当前重新投影ios->base, 完整原state|4, 0 W32"
+        }
+      ],
+      "ios_clear_internal_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549F89",
+          "target_entry": "0x54B123",
+          "target_symbol": "ThrowLegacyCppException_54B123",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "nullptr,nullptr，第二栈字低U8非0原重抛",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FB4",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,false",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FBA",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "原当时所选真实消息地址",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FC5",
+          "target_entry": "0x549055",
+          "target_symbol": "AssignLegacyNarrowString_549055",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,messageText,原当时StrLen完整U32",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FD4",
+          "target_entry": "0x549FFE",
+          "target_symbol": "ConstructLegacyRuntimeError_549FFE",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&failure,&message，state0保护区",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FE9",
+          "target_entry": "0x54B123",
+          "target_symbol": "ThrowLegacyCppException_54B123",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&failure,&原5515E8元数据身份；x64提供者仅extern",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        },
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x54A30F",
+          "target_entry": "0x548E29",
+          "target_symbol": "TidyLegacyNarrowString_548E29",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&message,true，展开共享chunk内真实调用",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        }
+      ],
+      "ios_clear_unwind_contract": {
+        "func_info": "0x5515F8",
+        "max_state": 1,
+        "previous_state": -1,
+        "action": "0x54C318",
+        "shared_destructor_chunk": "0x54A30D",
+        "tidy_site": "0x54A30F",
+        "state_start_site": "0x549FD1",
+        "state_bits_zero_is_not_unwind_state_zero": true,
+        "boundary": "仅state0异常清临时message；原assign在state-1，不加清理/回滚，normal无Tidy"
+      },
+      "ios_clear_data_references": [
+        {
+          "original_address": "0x55011C",
+          "source_symbol": "gLegacyIosBadBitMessage55011C",
+          "bytes_with_nul": [
+            105,
+            111,
+            115,
+            58,
+            58,
+            98,
+            97,
+            100,
+            98,
+            105,
+            116,
+            32,
+            115,
+            101,
+            116,
+            0
+          ]
+        },
+        {
+          "original_address": "0x550108",
+          "source_symbol": "gLegacyIosFailBitMessage550108",
+          "bytes_with_nul": [
+            105,
+            111,
+            115,
+            58,
+            58,
+            102,
+            97,
+            105,
+            108,
+            98,
+            105,
+            116,
+            32,
+            115,
+            101,
+            116,
+            0
+          ]
+        },
+        {
+          "original_address": "0x5500F8",
+          "source_symbol": "gLegacyIosEofBitMessage5500F8",
+          "bytes_with_nul": [
+            105,
+            111,
+            115,
+            58,
+            58,
+            101,
+            111,
+            102,
+            98,
+            105,
+            116,
+            32,
+            115,
+            101,
+            116,
+            0
+          ]
+        },
+        {
+          "original_address": "0x5500EC",
+          "source_symbol": "gLegacyStreamFailureMethods5500EC",
+          "relationship": "原failure表引用，既有定义仅移出匿名namespace导出"
+        },
+        {
+          "original_address": "0x5515E8",
+          "source_symbol": "gLegacyStreamFailureThrowInfo5515E8",
+          "relationship": "不完整类型extern，仅地址身份/SDK提供者未实现"
         }
       ]
     },
@@ -110242,6 +110538,13 @@
             "LegacyRuntimeErrorObject"
           ],
           "relationship": "已证48B字段存储视图复用，原28B地址拓宽，不合并SDK异常类型"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "ClearLegacyIos_549F62"
+          ],
+          "relationship": "新增clear原真实父点，既有目标算法/数组不改、不复检；抛出目标仅真实声明"
         }
       ],
       "evidence_documents": [
@@ -110288,7 +110591,7 @@
         ],
         "boundary": "已证两原三槽表身份独立，第三槽仅真实声明；不是SDK/编译器C++元数据或完整抛出类型实现"
       },
-      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。",
+      "boundary": "原runtime先真实exception基类，再只复制源prefix首U8/Tidy(false)/assign(0,当时npos)，成员完成后550130表；构造借当前可写593850而非固定空串，copy先基类再源成员读取。failure copy真实54A0E5完成后才5500EC表；两析构先550130 runtime表而非failure表，Tidy(true)保护区失败唯一清基类/重抛，正常基类析构区外；删除先实际本族析构后flags bit0同域原堆释放/返原地址。原48B视图与独立表/调用身份不合并SDK类型；未完成Raise、549F62流状态抛出父、ThrowInfo/x64传播和运行。；新增原clear真实父点0x549FD4源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。",
       "internal_call_connections": [
         {
           "parent_entry": "0x549FFE",
@@ -110350,7 +110653,19 @@
         },
         "source_scope": "基类ctor/copy完成后，成员prefix/Tidy/assign保护区；异常只清基类",
         "boundary": "源级C++清理，不模拟FS/prolog/FrameHandler，不称SEH/x64完整ABI运行验收"
-      }
+      },
+      "ios_clear_parent_call_connections": [
+        {
+          "parent_entry": "0x549F62",
+          "call_site": "0x549FD4",
+          "target_entry": "0x549FFE",
+          "target_symbol": "ConstructLegacyRuntimeError_549FFE",
+          "source": "src/platform/LegacyIos.cpp",
+          "symbol": "ClearLegacyIos_549F62",
+          "arguments": "&failure,&message，state0保护区",
+          "relationship": "原状态/消息/failure准备或state0临时串展开消费；54B123只真实声明，完整SDK传播未闭"
+        }
+      ]
     },
     {
       "original_entry": "0x54A0E5",

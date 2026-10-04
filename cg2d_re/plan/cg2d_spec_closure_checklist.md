@@ -166,8 +166,8 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前已具备 | 剩余任务 | 完成条件 / 证据 |
 |---|---|---|---|
-| G01 / 图形资源完整生命周期 | 读取/解码/调色板/DBF、多处父及四容器已有；AIS01按原序迁入四调用并删除旧模块 | 按初始化→加载→重建→场景释放→进程退出补共享owner/失效与全标准流依赖 | [DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[AIS01](../doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)；本组顺序不代装载/清理或运行验收 |
-| G02 / 队列与命中 | 48B队列、RenderChara/DrawAllQueued/507140已有；GQS01钳制后AX/共享取样/最终S16排序数量已修，12调用承接13原点 | 全场景生产/父参数、文本token/对象借用有效期、间接alias及清理后访问 | 保持open；[GQS01](../doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)、[命中](../doc/cg2d_sub_507140.md)；局部排序/既有消费不代全场景闭环 |
+| G01 / 图形资源完整生命周期 | 原资源链/四容器已有；GDL01装载低W16/两基址、节点取样/两扫描尾已修，AIS01顺序保持 | 全部父参数、初始化→文件/加载→重建→场景/退出清理的owner/失效与标准流依赖 | 保持open；[GDL01](../doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure)、[DX SPEC](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[AIS01](../doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)；局部节点生产不代全寿命/运行 |
+| G02 / 队列与命中 | 队列/绘制/命中已有；GQS01排序已修，GDL01沿命中真实装载→节点建链的取样/基址和扫描尾已修 | 全场景生产/父参数、命中/文本token/对象与节点借用有效期、间接alias及清理后访问 | 保持open；[GDL01](../doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure)、[GQS01](../doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)、[命中](../doc/cg2d_sub_507140.md)；指定链不代全场景闭环 |
 | G03 / 模式2/3/4 | MakeSurface尺寸/格式门禁、接口/设备生产与探测已有 | 模式切换/回退、裁剪、采样/混合、提交及重建真实流程 | [纹理](../doc/cg2d_texture_rendering.md)、[呈现](../doc/cg2d_sdl_presenter.md)；像素/实际driver留V04 |
 | G04 / 渲染替换差异 | SDL自动driver、CPU Back/Temp、DX原生ABI豁免已批 | 逐上层函数核RAND、W32/S16、坐标/色键/生命周期/提交序 | 仅DX边界豁免HRESULT/COM，不豁免上层；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
 | G05 / 原图标/光标 | 使用关系有记录，原资源取得/权限未闭合 | 明确合法可用原资源与读取条件 | 不重开原EXE、不造替代图/下载；[启动](../doc/cg2d_startup_flow.md)、[资源来源](../doc/cg2d_resource_sources.md) |

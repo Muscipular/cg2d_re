@@ -125945,7 +125945,6 @@
       "original_entry": "0x5222D0",
       "inventory_id": "F:001222D0",
       "original_role": "DX缓存恒空参数领取节点与不足提示",
-      "status": "已有已批准SDL/CPU父正文及一真实格式接线，完整后端/资源和CRT运行未验",
       "original_end_exclusive": "0x522568",
       "instruction_count": 199,
       "original_direct_reference_count": 1,
@@ -125956,7 +125955,7 @@
           "symbols": [
             "TakeGraphicDxCache_5222D0"
           ],
-          "relationship": "已有父仅标准格式callee转53B304；相关源码helper不造原函数地址"
+          "relationship": "GDL01恒空路径的宽对齐/首head/目标基址、帧和候选图号及普通scan尾原取样已修；既有真实53B304/原24B提示与未清半链保持"
         }
       ],
       "business_call_connections": [
@@ -125998,10 +125997,30 @@
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_graphic_load_alignment_spec.md",
+        "doc/cg2d_graphic_load_alignment_evidence.json"
       ],
-      "verification_level": "199条统计，仅读25父内格式相邻指令；实际call/字段/字节/模式文件原顺序或缓存不足尾及源码只一callee静态核对，余174条/原入向与渲染资源生产不重验，未执行。另3条522570相邻入口已隔离，不作父证据或验收。",
-      "boundary": "原提示字节含%d及LF，S32扫描索引写未清256B message→调试输出→返回。此前已领取/解绑节点、半成链及未补尾next保持；不清部分链、回滚或改reuseState、x64节点/全局扫描、CPU尺寸和第二恒空参数批准边界。只此格式接口，不宣容量/资源/完整缓存或CRT运行。两源码仅两callee加各一已有内部头，原模式/节点/像素与资源/失败和生命周期正文逐字保持；不重验或豁免已批准DX替换的上层像素/裁剪/时序，原父、容量全链/后端/CRT与总PLAN未闭合。"
+      "status": "GDL01完整199条的已批准恒空路径取样/基址/两扫描尾已修；真实格式及部分链保持，完整寿命/运行未验",
+      "boundary": "按x64 SPEC §13保持第二参数未使用，不读/判断/解引用；原非空分支有明确批准差异及证据。原S32宽高先计算64/48块，完整W32宽对齐保存一次取样；旧head一次取样、清head/目标绑定各重取DX基址；每轮先读U32帧阈值/候选图号一次，真实解绑/绑定/scan重取及节点各字段原序保持。普通推进先读S32动态count再增/发布scan，完成尾先scan发布/next清再读count，原半链/旧尾/消息24B/未清256B/53B304/窄DebugString及返回保持。未写surface/reuseState/未知尾及唯一owner不变，无新增保护/清理/模拟；完整25父/文件/面/上传/间接alias和节点资源寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不记安全/故障等价。",
+      "verification_level": "两完整49/199共248条/833B及消息24B、原data operand/指定真实调用；五CPP补丁外全文及台账限定外部保持，未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "TakeGraphicDxCache_5222D0",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "graphic_load_alignment": {
+        "spec": "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure",
+        "evidence": "doc/cg2d_graphic_load_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_returns_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4576B0",
@@ -137447,6 +137466,56 @@
         "source_changed": true,
         "original_capacity_gate_retained": true,
         "extra_negative_guard_removed": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x522570",
+      "inventory_id": "F:00122570",
+      "status": "GDL01完整49条/原门禁与失败及成功写序局部对照，真实节点生产已有；完整资源/父/寿命和运行未验",
+      "original_end_exclusive": "0x522619",
+      "instruction_count": 49,
+      "original_direct_reference_count": 25,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "LoadGraphic_522570",
+            "TakeGraphicDxCache_5222D0"
+          ],
+          "relationship": "宽/高低W16和独立基址取样、先宽后图号发布及真实恒空建链已修；原门禁/失败五槽写/返回保留"
+        },
+        {
+          "path": "include/cg/render/GraphicDxCache.hpp",
+          "symbols": [
+            "LoadGraphic_522570"
+          ],
+          "relationship": "既有真实公开声明保持，不向上层暴露原生节点或DX内部对象"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_graphic_load_alignment_spec.md",
+        "doc/cg2d_graphic_load_alignment_evidence.json"
+      ],
+      "boundary": "原图号S32门禁/动态上界、非空head返回1、真实ReadGraphicDataByIndex和失败图号-1/ptrNULL/height0/width0/palette0写序保持。成功先保存DX基址/低W16宽，再发布图号与宽，然后重取DX基址/低W16高并写高；真实TakeGraphicDxCache(imageNo,nullptr)之后按原返回1，不将部分链改成读取失败。第二参数恒空沿既有具名批准、owner/x64地址域及其余字段保持。25原引用只作库存，指定命中/两绘制接线局部核；完整父/文件/分配/面/共享失效、节点/场景/退出寿命、SDK/机器ABI/画面未验，RPLAN.24异常不记安全/故障等价。",
+      "verification_level": "两完整49/199共248条/833B及消息24B、原data operand/指定真实调用；五CPP补丁外全文及台账限定外部保持，未构建/测试/运行/摘要",
+      "native_provider": {
+        "source": "src/render/GraphicDxCache.cpp",
+        "symbol": "LoadGraphic_522570",
+        "source_body_implemented": true,
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "graphic_load_alignment": {
+        "spec": "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-source-closure",
+        "evidence": "doc/cg2d_graphic_load_alignment_evidence.json",
+        "source_changed": true,
+        "original_guards_and_returns_retained": true,
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false

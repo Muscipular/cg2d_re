@@ -371,11 +371,16 @@ std::int32_t LoadGraphic_522570(const std::int32_t imageNo)
         return 0;
     }
 
+    DxGraphicEntry* const widthBase = gGraphicDxCache103CFA4;
+    std::uint16_t width;
+    std::memcpy(&width, &resource::gCurrentGraphicWidth, sizeof(width));
     resource::gGraphicDataBuffer = imageNo;
-    gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].width =
-        static_cast<std::uint16_t>(resource::gCurrentGraphicWidth);
-    gGraphicDxCache103CFA4[static_cast<std::size_t>(imageNo)].height =
-        static_cast<std::uint16_t>(resource::gCurrentGraphicHeight);
+    widthBase[static_cast<std::size_t>(imageNo)].width = width;
+
+    DxGraphicEntry* const heightBase = gGraphicDxCache103CFA4;
+    std::uint16_t height;
+    std::memcpy(&height, &resource::gCurrentGraphicHeight, sizeof(height));
+    heightBase[static_cast<std::size_t>(imageNo)].height = height;
     TakeGraphicDxCache_5222D0(imageNo, nullptr);
     return 1;
 }
@@ -399,18 +404,20 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     const std::int32_t columns = width / 64 + (width % 64 != 0 ? 1 : 0);
     const std::int32_t rows = height / 48 + (height % 48 != 0 ? 1 : 0);
     const std::int32_t required = columns * rows;
-    if ((resource::gCurrentGraphicWidth & 3u) != 0) {
-        resource::gCurrentGraphicWidth += (0u - resource::gCurrentGraphicWidth) & 3u;
+    const std::uint32_t alignmentWidth = resource::gCurrentGraphicWidth;
+    if ((alignmentWidth & 3u) != 0) {
+        resource::gCurrentGraphicWidth =
+            alignmentWidth + ((0u - alignmentWidth) & 3u);
     }
 
-    DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
-    if (entry.head != nullptr) {
-        TextureNode* old = entry.head;
+    TextureNode* const oldHead = gGraphicDxCache103CFA4[imageNo].head;
+    if (oldHead != nullptr) {
+        TextureNode* old = oldHead;
         do {
             old->imageNo = -1;
             old = old->next;
         } while (old != nullptr);
-        entry.head = nullptr;
+        gGraphicDxCache103CFA4[imageNo].head = nullptr;
         scan = gTextureScanIndex;
     }
 
@@ -419,10 +426,12 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
     std::int32_t remainingHeight = height;
     std::int32_t taken = 0;
     for (;;) {
+        const std::uint32_t reuseThreshold = platform::gFrameCount - 2u;
         const TextureNode& candidate = gTextureNodes[static_cast<std::size_t>(scan)];
-        if (candidate.reuseState < platform::gFrameCount - 2u) {
-            if (candidate.imageNo != -1) {
-                DxGraphicEntry& evicted = gGraphicDxCache103CFA4[candidate.imageNo];
+        if (candidate.reuseState < reuseThreshold) {
+            const std::int32_t previousImageNo = candidate.imageNo;
+            if (previousImageNo != -1) {
+                DxGraphicEntry& evicted = gGraphicDxCache103CFA4[previousImageNo];
                 TextureNode* old = evicted.head;
                 evicted.head = nullptr;
                 while (old != nullptr) {
@@ -431,6 +440,7 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
                 }
                 scan = gTextureScanIndex;
             }
+            DxGraphicEntry& entry = gGraphicDxCache103CFA4[imageNo];
             TextureNode* const selected = &gTextureNodes[static_cast<std::size_t>(scan)];
             if (entry.head == nullptr) {
                 entry.head = selected;
@@ -463,9 +473,10 @@ void TakeGraphicDxCache_5222D0(const std::int32_t imageNo, void* /*unusedSource*
                 remainingHeight -= 48;
             }
         }
+        const std::int32_t nodeCount = gTextureNodeCount;
         ++scan;
         gTextureScanIndex = scan;
-        if (scan >= gTextureNodeCount) {
+        if (scan >= nodeCount) {
             scan = 0;
             gTextureScanIndex = 0;
         }

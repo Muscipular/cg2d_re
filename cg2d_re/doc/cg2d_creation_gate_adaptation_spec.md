@@ -1,36 +1,33 @@
 # 创建场景入口门禁适配 SPEC
 
-> 2026-10-02；待用户针对性确认，尚未改动业务源码或接线。既有一般工程委托不覆盖此处未知寄存器值。
+> 2026-10-02提案；2026-10-04压缩更新。**仍待用户针对性确认**，未修改本体或接线，一般工程委托不覆盖未知寄存器值。
+> 压缩前全文见Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression` 的本路径；对应[收尾P08](../plan/cg2d_spec_closure_checklist.md)。
 
 ## 事实与缺口
 
-[创建场景证据](cg2d_character_select_scene.md#creation-gate-exit-evidence)已追明：WorldUpdate场景4先调用4596D0，再调用4626A0；后者保存入口ECX，部分路径在状态10时将其与1比较。输入链的退出ECX因路径而异，其中DirectSound外部接口失败路径保留外部实现的寄存器残留。现有只读cg2d证据无法给出此值，不能以新端SDL/编译器寄存器代替。
+[原证据](cg2d_character_select_scene.md#creation-gate-exit-evidence)：WorldUpdate场景4先4596D0再4626A0；后者保存入口ECX，部分路径在状态10与1比较。输入链退出ECX随路径变化，DirectSound外部接口失败可留外部寄存器残值，当前cg2d证据不能确定；不能用新端SDL/编译器寄存器替代。
 
-当前CharacterSelectScene.cpp已有完整显式参数本体ProcessCreationScene_4626A0(int32_t entryGate)，没有默认参数；WorldUpdate仍调用未实现的无参声明。正常选择完成和错误恢复会在同一次本体调用内明确把门禁置1，但尚未证明所有初始状态10均不可达。
+CharacterSelectScene已有ProcessCreationScene_4626A0(int32_t entryGate)完整显式本体，无默认参数；WorldUpdate仍调用无参缺口。正常选择完成/错误恢复会在同次本体内置gate=1，但尚未证明所有初始状态10不可达。
 
 ## 推荐的明确规则
 
-WorldUpdate场景4保留输入处理，然后显式调用：
+批准后场景4保留输入处理，再显式调用 `character_select::detail::ProcessCreationScene_4626A0(1)`。
 
-```cpp
-character_select::detail::ProcessCreationScene_4626A0(1);
-```
+固定1使原依赖入口ECX的门禁不再依赖按键/音效/外部残留，初始状态10会执行463100初始化并进状态12；这是适配选择，不能称原端事实。选择/编辑/请求/错误恢复对局部门禁的后续赋值、状态10条件、同次连续处理及请求/清理/恢复顺序均保留，不改成每帧一次switch。
 
-含义是：所有原先依赖入口ECX的门禁，从该接线开始按明确值1处理。主要可见变化为初始状态10不再依赖按键、音效或外部接口残留，执行463100初始化并进入状态12。不能将这一值描述为从原端恢复的事实。
-
-选择页返回值、编辑返回值、请求返回值及错误恢复对局部门禁的后续赋值仍按现有完整本体执行；本体内状态10门禁条件保留，不直接删分支，不改为一帧一次switch，不改请求、输入清理或恢复顺序。
+不选默认0（会跳过上述初始化），不模拟某按键ECX、不增随机/伪状态。
 
 ## 确认后的改动范围
 
-1. WorldUpdate.cpp包含既有CharacterSelectSceneDependencies.hpp，替换场景4中的无参缺口调用；输入处理和后续Yobi/绘制调用位置保持。
-2. WorldUpdateDependencies.hpp移除不再使用的无参Sub_4626A0声明。
-3. CharacterSelectSceneDependencies.hpp更新接口注释，说明原本体仍接受显式值，而WorldUpdate采用用户确认的固定门禁适配。
-4. 记录原行为与适配差异，并集中核对唯一生产调用、参数值、调用顺序和遗留声明。原显式本体不重写。
-
-不采用默认0：它会让初始状态10继续跳过初始化。也不模拟某个按键的ECX或增设随机/伪状态；这些都无法覆盖已证的外部残留路径。
+| 文件 | 精确改动 |
+|---|---|
+| WorldUpdate.cpp | 引入既有CharacterSelectSceneDependencies.hpp，替换场景4无参调用；输入、Yobi/绘制位置不变 |
+| WorldUpdateDependencies.hpp | 移除不再使用的无参Sub_4626A0声明 |
+| CharacterSelectSceneDependencies.hpp | 注明本体接受显式gate、WorldUpdate采用已批固定1；不加默认参数 |
+| 局部合同/唯一进度 | 记录原行为与适配差异，核唯一调用/实参/顺序/遗留声明；不重写本体 |
 
 ## 验收与等待范围
 
-明确批准后只完成这一接线及新增差异静态核对，继续遵守不构建、不运行、不测试、不做哈希校验。真正创建交互、请求往返与完整启动仍未运行验收，网络和音频的既有未决范围不随本项批准。
+未批准继续保留显式本体及可见无参缺口，可推进其他独立项；此项不代批其他局部补值、网络帧或音频。
 
-若不批准或尚未回复，保留当前完整显式本体及可见无参缺口；继续其他有证据的工作。本项与三处局部补零及网络明文封包格式分别裁决。
+批准只允许上述接线及新增差异静态核对，不解除不构建/测试/运行/计算摘要的限制。真实创建交互、请求往返与完整启动仍须后续验收。

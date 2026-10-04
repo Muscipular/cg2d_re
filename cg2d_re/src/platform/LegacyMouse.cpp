@@ -8,6 +8,9 @@
 #include "MainLoopDependencies.hpp"
 #include "LegacyMultibyte.hpp"
 #include "cg/AnimationRuntime.hpp"
+#include "cg/GraphicInfo.hpp"
+#include "cg/GraphicRead.hpp"
+#include "cg/render/GraphicDxCache.hpp"
 #include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -27,6 +30,16 @@ std::uint32_t gValueD68BF0 = 0;
 std::uint32_t gValueD68DC8 = 0;
 
 namespace {
+
+// AIS01：原C表553178先于C++90；只移动既有调用，不执行整套旧CRT。
+struct LegacyMultibyteStaticInitializer {
+    LegacyMultibyteStaticInitializer()
+    {
+        InitializeLegacyMultibyte_546CAE();
+    }
+};
+
+const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;
 
 // 原CRT553004..553010：每项完成构造后即时登记退出，第一结果不短路后项。
 // 只有本组模块位置适配；接全应用原序时须同小步移除此调用，避免双构造/登记。
@@ -52,6 +65,19 @@ struct WorldObjectsStaticInitializer final {
 static_assert(std::is_trivially_destructible_v<WorldObjectsStaticInitializer>);
 
 const WorldObjectsStaticInitializer gWorldObjectsStaticInitializer;
+
+// AIS01原553018/55301C：世界表后、宿主窄宽流配置前，同一TU有序初始化。
+struct SurfaceTransformCacheStartup final {
+    SurfaceTransformCacheStartup()
+    {
+        // 原 553018 -> 55301C；各自构造后立即登记，不按第一次登记结果短路。
+        static_cast<void>(cg::render::InitializeSurfaceTransformCache629300_44CC20());
+        static_cast<void>(cg::render::InitializeSurfaceTransformCache62A630_44CD30());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<SurfaceTransformCacheStartup>);
+SurfaceTransformCacheStartup gSurfaceTransformCacheStartup;
 
 // 原5495EE不创建sentry；直接同步缓冲，避免现代flush额外刷新tie。
 template <typename Character>
@@ -185,7 +211,20 @@ static_assert(std::is_trivially_destructible_v<SceneTransitionValueStaticInitial
 
 const SceneTransitionValueStaticInitializer gSceneTransitionValueStaticInitializer;
 
-// 原CRT 553060；中间Graphic容器由既有std容器承接，不重复构造。
+// AIS01原553058/55305C：场景值后、动画共享值前；各项仍即时登记。
+struct GraphicInfoContainersStartup final {
+    GraphicInfoContainersStartup()
+    {
+        // 原553058 -> 55305C：第一登记失败不跳过第二构造/登记。
+        static_cast<void>(cg::resource::InitializeGraphicMapNumbers_4597E0());
+        static_cast<void>(cg::resource::InitializeGraphicFirstRecords_459850());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
+GraphicInfoContainersStartup gGraphicInfoContainersStartup;
+
+// 原CRT553060；前两Graphic容器已由AIS01原序调用，不重复构造。
 struct AnimationSharedValueStaticInitializer {
     AnimationSharedValueStaticInitializer()
     {
@@ -374,6 +413,19 @@ static_assert(std::is_trivially_destructible_v<PetRuntimeValuesStaticInitializer
 
 const PetRuntimeValuesStaticInitializer gPetRuntimeValuesStaticInitializer;
 
+// AIS01原553104/553108：主/宠物后，旧键盘排除项前，不混入待接标准流。
+struct IndependentPaletteContainersStartup final {
+    IndependentPaletteContainersStartup()
+    {
+        // 原553104 -> 553108；每项构造后立即登记，不按首次结果短路。
+        static_cast<void>(cg::resource::InitializeIndependentPaletteQueue_522620());
+        static_cast<void>(cg::resource::InitializePaletteDbfState_522690());
+    }
+};
+
+static_assert(std::is_trivially_destructible_v<IndependentPaletteContainersStartup>);
+IndependentPaletteContainersStartup gIndependentPaletteContainersStartup;
+
 // 原后段CRT553130/553158/553160/553164；各自保留两次登记，按原相对顺序执行。
 struct LegacyPairedEmptyExitStaticInitializer {
     LegacyPairedEmptyExitStaticInitializer()
@@ -386,16 +438,6 @@ const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164;
-
-// 原CRT553178；仅生产多字节共享表，无析构或额外退出登记。
-struct LegacyMultibyteStaticInitializer {
-    LegacyMultibyteStaticInitializer()
-    {
-        InitializeLegacyMultibyte_546CAE();
-    }
-};
-
-const LegacyMultibyteStaticInitializer gLegacyMultibyteStaticInitializer;
 
 } // namespace
 

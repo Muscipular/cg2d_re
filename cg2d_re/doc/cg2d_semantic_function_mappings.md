@@ -1451,3 +1451,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)与[原证据](cg2d_locale_object_heap_migration_evidence.json)将54A404/54A59B/54A3E3三变化体、九构析/引用边界及53C9CF/53B4E7/53C3BE/541A28/53B406五共享提供者共十七既有记录对齐。五实际改callee保原数字target/旧symbol与参数历史，当前改私有对象pair/两std::atexit，不把宿主目标当原共享本体或新增F身份。
 
 原方法表/字段/引用重读/名称与异常清理保持；base facet/vector仍原域，名称NSH01，经典全表caller未接。1152条/1149有效ID、18pending/4分类引用及其他语义元数据不变。已审只新增三变化体至90，三局部证据累计39；全功能分母/完整CRT、生命周期/SDK及运行仍未闭。
+
+## AIS01原表与当前活动投影（2026-10-05）
+
+[原表/投影证据](cg2d_active_initializer_order_evidence.json)及[源码收口](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)按全部90槽登记当前66应用+2 SDK流配置、1 null/2音频暂停/2键盘排除/17流或经典locale待接。六已实现图形/资源provider调用来源迁至LegacyMouse原相对位置，三旧模块删除；多字节旧调用前置，所有body/owner/RNG与退出登记保持。
+
+41已有记录补当前投影绑定；29缺独立条目的UI/动画已有源体补原表/源位置与调用绑定，明确只查命名定义位置，不验整本体/算法/数据/异常，不加入已审处置。语义1181条/1178有效ID，18pending/4分类引用不变，旧其他条目/元数据不改。已审90/3680不提升，42局部证据不代完整门禁/运行，原90回调数组仍真实extern。

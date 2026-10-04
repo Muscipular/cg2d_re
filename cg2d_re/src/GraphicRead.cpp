@@ -214,17 +214,6 @@ void DestroyPaletteDbfState_5226C0()
     std::destroy_at(&BorrowPaletteDbfState());
 }
 
-struct IndependentPaletteContainersStartup final {
-    IndependentPaletteContainersStartup()
-    {
-        // 原553104 -> 553108；每项构造后立即登记，不按首次结果短路。
-        static_cast<void>(InitializeIndependentPaletteQueue_522620());
-        static_cast<void>(InitializePaletteDbfState_522690());
-    }
-};
-
-static_assert(std::is_trivially_destructible_v<IndependentPaletteContainersStartup>);
-IndependentPaletteContainersStartup gIndependentPaletteContainersStartup;
 std::int32_t gIndependentPaletteCount = 0; // 原 103CF18，不随池释放清零。
 IndependentPaletteIndex* gIndependentPaletteIndex = nullptr;
 IndependentPaletteRecord* gIndependentPaletteRecords = nullptr;

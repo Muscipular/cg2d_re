@@ -79,7 +79,8 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md",
         "doc/cg2d_startup_protection_lifecycle_spec.md",
         "doc/cg2d_world_state_lifecycle_spec.md",
-        "doc/cg2d_ui_input_lifecycle_spec.md"
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -140,7 +141,45 @@
         "F:000883F0",
         "F:000998F0",
         "F:000CD240",
-        "F:00106340"
+        "F:00106340",
+        "F:00053E00",
+        "F:00053E40",
+        "F:00054C00",
+        "F:00055490",
+        "F:000554C0",
+        "F:00055540",
+        "F:000555C0",
+        "F:00055640",
+        "F:000556C0",
+        "F:00055740",
+        "F:000557C0",
+        "F:00055840",
+        "F:00055930",
+        "F:0005B370",
+        "F:000FC420",
+        "F:000FCB90",
+        "F:000FE490",
+        "F:000FEB00",
+        "F:000FF020",
+        "F:000FF340",
+        "F:00102930",
+        "F:00102C30",
+        "F:00102C60",
+        "F:00102C80",
+        "F:00102CA0",
+        "F:00102D20",
+        "F:00102DA0",
+        "F:00102E20",
+        "F:00102EA0",
+        "F:00102F20",
+        "F:00102FA0",
+        "F:00103020",
+        "F:00149194",
+        "F:00149F20",
+        "F:0014A638",
+        "F:0014A981",
+        "F:00146CAE",
+        "F:0013C8CD"
       ],
       "closure_task_ids": [
         "C02",
@@ -155,7 +194,8 @@
       ],
       "acceptance_focus": "初始化/退出顺序、唯一构析与失败清理",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -164,7 +204,8 @@
         "四Init按SI01已定义；登记数据按SR01补0..8已证前缀，原完整尺寸/容量、较大正常索引/间接别名、全应用序/活动流构析与运行仍未闭",
         "启动保护四项已按D02/D03接单一活动构析与即时宿主登记；本组原相邻序不代全应用原序/快速退出/完整owner与运行，整表接通必须同小步移除模块适配",
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
-        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
+        "AIS01六图形/资源调用已统一至当前LegacyMouse原相对位置且旧三模块删除，多字节前置；当前68槽/29仅绑定补登记不代全90/17流locale活动归属、全CRT/快速退出/SDK和运行，音频继续暂停"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -175,7 +216,8 @@
         "doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-baseline",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-baseline",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline"
       ]
     },
     {
@@ -6860,6 +6902,111 @@
       "observation": "仅12原体/五callee和17既有语义变化",
       "expected": "269/85/354分母与原数字target准确，源码仅pair/include/五callee/域注释；原未变源码/台账差集不重验",
       "actual": "两源码限定逆换全文同前提交，17语义之外与元数据完全一致；原数字target/12体269/提供者85已核，未编译/运行"
+    },
+    {
+      "feature_id": "FUNC-STARTUP",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原已加载C++90槽/保存值与C5多字节先于C++合同；六provider复用既有源码证据；doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-active-initializer-order-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-acceptance",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_active_initializer_order_evidence.json",
+        "src/platform/LegacyMouse.cpp#SurfaceTransformCacheStartup",
+        "src/platform/LegacyMouse.cpp#GraphicInfoContainersStartup",
+        "src/platform/LegacyMouse.cpp#IndependentPaletteContainersStartup",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "D03宿主就绪后当前应用通过同一TU原相对声明序承接；六provider移除跨TU旧模块并迁入实际原位置，多字节既有C5调用移前；不执行原CRT/回调数组",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        },
+        {
+          "description": "68当前槽是66应用+2 SDK流配置，未实现的17流/locale仍待，2音频暂停/2键盘排除/1原null不混算；29新语义仅位置/绑定，不提升已审/全门禁",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-ACTIVE-INITIALIZER-ORDER-I-20261005",
+      "gate": "I",
+      "observation": "仅四源码模块迁移与既有C5调用前置",
+      "expected": "六provider唯一位置、旧三模块删除，同一被动owner/原构析登记不变；多字节一个真实调用",
+      "actual": "三模块六调用已迁入LegacyMouse实际三个位置，旧模块/无用头删除，多字节前置，无新owner/公开API或Cpp数组"
+    },
+    {
+      "feature_id": "FUNC-STARTUP",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原已加载C++90槽/保存值与C5多字节先于C++合同；六provider复用既有源码证据；doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-active-initializer-order-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-acceptance",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_active_initializer_order_evidence.json",
+        "src/platform/LegacyMouse.cpp#SurfaceTransformCacheStartup",
+        "src/platform/LegacyMouse.cpp#GraphicInfoContainersStartup",
+        "src/platform/LegacyMouse.cpp#IndependentPaletteContainersStartup",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "D03宿主就绪后当前应用通过同一TU原相对声明序承接；六provider移除跨TU旧模块并迁入实际原位置，多字节既有C5调用移前；不执行原CRT/回调数组",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        },
+        {
+          "description": "68当前槽是66应用+2 SDK流配置，未实现的17流/locale仍待，2音频暂停/2键盘排除/1原null不混算；29新语义仅位置/绑定，不提升已审/全门禁",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-ACTIVE-INITIALIZER-ORDER-W-20261005",
+      "gate": "W",
+      "observation": "仅当前66+2原槽相对序/现有wrapper展开",
+      "expected": "按原表顺序声明和内部逐项，完成即时原登记、弃返回；暂停/排除/流locale缺口保留",
+      "actual": "当前68槽源码声明序与包装叶逐项核对，未短路/延迟登记或启用音频/键盘/17待接；旧三模块无残留"
+    },
+    {
+      "feature_id": "FUNC-STARTUP",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原已加载C++90槽/保存值与C5多字节先于C++合同；六provider复用既有源码证据；doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-active-initializer-order-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-acceptance",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_active_initializer_order_evidence.json",
+        "src/platform/LegacyMouse.cpp#SurfaceTransformCacheStartup",
+        "src/platform/LegacyMouse.cpp#GraphicInfoContainersStartup",
+        "src/platform/LegacyMouse.cpp#IndependentPaletteContainersStartup",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "D03宿主就绪后当前应用通过同一TU原相对声明序承接；六provider移除跨TU旧模块并迁入实际原位置，多字节既有C5调用移前；不执行原CRT/回调数组",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        },
+        {
+          "description": "68当前槽是66应用+2 SDK流配置，未实现的17流/locale仍待，2音频暂停/2键盘排除/1原null不混算；29新语义仅位置/绑定，不提升已审/全门禁",
+          "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-ACTIVE-INITIALIZER-ORDER-S-20261005",
+      "gate": "S",
+      "observation": "仅限定源码差异、90数据表与语义绑定",
+      "expected": "四源码只模块块/include/注释和多字节移动；原body/布局不改，29缺条目仅补绑定不记完整审验",
+      "actual": "四源码限定变更重放全文同实际，90槽/68当前投影可追踪；语义41既有更新/29局部绑定，未运行或验完整本体"
     }
   ],
   "task_acceptance": [
@@ -6948,7 +7095,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -6959,7 +7107,8 @@
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -6971,7 +7120,8 @@
         "doc/cg2d_startup_protection_lifecycle_spec.md#startup-protection-source-closure",
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
-        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -6979,7 +7129,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure"
+        "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7117,7 +7268,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7144,7 +7296,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7189,7 +7342,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7216,7 +7370,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7243,7 +7398,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {
@@ -7270,7 +7426,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
-        "doc/cg2d_crt_startup_lifecycle_spec.md"
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
       ]
     },
     {

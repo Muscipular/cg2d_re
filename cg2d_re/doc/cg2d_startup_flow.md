@@ -1975,3 +1975,9 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 [本组SPEC与收口](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)更新先前原堆/原退出表接线状态：54A404当前唯一实现对象生产改私有宿主pair，Ctor失败及正常删除同域；54A450先发布global再std::atexit登记原54A4BD并弃返回，54A3F3仍先仅RET晚段，再std::atexit登记原54A3FA/直接S32。三共享槽与引用/名称/默认构造发布时点、两个退出不清槽本体保持。
 
 55315C经典初始化的全应用表caller继续待接，不新增模块/抢先登记；宿主SDK经典locale与Legacy实际实现对象分开，不以两接口存在称原经典引用已在活动退出归零。facet/向量仍原域、名称NSH01；全应用相对序、活动流构析/快速退出与C03/C04/完整CRT及运行继续开放。新增局部证据不代启动、链接或SDK验收。
+
+## AIS01当前活动初始化的顺序接线（2026-10-05）
+
+[局部SPEC](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)基于已保存并核对应的完整90槽，已将六图形/资源provider迁入LegacyMouse.cpp三个原相对位置，移除原三模块；既有多字节C5调用移到应用适配之前。当前66应用+2 SDK流配置槽按同一TU有序声明与既有wrapper展开，原构析/字段/RNG/即时登记/失败消费保持，原WinMain/CRT根源码不改/不另启。
+
+1原null、2音频暂停、2键盘排除、17Legacy流/经典locale待接状态单列，当前68投影不代原90/全应用初始化完成。29已有UI/动画初始化仅补原表/源位置绑定；完整本体未审，不进入已审或验收分子。完整C5旧状态/活动流/快速退出、全部owner/图标光标、SDK与运行仍未闭。

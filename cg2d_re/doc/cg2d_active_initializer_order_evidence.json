@@ -1,0 +1,2592 @@
+{
+  "description": "AIS01当前活动初始化顺序与90槽原表；原表已有完整语义保存值，本组仅按当前会话核对应点，不计新函数覆盖",
+  "source": "已打开cg2d.exe IDA只读Python，2026-10-05；源码UTF-8静态读取，无构建/运行/摘要",
+  "original_cpp_table": {
+    "begin": "0x553000",
+    "end_exclusive": "0x553168",
+    "count": 90,
+    "rows": [
+      {
+        "slot": "0x553000",
+        "loaded": true,
+        "target": "0x0",
+        "name": null,
+        "root": null
+      },
+      {
+        "slot": "0x553004",
+        "loaded": true,
+        "target": "0x401c10",
+        "name": "sub_401C10",
+        "root": "0x401c10"
+      },
+      {
+        "slot": "0x553008",
+        "loaded": true,
+        "target": "0x404120",
+        "name": "sub_404120",
+        "root": "0x404120"
+      },
+      {
+        "slot": "0x55300c",
+        "loaded": true,
+        "target": "0x404160",
+        "name": "sub_404160",
+        "root": "0x404160"
+      },
+      {
+        "slot": "0x553010",
+        "loaded": true,
+        "target": "0x4041a0",
+        "name": "sub_4041A0",
+        "root": "0x4041a0"
+      },
+      {
+        "slot": "0x553014",
+        "loaded": true,
+        "target": "0x43d760",
+        "name": "sub_43D760",
+        "root": "0x43d760"
+      },
+      {
+        "slot": "0x553018",
+        "loaded": true,
+        "target": "0x44cc20",
+        "name": "sub_44CC20",
+        "root": "0x44cc20"
+      },
+      {
+        "slot": "0x55301c",
+        "loaded": true,
+        "target": "0x44cd30",
+        "name": "sub_44CD30",
+        "root": "0x44cd30"
+      },
+      {
+        "slot": "0x553020",
+        "loaded": true,
+        "target": "0x453e00",
+        "name": "sub_453E00",
+        "root": "0x453e00"
+      },
+      {
+        "slot": "0x553024",
+        "loaded": true,
+        "target": "0x453e40",
+        "name": "sub_453E40",
+        "root": "0x453e40"
+      },
+      {
+        "slot": "0x553028",
+        "loaded": true,
+        "target": "0x454c00",
+        "name": "sub_454C00",
+        "root": "0x454c00"
+      },
+      {
+        "slot": "0x55302c",
+        "loaded": true,
+        "target": "0x455490",
+        "name": "sub_455490",
+        "root": "0x455490"
+      },
+      {
+        "slot": "0x553030",
+        "loaded": true,
+        "target": "0x4554c0",
+        "name": "sub_4554C0",
+        "root": "0x4554c0"
+      },
+      {
+        "slot": "0x553034",
+        "loaded": true,
+        "target": "0x455540",
+        "name": "sub_455540",
+        "root": "0x455540"
+      },
+      {
+        "slot": "0x553038",
+        "loaded": true,
+        "target": "0x4555c0",
+        "name": "sub_4555C0",
+        "root": "0x4555c0"
+      },
+      {
+        "slot": "0x55303c",
+        "loaded": true,
+        "target": "0x455640",
+        "name": "sub_455640",
+        "root": "0x455640"
+      },
+      {
+        "slot": "0x553040",
+        "loaded": true,
+        "target": "0x4556c0",
+        "name": "sub_4556C0",
+        "root": "0x4556c0"
+      },
+      {
+        "slot": "0x553044",
+        "loaded": true,
+        "target": "0x455740",
+        "name": "sub_455740",
+        "root": "0x455740"
+      },
+      {
+        "slot": "0x553048",
+        "loaded": true,
+        "target": "0x4557c0",
+        "name": "sub_4557C0",
+        "root": "0x4557c0"
+      },
+      {
+        "slot": "0x55304c",
+        "loaded": true,
+        "target": "0x455840",
+        "name": "sub_455840",
+        "root": "0x455840"
+      },
+      {
+        "slot": "0x553050",
+        "loaded": true,
+        "target": "0x455930",
+        "name": "sub_455930",
+        "root": "0x455930"
+      },
+      {
+        "slot": "0x553054",
+        "loaded": true,
+        "target": "0x456fd0",
+        "name": "sub_456FD0",
+        "root": "0x456fd0"
+      },
+      {
+        "slot": "0x553058",
+        "loaded": true,
+        "target": "0x4597e0",
+        "name": "sub_4597E0",
+        "root": "0x4597e0"
+      },
+      {
+        "slot": "0x55305c",
+        "loaded": true,
+        "target": "0x459850",
+        "name": "sub_459850",
+        "root": "0x459850"
+      },
+      {
+        "slot": "0x553060",
+        "loaded": true,
+        "target": "0x45b370",
+        "name": "sub_45B370",
+        "root": "0x45b370"
+      },
+      {
+        "slot": "0x553064",
+        "loaded": true,
+        "target": "0x467b90",
+        "name": "sub_467B90",
+        "root": "0x467b90"
+      },
+      {
+        "slot": "0x553068",
+        "loaded": true,
+        "target": "0x467bf0",
+        "name": "sub_467BF0",
+        "root": "0x467bf0"
+      },
+      {
+        "slot": "0x55306c",
+        "loaded": true,
+        "target": "0x467c30",
+        "name": "sub_467C30",
+        "root": "0x467c30"
+      },
+      {
+        "slot": "0x553070",
+        "loaded": true,
+        "target": "0x467c70",
+        "name": "sub_467C70",
+        "root": "0x467c70"
+      },
+      {
+        "slot": "0x553074",
+        "loaded": true,
+        "target": "0x467cb0",
+        "name": "sub_467CB0",
+        "root": "0x467cb0"
+      },
+      {
+        "slot": "0x553078",
+        "loaded": true,
+        "target": "0x467cf0",
+        "name": "sub_467CF0",
+        "root": "0x467cf0"
+      },
+      {
+        "slot": "0x55307c",
+        "loaded": true,
+        "target": "0x467d50",
+        "name": "sub_467D50",
+        "root": "0x467d50"
+      },
+      {
+        "slot": "0x553080",
+        "loaded": true,
+        "target": "0x467db0",
+        "name": "sub_467DB0",
+        "root": "0x467db0"
+      },
+      {
+        "slot": "0x553084",
+        "loaded": true,
+        "target": "0x467df0",
+        "name": "sub_467DF0",
+        "root": "0x467df0"
+      },
+      {
+        "slot": "0x553088",
+        "loaded": true,
+        "target": "0x467e30",
+        "name": "sub_467E30",
+        "root": "0x467e30"
+      },
+      {
+        "slot": "0x55308c",
+        "loaded": true,
+        "target": "0x467e70",
+        "name": "sub_467E70",
+        "root": "0x467e70"
+      },
+      {
+        "slot": "0x553090",
+        "loaded": true,
+        "target": "0x467eb0",
+        "name": "sub_467EB0",
+        "root": "0x467eb0"
+      },
+      {
+        "slot": "0x553094",
+        "loaded": true,
+        "target": "0x467ef0",
+        "name": "sub_467EF0",
+        "root": "0x467ef0"
+      },
+      {
+        "slot": "0x553098",
+        "loaded": true,
+        "target": "0x477160",
+        "name": "sub_477160",
+        "root": "0x477160"
+      },
+      {
+        "slot": "0x55309c",
+        "loaded": true,
+        "target": "0x4883f0",
+        "name": "sub_4883F0",
+        "root": "0x4883f0"
+      },
+      {
+        "slot": "0x5530a0",
+        "loaded": true,
+        "target": "0x4998f0",
+        "name": "sub_4998F0",
+        "root": "0x4998f0"
+      },
+      {
+        "slot": "0x5530a4",
+        "loaded": true,
+        "target": "0x4cd240",
+        "name": "sub_4CD240",
+        "root": "0x4cd240"
+      },
+      {
+        "slot": "0x5530a8",
+        "loaded": true,
+        "target": "0x4fc420",
+        "name": "sub_4FC420",
+        "root": "0x4fc420"
+      },
+      {
+        "slot": "0x5530ac",
+        "loaded": true,
+        "target": "0x4fcb90",
+        "name": "sub_4FCB90",
+        "root": "0x4fcb90"
+      },
+      {
+        "slot": "0x5530b0",
+        "loaded": true,
+        "target": "0x4fd9f0",
+        "name": "sub_4FD9F0",
+        "root": "0x4fd9f0"
+      },
+      {
+        "slot": "0x5530b4",
+        "loaded": true,
+        "target": "0x4fde10",
+        "name": "sub_4FDE10",
+        "root": "0x4fde10"
+      },
+      {
+        "slot": "0x5530b8",
+        "loaded": true,
+        "target": "0x4fe490",
+        "name": "sub_4FE490",
+        "root": "0x4fe490"
+      },
+      {
+        "slot": "0x5530bc",
+        "loaded": true,
+        "target": "0x4feb00",
+        "name": "sub_4FEB00",
+        "root": "0x4feb00"
+      },
+      {
+        "slot": "0x5530c0",
+        "loaded": true,
+        "target": "0x4ff020",
+        "name": "sub_4FF020",
+        "root": "0x4ff020"
+      },
+      {
+        "slot": "0x5530c4",
+        "loaded": true,
+        "target": "0x4ff340",
+        "name": "sub_4FF340",
+        "root": "0x4ff340"
+      },
+      {
+        "slot": "0x5530c8",
+        "loaded": true,
+        "target": "0x502930",
+        "name": "sub_502930",
+        "root": "0x502930"
+      },
+      {
+        "slot": "0x5530cc",
+        "loaded": true,
+        "target": "0x502c30",
+        "name": "sub_502C30",
+        "root": "0x502c30"
+      },
+      {
+        "slot": "0x5530d0",
+        "loaded": true,
+        "target": "0x502c60",
+        "name": "sub_502C60",
+        "root": "0x502c60"
+      },
+      {
+        "slot": "0x5530d4",
+        "loaded": true,
+        "target": "0x502c80",
+        "name": "sub_502C80",
+        "root": "0x502c80"
+      },
+      {
+        "slot": "0x5530d8",
+        "loaded": true,
+        "target": "0x502ca0",
+        "name": "sub_502CA0",
+        "root": "0x502ca0"
+      },
+      {
+        "slot": "0x5530dc",
+        "loaded": true,
+        "target": "0x502d20",
+        "name": "sub_502D20",
+        "root": "0x502d20"
+      },
+      {
+        "slot": "0x5530e0",
+        "loaded": true,
+        "target": "0x502da0",
+        "name": "sub_502DA0",
+        "root": "0x502da0"
+      },
+      {
+        "slot": "0x5530e4",
+        "loaded": true,
+        "target": "0x502e20",
+        "name": "sub_502E20",
+        "root": "0x502e20"
+      },
+      {
+        "slot": "0x5530e8",
+        "loaded": true,
+        "target": "0x502ea0",
+        "name": "sub_502EA0",
+        "root": "0x502ea0"
+      },
+      {
+        "slot": "0x5530ec",
+        "loaded": true,
+        "target": "0x502f20",
+        "name": "sub_502F20",
+        "root": "0x502f20"
+      },
+      {
+        "slot": "0x5530f0",
+        "loaded": true,
+        "target": "0x502fa0",
+        "name": "sub_502FA0",
+        "root": "0x502fa0"
+      },
+      {
+        "slot": "0x5530f4",
+        "loaded": true,
+        "target": "0x503020",
+        "name": "sub_503020",
+        "root": "0x503020"
+      },
+      {
+        "slot": "0x5530f8",
+        "loaded": true,
+        "target": "0x506340",
+        "name": "sub_506340",
+        "root": "0x506340"
+      },
+      {
+        "slot": "0x5530fc",
+        "loaded": true,
+        "target": "0x5183d0",
+        "name": "sub_5183D0",
+        "root": "0x5183d0"
+      },
+      {
+        "slot": "0x553100",
+        "loaded": true,
+        "target": "0x518520",
+        "name": "sub_518520",
+        "root": "0x518520"
+      },
+      {
+        "slot": "0x553104",
+        "loaded": true,
+        "target": "0x522620",
+        "name": "sub_522620",
+        "root": "0x522620"
+      },
+      {
+        "slot": "0x553108",
+        "loaded": true,
+        "target": "0x522690",
+        "name": "sub_522690",
+        "root": "0x522690"
+      },
+      {
+        "slot": "0x55310c",
+        "loaded": true,
+        "target": "0x537a30",
+        "name": "sub_537A30",
+        "root": "0x537a30"
+      },
+      {
+        "slot": "0x553110",
+        "loaded": true,
+        "target": "0x537ae0",
+        "name": "sub_537AE0",
+        "root": "0x537ae0"
+      },
+      {
+        "slot": "0x553114",
+        "loaded": true,
+        "target": "0x548170",
+        "name": "sub_548170",
+        "root": "0x548170"
+      },
+      {
+        "slot": "0x553118",
+        "loaded": true,
+        "target": "0x54819d",
+        "name": "sub_54819D",
+        "root": "0x54819d"
+      },
+      {
+        "slot": "0x55311c",
+        "loaded": true,
+        "target": "0x5481ca",
+        "name": "sub_5481CA",
+        "root": "0x5481ca"
+      },
+      {
+        "slot": "0x553120",
+        "loaded": true,
+        "target": "0x54820e",
+        "name": "sub_54820E",
+        "root": "0x54820e"
+      },
+      {
+        "slot": "0x553124",
+        "loaded": true,
+        "target": "0x548252",
+        "name": "sub_548252",
+        "root": "0x548252"
+      },
+      {
+        "slot": "0x553128",
+        "loaded": true,
+        "target": "0x54827f",
+        "name": "sub_54827F",
+        "root": "0x54827f"
+      },
+      {
+        "slot": "0x55312c",
+        "loaded": true,
+        "target": "0x5482ae",
+        "name": "sub_5482AE",
+        "root": "0x5482ae"
+      },
+      {
+        "slot": "0x553130",
+        "loaded": true,
+        "target": "0x549194",
+        "name": "unknown_libname_76",
+        "root": "0x549194"
+      },
+      {
+        "slot": "0x553134",
+        "loaded": true,
+        "target": "0x5491d6",
+        "name": "sub_5491D6",
+        "root": "0x5491d6"
+      },
+      {
+        "slot": "0x553138",
+        "loaded": true,
+        "target": "0x549200",
+        "name": "sub_549200",
+        "root": "0x549200"
+      },
+      {
+        "slot": "0x55313c",
+        "loaded": true,
+        "target": "0x54922a",
+        "name": "sub_54922A",
+        "root": "0x54922a"
+      },
+      {
+        "slot": "0x553140",
+        "loaded": true,
+        "target": "0x549257",
+        "name": "sub_549257",
+        "root": "0x549257"
+      },
+      {
+        "slot": "0x553144",
+        "loaded": true,
+        "target": "0x549284",
+        "name": "sub_549284",
+        "root": "0x549284"
+      },
+      {
+        "slot": "0x553148",
+        "loaded": true,
+        "target": "0x5492b1",
+        "name": "sub_5492B1",
+        "root": "0x5492b1"
+      },
+      {
+        "slot": "0x55314c",
+        "loaded": true,
+        "target": "0x5492f5",
+        "name": "sub_5492F5",
+        "root": "0x5492f5"
+      },
+      {
+        "slot": "0x553150",
+        "loaded": true,
+        "target": "0x549339",
+        "name": "sub_549339",
+        "root": "0x549339"
+      },
+      {
+        "slot": "0x553154",
+        "loaded": true,
+        "target": "0x549368",
+        "name": "sub_549368",
+        "root": "0x549368"
+      },
+      {
+        "slot": "0x553158",
+        "loaded": true,
+        "target": "0x549f20",
+        "name": "unknown_libname_84",
+        "root": "0x549f20"
+      },
+      {
+        "slot": "0x55315c",
+        "loaded": true,
+        "target": "0x54a3e3",
+        "name": "sub_54A3E3",
+        "root": "0x54a3e3"
+      },
+      {
+        "slot": "0x553160",
+        "loaded": true,
+        "target": "0x54a638",
+        "name": "unknown_libname_88",
+        "root": "0x54a638"
+      },
+      {
+        "slot": "0x553164",
+        "loaded": true,
+        "target": "0x54a981",
+        "name": "unknown_libname_92",
+        "root": "0x54a981"
+      }
+    ]
+  },
+  "current_slot_dispositions": [
+    {
+      "slot": "0x553000",
+      "loaded": true,
+      "target": "0x0",
+      "name": null,
+      "root": null,
+      "state": "original_null",
+      "detail": "原真实null，库存保留；无伪回调"
+    },
+    {
+      "slot": "0x553004",
+      "loaded": true,
+      "target": "0x401c10",
+      "name": "sub_401C10",
+      "root": "0x401c10",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553008",
+      "loaded": true,
+      "target": "0x404120",
+      "name": "sub_404120",
+      "root": "0x404120",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55300c",
+      "loaded": true,
+      "target": "0x404160",
+      "name": "sub_404160",
+      "root": "0x404160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553010",
+      "loaded": true,
+      "target": "0x4041a0",
+      "name": "sub_4041A0",
+      "root": "0x4041a0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553014",
+      "loaded": true,
+      "target": "0x43d760",
+      "name": "sub_43D760",
+      "root": "0x43d760",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553018",
+      "loaded": true,
+      "target": "0x44cc20",
+      "name": "sub_44CC20",
+      "root": "0x44cc20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55301c",
+      "loaded": true,
+      "target": "0x44cd30",
+      "name": "sub_44CD30",
+      "root": "0x44cd30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553020",
+      "loaded": true,
+      "target": "0x453e00",
+      "name": "sub_453E00",
+      "root": "0x453e00",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价"
+    },
+    {
+      "slot": "0x553024",
+      "loaded": true,
+      "target": "0x453e40",
+      "name": "sub_453E40",
+      "root": "0x453e40",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价"
+    },
+    {
+      "slot": "0x553028",
+      "loaded": true,
+      "target": "0x454c00",
+      "name": "sub_454C00",
+      "root": "0x454c00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55302c",
+      "loaded": true,
+      "target": "0x455490",
+      "name": "sub_455490",
+      "root": "0x455490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553030",
+      "loaded": true,
+      "target": "0x4554c0",
+      "name": "sub_4554C0",
+      "root": "0x4554c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553034",
+      "loaded": true,
+      "target": "0x455540",
+      "name": "sub_455540",
+      "root": "0x455540",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553038",
+      "loaded": true,
+      "target": "0x4555c0",
+      "name": "sub_4555C0",
+      "root": "0x4555c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55303c",
+      "loaded": true,
+      "target": "0x455640",
+      "name": "sub_455640",
+      "root": "0x455640",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553040",
+      "loaded": true,
+      "target": "0x4556c0",
+      "name": "sub_4556C0",
+      "root": "0x4556c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553044",
+      "loaded": true,
+      "target": "0x455740",
+      "name": "sub_455740",
+      "root": "0x455740",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553048",
+      "loaded": true,
+      "target": "0x4557c0",
+      "name": "sub_4557C0",
+      "root": "0x4557c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55304c",
+      "loaded": true,
+      "target": "0x455840",
+      "name": "sub_455840",
+      "root": "0x455840",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553050",
+      "loaded": true,
+      "target": "0x455930",
+      "name": "sub_455930",
+      "root": "0x455930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553054",
+      "loaded": true,
+      "target": "0x456fd0",
+      "name": "sub_456FD0",
+      "root": "0x456fd0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553058",
+      "loaded": true,
+      "target": "0x4597e0",
+      "name": "sub_4597E0",
+      "root": "0x4597e0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55305c",
+      "loaded": true,
+      "target": "0x459850",
+      "name": "sub_459850",
+      "root": "0x459850",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553060",
+      "loaded": true,
+      "target": "0x45b370",
+      "name": "sub_45B370",
+      "root": "0x45b370",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553064",
+      "loaded": true,
+      "target": "0x467b90",
+      "name": "sub_467B90",
+      "root": "0x467b90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553068",
+      "loaded": true,
+      "target": "0x467bf0",
+      "name": "sub_467BF0",
+      "root": "0x467bf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55306c",
+      "loaded": true,
+      "target": "0x467c30",
+      "name": "sub_467C30",
+      "root": "0x467c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553070",
+      "loaded": true,
+      "target": "0x467c70",
+      "name": "sub_467C70",
+      "root": "0x467c70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553074",
+      "loaded": true,
+      "target": "0x467cb0",
+      "name": "sub_467CB0",
+      "root": "0x467cb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553078",
+      "loaded": true,
+      "target": "0x467cf0",
+      "name": "sub_467CF0",
+      "root": "0x467cf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55307c",
+      "loaded": true,
+      "target": "0x467d50",
+      "name": "sub_467D50",
+      "root": "0x467d50",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553080",
+      "loaded": true,
+      "target": "0x467db0",
+      "name": "sub_467DB0",
+      "root": "0x467db0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553084",
+      "loaded": true,
+      "target": "0x467df0",
+      "name": "sub_467DF0",
+      "root": "0x467df0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553088",
+      "loaded": true,
+      "target": "0x467e30",
+      "name": "sub_467E30",
+      "root": "0x467e30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55308c",
+      "loaded": true,
+      "target": "0x467e70",
+      "name": "sub_467E70",
+      "root": "0x467e70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553090",
+      "loaded": true,
+      "target": "0x467eb0",
+      "name": "sub_467EB0",
+      "root": "0x467eb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553094",
+      "loaded": true,
+      "target": "0x467ef0",
+      "name": "sub_467EF0",
+      "root": "0x467ef0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553098",
+      "loaded": true,
+      "target": "0x477160",
+      "name": "sub_477160",
+      "root": "0x477160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55309c",
+      "loaded": true,
+      "target": "0x4883f0",
+      "name": "sub_4883F0",
+      "root": "0x4883f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530a0",
+      "loaded": true,
+      "target": "0x4998f0",
+      "name": "sub_4998F0",
+      "root": "0x4998f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530a4",
+      "loaded": true,
+      "target": "0x4cd240",
+      "name": "sub_4CD240",
+      "root": "0x4cd240",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530a8",
+      "loaded": true,
+      "target": "0x4fc420",
+      "name": "sub_4FC420",
+      "root": "0x4fc420",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530ac",
+      "loaded": true,
+      "target": "0x4fcb90",
+      "name": "sub_4FCB90",
+      "root": "0x4fcb90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530b0",
+      "loaded": true,
+      "target": "0x4fd9f0",
+      "name": "sub_4FD9F0",
+      "root": "0x4fd9f0",
+      "state": "audio_paused",
+      "detail": "暂停且仍included，不启用缺本体/空回调"
+    },
+    {
+      "slot": "0x5530b4",
+      "loaded": true,
+      "target": "0x4fde10",
+      "name": "sub_4FDE10",
+      "root": "0x4fde10",
+      "state": "audio_paused",
+      "detail": "暂停且仍included，不启用缺本体/空回调"
+    },
+    {
+      "slot": "0x5530b8",
+      "loaded": true,
+      "target": "0x4fe490",
+      "name": "sub_4FE490",
+      "root": "0x4fe490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530bc",
+      "loaded": true,
+      "target": "0x4feb00",
+      "name": "sub_4FEB00",
+      "root": "0x4feb00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530c0",
+      "loaded": true,
+      "target": "0x4ff020",
+      "name": "sub_4FF020",
+      "root": "0x4ff020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530c4",
+      "loaded": true,
+      "target": "0x4ff340",
+      "name": "sub_4FF340",
+      "root": "0x4ff340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530c8",
+      "loaded": true,
+      "target": "0x502930",
+      "name": "sub_502930",
+      "root": "0x502930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530cc",
+      "loaded": true,
+      "target": "0x502c30",
+      "name": "sub_502C30",
+      "root": "0x502c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530d0",
+      "loaded": true,
+      "target": "0x502c60",
+      "name": "sub_502C60",
+      "root": "0x502c60",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530d4",
+      "loaded": true,
+      "target": "0x502c80",
+      "name": "sub_502C80",
+      "root": "0x502c80",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530d8",
+      "loaded": true,
+      "target": "0x502ca0",
+      "name": "sub_502CA0",
+      "root": "0x502ca0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530dc",
+      "loaded": true,
+      "target": "0x502d20",
+      "name": "sub_502D20",
+      "root": "0x502d20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530e0",
+      "loaded": true,
+      "target": "0x502da0",
+      "name": "sub_502DA0",
+      "root": "0x502da0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530e4",
+      "loaded": true,
+      "target": "0x502e20",
+      "name": "sub_502E20",
+      "root": "0x502e20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530e8",
+      "loaded": true,
+      "target": "0x502ea0",
+      "name": "sub_502EA0",
+      "root": "0x502ea0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530ec",
+      "loaded": true,
+      "target": "0x502f20",
+      "name": "sub_502F20",
+      "root": "0x502f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530f0",
+      "loaded": true,
+      "target": "0x502fa0",
+      "name": "sub_502FA0",
+      "root": "0x502fa0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530f4",
+      "loaded": true,
+      "target": "0x503020",
+      "name": "sub_503020",
+      "root": "0x503020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530f8",
+      "loaded": true,
+      "target": "0x506340",
+      "name": "sub_506340",
+      "root": "0x506340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x5530fc",
+      "loaded": true,
+      "target": "0x5183d0",
+      "name": "sub_5183D0",
+      "root": "0x5183d0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553100",
+      "loaded": true,
+      "target": "0x518520",
+      "name": "sub_518520",
+      "root": "0x518520",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553104",
+      "loaded": true,
+      "target": "0x522620",
+      "name": "sub_522620",
+      "root": "0x522620",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553108",
+      "loaded": true,
+      "target": "0x522690",
+      "name": "sub_522690",
+      "root": "0x522690",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55310c",
+      "loaded": true,
+      "target": "0x537a30",
+      "name": "sub_537A30",
+      "root": "0x537a30",
+      "state": "keyboard_excluded",
+      "detail": "既定屏幕键盘排除，不恢复原专用初始化"
+    },
+    {
+      "slot": "0x553110",
+      "loaded": true,
+      "target": "0x537ae0",
+      "name": "sub_537AE0",
+      "root": "0x537ae0",
+      "state": "keyboard_excluded",
+      "detail": "既定屏幕键盘排除，不恢复原专用初始化"
+    },
+    {
+      "slot": "0x553114",
+      "loaded": true,
+      "target": "0x548170",
+      "name": "sub_548170",
+      "root": "0x548170",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553118",
+      "loaded": true,
+      "target": "0x54819d",
+      "name": "sub_54819D",
+      "root": "0x54819d",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x55311c",
+      "loaded": true,
+      "target": "0x5481ca",
+      "name": "sub_5481CA",
+      "root": "0x5481ca",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553120",
+      "loaded": true,
+      "target": "0x54820e",
+      "name": "sub_54820E",
+      "root": "0x54820e",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553124",
+      "loaded": true,
+      "target": "0x548252",
+      "name": "sub_548252",
+      "root": "0x548252",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553128",
+      "loaded": true,
+      "target": "0x54827f",
+      "name": "sub_54827F",
+      "root": "0x54827f",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x55312c",
+      "loaded": true,
+      "target": "0x5482ae",
+      "name": "sub_5482AE",
+      "root": "0x5482ae",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553130",
+      "loaded": true,
+      "target": "0x549194",
+      "name": "unknown_libname_76",
+      "root": "0x549194",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553134",
+      "loaded": true,
+      "target": "0x5491d6",
+      "name": "sub_5491D6",
+      "root": "0x5491d6",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553138",
+      "loaded": true,
+      "target": "0x549200",
+      "name": "sub_549200",
+      "root": "0x549200",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x55313c",
+      "loaded": true,
+      "target": "0x54922a",
+      "name": "sub_54922A",
+      "root": "0x54922a",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553140",
+      "loaded": true,
+      "target": "0x549257",
+      "name": "sub_549257",
+      "root": "0x549257",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553144",
+      "loaded": true,
+      "target": "0x549284",
+      "name": "sub_549284",
+      "root": "0x549284",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553148",
+      "loaded": true,
+      "target": "0x5492b1",
+      "name": "sub_5492B1",
+      "root": "0x5492b1",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x55314c",
+      "loaded": true,
+      "target": "0x5492f5",
+      "name": "sub_5492F5",
+      "root": "0x5492f5",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553150",
+      "loaded": true,
+      "target": "0x549339",
+      "name": "sub_549339",
+      "root": "0x549339",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553154",
+      "loaded": true,
+      "target": "0x549368",
+      "name": "sub_549368",
+      "root": "0x549368",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553158",
+      "loaded": true,
+      "target": "0x549f20",
+      "name": "unknown_libname_84",
+      "root": "0x549f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x55315c",
+      "loaded": true,
+      "target": "0x54a3e3",
+      "name": "sub_54A3E3",
+      "root": "0x54a3e3",
+      "state": "legacy_stream_or_locale_pending",
+      "detail": "完整Legacy活动归属/登记容量或经典全表caller仍待；接口存在不当活动调用"
+    },
+    {
+      "slot": "0x553160",
+      "loaded": true,
+      "target": "0x54a638",
+      "name": "unknown_libname_88",
+      "root": "0x54a638",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    },
+    {
+      "slot": "0x553164",
+      "loaded": true,
+      "target": "0x54a981",
+      "name": "unknown_libname_92",
+      "root": "0x54a981",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记"
+    }
+  ],
+  "current_native_projection": [
+    {
+      "slot": "0x553004",
+      "loaded": true,
+      "target": "0x401c10",
+      "name": "sub_401C10",
+      "root": "0x401c10",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553008",
+      "loaded": true,
+      "target": "0x404120",
+      "name": "sub_404120",
+      "root": "0x404120",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionChecksum1_404120",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55300c",
+      "loaded": true,
+      "target": "0x404160",
+      "name": "sub_404160",
+      "root": "0x404160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionChecksum2_404160",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553010",
+      "loaded": true,
+      "target": "0x4041a0",
+      "name": "sub_4041A0",
+      "root": "0x4041a0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionProcessState_4041A0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553014",
+      "loaded": true,
+      "target": "0x43d760",
+      "name": "sub_43D760",
+      "root": "0x43d760",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldObjectsStaticInitializer",
+      "current_initializer_variable": "gWorldObjectsStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyWorldObjects_43D760",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553018",
+      "loaded": true,
+      "target": "0x44cc20",
+      "name": "sub_44CC20",
+      "root": "0x44cc20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x44CC20",
+      "type": "SurfaceTransformCacheStartup",
+      "variable": "gSurfaceTransformCacheStartup",
+      "call": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+      "old_source": "src/render/GraphicDxCache.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SurfaceTransformCacheStartup",
+      "current_initializer_variable": "gSurfaceTransformCacheStartup",
+      "direct_call_symbol": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55301C",
+      "loaded": true,
+      "target": "0x44cd30",
+      "name": "sub_44CD30",
+      "root": "0x44cd30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x44CD30",
+      "type": "SurfaceTransformCacheStartup",
+      "variable": "gSurfaceTransformCacheStartup",
+      "call": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+      "old_source": "src/render/GraphicDxCache.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SurfaceTransformCacheStartup",
+      "current_initializer_variable": "gSurfaceTransformCacheStartup",
+      "direct_call_symbol": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553020",
+      "loaded": true,
+      "target": "0x453e00",
+      "name": "sub_453E00",
+      "root": "0x453e00",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "NarrowStandardStreamsStaticInitializer",
+      "current_initializer_variable": "gNarrowStandardStreamsStaticInitializer",
+      "direct_call_symbol": null,
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553024",
+      "loaded": true,
+      "target": "0x453e40",
+      "name": "sub_453E40",
+      "root": "0x453e40",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WideStandardStreamsStaticInitializer",
+      "current_initializer_variable": "gWideStandardStreamsStaticInitializer",
+      "direct_call_symbol": null,
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553028",
+      "loaded": true,
+      "target": "0x454c00",
+      "name": "sub_454C00",
+      "root": "0x454c00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPrimaryEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPrimaryEmptyExitStaticInitializer",
+      "direct_call_symbol": "InitializeLegacyEmptyExit_454C00",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55302c",
+      "loaded": true,
+      "target": "0x455490",
+      "name": "sub_455490",
+      "root": "0x455490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455490",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553030",
+      "loaded": true,
+      "target": "0x4554c0",
+      "name": "sub_4554C0",
+      "root": "0x4554c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4554C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553034",
+      "loaded": true,
+      "target": "0x455540",
+      "name": "sub_455540",
+      "root": "0x455540",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455540",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553038",
+      "loaded": true,
+      "target": "0x4555c0",
+      "name": "sub_4555C0",
+      "root": "0x4555c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4555C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55303c",
+      "loaded": true,
+      "target": "0x455640",
+      "name": "sub_455640",
+      "root": "0x455640",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455640",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553040",
+      "loaded": true,
+      "target": "0x4556c0",
+      "name": "sub_4556C0",
+      "root": "0x4556c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4556C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553044",
+      "loaded": true,
+      "target": "0x455740",
+      "name": "sub_455740",
+      "root": "0x455740",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455740",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553048",
+      "loaded": true,
+      "target": "0x4557c0",
+      "name": "sub_4557C0",
+      "root": "0x4557c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4557C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55304c",
+      "loaded": true,
+      "target": "0x455840",
+      "name": "sub_455840",
+      "root": "0x455840",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455840",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553050",
+      "loaded": true,
+      "target": "0x455930",
+      "name": "sub_455930",
+      "root": "0x455930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455930",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553054",
+      "loaded": true,
+      "target": "0x456fd0",
+      "name": "sub_456FD0",
+      "root": "0x456fd0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SceneTransitionValueStaticInitializer",
+      "current_initializer_variable": "gSceneTransitionValueStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacySceneTransitionValue_456FD0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553058",
+      "loaded": true,
+      "target": "0x4597e0",
+      "name": "sub_4597E0",
+      "root": "0x4597e0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x4597E0",
+      "type": "GraphicInfoContainersStartup",
+      "variable": "gGraphicInfoContainersStartup",
+      "call": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+      "old_source": "src/GraphicInfo.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "GraphicInfoContainersStartup",
+      "current_initializer_variable": "gGraphicInfoContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55305C",
+      "loaded": true,
+      "target": "0x459850",
+      "name": "sub_459850",
+      "root": "0x459850",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x459850",
+      "type": "GraphicInfoContainersStartup",
+      "variable": "gGraphicInfoContainersStartup",
+      "call": "cg::resource::InitializeGraphicFirstRecords_459850",
+      "old_source": "src/GraphicInfo.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "GraphicInfoContainersStartup",
+      "current_initializer_variable": "gGraphicInfoContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeGraphicFirstRecords_459850",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553060",
+      "loaded": true,
+      "target": "0x45b370",
+      "name": "sub_45B370",
+      "root": "0x45b370",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "AnimationSharedValueStaticInitializer",
+      "current_initializer_variable": "gAnimationSharedValueStaticInitializer",
+      "direct_call_symbol": "cg::resource::animation::Sub_45B370",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553064",
+      "loaded": true,
+      "target": "0x467b90",
+      "name": "sub_467B90",
+      "root": "0x467b90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PlayerCoordinatesStaticInitializer",
+      "current_initializer_variable": "gPlayerCoordinatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializePlayerCoordinates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerCoordinates_467B90"
+    },
+    {
+      "slot": "0x553068",
+      "loaded": true,
+      "target": "0x467bf0",
+      "name": "sub_467BF0",
+      "root": "0x467bf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotX_467BF0"
+    },
+    {
+      "slot": "0x55306c",
+      "loaded": true,
+      "target": "0x467c30",
+      "name": "sub_467C30",
+      "root": "0x467c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotY_467C30"
+    },
+    {
+      "slot": "0x553070",
+      "loaded": true,
+      "target": "0x467c70",
+      "name": "sub_467C70",
+      "root": "0x467c70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467C70"
+    },
+    {
+      "slot": "0x553074",
+      "loaded": true,
+      "target": "0x467cb0",
+      "name": "sub_467CB0",
+      "root": "0x467cb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467CB0"
+    },
+    {
+      "slot": "0x553078",
+      "loaded": true,
+      "target": "0x467cf0",
+      "name": "sub_467CF0",
+      "root": "0x467cf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinatePair_467CF0"
+    },
+    {
+      "slot": "0x55307c",
+      "loaded": true,
+      "target": "0x467d50",
+      "name": "sub_467D50",
+      "root": "0x467d50",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveTargets_467D50"
+    },
+    {
+      "slot": "0x553080",
+      "loaded": true,
+      "target": "0x467db0",
+      "name": "sub_467DB0",
+      "root": "0x467db0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DB0"
+    },
+    {
+      "slot": "0x553084",
+      "loaded": true,
+      "target": "0x467df0",
+      "name": "sub_467DF0",
+      "root": "0x467df0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DF0"
+    },
+    {
+      "slot": "0x553088",
+      "loaded": true,
+      "target": "0x467e30",
+      "name": "sub_467E30",
+      "root": "0x467e30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E30"
+    },
+    {
+      "slot": "0x55308c",
+      "loaded": true,
+      "target": "0x467e70",
+      "name": "sub_467E70",
+      "root": "0x467e70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E70"
+    },
+    {
+      "slot": "0x553090",
+      "loaded": true,
+      "target": "0x467eb0",
+      "name": "sub_467EB0",
+      "root": "0x467eb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467EB0"
+    },
+    {
+      "slot": "0x553094",
+      "loaded": true,
+      "target": "0x467ef0",
+      "name": "sub_467EF0",
+      "root": "0x467ef0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "RippleGateStaticInitializer",
+      "current_initializer_variable": "gRippleGateStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeRippleGate",
+      "expanded_leaf_symbol": "InitializeLegacyRippleGate_467EF0"
+    },
+    {
+      "slot": "0x553098",
+      "loaded": true,
+      "target": "0x477160",
+      "name": "sub_477160",
+      "root": "0x477160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WindowNumberSpacingStaticInitializer",
+      "current_initializer_variable": "gWindowNumberSpacingStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeLegacyNumberSpacing_477160",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55309c",
+      "loaded": true,
+      "target": "0x4883f0",
+      "name": "sub_4883F0",
+      "root": "0x4883f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "ItemSelectorsStaticInitializer",
+      "current_initializer_variable": "gItemSelectorsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeItemSelectors",
+      "expanded_leaf_symbol": "InitializeLegacyFirstItemSelector_4883F0"
+    },
+    {
+      "slot": "0x5530a0",
+      "loaded": true,
+      "target": "0x4998f0",
+      "name": "sub_4998F0",
+      "root": "0x4998f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "ItemSelectorsStaticInitializer",
+      "current_initializer_variable": "gItemSelectorsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeItemSelectors",
+      "expanded_leaf_symbol": "InitializeLegacySecondItemSelector_4998F0"
+    },
+    {
+      "slot": "0x5530a4",
+      "loaded": true,
+      "target": "0x4cd240",
+      "name": "sub_4CD240",
+      "root": "0x4cd240",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StallBrowsePetsStaticInitializer",
+      "current_initializer_variable": "gStallBrowsePetsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeLegacyStallBrowsePetValues_4CD240",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530a8",
+      "loaded": true,
+      "target": "0x4fc420",
+      "name": "sub_4FC420",
+      "root": "0x4fc420",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacySettingsMenuStaticInitializer",
+      "current_initializer_variable": "gLegacySettingsMenuStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FC420",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530ac",
+      "loaded": true,
+      "target": "0x4fcb90",
+      "name": "sub_4FCB90",
+      "root": "0x4fcb90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyChatSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyChatSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FCB90",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530b8",
+      "loaded": true,
+      "target": "0x4fe490",
+      "name": "sub_4FE490",
+      "root": "0x4fe490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMouseSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyMouseSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FE490",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530bc",
+      "loaded": true,
+      "target": "0x4feb00",
+      "name": "sub_4FEB00",
+      "root": "0x4feb00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyHotkeyAndScanlineStaticInitializer",
+      "current_initializer_variable": "gLegacyHotkeyAndScanlineStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FEB00",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c0",
+      "loaded": true,
+      "target": "0x4ff020",
+      "name": "sub_4FF020",
+      "root": "0x4ff020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyHotkeyAndScanlineStaticInitializer",
+      "current_initializer_variable": "gLegacyHotkeyAndScanlineStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FF020",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c4",
+      "loaded": true,
+      "target": "0x4ff340",
+      "name": "sub_4FF340",
+      "root": "0x4ff340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyButtonSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyButtonSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FF340",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c8",
+      "loaded": true,
+      "target": "0x502930",
+      "name": "sub_502930",
+      "root": "0x502930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMapPanelStaticInitializer",
+      "current_initializer_variable": "gLegacyMapPanelStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502930",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530cc",
+      "loaded": true,
+      "target": "0x502c30",
+      "name": "sub_502C30",
+      "root": "0x502c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C30",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d0",
+      "loaded": true,
+      "target": "0x502c60",
+      "name": "sub_502C60",
+      "root": "0x502c60",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C60",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d4",
+      "loaded": true,
+      "target": "0x502c80",
+      "name": "sub_502C80",
+      "root": "0x502c80",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C80",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d8",
+      "loaded": true,
+      "target": "0x502ca0",
+      "name": "sub_502CA0",
+      "root": "0x502ca0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502CA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530dc",
+      "loaded": true,
+      "target": "0x502d20",
+      "name": "sub_502D20",
+      "root": "0x502d20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502D20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e0",
+      "loaded": true,
+      "target": "0x502da0",
+      "name": "sub_502DA0",
+      "root": "0x502da0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502DA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e4",
+      "loaded": true,
+      "target": "0x502e20",
+      "name": "sub_502E20",
+      "root": "0x502e20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502E20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e8",
+      "loaded": true,
+      "target": "0x502ea0",
+      "name": "sub_502EA0",
+      "root": "0x502ea0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502EA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530ec",
+      "loaded": true,
+      "target": "0x502f20",
+      "name": "sub_502F20",
+      "root": "0x502f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502F20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f0",
+      "loaded": true,
+      "target": "0x502fa0",
+      "name": "sub_502FA0",
+      "root": "0x502fa0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502FA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f4",
+      "loaded": true,
+      "target": "0x503020",
+      "name": "sub_503020",
+      "root": "0x503020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_503020",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f8",
+      "loaded": true,
+      "target": "0x506340",
+      "name": "sub_506340",
+      "root": "0x506340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMouseStaticInitializer",
+      "current_initializer_variable": "gLegacyMouseStaticInitializer",
+      "direct_call_symbol": "cg::platform::InitializeLegacyMouseRuntime_506340",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530fc",
+      "loaded": true,
+      "target": "0x5183d0",
+      "name": "sub_5183D0",
+      "root": "0x5183d0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PlayerRuntimeValuesStaticInitializer",
+      "current_initializer_variable": "gPlayerRuntimeValuesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyPlayerRuntime_5183D0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553100",
+      "loaded": true,
+      "target": "0x518520",
+      "name": "sub_518520",
+      "root": "0x518520",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PetRuntimeValuesStaticInitializer",
+      "current_initializer_variable": "gPetRuntimeValuesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyPetRuntime_518520",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553104",
+      "loaded": true,
+      "target": "0x522620",
+      "name": "sub_522620",
+      "root": "0x522620",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x522620",
+      "type": "IndependentPaletteContainersStartup",
+      "variable": "gIndependentPaletteContainersStartup",
+      "call": "cg::resource::InitializeIndependentPaletteQueue_522620",
+      "old_source": "src/GraphicRead.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "IndependentPaletteContainersStartup",
+      "current_initializer_variable": "gIndependentPaletteContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeIndependentPaletteQueue_522620",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553108",
+      "loaded": true,
+      "target": "0x522690",
+      "name": "sub_522690",
+      "root": "0x522690",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x522690",
+      "type": "IndependentPaletteContainersStartup",
+      "variable": "gIndependentPaletteContainersStartup",
+      "call": "cg::resource::InitializePaletteDbfState_522690",
+      "old_source": "src/GraphicRead.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "IndependentPaletteContainersStartup",
+      "current_initializer_variable": "gIndependentPaletteContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializePaletteDbfState_522690",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553130",
+      "loaded": true,
+      "target": "0x549194",
+      "name": "unknown_libname_76",
+      "root": "0x549194",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553130",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553158",
+      "loaded": true,
+      "target": "0x549f20",
+      "name": "unknown_libname_84",
+      "root": "0x549f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553158",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553160",
+      "loaded": true,
+      "target": "0x54a638",
+      "name": "unknown_libname_88",
+      "root": "0x54a638",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553160",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553164",
+      "loaded": true,
+      "target": "0x54a981",
+      "name": "unknown_libname_92",
+      "root": "0x54a981",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553164",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    }
+  ],
+  "c_table_reference": {
+    "source": "doc/cg2d_semantic_function_mappings.json#0x53C8CD",
+    "slot": "0x553178",
+    "target": "0x546CAE",
+    "order": "53C8CD先C5后C++90；旧父目前不活动，不重复执行"
+  },
+  "reused_provider_evidence": [
+    "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
+    "doc/cg2d_resource_container_lifecycle_spec.md#resource-container-source-closure",
+    "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-source-closure",
+    "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure"
+  ],
+  "missing_semantic_entry_bindings": [
+    "0x455490",
+    "0x4554c0",
+    "0x455540",
+    "0x4555c0",
+    "0x455640",
+    "0x4556c0",
+    "0x455740",
+    "0x4557c0",
+    "0x455840",
+    "0x455930",
+    "0x45b370",
+    "0x4fc420",
+    "0x4fcb90",
+    "0x4fe490",
+    "0x4feb00",
+    "0x4ff020",
+    "0x4ff340",
+    "0x502930",
+    "0x502c30",
+    "0x502c60",
+    "0x502c80",
+    "0x502ca0",
+    "0x502d20",
+    "0x502da0",
+    "0x502e20",
+    "0x502ea0",
+    "0x502f20",
+    "0x502fa0",
+    "0x503020"
+  ],
+  "native_order_contract": {
+    "group": "AIS01",
+    "decision_ref": "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
+    "original_cpp_slots": 90,
+    "original_c_slots": 5,
+    "active_application_cpp_slots": 66,
+    "host_stream_configuration_slots": 2,
+    "source_translation_unit": "src/platform/LegacyMouse.cpp",
+    "current_cpp_projection_slots": 68,
+    "moved_cpp_initializers": [
+      {
+        "slot": "0x553018",
+        "entry": "0x44CC20",
+        "type": "SurfaceTransformCacheStartup",
+        "variable": "gSurfaceTransformCacheStartup",
+        "call": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+        "old_source": "src/render/GraphicDxCache.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      },
+      {
+        "slot": "0x55301C",
+        "entry": "0x44CD30",
+        "type": "SurfaceTransformCacheStartup",
+        "variable": "gSurfaceTransformCacheStartup",
+        "call": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+        "old_source": "src/render/GraphicDxCache.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      },
+      {
+        "slot": "0x553058",
+        "entry": "0x4597E0",
+        "type": "GraphicInfoContainersStartup",
+        "variable": "gGraphicInfoContainersStartup",
+        "call": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+        "old_source": "src/GraphicInfo.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      },
+      {
+        "slot": "0x55305C",
+        "entry": "0x459850",
+        "type": "GraphicInfoContainersStartup",
+        "variable": "gGraphicInfoContainersStartup",
+        "call": "cg::resource::InitializeGraphicFirstRecords_459850",
+        "old_source": "src/GraphicInfo.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      },
+      {
+        "slot": "0x553104",
+        "entry": "0x522620",
+        "type": "IndependentPaletteContainersStartup",
+        "variable": "gIndependentPaletteContainersStartup",
+        "call": "cg::resource::InitializeIndependentPaletteQueue_522620",
+        "old_source": "src/GraphicRead.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      },
+      {
+        "slot": "0x553108",
+        "entry": "0x522690",
+        "type": "IndependentPaletteContainersStartup",
+        "variable": "gIndependentPaletteContainersStartup",
+        "call": "cg::resource::InitializePaletteDbfState_522690",
+        "old_source": "src/GraphicRead.cpp",
+        "current_source": "src/platform/LegacyMouse.cpp"
+      }
+    ],
+    "removed_source_module_adapters": [
+      {
+        "source": "src/render/GraphicDxCache.cpp",
+        "type": "SurfaceTransformCacheStartup",
+        "variable": "gSurfaceTransformCacheStartup"
+      },
+      {
+        "source": "src/GraphicInfo.cpp",
+        "type": "GraphicInfoContainersStartup",
+        "variable": "gGraphicInfoContainersStartup"
+      },
+      {
+        "source": "src/GraphicRead.cpp",
+        "type": "IndependentPaletteContainersStartup",
+        "variable": "gIndependentPaletteContainersStartup"
+      }
+    ],
+    "c_precondition": {
+      "slot": "0x553178",
+      "entry": "0x546CAE",
+      "symbol": "InitializeLegacyMultibyte_546CAE",
+      "initializer_type": "LegacyMultibyteStaticInitializer",
+      "initializer_variable": "gLegacyMultibyteStaticInitializer",
+      "old_position": "当前LegacyMouse应用适配末尾",
+      "current_position": "同一翻译单元内所有本线C++应用适配之前",
+      "body_changed": false,
+      "full_legacy_crt_execution": false
+    },
+    "unimplemented_projection_states": {
+      "original_null": 1,
+      "audio_paused": 2,
+      "keyboard_excluded": 2,
+      "legacy_stream_or_locale_pending": 17
+    },
+    "preserved": [
+      "六provider自身construct/atexit/body与passive owner、业务借用/分配域不改",
+      "同一TU普通有序初始化声明序，既有wrapper内部原逐项调用保持",
+      "每个provider完成后即登记，返回弃，不合并/延迟/短路/新增once",
+      "SDK两流配置/析构和四原真空回调登记保持，TextureSurfaceOwner独立自动析构未改",
+      "多字节既有门禁/失败消费/位宽和setmbcp生产体不改，不切换文本编码"
+    ],
+    "full_application_order_connected": false,
+    "full_legacy_stream_ownership_connected": false,
+    "original_cpp_callback_array_defined": false,
+    "original_crt_root_activated": false,
+    "runtime_verified": false
+  }
+}

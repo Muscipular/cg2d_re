@@ -8,10 +8,10 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1272/3680（34.57%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 2408 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1301/3680（35.35%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 2379 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1152条/1149个原ID | 无独立ID记录另列3条 |
+| 语义登记 | 1181条/1178个原ID | 无独立ID记录另列3条 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
 | 已审核函数处置 | 90/3680 | 初始仅导入关系，未逐ID重新认定 |
@@ -39,7 +39,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 
 | 功能ID | 范围/名称 | 合同 | 已审/同合同候选成员 | 任务 | B/I/W/S/R |
 |---|---|---|---:|---|---|
-| FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md)、[cg2d_standard_stream_init_identity_spec](../doc/cg2d_standard_stream_init_identity_spec.md)、[cg2d_standard_stream_registry_prefix_spec](../doc/cg2d_standard_stream_registry_prefix_spec.md)、[cg2d_startup_protection_lifecycle_spec](../doc/cg2d_startup_protection_lifecycle_spec.md)、[cg2d_world_state_lifecycle_spec](../doc/cg2d_world_state_lifecycle_spec.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md) | 59/356 | C02、C03、C04、V01、V02、C09 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md)、[cg2d_standard_stream_init_identity_spec](../doc/cg2d_standard_stream_init_identity_spec.md)、[cg2d_standard_stream_registry_prefix_spec](../doc/cg2d_standard_stream_registry_prefix_spec.md)、[cg2d_startup_protection_lifecycle_spec](../doc/cg2d_startup_protection_lifecycle_spec.md)、[cg2d_world_state_lifecycle_spec](../doc/cg2d_world_state_lifecycle_spec.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_active_initializer_order_spec](../doc/cg2d_active_initializer_order_spec.md) | 97/385 | C02、C03、C04、V01、V02、C09 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-CRT | included：CRT提供者与兼容边界 | [cg2d_crt_runtime_boundary_spec](../doc/cg2d_crt_runtime_boundary_spec.md)、[cg2d_stdio_contract](../doc/cg2d_stdio_contract.md)、[cg2d_crt_memory_contract](../doc/cg2d_crt_memory_contract.md)、[cg2d_legacy_string_compare](../doc/cg2d_legacy_string_compare.md)、[cg2d_standard_stream_init_identity_spec](../doc/cg2d_standard_stream_init_identity_spec.md)、[cg2d_standard_stream_registry_prefix_spec](../doc/cg2d_standard_stream_registry_prefix_spec.md)、[cg2d_startup_protection_lifecycle_spec](../doc/cg2d_startup_protection_lifecycle_spec.md)、[cg2d_world_state_lifecycle_spec](../doc/cg2d_world_state_lifecycle_spec.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_narrow_string_heap_migration_spec](../doc/cg2d_narrow_string_heap_migration_spec.md)、[cg2d_exception_text_heap_migration_spec](../doc/cg2d_exception_text_heap_migration_spec.md)、[cg2d_native_cpp_exception_spec](../doc/cg2d_native_cpp_exception_spec.md)、[cg2d_locale_object_heap_migration_spec](../doc/cg2d_locale_object_heap_migration_spec.md) | 91/763 | C01、C05、C06、C07、C08、C10、C11、C12 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOOP | included：主循环与场景分发 | [cg2d_main_loop](../doc/cg2d_main_loop.md)、[cg2d_scene_state](../doc/cg2d_scene_state.md) | 0/97 | U11、V02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 1/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |

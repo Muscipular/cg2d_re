@@ -70,3 +70,9 @@
 ## 11. C02/C04 UI/输入五项
 
 [本组合同](cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure)已将两选择器/浏览宠物/鼠标接为同一Init→即时宿主登记→固定退出，选择器包装取消重复构造/可改preview槽lambda，浏览/鼠标取消自动适配析构。数字步进只接具名477160，无新增退出。原固定this+78目标恢复为活动退出，值/RNG/数组/成员源码保持；接全应用原序须同小步移除四模块调用。完整成员EH/数组SEH/跨模块/快速退出/SDK运行与C02/C04继续开放。
+
+## 12. AIS01当前应用投影的同一TU原序
+
+[AIS01收口](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)已将两图形树/两索引容器/独立队列与DBF六provider从三个旧模块移到LegacyMouse原相对位置，旧模块调用同小步删除；C5多字节已有调用移到首项应用适配前。当前66应用+2 SDK流配置槽按同一TU声明序和既有wrapper内部原序；owner、RNG、即时退出登记、失败消费和业务正文不改。
+
+这里更新前三组“跨模块相对序未保证”的局部状态，未接完整90：2音频暂停、2键盘排除、17流或经典locale待接及原null单列。旧cinit/CRT根不启用、原90数组不造占位；活动流/全部OS状态、快速退出与全owner/面清理、SDK和运行仍待，C02/C04/C09不整项关闭。

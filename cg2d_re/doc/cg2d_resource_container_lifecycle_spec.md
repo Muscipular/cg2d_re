@@ -58,3 +58,9 @@ PaletteDbfState 成员改为 records→decodedBlocks；退出按原 U32 索引�
 11 个已有 F 身份、365 条及共享 chunks 对应具名提供者；5226B0/C0/D0/522860 不新增身份，原 C++90 表/四槽补充 provider 关联而未定义或启用全表。语义仍1144条/1141有效F ID，18pending不删，格式1000/1023、241常量及FILE计数保持。前序两变换树与本组四资源容器的模块适配需在未来接原全应用序时同一步撤下，不能并行再调用。
 
 归档 E-RESOURCE-CONTAINERS-I/W/S-20261004 三条限定局部证据；实现固定到 Git 命名快照 cg2d-re-resource-containers-source-20261004。FUNC-STARTUP/FUNC-RESOURCE 明确纳管本组11成员但枚举未闭；C02/C04/G01保持open，原全应用序、四Init/其他owner、全资源/快速退出和运行待验，整功能门禁不提升。没有构建、检查产物、测试、运行或计算摘要。
+
+## AIS01四资源provider的当前活动位置（2026-10-05）
+
+[AIS01](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)已从GraphicInfo/GraphicRead移除两模块对象/类型，在同一LegacyMouse TU中按原553058/55305C置于场景值与动画共享值之间，按553104/553108置于主/宠物之后。每项仍调用原真实provider/即时登记，返回弃、不短路，旧模块不重复构造；所有passive storage/字段、DBF成员/载荷释放及业务算法全文保持。
+
+当前投影相对序已接，不代表完整90/全原应用序或资源装载/重建/场景释放/快速退出验收。音频/流与经典locale缺口、SDK及运行仍在，C02/C04/G01继续开放；既有owner/source与原证据保留。

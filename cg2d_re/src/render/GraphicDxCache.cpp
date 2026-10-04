@@ -26,7 +26,6 @@
 #include <memory>
 #include <new>
 #include <tuple>
-#include <type_traits>
 
 namespace cg::render {
 
@@ -211,18 +210,6 @@ void DestroySurfaceTransformCache62A630_44CD70()
 {
     std::destroy_at(&BorrowSurfaceTransformCache62A630());
 }
-
-struct SurfaceTransformCacheStartup final {
-    SurfaceTransformCacheStartup()
-    {
-        // 原 553018 -> 55301C；各自构造后立即登记，不按第一次登记结果短路。
-        static_cast<void>(InitializeSurfaceTransformCache629300_44CC20());
-        static_cast<void>(InitializeSurfaceTransformCache62A630_44CD30());
-    }
-};
-
-static_assert(std::is_trivially_destructible_v<SurfaceTransformCacheStartup>);
-SurfaceTransformCacheStartup gSurfaceTransformCacheStartup;
 
 } // namespace
 

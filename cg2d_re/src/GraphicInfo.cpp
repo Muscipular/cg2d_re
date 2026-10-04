@@ -12,7 +12,6 @@
 #include <map>
 #include <memory>
 #include <new>
-#include <type_traits>
 #include <vector>
 
 namespace cg::resource {
@@ -74,18 +73,6 @@ void DestroyGraphicFirstRecords_459890()
 {
     std::destroy_at(&BorrowGraphicFirstRecords());
 }
-
-struct GraphicInfoContainersStartup final {
-    GraphicInfoContainersStartup()
-    {
-        // 原553058 -> 55305C：第一登记失败不跳过第二构造/登记。
-        static_cast<void>(InitializeGraphicMapNumbers_4597E0());
-        static_cast<void>(InitializeGraphicFirstRecords_459850());
-    }
-};
-
-static_assert(std::is_trivially_destructible_v<GraphicInfoContainersStartup>);
-GraphicInfoContainersStartup gGraphicInfoContainersStartup;
 
 } // namespace
 

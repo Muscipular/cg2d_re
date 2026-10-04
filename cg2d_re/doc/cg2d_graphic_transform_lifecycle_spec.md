@@ -59,3 +59,9 @@
 归档 E-GRAPHIC-TREES-I/W/S-20261004 三条限定局部证据，版本固定到 Git 命名快照 cg2d-re-graphic-trees-source-20261004。函数字段、宿主职责分类与当前接线源码可核，不把获批私有机制承接称为旧 CRT 逐指令等价。FUNC-STARTUP/FUNC-RENDER 明确登记本组八成员但枚举未闭；完整功能门禁仍未提升。
 
 C09 当前仍 open，累计关闭的源码任务保持 10 项，叶功能验收保持 0/182；本步不构建、检查产物、新增或执行测试、运行或计算任何文件摘要。
+
+## AIS01两个活动调用的位置更新（2026-10-05）
+
+[当前原序投影](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)已移除GraphicDxCache.cpp的SurfaceTransformCacheStartup对象/类型，并将同一六行调用适配迁入LegacyMouse.cpp，位于世界表初始化后、SDK窄宽流配置前，对应553018/55301C。两个真实provider/被动map存储、构析/即时atexit、节点不拥有surface及业务清理正文不改，旧模块无第二调用。
+
+当前应用投影的相对序已具源码证据，完整90/活动标准流/快速退出及全部surface生命周期仍未闭。TextureSurfaceOwner的独立自动清理保持；不得以本组模块迁移证明全退出面已释放，C09继续open。

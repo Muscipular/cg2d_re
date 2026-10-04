@@ -72,4 +72,10 @@ void DestroyLegacyWideFileBuffer_549935(LegacyWideFileBuffer* storage);
 void DestroyLegacyNarrowStreamBuffer_5486B1(LegacyNarrowFileBuffer* storage);
 void DestroyLegacyWideStreamBuffer_54976A(LegacyWideFileBuffer* storage);
 
+// 原scalar deleting入口；先显式析构，再flags bit0同域释放，返原地址。
+LegacyNarrowFileBuffer* DeleteLegacyNarrowFileBuffer_548D4D(
+    LegacyNarrowFileBuffer* storage, std::uint32_t flags);
+LegacyWideFileBuffer* DeleteLegacyWideFileBuffer_549DA2(
+    LegacyWideFileBuffer* storage, std::uint32_t flags);
+
 } // namespace cg::platform

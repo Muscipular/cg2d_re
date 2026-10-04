@@ -69,4 +69,37 @@ void BumpLegacyWideWriteCursor_549E3D(
 template <typename Character>
 void ResetLegacyStreamBuffer_549EDE(LegacyStreamBufferStorage<Character>* storage);
 
+// 原24B位置返回：已证四W32；+04/+14未写，不推其原字段意义/补值。
+// 原生布局两处自然填充，整对象表示复制；不互转SDK streampos或fpos_t。
+struct alignas(8) LegacyStreamPosition final {
+    std::uint32_t offsetBits;                       // 原+00，默认入口写FFFFFFFF。
+    alignas(8) std::uint32_t filePositionLowBits;    // 原+08，先取5500E0。
+    std::uint32_t filePositionHighBits;             // 原+0C，后取5500E4。
+    std::uint32_t stateBits;                        // 原+10，后取1087B04。
+};
+static_assert(offsetof(LegacyStreamPosition, filePositionLowBits) == 8);
+static_assert(offsetof(LegacyStreamPosition, filePositionHighBits) == 12);
+static_assert(offsetof(LegacyStreamPosition, stateBits) == 16);
+static_assert(sizeof(LegacyStreamPosition) == 24);
+
+// 两个位置半字仅已加载初值0；状态种子仅声明，不把未加载读值当初值。
+// volatile保持原不同槽读取顺序，不增加原子/锁或SDK状态镜像。
+extern volatile std::uint32_t gLegacyDefaultPositionLow5500E0;
+extern volatile std::uint32_t gLegacyDefaultPositionHigh5500E4;
+extern volatile std::uint32_t gLegacyDefaultPositionState1087B04;
+
+// 原默认位置叶不读this或位置/模式实参；各W32不透明，不推未消费符号性。
+template <typename Character>
+LegacyStreamPosition* DefaultLegacySeekOffset_5498B7(
+    LegacyStreamBufferStorage<Character>* storage, LegacyStreamPosition* result,
+    std::uint32_t ignoredOffset, std::uint32_t ignoredOrigin, std::uint32_t ignoredMode);
+template <typename Character>
+LegacyStreamPosition* DefaultLegacySeekPosition_5498EE(
+    LegacyStreamBufferStorage<Character>* storage, LegacyStreamPosition* result,
+    LegacyStreamPosition ignoredPosition, std::uint32_t ignoredMode);
+// 原5487D0唯一ret4，void/不写状态，不规定EAX/不固定返回值；栈字暂保持W32。
+template <typename Character>
+void DefaultLegacyStreamNoOp_5487D0(
+    LegacyStreamBufferStorage<Character>* storage, std::uint32_t ignoredStackValue);
+
 } // namespace cg::platform

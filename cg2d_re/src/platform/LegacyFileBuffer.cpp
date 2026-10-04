@@ -200,4 +200,24 @@ void DestroyLegacyWideFileBuffer_549935(LegacyWideFileBuffer* const storage)
     }
 }
 
+LegacyNarrowFileBuffer* DeleteLegacyNarrowFileBuffer_548D4D(
+    LegacyNarrowFileBuffer* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyNarrowFileBuffer_5487DE(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
+LegacyWideFileBuffer* DeleteLegacyWideFileBuffer_549DA2(
+    LegacyWideFileBuffer* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyWideFileBuffer_549935(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
+}
+
 } // namespace cg::platform

@@ -1,6 +1,13 @@
 #include "LegacyStreamBuffer.hpp"
 
+#include <cstring>
+
 namespace cg::platform {
+
+volatile std::uint32_t gLegacyDefaultPositionLow5500E0 = 0;
+volatile std::uint32_t gLegacyDefaultPositionHigh5500E4 = 0;
+// 1087B04初值/实际存储未补证，只用头文件真实声明，不在此定义。
+
 
 // 原5486BF的两个默认字符槽；栈中W32实参没有被读取。
 std::int32_t DefaultLegacyNarrowCharacter_5486BF(
@@ -146,5 +153,57 @@ void ResetLegacyStreamBuffer_549EDE(LegacyStreamBufferStorage<Character>* const 
 
 template void ResetLegacyStreamBuffer_549EDE<char>(LegacyNarrowStreamBuffer*);
 template void ResetLegacyStreamBuffer_549EDE<std::uint16_t>(LegacyWideStreamBuffer*);
+
+template <typename Character>
+LegacyStreamPosition* DefaultLegacySeekOffset_5498B7(
+    LegacyStreamBufferStorage<Character>* const storage, LegacyStreamPosition* const result,
+    const std::uint32_t ignoredOffset, const std::uint32_t ignoredOrigin,
+    const std::uint32_t ignoredMode)
+{
+    LegacyStreamPosition position; // 原两处未写区域不值初始化/补零。
+    const std::uint32_t low = gLegacyDefaultPositionLow5500E0;
+    position.offsetBits = 0xFFFFFFFFu;
+    position.filePositionLowBits = low;
+    position.filePositionHighBits = gLegacyDefaultPositionHigh5500E4;
+    position.stateBits = gLegacyDefaultPositionState1087B04;
+    // 原REP六W32；标准对象表示复制允许未初始化填充，不读取其为数值。
+    std::memcpy(result, &position, sizeof(position));
+    return result;
+}
+
+template <typename Character>
+LegacyStreamPosition* DefaultLegacySeekPosition_5498EE(
+    LegacyStreamBufferStorage<Character>* const storage, LegacyStreamPosition* const result,
+    const LegacyStreamPosition ignoredPosition, const std::uint32_t ignoredMode)
+{
+    LegacyStreamPosition position;
+    const std::uint32_t low = gLegacyDefaultPositionLow5500E0;
+    position.offsetBits = 0xFFFFFFFFu;
+    position.filePositionLowBits = low;
+    position.filePositionHighBits = gLegacyDefaultPositionHigh5500E4;
+    position.stateBits = gLegacyDefaultPositionState1087B04;
+    std::memcpy(result, &position, sizeof(position));
+    return result;
+}
+
+template <typename Character>
+void DefaultLegacyStreamNoOp_5487D0(
+    LegacyStreamBufferStorage<Character>* const storage, const std::uint32_t ignoredStackValue)
+{
+    // 原唯一ret4，无字段写入/返回值合同；不是未知入口的空占位。
+}
+
+template LegacyStreamPosition* DefaultLegacySeekOffset_5498B7<char>(
+    LegacyNarrowStreamBuffer*, LegacyStreamPosition*, std::uint32_t, std::uint32_t, std::uint32_t);
+template LegacyStreamPosition* DefaultLegacySeekOffset_5498B7<std::uint16_t>(
+    LegacyWideStreamBuffer*, LegacyStreamPosition*, std::uint32_t, std::uint32_t, std::uint32_t);
+template LegacyStreamPosition* DefaultLegacySeekPosition_5498EE<char>(
+    LegacyNarrowStreamBuffer*, LegacyStreamPosition*, LegacyStreamPosition, std::uint32_t);
+template LegacyStreamPosition* DefaultLegacySeekPosition_5498EE<std::uint16_t>(
+    LegacyWideStreamBuffer*, LegacyStreamPosition*, LegacyStreamPosition, std::uint32_t);
+template void DefaultLegacyStreamNoOp_5487D0<char>(
+    LegacyNarrowStreamBuffer*, std::uint32_t);
+template void DefaultLegacyStreamNoOp_5487D0<std::uint16_t>(
+    LegacyWideStreamBuffer*, std::uint32_t);
 
 } // namespace cg::platform

@@ -153,6 +153,7 @@ std::uintptr_t Sub_4D5250(std::int32_t opened); // 旧83交出/接受，取消�
 YobiAction* Sub_4D5580(); // 旧84独立D2D814图号，创建后发布CB1DD4。
 std::uintptr_t Sub_4D55C0(std::int32_t opened); // 旧84完整数量交互，详情/数量复用商店owner。
 std::int32_t Sub_4D61E0(std::int32_t x, std::int32_t y, std::int32_t page); // CC3210八行详情及背景。
+std::uint32_t Sub_4D62A0(std::int32_t opened); // 旧85完整确认，P05仅说明格式化后首字节置1。
 void Sub_4D3180(); // 旧53/54共用六按钮，已证caller弃寄存器结果。
 std::int32_t Sub_4D31C0(); // 首个许可且点击的按钮位，全部未命中为0。
 std::uintptr_t Sub_4D3210(std::int32_t opened); // 旧53普通/输入对话，关闭可返回聊天T*。

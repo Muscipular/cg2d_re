@@ -614,6 +614,14 @@ std::int32_t gLegacyGiveReceiveModeC8AA98 = 0; // 独立原状态，非4A0850的
 LegacyPanelRecord gLegacyGiveReceiveQuantityPanel581BD0 {
     0, 0, 576, 432, 84, {23330, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
+LegacyPanelRecord gLegacyGiveConfirmPanel581C98 {
+    0, 0, 448, 240, 85, {0, 0, 0, 0, 0}, {}, 0, 0, {}, {},
+};
+constexpr char kLegacyGiveConfirmReceiveFormat588B40[] = "\xB1\xB5\xA8\xFC\xA4\x46\x25\x32\x73\xA1\x40\x25\x32\x64\xA1\x40\xAD\xD3\xA1\x43\x0A\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
+constexpr char kLegacyGiveConfirmGiveFormat588B60[] = "\xA5\xE6\xA5\x58\xA4\x46\x25\x32\x73\xA1\x40\x25\x32\x64\xA1\x40\xAD\xD3\xA1\x43\x0A\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
+constexpr char kLegacyGiveConfirmReceiveHint588B20[] = "\xB1\xB5\xA8\xFC\xA4\x46\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyGiveConfirmGiveHint588B30[] = "\xA5\xE6\xA5\x58\xA4\x46\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyGiveConfirmCancelReceive588B10[] = "\xA8\xFA\xAE\xF8\xB1\xB5\xA8\xFC\xAA\xAB\xAB\x7E\xA1\x43";
 YobiAction* gLegacyGiveReceiveQuantityActionCB1DD4 = nullptr;
 std::int32_t gLegacyGiveReceiveImageD2D814 = 0; // 独立图号，生产待证，不借现代D2DAD0。
 std::int32_t gLegacyGiveReceiveDetailPageD2EAB0 = 0;
@@ -6459,6 +6467,89 @@ std::int32_t Sub_4D61E0(const std::int32_t x, const std::int32_t y, const std::i
         }
     }
     return DrawGraphic(x + 136, y + 92, 222, 22541, 0, nullptr);
+}
+
+// 原[4D62A0,4D6639)完整279条；P05首字节适配仅在说明格式化之后。
+std::uint32_t Sub_4D62A0(const std::int32_t opened)
+{
+    const std::int32_t oldY = gLegacyGiveConfirmPanel581C98.y;
+    const std::int32_t oldX = gLegacyGiveConfirmPanel581C98.x;
+    character_select::detail::CharacterModalUiRecord confirm {
+        AddW32(oldX, 127), AddW32(oldY, 204), AddW32(oldX, 127), AddW32(oldY, 204),
+        52, 16, kLegacyDialogButton58598C,
+    };
+    character_select::detail::CharacterModalUiRecord cancel {
+        AddW32(oldX, 266), AddW32(oldY, 204), AddW32(oldX, 266), AddW32(oldY, 204),
+        52, 16, kLegacyDialogButton585984,
+    };
+    const std::int32_t width = gLegacyGiveConfirmPanel581C98.width;
+    const std::int32_t height = gLegacyGiveConfirmPanel581C98.height;
+    gLegacyGiveConfirmPanel581C98.x = AddW32(640, -width) / 2;
+    gLegacyGiveConfirmPanel581C98.y = AddW32(456, -height) / 2;
+    const std::int32_t state = Sub_503160(opened, &gLegacyGiveConfirmPanel581C98, nullptr, 0);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        const std::int32_t result = audio::Sub_504410(84);
+        if (result == 0) {
+            world::detail::gValue581800 = -1;
+        }
+        return static_cast<std::uint32_t>(result);
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGiveConfirmPanel581C98.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    }
+    char buffer[512]; // 连续两256B区，不预清，不使用反编译InputContext误型。
+    char* const description = buffer + 256;
+    if ((character_select::detail::Sub_503990(&confirm) & 1) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyGiveConfirmPanel581C98.id));
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+        const std::int32_t amount = ui::detail::gShopValueD046C4;
+        platform::FormatLegacyString_53B304(buffer, "1|%d", amount);
+        static_cast<void>(input::EscapeLegacyTextAndNotify_52D2D0(buffer, description, 256));
+        const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+        const std::int32_t request = world::detail::gDialogRequestCC21E0;
+        const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+        const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+        const std::uintptr_t socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_512620(socket, playerX, playerY, request, target, 0, description));
+    } else if ((character_select::detail::Sub_503990(&cancel) & 1) != 0) {
+        static_cast<void>(audio::Sub_504180(84));
+        static_cast<void>(audio::PlaySe_52C450(79, 320));
+    }
+    const char* const format = ui::detail::gShopValueCAFEA4 != 0
+        ? kLegacyGiveConfirmReceiveFormat588B40 : kLegacyGiveConfirmGiveFormat588B60;
+    const std::int32_t amount = ui::detail::gShopValueD046C4;
+    platform::FormatLegacyString_53B304(description, format, ui::detail::gShopDetailCC3210.data(), amount);
+    buffer[0] = 1; // D01/P05：格式化后、首门禁前，其他255B保持原未清状态。
+    for (std::int32_t row = 0; buffer[0] != '\0'; ++row) {
+        static_cast<void>(input::ExtractLegacyLine_503AB0(buffer, 256, description, row, 46));
+        const auto marker = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(gValueD69768));
+        const std::int32_t y = gLegacyGiveConfirmPanel581C98.y;
+        const std::int32_t lineY = AddW32(y, 36 + 32 * row);
+        const auto length = static_cast<std::uint32_t>(std::strlen(buffer));
+        const std::uint32_t centered = (416u - 9u * length) >> 1;
+        const std::int32_t x = gLegacyGiveConfirmPanel581C98.x;
+        const std::int32_t lineX = AddW32(AddW32(std::bit_cast<std::int32_t>(centered), x), 17);
+        static_cast<void>(DrawText(static_cast<std::int16_t>(lineX), static_cast<std::int16_t>(lineY),
+            2, 0, 0, buffer, 0, marker));
+    }
+    static_cast<void>(character_select::detail::Sub_503A20(&confirm, 2, 4, 1, gValueD69768, 218));
+    static_cast<void>(character_select::detail::Sub_503A20(&cancel, 2, 4, 1, gValueD69768, 218));
+    const char* hint = nullptr;
+    if ((character_select::detail::Sub_503990(&confirm) & 0x40) != 0) {
+        hint = ui::detail::gShopValueCAFEA4 != 0
+            ? kLegacyGiveConfirmReceiveHint588B20 : kLegacyGiveConfirmGiveHint588B30;
+    } else if ((character_select::detail::Sub_503990(&cancel) & 0x40) != 0) {
+        hint = ui::detail::gShopValueCAFEA4 != 0
+            ? kLegacyGiveConfirmCancelReceive588B10 : kLegacyGiveCancel588AFC;
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyGiveConfirmPanel581C98, 0);
 }
 
 std::uintptr_t Sub_4E0380(const std::int32_t opened)

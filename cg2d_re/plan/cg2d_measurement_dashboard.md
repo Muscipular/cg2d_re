@@ -11,14 +11,14 @@
 | 合同文件关联 | 1264/3680（34.35%） | 文件关联率，不是功能/基线验收完成率 |
 | 尚无合同关联 | 2416 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1140条/1137个原ID | 无独立ID记录另列3条 |
+| 语义登记 | 1141条/1138个原ID | 无独立ID记录另列3条 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 4/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 5/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置0 / 0 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
-| 已知收尾任务 | 60；验收关闭6 | 任务不是全功能目录 |
+| 已知收尾任务 | 60；验收关闭7 | 任务不是全功能目录 |
 
 ## 2. 门禁与闭包
 
@@ -40,7 +40,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | 功能ID | 范围/名称 | 合同 | 已审/同合同候选成员 | 任务 | B/I/W/S/R |
 |---|---|---|---:|---|---|
 | FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md) | 0/313 | C02、C03、C04、V01、V02 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-CRT | included：CRT提供者与兼容边界 | [cg2d_crt_runtime_boundary_spec](../doc/cg2d_crt_runtime_boundary_spec.md)、[cg2d_stdio_contract](../doc/cg2d_stdio_contract.md)、[cg2d_crt_memory_contract](../doc/cg2d_crt_memory_contract.md)、[cg2d_legacy_string_compare](../doc/cg2d_legacy_string_compare.md) | 0/679 | C01、C05、C06、C07、C08、C10、C11、C12 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-CRT | included：CRT提供者与兼容边界 | [cg2d_crt_runtime_boundary_spec](../doc/cg2d_crt_runtime_boundary_spec.md)、[cg2d_stdio_contract](../doc/cg2d_stdio_contract.md)、[cg2d_crt_memory_contract](../doc/cg2d_crt_memory_contract.md)、[cg2d_legacy_string_compare](../doc/cg2d_legacy_string_compare.md) | 0/680 | C01、C05、C06、C07、C08、C10、C11、C12 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOOP | included：主循环与场景分发 | [cg2d_main_loop](../doc/cg2d_main_loop.md)、[cg2d_scene_state](../doc/cg2d_scene_state.md) | 0/97 | U11、V02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 1/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-CHARACTER | included：角色选择与创建 | [cg2d_character_select_scene](../doc/cg2d_character_select_scene.md)、[cg2d_creation_gate_adaptation_spec](../doc/cg2d_creation_gate_adaptation_spec.md) | 1/11 | P08、U03、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -207,8 +207,8 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-081 | included：旧选择81：固定文字提示 | [legacy_text_notices](../doc/ui_windows/legacy_text_notices.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-082 | included：旧选择82：固定文字提示 | [legacy_text_notices](../doc/ui_windows/legacy_text_notices.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-083 | included：旧选择83：交出/接受对话 | [legacy_give_receive_dialog](../doc/ui_windows/legacy_give_receive_dialog.md) | 0/2 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-084 | included：旧选择84：交出/接受数量 | [legacy_give_receive_quantity](../doc/ui_windows/legacy_give_receive_quantity.md) | 0/2 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-085 | included：旧选择85：交出/接受确认 | [legacy_give_receive_confirmation](../doc/ui_windows/legacy_give_receive_confirmation.md) | 0/1 | U04、V04、P05、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-084 | included：旧选择84：交出/接受数量 | [legacy_give_receive_quantity](../doc/ui_windows/legacy_give_receive_quantity.md) | 0/3 | U04、V04、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-085 | included：旧选择85：交出/接受确认 | [legacy_give_receive_confirmation](../doc/ui_windows/legacy_give_receive_confirmation.md) | 1/2 | U04、V04、P05、U06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-086 | included：旧选择86：公会邮件赠品 | [legacy_guild_mail_gift_items](../doc/ui_windows/legacy_guild_mail_gift_items.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-087 | included：旧选择87：公会宠物邮件 | [legacy_guild_pet_mail_compose](../doc/ui_windows/legacy_guild_pet_mail_compose.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-088 | included：旧选择88：公会送信宠物 | [legacy_guild_mail_pet_list](../doc/ui_windows/legacy_guild_mail_pet_list.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

@@ -221,7 +221,7 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
             matched = CompareInsensitiveN_54AB30(title, record.text, length) == 0;
         } else if (flag == 1) {
             const std::uint32_t length = static_cast<std::uint32_t>(std::strlen(record.text));
-            matched = std::strncmp(title, record.text, length) == 0
+            matched = StrNCmp_53BFC0(title, record.text, length) == 0
                 && static_cast<std::uint32_t>(std::strlen(record.text)) == titleLength;
         }
 

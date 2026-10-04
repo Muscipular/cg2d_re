@@ -2903,7 +2903,7 @@ std::int32_t Sub_50CE10(const std::uintptr_t /*socket*/, const char* const text)
     char command[512];
     std::strcpy(source, text);
     input::UnescapeLegacyTextAndNotify_52D2F0(source);
-    if (std::strncmp(source, "@FIND_LV1", 9) == 0) {
+    if (platform::StrNCmp_53BFC0(source, "@FIND_LV1", 9) == 0) {
         std::int32_t sound = 0;
         platform::StrNCpy_53BEC0(command, source, static_cast<std::uint32_t>(sizeof(command)));
         platform::ScanLegacyString_53CADC(command, "@FIND_LV1@SE:%d", &sound);
@@ -3082,10 +3082,10 @@ void Sub_50CAE0(
             std::memset(name, 0, sizeof(name));
             std::strcpy(name, stripped);
         };
-        if (std::strncmp(name, "[MIC]", std::strlen("[MIC]")) == 0) {
+        if (platform::StrNCmp_53BFC0(name, "[MIC]", static_cast<std::uint32_t>(std::strlen("[MIC]"))) == 0) {
             gChatGateDA3B54 = 1;
             stripPrefix(5);
-        } else if (std::strncmp(name, "[GP]", std::strlen("[GP]")) == 0) {
+        } else if (platform::StrNCmp_53BFC0(name, "[GP]", static_cast<std::uint32_t>(std::strlen("[GP]"))) == 0) {
             stripPrefix(4);
         }
         if (blacklist::ContainsBlacklistRecord_4013D0(name) != 0) {

@@ -1,4 +1,5 @@
 #include "cg/platform/MainLoop.hpp"
+#include "cg/platform/LegacyTime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
 
 #include <bit>
@@ -32,16 +33,16 @@ BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)
         - static_cast<std::uint32_t>(rect.left);
 
     auto* lowFlagByte = reinterpret_cast<unsigned char*>(&gWindowReportFlags);
-    if (std::strncmp(title, kPrefix559384, sizeof(kPrefix559384) - 1) == 0) {
+    if (StrNCmp_53BFC0(title, kPrefix559384, static_cast<std::uint32_t>(sizeof(kPrefix559384) - 1)) == 0) {
         *lowFlagByte |= 1u;
     }
-    if (std::strncmp(title, kPrefix55937C, sizeof(kPrefix55937C) - 1) == 0) {
+    if (StrNCmp_53BFC0(title, kPrefix55937C, static_cast<std::uint32_t>(sizeof(kPrefix55937C) - 1)) == 0) {
         *lowFlagByte |= 2u;
     }
 
     std::uint16_t flags;
     std::memcpy(&flags, &gWindowReportFlags, sizeof(flags));
-    if (std::strncmp(title, kPrefix559370, sizeof(kPrefix559370) - 1) == 0) {
+    if (StrNCmp_53BFC0(title, kPrefix559370, static_cast<std::uint32_t>(sizeof(kPrefix559370) - 1)) == 0) {
         flags = static_cast<std::uint16_t>(flags | 4u);
         std::memcpy(&gWindowReportFlags, &flags, sizeof(flags));
     }

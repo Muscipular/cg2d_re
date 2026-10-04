@@ -32490,9 +32490,9 @@ void AllocateActorChatText(
     std::int32_t offset = static_cast<std::int32_t>(std::strlen(name)) + 2;
     if (text[0] == '[' && text[1] == 'G' && text[2] == 'P' && text[3] == ']') {
         offset += 4;
-    } else if (std::strncmp(text, "[MIC]", 5) == 0) {
+    } else if (platform::StrNCmp_53BFC0(text, "[MIC]", 5) == 0) {
         offset += 5;
-    } else if (std::strncmp(text, kChatFamilyPrefix554580, 6) == 0) {
+    } else if (platform::StrNCmp_53BFC0(text, kChatFamilyPrefix554580, 6) == 0) {
         offset += 6;
     }
     const std::int32_t remaining = length - offset;

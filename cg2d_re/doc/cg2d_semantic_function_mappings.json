@@ -22313,7 +22313,7 @@
     {
       "original_entry": "0x404940",
       "inventory_id": "F:00004940",
-      "status": "窗口枚举回调已修复长度/计数采样；实际枚举与并发行为未验",
+      "status": "窗口枚举回调长度/计数采样保持，有界比较原点已接真实本体；实际枚举与并发未验",
       "original_end_exclusive": "0x404A3B",
       "instruction_count": 97,
       "sources": [
@@ -22329,14 +22329,26 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "原128B标题无预清零，先取U32长度；名单数按S32判定并在每次未命中后重读。flag0原有界忽略大小写前缀，flag1先strncmp后重取记录长度与入口标题长度比较，其余flag跳过。命中发布当前number并返回FALSE，不命中返回TRUE；40B记录及number/flagA偏移保持，不新增锁、输入保护或名单容量。"
+      "boundary": "原128B标题无预清零，先取U32长度；名单数按S32判定并在每次未命中后重读。flag0原有界忽略大小写前缀，flag1先strncmp后重取记录长度与入口标题长度比较，其余flag跳过。命中发布当前number并返回FALSE，不命中返回TRUE；40B记录及number/flagA偏移保持，不新增锁、输入保护或名单容量。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
+      "verification_level": "；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
+      "strncmp_call_connections": [
+        {
+          "parent_entry": "0x404940",
+          "call_site": "0x4049C4",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        }
+      ]
     },
     {
       "original_entry": "0x53BFC0",
       "inventory_id": "F:0013BFC0",
-      "status": "现有标准库有界相等判定关联；仅零/非零消费域",
+      "status": "有界字节比较真实本体及12/12原直接调用已接；完整父/并发/运行未验",
       "original_end_exclusive": "0x53BFF8",
       "instruction_count": 31,
       "sources": [
@@ -22366,13 +22378,522 @@
             "Sub_50CAE0",
             "Sub_50CE10"
           ]
+        },
+        {
+          "path": "src/platform/LegacyTime.cpp",
+          "symbols": [
+            "StrNCmp_53BFC0"
+          ],
+          "relationship": "完整原两阶段U8读取/末复读及固定返回真实本体"
+        },
+        {
+          "path": "include/cg/platform/LegacyTime.hpp",
+          "symbols": [
+            "StrNCmp_53BFC0"
+          ],
+          "relationship": "U32数量和S32返回真实公开声明"
+        },
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "SelectLegacyHeapMode_541A70"
+          ],
+          "relationship": "既有真实541A70库内541B03左常量/右环境/22字节接入"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原count0直接0，有限U8比较返回严格-1/0/1；已核12处直接调用均只使用零/非零，现有std::strncmp据此承接相等判定，不声称非零幅值或无效缓冲故障等价。对应原应用11处由这些实际源码消费；541A70库内一处父入口未在本项重建，不算整个CRT完成。"
+      "boundary": "原count0直接0，有限U8比较返回严格-1/0/1；已核12处直接调用均只使用零/非零，现有std::strncmp据此承接相等判定，不声称非零幅值或无效缓冲故障等价。对应原应用11处由这些实际源码消费；541A70库内一处父入口未在本项重建，不算整个CRT完成。；2026-10-04提升为真实StrNCmp_53BFC0，替代此前有限std::strncmp关联。count0不读；非零先左侧最多count含NUL预扫，再右/左U8比较；结束重读最后右/左字节，严格-1/0/1。11应用原点及已实现541A70库点全部接齐，共12点对应10个源调用表达式（聊天两父共享两个）。不改父体分支、采样、原文本或旧堆域，不声称无效缓冲/故障等价。",
+      "verification_level": "；本轮31条单chunk及3跳转目标、12点168条邻窗，W32数值/右左读取和末复读/真实参数及12点10表达式/限定增量静态核对；不构建、测试、执行算法、客户端或hash校验",
+      "strncmp_call_connections": [
+        {
+          "parent_entry": "0x404940",
+          "call_site": "0x4049C4",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x442DC0",
+          "call_site": "0x442E5A",
+          "source": "src/YobiRuntime.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原两父共用AllocateActorChatText真实表达式，不增加原点"
+        },
+        {
+          "parent_entry": "0x442DC0",
+          "call_site": "0x442E73",
+          "source": "src/YobiRuntime.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原两父共用AllocateActorChatText真实表达式，不增加原点"
+        },
+        {
+          "parent_entry": "0x458840",
+          "call_site": "0x4588B4",
+          "source": "src/platform/MainLoopWindowEnumeration.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x458840",
+          "call_site": "0x4588E1",
+          "source": "src/platform/MainLoopWindowEnumeration.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x458840",
+          "call_site": "0x45890E",
+          "source": "src/platform/MainLoopWindowEnumeration.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x50CAE0",
+          "call_site": "0x50CC0C",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x50CAE0",
+          "call_site": "0x50CC80",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x50CE10",
+          "call_site": "0x50CE5F",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x51A6A0",
+          "call_site": "0x51A722",
+          "source": "src/YobiRuntime.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原两父共用AllocateActorChatText真实表达式，不增加原点"
+        },
+        {
+          "parent_entry": "0x51A6A0",
+          "call_site": "0x51A73B",
+          "source": "src/YobiRuntime.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原两父共用AllocateActorChatText真实表达式，不增加原点"
+        },
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B03",
+          "source": "src/platform/LegacyMemory.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        }
+      ],
+      "body_instruction_evidence": [
+        {
+          "entry": "0x53bfc0",
+          "end": "0x53bff8",
+          "instructions": [
+            [
+              "0x53bfc0",
+              "push    ebp",
+              "push",
+              "ebp",
+              ""
+            ],
+            [
+              "0x53bfc1",
+              "mov     ebp, esp",
+              "mov",
+              "ebp",
+              "esp"
+            ],
+            [
+              "0x53bfc3",
+              "push    edi",
+              "push",
+              "edi",
+              ""
+            ],
+            [
+              "0x53bfc4",
+              "push    esi",
+              "push",
+              "esi",
+              ""
+            ],
+            [
+              "0x53bfc5",
+              "push    ebx",
+              "push",
+              "ebx",
+              ""
+            ],
+            [
+              "0x53bfc6",
+              "mov     ecx, [ebp+MaxCount]",
+              "mov",
+              "ecx",
+              "[ebp+MaxCount]"
+            ],
+            [
+              "0x53bfc9",
+              "jecxz   short toend",
+              "jecxz",
+              "toend",
+              ""
+            ],
+            [
+              "0x53bfcb",
+              "mov     ebx, ecx",
+              "mov",
+              "ebx",
+              "ecx"
+            ],
+            [
+              "0x53bfcd",
+              "mov     edi, [ebp+Str1]",
+              "mov",
+              "edi",
+              "[ebp+Str1]"
+            ],
+            [
+              "0x53bfd0",
+              "mov     esi, edi",
+              "mov",
+              "esi",
+              "edi"
+            ],
+            [
+              "0x53bfd2",
+              "xor     eax, eax",
+              "xor",
+              "eax",
+              "eax"
+            ],
+            [
+              "0x53bfd4",
+              "repne scasb",
+              "scasb",
+              "",
+              ""
+            ],
+            [
+              "0x53bfd6",
+              "neg     ecx",
+              "neg",
+              "ecx",
+              ""
+            ],
+            [
+              "0x53bfd8",
+              "add     ecx, ebx",
+              "add",
+              "ecx",
+              "ebx"
+            ],
+            [
+              "0x53bfda",
+              "mov     edi, esi",
+              "mov",
+              "edi",
+              "esi"
+            ],
+            [
+              "0x53bfdc",
+              "mov     esi, [ebp+Str2]",
+              "mov",
+              "esi",
+              "[ebp+Str2]"
+            ],
+            [
+              "0x53bfdf",
+              "repe cmpsb",
+              "cmpsb",
+              "",
+              ""
+            ],
+            [
+              "0x53bfe1",
+              "mov     al, [esi-1]",
+              "mov",
+              "al",
+              "[esi-1]"
+            ],
+            [
+              "0x53bfe4",
+              "xor     ecx, ecx",
+              "xor",
+              "ecx",
+              "ecx"
+            ],
+            [
+              "0x53bfe6",
+              "cmp     al, [edi-1]",
+              "cmp",
+              "al",
+              "[edi-1]"
+            ],
+            [
+              "0x53bfe9",
+              "ja      short lastbig",
+              "ja",
+              "lastbig",
+              ""
+            ],
+            [
+              "0x53bfeb",
+              "jz      short toend",
+              "jz",
+              "toend",
+              ""
+            ],
+            [
+              "0x53bfed",
+              "dec     ecx",
+              "dec",
+              "ecx",
+              ""
+            ],
+            [
+              "0x53bfee",
+              "dec     ecx",
+              "dec",
+              "ecx",
+              ""
+            ],
+            [
+              "0x53bfef",
+              "not     ecx",
+              "not",
+              "ecx",
+              ""
+            ],
+            [
+              "0x53bff1",
+              "mov     eax, ecx",
+              "mov",
+              "eax",
+              "ecx"
+            ],
+            [
+              "0x53bff3",
+              "pop     ebx",
+              "pop",
+              "ebx",
+              ""
+            ],
+            [
+              "0x53bff4",
+              "pop     esi",
+              "pop",
+              "esi",
+              ""
+            ],
+            [
+              "0x53bff5",
+              "pop     edi",
+              "pop",
+              "edi",
+              ""
+            ],
+            [
+              "0x53bff6",
+              "leave",
+              "leave",
+              "",
+              ""
+            ],
+            [
+              "0x53bff7",
+              "retn",
+              "retn",
+              "",
+              ""
+            ]
+          ],
+          "references": [
+            {
+              "site": "0x4049c4",
+              "parent": "0x404940",
+              "type": 17
+            },
+            {
+              "site": "0x442e5a",
+              "parent": "0x442dc0",
+              "type": 17
+            },
+            {
+              "site": "0x442e73",
+              "parent": "0x442dc0",
+              "type": 17
+            },
+            {
+              "site": "0x4588b4",
+              "parent": "0x458840",
+              "type": 17
+            },
+            {
+              "site": "0x4588e1",
+              "parent": "0x458840",
+              "type": 17
+            },
+            {
+              "site": "0x45890e",
+              "parent": "0x458840",
+              "type": 17
+            },
+            {
+              "site": "0x50cc0c",
+              "parent": "0x50cae0",
+              "type": 17
+            },
+            {
+              "site": "0x50cc80",
+              "parent": "0x50cae0",
+              "type": 17
+            },
+            {
+              "site": "0x50ce5f",
+              "parent": "0x50ce10",
+              "type": 17
+            },
+            {
+              "site": "0x51a722",
+              "parent": "0x51a6a0",
+              "type": 17
+            },
+            {
+              "site": "0x51a73b",
+              "parent": "0x51a6a0",
+              "type": 17
+            },
+            {
+              "site": "0x541b03",
+              "parent": "0x541a70",
+              "type": 17
+            }
+          ]
+        }
+      ],
+      "branch_target_evidence": [
+        {
+          "chunks": [
+            [
+              "0x53bfc0",
+              "0x53bff8"
+            ]
+          ],
+          "branches": [
+            {
+              "site": "0x53bfc9",
+              "target": "0x53bff1",
+              "instructions": [
+                [
+                  "0x53bff1",
+                  "mov     eax, ecx"
+                ],
+                [
+                  "0x53bff3",
+                  "pop     ebx"
+                ],
+                [
+                  "0x53bff4",
+                  "pop     esi"
+                ],
+                [
+                  "0x53bff5",
+                  "pop     edi"
+                ],
+                [
+                  "0x53bff6",
+                  "leave"
+                ],
+                [
+                  "0x53bff7",
+                  "retn"
+                ]
+              ]
+            },
+            {
+              "site": "0x53bfe9",
+              "target": "0x53bfef",
+              "instructions": [
+                [
+                  "0x53bfef",
+                  "not     ecx"
+                ],
+                [
+                  "0x53bff1",
+                  "mov     eax, ecx"
+                ],
+                [
+                  "0x53bff3",
+                  "pop     ebx"
+                ],
+                [
+                  "0x53bff4",
+                  "pop     esi"
+                ],
+                [
+                  "0x53bff5",
+                  "pop     edi"
+                ],
+                [
+                  "0x53bff6",
+                  "leave"
+                ]
+              ]
+            },
+            {
+              "site": "0x53bfeb",
+              "target": "0x53bff1",
+              "instructions": [
+                [
+                  "0x53bff1",
+                  "mov     eax, ecx"
+                ],
+                [
+                  "0x53bff3",
+                  "pop     ebx"
+                ],
+                [
+                  "0x53bff4",
+                  "pop     esi"
+                ],
+                [
+                  "0x53bff5",
+                  "pop     edi"
+                ],
+                [
+                  "0x53bff6",
+                  "leave"
+                ],
+                [
+                  "0x53bff7",
+                  "retn"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "original_entry": "0x53BE40",
@@ -42026,7 +42547,7 @@
     {
       "original_entry": "0x541A70",
       "inventory_id": "F:00141A70",
-      "status": "堆模式选择本体/解析及两真实查找依赖已接；启动/布局/失败局部与运行未验",
+      "status": "堆模式选择/解析、两查找及有界比较原点已接真实本体；启动/模式3/完整运行未验",
       "original_end_exclusive": "0x541BB8",
       "instruction_count": 115,
       "original_direct_reference_count": 1,
@@ -42047,9 +42568,10 @@
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
         "doc/cg2d_startup_flow.md",
+        "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_legacy_string_compare.md"
       ],
-      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。 本步541B59/541B67交真实53BE40/53C2F0，动态环境/filename借用定位及selection逗号后+1保持，整份LegacyMemory只两标识符。只补依赖，不接541BB8、改变分配器/初始化或放行未知mode3布局。",
+      "boundary": "GetVersionExA成功且NT主版本>=5返1；否则1090H环境缓冲ASCII上转，先比较22B全局前缀，否则104H模块路径上转后做子串查找。首逗号后首分号截断，调用Strtol_53DA45(value,nullptr,10)，只接2/3/1。回退541BAB是低U8无符号与6比较，返2/3。保留原API返回处理，不擅清零/终止未写局部；该失败语义仍未验。541BB8未接，不创建/发布新堆或改变既有分配器，CRT宿主提案未获批准。 本步541B59/541B67交真实53BE40/53C2F0，动态环境/filename借用定位及selection逗号后+1保持，整份LegacyMemory只两标识符。只补依赖，不接541BB8、改变分配器/初始化或放行未知mode3布局。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
       "function_chunks": [
         {
           "start": "0x541A70",
@@ -42062,7 +42584,7 @@
           "parent_entry": "0x541BB8"
         }
       ],
-      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行；本步115统计/24查找邻读取、真实动态源与needle/低W8逗号/借用返回+1和唯一541BD8入向、整份源码两标识符静态核对，余91条与其他内存正文不重验",
+      "verification_level": "完整原指令、直接调用和新增源码静态核对；未执行；本步115统计/24查找邻读取、真实动态源与needle/低W8逗号/借用返回+1和唯一541BD8入向、整份源码两标识符静态核对，余91条与其他内存正文不重验；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
       "search_call_connections": [
         {
           "parent_entry": "0x541A70",
@@ -42086,6 +42608,16 @@
           "target_byte": 44,
           "target_push_site": "0x541B64",
           "relationship": "同一借用selection查低W8逗号2CH，返回+1接首分号截断/真实Strtol与原2/3/1判断"
+        }
+      ],
+      "strncmp_call_connections": [
+        {
+          "parent_entry": "0x541A70",
+          "call_site": "0x541B03",
+          "source": "src/platform/LegacyMemory.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
         }
       ]
     },
@@ -86011,7 +86543,7 @@
     {
       "original_entry": "0x50CAE0",
       "inventory_id": "F:0010CAE0",
-      "status": "既有网络P文本名称限长复制已接真实核心；其他比较/依赖及完整运行未验",
+      "status": "网络P文本名称限长复制及两有界比较原点已接真实核心；其它依赖和完整运行未验",
       "original_end_exclusive": "0x50CE01",
       "instruction_count": 278,
       "original_direct_reference_count": 1,
@@ -86048,15 +86580,34 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_network_dispatch.md"
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "verification_level": "父278条统计、名称复制/清零/末NUL相邻58条和单一原caller；原U32动态计数及整份限定源码/两合同追加/JSON两新父与三共享项静态核对，不重验其余220条，未构建或执行",
-      "boundary": "仅50CBE1按U32 cursor复制到64B name并由caller写NUL，原清零/每轮source长度重读/MIC与GP剥前缀/黑名单/2048B非NUL快照及S32长度/对象气泡/普通窗口与音效正文保持；标准比较尚未迁，不新增容量保护、转码或解除其他待决。完整数据生产/网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。"
+      "verification_level": "父278条统计、名称复制/清零/末NUL相邻58条和单一原caller；原U32动态计数及整份限定源码/两合同追加/JSON两新父与三共享项静态核对，不重验其余220条，未构建或执行；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
+      "boundary": "仅50CBE1按U32 cursor复制到64B name并由caller写NUL，原清零/每轮source长度重读/MIC与GP剥前缀/黑名单/2048B非NUL快照及S32长度/对象气泡/普通窗口与音效正文保持；标准比较尚未迁，不新增容量保护、转码或解除其他待决。完整数据生产/网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
+      "strncmp_call_connections": [
+        {
+          "parent_entry": "0x50CAE0",
+          "call_site": "0x50CC0C",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        },
+        {
+          "parent_entry": "0x50CAE0",
+          "call_site": "0x50CC80",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
+        }
+      ]
     },
     {
       "original_entry": "0x50CE10",
       "inventory_id": "F:0010CE10",
-      "status": "既有网络提示命令两复制/子串定位已接真实核心；其他比较/依赖及完整运行未验",
+      "status": "网络提示命令复制/定位及有界比较原点已接真实核心；其它依赖和完整运行未验",
       "original_end_exclusive": "0x50CF19",
       "instruction_count": 79,
       "original_direct_reference_count": 1,
@@ -86104,10 +86655,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_network_dispatch.md"
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_legacy_string_compare.md"
       ],
-      "verification_level": "父完整79条/两个原固定复制计数/命令字节/查找扫描与提示次序、单一原caller；新子串核心66条及内部尾跳，整份限定源码/合同追加/JSON增量静态核对，未构建或执行",
-      "boundary": "仅50CE83/50CEC5两U32复制512/2024及50CEB1真实@MSG定位，原2024B source/512B command未清、反转义/@FIND_LV1前9字节门禁/sound0/53CADC扫描/借用返回+5/两个缓冲不另末NUL、音效→44B050(source,4,3)→554644门禁/返回保持。无新增缺标记保护、初始化或转码，原标准比较未迁；完整网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。",
+      "verification_level": "父完整79条/两个原固定复制计数/命令字节/查找扫描与提示次序、单一原caller；新子串核心66条及内部尾跳，整份限定源码/合同追加/JSON增量静态核对，未构建或执行；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
+      "boundary": "仅50CE83/50CEC5两U32复制512/2024及50CEB1真实@MSG定位，原2024B source/512B command未清、反转义/@FIND_LV1前9字节门禁/sound0/53CADC扫描/借用返回+5/两个缓冲不另末NUL、音效→44B050(source,4,3)→554644门禁/返回保持。无新增缺标记保护、初始化或转码，原标准比较未迁；完整网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
       "search_call_connections": [
         {
           "parent_entry": "0x50CE10",
@@ -86128,6 +86680,16 @@
         {
           "push_site": "0x50CEAB",
           "bytes": "404d53473a00"
+        }
+      ],
+      "strncmp_call_connections": [
+        {
+          "parent_entry": "0x50CE10",
+          "call_site": "0x50CE5F",
+          "source": "src/world/SceneState.cpp",
+          "target_entry": "0x53BFC0",
+          "target_symbol": "StrNCmp_53BFC0",
+          "relationship": "原零/非零消费与参数/后续分支保持"
         }
       ]
     },

@@ -241,6 +241,39 @@ char* StrTok_53D26E(char* text, const char* delimiters)
     return result;
 }
 
+// 原53BFC0；左侧先有界预扫，右/左逐U8比较，末位置复读后返回严格-1/0/1。
+std::int32_t __cdecl StrNCmp_53BFC0(
+    const char* const left, const char* const right, const std::uint32_t count)
+{
+    if (count == 0) {
+        return 0;
+    }
+    const auto* const lhs = reinterpret_cast<const volatile unsigned char*>(left);
+    const auto* const rhs = reinterpret_cast<const volatile unsigned char*>(right);
+    std::uint32_t scanned = 0;
+    do {
+        const unsigned char value = lhs[scanned];
+        ++scanned;
+        if (value == 0) {
+            break;
+        }
+    } while (scanned != count);
+
+    std::uint32_t compared = 0;
+    do {
+        const unsigned char rightByte = rhs[compared];
+        const unsigned char leftByte = lhs[compared];
+        ++compared;
+        if (rightByte != leftByte) {
+            break;
+        }
+    } while (compared != scanned);
+
+    const unsigned char rightByte = rhs[compared - 1u];
+    const unsigned char leftByte = lhs[compared - 1u];
+    return leftByte == rightByte ? 0 : leftByte < rightByte ? -1 : 1;
+}
+
 // 原 [0x5450F0,0x545174)：左侧按 1/2/4 字节对齐读取，右侧逐字节比较。
 std::int32_t __cdecl StrCmp_5450F0(const char* left, const char* right)
 {

@@ -24,6 +24,9 @@ char* Itoa_54ABDD(std::int32_t value, char* buffer, std::int32_t radix);
 // 原53D26E；原字节分词并就地截断，空text续用同一进程共享借用位置。
 char* StrTok_53D26E(char* text, const char* delimiters);
 
+// 原53BFC0；U32有界左侧预扫、右/左比较和末位置复读，数量零不读文本。
+std::int32_t __cdecl StrNCmp_53BFC0(const char* left, const char* right, std::uint32_t count);
+
 // 原53F9E0；源对齐探零/候选复读定位首NUL，返回U32字节数。
 std::uint32_t __cdecl StrLen_53F9E0(const char* text);
 

@@ -69,7 +69,7 @@ std::int32_t SelectLegacyHeapMode_541A70()
         }
 
         char* selection;
-        if (std::strncmp(kGlobalHeapSelection54FAD4, environment, 22) == 0) {
+        if (StrNCmp_53BFC0(kGlobalHeapSelection54FAD4, environment, 22) == 0) {
             selection = environment;
         } else {
             char filename[0x104];

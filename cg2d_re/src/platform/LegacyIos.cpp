@@ -9,8 +9,31 @@
 #include "LegacyRuntimeExit.hpp"
 
 #include <bit>
+#include <type_traits>
 
 namespace cg::platform {
+
+// 原PE已证14个标准流对象初始填零；这里只承载真实被动存储，构析仍沿显式原函数。
+static_assert(std::is_trivial_v<LegacyFileBufferStorage<char>>);
+static_assert(std::is_trivial_v<LegacyNarrowInputStream>);
+static_assert(std::is_trivial_v<LegacyNarrowOutputStream>);
+static_assert(std::is_trivial_v<LegacyFileBufferStorage<std::uint16_t>>);
+static_assert(std::is_trivial_v<LegacyWideInputStream>);
+static_assert(std::is_trivial_v<LegacyWideOutputStream>);
+LegacyFileBufferStorage<char> gLegacyNarrowStandardInputBuffer1086470{};
+LegacyFileBufferStorage<char> gLegacyNarrowStandardOutputBuffer1086348{};
+LegacyFileBufferStorage<char> gLegacyNarrowStandardErrorBuffer10863D8{};
+LegacyNarrowInputStream gLegacyNarrowStandardInput1086430{};
+LegacyNarrowOutputStream gLegacyNarrowStandardOutput10863A0{};
+LegacyNarrowOutputStream gLegacyNarrowStandardError10864C8{};
+LegacyNarrowOutputStream gLegacyNarrowStandardLog1086310{};
+LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardInputBuffer1086610{};
+LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardOutputBuffer10865B8{};
+LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardErrorBuffer10866A0{};
+LegacyWideInputStream gLegacyWideStandardInput1086578{};
+LegacyWideOutputStream gLegacyWideStandardOutput1086668{};
+LegacyWideOutputStream gLegacyWideStandardError1086500{};
+LegacyWideOutputStream gLegacyWideStandardLog1086540{};
 
 void CallLegacyIosCallbacks_54A23C(
     LegacyIosBaseStorage* const storage, const std::int32_t event)

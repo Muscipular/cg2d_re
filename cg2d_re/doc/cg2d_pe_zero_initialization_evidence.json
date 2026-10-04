@@ -393,5 +393,535 @@
       "source_storage_implemented": false
     }
   ],
-  "boundary": "七个真实W32共享槽已定义并被既有真实消费者使用；两早期Init字节只证明载入初值，完整对象存储/生命周期仍待。保持volatile读次数、写序和别名，不将可写状态改常量或用初值代替后续生产。不代批18项运行时补值/清零等裁决，不宣称SDK/模式3/方法表/标准流/启动或运行验收。"
+  "boundary": "七个真实W32共享槽已定义并被既有真实消费者使用；两早期Init字节只证明载入初值，完整对象存储/生命周期仍待。保持volatile读次数、写序和别名，不将可写状态改常量或用初值代替后续生产。不代批18项运行时补值/清零等裁决，不宣称SDK/模式3/方法表/标准流/启动或运行验收。",
+  "standard_stream_global_storage": {
+    "description": "14个完整已证对象的原消费范围均在原PE载入填零区；仅地址拓宽/既有原生类型，被动聚合定义不自动构析，不改变原SDK/CRT启用裁决。",
+    "bindings": [
+      {
+        "symbol": "gLegacyNarrowStandardInputBuffer1086470",
+        "type": "LegacyFileBufferStorage<char>",
+        "original_address": "0x1086470",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardOutputBuffer1086348",
+        "type": "LegacyFileBufferStorage<char>",
+        "original_address": "0x1086348",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardErrorBuffer10863D8",
+        "type": "LegacyFileBufferStorage<char>",
+        "original_address": "0x10863D8",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardInput1086430",
+        "type": "LegacyNarrowInputStream",
+        "original_address": "0x1086430",
+        "original_size": 60,
+        "native_size": 104,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardOutput10863A0",
+        "type": "LegacyNarrowOutputStream",
+        "original_address": "0x10863A0",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardError10864C8",
+        "type": "LegacyNarrowOutputStream",
+        "original_address": "0x10864C8",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyNarrowStandardLog1086310",
+        "type": "LegacyNarrowOutputStream",
+        "original_address": "0x1086310",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardInputBuffer1086610",
+        "type": "LegacyFileBufferStorage<std::uint16_t>",
+        "original_address": "0x1086610",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardOutputBuffer10865B8",
+        "type": "LegacyFileBufferStorage<std::uint16_t>",
+        "original_address": "0x10865B8",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardErrorBuffer10866A0",
+        "type": "LegacyFileBufferStorage<std::uint16_t>",
+        "original_address": "0x10866A0",
+        "original_size": 84,
+        "native_size": 152,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardInput1086578",
+        "type": "LegacyWideInputStream",
+        "original_address": "0x1086578",
+        "original_size": 60,
+        "native_size": 104,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardOutput1086668",
+        "type": "LegacyWideOutputStream",
+        "original_address": "0x1086668",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardError1086500",
+        "type": "LegacyWideOutputStream",
+        "original_address": "0x1086500",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      },
+      {
+        "symbol": "gLegacyWideStandardLog1086540",
+        "type": "LegacyWideOutputStream",
+        "original_address": "0x1086540",
+        "original_size": 56,
+        "native_size": 96,
+        "source": "src/platform/LegacyIos.cpp",
+        "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+        "source_storage_implemented": true,
+        "runtime_verified": false
+      }
+    ],
+    "original_queries": [
+      {
+        "address": "0x1086470",
+        "original_size": 84,
+        "name": "dword_1086470",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086348",
+        "original_size": 84,
+        "name": "dword_1086348",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x10863d8",
+        "original_size": 84,
+        "name": "dword_10863D8",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086430",
+        "original_size": 60,
+        "name": "dword_1086430",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x10863a0",
+        "original_size": 56,
+        "name": "byte_10863A0",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x10864c8",
+        "original_size": 56,
+        "name": "dword_10864C8",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086310",
+        "original_size": 56,
+        "name": "dword_1086310",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086610",
+        "original_size": 84,
+        "name": "dword_1086610",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x10865b8",
+        "original_size": 84,
+        "name": "dword_10865B8",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x10866a0",
+        "original_size": 84,
+        "name": "dword_10866A0",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086578",
+        "original_size": 60,
+        "name": "dword_1086578",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086668",
+        "original_size": 56,
+        "name": "byte_1086668",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086500",
+        "original_size": 56,
+        "name": "dword_1086500",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      },
+      {
+        "address": "0x1086540",
+        "original_size": 56,
+        "name": "dword_1086540",
+        "loaded_byte_count": 0,
+        "segment": ".data",
+        "segment_start": "0x553000",
+        "segment_end": "0x1088000"
+      }
+    ],
+    "existing_direct_source_consumers": [
+      {
+        "entry": "0x5482DD",
+        "symbol": "InitializeLegacyNarrowStandardStreams_5482DD",
+        "storage_symbols": [
+          "gLegacyNarrowStandardInputBuffer1086470",
+          "gLegacyNarrowStandardOutputBuffer1086348",
+          "gLegacyNarrowStandardErrorBuffer10863D8",
+          "gLegacyNarrowStandardInput1086430",
+          "gLegacyNarrowStandardOutput10863A0",
+          "gLegacyNarrowStandardError10864C8",
+          "gLegacyNarrowStandardLog1086310"
+        ]
+      },
+      {
+        "entry": "0x549397",
+        "symbol": "InitializeLegacyWideStandardStreams_549397",
+        "storage_symbols": [
+          "gLegacyWideStandardInputBuffer1086610",
+          "gLegacyWideStandardOutputBuffer10865B8",
+          "gLegacyWideStandardErrorBuffer10866A0",
+          "gLegacyWideStandardInput1086578",
+          "gLegacyWideStandardOutput1086668",
+          "gLegacyWideStandardError1086500",
+          "gLegacyWideStandardLog1086540"
+        ]
+      },
+      {
+        "entry": "0x5491F6",
+        "symbol": "ReleaseLegacyNarrowStandardStreams_5491F6",
+        "storage_symbols": [
+          "gLegacyNarrowStandardOutput10863A0",
+          "gLegacyNarrowStandardError10864C8",
+          "gLegacyNarrowStandardLog1086310"
+        ]
+      },
+      {
+        "entry": "0x549220",
+        "symbol": "ReleaseLegacyWideStandardStreams_549220",
+        "storage_symbols": [
+          "gLegacyWideStandardOutput1086668",
+          "gLegacyWideStandardError1086500",
+          "gLegacyWideStandardLog1086540"
+        ]
+      },
+      {
+        "entry": "0x54825C",
+        "symbol": "ConstructLegacyNarrowErrorBufferLate_54825C",
+        "storage_symbols": [
+          "gLegacyNarrowStandardErrorBuffer10863D8"
+        ]
+      },
+      {
+        "entry": "0x548275",
+        "symbol": "DestroyLegacyNarrowErrorBufferAtExit_548275",
+        "storage_symbols": [
+          "gLegacyNarrowStandardErrorBuffer10863D8"
+        ]
+      },
+      {
+        "entry": "0x549343",
+        "symbol": "RegisterLegacyWideErrorStreamLate_549343",
+        "storage_symbols": [
+          "gLegacyWideStandardError1086500"
+        ]
+      },
+      {
+        "entry": "0x54935E",
+        "symbol": "DestroyLegacyWideErrorStreamAtExit_54935E",
+        "storage_symbols": [
+          "gLegacyWideStandardError1086500"
+        ]
+      },
+      {
+        "entry": "0x54817A",
+        "symbol": "ConstructLegacyNarrowInputBufferLate_54817A",
+        "storage_symbols": [
+          "gLegacyNarrowStandardInputBuffer1086470"
+        ]
+      },
+      {
+        "entry": "0x548193",
+        "symbol": "DestroyLegacyNarrowInputBufferAtExit_548193",
+        "storage_symbols": [
+          "gLegacyNarrowStandardInputBuffer1086470"
+        ]
+      },
+      {
+        "entry": "0x5481A7",
+        "symbol": "ConstructLegacyNarrowOutputBufferLate_5481A7",
+        "storage_symbols": [
+          "gLegacyNarrowStandardOutputBuffer1086348"
+        ]
+      },
+      {
+        "entry": "0x5481C0",
+        "symbol": "DestroyLegacyNarrowOutputBufferAtExit_5481C0",
+        "storage_symbols": [
+          "gLegacyNarrowStandardOutputBuffer1086348"
+        ]
+      },
+      {
+        "entry": "0x549234",
+        "symbol": "ConstructLegacyWideInputBufferLate_549234",
+        "storage_symbols": [
+          "gLegacyWideStandardInputBuffer1086610"
+        ]
+      },
+      {
+        "entry": "0x54924D",
+        "symbol": "DestroyLegacyWideInputBufferAtExit_54924D",
+        "storage_symbols": [
+          "gLegacyWideStandardInputBuffer1086610"
+        ]
+      },
+      {
+        "entry": "0x549261",
+        "symbol": "ConstructLegacyWideOutputBufferLate_549261",
+        "storage_symbols": [
+          "gLegacyWideStandardOutputBuffer10865B8"
+        ]
+      },
+      {
+        "entry": "0x54927A",
+        "symbol": "DestroyLegacyWideOutputBufferAtExit_54927A",
+        "storage_symbols": [
+          "gLegacyWideStandardOutputBuffer10865B8"
+        ]
+      },
+      {
+        "entry": "0x54928E",
+        "symbol": "ConstructLegacyWideErrorBufferLate_54928E",
+        "storage_symbols": [
+          "gLegacyWideStandardErrorBuffer10866A0"
+        ]
+      },
+      {
+        "entry": "0x5492A7",
+        "symbol": "DestroyLegacyWideErrorBufferAtExit_5492A7",
+        "storage_symbols": [
+          "gLegacyWideStandardErrorBuffer10866A0"
+        ]
+      },
+      {
+        "entry": "0x5481D4",
+        "symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+        "storage_symbols": [
+          "gLegacyNarrowStandardInput1086430"
+        ]
+      },
+      {
+        "entry": "0x5481EF",
+        "symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+        "storage_symbols": [
+          "gLegacyNarrowStandardInput1086430"
+        ]
+      },
+      {
+        "entry": "0x548218",
+        "symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+        "storage_symbols": [
+          "gLegacyNarrowStandardOutput10863A0"
+        ]
+      },
+      {
+        "entry": "0x548233",
+        "symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+        "storage_symbols": [
+          "gLegacyNarrowStandardOutput10863A0"
+        ]
+      },
+      {
+        "entry": "0x548289",
+        "symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+        "storage_symbols": [
+          "gLegacyNarrowStandardError10864C8"
+        ]
+      },
+      {
+        "entry": "0x5482A4",
+        "symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+        "storage_symbols": [
+          "gLegacyNarrowStandardError10864C8"
+        ]
+      },
+      {
+        "entry": "0x5482B8",
+        "symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+        "storage_symbols": [
+          "gLegacyNarrowStandardLog1086310"
+        ]
+      },
+      {
+        "entry": "0x5482D3",
+        "symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+        "storage_symbols": [
+          "gLegacyNarrowStandardLog1086310"
+        ]
+      },
+      {
+        "entry": "0x5492BB",
+        "symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+        "storage_symbols": [
+          "gLegacyWideStandardInput1086578"
+        ]
+      },
+      {
+        "entry": "0x5492D6",
+        "symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+        "storage_symbols": [
+          "gLegacyWideStandardInput1086578"
+        ]
+      },
+      {
+        "entry": "0x5492FF",
+        "symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+        "storage_symbols": [
+          "gLegacyWideStandardOutput1086668"
+        ]
+      },
+      {
+        "entry": "0x54931A",
+        "symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+        "storage_symbols": [
+          "gLegacyWideStandardOutput1086668"
+        ]
+      },
+      {
+        "entry": "0x549372",
+        "symbol": "RegisterLegacyWideLogStreamLate_549372",
+        "storage_symbols": [
+          "gLegacyWideStandardLog1086540"
+        ]
+      },
+      {
+        "entry": "0x54938D",
+        "symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+        "storage_symbols": [
+          "gLegacyWideStandardLog1086540"
+        ]
+      }
+    ],
+    "boundary": "这里只闭合14对象的载入初值、真实存储及既有源消费者；四Init对象类型/容量、登记数组容量/别名、CPP90表启用与完整标准流/SDK/运行仍未闭。两个已加载S32计数-1及全部现有函数/方法表/清理顺序保持；不引入宿主iostream、影子owner或自动构析。"
+  }
 }

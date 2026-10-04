@@ -12607,7 +12607,7 @@
     {
       "original_entry": "0x54817A",
       "inventory_id": "F:0014817A",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x548187",
       "instruction_count": 4,
       "sources": [
@@ -12632,13 +12632,21 @@
             "ConstructLegacyNarrowInputBufferLate_54817A"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardInputBuffer1086470"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086470传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "给1086470传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInputBuffer1086470。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x54817A",
@@ -12665,12 +12673,25 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardInputBuffer1086470",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086470",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x548193",
       "inventory_id": "F:00148193",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54819D",
       "instruction_count": 2,
       "sources": [
@@ -12695,13 +12716,21 @@
             "DestroyLegacyNarrowInputBufferAtExit_548193"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardInputBuffer1086470"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086470为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "以1086470为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInputBuffer1086470。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x548193",
@@ -12726,7 +12755,20 @@
           "relationship": "原实际无参callback地址传53B406，未自动调当前CRT/宿主退出"
         }
       ],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardInputBuffer1086470",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086470",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54819D",
@@ -12812,7 +12854,7 @@
     {
       "original_entry": "0x5481A7",
       "inventory_id": "F:001481A7",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5481B4",
       "instruction_count": 4,
       "sources": [
@@ -12837,13 +12879,21 @@
             "ConstructLegacyNarrowOutputBufferLate_5481A7"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardOutputBuffer1086348"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086348传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "给1086348传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutputBuffer1086348。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x5481A7",
@@ -12870,12 +12920,25 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardOutputBuffer1086348",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086348",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x5481C0",
       "inventory_id": "F:001481C0",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5481CA",
       "instruction_count": 2,
       "sources": [
@@ -12900,13 +12963,21 @@
             "DestroyLegacyNarrowOutputBufferAtExit_5481C0"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardOutputBuffer1086348"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086348为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "以1086348为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutputBuffer1086348。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x5481C0",
@@ -12931,7 +13002,20 @@
           "relationship": "原实际无参callback地址传53B406，未自动调当前CRT/宿主退出"
         }
       ],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardOutputBuffer1086348",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086348",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x5481CA",
@@ -13025,7 +13109,7 @@
     {
       "original_entry": "0x5481D4",
       "inventory_id": "F:001481D4",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5481E3",
       "instruction_count": 5,
       "sources": [
@@ -13050,15 +13134,23 @@
             "RegisterLegacyNarrowInputStreamLate_5481D4"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardInput1086430"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086430传0、1并调用54859F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给1086430传0、1并调用54859F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInput1086430。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5481D4",
@@ -13082,12 +13174,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardInput1086430",
+          "type": "LegacyNarrowInputStream",
+          "original_address": "0x1086430",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x5481EF",
       "inventory_id": "F:001481EF",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5481F9",
       "instruction_count": 2,
       "sources": [
@@ -13112,15 +13217,23 @@
             "DestroyLegacyNarrowInputStreamAtExit_5481EF"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardInput1086430"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086430为this进入5481F9，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以1086430为this进入5481F9，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInput1086430。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5481EF",
@@ -13143,6 +13256,19 @@
           "symbol": "InitializeLegacyNarrowInputStream_5481CA",
           "object": "gLegacyNarrowStandardInput1086430",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardInput1086430",
+          "type": "LegacyNarrowInputStream",
+          "original_address": "0x1086430",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -13238,7 +13364,7 @@
     {
       "original_entry": "0x548218",
       "inventory_id": "F:00148218",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x548227",
       "instruction_count": 5,
       "sources": [
@@ -13263,15 +13389,23 @@
             "RegisterLegacyNarrowOutputStreamLate_548218"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardOutput10863A0"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给10863A0传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给10863A0传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutput10863A0。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x548218",
@@ -13295,12 +13429,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardOutput10863A0",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10863A0",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x548233",
       "inventory_id": "F:00148233",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54823D",
       "instruction_count": 2,
       "sources": [
@@ -13325,15 +13472,23 @@
             "DestroyLegacyNarrowOutputStreamAtExit_548233"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardOutput10863A0"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以10863A0为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以10863A0为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutput10863A0。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x548233",
@@ -13356,6 +13511,19 @@
           "symbol": "InitializeLegacyNarrowOutputStream_54820E",
           "object": "gLegacyNarrowStandardOutput10863A0",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardOutput10863A0",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10863A0",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -13433,7 +13601,7 @@
     {
       "original_entry": "0x54825C",
       "inventory_id": "F:0014825C",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x548269",
       "instruction_count": 4,
       "sources": [
@@ -13459,13 +13627,21 @@
             "ConstructLegacyNarrowErrorBufferLate_54825C"
           ],
           "relationship": "显式真实接口；位置对象/计数/状态W32不扩、只已证指针拓宽"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardErrorBuffer10863D8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给10863D8传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "给10863D8传0并调用5487D3；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardErrorBuffer10863D8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_exit_internal_call_connections": [
         {
           "parent_entry": "0x54825C",
@@ -13490,12 +13666,25 @@
           "arguments": "原实际errorBuffer/error对象或对应晚段入口"
         }
       ],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardErrorBuffer10863D8",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x10863D8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x548275",
       "inventory_id": "F:00148275",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54827F",
       "instruction_count": 2,
       "sources": [
@@ -13521,13 +13710,21 @@
             "DestroyLegacyNarrowErrorBufferAtExit_548275"
           ],
           "relationship": "显式真实接口；位置对象/计数/状态W32不扩、只已证指针拓宽"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardErrorBuffer10863D8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以10863D8为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "以10863D8为this进入5487DE的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardErrorBuffer10863D8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_exit_internal_call_connections": [
         {
           "parent_entry": "0x548275",
@@ -13541,7 +13738,20 @@
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardErrorBuffer10863D8",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x10863D8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54827F",
@@ -13635,7 +13845,7 @@
     {
       "original_entry": "0x548289",
       "inventory_id": "F:00148289",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x548298",
       "instruction_count": 5,
       "sources": [
@@ -13660,15 +13870,23 @@
             "RegisterLegacyNarrowErrorStreamLate_548289"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardError10864C8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给10864C8传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给10864C8传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardError10864C8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x548289",
@@ -13692,12 +13910,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardError10864C8",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10864C8",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x5482A4",
       "inventory_id": "F:001482A4",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5482AE",
       "instruction_count": 2,
       "sources": [
@@ -13722,15 +13953,23 @@
             "DestroyLegacyNarrowErrorStreamAtExit_5482A4"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardError10864C8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以10864C8为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以10864C8为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardError10864C8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5482A4",
@@ -13753,6 +13992,19 @@
           "symbol": "InitializeLegacyNarrowErrorStream_54827F",
           "object": "gLegacyNarrowStandardError10864C8",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardError10864C8",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10864C8",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -13848,7 +14100,7 @@
     {
       "original_entry": "0x5482B8",
       "inventory_id": "F:001482B8",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5482C7",
       "instruction_count": 5,
       "sources": [
@@ -13873,15 +14125,23 @@
             "RegisterLegacyNarrowLogStreamLate_5482B8"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardLog1086310"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086310传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给1086310传0、1并调用5484CD，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5482B8",
@@ -13905,12 +14165,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardLog1086310",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x1086310",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x5482D3",
       "inventory_id": "F:001482D3",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5482DD",
       "instruction_count": 2,
       "sources": [
@@ -13935,15 +14208,23 @@
             "DestroyLegacyNarrowLogStreamAtExit_5482D3"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardLog1086310"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086310为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以1086310为this进入54823D，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5482D3",
@@ -13966,6 +14247,19 @@
           "symbol": "InitializeLegacyNarrowLogStream_5482AE",
           "object": "gLegacyNarrowStandardLog1086310",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardLog1086310",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x1086310",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -14053,7 +14347,7 @@
     {
       "original_entry": "0x549234",
       "inventory_id": "F:00149234",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549241",
       "instruction_count": 4,
       "sources": [
@@ -14078,13 +14372,21 @@
             "ConstructLegacyWideInputBufferLate_549234"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardInputBuffer1086610"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086610传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "给1086610传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInputBuffer1086610。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x549234",
@@ -14111,12 +14413,25 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardInputBuffer1086610",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x1086610",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54924D",
       "inventory_id": "F:0014924D",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549257",
       "instruction_count": 2,
       "sources": [
@@ -14141,13 +14456,21 @@
             "DestroyLegacyWideInputBufferAtExit_54924D"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardInputBuffer1086610"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086610为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "以1086610为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInputBuffer1086610。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x54924D",
@@ -14172,7 +14495,20 @@
           "relationship": "原实际无参callback地址传53B406，未自动调当前CRT/宿主退出"
         }
       ],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardInputBuffer1086610",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x1086610",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x549257",
@@ -14258,7 +14594,7 @@
     {
       "original_entry": "0x549261",
       "inventory_id": "F:00149261",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54926E",
       "instruction_count": 4,
       "sources": [
@@ -14283,13 +14619,21 @@
             "ConstructLegacyWideOutputBufferLate_549261"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardOutputBuffer10865B8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给10865B8传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "给10865B8传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardOutputBuffer10865B8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x549261",
@@ -14316,12 +14660,25 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardOutputBuffer10865B8",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10865B8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54927A",
       "inventory_id": "F:0014927A",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549284",
       "instruction_count": 2,
       "sources": [
@@ -14346,13 +14703,21 @@
             "DestroyLegacyWideOutputBufferAtExit_54927A"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardOutputBuffer10865B8"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以10865B8为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "以10865B8为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardOutputBuffer10865B8。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x54927A",
@@ -14377,7 +14742,20 @@
           "relationship": "原实际无参callback地址传53B406，未自动调当前CRT/宿主退出"
         }
       ],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardOutputBuffer10865B8",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10865B8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x549284",
@@ -14464,7 +14842,7 @@
     {
       "original_entry": "0x54928E",
       "inventory_id": "F:0014928E",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54929B",
       "instruction_count": 4,
       "sources": [
@@ -14490,13 +14868,21 @@
             "ConstructLegacyWideErrorBufferLate_54928E"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardErrorBuffer10866A0"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给10866A0传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "给10866A0传0并调用54992A；该目标实际仅改filebuf虚表并返回原指针，不重新打开文件或重置已建立FILE。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardErrorBuffer10866A0。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x54928E",
@@ -14523,12 +14909,25 @@
       ],
       "standard_stream_crt_callback_references": [],
       "standard_stream_crt_incoming_callback_references": [],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardErrorBuffer10866A0",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10866A0",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x5492A7",
       "inventory_id": "F:001492A7",
-      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/全局存储初值及退出完整运行未闭",
+      "status": "原七项标准流CRT缓冲/控制器链19本体已实现；实际CRT启用/Init/登记全局存储及退出完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5492B1",
       "instruction_count": 2,
       "sources": [
@@ -14554,13 +14953,21 @@
             "DestroyLegacyWideErrorBufferAtExit_5492A7"
           ],
           "relationship": "显式真实接口/返回，原Init对象仅不完整类型地址声明，不造替身/初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardErrorBuffer10866A0"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以10866A0为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。",
+      "boundary": "以10866A0为this进入549935的filebuf清理；条件关闭、动态文本及locale释放属于缓冲owner，不由借用的两个流重复释放。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次19新原76条/26数值call或尾调/七callback地址实现。五真实缓冲晚段只原表写(0)/返this，析构各同一对象，随后登记原callback传出完整S32；两控制器动作传原1086539/1086538地址给已过控制器，构造返回真实this；其CRT登记对应真实退出计数包装。Init对象无字段/容量证据保持不完整类型/extern，不定义1B替身或补初值。旧宿主/库算法不复检、不自动挂CRT；全局存储初值/注册生产、真实启动/退出表扩容、clear/模式3/SDK与完整运行仍待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardErrorBuffer10866A0。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492A7",
@@ -14585,7 +14992,20 @@
           "relationship": "原实际无参callback地址传53B406，未自动调当前CRT/宿主退出"
         }
       ],
-      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行"
+      "verification_level": "；本次新完整原指令/分离chunk、真实对象参数/七callback与新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardErrorBuffer10866A0",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10866A0",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x5492B1",
@@ -14679,7 +15099,7 @@
     {
       "original_entry": "0x5492BB",
       "inventory_id": "F:001492BB",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5492CA",
       "instruction_count": 5,
       "sources": [
@@ -14704,15 +15124,23 @@
             "RegisterLegacyWideInputStreamLate_5492BB"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardInput1086578"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086578传0、1并调用5496AB，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给1086578传0、1并调用5496AB，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInput1086578。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492BB",
@@ -14736,12 +15164,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardInput1086578",
+          "type": "LegacyWideInputStream",
+          "original_address": "0x1086578",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x5492D6",
       "inventory_id": "F:001492D6",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x5492E0",
       "instruction_count": 2,
       "sources": [
@@ -14766,15 +15207,23 @@
             "DestroyLegacyWideInputStreamAtExit_5492D6"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardInput1086578"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086578为this进入5492E0，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以1086578为this进入5492E0，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInput1086578。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492D6",
@@ -14797,6 +15246,19 @@
           "symbol": "InitializeLegacyWideInputStream_5492B1",
           "object": "gLegacyWideStandardInput1086578",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardInput1086578",
+          "type": "LegacyWideInputStream",
+          "original_address": "0x1086578",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -14892,7 +15354,7 @@
     {
       "original_entry": "0x5492FF",
       "inventory_id": "F:001492FF",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54930E",
       "instruction_count": 5,
       "sources": [
@@ -14917,15 +15379,23 @@
             "RegisterLegacyWideOutputStreamLate_5492FF"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardOutput1086668"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086668传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给1086668传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardOutput1086668。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x5492FF",
@@ -14949,12 +15419,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardOutput1086668",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086668",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x54931A",
       "inventory_id": "F:0014931A",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549324",
       "instruction_count": 2,
       "sources": [
@@ -14979,15 +15462,23 @@
             "DestroyLegacyWideOutputStreamAtExit_54931A"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardOutput1086668"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086668为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以1086668为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardOutput1086668。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x54931A",
@@ -15010,6 +15501,19 @@
           "symbol": "InitializeLegacyWideOutputStream_5492F5",
           "object": "gLegacyWideStandardOutput1086668",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardOutput1086668",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086668",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -15086,7 +15590,7 @@
     {
       "original_entry": "0x549343",
       "inventory_id": "F:00149343",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549352",
       "instruction_count": 5,
       "sources": [
@@ -15111,13 +15615,21 @@
             "RegisterLegacyWideErrorStreamLate_549343"
           ],
           "relationship": "显式真实接口；位置对象/计数/状态W32不扩、只已证指针拓宽"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardError1086500"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086500传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "给1086500传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardError1086500。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_exit_internal_call_connections": [
         {
           "parent_entry": "0x549343",
@@ -15142,12 +15654,25 @@
           "arguments": "原实际errorBuffer/error对象或对应晚段入口"
         }
       ],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardError1086500",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086500",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x54935E",
       "inventory_id": "F:0014935E",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549368",
       "instruction_count": 2,
       "sources": [
@@ -15172,13 +15697,21 @@
             "DestroyLegacyWideErrorStreamAtExit_54935E"
           ],
           "relationship": "显式真实接口；位置对象/计数/状态W32不扩、只已证指针拓宽"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardError1086500"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086500为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。",
+      "boundary": "以1086500为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardError1086500。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_exit_internal_call_connections": [
         {
           "parent_entry": "0x54935E",
@@ -15192,7 +15725,20 @@
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检"
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardError1086500",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086500",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x549368",
@@ -15286,7 +15832,7 @@
     {
       "original_entry": "0x549372",
       "inventory_id": "F:00149372",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549381",
       "instruction_count": 5,
       "sources": [
@@ -15311,15 +15857,23 @@
             "RegisterLegacyWideLogStreamLate_549372"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardLog1086540"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "给1086540传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "给1086540传0、1并调用54958F，处理虚基/虚表与_Addstd登记，不把先前缓冲绑定清空。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x549372",
@@ -15343,12 +15897,25 @@
           "arguments": "无参原晚段动作，结果不作成功门禁",
           "relationship": "原真实晚段登记构造/同对象析构尾调/53B406：保持固定对象、参数0/1及完整返回；不自动启用CRT"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardLog1086540",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086540",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x54938D",
       "inventory_id": "F:0014938D",
-      "status": "原七项标准流对象CRT链21本体已实现；实际全局存储/启动退出及完整运行未闭",
+      "status": "原七项标准流对象CRT链21本体已实现；Init/登记全局存储/启动退出及完整运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549397",
       "instruction_count": 2,
       "sources": [
@@ -15373,15 +15940,23 @@
             "DestroyLegacyWideLogStreamAtExit_54938D"
           ],
           "relationship": "真实原生接口；使用已声明实际对象，不新建存储或补初值"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardLog1086540"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086540为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。",
-      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行",
+      "boundary": "以1086540为this进入549324，恢复流虚表并进入ios基础清理；不将rdbuf借用当成缓冲所有权。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04七项流对象CRT链21新原91条/28原call或尾调/七无参callback及七实际CRT表data引用源码实现。晚段固定真实对象传0/1给已过登记构造并返回真实this，不调用basic_ios初始化或重建FILE/缓冲；callback析构同对象。CRT先晚段动作再真实53B406，完整S32返回，无once/rollback/宿主替换。全局对象存储初值/登记数据、真实CRT启动退出/表扩容、clear真抛出及SDK/模式3/完整运行仍待，未自动启用迁移。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
+      "verification_level": "新完整原本体/chunks与数值call/callback/CRT data引用及新增源码静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_object_crt_internal_call_connections": [
         {
           "parent_entry": "0x54938D",
@@ -15404,6 +15979,19 @@
           "symbol": "InitializeLegacyWideLogStream_549368",
           "object": "gLegacyWideStandardLog1086540",
           "relationship": "原push实际无参callback地址；回调将同一全局对象传给已过原析构，不借用宿主对象"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardLog1086540",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086540",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -15560,7 +16148,7 @@
     {
       "original_entry": "0x5491F6",
       "inventory_id": "F:001491F6",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x549200",
       "instruction_count": 11,
       "sources": [
@@ -15602,13 +16190,23 @@
             "ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30"
           ],
           "relationship": "本次早段真实父消费或共享chunk复用，旧本体/原数组不改或复检，非伪数值call"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardOutput10863A0",
+            "gLegacyNarrowStandardError10864C8",
+            "gLegacyNarrowStandardLog1086310"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086539为this跳入共享54843C退出尾；先减592894，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x5491EA，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。",
+      "boundary": "以1086539为this跳入共享54843C退出尾；先减592894，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x5491EA，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "original_chunks": [
         [
           "0x5491F6",
@@ -15652,7 +16250,7 @@
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行",
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_crt_parent_call_connections": [],
       "standard_stream_crt_incoming_callback_references": [
         {
@@ -15675,6 +16273,41 @@
           "symbol": "ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30",
           "original_initializer_address": "0x628FE9",
           "relationship": "原共享chunk已在后段退出原体实现，this/ECX不消费；native调用该真实源码复用计数/输出→错误→日志刷新，不把跳转伪成对后段入口原数值call或新增原身份"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardOutput10863A0",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10863A0",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardError10864C8",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10864C8",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardLog1086310",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x1086310",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -15831,7 +16464,7 @@
     {
       "original_entry": "0x549220",
       "inventory_id": "F:00149220",
-      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；全局owner/实际启动退出/clear和SDK运行未闭",
+      "status": "原标准流退出/刷新/晚段与CRT登记11本体已实现；Init/登记owner/实际启动退出/clear和SDK运行未闭；本条标准流对象被动存储/载入初值已接",
       "original_end_exclusive": "0x54922A",
       "instruction_count": 11,
       "sources": [
@@ -15873,13 +16506,23 @@
             "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70"
           ],
           "relationship": "本次早段真实父消费或共享chunk复用，旧本体/原数组不改或复检，非伪数值call"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardOutput1086668",
+            "gLegacyWideStandardError1086500",
+            "gLegacyWideStandardLog1086540"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "以1086538为this跳入共享5494FE退出尾；先减5929EC，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x549214，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。",
+      "boundary": "以1086538为this跳入共享5494FE退出尾；先减5929EC，只在0时按输出/错误/日志同步三流。指令数含共享尾，不能只记入口两条或与前段退出重复计作独立状态。当前由本机标准流/缓冲持有真实资源，应用侧按既有SPEC配置与同步；错误/日志的共享缓冲已显式绑定。不是原私有计数、分配失败、异常展开或全进程退出等价完成，也不列范围排除。；2026-10-04本次11新原87条/15数值call或尾调、共用sync槽11消费者源码实现。退出独立S32计数减W32到0才原顺序output→error→log刷新，entry隐含Init对象地址未消费/不猜大小或新造对象。flush状态低位&6为0才真实buffer.sync、原无空保护、完整-1才error4；始终第二次投影当前ios，失败实际state/当前buffer空门禁后clear(0重抛)。两晚段仅写实际filebuf表/返this，未消费W32不猜指针。窄54825C actual errorBuffer晚段0、callback原filebuf析构；宽549343 actual error流登记(0,1)、callback原output析构；两CRT入口真实先动作后53B406，完整S32返回传出，不改当前宿主入口/自动挂CRT、退出表扩容/模式3/clear抛出/14对象初值完整分配与SDK/实际运行继续待。；2026-10-04新增标准流CRT原点0x549214，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardOutput1086668、gLegacyWideStandardError1086500、gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "original_chunks": [
         [
           "0x549220",
@@ -15923,7 +16566,7 @@
         }
       ],
       "standard_stream_exit_parent_call_connections": [],
-      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行",
+      "verification_level": "；本次完整87条含原分离chunk/真实父参数及15点与槽11新增静态，未执行，旧库本体不复检；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "standard_stream_crt_parent_call_connections": [],
       "standard_stream_crt_incoming_callback_references": [
         {
@@ -15946,6 +16589,41 @@
           "symbol": "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70",
           "original_initializer_address": "0x628FE8",
           "relationship": "原共享chunk已在后段退出原体实现，this/ECX不消费；native调用该真实源码复用计数/输出→错误→日志刷新，不把跳转伪成对后段入口原数值call或新增原身份"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardOutput1086668",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086668",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardError1086500",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086500",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardLog1086540",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086540",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },
@@ -63873,11 +64551,11 @@
     {
       "original_entry": "0x5482DD",
       "inventory_id": "F:001482DD",
-      "status": "原窄宽标准流控制器两本体已实现；全局owner存储/初值、退出启动/SDK及运行未闭",
+      "status": "原窄宽标准流控制器两本体及14个共享对象被动存储/载入初值已实现；Init对象/登记表、CPP90启用与生命周期/SDK运行未闭",
       "original_end_exclusive": "0x54843B",
       "instruction_count": 156,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "function_chunks": [
         {
           "start": "0x5482DD",
@@ -63934,12 +64612,26 @@
             "ConstructLegacyNarrowEarlyStandardInitializer_453E10"
           ],
           "relationship": "本次早段真实父消费或共享chunk复用，旧本体/原数组不改或复检，非伪数值call"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyNarrowStandardInputBuffer1086470",
+            "gLegacyNarrowStandardOutputBuffer1086348",
+            "gLegacyNarrowStandardErrorBuffer10863D8",
+            "gLegacyNarrowStandardInput1086430",
+            "gLegacyNarrowStandardOutput10863A0",
+            "gLegacyNarrowStandardError10864C8",
+            "gLegacyNarrowStandardLog1086310"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "窄标准流控制器：592894为S32，已加载初值-1；非负只递增并返回this，负值先写1再按stdin/stdout缓冲、输入/输出、stderr缓冲、错误/日志流顺序构造。输入/错误/日志tie输出，错误flags或2，错误和日志共用10863D8。保留54C064..54C0DE异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x5491E5，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。",
+      "boundary": "窄标准流控制器：592894为S32，已加载初值-1；非负只递增并返回this，负值先写1再按stdin/stdout缓冲、输入/输出、stderr缓冲、错误/日志流顺序构造。输入/错误/日志tie输出，错误flags或2，错误和日志共用10863D8。保留54C064..54C0DE异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x5491E5，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyNarrowStandardInputBuffer1086470、gLegacyNarrowStandardOutputBuffer1086348、gLegacyNarrowStandardErrorBuffer10863D8、gLegacyNarrowStandardInput1086430、gLegacyNarrowStandardOutput10863A0、gLegacyNarrowStandardError10864C8、gLegacyNarrowStandardLog1086310。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_controller_internal_call_connections": [
         {
           "parent_entry": "0x5482DD",
@@ -64266,16 +64958,95 @@
           "arguments": "&gLegacyNarrowEarlyStandardInitializer628FE9 实际Init地址，控制器只保存/返回",
           "relationship": "原早段标准流真实动作/登记/控制器尾调，不改宿主自动初始化或复检旧目标"
         }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyNarrowStandardInputBuffer1086470",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086470",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardOutputBuffer1086348",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x1086348",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardErrorBuffer10863D8",
+          "type": "LegacyFileBufferStorage<char>",
+          "original_address": "0x10863D8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardInput1086430",
+          "type": "LegacyNarrowInputStream",
+          "original_address": "0x1086430",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardOutput10863A0",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10863A0",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardError10864C8",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x10864C8",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyNarrowStandardLog1086310",
+          "type": "LegacyNarrowOutputStream",
+          "original_address": "0x1086310",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        }
       ]
     },
     {
       "original_entry": "0x549397",
       "inventory_id": "F:00149397",
-      "status": "原窄宽标准流控制器两本体已实现；全局owner存储/初值、退出启动/SDK及运行未闭",
+      "status": "原窄宽标准流控制器两本体及14个共享对象被动存储/载入初值已实现；Init对象/登记表、CPP90启用与生命周期/SDK运行未闭",
       "original_end_exclusive": "0x5494FE",
       "instruction_count": 155,
       "original_direct_reference_count": 2,
-      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行",
+      "verification_level": "完整指令及全部直接入向，保留分离清理/异常chunk；2026-10-04新原完整311条/参数与分支、计数加载字、两7state FuncInfo及单RET/原接线和新增静态，未执行；新CRT实际父点/callback地址与新增静态，不执行；仅14被动定义/原PE范围及本条现有源消费者绑定新增静态，不编译或复核旧算法",
       "function_chunks": [
         {
           "start": "0x549397",
@@ -64332,12 +65103,26 @@
             "ConstructLegacyWideEarlyStandardInitializer_453E50"
           ],
           "relationship": "本次早段真实父消费或共享chunk复用，旧本体/原数组不改或复检，非伪数值call"
+        },
+        {
+          "path": "src/platform/LegacyIos.cpp",
+          "symbols": [
+            "gLegacyWideStandardInputBuffer1086610",
+            "gLegacyWideStandardOutputBuffer10865B8",
+            "gLegacyWideStandardErrorBuffer10866A0",
+            "gLegacyWideStandardInput1086578",
+            "gLegacyWideStandardOutput1086668",
+            "gLegacyWideStandardError1086500",
+            "gLegacyWideStandardLog1086540"
+          ],
+          "relationship": "原载入初值已证的真实14标准流存储；本条既有直接源消费者承接同名地址，不自动构析/启用"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
       ],
-      "boundary": "宽标准流控制器：独立5929EC为S32，已加载初值-1；非负只递增，负值先写1。先构造stdin/stdout/stderr三个缓冲，再输入/输出/错误/日志；错误与日志共用10866A0，tie及unitbuf保持。保留54C1C4..54C23E异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x54920F，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。",
+      "boundary": "宽标准流控制器：独立5929EC为S32，已加载初值-1；非负只递增，负值先写1。先构造stdin/stdout/stderr三个缓冲，再输入/输出/错误/日志；错误与日志共用10866A0，tie及unitbuf保持。保留54C1C4..54C23E异常尾。 本轮不新增私有标准流或放行待批CRT宿主提案，原x86偏移不直接用作x64布局。；2026-10-04按本次311完整新指令两控制器实现，各7正常原构造+7当前state候选展开点。N先stdin/stdout缓冲→输入/输出→stderr缓冲→错误/日志，W先三缓冲后四流；三个FILE参数分别同一原表0/1/2，错误/日志共用原缓冲，输入/错误/日志tie输出，错误format|2在再次动态投影之后。计数已加载-1各真实独立定义，非负读取再增W32返回this，负先写1且失败不恢复；14对象仅extern真实地址、不补未加载初值/完整分配。展开prev全部-1，原54843B只单RET，经两地址适配复用已有原叶，无已完成对象析构/回滚。标准流完整owner存储/退出、全CRT启动/SDK及运行未闭，不自动替换旧宿主入口或代批CRT提案。；2026-10-04新增标准流CRT原点0x54920F，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04原PE载入尾部[593000,1087B08)完整覆盖本条标准流对象已证原消费范围，新增真实同名原生聚合存储：gLegacyWideStandardInputBuffer1086610、gLegacyWideStandardOutputBuffer10865B8、gLegacyWideStandardErrorBuffer10866A0、gLegacyWideStandardInput1086578、gLegacyWideStandardOutput1086668、gLegacyWideStandardError1086500、gLegacyWideStandardLog1086540。现有构造/退出/共享错误缓冲/tie消费者直接承接同一地址，方法表/原堆/计数-1/读写别名与原函数不改；六类型trivial静态断言限制为被动存储，不触发宿主或额外自动构析。这里只闭合14对象存储与初值，四Init对象/登记数组容量与别名、CPP90实际启用、标准流完整生命周期/SDK/运行仍待，不据PE初值代替运行时生产或待批补值。",
       "standard_stream_controller_internal_call_connections": [
         {
           "parent_entry": "0x549397",
@@ -64663,6 +65448,85 @@
           "symbol": "ConstructLegacyWideEarlyStandardInitializer_453E50",
           "arguments": "&gLegacyWideEarlyStandardInitializer628FE8 实际Init地址，控制器只保存/返回",
           "relationship": "原早段标准流真实动作/登记/控制器尾调，不改宿主自动初始化或复检旧目标"
+        }
+      ],
+      "standard_stream_global_storage_bindings": [
+        {
+          "symbol": "gLegacyWideStandardInputBuffer1086610",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x1086610",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardOutputBuffer10865B8",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10865B8",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardErrorBuffer10866A0",
+          "type": "LegacyFileBufferStorage<std::uint16_t>",
+          "original_address": "0x10866A0",
+          "original_size": 84,
+          "native_size": 152,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardInput1086578",
+          "type": "LegacyWideInputStream",
+          "original_address": "0x1086578",
+          "original_size": 60,
+          "native_size": 104,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardOutput1086668",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086668",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardError1086500",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086500",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "symbol": "gLegacyWideStandardLog1086540",
+          "type": "LegacyWideOutputStream",
+          "original_address": "0x1086540",
+          "original_size": 56,
+          "native_size": 96,
+          "source": "src/platform/LegacyIos.cpp",
+          "initialization": "原PE载入零值→既有被动原生聚合类型零初始化",
+          "source_storage_implemented": true,
+          "runtime_verified": false
         }
       ]
     },

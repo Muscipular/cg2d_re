@@ -205,7 +205,7 @@ void* DeleteLegacyWideInputFromIos_549D67(LegacyIosBaseStorage* virtualBase, std
 // 原独立标准流初始化计数；已加载初值-1，S32/两次实际读取，不增锁或一次性门禁。
 extern volatile std::int32_t gLegacyNarrowStandardInitCount592894;
 extern volatile std::int32_t gLegacyWideStandardInitCount5929EC;
-// 原14个全局对象仅真实外部声明；首字节未加载，不推零初值/完整SDK分配或建立影子owner。
+// 原14个标准流对象已证载入填零，真实被动存储见LegacyIos.cpp；仅既有布局，不自动构析/启用。
 template <typename Character>
 struct LegacyFileBufferStorage;
 extern LegacyFileBufferStorage<char> gLegacyNarrowStandardInputBuffer1086470;

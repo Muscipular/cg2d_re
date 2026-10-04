@@ -123449,6 +123449,844 @@
         "arguments": "image,x+468,y+245",
         "result": "gLegacyPetSkillSlotsActionD67C64"
       }
+    },
+    {
+      "original_entry": "0x4D66E0",
+      "inventory_id": "F:000D66E0",
+      "original_end_exclusive": "0x4D670A",
+      "original_entry_chunk_end": "0x4D670A",
+      "instruction_count": 12,
+      "function_chunks": [
+        [
+          "0x4D66E0",
+          "0x4D670A"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D66E0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D66E0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_skill_choice.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D66E0()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_skill_choice.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "target_symbol": "Sub_4D6640",
+        "arguments": "image, x, y",
+        "published_non_owning_slot": "gLegacySkillChoiceActionD67C58",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D6A30",
+      "inventory_id": "F:000D6A30",
+      "original_end_exclusive": "0x4D6A5D",
+      "original_entry_chunk_end": "0x4D6A5D",
+      "instruction_count": 12,
+      "function_chunks": [
+        [
+          "0x4D6A30",
+          "0x4D6A5D"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D6A30"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D6A30"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_skill_learning.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D6A30()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_skill_learning.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "target_symbol": "Sub_4D6640",
+        "arguments": "image, x, y",
+        "published_non_owning_slot": "gLegacySkillChoiceActionD67C58",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D6E70",
+      "inventory_id": "F:000D6E70",
+      "original_end_exclusive": "0x4D6E9D",
+      "original_entry_chunk_end": "0x4D6E9D",
+      "instruction_count": 12,
+      "function_chunks": [
+        [
+          "0x4D6E70",
+          "0x4D6E9D"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D6E70"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D6E70"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_skill_forgetting.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D6E70()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_skill_forgetting.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4D6640",
+        "target_symbol": "Sub_4D6640",
+        "arguments": "image, x, y",
+        "published_non_owning_slot": "gLegacySkillChoiceActionD67C58",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyChoiceImageCC4890()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D8D70",
+      "inventory_id": "F:000D8D70",
+      "original_end_exclusive": "0x4D8D9F",
+      "original_entry_chunk_end": "0x4D8D9F",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D8D70",
+          "0x4D8D9F"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D8D70"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D8D70"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_shop_choice.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D8D70()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_shop_choice.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x + 45, y + 133, 213",
+        "published_non_owning_slot": "gLegacyShopChoiceActionD67C68",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyShopImageC9A9A0()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D91E0",
+      "inventory_id": "F:000D91E0",
+      "original_end_exclusive": "0x4D9212",
+      "original_entry_chunk_end": "0x4D9212",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D91E0",
+          "0x4D9212"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D91E0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D91E0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_buy_list.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D91E0()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_buy_list.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyBuyActionD67C6C",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacyBuyImageD2DBFC",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4DAA00",
+      "inventory_id": "F:000DAA00",
+      "original_end_exclusive": "0x4DAA32",
+      "original_entry_chunk_end": "0x4DAA32",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4DAA00",
+          "0x4DAA32"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DAA00"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DAA00"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_sell_list.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4DAA00()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_sell_list.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacySellActionD67C74",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacySellImageCC3EFC",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4DC7A0",
+      "inventory_id": "F:000DC7A0",
+      "original_end_exclusive": "0x4DC7DC",
+      "original_entry_chunk_end": "0x4DC7DC",
+      "instruction_count": 14,
+      "function_chunks": [
+        [
+          "0x4DC7A0",
+          "0x4DC7DC"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DC7A0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DC7A0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_repair_list.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4DC7A0()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_repair_list.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyRepairActionD67C7C",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacyRepairImageD673E8",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": [
+        "gLegacyRepairMessageD64E14"
+      ]
+    },
+    {
+      "original_entry": "0x4DDF80",
+      "inventory_id": "F:000DDF80",
+      "original_end_exclusive": "0x4DDFBC",
+      "original_entry_chunk_end": "0x4DDFBC",
+      "instruction_count": 14,
+      "function_chunks": [
+        [
+          "0x4DDF80",
+          "0x4DDFBC"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4DDF80"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4DDF80"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_identify_list.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4DDF80()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_identify_list.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyIdentifyActionD67C84",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacyIdentifyImageCF4698",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": [
+        "gLegacyIdentifyMessageC9A948"
+      ]
+    },
+    {
+      "original_entry": "0x4D36B0",
+      "inventory_id": "F:000D36B0",
+      "original_end_exclusive": "0x4D36E2",
+      "original_entry_chunk_end": "0x4D36E2",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D36B0",
+          "0x4D36E2"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D36B0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D36B0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_barter_list.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D36B0()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_barter_list.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyBarterActionD67C50",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacyBarterImageCF4A0C",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D4ED0",
+      "inventory_id": "F:000D4ED0",
+      "original_end_exclusive": "0x4D4EFF",
+      "original_entry_chunk_end": "0x4D4EFF",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D4ED0",
+          "0x4D4EFF"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D4ED0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D4ED0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_exchange_dialog.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D4ED0()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_exchange_dialog.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyExchangeActionCF4B5C",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyChoiceImageC9A99C()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D5220",
+      "inventory_id": "F:000D5220",
+      "original_end_exclusive": "0x4D524F",
+      "original_entry_chunk_end": "0x4D524F",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D5220",
+          "0x4D524F"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D5220"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D5220"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_give_receive_dialog.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D5220()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_give_receive_dialog.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyGiveReceiveActionCB2228",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "ui::detail::ReadLegacyChoiceImageD2EA74()",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D5580",
+      "inventory_id": "F:000D5580",
+      "original_end_exclusive": "0x4D55B2",
+      "original_entry_chunk_end": "0x4D55B2",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x4D5580",
+          "0x4D55B2"
+        ]
+      ],
+      "status": "已有完整预览初始化本体及实际工厂/非拥有发布接线；原身份补齐，图号生产/旧路由与完整运行仍未闭合",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D5580"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4D5580"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_give_receive_quantity.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D5580()",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_give_receive_quantity.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_binding": {
+        "target_entry": "0x4F9FF0",
+        "target_symbol": "Sub_4F9FF0",
+        "arguments": "image, x, y, 213",
+        "published_non_owning_slot": "gLegacyGiveReceiveQuantityActionCB1DD4",
+        "returns": "原工厂结果，包括空失败"
+      },
+      "image_dependency": {
+        "expression": "gLegacyGiveReceiveImageD2D814",
+        "type": "S32",
+        "production_state": "同源借用或既有独立槽，实际运行时生产沿页面原未决边界，不据当前初值补业务值"
+      },
+      "existing_reset_after_publication": []
+    },
+    {
+      "original_entry": "0x4D6640",
+      "inventory_id": "F:000D6640",
+      "original_end_exclusive": "0x4D6690",
+      "original_entry_chunk_end": "0x4D6650",
+      "instruction_count": 18,
+      "function_chunks": [
+        [
+          "0x4D6640",
+          "0x4D6650"
+        ],
+        [
+          "0x4D6651",
+          "0x4D6690"
+        ]
+      ],
+      "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4D6640"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_skill_choice.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。原库存两chunk间4D6650独立失败ret字节按既有合同保留，不新造函数ID或多算指令。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4D6640(const std::int32_t image, const std::int32_t x, const std::int32_t y)",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_skill_choice.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_dependencies": [
+        {
+          "target_entry": "0x404AE0",
+          "target_symbol": "NewYobiAction_404AE0",
+          "arguments": "2,0",
+          "relationship": "沿既有真实分配/失败，成功才写对象字段，未在本步验收完整分配器"
+        },
+        {
+          "target_entry": "0x4D6690",
+          "target_symbol": "Sub_4D6690",
+          "relationship": "既有typed lambda以同一YobiAction*调用并弃S32返回，不强转函数指针"
+        }
+      ],
+      "display_priority": "固定0xDD/低U8"
+    },
+    {
+      "original_entry": "0x4F9FF0",
+      "inventory_id": "F:000F9FF0",
+      "original_end_exclusive": "0x4FA043",
+      "original_entry_chunk_end": "0x4FA043",
+      "instruction_count": 20,
+      "function_chunks": [
+        [
+          "0x4F9FF0",
+          "0x4FA043"
+        ]
+      ],
+      "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4F9FF0"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4F9FF0"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_storage_items.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "YobiAction* Sub_4F9FF0(const std::int32_t image, const std::int32_t x,\n    const std::int32_t y, const std::uint8_t displayPriority)",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_storage_items.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_factory_dependencies": [
+        {
+          "target_entry": "0x404AE0",
+          "target_symbol": "NewYobiAction_404AE0",
+          "arguments": "2,0",
+          "relationship": "沿既有真实分配/失败，成功才写对象字段，未在本步验收完整分配器"
+        },
+        {
+          "target_entry": "0x4D6690",
+          "target_symbol": "Sub_4D6690",
+          "relationship": "既有typed lambda以同一YobiAction*调用并弃S32返回，不强转函数指针"
+        }
+      ],
+      "display_priority": "实际参数低U8"
+    },
+    {
+      "original_entry": "0x4D6690",
+      "inventory_id": "F:000D6690",
+      "original_end_exclusive": "0x4D66E0",
+      "original_entry_chunk_end": "0x4D66E0",
+      "instruction_count": 32,
+      "function_chunks": [
+        [
+          "0x4D6690",
+          "0x4D66E0"
+        ]
+      ],
+      "status": "已有完整真实预览工厂或共用回调本体；原身份/实际依赖已关联，完整上游/生命周期与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4D6690"
+          ],
+          "relationship": "已有真实本体；本次只补R1独立身份/源码接口及依赖，正文不修改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4D6690"
+          ],
+          "relationship": "已有typed原生接口；指针为YobiAction*，数值沿原字段宽度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_storage_items.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "boundary": "本轮新增语义身份关联，不称新增本体/原指令实现；已过完整本体沿既有页面合同，不重复取证或运行。原S32图号/坐标、低U8层、失败空指针、采样/副作用/RNG与非拥有槽均由原正文保留，不注册未证旧表、补生产/默认值或推整体通过。",
+      "verification_level": "原3680库存身份/原chunk边界与既有完整指令合同关联；当前实际定义/声明、工厂/回调与状态消费、本步源不变/限定清单及文档增量静态核对。未重核旧本体、未构建/测试/运行/hash。",
+      "native_signature": "std::int32_t Sub_4D6690(YobiAction* const action)",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/legacy_storage_items.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_animation_binding": {
+        "target_entry": "0x517880",
+        "target_symbol": "Sub_517880",
+        "arguments": "action,100,loop?0:1,0",
+        "state_source": "同一action->characterAction一次S32采样",
+        "loop_states": [
+          12,
+          13,
+          14,
+          15,
+          1,
+          0,
+          16
+        ],
+        "returns": "原完整S32结果，不固定成功"
+      }
     }
   ]
 }

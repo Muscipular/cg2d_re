@@ -1,6 +1,9 @@
 #include "LegacyIos.hpp"
 
 #include "LegacyHeap.hpp"
+#include "LegacyLocale.hpp"
+
+#include <bit>
 
 namespace cg::platform {
 
@@ -37,6 +40,83 @@ void TidyLegacyIos_54A2CB(LegacyIosBaseStorage* const storage)
         callback = next;
     }
     storage->callbackHead = nullptr;
+}
+
+// 原实际550144方法槽0，显式this真实函数地址；不生成SDK抛出/RTTI元数据。
+const LegacyIosBaseMethods gLegacyIosBaseMethods550144{
+    DeleteLegacyIosBase_54A220
+};
+
+void RegisterLegacyStandardStream_54A25E(LegacyIosBaseStorage* const storage)
+{
+    if (storage->registryIndex < 8) {
+        for (;;) {
+            std::uint32_t index = storage->registryIndex;
+            LegacyIosBaseStorage* const registered = gLegacyStandardStreamRegistry10866F8[index];
+            if (registered == nullptr || registered == storage) {
+                break;
+            }
+            ++index;
+            storage->registryIndex = index;
+            if (index >= 8) {
+                break;
+            }
+        }
+    }
+    const std::uint32_t index = storage->registryIndex;
+    gLegacyStandardStreamRegistry10866F8[index] = storage;
+    // 原发布槽后重新取对象索引，不复用先前局部索引。
+    const std::uint32_t referenceIndex = storage->registryIndex;
+    ++gLegacyStandardStreamReferences108671C[referenceIndex];
+}
+
+void InitializeLegacyIosBase_54A293(LegacyIosBaseStorage* const storage)
+{
+    LegacyLocaleImplementation** const locale = &storage->localeImplementation;
+    if (locale != nullptr) {
+        ConstructLegacyLocale_54865E(locale);
+    }
+    storage->exceptionBits = 0;
+    storage->formatBits = 0x201;
+    storage->precisionBits = 6;
+    storage->widthBits = 0;
+    storage->valueHead = nullptr;
+    storage->callbackHead = nullptr;
+    ClearLegacyIos_549F62(storage, 0, 0);
+}
+
+void DestroyLegacyIosBase_54A1D0(LegacyIosBaseStorage* const storage)
+{
+    storage->virtualTable = &gLegacyIosBaseMethods550144;
+    const std::uint32_t initialIndex = storage->registryIndex;
+    try {
+        if (initialIndex == 0) {
+            TidyLegacyIos_54A2CB(storage);
+        } else {
+            --gLegacyStandardStreamReferences108671C[initialIndex];
+            const std::uint32_t currentIndex = storage->registryIndex;
+            const std::int8_t references = std::bit_cast<std::int8_t>(
+                gLegacyStandardStreamReferences108671C[currentIndex]);
+            if (references <= 0) {
+                TidyLegacyIos_54A2CB(storage);
+            }
+        }
+        // 原正常locale清理前仍为state0，清理失败也走同一展开动作。
+        DestroyLegacyLocale_54867D(&storage->localeImplementation);
+    } catch (...) {
+        DestroyLegacyLocale_54867D(&storage->localeImplementation);
+        throw;
+    }
+}
+
+LegacyIosBaseStorage* DeleteLegacyIosBase_54A220(
+    LegacyIosBaseStorage* const storage, const std::uint32_t flags)
+{
+    DestroyLegacyIosBase_54A1D0(storage);
+    if ((flags & 1u) != 0) {
+        FreeLegacyHeapMemory_53C0A9(storage);
+    }
+    return storage;
 }
 
 } // namespace cg::platform

@@ -8,6 +8,18 @@ namespace cg::platform {
 struct LegacyIosBaseStorage;
 struct LegacyLocaleImplementation;
 
+// 原550144仅已证删除槽0；8B为消费前缀，不推完整SDK虚表/分配规模。
+struct LegacyIosBaseMethods final {
+    LegacyIosBaseStorage* (*deletingDestructor)(
+        LegacyIosBaseStorage* storage, std::uint32_t flags);
+};
+static_assert(sizeof(LegacyIosBaseMethods) == 8);
+extern const LegacyIosBaseMethods gLegacyIosBaseMethods550144;
+
+// 原登记地址数组/独立U8计数，仅真实外部声明；未加载初值/实际容量不补证为零或9/12。
+extern LegacyIosBaseStorage* gLegacyStandardStreamRegistry10866F8[];
+extern std::uint8_t gLegacyStandardStreamReferences108671C[];
+
 // 原回调call后由caller清12B栈：event/this/index三参，返回寄存器不消费。
 using LegacyIosCallback = void (__cdecl *)(
     std::int32_t event, LegacyIosBaseStorage* storage, std::int32_t index);
@@ -30,8 +42,8 @@ static_assert(sizeof(LegacyIosCallbackNode) == 24);
 // 原ios_base已证+00..+27；数字保持W32位型，未消费符号/格式语义不另推定。
 // 不自动构析/初始化，不与宿主std::ios_base互转，不建立登记表/回调影子状态。
 struct LegacyIosBaseStorage final {
-    const void* virtualTable;                         // 原+00；只保留，未路由。
-    std::uint32_t stateBits;                          // 原+04；clear父另行接线。
+    const void* virtualTable;                         // 原+00；真实原生方法表前缀，不接SDK虚表。
+    std::uint32_t stateBits;                          // 原+04；clear保持真实声明，抛出承接待。
     std::uint32_t exceptionBits;                      // 原+08。
     std::uint32_t formatBits;                         // 原+0C。
     std::uint32_t precisionBits;                      // 原+10；本组不解释符号性。
@@ -52,5 +64,17 @@ static_assert(sizeof(LegacyIosBaseStorage) == 64);
 void CallLegacyIosCallbacks_54A23C(LegacyIosBaseStorage* storage, std::int32_t event);
 // 原54A2CB：event0→值链释放→缓存回调头/清值头→回调链释放/清回调头。
 void TidyLegacyIos_54A2CB(LegacyIosBaseStorage* storage);
+
+// 原54A25E：按对象U32索引扫描至8，仍写最终槽/增U8计数，不增容量门禁。
+void RegisterLegacyStandardStream_54A25E(LegacyIosBaseStorage* storage);
+// 原54A293：locale先构造，再六字段/两链初始化，最后真实clear(0,0)。
+void InitializeLegacyIosBase_54A293(LegacyIosBaseStorage* storage);
+// 原clear未实现；W32 state与重抛栈字低U8保持，不能替固定成功/宿主异常。
+void ClearLegacyIos_549F62(
+    LegacyIosBaseStorage* storage, std::uint32_t stateBits, std::uint32_t rethrowBits);
+// 原完整析构及删除；共享U8按S8门禁，正常/展开locale次序与原堆域保持。
+void DestroyLegacyIosBase_54A1D0(LegacyIosBaseStorage* storage);
+LegacyIosBaseStorage* DeleteLegacyIosBase_54A220(
+    LegacyIosBaseStorage* storage, std::uint32_t flags);
 
 } // namespace cg::platform

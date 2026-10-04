@@ -4017,3 +4017,16 @@ setbuf各只读一次FILE，空或真实setvbuf完整非0返空，成功返实�
 工程裁决：4个批量槽直接用真实基类函数地址；其余22槽实例经17个局部适配函数调用已实现目标，不复制默认0/-1/空动作。真实基类地址只在实际派生表调用中还原为152B所属filebuf，删除返回仅地址互转，不在释放后读成员；默认叶直接用真实96B缓冲首成员。offset字段原W32以bit_cast为S32给已证消费，其余数量/模式/flags保持W32，宽字符U16。setBuffer返实际base，sync调用原共用本体，位置by-value沿既有24B接口，无SDK fpos_t/streampos互转；源级参数复制/未写区域及末槽12参数性质、真实caller签名没有ABI等价结论。
 
 25原记录同步26对应源码绑定和4构析依赖；只更新当前结构化表定义/槽引用/消费者门禁，旧本体、调用数组与两基类表算法不变。基类26+派生26共52源码槽目标绑定，不能代计完整标准流owner/启动退出、三个种子、原堆模式3、转换器真实生产/全表或SDK/EH/运行验收。仅新增静态核对，不新增/执行测试、编译、运行或hash核验。
+
+
+### 2026-10-04 增量SPEC：ios_base登记及显式初始化/构析
+
+范围54A25E登记、54A293初始化、54A1D0析构（含展开chunk）、54A220删除，共17+21+29+11=78新完整原指令，7原call/尾调与550144方法槽0。另549F62完整60条新取证，仅真实声明供_Init接线，状态/failure抛出不计实现；旧回调/Tidy、locale、原堆和filebuf算法不回核。
+
+登记保留对象U32 registryIndex：小于8才扫描，当前槽为空或等于this停；否则缓存索引加1后发布对象字段，达到8仍进入最终写槽。先按当时索引发布this，再重取对象索引增独立U8计数，入口索引大于等于8也不新增拒绝/钳制。10866F8是真实对象地址数组，108671C是独立U8计数；本步均unsized extern，仅已证指针元素拓宽，不定义存储/零初值或影子表。IDA int[9]/char[12]仅分析注释，两首字节未加载，不据此证明原文件容量/初值；超界索引、跨区域别名/故障不专项模拟或称等价。
+
+初始化先取实际locale字段地址，原非空门禁后真实ConstructLocale；依次exception0、format201H、precision6、width0、valueHead0、callbackHead0，最后真实clear(storage,0 W32,0 W32)。不清整对象、登记索引或方法表，不优化为固定state0。clear低state三位/异常掩码、重抛低U8和高U8复制string首prefix、三原消息、真实runtime_error→独立failure表→CxxThrowException及state0临时串清理均保留为未实现合同；x86 ThrowInfo不能直接搬成x64/SDK提供者，不代批既有CRT宿主提案。
+
+析构先写实际ios_base表，再采样registryIndex；index0直接Tidy，非0递减该U8计数，随后重新取对象索引并按低S8有符号>0跳过Tidy。正常尾调用真实locale析构；原FuncInfo 5516E0 magic19930520/maxState1、state0 prev-1/action54C37C，正常locale清理前仍state0，因此try覆盖门禁/Tidy及正常locale，catch再次真实locale清理再传播。没有清注册槽/索引、减为0才清理或额外空值保护。删除入口先完整析构，正常返回后flags bit0才原delete53B4E7→53C0A9同域释放，返回缓存原地址、不在释放后解引用。
+
+工程裁决：保留已有64B真实对象布局/数字W32和节点地址/locale单槽，550144已加载槽0为54A220，新增8B真实原生方法消费前缀/const定义，不推完整表长度/SDK虚表/RTTI。9原记录同步新本体/7接线和clear仅声明，语义身份不增；正常/展开原清理按源级catch表达，不称二次清理失败、SDK EH/catch或运行等价。登记实际数据生产、clear/failure抛出、basic_ios/标准流owner、启动退出/模式3/三个种子与完整运行仍待，仅新增静态核对，不构建、测试、运行或hash核验。

@@ -14,10 +14,10 @@
 - `0x45969D..0x4596B7`：游标位置只查询一次，把完整 `LONG` 写入原 `0x73EFE0` 对应的 `gImeCompositionCursorPosition`，并把 `input::gValue626C0C` 写为 20。
 - 不含游标标志时返回 flags 低 8 位；含游标标志时返回该次 API 结果低 8 位。所有 `ImmGetCompositionStringA` 调用均读取唯一 `gImeContext`，不增加空句柄分支。
 
-## 安全边界与范围
+## 当前范围与RPLAN.24（2026-10-05）
 
-- 原指令使用 signed `jl` 跳过上限钳制。首次长度查询返回负 `LONG` 时，旧端会继续把负值用作读取长度和数组下标，属于越界未定义行为。新端仅跳过当前缓冲分支的第二次 API 读取及终止零写入，仍继续处理后续独立 flags；非负路径保持原顺序。
-- 局部结果缓冲采用零初始化，只约束第二次 API 读取失败后旧端扫描未初始化栈内容的未定义行为；API 成功路径不变。两个全局缓冲不额外清零。
-- `GCS_CURSORPOS` 的负返回值可安全写入定宽状态并按低 8 位返回，因此不拦截。
-- `sub_458FD0/sub_459040` 生命周期已单独实现，证据与接线边界见
-  `cg2d_ime_lifecycle.md`；本页不重复生命周期、候选/notify 或其他输入函数。
+- 早期源码曾拒绝负查询长度，并预清局部结果缓冲；当时差异见Git命名快照cg2d-re-active-initializer-order-source-20261005的本页/源码。该处理与现行RPLAN.24不符，已按[EIC01局部SPEC](cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)撤销，不再作为当前批准差异。
+- 原指令使用signed jl跳过256上限钳制，没有负值拒绝。新端继续第二次API及第一次查询长度下标终止；局部结果不预清，全局两缓冲同样不额外清零。strlen边界/追加数量和循环索引为S32，终止下标保留signed LONG，不由宿主size_t扩宽。
+- 原有255上限、四标志独立处理、七次共享HIMC读取、逐字节AppendChar、游标完整LONG/相位20及低U8返回保持。窗口既有低W16调用和弃返回不改。
+- 负查询长度导致越界、读取失败留下未写局部字节等沿RPLAN.24不专项处理，不模拟原x86故障、不声称x64访问安全或故障等价；本组静态结论仅覆盖适用正常/原上限/多标志路径。
+- 97条本体及10条窗口邻窗/共享槽证据见[EIC01证据](cg2d_ime_composition_alignment_evidence.json)。完整输入/IME消费者、候选、焦点/绘制、间接别名和SDK/运行未验；生命周期仍见[cg2d_ime_lifecycle](cg2d_ime_lifecycle.md)，不由本组提升父的完整门禁。

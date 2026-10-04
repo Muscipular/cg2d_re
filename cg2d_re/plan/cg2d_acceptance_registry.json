@@ -559,10 +559,12 @@
         "doc/cg2d_input_context.md",
         "doc/cg2d_ime_composition.md",
         "doc/cg2d_ime_lifecycle.md",
-        "doc/cg2d_ui_input_lifecycle_spec.md"
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_ime_composition_alignment_spec.md"
       ],
       "original_inventory_ids": [
-        "F:00106340"
+        "F:00106340",
+        "F:00059580"
       ],
       "closure_task_ids": [
         "T01",
@@ -572,16 +574,19 @@
       "dependencies": [],
       "acceptance_focus": "焦点、组合/提交、原字节索引与鼠标位域/事件序",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
+        "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline"
       ]
     },
     {
@@ -594,9 +599,12 @@
       "baseline_documents": [
         "doc/cg2d_text_encoding_spec.md",
         "doc/cg2d_font_measure.md",
-        "doc/cg2d_text_pending_queue.md"
+        "doc/cg2d_text_pending_queue.md",
+        "doc/cg2d_ime_composition_alignment_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00059580"
+      ],
       "closure_task_ids": [
         "T01",
         "T03",
@@ -607,14 +615,18 @@
       ],
       "acceptance_focus": "来源字节、容量/NUL、测宽/队列和字形；不新增Unicode迁移",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "EIC01只对459580适用正常/原上限/多标志与既有窗口共享槽局部静态归档；完整输入/IME绘制/编辑/焦点、间接别名、生命周期及SDK/运行仍未验，RPLAN.24异常域不作故障等价或安全声明"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline"
+      ]
     },
     {
       "id": "FUNC-MAP",
@@ -7007,6 +7019,84 @@
       "observation": "仅限定源码差异、90数据表与语义绑定",
       "expected": "四源码只模块块/include/注释和多字节移动；原body/布局不改，29缺条目仅补绑定不记完整审验",
       "actual": "四源码限定变更重放全文同实际，90槽/68当前投影可追踪；语义41既有更新/29局部绑定，未运行或验完整本体"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原459580完整97条/唯一caller46728D邻窗及共享槽直接引用；doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ime-composition-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-acceptance",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
+        "doc/cg2d_ime_composition_alignment_evidence.json",
+        "src/platform/ImeComposition.cpp#Sub_459580",
+        "src/platform/WindowProcedure.cpp#Sub_459580",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/ImeLifecycle.cpp#InitializeIme_458FD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-IME-COMPOSITION-I-20261005",
+      "gate": "I",
+      "observation": "仅459580适用正常/原上限及多标志源码实现",
+      "expected": "三额外拒绝/局部预清撤销，查询/终止/逐字节S32提交与原序保持；异常域不作故障等价验收",
+      "actual": "同一原本体恢复原处理路径；七真实API/AppendChar保留，不补保护/预清或Unicode转换"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原459580完整97条/唯一caller46728D邻窗及共享槽直接引用；doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ime-composition-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-acceptance",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
+        "doc/cg2d_ime_composition_alignment_evidence.json",
+        "src/platform/ImeComposition.cpp#Sub_459580",
+        "src/platform/WindowProcedure.cpp#Sub_459580",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/ImeLifecycle.cpp#InitializeIme_458FD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-IME-COMPOSITION-W-20261005",
+      "gate": "W",
+      "observation": "仅既有窗口调用及同一共享IME存储局部接线",
+      "expected": "低W16参数/弃返回、七HIMC重读、256B组合/属性及S32游标相位沿实际存储；未新建owner",
+      "actual": "既有WM_IME_COMPOSITION/共享槽和真实AppendChar接线保持；完整消费者/生命周期、焦点/SDK及运行未验"
+    },
+    {
+      "feature_id": "FUNC-INPUT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原459580完整97条/唯一caller46728D邻窗及共享槽直接引用；doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ime-composition-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-baseline",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-decision",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-acceptance",
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
+        "doc/cg2d_ime_composition_alignment_evidence.json",
+        "src/platform/ImeComposition.cpp#Sub_459580",
+        "src/platform/WindowProcedure.cpp#Sub_459580",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/ImeLifecycle.cpp#InitializeIme_458FD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-IME-COMPOSITION-S-20261005",
+      "gate": "S",
+      "observation": "仅97原指令分支及限定源码差异",
+      "expected": "四独立if/原四255上限/第一次查询下标/七API/S32循环/游标相位与低U8返回一致，异常域不模拟或记安全通过",
+      "actual": "仅删除三拒绝与预清、恢复S32数量/有符号下标、移除无用cstddef；集中静态核对限定差异，无运行结论"
     }
   ],
   "task_acceptance": [
@@ -7186,6 +7276,22 @@
       ],
       "task_id": "C01",
       "state": "open"
+    },
+    {
+      "task_id": "T01",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure"
+      ]
+    },
+    {
+      "task_id": "T02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure"
+      ]
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
@@ -7949,6 +8055,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00059580",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure"
       ]
     }
   ],

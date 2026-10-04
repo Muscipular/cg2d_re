@@ -69,3 +69,9 @@ cg2d_re承接原端行为的兼容数据以原字节为权威，覆盖父级内�
 RenderTextToSurface_456D70已在Font.cpp完整实现，原NUL字节串直接交同一GDI字体TextOutA；现路径无需Unicode副本，不指定猜测代码页，不反写旧缓冲/测宽/坐标。阴影和正文分别重取长度，字体选择及两种链遍历原序保持。
 
 GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列公开接口不含Windows类型，见[共享Back合同](cg2d_sdl_presenter.md)。DrawAllQueued case4已有真实调用并保留设备场景结束/重开；没有据此改变Font创建、IME、协议/存档编码。目标字体/字形、设备模式和最终画面仍未验。
+
+## 2026-10-05：IME组合/提交局部差异落码
+
+[EIC01源码收口](cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)撤销459580三处额外负长度拒绝与局部结果预清，恢复S32结果数量/循环及signed LONG终止下标；原255上限、四标志独立序、七API每次重读HIMC、逐字节AppendChar和游标/相位保留。继续IMM32 A原字节与同一共享256B存储，不新增Unicode转换/owner或用API失败补值。
+
+原负长度/未写局部访问依RPLAN.24，不专项模拟故障、不记安全/故障等价通过。此项只归档适用路径的限定I/W/S；输入绘制/编辑等其他门禁、预清/快照差异、完整焦点/生命周期及SDK/运行仍待T01–T03，不把该本体修正当完整文本验收。

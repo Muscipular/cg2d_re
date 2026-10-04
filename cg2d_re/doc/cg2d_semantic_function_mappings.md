@@ -1457,3 +1457,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [原表/投影证据](cg2d_active_initializer_order_evidence.json)及[源码收口](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)按全部90槽登记当前66应用+2 SDK流配置、1 null/2音频暂停/2键盘排除/17流或经典locale待接。六已实现图形/资源provider调用来源迁至LegacyMouse原相对位置，三旧模块删除；多字节旧调用前置，所有body/owner/RNG与退出登记保持。
 
 41已有记录补当前投影绑定；29缺独立条目的UI/动画已有源体补原表/源位置与调用绑定，明确只查命名定义位置，不验整本体/算法/数据/异常，不加入已审处置。语义1181条/1178有效ID，18pending/4分类引用不变，旧其他条目/元数据不改。已审90/3680不提升，42局部证据不代完整门禁/运行，原90回调数组仍真实extern。
+
+## 2026-10-05：EIC01 IME组合与逐字节提交对齐
+
+[局部SPEC](cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure)补459580真实完整97条本体映射，并更新已有5349B0的七原API关联；1181→1182条、1178→1179有效F ID，18pending/4分类引用不变。低W16/低U8接口、四独立标志/原255上限、每次共享HIMC读取及逐字节AppendChar保持；三额外负值拒绝/结果预清撤销，数量和循环S32、终止signed LONG，不加Unicode策略/owner。
+
+本体适用正常/原上限/多标志路径局部equivalent归档，已审90→91/3680，限定I/W/S证据42→45。RPLAN.24负值/未写字节异常域不计安全或故障等价；10条窗口邻窗/共享槽xref不代完整父/所有消费者。固定Git命名快照cg2d-re-ime-composition-source-20261005；T01/T02继续open，关闭10/60、叶验收0/182、完整门禁与SDK/运行保持未验。

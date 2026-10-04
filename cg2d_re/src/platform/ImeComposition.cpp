@@ -8,7 +8,6 @@
 #include <imm.h>
 
 #include <bit>
-#include <cstddef>
 #include <cstring>
 
 namespace cg::platform {
@@ -26,7 +25,8 @@ char Sub_459580(const std::int16_t flags)
     std::uint8_t returnByte = static_cast<std::uint8_t>(flagBits);
 
     if ((flagBits & GCS_RESULTSTR) != 0u) {
-        char result[kImeBufferCapacity] {};
+        // 原局部未预清；仅第二次API后在查询长度处写NUL。
+        char result[kImeBufferCapacity];
         LONG byteCount = ImmGetCompositionStringA(
             reinterpret_cast<HIMC>(gImeContext),
             GCS_RESULTSTR,
@@ -35,22 +35,19 @@ char Sub_459580(const std::int16_t flags)
         if (byteCount >= kImeBufferCapacity) {
             byteCount = kImeMaximumByteCount;
         }
-        // 旧端会以负长度形成负下标；新端仅跳过本分支的第二次读取和写入。
-        if (byteCount >= 0) {
-            static_cast<void>(ImmGetCompositionStringA(
-                reinterpret_cast<HIMC>(gImeContext),
-                GCS_RESULTSTR,
-                result,
-                static_cast<DWORD>(byteCount)));
-            result[static_cast<std::size_t>(byteCount)] = '\0';
+        static_cast<void>(ImmGetCompositionStringA(
+            reinterpret_cast<HIMC>(gImeContext),
+            GCS_RESULTSTR,
+            result,
+            static_cast<DWORD>(byteCount)));
+        result[byteCount] = '\0';
 
-            std::size_t resultLength = std::strlen(result);
-            if (resultLength >= static_cast<std::size_t>(kImeBufferCapacity)) {
-                resultLength = static_cast<std::size_t>(kImeMaximumByteCount);
-            }
-            for (std::size_t index = 0; index < resultLength; ++index) {
-                input::AppendChar_44ADB0(result[index]);
-            }
+        std::int32_t resultLength = static_cast<std::int32_t>(std::strlen(result));
+        if (resultLength >= kImeBufferCapacity) {
+            resultLength = kImeMaximumByteCount;
+        }
+        for (std::int32_t index = 0; index < resultLength; ++index) {
+            input::AppendChar_44ADB0(result[index]);
         }
     }
 
@@ -63,14 +60,12 @@ char Sub_459580(const std::int16_t flags)
         if (byteCount >= kImeBufferCapacity) {
             byteCount = kImeMaximumByteCount;
         }
-        if (byteCount >= 0) {
-            static_cast<void>(ImmGetCompositionStringA(
-                reinterpret_cast<HIMC>(gImeContext),
-                GCS_COMPSTR,
-                gImeComposition,
-                static_cast<DWORD>(byteCount)));
-            gImeComposition[static_cast<std::size_t>(byteCount)] = '\0';
-        }
+        static_cast<void>(ImmGetCompositionStringA(
+            reinterpret_cast<HIMC>(gImeContext),
+            GCS_COMPSTR,
+            gImeComposition,
+            static_cast<DWORD>(byteCount)));
+        gImeComposition[byteCount] = '\0';
     }
 
     if ((flagBits & GCS_COMPATTR) != 0u) {
@@ -82,14 +77,12 @@ char Sub_459580(const std::int16_t flags)
         if (byteCount >= kImeBufferCapacity) {
             byteCount = kImeMaximumByteCount;
         }
-        if (byteCount >= 0) {
-            static_cast<void>(ImmGetCompositionStringA(
-                reinterpret_cast<HIMC>(gImeContext),
-                GCS_COMPATTR,
-                gImeAttributes,
-                static_cast<DWORD>(byteCount)));
-            gImeAttributes[static_cast<std::size_t>(byteCount)] = 0;
-        }
+        static_cast<void>(ImmGetCompositionStringA(
+            reinterpret_cast<HIMC>(gImeContext),
+            GCS_COMPATTR,
+            gImeAttributes,
+            static_cast<DWORD>(byteCount)));
+        gImeAttributes[byteCount] = 0;
     }
 
     if ((flagBits & GCS_CURSORPOS) != 0u) {

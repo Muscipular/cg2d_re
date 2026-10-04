@@ -10044,9 +10044,11 @@
         "doc/cg2d_ime_lifecycle.md",
         "doc/cg2d_ime_composition.md",
         "doc/cg2d_window_procedure.md",
-        "doc/cg2d_input_render.md"
+        "doc/cg2d_input_render.md",
+        "doc/cg2d_ime_composition_alignment_spec.md",
+        "doc/cg2d_ime_composition_alignment_evidence.json"
       ],
-      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。"
+      "boundary": "原跳板仅尾跳IAT，不包含IME业务逻辑；沿现有原生IMM32调用，A接口保留旧字节合同，HIMC/HKL/HWND只在平台边界使用本机宽度。具体缓冲、通知、返回和生命周期仍按父函数合同，不能由本条记为全链验收。；EIC01完整459580七原点的当前本体与共享HIMC重读局部静态已对应，三额外拒绝/预清撤销和S32提交见具名SPEC；不提升该跳板或全IME运行/异常故障等价验收。"
     },
     {
       "original_entry": "0x5349B6",
@@ -135342,6 +135344,167 @@
         "full_application_order_connected": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x459580",
+      "inventory_id": "F:00059580",
+      "status": "EIC01完整97条本体及窗口/共享存储局部接线已静态对照；RPLAN.24异常域不声明故障等价，完整IME/SDK/运行未验",
+      "sources": [
+        {
+          "path": "src/platform/ImeComposition.cpp",
+          "symbols": [
+            "Sub_459580"
+          ],
+          "relationship": "完整四独立分支、七IMM32 A调用和S32逐字节提交；撤销三额外拒绝及局部预清"
+        },
+        {
+          "path": "src/platform/ImeComposition.hpp",
+          "symbols": [
+            "Sub_459580"
+          ],
+          "relationship": "既有唯一低W16/低U8接口声明"
+        },
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "Sub_459580",
+            "gImeContext",
+            "gImeComposition",
+            "gImeAttributes",
+            "gImeCompositionCursorPosition"
+          ],
+          "relationship": "既有WM_IME_COMPOSITION实际调用与唯一共享槽，未重审完整窗口本体"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_ime_composition_alignment_spec.md",
+        "doc/cg2d_ime_composition_alignment_evidence.json",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原[459580,4596C8)完整97条，低W16标志按800H/8/10H/80H独立处理；查询signed>=256才取255，再读后按第一次长度终止；结果数量/循环S32、逐字节AppendChar。七API各自读取共享HIMC；游标完整LONG再相位20，返回flags/API低U8，窗口弃返回。原未预清局部，不加负值拒绝、补零、上下文快照/新owner或Unicode转换。负查询/未写局部访问沿RPLAN.24，不模拟x86故障或宣称x64安全；完整消费者/焦点/生命周期与平台SDK/运行未验。",
+      "instruction_count": 97,
+      "function_chunks": [
+        {
+          "start": "0x459580",
+          "end_exclusive": "0x4596C8"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/ImeComposition.cpp",
+        "symbol": "Sub_459580",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      },
+      "ime_composition_contract": {
+        "spec": "doc/cg2d_ime_composition_alignment_spec.md#ime-composition-source-closure",
+        "evidence": "doc/cg2d_ime_composition_alignment_evidence.json",
+        "flag_width": "W16",
+        "api_return_width": "S32 LONG",
+        "append_count_width": "S32",
+        "append_index_width": "S32",
+        "shared_buffer_byte_capacity": 256,
+        "maximum_query_and_result_bytes": 255,
+        "terminator_uses_first_query": true,
+        "result_local_precleared": false,
+        "negative_query_guard": false,
+        "second_api_return_ignored": true,
+        "contexts_read_independently": true,
+        "flags_independent": true,
+        "rng_calls": 0,
+        "full_parent_or_consumers_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "call_connections": [
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x45959F",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_RESULTSTR",
+          "role": "查询长度",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x4595C6",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_RESULTSTR",
+          "role": "读取结果，返回弃",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x45961D",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_COMPSTR",
+          "role": "查询长度",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x459640",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_COMPSTR",
+          "role": "读取组合串，返回弃",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x459662",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_COMPATTR",
+          "role": "查询长度",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x459685",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_COMPATTR",
+          "role": "读取属性，返回弃",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x4596AD",
+          "target_entry": "0x5349B0",
+          "native_symbol": "ImmGetCompositionStringA",
+          "flag": "GCS_CURSORPOS",
+          "role": "读取完整LONG后写游标/相位",
+          "source": "src/platform/ImeComposition.cpp",
+          "context_read": "每次独立读gImeContext"
+        },
+        {
+          "parent_entry": "0x459580",
+          "call_site": "0x4595F8",
+          "target_entry": "0x44ADB0",
+          "native_symbol": "cg::input::AppendChar_44ADB0",
+          "role": "S32循环逐字节调用；本组不重验其全部body",
+          "source": "src/platform/ImeComposition.cpp"
+        },
+        {
+          "parent_entry": "0x466DC0",
+          "call_site": "0x46728D",
+          "target_entry": "0x459580",
+          "native_symbol": "Sub_459580",
+          "role": "lParam32低W16；返回弃/窗口返回0",
+          "source": "src/platform/WindowProcedure.cpp"
+        }
+      ]
     }
   ]
 }

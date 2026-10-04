@@ -136892,6 +136892,248 @@
           "return_discarded": true
         }
       ]
+    },
+    {
+      "original_entry": "0x456560",
+      "inventory_id": "F:00056560",
+      "status": "TQP01完整原体与真实生产路径局部静态已对照；完整上游/消费/寿命及运行未验",
+      "original_end_exclusive": "0x456668",
+      "instruction_count": 79,
+      "original_chunks": [
+        [
+          "0x456560",
+          "0x456668"
+        ]
+      ],
+      "original_direct_reference_count": 15,
+      "original_direct_call_reference_count": 15,
+      "original_inbound_parent_count": 14,
+      "sources": [
+        {
+          "path": "src/render/TextPendingQueue.cpp",
+          "symbols": [
+            "DrawText3_456560",
+            "DrawText2_456670"
+          ],
+          "relationship": "既有真实DrawText2复用font0保持；本组core校正使对应原字段/复制/分支/返回正常路径对齐，无源码修改"
+        },
+        {
+          "path": "include/cg/render/TextPendingQueue.hpp",
+          "symbols": [
+            "DrawText3_456560"
+          ],
+          "relationship": "既有真实公开声明，不改接口/记录/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_pending_queue.md",
+        "doc/cg2d_text_queue_alignment_spec.md",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原文本计数按S32仅>=4096返回−2；字段先写，再扫描源/含NUL低U32，逐W32后余W8；两signed入口完成复制后取尾，unsigned入口W32后/W8前取尾，随后清next。空尾先读layer后写尾/真实QueueText弃返回，续尾先连接再重读文本计数/更新尾；返回该S32旧计数并写U32加一。撤销负计数/模式/源/NUL长度/尾token/重读索引额外拒绝，原font0或参数字体/marker/模式符号性、字段108非显式写、现有token/owner保持。DrawText3保既有完整真实core复用font0，不宣称原栈/机器call轨迹或故障等价。854原点仅库存，不计完整上游或寿命闭合；完整消费/SDK/运行未验，RPLAN.24异常域不记安全/故障等价。",
+      "verification_level": "四原体79/80/81/22共262条、854直接原点/11数据operand与14消费窗口；五同文件补丁外全文保持，四新语义/登记限定增量外不改；未构建/测试/运行/摘要，非全部父/ABI/寿命验收",
+      "native_provider": {
+        "source": "src/render/TextPendingQueue.cpp",
+        "symbol": "DrawText3_456560",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false,
+        "real_core_reuse": "DrawText2_456670",
+        "source_changed": false
+      },
+      "text_queue_producer_alignment": {
+        "spec": "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "evidence": "doc/cg2d_text_queue_alignment_evidence.json",
+        "source_changed": false,
+        "copy_stage_and_layer_sample_retained": true,
+        "original_full_queue_guard_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "native_call_trajectory_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x456670",
+      "inventory_id": "F:00056670",
+      "status": "TQP01完整原体与真实生产路径局部静态已对照；完整上游/消费/寿命及运行未验",
+      "original_end_exclusive": "0x45677B",
+      "instruction_count": 80,
+      "original_chunks": [
+        [
+          "0x456670",
+          "0x45677b"
+        ]
+      ],
+      "original_direct_reference_count": 19,
+      "original_direct_call_reference_count": 19,
+      "original_inbound_parent_count": 12,
+      "sources": [
+        {
+          "path": "src/render/TextPendingQueue.cpp",
+          "symbols": [
+            "DrawText2_456670",
+            "CopyTextWords",
+            "CopyTextRemainder"
+          ],
+          "relationship": "本组撤销额外拒绝、字段先写/原含NUL低U32/分阶段复制、尾取样/层先读恢复，真实QueueText/计数重读保持"
+        },
+        {
+          "path": "include/cg/render/TextPendingQueue.hpp",
+          "symbols": [
+            "DrawText2_456670"
+          ],
+          "relationship": "既有真实公开声明，不改接口/记录/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_pending_queue.md",
+        "doc/cg2d_text_queue_alignment_spec.md",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原文本计数按S32仅>=4096返回−2；字段先写，再扫描源/含NUL低U32，逐W32后余W8；两signed入口完成复制后取尾，unsigned入口W32后/W8前取尾，随后清next。空尾先读layer后写尾/真实QueueText弃返回，续尾先连接再重读文本计数/更新尾；返回该S32旧计数并写U32加一。撤销负计数/模式/源/NUL长度/尾token/重读索引额外拒绝，原font0或参数字体/marker/模式符号性、字段108非显式写、现有token/owner保持。DrawText3保既有完整真实core复用font0，不宣称原栈/机器call轨迹或故障等价。854原点仅库存，不计完整上游或寿命闭合；完整消费/SDK/运行未验，RPLAN.24异常域不记安全/故障等价。",
+      "verification_level": "四原体79/80/81/22共262条、854直接原点/11数据operand与14消费窗口；五同文件补丁外全文保持，四新语义/登记限定增量外不改；未构建/测试/运行/摘要，非全部父/ABI/寿命验收",
+      "native_provider": {
+        "source": "src/render/TextPendingQueue.cpp",
+        "symbol": "DrawText2_456670",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false,
+        "source_changed": true
+      },
+      "text_queue_producer_alignment": {
+        "spec": "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "evidence": "doc/cg2d_text_queue_alignment_evidence.json",
+        "source_changed": true,
+        "copy_stage_and_layer_sample_retained": true,
+        "original_full_queue_guard_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "native_call_trajectory_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x456780",
+      "inventory_id": "F:00056780",
+      "status": "TQP01完整原体与真实生产路径局部静态已对照；完整上游/消费/寿命及运行未验",
+      "original_end_exclusive": "0x456891",
+      "instruction_count": 81,
+      "original_chunks": [
+        [
+          "0x456780",
+          "0x456891"
+        ]
+      ],
+      "original_direct_reference_count": 816,
+      "original_direct_call_reference_count": 816,
+      "original_inbound_parent_count": 188,
+      "sources": [
+        {
+          "path": "src/render/TextPendingQueue.cpp",
+          "symbols": [
+            "DrawText_456780",
+            "CopyTextWords",
+            "CopyTextRemainder"
+          ],
+          "relationship": "本组撤销额外拒绝、字段先写/原含NUL低U32/分阶段复制、尾取样/层先读恢复，真实QueueText/计数重读保持"
+        },
+        {
+          "path": "include/cg/render/TextPendingQueue.hpp",
+          "symbols": [
+            "DrawText_456780"
+          ],
+          "relationship": "既有真实公开声明，不改接口/记录/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_pending_queue.md",
+        "doc/cg2d_text_queue_alignment_spec.md",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原文本计数按S32仅>=4096返回−2；字段先写，再扫描源/含NUL低U32，逐W32后余W8；两signed入口完成复制后取尾，unsigned入口W32后/W8前取尾，随后清next。空尾先读layer后写尾/真实QueueText弃返回，续尾先连接再重读文本计数/更新尾；返回该S32旧计数并写U32加一。撤销负计数/模式/源/NUL长度/尾token/重读索引额外拒绝，原font0或参数字体/marker/模式符号性、字段108非显式写、现有token/owner保持。DrawText3保既有完整真实core复用font0，不宣称原栈/机器call轨迹或故障等价。854原点仅库存，不计完整上游或寿命闭合；完整消费/SDK/运行未验，RPLAN.24异常域不记安全/故障等价。",
+      "verification_level": "四原体79/80/81/22共262条、854直接原点/11数据operand与14消费窗口；五同文件补丁外全文保持，四新语义/登记限定增量外不改；未构建/测试/运行/摘要，非全部父/ABI/寿命验收",
+      "native_provider": {
+        "source": "src/render/TextPendingQueue.cpp",
+        "symbol": "DrawText_456780",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false,
+        "source_changed": true
+      },
+      "text_queue_producer_alignment": {
+        "spec": "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "evidence": "doc/cg2d_text_queue_alignment_evidence.json",
+        "source_changed": true,
+        "copy_stage_and_layer_sample_retained": true,
+        "original_full_queue_guard_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "native_call_trajectory_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x521A30",
+      "inventory_id": "F:00121A30",
+      "status": "TQP01完整原体与真实生产路径局部静态已对照；完整上游/消费/寿命及运行未验",
+      "original_end_exclusive": "0x521A98",
+      "instruction_count": 22,
+      "original_chunks": [
+        [
+          "0x521a30",
+          "0x521a98"
+        ]
+      ],
+      "original_direct_reference_count": 4,
+      "original_direct_call_reference_count": 4,
+      "original_inbound_parent_count": 4,
+      "sources": [
+        {
+          "path": "src/render/TextPendingQueue.cpp",
+          "symbols": [
+            "QueueText_521A30"
+          ],
+          "relationship": "本组仅撤销额外负计数/headToken拒绝，原满队列门禁/写序和W16重读返回保持"
+        },
+        {
+          "path": "include/cg/render/TextPendingQueue.hpp",
+          "symbols": [
+            "QueueText_521A30"
+          ],
+          "relationship": "既有真实公开声明，不改接口/记录/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_text_pending_queue.md",
+        "doc/cg2d_text_queue_alignment_spec.md",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "doc/cg2d_text_encoding_spec.md"
+      ],
+      "boundary": "原图形计数按S16，仅>=4096返回−2；撤销新增负计数/headToken拒绝。先按初始索引写cache3.layer，重取W16写cacheIndex，依原写imageNo−1/value4=0/batch4/reference.textToken；再取当前W16 signed扩展返回，低W16加一。坐标/descriptor/尾及cache3+3不写，现有Native48承载/非拥有token/唯一owner保持。四原入边经真实DrawText3复用及现有直接调用承接；当前case4消费已存在，整个排序/消费/间接alias/寿命与SDK/运行未验。异常域依RPLAN.24不专项模拟、不计安全/故障等价。",
+      "verification_level": "四原体79/80/81/22共262条、854直接原点/11数据operand与14消费窗口；五同文件补丁外全文保持，四新语义/登记限定增量外不改；未构建/测试/运行/摘要，非全部父/ABI/寿命验收",
+      "native_provider": {
+        "source": "src/render/TextPendingQueue.cpp",
+        "symbol": "QueueText_521A30",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false,
+        "source_changed": true
+      },
+      "text_queue_producer_alignment": {
+        "spec": "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "evidence": "doc/cg2d_text_queue_alignment_evidence.json",
+        "source_changed": true,
+        "copy_stage_and_layer_sample_retained": true,
+        "original_full_queue_guard_retained": true,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false,
+        "native_call_trajectory_equivalence_claimed": false
+      }
     }
   ]
 }

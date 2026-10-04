@@ -2,130 +2,55 @@
 
 ## 目标与证据
 
-- `Renderer::DrawText3@[0x456560,0x456668)`：大小 `0x108`，79 条指令、
-  5 个基本块，cdecl 原型为
-  `int32 DrawText3(int16 x,int16 y,int8 renderMode,int8 color,const char* text,int8 value7)`；
-  15 个直接调用点来自 14 个 caller，唯一直接 callee 为
-  `Renderer::QueueText@0x521A30`。
-- `Renderer::DrawText2@[0x456670,0x45677B)`：大小 `0x10B`，80 条指令、
-  5 个基本块，cdecl 原型为
-  `(int16,int16,int8,int8,int8,const char*,int8)`。
-- `Renderer::DrawText@[0x456780,0x456891)`：大小 `0x111`，81 条指令、
-  5 个基本块，cdecl 原型为
-  `(int16,int16,uint8,int8,int8,const char*,int8,int8)`。
-- `Renderer::QueueText@[0x521A30,0x521A98)`：大小 `0x68`，22 条指令、
-  3 个基本块。原 x86 首参数是文本记录指针；x64 适配为一基 `uint32_t` 令牌。
-- 文本记录位于原 `GraphicCache4[4096]@0x62ECB8`，步长 `0x110`；六槽尾队列
-  位于 `[0x62ECA0,0x62ECB8)`；字体层记录位于 `fontLayer@0x558F50`。
-- `QueueText` 复用原 `[0xFF4EB8,0x1020EB8)` 的既有
-  `LegacyPendingStorage`，不建立第二份图形队列。
+[TQP01](cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline)与[证据](cg2d_text_queue_alignment_evidence.json)保存三个绘制入口及图形提交入口的完整原体和854实际call点。
+
+| 原入口 | 原完整指令/范围 | 当前实现 |
+|---|---|---|
+| DrawText3 | 79 / [456560,456668) | 保既有真实DrawText2复用font0；业务字段/分支/返回按原对照，不宣称原栈或机器call轨迹 |
+| DrawText2 | 80 / [456670,45677B) | signed8模式、参数字体、固定marker F9；恢复原复制/取尾与空链层取样 |
+| DrawText | 81 / [456780,456891) | unsigned8模式、参数marker；W32复制后/W8前读取尾槽 |
+| QueueText | 22 / [521A30,521A98) | 原signed16满队列失败及真实记录写序/重读/返回保持 |
+
+四入口引用15/19/816/4，父数14/12/188/4；只是原引用库存，不是所有上游/原新参数和寿命已验。只有三绘制signed32文本计数>=4096、图形提交signed16计数>=4096的原门禁返回−2，额外保护已按具名决定撤销。
 
 ## 文本记录与令牌
 
-`TextPendingRecord` 严格保持原偏移：`+0/+2` 为 S16 坐标，`+4/+5/+6/+7`
-依次为颜色、字体、模式和值 7，`+8` 由 `DrawText2/DrawText3` 固定写 `0xF9`、
-由 `DrawText` 写入第八参数的低 8 位，`+9` 为 255 字节文本，`+0x108` 为本目标
-不写的 S32 字段，`+0x10C` 为下一项令牌。记录总长 `0x110`。
+唯一文本池是4096项gTextPendingRecords，原62ECB8步长110H；六槽尾队列原62ECA0，字体层原558F50。记录+0/+2坐标S16，+4/+5/+6/+7颜色/字体/模式和值7，+8标记，+9为255B文本，+108为本组不显式写的S32字段，+10C是现有下一项一基token。header/owner/初始化不改，不整项清零或清NUL后旧字节。
 
-原 `dword_D68BEC@0xD68BEC` 是独立 W32 悬停文本索引：PE 映像无文件后备并
-零填充，故唯一新端 owner `gHoveredTextPendingIndex` 初值为 0。全程序只有
-`sub_507140` 的 `0x507264` 写 -1、`0x507341` 写当前零基文本记录下标，以及
-`sub_45D7A0` 的 `0x45D7B8` 读取。生产者 `sub_507140` 尚未实现，本项不从
-鼠标坐标或文本记录反推该值。
+gGraphicCache4Queue保持六个W32槽，0为空，i+1表示文本记录i；原字体层四字节记录D2/D4/D8/DF/E2/E6及各后三零字节保持。QueueText继续复用唯一LegacyPendingStorage，原FF4EB8/101CEB8/1020EB8身份和既有x64记录48B承载不变，不建立第二图形队列。
 
-`FindClickedTextIndex_45D7A0` 对应原 `[0x45D7A0,0x45D7CF)`。它严格先
-单次采样旧鼠标 `edgeButtons` 的低字节，左键 bit 0 未置位时返回 -1；再判断
-signed W32 `count <= 0`；通过后单次采样上述悬停索引，按顺序返回 `values`
-中的首个相等下标，否则返回 -1。函数没有直接 callee、不会修改输入或悬停状态，
-也不检查空指针与数组容量；bit 0 置位且正计数属于调用者必须满足的有效内存前提。
+独立悬停索引D68BEC的gHoveredTextPendingIndex初值沿原零填充。当前[GraphicHitTest.cpp](../src/render/GraphicHitTest.cpp)已有Sub_507140及共享槽生产；旧“尚未实现”过时，本组不改/验该生产者的完整业务/寿命。FindClickedTextIndex_45D7A0先单次取鼠标低字节bit0，再判count<=0，再取悬停索引；正计数按原返回首个相同下标或−1，源码保持。
 
-`gGraphicCache4Queue` 保留六个 W32 槽，但不存 x64 指针：0 表示空链，令牌
-`i+1` 表示 `gTextPendingRecords[i]`。字体层六项仍各占四字节，映像初值依次为
-`D2 00 00 00`、`D4 00 00 00`、`D8 00 00 00`、`DF 00 00 00`、
-`E2 00 00 00`、`E6 00 00 00`。
+## DrawText2写入与排队
 
-## `DrawText2` 写入与排队
+signed W32文本计数>=4096才返回−2。否则按入口计数写x/y/mode/color/font/value7/F9，再扫描原source；含NUL数量低U32，逐W32读/写前移，最后余W8。不提前校验模式/负计数/指针/255B NUL或改逐字节顺序，不显式写field108。
 
-入口把 `platform::gPendingGraphicCount2` 的 W32 按 signed32 解释；合法范围为
-`0..4095`。原 x86 会让负计数形成数组前地址，新端对负数和至少 4096 的值返回
-`-2`。模式按 signed8 解释，只接受 `0..5`，避免原端域外索引。
+完整复制后按signed8模式取尾槽，再清新记录next。空尾先读取实际fontLayer.layer、更新尾槽，真实QueueText返回弃用，再重读文本计数/返回该signed32旧值并写U32加一。非空先连旧尾，再重读计数，以该值更新尾/返回/递增。不增加tailToken或重读索引拒绝、补NUL/回滚。
 
-合法调用严格按 `x、y、mode、color、font、value7、0xF9` 的顺序写字段，随后
-只复制文本有效字节和 NUL，不清文本余部，不写 `field108`，也不整项清零。新端
-额外要求文本指针非空，并从索引 0 开始逐字节读取、每次读取后立即判断 NUL；
-最多读取索引 `0..254`，正文最多 254 字节。到长度 255 仍未遇到 NUL 时返回
-`-2`，不要求首个 NUL 之后的内存可读，避免原内联 `strcpy` 的无界访问。
+两个容量独立；即使QueueText因图形容量满返回−2，已建立的文本链和随后文本计数推进仍按原保持。当前输入绘制多行复用真实入口，单行按原阶段直接写同一池/链，详见[ITD01](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)。
 
-复制后读取当前模式的尾令牌，再把新项 `nextToken` 写 0。空链先把尾槽设为新项
-令牌，再以对应字体层调用 `QueueText`，忽略其返回值；之后重新读取文本计数，
-以该次 W32 的 signed32 值返回并按 W32 加一。非空链先把旧尾的 `nextToken`
-连到新项，再重新读取文本计数，以该重读索引的一基令牌更新尾槽，返回重读值并
-按 W32 加一。
+## DrawText3固定字体复用
 
-两个容量彼此独立：即使空链调用 `QueueText` 因图形队列已满而返回 `-2`，尾槽
-仍已建立，文本计数仍递增。正常单线程下重读值等于入口索引；实现不提供并发
-同步。损坏尾令牌大于 4096 时安全返回 `-2`，不会用它访问数组。非空链连接后若
-重读文本计数已越出合法索引域，也安全返回 `-2`，不再生成域外尾令牌；此前已按
-原顺序完成的新记录写入和旧尾连接保持不回滚。
+原正常业务与DrawText2差异只有font0。当前保既有真实core复用：DrawText3_456560将字体0传入DrawText2_456670，同一真实字段/复制/分支/计数路径执行；不是固定成功或默认正文。三个原QueueText入边中的本入口经这一调用链承接，不能把词法call数量当缺体或原栈/机器调用轨迹等价。
 
-`DrawInputText_4568A0` 的多行路径复用本入口逐段入队；单行路径则按原
-`0x456A8D..0x456C4C` 直接写同一 `gTextPendingRecords`、六个尾令牌和字体层状态，
-不写 `marker` 与 `field108`。初始记录用入口计数，裁宽两分支及非空续尾各按原点
-重读计数，末尾递增共享当前值；三个完整模式索引分别读取当前字段。
-当前行为见[ITD01](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)；
-本组只改输入绘制，DrawText2/QueueText自身差异与完整消费/寿命仍待。
+本组不改包装源码；校正真实core后沿font0原字段/正常路径归档，只限定功能静态对照，原native分解/故障与全部caller另行验收。
 
-## `DrawText3` 固定字体包装
+## DrawText差异
 
-`DrawText3_456560` 与 `DrawText2_456670` 的唯一语义差异是少一个字体参数，并把
-记录的 `fontType` 固定写为 0。其唯一实现严格收敛为
-`return DrawText2_456670(x, y, renderMode, 0, color, text, value7);`，不复制队列
-逻辑，也不转发到按无符号模式索引的 `DrawText_456780`。
+模式低unsigned8、字体参数、marker第八参数保持。它先写记录/扫描/复制W32，随后读取对应尾槽，再复制余W8，才清next；这一中间取样不能与signed入口合并。
 
-因此它完整继承 `DrawText2` 的写入与排队顺序：
-`x、y、mode、color、font0、value7、0xF9、含 NUL 文本、next`，尾槽按 signed8
-模式选择，空链调用
-`QueueText`，非空链续接旧尾，末尾重读 W32 文本计数、加一并返回旧值；也继承
-负计数、非法模式、空或超长文本、损坏尾令牌与续链后损坏重读计数的安全门禁。
+空尾层先读/尾槽后写、真实QueueText弃返回以及续尾/计数重读/returned S32与written U32均按原保持。新端额外负计数/模式/源/限长/损坏尾与重读索引拒绝已撤销，不加新的容量补值或恢复动作。
 
-## `DrawText` 差异
+## QueueText写入
 
-`DrawText_456780` 与 `DrawText2_456670` 使用同一组记录、尾队列、字体层和两个
-计数器，字段写入、文本复制、首链调用 `QueueText`、续链、计数重读与返回旧零基
-索引的顺序一致。严格差异只有两处：模式参数按无符号低 8 位解释并只接受 `0..5`；
-记录 `+8` 写入第八参数 `marker` 的低 8 位，而不是固定 `0xF9`。
+图形W16计数先按signed16解释，只>=4096返回−2。通过后，初始索引写cache3.layer，再取当前W16写同一cache3.cacheIndex；顺序写imageNo−1、value4=0、batchType=4、reference.textToken；末重新读当前W16，signed扩展返回并低W16加一。
 
-其安全门禁与 `DrawText2` 相同：入口文本计数按 signed32 仅接受 `0..4095`，文本
-指针不得为空，逐字节只扫描索引 `0..254` 寻找 NUL，尾令牌必须为合法的一基令牌
-或空令牌。字体参数不作范围门禁；`QueueText` 失败也不回滚已经建立的文本链和随后
-发生的文本计数推进。`login::detail::DrawText` 仅保留为调用该唯一实现的薄适配。
-
-## `QueueText` 写入
-
-入口先把 `platform::gPendingGraphicCount` 的 W16 按 signed16 解释；负值或至少
-4096 时返回 `-2`。容量检查通过后，再要求 `headToken` 严格位于 `1..4096`；
-损坏令牌返回 `-2`，且不写任何队列字段。合法路径只按以下顺序写入初始索引
-对应项：
-
-1. 写 `GraphicCache3.layer`；
-2. 重读 W16 计数，把位模式写入同一 `GraphicCache3.cacheIndex`；
-3. 写 `imageNo=-1`、`value4=0`、`batchType=4`、`reference.textToken=headToken`（后续 x64 联合字段）；
-4. 再次读取 W16 计数，以 signed16 扩展返回，并把该 W16 加一写回。
-
-它不写图形记录的坐标、描述符或尾字节，也不写 `GraphicCache3+3`。通过范围
-检查的 `headToken` 按 W32 位模式原样保存。
+不写cache3+3、记录坐标/descriptor/尾字节，不检查headToken为零/域外或新增负计数失败。原文本指针沿既有一基token承载，池/布局/owner保持；异常对象/索引/越界/溢出依RPLAN.24不专项模拟、不称安全或故障等价。
 
 ## 当前未闭合项
 
-主循环依赖的 `Renderer::CacheReset@[0x456D30,0x456D41)`（声明名
-`ResetGraphicCache_456D30`）已闭合：原函数 17 字节、7 条指令、1 个基本块，
-字节为 `57 B9 06 00 00 00 33 C0 BF A0 EC 62 00 F3 AB 5F C3`；
-`ECX=6`、`EAX=0`、`EDI=0x62ECA0` 后执行 `rep stosd`，恰清
-`[0x62ECA0,0x62ECB8)` 的六个 W32 尾槽并返回 W32 零。新端只清
-`gGraphicCache4Queue`，不清文本记录或任何计数。
+原ResetGraphicCache_456D30的既有局部源码收口仍保持：清六W32尾槽、返回0，不清文本记录/计数；“收口”不代整个运行寿命。
 
-最终队列消费入口 `Renderer::DrawAllQueued@0x520DD0` 仍只有真实声明，
-其 case 4 父分发未接；后续 `RenderTextToSurface_456D70` 已完整实现，
-沿同一一基 token 遍历记录，不改变本节生产者或门禁。
-具体两分支、字体和共享 Back DIB 见[文本消费 SPEC](cg2d_sdl_presenter.md)。
-文本提交仅静态接通，实际字形、最终画面和整个客户端仍未运行验收。
+当前[DrawAllQueued.cpp](../src/render/DrawAllQueued.cpp)已实现完整批次分发，case4真实调用RenderTextToSurface_456D70，旧“只有声明/未接”已过时。原521723取图形记录+0C/521727调用456D70的局部窗口与当前token消费相互对照，本组不验全部520DD0。文本消费/共享Back DIB依既有[消费SPEC](cg2d_sdl_presenter.md)继续推进；原间接虚调用operand18H保持未解析，不能当绝对callee。
+
+[TQP01局部验收](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)只四生产根/实际生产消费局部；854全部上游参数与业务、间接alias、排序/完整消费、初始化退出和输入渲染寿命、SDK/字形/画面运行未验。未构建/查产物/新增或执行测试/运行/摘要；单线程、音频暂停及网络原格式明文保持。

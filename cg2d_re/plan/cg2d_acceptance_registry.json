@@ -637,7 +637,8 @@
         "doc/cg2d_input_render_alignment_spec.md",
         "doc/cg2d_input_edit_alignment_spec.md",
         "doc/cg2d_input_append_alignment_spec.md",
-        "doc/cg2d_input_text_alignment_spec.md"
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_text_queue_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -652,7 +653,11 @@
         "F:0004B1D0",
         "F:0004ADB0",
         "F:0004B190",
-        "F:000568A0"
+        "F:000568A0",
+        "F:00056560",
+        "F:00056670",
+        "F:00056780",
+        "F:00121A30"
       ],
       "closure_task_ids": [
         "T01",
@@ -670,7 +675,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
         "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -679,7 +685,8 @@
         "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价",
         "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
-        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -689,7 +696,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
         "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline"
       ]
     },
     {
@@ -837,7 +845,8 @@
         "doc/cg2d_texture_rendering.md",
         "doc/cg2d_sdl_presenter.md",
         "doc/cg2d_sub_507140.md",
-        "doc/cg2d_graphic_transform_lifecycle_spec.md"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md",
+        "doc/cg2d_text_queue_alignment_spec.md"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -847,7 +856,11 @@
         "F:0004CD40",
         "F:0004CD70",
         "F:00053FB0",
-        "F:00054780"
+        "F:00054780",
+        "F:00056560",
+        "F:00056670",
+        "F:00056780",
+        "F:00121A30"
       ],
       "closure_task_ids": [
         "C09",
@@ -862,16 +875,19 @@
       ],
       "acceptance_focus": "上层调用/像素/命中、共享面、模式切换、缓存与清理",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
-        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验"
+        "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
+        "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline"
+        "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline"
       ]
     },
     {
@@ -7620,6 +7636,102 @@
       "observation": "仅根332/支持33体365条、实际operand与限定源码",
       "expected": "三限定源块外全文保持，两既有语义当前更新及登记限定增量外保持",
       "actual": "365条支持可追踪，源/数据限定静态；完整DrawText2/QueueText/消费与SDK/画面运行未验"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整262条、854原点/原数据与消费局部窗口；doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-text-queue-producer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-acceptance",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "src/render/TextPendingQueue.cpp#DrawText3_456560",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/render/TextPendingQueue.cpp#CopyTextWords",
+        "src/render/TextPendingQueue.cpp#CopyTextRemainder",
+        "include/cg/render/TextPendingQueue.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-TEXT-QUEUE-PRODUCER-I-20261005",
+      "gate": "I",
+      "observation": "仅四根适用原正常生产路径与满队列原失败",
+      "expected": "额外拒绝撤销、字段先写/含NUL低U32/复制阶段及unsigned中间取尾/层先读取，计数/返回保持",
+      "actual": "三实现实际改码/两复制阶段helper，原满队列失败/非写字段/记号与参数符号性保持，现有包装继承真实core"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整262条、854原点/原数据与消费局部窗口；doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-text-queue-producer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-acceptance",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "src/render/TextPendingQueue.cpp#DrawText3_456560",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/render/TextPendingQueue.cpp#CopyTextWords",
+        "src/render/TextPendingQueue.cpp#CopyTextRemainder",
+        "include/cg/render/TextPendingQueue.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-TEXT-QUEUE-PRODUCER-W-20261005",
+      "gate": "W",
+      "observation": "仅四QueueText原关系/真实复用、池/token/字段与当前消费边",
+      "expected": "DrawText3真实font0 core复用、两个生产直接点及InputText点承接四原关系，唯一数据/头/owner与消费连接保持",
+      "actual": "仅局部实际接线与原Pool布局，新端case4真实消费已存在；854上游引用只归档库存，完整父/消费/寿命未验"
+    },
+    {
+      "feature_id": "FUNC-TEXT",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四完整262条、854原点/原数据与消费局部窗口；doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-text-queue-producer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-acceptance",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
+        "doc/cg2d_text_queue_alignment_evidence.json",
+        "src/render/TextPendingQueue.cpp#DrawText3_456560",
+        "src/render/TextPendingQueue.cpp#DrawText2_456670",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/render/TextPendingQueue.cpp#QueueText_521A30",
+        "src/render/TextPendingQueue.cpp#CopyTextWords",
+        "src/render/TextPendingQueue.cpp#CopyTextRemainder",
+        "include/cg/render/TextPendingQueue.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "id": "E-TEXT-QUEUE-PRODUCER-S-20261005",
+      "gate": "S",
+      "observation": "仅四完整体262条/854原点/数据operand与五限定源码",
+      "expected": "五同文件补丁外全文/全部旧语义与登记外部保持；根4新增唯一映射，异常/ABI/全父不提升",
+      "actual": "262指令/854call点及11operand/14局部窗口可核，4根限定处置/3证据；SDK/字形与画面运行未验"
     }
   ],
   "task_acceptance": [
@@ -7810,7 +7922,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
         "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
       ]
     },
     {
@@ -7823,7 +7936,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-source-closure",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
         "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
       ]
     }
   ],
@@ -8692,6 +8806,38 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00056560",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00056670",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00056780",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00121A30",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure"
       ]
     }
   ],

@@ -1493,3 +1493,9 @@ native登记目标明确std::atexit，原53B406数值目标/所属块保留为�
 [局部SPEC](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)更新既有4568A0及53BEC0中两多行复制说明；1190条/1187有效ID、18pending/4分类引用保持。根完整332条与测宽33支持合365，十真实目标/32原点/25父具名；两滚动父复用一真实helper，因此31词法调用不能直接当缺一个原点。
 
 实际源码撤销额外保护/预清/固定快照，恢复分阶段行预算/模式、记录先写、星号数量重读/原字节复制、裁宽及两锚点调用；现有token/owner保持。只有绘制根新equivalent令102→103/3680，测宽支持不计新处置；三E-INPUT-TEXT-DRAW-I/W/S-20261005令57→60，固定Git命名快照cg2d-re-input-text-draw-source-20261005。T01/T02仍open、10/60任务、0/182叶/完整门禁保持，完整父/下游消费/寿命与SDK/运行未验。
+
+## 2026-10-05：TQP01四文本队列生产根映射
+
+[局部SPEC](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)补四此前无映射原根：456560/456670/456780/521A30，原79/80/81/22共262条、854直接原点完整归档。三实际本体及两复制阶段helper修正，既有DrawText3真实font0 core复用源码保持；不将包装少一个词法call当缺体或计原native调用轨迹等价。
+
+语义1190→1194/有效ID1187→1191，18pending/4分类引用保持；四限定equivalent令103→107/3680，三E-TEXT-QUEUE-PRODUCER-I/W/S-20261005令60→63，固定Git命名快照cg2d-re-text-queue-producer-source-20261005。854原引用不是全部caller/原新参数通过，当前case4消费已有源码/接线，不凭旧“仅声明”新增影子实现；完整上游/消费/寿命与SDK/画面运行未验。T01/T02仍open、10/60任务、0/182叶及完整门禁保持。

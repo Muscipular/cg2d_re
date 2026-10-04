@@ -8,11 +8,37 @@
 #include <bit>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 
 namespace cg::render {
 namespace {
 
-constexpr std::size_t kTextCapacity = 255;
+// 三个原绘制入口均按W32前移；无符号入口在余W8阶段前读取链尾。
+void CopyTextWords(
+    char*& destination,
+    const char*& source,
+    const std::uint32_t byteCount) noexcept
+{
+    for (std::uint32_t index = 0; index < (byteCount >> 2U); ++index) {
+        std::uint32_t word;
+        std::memcpy(&word, source, sizeof(word));
+        std::memcpy(destination, &word, sizeof(word));
+        source += sizeof(word);
+        destination += sizeof(word);
+    }
+}
+
+void CopyTextRemainder(
+    char* destination,
+    const char* source,
+    const std::uint32_t byteCount) noexcept
+{
+    for (std::uint32_t index = 0; index < (byteCount & 3U); ++index) {
+        *destination = *source;
+        ++source;
+        ++destination;
+    }
+}
 
 } // namespace
 
@@ -56,11 +82,7 @@ std::int32_t QueueText_521A30(
     const std::uint16_t initialCountBits = platform::gPendingGraphicCount;
     const std::int16_t initialCount =
         std::bit_cast<std::int16_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
-        return -2;
-    }
-    if (headToken == 0
-        || headToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
+    if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -106,20 +128,7 @@ std::int32_t DrawText2_456670(
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
         std::bit_cast<std::int32_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
-        return -2;
-    }
-
-    const std::int32_t modeIndex = static_cast<std::int32_t>(renderMode);
-    if (modeIndex < 0 || modeIndex >= 6 || text == nullptr) {
-        return -2;
-    }
-
-    std::size_t textLength = 0;
-    while (textLength < kTextCapacity && text[textLength] != '\0') {
-        ++textLength;
-    }
-    if (textLength == kTextCapacity) {
+    if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -132,23 +141,24 @@ std::int32_t DrawText2_456670(
     entry.fontType = std::bit_cast<std::uint8_t>(fontType);
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = 0xF9;
-    for (std::size_t byteIndex = 0; byteIndex <= textLength; ++byteIndex) {
-        entry.text[byteIndex] = text[byteIndex];
-    }
 
-    const std::size_t queueIndex = static_cast<std::size_t>(modeIndex);
+    const std::uint32_t copyCount =
+        static_cast<std::uint32_t>(std::strlen(text)) + 1U;
+    const char* source = text;
+    char* destination = entry.text;
+    CopyTextWords(destination, source, copyCount);
+    CopyTextRemainder(destination, source, copyCount);
+    const std::size_t queueIndex =
+        static_cast<std::size_t>(static_cast<std::int32_t>(renderMode));
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
     entry.nextToken = 0;
-    if (tailToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
-        return -2;
-    }
 
     const std::uint32_t currentToken = initialCountBits + 1U;
     if (tailToken == 0) {
+        // 原空链先读layer，再写尾槽，不改变QueueText弃返回行为。
+        const std::uint8_t layer = gTextFontLayerRecords[queueIndex].layer;
         gGraphicCache4Queue[queueIndex] = currentToken;
-        static_cast<void>(QueueText_521A30(
-            currentToken,
-            gTextFontLayerRecords[queueIndex].layer));
+        static_cast<void>(QueueText_521A30(currentToken, layer));
 
         const std::uint32_t resultBits = platform::gPendingGraphicCount2;
         const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
@@ -161,10 +171,6 @@ std::int32_t DrawText2_456670(
 
     const std::uint32_t resultBits = platform::gPendingGraphicCount2;
     const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
-    if (result < 0 || result >= MAX_QUEUE_SIZE) {
-        return -2;
-    }
-
     gGraphicCache4Queue[queueIndex] = resultBits + 1U;
     platform::gPendingGraphicCount2 = resultBits + 1U;
     return result;
@@ -183,19 +189,7 @@ std::int32_t DrawText_456780(
     const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;
     const std::int32_t initialCount =
         std::bit_cast<std::int32_t>(initialCountBits);
-    if (initialCount < 0 || initialCount >= MAX_QUEUE_SIZE) {
-        return -2;
-    }
-
-    if (renderMode >= 6U || text == nullptr) {
-        return -2;
-    }
-
-    std::size_t textLength = 0;
-    while (textLength < kTextCapacity && text[textLength] != '\0') {
-        ++textLength;
-    }
-    if (textLength == kTextCapacity) {
+    if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
 
@@ -208,23 +202,23 @@ std::int32_t DrawText_456780(
     entry.fontType = std::bit_cast<std::uint8_t>(fontType);
     entry.value7 = std::bit_cast<std::uint8_t>(value7);
     entry.marker = std::bit_cast<std::uint8_t>(marker);
-    for (std::size_t byteIndex = 0; byteIndex <= textLength; ++byteIndex) {
-        entry.text[byteIndex] = text[byteIndex];
-    }
 
+    const std::uint32_t copyCount =
+        static_cast<std::uint32_t>(std::strlen(text)) + 1U;
+    const char* source = text;
+    char* destination = entry.text;
+    CopyTextWords(destination, source, copyCount);
     const std::size_t queueIndex = static_cast<std::size_t>(renderMode);
     const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];
+    CopyTextRemainder(destination, source, copyCount);
     entry.nextToken = 0;
-    if (tailToken > static_cast<std::uint32_t>(MAX_QUEUE_SIZE)) {
-        return -2;
-    }
 
     const std::uint32_t currentToken = initialCountBits + 1U;
     if (tailToken == 0) {
+        // 原空链先读layer，再写尾槽，不改变QueueText弃返回行为。
+        const std::uint8_t layer = gTextFontLayerRecords[queueIndex].layer;
         gGraphicCache4Queue[queueIndex] = currentToken;
-        static_cast<void>(QueueText_521A30(
-            currentToken,
-            gTextFontLayerRecords[queueIndex].layer));
+        static_cast<void>(QueueText_521A30(currentToken, layer));
 
         const std::uint32_t resultBits = platform::gPendingGraphicCount2;
         const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
@@ -237,10 +231,6 @@ std::int32_t DrawText_456780(
 
     const std::uint32_t resultBits = platform::gPendingGraphicCount2;
     const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);
-    if (result < 0 || result >= MAX_QUEUE_SIZE) {
-        return -2;
-    }
-
     gGraphicCache4Queue[queueIndex] = resultBits + 1U;
     platform::gPendingGraphicCount2 = resultBits + 1U;
     return result;

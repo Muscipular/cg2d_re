@@ -64,3 +64,7 @@ destination预清、局部门禁及maxCharBits/textLength快照保持，
 ## 2026-10-05：当前状态
 
 上节2026-10-03的预清、局部门禁及快照保留描述属于当时源码；ITD01已按完整原体修正当前状态。完整父/数据生产消费及跨板块运行仍待，不恢复音频或网络加解密。
+
+## 2026-10-05：下游文本生产当前进展
+
+[TQP01](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)已校正真实DrawText2/DrawText及QueueText的额外拒绝、复制阶段和空链layer取样；本输入绘制源码及其三完整模式取样/QueueText写序不改。两函数空链取层顺序不同须各按原保留，不能把下游的“层先读”套入ITD01已证原序。完整上游/图形排序/文本消费、间接alias与输入渲染寿命及SDK/运行继续待验。

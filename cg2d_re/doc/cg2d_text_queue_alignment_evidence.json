@@ -1,0 +1,6871 @@
+{
+  "schema_version": 1,
+  "group": "TQP01",
+  "recorded_on": "2026-10-05",
+  "authority": "当前cg2d.exe已打开IDA经MCP只读Python；未修改/重开/保存或导出",
+  "baseline_reference": "doc/cg2d_text_pending_queue.md / doc/cg2d_input_text_alignment_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-text-queue-producer-source-20261005",
+  "functions": [
+    {
+      "entry": "0x456560",
+      "end": "0x456668",
+      "chunks": [
+        [
+          "0x456560",
+          "0x456668"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456560",
+          "text": "mov     eax, peddingGraphicCount2",
+          "size": 5
+        },
+        {
+          "address": "0x456565",
+          "text": "cmp     eax, 1000h",
+          "size": 5
+        },
+        {
+          "address": "0x45656a",
+          "text": "jl      short loc_456572",
+          "size": 2
+        },
+        {
+          "address": "0x45656c",
+          "text": "mov     eax, 0FFFFFFFEh",
+          "size": 5
+        },
+        {
+          "address": "0x456571",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x456572",
+          "text": "mov     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456574",
+          "text": "mov     cx, [esp+arg_4]",
+          "size": 5
+        },
+        {
+          "address": "0x456579",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45657c",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45657e",
+          "text": "mov     ax, [esp+arg_0]",
+          "size": 5
+        },
+        {
+          "address": "0x456583",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456586",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456587",
+          "text": "mov     bl, byte ptr [esp+4+arg_8]",
+          "size": 4
+        },
+        {
+          "address": "0x45658b",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x45658c",
+          "text": "lea     ebp, gGraphicPendingTextEntry.x[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x456592",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x456593",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x456594",
+          "text": "mov     edi, [esp+10h+arg_10]",
+          "size": 4
+        },
+        {
+          "address": "0x456598",
+          "text": "mov     [ebp+0], ax",
+          "size": 4
+        },
+        {
+          "address": "0x45659c",
+          "text": "mov     al, [esp+10h+arg_C]",
+          "size": 4
+        },
+        {
+          "address": "0x4565a0",
+          "text": "mov     gGraphicPendingTextEntry.y[edx], cx",
+          "size": 7
+        },
+        {
+          "address": "0x4565a7",
+          "text": "mov     cl, [esp+10h+arg_14]",
+          "size": 4
+        },
+        {
+          "address": "0x4565ab",
+          "text": "mov     gGraphicPendingTextEntry.renderMode[edx], bl",
+          "size": 6
+        },
+        {
+          "address": "0x4565b1",
+          "text": "mov     gGraphicPendingTextEntry.color[edx], al",
+          "size": 6
+        },
+        {
+          "address": "0x4565b7",
+          "text": "mov     gGraphicPendingTextEntry.fontType[edx], 0",
+          "size": 7
+        },
+        {
+          "address": "0x4565be",
+          "text": "mov     gGraphicPendingTextEntry.field_7[edx], cl",
+          "size": 6
+        },
+        {
+          "address": "0x4565c4",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x4565c7",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4565c9",
+          "text": "mov     gGraphicPendingTextEntry.field_8[edx], 0F9h",
+          "size": 7
+        },
+        {
+          "address": "0x4565d0",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x4565d2",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4565d4",
+          "text": "lea     esi, gGraphicPendingTextEntry.text[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x4565da",
+          "text": "sub     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4565dc",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4565de",
+          "text": "mov     [esp+10h+arg_8], esi",
+          "size": 4
+        },
+        {
+          "address": "0x4565e2",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x4565e4",
+          "text": "mov     edi, [esp+10h+arg_8]",
+          "size": 4
+        },
+        {
+          "address": "0x4565e8",
+          "text": "shr     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4565eb",
+          "text": "rep movsd",
+          "size": 2
+        },
+        {
+          "address": "0x4565ed",
+          "text": "mov     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4565ef",
+          "text": "movsx   eax, bl",
+          "size": 3
+        },
+        {
+          "address": "0x4565f2",
+          "text": "and     ecx, 3",
+          "size": 3
+        },
+        {
+          "address": "0x4565f5",
+          "text": "shl     eax, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4565f8",
+          "text": "rep movsb",
+          "size": 2
+        },
+        {
+          "address": "0x4565fa",
+          "text": "mov     ecx, gGraphicCache4Queue[eax]",
+          "size": 6
+        },
+        {
+          "address": "0x456600",
+          "text": "mov     gGraphicPendingTextEntry.next[edx], 0",
+          "size": 10
+        },
+        {
+          "address": "0x45660a",
+          "text": "test    ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45660c",
+          "text": "jnz     short loc_456638",
+          "size": 2
+        },
+        {
+          "address": "0x45660e",
+          "text": "mov     cl, byte ptr fontLayer.layer[eax]",
+          "size": 6
+        },
+        {
+          "address": "0x456614",
+          "text": "mov     gGraphicCache4Queue[eax], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x45661a",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45661b",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x45661c",
+          "text": "call    Renderer__QueueText",
+          "size": 5,
+          "call_target": "0x521a30"
+        },
+        {
+          "address": "0x456621",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x456627",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x45662a",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45662c",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45662d",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x45662e",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x45662f",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456630",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x456636",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456637",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x456638",
+          "text": "mov     [ecx+10Ch], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x45663e",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x456644",
+          "text": "mov     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456646",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456647",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45664a",
+          "text": "add     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45664c",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x45664d",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456650",
+          "text": "add     edx, offset gGraphicPendingTextEntry",
+          "size": 6
+        },
+        {
+          "address": "0x456656",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456657",
+          "text": "mov     gGraphicCache4Queue[eax], edx",
+          "size": 6
+        },
+        {
+          "address": "0x45665d",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45665f",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456660",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456661",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x456667",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "original_reference_count": 15,
+      "original_parent_count": 14,
+      "inbound_refs": [
+        {
+          "from": "0x421793",
+          "owner": "0x421750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45cde4",
+          "owner": "0x45ca20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d934",
+          "owner": "0x45d7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45dd02",
+          "owner": "0x45dc00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45de92",
+          "owner": "0x45dd60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e94f",
+          "owner": "0x45e7d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45eb62",
+          "owner": "0x45ea60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45ee98",
+          "owner": "0x45ed90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45fe87",
+          "owner": "0x45fa70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x460c85",
+          "owner": "0x45fea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x46124b",
+          "owner": "0x460ff0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x46128b",
+          "owner": "0x460ff0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x461faf",
+          "owner": "0x461b30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x46530c",
+          "owner": "0x464e30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x498501",
+          "owner": "0x4982c0",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    },
+    {
+      "entry": "0x456670",
+      "end": "0x45677b",
+      "chunks": [
+        [
+          "0x456670",
+          "0x45677b"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456670",
+          "text": "mov     eax, peddingGraphicCount2",
+          "size": 5
+        },
+        {
+          "address": "0x456675",
+          "text": "cmp     eax, 1000h",
+          "size": 5
+        },
+        {
+          "address": "0x45667a",
+          "text": "jl      short loc_456682",
+          "size": 2
+        },
+        {
+          "address": "0x45667c",
+          "text": "mov     eax, 0FFFFFFFEh",
+          "size": 5
+        },
+        {
+          "address": "0x456681",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x456682",
+          "text": "mov     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456684",
+          "text": "mov     cx, [esp+arg_4]",
+          "size": 5
+        },
+        {
+          "address": "0x456689",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45668c",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45668e",
+          "text": "mov     ax, [esp+arg_0]",
+          "size": 5
+        },
+        {
+          "address": "0x456693",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456696",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456697",
+          "text": "mov     bl, byte ptr [esp+4+arg_8]",
+          "size": 4
+        },
+        {
+          "address": "0x45669b",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x45669c",
+          "text": "lea     ebp, gGraphicPendingTextEntry.x[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x4566a2",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x4566a3",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x4566a4",
+          "text": "mov     edi, [esp+10h+arg_14]",
+          "size": 4
+        },
+        {
+          "address": "0x4566a8",
+          "text": "mov     [ebp+0], ax",
+          "size": 4
+        },
+        {
+          "address": "0x4566ac",
+          "text": "mov     al, [esp+10h+color]",
+          "size": 4
+        },
+        {
+          "address": "0x4566b0",
+          "text": "mov     gGraphicPendingTextEntry.y[edx], cx",
+          "size": 7
+        },
+        {
+          "address": "0x4566b7",
+          "text": "mov     cl, [esp+10h+fontType]",
+          "size": 4
+        },
+        {
+          "address": "0x4566bb",
+          "text": "mov     gGraphicPendingTextEntry.renderMode[edx], bl",
+          "size": 6
+        },
+        {
+          "address": "0x4566c1",
+          "text": "mov     gGraphicPendingTextEntry.color[edx], al",
+          "size": 6
+        },
+        {
+          "address": "0x4566c7",
+          "text": "mov     al, [esp+10h+arg_18]",
+          "size": 4
+        },
+        {
+          "address": "0x4566cb",
+          "text": "mov     gGraphicPendingTextEntry.fontType[edx], cl",
+          "size": 6
+        },
+        {
+          "address": "0x4566d1",
+          "text": "mov     gGraphicPendingTextEntry.field_7[edx], al",
+          "size": 6
+        },
+        {
+          "address": "0x4566d7",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x4566da",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4566dc",
+          "text": "mov     gGraphicPendingTextEntry.field_8[edx], 0F9h",
+          "size": 7
+        },
+        {
+          "address": "0x4566e3",
+          "text": "lea     esi, gGraphicPendingTextEntry.text[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x4566e9",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x4566eb",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4566ed",
+          "text": "sub     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4566ef",
+          "text": "mov     [esp+10h+arg_8], esi",
+          "size": 4
+        },
+        {
+          "address": "0x4566f3",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4566f5",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x4566f7",
+          "text": "mov     edi, [esp+10h+arg_8]",
+          "size": 4
+        },
+        {
+          "address": "0x4566fb",
+          "text": "shr     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x4566fe",
+          "text": "rep movsd",
+          "size": 2
+        },
+        {
+          "address": "0x456700",
+          "text": "mov     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456702",
+          "text": "movsx   eax, bl",
+          "size": 3
+        },
+        {
+          "address": "0x456705",
+          "text": "and     ecx, 3",
+          "size": 3
+        },
+        {
+          "address": "0x456708",
+          "text": "shl     eax, 2",
+          "size": 3
+        },
+        {
+          "address": "0x45670b",
+          "text": "rep movsb",
+          "size": 2
+        },
+        {
+          "address": "0x45670d",
+          "text": "mov     ecx, gGraphicCache4Queue[eax]",
+          "size": 6
+        },
+        {
+          "address": "0x456713",
+          "text": "mov     gGraphicPendingTextEntry.next[edx], 0",
+          "size": 10
+        },
+        {
+          "address": "0x45671d",
+          "text": "test    ecx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45671f",
+          "text": "jnz     short loc_45674B",
+          "size": 2
+        },
+        {
+          "address": "0x456721",
+          "text": "mov     cl, byte ptr fontLayer.layer[eax]",
+          "size": 6
+        },
+        {
+          "address": "0x456727",
+          "text": "mov     gGraphicCache4Queue[eax], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x45672d",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x45672e",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x45672f",
+          "text": "call    Renderer__QueueText",
+          "size": 5,
+          "call_target": "0x521a30"
+        },
+        {
+          "address": "0x456734",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x45673a",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x45673d",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45673f",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456740",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456741",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456742",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456743",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x456749",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x45674a",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x45674b",
+          "text": "mov     [ecx+10Ch], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x456751",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x456757",
+          "text": "mov     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456759",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x45675a",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45675d",
+          "text": "add     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45675f",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456760",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456763",
+          "text": "add     edx, offset gGraphicPendingTextEntry",
+          "size": 6
+        },
+        {
+          "address": "0x456769",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x45676a",
+          "text": "mov     gGraphicCache4Queue[eax], edx",
+          "size": 6
+        },
+        {
+          "address": "0x456770",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456772",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456773",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456774",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x45677a",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "original_reference_count": 19,
+      "original_parent_count": 12,
+      "inbound_refs": [
+        {
+          "from": "0x43c453",
+          "owner": "0x43c3e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x43caed",
+          "owner": "0x43ca80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x43d6e9",
+          "owner": "0x43cbb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x44a48a",
+          "owner": "0x44a410",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x44a511",
+          "owner": "0x44a410",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x456a19",
+          "owner": "0x4568a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x456a80",
+          "owner": "0x4568a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x458a69",
+          "owner": "0x458a40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x459232",
+          "owner": "0x4590e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x459413",
+          "owner": "0x4590e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x459473",
+          "owner": "0x4590e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x461ee6",
+          "owner": "0x461b30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x461f2c",
+          "owner": "0x461b30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x461f66",
+          "owner": "0x461b30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x472c49",
+          "owner": "0x4729b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x498f51",
+          "owner": "0x498520",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x498fb5",
+          "owner": "0x498520",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4a7a41",
+          "owner": "0x4a7750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x521fc4",
+          "owner": "0x521f20",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    },
+    {
+      "entry": "0x456780",
+      "end": "0x456891",
+      "chunks": [
+        [
+          "0x456780",
+          "0x456891"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x456780",
+          "text": "mov     eax, peddingGraphicCount2",
+          "size": 5
+        },
+        {
+          "address": "0x456785",
+          "text": "cmp     eax, 1000h",
+          "size": 5
+        },
+        {
+          "address": "0x45678a",
+          "text": "jl      short loc_456792",
+          "size": 2
+        },
+        {
+          "address": "0x45678c",
+          "text": "mov     eax, 0FFFFFFFEh",
+          "size": 5
+        },
+        {
+          "address": "0x456791",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x456792",
+          "text": "mov     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x456794",
+          "text": "mov     cx, [esp+a2]",
+          "size": 5
+        },
+        {
+          "address": "0x456799",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45679c",
+          "text": "add     edx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45679e",
+          "text": "mov     ax, [esp+a1]",
+          "size": 5
+        },
+        {
+          "address": "0x4567a3",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x4567a6",
+          "text": "push    ebx",
+          "size": 1
+        },
+        {
+          "address": "0x4567a7",
+          "text": "mov     ebx, dword ptr [esp+4+a3]",
+          "size": 4
+        },
+        {
+          "address": "0x4567ab",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x4567ac",
+          "text": "lea     ebp, gGraphicPendingTextEntry.x[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x4567b2",
+          "text": "push    esi",
+          "size": 1
+        },
+        {
+          "address": "0x4567b3",
+          "text": "push    edi",
+          "size": 1
+        },
+        {
+          "address": "0x4567b4",
+          "text": "mov     [ebp+0], ax",
+          "size": 4
+        },
+        {
+          "address": "0x4567b8",
+          "text": "mov     al, [esp+10h+a5]",
+          "size": 4
+        },
+        {
+          "address": "0x4567bc",
+          "text": "mov     edi, [esp+10h+a6]",
+          "size": 4
+        },
+        {
+          "address": "0x4567c0",
+          "text": "mov     gGraphicPendingTextEntry.y[edx], cx",
+          "size": 7
+        },
+        {
+          "address": "0x4567c7",
+          "text": "mov     cl, [esp+10h+a4]",
+          "size": 4
+        },
+        {
+          "address": "0x4567cb",
+          "text": "mov     gGraphicPendingTextEntry.renderMode[edx], bl",
+          "size": 6
+        },
+        {
+          "address": "0x4567d1",
+          "text": "mov     gGraphicPendingTextEntry.color[edx], al",
+          "size": 6
+        },
+        {
+          "address": "0x4567d7",
+          "text": "mov     al, [esp+10h+a7]",
+          "size": 4
+        },
+        {
+          "address": "0x4567db",
+          "text": "mov     gGraphicPendingTextEntry.fontType[edx], cl",
+          "size": 6
+        },
+        {
+          "address": "0x4567e1",
+          "text": "mov     cl, [esp+10h+a8]",
+          "size": 4
+        },
+        {
+          "address": "0x4567e5",
+          "text": "mov     gGraphicPendingTextEntry.field_7[edx], al",
+          "size": 6
+        },
+        {
+          "address": "0x4567eb",
+          "text": "mov     gGraphicPendingTextEntry.field_8[edx], cl",
+          "size": 6
+        },
+        {
+          "address": "0x4567f1",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "size": 3
+        },
+        {
+          "address": "0x4567f4",
+          "text": "xor     eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x4567f6",
+          "text": "repne scasb",
+          "size": 2
+        },
+        {
+          "address": "0x4567f8",
+          "text": "not     ecx",
+          "size": 2
+        },
+        {
+          "address": "0x4567fa",
+          "text": "lea     esi, gGraphicPendingTextEntry.text[edx]",
+          "size": 6
+        },
+        {
+          "address": "0x456800",
+          "text": "sub     edi, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456802",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456804",
+          "text": "mov     dword ptr [esp+10h+a5], esi",
+          "size": 4
+        },
+        {
+          "address": "0x456808",
+          "text": "mov     esi, edi",
+          "size": 2
+        },
+        {
+          "address": "0x45680a",
+          "text": "mov     edi, dword ptr [esp+10h+a5]",
+          "size": 4
+        },
+        {
+          "address": "0x45680e",
+          "text": "shr     ecx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x456811",
+          "text": "rep movsd",
+          "size": 2
+        },
+        {
+          "address": "0x456813",
+          "text": "and     ebx, 0FFh",
+          "size": 6
+        },
+        {
+          "address": "0x456819",
+          "text": "mov     ecx, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45681b",
+          "text": "shl     ebx, 2",
+          "size": 3
+        },
+        {
+          "address": "0x45681e",
+          "text": "and     ecx, 3",
+          "size": 3
+        },
+        {
+          "address": "0x456821",
+          "text": "mov     eax, gGraphicCache4Queue[ebx]",
+          "size": 6
+        },
+        {
+          "address": "0x456827",
+          "text": "rep movsb",
+          "size": 2
+        },
+        {
+          "address": "0x456829",
+          "text": "test    eax, eax",
+          "size": 2
+        },
+        {
+          "address": "0x45682b",
+          "text": "mov     gGraphicPendingTextEntry.next[edx], 0",
+          "size": 10
+        },
+        {
+          "address": "0x456835",
+          "text": "jnz     short loc_456861",
+          "size": 2
+        },
+        {
+          "address": "0x456837",
+          "text": "mov     cl, byte ptr fontLayer.layer[ebx]",
+          "size": 6
+        },
+        {
+          "address": "0x45683d",
+          "text": "mov     gGraphicCache4Queue[ebx], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x456843",
+          "text": "push    ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456844",
+          "text": "push    ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456845",
+          "text": "call    Renderer__QueueText",
+          "size": 5,
+          "call_target": "0x521a30"
+        },
+        {
+          "address": "0x45684a",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x456850",
+          "text": "add     esp, 8",
+          "size": 3
+        },
+        {
+          "address": "0x456853",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456855",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456856",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456857",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456858",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456859",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x45685f",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456860",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x456861",
+          "text": "mov     [eax+10Ch], ebp",
+          "size": 6
+        },
+        {
+          "address": "0x456867",
+          "text": "mov     ecx, peddingGraphicCount2",
+          "size": 6
+        },
+        {
+          "address": "0x45686d",
+          "text": "mov     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x45686f",
+          "text": "mov     eax, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456871",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x456874",
+          "text": "add     edx, ecx",
+          "size": 2
+        },
+        {
+          "address": "0x456876",
+          "text": "pop     edi",
+          "size": 1
+        },
+        {
+          "address": "0x456877",
+          "text": "shl     edx, 4",
+          "size": 3
+        },
+        {
+          "address": "0x45687a",
+          "text": "add     edx, offset gGraphicPendingTextEntry",
+          "size": 6
+        },
+        {
+          "address": "0x456880",
+          "text": "inc     ecx",
+          "size": 1
+        },
+        {
+          "address": "0x456881",
+          "text": "pop     esi",
+          "size": 1
+        },
+        {
+          "address": "0x456882",
+          "text": "mov     gGraphicCache4Queue[ebx], edx",
+          "size": 6
+        },
+        {
+          "address": "0x456888",
+          "text": "pop     ebp",
+          "size": 1
+        },
+        {
+          "address": "0x456889",
+          "text": "mov     peddingGraphicCount2, ecx",
+          "size": 6
+        },
+        {
+          "address": "0x45688f",
+          "text": "pop     ebx",
+          "size": 1
+        },
+        {
+          "address": "0x456890",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "original_reference_count": 816,
+      "original_parent_count": 188,
+      "inbound_refs": [
+        {
+          "from": "0x4015e0",
+          "owner": "0x4014b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x401605",
+          "owner": "0x4014b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x40162c",
+          "owner": "0x4014b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x401671",
+          "owner": "0x4014b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4016f9",
+          "owner": "0x4014b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4025fb",
+          "owner": "0x4021a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x402653",
+          "owner": "0x4021a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4028c3",
+          "owner": "0x4021a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4029c7",
+          "owner": "0x4021a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x443499",
+          "owner": "0x442f70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4434d9",
+          "owner": "0x442f70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x443832",
+          "owner": "0x442f70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x455e23",
+          "owner": "0x455c90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x455e8c",
+          "owner": "0x455c90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x455ed2",
+          "owner": "0x455c90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x455f1d",
+          "owner": "0x455c90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x455f63",
+          "owner": "0x455c90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4591cc",
+          "owner": "0x4590e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d048",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d06f",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d098",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d0be",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d0e8",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d110",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d15d",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d2f2",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d319",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d342",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d368",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d392",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d3ba",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d3e6",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d410",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d43b",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d464",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d491",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d4b9",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45d694",
+          "owner": "0x45ce10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45dbe3",
+          "owner": "0x45d990",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e078",
+          "owner": "0x45dee0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e290",
+          "owner": "0x45e0c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e2ee",
+          "owner": "0x45e0c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e34c",
+          "owner": "0x45e0c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e3aa",
+          "owner": "0x45e0c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45e515",
+          "owner": "0x45e3d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x461ea5",
+          "owner": "0x461b30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4621f9",
+          "owner": "0x462090",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x462257",
+          "owner": "0x462090",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4622b2",
+          "owner": "0x462090",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x462310",
+          "owner": "0x462090",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x462496",
+          "owner": "0x462330",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4641b8",
+          "owner": "0x4631d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x464201",
+          "owner": "0x4631d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x464242",
+          "owner": "0x4631d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x464752",
+          "owner": "0x464450",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47aaa0",
+          "owner": "0x47a7a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47ac11",
+          "owner": "0x47a7a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47ae91",
+          "owner": "0x47a7a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47af9b",
+          "owner": "0x47a7a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47b09c",
+          "owner": "0x47a7a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47b725",
+          "owner": "0x47b6c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47b75b",
+          "owner": "0x47b6c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47ba87",
+          "owner": "0x47b9b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47baba",
+          "owner": "0x47b9b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47bba2",
+          "owner": "0x47b9b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47c2b4",
+          "owner": "0x47c240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47c2f6",
+          "owner": "0x47c240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47cb9c",
+          "owner": "0x47cb00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47cc05",
+          "owner": "0x47cb00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47cf05",
+          "owner": "0x47ce70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x47cf68",
+          "owner": "0x47ce70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x482167",
+          "owner": "0x482000",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x483cfa",
+          "owner": "0x483150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x483dff",
+          "owner": "0x483150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4852dc",
+          "owner": "0x485200",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4852fe",
+          "owner": "0x485200",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48542e",
+          "owner": "0x485350",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x485450",
+          "owner": "0x485350",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x489626",
+          "owner": "0x488fb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x489730",
+          "owner": "0x488fb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48a3db",
+          "owner": "0x489f00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48a511",
+          "owner": "0x489f00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48a68c",
+          "owner": "0x489f00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48b852",
+          "owner": "0x48b810",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48b87e",
+          "owner": "0x48b810",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48b8f7",
+          "owner": "0x48b810",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48b971",
+          "owner": "0x48b930",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48b99d",
+          "owner": "0x48b930",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48ba28",
+          "owner": "0x48b930",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d5e2",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d628",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d656",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d69c",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d6d9",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d725",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x48d771",
+          "owner": "0x48d540",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x492160",
+          "owner": "0x4920f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4921ad",
+          "owner": "0x4920f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x492210",
+          "owner": "0x4920f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49528f",
+          "owner": "0x4951c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49532c",
+          "owner": "0x4951c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x496eaf",
+          "owner": "0x496d50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x499fb5",
+          "owner": "0x499c30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49aa10",
+          "owner": "0x499c30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49ac0f",
+          "owner": "0x499c30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b6ee",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b74b",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b78a",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b7d1",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b81d",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49b85c",
+          "owner": "0x49b670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49cc15",
+          "owner": "0x49cad0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49cce0",
+          "owner": "0x49cad0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49e278",
+          "owner": "0x49e1d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49e30d",
+          "owner": "0x49e1d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49fe88",
+          "owner": "0x49fe40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x49fee6",
+          "owner": "0x49fe40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4a6cd5",
+          "owner": "0x4a6ac0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aa26b",
+          "owner": "0x4a9d10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aa394",
+          "owner": "0x4a9d10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aa8d9",
+          "owner": "0x4aa3d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aa995",
+          "owner": "0x4aa3d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aabb9",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aac21",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aac5f",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aac95",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aacd5",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aad15",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aad57",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aad92",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aadcd",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aae0c",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aae41",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aae76",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4aaeab",
+          "owner": "0x4aab70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab447",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab479",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab4b0",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab4e6",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab527",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab562",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab5a4",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab5df",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab61a",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab659",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab68e",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab6c3",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ab6f8",
+          "owner": "0x4ab400",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ac709",
+          "owner": "0x4ac290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ac857",
+          "owner": "0x4ac290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4accfd",
+          "owner": "0x4ac890",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4acdba",
+          "owner": "0x4ac890",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4adb7e",
+          "owner": "0x4adaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b0f7a",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b0fa1",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b0fd8",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b100e",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b104f",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b108a",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b10c8",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b10ff",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b1136",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b1174",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b11ab",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b11e2",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b1216",
+          "owner": "0x4b0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b1ecc",
+          "owner": "0x4b1940",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b2033",
+          "owner": "0x4b1940",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b2cf3",
+          "owner": "0x4b2730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b2ddc",
+          "owner": "0x4b2730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b387f",
+          "owner": "0x4b3610",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3940",
+          "owner": "0x4b3610",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3b99",
+          "owner": "0x4b3b00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3bb1",
+          "owner": "0x4b3b00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3c5d",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3c90",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3cdd",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3d0f",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3d41",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3d73",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3da5",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b3df3",
+          "owner": "0x4b3bf0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b40eb",
+          "owner": "0x4b4070",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4103",
+          "owner": "0x4b4070",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b41a7",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b41da",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4220",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4252",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4284",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b42b6",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b42e8",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b432d",
+          "owner": "0x4b4140",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b462a",
+          "owner": "0x4b45a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4642",
+          "owner": "0x4b45a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b46f9",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b472c",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4772",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b47a4",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b47d6",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b4808",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4b483a",
+          "owner": "0x4b4680",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bc008",
+          "owner": "0x4bbed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bcc2a",
+          "owner": "0x4bc660",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bcd2b",
+          "owner": "0x4bc660",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bce8b",
+          "owner": "0x4bc660",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bd378",
+          "owner": "0x4bd100",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bd396",
+          "owner": "0x4bd100",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bd400",
+          "owner": "0x4bd100",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4bd423",
+          "owner": "0x4bd100",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c118f",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c11e3",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c1274",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c12a6",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c12dc",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c131e",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c133c",
+          "owner": "0x4c0f20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c2e7d",
+          "owner": "0x4c2b20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c2f65",
+          "owner": "0x4c2b20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c3223",
+          "owner": "0x4c2fa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c3248",
+          "owner": "0x4c2fa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c32b5",
+          "owner": "0x4c2fa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c32d8",
+          "owner": "0x4c2fa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c4fa4",
+          "owner": "0x4c4cb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c508c",
+          "owner": "0x4c4cb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c5343",
+          "owner": "0x4c50c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c5368",
+          "owner": "0x4c50c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c53d5",
+          "owner": "0x4c50c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c53f8",
+          "owner": "0x4c50c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c7678",
+          "owner": "0x4c75a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c76b9",
+          "owner": "0x4c75a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c779c",
+          "owner": "0x4c75a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c7816",
+          "owner": "0x4c75a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4c784d",
+          "owner": "0x4c75a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4cd7ad",
+          "owner": "0x4cd4f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4cd891",
+          "owner": "0x4cd4f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4cdac1",
+          "owner": "0x4cd4f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d02c5",
+          "owner": "0x4d0230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d043a",
+          "owner": "0x4d0230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0608",
+          "owner": "0x4d04a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d064f",
+          "owner": "0x4d04a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d08fd",
+          "owner": "0x4d04a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0a29",
+          "owner": "0x4d0990",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0a41",
+          "owner": "0x4d0990",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0b0b",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0b3e",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0b84",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0bb6",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0be8",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0c1a",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0c4c",
+          "owner": "0x4d0a80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0fa5",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d0ff0",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1036",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d109c",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d10e7",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d112d",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1174",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d11bb",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1204",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d124a",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1294",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d12de",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1327",
+          "owner": "0x4d0eb0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d17aa",
+          "owner": "0x4d16f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1808",
+          "owner": "0x4d16f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1890",
+          "owner": "0x4d16f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1918",
+          "owner": "0x4d16f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d199b",
+          "owner": "0x4d16f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d1fe7",
+          "owner": "0x4d1d50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2b21",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2b51",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2beb",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2cec",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2d26",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2d5b",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2dad",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2de7",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2e1c",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2e51",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2e86",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2ebe",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2ef0",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2f28",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2f60",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d2f98",
+          "owner": "0x4d2840",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d33b2",
+          "owner": "0x4d3210",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d3616",
+          "owner": "0x4d3410",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d443f",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4487",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d44b4",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4554",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4595",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d45e5",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4611",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d465e",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d468a",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d46da",
+          "owner": "0x4d36f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d49cd",
+          "owner": "0x4d4960",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4d3b",
+          "owner": "0x4d4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4d80",
+          "owner": "0x4d4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4df8",
+          "owner": "0x4d4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d4e24",
+          "owner": "0x4d4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5105",
+          "owner": "0x4d4f00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5138",
+          "owner": "0x4d4f00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d542e",
+          "owner": "0x4d5250",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5460",
+          "owner": "0x4d5250",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5c5e",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5c9f",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5cc5",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5d01",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5d55",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5dbe",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5de7",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5e2e",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5e59",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d5e96",
+          "owner": "0x4d55c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d621b",
+          "owner": "0x4d61e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6534",
+          "owner": "0x4d62a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6923",
+          "owner": "0x4d6710",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6955",
+          "owner": "0x4d6710",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6c34",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6c6a",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6cba",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6d25",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6d56",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6da6",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d6de7",
+          "owner": "0x4d6a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d70bd",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d70ee",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7127",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d714f",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d717a",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d71a4",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d71ca",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7220",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7269",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d72b2",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7378",
+          "owner": "0x4d6ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7802",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d783f",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d788c",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d78d8",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7948",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d799d",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7a05",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7a9c",
+          "owner": "0x4d7470",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7e20",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7e83",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7ed7",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7f29",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7f8a",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d7fcd",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8011",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8064",
+          "owner": "0x4d7c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8430",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8493",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d84e6",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d853b",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d858b",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d85d4",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8623",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8667",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d86ec",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d877e",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d87cc",
+          "owner": "0x4d8230",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8ac0",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8b20",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8bbd",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8bfb",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8c3a",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8c91",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d8cbc",
+          "owner": "0x4d88c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d9022",
+          "owner": "0x4d8da0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d9055",
+          "owner": "0x4d8da0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d9f52",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4d9fba",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da003",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da0a3",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da0e4",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da134",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da193",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da1e3",
+          "owner": "0x4d9220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da865",
+          "owner": "0x4da580",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da8aa",
+          "owner": "0x4da580",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da90b",
+          "owner": "0x4da580",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4da937",
+          "owner": "0x4da580",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db783",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db7cb",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db86c",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db8a8",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db8e4",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db90e",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db959",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db9a6",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4db9f7",
+          "owner": "0x4daa40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc157",
+          "owner": "0x4dbd30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc1ba",
+          "owner": "0x4dbd30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc1e6",
+          "owner": "0x4dbd30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc486",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc4a9",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc504",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc545",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc586",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc634",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dc67b",
+          "owner": "0x4dc290",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd4a4",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd4f0",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd591",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd5cf",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd5fd",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd628",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd672",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd6bd",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dd70d",
+          "owner": "0x4dc7e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dde2b",
+          "owner": "0x4ddb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dde89",
+          "owner": "0x4ddb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ddeb5",
+          "owner": "0x4ddb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dec84",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4decd0",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ded71",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dedaf",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4deddd",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dee08",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dee52",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dee9d",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4deeed",
+          "owner": "0x4ddfc0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4df5db",
+          "owner": "0x4df300",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4df639",
+          "owner": "0x4df300",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4df665",
+          "owner": "0x4df300",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dfd1f",
+          "owner": "0x4df730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dfdb1",
+          "owner": "0x4df730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dfe2e",
+          "owner": "0x4df730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4dfe92",
+          "owner": "0x4df730",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e08ef",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e0934",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e097c",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e09c6",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e0a0e",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e0a56",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e0aa0",
+          "owner": "0x4e0380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e0f4f",
+          "owner": "0x4e0d10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e16f7",
+          "owner": "0x4e10f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1733",
+          "owner": "0x4e10f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1aaa",
+          "owner": "0x4e19e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1c58",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1c90",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1cd8",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1d11",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1d4a",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1d7f",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1db4",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1de9",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1e1e",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1e53",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1e88",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1ea7",
+          "owner": "0x4e1b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1f62",
+          "owner": "0x4e1ee0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1fd8",
+          "owner": "0x4e1ee0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e1ff7",
+          "owner": "0x4e1ee0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e256f",
+          "owner": "0x4e2030",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2599",
+          "owner": "0x4e2030",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e25db",
+          "owner": "0x4e2030",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2608",
+          "owner": "0x4e2030",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2649",
+          "owner": "0x4e2030",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2b98",
+          "owner": "0x4e28f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2bc2",
+          "owner": "0x4e28f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2c04",
+          "owner": "0x4e28f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2c31",
+          "owner": "0x4e28f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e2c72",
+          "owner": "0x4e28f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e33bd",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e33fc",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3443",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e353b",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3566",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e35b0",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e35db",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3623",
+          "owner": "0x4e2d90",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3ce4",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3d22",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3d6b",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3e52",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3eac",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3ed6",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e3f1d",
+          "owner": "0x4e3750",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4655",
+          "owner": "0x4e4460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4678",
+          "owner": "0x4e4460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e46d2",
+          "owner": "0x4e4460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4716",
+          "owner": "0x4e4460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4766",
+          "owner": "0x4e4460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4cf6",
+          "owner": "0x4e4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4d46",
+          "owner": "0x4e4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e4d9d",
+          "owner": "0x4e4a50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e50fe",
+          "owner": "0x4e4ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e5152",
+          "owner": "0x4e4ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e51a1",
+          "owner": "0x4e4ea0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e67f6",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e682f",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e6871",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e68b6",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e68fd",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e6942",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e6987",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e69ce",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e6a1d",
+          "owner": "0x4e5e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7050",
+          "owner": "0x4e6e10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7267",
+          "owner": "0x4e71a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e74bb",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e74f3",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e753b",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7574",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e75ad",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e75e2",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7617",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e764c",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7681",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e76b6",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e76eb",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e770a",
+          "owner": "0x4e7380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e77ac",
+          "owner": "0x4e7740",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7820",
+          "owner": "0x4e7740",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e783f",
+          "owner": "0x4e7740",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7e77",
+          "owner": "0x4e7870",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e7eb3",
+          "owner": "0x4e7870",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e838c",
+          "owner": "0x4e82f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e905f",
+          "owner": "0x4e8ad0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e90a7",
+          "owner": "0x4e8ad0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e94d8",
+          "owner": "0x4e92a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e9a0c",
+          "owner": "0x4e97e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4e9ec6",
+          "owner": "0x4e9c80",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ea488",
+          "owner": "0x4ea1b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ea537",
+          "owner": "0x4ea1b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ea5a6",
+          "owner": "0x4ea1b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ea90d",
+          "owner": "0x4ea690",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ea951",
+          "owner": "0x4ea690",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eadb2",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eae14",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eae79",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eaecb",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eaf7a",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eafc7",
+          "owner": "0x4eaaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eb67e",
+          "owner": "0x4eb1c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eb6cf",
+          "owner": "0x4eb1c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebbd6",
+          "owner": "0x4ebaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebc3d",
+          "owner": "0x4ebaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebc69",
+          "owner": "0x4ebaa0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebeb3",
+          "owner": "0x4ebd20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebeda",
+          "owner": "0x4ebd20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ebf05",
+          "owner": "0x4ebd20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecb1f",
+          "owner": "0x4ec240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecb5c",
+          "owner": "0x4ec240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecba8",
+          "owner": "0x4ec240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecc76",
+          "owner": "0x4ec240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecf67",
+          "owner": "0x4ece00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ecfa8",
+          "owner": "0x4ece00",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed271",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed2e9",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed378",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed3bc",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed42c",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed4a2",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed4df",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed525",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed59b",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ed5c6",
+          "owner": "0x4ed020",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ede6a",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4edead",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4edeed",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4edf29",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4edf6f",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4edfbd",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ee018",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ee069",
+          "owner": "0x4edb20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ee649",
+          "owner": "0x4ee380",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef3bc",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef3fb",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef439",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef474",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef4b6",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef4ef",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef513",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ef560",
+          "owner": "0x4ef0f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4efe2f",
+          "owner": "0x4efb70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4efe56",
+          "owner": "0x4efb70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4efeb4",
+          "owner": "0x4efb70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4efefd",
+          "owner": "0x4efb70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4eff5e",
+          "owner": "0x4efb70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f07e1",
+          "owner": "0x4f0460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0836",
+          "owner": "0x4f0460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f088f",
+          "owner": "0x4f0460",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0c52",
+          "owner": "0x4f0b40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0c92",
+          "owner": "0x4f0b40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0da5",
+          "owner": "0x4f0cd0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0de6",
+          "owner": "0x4f0cd0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0ef5",
+          "owner": "0x4f0e20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f0f36",
+          "owner": "0x4f0e20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1589",
+          "owner": "0x4f0f70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f15cb",
+          "owner": "0x4f0f70",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1e92",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1ed4",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1f15",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1fa4",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f1fee",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f2049",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f209a",
+          "owner": "0x4f1c40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f31be",
+          "owner": "0x4f2a30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f33d7",
+          "owner": "0x4f2a30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4153",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4195",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f41d6",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4214",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4259",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f429a",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f42f5",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4347",
+          "owner": "0x4f3ed0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4bc7",
+          "owner": "0x4f4790",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f4dfe",
+          "owner": "0x4f4790",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f574e",
+          "owner": "0x4f51d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f57c1",
+          "owner": "0x4f51d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5822",
+          "owner": "0x4f51d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5881",
+          "owner": "0x4f51d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f592b",
+          "owner": "0x4f51d0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5d91",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5dd4",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5e3a",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5ea5",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5f25",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f5f84",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f601b",
+          "owner": "0x4f5a60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f659f",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6614",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f673e",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f67a3",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6a18",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6a83",
+          "owner": "0x4f6220",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6eec",
+          "owner": "0x4f6ca0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6f59",
+          "owner": "0x4f6ca0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f6ffc",
+          "owner": "0x4f6ca0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f7532",
+          "owner": "0x4f7150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f757d",
+          "owner": "0x4f7150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f75d5",
+          "owner": "0x4f7150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f762d",
+          "owner": "0x4f7150",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f84f2",
+          "owner": "0x4f83b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8886",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f88c6",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f88ef",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f892e",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8977",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f89c3",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f89fe",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8a39",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8a74",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8aaf",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8aea",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8b25",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8b6a",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8be0",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f8d09",
+          "owner": "0x4f8550",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9287",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f92d3",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f931f",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9357",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9392",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f93cd",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9408",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9443",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9481",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f94bc",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f94f7",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9532",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f956d",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f95a8",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f95e6",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f961e",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9659",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9694",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f96cf",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9710",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9751",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9792",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f97cd",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9808",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9843",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9895",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f98d3",
+          "owner": "0x4f8e40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9da6",
+          "owner": "0x4f9b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9de8",
+          "owner": "0x4f9b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9ed0",
+          "owner": "0x4f9b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4f9f29",
+          "owner": "0x4f9b10",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fa2ea",
+          "owner": "0x4fa050",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fb5a6",
+          "owner": "0x4faef0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fb6c1",
+          "owner": "0x4faef0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fba9f",
+          "owner": "0x4fba30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fbb15",
+          "owner": "0x4fba30",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fc113",
+          "owner": "0x4fbb40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fc157",
+          "owner": "0x4fbb40",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fd24a",
+          "owner": "0x4fd1a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fd2ab",
+          "owner": "0x4fd1a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fd2ef",
+          "owner": "0x4fd1a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fdc7a",
+          "owner": "0x4fdbd0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fe19d",
+          "owner": "0x4fe0e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fe1e1",
+          "owner": "0x4fe0e0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fe93b",
+          "owner": "0x4fe860",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fe982",
+          "owner": "0x4fe860",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fe9cc",
+          "owner": "0x4fe860",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ff262",
+          "owner": "0x4ff1a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ff575",
+          "owner": "0x4ff4c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ffdd5",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ffe42",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ffe71",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4ffefc",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fff4d",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fff93",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x4fffd0",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50001a",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50006c",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5000d8",
+          "owner": "0x4ff650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50049a",
+          "owner": "0x500370",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500504",
+          "owner": "0x500370",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500548",
+          "owner": "0x500370",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50058d",
+          "owner": "0x500370",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50065d",
+          "owner": "0x500370",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50081f",
+          "owner": "0x5006f0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500a62",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500aaf",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500b30",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500b89",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500bf2",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500c4b",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500ca0",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500d07",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500d6b",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500dbf",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500e13",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500e67",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500ebb",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500f0f",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500f63",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x500fbd",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501011",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501065",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5010be",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50114c",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501402",
+          "owner": "0x5008c0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50171f",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501769",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5017b3",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5017eb",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501826",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501861",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50189c",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5018d7",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501911",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50194c",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501987",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5019c7",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501a02",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501a3d",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501a7d",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501ab8",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501af3",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501b2d",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501b68",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501bb2",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501be9",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501c23",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501c5d",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501c97",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501cd5",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501d0f",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501d4a",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501d85",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501dbf",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x501dfa",
+          "owner": "0x5014a0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50267f",
+          "owner": "0x501fd0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x502750",
+          "owner": "0x501fd0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x502a14",
+          "owner": "0x5029b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x502a5b",
+          "owner": "0x5029b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x502aa4",
+          "owner": "0x5029b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x503aa3",
+          "owner": "0x503a20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x504bf9",
+          "owner": "0x504ba0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x504c3c",
+          "owner": "0x504ba0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5056c5",
+          "owner": "0x505170",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x50594d",
+          "owner": "0x505170",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x506081",
+          "owner": "0x505c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5060e2",
+          "owner": "0x505c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x506189",
+          "owner": "0x505c20",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52d9f6",
+          "owner": "0x52d7b0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52dfa3",
+          "owner": "0x52dce0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e04f",
+          "owner": "0x52dce0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e0be",
+          "owner": "0x52dce0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e4bd",
+          "owner": "0x52e240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e501",
+          "owner": "0x52e240",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e976",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e9aa",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52e9f9",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52ea52",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52eb0f",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52eb5e",
+          "owner": "0x52e650",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52f222",
+          "owner": "0x52ed50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52f273",
+          "owner": "0x52ed50",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52f7dd",
+          "owner": "0x52f670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52f83a",
+          "owner": "0x52f670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52f867",
+          "owner": "0x52f670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52faa3",
+          "owner": "0x52f910",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52faca",
+          "owner": "0x52f910",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x52faf5",
+          "owner": "0x52f910",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x530820",
+          "owner": "0x52fd60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x530858",
+          "owner": "0x52fd60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5308aa",
+          "owner": "0x52fd60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x530997",
+          "owner": "0x52fd60",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x5321b7",
+          "owner": "0x530ba0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x532253",
+          "owner": "0x530ba0",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x532b20",
+          "owner": "0x532450",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x532b66",
+          "owner": "0x532450",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x532bb6",
+          "owner": "0x532450",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x532c45",
+          "owner": "0x532450",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    },
+    {
+      "entry": "0x521a30",
+      "end": "0x521a98",
+      "chunks": [
+        [
+          "0x521a30",
+          "0x521a98"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x521a30",
+          "text": "mov     dx, pendingGraphicCount",
+          "size": 7
+        },
+        {
+          "address": "0x521a37",
+          "text": "movsx   eax, dx",
+          "size": 3
+        },
+        {
+          "address": "0x521a3a",
+          "text": "cmp     dx, 1000h",
+          "size": 5
+        },
+        {
+          "address": "0x521a3f",
+          "text": "lea     ecx, [eax+eax*4]",
+          "size": 3
+        },
+        {
+          "address": "0x521a42",
+          "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]",
+          "size": 7
+        },
+        {
+          "address": "0x521a49",
+          "text": "jl      short loc_521A51",
+          "size": 2
+        },
+        {
+          "address": "0x521a4b",
+          "text": "mov     eax, 0FFFFFFFEh",
+          "size": 5
+        },
+        {
+          "address": "0x521a50",
+          "text": "retn",
+          "size": 1
+        },
+        {
+          "address": "0x521a51",
+          "text": "mov     dl, [esp+arg_4]",
+          "size": 4
+        },
+        {
+          "address": "0x521a55",
+          "text": "mov     gGraphicCache3.layer[eax*4], dl",
+          "size": 7
+        },
+        {
+          "address": "0x521a5c",
+          "text": "mov     dx, pendingGraphicCount",
+          "size": 7
+        },
+        {
+          "address": "0x521a63",
+          "text": "mov     gGraphicCache3.cacheIndex[eax*4], dx",
+          "size": 8
+        },
+        {
+          "address": "0x521a6b",
+          "text": "mov     eax, [esp+arg_0]",
+          "size": 4
+        },
+        {
+          "address": "0x521a6f",
+          "text": "mov     dword ptr [ecx+8], 0FFFFFFFFh",
+          "size": 7
+        },
+        {
+          "address": "0x521a76",
+          "text": "mov     dword ptr [ecx+10h], 0",
+          "size": 7
+        },
+        {
+          "address": "0x521a7d",
+          "text": "mov     byte ptr [ecx+24h], 4",
+          "size": 4
+        },
+        {
+          "address": "0x521a81",
+          "text": "mov     [ecx+0Ch], eax",
+          "size": 3
+        },
+        {
+          "address": "0x521a84",
+          "text": "mov     cx, pendingGraphicCount",
+          "size": 7
+        },
+        {
+          "address": "0x521a8b",
+          "text": "movsx   eax, cx",
+          "size": 3
+        },
+        {
+          "address": "0x521a8e",
+          "text": "inc     cx",
+          "size": 2
+        },
+        {
+          "address": "0x521a90",
+          "text": "mov     pendingGraphicCount, cx",
+          "size": 7
+        },
+        {
+          "address": "0x521a97",
+          "text": "retn",
+          "size": 1
+        }
+      ],
+      "original_reference_count": 4,
+      "original_parent_count": 4,
+      "inbound_refs": [
+        {
+          "from": "0x45661c",
+          "owner": "0x456560",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x45672f",
+          "owner": "0x456670",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x456845",
+          "owner": "0x456780",
+          "type": 17,
+          "iscode": true
+        },
+        {
+          "from": "0x456c1a",
+          "owner": "0x4568a0",
+          "type": 17,
+          "iscode": true
+        }
+      ]
+    }
+  ],
+  "instruction_counts": {
+    "draw_text3": 79,
+    "draw_text2": 80,
+    "draw_text": 81,
+    "queue_text": 22,
+    "core_unique": 262,
+    "consumer_window": 14
+  },
+  "direct_reference_counts": [
+    15,
+    19,
+    816,
+    4
+  ],
+  "original_parent_counts": [
+    14,
+    12,
+    188,
+    4
+  ],
+  "original_direct_unique_call_sites": 854,
+  "draw_text_reference_pages": [
+    {
+      "offset": 0,
+      "total": 816,
+      "rows": 200
+    },
+    {
+      "offset": 200,
+      "total": 816,
+      "rows": 200
+    },
+    {
+      "offset": 400,
+      "total": 816,
+      "rows": 200
+    },
+    {
+      "offset": 600,
+      "total": 816,
+      "rows": 200
+    },
+    {
+      "offset": 800,
+      "total": 816,
+      "rows": 16
+    }
+  ],
+  "data_operands": [
+    {
+      "site": "0x456560",
+      "operand": 1,
+      "value": "0x73ecb8",
+      "text": "mov     eax, peddingGraphicCount2"
+    },
+    {
+      "site": "0x4565fa",
+      "operand": 1,
+      "value": "0x62eca0",
+      "text": "mov     ecx, gGraphicCache4Queue[eax]"
+    },
+    {
+      "site": "0x45660e",
+      "operand": 1,
+      "value": "0x558f50",
+      "text": "mov     cl, byte ptr fontLayer.layer[eax]"
+    },
+    {
+      "site": "0x45670d",
+      "operand": 1,
+      "value": "0x62eca0",
+      "text": "mov     ecx, gGraphicCache4Queue[eax]"
+    },
+    {
+      "site": "0x456721",
+      "operand": 1,
+      "value": "0x558f50",
+      "text": "mov     cl, byte ptr fontLayer.layer[eax]"
+    },
+    {
+      "site": "0x456821",
+      "operand": 1,
+      "value": "0x62eca0",
+      "text": "mov     eax, gGraphicCache4Queue[ebx]"
+    },
+    {
+      "site": "0x456837",
+      "operand": 1,
+      "value": "0x558f50",
+      "text": "mov     cl, byte ptr fontLayer.layer[ebx]"
+    },
+    {
+      "site": "0x521a30",
+      "operand": 1,
+      "value": "0x1020eb8",
+      "text": "mov     dx, pendingGraphicCount"
+    },
+    {
+      "site": "0x521a42",
+      "operand": 1,
+      "value": "0xff4eb8",
+      "text": "lea     ecx, gGraphicPendingQueue.x[ecx*8]"
+    },
+    {
+      "site": "0x521a55",
+      "operand": 0,
+      "value": "0x101ceba",
+      "text": "mov     gGraphicCache3.layer[eax*4], dl"
+    },
+    {
+      "site": "0x521a63",
+      "operand": 0,
+      "value": "0x101ceb8",
+      "text": "mov     gGraphicCache3.cacheIndex[eax*4], dx"
+    }
+  ],
+  "consumer_connection": {
+    "parent_entry": "0x520dd0",
+    "call_site": "0x521727",
+    "target_entry": "0x456d70",
+    "source": "src/render/DrawAllQueued.cpp",
+    "batch_type": 4,
+    "source_symbol": "DrawAllQueued_520DD0",
+    "callee_symbol": "RenderTextToSurface_456D70",
+    "full_parent_verified": false,
+    "window": [
+      {
+        "address": "0x52170e",
+        "text": "test    eax, eax",
+        "size": 2
+      },
+      {
+        "address": "0x521710",
+        "text": "jz      short loc_521723",
+        "size": 2
+      },
+      {
+        "address": "0x521712",
+        "text": "mov     eax, gCRenderer",
+        "size": 5
+      },
+      {
+        "address": "0x521717",
+        "text": "mov     eax, [eax+0A0h]",
+        "size": 6
+      },
+      {
+        "address": "0x52171d",
+        "text": "push    eax",
+        "size": 1
+      },
+      {
+        "address": "0x52171e",
+        "text": "mov     ecx, [eax]",
+        "size": 2
+      },
+      {
+        "address": "0x521720",
+        "text": "call    dword ptr [ecx+18h]",
+        "size": 3,
+        "call_operand_value": "0x18",
+        "indirect": true,
+        "target_resolved": false
+      },
+      {
+        "address": "0x521723",
+        "text": "mov     edx, [edi+0Ch]",
+        "size": 3
+      },
+      {
+        "address": "0x521726",
+        "text": "push    edx; text",
+        "size": 1
+      },
+      {
+        "address": "0x521727",
+        "text": "call    Renderer__RenderTextToSurface",
+        "size": 5,
+        "call_target": "0x456d70"
+      },
+      {
+        "address": "0x52172c",
+        "text": "add     esp, 4",
+        "size": 3
+      },
+      {
+        "address": "0x52172f",
+        "text": "call    hasIDirect3D7",
+        "size": 5,
+        "call_target": "0x44b610"
+      },
+      {
+        "address": "0x521734",
+        "text": "test    eax, eax",
+        "size": 2
+      },
+      {
+        "address": "0x521736",
+        "text": "jz      loc_5213D4",
+        "size": 6
+      }
+    ]
+  },
+  "queue_original_native_connections": [
+    {
+      "call_site": "0x45661c",
+      "parent_entry": "0x456560",
+      "target_entry": "0x521a30",
+      "source": "src/render/TextPendingQueue.cpp",
+      "symbol": "DrawText3_456560",
+      "native_delegation": "DrawText3_456560→DrawText2_456670→QueueText_521A30",
+      "native_direct_same_body": false
+    },
+    {
+      "call_site": "0x45672f",
+      "parent_entry": "0x456670",
+      "target_entry": "0x521a30",
+      "source": "src/render/TextPendingQueue.cpp",
+      "symbol": "DrawText2_456670",
+      "native_direct_same_body": true
+    },
+    {
+      "call_site": "0x456845",
+      "parent_entry": "0x456780",
+      "target_entry": "0x521a30",
+      "source": "src/render/TextPendingQueue.cpp",
+      "symbol": "DrawText_456780",
+      "native_direct_same_body": true
+    },
+    {
+      "call_site": "0x456c1a",
+      "parent_entry": "0x4568a0",
+      "target_entry": "0x521a30",
+      "source": "src/render/InputText.cpp",
+      "symbol": "DrawInputText_4568A0",
+      "native_direct_same_body": true
+    }
+  ],
+  "source": "src/render/TextPendingQueue.cpp",
+  "changed_entries": [
+    "0x456670",
+    "0x456780",
+    "0x521a30"
+  ],
+  "unchanged_reused_entry": "0x456560",
+  "source_contract": {
+    "only_original_full_queue_failure_retained": true,
+    "extra_guards_removed": true,
+    "record_fields_written_before_strlen": true,
+    "copy_count_low_u32_including_nul": true,
+    "copy_w32_then_w8": true,
+    "unsigned_tail_sample_between_copy_stages": true,
+    "signed_tail_sample_after_copy_stages": true,
+    "layer_sample_before_empty_tail_store": true,
+    "current_count_reread_before_return_and_tail_update": true,
+    "draw_text3_existing_real_core_reuse_retained": true,
+    "original_text_token_and_pool_owner_retained": true
+  },
+  "source_patch_contract": [
+    {
+      "label": "既有标准库头",
+      "literal_before": "#include <cstdint>\n",
+      "replacement": "#include <cstdint>\n#include <cstring>\n"
+    },
+    {
+      "label": "额外限制常量撤销/两个真实复制阶段",
+      "literal_before": "constexpr std::size_t kTextCapacity = 255;",
+      "replacement": "// 三个原绘制入口均按W32前移；无符号入口在余W8阶段前读取链尾。\nvoid CopyTextWords(\n    char*& destination,\n    const char*& source,\n    const std::uint32_t byteCount) noexcept\n{\n    for (std::uint32_t index = 0; index < (byteCount >> 2U); ++index) {\n        std::uint32_t word;\n        std::memcpy(&word, source, sizeof(word));\n        std::memcpy(destination, &word, sizeof(word));\n        source += sizeof(word);\n        destination += sizeof(word);\n    }\n}\n\nvoid CopyTextRemainder(\n    char* destination,\n    const char* source,\n    const std::uint32_t byteCount) noexcept\n{\n    for (std::uint32_t index = 0; index < (byteCount & 3U); ++index) {\n        *destination = *source;\n        ++source;\n        ++destination;\n    }\n}"
+    },
+    {
+      "label": "QueueText原满队列门禁保持/额外拒绝撤销",
+      "start_marker": "std::int32_t QueueText_521A30(",
+      "end_marker": "std::int32_t DrawText3_456560(",
+      "replacement": "std::int32_t QueueText_521A30(\n    const std::uint32_t headToken,\n    const std::uint8_t layer)\n{\n    const std::uint16_t initialCountBits = platform::gPendingGraphicCount;\n    const std::int16_t initialCount =\n        std::bit_cast<std::int16_t>(initialCountBits);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n\n    const std::size_t queueIndex = static_cast<std::size_t>(initialCount);\n    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];\n    cache3.layer = layer;\n    cache3.cacheIndex =\n        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n\n    GraphicCacheItem32& record = gLegacyPendingStorage.records[queueIndex];\n    record.imageNo = -1;\n    record.value4 = 0;\n    record.batchType = 4;\n    record.reference.textToken = headToken;\n\n    const std::uint16_t resultBits = platform::gPendingGraphicCount;\n    const std::int32_t result = static_cast<std::int32_t>(\n        std::bit_cast<std::int16_t>(resultBits));\n    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1U);\n    return result;\n}\n\n"
+    },
+    {
+      "label": "DrawText2_456670",
+      "start_marker": "std::int32_t DrawText2_456670(",
+      "end_marker": "std::int32_t DrawText_456780(",
+      "replacement": "std::int32_t DrawText2_456670(\n    const std::int16_t x,\n    const std::int16_t y,\n    const std::int8_t renderMode,\n    const std::int8_t fontType,\n    const std::int8_t color,\n    const char* const text,\n    const std::int8_t value7)\n{\n    const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;\n    const std::int32_t initialCount =\n        std::bit_cast<std::int32_t>(initialCountBits);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n\n    const std::size_t entryIndex = static_cast<std::size_t>(initialCount);\n    TextPendingRecord& entry = gTextPendingRecords[entryIndex];\n    entry.x = x;\n    entry.y = y;\n    entry.renderMode = std::bit_cast<std::uint8_t>(renderMode);\n    entry.color = std::bit_cast<std::uint8_t>(color);\n    entry.fontType = std::bit_cast<std::uint8_t>(fontType);\n    entry.value7 = std::bit_cast<std::uint8_t>(value7);\n    entry.marker = 0xF9;\n\n    const std::uint32_t copyCount =\n        static_cast<std::uint32_t>(std::strlen(text)) + 1U;\n    const char* source = text;\n    char* destination = entry.text;\n    CopyTextWords(destination, source, copyCount);\n    CopyTextRemainder(destination, source, copyCount);\n    const std::size_t queueIndex =\n        static_cast<std::size_t>(static_cast<std::int32_t>(renderMode));\n    const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];\n    entry.nextToken = 0;\n\n    const std::uint32_t currentToken = initialCountBits + 1U;\n    if (tailToken == 0) {\n        // 原空链先读layer，再写尾槽，不改变QueueText弃返回行为。\n        const std::uint8_t layer = gTextFontLayerRecords[queueIndex].layer;\n        gGraphicCache4Queue[queueIndex] = currentToken;\n        static_cast<void>(QueueText_521A30(currentToken, layer));\n\n        const std::uint32_t resultBits = platform::gPendingGraphicCount2;\n        const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);\n        platform::gPendingGraphicCount2 = resultBits + 1U;\n        return result;\n    }\n\n    gTextPendingRecords[static_cast<std::size_t>(tailToken - 1U)].nextToken =\n        currentToken;\n\n    const std::uint32_t resultBits = platform::gPendingGraphicCount2;\n    const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);\n    gGraphicCache4Queue[queueIndex] = resultBits + 1U;\n    platform::gPendingGraphicCount2 = resultBits + 1U;\n    return result;\n}\n\n"
+    },
+    {
+      "label": "DrawText_456780",
+      "start_marker": "std::int32_t DrawText_456780(",
+      "end_marker": "} // namespace cg::render",
+      "replacement": "std::int32_t DrawText_456780(\n    const std::int16_t x,\n    const std::int16_t y,\n    const std::uint8_t renderMode,\n    const std::int8_t fontType,\n    const std::int8_t color,\n    const char* const text,\n    const std::int8_t value7,\n    const std::int8_t marker)\n{\n    const std::uint32_t initialCountBits = platform::gPendingGraphicCount2;\n    const std::int32_t initialCount =\n        std::bit_cast<std::int32_t>(initialCountBits);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n\n    const std::size_t entryIndex = static_cast<std::size_t>(initialCount);\n    TextPendingRecord& entry = gTextPendingRecords[entryIndex];\n    entry.x = x;\n    entry.y = y;\n    entry.renderMode = renderMode;\n    entry.color = std::bit_cast<std::uint8_t>(color);\n    entry.fontType = std::bit_cast<std::uint8_t>(fontType);\n    entry.value7 = std::bit_cast<std::uint8_t>(value7);\n    entry.marker = std::bit_cast<std::uint8_t>(marker);\n\n    const std::uint32_t copyCount =\n        static_cast<std::uint32_t>(std::strlen(text)) + 1U;\n    const char* source = text;\n    char* destination = entry.text;\n    CopyTextWords(destination, source, copyCount);\n    const std::size_t queueIndex = static_cast<std::size_t>(renderMode);\n    const std::uint32_t tailToken = gGraphicCache4Queue[queueIndex];\n    CopyTextRemainder(destination, source, copyCount);\n    entry.nextToken = 0;\n\n    const std::uint32_t currentToken = initialCountBits + 1U;\n    if (tailToken == 0) {\n        // 原空链先读layer，再写尾槽，不改变QueueText弃返回行为。\n        const std::uint8_t layer = gTextFontLayerRecords[queueIndex].layer;\n        gGraphicCache4Queue[queueIndex] = currentToken;\n        static_cast<void>(QueueText_521A30(currentToken, layer));\n\n        const std::uint32_t resultBits = platform::gPendingGraphicCount2;\n        const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);\n        platform::gPendingGraphicCount2 = resultBits + 1U;\n        return result;\n    }\n\n    gTextPendingRecords[static_cast<std::size_t>(tailToken - 1U)].nextToken =\n        currentToken;\n\n    const std::uint32_t resultBits = platform::gPendingGraphicCount2;\n    const std::int32_t result = std::bit_cast<std::int32_t>(resultBits);\n    gGraphicCache4Queue[queueIndex] = resultBits + 1U;\n    platform::gPendingGraphicCount2 = resultBits + 1U;\n    return result;\n}\n\n"
+    }
+  ],
+  "important_points": {
+    "record_before_scan": [
+      "0x456598",
+      "0x4565c9",
+      "0x4565d0",
+      "0x4566a8",
+      "0x4566dc",
+      "0x4566e9",
+      "0x4567b4",
+      "0x4567eb",
+      "0x4567f6"
+    ],
+    "unsigned_between_copy": [
+      "0x456811",
+      "0x456821",
+      "0x456827",
+      "0x45682b"
+    ],
+    "layer_before_tail_store": [
+      "0x45660e",
+      "0x456614",
+      "0x45661c",
+      "0x456721",
+      "0x456727",
+      "0x45672f",
+      "0x456837",
+      "0x45683d",
+      "0x456845"
+    ],
+    "count_rereads": [
+      "0x456621",
+      "0x45663e",
+      "0x456734",
+      "0x456751",
+      "0x45684a",
+      "0x456867"
+    ],
+    "queue_sampling": [
+      "0x521a30",
+      "0x521a55",
+      "0x521a5c",
+      "0x521a63",
+      "0x521a6f",
+      "0x521a76",
+      "0x521a7d",
+      "0x521a81",
+      "0x521a84",
+      "0x521a8b",
+      "0x521a90"
+    ]
+  },
+  "remaining": [
+    "854上游call点的完整父/原新参数/间接alias与寿命",
+    "排序/完整520DD0和456D70消费/字体/画面",
+    "SDK与输入渲染运行验收"
+  ],
+  "exceptional_domain": {
+    "rule": "RPLAN.24",
+    "fault_emulation_added": false,
+    "fault_equivalence_claimed": false,
+    "x64_safety_claimed": false
+  },
+  "verification": {
+    "method": "static",
+    "bounded_core_verified": true,
+    "native_stack_and_call_trajectory_equivalence_claimed": false,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "build_performed": false,
+    "tests_added_or_executed": false,
+    "hash_performed": false
+  }
+}

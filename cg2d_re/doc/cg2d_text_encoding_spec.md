@@ -103,3 +103,9 @@ GDI和SDL共享同一Back mapping，render私有边界管理DC/bitmap，队列�
 [ITD01](cg2d_input_text_alignment_spec.md#input-text-draw-source-closure)恢复多行逐字节预算、复制前/后和分类后各阶段取值及逐段低W8模式；单行先写记录，星号每步重读数量，普通后缀含NUL低U32/逐W32再W8复制。原DBCS/CR、完全不截断分支和字节/像素单位保持，不新增Unicode转换或容量保护。
 
 裁宽测宽返回后才取宽度限制，每次超宽重新取原后缀；三完整模式索引/队列计数与两锚点真实测宽按原点。仅根332/测宽支持33条局部I/W/S，不提升完整输入/文本/队列寿命或运行，RPLAN.24异常域不记安全/故障等价。网络继续原格式明文，星号仅原输入遮显。
+
+## 2026-10-05：文本队列生产复制原阶段
+
+[TQP01](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)恢复记录字段先写、原文本扫描/含NUL低U32数量及逐W32后余W8复制。signed模式复制完取尾，unsigned模式在W32后/W8前取尾；空链先读实际layer再更新尾槽，原计数重读/返回和满队列失败保持，额外拒绝撤销。
+
+DrawText3仍真实复用font0核心，输入绘制/所有caller和消费不改，token/唯一owner保持。四完整262条/854原点只局部静态与库存归档，不计全部上游/间接alias/消费/寿命或SDK/运行通过；异常域不称安全/故障等价。网络原格式明文不变，无Unicode或新补NUL/默认正文。

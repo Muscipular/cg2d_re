@@ -277,7 +277,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md",
         "doc/cg2d_standard_stream_controller_gates_spec.md",
         "doc/cg2d_file_buffer_output_alignment_spec.md",
-        "doc/cg2d_file_position_width_spec.md"
+        "doc/cg2d_file_position_width_spec.md",
+        "doc/cg2d_sdk_classic_locale_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -419,7 +420,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
-        "doc/cg2d_file_position_width_spec.md#file-position-width-decision"
+        "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -435,7 +437,8 @@
         "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
         "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
         "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭",
-        "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产"
+        "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产",
+        "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -453,7 +456,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
-        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline"
+        "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline"
       ]
     },
     {
@@ -9114,6 +9118,108 @@
       "observation": "原完整指令/槽/字段宽与限定校正",
       "expected": "174根/12dword/8加载槽可追，CPP不变且歧义纠正",
       "actual": "一个注释/合同术语与四条限定归档，其他源头/台账/政策保持"
+    },
+    {
+      "id": "E-SDK-CLASSIC-LOCALE-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原55315C三完整根9条/33B、连续三槽及旧共享槽直接引用；doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-classic-locale-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-acceptance",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_classic_locale_evidence.json",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "src/platform/LegacyMouse.cpp#SdkClassicLocaleStaticInitializer",
+        "src/platform/LegacyMouse.cpp#gSdkClassicLocale55315C"
+      ],
+      "differences": [
+        {
+          "description": "完整经典locale由SDK持有/清理；旧仅RET及登记体保兼容，活动晚段真实query不复建/镜像/双登记；SDK私有清理时机与登记/失败差异按D02/D03承接",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        },
+        {
+          "description": "仅经典宿主项接入；69非完整90，16标准流/全容量与facet/alias/全应用退出及SDK运行未闭，不把旧三槽视为已生产",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "真实宿主经典locale活动提供者",
+      "expected": "一次classic引用调用/平凡析构实例/显式locale头",
+      "actual": "SDK对象由宿主持有；无旧兼容对象互转或额外应用登记"
+    },
+    {
+      "id": "E-SDK-CLASSIC-LOCALE-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原55315C三完整根9条/33B、连续三槽及旧共享槽直接引用；doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-classic-locale-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-acceptance",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_classic_locale_evidence.json",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "src/platform/LegacyMouse.cpp#SdkClassicLocaleStaticInitializer",
+        "src/platform/LegacyMouse.cpp#gSdkClassicLocale55315C"
+      ],
+      "differences": [
+        {
+          "description": "完整经典locale由SDK持有/清理；旧仅RET及登记体保兼容，活动晚段真实query不复建/镜像/双登记；SDK私有清理时机与登记/失败差异按D02/D03承接",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        },
+        {
+          "description": "仅经典宿主项接入；69非完整90，16标准流/全容量与facet/alias/全应用退出及SDK运行未闭，不把旧三槽视为已生产",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原55315C与应用退出相对接线",
+      "expected": "553158→55315C→553160；旧68项/四配对登记保持",
+      "actual": "同TU单调69项，SDK私有清理时机差异按D03；完整退出仍待"
+    },
+    {
+      "id": "E-SDK-CLASSIC-LOCALE-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原55315C三完整根9条/33B、连续三槽及旧共享槽直接引用；doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-classic-locale-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-acceptance",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "doc/cg2d_sdk_classic_locale_evidence.json",
+        "doc/cg2d_locale_object_heap_migration_evidence.json",
+        "src/platform/LegacyMouse.cpp#SdkClassicLocaleStaticInitializer",
+        "src/platform/LegacyMouse.cpp#gSdkClassicLocale55315C"
+      ],
+      "differences": [
+        {
+          "description": "完整经典locale由SDK持有/清理；旧仅RET及登记体保兼容，活动晚段真实query不复建/镜像/双登记；SDK私有清理时机与登记/失败差异按D02/D03承接",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        },
+        {
+          "description": "仅经典宿主项接入；69非完整90，16标准流/全容量与facet/alias/全应用退出及SDK运行未闭，不把旧三槽视为已生产",
+          "decision_ref": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原根/槽与限定源码差异",
+      "expected": "三原根9条/33B及三个加载槽、十三共享槽直接引用可追",
+      "actual": "仅一include与一模块适配插入；现行执行门禁/完整门禁保持"
     }
   ],
   "task_acceptance": [
@@ -9203,7 +9309,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
-        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure"
+        "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
       ]
     },
     {
@@ -9217,7 +9324,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
       ]
     },
     {
@@ -9233,7 +9341,8 @@
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
       ]
     },
     {
@@ -9260,7 +9369,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
       ]
     },
     {
@@ -10117,7 +10227,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure"
+        "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
+        "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure"
       ]
     },
     {

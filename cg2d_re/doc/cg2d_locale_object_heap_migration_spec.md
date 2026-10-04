@@ -1,5 +1,7 @@
 # locale 实现对象存储与退出迁移 SPEC
 
+> **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
+
 > LCH01；2026-10-05依工程委托采用。上位：[运行库边界](cg2d_crt_runtime_boundary_spec.md) §1/§4、[启动职责](cg2d_crt_startup_lifecycle_spec.md)。只成组迁移既有 LegacyLocaleImplementation 对象块和两处退出登记；原 locale、标准流与 codecvt 的可见合同继续保留。
 
 <a id="locale-object-heap-baseline"></a>
@@ -52,3 +54,16 @@
 十二原体269/复用85总354及五数字call核对完成，两源码扣除限定差异后全文同前提交；十七既有语义之外/元数据保持，1152/1149有效ID、18pending/4分类引用不变。三变化体新增adapted使87→90/3680，三限定E使36→39；旧已审和证据不覆盖或重复计数。
 
 实现固定于Git命名快照cg2d-re-locale-object-lifecycle-source-20261005。C01/C03/C04/C08/C11继续open，C05真实生产不改变，关闭任务10/60、叶验收0/182、完整门禁与R不提升。未构建/检查产物/新增或执行测试/运行/摘要，完整SDK、活动流/退出相对序及运行仍待。
+
+## SCL01 对经典表槽的后续裁决
+
+[活动合同](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)
+已将55315C接为SDK完整经典locale提供者。
+本LCH01的兼容54A3E3/54A3ED/54A3FA、64B对象块及两真实std::atexit接口
+保持原文，它们不由该活动适配调用。
+SDK对象不写1086728/2C/30，旧三槽不据此视为已生产；
+接入任何Legacy流/locale消费者时仍须在该小步核定真实提供者与引用/退出。
+
+当前16标准流待接，SDK私有清理差异按D02/D03 adapted。
+LCH01其他facet/向量/名称域、可见字段/重读/失败消费保持；
+C03/C04/C08/C11/fullCRT与运行不闭。

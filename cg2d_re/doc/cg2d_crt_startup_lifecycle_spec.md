@@ -1,5 +1,7 @@
 # CRT 启动与生命周期迁移子 SPEC
 
+> **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
+
 > D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，上位实施方案；局部实现见下方各组合同，全应用启动/退出仍未闭。
 > 决定：由宿主MSVC/UCRT完成自身初始化/终止；原应用可见初始化和退出显式承接，不能同时启用两套owner。
 
@@ -101,3 +103,15 @@
 无新活动Init/模块/owner，当前66+2投影及17待接保持。
 原计数-1/两七prev/四父及RET有证，但全registry容量、真实facet/codecvt、
 全应用normal/quick/callable退出和SDK运行仍待，C02/C03/C04继续open。
+
+## 经典 locale 的宿主活动接线（SCL01）
+
+[本组合同](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)
+将原55315C职责映射到同TU真实std::locale::classic调用，
+位于553158/553160之间；SDK持有完整经典对象及私有退出。
+不重新执行旧仅RET/登记入口，不构造SDK副本、不写三Legacy指针槽。
+原四配对登记和两个流适配/应用清理保持；SDK具体清理时点按D02/D03差异承接。
+
+最新当前投影69，16标准流仍待；此1项不解决Legacy消费者归属、
+registry全容量/facet/计算alias或全应用normal/quick/callable退出与运行。
+C02/C03/C04/C09保持open，不能把宿主query称原体/原登记失败数值等价。

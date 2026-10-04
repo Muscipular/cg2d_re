@@ -20129,7 +20129,7 @@
     {
       "original_entry": "0x54A3E3",
       "inventory_id": "F:0014A3E3",
-      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
+      "status": "SCL01经典55315C已接宿主完整locale活动提供者；旧兼容对象/构析保持，16标准流与完整生命周期/SDK运行未闭",
       "original_end_exclusive": "0x54A3ED",
       "instruction_count": 6,
       "sources": [
@@ -20137,9 +20137,11 @@
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "NarrowStandardStreamsStaticInitializer",
-            "WideStandardStreamsStaticInitializer"
+            "WideStandardStreamsStaticInitializer",
+            "SdkClassicLocaleStaticInitializer",
+            "gSdkClassicLocale55315C"
           ],
-          "relationship": "标准流实际依赖的宿主locale；本文件不是原库函数的直接定义"
+          "relationship": "宿主窄宽流依赖及SCL01原55315C相对位置的真实std::locale::classic活动提供者；旧兼容54A3E3不由该模块调用"
         },
         {
           "path": "src/platform/LegacyLocale.cpp",
@@ -20164,9 +20166,11 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_sdk_classic_locale_spec.md",
+        "doc/cg2d_sdk_classic_locale_evidence.json"
       ],
-      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
+      "boundary": "CRT55315C先调用不写状态的54A3ED，再登记经典对象1086728的54A3FA退出；宿主classic_locale(_Noinit)自身生命周期承接，不再增加应用侧登记。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；2026-10-05 SCL01当前活动55315C在同TU553158和553160之间真实调用std::locale::classic并弃引用，由SDK完整经典对象/私有退出承接；不调用旧54A3E3/登记54A3FA，不复制/镜像三Legacy槽，无catch/once/回滚/伪S32结果。旧兼容接口正文保留，旧三槽不据此视为已生产；以后接Legacy消费者须在该小步核定真实提供者。当前69项投影/16流待接；SDK私有清理时机/登记失败差异按D02/D03 adapted，应用登记/清理不跳过，全应用/alias/运行未闭。",
       "original_chunks": [
         [
           "0x54A3E3",
@@ -20177,7 +20181,7 @@
           "0x54A3FA"
         ]
       ],
-      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行",
+      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行；SCL01三完整根9条/33B、连续三槽及十三直接共享引用，SDK声明/限定两插入与69项相对序静态；未构建/测试/运行/摘要",
       "inbound_evidence": [
         {
           "address": "0x55315c",
@@ -20300,12 +20304,30 @@
           "C08",
           "C11"
         ]
+      },
+      "sdk_classic_locale_activation": {
+        "group": "SCL01",
+        "spec": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "original_slot": "0x55315C",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "initializer_type": "SdkClassicLocaleStaticInitializer",
+        "initializer_variable": "gSdkClassicLocale55315C",
+        "symbol": "std::locale::classic",
+        "sdk_owner": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "current_cpp_projection_slots": 69,
+        "remaining_stream_pending": 16,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54A3ED",
       "inventory_id": "F:0014A3ED",
-      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
+      "status": "SCL01经典55315C已接宿主完整locale活动提供者；旧兼容对象/构析保持，16标准流与完整生命周期/SDK运行未闭",
       "original_end_exclusive": "0x54A3EE",
       "instruction_count": 1,
       "sources": [
@@ -20340,10 +20362,12 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_sdk_classic_locale_spec.md",
+        "doc/cg2d_sdk_classic_locale_evidence.json"
       ],
-      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
-      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行",
+      "boundary": "原仅RET，晚段构造不得覆盖可能已由54865E/54A404建立的经典对象实现指针；宿主locale(_Uninitialized)同样延后构造，不另加默认locale对象。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生54A3E3先调仅RET的54A3ED，再RegisterLegacyAtExit_53B406(DestroyLegacyClassicLocale_54A3FA)，直接返回登记完整S32结果。仅RET有原本体证据，不补默认构造/引用或清三个已可能生产的槽；不添加once保护、不改宿主LegacyMouse对象、不双登记宿主析构。55315C真实表槽仍是待迁移原CRT调用者，未自动挂入当前启动；全表、退出容量/模式3及运行未闭。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；2026-10-05 SCL01当前活动55315C在同TU553158和553160之间真实调用std::locale::classic并弃引用，由SDK完整经典对象/私有退出承接；不调用旧54A3E3/登记54A3FA，不复制/镜像三Legacy槽，无catch/once/回滚/伪S32结果。旧兼容接口正文保留，旧三槽不据此视为已生产；以后接Legacy消费者须在该小步核定真实提供者。当前69项投影/16流待接；SDK私有清理时机/登记失败差异按D02/D03 adapted，应用登记/清理不跳过，全应用/alias/运行未闭。",
+      "verification_level": "新增7条本体/两数值call目标、单RET不写、直接S32返回/唯一原生回调登记和五文件差异静态核对；未构建、测试或运行；SCL01三完整根9条/33B、连续三槽及十三直接共享引用，SDK声明/限定两插入与69项相对序静态；未构建/测试/运行/摘要",
       "inbound_evidence": [
         {
           "address": "0x54a3e3",
@@ -20427,12 +20451,30 @@
           "C08",
           "C11"
         ]
+      },
+      "sdk_classic_locale_activation": {
+        "group": "SCL01",
+        "spec": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "original_slot": "0x55315C",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "initializer_type": "SdkClassicLocaleStaticInitializer",
+        "initializer_variable": "gSdkClassicLocale55315C",
+        "symbol": "std::locale::classic",
+        "sdk_owner": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "current_cpp_projection_slots": 69,
+        "remaining_stream_pending": 16,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {
       "original_entry": "0x54A3FA",
       "inventory_id": "F:0014A3FA",
-      "status": "原locale本体/字段与引用清理保留，LCH01对象域和两退出登记已承接；经典全表caller/活动流与运行未闭",
+      "status": "SCL01经典55315C已接宿主完整locale活动提供者；旧兼容对象/构析保持，16标准流与完整生命周期/SDK运行未闭",
       "original_end_exclusive": "0x54A404",
       "instruction_count": 2,
       "sources": [
@@ -20474,10 +20516,12 @@
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_sdk_classic_locale_spec.md",
+        "doc/cg2d_sdk_classic_locale_evidence.json"
       ],
-      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
-      "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行",
+      "boundary": "以1086728为this调用54867D，释放经典对象持有的实现引用；宿主classic_locale的自然析构承接，不将它误作创建locale或改代码页入口。仅静态职责关联；未证明私有ABI、失败、线程和全进程退出等价，不列范围排除。；2026-10-04真实原生全局54A404仅当前槽空才64B原堆分配，非空块Ctor(原完整0)，Ctor失败按原state1同域delete块且重抛，无额外完整析构；空结果原照常发布/注册真实退出表，不加保护/回滚。发布后register返值弃，重新取当前指针写类别3F，再重取名称地址/真实C strlen/assign；完成后重新当前→经典实现，计数<FFFFFFFF加一且该分支再次当前回读，经典对象槽测试固定地址非空后写经典实现。54865E先发布_Init返回到实际对象槽，再重新取当前全局增加引用，保持原return this槽地址；两退出分别减少全局/经典实际引用，零才原虚删flags1，三个共享槽均不额外清。既有LegacyMouse宿主对象不改、不把原生槽镜像SDK、不双登记宿主析构；实际startup/cinit、经典54A3E3登记和其余61原exit迁移、原堆模式3及运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；2026-10-05 SCL01当前活动55315C在同TU553158和553160之间真实调用std::locale::classic并弃引用，由SDK完整经典对象/私有退出承接；不调用旧54A3E3/登记54A3FA，不复制/镜像三Legacy槽，无catch/once/回滚/伪S32结果。旧兼容接口正文保留，旧三槽不据此视为已生产；以后接Legacy消费者须在该小步核定真实提供者。当前69项投影/16流待接；SDK私有清理时机/登记失败差异按D02/D03 adapted，应用登记/清理不跳过，全应用/alias/运行未闭。",
+      "verification_level": "；新四体110条统计含清理chunk、三虚拟零槽既有合同/2B C名称、实际64B原堆分配/构造异常释放、先发布再登记/回读/经典引用/构造槽先写与退出不清、八原目标和五文件限定新增静态核对；旧核心不复检，未构建或运行；SCL01三完整根9条/33B、连续三槽及十三直接共享引用，SDK声明/限定两插入与69项相对序静态；未构建/测试/运行/摘要",
       "native_global_storage": {
         "source": "src/platform/LegacyLocale.cpp",
         "original_initialization_contract": "doc/cg2d_startup_flow.md原对象、初始化与引用；三槽未加载虚拟零区",
@@ -20607,6 +20651,24 @@
           "C08",
           "C11"
         ]
+      },
+      "sdk_classic_locale_activation": {
+        "group": "SCL01",
+        "spec": "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
+        "original_slot": "0x55315C",
+        "current_source": "src/platform/LegacyMouse.cpp",
+        "initializer_type": "SdkClassicLocaleStaticInitializer",
+        "initializer_variable": "gSdkClassicLocale55315C",
+        "symbol": "std::locale::classic",
+        "sdk_owner": true,
+        "legacy_initializer_activated": false,
+        "legacy_slots_mirrored": false,
+        "legacy_callback_registered": false,
+        "current_cpp_projection_slots": 69,
+        "remaining_stream_pending": 16,
+        "bounded_static_verified": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false
       }
     },
     {

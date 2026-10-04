@@ -21,6 +21,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <locale>
 #include <type_traits>
 
 namespace cg::platform {
@@ -436,6 +437,19 @@ struct LegacyPairedEmptyExitStaticInitializer {
 
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553130;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553158;
+
+// SCL01原55315C：晚段经典对象职责由宿主完整locale持有并清理。
+// 不另登记旧54A3FA，也不将SDK对象写入Legacy三槽。
+struct SdkClassicLocaleStaticInitializer final {
+    SdkClassicLocaleStaticInitializer()
+    {
+        static_cast<void>(std::locale::classic());
+    }
+};
+static_assert(std::is_trivially_destructible_v<SdkClassicLocaleStaticInitializer>);
+
+const SdkClassicLocaleStaticInitializer gSdkClassicLocale55315C;
+
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553160;
 const LegacyPairedEmptyExitStaticInitializer gLegacyPairedEmptyExit553164;
 

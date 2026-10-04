@@ -1039,3 +1039,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余与交付**：原未写栈具体字节/机器ABI、真实API成功失败、SDK/全FILE与标准流/CRT、17活动项及正常快速退出运行仍待。未构建/查产物/新增或执行测试/运行/摘要；音频暂停、原格式明文、单线程保持。精确11项，快照`cg2d-re-file-position-width-source-20261005`，用户既有六项不暂存。
 
 **FPW01交付检查**：11项严格UTF-8无BOM/LF、690个本地Markdown链接、42项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。合同关联1327/3680仅为文件关联率，任务10/60、叶0/182及完整门禁不提升。
+
+## SCL01 经典 locale 宿主活动接线（2026-10-05）
+
+- **开发**：先写[SCL01 SPEC](../doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision)，再在LegacyMouse.cpp增加显式locale头及平凡析构模块适配，真实std::locale::classic调用放在原553158配对之后、553160之前。SDK持有完整经典对象及私有退出，不调用旧54A3E3/登记54A3FA、不复制或镜像三Legacy槽，无catch/once/伪返回。
+- **基线与保持**：[证据](../doc/cg2d_sdk_classic_locale_evidence.json)保三完整根9条/33B、三连续已加载槽、旧三槽十三直接引用与SDK声明。仅两插入，源码重放全文一致；其他src/include及原四配对登记/旧Locale/FILE/Ios、owner和失败消费保持。直接引用不排除计算alias，旧三槽未因SDK调用变成已生产。
+- **接线进度**：AIS01旧68项绑定保持，增加经典1项后69项＝66应用＋2宿主流配置＋1宿主经典locale，与原90槽和同TU声明序逐项核定；待接17→16，仅减少经典项。原null1/音频暂停2/键盘排除2保持，旧90数组/旧cinit不启用；未将其他16流自动划为纯宿主。
+- **静态与台账**：三既有记录定点追加、1204其他和全政策保持，原54A3E3 adapted复用而不重复增加审核；语义1207/1204有效ID、审核149/3680、18pending/4分类/3无ID保持，限定E99→102。C02/C03/C04/C09均open，任务10/60、叶0/182、完整门禁和R不提升。
+- **剩余/交付**：SDK具体构析/失败和旧消费者活动归属、16标准流/全registry容量/facet与codecvt/alias、全应用normal/quick/callable退出及运行未闭。未构建/查产物/新增或执行测试/运行/摘要，单线程、RPLAN.24和原格式明文保持。精确13项，快照`cg2d-re-sdk-classic-locale-source-20261005`，用户既有六项不暂存。
+
+**SCL01交付检查**：13项严格UTF-8无BOM/LF、704个本地Markdown链接、30项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。

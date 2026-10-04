@@ -1,5 +1,7 @@
 # 当前活动初始化的原顺序接线 SPEC
 
+> **SCL01最新状态（2026-10-05）**：[经典宿主项](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure)已接原55315C，当前69项＝66应用＋2宿主流配置＋1宿主经典locale；16标准流仍待。以下原组正文和数字保留各自固定快照，不能将历史17项待接作为当前状态。
+
 > AIS01；2026-10-05按工程委托采用。上位：[启动/生命周期方案](cg2d_crt_startup_lifecycle_spec.md)。本组将六个已有图形/资源provider移入同一活动翻译单元，修正现有多字节前置位置；不启用旧CRT整表，不把当前投影当全部原功能已接通。
 
 <a id="active-initializer-order-baseline"></a>
@@ -140,3 +142,16 @@ C02/C03/C04/C09/G01与全局门禁继续open；源级当前投影顺序不代完
 语义更新41既有条目、补29已有UI/动画原槽的位置/绑定，合1181条/1178有效ID；29新条目明确不验整本体，不进入已审/已验。18pending/4分类引用不变。已审仍90/3680，限定E-ACTIVE-INITIALIZER-ORDER-I/W/S-20261005使39→42；六已有adapted只追加本组引用，不重复计数。
 
 实现固定于Git命名快照cg2d-re-active-initializer-order-source-20261005。C02/C03/C04/C09/G01、全原应用序/标准流活动归属、TextureSurfaceOwner与完整场景/快速退出、SDK及运行继续开放，任务关闭10/60、叶验收0/182与全局门禁不提升。未构建/测试/运行/检查产物/摘要；用户已有改动不纳入。
+
+## SCL01 后续活动投影
+
+[当前证据](cg2d_sdk_classic_locale_evidence.json)在AIS01的68项基础上，
+只增加55315C的SdkClassicLocaleStaticInitializer/gSdkClassicLocale55315C；
+它在gLegacyPairedEmptyExit553158后、gLegacyPairedEmptyExit553160前，
+真实调用std::locale::classic，完整对象及私有退出归SDK。
+旧68项、原90槽、C5前置与六provider/所有应用即时登记保持。
+
+当前69项/16流待接；原null1、音频暂停2、键盘排除2保持。
+[局部裁决](cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision)不激活旧54A3E3、
+不镜像旧三槽或双登记54A3FA。SDK私有清理时机差异具名adapted，
+全应用序/退出与R仍待，C02/C03/C04/C09不关闭。

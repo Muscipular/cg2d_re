@@ -11153,7 +11153,7 @@
     {
       "original_entry": "0x404D00",
       "inventory_id": "F:00004D00",
-      "status": "已有命名或父函数合并映射，运行未验",
+      "status": "已有原5条死亡标记直接本体/原生接口；仅标死/原指针返回，全部caller生命周期与运行未验",
       "original_role": "Yobi死亡标记",
       "original_end_exclusive": "0x404D10",
       "instruction_count": 5,
@@ -11163,13 +11163,21 @@
           "symbols": [
             "MarkDeath"
           ]
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "MarkDeath"
+          ],
+          "relationship": "既有T*标死/返回接口，声明不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "空指针直接返回空；非空只把deathFlag原+1C的W32写1并返回原指针，不释放、不摘链、不改flags。当前原引用统计仅用于定位，不以叶对应声称所有对象生命周期已验。"
+      "boundary": "空指针直接返回空；非空只把deathFlag原+1C的W32写1并返回原指针，不释放、不摘链、不改flags。当前原引用统计仅用于定位，不以叶对应声称所有对象生命周期已验。；2026-10-04补共享接口与分工关联；MarkDeath只标死，404C50/404D10负责真实摘链/释放，原场景清非拥有槽，不重写原5条。",
+      "verification_level": "；本步仅现有源/头接口/生命周期责任及限定增量关联，旧本体不复检，未构建/测试/运行/hash"
     },
     {
       "original_entry": "0x43D770",
@@ -124286,6 +124294,354 @@
           16
         ],
         "returns": "原完整S32结果，不固定成功"
+      }
+    },
+    {
+      "original_entry": "0x404A40",
+      "inventory_id": "F:00004A40",
+      "original_end_exclusive": "0x404AD1",
+      "original_entry_chunk_end": "0x404AD1",
+      "instruction_count": 36,
+      "function_chunks": [
+        [
+          "0x404A40",
+          "0x404AD1"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_404A40"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_404A40"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "首尾哨兵真实分配/连接，不增加重复初始化或退出登记；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "YobiAction* Sub_404A40()",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x404AE0",
+      "inventory_id": "F:00004AE0",
+      "original_end_exclusive": "0x404C42",
+      "original_entry_chunk_end": "0x404C42",
+      "instruction_count": 118,
+      "function_chunks": [
+        [
+          "0x404AE0",
+          "0x404C42"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewYobiAction_404AE0"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewYobiAction_404AE0"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "YobiAction* NewYobiAction_404AE0(\n    const std::uint8_t priority,\n    const std::uint32_t payloadSize)",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x404C50",
+      "inventory_id": "F:00004C50",
+      "original_end_exclusive": "0x404CF7",
+      "original_entry_chunk_end": "0x404CF7",
+      "instruction_count": 60,
+      "function_chunks": [
+        [
+          "0x404C50",
+          "0x404CF7"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "YobiUpdateAll_404C50"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "YobiUpdateAll_404C50"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "四相门禁/真实callback、callback后重读next、死亡摘链/删除与计数1..4存回0；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "std::int32_t YobiUpdateAll_404C50()",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x404D10",
+      "inventory_id": "F:00004D10",
+      "original_end_exclusive": "0x404D30",
+      "original_entry_chunk_end": "0x404D30",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x404D10",
+          "0x404D30"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DeleteYobiAction_404D10"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "先非空payload free再action free，不代替标死/摘链或场景观察槽清理；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "void DeleteYobiAction_404D10(YobiAction* const action)",
+      "interface_visibility": "同一CPP私有实际helper",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x404D30",
+      "inventory_id": "F:00004D30",
+      "original_end_exclusive": "0x404D5B",
+      "original_entry_chunk_end": "0x404D5B",
+      "instruction_count": 13,
+      "function_chunks": [
+        [
+          "0x404D30",
+          "0x404D5B"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "YobiClearUp_404D30"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "YobiClearUp_404D30"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "先保存首action，再真实46DD40清理，随后沿原链标死；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "void YobiClearUp_404D30()",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x404D60",
+      "inventory_id": "F:00004D60",
+      "original_end_exclusive": "0x404D85",
+      "original_entry_chunk_end": "0x404D85",
+      "instruction_count": 10,
+      "function_chunks": [
+        [
+          "0x404D60",
+          "0x404D85"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_404D60"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_404D60"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "ClearUp→UpdateAll→free(head)→free(tail)，不补清槽或注册退出；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "void Sub_404D60()",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/cg2d_yobi_runtime.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      }
+    },
+    {
+      "original_entry": "0x41EAB0",
+      "inventory_id": "F:0001EAB0",
+      "original_end_exclusive": "0x41EB07",
+      "original_entry_chunk_end": "0x41EB07",
+      "instruction_count": 38,
+      "function_chunks": [
+        [
+          "0x41EAB0",
+          "0x41EB07"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CloneBattleAction_41EAB0"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "CloneBattleAction_41EAB0"
+          ],
+          "relationship": "既有原生共享声明，参数不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "入口快照源载荷；New失败原直接空返回，成功快照新prev/next/payload、成员复制、按next/prev/payload恢复并浅复制载荷；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)",
+      "interface_visibility": "既有YobiRuntime.hpp typed声明",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/shared_battle.md",
+        "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "existing_call_connections": [
+        {
+          "target_entry": "0x404AE0",
+          "target_symbol": "NewYobiAction_404AE0",
+          "arguments": "2,sizeof(BattleActorPayload)"
+        },
+        {
+          "target_entry": "0x41EB10",
+          "target_symbol": "CopyYobiAction_41EB10",
+          "arguments": "action,source"
+        }
+      ],
+      "failure_branch_evidence": {
+        "source": "当前cg2d.exe IDA只读",
+        "test": "0x41EACE test ebx,ebx",
+        "success_jump": "0x41EAD0 jnz 41EAD5",
+        "empty_return": "0x41EAD2..41EAD4，当前if(action==nullptr)return nullptr为正确原分支"
+      }
+    },
+    {
+      "original_entry": "0x41EB10",
+      "inventory_id": "F:0001EB10",
+      "original_end_exclusive": "0x41F106",
+      "original_entry_chunk_end": "0x41F106",
+      "instruction_count": 335,
+      "function_chunks": [
+        [
+          "0x41EB10",
+          "0x41F106"
+        ]
+      ],
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CopyYobiAction_41EB10"
+          ],
+          "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "boundary": "既有逐成员/原生指针联合槽及CryptInt CopyPayload；不新构造/RNG、不深拷贝或复制x86整blob；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "native_signature": "YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiAction* const source)",
+      "interface_visibility": "同一CPP私有实际helper",
+      "identity_evidence": {
+        "inventory": "doc/cg2d_ida_inventory.json",
+        "instruction_count_source": "doc/ui_windows/shared_battle.md",
+        "implementation_state": "既有本体，非本轮新增代码"
       }
     }
   ]

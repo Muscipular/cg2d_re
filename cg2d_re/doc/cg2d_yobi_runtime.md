@@ -3855,3 +3855,29 @@ semantic831/字符24原点、其他829/pending18/分类4保持，合同/唯一�
 44365C共玩家mode5/6，443779共玩家mode4与非玩家mode5/6，4437F6共title/name回退。格式均%s/T*→未清256B buffer，之后捕获主Y低S16-98→字体1测宽→重新主X-width/2低S16→mode0/font1/各色，所有其他附加绘制/对象、图标/生命期/共享flags与旧声效正文不动。
 
 原[442F70,443FF1)1220条，本次只268名称邻指令，余952条和原4417E0 caller不重核。十真实call/格式push/字段与原共尾、已有玩家借用六分支和现代码一callee静态对应；格式字节仅复用既有证据。整份源码仅一个标识符；未构建、测试、运行或hash，不据此完成原父/所有数据生产/完整显示/资源/CRT或总PLAN，音频暂停和待决项保持。
+
+## 2026-10-04：Yobi基础生命周期与克隆链 R1 收口 SPEC
+
+按工程委托补预览工厂的已实现基础依赖原身份，以原3680库存/chunk与既有完整合同登记，
+不新增或重写业务代码，不以分类计数推全部caller、资源/画面或运行通过。
+404A40/404AE0/404C50/404D10/404D30/404D60分别36/118/60/13/13/10条，
+41EAB0/41EB10分别38/335条，共8新身份、已有623条合同。
+404D00已有5条只补接口/标死与摘链释放分工，9项628条不重复计为本轮新实现。
+
+初始化首尾分配/连接保持；New原U8 priority/U32 payloadSize已经正确，不改位宽、
+已批21应用calloc/相配free域。UpdateAll两处四相门禁、callback后next重取、
+摘链/删除与计数1..4存回0保持；Delete先非空payload free再action free。
+ClearUp先保存首节点，46DD40清理后标死；终止ClearUp→UpdateAll→head/tail free。
+MarkDeath空返空、非空只deathFlag1/返原指针，不代替资源或观察槽清理。
+
+Clone空返回的新疑点经fresh41EAB0完整38条确认：41EACE test ebx、
+41EAD0 jnz成功、41EAD2..41EAD4直接空返回，当前实现正确，不删除原分支。
+afterimage/动作218的caller无保护沿各自合同，不能反推Clone自身没有失败门禁。
+成功先保存新prev/next/payload，成员复制后按next→prev→payload恢复，
+最后按原生BattleActorPayload sizeof浅复制入口快照载荷；不深拷贝或重生成CryptInt。
+Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完整合同。
+
+语义1128→1136，18待批/4分类保持。仅静态核8新身份/一既有记录、
+现有定义/声明/内调用/私有边界、source全文不变、限定JSON与两文档末追加/编码/差异。
+其余旧本体不重复取证；全部creator/字段生产/cleanup、SDK/模式3、RNG/画面及完整运行仍待。
+未构建、查产物、测试、算法/客户端运行或hash，不代批CRT总提案，不恢复音频或降总PLAN门禁。

@@ -177,7 +177,9 @@
         "doc/cg2d_login_input_controller.md",
         "doc/cg2d_login_request.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:001202E0"
+      ],
       "closure_task_ids": [
         "P18",
         "U10",
@@ -210,7 +212,9 @@
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_creation_gate_adaptation_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000626A0"
+      ],
       "closure_task_ids": [
         "P08",
         "U03",
@@ -5128,7 +5132,24 @@
     }
   ],
   "evidence": [],
-  "task_acceptance": [],
+  "task_acceptance": [
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate"
+      ],
+      "task_id": "P08",
+      "state": "closed"
+    },
+    {
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_and_module_adaptation_evidence.md#p18-模块路径预清"
+      ],
+      "task_id": "P18",
+      "state": "closed"
+    }
+  ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
   "function_dispositions": [],
   "auxiliary_dispositions": []

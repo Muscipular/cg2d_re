@@ -18,7 +18,7 @@
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置0 / 0 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
-| 已知收尾任务 | 60；验收关闭0 | 任务不是全功能目录 |
+| 已知收尾任务 | 60；验收关闭2 | 任务不是全功能目录 |
 
 ## 2. 门禁与闭包
 
@@ -42,8 +42,8 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-STARTUP | included：启动与退出 | [cg2d_startup_flow](../doc/cg2d_startup_flow.md)、[cg2d_client_shutdown](../doc/cg2d_client_shutdown.md)、[cg2d_crt_startup_lifecycle_spec](../doc/cg2d_crt_startup_lifecycle_spec.md) | 0/313 | C02、C03、C04、V01、V02 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-CRT | included：CRT提供者与兼容边界 | [cg2d_crt_runtime_boundary_spec](../doc/cg2d_crt_runtime_boundary_spec.md)、[cg2d_stdio_contract](../doc/cg2d_stdio_contract.md)、[cg2d_crt_memory_contract](../doc/cg2d_crt_memory_contract.md)、[cg2d_legacy_string_compare](../doc/cg2d_legacy_string_compare.md) | 0/676 | C01、C05、C06、C07、C08、C10、C11、C12 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOOP | included：主循环与场景分发 | [cg2d_main_loop](../doc/cg2d_main_loop.md)、[cg2d_scene_state](../doc/cg2d_scene_state.md) | 0/97 | U11、V02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 0/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-CHARACTER | included：角色选择与创建 | [cg2d_character_select_scene](../doc/cg2d_character_select_scene.md)、[cg2d_creation_gate_adaptation_spec](../doc/cg2d_creation_gate_adaptation_spec.md) | 0/11 | P08、U03、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 1/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-CHARACTER | included：角色选择与创建 | [cg2d_character_select_scene](../doc/cg2d_character_select_scene.md)、[cg2d_creation_gate_adaptation_spec](../doc/cg2d_creation_gate_adaptation_spec.md) | 1/11 | P08、U03、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-NETWORK | included：网络帧与协议处理 | [cg2d_network_compatibility_spec](../doc/cg2d_network_compatibility_spec.md)、[cg2d_network_runtime](../doc/cg2d_network_runtime.md)、[cg2d_network_dispatch](../doc/cg2d_network_dispatch.md) | 0/34 | P09、P10、P16、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-SAVED | included：配置与存档 | [cg2d_saved_state_initialize](../doc/cg2d_saved_state_initialize.md)、[cg2d_saved_state_loader](../doc/cg2d_saved_state_loader.md)、[cg2d_saved_state_persist](../doc/cg2d_saved_state_persist.md)、[cg2d_current_saved_record](../doc/cg2d_current_saved_record.md) | 0/2 | U10、V02、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md) | 0/23 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

@@ -1,5 +1,6 @@
 #include "cg/world/SceneState.hpp"
 
+#include "../CharacterSelectSceneDependencies.hpp"
 #include "../LoginMessageDependencies.hpp"
 #include "../platform/ImeLifecycle.hpp"
 #include "../platform/LegacyFormat.hpp"
@@ -78,7 +79,7 @@ void Update()
     case 4:
         platform::gValue73ECC0 = 0;
         input::ProcessKeyInput_4596D0();
-        detail::Sub_4626A0();
+        character_select::detail::ProcessCreationScene_4626A0(1);
         login::detail::YobiUpdateAll_404C50();
         detail::RenderChara_521F20();
         detail::RenderInput_4590E0();

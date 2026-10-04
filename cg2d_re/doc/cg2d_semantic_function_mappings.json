@@ -25,7 +25,7 @@
       "scope": "三个函数边界条目及已登记未归属区间用途；4C2634与本文件映射重叠时按稳定ID去重，4D6650并入工厂失败返回，4C48EB只分类为指定五字节NOP填充，不扩大为其他代码排除。"
     }
   ],
-  "pending_record_policy": "pending_records登记未闭合入口，不等于全部仍待批准；2026-10-04用户明确决策委托后，8项适配已定、2项原格式明文接线已定、1项事实待证、7项音频暂停。最新具名决议见doc/cg2d_closure_decisions_spec.md；records历史未批文字不覆盖该决议，implementation/verification未随设计升级。",
+  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中2项源码接线/核对已完成，6项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。P08/P18工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
   "pending_records": [
     {
       "original_entry": "0x424620",
@@ -106,11 +106,12 @@
     {
       "original_entry": "0x4626A0",
       "inventory_id": "F:000626A0",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "显式entryGate完整本体已有，WorldUpdate无参接线未完成",
-      "remaining_requirement": "D01已决定WorldUpdate显式entryGate=1；本体内原赋值/序保持，真实无参缺口尚未替换。",
+      "status": "具名适配源码接线已对齐，完整功能未验",
+      "implementation_state": "WorldUpdate唯一真实调用显式gate=1，旧无参声明已清；完整本体保持",
+      "remaining_requirement": "P08源码工作项已关闭；version正文、完整创建/请求往返及运行仍待，不以局部接线代FUNC-CHARACTER验收",
       "evidence_documents": [
-        "doc/cg2d_creation_gate_adaptation_spec.md"
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_creation_and_module_adaptation_evidence.md"
       ],
       "decision_spec": "doc/cg2d_local_determinism_spec.md"
     },
@@ -209,11 +210,12 @@
     {
       "original_entry": "0x5202E0",
       "inventory_id": "F:001202E0",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "本体已有，失败共享文本已修正；既存路径预清已获本轮窄裁决，未新增实现或运行验收",
-      "remaining_requirement": "D01已决定保留现有Filename[256]入口一次预清；待按窄边界核对，不称原失败逐次等价。",
+      "status": "具名适配静态核对已完成，完整功能未验",
+      "implementation_state": "已有path[256]一次预清及原API/失败消费经静态核对，无本轮源码改动",
+      "remaining_requirement": "P18核对工作项已关闭；不计算/运行摘要，API/文件失败、完整登录及运行仍待",
       "evidence_documents": [
-        "doc/cg2d_login_module_digest.md"
+        "doc/cg2d_login_module_digest.md",
+        "doc/cg2d_creation_and_module_adaptation_evidence.md"
       ],
       "decision_spec": "doc/cg2d_local_determinism_spec.md"
     }

@@ -49,7 +49,7 @@
 | [总 SPEC §2、§7、§10](cg2d_full_reconstruction_plan.md) | 函数、布局、数据、分支、调用时序和真实流程逐项闭环 | 本体与局部证据持续增加；元数据与显式映射可追溯 | 全量分类、传递依赖、适用原新对照未闭合 | R01–R05、V01–V06 |
 | [DX x64 SPEC §10–16](../doc/cg2d_graphic_dx_cache_x64_spec.md) | 原生非拥有指针、32B 图项、48B 队列、共享 owner；SDL/CPU 替换保留上层契约 | 表/节点、双变换缓存、RenderChara、DrawAllQueued、507140 指定调用及初始化探测已有 | 完整清理、两树原 CRT 生命周期、模式 2/3/4 与像素对照未闭合 | C09、G01–G05 |
 | [文本 SPEC §2–3、§5–7](../doc/cg2d_text_encoding_spec.md) | 原字节权威、容量/NUL/索引和布局不变；沿D05保留现有输入/显示边界 | 连接提示原 12 字节已对齐；GDI 原字节消费及队列 case 4 已接 | 各来源编码、输入/IME 索引和既存额外门禁、字体/字形验收仍未闭合 | T01–T03、V04 |
-| [创建 gate SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) | 固定 entryGate=1 已按本轮委托裁决 | 显式参数完整本体已存在 | WorldUpdate 仍调用无参缺口；按已定方案改唯一接线 | P08 |
+| [创建 gate SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) | 固定 entryGate=1 已按本轮委托裁决 | 显式参数完整本体已存在 | WorldUpdate已显式传1，源码接线差异收口；创建数据和真实流程仍待 | P08 |
 | [网络排除接线 SPEC](../doc/cg2d_network_exclusion_wiring_spec.md) | 只排除两加解密叶；保留帧、队列、发送长度及状态副作用 | 上层组包/分发与两个真实接线位置已有 | 保留原帧/正文/状态，仅旁路加解密传明文；原父实现与互通仍待，不自定义分包 | P09、P10、U10 |
 | [CRT 宿主提案](../doc/cg2d_crt_host_migration_spec.md) | 受限宿主承接已获本轮具名裁决；私有库差异单列 | 已批准的窄替代继续有效；大量旧 CRT 本体已落位 | 按两个子SPEC落实真实提供者/分配域/应用语义，既有兼容层和真实流程验收保留 | C01–C12 |
 | [启动局部 SPEC](../doc/cg2d_startup_flow.md) | 原启动顺序、C/C++ 表、退出登记、唯一构析与共享对象 | 父入口/C5/浮点槽、多个 CRT provider、七共享槽和 14 标准流存储已有 | C++90 表、四 Init、登记数据、避免宿主双执行与完整退出 | C01–C04、V02 |
@@ -99,7 +99,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | P05 / 4D62A0 | 适配已定，旧85本体未完 | 第二段说明格式化后、首次门禁前第一段Buffer[0]=1 | 其余255B不清，不改循环/发送顺序；[确定化子SPEC](../doc/cg2d_local_determinism_spec.md) |
 | P06 / 4F7870 | 适配已定，选择器未完 | 入口两S32 hover=-1；保留正常扫描与尾部重查询 | 不清共享提示或跳过音效/请求；[确定化子SPEC](../doc/cg2d_local_determinism_spec.md) |
 | P07 / 4D8DA0 | 待取证；旧62初始化已有 | 补 mode0 第二命令和实际模式生产；不猜命令或减少按钮 | 父页面与两命令的真实生产消费；[旧62](../doc/ui_windows/legacy_shop_choice.md) |
-| P08 / 4626A0 | 固定gate=1已定，显式本体已有 | 替换WorldUpdate无参缺口，保留输入/本体内后续赋值 | 唯一真实调用及声明清理；[创建SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) |
+| P08 / 4626A0 | 源码工作项已关闭：WorldUpdate显式gate=1，旧声明已清 | 本体及顺序保持；完整创建/数据/请求验收沿U03/V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)；不算整体功能验收 |
 | P09 / 403C50 | 原格式明文方案已定，接收父未完 | 原包头就绪后直接取明文，保留容量/CRLF/NUL/队列/状态 | 不调用解密或新增分包规则；[网络子SPEC](../doc/cg2d_network_compatibility_spec.md) |
 | P10 / 403E50 | 原格式明文方案已定，发送父未完 | 原非加密组包后直接传明文，原头计实际长度、报告/返回保留 | 不调用加密或改协议字段，与P09成对接；[网络子SPEC](../doc/cg2d_network_compatibility_spec.md) |
 | P11 / 454C30 | 暂停；音乐初始化依赖尚缺 | 用户恢复音频后沿原初始化链推进 | 初始化、失败释放与共享状态；[音频](../doc/cg2d_audio_update.md) |
@@ -109,7 +109,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | P15 / 4FE0E0 | 暂停；旧8音效页未完 | 同上，保留音乐/音效状态分工 | 原事件与实际后端应用；[设置](../doc/cg2d_display_settings.md) |
 | P16 / 50E680 | 暂停；murD 直接回复缺口 | 恢复后补真实处理，不用默认返回填表 | dispatcher→处理→音频副作用；[音频](../doc/cg2d_audio_update.md) |
 | P17 / 52C3D0 | 暂停；BGM音量应用缺口 | 恢复后接真实音量应用 | 共享值、应用时点及后端消费；[音频](../doc/cg2d_audio_update.md) |
-| P18 / 5202E0 | 保留路径预清已定，本体已有 | 按D01核现有256B入口一次清零和原API/后续路径 | 原未写字节的具名适配，仍未运行；[确定化子SPEC](../doc/cg2d_local_determinism_spec.md) |
+| P18 / 5202E0 | 核对工作项已关闭：现有256B一次预清经静态核对 | 原API/后续失败与成功消费保持；完整登录/API及运行沿V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p18-模块路径预清)；未计算/执行摘要 |
 
 ## 6. pending 以外的收尾任务
 

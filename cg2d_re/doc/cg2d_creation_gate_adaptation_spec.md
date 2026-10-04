@@ -1,6 +1,6 @@
 # 创建场景入口门禁适配 SPEC
 
-> 2026-10-02提案；2026-10-04压缩更新。**已按本轮用户决策委托采用固定1方案**，未修改本体或接线。原寄存器未知仍是事实，不因决议改称已知常量；见[局部确定化子SPEC](cg2d_local_determinism_spec.md)。
+> 2026-10-02提案；2026-10-04压缩更新。**已按本轮用户决策委托采用固定1方案**；后续P08接线现已完成，本体保持，见文末实施结果。原寄存器未知仍是事实，不因决议改称已知常量；见[局部确定化子SPEC](cg2d_local_determinism_spec.md)。
 > 压缩前全文见Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression` 的本路径；对应[收尾P08](../plan/cg2d_spec_closure_checklist.md)。
 
 ## 事实与缺口
@@ -31,3 +31,10 @@ CharacterSelectScene已有ProcessCreationScene_4626A0(int32_t entryGate)完整�
 决议已解除等待批准；当前仍保留显式本体及可见无参缺口，后续按上表接线。其他七项适配各按D01独立边界，网络与音频不由gate决定。
 
 本决议只允许上述接线及新增差异静态核对，不解除不构建/测试/运行/计算摘要的限制。真实创建交互、请求往返与完整启动仍须后续验收。
+
+## 2026-10-04实施结果
+
+P08已按本SPEC接线：WorldUpdate场景4在输入处理后显式调用既有完整本体并传1，
+删除旧无参声明；本体、后续局部门禁赋值与Yobi/绘制顺序保持。
+详见[静态收口证据](cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)。
+仅源码接线工作项关闭，创建交互、version生产、网络及运行仍未验。

@@ -751,7 +751,6 @@ void RenderChara_521F20();                 // 原 World::RenderChara@0x521F20。
 void RenderInput_4590E0();                 // 原 World::RenderInput@0x4590E0，已完整还原。
 void Sub_476680();                         // 原 [476680,476739)：玩家范围覆盖入队及显示倒计时。
 void Sub_44A410();                         // 原 0x44A410，输入光标闪烁/排队。
-void Sub_4626A0();                         // 原 0x4626A0。
 void __cdecl Sub_449DA0();                 // 原 [0x449DA0,0x449F9C)。
 std::int32_t __cdecl Sub_46A9E0();         // 原 [0x46A9E0,0x46A9F4)，清三槽、返回 0。
 std::int32_t __cdecl Sub_46AA00();         // 原 [0x46AA00,0x46AB56)，方向分类并写 pending。

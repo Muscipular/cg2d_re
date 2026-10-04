@@ -674,6 +674,21 @@ LegacyPanelRecord gLegacyPetListPanel584850 {
 };
 std::int16_t gLegacyPetStateOpenD67D18 = 0;
 std::int16_t gLegacyPetStatePreviousD2D48C = 0;
+// 原旧20状态选择器的独立S16待提交数据；五物理槽，与现代窗口状态无别名。
+std::array<std::int16_t, 5> gLegacyPetStateValuesCF4E38 {};
+std::int16_t gLegacyPetStandbyCountCC4D18 = 0;
+std::int16_t gLegacyPetBattleCountD45F8C = 0; // 不属于D45F78金额文本或D45F88编号。
+constexpr char kLegacyPetStateConfirm58A1F0[] = "\xA8\x4D\xA9\x77\xC3\x64\xAA\xAB\xAA\xBA\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateCancel58A1D8[] = "\xB0\xB1\xA4\xEE\xC3\x64\xAA\xAB\xAA\xBA\xAA\xAC\xBA\x41\xBF\xEF\xBE\xDC\xA1\x43";
+constexpr char kLegacyPetStateBattle586C40[] = "\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xBE\xD4\xB0\xAB\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateBattleCurrent586C5C[] = "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA5\xBF\xB3\x42\xA9\xF3\xBE\xD4\xB0\xAB\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateStandby586C78[] = "\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xAB\xDD\xA9\x52\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateStandbyCurrent586C94[] = "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA5\xBF\xB3\x42\xA9\xF3\xAB\xDD\xA9\x52\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateRestCurrent58A140[] = "\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA5\xBF\xB3\x42\xA9\xF3\xA5\xF0\xAE\xA7\xAA\xAC\xBA\x41";
+constexpr char kLegacyPetStateRest58A158[] = "\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xA5\xF0\xAE\xA7\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateStandbyRejected58A174[] = "\xB5\x4C\xAA\x6B\xA8\xCF\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xAB\xDD\xA9\x52\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateBattleRejected58A194[] = "\xB5\x4C\xAA\x6B\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xB3\x42\xA9\xF3\xBE\xD4\xB0\xAB\xAA\xAC\xBA\x41\xA1\x43";
+constexpr char kLegacyPetStateSwap58A1B0[] = "\xA7\xE2\xB3\x6F\xB0\xA6\xC3\x64\xAA\xAB\xA9\x4D\xB3\x5D\xAC\xB0\xB0\xD1\xBE\xD4\xAA\xAC\xBA\x41\xAA\xBA\xC3\x64\xAA\xAB\xB4\xC0\xB4\xAB\xA1\x43";
 constexpr std::array<std::int32_t, 10> kLegacyPetTribeImages57CB2C {
     22865, 22866, 22867, 22868, 22869, 22870, 22871, 22872, 22873, 22874,
 };
@@ -14369,7 +14384,7 @@ std::int32_t Sub_4F7140()
     return 0;
 }
 
-// 原旧20完整列表入口；内嵌4F7870仍为真实缺失依赖，不注册不完整页面。
+// 原旧20完整列表入口；内嵌4F7870本体已接，真实旧表外层路由及运行仍待。
 std::uint32_t Sub_4F7150(const std::int32_t opened)
 {
     const std::int32_t panelY = gLegacyPetListPanel584850.y;
@@ -14499,6 +14514,184 @@ std::uint32_t Sub_4F7150(const std::int32_t opened)
         std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
     }
     return Sub_503440(&gLegacyPetListPanel584850, 1);
+}
+
+// 原[4F7870,4F8336)完整634条；唯一4F7150 caller弃返回，沿已证void合同。
+void Sub_4F7870(const std::int32_t x, const std::int32_t y)
+{
+    std::int32_t hoveredRow = -1; // D01/P06：仅入口补原var_228。
+    std::int32_t hoveredState = -1; // D01/P06：仅入口补原var_224。
+    LegacyPanelButtonRecord confirm {AddW32(x, 48), AddW32(y, 228),
+        AddW32(x, 10), AddW32(y, 410), 76, 18, 22920, 22921};
+    LegacyPanelButtonRecord cancel {AddW32(x, 48), AddW32(y, 228),
+        AddW32(x, 10), AddW32(y, 431), 76, 18, 22922, 22923};
+    std::array<LegacyPanelButtonRecord, 15> buttons;
+    constexpr std::array<std::int32_t, 3> images {22915, 22913, 22911};
+    for (std::int32_t row = 0; row < 5; ++row) {
+        for (std::int32_t option = 0; option < 3; ++option) {
+            buttons[3 * row + option] = {AddW32(x, 48), AddW32(y, 228 + 75 * row),
+                AddW32(x, 10), AddW32(y, 78 - 21 * option + 75 * row),
+                76, 18, images[option], images[option] + 1};
+        }
+    }
+    if (gLegacyPetStateOpenD67D18 == 1 && gLegacyPetStatePreviousD2D48C == 0) {
+        std::int16_t battleCount = 0;
+        std::int16_t standbyCount = 0;
+        gLegacyPetBattleCountD45F8C = 0;
+        gLegacyPetStandbyCountCC4D18 = 0;
+        for (std::int32_t index = 0; index < 5; ++index) {
+            const auto& pet = world::detail::gPetRuntimeF633F8[index];
+            gLegacyPetStateValuesCF4E38[index] = pet.used != 0
+                ? std::bit_cast<std::int16_t>(pet.flags6AA) : 0;
+            const std::int16_t state = gLegacyPetStateValuesCF4E38[index];
+            if (state == 1) {
+                ++standbyCount;
+            } else if (state == 2) {
+                ++battleCount;
+            }
+        }
+        gLegacyPetBattleCountD45F8C = battleCount;
+        gLegacyPetStandbyCountCC4D18 = standbyCount;
+        static_cast<void>(audio::PlaySe_52C450(56, 320));
+    }
+    if ((QueryPanelButtonState(&confirm) & 1) != 0) {
+        const std::int32_t fifth = gLegacyPetStateValuesCF4E38[4];
+        const std::int32_t fourth = gLegacyPetStateValuesCF4E38[3];
+        const std::int32_t third = gLegacyPetStateValuesCF4E38[2];
+        const std::int32_t second = gLegacyPetStateValuesCF4E38[1];
+        const std::int32_t first = gLegacyPetStateValuesCF4E38[0];
+        const std::uintptr_t socket = platform::gConnectionSocket;
+        static_cast<void>(network::Sub_511AE0(socket, first, second, third, fourth, fifth));
+        gLegacyPetStateOpenD67D18 = 0;
+        static_cast<void>(audio::PlaySe_52C450(78, 320));
+    } else if ((QueryPanelButtonState(&cancel) & 1) != 0) {
+        gLegacyPetStateOpenD67D18 = 0;
+        static_cast<void>(audio::PlaySe_52C450(57, 320));
+    } else {
+        hoveredRow = -1; // 原正常扫描分支仍写一次，不外推入口适配。
+        hoveredState = -1;
+        bool clicked = false;
+        for (std::int32_t row = 0; row < 5 && !clicked; ++row) {
+            if (world::detail::gPetPairsDE0B08[row].used == 0) {
+                continue;
+            }
+            for (std::int32_t option = 0; option < 3; ++option) {
+                LegacyPanelButtonRecord* const button = &buttons[3 * row + option];
+                if ((QueryPanelButtonState(button) & 0x40) != 0) {
+                    hoveredState = option;
+                    hoveredRow = row;
+                }
+                if ((QueryPanelButtonState(button) & 1) == 0) {
+                    continue;
+                }
+                clicked = true;
+                const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+                const std::int16_t state = gLegacyPetStateValuesCF4E38[index];
+                if (option == 2) {
+                    if (state != 2) {
+                        const std::int16_t battleCount = gLegacyPetBattleCountD45F8C;
+                        const std::int16_t standbyCount = gLegacyPetStandbyCountCC4D18;
+                        if (battleCount == 0 && (standbyCount <= 2 || (standbyCount == 3 && state == 1))) {
+                            if (state == 1) {
+                                --gLegacyPetStandbyCountCC4D18;
+                            }
+                            gLegacyPetStateValuesCF4E38[index] = 2;
+                            gLegacyPetBattleCountD45F8C = 1;
+                            static_cast<void>(audio::PlaySe_52C450(51, 320));
+                        } else if (standbyCount > 2 || battleCount != 1) {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        } else {
+                            std::int32_t existing = 0;
+                            while (existing < 5 && gLegacyPetStateValuesCF4E38[existing] != 2) {
+                                ++existing;
+                            }
+                            if (existing < 5) {
+                                gLegacyPetStateValuesCF4E38[existing] = state;
+                            }
+                            gLegacyPetStateValuesCF4E38[index] = 2;
+                        }
+                    }
+                } else if (option == 1) {
+                    if (state != 1) {
+                        const std::int32_t standbyCount = gLegacyPetStandbyCountCC4D18;
+                        const std::int32_t battleCount = gLegacyPetBattleCountD45F8C;
+                        if (standbyCount + battleCount <= 2 || state == 2) {
+                            if (state == 2) {
+                                --gLegacyPetBattleCountD45F8C;
+                            }
+                            ++gLegacyPetStandbyCountCC4D18;
+                            gLegacyPetStateValuesCF4E38[index] = 1;
+                            static_cast<void>(audio::PlaySe_52C450(51, 320));
+                        } else {
+                            static_cast<void>(audio::PlaySe_52C450(55, 320));
+                        }
+                    }
+                } else if (state != 0) {
+                    if (state == 2) {
+                        --gLegacyPetBattleCountD45F8C;
+                    } else if (state == 1) {
+                        --gLegacyPetStandbyCountCC4D18;
+                    }
+                    gLegacyPetStateValuesCF4E38[index] = 0;
+                    static_cast<void>(audio::PlaySe_52C450(51, 320));
+                }
+                break;
+            }
+        }
+    }
+    for (std::int32_t row = 0; row < 5; ++row) {
+        if (world::detail::gPetPairsDE0B08[row].used == 0) {
+            continue;
+        }
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[row].index);
+        for (std::int32_t option = 0; option < 3; ++option) {
+            const std::int32_t selected = gLegacyPetStateValuesCF4E38[index] == option ? 1 : 0;
+            Sub_5038B0(&buttons[3 * row + option], 212, 1, gValueD69768, selected);
+        }
+    }
+    Sub_5035E0(&confirm, 212, 1, gValueD69768, 0);
+    Sub_5035E0(&cancel, 212, 1, gValueD69768, 0);
+    static_cast<void>(DrawGraphic(AddW32(x, 48), AddW32(y, 228), 212, 22910, 1, nullptr));
+    const char* hint = nullptr;
+    if ((QueryPanelButtonState(&confirm) & 0x40) != 0) {
+        hint = kLegacyPetStateConfirm58A1F0;
+    } else if ((QueryPanelButtonState(&cancel) & 0x40) != 0) {
+        hint = kLegacyPetStateCancel58A1D8;
+    } else if (hoveredRow >= 0) {
+        const auto index = std::bit_cast<std::int16_t>(world::detail::gPetPairsDE0B08[hoveredRow].index);
+        if (hoveredState == 2) {
+            const std::int16_t state = gLegacyPetStateValuesCF4E38[index];
+            if (state == 2) {
+                hint = kLegacyPetStateBattleCurrent586C5C;
+            } else {
+                const std::int16_t battleCount = gLegacyPetBattleCountD45F8C;
+                const std::int16_t standbyCount = gLegacyPetStandbyCountCC4D18;
+                if (battleCount == 0 && (standbyCount <= 2 || (standbyCount == 3 && state == 1))) {
+                    hint = kLegacyPetStateBattle586C40;
+                } else if (standbyCount > 2 || battleCount != 1) {
+                    hint = kLegacyPetStateBattleRejected58A194;
+                } else if (state == 1 || state == 0) {
+                    hint = kLegacyPetStateSwap58A1B0;
+                }
+            }
+        } else if (hoveredState == 1) {
+            const std::int16_t state = gLegacyPetStateValuesCF4E38[index];
+            if (state == 1) {
+                hint = kLegacyPetStateStandbyCurrent586C94;
+            } else {
+                const std::int32_t standbyCount = gLegacyPetStandbyCountCC4D18;
+                const std::int32_t battleCount = gLegacyPetBattleCountD45F8C;
+                hint = standbyCount + battleCount <= 2 || state == 2
+                    ? kLegacyPetStateStandby586C78 : kLegacyPetStateStandbyRejected58A174;
+            }
+        } else if (hoveredState == 0) {
+            hint = gLegacyPetStateValuesCF4E38[index] != 0
+                ? kLegacyPetStateRest58A158 : kLegacyPetStateRestCurrent58A140;
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
 }
 
 YobiAction* Sub_4F8340()

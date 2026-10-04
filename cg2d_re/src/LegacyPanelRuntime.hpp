@@ -300,8 +300,8 @@ void Sub_4F6BF0(std::int32_t x, std::int32_t y, std::int32_t rating, std::uint8_
 std::uint32_t Sub_4F6C60(); // 旧23返回时页=选中/15，返回原商修正符号而非页号。
 std::uint32_t Sub_4F6CA0(std::int32_t opened); // 旧23十五行列表，used才命中，切页后仍共同绘制。
 std::int32_t Sub_4F7140(); // 旧20按序清两个W16展开状态，返回零。
-std::uint32_t Sub_4F7150(std::int32_t opened); // 旧20五行列表完整本体，内嵌状态选择仍缺。
-void Sub_4F7870(std::int32_t x, std::int32_t y); // 原唯一caller弃返回；未写局部待决，仅保留真实依赖。
+std::uint32_t Sub_4F7150(std::int32_t opened); // 旧20五行列表及内嵌状态选择完整本体已接。
+void Sub_4F7870(std::int32_t x, std::int32_t y); // 原唯一caller弃返回；完整本体/P06两hover入口-1已接。
 YobiAction* Sub_4F8340(); // 旧21空预览创建并设方向6。
 std::uintptr_t Sub_4F83B0(std::int32_t opened); // 旧21三页外层，selected借面板S8，关闭返回原生预览地址。
 std::int32_t Sub_4F8550(std::int32_t x, std::int32_t y); // 基本资料，导航后才固定宠物。

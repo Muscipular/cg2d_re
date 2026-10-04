@@ -2984,7 +2984,11 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_pet_list.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000F7140",
+        "F:000F7150",
+        "F:000F7870"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -2994,9 +2998,11 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_local_determinism_spec.md"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "初始化/列表/内嵌本体及直接父已接；真实旧表外层、全部数据/输入/明文帧/音频与运行门禁仍待，原成员枚举未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -5167,6 +5173,14 @@
       "evidence_refs": [
         "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure"
       ]
+    },
+    {
+      "task_id": "P06",
+      "state": "closed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_pet_list.md#pet-state-source-closure"
+      ]
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
@@ -5186,6 +5200,15 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure",
+        "doc/cg2d_local_determinism_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:000F7870",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_pet_list.md#pet-state-source-closure",
         "doc/cg2d_local_determinism_spec.md"
       ]
     }

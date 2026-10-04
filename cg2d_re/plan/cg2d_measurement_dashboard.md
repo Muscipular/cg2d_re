@@ -11,14 +11,14 @@
 | 合同文件关联 | 1264/3680（34.35%） | 文件关联率，不是功能/基线验收完成率 |
 | 尚无合同关联 | 2416 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1138条/1135个原ID | 无独立ID记录另列3条 |
+| 语义登记 | 1139条/1136个原ID | 无独立ID记录另列3条 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 2/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 3/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置0 / 0 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
-| 已知收尾任务 | 60；验收关闭4 | 任务不是全功能目录 |
+| 已知收尾任务 | 60；验收关闭5 | 任务不是全功能目录 |
 
 ## 2. 门禁与闭包
 
@@ -143,7 +143,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-017 | included：旧选择17：十八动作菜单 | [legacy_emote_menu](../doc/ui_windows/legacy_emote_menu.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-018 | included：旧选择18：技能列表与详情 | [legacy_skill_panels](../doc/ui_windows/legacy_skill_panels.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-019 | included：旧选择19：技能列表与详情 | [legacy_skill_panels](../doc/ui_windows/legacy_skill_panels.md) | 0/2 | U04、V04、P02 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-020 | included：旧选择20：宠物列表 | [legacy_pet_list](../doc/ui_windows/legacy_pet_list.md) | 0/2 | U04、V04、P06 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-020 | included：旧选择20：宠物列表 | [legacy_pet_list](../doc/ui_windows/legacy_pet_list.md) | 3/2 | U04、V04、P06 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-021 | included：旧选择21：宠物资料 | [legacy_pet_detail](../doc/ui_windows/legacy_pet_detail.md) | 0/3 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-022 | included：旧选择22：宠物改名 | [legacy_pet_rename](../doc/ui_windows/legacy_pet_rename.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-023 | included：旧选择23：图鉴列表 | [legacy_album_list](../doc/ui_windows/legacy_album_list.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

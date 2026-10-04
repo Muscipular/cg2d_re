@@ -25,7 +25,7 @@
       "scope": "三个函数边界条目及已登记未归属区间用途；4C2634与本文件映射重叠时按稳定ID去重，4D6650并入工厂失败返回，4C48EB只分类为指定五字节NOP填充，不扩大为其他代码排除。"
     }
   ],
-  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中4项源码接线/核对已完成，4项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。源码工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
+  "pending_record_policy": "18个未闭合功能入口身份保留：8项适配中5项源码接线/核对已完成，3项待实施；2项原格式明文已定待接；1项事实待证；7项音频暂停。源码工作项关闭不代表完整功能或运行验收。最新具名决议见doc/cg2d_closure_decisions_spec.md。",
   "pending_records": [
     {
       "original_entry": "0x424620",
@@ -85,9 +85,9 @@
     {
       "original_entry": "0x4F7870",
       "inventory_id": "F:000F7870",
-      "status": "适配已决议，待实施或静态核对",
-      "implementation_state": "旧20内嵌选择器本体未完成",
-      "remaining_requirement": "D01已决定入口两个hover S32=-1；原扫描/尾部重查询和发送/音效等依赖仍须实现。",
+      "status": "具名适配与完整本体/唯一父源码已接；工作项关闭，完整旧20/运行仍待",
+      "implementation_state": "旧20完整内嵌选择器已实现，既有4F7150调用已接",
+      "remaining_requirement": "两hover入口-1及正常扫描/尾重查已实施；真实旧表外层、输入/明文帧/音频完整链与运行仍待，不算叶功能已验收。",
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_list.md"
       ],
@@ -124725,6 +124725,40 @@
         "runtime_verified": false
       },
       "verification_level": "新增完整本体、两buffer、结构偏移/边界、原提示字节、文件/输入/按钮优先与返回合同静态；无构建/测试/运行"
+    },
+    {
+      "original_entry": "0x4F7870",
+      "inventory_id": "F:000F7870",
+      "status": "旧20内嵌状态选择器完整634条本体与唯一直接父源码已接；D01/P06两hover入口-1实施，旧表外层及运行未验",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4F7870"
+          ],
+          "relationship": "完整五物理槽初始化、15选项/确认取消、状态限制/交换、LKQy请求与提示；4F7150沿既有真实调用"
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/legacy_pet_list.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_pe_zero_initialization_evidence.json"
+      ],
+      "boundary": "仅两S32 hover入口各-1，正常扫描仍重新写-1；点击跳扫描但完整绘制/尾部重新命中与无命中提示保留。五待提交S16及两S16数量有真实独立owner，不写PetRuntime或复用现代窗口。首个2交换保持先旧槽后目标，无额外音效/数量变更；确认第五到第一再socket取数，真实511AE0后清open、SE78。唯一父弃返回沿void合同；旧表/明文帧/音频/输入/完整运行仍未验。",
+      "instruction_count": 634,
+      "function_chunks": [
+        {
+          "start": "0x4F7870",
+          "end_exclusive": "0x4F8336"
+        }
+      ],
+      "native_provider": {
+        "source": "src/LegacyUiRecord.cpp",
+        "symbol": "Sub_4F7870",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "原634条及唯一caller/38共享直接引用/11提示原字节；新增本体及父声明/调用集中静态核对，不构建/测试/运行"
     }
   ]
 }

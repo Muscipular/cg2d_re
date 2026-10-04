@@ -133,7 +133,7 @@
 | 16 | [拆分数量](ui_windows/legacy_item_split.md) | 完整本体已有；屏幕键盘专属功能沿既有排除 |
 | 17 | [十八动作菜单](ui_windows/legacy_emote_menu.md) | 完整本体/真实动作请求已有 |
 | 18、19 | [技能列表与详情](ui_windows/legacy_skill_panels.md) | 18列表已有；19详情4FF650适配已定，本体待实施 |
-| 20 | [宠物列表](ui_windows/legacy_pet_list.md) | 初始化/列表已有；内嵌4F7870悬停适配已定，待实施 |
+| 20 | [宠物列表](ui_windows/legacy_pet_list.md) | 初始化/列表与内嵌4F7870完整本体/悬停适配已接；真实外层和运行仍待 |
 | 21 | [宠物资料](ui_windows/legacy_pet_detail.md) | 三页/初始化/外层已有 |
 | 22 | [宠物改名](ui_windows/legacy_pet_rename.md) | 完整本体已有 |
 | 23 | [图鉴列表](ui_windows/legacy_album_list.md) | 完整本体/初始化已有 |

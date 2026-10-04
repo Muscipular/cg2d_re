@@ -2285,14 +2285,15 @@
     {
       "original_entry": "0x401C10",
       "inventory_id": "F:00001C10",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
       "original_role": "CRT553004启动双CryptInt登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "StartupCryptValuesStaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
         },
         {
           "path": "src/platform/LegacyCryptInt.cpp",
@@ -2300,25 +2301,86 @@
             "ConstructStartupValues_401C20",
             "DestroyStartupValues_401C50"
           ]
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "InitializeLegacyStartupValues_401C10"
+          ],
+          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "InitializeLegacyStartupValues_401C10"
+          ],
+          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。"
+      "boundary": "先构造5939C8/5939D8，再登记反序析构；现由对应单个静态适配对象承接，未新增随机调用。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x401C10",
+          "end_exclusive": "0x401C1A"
+        },
+        {
+          "start": "0x401C40",
+          "end_exclusive": "0x401C4C"
+        }
+      ],
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "startup_crypt_internal_call_connections": [
+        {
+          "parent_entry": "0x401C10",
+          "call_site": "0x401C10",
+          "target_entry": "0x401C20",
+          "target_symbol": "ConstructStartupValues_401C20",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "InitializeLegacyStartupValues_401C10",
+          "arguments": "无参；沿已过唯一状态对象和原随机消费，动作返回不设成功门禁",
+          "relationship": "原CRT入口先构造后登记，既有构造本体不改或复检"
+        },
+        {
+          "parent_entry": "0x401C10",
+          "call_site": "0x401C45",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "InitializeLegacyStartupValues_401C10",
+          "arguments": "DestroyStartupValues_401C50 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        }
+      ],
+      "startup_crypt_callback_references": [
+        {
+          "parent_entry": "0x401C10",
+          "reference_site": "0x401C40",
+          "callback_entry": "0x401C50",
+          "callback_symbol": "DestroyStartupValues_401C50",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "InitializeLegacyStartupValues_401C10",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        }
+      ]
     },
     {
       "original_entry": "0x404120",
       "inventory_id": "F:00004120",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
       "original_role": "CRT553008第一保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "ProtectionChecksum1StaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -2326,25 +2388,86 @@
             "ConstructProtectionChecksum1_404130",
             "DestroyProtectionChecksum1_404150"
           ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "InitializeLegacyProtectionChecksum1_404120"
+          ],
+          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "InitializeLegacyProtectionChecksum1_404120"
+          ],
+          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。"
+      "boundary": "原调用404130后登记404150，唯一保护值594070仍由既有owner持有；不建立第二份保护状态。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x404120",
+          "end_exclusive": "0x40412A"
+        },
+        {
+          "start": "0x404140",
+          "end_exclusive": "0x40414C"
+        }
+      ],
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "startup_crypt_internal_call_connections": [
+        {
+          "parent_entry": "0x404120",
+          "call_site": "0x404120",
+          "target_entry": "0x404130",
+          "target_symbol": "ConstructProtectionChecksum1_404130",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum1_404120",
+          "arguments": "无参；沿已过唯一状态对象和原随机消费，动作返回不设成功门禁",
+          "relationship": "原CRT入口先构造后登记，既有构造本体不改或复检"
+        },
+        {
+          "parent_entry": "0x404120",
+          "call_site": "0x404145",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum1_404120",
+          "arguments": "DestroyProtectionChecksum1_404150 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        }
+      ],
+      "startup_crypt_callback_references": [
+        {
+          "parent_entry": "0x404120",
+          "reference_site": "0x404140",
+          "callback_entry": "0x404150",
+          "callback_symbol": "DestroyProtectionChecksum1_404150",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum1_404120",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        }
+      ]
     },
     {
       "original_entry": "0x404160",
       "inventory_id": "F:00004160",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
       "original_role": "CRT55300C第二保护校验值登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "ProtectionChecksum2StaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -2352,25 +2475,86 @@
             "ConstructProtectionChecksum2_404170",
             "DestroyProtectionChecksum2_404190"
           ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "InitializeLegacyProtectionChecksum2_404160"
+          ],
+          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "InitializeLegacyProtectionChecksum2_404160"
+          ],
+          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。"
+      "boundary": "原调用404170后登记404190，唯一保护值594080沿现有owner；不与第一保护值合并。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x404160",
+          "end_exclusive": "0x40416A"
+        },
+        {
+          "start": "0x404180",
+          "end_exclusive": "0x40418C"
+        }
+      ],
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "startup_crypt_internal_call_connections": [
+        {
+          "parent_entry": "0x404160",
+          "call_site": "0x404160",
+          "target_entry": "0x404170",
+          "target_symbol": "ConstructProtectionChecksum2_404170",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum2_404160",
+          "arguments": "无参；沿已过唯一状态对象和原随机消费，动作返回不设成功门禁",
+          "relationship": "原CRT入口先构造后登记，既有构造本体不改或复检"
+        },
+        {
+          "parent_entry": "0x404160",
+          "call_site": "0x404185",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum2_404160",
+          "arguments": "DestroyProtectionChecksum2_404190 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        }
+      ],
+      "startup_crypt_callback_references": [
+        {
+          "parent_entry": "0x404160",
+          "reference_site": "0x404180",
+          "callback_entry": "0x404190",
+          "callback_symbol": "DestroyProtectionChecksum2_404190",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum2_404160",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        }
+      ]
     },
     {
       "original_entry": "0x4041A0",
       "inventory_id": "F:000041A0",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "启动双CryptInt及三保护值CRT登记入口源码已实现；整表/宿主迁移及实际退出未闭",
       "original_role": "CRT553010进程保护状态登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "ProtectionProcessStateStaticInitializer"
-          ]
+          ],
+          "relationship": "旧宿主适配职责关联保留，不作为本轮真实CRT入口源码提供者"
         },
         {
           "path": "src/platform/MainLoopSupport.cpp",
@@ -2378,13 +2562,73 @@
             "ConstructProtectionProcessState_4041B0",
             "DestroyProtectionProcessState_4041D0"
           ]
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "InitializeLegacyProtectionProcessState_4041A0"
+          ],
+          "relationship": "原构造后退出登记真实入口，沿已过构造/析构唯一状态，返回原登记完整S32"
+        },
+        {
+          "path": "src/platform/MainLoopDependencies.hpp",
+          "symbols": [
+            "InitializeLegacyProtectionProcessState_4041A0"
+          ],
+          "relationship": "显式入口声明，当前C++整表和宿主迁移未启用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。"
+      "boundary": "原调用4041B0后登记4041D0，59E548沿现有owner与单项静态适配；不改变后续World对象构造相对位置。；2026-10-04新增真实无参CRT入口，先调用既有原构造，再53B406登记原无参析构；不增加RNG、对象/预清、固定成功、once、回滚、std::atexit或直接调用析构。原6条/两chunk及原call/真实callback静态落位，整Cpp90仍extern，宿主双执行/退出迁移、模式3与完整运行未闭。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x4041A0",
+          "end_exclusive": "0x4041AA"
+        },
+        {
+          "start": "0x4041C0",
+          "end_exclusive": "0x4041CC"
+        }
+      ],
+      "verification_level": "；仅本轮原入口24条/8call/4callback和已有源码实际接线新增静态；既有构析/RNG本体不改不重验，非当前运行通过",
+      "startup_crypt_internal_call_connections": [
+        {
+          "parent_entry": "0x4041A0",
+          "call_site": "0x4041A0",
+          "target_entry": "0x4041B0",
+          "target_symbol": "ConstructProtectionProcessState_4041B0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionProcessState_4041A0",
+          "arguments": "无参；沿已过唯一状态对象和原随机消费，动作返回不设成功门禁",
+          "relationship": "原CRT入口先构造后登记，既有构造本体不改或复检"
+        },
+        {
+          "parent_entry": "0x4041A0",
+          "call_site": "0x4041C5",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionProcessState_4041A0",
+          "arguments": "DestroyProtectionProcessState_4041D0 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        }
+      ],
+      "startup_crypt_callback_references": [
+        {
+          "parent_entry": "0x4041A0",
+          "reference_site": "0x4041C0",
+          "callback_entry": "0x4041D0",
+          "callback_symbol": "DestroyProtectionProcessState_4041D0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionProcessState_4041A0",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        }
+      ]
     },
     {
       "original_entry": "0x43D760",
@@ -14299,6 +14543,22 @@
             "InitializeLegacyWideEarlyStandardStreams_453E40"
           ],
           "relationship": "本次早段真实父消费或共享chunk复用，旧本体/原数组不改或复检，非伪数值call"
+        },
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "InitializeLegacyStartupValues_401C10"
+          ],
+          "relationship": "本轮启动双CryptInt原CRT登记父入口"
+        },
+        {
+          "path": "src/platform/MainLoopSupport.cpp",
+          "symbols": [
+            "InitializeLegacyProtectionChecksum1_404120",
+            "InitializeLegacyProtectionChecksum2_404160",
+            "InitializeLegacyProtectionProcessState_4041A0"
+          ],
+          "relationship": "本轮三独立保护状态原CRT登记父入口"
         }
       ],
       "evidence_documents": [
@@ -14306,7 +14566,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -14776,6 +15036,86 @@
           "symbol": "InitializeLegacyWideEarlyStandardStreams_453E40",
           "arguments": "ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70 无参callback",
           "relationship": "原早段标准流真实动作/登记/控制器尾调，不改宿主自动初始化或复检旧目标"
+        }
+      ],
+      "startup_crypt_parent_call_connections": [
+        {
+          "parent_entry": "0x401C10",
+          "call_site": "0x401C45",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "InitializeLegacyStartupValues_401C10",
+          "arguments": "DestroyStartupValues_401C50 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        },
+        {
+          "parent_entry": "0x404120",
+          "call_site": "0x404145",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum1_404120",
+          "arguments": "DestroyProtectionChecksum1_404150 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        },
+        {
+          "parent_entry": "0x404160",
+          "call_site": "0x404185",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum2_404160",
+          "arguments": "DestroyProtectionChecksum2_404190 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        },
+        {
+          "parent_entry": "0x4041A0",
+          "call_site": "0x4041C5",
+          "target_entry": "0x53B406",
+          "target_symbol": "RegisterLegacyAtExit_53B406",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionProcessState_4041A0",
+          "arguments": "DestroyProtectionProcessState_4041D0 无参退出callback",
+          "relationship": "原登记结果完整S32透传，失败不补回滚或析构"
+        }
+      ],
+      "startup_crypt_callback_references": [
+        {
+          "parent_entry": "0x401C10",
+          "reference_site": "0x401C40",
+          "callback_entry": "0x401C50",
+          "callback_symbol": "DestroyStartupValues_401C50",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "InitializeLegacyStartupValues_401C10",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        },
+        {
+          "parent_entry": "0x404120",
+          "reference_site": "0x404140",
+          "callback_entry": "0x404150",
+          "callback_symbol": "DestroyProtectionChecksum1_404150",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum1_404120",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        },
+        {
+          "parent_entry": "0x404160",
+          "reference_site": "0x404180",
+          "callback_entry": "0x404190",
+          "callback_symbol": "DestroyProtectionChecksum2_404190",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionChecksum2_404160",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
+        },
+        {
+          "parent_entry": "0x4041A0",
+          "reference_site": "0x4041C0",
+          "callback_entry": "0x4041D0",
+          "callback_symbol": "DestroyProtectionProcessState_4041D0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "symbol": "InitializeLegacyProtectionProcessState_4041A0",
+          "relationship": "原push真实无参析构地址，复用原状态/析构顺序，当前宿主自动初始化不迁移"
         }
       ]
     },
@@ -15983,7 +16323,7 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。",
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
       "crt_parent_internal_call_connections": [
         {
@@ -16497,6 +16837,44 @@
           "source_body_implemented": true,
           "native_table_defined": false,
           "relationship": "两个原C++表前段provider新源码；仅槽关联，整表仍extern/当前未启用"
+        }
+      ],
+      "startup_crypt_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x553004",
+          "target_entry": "0x401C10",
+          "target_symbol": "cg::platform::legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x553008",
+          "target_entry": "0x404120",
+          "target_symbol": "cg::platform::InitializeLegacyProtectionChecksum1_404120",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x55300C",
+          "target_entry": "0x404160",
+          "target_symbol": "cg::platform::InitializeLegacyProtectionChecksum2_404160",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
+        },
+        {
+          "reference_site": "0x553010",
+          "target_entry": "0x4041A0",
+          "target_symbol": "cg::platform::InitializeLegacyProtectionProcessState_4041A0",
+          "source": "src/platform/MainLoopSupport.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "仅补前四个非空Cpp槽真实provider，完整90表仍extern/不启用"
         }
       ]
     },

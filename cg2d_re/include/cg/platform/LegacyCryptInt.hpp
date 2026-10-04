@@ -26,6 +26,8 @@ inline constexpr std::uint32_t kLegacyCryptIntVftToken = 0x0054D3A0u;
 namespace legacy_crypt_int {
 
 // 原CRT 553004：先构造5939C8/5939D8，退出按相反顺序销毁。
+// 原553004入口：先构造同一对象，再以原53B406登记对应退出回调。
+std::int32_t InitializeLegacyStartupValues_401C10();
 void ConstructStartupValues_401C20();
 void DestroyStartupValues_401C50();
 

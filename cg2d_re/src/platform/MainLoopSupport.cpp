@@ -1,5 +1,6 @@
 #include "StartupNative.hpp"
 #include "MainLoopDependencies.hpp"
+#include "LegacyRuntimeExit.hpp"
 #include "LegacyStdio.hpp"
 #include "LegacyFormat.hpp"
 
@@ -238,6 +239,12 @@ BOOL CALLBACK CheckWindowsCallback_404940(HWND window, LPARAM)
 
 std::uint32_t gRandomSeed = 1; // 原 0x58F870，共享随机源，不改用本机 CRT 的私有状态。
 
+std::int32_t InitializeLegacyProtectionChecksum1_404120()
+{
+    ConstructProtectionChecksum1_404130();
+    return RegisterLegacyAtExit_53B406(DestroyProtectionChecksum1_404150);
+}
+
 void ConstructProtectionChecksum1_404130()
 {
     legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum1);
@@ -248,6 +255,12 @@ void DestroyProtectionChecksum1_404150()
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum1);
 }
 
+std::int32_t InitializeLegacyProtectionChecksum2_404160()
+{
+    ConstructProtectionChecksum2_404170();
+    return RegisterLegacyAtExit_53B406(DestroyProtectionChecksum2_404190);
+}
+
 void ConstructProtectionChecksum2_404170()
 {
     legacy_crypt_int::ConstructZero_401C70(&gProtectionChecksum2);
@@ -256,6 +269,12 @@ void ConstructProtectionChecksum2_404170()
 void DestroyProtectionChecksum2_404190()
 {
     legacy_crypt_int::Destroy_401CF0(&gProtectionChecksum2);
+}
+
+std::int32_t InitializeLegacyProtectionProcessState_4041A0()
+{
+    ConstructProtectionProcessState_4041B0();
+    return RegisterLegacyAtExit_53B406(DestroyProtectionProcessState_4041D0);
 }
 
 void ConstructProtectionProcessState_4041B0()

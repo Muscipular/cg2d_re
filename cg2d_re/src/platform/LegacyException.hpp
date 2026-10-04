@@ -64,6 +64,44 @@ std::int32_t MatchLegacyExceptionType_5404FA(
     const LegacyExceptionCatchableTypePrefix* catchable,
     const LegacyExceptionThrowInfoPrefix* throwInfo);
 
+// 原TryBlockMapEntry五字段/20B，仅最后的handler地址拓宽；不补handler本体/布局。
+struct LegacyExceptionHandlerTypeEntry;
+struct LegacyExceptionTryBlockMapEntry final {
+    std::int32_t tryLow; // 原+00；5402AB按S32比较状态下界。
+    std::int32_t tryHigh; // 原+04；53B75B先读此S32。
+    std::int32_t catchHigh; // 原+08；仅tryHigh<state时读取。
+    std::int32_t catchCount; // 原+0C；5402AB按S32判断是否存在catch。
+    const LegacyExceptionHandlerTypeEntry* handlers; // 原+10；完整handler布局仍不透明。
+};
+static_assert(sizeof(LegacyExceptionTryBlockMapEntry) == 24);
+static_assert(offsetof(LegacyExceptionTryBlockMapEntry, tryHigh) == 4);
+static_assert(offsetof(LegacyExceptionTryBlockMapEntry, catchHigh) == 8);
+static_assert(offsetof(LegacyExceptionTryBlockMapEntry, catchCount) == 12);
+static_assert(offsetof(LegacyExceptionTryBlockMapEntry, handlers) == 16);
+
+// 原FuncInfo只声明至try表指针的已证前缀；不生成旧帧/完整SDK元数据。
+struct LegacyExceptionUnwindMapEntry;
+struct LegacyExceptionFuncInfoPrefix final {
+    std::uint32_t signature; // 原+00，已加载原值19930520；本范围函数不读取。
+    std::int32_t maxState; // 原+04；540557的S32状态上界。
+    const LegacyExceptionUnwindMapEntry* unwindMap; // 原+08；本范围函数不读取。
+    std::uint32_t tryBlockCount; // 原+0C；首读缓存，输出发布后按原时序复读。
+    const LegacyExceptionTryBlockMapEntry* tryBlocks; // 原+10；缓存原生非拥有表地址。
+};
+static_assert(sizeof(LegacyExceptionFuncInfoPrefix) == 32);
+static_assert(offsetof(LegacyExceptionFuncInfoPrefix, maxState) == 4);
+static_assert(offsetof(LegacyExceptionFuncInfoPrefix, unwindMap) == 8);
+static_assert(offsetof(LegacyExceptionFuncInfoPrefix, tryBlockCount) == 16);
+static_assert(offsetof(LegacyExceptionFuncInfoPrefix, tryBlocks) == 24);
+
+// 原58FB74已加载540A5C；只承接原共享槽，不安装宿主异常钩子。
+extern void (*gLegacyInconsistencyHandler58FB74)();
+[[noreturn]] void ReportLegacyExceptionInconsistency_540AB2();
+// nesting/state保持S32，输出保持U32；先发布两输出再复读数量，保留地址别名。
+const LegacyExceptionTryBlockMapEntry* GetLegacyTryRange_53B75B(
+    const LegacyExceptionFuncInfoPrefix* information, std::int32_t nesting,
+    std::int32_t state, std::uint32_t* firstIndex, std::uint32_t* lastIndex);
+
 struct LegacyExceptionObject;
 
 // 原5501C8的两个真实方法槽；原生显式this，不是宿主C++虚表/RTTI/ThrowInfo。

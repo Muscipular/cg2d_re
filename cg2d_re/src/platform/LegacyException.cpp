@@ -4,10 +4,16 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/Input.hpp"
 
+#include <Windows.h>
+
 #include <bit>
 #include <cstring>
 
 namespace cg::platform {
+
+// 原58FB74真实已加载初值；独立原槽，不替换SDK的terminate/unexpected处理器。
+void (*gLegacyInconsistencyHandler58FB74)() = TerminateLegacyRuntime_540A5C;
+
 namespace {
 
 // 原5501C0单槽；显式this按已证前缀使用，不借宿主type_info或RTTI表。
@@ -541,6 +547,60 @@ LegacyExceptionTypeDescriptorPrefix* DeleteLegacyExceptionTypeDescriptor_54AC7B(
         FreeLegacyHeapMemory_53C0A9(storage);
     }
     return storage;
+}
+
+[[noreturn]] void ReportLegacyExceptionInconsistency_540AB2()
+{
+    __try {
+        // 原外层finally已经生效后，才采样并调用此共享槽。
+        void (*const handler)() = gLegacyInconsistencyHandler58FB74;
+        if (handler != nullptr) {
+            __try {
+                handler();
+            } __except (EXCEPTION_EXECUTE_HANDLER) {
+                // 原540AEF恒返1，540AF3仅恢复本帧，无额外业务清理。
+            }
+        }
+    } __finally {
+        // 原正常尾跳540B03及外层scope0均到真实终止，回调返回/抛出都不能跳过。
+        TerminateLegacyRuntime_540A5C();
+    }
+}
+
+const LegacyExceptionTryBlockMapEntry* GetLegacyTryRange_53B75B(
+    const LegacyExceptionFuncInfoPrefix* const information, std::int32_t nesting,
+    const std::int32_t state, std::uint32_t* const firstIndex,
+    std::uint32_t* const lastIndex)
+{
+    std::uint32_t index = information->tryBlockCount;
+    const LegacyExceptionTryBlockMapEntry* const table = information->tryBlocks;
+    std::uint32_t previous = index;
+    std::uint32_t rangeEnd = index;
+    if (nesting >= 0) {
+        do {
+            if (index == 0xFFFFFFFFu) {
+                ReportLegacyExceptionInconsistency_540AB2();
+            }
+            --index;
+            // 原-1仍先读表前一记录，再判-1；不补哨兵记录或跳过真实读取。
+            const LegacyExceptionTryBlockMapEntry* const entry =
+                index == 0xFFFFFFFFu ? table - 1 : table + index;
+            if ((entry->tryHigh < state && state <= entry->catchHigh)
+                || index == 0xFFFFFFFFu) {
+                rangeEnd = previous;
+                --nesting;
+                previous = index;
+            }
+        } while (nesting >= 0);
+    }
+    ++index;
+    *firstIndex = index;
+    *lastIndex = rangeEnd;
+    // 原输出可与输入/彼此别名；此时才复读数量，比较仍使用缓存的两个U32。
+    if (rangeEnd > information->tryBlockCount || index > rangeEnd) {
+        ReportLegacyExceptionInconsistency_540AB2();
+    }
+    return table + index;
 }
 
 } // namespace cg::platform

@@ -1840,3 +1840,14 @@ Cpp5530F8/5530FC/553100只记录真实provider，整90表仍extern未启用，�
 54AC66完整8条语义：先恢复本族单槽方法表，再取缓存地址，非空调用真实FreeLegacyHeapMemory_53C0A9；不清缓存槽或内联名称。54AC7B完整11条语义：先完整54AC66，随后按W32 flags低位1决定是否沿原53B4E7薄叶同域释放storage，始终返回保存的原对象地址。原54AC74/54AC7E/54AC8B三个调用和单槽绑定均真实接线；缓存/对象只允许原堆域，不混宿主type_info或其他分配器，原堆模式3仍未闭。
 
 两个原本体与两既有释放依赖记录局部更新，五文件新增静态后独立提交；1110/未决18/分类4不变，旧匹配算法、原堆体及已接点不回核。完整原生描述符/缓存生产、异常主链/SDK及运行仍未闭，未编译、测试、执行业务或hash核验，不刷新总SPEC或压缩普通追加。
+
+
+### try范围选择及inconsistency终止局部SPEC（2026-10-04）
+
+工程裁决：既有LegacyException新增53B75B/540AB2完整51/29条语义。TryBlockMap五字段原20B，仅末handler地址拓宽，新24B；原tryLow/tryHigh/catchHigh/catchCount保持S32。FuncInfo只声明signature/maxState/unwindMap/count/tryMap五字段已证前缀，新32B，数量保持U32/指针拓宽，完整handler/unwind对象不透明；真实元数据生产与旧帧/SDK布局继续待，不复制x86数据或生成默认内容。
+
+53B75B先缓存count和tryMap，S32 nesting非负时逐轮先核U32索引FFFFFFFF→真实540AB2，再递减索引，按tryHigh<state且state<=catchHigh或FFFFFFFF更新previous/end并递减nesting。FFFFFFFF记录仍按原先读取tryMap前一记录，再判索引，不跳读/造哨兵或扩大容量；不专项模拟坏指针/溢出。循环结束先递增U32索引，先写first，再写end，随后复读information.count，按U32核end<=count及first<=end，否则实际540AB2；返回已缓存原生tryMap+first。保留两输出彼此及与输入的地址别名/读写时序，不加保护或预清。
+
+540AB2的54FA78外层scope0是finally（540B03真实终止），54FA84内层scope1是恒1筛选/仅本帧恢复；原生外__try/__finally和非空回调内__try/__except(1)承接，不使用C++catch或复制FS/旧栈。原58FB74已加载540A5C，真实共享槽以该原生函数地址初始化；外finally生效后才一次采样，非空实际调用，正常返回/被筛选异常均再走TerminateLegacyRuntime_540A5C。不安装宿主异常钩子，原540AFE的call自身只是正常finally ABI桥，不造业务调用/原函数身份。
+
+两个范围拒绝点/一个间调与共享槽初值/一个终止尾及两个scope真实接线；两范围父5402AB/540452、其余六inconsistency父、完整元数据生产/异常主链和SDK物理运行仍待。五文件三既有记录新增静态后独立提交，1110/未决18/分类4保持，旧算法/堆体/数组本体不回核，未编译、测试、运行或hash核验，普通记录只追加。

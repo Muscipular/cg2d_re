@@ -24891,6 +24891,14 @@
             "FilterLegacyArrayUnwindException_5405F5"
           ],
           "relationship": "本轮数组展开原筛选真实终止父消费，不改已过终止/abort或宿主槽"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ReportLegacyExceptionInconsistency_540AB2",
+            "gLegacyInconsistencyHandler58FB74"
+          ],
+          "relationship": "新增原540B03终止尾/外finally与58FB74实际初值，旧终止本体与已接点保持"
         }
       ],
       "native_reference": {
@@ -24903,7 +24911,7 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "共享1086064非空时调用；原scope表外层finally进入abort，内层恒1过滤吞钩子SEH异常。用MSVC原生嵌套__try/__except/__finally实现，不切换宿主线程terminate槽，不重建x86注册链；已接原abort，未执行异常/终止或验证编译器异常框架。；2026-10-04新增数组展开筛选540606真实父尾调，仅E06D7363命中；原终止/abort源码和运行门禁保持。",
+      "boundary": "共享1086064非空时调用；原scope表外层finally进入abort，内层恒1过滤吞钩子SEH异常。用MSVC原生嵌套__try/__except/__finally实现，不切换宿主线程terminate槽，不重建x86注册链；已接原abort，未执行异常/终止或验证编译器异常框架。；2026-10-04新增数组展开筛选540606真实父尾调，仅E06D7363命中；原终止/abort源码和运行门禁保持。；2026-10-04原540AB2完整inconsistency原生两层SEH及54FA78 finally/540B03尾真实调用；58FB74加载初值为本函数地址，非空间调/恒1处理后仍经真实终止。未安装宿主钩子/修改已过终止算法，不据此完成其他异常父链/SDK或物理异常运行。",
       "original_direct_reference_count": 9,
       "function_chunks": [
         {
@@ -24962,7 +24970,27 @@
           "arguments": "仅ExceptionCode == E06D7363时无参真实终止",
           "relationship": "原尾跳终止本体，其他代码return0继续搜索，不用宿主std::terminate"
         }
-      ]
+      ],
+      "inconsistency_parent_termination_connection": {
+        "original_tail": "0x540B03",
+        "target_entry": "0x540A5C",
+        "source": "src/platform/LegacyException.cpp",
+        "source_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+        "target_symbol": "TerminateLegacyRuntime_540A5C",
+        "source_call_implemented": true,
+        "runtime_verified": false
+      },
+      "inconsistency_handler_binding": {
+        "original_global": "0x58FB74",
+        "original_initial_target": "0x540A5C",
+        "source": "src/platform/LegacyException.cpp",
+        "source_symbol": "gLegacyInconsistencyHandler58FB74",
+        "initial_target_symbol": "TerminateLegacyRuntime_540A5C",
+        "original_load": "0x540ADB",
+        "original_indirect_call": "0x540AEB",
+        "source_binding_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x548143",
@@ -42219,11 +42247,11 @@
     {
       "original_entry": "0x53B75B",
       "inventory_id": "F:0013B75B",
-      "status": "原CRT异常调用链边界已定位；完整语义与新端承接待核",
+      "status": "原try范围选择完整本体及真实终止调用已实现；原生元数据生产/两异常父链与运行未闭",
       "original_end_exclusive": "0x53B7D6",
       "instruction_count": 51,
       "original_direct_reference_count": 2,
-      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义",
+      "verification_level": "边界、代码指令数、call及外向jmp位置；未逐条验证完整语义；2026-10-04完整51/29条、S32/U32判别与读取时序、原两个scope/真实回调初值/终止尾及新增静态，未构建或运行",
       "inbound_evidence_complete": true,
       "inbound_evidence": [
         {
@@ -42235,12 +42263,65 @@
           "parent_entry": "0x540452"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "GetLegacyTryRange_53B75B"
+          ],
+          "relationship": "完整51条语义；S32状态/层数、U32索引、倒序选择/原读取时序、输出别名/复读与真实终止"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionTryBlockMapEntry",
+            "LegacyExceptionFuncInfoPrefix",
+            "GetLegacyTryRange_53B75B"
+          ],
+          "relationship": "仅已证24B try记录/32B FuncInfo前缀，非地址宽度保持/地址拓宽，真实元数据生产仍待"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "两父5402AB/540452，两处调用540AB2；具体try范围及负索引语义未逐条核定。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。"
+      "boundary": "两父5402AB/540452，两处调用540AB2；具体try范围及负索引语义未逐条核定。 CRT宿主提案仍待确认；不新建x86栈、FS链或固定成功包装，不计范围排除。；2026-10-04完整51条源码：先缓存count和原生tryMap，S32 nesting非负时从U32 count倒序查tryHigh<state<=catchHigh，符合或索引FFFFFFFF时更新previous/end并递减nesting；原FFFFFFFF仍先读前一条再判，不造哨兵/补值/加保护。递减前FFFFFFFF与末范围校验都实际调用540AB2。按原顺序先写first/index+1，再写end，随后复读information.count并按U32核end/count、first/end，保留输出与输入/彼此的别名及缓存返回表地址。已证20B try记录仅handler地址拓宽到24B，FuncInfo前五字段仅地址拓宽到32B读取前缀；实际元数据生产、两5402AB/540452父与旧帧/SDK全链仍未闭。",
+      "function_chunks": [
+        {
+          "start": "0x53B75B",
+          "end_exclusive": "0x53B7D6"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "GetLegacyTryRange_53B75B",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "try_range_call_connections": [
+        {
+          "parent_entry": "0x53B75B",
+          "call_site": "0x53B77E",
+          "target_entry": "0x540AB2",
+          "source": "src/platform/LegacyException.cpp",
+          "source_symbol": "GetLegacyTryRange_53B75B",
+          "target_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+          "condition": "每轮递减前索引位型为FFFFFFFF",
+          "source_call_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "parent_entry": "0x53B75B",
+          "call_site": "0x53B7C6",
+          "target_entry": "0x540AB2",
+          "source": "src/platform/LegacyException.cpp",
+          "source_symbol": "GetLegacyTryRange_53B75B",
+          "target_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+          "condition": "发布两输出后，缓存end大于复读count或缓存first大于end，均按U32",
+          "source_call_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x53B7D8",
@@ -42934,11 +43015,11 @@
     {
       "original_entry": "0x540AB2",
       "inventory_id": "F:00140AB2",
-      "status": "原异常核心调用边界已定位；完整语义、新端承接及验收待核",
+      "status": "原inconsistency终止完整语义/真实共享槽与两层原生SEH已实现；异常父主链/SDK运行未闭",
       "original_end_exclusive": "0x540B08",
       "instruction_count": 29,
       "original_direct_reference_count": 8,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过",
+      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过；2026-10-04完整51/29条、S32/U32判别与读取时序、原两个scope/真实回调初值/终止尾及新增静态，未构建或运行",
       "inbound_evidence": [
         {
           "address": "0x53B77E",
@@ -42973,11 +43054,100 @@
           "parent_entry": "0x5407BC"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "ReportLegacyExceptionInconsistency_540AB2",
+            "gLegacyInconsistencyHandler58FB74"
+          ],
+          "relationship": "完整29条语义；实际原回调槽/540A5C初值、内层SEH恒1处理、外层finally真实终止"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "ReportLegacyExceptionInconsistency_540AB2",
+            "gLegacyInconsistencyHandler58FB74"
+          ],
+          "relationship": "真实原共享槽声明和不可返回入口，不安装宿主全局钩子"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "八入向属于try范围、匹配/构造与状态处理；含间接终止调用及540A5C尾跳，完整检查条件未核，不按名字推定断言合同。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "boundary": "八入向属于try范围、匹配/构造与状态处理；含间接终止调用及540A5C尾跳，完整检查条件未核，不按名字推定断言合同。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整29条源码：实际58FB74已加载540A5C，承接真实可写原槽并在外层finally生效后一次采样；非空才内层SEH调用，原540AEF返回1/540AF3仅本帧恢复，无额外业务。外层scope0及正常540B03尾均真实TerminateLegacyRuntime_540A5C，不以C++catch替代、不跳过回调/终止或抄FS/栈；54FA78/54FA84两scope由原生__try/__finally及__try/__except(1)表达。新增53B75B两原点已接，其他六原父仍未实现/接线；新端物理异常行为/SDK全链和完整运行未验。",
+      "function_chunks": [
+        {
+          "start": "0x540AB2",
+          "end_exclusive": "0x540B08"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "ReportLegacyExceptionInconsistency_540AB2",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "try_range_call_connections": [
+        {
+          "parent_entry": "0x53B75B",
+          "call_site": "0x53B77E",
+          "target_entry": "0x540AB2",
+          "source": "src/platform/LegacyException.cpp",
+          "source_symbol": "GetLegacyTryRange_53B75B",
+          "target_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+          "condition": "每轮递减前索引位型为FFFFFFFF",
+          "source_call_implemented": true,
+          "runtime_verified": false
+        },
+        {
+          "parent_entry": "0x53B75B",
+          "call_site": "0x53B7C6",
+          "target_entry": "0x540AB2",
+          "source": "src/platform/LegacyException.cpp",
+          "source_symbol": "GetLegacyTryRange_53B75B",
+          "target_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+          "condition": "发布两输出后，缓存end大于复读count或缓存first大于end，均按U32",
+          "source_call_implemented": true,
+          "runtime_verified": false
+        }
+      ],
+      "inconsistency_scope_connections": [
+        {
+          "original_address": "0x54FA78",
+          "previous_level": -1,
+          "filter": null,
+          "handler": "0x540B03",
+          "native_construct": "外层__try/__finally，回调路径结束后真实终止"
+        },
+        {
+          "original_address": "0x54FA84",
+          "previous_level": 0,
+          "filter": "0x540AEF",
+          "handler": "0x540AF3",
+          "native_construct": "非空回调的内层__try/__except(1)，handler只本帧恢复"
+        }
+      ],
+      "inconsistency_handler_binding": {
+        "original_global": "0x58FB74",
+        "original_initial_target": "0x540A5C",
+        "source": "src/platform/LegacyException.cpp",
+        "source_symbol": "gLegacyInconsistencyHandler58FB74",
+        "initial_target_symbol": "TerminateLegacyRuntime_540A5C",
+        "original_load": "0x540ADB",
+        "original_indirect_call": "0x540AEB",
+        "source_binding_implemented": true,
+        "runtime_verified": false
+      },
+      "inconsistency_termination_tail": {
+        "original_tail": "0x540B03",
+        "target_entry": "0x540A5C",
+        "source": "src/platform/LegacyException.cpp",
+        "source_symbol": "ReportLegacyExceptionInconsistency_540AB2",
+        "target_symbol": "TerminateLegacyRuntime_540A5C",
+        "source_call_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54B123",

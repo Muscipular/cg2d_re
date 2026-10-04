@@ -3,6 +3,7 @@
 > 建立：2026-09-14；按用户要求于2026-10-04压缩更新。**整体SPEC未完成，完成总PLAN的目标继续有效。**
 > 压缩前六份SPEC及进度全文固定在Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression`，可用该引用及原文件路径读取；更早历史见独立进度中的命名快照。
 > 2026-10-04最新授权与具名决议见[收尾决议总SPEC](../doc/cg2d_closure_decisions_spec.md)：八项局部确定化、受限宿主CRT与生命周期方案已定；网络兼容原格式，只旁路加解密传明文。本轮只更新设计，不记实现或验收完成。
+> 度量入口：[追踪与验收SPEC](../doc/cg2d_traceability_acceptance_spec.md) · [自动看板](cg2d_measurement_dashboard.md) · [验收登记簿](cg2d_acceptance_registry.json)。全库存身份纳管与功能验收分开；功能枚举未闭合前不报总完成率。
 > [唯一执行进度](cg2d_full_reconstruction_progress.md)记录实际推进；[60项收尾任务表](cg2d_spec_closure_checklist.md)列当前差异、依赖与收口条件；[项目规则](../AGENTS.md)约束执行。此前压缩未改边界；本轮新增授权差异以具名决议为准，历史结论不改写。
 
 ## 1. 主线定位与范围

@@ -2,6 +2,7 @@
 
 > 核对日期：2026-10-04。依据当前工作区的总 SPEC、五份独立 SPEC、局部合同、语义机器清单及定点源码；本轮没有新增 IDA 取证。
 > 2026-10-04后续同步：总SPEC及五份独立SPEC已压缩为当前有效契约；原全文保存在Git命名快照 `cg2d-re-spec-history-20261004-before-closure-compression`，本表任务号、状态和验收边界不变。
+> 配套[追踪验收体系](../doc/cg2d_traceability_acceptance_spec.md)及[度量看板](cg2d_measurement_dashboard.md)：本表60任务保持，功能条目和原函数分母分开；关闭任务须在验收登记簿附当前证据。
 > 本表是收尾任务索引与静态状态快照；[独立进度](cg2d_full_reconstruction_progress.md)仍是唯一执行进度。后续完成某项时，在独立进度记录任务号、证据、实际验证级别，并同步本表对应行。
 > **整体 SPEC 未完成。** 最新[具名决议](../doc/cg2d_closure_decisions_spec.md)已同步本表：8适配已定、原格式明文接线已定、受限CRT宿主承接已定；源码/互通未变，音频仍暂停，未以数量推算完成率。
 

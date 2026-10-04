@@ -1,0 +1,5135 @@
+{
+  "schema_version": 1,
+  "epoch": "2026-10-04.1",
+  "catalog_revision": 1,
+  "scope": "已知合同导入的追踪目录，不代表全功能枚举闭合。路径相对cg2d_re。域不计叶功能。",
+  "inventory_expected": {
+    "functions": 3680,
+    "imports": 218,
+    "unassigned_ranges": 3061
+  },
+  "execution_policy": {
+    "runtime_allowed": false,
+    "audio_paused": true,
+    "no_build": true,
+    "no_tests": true,
+    "no_hash": true
+  },
+  "closures": {
+    "function_classification": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    },
+    "feature_enumeration": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    },
+    "data_and_indirect_targets": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    },
+    "unassigned_ranges": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    },
+    "scope_exceptions": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    },
+    "final_acceptance": {
+      "state": "open",
+      "evidence_refs": [],
+      "reason": "尚未按总SPEC收口"
+    }
+  },
+  "catalog_changes": [
+    {
+      "revision": 1,
+      "date": "2026-10-04",
+      "reason": "建立追踪与验收体系，导入已知合同/窗口条目；未知枚举继续开放。"
+    }
+  ],
+  "newest_excluded_entries": [
+    "0x50FC30",
+    "0x50FE30",
+    "0x50FF10",
+    "0x50FF70",
+    "0x510120"
+  ],
+  "features": [
+    {
+      "id": "FUNC-STARTUP",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "启动与退出",
+      "domain": "STARTUP",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_client_shutdown.md",
+        "doc/cg2d_crt_startup_lifecycle_spec.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "V01",
+        "V02"
+      ],
+      "dependencies": [
+        "FUNC-CRT"
+      ],
+      "acceptance_focus": "初始化/退出顺序、唯一构析与失败清理",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-CRT",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "CRT提供者与兼容边界",
+      "domain": "CRT",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_crt_runtime_boundary_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "C01",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C10",
+        "C11",
+        "C12"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "分配域配对、文件/格式可见结果、异常映射和正常失败",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-LOOP",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "主循环与场景分发",
+      "domain": "LOOP",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_scene_state.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U11",
+        "V02",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-STARTUP"
+      ],
+      "acceptance_focus": "真实状态入口、时钟/RNG、断线/重进及退出",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-LOGIN",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "登录与连接状态",
+      "domain": "LOGIN",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_login_outer_scene.md",
+        "doc/cg2d_login_mode_scene.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_input_controller.md",
+        "doc/cg2d_login_request.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "P18",
+        "U10",
+        "V03"
+      ],
+      "dependencies": [
+        "FUNC-NETWORK",
+        "FUNC-INPUT",
+        "FUNC-SAVED"
+      ],
+      "acceptance_focus": "输入、提交、回复和状态转换及失败副作用",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-CHARACTER",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "角色选择与创建",
+      "domain": "CHARACTER",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_creation_gate_adaptation_spec.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "P08",
+        "U03",
+        "V03"
+      ],
+      "dependencies": [
+        "FUNC-LOGIN"
+      ],
+      "acceptance_focus": "角色记录、创建gate、version正文和请求往返",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-NETWORK",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "网络帧与协议处理",
+      "domain": "NETWORK",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_dispatch.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "P09",
+        "P10",
+        "P16",
+        "U10",
+        "V03"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "原格式明文、命令/字段、队列、状态与正常失败；两算法叶排除",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-SAVED",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "配置与存档",
+      "domain": "SAVED",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_saved_state_initialize.md",
+        "doc/cg2d_saved_state_loader.md",
+        "doc/cg2d_saved_state_persist.md",
+        "doc/cg2d_current_saved_record.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U10",
+        "V02",
+        "V03"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "文件原字节、读取/保存/迁移、共享owner和失败残留",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-INPUT",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "平台输入与IME",
+      "domain": "INPUT",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_legacy_mouse.md",
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_ime_composition.md",
+        "doc/cg2d_ime_lifecycle.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "T01",
+        "T02",
+        "V04"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "焦点、组合/提交、原字节索引与鼠标位域/事件序",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-TEXT",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "文本与字体显示",
+      "domain": "TEXT",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_font_measure.md",
+        "doc/cg2d_text_pending_queue.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "T01",
+        "T03",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-RENDER"
+      ],
+      "acceptance_focus": "来源字节、容量/NUL、测宽/队列和字形；不新增Unicode迁移",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-MAP",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "地图与世界数据",
+      "domain": "MAP",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_map_scene_drawing.md",
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_world_objects.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U11",
+        "G01",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-RESOURCE",
+        "FUNC-RENDER"
+      ],
+      "acceptance_focus": "地图/对象生产、绘制、共享数据与切图清理",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-RESOURCE",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "资源加载与来源",
+      "domain": "RESOURCE",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_resource_sources.md",
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_graphic_decode.md",
+        "doc/cg2d_graphic_info.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "G01",
+        "G05",
+        "V01",
+        "V04"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "原来源、格式/解码、失败、索引/调色板及加载释放",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-ANIMATION",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "动画索引与播放",
+      "domain": "ANIMATION",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_animation_runtime.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "G01",
+        "U09",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-RESOURCE"
+      ],
+      "acceptance_focus": "索引/帧生产、初始化、更新消费及释放",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-RENDER",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "32位渲染与缓存",
+      "domain": "RENDER",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "C09",
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-RESOURCE"
+      ],
+      "acceptance_focus": "上层调用/像素/命中、共享面、模式切换、缓存与清理",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-UI",
+      "kind": "domain",
+      "parent_id": null,
+      "title": "窗口与旧面板",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_ui_window_runtime.md",
+        "doc/ui_windows/shared_runtime.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "仅域导航；现代与旧ID分开，不计入叶功能分母",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-UIRUNTIME",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "公共窗口机制与旧表路由",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/shared_runtime.md",
+        "doc/ui_windows/shared_legacy_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "U10",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-INPUT",
+        "FUNC-TEXT",
+        "FUNC-YOBI"
+      ],
+      "acceptance_focus": "创建/输入/刷新/绘制/释放及旧99handler外层路由",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-YOBI",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "Yobi创建更新与释放",
+      "domain": "YOBI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_update_coverage.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U09",
+        "V04"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "创建、四相调度、克隆、显式更新、借用与清理",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-BATTLE",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "战斗状态与执行",
+      "domain": "BATTLE",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/shared_battle.md",
+        "doc/yobi_updates/battle_scene.md",
+        "doc/yobi_updates/battle_actor.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "P01",
+        "U08",
+        "U09",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-YOBI",
+        "FUNC-RENDER",
+        "FUNC-NETWORK"
+      ],
+      "acceptance_focus": "攻击生产、动作/事件、回合、载荷归属与清理",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "FUNC-AUDIO",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "音频状态与播放",
+      "domain": "AUDIO",
+      "scope": "paused",
+      "baseline_documents": [
+        "doc/cg2d_audio_update.md",
+        "doc/cg2d_display_settings.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17",
+        "V05"
+      ],
+      "dependencies": [],
+      "acceptance_focus": "设备/资源、音量/循环/通知及退出；当前暂停",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "blockers": [
+        "用户暂停音频；基线成员和门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-001",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口1：状态栏与提示按钮",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_1.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-002",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口2：紧凑状态栏",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_2.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-003",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口3：折叠状态栏",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_3.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-004",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口4：快捷交互栏",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_4.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-005",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口5：折叠快捷交互栏",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_5.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-006",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口6：底栏与悬停描述",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_6.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-007",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口7：玩家资料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_7.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-008",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口8：玩家明细",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_8.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-009",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口9：玩家称号",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_9.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-010",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口10：技能、技术与宠物技能",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_10.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-011",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口11：制造与物品加工",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_11.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-012",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口12：窗口12操作与结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_12.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-013",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口13：窗口13操作与结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_13.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-014",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口14：库存与装备",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_14.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-015",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口15：宠物列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_15.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-016",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口16：宠物详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_16.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-017",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口17：宠物详细属性",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_17.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-018",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口18：宠物技能详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_18.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-019",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口19：图鉴列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_19.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-020",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口20：图鉴详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_20.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-021",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口21：联系人与邮件列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_21.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-022",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口22：发信",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_22.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-023",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口23：宠物邮件",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_23.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-024",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口24：设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_24.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-025",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口25：快捷键列表与预设文本",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_25.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-026",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口26：战斗命令",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_26.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-027",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口27：战斗物品",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_27.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-028",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口28：战斗宠物切换",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_28.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-029",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口29：观战结束",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_29.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-030",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口30：战斗结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_30.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-031",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口31：DP结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_31.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-032",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口32：战斗入场提示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_32.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-033",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口33：小地图",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_33.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-034",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口34：情绪动作",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_34.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-035",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口35：可调聊天窗口",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_35.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-036",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口36：通用对话共享实例",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_36.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-037",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口37：通用对话创建入口",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_37.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-038",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口38：外部物品存放",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_38.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-039",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口39：计时提示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_39.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-040",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口40：读信",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_40.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-041",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口41：物品与宠物存放",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_41.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-042",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口42：数量输入",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_42.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-043",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口43：交易",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_43.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-044",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口44：交易目标选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_44.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-045",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口45：文本目标选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_45.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-046",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口46：属性目标选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_46.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-047",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口47：通用确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_47.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-048",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口48：公会详情与职级编辑",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_48.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-049",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口49：群组选人",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_49.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-050",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口50：四记录对话",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_50.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-051",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口51：文本列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_51.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-052",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口52：商店选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_52.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-053",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口53：商品买卖",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_53.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-054",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口54：宠物与技能选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_54.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-055",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口55：公会职级选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_55.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-056",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口56：外观选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_56.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-057",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口57：简化聊天窗口",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_57.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-058",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口58：自身资料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_58.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-059",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口59：自身资料分类选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_59.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-060",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口60：资料分类选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_60.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-061",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口61：资料搜索结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_61.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-062",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口62：查看资料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_62.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-063",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口63：迷你发信",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_63.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-064",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口64：资料回复展示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_64.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-065",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口65：黑名单管理",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_65.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-066",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口66：冒险者日志",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_66.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-067",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口67：自身摊位",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_67.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-068",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口68：浏览摊位",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_68.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-069",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口69：晶石商店69",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_69.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-M-070",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "现代窗口70：晶石商店70",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/window_70.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-001",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择1：地图",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_map_panel.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-002",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择2：人物三页",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_profile_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-003",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择3：设置主菜单",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_settings_menu.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-004",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择4：退出",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_logout_panel.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-005",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择5：聊天设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_chat_settings.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-006",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择6：预设编辑",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_preset_editor.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-009",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择9：鼠标设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mouse_settings.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-010",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择10：快捷键说明",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_hotkey_help.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-011",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择11：扫描线设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_scanline_settings.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-012",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择12：按钮设置",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_button_settings.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-014",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择14：物品",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_inventory.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-015",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择15：金钱",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_money.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-016",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择16：拆分数量",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_split.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-017",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择17：十八动作菜单",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_emote_menu.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-018",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择18：技能列表与详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-019",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择19：技能列表与详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "P02"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-020",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择20：宠物列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "P06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-021",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择21：宠物资料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_detail.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-022",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择22：宠物改名",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_rename.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-023",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择23：图鉴列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_album_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-024",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择24：图鉴详情",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_album_detail.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-025",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择25：制造配方",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_craft_recipes.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-026",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择26：制造执行",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_craft_execution.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-027",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择27：制造材料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_craft_materials.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-028",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择28：制造结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_craft_result.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-029",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择29：镶嵌执行",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_gem_execution.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-030",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择30：镶嵌材料",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_gem_materials.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-031",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择31：加工选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_work_selection.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-032",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择32：加工名称",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_work_name.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-033",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择33：加工结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_work_result.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-034",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择34：FP不足提示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_fp_notice.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-035",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择35：技能目标名单",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_target_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-036",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择36：技能属性目标",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_status_targets.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-037",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择37：技能结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_result.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-038",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择38：采集",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_gather_panel.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-039",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择39：采集结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_gather_result.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-040",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择40：战斗与点数结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_result_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-041",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择41：战斗与点数结果",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_result_panels.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-042",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择42：联系人登记本",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_contact_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-043",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择43：联系人排序",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_contact_sort.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-044",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择44：联系人删除",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_contact_delete.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-045",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择45：邮件发送模式",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_delivery_mode.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-046",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择46：普通邮件多人撰写",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_normal_compose.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-047",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择47：普通邮件阅读",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_read.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-048",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择48：送信宠物",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_pet_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-049",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择49：宠物邮件撰写",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_compose.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-050",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择50：邮件赠品",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_mail_gift_items.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-051",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择51：交易目标名单",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_trade_target_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U02"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-052",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择52：交易",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_trade_panel.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-053",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择53：普通对话",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_basic_dialogs.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-054",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择54：普通行选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_basic_dialogs.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-055",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择55：技能选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_choice.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U07"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-056",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择56：技能学习",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_learning.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-057",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择57：技能遗忘",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_skill_forgetting.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-058",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择58：宠物技能目录",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U01"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-059",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择59：候选宠物",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U01"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-060",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择60：宠物技能槽",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U01"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-061",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择61：宠物技能学习确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_pet_skill_catalog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U01"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-062",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择62：买卖选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_shop_choice.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "P07",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-063",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择63：买入列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_buy_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-064",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择64：卖出列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_sell_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-065",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择65：买入确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_buy_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-066",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择66：卖出确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_sell_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-067",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择67：治疗",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_healing.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-068",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择68：鉴定列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_identify_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-069",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择69：鉴定确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_identify_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-070",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择70：修理列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_repair_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-071",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择71：修理确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_repair_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U05"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-072",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择72：存放",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_storage_items.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-073",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择73：留言",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_message_board.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-074",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择74：交易选择",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_exchange_dialog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-075",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择75：交换列表",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_barter_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-076",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择76：交换确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_barter_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-077",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择77：物品目标名单",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_target_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-078",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择78：物品目标属性",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_use_status.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-079",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择79：物品刻印",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_engraving.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-080",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择80：埋起物品",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_item_burial.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-081",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择81：固定文字提示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_text_notices.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-082",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择82：固定文字提示",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_text_notices.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-083",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择83：交出/接受对话",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_give_receive_dialog.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-084",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择84：交出/接受数量",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_give_receive_quantity.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-085",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择85：交出/接受确认",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_give_receive_confirmation.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "P05",
+        "U06"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-086",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择86：公会邮件赠品",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_mail_gift_items.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-087",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择87：公会宠物邮件",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_pet_mail_compose.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-088",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择88：公会送信宠物",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_mail_pet_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-089",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择89：公会邮件阅读",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_mail_read.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-090",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择90：公会普通多人邮件",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_normal_mail_compose.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-091",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择91：公会发送模式",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_delivery_mode.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-092",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择92：公会成员删除",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_contact_delete.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-093",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择93：公会排序",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_contact_sort.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-094",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择94：公会通讯录",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_contact_list.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-095",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择95：公会资料编辑",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_details_edit.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-096",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择96：公会职级修改",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_guild_rank_change.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-098",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择98：旧日志",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_log_viewer.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04",
+        "P03",
+        "P04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    },
+    {
+      "id": "UI-L-099",
+      "kind": "flow",
+      "parent_id": "FUNC-UI",
+      "title": "旧选择99：黑名单编辑",
+      "domain": "UI",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/ui_windows/legacy_blacklist_editor.md"
+      ],
+      "original_inventory_ids": [],
+      "closure_task_ids": [
+        "U04",
+        "V04"
+      ],
+      "dependencies": [
+        "FUNC-UIRUNTIME"
+      ],
+      "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
+      "decision_refs": [],
+      "blockers": [
+        "原成员、传递依赖和逐门禁证据待归档"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": []
+    }
+  ],
+  "evidence": [],
+  "task_acceptance": [],
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
+  "function_dispositions": [],
+  "auxiliary_dispositions": []
+}

@@ -17,6 +17,49 @@ void (*gLegacyInconsistencyHandler58FB74)() = TerminateLegacyRuntime_540A5C;
 
 namespace {
 
+// 六条已证无虚基复制记录的签名适配；真实成员本体返回不被原捕获构造消费。
+void CopyLegacyExceptionForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyException_54B0B6(
+        static_cast<LegacyExceptionObject*>(destination),
+        static_cast<const LegacyExceptionObject*>(source)));
+}
+
+void CopyLegacyRuntimeErrorForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyRuntimeError_54A0E5(
+        static_cast<LegacyRuntimeErrorObject*>(destination),
+        static_cast<const LegacyRuntimeErrorObject*>(source)));
+}
+
+void CopyLegacyStreamFailureForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyStreamFailure_54A1B8(
+        static_cast<LegacyStreamFailureObject*>(destination),
+        static_cast<const LegacyStreamFailureObject*>(source)));
+}
+
+void CopyLegacyLogicErrorForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyLogicError_54A7AE(
+        static_cast<LegacyLogicErrorObject*>(destination),
+        static_cast<const LegacyLogicErrorObject*>(source)));
+}
+
+void CopyLegacyStringLengthErrorForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyStringLengthError_54A881(
+        static_cast<LegacyStringLengthErrorObject*>(destination),
+        static_cast<const LegacyStringLengthErrorObject*>(source)));
+}
+
+void CopyLegacyStringRangeErrorForCatch(void* const destination, const void* const source)
+{
+    static_cast<void>(CopyConstructLegacyStringRangeError_54A969(
+        static_cast<LegacyStringRangeErrorObject*>(destination),
+        static_cast<const LegacyStringRangeErrorObject*>(source)));
+}
+
 // 原5501C0单槽；显式this按已证前缀使用，不借宿主type_info或RTTI表。
 const LegacyExceptionTypeDescriptorMethods gLegacyTypeDescriptorMethods5501C0{
     DeleteLegacyExceptionTypeDescriptor_54AC7B
@@ -138,6 +181,44 @@ static_assert(std::is_trivial_v<decltype(gLegacyStringLengthErrorType592BF0)>);
 static_assert(offsetof(decltype(gLegacyStringRangeErrorType592C10), prefix) == 0);
 static_assert(offsetof(decltype(gLegacyStringRangeErrorType592C10), name) == sizeof(LegacyExceptionTypeDescriptorPrefix));
 static_assert(std::is_trivial_v<decltype(gLegacyStringRangeErrorType592C10)>);
+
+// 原六CatchableType实际属性/PMD/描述符/复制目标；字节数字保持U32并按当前对象指针拓宽布局计算。
+const LegacyExceptionCatchableObjectType gLegacyExceptionCatchable551578{
+    {0u, &gLegacyExceptionType592B28.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyExceptionObject)),
+    CopyLegacyExceptionForCatch
+};
+const LegacyExceptionCatchableObjectType gLegacyRuntimeErrorCatchable551598{
+    {0u, &gLegacyRuntimeErrorType592B40.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyRuntimeErrorObject)),
+    CopyLegacyRuntimeErrorForCatch
+};
+const LegacyExceptionCatchableObjectType gLegacyStreamFailureCatchable5515B8{
+    {0u, &gLegacyStreamFailureType592B60.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyStreamFailureObject)),
+    CopyLegacyStreamFailureForCatch
+};
+const LegacyExceptionCatchableObjectType gLegacyLogicErrorCatchable5517C0{
+    {0u, &gLegacyLogicErrorType592BD0.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyLogicErrorObject)),
+    CopyLegacyLogicErrorForCatch
+};
+const LegacyExceptionCatchableObjectType gLegacyStringLengthCatchable5517E0{
+    {0u, &gLegacyStringLengthErrorType592BF0.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyStringLengthErrorObject)),
+    CopyLegacyStringLengthErrorForCatch
+};
+const LegacyExceptionCatchableObjectType gLegacyStringRangeCatchable551908{
+    {0u, &gLegacyStringRangeErrorType592C10.prefix},
+    {0, -1, 0},
+    static_cast<std::uint32_t>(sizeof(LegacyStringRangeErrorObject)),
+    CopyLegacyStringRangeErrorForCatch
+};
 
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
     LegacyExceptionObject* const storage, const char* const* const sourceText)

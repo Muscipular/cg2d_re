@@ -67,6 +67,27 @@ static_assert(offsetof(LegacyExceptionHandlerTypePrefix, type) == 8);
 static_assert(sizeof(LegacyExceptionCatchableTypePrefix) == 16);
 static_assert(offsetof(LegacyExceptionCatchableTypePrefix, type) == 8);
 
+// 原六条属性0/无虚基复制目标只需显式dst/src；返回不消费，不强转成员函数地址。
+using LegacyExceptionCopyConstructor = void (*)(void* destination, const void* source);
+// 仅已证六个对象类型记录；完整SDK CatchableType/RVA布局和其他属性分支不在此声明。
+struct LegacyExceptionCatchableObjectType final {
+    LegacyExceptionCatchableTypePrefix prefix; // 原+00/+04；供5404FA，地址拓宽后16B。
+    LegacyExceptionPmd displacement; // 原+08三S32；供5409E7，值0/-1/0保持。
+    std::uint32_t objectBytes; // 原+14 W32，本组为对象大小，按已证原生对象布局计算。
+    LegacyExceptionCopyConstructor copyConstructor; // 原+18，非拥有代码地址/真实dst-src适配。
+};
+static_assert(offsetof(LegacyExceptionCatchableObjectType, prefix) == 0);
+static_assert(offsetof(LegacyExceptionCatchableObjectType, displacement) == 16);
+static_assert(offsetof(LegacyExceptionCatchableObjectType, objectBytes) == 28);
+static_assert(offsetof(LegacyExceptionCatchableObjectType, copyConstructor) == 32);
+static_assert(sizeof(LegacyExceptionCatchableObjectType) == 40);
+extern const LegacyExceptionCatchableObjectType gLegacyExceptionCatchable551578;
+extern const LegacyExceptionCatchableObjectType gLegacyRuntimeErrorCatchable551598;
+extern const LegacyExceptionCatchableObjectType gLegacyStreamFailureCatchable5515B8;
+extern const LegacyExceptionCatchableObjectType gLegacyLogicErrorCatchable5517C0;
+extern const LegacyExceptionCatchableObjectType gLegacyStringLengthCatchable5517E0;
+extern const LegacyExceptionCatchableObjectType gLegacyStringRangeCatchable551908;
+
 // 原ThrowInfo仅此W32被5404FA读取；完整LegacyCppThrowInfo继续不透明。
 struct LegacyExceptionThrowInfoPrefix final {
     std::uint32_t attributes; // 原+00；一次缓存W32后核低位01/02。

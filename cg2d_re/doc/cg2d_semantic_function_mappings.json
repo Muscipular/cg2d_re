@@ -23569,14 +23569,16 @@
     {
       "original_entry": "0x53B399",
       "inventory_id": "F:0013B399",
-      "status": "真实登记/容量/扩容和初分配已同属原堆；模式3核心、宿主登记迁移与启动仍待",
+      "status": "ETH01退出表内存域已成组宿主承接/原登记与初始化算法保持；完整活动启动/退出与SDK未验",
       "original_end_exclusive": "0x53B406",
       "instruction_count": 32,
       "sources": [
         {
           "path": "src/platform/LegacyRuntimeExit.cpp",
           "symbols": [
-            "RegisterLegacyExitCallback_53B399"
+            "RegisterLegacyExitCallback_53B399",
+            "ResizeLegacyExitTableStorage",
+            "GetLegacyExitTableStorageCapacity"
           ]
         },
         {
@@ -23588,9 +23590,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_exit_table_heap_migration_spec.md",
+        "doc/cg2d_exit_table_heap_migration_evidence.json"
       ],
-      "boundary": "先查询容量再采样共享首末；不足时再次查询后重读首指针扩容四个原生槽。失败返回空；成功重读共享首末地址、先发布首再发布末，最后写回调并递增共享末。空回调仍写槽。容量/字节数保持U32、指针/地址差拓宽；53B418初分配已改为真实原堆malloc，与容量/扩容统一所有权；模式3和完整初始化未闭合，不能替换宿主登记。",
+      "boundary": "先查询容量再采样共享首末；不足时再次查询后重读首指针扩容四个原生槽。失败返回空；成功重读共享首末地址、先发布首再发布末，最后写回调并递增共享末。空回调仍写槽。容量/字节数保持U32、指针/地址差拓宽；53B418初分配已改为真实原堆malloc，与容量/扩容统一所有权；模式3和完整初始化未闭合，不能替换宿主登记。；ETH01当前仅退出表块的分配/扩容/容量查询成组std::malloc/std::realloc/std::free/_msize，保持上层算法/首末/32及4原生槽/原handler与真实失败，无新增整表free或活动调用；原堆归属/模式3缺口的历史表述由本组具名范围覆盖，其余原堆域不外推。非原体等价，运行/重入/间接别名未验。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -23604,12 +23608,26 @@
           "parent_entry": "0x53B406"
         }
       ],
-      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行"
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行；ETH01两根46条/156B和79辅助体、首末10/6直接引用/SDK声明及六限定源补丁、无跨旧域静态；无构建/测试/运行/摘要",
+      "exit_table_heap_migration": {
+        "group": "ETH01",
+        "spec": "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "domain": "仅兼容退出表整块",
+        "provider": "std::malloc/std::realloc/std::free/UCRT _msize",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_startup_call": false,
+        "new_exit_registration": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x53B406",
       "inventory_id": "F:0013B406",
-      "status": "原退出登记本体已实现；容量/扩容依赖、堆归属和宿主调用迁移未闭合",
+      "status": "ETH01登记包装原体保持，退出表块同域宿主承接已接；62完整父/活动启动与退出未验",
       "original_end_exclusive": "0x53B418",
       "instruction_count": 8,
       "sources": [
@@ -23765,9 +23783,11 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_locale_object_heap_migration_spec.md"
+        "doc/cg2d_locale_object_heap_migration_spec.md",
+        "doc/cg2d_exit_table_heap_migration_spec.md",
+        "doc/cg2d_exit_table_heap_migration_evidence.json"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。；2026-10-04世界对象表原43D795登记/43D7A0callback真实源码接线，旧表/宿主范围和运行门禁保持。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。；2026-10-04世界对象表原43D795登记/43D7A0callback真实源码接线，旧表/宿主范围和运行门禁保持。；2026-10-05 LCH01：_Locimp对象唯一当前54A404生产及54C39F/54A5AB释放已成对std::malloc/std::free，保原请求与真实541A28；54A450/54A3F3两退出登记改std::atexit同回调。原字段/引用/重读/异常清理不变，facet对象/向量仍原堆、名称仍NSH01；经典整表caller、codecvt/活动流归属、完整CRT/运行仍未闭。；ETH01当前仅退出表块的分配/扩容/容量查询成组std::malloc/std::realloc/std::free/_msize，保持上层算法/首末/32及4原生槽/原handler与真实失败，无新增整表free或活动调用；原堆归属/模式3缺口的历史表述由本组具名范围覆盖，其余原堆域不外推。非原体等价，运行/重入/间接别名未验。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -24025,7 +24045,7 @@
           "parent_entry": "0x54A981"
         }
       ],
-      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行；新增真实父点与消费静态，不执行；新CRT实际父点/callback地址与新增静态，不执行",
+      "verification_level": "完整原指令与直接入向、登记新增差异静态核对；未构建、链接或执行；新增真实父点与消费静态，不执行；新CRT实际父点/callback地址与新增静态，不执行；ETH01两根46条/156B和79辅助体、首末10/6直接引用/SDK声明及六限定源补丁、无跨旧域静态；无构建/测试/运行/摘要",
       "locale_global_parent_call_connections": [
         {
           "parent_entry": "0x54A404",
@@ -24851,19 +24871,34 @@
           "C08",
           "C11"
         ]
+      },
+      "exit_table_heap_migration": {
+        "group": "ETH01",
+        "spec": "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "domain": "仅兼容退出表整块",
+        "provider": "std::malloc/std::realloc/std::free/UCRT _msize",
+        "source_changed": false,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_startup_call": false,
+        "new_exit_registration": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {
       "original_entry": "0x53B418",
       "inventory_id": "F:0013B418",
-      "status": "退出表真实初始化及原堆归属已接；模式3核心和完整初始化调用仍待",
+      "status": "ETH01退出表内存域已成组宿主承接/原登记与初始化算法保持；完整活动启动/退出与SDK未验",
       "original_end_exclusive": "0x53B447",
       "instruction_count": 14,
       "sources": [
         {
           "path": "src/platform/LegacyRuntimeExit.cpp",
           "symbols": [
-            "InitializeLegacyExitTable_53B418"
+            "InitializeLegacyExitTable_53B418",
+            "AllocateLegacyExitTableStorage"
           ]
         },
         {
@@ -24882,9 +24917,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_exit_table_heap_migration_spec.md",
+        "doc/cg2d_exit_table_heap_migration_evidence.json"
       ],
-      "boundary": "按原32个指针槽分配，仅槽步长拓宽；53B41D的U32请求已交真实原堆AllocateLegacyHeapMemory_53C3AC，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；初分配、53B399容量查询/扩容已统一原堆，原CRT初始化调用、模式3核心和宿主静态登记迁移仍待；未作运行/异常验收。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "按原32个指针槽分配，仅槽步长拓宽；53B41D的U32请求已交真实原堆AllocateLegacyHeapMemory_53C3AC，立即发布首，失败走53DEAB(24)后若返回重读首，只清首槽，再重读并发布末及返回指针。不清整表/释放旧表；初分配、53B399容量查询/扩容已统一原堆，原CRT初始化调用、模式3核心和宿主静态登记迁移仍待；未作运行/异常验收。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；ETH01当前仅退出表块的分配/扩容/容量查询成组std::malloc/std::realloc/std::free/_msize，保持上层算法/首末/32及4原生槽/原handler与真实失败，无新增整表free或活动调用；原堆归属/模式3缺口的历史表述由本组具名范围覆盖，其余原堆域不外推。非原体等价，运行/重入/间接别名未验。",
       "original_direct_reference_count": 1,
       "function_chunks": [
         {
@@ -24904,13 +24941,14 @@
         "symbol": "__scrt_initialize_onexit_tables",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行",
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行；ETH01两根46条/156B和79辅助体、首末10/6直接引用/SDK声明及六限定源补丁、无跨旧域静态；无构建/测试/运行/摘要",
       "business_call_connections": [
         {
           "callsite": "0x53B41D",
           "parent_entry": "0x53B418",
-          "target_symbol": "AllocateLegacyHeapMemory_53C3AC",
-          "target_path": "src/platform/LegacyHeap.cpp"
+          "target_symbol": "AllocateLegacyExitTableStorage",
+          "target_path": "src/platform/LegacyRuntimeExit.cpp",
+          "original_target_entry": "0x53C3AC"
         }
       ],
       "crt_c_initializer_incoming_bindings": [
@@ -24925,7 +24963,21 @@
           "source_table_symbol": "gLegacyCInitializationTable55316C",
           "relationship": "原真实初始化目标，返回未消费；仅指针槽拓宽，不自动执行"
         }
-      ]
+      ],
+      "exit_table_heap_migration": {
+        "group": "ETH01",
+        "spec": "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
+        "domain": "仅兼容退出表整块",
+        "provider": "std::malloc/std::realloc/std::free/UCRT _msize",
+        "source_changed": true,
+        "bounded_static_verified": true,
+        "original_body_equivalent": false,
+        "new_startup_call": false,
+        "new_exit_registration": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x53C8FA",

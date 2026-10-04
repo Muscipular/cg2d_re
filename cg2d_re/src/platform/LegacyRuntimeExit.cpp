@@ -12,6 +12,8 @@
 
 #include <cstddef>
 #include <bit>
+#include <cstdlib>
+#include <malloc.h>
 
 // 复用ClientEntry.cpp已存在的全局WinMain签名；只声明，不改其本体或启用新启动。
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand);
@@ -31,6 +33,55 @@ LegacyRuntimeExitCallback* gLegacyRuntimeExitFirst1087AF4 = nullptr;
 LegacyRuntimeExitCallback* gLegacyRuntimeExitLast1087AF0 = nullptr;
 
 namespace {
+
+// ETH01仅承接兼容退出表块；原请求、new-mode/handler与发布顺序仍由本组保留。
+LegacyRuntimeExitCallback* AllocateLegacyExitTableStorage(const std::uint32_t byteCount)
+{
+    const std::int32_t enableHandler = gLegacyHeapNewMode1086150;
+    if (byteCount > 0xFFFFFFE0u) {
+        return nullptr;
+    }
+    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;
+    for (;;) {
+        auto* const result = static_cast<LegacyRuntimeExitCallback*>(std::malloc(requested));
+        if (result != nullptr || enableHandler == 0) {
+            return result;
+        }
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+LegacyRuntimeExitCallback* ResizeLegacyExitTableStorage(
+    LegacyRuntimeExitCallback* const memory, const std::uint32_t byteCount)
+{
+    if (memory == nullptr) {
+        return AllocateLegacyExitTableStorage(byteCount);
+    }
+    if (byteCount == 0) {
+        std::free(memory);
+        return nullptr;
+    }
+    for (;;) {
+        LegacyRuntimeExitCallback* result = nullptr;
+        if (byteCount <= 0xFFFFFFE0u) {
+            result = static_cast<LegacyRuntimeExitCallback*>(std::realloc(memory, byteCount));
+        }
+        if (result != nullptr || gLegacyHeapNewMode1086150 == 0) {
+            return result;
+        }
+        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 必须查询同一宿主块的实际容量；不以申请数/已用槽替代，不读旧块头。
+std::uint32_t GetLegacyExitTableStorageCapacity(LegacyRuntimeExitCallback* const memory)
+{
+    return static_cast<std::uint32_t>(::_msize(memory));
+}
 
 // 原[553184,5531A0)七槽；第一组[0,3)，第二组[4,6)，保留全部零哨兵。
 LegacyRuntimeExitCallback gLegacyTerminationTable553184[] = {
@@ -56,16 +107,16 @@ LegacyRuntimeExitCallback RegisterLegacyExitCallback_53B399(
     constexpr auto kSlotBytes =
         static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback));
     const std::uint32_t capacity =
-        GetLegacyAllocationSize_53FCFB(gLegacyRuntimeExitFirst1087AF4);
+        GetLegacyExitTableStorageCapacity(gLegacyRuntimeExitFirst1087AF4);
     auto* const first = gLegacyRuntimeExitFirst1087AF4;
     auto* last = gLegacyRuntimeExitLast1087AF0;
     const auto required = reinterpret_cast<std::uintptr_t>(last)
         - reinterpret_cast<std::uintptr_t>(first) + kSlotBytes;
     if (capacity < required) {
-        const std::uint32_t oldCapacity = GetLegacyAllocationSize_53FCFB(first);
+        const std::uint32_t oldCapacity = GetLegacyExitTableStorageCapacity(first);
         const std::uint32_t newCapacity = oldCapacity + 4u * kSlotBytes;
         auto* const resized = static_cast<LegacyRuntimeExitCallback*>(
-            ReallocateLegacyMemory_53FA5B(gLegacyRuntimeExitFirst1087AF4, newCapacity));
+            ResizeLegacyExitTableStorage(gLegacyRuntimeExitFirst1087AF4, newCapacity));
         if (resized == nullptr) {
             return nullptr;
         }
@@ -91,7 +142,7 @@ LegacyRuntimeExitCallback* InitializeLegacyExitTable_53B418()
 {
     constexpr std::uint32_t kInitialSlotCount = 32;
     auto* slots = static_cast<LegacyRuntimeExitCallback*>(
-        AllocateLegacyHeapMemory_53C3AC(kInitialSlotCount
+        AllocateLegacyExitTableStorage(kInitialSlotCount
             * static_cast<std::uint32_t>(sizeof(LegacyRuntimeExitCallback))));
     gLegacyRuntimeExitFirst1087AF4 = slots;
     if (slots == nullptr) {

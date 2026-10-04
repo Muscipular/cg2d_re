@@ -1,0 +1,1365 @@
+{
+  "schema_version": 1,
+  "group": "ETH01",
+  "recorded_on": "2026-10-05",
+  "authority": "已打开 cg2d.exe 原会话只读；原指令/实际操作数与独立边界为权威",
+  "baseline_reference": "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
+  "implementation_reference": "Git固定命名快照 cg2d-re-exit-table-heap-source-20261005",
+  "functions": [
+    {
+      "entry": "0x53b399",
+      "end": "0x53b406",
+      "total": 32,
+      "chunks": [
+        [
+          "0x53b399",
+          "0x53b406"
+        ]
+      ],
+      "references": [
+        {
+          "address": "0x53b40a",
+          "type": 17,
+          "parent": "0x53b406"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "0x53b399",
+          "size": 1,
+          "text": "push    esi"
+        },
+        {
+          "address": "0x53b39a",
+          "size": 6,
+          "text": "push    dword_1087AF4; lpMem"
+        },
+        {
+          "address": "0x53b3a0",
+          "size": 5,
+          "text": "call    sub_53FCFB"
+        },
+        {
+          "address": "0x53b3a5",
+          "size": 6,
+          "text": "mov     edx, dword_1087AF4"
+        },
+        {
+          "address": "0x53b3ab",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53b3ac",
+          "size": 6,
+          "text": "mov     ecx, dword_1087AF0"
+        },
+        {
+          "address": "0x53b3b2",
+          "size": 2,
+          "text": "mov     esi, ecx"
+        },
+        {
+          "address": "0x53b3b4",
+          "size": 2,
+          "text": "sub     esi, edx"
+        },
+        {
+          "address": "0x53b3b6",
+          "size": 3,
+          "text": "add     esi, 4"
+        },
+        {
+          "address": "0x53b3b9",
+          "size": 2,
+          "text": "cmp     eax, esi"
+        },
+        {
+          "address": "0x53b3bb",
+          "size": 1,
+          "text": "pop     esi"
+        },
+        {
+          "address": "0x53b3bc",
+          "size": 2,
+          "text": "jnb     short loc_53B3F8"
+        },
+        {
+          "address": "0x53b3be",
+          "size": 1,
+          "text": "push    edx; lpMem"
+        },
+        {
+          "address": "0x53b3bf",
+          "size": 5,
+          "text": "call    sub_53FCFB"
+        },
+        {
+          "address": "0x53b3c4",
+          "size": 3,
+          "text": "add     eax, 10h"
+        },
+        {
+          "address": "0x53b3c7",
+          "size": 1,
+          "text": "push    eax; dwBytes"
+        },
+        {
+          "address": "0x53b3c8",
+          "size": 6,
+          "text": "push    dword_1087AF4; lpMem"
+        },
+        {
+          "address": "0x53b3ce",
+          "size": 5,
+          "text": "call    sub_53FA5B"
+        },
+        {
+          "address": "0x53b3d3",
+          "size": 3,
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "address": "0x53b3d6",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53b3d8",
+          "size": 2,
+          "text": "jnz     short loc_53B3DB"
+        },
+        {
+          "address": "0x53b3da",
+          "size": 1,
+          "text": "retn"
+        },
+        {
+          "address": "0x53b3db",
+          "size": 6,
+          "text": "mov     ecx, dword_1087AF0"
+        },
+        {
+          "address": "0x53b3e1",
+          "size": 6,
+          "text": "sub     ecx, dword_1087AF4"
+        },
+        {
+          "address": "0x53b3e7",
+          "size": 5,
+          "text": "mov     dword_1087AF4, eax"
+        },
+        {
+          "address": "0x53b3ec",
+          "size": 3,
+          "text": "sar     ecx, 2"
+        },
+        {
+          "address": "0x53b3ef",
+          "size": 3,
+          "text": "lea     ecx, [eax+ecx*4]"
+        },
+        {
+          "address": "0x53b3f2",
+          "size": 6,
+          "text": "mov     dword_1087AF0, ecx"
+        },
+        {
+          "address": "0x53b3f8",
+          "size": 4,
+          "text": "mov     eax, [esp+Func]"
+        },
+        {
+          "address": "0x53b3fc",
+          "size": 2,
+          "text": "mov     [ecx], eax"
+        },
+        {
+          "address": "0x53b3fe",
+          "size": 7,
+          "text": "add     dword_1087AF0, 4"
+        },
+        {
+          "address": "0x53b405",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x53b418",
+      "end": "0x53b447",
+      "total": 14,
+      "chunks": [
+        [
+          "0x53b418",
+          "0x53b447"
+        ]
+      ],
+      "references": [
+        {
+          "address": "0x553170",
+          "type": 1,
+          "parent": null
+        }
+      ],
+      "instructions": [
+        {
+          "address": "0x53b418",
+          "size": 5,
+          "text": "push    80h; Size"
+        },
+        {
+          "address": "0x53b41d",
+          "size": 5,
+          "text": "call    _malloc"
+        },
+        {
+          "address": "0x53b422",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53b424",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53b425",
+          "size": 5,
+          "text": "mov     dword_1087AF4, eax"
+        },
+        {
+          "address": "0x53b42a",
+          "size": 2,
+          "text": "jnz     short loc_53B439"
+        },
+        {
+          "address": "0x53b42c",
+          "size": 2,
+          "text": "push    18h; NumberOfBytesWritten"
+        },
+        {
+          "address": "0x53b42e",
+          "size": 5,
+          "text": "call    __amsg_exit"
+        },
+        {
+          "address": "0x53b433",
+          "size": 5,
+          "text": "mov     eax, dword_1087AF4"
+        },
+        {
+          "address": "0x53b438",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53b439",
+          "size": 3,
+          "text": "and     dword ptr [eax], 0"
+        },
+        {
+          "address": "0x53b43c",
+          "size": 5,
+          "text": "mov     eax, dword_1087AF4"
+        },
+        {
+          "address": "0x53b441",
+          "size": 5,
+          "text": "mov     dword_1087AF0, eax"
+        },
+        {
+          "address": "0x53b446",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "auxiliary_functions": [
+    {
+      "entry": "0x53b406",
+      "end": "0x53b418",
+      "total": 8,
+      "chunks": [
+        [
+          "0x53b406",
+          "0x53b418"
+        ]
+      ],
+      "references": [
+        {
+          "address": "0x401c45",
+          "type": 17,
+          "parent": "0x401c10"
+        },
+        {
+          "address": "0x404145",
+          "type": 17,
+          "parent": "0x404120"
+        },
+        {
+          "address": "0x404185",
+          "type": 17,
+          "parent": "0x404160"
+        },
+        {
+          "address": "0x4041c5",
+          "type": 17,
+          "parent": "0x4041a0"
+        },
+        {
+          "address": "0x43d795",
+          "type": 17,
+          "parent": "0x43d760"
+        },
+        {
+          "address": "0x44cc55",
+          "type": 17,
+          "parent": "0x44cc20"
+        },
+        {
+          "address": "0x44cd65",
+          "type": 17,
+          "parent": "0x44cd30"
+        },
+        {
+          "address": "0x453e25",
+          "type": 17,
+          "parent": "0x453e00"
+        },
+        {
+          "address": "0x453e65",
+          "type": 17,
+          "parent": "0x453e40"
+        },
+        {
+          "address": "0x454c25",
+          "type": 17,
+          "parent": "0x454c00"
+        },
+        {
+          "address": "0x456ff5",
+          "type": 17,
+          "parent": "0x456fd0"
+        },
+        {
+          "address": "0x459815",
+          "type": 17,
+          "parent": "0x4597e0"
+        },
+        {
+          "address": "0x459885",
+          "type": 17,
+          "parent": "0x459850"
+        },
+        {
+          "address": "0x467bc5",
+          "type": 17,
+          "parent": "0x467b90"
+        },
+        {
+          "address": "0x467c15",
+          "type": 17,
+          "parent": "0x467bf0"
+        },
+        {
+          "address": "0x467c55",
+          "type": 17,
+          "parent": "0x467c30"
+        },
+        {
+          "address": "0x467c95",
+          "type": 17,
+          "parent": "0x467c70"
+        },
+        {
+          "address": "0x467cd5",
+          "type": 17,
+          "parent": "0x467cb0"
+        },
+        {
+          "address": "0x467d25",
+          "type": 17,
+          "parent": "0x467cf0"
+        },
+        {
+          "address": "0x467d85",
+          "type": 17,
+          "parent": "0x467d50"
+        },
+        {
+          "address": "0x467dd5",
+          "type": 17,
+          "parent": "0x467db0"
+        },
+        {
+          "address": "0x467e15",
+          "type": 17,
+          "parent": "0x467df0"
+        },
+        {
+          "address": "0x467e55",
+          "type": 17,
+          "parent": "0x467e30"
+        },
+        {
+          "address": "0x467e95",
+          "type": 17,
+          "parent": "0x467e70"
+        },
+        {
+          "address": "0x467ed5",
+          "type": 17,
+          "parent": "0x467eb0"
+        },
+        {
+          "address": "0x467f15",
+          "type": 17,
+          "parent": "0x467ef0"
+        },
+        {
+          "address": "0x488415",
+          "type": 17,
+          "parent": "0x4883f0"
+        },
+        {
+          "address": "0x499915",
+          "type": 17,
+          "parent": "0x4998f0"
+        },
+        {
+          "address": "0x4cd265",
+          "type": 17,
+          "parent": "0x4cd250"
+        },
+        {
+          "address": "0x506365",
+          "type": 17,
+          "parent": "0x506350"
+        },
+        {
+          "address": "0x5183f5",
+          "type": 17,
+          "parent": "0x5183e0"
+        },
+        {
+          "address": "0x518555",
+          "type": 17,
+          "parent": "0x518520"
+        },
+        {
+          "address": "0x522655",
+          "type": 17,
+          "parent": "0x522620"
+        },
+        {
+          "address": "0x5226b5",
+          "type": 17,
+          "parent": "0x5226a0"
+        },
+        {
+          "address": "0x537a65",
+          "type": 17,
+          "parent": "0x537a30"
+        },
+        {
+          "address": "0x537b05",
+          "type": 17,
+          "parent": "0x537ae0"
+        },
+        {
+          "address": "0x54818c",
+          "type": 17,
+          "parent": "0x548170"
+        },
+        {
+          "address": "0x5481b9",
+          "type": 17,
+          "parent": "0x54819d"
+        },
+        {
+          "address": "0x5481e8",
+          "type": 17,
+          "parent": "0x5481ca"
+        },
+        {
+          "address": "0x54822c",
+          "type": 17,
+          "parent": "0x54820e"
+        },
+        {
+          "address": "0x54826e",
+          "type": 17,
+          "parent": "0x548252"
+        },
+        {
+          "address": "0x54829d",
+          "type": 17,
+          "parent": "0x54827f"
+        },
+        {
+          "address": "0x5482cc",
+          "type": 17,
+          "parent": "0x5482ae"
+        },
+        {
+          "address": "0x5491c3",
+          "type": 17,
+          "parent": "0x5491be"
+        },
+        {
+          "address": "0x5491cf",
+          "type": 17,
+          "parent": "0x549194"
+        },
+        {
+          "address": "0x5491ef",
+          "type": 17,
+          "parent": "0x5491d6"
+        },
+        {
+          "address": "0x549219",
+          "type": 17,
+          "parent": "0x549200"
+        },
+        {
+          "address": "0x549246",
+          "type": 17,
+          "parent": "0x54922a"
+        },
+        {
+          "address": "0x549273",
+          "type": 17,
+          "parent": "0x549257"
+        },
+        {
+          "address": "0x5492a0",
+          "type": 17,
+          "parent": "0x549284"
+        },
+        {
+          "address": "0x5492cf",
+          "type": 17,
+          "parent": "0x5492b1"
+        },
+        {
+          "address": "0x549313",
+          "type": 17,
+          "parent": "0x5492f5"
+        },
+        {
+          "address": "0x549357",
+          "type": 17,
+          "parent": "0x549339"
+        },
+        {
+          "address": "0x549386",
+          "type": 17,
+          "parent": "0x549368"
+        },
+        {
+          "address": "0x549f4f",
+          "type": 17,
+          "parent": "0x549f4a"
+        },
+        {
+          "address": "0x549f5b",
+          "type": 17,
+          "parent": "0x549f20"
+        },
+        {
+          "address": "0x54a3f3",
+          "type": 17,
+          "parent": "0x54a3e3"
+        },
+        {
+          "address": "0x54a450",
+          "type": 17,
+          "parent": "0x54a404"
+        },
+        {
+          "address": "0x54a667",
+          "type": 17,
+          "parent": "0x54a662"
+        },
+        {
+          "address": "0x54a673",
+          "type": 17,
+          "parent": "0x54a638"
+        },
+        {
+          "address": "0x54a9b0",
+          "type": 17,
+          "parent": "0x54a9ab"
+        },
+        {
+          "address": "0x54a9bc",
+          "type": 17,
+          "parent": "0x54a981"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "0x53b406",
+          "size": 4,
+          "text": "push    [esp+Func]; Func"
+        },
+        {
+          "address": "0x53b40a",
+          "size": 5,
+          "text": "call    __onexit"
+        },
+        {
+          "address": "0x53b40f",
+          "size": 2,
+          "text": "neg     eax"
+        },
+        {
+          "address": "0x53b411",
+          "size": 2,
+          "text": "sbb     eax, eax"
+        },
+        {
+          "address": "0x53b413",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53b414",
+          "size": 2,
+          "text": "neg     eax"
+        },
+        {
+          "address": "0x53b416",
+          "size": 1,
+          "text": "dec     eax"
+        },
+        {
+          "address": "0x53b417",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x53c3ac",
+      "end": "0x53c3be",
+      "total": 6,
+      "chunks": [
+        [
+          "0x53c3ac",
+          "0x53c3be"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x53c3ac",
+          "size": 6,
+          "text": "push    dword_1086150; int"
+        },
+        {
+          "address": "0x53c3b2",
+          "size": 4,
+          "text": "push    [esp+4+Size]; Size"
+        },
+        {
+          "address": "0x53c3b6",
+          "size": 5,
+          "text": "call    __nh_malloc"
+        },
+        {
+          "address": "0x53c3bb",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c3bc",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c3bd",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x53c3be",
+      "end": "0x53c3ea",
+      "total": 16,
+      "chunks": [
+        [
+          "0x53c3be",
+          "0x53c3ea"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x53c3be",
+          "size": 5,
+          "text": "cmp     [esp+Size], 0FFFFFFE0h"
+        },
+        {
+          "address": "0x53c3c3",
+          "size": 2,
+          "text": "ja      short loc_53C3E7"
+        },
+        {
+          "address": "0x53c3c5",
+          "size": 4,
+          "text": "push    [esp+Size]"
+        },
+        {
+          "address": "0x53c3c9",
+          "size": 5,
+          "text": "call    sub_53C3EA"
+        },
+        {
+          "address": "0x53c3ce",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53c3d0",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c3d1",
+          "size": 2,
+          "text": "jnz     short locret_53C3E9"
+        },
+        {
+          "address": "0x53c3d3",
+          "size": 4,
+          "text": "cmp     [esp+arg_4], eax"
+        },
+        {
+          "address": "0x53c3d7",
+          "size": 2,
+          "text": "jz      short locret_53C3E9"
+        },
+        {
+          "address": "0x53c3d9",
+          "size": 4,
+          "text": "push    [esp+Size]; Size"
+        },
+        {
+          "address": "0x53c3dd",
+          "size": 5,
+          "text": "call    __callnewh"
+        },
+        {
+          "address": "0x53c3e2",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53c3e4",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c3e5",
+          "size": 2,
+          "text": "jnz     short loc_53C3C5"
+        },
+        {
+          "address": "0x53c3e7",
+          "size": 2,
+          "text": "xor     eax, eax"
+        },
+        {
+          "address": "0x53c3e9",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x53c91c",
+      "end": "0x53c9b5",
+      "total": 49,
+      "chunks": [
+        [
+          "0x53c91c",
+          "0x53c9b5"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x53c91c",
+          "size": 1,
+          "text": "push    edi"
+        },
+        {
+          "address": "0x53c91d",
+          "size": 2,
+          "text": "push    1"
+        },
+        {
+          "address": "0x53c91f",
+          "size": 1,
+          "text": "pop     edi"
+        },
+        {
+          "address": "0x53c920",
+          "size": 6,
+          "text": "cmp     dword_1086028, edi"
+        },
+        {
+          "address": "0x53c926",
+          "size": 2,
+          "text": "jnz     short loc_53C939"
+        },
+        {
+          "address": "0x53c928",
+          "size": 4,
+          "text": "push    [esp+4+uExitCode]; uExitCode"
+        },
+        {
+          "address": "0x53c92c",
+          "size": 6,
+          "text": "call    ds:GetCurrentProcess"
+        },
+        {
+          "address": "0x53c932",
+          "size": 1,
+          "text": "push    eax; hProcess"
+        },
+        {
+          "address": "0x53c933",
+          "size": 6,
+          "text": "call    ds:TerminateProcess"
+        },
+        {
+          "address": "0x53c939",
+          "size": 5,
+          "text": "cmp     [esp+4+arg_4], 0"
+        },
+        {
+          "address": "0x53c93e",
+          "size": 1,
+          "text": "push    ebx"
+        },
+        {
+          "address": "0x53c93f",
+          "size": 4,
+          "text": "mov     ebx, [esp+8+arg_8]"
+        },
+        {
+          "address": "0x53c943",
+          "size": 6,
+          "text": "mov     dword_1086024, edi"
+        },
+        {
+          "address": "0x53c949",
+          "size": 6,
+          "text": "mov     byte_1086020, bl"
+        },
+        {
+          "address": "0x53c94f",
+          "size": 2,
+          "text": "jnz     short loc_53C98D"
+        },
+        {
+          "address": "0x53c951",
+          "size": 5,
+          "text": "mov     eax, dword_1087AF4"
+        },
+        {
+          "address": "0x53c956",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53c958",
+          "size": 2,
+          "text": "jz      short loc_53C97C"
+        },
+        {
+          "address": "0x53c95a",
+          "size": 6,
+          "text": "mov     ecx, dword_1087AF0"
+        },
+        {
+          "address": "0x53c960",
+          "size": 1,
+          "text": "push    esi"
+        },
+        {
+          "address": "0x53c961",
+          "size": 3,
+          "text": "lea     esi, [ecx-4]"
+        },
+        {
+          "address": "0x53c964",
+          "size": 2,
+          "text": "cmp     esi, eax"
+        },
+        {
+          "address": "0x53c966",
+          "size": 2,
+          "text": "jb      short loc_53C97B"
+        },
+        {
+          "address": "0x53c968",
+          "size": 2,
+          "text": "mov     eax, [esi]"
+        },
+        {
+          "address": "0x53c96a",
+          "size": 2,
+          "text": "test    eax, eax"
+        },
+        {
+          "address": "0x53c96c",
+          "size": 2,
+          "text": "jz      short loc_53C970"
+        },
+        {
+          "address": "0x53c96e",
+          "size": 2,
+          "text": "call    eax"
+        },
+        {
+          "address": "0x53c970",
+          "size": 3,
+          "text": "sub     esi, 4"
+        },
+        {
+          "address": "0x53c973",
+          "size": 6,
+          "text": "cmp     esi, dword_1087AF4"
+        },
+        {
+          "address": "0x53c979",
+          "size": 2,
+          "text": "jnb     short loc_53C968"
+        },
+        {
+          "address": "0x53c97b",
+          "size": 1,
+          "text": "pop     esi"
+        },
+        {
+          "address": "0x53c97c",
+          "size": 5,
+          "text": "push    offset __xt_z_0; Last"
+        },
+        {
+          "address": "0x53c981",
+          "size": 5,
+          "text": "push    offset __xt_a_0; First"
+        },
+        {
+          "address": "0x53c986",
+          "size": 5,
+          "text": "call    __initterm"
+        },
+        {
+          "address": "0x53c98b",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c98c",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c98d",
+          "size": 5,
+          "text": "push    offset __xt_z_1; Last"
+        },
+        {
+          "address": "0x53c992",
+          "size": 5,
+          "text": "push    offset __xt_a_1; First"
+        },
+        {
+          "address": "0x53c997",
+          "size": 5,
+          "text": "call    __initterm"
+        },
+        {
+          "address": "0x53c99c",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c99d",
+          "size": 1,
+          "text": "pop     ecx"
+        },
+        {
+          "address": "0x53c99e",
+          "size": 2,
+          "text": "test    ebx, ebx"
+        },
+        {
+          "address": "0x53c9a0",
+          "size": 1,
+          "text": "pop     ebx"
+        },
+        {
+          "address": "0x53c9a1",
+          "size": 2,
+          "text": "jnz     short loc_53C9B3"
+        },
+        {
+          "address": "0x53c9a3",
+          "size": 4,
+          "text": "push    [esp+4+uExitCode]; uExitCode"
+        },
+        {
+          "address": "0x53c9a7",
+          "size": 6,
+          "text": "mov     dword_1086028, edi"
+        },
+        {
+          "address": "0x53c9ad",
+          "size": 6,
+          "text": "call    ds:ExitProcess"
+        },
+        {
+          "address": "0x53c9b3",
+          "size": 1,
+          "text": "pop     edi"
+        },
+        {
+          "address": "0x53c9b4",
+          "size": 1,
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "primary_instructions": 46,
+    "primary_bytes": 156,
+    "auxiliary_instructions": 79,
+    "first_direct_refs": 10,
+    "last_direct_refs": 6,
+    "wrapper_direct_refs": 62
+  },
+  "first_references": [
+    {
+      "address": "0x53b39a",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3a5",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3c8",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3e1",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3e7",
+      "type": 2,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b425",
+      "type": 2,
+      "parent": "0x53b418"
+    },
+    {
+      "address": "0x53b433",
+      "type": 3,
+      "parent": "0x53b418"
+    },
+    {
+      "address": "0x53b43c",
+      "type": 3,
+      "parent": "0x53b418"
+    },
+    {
+      "address": "0x53c951",
+      "type": 3,
+      "parent": "0x53c91c"
+    },
+    {
+      "address": "0x53c973",
+      "type": 3,
+      "parent": "0x53c91c"
+    }
+  ],
+  "last_references": [
+    {
+      "address": "0x53b3ac",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3db",
+      "type": 3,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3f2",
+      "type": 2,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b3fe",
+      "type": 2,
+      "parent": "0x53b399"
+    },
+    {
+      "address": "0x53b441",
+      "type": 2,
+      "parent": "0x53b418"
+    },
+    {
+      "address": "0x53c95a",
+      "type": 3,
+      "parent": "0x53c91c"
+    }
+  ],
+  "operations": [
+    {
+      "entry": "0x53b399",
+      "calls": [
+        {
+          "address": "0x53b3a0",
+          "type": 7,
+          "target": "0x53fcfb"
+        },
+        {
+          "address": "0x53b3bf",
+          "type": 7,
+          "target": "0x53fcfb"
+        },
+        {
+          "address": "0x53b3ce",
+          "type": 7,
+          "target": "0x53fa5b"
+        }
+      ],
+      "data_operands": [
+        {
+          "address": "0x53b39a",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b3a5",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b3ac",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af0"
+        },
+        {
+          "address": "0x53b3c8",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b3db",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af0"
+        },
+        {
+          "address": "0x53b3e1",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b3e7",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b3f2",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af0"
+        },
+        {
+          "address": "0x53b3fe",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af0"
+        }
+      ]
+    },
+    {
+      "entry": "0x53b418",
+      "calls": [
+        {
+          "address": "0x53b41d",
+          "type": 7,
+          "target": "0x53c3ac"
+        },
+        {
+          "address": "0x53b42e",
+          "type": 7,
+          "target": "0x53deab"
+        }
+      ],
+      "data_operands": [
+        {
+          "address": "0x53b425",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b433",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b43c",
+          "operand": 1,
+          "type": 2,
+          "value": "0x1087af4"
+        },
+        {
+          "address": "0x53b441",
+          "operand": 0,
+          "type": 2,
+          "value": "0x1087af0"
+        }
+      ]
+    }
+  ],
+  "source_patch_contract": [
+    {
+      "id": "P01-宿主声明",
+      "literal_before": "#include <cstddef>\n#include <bit>",
+      "replacement": "#include <cstddef>\n#include <bit>\n#include <cstdlib>\n#include <malloc.h>"
+    },
+    {
+      "id": "P02-退出表同域提供者",
+      "literal_before": "namespace {\n\n// 原[553184,5531A0)七槽；",
+      "replacement": "namespace {\n\n// ETH01仅承接兼容退出表块；原请求、new-mode/handler与发布顺序仍由本组保留。\nLegacyRuntimeExitCallback* AllocateLegacyExitTableStorage(const std::uint32_t byteCount)\n{\n    const std::int32_t enableHandler = gLegacyHeapNewMode1086150;\n    if (byteCount > 0xFFFFFFE0u) {\n        return nullptr;\n    }\n    const std::uint32_t requested = byteCount == 0 ? 1u : byteCount;\n    for (;;) {\n        auto* const result = static_cast<LegacyRuntimeExitCallback*>(std::malloc(requested));\n        if (result != nullptr || enableHandler == 0) {\n            return result;\n        }\n        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n            return nullptr;\n        }\n    }\n}\n\nLegacyRuntimeExitCallback* ResizeLegacyExitTableStorage(\n    LegacyRuntimeExitCallback* const memory, const std::uint32_t byteCount)\n{\n    if (memory == nullptr) {\n        return AllocateLegacyExitTableStorage(byteCount);\n    }\n    if (byteCount == 0) {\n        std::free(memory);\n        return nullptr;\n    }\n    for (;;) {\n        LegacyRuntimeExitCallback* result = nullptr;\n        if (byteCount <= 0xFFFFFFE0u) {\n            result = static_cast<LegacyRuntimeExitCallback*>(std::realloc(memory, byteCount));\n        }\n        if (result != nullptr || gLegacyHeapNewMode1086150 == 0) {\n            return result;\n        }\n        if (CallLegacyHeapNewHandler_541A28(byteCount) == 0) {\n            return nullptr;\n        }\n    }\n}\n\n// 必须查询同一宿主块的实际容量；不以申请数/已用槽替代，不读旧块头。\nstd::uint32_t GetLegacyExitTableStorageCapacity(LegacyRuntimeExitCallback* const memory)\n{\n    return static_cast<std::uint32_t>(::_msize(memory));\n}\n\n// 原[553184,5531A0)七槽；"
+    },
+    {
+      "id": "P03-入口实际容量",
+      "literal_before": "GetLegacyAllocationSize_53FCFB(gLegacyRuntimeExitFirst1087AF4);",
+      "replacement": "GetLegacyExitTableStorageCapacity(gLegacyRuntimeExitFirst1087AF4);"
+    },
+    {
+      "id": "P04-不足时再次容量",
+      "literal_before": "GetLegacyAllocationSize_53FCFB(first);",
+      "replacement": "GetLegacyExitTableStorageCapacity(first);"
+    },
+    {
+      "id": "P05-实际扩容",
+      "literal_before": "ReallocateLegacyMemory_53FA5B(gLegacyRuntimeExitFirst1087AF4, newCapacity));",
+      "replacement": "ResizeLegacyExitTableStorage(gLegacyRuntimeExitFirst1087AF4, newCapacity));"
+    },
+    {
+      "id": "P06-同域初分配",
+      "literal_before": "AllocateLegacyHeapMemory_53C3AC(kInitialSlotCount",
+      "replacement": "AllocateLegacyExitTableStorage(kInitialSlotCount"
+    }
+  ],
+  "source": "src/platform/LegacyRuntimeExit.cpp",
+  "new_private_symbols": [
+    "AllocateLegacyExitTableStorage",
+    "ResizeLegacyExitTableStorage",
+    "GetLegacyExitTableStorageCapacity"
+  ],
+  "allocation_domain": {
+    "domain": "仅兼容退出表整块；std::malloc/std::realloc/std::free/UCRT _msize",
+    "initial_slots": 32,
+    "native_slot": "sizeof(LegacyRuntimeExitCallback)，x64实际8B",
+    "growth_slots": 4,
+    "byte_count_type": "U32",
+    "capacity": "实际宿主块_msize返回取W32，不存第二份容量",
+    "original_allocation_call": "0x53B41D",
+    "original_capacity_calls": [
+      "0x53B3A0",
+      "0x53B3BF"
+    ],
+    "original_reallocation_call": "0x53B3CE",
+    "allocate_mode": "原1086150在入口快照，超FFFFFFE0原拒绝，真实541A28/请求重试，异常传播",
+    "reallocate_mode": "空块同域分配；非空零请求同域free；其他宿主realloc，失败保旧块，原new-mode每轮读取/真实handler",
+    "final_release": "原普通/快速调度没有free整表，字段/表项不清；无新增模块析构或宿主退出回调；同域free仅原realloc非空零请求语义",
+    "private_differences": "D02允许实际分桶/对齐/容量、地址/失败时点和宿主库内部错误策略；不称原全部堆内核或原体等价",
+    "retained_domains": "环境扩容、facet/向量/其他LegacyHeap对象、NSH01/EXH01/LCH01及已迁std::atexit应用组保持",
+    "pointer_type": "三个私有提供者均使用真实LegacyRuntimeExitCallback*；只在标准malloc/realloc边界转型，没有void*擦除接口"
+  },
+  "preserved_symbols": [
+    "RegisterLegacyAtExit_53B406",
+    "DispatchLegacyExit_53C91C",
+    "RunLegacyInitializers_53C9B5",
+    "InitializeLegacyExitTableForCrt",
+    "InitializeLegacyCrt_53C8CD",
+    "RunLegacyProcessEntry_53DDB5",
+    "gLegacyCInitializationTable55316C",
+    "gLegacyTerminationTable553184"
+  ],
+  "sdk_reference": {
+    "component": "Windows SDK 10.0.26100.0 UCRT",
+    "include": "ucrt/malloc.h→corecrt_malloc.h",
+    "symbol": "_msize",
+    "declaration": "size_t __cdecl _msize(void* _Block)",
+    "method": "显式UTF-8只读本机头声明；未编译/链接/调用"
+  },
+  "connections": [
+    {
+      "original": "0x53B40A→53B399",
+      "source": "src/platform/LegacyRuntimeExit.cpp#RegisterLegacyAtExit_53B406",
+      "relationship": "原包装0/-1，空callback仍登记而返回-1，不迁为std::atexit"
+    },
+    {
+      "original": "0x553170数据槽→53B418",
+      "source": "src/platform/LegacyRuntimeExit.cpp#InitializeLegacyExitTableForCrt",
+      "relationship": "C5原返回丢弃，真实adapter/初始化表保留，未新增活动启动"
+    },
+    {
+      "original": "53C91C读取首末10/6直接refs中三处",
+      "source": "src/platform/LegacyRuntimeExit.cpp#DispatchLegacyExit_53C91C",
+      "relationship": "原倒序、首重读/末保存、不清槽/不free、quick及callable分支保持"
+    }
+  ],
+  "verification": {
+    "source_static": "六补丁外全CPP、四提供者外原算法/包装/调度/C5及其它源头保持，无跨旧域/新容量槽",
+    "data_static": "三旧语义定点/其它1204条及全局政策保持；两adapted、三限定E与旧登记外部保持",
+    "evidence_static": "46条/156B与79辅助、首末10/6和62包装ref及SDK声明/同名域两文件通过",
+    "artifact_static": "见SPEC/唯一进度",
+    "build": false,
+    "tests": false,
+    "algorithm_samples": false,
+    "runtime": false,
+    "hashes": false,
+    "full_lifecycle_closed": false,
+    "original_body_equivalent": false,
+    "fault_equivalence_claimed": false
+  },
+  "remaining": [
+    "17流/locale初始化活动归属与全90/C5",
+    "62完整原父/callback及计算alias",
+    "所有真实分配释放/异常/重入与兼容/宿主退出归属",
+    "其它CRT域与SDK/完整正常快速退出运行",
+    "全量分类/功能分母/全局门禁"
+  ]
+}

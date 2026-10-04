@@ -63,3 +63,16 @@ codecvt的工程方向是宿主内部转换器由宿主完整流类型持有；�
 [LCH01源码收口](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)已将当前唯一_Locimp对象64B存储的分配、Ctor失败释放、正常flags删除成对宿主承接，保U32请求/原handler；两实际退出登记改std::atexit同一原回调，原发布/返回消费、引用与清理保持。base facet/向量仍旧域、名称仍NSH01，未迁移SDK/其余对象或删除原虚清理。
 
 经典55315C全表caller仍未接，不新增模块或提前登记；原活动流与宿主流归属、全应用序/快速退出、codecvt与完整C03/C04/C08/C11及运行未闭。局部域闭合不代全CRT或原私有内核等价。
+
+## ETH01 兼容退出表块成组宿主承接（2026-10-05）
+
+按[ETH01分域与源码收口](cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure)，
+仅LegacyRuntimeExit的32槽初分配、两实际块容量查询及4原生槽增长扩容同时切换
+std::malloc/std::realloc/std::free/UCRT _msize。容量来自实际块，原U32/new-mode/
+541A28、共享首末/发布及失败消费保持，不读mode3块头/原HeapSize，不存影子容量。
+
+兼容callback登记和正常/快速退出本体仍原算法，不改为std::atexit，
+不提前执行C5/17标准流项，不新增整表free/模块析构或旧表覆盖时清理。
+两变化根为adapted，分桶/内部对齐/容量/地址/低内存及宿主错误机制按D02，
+其它环境/对象/业务原堆、已迁NSH01/EXH01/LCH01与宿主登记组保持。
+本步仅局部静态，不关闭C03/C04/C08/C11或完整CRT/启动/SDK/运行。

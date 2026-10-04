@@ -1612,3 +1612,17 @@ SDK/机器ABI/像素画面未验；没有构建/测试/运行/摘要，异常不
 3无独立ID、18pending、4分类引用不变；审核121/3680、限定证据84。
 固定快照`cg2d-re-cache-lifecycle-source-20261005`；
 完整父/callee/间接alias/资源寿命和像素运行未验，不提升整体验收。
+
+## ETH01 兼容退出表内存域映射（2026-10-05）
+
+[具名SPEC](cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure)和
+[46原体/79辅助/首末引用](cg2d_exit_table_heap_migration_evidence.json)
+将F:0013B399与F:0013B418的实际内存提供者成组改为私有malloc/realloc/free/_msize；
+F:0013B406包装正文不改，只同步当前分域。原数字call/属性、62原入向与C5绑定保留，
+初始化call连接注明原53C3AC身份和当前AllocateLegacyExitTableStorage。
+
+两变化根登记adapted，原上层登记/初始化/退出保持；不称原全部堆或原体等价。
+三个记录限定更新，其余1204记录/分类/pending政策不变；
+语义仍1207/1204有效原ID、审核123/3680、限定证据87。
+当前17流/locale活动归属、62完整父/计算alias/SDK/正常快速退出运行未闭。
+固定源码快照`cg2d-re-exit-table-heap-source-20261005`。

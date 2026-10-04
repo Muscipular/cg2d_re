@@ -610,3 +610,17 @@ mode3的541FB1/541C88/542466本步仅声明真实依赖，16B小块原生双链�
 [具名裁决与源码](cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure)已将唯一当前54A404生产的64B实现对象存储及54C39F/54A5AB两失败/正常释放成对std::malloc/std::free，保原40B地址拓宽、U32上界、真实541A28循环与原请求；块不预清，Ctor状态1只释放分配块，不完整析构未完成对象。正常Delete先既有54A5B7，再flags&1释放对象，返回原地址。
 
 54A57E base facet对象与54A5B7 facets向量仍原FreeLegacyHeapMemory，名称仍NSH01，共享计数/引用/别名与三槽不清保持；两退出登记改宿主同回调，经典全表caller未启用。未知facet/vector生产不因本组关闭，六裸字节/21应用calloc、SDK及其他CRT对象不变。C08/C11继续open；本组269+复用85的354局部指令与三heap点不代全部原共享分配/释放入向、实际失败/完整退出或运行验收。
+
+## ETH01 退出表独立块分配域（2026-10-05）
+
+[局部SPEC](cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision)及
+[源码收口](cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure)
+覆盖本文件旧“退出表同原堆/模式3核心仍待”的本组当前提供者：
+53B3A0/53B3BF两capacity、53B3CE resize及53B41D初分配已切同一私有宿主域，
+实际_msize返回取U32；32/4个函数指针槽仅地址拓宽，容量不伪造。
+
+分配保上界/入口new-mode，扩容空/零/失败保旧块与真实handler保持。
+原退出调度没有free整表，不新增清理或std::atexit；private free仅沿原非空零扩容语义。
+原首末/登记/倒序/quick及错误24和业务字段不改；原通用53FA5B/53FCFB及环境扩容、
+facet/向量/其他对象原域保留，不能据此将原全部allocator标宿主或原体等价。
+完整活动启动/62父/间接alias/重入、原堆其它域和SDK/运行继续未验。

@@ -8,6 +8,10 @@
 
 namespace cg::platform {
 
+// 原PE .data虚拟尾部初始填零；保持两个独立可写种子及原每入口两次读取。
+volatile std::uint32_t gLegacyNarrowFileState1087B00 = 0u;
+volatile std::uint32_t gLegacyWideFileState1087AF8 = 0u;
+
 void InitializeLegacyNarrowFileBuffer_548EFC(
     LegacyNarrowFileBuffer* const storage, LegacyFile* const file, const std::int32_t mode)
 {

@@ -10,7 +10,8 @@ namespace cg::platform {
 
 volatile std::uint32_t gLegacyDefaultPositionLow5500E0 = 0;
 volatile std::uint32_t gLegacyDefaultPositionHigh5500E4 = 0;
-// 1087B04初值/实际存储未补证，只用头文件真实声明，不在此定义。
+// 原PE .data虚拟尾部载入填零；只定义真实可写状态，不改变原默认位置未写区。
+volatile std::uint32_t gLegacyDefaultPositionState1087B04 = 0u;
 
 
 // 原5486BF的两个默认字符槽；栈中W32实参没有被读取。

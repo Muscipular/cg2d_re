@@ -186,7 +186,7 @@ static_assert(offsetof(LegacyStreamPosition, filePositionHighBits) == 12);
 static_assert(offsetof(LegacyStreamPosition, stateBits) == 16);
 static_assert(sizeof(LegacyStreamPosition) == 24);
 
-// 两个位置半字仅已加载初值0；状态种子仅声明，不把未加载读值当初值。
+// 两位置半字已加载0；1087B04由PE节头/载入规则证明初值0，并有独立真实存储。
 // volatile保持原不同槽读取顺序，不增加原子/锁或SDK状态镜像。
 extern volatile std::uint32_t gLegacyDefaultPositionLow5500E0;
 extern volatile std::uint32_t gLegacyDefaultPositionHigh5500E4;

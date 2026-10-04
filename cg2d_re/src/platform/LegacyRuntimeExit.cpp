@@ -18,6 +18,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
 
 namespace cg::platform {
 
+// 原PE .data虚拟尾部载入填零；只给真实四W32槽初始存储，不启用启动入口。
+std::uint32_t gLegacyRuntimeOsMinor1085FF8 = 0u;
+std::uint32_t gLegacyRuntimeOsMajor1085FF4 = 0u;
+std::uint32_t gLegacyRuntimeOsCombined1085FF0 = 0u;
+std::uint32_t gLegacyRuntimeOsBuild1085FEC = 0u;
+
 std::uint8_t gLegacyRuntimeExitCallable1086020 = 0;
 std::int32_t gLegacyRuntimeExitStarted1086024 = 0;
 std::int32_t gLegacyRuntimeExitComplete1086028 = 0;

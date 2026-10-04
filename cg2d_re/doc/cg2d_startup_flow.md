@@ -1858,3 +1858,12 @@ Cpp5530F8/5530FC/553100只记录真实provider，整90表仍extern未启用，�
 工程裁决：既有LegacyException补54509E/5450BA两12条完整语义本体，接口分别为原生非拥有const void*/void*及U32长度，返回S32。原5450AA/5450C6唯一调用分别接Win32 IsBadReadPtr/IsBadWritePtr，只在UINT_PTR形参边界零扩展原U32长度；原API BOOL为0返回完整1，任意非零返回完整0。不加空/长度预判、范围保护/预清，不换VirtualQuery或固定成功，不新增业务探测、专项模拟坏指针或声称故障等价。
 
 两个完整本体及原API实际调用落位；九原5402AB/5407BC父点仍未实现/接线，SDK物理异常和平台返回/完整运行未验。五文件两既有记录新增静态后独立提交，1110/未决18/分类4保持，旧异常/原堆算法不回核，未编译、测试、运行或hash核验，普通日志仅追加。
+
+
+### 原PE载入零值与七共享槽真实存储局部SPEC（2026-10-04）
+
+工程裁决及证据：当前IDA的$ PE header已有节点将四节头保存在supval1..4，而非blob0/1；读取supval3的.data原40B节头。ImageBase400000、VirtualAddress153000、VirtualSizeB34B08、SizeOfRawData40000证明磁盘数据止于593000，载入填零尾部为[593000,1087B08)。[微软PE格式规则](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers)明确虚拟节超过磁盘原始数据的部分填零；结论来自已保存原节头与载入规范，不把IDA未加载字节或段页对齐尾部当值。原40B节头、逐字段范围和实现绑定保存到[cg2d_pe_zero_initialization_evidence.json](cg2d_pe_zero_initialization_evidence.json)。未读磁盘原EXE/重开数据库或做hash。
+
+定义四U32 OS槽1085FF8/FF4/FF0/FEC与三个volatile U32状态1087B00/7AF8/7B04为真实独立原生存储，初始位型0；全部完整4B落在上述尾部。既有GetVersion发布、窄宽_Init每入口独立两次种子读取、默认位置/共用filebuf定位读取直接承接同名槽，不改旧函数/顺序/别名或变常量、加锁/原子及状态镜像。既有5500E0/E4已加载初值与默认位置未写区保持。628FE8/E9两U8也已证初始0，但完整Init对象存储/生命周期仍待，不据单字节范围补类型。
+
+本证据只闭合七槽的载入初值/定义与既有消费；运行时其他生产/全owner、codecvt非空生产/完整方法表、标准流/CPP90迁移、原堆模式3、SDK和启动/完整运行仍未闭，不代批18项运行时补值/清零等提案。六既有源头文件、新证据、映射和两追加文档共十文件，九记录新增静态后独立提交，1110/未决18/分类4及业务/IO数组保持；不新增原函数身份，不回核旧算法、编译、测试或运行，普通日志仅追加。

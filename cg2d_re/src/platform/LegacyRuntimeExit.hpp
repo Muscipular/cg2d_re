@@ -57,7 +57,7 @@ extern LegacyRuntimeExitCallback gLegacyCInitializationTable55316C[5];
 extern LegacyRuntimeExitCallback gLegacyCppInitializationTable553000[90];
 void InitializeLegacyCrt_53C8CD();
 
-// 原GetVersion发布四个W32字段，实际共享存储初值未证，仅extern，不補零。
+// 原GetVersion发布四W32；PE节头/载入规则已证初值0，真实存储见LegacyRuntimeExit.cpp。
 extern std::uint32_t gLegacyRuntimeOsMinor1085FF8;
 extern std::uint32_t gLegacyRuntimeOsMajor1085FF4;
 extern std::uint32_t gLegacyRuntimeOsCombined1085FF0;

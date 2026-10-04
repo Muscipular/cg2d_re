@@ -9,7 +9,7 @@
 
 namespace cg::platform {
 
-// 原两个独立W32状态种子，目前仅真实声明；初值/实际数据绑定未补证，不补零/FF。
+// 原两个独立W32状态种子；PE节头/载入规则已证初值0，真实存储见LegacyFileBuffer.cpp。
 // volatile只保持原每入口两次独立读取，不增加锁或原子操作。
 extern volatile std::uint32_t gLegacyNarrowFileState1087B00;
 extern volatile std::uint32_t gLegacyWideFileState1087AF8;

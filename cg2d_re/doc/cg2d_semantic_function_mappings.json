@@ -98,7 +98,7 @@
       "inventory_id": "F:000D8DA0",
       "status": "原端事实待证",
       "implementation_state": "旧62初始化已有，父页面未完成",
-      "remaining_requirement": "mode0只写commands[0]却扫描两按钮，第二命令及模式实际生产待证；不补命令或缩减按钮。",
+      "remaining_requirement": "原57C368物理68/57C8B8表项指向本父，不能由缺xref推不可达；C9A94C已装入段完整地址字节仅一读，现代4A0140不生产该槽，间接写者仍未闭。mode0仍扫描两项、第二命令未写，不能猜默认命令或删按钮；P07继续待事实。",
       "evidence_documents": [
         "doc/ui_windows/legacy_shop_choice.md"
       ]

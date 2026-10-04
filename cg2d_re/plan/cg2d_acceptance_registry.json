@@ -4140,7 +4140,10 @@
       "baseline_documents": [
         "doc/ui_windows/legacy_shop_choice.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D8D70",
+        "F:000D8DA0"
+      ],
       "closure_task_ids": [
         "U04",
         "V04",
@@ -4153,7 +4156,8 @@
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
       "decision_refs": [],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "真实旧表物理68项指向4D8DA0；模式槽生产与mode0第二命令仍无可靠事实，不能猜默认命令或注册半页",
+        "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合"
       ],
       "gates": {},
       "member_inventory_closed": false,

@@ -98,7 +98,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | P04 / 4021A0 | 源码工作项已关闭：完整686条页面与内部链已接 | 独立1000B仅入口清零；旧表外层、输入/音频与运行仍待 | [静态收口](../doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure)；连续owner及15/16语义保留 |
 | P05 / 4D62A0 | 源码工作项已关闭：完整279条/格式后首字节1及共享消费已接 | 其余255B不清，原循环/发送保持；外层/完整流程/运行仍待 | [源码收口](../doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure)；连续两256B owner |
 | P06 / 4F7870 | 源码工作项已关闭：完整634条及唯一父调用已接 | 两hover入口-1；正常扫描/尾重查保持，旧外层与运行仍待 | [源码收口](../doc/ui_windows/legacy_pet_list.md#pet-state-source-closure)；五独立S16待提交状态及数量保持 |
-| P07 / 4D8DA0 | 待取证；旧62初始化已有 | 补 mode0 第二命令和实际模式生产；不猜命令或减少按钮 | 父页面与两命令的真实生产消费；[旧62](../doc/ui_windows/legacy_shop_choice.md) |
+| P07 / 4D8DA0 | 待事实；旧62初始化已有，真实表物理68项指向本父已证 | C9A94C模式生产/mode0第二命令仍待；现代4A0140不生产该槽，不猜或删按钮 | [模式/表项补证](../doc/ui_windows/legacy_shop_choice.md#shop-choice-mode-reachability)；缺xref不证明不可达 |
 | P08 / 4626A0 | 源码工作项已关闭：WorldUpdate显式gate=1，旧声明已清 | 本体及顺序保持；完整创建/数据/请求验收沿U03/V03继续 | [静态证据](../doc/cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)；不算整体功能验收 |
 | P09 / 403C50 | 源码工作项已关闭：完整154条明文取包与真实Loop调用已接 | 原W16整包/容量/CRLF/NUL/队列/状态保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401AB0位置旁路，无新分包门槛 |
 | P10 / 403E50 | 源码工作项已关闭：完整146条明文帧与真实发送回调已接 | 原首标记/正文/旧尾/报告/原头和长度发布保持；完整互通及V03仍待 | [源码收口](../doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure)；仅401960位置旁路，无加密或新格式 |

@@ -1,6 +1,7 @@
 #include "WorldObjectState.hpp"
 
 #include "WorldUpdateDependencies.hpp"
+#include "../platform/LegacyRuntimeExit.hpp"
 #include "cg/Input.hpp"
 #include "cg/YobiRuntime.hpp"
 #include "cg/network/NetworkRuntime.hpp"
@@ -304,6 +305,13 @@ void __cdecl Sub_4464D0()
 }
 
 } // namespace detail
+
+// 原CRT 553014：千项对象构造完成后，真实登记整体退出并透传完整S32。
+std::int32_t InitializeLegacyWorldObjects_43D760()
+{
+    ConstructWorldObjects();
+    return platform::RegisterLegacyAtExit_53B406(DestroyWorldObjects);
+}
 
 void ConstructWorldObjects()
 {

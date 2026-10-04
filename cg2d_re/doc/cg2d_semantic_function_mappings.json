@@ -4734,28 +4734,92 @@
     {
       "original_entry": "0x43D760",
       "inventory_id": "F:0003D760",
-      "status": "已有启动或原生容器适配映射，完整退出未验",
+      "status": "世界对象表真实CRT入口源码及整体退出登记已实现；原SEH/整表/宿主迁移和完整运行未闭",
       "original_role": "CRT553014世界对象表登记",
       "sources": [
         {
           "path": "src/platform/LegacyMouse.cpp",
           "symbols": [
             "WorldObjectsStaticInitializer"
-          ]
+          ],
+          "relationship": "；旧宿主/构析职责关联保留，新显式入口直接提供者另列"
         },
         {
           "path": "src/world/WorldObjectState.cpp",
           "symbols": [
             "ConstructWorldObjects",
             "DestroyWorldObjects"
-          ]
+          ],
+          "relationship": "；旧宿主/构析职责关联保留，新显式入口直接提供者另列"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "InitializeLegacyWorldObjects_43D760"
+          ],
+          "relationship": "原千项构造后真实53B406/整体callback/完整S32，本次不启用整表"
+        },
+        {
+          "path": "include/cg/world/WorldObjects.hpp",
+          "symbols": [
+            "InitializeLegacyWorldObjects_43D760"
+          ],
+          "relationship": "显式真实CRT入口声明，不新增数组/owner或当前宿主调用"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "原调用43D770后登记43D7A0；既有世界对象正序构造/逆序析构承接，逐项两成员叶另有既存映射。"
+      "boundary": "原调用43D770后登记43D7A0；既有世界对象正序构造/逆序析构承接，逐项两成员叶另有既存映射。；2026-10-04原43D760显式S32入口源码落位，先实际ConstructWorldObjects，再原53B406登记DestroyWorldObjects/完整S32；原六条/两chunk/2call/1callback与553014真实provider同步。沿已过唯一1000项数组，每项双值正序构造/整体双逆序退出，2000次原RNG和借用资源保持；无新对象、once、懒构造、预清/保护、回滚、补析构或宿主迁移。当前整90表仍extern未启用，原FS/EH/53C45E展开不据normal循环认定等价，SDK/登记/模式3及实际完整启动退出仍待。",
+      "instruction_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x43D760",
+          "end_exclusive": "0x43D76A"
+        },
+        {
+          "start": "0x43D790",
+          "end_exclusive": "0x43D79C"
+        }
+      ],
+      "world_objects_crt_internal_call_connections": [
+        {
+          "parent_entry": "0x43D760",
+          "call_site": "0x43D760",
+          "target_entry": "0x43D770",
+          "target_symbol": "ConstructWorldObjects",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "transfer": "call",
+          "arguments": "无参；既有1000项/逐项双CryptInt源码",
+          "relationship": "真实构造正常路径源码调用，唯一数组/2000次原随机消费保持；不声称53C45E本体或SEH已验"
+        },
+        {
+          "parent_entry": "0x43D760",
+          "call_site": "0x43D795",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "transfer": "call",
+          "arguments": "DestroyWorldObjects 整体无参callback",
+          "relationship": "原构造完成后登记/完整S32，失败不补回滚或析构"
+        }
+      ],
+      "world_objects_crt_callback_references": [
+        {
+          "parent_entry": "0x43D760",
+          "reference_site": "0x43D790",
+          "callback_entry": "0x43D7A0",
+          "callback_symbol": "DestroyWorldObjects",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
+        }
+      ],
+      "verification_level": "；仅新原入口两chunk六条/2call/1callback及Cpp槽接线静态，既有千项算法不重核，SEH/运行未验"
     },
     {
       "original_entry": "0x44CC20",
@@ -10521,13 +10585,33 @@
           "symbols": [
             "WorldObjectsStaticInitializer"
           ]
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "InitializeLegacyWorldObjects_43D760"
+          ],
+          "relationship": "本轮真实CRT父入口消费原构造源码，既有正常循环不改或重核"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原向量构造器对1000项按正序调用43D7C0，每项先+0C后+1C构造CryptInt；现有唯一数组构造保留顺序与2000次RNG。原13C步长不复制为x64布局，原SEH及完整跨模块CRT时序不据此宣称等价。"
+      "boundary": "原向量构造器对1000项按正序调用43D7C0，每项先+0C后+1C构造CryptInt；现有唯一数组构造保留顺序与2000次RNG。原13C步长不复制为x64布局，原SEH及完整跨模块CRT时序不据此宣称等价。；2026-10-04真实43D760父入口已调用本已有正常构造源码，算法/RNG/原数组与EH门禁保持。",
+      "world_objects_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x43D760",
+          "call_site": "0x43D760",
+          "target_entry": "0x43D770",
+          "target_symbol": "ConstructWorldObjects",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "transfer": "call",
+          "arguments": "无参；既有1000项/逐项双CryptInt源码",
+          "relationship": "真实构造正常路径源码调用，唯一数组/2000次原随机消费保持；不声称53C45E本体或SEH已验"
+        }
+      ]
     },
     {
       "original_entry": "0x43D7A0",
@@ -10548,13 +10632,31 @@
           "symbols": [
             "WorldObjectsStaticInitializer"
           ]
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "InitializeLegacyWorldObjects_43D760"
+          ],
+          "relationship": "本轮真实53B406登记本已有整体无参退出源码，原算法不改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_world_objects.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原43D760登记的退出入口以1000项调用向量析构器；现有999至0逆序且每项先coordinate1C后coordinate0C，不释放YobiAction借用值，不把重置入口当作析构。"
+      "boundary": "原43D760登记的退出入口以1000项调用向量析构器；现有999至0逆序且每项先coordinate1C后coordinate0C，不释放YobiAction借用值，不把重置入口当作析构。；2026-10-04真实43D760/53B406已登记此已有整体退出源码，逆序/借用资源保持，SDK/完整退出仍未验。",
+      "world_objects_crt_incoming_callback_references": [
+        {
+          "parent_entry": "0x43D760",
+          "reference_site": "0x43D790",
+          "callback_entry": "0x43D7A0",
+          "callback_symbol": "DestroyWorldObjects",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
+        }
+      ]
     },
     {
       "original_entry": "0x44B250",
@@ -17609,6 +17711,13 @@
             "InitializeLegacyPetRuntime_518520"
           ],
           "relationship": "本轮鼠标/玩家/主宠物独立CRT原登记父路径，原归属/旧算法保持"
+        },
+        {
+          "path": "src/world/WorldObjectState.cpp",
+          "symbols": [
+            "InitializeLegacyWorldObjects_43D760"
+          ],
+          "relationship": "本轮千项对象表原CRT父登记实际点，旧算法/62引用池保持"
         }
       ],
       "evidence_documents": [
@@ -17616,7 +17725,7 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_contract.md"
       ],
-      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。",
+      "boundary": "真实调用53B399，非空返回0、空返回-1。空参数已登记也返回-1，不增加参数保护；62处原直接引用尚未统一迁移，不能与宿主全局析构重复登记。；2026-10-04新增真实locale全局原点0x54A450；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；2026-10-04经典54A3E3真实本体已接原54A3F3登记/54A3EE析构地址，不重建经典对象，不改既有本体或重复宿主登记；原CRT55315C表启动迁移、其余退出调用/容量与运行仍待。；2026-10-04新增标准流退出/晚段原实际点0x54826E/0x549357，原调用/返回/动态采样与异常自然传播保持；SDK/clear全抛出/全局owner/实际启动退出及运行待。；2026-10-04新增标准流CRT原点0x5491EF/0x549219/0x54818C/0x5481B9/0x549246/0x549273/0x5492A0，原真实对象/晚段参数/返回或退出计数callback接线；旧算法不复检，当前CRT未启用/全局存储初值与实际运行待。；本次新增七项流对象CRT真实父消费，沿已过登记构造/同对象析构/退出登记，不自动启用当前启动。；新增两早段标准流原父消费/已过共享尾源码复用，独立Init地址/同一私有计数及原刷新顺序保持；既有本体/数组不改或复检，实际C++整表/宿主迁移和运行未闭。；2026-10-04四启动CryptInt/保护值父入口新增真实call及无参callback接线，旧登记算法/数组保持，宿主与堆依赖门禁不抬。；2026-10-04场景值/摊位浏览区两原父路径真实登记与callback源码接线；原入口/所属登记块身份单列，旧算法/数组保持，完整迁移门禁不抬。；2026-10-04世界状态13独立父入口真实53B406调用/callback接线，旧宿主未迁移，不替换62原引用池或抬登记/堆运行门禁。；2026-10-04两选择器整体退出原父点/真实callback接线，当前宿主未迁/不合并登记，退出表/堆和完整运行门禁保持。；2026-10-04三运行状态原父登记/callback真实源码接线，合并块归属单列，旧62引用池/算法保持，宿主双执行/堆/运行门禁不抬。；2026-10-04世界对象表原43D795登记/43D7A0callback真实源码接线，旧表/宿主范围和运行门禁保持。",
       "native_reference": {
         "component": "MSVC VCRuntime 14.50.35717",
         "source_path": "crt/src/vcruntime/utility.cpp",
@@ -18591,6 +18700,30 @@
           "source": "src/world/SceneState.cpp",
           "symbol": "InitializeLegacyPetRuntime_518520",
           "relationship": "原整体无参退出地址，同一鼠标/玩家/主宠物存储，退出顺序沿原动作"
+        }
+      ],
+      "world_objects_crt_parent_call_connections": [
+        {
+          "parent_entry": "0x43D760",
+          "call_site": "0x43D795",
+          "target_entry": "0x53B406",
+          "target_symbol": "platform::RegisterLegacyAtExit_53B406",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "transfer": "call",
+          "arguments": "DestroyWorldObjects 整体无参callback",
+          "relationship": "原构造完成后登记/完整S32，失败不补回滚或析构"
+        }
+      ],
+      "world_objects_crt_callback_references": [
+        {
+          "parent_entry": "0x43D760",
+          "reference_site": "0x43D790",
+          "callback_entry": "0x43D7A0",
+          "callback_symbol": "DestroyWorldObjects",
+          "source": "src/world/WorldObjectState.cpp",
+          "symbol": "InitializeLegacyWorldObjects_43D760",
+          "relationship": "原整体无参退出地址，千项倒序及每项1C→0C，不释放借用值或清业务字段"
         }
       ]
     },
@@ -19798,7 +19931,7 @@
         "doc/cg2d_graphic_dx_cache_x64_spec.md",
         "doc/cg2d_semantic_function_mappings.md"
       ],
-      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。",
+      "boundary": "原非空浮点初始化后执行两组void初始化表；宿主exe启动使用_initterm_e处理C表并保留非零失败，C++表再_initterm。仅职责关联，不能判等原两表返回/失败/锁/异常。最终可执行目标未接。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；本次C++553020/553024早段两provider已有真实六入口源码，整Cpp90表仍仅extern，不能据两provider源码齐备计整表或宿主避免双执行完成。；2026-10-04Cpp553004/08/0C/10四provider真实入口源码已落位，表values/整体定义状态不改；双执行/生命周期迁移仍未批，不启用整表。；2026-10-04Cpp553054/553098/5530A4三个provider真实入口落位，原表values/定义状态保持，不开启父入口或迁移宿主。；2026-10-04Cpp553064..553094十三独立provider实际源码落位，表值/定义状态保持；宿主双执行/生命周期迁移未授权启用。；2026-10-04Cpp55309C/5530A0两个真实provider落位，表值和整体定义状态保持，宿主/完整启动迁移未启用。；2026-10-04Cpp5530F8/5530FC/553100三provider真实入口落位，表值/定义状态保持，构析/EH及实际迁移未闭。；2026-10-04Cpp553014真实世界对象表provider落位，表值/定义状态保持，不开启入口或迁移宿主。",
       "verification_level": "；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验",
       "crt_parent_internal_call_connections": [
         {
@@ -20547,6 +20680,17 @@
           "source_body_implemented": true,
           "native_table_defined": false,
           "relationship": "本轮三个原真实provider，整90表仍extern/不启用"
+        }
+      ],
+      "world_objects_cpp_initialization_bindings": [
+        {
+          "reference_site": "0x553014",
+          "target_entry": "0x43D760",
+          "target_symbol": "cg::world::InitializeLegacyWorldObjects_43D760",
+          "source": "src/world/WorldObjectState.cpp",
+          "source_body_implemented": true,
+          "native_table_defined": false,
+          "relationship": "世界对象表原真实provider，整90表仍extern/不启用"
         }
       ]
     },

@@ -279,7 +279,8 @@
         "doc/cg2d_file_buffer_output_alignment_spec.md",
         "doc/cg2d_file_position_width_spec.md",
         "doc/cg2d_sdk_classic_locale_spec.md",
-        "doc/cg2d_sdk_late_narrow_init_spec.md"
+        "doc/cg2d_sdk_late_narrow_init_spec.md",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -424,7 +425,8 @@
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-decision",
         "doc/cg2d_file_position_width_spec.md#file-position-width-decision",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-decision",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -442,7 +444,8 @@
         "FBO01仅两输出produced按原整数地址差/U32对齐，count/write串与Freeze/FILE/返回消费保持；真实facet/codecvt及完整表/alias、17活动项/全CRT/文件/SDK与正常快速退出运行未闭",
         "FPW01既有四定位根的完整W32/三实际存储已对应，算法不改；24B未写具体字节/机器ABI及全FILE/17活动项/CRT和SDK运行仍未闭，不把初态当运行生产",
         "SCL01当前经典55315C已接完整SDK提供者，69项投影与16标准流待接为最新状态；此前17项为各固定快照历史。旧三槽/计算alias、全registry/facet、全应用normal/quick/callable退出及SDK运行未闭",
-        "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭"
+        "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭",
+        "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -462,7 +465,8 @@
         "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-baseline",
         "doc/cg2d_file_position_width_spec.md#file-position-width-baseline",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-baseline",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline"
       ]
     },
     {
@@ -9327,6 +9331,123 @@
       "observation": "原根/槽/身份与限定插入",
       "expected": "19条/81B、三槽/两取址及SDK声明/实现/宽门禁可追",
       "actual": "单插入重放全文一致；其他源/政策/未知容量保持，未运行"
+    },
+    {
+      "id": "E-SDK-STANDARD-OWNERS-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15表根90条/330B、30固定前缀105条/397B、319Init身份边界及74/80直接引用；doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-standard-stream-owners-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-acceptance",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyMouse.cpp#NarrowStandardStreamsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#WideStandardStreamsStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "SDK完整流/缓冲与自然构析/私有登记承接十五原角色；SDK独立log缓冲/异常/失败/时点为D02/D03 adapted，应用log借用error缓冲/tie/unitbuf/pubSync保持；不造十五伪调用或镜像旧对象",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        },
+        {
+          "description": "70同TU投影与15SDK预先提供合85对应，标准流槽不再因未重复执行旧CRT列待接；不排除未知alias/Legacy消费者/容量/codecvt及SDK运行，不关闭完整功能/任务",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "六Init有型接口与15实际SDK提供者",
+      "expected": "六声明/定义、四固定caller一致；SDK完整标准流及rdbuf存在",
+      "actual": "两文件仅已知指针类型收敛；SDK15角色不造重复Init/登记"
+    },
+    {
+      "id": "E-SDK-STANDARD-OWNERS-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15表根90条/330B、30固定前缀105条/397B、319Init身份边界及74/80直接引用；doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-standard-stream-owners-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-acceptance",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyMouse.cpp#NarrowStandardStreamsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#WideStandardStreamsStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "SDK完整流/缓冲与自然构析/私有登记承接十五原角色；SDK独立log缓冲/异常/失败/时点为D02/D03 adapted，应用log借用error缓冲/tie/unitbuf/pubSync保持；不造十五伪调用或镜像旧对象",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        },
+        {
+          "description": "70同TU投影与15SDK预先提供合85对应，标准流槽不再因未重复执行旧CRT列待接；不排除未知alias/Legacy消费者/容量/codecvt及SDK运行，不关闭完整功能/任务",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原身份/应用配置及源投影与SDK对应",
+      "expected": "四旧对象/函数正文/EH、tie/unitbuf/共享buf/pubSync保持；70与15单列",
+      "actual": "70源绑定保持，15完整SDK预先提供；85对应非85同TU调用，未知alias/生命周期仍待"
+    },
+    {
+      "id": "E-SDK-STANDARD-OWNERS-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15表根90条/330B、30固定前缀105条/397B、319Init身份边界及74/80直接引用；doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-sdk-standard-stream-owners-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-acceptance",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_evidence.json",
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+        "doc/cg2d_standard_stream_controller_gates_evidence.json",
+        "doc/cg2d_standard_stream_exit_migration_evidence.json",
+        "src/platform/LegacyIos.cpp#InitializeLegacyNarrowStandardStreams_5482DD",
+        "src/platform/LegacyIos.cpp#InitializeLegacyWideStandardStreams_549397",
+        "src/platform/LegacyIos.hpp#LegacyStandardStreamInitializer",
+        "src/platform/LegacyMouse.cpp#NarrowStandardStreamsStaticInitializer",
+        "src/platform/LegacyMouse.cpp#WideStandardStreamsStaticInitializer"
+      ],
+      "differences": [
+        {
+          "description": "SDK完整流/缓冲与自然构析/私有登记承接十五原角色；SDK独立log缓冲/异常/失败/时点为D02/D03 adapted，应用log借用error缓冲/tie/unitbuf/pubSync保持；不造十五伪调用或镜像旧对象",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        },
+        {
+          "description": "70同TU投影与15SDK预先提供合85对应，标准流槽不再因未重复执行旧CRT列待接；不排除未知alias/Legacy消费者/容量/codecvt及SDK运行，不关闭完整功能/任务",
+          "decision_ref": "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "限定原/源与机器归档",
+      "expected": "90条15根、105前缀/319身份边界、74起点/80窗口引用及SDK八源可追",
+      "actual": "限定两文件接口差重放，21旧语义定点/其余政策保持；不构建/运行"
     }
   ],
   "task_acceptance": [
@@ -9418,7 +9539,8 @@
         "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure",
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9434,7 +9556,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9452,7 +9575,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9481,7 +9605,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9834,7 +9959,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9842,7 +9968,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9851,7 +9978,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
-        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure"
+        "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -9859,7 +9987,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure"
+        "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10612,7 +10741,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10620,7 +10750,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10628,7 +10759,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10636,7 +10768,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10644,7 +10777,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10652,7 +10786,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10660,7 +10795,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10677,7 +10813,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10685,7 +10822,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10693,7 +10831,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10701,7 +10840,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10709,7 +10849,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10717,7 +10858,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10725,7 +10867,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10733,7 +10876,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure"
+        "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10757,7 +10901,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {
@@ -10765,7 +10910,8 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
       ]
     },
     {

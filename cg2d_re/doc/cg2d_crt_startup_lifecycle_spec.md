@@ -1,6 +1,6 @@
 # CRT 启动与生命周期迁移子 SPEC
 
-> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
+> **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。
 
 > D03；2026-10-04采用，C02–C04/C09的实施方案。依据[宿主总SPEC](cg2d_crt_host_migration_spec.md)和[决议授权](cg2d_closure_decisions_spec.md)，上位实施方案；局部实现见下方各组合同，全应用启动/退出仍未闭。
 > 决定：由宿主MSVC/UCRT完成自身初始化/终止；原应用可见初始化和退出显式承接，不能同时启用两套owner。
@@ -127,3 +127,18 @@ SDK窄flush顺序/指针门禁/现代sentry及注册时点差异按D02/D03 adapt
 旧5491D6/E0/F6接口和592894/1086539/registry/14被动对象不调用或镜像；
 当前70项/15待接（宽Init1/流缓冲14），宽_Winit受_CRTBLD隐藏。
 不改宏/复制声明，C02/C03/C04/C09/fullCRT及SDK运行仍待。
+
+## 标准流整组完整SDK提供者与兼容有型接口（SSO01）
+
+[本组合同](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)
+完成15表角色对应：SDK八标准流与实际stdin/out/err缓冲、
+宽流自然生命周期承担私有构析/登记。
+应用侧共享error缓冲/tie/unitbuf及原pubsync退出保持；
+不重新构造SDK、不调用隐藏_Winit或镜像Legacy槽。
+
+六兼容Init接口改已知LegacyStandardStreamInitializer*参数/返回，
+四真实身份对象/所有算法与计数/逐项门禁/EH/登记保持。
+源投影仍70，另15为宿主预先提供，合85对应；
+此前“15项待接”仅属于原固定快照，不把新增关系当15新增活动调用。
+原null/音频暂停/键盘排除和完整消费者/registry容量/facet/alias/R1、
+正常快速callable退出与SDK运行仍待，C02/C03/C04/C09不关闭。

@@ -1,6 +1,6 @@
 # 标准流四个 Init 对象的地址承载 SPEC
 
-> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
+> **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。
 
 > 2026-10-04；C03 本组实施。工程裁决 SI01，依据用户具名工程委托、[D02/D03](cg2d_closure_decisions_spec.md) 与 [启动生命周期](cg2d_crt_startup_lifecycle_spec.md)。先证明被消费的契约，再定义存储。原完整对象尺寸仍未知；不从相邻地址推断 sizeof。
 
@@ -25,7 +25,7 @@
 <a id="standard-init-identity-decision"></a>
 ## 2. SI01：定义四个独立的原生对象
 
-原完整私有 Init 布局不影响上述已证路径。按 D02 的 C++私有表示承接，采用无业务字段、平凡默认构造/析构的 LegacyStandardStreamInitializer 完整类型；定义四个独立非 const 实例，地址供现有 void*控制器实际保存/返回。这是本线明确的表示选择，不声明原 sizeof 为1或复制未知对象字节。
+原完整私有 Init 布局不影响上述已证路径。按 D02 的 C++私有表示承接，采用无业务字段、平凡默认构造/析构的 LegacyStandardStreamInitializer 完整类型；定义四个独立非 const 实例，地址供现有 LegacyStandardStreamInitializer*控制器实际保存/返回。这是本线明确的表示选择，不声明原 sizeof 为1或复制未知对象字节。
 
 - 对象不携带计数、FILE、locale 或标准流；这些原状态由既有真实存储与显式本体持有。
 - 不使用 std::ios_base::Init 宿主对象强转、伪原SDK布局、整数地址、统一影子槽或动态句柄表。
@@ -74,3 +74,14 @@ SDK自身计数/自动退出/现代flush按D02/D03具名adapted；
 旧控制器七阶段/字段和兼容计数保持，新活动1项不证明Legacy消费者已接。
 SDK宽_Winit声明受_CRTBLD隐藏，本组不强接原553138；
 当前70项/15待接，完整C03/容量/alias/退出及运行仍未闭。
+
+## SSO01 已知类型接口与宿主私有角色对应
+
+[后续合同](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)
+将四固定构造和两控制器参数/返回改LegacyStandardStreamInitializer*，
+不再经void*擦除这四个已知身份。Header只前置声明既有类型；
+四对象/this流、函数正文/计数/门禁/EH/登记及异质展开地址保持，不猜原sizeof。
+
+标准流15角色由实际完整SDK对象预先提供，70源投影/15宿主角色分列；
+SDK对象不交给Legacy有型控制器、不镜像旧存储，宽控制不调用隐藏_Winit。
+完整Legacy消费者/容量/计算alias和SDK生命周期/运行未闭，SI01不外推其他不透明对象。

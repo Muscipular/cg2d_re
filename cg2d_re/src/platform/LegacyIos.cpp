@@ -570,7 +570,7 @@ LegacyStandardStreamInitializer gLegacyWideStandardInitializer1086538 {};
 volatile std::int32_t gLegacyNarrowStandardInitCount592894 = -1;
 volatile std::int32_t gLegacyWideStandardInitCount5929EC = -1;
 
-void* InitializeLegacyNarrowStandardStreams_5482DD(void* const initializer)
+LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD(LegacyStandardStreamInitializer* const initializer)
 {
     void* currentObject = nullptr; // 原var_14入口明确清0。
     std::int32_t state = -1;
@@ -657,7 +657,7 @@ void* InitializeLegacyNarrowStandardStreams_5482DD(void* const initializer)
     return initializer;
 }
 
-void* InitializeLegacyWideStandardStreams_549397(void* const initializer)
+LegacyStandardStreamInitializer* InitializeLegacyWideStandardStreams_549397(LegacyStandardStreamInitializer* const initializer)
 {
     void* currentObject = nullptr; // 原var_14入口明确清0。
     std::int32_t state = -1;
@@ -927,7 +927,7 @@ std::int32_t InitializeLegacyWideErrorBuffer_549284()
     return std::atexit(DestroyLegacyWideErrorBufferAtExit_5492A7);
 }
 
-void* ConstructLegacyNarrowStandardInitializer_5491E0()
+LegacyStandardStreamInitializer* ConstructLegacyNarrowStandardInitializer_5491E0()
 {
     return InitializeLegacyNarrowStandardStreams_5482DD(&gLegacyNarrowStandardInitializer1086539);
 }
@@ -938,7 +938,7 @@ std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6()
     return std::atexit(ReleaseLegacyNarrowStandardStreams_5491F6);
 }
 
-void* ConstructLegacyWideStandardInitializer_54920A()
+LegacyStandardStreamInitializer* ConstructLegacyWideStandardInitializer_54920A()
 {
     return InitializeLegacyWideStandardStreams_549397(&gLegacyWideStandardInitializer1086538);
 }
@@ -1112,7 +1112,7 @@ void ClearLegacyIos_549F62(
     // NCE01本机throw无正常返回；临时串清理仍由上方原catch完成。
 }
 
-void* ConstructLegacyNarrowEarlyStandardInitializer_453E10()
+LegacyStandardStreamInitializer* ConstructLegacyNarrowEarlyStandardInitializer_453E10()
 {
     return InitializeLegacyNarrowStandardStreams_5482DD(&gLegacyNarrowEarlyStandardInitializer628FE9);
 }
@@ -1129,7 +1129,7 @@ std::int32_t InitializeLegacyNarrowEarlyStandardStreams_453E00()
     return std::atexit(ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30);
 }
 
-void* ConstructLegacyWideEarlyStandardInitializer_453E50()
+LegacyStandardStreamInitializer* ConstructLegacyWideEarlyStandardInitializer_453E50()
 {
     return InitializeLegacyWideStandardStreams_549397(&gLegacyWideEarlyStandardInitializer628FE8);
 }

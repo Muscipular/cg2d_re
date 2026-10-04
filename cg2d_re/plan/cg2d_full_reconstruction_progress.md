@@ -1059,3 +1059,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余与交付**：宽Init/14流缓冲、Legacy消费者/全registry容量/facet/codecvt/alias、SDK实际构析/失败/ABI及全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要，单线程/RPLAN.24和原格式明文保持。精确13项，快照`cg2d-re-sdk-late-narrow-init-source-20261005`，用户既有六项不暂存。
 
 **SLN01交付检查**：13项严格UTF-8无BOM/LF、709个本地Markdown链接、30项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。
+
+## SSO01 标准流宿主提供者与兼容 Init 有型接口（2026-10-05）
+
+- **开发**：先写[SSO01 SPEC](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision)，再收敛LegacyIos.hpp/cpp四固定构造/两控制器的十二返回声明/定义和四参数位置为已知LegacyStandardStreamInitializer*；仅增加既有类型前置声明。原四对象/this身份与所有正文/计数/门禁/EH/失败/十八登记不改，异质展开地址保留原边界。
+- **真实提供者**：[归档](../doc/cg2d_sdk_standard_stream_owners_evidence.json)列SDK八实际标准流/FILE缓冲及当前共享error缓冲/tie/unitbuf/pubSync。原剩余十四流/缓冲和一宽Init私有控制由完整SDK自然生命周期预先提供；不造十五占位查询/模块/重复登记、不调用隐藏_Winit或镜像Legacy对象。旧70源绑定保持，70源投影＋15宿主角色＝85提供者对应，另null1/暂停音频2/键盘排除2；85不是85个同TU调用。
+- **基线与纠正**：十五完整根90条/330B、三十前缀105条/397B及319条Init身份边界复用；十四起点74引用/1000B窗80直接引用可追。此前对两个日志写点的清unitbuf判读经寄存器追踪纠正：实际是tie赋输出流EDI地址，代码未加错误unsetf。直接检索不排除计算alias/区间外消费者。
+- **静态/台账**：两文件仅十六个指针类型位置/一前置声明，限定全文重放、其余src/include保持通过；21旧语义定点/1186其他及全政策保持。150既有审核不重复增加，限定E105→108；语义1207/1204有效ID、18pending/4分类/3无ID、任务10/60、叶0/182不变。C02/C03/C04/C09继续open，完整门禁及R不提升。
+- **剩余/交付**：标准流槽不再因未重复旧CRT构造列待接；完整Legacy消费者/registry容量/较大索引/facet/codecvt/alias/R1、SDK实际构析/失败及全应用normal/quick/callable退出仍待。未构建/查产物/新增或执行测试/运行/摘要；原格式明文/音频暂停/单线程/RPLAN.24保持。精确14项，快照`cg2d-re-sdk-standard-stream-owners-source-20261005`，用户既有六项不暂存。
+
+**SSO01交付检查**：14项严格UTF-8无BOM/LF、717个本地Markdown链接、45项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。

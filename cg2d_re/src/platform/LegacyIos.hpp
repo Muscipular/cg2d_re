@@ -7,6 +7,7 @@ namespace cg::platform {
 
 struct LegacyIosBaseStorage;
 struct LegacyLocaleImplementation;
+struct LegacyStandardStreamInitializer;
 
 // 原删除槽返回所属对象地址；仅该多态边界为非拥有void*，真实本体仍类型化。
 // 原550144仅已证删除槽0；8B为消费前缀，不推完整SDK虚表/分配规模。
@@ -218,7 +219,7 @@ extern LegacyNarrowOutputStream gLegacyNarrowStandardOutput10863A0;
 extern LegacyNarrowOutputStream gLegacyNarrowStandardError10864C8;
 extern LegacyNarrowOutputStream gLegacyNarrowStandardLog1086310;
 // 原控制器this仅保存/返回，不读取字段；不猜Init对象容量或自动接启动。
-void* InitializeLegacyNarrowStandardStreams_5482DD(void* initializer);
+LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD(LegacyStandardStreamInitializer* initializer);
 extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardInputBuffer1086610;
 extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardOutputBuffer10865B8;
 extern LegacyFileBufferStorage<std::uint16_t> gLegacyWideStandardErrorBuffer10866A0;
@@ -227,7 +228,7 @@ extern LegacyWideOutputStream gLegacyWideStandardOutput1086668;
 extern LegacyWideOutputStream gLegacyWideStandardError1086500;
 extern LegacyWideOutputStream gLegacyWideStandardLog1086540;
 // 原控制器this仅保存/返回，不读取字段；不猜Init对象容量或自动接启动。
-void* InitializeLegacyWideStandardStreams_549397(void* initializer);
+LegacyStandardStreamInitializer* InitializeLegacyWideStandardStreams_549397(LegacyStandardStreamInitializer* initializer);
 // 原构造展开只当前state的一次54843B；两实参是原实际地址，叶不消费/不析构对象。
 void UnwindLegacyStandardStream_54843B(void* currentObject, void* fixedObject);
 
@@ -268,8 +269,8 @@ std::int32_t InitializeLegacyWideErrorBuffer_549284();
 struct LegacyStandardStreamInitializer final {};
 extern LegacyStandardStreamInitializer gLegacyNarrowStandardInitializer1086539;
 extern LegacyStandardStreamInitializer gLegacyWideStandardInitializer1086538;
-void* ConstructLegacyNarrowStandardInitializer_5491E0();
-void* ConstructLegacyWideStandardInitializer_54920A();
+LegacyStandardStreamInitializer* ConstructLegacyNarrowStandardInitializer_5491E0();
+LegacyStandardStreamInitializer* ConstructLegacyWideStandardInitializer_54920A();
 std::int32_t RegisterLegacyNarrowStandardInitializer_5491D6();
 std::int32_t RegisterLegacyWideStandardInitializer_549200();
 
@@ -310,12 +311,12 @@ std::int32_t InitializeLegacyWideLogStream_549368();
 
 // 原C++表前段两独立Init由SI01实际对象承接地址；原字节尺寸未知，类型不承载流状态。
 extern LegacyStandardStreamInitializer gLegacyNarrowEarlyStandardInitializer628FE9;
-void* ConstructLegacyNarrowEarlyStandardInitializer_453E10();
+LegacyStandardStreamInitializer* ConstructLegacyNarrowEarlyStandardInitializer_453E10();
 void ReleaseLegacyNarrowEarlyStandardStreamsAtExit_453E30();
 std::int32_t InitializeLegacyNarrowEarlyStandardStreams_453E00();
 
 extern LegacyStandardStreamInitializer gLegacyWideEarlyStandardInitializer628FE8;
-void* ConstructLegacyWideEarlyStandardInitializer_453E50();
+LegacyStandardStreamInitializer* ConstructLegacyWideEarlyStandardInitializer_453E50();
 void ReleaseLegacyWideEarlyStandardStreamsAtExit_453E70();
 std::int32_t InitializeLegacyWideEarlyStandardStreams_453E40();
 

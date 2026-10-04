@@ -1,6 +1,6 @@
 # 当前活动初始化的原顺序接线 SPEC
 
-> **SLN01最新状态（2026-10-05）**：[晚段窄Init](cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure)已接原553134；当前70项＝66应用＋2宿主流配置＋1经典locale＋1窄Init，15项待接（1宽Init/14流缓冲）。下文各组数字为各固定快照，不能把历史17/16项作为当前状态。
+> **SSO01最新状态（2026-10-05）**：[标准流提供者](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)已完成15槽与完整SDK对象对应；70有序源投影＋15宿主预先提供＝85项对应，另null1/暂停音频2/键盘排除2。85不是85个同TU调用。下文各组数字为各固定快照；完整容量/消费者/alias和SDK运行仍待。
 
 > AIS01；2026-10-05按工程委托采用。上位：[启动/生命周期方案](cg2d_crt_startup_lifecycle_spec.md)。本组将六个已有图形/资源provider移入同一活动翻译单元，修正现有多字节前置位置；不启用旧CRT整表，不把当前投影当全部原功能已接通。
 
@@ -167,3 +167,15 @@ C02/C03/C04/C09/G01与全局门禁继续open；源级当前投影顺序不代完
 明确SDK末次窄flush顺序/门禁/sentry及自动注册不与原体一致。
 不改Legacy计数/对象、不双登记，隐藏宽_Winit不强接；
 全90/应用退出与运行继续开放。
+
+## SSO01 SDK 预先提供角色与源投影分列
+
+[当前证据](cg2d_sdk_standard_stream_owners_evidence.json)保旧70项源投影，
+将剩余14流/缓冲和1宽Init私有控制槽对应实际SDK完整标准流/rdbuf与自然生命周期。
+当前85项提供者对应＝70源投影＋15宿主预先提供；
+原null1/音频暂停2/键盘排除2保持，不造15个模块/查询/重复登记冒充原序调用。
+
+[具名裁决](cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision)
+保持应用配置/tie/error unitbuf/log借用error缓冲与原pubsync退出；
+Legacy对象/容量/间接alias、全应用正常/快速/callable退出与SDK运行仍待。
+C02/C03/C04/C09保持open；SDK关联不等于原体/私有时点或完整90活动启动已验。

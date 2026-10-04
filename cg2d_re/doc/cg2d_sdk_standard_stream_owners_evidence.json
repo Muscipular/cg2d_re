@@ -1,0 +1,4280 @@
+{
+  "schema_version": 1,
+  "group": "SSO01",
+  "recorded_on": "2026-10-05",
+  "baseline_source": "当前cg2d.exe/ida-17524只读Python；SDK/当前源码文本；不重载/修改/保存IDA、不运行算法",
+  "snapshot": "cg2d-re-sdk-standard-stream-owners-source-20261005",
+  "primary_function_count": 15,
+  "primary_instruction_count": 90,
+  "primary_byte_count": 330,
+  "primary": [
+    {
+      "entry": "0x548252",
+      "chunks": [
+        [
+          "0x548252",
+          "0x54825c"
+        ],
+        [
+          "0x548269",
+          "0x548275"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x548252",
+          "asm": "call    sub_54825C"
+        },
+        {
+          "address": "0x548257",
+          "asm": "jmp     loc_548269"
+        },
+        {
+          "address": "0x548269",
+          "asm": "push    offset sub_548275; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54826e",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x548273",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x548274",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x549339",
+      "chunks": [
+        [
+          "0x549339",
+          "0x549343"
+        ],
+        [
+          "0x549352",
+          "0x54935e"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x549339",
+          "asm": "call    sub_549343"
+        },
+        {
+          "address": "0x54933e",
+          "asm": "jmp     loc_549352"
+        },
+        {
+          "address": "0x549352",
+          "asm": "push    offset sub_54935E; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549357",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54935c",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54935d",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x548170",
+      "chunks": [
+        [
+          "0x548170",
+          "0x54817a"
+        ],
+        [
+          "0x548187",
+          "0x548193"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x548170",
+          "asm": "call    sub_54817A"
+        },
+        {
+          "address": "0x548175",
+          "asm": "jmp     loc_548187"
+        },
+        {
+          "address": "0x548187",
+          "asm": "push    offset sub_548193; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54818c",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x548191",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x548192",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54819d",
+      "chunks": [
+        [
+          "0x54819d",
+          "0x5481a7"
+        ],
+        [
+          "0x5481b4",
+          "0x5481c0"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x54819d",
+          "asm": "call    sub_5481A7"
+        },
+        {
+          "address": "0x5481a2",
+          "asm": "jmp     loc_5481B4"
+        },
+        {
+          "address": "0x5481b4",
+          "asm": "push    offset sub_5481C0; void (__cdecl *)()"
+        },
+        {
+          "address": "0x5481b9",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5481be",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5481bf",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54922a",
+      "chunks": [
+        [
+          "0x54922a",
+          "0x549234"
+        ],
+        [
+          "0x549241",
+          "0x54924d"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x54922a",
+          "asm": "call    sub_549234"
+        },
+        {
+          "address": "0x54922f",
+          "asm": "jmp     loc_549241"
+        },
+        {
+          "address": "0x549241",
+          "asm": "push    offset sub_54924D; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549246",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54924b",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54924c",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x549257",
+      "chunks": [
+        [
+          "0x549257",
+          "0x549261"
+        ],
+        [
+          "0x54926e",
+          "0x54927a"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x549257",
+          "asm": "call    sub_549261"
+        },
+        {
+          "address": "0x54925c",
+          "asm": "jmp     loc_54926E"
+        },
+        {
+          "address": "0x54926e",
+          "asm": "push    offset sub_54927A; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549273",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x549278",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x549279",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x549284",
+      "chunks": [
+        [
+          "0x549284",
+          "0x54928e"
+        ],
+        [
+          "0x54929b",
+          "0x5492a7"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x549284",
+          "asm": "call    sub_54928E"
+        },
+        {
+          "address": "0x549289",
+          "asm": "jmp     loc_54929B"
+        },
+        {
+          "address": "0x54929b",
+          "asm": "push    offset sub_5492A7; void (__cdecl *)()"
+        },
+        {
+          "address": "0x5492a0",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5492a5",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5492a6",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x549200",
+      "chunks": [
+        [
+          "0x549200",
+          "0x54920a"
+        ],
+        [
+          "0x549214",
+          "0x549220"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x549200",
+          "asm": "call    sub_54920A"
+        },
+        {
+          "address": "0x549205",
+          "asm": "jmp     loc_549214"
+        },
+        {
+          "address": "0x549214",
+          "asm": "push    offset sub_549220; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549219",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54921e",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54921f",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5481ca",
+      "chunks": [
+        [
+          "0x5481ca",
+          "0x5481d4"
+        ],
+        [
+          "0x5481e3",
+          "0x5481ef"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x5481ca",
+          "asm": "call    sub_5481D4"
+        },
+        {
+          "address": "0x5481cf",
+          "asm": "jmp     loc_5481E3"
+        },
+        {
+          "address": "0x5481e3",
+          "asm": "push    offset sub_5481EF; void (__cdecl *)()"
+        },
+        {
+          "address": "0x5481e8",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5481ed",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5481ee",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54820e",
+      "chunks": [
+        [
+          "0x54820e",
+          "0x548218"
+        ],
+        [
+          "0x548227",
+          "0x548233"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x54820e",
+          "asm": "call    sub_548218"
+        },
+        {
+          "address": "0x548213",
+          "asm": "jmp     loc_548227"
+        },
+        {
+          "address": "0x548227",
+          "asm": "push    offset sub_548233; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54822c",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x548231",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x548232",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54827f",
+      "chunks": [
+        [
+          "0x54827f",
+          "0x548289"
+        ],
+        [
+          "0x548298",
+          "0x5482a4"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x54827f",
+          "asm": "call    sub_548289"
+        },
+        {
+          "address": "0x548284",
+          "asm": "jmp     loc_548298"
+        },
+        {
+          "address": "0x548298",
+          "asm": "push    offset sub_5482A4; void (__cdecl *)()"
+        },
+        {
+          "address": "0x54829d",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5482a2",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5482a3",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5482ae",
+      "chunks": [
+        [
+          "0x5482ae",
+          "0x5482b8"
+        ],
+        [
+          "0x5482c7",
+          "0x5482d3"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x5482ae",
+          "asm": "call    sub_5482B8"
+        },
+        {
+          "address": "0x5482b3",
+          "asm": "jmp     loc_5482C7"
+        },
+        {
+          "address": "0x5482c7",
+          "asm": "push    offset sub_5482D3; void (__cdecl *)()"
+        },
+        {
+          "address": "0x5482cc",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5482d1",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5482d2",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492b1",
+      "chunks": [
+        [
+          "0x5492b1",
+          "0x5492bb"
+        ],
+        [
+          "0x5492ca",
+          "0x5492d6"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x5492b1",
+          "asm": "call    sub_5492BB"
+        },
+        {
+          "address": "0x5492b6",
+          "asm": "jmp     loc_5492CA"
+        },
+        {
+          "address": "0x5492ca",
+          "asm": "push    offset sub_5492D6; void (__cdecl *)()"
+        },
+        {
+          "address": "0x5492cf",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x5492d4",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x5492d5",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492f5",
+      "chunks": [
+        [
+          "0x5492f5",
+          "0x5492ff"
+        ],
+        [
+          "0x54930e",
+          "0x54931a"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x5492f5",
+          "asm": "call    sub_5492FF"
+        },
+        {
+          "address": "0x5492fa",
+          "asm": "jmp     loc_54930E"
+        },
+        {
+          "address": "0x54930e",
+          "asm": "push    offset sub_54931A; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549313",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x549318",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x549319",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x549368",
+      "chunks": [
+        [
+          "0x549368",
+          "0x549372"
+        ],
+        [
+          "0x549381",
+          "0x54938d"
+        ]
+      ],
+      "instruction_count": 6,
+      "byte_count": 22,
+      "instructions": [
+        {
+          "address": "0x549368",
+          "asm": "call    sub_549372"
+        },
+        {
+          "address": "0x54936d",
+          "asm": "jmp     loc_549381"
+        },
+        {
+          "address": "0x549381",
+          "asm": "push    offset sub_54938D; void (__cdecl *)()"
+        },
+        {
+          "address": "0x549386",
+          "asm": "call    _atexit"
+        },
+        {
+          "address": "0x54938b",
+          "asm": "pop     ecx"
+        },
+        {
+          "address": "0x54938c",
+          "asm": "retn"
+        }
+      ]
+    }
+  ],
+  "reused_prefix_function_count": 30,
+  "reused_prefix_instruction_count": 105,
+  "reused_prefix_byte_count": 397,
+  "reused_prefixes": [
+    {
+      "entry": "0x54825c",
+      "chunks": [
+        [
+          "0x54825c",
+          "0x548269"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x54825c",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x54825e",
+          "asm": "mov     ecx, offset dword_10863D8"
+        },
+        {
+          "address": "0x548263",
+          "asm": "call    sub_5487D3"
+        },
+        {
+          "address": "0x548268",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x548275",
+      "chunks": [
+        [
+          "0x548275",
+          "0x54827f"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x548275",
+          "asm": "mov     ecx, offset dword_10863D8"
+        },
+        {
+          "address": "0x54827a",
+          "asm": "jmp     sub_5487DE"
+        }
+      ]
+    },
+    {
+      "entry": "0x549343",
+      "chunks": [
+        [
+          "0x549343",
+          "0x549352"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x549343",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x549345",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549347",
+          "asm": "mov     ecx, offset dword_1086500"
+        },
+        {
+          "address": "0x54934c",
+          "asm": "call    sub_54958F"
+        },
+        {
+          "address": "0x549351",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54935e",
+      "chunks": [
+        [
+          "0x54935e",
+          "0x549368"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54935e",
+          "asm": "mov     ecx, offset dword_1086500"
+        },
+        {
+          "address": "0x549363",
+          "asm": "jmp     sub_549324"
+        }
+      ]
+    },
+    {
+      "entry": "0x54817a",
+      "chunks": [
+        [
+          "0x54817a",
+          "0x548187"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x54817a",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x54817c",
+          "asm": "mov     ecx, offset dword_1086470"
+        },
+        {
+          "address": "0x548181",
+          "asm": "call    sub_5487D3"
+        },
+        {
+          "address": "0x548186",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x548193",
+      "chunks": [
+        [
+          "0x548193",
+          "0x54819d"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x548193",
+          "asm": "mov     ecx, offset dword_1086470"
+        },
+        {
+          "address": "0x548198",
+          "asm": "jmp     sub_5487DE"
+        }
+      ]
+    },
+    {
+      "entry": "0x5481a7",
+      "chunks": [
+        [
+          "0x5481a7",
+          "0x5481b4"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x5481a7",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x5481a9",
+          "asm": "mov     ecx, offset dword_1086348"
+        },
+        {
+          "address": "0x5481ae",
+          "asm": "call    sub_5487D3"
+        },
+        {
+          "address": "0x5481b3",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5481c0",
+      "chunks": [
+        [
+          "0x5481c0",
+          "0x5481ca"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5481c0",
+          "asm": "mov     ecx, offset dword_1086348"
+        },
+        {
+          "address": "0x5481c5",
+          "asm": "jmp     sub_5487DE"
+        }
+      ]
+    },
+    {
+      "entry": "0x549234",
+      "chunks": [
+        [
+          "0x549234",
+          "0x549241"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x549234",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549236",
+          "asm": "mov     ecx, offset dword_1086610"
+        },
+        {
+          "address": "0x54923b",
+          "asm": "call    sub_54992A"
+        },
+        {
+          "address": "0x549240",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54924d",
+      "chunks": [
+        [
+          "0x54924d",
+          "0x549257"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54924d",
+          "asm": "mov     ecx, offset dword_1086610"
+        },
+        {
+          "address": "0x549252",
+          "asm": "jmp     sub_549935"
+        }
+      ]
+    },
+    {
+      "entry": "0x549261",
+      "chunks": [
+        [
+          "0x549261",
+          "0x54926e"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x549261",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549263",
+          "asm": "mov     ecx, offset dword_10865B8"
+        },
+        {
+          "address": "0x549268",
+          "asm": "call    sub_54992A"
+        },
+        {
+          "address": "0x54926d",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54927a",
+      "chunks": [
+        [
+          "0x54927a",
+          "0x549284"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54927a",
+          "asm": "mov     ecx, offset dword_10865B8"
+        },
+        {
+          "address": "0x54927f",
+          "asm": "jmp     sub_549935"
+        }
+      ]
+    },
+    {
+      "entry": "0x54928e",
+      "chunks": [
+        [
+          "0x54928e",
+          "0x54929b"
+        ]
+      ],
+      "instruction_count": 4,
+      "byte_count": 13,
+      "instructions": [
+        {
+          "address": "0x54928e",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549290",
+          "asm": "mov     ecx, offset dword_10866A0"
+        },
+        {
+          "address": "0x549295",
+          "asm": "call    sub_54992A"
+        },
+        {
+          "address": "0x54929a",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492a7",
+      "chunks": [
+        [
+          "0x5492a7",
+          "0x5492b1"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5492a7",
+          "asm": "mov     ecx, offset dword_10866A0"
+        },
+        {
+          "address": "0x5492ac",
+          "asm": "jmp     sub_549935"
+        }
+      ]
+    },
+    {
+      "entry": "0x54920a",
+      "chunks": [
+        [
+          "0x54920a",
+          "0x549214"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54920a",
+          "asm": "mov     ecx, offset unk_1086538; this"
+        },
+        {
+          "address": "0x54920f",
+          "asm": "jmp     ??0_Winit@std@@QAE@XZ; std::_Winit::_Winit(void)"
+        }
+      ]
+    },
+    {
+      "entry": "0x549220",
+      "chunks": [
+        [
+          "0x549220",
+          "0x54922a"
+        ],
+        [
+          "0x5494fe",
+          "0x549525"
+        ]
+      ],
+      "instruction_count": 11,
+      "byte_count": 49,
+      "instructions": [
+        {
+          "address": "0x549220",
+          "asm": "mov     ecx, offset unk_1086538"
+        },
+        {
+          "address": "0x549225",
+          "asm": "jmp     loc_5494FE"
+        },
+        {
+          "address": "0x5494fe",
+          "asm": "dec     dword_5929EC"
+        },
+        {
+          "address": "0x549504",
+          "asm": "jnz     short locret_549524"
+        },
+        {
+          "address": "0x549506",
+          "asm": "mov     ecx, offset byte_1086668"
+        },
+        {
+          "address": "0x54950b",
+          "asm": "call    unknown_libname_77; Microsoft VisualC 2-14/net runtime"
+        },
+        {
+          "address": "0x549510",
+          "asm": "mov     ecx, offset dword_1086500"
+        },
+        {
+          "address": "0x549515",
+          "asm": "call    unknown_libname_77; Microsoft VisualC 2-14/net runtime"
+        },
+        {
+          "address": "0x54951a",
+          "asm": "mov     ecx, offset dword_1086540"
+        },
+        {
+          "address": "0x54951f",
+          "asm": "jmp     unknown_libname_77; Microsoft VisualC 2-14/net runtime"
+        },
+        {
+          "address": "0x549524",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5481d4",
+      "chunks": [
+        [
+          "0x5481d4",
+          "0x5481e3"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x5481d4",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x5481d6",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x5481d8",
+          "asm": "mov     ecx, offset dword_1086430"
+        },
+        {
+          "address": "0x5481dd",
+          "asm": "call    sub_54859F"
+        },
+        {
+          "address": "0x5481e2",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5481ef",
+      "chunks": [
+        [
+          "0x5481ef",
+          "0x5481f9"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5481ef",
+          "asm": "mov     ecx, offset dword_1086430"
+        },
+        {
+          "address": "0x5481f4",
+          "asm": "jmp     $+5"
+        }
+      ]
+    },
+    {
+      "entry": "0x548218",
+      "chunks": [
+        [
+          "0x548218",
+          "0x548227"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x548218",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54821a",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x54821c",
+          "asm": "mov     ecx, offset byte_10863A0"
+        },
+        {
+          "address": "0x548221",
+          "asm": "call    sub_5484CD"
+        },
+        {
+          "address": "0x548226",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x548233",
+      "chunks": [
+        [
+          "0x548233",
+          "0x54823d"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x548233",
+          "asm": "mov     ecx, offset byte_10863A0"
+        },
+        {
+          "address": "0x548238",
+          "asm": "jmp     $+5"
+        }
+      ]
+    },
+    {
+      "entry": "0x548289",
+      "chunks": [
+        [
+          "0x548289",
+          "0x548298"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x548289",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x54828b",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x54828d",
+          "asm": "mov     ecx, offset dword_10864C8"
+        },
+        {
+          "address": "0x548292",
+          "asm": "call    sub_5484CD"
+        },
+        {
+          "address": "0x548297",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5482a4",
+      "chunks": [
+        [
+          "0x5482a4",
+          "0x5482ae"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5482a4",
+          "asm": "mov     ecx, offset dword_10864C8"
+        },
+        {
+          "address": "0x5482a9",
+          "asm": "jmp     sub_54823D"
+        }
+      ]
+    },
+    {
+      "entry": "0x5482b8",
+      "chunks": [
+        [
+          "0x5482b8",
+          "0x5482c7"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x5482b8",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x5482ba",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x5482bc",
+          "asm": "mov     ecx, offset dword_1086310"
+        },
+        {
+          "address": "0x5482c1",
+          "asm": "call    sub_5484CD"
+        },
+        {
+          "address": "0x5482c6",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5482d3",
+      "chunks": [
+        [
+          "0x5482d3",
+          "0x5482dd"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5482d3",
+          "asm": "mov     ecx, offset dword_1086310"
+        },
+        {
+          "address": "0x5482d8",
+          "asm": "jmp     sub_54823D"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492bb",
+      "chunks": [
+        [
+          "0x5492bb",
+          "0x5492ca"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x5492bb",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x5492bd",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x5492bf",
+          "asm": "mov     ecx, offset dword_1086578"
+        },
+        {
+          "address": "0x5492c4",
+          "asm": "call    sub_5496AB"
+        },
+        {
+          "address": "0x5492c9",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492d6",
+      "chunks": [
+        [
+          "0x5492d6",
+          "0x5492e0"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x5492d6",
+          "asm": "mov     ecx, offset dword_1086578"
+        },
+        {
+          "address": "0x5492db",
+          "asm": "jmp     $+5"
+        }
+      ]
+    },
+    {
+      "entry": "0x5492ff",
+      "chunks": [
+        [
+          "0x5492ff",
+          "0x54930e"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x5492ff",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x549301",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549303",
+          "asm": "mov     ecx, offset byte_1086668"
+        },
+        {
+          "address": "0x549308",
+          "asm": "call    sub_54958F"
+        },
+        {
+          "address": "0x54930d",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54931a",
+      "chunks": [
+        [
+          "0x54931a",
+          "0x549324"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54931a",
+          "asm": "mov     ecx, offset byte_1086668"
+        },
+        {
+          "address": "0x54931f",
+          "asm": "jmp     $+5"
+        }
+      ]
+    },
+    {
+      "entry": "0x549372",
+      "chunks": [
+        [
+          "0x549372",
+          "0x549381"
+        ]
+      ],
+      "instruction_count": 5,
+      "byte_count": 15,
+      "instructions": [
+        {
+          "address": "0x549372",
+          "asm": "push    1"
+        },
+        {
+          "address": "0x549374",
+          "asm": "push    0"
+        },
+        {
+          "address": "0x549376",
+          "asm": "mov     ecx, offset dword_1086540"
+        },
+        {
+          "address": "0x54937b",
+          "asm": "call    sub_54958F"
+        },
+        {
+          "address": "0x549380",
+          "asm": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x54938d",
+      "chunks": [
+        [
+          "0x54938d",
+          "0x549397"
+        ]
+      ],
+      "instruction_count": 2,
+      "byte_count": 10,
+      "instructions": [
+        {
+          "address": "0x54938d",
+          "asm": "mov     ecx, offset dword_1086540"
+        },
+        {
+          "address": "0x549392",
+          "asm": "jmp     sub_549324"
+        }
+      ]
+    }
+  ],
+  "reused_prefix_evidence": "doc/cg2d_standard_stream_exit_migration_evidence.json",
+  "typed_interface_entries": [
+    "0x5482DD",
+    "0x549397",
+    "0x5491E0",
+    "0x54920A",
+    "0x453E10",
+    "0x453E50"
+  ],
+  "typed_constructor_prefixes": [
+    {
+      "entry": "0x5491e0",
+      "chunks": [
+        [
+          "0x5491e0",
+          "0x5491ea"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x5491e0",
+          "asm": "mov     ecx, offset unk_1086539; this"
+        },
+        {
+          "address": "0x5491e5",
+          "asm": "jmp     ??0Init@ios_base@std@@QAE@XZ; std::ios_base::Init::Init(void)"
+        }
+      ]
+    },
+    {
+      "entry": "0x54920a",
+      "chunks": [
+        [
+          "0x54920a",
+          "0x549214"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x54920a",
+          "asm": "mov     ecx, offset unk_1086538; this"
+        },
+        {
+          "address": "0x54920f",
+          "asm": "jmp     ??0_Winit@std@@QAE@XZ; std::_Winit::_Winit(void)"
+        }
+      ]
+    },
+    {
+      "entry": "0x453e10",
+      "chunks": [
+        [
+          "0x453e10",
+          "0x453e1a"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x453e10",
+          "asm": "mov     ecx, offset unk_628FE9; this"
+        },
+        {
+          "address": "0x453e15",
+          "asm": "jmp     ??0Init@ios_base@std@@QAE@XZ"
+        }
+      ]
+    },
+    {
+      "entry": "0x453e50",
+      "chunks": [
+        [
+          "0x453e50",
+          "0x453e5a"
+        ]
+      ],
+      "instructions": [
+        {
+          "address": "0x453e50",
+          "asm": "mov     ecx, offset unk_628FE8; this"
+        },
+        {
+          "address": "0x453e55",
+          "asm": "jmp     ??0_Winit@std@@QAE@XZ"
+        }
+      ]
+    }
+  ],
+  "typed_interface_original_instruction_count": 319,
+  "typed_interface_original_byte_count": 993,
+  "reused_controllers_evidence": "doc/cg2d_standard_stream_controller_gates_evidence.json",
+  "typed_contract": "doc/cg2d_standard_stream_init_identity_spec.md#standard-init-identity-baseline",
+  "direct_start_references": [
+    {
+      "address": "0x1086470",
+      "direct_start_refs": [
+        [
+          "0x54817c",
+          1,
+          "0x54817a"
+        ],
+        [
+          "0x548193",
+          1,
+          "0x548193"
+        ],
+        [
+          "0x548308",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54c064",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086348",
+      "direct_start_refs": [
+        [
+          "0x5481a9",
+          1,
+          "0x5481a7"
+        ],
+        [
+          "0x5481c0",
+          1,
+          "0x5481c0"
+        ],
+        [
+          "0x54832c",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54837f",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54c074",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x10863d8",
+      "direct_start_refs": [
+        [
+          "0x54825e",
+          1,
+          "0x54825c"
+        ],
+        [
+          "0x548275",
+          1,
+          "0x548275"
+        ],
+        [
+          "0x548390",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54c0a4",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086430",
+      "direct_start_refs": [
+        [
+          "0x5481d8",
+          1,
+          "0x5481d4"
+        ],
+        [
+          "0x5481ef",
+          1,
+          "0x5481ef"
+        ],
+        [
+          "0x548348",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54838b",
+          3,
+          "0x5482dd"
+        ],
+        [
+          "0x54c084",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x10863a0",
+      "direct_start_refs": [
+        [
+          "0x54821c",
+          1,
+          "0x548218"
+        ],
+        [
+          "0x548233",
+          1,
+          "0x548233"
+        ],
+        [
+          "0x548367",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x548444",
+          1,
+          "0x5491f6"
+        ],
+        [
+          "0x54c094",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x10864c8",
+      "direct_start_refs": [
+        [
+          "0x54828d",
+          1,
+          "0x548289"
+        ],
+        [
+          "0x5482a4",
+          1,
+          "0x5482a4"
+        ],
+        [
+          "0x5483ba",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x5483dd",
+          3,
+          "0x5482dd"
+        ],
+        [
+          "0x5483f3",
+          3,
+          "0x5482dd"
+        ],
+        [
+          "0x54844e",
+          1,
+          "0x5491f6"
+        ],
+        [
+          "0x54c0b4",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086310",
+      "direct_start_refs": [
+        [
+          "0x5482bc",
+          1,
+          "0x5482b8"
+        ],
+        [
+          "0x5482d3",
+          1,
+          "0x5482d3"
+        ],
+        [
+          "0x5483e2",
+          1,
+          "0x5482dd"
+        ],
+        [
+          "0x54841c",
+          3,
+          "0x5482dd"
+        ],
+        [
+          "0x548458",
+          1,
+          "0x5491f6"
+        ],
+        [
+          "0x54c0c4",
+          1,
+          "0x5482dd"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086610",
+      "direct_start_refs": [
+        [
+          "0x549236",
+          1,
+          "0x549234"
+        ],
+        [
+          "0x54924d",
+          1,
+          "0x54924d"
+        ],
+        [
+          "0x5493c2",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x54c1c4",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x10865b8",
+      "direct_start_refs": [
+        [
+          "0x549263",
+          1,
+          "0x549261"
+        ],
+        [
+          "0x54927a",
+          1,
+          "0x54927a"
+        ],
+        [
+          "0x5493e6",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x54945b",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x54c1d4",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x10866a0",
+      "direct_start_refs": [
+        [
+          "0x549290",
+          1,
+          "0x54928e"
+        ],
+        [
+          "0x5492a7",
+          1,
+          "0x5492a7"
+        ],
+        [
+          "0x549401",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x549491",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x5494d5",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x54c1e4",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086578",
+      "direct_start_refs": [
+        [
+          "0x5492bf",
+          1,
+          "0x5492bb"
+        ],
+        [
+          "0x5492d6",
+          1,
+          "0x5492d6"
+        ],
+        [
+          "0x549421",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x549467",
+          3,
+          "0x549397"
+        ],
+        [
+          "0x54c1f4",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086668",
+      "direct_start_refs": [
+        [
+          "0x549303",
+          1,
+          "0x5492ff"
+        ],
+        [
+          "0x54931a",
+          1,
+          "0x54931a"
+        ],
+        [
+          "0x549440",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x549506",
+          1,
+          "0x549220"
+        ],
+        [
+          "0x54c204",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086500",
+      "direct_start_refs": [
+        [
+          "0x549347",
+          1,
+          "0x549343"
+        ],
+        [
+          "0x54935e",
+          1,
+          "0x54935e"
+        ],
+        [
+          "0x54946c",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x54949d",
+          3,
+          "0x549397"
+        ],
+        [
+          "0x5494b3",
+          3,
+          "0x549397"
+        ],
+        [
+          "0x549510",
+          1,
+          "0x549220"
+        ],
+        [
+          "0x54c214",
+          1,
+          "0x549397"
+        ]
+      ]
+    },
+    {
+      "address": "0x1086540",
+      "direct_start_refs": [
+        [
+          "0x549376",
+          1,
+          "0x549372"
+        ],
+        [
+          "0x54938d",
+          1,
+          "0x54938d"
+        ],
+        [
+          "0x5494a2",
+          1,
+          "0x549397"
+        ],
+        [
+          "0x5494df",
+          3,
+          "0x549397"
+        ],
+        [
+          "0x54951a",
+          1,
+          "0x549220"
+        ],
+        [
+          "0x54c224",
+          1,
+          "0x549397"
+        ]
+      ]
+    }
+  ],
+  "original_global_scan_window": {
+    "scan_begin": "0x1086310",
+    "scan_end_exclusive": "0x10866f8",
+    "byte_window": 1000,
+    "direct_refs": [
+      [
+        "0x1086310",
+        "0x5482bc",
+        1,
+        "0x5482b8"
+      ],
+      [
+        "0x1086310",
+        "0x5482d3",
+        1,
+        "0x5482d3"
+      ],
+      [
+        "0x1086310",
+        "0x5483e2",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086310",
+        "0x54841c",
+        3,
+        "0x5482dd"
+      ],
+      [
+        "0x1086310",
+        "0x548458",
+        1,
+        "0x5491f6"
+      ],
+      [
+        "0x1086310",
+        "0x54c0c4",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x108633c",
+        "0x548424",
+        2,
+        "0x5482dd"
+      ],
+      [
+        "0x1086348",
+        "0x5481a9",
+        1,
+        "0x5481a7"
+      ],
+      [
+        "0x1086348",
+        "0x5481c0",
+        1,
+        "0x5481c0"
+      ],
+      [
+        "0x1086348",
+        "0x54832c",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086348",
+        "0x54837f",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086348",
+        "0x54c074",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10863a0",
+        "0x54821c",
+        1,
+        "0x548218"
+      ],
+      [
+        "0x10863a0",
+        "0x548233",
+        1,
+        "0x548233"
+      ],
+      [
+        "0x10863a0",
+        "0x548367",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10863a0",
+        "0x548444",
+        1,
+        "0x5491f6"
+      ],
+      [
+        "0x10863a0",
+        "0x54c094",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10863d8",
+        "0x54825e",
+        1,
+        "0x54825c"
+      ],
+      [
+        "0x10863d8",
+        "0x548275",
+        1,
+        "0x548275"
+      ],
+      [
+        "0x10863d8",
+        "0x548390",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10863d8",
+        "0x54c0a4",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086430",
+        "0x5481d8",
+        1,
+        "0x5481d4"
+      ],
+      [
+        "0x1086430",
+        "0x5481ef",
+        1,
+        "0x5481ef"
+      ],
+      [
+        "0x1086430",
+        "0x548348",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086430",
+        "0x54838b",
+        3,
+        "0x5482dd"
+      ],
+      [
+        "0x1086430",
+        "0x54c084",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086470",
+        "0x54817c",
+        1,
+        "0x54817a"
+      ],
+      [
+        "0x1086470",
+        "0x548193",
+        1,
+        "0x548193"
+      ],
+      [
+        "0x1086470",
+        "0x548308",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086470",
+        "0x54c064",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10864c8",
+        "0x54828d",
+        1,
+        "0x548289"
+      ],
+      [
+        "0x10864c8",
+        "0x5482a4",
+        1,
+        "0x5482a4"
+      ],
+      [
+        "0x10864c8",
+        "0x5483ba",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x10864c8",
+        "0x5483dd",
+        3,
+        "0x5482dd"
+      ],
+      [
+        "0x10864c8",
+        "0x5483f3",
+        3,
+        "0x5482dd"
+      ],
+      [
+        "0x10864c8",
+        "0x54844e",
+        1,
+        "0x5491f6"
+      ],
+      [
+        "0x10864c8",
+        "0x54c0b4",
+        1,
+        "0x5482dd"
+      ],
+      [
+        "0x1086500",
+        "0x549347",
+        1,
+        "0x549343"
+      ],
+      [
+        "0x1086500",
+        "0x54935e",
+        1,
+        "0x54935e"
+      ],
+      [
+        "0x1086500",
+        "0x54946c",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086500",
+        "0x54949d",
+        3,
+        "0x549397"
+      ],
+      [
+        "0x1086500",
+        "0x5494b3",
+        3,
+        "0x549397"
+      ],
+      [
+        "0x1086500",
+        "0x549510",
+        1,
+        "0x549220"
+      ],
+      [
+        "0x1086500",
+        "0x54c214",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086538",
+        "0x54920a",
+        1,
+        "0x54920a"
+      ],
+      [
+        "0x1086538",
+        "0x549220",
+        1,
+        "0x549220"
+      ],
+      [
+        "0x1086539",
+        "0x5491e0",
+        1,
+        "0x5491e0"
+      ],
+      [
+        "0x1086539",
+        "0x5491f6",
+        1,
+        "0x5491f6"
+      ],
+      [
+        "0x1086540",
+        "0x549376",
+        1,
+        "0x549372"
+      ],
+      [
+        "0x1086540",
+        "0x54938d",
+        1,
+        "0x54938d"
+      ],
+      [
+        "0x1086540",
+        "0x5494a2",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086540",
+        "0x5494df",
+        3,
+        "0x549397"
+      ],
+      [
+        "0x1086540",
+        "0x54951a",
+        1,
+        "0x549220"
+      ],
+      [
+        "0x1086540",
+        "0x54c224",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x108656c",
+        "0x5494e7",
+        2,
+        "0x549397"
+      ],
+      [
+        "0x1086578",
+        "0x5492bf",
+        1,
+        "0x5492bb"
+      ],
+      [
+        "0x1086578",
+        "0x5492d6",
+        1,
+        "0x5492d6"
+      ],
+      [
+        "0x1086578",
+        "0x549421",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086578",
+        "0x549467",
+        3,
+        "0x549397"
+      ],
+      [
+        "0x1086578",
+        "0x54c1f4",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10865b8",
+        "0x549263",
+        1,
+        "0x549261"
+      ],
+      [
+        "0x10865b8",
+        "0x54927a",
+        1,
+        "0x54927a"
+      ],
+      [
+        "0x10865b8",
+        "0x5493e6",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10865b8",
+        "0x54945b",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10865b8",
+        "0x54c1d4",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086610",
+        "0x549236",
+        1,
+        "0x549234"
+      ],
+      [
+        "0x1086610",
+        "0x54924d",
+        1,
+        "0x54924d"
+      ],
+      [
+        "0x1086610",
+        "0x5493c2",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086610",
+        "0x54c1c4",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086668",
+        "0x549303",
+        1,
+        "0x5492ff"
+      ],
+      [
+        "0x1086668",
+        "0x54931a",
+        1,
+        "0x54931a"
+      ],
+      [
+        "0x1086668",
+        "0x549440",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x1086668",
+        "0x549506",
+        1,
+        "0x549220"
+      ],
+      [
+        "0x1086668",
+        "0x54c204",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10866a0",
+        "0x549290",
+        1,
+        "0x54928e"
+      ],
+      [
+        "0x10866a0",
+        "0x5492a7",
+        1,
+        "0x5492a7"
+      ],
+      [
+        "0x10866a0",
+        "0x549401",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10866a0",
+        "0x549491",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10866a0",
+        "0x5494d5",
+        1,
+        "0x549397"
+      ],
+      [
+        "0x10866a0",
+        "0x54c1e4",
+        1,
+        "0x549397"
+      ]
+    ]
+  },
+  "flag_and_tie_trace": [
+    {
+      "address": "0x5483f1",
+      "asm": "add     eax, esi"
+    },
+    {
+      "address": "0x5483f3",
+      "asm": "mov     eax, dword_10864C8"
+    },
+    {
+      "address": "0x5483f8",
+      "asm": "mov     eax, [eax+4]"
+    },
+    {
+      "address": "0x5483fb",
+      "asm": "or      dword ptr [eax+esi+0Ch], 2"
+    },
+    {
+      "address": "0x548400",
+      "asm": "add     eax, esi"
+    },
+    {
+      "address": "0x548402",
+      "asm": "mov     eax, ecx"
+    },
+    {
+      "address": "0x548404",
+      "asm": "mov     [ebp+var_4], 6"
+    },
+    {
+      "address": "0x54840b",
+      "asm": "test    eax, eax"
+    },
+    {
+      "address": "0x54840d",
+      "asm": "pop     esi"
+    },
+    {
+      "address": "0x54840e",
+      "asm": "jz      short loc_54841C"
+    },
+    {
+      "address": "0x548410",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x548412",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x548414",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x548416",
+      "asm": "push    ebx"
+    },
+    {
+      "address": "0x548417",
+      "asm": "call    sub_548463"
+    },
+    {
+      "address": "0x54841c",
+      "asm": "mov     eax, dword_1086310"
+    },
+    {
+      "address": "0x548421",
+      "asm": "mov     eax, [eax+4]"
+    },
+    {
+      "address": "0x548424",
+      "asm": "mov     dword_108633C[eax], edi"
+    },
+    {
+      "address": "0x54842a",
+      "asm": "pop     edi"
+    },
+    {
+      "address": "0x54842b",
+      "asm": "pop     ebx"
+    },
+    {
+      "address": "0x54842c",
+      "asm": "mov     ecx, [ebp+var_C]"
+    },
+    {
+      "address": "0x54842f",
+      "asm": "mov     eax, [ebp+var_10]"
+    },
+    {
+      "address": "0x5494b3",
+      "asm": "mov     eax, dword_1086500"
+    },
+    {
+      "address": "0x5494b8",
+      "asm": "mov     eax, [eax+4]"
+    },
+    {
+      "address": "0x5494bb",
+      "asm": "or      dword ptr [eax+esi+0Ch], 2"
+    },
+    {
+      "address": "0x5494c0",
+      "asm": "add     eax, esi"
+    },
+    {
+      "address": "0x5494c2",
+      "asm": "mov     eax, ecx"
+    },
+    {
+      "address": "0x5494c4",
+      "asm": "mov     [ebp+var_4], 6"
+    },
+    {
+      "address": "0x5494cb",
+      "asm": "test    eax, eax"
+    },
+    {
+      "address": "0x5494cd",
+      "asm": "jz      short loc_5494DF"
+    },
+    {
+      "address": "0x5494cf",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x5494d1",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x5494d3",
+      "asm": "push    1"
+    },
+    {
+      "address": "0x5494d5",
+      "asm": "push    offset dword_10866A0"
+    },
+    {
+      "address": "0x5494da",
+      "asm": "call    sub_549525"
+    },
+    {
+      "address": "0x5494df",
+      "asm": "mov     eax, dword_1086540"
+    },
+    {
+      "address": "0x5494e4",
+      "asm": "mov     eax, [eax+4]"
+    },
+    {
+      "address": "0x5494e7",
+      "asm": "mov     dword_108656C[eax], edi"
+    },
+    {
+      "address": "0x5494ed",
+      "asm": "pop     edi"
+    },
+    {
+      "address": "0x5494ee",
+      "asm": "pop     esi"
+    },
+    {
+      "address": "0x5494ef",
+      "asm": "mov     ecx, [ebp+var_C]"
+    },
+    {
+      "address": "0x5494f2",
+      "asm": "mov     eax, [ebp+var_10]"
+    }
+  ],
+  "field_write_interpretation": {
+    "at_548424": "日志tie赋EDI输出流地址，不是unitbuf清除",
+    "at_5494e7": "宽日志tie赋EDI输出流地址，不是unitbuf清除",
+    "error_unitbuf_bit": 2,
+    "incorrect_unset_added": false
+  },
+  "source_patches": {
+    "cg2d_re/src/platform/LegacyIos.cpp": [
+      {
+        "old": "void* InitializeLegacyNarrowStandardStreams_5482DD(",
+        "new": "LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD("
+      },
+      {
+        "old": "void* InitializeLegacyWideStandardStreams_549397(",
+        "new": "LegacyStandardStreamInitializer* InitializeLegacyWideStandardStreams_549397("
+      },
+      {
+        "old": "void* ConstructLegacyNarrowStandardInitializer_5491E0(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyNarrowStandardInitializer_5491E0("
+      },
+      {
+        "old": "void* ConstructLegacyWideStandardInitializer_54920A(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyWideStandardInitializer_54920A("
+      },
+      {
+        "old": "void* ConstructLegacyNarrowEarlyStandardInitializer_453E10(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyNarrowEarlyStandardInitializer_453E10("
+      },
+      {
+        "old": "void* ConstructLegacyWideEarlyStandardInitializer_453E50(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyWideEarlyStandardInitializer_453E50("
+      },
+      {
+        "old": "void* const initializer)\n{",
+        "new": "LegacyStandardStreamInitializer* const initializer)\n{",
+        "occurrences": 2
+      }
+    ],
+    "cg2d_re/src/platform/LegacyIos.hpp": [
+      {
+        "old": "void* InitializeLegacyNarrowStandardStreams_5482DD(",
+        "new": "LegacyStandardStreamInitializer* InitializeLegacyNarrowStandardStreams_5482DD("
+      },
+      {
+        "old": "void* InitializeLegacyWideStandardStreams_549397(",
+        "new": "LegacyStandardStreamInitializer* InitializeLegacyWideStandardStreams_549397("
+      },
+      {
+        "old": "void* ConstructLegacyNarrowStandardInitializer_5491E0(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyNarrowStandardInitializer_5491E0("
+      },
+      {
+        "old": "void* ConstructLegacyWideStandardInitializer_54920A(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyWideStandardInitializer_54920A("
+      },
+      {
+        "old": "void* ConstructLegacyNarrowEarlyStandardInitializer_453E10(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyNarrowEarlyStandardInitializer_453E10("
+      },
+      {
+        "old": "void* ConstructLegacyWideEarlyStandardInitializer_453E50(",
+        "new": "LegacyStandardStreamInitializer* ConstructLegacyWideEarlyStandardInitializer_453E50("
+      },
+      {
+        "old": "void* initializer);",
+        "new": "LegacyStandardStreamInitializer* initializer);",
+        "occurrences": 2
+      },
+      {
+        "old": "struct LegacyLocaleImplementation;\n",
+        "new": "struct LegacyLocaleImplementation;\nstruct LegacyStandardStreamInitializer;\n"
+      }
+    ]
+  },
+  "sdk_component": "MSVC STL 14.50.35717",
+  "sdk_objects": [
+    {
+      "original_address": "0x1086470",
+      "legacy_symbol": "gLegacyNarrowStandardInputBuffer1086470",
+      "sdk_access": "std::cin.rdbuf()",
+      "sdk_file": "cin.cpp",
+      "sdk_storage": "fin",
+      "stdio_stream": "stdin",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086348",
+      "legacy_symbol": "gLegacyNarrowStandardOutputBuffer1086348",
+      "sdk_access": "std::cout.rdbuf()",
+      "sdk_file": "cout.cpp",
+      "sdk_storage": "fout",
+      "stdio_stream": "stdout",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x10863D8",
+      "legacy_symbol": "gLegacyNarrowStandardErrorBuffer10863D8",
+      "sdk_access": "std::cerr.rdbuf()",
+      "sdk_file": "cerr.cpp",
+      "sdk_storage": "ferr",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086430",
+      "legacy_symbol": "gLegacyNarrowStandardInput1086430",
+      "sdk_access": "std::cin",
+      "sdk_file": "cin.cpp",
+      "sdk_storage": "cin",
+      "stdio_stream": "stdin",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x10863A0",
+      "legacy_symbol": "gLegacyNarrowStandardOutput10863A0",
+      "sdk_access": "std::cout",
+      "sdk_file": "cout.cpp",
+      "sdk_storage": "cout",
+      "stdio_stream": "stdout",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x10864C8",
+      "legacy_symbol": "gLegacyNarrowStandardError10864C8",
+      "sdk_access": "std::cerr",
+      "sdk_file": "cerr.cpp",
+      "sdk_storage": "cerr",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086310",
+      "legacy_symbol": "gLegacyNarrowStandardLog1086310",
+      "sdk_access": "std::clog",
+      "sdk_file": "clog.cpp",
+      "sdk_storage": "clog",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086610",
+      "legacy_symbol": "gLegacyWideStandardInputBuffer1086610",
+      "sdk_access": "std::wcin.rdbuf()",
+      "sdk_file": "wcin.cpp",
+      "sdk_storage": "wfin",
+      "stdio_stream": "stdin",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x10865B8",
+      "legacy_symbol": "gLegacyWideStandardOutputBuffer10865B8",
+      "sdk_access": "std::wcout.rdbuf()",
+      "sdk_file": "wcout.cpp",
+      "sdk_storage": "wfout",
+      "stdio_stream": "stdout",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x10866A0",
+      "legacy_symbol": "gLegacyWideStandardErrorBuffer10866A0",
+      "sdk_access": "std::wcerr.rdbuf()",
+      "sdk_file": "wcerr.cpp",
+      "sdk_storage": "wferr",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086578",
+      "legacy_symbol": "gLegacyWideStandardInput1086578",
+      "sdk_access": "std::wcin",
+      "sdk_file": "wcin.cpp",
+      "sdk_storage": "wcin",
+      "stdio_stream": "stdin",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086668",
+      "legacy_symbol": "gLegacyWideStandardOutput1086668",
+      "sdk_access": "std::wcout",
+      "sdk_file": "wcout.cpp",
+      "sdk_storage": "wcout",
+      "stdio_stream": "stdout",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086500",
+      "legacy_symbol": "gLegacyWideStandardError1086500",
+      "sdk_access": "std::wcerr",
+      "sdk_file": "wcerr.cpp",
+      "sdk_storage": "wcerr",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x1086540",
+      "legacy_symbol": "gLegacyWideStandardLog1086540",
+      "sdk_access": "std::wclog",
+      "sdk_file": "wclog.cpp",
+      "sdk_storage": "wclog",
+      "stdio_stream": "stderr",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "legacy_storage_mirrored": false,
+      "legacy_initializer_activated": false,
+      "runtime_verified": false
+    }
+  ],
+  "sdk_role_bindings": [
+    {
+      "entry": "0x548252",
+      "inventory_id": "F:00148252",
+      "symbol": "InitializeLegacyNarrowErrorBuffer_548252",
+      "construct_symbol": "ConstructLegacyNarrowErrorBufferLate_54825C",
+      "construct_entry": "0x54825C",
+      "callback_symbol": "DestroyLegacyNarrowErrorBufferAtExit_548275",
+      "callback_entry": "0x548275",
+      "registration_site": "0x54826E",
+      "slot": "0x553124",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cerr.rdbuf()",
+      "sdk_source_files": [
+        "cerr.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x549339",
+      "inventory_id": "F:00149339",
+      "symbol": "InitializeLegacyWideErrorStream_549339",
+      "construct_symbol": "RegisterLegacyWideErrorStreamLate_549343",
+      "construct_entry": "0x549343",
+      "callback_symbol": "DestroyLegacyWideErrorStreamAtExit_54935E",
+      "callback_entry": "0x54935E",
+      "registration_site": "0x549357",
+      "slot": "0x553150",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcerr",
+      "sdk_source_files": [
+        "wcerr.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x548170",
+      "inventory_id": "F:00148170",
+      "symbol": "InitializeLegacyNarrowInputBuffer_548170",
+      "construct_symbol": "ConstructLegacyNarrowInputBufferLate_54817A",
+      "construct_entry": "0x54817A",
+      "callback_symbol": "DestroyLegacyNarrowInputBufferAtExit_548193",
+      "callback_entry": "0x548193",
+      "registration_site": "0x54818C",
+      "slot": "0x553114",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cin.rdbuf()",
+      "sdk_source_files": [
+        "cin.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x54819D",
+      "inventory_id": "F:0014819D",
+      "symbol": "InitializeLegacyNarrowOutputBuffer_54819D",
+      "construct_symbol": "ConstructLegacyNarrowOutputBufferLate_5481A7",
+      "construct_entry": "0x5481A7",
+      "callback_symbol": "DestroyLegacyNarrowOutputBufferAtExit_5481C0",
+      "callback_entry": "0x5481C0",
+      "registration_site": "0x5481B9",
+      "slot": "0x553118",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cout.rdbuf()",
+      "sdk_source_files": [
+        "cout.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x54922A",
+      "inventory_id": "F:0014922A",
+      "symbol": "InitializeLegacyWideInputBuffer_54922A",
+      "construct_symbol": "ConstructLegacyWideInputBufferLate_549234",
+      "construct_entry": "0x549234",
+      "callback_symbol": "DestroyLegacyWideInputBufferAtExit_54924D",
+      "callback_entry": "0x54924D",
+      "registration_site": "0x549246",
+      "slot": "0x55313C",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcin.rdbuf()",
+      "sdk_source_files": [
+        "wcin.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x549257",
+      "inventory_id": "F:00149257",
+      "symbol": "InitializeLegacyWideOutputBuffer_549257",
+      "construct_symbol": "ConstructLegacyWideOutputBufferLate_549261",
+      "construct_entry": "0x549261",
+      "callback_symbol": "DestroyLegacyWideOutputBufferAtExit_54927A",
+      "callback_entry": "0x54927A",
+      "registration_site": "0x549273",
+      "slot": "0x553140",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcout.rdbuf()",
+      "sdk_source_files": [
+        "wcout.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x549284",
+      "inventory_id": "F:00149284",
+      "symbol": "InitializeLegacyWideErrorBuffer_549284",
+      "construct_symbol": "ConstructLegacyWideErrorBufferLate_54928E",
+      "construct_entry": "0x54928E",
+      "callback_symbol": "DestroyLegacyWideErrorBufferAtExit_5492A7",
+      "callback_entry": "0x5492A7",
+      "registration_site": "0x5492A0",
+      "slot": "0x553144",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcerr.rdbuf()",
+      "sdk_source_files": [
+        "wcerr.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x549200",
+      "inventory_id": "F:00149200",
+      "symbol": "RegisterLegacyWideStandardInitializer_549200",
+      "construct_symbol": "ConstructLegacyWideStandardInitializer_54920A",
+      "construct_entry": "0x54920A",
+      "callback_symbol": "ReleaseLegacyWideStandardStreams_549220",
+      "callback_entry": "0x549220",
+      "registration_site": "0x549219",
+      "slot": "0x553138",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcin/std::wcout/std::wcerr/std::wclog 完整SDK对象生命周期",
+      "sdk_source_files": [
+        "wcin.cpp",
+        "wcout.cpp",
+        "wcerr.cpp",
+        "wclog.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x5481CA",
+      "inventory_id": "F:001481CA",
+      "symbol": "InitializeLegacyNarrowInputStream_5481CA",
+      "construct_symbol": "RegisterLegacyNarrowInputStreamLate_5481D4",
+      "construct_entry": "0x5481D4",
+      "callback_symbol": "DestroyLegacyNarrowInputStreamAtExit_5481EF",
+      "callback_entry": "0x5481EF",
+      "registration_site": "0x5481E8",
+      "slot": "0x55311C",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cin",
+      "sdk_source_files": [
+        "cin.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x54820E",
+      "inventory_id": "F:0014820E",
+      "symbol": "InitializeLegacyNarrowOutputStream_54820E",
+      "construct_symbol": "RegisterLegacyNarrowOutputStreamLate_548218",
+      "construct_entry": "0x548218",
+      "callback_symbol": "DestroyLegacyNarrowOutputStreamAtExit_548233",
+      "callback_entry": "0x548233",
+      "registration_site": "0x54822C",
+      "slot": "0x553120",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cout",
+      "sdk_source_files": [
+        "cout.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x54827F",
+      "inventory_id": "F:0014827F",
+      "symbol": "InitializeLegacyNarrowErrorStream_54827F",
+      "construct_symbol": "RegisterLegacyNarrowErrorStreamLate_548289",
+      "construct_entry": "0x548289",
+      "callback_symbol": "DestroyLegacyNarrowErrorStreamAtExit_5482A4",
+      "callback_entry": "0x5482A4",
+      "registration_site": "0x54829D",
+      "slot": "0x553128",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::cerr",
+      "sdk_source_files": [
+        "cerr.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x5482AE",
+      "inventory_id": "F:001482AE",
+      "symbol": "InitializeLegacyNarrowLogStream_5482AE",
+      "construct_symbol": "RegisterLegacyNarrowLogStreamLate_5482B8",
+      "construct_entry": "0x5482B8",
+      "callback_symbol": "DestroyLegacyNarrowLogStreamAtExit_5482D3",
+      "callback_entry": "0x5482D3",
+      "registration_site": "0x5482CC",
+      "slot": "0x55312C",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "NarrowStandardStreamsStaticInitializer",
+      "sdk_object": "std::clog",
+      "sdk_source_files": [
+        "clog.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x5492B1",
+      "inventory_id": "F:001492B1",
+      "symbol": "InitializeLegacyWideInputStream_5492B1",
+      "construct_symbol": "RegisterLegacyWideInputStreamLate_5492BB",
+      "construct_entry": "0x5492BB",
+      "callback_symbol": "DestroyLegacyWideInputStreamAtExit_5492D6",
+      "callback_entry": "0x5492D6",
+      "registration_site": "0x5492CF",
+      "slot": "0x553148",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcin",
+      "sdk_source_files": [
+        "wcin.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x5492F5",
+      "inventory_id": "F:001492F5",
+      "symbol": "InitializeLegacyWideOutputStream_5492F5",
+      "construct_symbol": "RegisterLegacyWideOutputStreamLate_5492FF",
+      "construct_entry": "0x5492FF",
+      "callback_symbol": "DestroyLegacyWideOutputStreamAtExit_54931A",
+      "callback_entry": "0x54931A",
+      "registration_site": "0x549313",
+      "slot": "0x55314C",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wcout",
+      "sdk_source_files": [
+        "wcout.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    },
+    {
+      "entry": "0x549368",
+      "inventory_id": "F:00149368",
+      "symbol": "InitializeLegacyWideLogStream_549368",
+      "construct_symbol": "RegisterLegacyWideLogStreamLate_549372",
+      "construct_entry": "0x549372",
+      "callback_symbol": "DestroyLegacyWideLogStreamAtExit_54938D",
+      "callback_entry": "0x54938D",
+      "registration_site": "0x549386",
+      "slot": "0x553154",
+      "state": "host_preprovided_standard_stream_role",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_adapter": "WideStandardStreamsStaticInitializer",
+      "sdk_object": "std::wclog",
+      "sdk_source_files": [
+        "wclog.cpp"
+      ],
+      "late_legacy_initializer_activated": false,
+      "additional_module_initializer_created": false,
+      "additional_callback_registered": false,
+      "private_lifecycle_adapted": true,
+      "runtime_verified": false
+    }
+  ],
+  "source_order_projection": [
+    {
+      "slot": "0x553004",
+      "loaded": true,
+      "target": "0x401c10",
+      "name": "sub_401C10",
+      "root": "0x401c10",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "legacy_crypt_int::InitializeLegacyStartupValues_401C10",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553008",
+      "loaded": true,
+      "target": "0x404120",
+      "name": "sub_404120",
+      "root": "0x404120",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionChecksum1_404120",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55300c",
+      "loaded": true,
+      "target": "0x404160",
+      "name": "sub_404160",
+      "root": "0x404160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionChecksum2_404160",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553010",
+      "loaded": true,
+      "target": "0x4041a0",
+      "name": "sub_4041A0",
+      "root": "0x4041a0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StartupProtectionValuesStartup",
+      "current_initializer_variable": "gStartupProtectionValuesStartup",
+      "direct_call_symbol": "InitializeLegacyProtectionProcessState_4041A0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553014",
+      "loaded": true,
+      "target": "0x43d760",
+      "name": "sub_43D760",
+      "root": "0x43d760",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldObjectsStaticInitializer",
+      "current_initializer_variable": "gWorldObjectsStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyWorldObjects_43D760",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553018",
+      "loaded": true,
+      "target": "0x44cc20",
+      "name": "sub_44CC20",
+      "root": "0x44cc20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x44CC20",
+      "type": "SurfaceTransformCacheStartup",
+      "variable": "gSurfaceTransformCacheStartup",
+      "call": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+      "old_source": "src/render/GraphicDxCache.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SurfaceTransformCacheStartup",
+      "current_initializer_variable": "gSurfaceTransformCacheStartup",
+      "direct_call_symbol": "cg::render::InitializeSurfaceTransformCache629300_44CC20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55301C",
+      "loaded": true,
+      "target": "0x44cd30",
+      "name": "sub_44CD30",
+      "root": "0x44cd30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x44CD30",
+      "type": "SurfaceTransformCacheStartup",
+      "variable": "gSurfaceTransformCacheStartup",
+      "call": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+      "old_source": "src/render/GraphicDxCache.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SurfaceTransformCacheStartup",
+      "current_initializer_variable": "gSurfaceTransformCacheStartup",
+      "direct_call_symbol": "cg::render::InitializeSurfaceTransformCache62A630_44CD30",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553020",
+      "loaded": true,
+      "target": "0x453e00",
+      "name": "sub_453E00",
+      "root": "0x453e00",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "NarrowStandardStreamsStaticInitializer",
+      "current_initializer_variable": "gNarrowStandardStreamsStaticInitializer",
+      "direct_call_symbol": null,
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553024",
+      "loaded": true,
+      "target": "0x453e40",
+      "name": "sub_453E40",
+      "root": "0x453e40",
+      "state": "host_stream_configuration",
+      "detail": "当前SDK窄/宽标准流配置/清理适配保持；不宣原Init计数/14流等价",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WideStandardStreamsStaticInitializer",
+      "current_initializer_variable": "gWideStandardStreamsStaticInitializer",
+      "direct_call_symbol": null,
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553028",
+      "loaded": true,
+      "target": "0x454c00",
+      "name": "sub_454C00",
+      "root": "0x454c00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPrimaryEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPrimaryEmptyExitStaticInitializer",
+      "direct_call_symbol": "InitializeLegacyEmptyExit_454C00",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55302c",
+      "loaded": true,
+      "target": "0x455490",
+      "name": "sub_455490",
+      "root": "0x455490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455490",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553030",
+      "loaded": true,
+      "target": "0x4554c0",
+      "name": "sub_4554C0",
+      "root": "0x4554c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4554C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553034",
+      "loaded": true,
+      "target": "0x455540",
+      "name": "sub_455540",
+      "root": "0x455540",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455540",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553038",
+      "loaded": true,
+      "target": "0x4555c0",
+      "name": "sub_4555C0",
+      "root": "0x4555c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4555C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55303c",
+      "loaded": true,
+      "target": "0x455640",
+      "name": "sub_455640",
+      "root": "0x455640",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455640",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553040",
+      "loaded": true,
+      "target": "0x4556c0",
+      "name": "sub_4556C0",
+      "root": "0x4556c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4556C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553044",
+      "loaded": true,
+      "target": "0x455740",
+      "name": "sub_455740",
+      "root": "0x455740",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455740",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553048",
+      "loaded": true,
+      "target": "0x4557c0",
+      "name": "sub_4557C0",
+      "root": "0x4557c0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4557C0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55304c",
+      "loaded": true,
+      "target": "0x455840",
+      "name": "sub_455840",
+      "root": "0x455840",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455840",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553050",
+      "loaded": true,
+      "target": "0x455930",
+      "name": "sub_455930",
+      "root": "0x455930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyUi455490StaticInitializer",
+      "current_initializer_variable": "gLegacyUi455490StaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_455930",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553054",
+      "loaded": true,
+      "target": "0x456fd0",
+      "name": "sub_456FD0",
+      "root": "0x456fd0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SceneTransitionValueStaticInitializer",
+      "current_initializer_variable": "gSceneTransitionValueStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacySceneTransitionValue_456FD0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553058",
+      "loaded": true,
+      "target": "0x4597e0",
+      "name": "sub_4597E0",
+      "root": "0x4597e0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x4597E0",
+      "type": "GraphicInfoContainersStartup",
+      "variable": "gGraphicInfoContainersStartup",
+      "call": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+      "old_source": "src/GraphicInfo.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "GraphicInfoContainersStartup",
+      "current_initializer_variable": "gGraphicInfoContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeGraphicMapNumbers_4597E0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55305C",
+      "loaded": true,
+      "target": "0x459850",
+      "name": "sub_459850",
+      "root": "0x459850",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x459850",
+      "type": "GraphicInfoContainersStartup",
+      "variable": "gGraphicInfoContainersStartup",
+      "call": "cg::resource::InitializeGraphicFirstRecords_459850",
+      "old_source": "src/GraphicInfo.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "GraphicInfoContainersStartup",
+      "current_initializer_variable": "gGraphicInfoContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeGraphicFirstRecords_459850",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553060",
+      "loaded": true,
+      "target": "0x45b370",
+      "name": "sub_45B370",
+      "root": "0x45b370",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "AnimationSharedValueStaticInitializer",
+      "current_initializer_variable": "gAnimationSharedValueStaticInitializer",
+      "direct_call_symbol": "cg::resource::animation::Sub_45B370",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553064",
+      "loaded": true,
+      "target": "0x467b90",
+      "name": "sub_467B90",
+      "root": "0x467b90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PlayerCoordinatesStaticInitializer",
+      "current_initializer_variable": "gPlayerCoordinatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializePlayerCoordinates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerCoordinates_467B90"
+    },
+    {
+      "slot": "0x553068",
+      "loaded": true,
+      "target": "0x467bf0",
+      "name": "sub_467BF0",
+      "root": "0x467bf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotX_467BF0"
+    },
+    {
+      "slot": "0x55306c",
+      "loaded": true,
+      "target": "0x467c30",
+      "name": "sub_467C30",
+      "root": "0x467c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyPlayerSnapshotY_467C30"
+    },
+    {
+      "slot": "0x553070",
+      "loaded": true,
+      "target": "0x467c70",
+      "name": "sub_467C70",
+      "root": "0x467c70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467C70"
+    },
+    {
+      "slot": "0x553074",
+      "loaded": true,
+      "target": "0x467cb0",
+      "name": "sub_467CB0",
+      "root": "0x467cb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinateState_467CB0"
+    },
+    {
+      "slot": "0x553078",
+      "loaded": true,
+      "target": "0x467cf0",
+      "name": "sub_467CF0",
+      "root": "0x467cf0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldCoordinateStatesStaticInitializer",
+      "current_initializer_variable": "gWorldCoordinateStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldCoordinateStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldCoordinatePair_467CF0"
+    },
+    {
+      "slot": "0x55307c",
+      "loaded": true,
+      "target": "0x467d50",
+      "name": "sub_467D50",
+      "root": "0x467d50",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveTargets_467D50"
+    },
+    {
+      "slot": "0x553080",
+      "loaded": true,
+      "target": "0x467db0",
+      "name": "sub_467DB0",
+      "root": "0x467db0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DB0"
+    },
+    {
+      "slot": "0x553084",
+      "loaded": true,
+      "target": "0x467df0",
+      "name": "sub_467DF0",
+      "root": "0x467df0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467DF0"
+    },
+    {
+      "slot": "0x553088",
+      "loaded": true,
+      "target": "0x467e30",
+      "name": "sub_467E30",
+      "root": "0x467e30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E30"
+    },
+    {
+      "slot": "0x55308c",
+      "loaded": true,
+      "target": "0x467e70",
+      "name": "sub_467E70",
+      "root": "0x467e70",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467E70"
+    },
+    {
+      "slot": "0x553090",
+      "loaded": true,
+      "target": "0x467eb0",
+      "name": "sub_467EB0",
+      "root": "0x467eb0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WorldMoveStatesStaticInitializer",
+      "current_initializer_variable": "gWorldMoveStatesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeWorldMoveStates",
+      "expanded_leaf_symbol": "InitializeLegacyWorldMoveState_467EB0"
+    },
+    {
+      "slot": "0x553094",
+      "loaded": true,
+      "target": "0x467ef0",
+      "name": "sub_467EF0",
+      "root": "0x467ef0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "RippleGateStaticInitializer",
+      "current_initializer_variable": "gRippleGateStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeRippleGate",
+      "expanded_leaf_symbol": "InitializeLegacyRippleGate_467EF0"
+    },
+    {
+      "slot": "0x553098",
+      "loaded": true,
+      "target": "0x477160",
+      "name": "sub_477160",
+      "root": "0x477160",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "WindowNumberSpacingStaticInitializer",
+      "current_initializer_variable": "gWindowNumberSpacingStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeLegacyNumberSpacing_477160",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55309c",
+      "loaded": true,
+      "target": "0x4883f0",
+      "name": "sub_4883F0",
+      "root": "0x4883f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "ItemSelectorsStaticInitializer",
+      "current_initializer_variable": "gItemSelectorsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeItemSelectors",
+      "expanded_leaf_symbol": "InitializeLegacyFirstItemSelector_4883F0"
+    },
+    {
+      "slot": "0x5530a0",
+      "loaded": true,
+      "target": "0x4998f0",
+      "name": "sub_4998F0",
+      "root": "0x4998f0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "ItemSelectorsStaticInitializer",
+      "current_initializer_variable": "gItemSelectorsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeItemSelectors",
+      "expanded_leaf_symbol": "InitializeLegacySecondItemSelector_4998F0"
+    },
+    {
+      "slot": "0x5530a4",
+      "loaded": true,
+      "target": "0x4cd240",
+      "name": "sub_4CD240",
+      "root": "0x4cd240",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "StallBrowsePetsStaticInitializer",
+      "current_initializer_variable": "gStallBrowsePetsStaticInitializer",
+      "direct_call_symbol": "cg::ui::InitializeLegacyStallBrowsePetValues_4CD240",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530a8",
+      "loaded": true,
+      "target": "0x4fc420",
+      "name": "sub_4FC420",
+      "root": "0x4fc420",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacySettingsMenuStaticInitializer",
+      "current_initializer_variable": "gLegacySettingsMenuStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FC420",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530ac",
+      "loaded": true,
+      "target": "0x4fcb90",
+      "name": "sub_4FCB90",
+      "root": "0x4fcb90",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyChatSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyChatSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FCB90",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530b8",
+      "loaded": true,
+      "target": "0x4fe490",
+      "name": "sub_4FE490",
+      "root": "0x4fe490",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMouseSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyMouseSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FE490",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530bc",
+      "loaded": true,
+      "target": "0x4feb00",
+      "name": "sub_4FEB00",
+      "root": "0x4feb00",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyHotkeyAndScanlineStaticInitializer",
+      "current_initializer_variable": "gLegacyHotkeyAndScanlineStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FEB00",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c0",
+      "loaded": true,
+      "target": "0x4ff020",
+      "name": "sub_4FF020",
+      "root": "0x4ff020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyHotkeyAndScanlineStaticInitializer",
+      "current_initializer_variable": "gLegacyHotkeyAndScanlineStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FF020",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c4",
+      "loaded": true,
+      "target": "0x4ff340",
+      "name": "sub_4FF340",
+      "root": "0x4ff340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyButtonSettingsStaticInitializer",
+      "current_initializer_variable": "gLegacyButtonSettingsStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_4FF340",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530c8",
+      "loaded": true,
+      "target": "0x502930",
+      "name": "sub_502930",
+      "root": "0x502930",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMapPanelStaticInitializer",
+      "current_initializer_variable": "gLegacyMapPanelStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502930",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530cc",
+      "loaded": true,
+      "target": "0x502c30",
+      "name": "sub_502C30",
+      "root": "0x502c30",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C30",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d0",
+      "loaded": true,
+      "target": "0x502c60",
+      "name": "sub_502C60",
+      "root": "0x502c60",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C60",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d4",
+      "loaded": true,
+      "target": "0x502c80",
+      "name": "sub_502C80",
+      "root": "0x502c80",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502C80",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530d8",
+      "loaded": true,
+      "target": "0x502ca0",
+      "name": "sub_502CA0",
+      "root": "0x502ca0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502CA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530dc",
+      "loaded": true,
+      "target": "0x502d20",
+      "name": "sub_502D20",
+      "root": "0x502d20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502D20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e0",
+      "loaded": true,
+      "target": "0x502da0",
+      "name": "sub_502DA0",
+      "root": "0x502da0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502DA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e4",
+      "loaded": true,
+      "target": "0x502e20",
+      "name": "sub_502E20",
+      "root": "0x502e20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502E20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530e8",
+      "loaded": true,
+      "target": "0x502ea0",
+      "name": "sub_502EA0",
+      "root": "0x502ea0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502EA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530ec",
+      "loaded": true,
+      "target": "0x502f20",
+      "name": "sub_502F20",
+      "root": "0x502f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502F20",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f0",
+      "loaded": true,
+      "target": "0x502fa0",
+      "name": "sub_502FA0",
+      "root": "0x502fa0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_502FA0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f4",
+      "loaded": true,
+      "target": "0x503020",
+      "name": "sub_503020",
+      "root": "0x503020",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyBottomBarStaticInitializer",
+      "current_initializer_variable": "gLegacyBottomBarStaticInitializer",
+      "direct_call_symbol": "cg::login::detail::Sub_503020",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530f8",
+      "loaded": true,
+      "target": "0x506340",
+      "name": "sub_506340",
+      "root": "0x506340",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyMouseStaticInitializer",
+      "current_initializer_variable": "gLegacyMouseStaticInitializer",
+      "direct_call_symbol": "cg::platform::InitializeLegacyMouseRuntime_506340",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x5530fc",
+      "loaded": true,
+      "target": "0x5183d0",
+      "name": "sub_5183D0",
+      "root": "0x5183d0",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PlayerRuntimeValuesStaticInitializer",
+      "current_initializer_variable": "gPlayerRuntimeValuesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyPlayerRuntime_5183D0",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553100",
+      "loaded": true,
+      "target": "0x518520",
+      "name": "sub_518520",
+      "root": "0x518520",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "PetRuntimeValuesStaticInitializer",
+      "current_initializer_variable": "gPetRuntimeValuesStaticInitializer",
+      "direct_call_symbol": "cg::world::InitializeLegacyPetRuntime_518520",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553104",
+      "loaded": true,
+      "target": "0x522620",
+      "name": "sub_522620",
+      "root": "0x522620",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x522620",
+      "type": "IndependentPaletteContainersStartup",
+      "variable": "gIndependentPaletteContainersStartup",
+      "call": "cg::resource::InitializeIndependentPaletteQueue_522620",
+      "old_source": "src/GraphicRead.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "IndependentPaletteContainersStartup",
+      "current_initializer_variable": "gIndependentPaletteContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializeIndependentPaletteQueue_522620",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553108",
+      "loaded": true,
+      "target": "0x522690",
+      "name": "sub_522690",
+      "root": "0x522690",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "entry": "0x522690",
+      "type": "IndependentPaletteContainersStartup",
+      "variable": "gIndependentPaletteContainersStartup",
+      "call": "cg::resource::InitializePaletteDbfState_522690",
+      "old_source": "src/GraphicRead.cpp",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "IndependentPaletteContainersStartup",
+      "current_initializer_variable": "gIndependentPaletteContainersStartup",
+      "direct_call_symbol": "cg::resource::InitializePaletteDbfState_522690",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553130",
+      "loaded": true,
+      "target": "0x549194",
+      "name": "unknown_libname_76",
+      "root": "0x549194",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553130",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553134",
+      "loaded": true,
+      "target": "0x5491d6",
+      "name": "sub_5491D6",
+      "root": "0x5491d6",
+      "state": "host_narrow_init_provider",
+      "detail": "SLN01独立完整公开SDK ios_base::Init真实构析；SDK私有计数/退出承接，旧兼容对象/登记不活动",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "std::ios_base::Init",
+      "current_initializer_variable": "gSdkNarrowLateInit553134",
+      "direct_call_symbol": "std::ios_base::Init::Init",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553158",
+      "loaded": true,
+      "target": "0x549f20",
+      "name": "unknown_libname_84",
+      "root": "0x549f20",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553158",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x55315c",
+      "loaded": true,
+      "target": "0x54a3e3",
+      "name": "sub_54A3E3",
+      "root": "0x54a3e3",
+      "state": "host_classic_locale_provider",
+      "detail": "SCL01完整SDK经典locale提供者真实取引用，私有退出由SDK承接；旧三槽/旧兼容登记不活动",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "SdkClassicLocaleStaticInitializer",
+      "current_initializer_variable": "gSdkClassicLocale55315C",
+      "direct_call_symbol": "std::locale::classic",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553160",
+      "loaded": true,
+      "target": "0x54a638",
+      "name": "unknown_libname_88",
+      "root": "0x54a638",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553160",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    },
+    {
+      "slot": "0x553164",
+      "loaded": true,
+      "target": "0x54a981",
+      "name": "unknown_libname_92",
+      "root": "0x54a981",
+      "state": "active_application",
+      "detail": "既有单元内活动调用；AIS01保既有调用/RNG/登记",
+      "current_source": "src/platform/LegacyMouse.cpp",
+      "current_initializer_type": "LegacyPairedEmptyExitStaticInitializer",
+      "current_initializer_variable": "gLegacyPairedEmptyExit553164",
+      "direct_call_symbol": "RegisterLegacyEmptyExitPair",
+      "expanded_leaf_symbol": null
+    }
+  ],
+  "provider_slot_accounting": {
+    "original_cpp_slots": 90,
+    "ordered_source_slots": 70,
+    "host_preprovided_slots": 15,
+    "provider_correspondence_slots": 85,
+    "original_null": 1,
+    "audio_paused": 2,
+    "keyboard_excluded": 2,
+    "unclassified_standard_stream_slots": 0,
+    "full_application_connected": false,
+    "legacy_registry_capacity_closed": false,
+    "legacy_alias_closed": false,
+    "sdk_runtime_verified": false
+  },
+  "verification": {
+    "method": "static",
+    "runtime_verified": false,
+    "full_feature_accepted": false,
+    "original_private_abi_equivalent": false
+  },
+  "output_register_production": [
+    {
+      "parent": "0x5482dd",
+      "address": "0x548308",
+      "asm": "mov     edi, offset dword_1086470"
+    },
+    {
+      "parent": "0x5482dd",
+      "address": "0x548367",
+      "asm": "mov     edi, offset byte_10863A0"
+    },
+    {
+      "parent": "0x549397",
+      "address": "0x549440",
+      "asm": "mov     edi, offset byte_1086668"
+    }
+  ]
+}

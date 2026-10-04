@@ -1,7 +1,7 @@
 # 原格式明文网络接线总 SPEC
 
 > 2026-10-04最新有效要求：兼容原有格式、不自创或修改协议；不做加解密，只做明文传送。两算法叶继续排除，403E50/403C50非加密职责保留。
-> 已决定按[原格式明文子SPEC](cg2d_network_compatibility_spec.md)实施，**源码/接线/互通尚未完成**。旧候选协议选择不再生效；历史全文见Git命名快照 `cg2d-re-spec-history-20261004-before-delegated-decisions`。
+> 已决定按[原格式明文子SPEC](cg2d_network_compatibility_spec.md)实施，**两帧父源码及既有直接/回调接线已落位，完整功能与互通未验**。旧候选协议选择不再生效；历史全文见Git命名快照 `cg2d-re-spec-history-20261004-before-delegated-decisions`。
 
 ## 已确认范围
 
@@ -11,7 +11,7 @@
 
 ## 真实接线与原证据
 
-[NetworkRuntime.cpp](../src/network/NetworkRuntime.cpp)中InitializeNetworkRuntime_508140仍将Sub_403E50传给工作区；NetworkLoop_507DF0仍调用Sub_403C50，仅返回0才派发。两父当前无本体，空回调会落默认0，不能用作实现。
+[NetworkRuntime.cpp](../src/network/NetworkRuntime.cpp)中InitializeNetworkRuntime_508140仍将Sub_403E50传给工作区；NetworkLoop_507DF0仍调用Sub_403C50，仅返回0才派发。两父当前已有完整非加密本体，详见[实施与静态收口](cg2d_network_plaintext_frame_spec.md#frame-source-closure)。516B60的空参数默认回调仍仅属于原缺省路径；508140明确绑定真实发送父，不以默认0代帧实现。
 
 [原合同](cg2d_network_runtime.md)保留W16包长/包长+2等待、目的容量、CR/LF、NUL、队列消耗、593F*状态和发送长度/报告证据；[算法分类](cg2d_network_cipher_scope.json)保留两叶边界/授权及历史源码移除状态。客户端帧结构兼容与加解密算法逐次等价是不同事项，本轮不承诺密文模式对端可接明文。
 
@@ -23,12 +23,12 @@
 
 ## 三个发送侧状态入口的显式存储关联（2026-10-02）
 
-| 原入口 | 原行为/唯一调用点 | 新端唯一存储与尚未接入动作 |
+| 原入口 | 原行为/唯一调用点 | 新端唯一存储与本轮对应动作 |
 |---|---|---|
 | 4589A0..4589A6 | 读W32[73ECF4]返回；403EB3 | MainLoopState的S32 gWindowReportValue |
-| 4589B0..4589BB | 清W32[73ECF4]，无规定EAX；403ED4 | 同一槽，原发送时点清零仍随403E50待接 |
+| 4589B0..4589BB | 清W32[73ECF4]，无规定EAX；403ED4 | 同一槽，403E50已在原FC发送时点清零 |
 | 4589C0..4589C6 | 读W32[73ED08]返回；403EC6 | 同文件U32 gWindowReportDeadline |
 
 发送父原序：首读值signed>0→510140==1→读取deadline并将完整W32按signed判负→写局部标记FC→4589B0清零→直接跳走，不消费EAX。不能发明bool/固定成功，不能把U32 deadline的负值门禁写成普通无符号比较；也不是73ED00的double截止时间。
 
-这些是三项部分存储关联/共六指令，不是三个新包装或发送父已完成。装载零初值不代发送期间清零；协议确定后须保留原时点/共享owner，不把报告与密文算法一起删除。暂停音频及其他验收边界不变。
+这些是三项存储关联/共六指令，不是三个新包装；403E50本轮已按原三个时点直接读写同源槽，完整证据见帧子SPEC。装载零初值不代发送期间清零；报告未随算法排除而删除，完整报告生产/生命周期仍待。暂停音频及其他验收边界不变。

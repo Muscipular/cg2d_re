@@ -244,9 +244,13 @@
       "baseline_documents": [
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_network_dispatch.md"
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_network_plaintext_frame_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00003C50",
+        "F:00003E50"
+      ],
       "closure_task_ids": [
         "P09",
         "P10",
@@ -260,7 +264,8 @@
         "doc/cg2d_closure_decisions_spec.md"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
+        "murD及音频传递依赖仍暂停；完整登录/明文互通和V03未验，R受执行限制"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -5148,7 +5153,107 @@
       "member_inventory_evidence_refs": []
     }
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "E-NETWORK-FRAME-I-20261004",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：[403C50,403E4D)154条、[403E50,40405A)146条；doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-frame-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-owners-wiring",
+        "src/network/NetworkRuntime.cpp#Sub_403C50",
+        "src/network/NetworkRuntime.cpp#Sub_403E50",
+        "src/network/NetworkRuntimeDependencies.hpp",
+        "doc/cg2d_stdio_contract.md#plaintext-frame-format-site"
+      ],
+      "observation": "仅P09/P10两父的非加密完整本体与批准D04明文承接；不覆盖全部网络业务",
+      "expected": "两父有真实完整实现，仅算法位置按D04旁路；原包头/正文/状态/失败保留，无假体或新格式",
+      "actual": "NetworkRuntime.cpp落位两个本体与唯一私有声明；0x4004明文及原0x4002帧容量，原首标记/正文/旧尾，原头计实际明文；不调用401960/401AB0",
+      "differences": [
+        {
+          "description": "D04仅旁路401960/401AB0，明文原输入/输出对应字节传送，原W16头登记实际明文长；算法填充与专属失败不再产生",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md"
+        },
+        {
+          "description": "x86地址槽适配为原生x64非拥有指针；非地址字段仍W32/W16/U8",
+          "decision_ref": "doc/cg2d_closure_decisions_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-NETWORK-FRAME-W-20261004",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：[403C50,403E4D)154条、[403E50,40405A)146条；doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-frame-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-owners-wiring",
+        "src/network/NetworkRuntime.cpp#Sub_403C50",
+        "src/network/NetworkRuntime.cpp#Sub_403E50",
+        "src/network/NetworkRuntimeDependencies.hpp",
+        "doc/cg2d_stdio_contract.md#plaintext-frame-format-site"
+      ],
+      "observation": "仅508140→516B60发送回调绑定、517480→callback和507DF0→403C50→返回0才512E40的源码接线及明确共享owner；不证明完整生命周期",
+      "expected": "真实调用与回调复用两父及既有队列、协议/登录/报告唯一owner；取包非零不派发，send仍由Loop负责",
+      "actual": "既有绑定和调用未改位置，新增本体现在承接真实符号；登录异常/门禁、窗口报告、短状态及queueBytes复用既有owner；完整外部流程仍未验",
+      "differences": [
+        {
+          "description": "D04仅旁路401960/401AB0，明文原输入/输出对应字节传送，原W16头登记实际明文长；算法填充与专属失败不再产生",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md"
+        },
+        {
+          "description": "x86地址槽适配为原生x64非拥有指针；非地址字段仍W32/W16/U8",
+          "decision_ref": "doc/cg2d_closure_decisions_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    },
+    {
+      "id": "E-NETWORK-FRAME-S-20261004",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "cg2d.exe既有只读IDA基线：[403C50,403E4D)154条、[403E50,40405A)146条；doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-frame-source-20261004",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-baseline",
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-owners-wiring",
+        "src/network/NetworkRuntime.cpp#Sub_403C50",
+        "src/network/NetworkRuntime.cpp#Sub_403E50",
+        "src/network/NetworkRuntimeDependencies.hpp",
+        "doc/cg2d_stdio_contract.md#plaintext-frame-format-site"
+      ],
+      "observation": "仅两父154/146条对应的正常/失败、宽度/符号性/读写/状态/原字节/格式原点静态差异；不覆盖全部网络门禁",
+      "expected": "逐段对应原全部300条适用非加密职责；原W16/U32/S32比较、旧尾/格式后重读、DWORD与尾byte间的长度读写及返回/状态顺序保留",
+      "actual": "本线程核全部300条与新增两父、三个原串含NUL、真实403F47格式点及既有接线；无未批准局部差异，未构建/测试/运行或试包",
+      "differences": [
+        {
+          "description": "D04仅旁路401960/401AB0，明文原输入/输出对应字节传送，原W16头登记实际明文长；算法填充与专属失败不再产生",
+          "decision_ref": "doc/cg2d_network_compatibility_spec.md"
+        },
+        {
+          "description": "x86地址槽适配为原生x64非拥有指针；非地址字段仍W32/W16/U8",
+          "decision_ref": "doc/cg2d_closure_decisions_spec.md"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-04"
+    }
+  ],
   "task_acceptance": [
     {
       "epoch": "2026-10-04.1",
@@ -5205,6 +5310,22 @@
       "evidence_refs": [
         "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure"
       ]
+    },
+    {
+      "task_id": "P09",
+      "state": "closed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure"
+      ]
+    },
+    {
+      "task_id": "P10",
+      "state": "closed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure"
+      ]
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
@@ -5252,6 +5373,24 @@
       "evidence_refs": [
         "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
         "doc/cg2d_local_determinism_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00003C50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_network_compatibility_spec.md"
+      ]
+    },
+    {
+      "inventory_id": "F:00003E50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
+        "doc/cg2d_network_compatibility_spec.md"
       ]
     }
   ],

@@ -2,7 +2,7 @@
 
 > D04；2026-10-04，以用户连续两条要求共同为准：“网络需要兼容原有格式，不要自创和修改”“不做加解密，只做明文传送”。
 > **原帧结构、正文组装与协议处理保留，只旁路加解密传明文。** 不恢复401960/401AB0；此前本轮曾写的自定义明文候选及恢复加密解释均撤回，未实施。
-> 上位：[收尾决议](cg2d_closure_decisions_spec.md)、[网络接线SPEC](cg2d_network_exclusion_wiring_spec.md)；原证据：[网络合同](cg2d_network_runtime.md)。本轮仅设计/台账更新。
+> 上位：[收尾决议](cg2d_closure_decisions_spec.md)、[网络接线SPEC](cg2d_network_exclusion_wiring_spec.md)；原证据：[网络合同](cg2d_network_runtime.md)。P09/P10源码与局部静态对照已落位，见[帧实施子SPEC](cg2d_network_plaintext_frame_spec.md)；完整网络与互通未验。
 
 ## 1. 唯一允许的传输差异
 
@@ -31,7 +31,7 @@
 
 原解密失败的Decrypt Error分支因算法不再执行而不再产生，不伪称该分支等价；目的容量、队列、socket等非加密失败不随之删除。小于等于16B与大于16B的状态更新保持原分支；大包原593FB8→593FB0→接收尾NUL→593FB4→593FBC顺序不合并。状态从与原解密结果对应的明文字节按原算法生产，不补常量。
 
-上述是接线合同，不表示本轮完整父已取证/实现。具体正常读取、字段、返回值和带外标记的判断方式沿原证据，不新增保护门槛。
+两父现已按[完整帧合同](cg2d_network_plaintext_frame_spec.md)取证并实现非加密职责；上述不表示全部网络功能或运行门禁已通过。具体正常读取、字段、返回值和带外标记的判断方式沿原证据，不新增保护门槛。
 
 ## 4. 单一板块实施与验收
 
@@ -43,4 +43,4 @@
 | N4 成对接线 | InitializeNetworkRuntime_508140绑定真实发送父；NetworkLoop_507DF0调用真实取包，返回0才分发；不用空回调，清无用加密私有依赖 |
 | N5 验收 | 当前核源码/原格式/长度与状态时序；用户允许运行后做明文收发、半包/连续包、登录和V03，当前未互通 |
 
-发送报告三入口与signed门禁见[接线SPEC](cg2d_network_exclusion_wiring_spec.md#三个发送侧状态入口的显式存储关联2026-10-02)。P09/P10转“原格式明文方案已定，待实施/取证与实际互通”，仍在18项pending；不是算法恢复或网络完成。
+发送报告三入口与signed门禁见[接线SPEC](cg2d_network_exclusion_wiring_spec.md#三个发送侧状态入口的显式存储关联2026-10-02)。P09/P10源码工作项已关闭；两父154/146条、真实回调/Loop接线及局部I/W/S证据见[源码收口](cg2d_network_plaintext_frame_spec.md#frame-source-closure)。仍保留18项pending入口身份及完整互通/功能验收残余；不是算法恢复或网络完成。

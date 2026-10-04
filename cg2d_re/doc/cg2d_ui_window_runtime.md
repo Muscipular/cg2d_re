@@ -10,10 +10,10 @@
 - 通用创建/生命周期/输入绘制、504120→473F80→4C7AE0更新及507140两caller完整命中已有；现代24的52C3D0继续暂停。
 - 战斗404DB0的257表项/200动作和43CBB0至427470已接真实调用/回调；四M头复制、七25头查找及M索引提示已接。424620攻击生产/未写局部、载荷清理和真实战斗验收仍待。
 - 旧64/66、68/69、70/71、73、35/36/77/80至82、42至61邮件/技能、86至96公会及6/17/99已有本体，旧20列表/旧62初始化已补；旧表实际路由、内嵌选择器及独立数据生产仍待。
-- 旧58目录/图号/页数和旧51名单/数量/页数仍缺；D45F74/CC3208页号已落位。旧19/20内嵌/62父/85/98、5202E0路径和创建ABI等待决继续见唯一进度。
-- 窗口、人物/宠物、技能/物品/设置、邮件/制造/商店/交易/仓库/公会等原格式已沿真实生产消费接入核心；全线真实989/1023，余34为排除13/暂停6/替换3/待决12。共享表达式分别映射原点，缓冲/字节/符号/调用次序见局部合同；不把格式接线当页面或完整链验收。
+- 旧58的CC3E64/C8AF84与旧51的D30134/CF46D0已有装载零初值和真实存储，运行时写者仍缺；CA0478目录、CB1D1C名单的容量/定义/生产仍待。D45F74/CC3208页号已落位。八项局部适配已决议待实施/核对，旧62父仍待原事实，见[收尾表](../plan/cg2d_spec_closure_checklist.md)。
+- 窗口、人物/宠物、技能/物品/设置、邮件/制造/商店/交易/仓库/公会等原格式已沿真实生产消费接入核心；全线真实989/1023，余34为排除13/暂停6/替换3/待实施或补证12。共享表达式分别映射原点，缓冲/字节/符号/调用次序见局部合同；不把格式接线当页面或完整链验收。
 - 限长复制37真实+2键盘排除、追加3/3；完整复制9真实+2宿主承接=11、长度19真实+4宿主承接+1待=24；字符24真实+1宿主承接=25、子串49真实+4newest排除=53。宿主承接沿已批GetEnv范围，内部尾不增加入口引用，普通输入/IME保留。
-- 网络108路分发已有，直接回复缺口仍1个murD随音频暂停；非加密帧/最终接线待决。现代0/0/1不是全客户端完成率，暂停不是排除。
+- 网络108路分发已有，直接回复缺口仍1个murD随音频暂停；原格式明文方案已定，两帧父接线和实际互通仍待。现代0/0/1不是全客户端完成率，暂停不是排除。
 - 本次仅文档对齐及必要静态核对，不复检已接点、不构建/查产物/新增或执行测试/运行客户端或算法样例/计算比对SHA/hash；完整输入/收发/画面/生命周期及总SPEC门禁仍未完成。
 
 当前状态与未决见[唯一进度](../plan/cg2d_full_reconstruction_progress.md#3-未闭合与明确待决)和[总SPEC](../plan/cg2d_full_reconstruction_plan.md#43-当前未闭合与明确待决)。现代window id与旧选择ID分别导航，旧证据不批量改写。
@@ -132,8 +132,8 @@
 | 15 | [金钱](ui_windows/legacy_money.md) | 完整本体/初始化已有 |
 | 16 | [拆分数量](ui_windows/legacy_item_split.md) | 完整本体已有；屏幕键盘专属功能沿既有排除 |
 | 17 | [十八动作菜单](ui_windows/legacy_emote_menu.md) | 完整本体/真实动作请求已有 |
-| 18、19 | [技能列表与详情](ui_windows/legacy_skill_panels.md) | 18列表已有；19详情4FF650待决 |
-| 20 | [宠物列表](ui_windows/legacy_pet_list.md) | 初始化/列表已有；内嵌4F7870悬停适配待批 |
+| 18、19 | [技能列表与详情](ui_windows/legacy_skill_panels.md) | 18列表已有；19详情4FF650适配已定，本体待实施 |
+| 20 | [宠物列表](ui_windows/legacy_pet_list.md) | 初始化/列表已有；内嵌4F7870悬停适配已定，待实施 |
 | 21 | [宠物资料](ui_windows/legacy_pet_detail.md) | 三页/初始化/外层已有 |
 | 22 | [宠物改名](ui_windows/legacy_pet_rename.md) | 完整本体已有 |
 | 23 | [图鉴列表](ui_windows/legacy_album_list.md) | 完整本体/初始化已有 |
@@ -170,7 +170,7 @@
 | 55 | [技能选择](ui_windows/legacy_skill_choice.md) | 本体/初始化/同源图号已有；正文完整生产待 |
 | 56 | [技能学习](ui_windows/legacy_skill_learning.md) | 本体/真实正文/费用消费已有 |
 | 57 | [技能遗忘](ui_windows/legacy_skill_forgetting.md) | 本体/数值表/正文消费已有 |
-| 58 | [宠物技能目录](ui_windows/legacy_pet_skill_catalog.md) | 初始化/消费/页号已有；目录/图号/页数仍缺 |
+| 58 | [宠物技能目录](ui_windows/legacy_pet_skill_catalog.md) | 初始化/消费/页号及图号/页数存储已有；目录定义和实际生产仍缺 |
 | 59 | [候选宠物](ui_windows/legacy_pet_skill_catalog.md) | 本体/初始化/真实回复候选消费已有 |
 | 60 | [宠物技能槽](ui_windows/legacy_pet_skill_catalog.md) | 本体/初始化/真实技能记录消费已有 |
 | 61 | [宠物技能学习确认](ui_windows/legacy_pet_skill_catalog.md) | 完整本体已有；目录三项缺口保留 |
@@ -209,7 +209,7 @@
 | 94 | [公会通讯录](ui_windows/legacy_guild_contact_list.md) | 本体/目标/未读动画及导航已有 |
 | 95 | [公会资料编辑](ui_windows/legacy_guild_details_edit.md) | 本体/三输入/职级权限及缓存已有 |
 | 96 | [公会职级修改](ui_windows/legacy_guild_rank_change.md) | 本体/目标/资格消费与请求已有 |
-| 98 | [旧日志](ui_windows/legacy_log_viewer.md) | 两独立1000B缓冲入口清零待批，本体未完成 |
+| 98 | [旧日志](ui_windows/legacy_log_viewer.md) | 两独立1000B缓冲入口清零已定，本体未完成 |
 | 99 | [黑名单编辑](ui_windows/legacy_blacklist_editor.md) | 本体/同源输入/名单及持久化调用已有 |
 
 旧公共机制与无单独选择ID的初始化：[旧面板公共运行期](ui_windows/shared_legacy_panels.md)、[455490组初始化](ui_windows/legacy_455490_initialization.md)、[底部栏初始化](ui_windows/legacy_bottom_bar_initialization.md)。音乐/音效设置继续随音频暂缓，不因未列明细而排除。

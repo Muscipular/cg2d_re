@@ -39,9 +39,9 @@
   回到 0。
 - `0x404D36` 在调用 `sub_46DD40` 前保存首 action；`0x404D4B..0x404D57`
   随后逐项标死。
-- 原初始化入口 `sub_4576B0` 在 `0x4577F5` 调用 `sub_404A40`。当前
-  `InitializeClient_4576B0` 仍是未实现真实依赖，因此本步公开 `Sub_404A40`，不在
-  `MainLoop` 再添加一次可能重复的初始化。
+- 原初始化入口 `sub_4576B0` 在 `0x4577F5` 调用 `sub_404A40`。早期单项仅公开
+  `Sub_404A40`；后续 `ClientInitialization.cpp` 已实现 `InitializeClient_4576B0`
+  并接真实初始化，不在 `MainLoop` 再添加一次重复初始化。完整启动仍未验收。
 
 ## 原生 x64 所有权与语义字段
 

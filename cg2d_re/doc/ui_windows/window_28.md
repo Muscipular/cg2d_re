@@ -3,7 +3,7 @@
 [总索引](../cg2d_ui_window_runtime.md) | [文档组织 SPEC](README.md)
 
 > 当前补充：动作223已接41402E的4965D0真实调用，按原序先刷新宠物快照再清5ABBFC；
-> 详细合同见[动作221至223](shared_battle.md#battle-actions-221-223)。43CF43及43843B父链仍缺，未运行验收。
+> 详细合同见[动作221至223](shared_battle.md#battle-actions-221-223)。后续43CBB0/4383F0父本体及快照调用已接，完整载荷/清理和运行仍未验收。
 
 ## 本轮实施 SPEC
 
@@ -18,7 +18,7 @@
 | 主回调 | update49B630、draw46FBC0、release4A4210 |
 | 元素 | 56C800，8项，每项原32B |
 | 专用入口 | 49BA10归还按钮、49BB00三宠物行、49B670行绘制 |
-| 已有父入口 | 窗口26的497900创建/关闭28；498520完整分派已创建28，完整43CBB0场景父链仍缺，见[分派合同](shared_battle.md#command-dispatch) |
+| 已有父入口 | 窗口26的497900创建/关闭28；498520完整分派已创建28，43CBB0场景父已有本体/调用，整场生命周期仍未验，见[分派合同](shared_battle.md#command-dispatch) |
 
 ### 同源数据与表示
 

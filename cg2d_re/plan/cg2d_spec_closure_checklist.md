@@ -47,12 +47,12 @@
 |---|---|---|---|---|
 | [总 SPEC §2、§7、§10](cg2d_full_reconstruction_plan.md) | 函数、布局、数据、分支、调用时序和真实流程逐项闭环 | 本体与局部证据持续增加；元数据与显式映射可追溯 | 全量分类、传递依赖、适用原新对照未闭合 | R01–R05、V01–V06 |
 | [DX x64 SPEC §10–16](../doc/cg2d_graphic_dx_cache_x64_spec.md) | 原生非拥有指针、32B 图项、48B 队列、共享 owner；SDL/CPU 替换保留上层契约 | 表/节点、双变换缓存、RenderChara、DrawAllQueued、507140 指定调用及初始化探测已有 | 完整清理、两树原 CRT 生命周期、模式 2/3/4 与像素对照未闭合 | C09、G01–G05 |
-| [文本 SPEC §2–3、§5–7](../doc/cg2d_text_encoding_spec.md) | 原字节权威、容量/NUL/索引和布局不变；现代转换逐项落实 | 连接提示原 12 字节已对齐；GDI 原字节消费及队列 case 4 已接 | 各来源编码、输入/IME 索引和既存额外门禁、字体/字形验收仍未闭合 | T01–T03、V04 |
+| [文本 SPEC §2–3、§5–7](../doc/cg2d_text_encoding_spec.md) | 原字节权威、容量/NUL/索引和布局不变；沿D05保留现有输入/显示边界 | 连接提示原 12 字节已对齐；GDI 原字节消费及队列 case 4 已接 | 各来源编码、输入/IME 索引和既存额外门禁、字体/字形验收仍未闭合 | T01–T03、V04 |
 | [创建 gate SPEC](../doc/cg2d_creation_gate_adaptation_spec.md) | 固定 entryGate=1 已按本轮委托裁决 | 显式参数完整本体已存在 | WorldUpdate 仍调用无参缺口；按已定方案改唯一接线 | P08 |
 | [网络排除接线 SPEC](../doc/cg2d_network_exclusion_wiring_spec.md) | 只排除两加解密叶；保留帧、队列、发送长度及状态副作用 | 上层组包/分发与两个真实接线位置已有 | 保留原帧/正文/状态，仅旁路加解密传明文；原父实现与互通仍待，不自定义分包 | P09、P10、U10 |
 | [CRT 宿主提案](../doc/cg2d_crt_host_migration_spec.md) | 受限宿主承接已获本轮具名裁决；私有库差异单列 | 已批准的窄替代继续有效；大量旧 CRT 本体已落位 | 按两个子SPEC落实真实提供者/分配域/应用语义，既有兼容层和真实流程验收保留 | C01–C12 |
 | [启动局部 SPEC](../doc/cg2d_startup_flow.md) | 原启动顺序、C/C++ 表、退出登记、唯一构析与共享对象 | 父入口/C5/浮点槽、多个 CRT provider、七共享槽和 14 标准流存储已有 | C++90 表、四 Init、登记数据、避免宿主双执行与完整退出 | C01–C04、V02 |
-| [stdio / 内存局部 SPEC](../doc/cg2d_stdio_contract.md)、[堆合同](../doc/cg2d_crt_memory_contract.md) | 原 FILE/描述符和分配域、正常失败、副作用及所有权保留 | 文件核心、流对象方法表、模式 2 和原堆外层已有 | 剩余调用点、codecvt 生产、模式 3 布局、应用分配域逐项处理 | C05、C08、C10–C12 |
+| [stdio / 内存局部 SPEC](../doc/cg2d_stdio_contract.md)、[堆合同](../doc/cg2d_crt_memory_contract.md) | 原 FILE/描述符和分配域、正常失败、副作用及所有权保留 | 文件核心、流对象方法表、模式 2 和原堆外层已有 | 剩余调用点、codecvt 生产、模式3整域宿主迁移、应用分配域逐项处理 | C05、C08、C10–C12 |
 | [世界/UI/战斗局部合同](../doc/cg2d_ui_window_runtime.md)、[战斗合同](../doc/ui_windows/shared_battle.md) | 真实路由及生产—消费—清理完整对应 | 多数页面本体、预览工厂、Yobi 生命周期和战斗分发已有 | 部分页父、旧表路由、目录/名单/版本数据、攻击生产与载荷清理 | P01–P08、U01–U11 |
 | [音频替换合同](../doc/cg2d_audio_update.md) | SDL 替换已批，上层状态/时序和播放验收仍保留 | 有局部播放、通知及退出实现 | 七入口与完整音频仍暂停，不从范围移除 | P11–P17、V05 |
 
@@ -65,7 +65,7 @@
 | “14 个标准流全局缺定义” | LegacyIos.cpp 已有六 filebuf、两输入流、六输出流的被动聚合存储 | 四个 Init、登记容量/别名、启动/退出仍待；不把被动存储当构造完成 |
 | “七项旧 UI/版本数据全缺定义” | LegacyUiRecord.cpp 已补 CC3E64/C8AF84/D30134/CF46D0 四 S32 | 缺定义收窄为 CA0478、CB1D1C、9A5C10；四标量运行时写者仍待 |
 | DX 速查仍称命中/DrawAllQueued/初始化探测缺失 | DrawAllQueued.cpp、GraphicHitTest.cpp、RendererResources.cpp 及后续合同已有本体/指定接线 | 更新 DX 当前速查，保留全场景清理/画面门禁 |
-| “异常元数据均未生产”或只提异常准备 | 已有六 TypeDescriptor、六 CatchableType、五数组/13 引用，PMD/匹配/范围选择等叶已补 | 5402AB、5407BC、54B123、ThrowInfo/x64 SDK 仍缺，不重做数据叶 |
+| “异常元数据均未生产”或只提异常准备 | 已有六 TypeDescriptor、六 CatchableType、五数组/13 引用，PMD/匹配/范围选择等叶已补 | 5402AB/5407BC/54B123私有职责按D02由宿主承接；真实caller/异常映射及SDK行为仍待，不手造ThrowInfo，不重做数据叶 |
 | “数组 helper 父调用待接” | 后续世界 1000、主宠物 5、浏览 5 三数组已接真实构析 helper 与 typed 回调 | 保留 C++/SEH/SDK 实际行为验收；原早期日志不改写 |
 | 某些机器记录 status/sources 注释仍保留旧“仅 extern/种子待” | 同记录的后续 boundary/数据绑定及源码已有增量 | R04 定点整理；本轮不改机器证据或批量重分状态，不能只读 status 得出全部缺口 |
 
@@ -75,7 +75,7 @@
 
 | 阶段 | 当前进度 | 距离阶段出口的实际差距 | 关联任务 |
 |---|---|---|---|
-| R0 基线/裁决 | IDA 基线、x64、SDL 自动驱动及主要范围已有裁决 | 运行环境冻结、图标/光标资源条件及具体未决适配；不能重设已定基线 | P01–P18、G05、V01 |
+| R0 基线/裁决 | IDA 基线、x64、SDL 自动驱动及主要范围已有裁决 | 运行环境冻结、图标/光标资源条件及既定适配实施；P07原事实仍缺，不能重设已定基线 | P01–P18、G05、V01 |
 | R1 全量盘点 | 3680 原元数据、1136 显式语义与 4 分类引用 | 全量函数/数据/导入/间接目标分母及未知归属未闭合 | R01–R04 |
 | R2 启动/主循环/退出 | MainLoop、状态更新、WinMain 与 CRT 父源码已有 | 实际 CRT 启用、共享构析、入口/退出所有传递依赖未闭合 | C01–C12、U11、V02 |
 | R3 平台/资源 | 地图、graphic、anime、输入及存档已有局部实现/接线 | 实际来源、生命周期、文件链、输入差异、原资源与音频尚缺 | G01、G05、T01–T03、P11–P17 |
@@ -127,7 +127,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | C09 / 图形双树 | 业务缓存已有，生命周期未闭 | 私有节点/空节点归宿主容器；应用清理时点/逐surface释放仍接全 | 不能只凭map存在称完成；[启动子SPEC](../doc/cg2d_crt_startup_lifecycle_spec.md) |
 | C10 / FILE 剩余原调用 | 核心/业务及filebuf库点已部分迁移 | 按下表逐个原点找父和阻断原因，只补当前差集 | [stdio](../doc/cg2d_stdio_contract.md)；不能把所有余点当可立即迁移，也不因计数齐而宣称文件验收 |
 | C11 / 应用分配域 | 原堆内部与已有宿主窄裁决并存；21应用calloc边界保留 | 逐调用登记批准范围、分配/释放配对与失败消费；需要迁移才依方案执行 | [内存合同](../doc/cg2d_crt_memory_contract.md)；不把21点统一改原堆或统一当未实现 |
-| C12 / 字符串与格式剩余 | 已接点及分类计数见§2 | 长度余1与格式余34逐原点处理；范围排除/音频/替换/待决不混算 | [字符串](../doc/cg2d_legacy_string_compare.md)、[stdio](../doc/cg2d_stdio_contract.md)；格式余12按P项实施/补证收口，旧点不重做 |
+| C12 / 字符串与格式剩余 | 已接点及分类计数见§2 | 长度余1与格式余34逐原点处理；范围排除/音频/替换/待实施或补证不混算 | [字符串](../doc/cg2d_legacy_string_compare.md)、[stdio](../doc/cg2d_stdio_contract.md)；格式余12按P项实施/补证收口，旧点不重做 |
 
 FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”仅为该函数原引用差集，不是新任务总数：
 
@@ -171,8 +171,8 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | G04 / 渲染替换差异 | SDL自动driver、CPU Back/Temp、DX原生ABI豁免已批 | 逐上层函数核RAND、W32/S16、坐标/色键/生命周期/提交序 | 仅DX边界豁免HRESULT/COM，不豁免上层；[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁) |
 | G05 / 原图标/光标 | 使用关系有记录，原资源取得/权限未闭合 | 明确合法可用原资源与读取条件 | 不重开原EXE、不造替代图/下载；[启动](../doc/cg2d_startup_flow.md)、[资源来源](../doc/cg2d_resource_sources.md) |
 | T01 / 文本生产消费合同 | 连接提示、原字节测宽/绘制与许多格式点已有 | 各来源编码、容量/NUL、共享存储、字节索引/像素单位逐链归档 | [文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)；不从单一繁体常量推出全工程代码页 |
-| T02 / 输入/IME差异 | 既有输入/IME与字节算法实现存在 | 核额外门禁、预清、快照、焦点/组合/提交及索引映射 | [输入](../doc/cg2d_input_context.md)、[IME](../doc/cg2d_ime_composition.md)；新API/转换策略需独立落实 |
-| T03 / 字体与显示 | 原字节TextOutA、共享Back DIB和case4已接 | 目标字体、字形、转换失败/不可表示/超长策略的适用范围 | [字体](../doc/cg2d_font_measure.md)、[文本SPEC](../doc/cg2d_text_encoding_spec.md)；原数据不被显示副本反写，实际画面留V04 |
+| T02 / 输入/IME差异 | 既有输入/IME与字节算法实现存在 | 核额外门禁、预清、快照、焦点/组合/提交及索引映射 | [输入](../doc/cg2d_input_context.md)、[IME](../doc/cg2d_ime_composition.md)；按D05保留现有A系边界，不新增Unicode/API迁移 |
+| T03 / 字体与显示 | 原字节TextOutA、共享Back DIB和case4已接 | 目标字体、字形、原字节显示边界及现有失败/超长处理的适用范围 | [字体](../doc/cg2d_font_measure.md)、[文本SPEC](../doc/cg2d_text_encoding_spec.md)；原数据不被显示副本反写，实际画面留V04 |
 
 ### 6.4 全量覆盖与最终验收
 

@@ -1,5 +1,7 @@
 # 窗口21：联系人与邮件列表
 
+> 2026-10-04状态核对：4A09B0/4A09E0与111元素后续均已落位；以下按实施顺序保留，早期“仍缺”不是当前缺口，完整邮件往返未验收。见[窗口索引](../cg2d_ui_window_runtime.md)。
+
 [总索引](../cg2d_ui_window_runtime.md) · [唯一进度](../../plan/cg2d_full_reconstruction_progress.md)
 
 <a id="window21-initial-layout"></a>

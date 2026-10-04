@@ -23,8 +23,8 @@ value | ((value | (value << 8)) << 8)
 
 达到 255 后背景写 `0x00FFFFFF`。未实现或伪造 8/16/24 位渲染分支。
 `gBackgroundColor@0x62B0A8` 由新的 `cg::render::SurfaceState` 唯一承载并按
-映像零初始化；真正清屏函数 `ClearSurface_4512C0` 对该 owner 的消费仍未实现，
-因此本项不表示最终清屏链闭合。
+映像零初始化；后续 `SurfaceState.cpp` 已实现 `ClearSurface_4512C0`，
+启动/主循环已有调用；完整清屏与场景画面仍未验收。
 
 状态 1 的私有 `sub_45EF80@[0x45EF80,0x45EFC3)` 使用精确 double 位模式
 `0x4030AAAAAAAAAAAB`，比较 `ReadTickCount32()` 是否严格大于

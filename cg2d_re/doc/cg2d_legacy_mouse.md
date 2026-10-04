@@ -6,7 +6,8 @@
 赋值，以及登录/角色选择代码已经依赖的坐标读取和三个位域引用。
 `World::CursorUpdate` 已在后续单项还原，见 `cg2d_legacy_cursor_update.md`；
 六个按键更新函数也已在后续单项还原，见 `cg2d_legacy_mouse_events.md`；
-`WIN_PROC` 仍未还原或接线。
+`WindowProcedure@466DC0` 后续已有本体，并由 `ClientEntry.cpp` 的窗口类接入；
+完整平台事件/鼠标输入仍未运行验收，见[启动合同](cg2d_startup_flow.md)。
 
 ## 连续布局
 

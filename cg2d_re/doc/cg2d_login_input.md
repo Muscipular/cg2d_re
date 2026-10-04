@@ -19,7 +19,8 @@
 当前实现把两个输入槽映射到 `LoginSavedState.cpp` 内唯一的完整当前保存记录
 `gCurrentSavedRecord`，`LoginInput.cpp` 只经私有窄 accessor 取得槽指针，不再保存
 独立 `char[51]` 副本。公共读写入口与上下文初始化器保持不变；现有 caller 未改，
-`sub_45CA20` 及登录提交和网络链仍未实现或接线。完整 owner 证据见
+`ProcessLoginInput_45CA20` 后续已在 `LoginInputController.cpp` 实现，并由登录场景调用；
+完整提交/收发仍依赖两帧父接线和实际互通，不能记作登录验收。完整 owner 证据见
 [`cg2d_current_saved_record.md`](cg2d_current_saved_record.md)。
 
 登录控件命中与鼠标位打包的独立证据见

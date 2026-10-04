@@ -7,6 +7,18 @@
 
 namespace cg::platform {
 
+// 原PMD三个连续S32位移；只作为异常对象校正数据，不生成宿主RTTI/ThrowInfo。
+struct LegacyExceptionPmd final {
+    std::int32_t memberDisplacement; // 原+00，先加到对象地址。
+    std::int32_t virtualBasePointerDisplacement; // 原+04，非负才从原对象此处读取虚基表指针。
+    std::int32_t virtualBaseDisplacement; // 原+08，虚基表内S32表项的字节位移。
+};
+static_assert(sizeof(LegacyExceptionPmd) == 12);
+static_assert(offsetof(LegacyExceptionPmd, virtualBasePointerDisplacement) == 4);
+static_assert(offsetof(LegacyExceptionPmd, virtualBaseDisplacement) == 8);
+// 仅显式校正非拥有对象地址；不补PMD值/元数据或启用异常主链。
+void* AdjustLegacyExceptionObject_5409E7(void* storage, const LegacyExceptionPmd* displacement);
+
 struct LegacyExceptionObject;
 
 // 原5501C8的两个真实方法槽；原生显式this，不是宿主C++虚表/RTTI/ThrowInfo。

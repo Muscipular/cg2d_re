@@ -4,6 +4,9 @@
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/Input.hpp"
 
+#include <bit>
+#include <cstring>
+
 namespace cg::platform {
 namespace {
 
@@ -450,6 +453,28 @@ void ThrowLegacyStringRange_54A899()
         TidyLegacyNarrowString_548E29(&message, true);
         throw;
     }
+}
+
+void* AdjustLegacyExceptionObject_5409E7(
+    void* const storage, const LegacyExceptionPmd* const displacement)
+{
+    auto* const object = static_cast<std::byte*>(storage);
+    const std::int32_t memberDisplacement = displacement->memberDisplacement;
+    const std::int32_t virtualBasePointerDisplacement = displacement->virtualBasePointerDisplacement;
+    auto* adjusted = object + memberDisplacement;
+    if (virtualBasePointerDisplacement >= 0) {
+        // 原表指针从原object读取，不能从已加memberDisplacement的地址读取。
+        const std::byte* virtualBaseTable;
+        std::memcpy(&virtualBaseTable, object + virtualBasePointerDisplacement, sizeof(virtualBaseTable));
+        const std::int32_t virtualBaseDisplacement = displacement->virtualBaseDisplacement;
+        std::int32_t tableDisplacement;
+        std::memcpy(&tableDisplacement, virtualBaseTable + virtualBaseDisplacement, sizeof(tableDisplacement));
+        // 原两S32位移相加先保留W32位模式，再作为有符号位移作用于已拓宽地址。
+        const std::uint32_t extraBits = std::bit_cast<std::uint32_t>(tableDisplacement)
+            + std::bit_cast<std::uint32_t>(virtualBasePointerDisplacement);
+        adjusted += std::bit_cast<std::int32_t>(extraBits);
+    }
+    return adjusted;
 }
 
 } // namespace cg::platform

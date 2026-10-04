@@ -42787,11 +42787,11 @@
     {
       "original_entry": "0x5409E7",
       "inventory_id": "F:001409E7",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "status": "原PMD异常对象地址校正本体源码已实现；原生PMD生产/异常父链及SDK运行未闭",
       "original_end_exclusive": "0x540A0A",
       "instruction_count": 15,
       "original_direct_reference_count": 4,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板；仅新15条/字段宽度/两读址/符号判别与返回新增静态，不复核旧异常体或运行",
       "inbound_evidence": [
         {
           "address": "0x54084B",
@@ -42810,11 +42810,39 @@
           "parent_entry": "0x5407BC"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "AdjustLegacyExceptionObject_5409E7"
+          ],
+          "relationship": "完整15条语义本体；三个S32/低W32位移算术、原object取虚基表及原生指针返回"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionPmd",
+            "AdjustLegacyExceptionObject_5409E7"
+          ],
+          "relationship": "三S32/12B已证数据与非拥有对象地址接口，不生成RTTI/ThrowInfo或补值"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "先以对象加PMD首位移；PMD第二位移非负时读对象内虚基表、加其第三位移查表值并叠加第二位移。原W32地址算法不可截断移植到x64。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "boundary": "先以对象加PMD首位移；PMD第二位移非负时读对象内虚基表、加其第三位移查表值并叠加第二位移。原W32地址算法不可截断移植到x64。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整15条源码落位：缓存mdisp/pdisp两个S32，先object+mdisp；pdisp非负才从原object+pdisp读取原生虚基表指针，再按vdisp字节位移取S32表项。表项+pdisp保持低W32再按S32作用于已拓宽地址，返回实际非拥有校正地址；不猜PMD/native类布局/类型生产，不将W32指针整数带入x64。实际原生地址读以固定大小字节复制表达，不依赖未证对齐/别名，不改对象/元数据或加空/范围/溢出保护。5407BC四父尚未实现/接线，PMD原生数据生产与SDK异常ABI仍待，不将源体计整条链或故障等价。",
+      "function_chunks": [
+        {
+          "start": "0x5409E7",
+          "end_exclusive": "0x540A0A"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "AdjustLegacyExceptionObject_5409E7",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x540A10",

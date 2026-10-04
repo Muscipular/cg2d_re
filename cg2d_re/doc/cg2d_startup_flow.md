@@ -1894,3 +1894,12 @@ Cpp5530F8/5530FC/553100只记录真实provider，整90表仍extern未启用，�
 原生记录40B：16B匹配前缀、12B PMD、U32对象字节数和原生复制回调地址；既有指针拓宽后对象24/48B，所以尺寸按对应完整原生类型sizeof计算，仍保持U32而非机械沿用12/28，不扩其他非地址字段。PMD三S32及属性保持，六已提交描述符真实首成员地址绑定；复制通过显式dst/src适配调用已过对应本体并丢弃原未消费的返回，无函数指针强转、宿主Ctor或额外生命周期。首成员/各偏移/40B约束，原数据/字段消费与绑定存到[cg2d_exception_catchable_data_evidence.json](cg2d_exception_catchable_data_evidence.json)。
 
 新数据可沿显式匹配/PMD及真实copy接口消费，但5407BC实际捕获/旧帧父还未实现接线；完整SDK CatchableType/ThrowInfo/RVA仍待，不定义LegacyCppThrowInfo、不称54B123/SDK传播或53B526/53B52D旧栈转接已承接。六文件九既有记录新增静态后独立提交，1110/未决18/分类4/业务与IO数组保持，适配不新增原函数身份；旧体不回核，不编译、测试、运行、坏指针模拟或hash校验，普通进度追加。
+
+
+### 五捕获数组顺序/共享数据局部SPEC（2026-10-04）
+
+工程裁决：原5515D8/551648/551800/551870/551928五数组完整已加载，数量S32依次3/2/3/2/3，13引用原序为failure→runtime_error→exception、runtime_error→exception、length_error→logic_error→exception、logic_error→exception、out_of_range→logic_error→exception。沿现有六个实际捕获对象类型记录定义五真实常量数组，派生/基类顺序与同一基类/中间类记录身份保持，不克隆记录、扩大数量或填空。
+
+数量保持S32，内联指针只原生拓宽，原生+08为列表起点，2/3项结构24/32B；源当前数组字节/S32查找证据/原生绑定保存到[cg2d_exception_catchable_array_evidence.json](cg2d_exception_catchable_array_evidence.json)。结构只承接这五数组，不生成宿主SDK相对RVA格式或自动安装/启用。LegacyCppThrowInfo继续不透明，5402AB查找/handler与帧父、54B123/SDK抛出传播仍未接线，不将数据层生产计整链完成。
+
+六文件三既有记录新增静态后独立提交，1110/未决18/分类4及全部业务/IO数组保持，无新原函数身份；旧匹配/PMD/成员算法不改或回核，未编译、测试、运行或hash核验，普通日志追加。

@@ -88,6 +88,23 @@ extern const LegacyExceptionCatchableObjectType gLegacyLogicErrorCatchable5517C0
 extern const LegacyExceptionCatchableObjectType gLegacyStringLengthCatchable5517E0;
 extern const LegacyExceptionCatchableObjectType gLegacyStringRangeCatchable551908;
 
+// 原捕获数组S32数量/内联非拥有指针列表；只承接五个已加载数组，不是SDK RVA数组。
+template <std::size_t Count>
+struct LegacyExceptionCatchableArrayStorage final {
+    std::int32_t count; // 原+00，5402AB按S32判断是否进入查找。
+    const LegacyExceptionCatchableObjectType* entries[Count]; // 原+04起；原生+08，仅地址拓宽。
+};
+static_assert(offsetof(LegacyExceptionCatchableArrayStorage<2>, count) == 0);
+static_assert(offsetof(LegacyExceptionCatchableArrayStorage<2>, entries) == 8);
+static_assert(offsetof(LegacyExceptionCatchableArrayStorage<3>, entries) == 8);
+static_assert(sizeof(LegacyExceptionCatchableArrayStorage<2>) == 24);
+static_assert(sizeof(LegacyExceptionCatchableArrayStorage<3>) == 32);
+extern const LegacyExceptionCatchableArrayStorage<3> gLegacyStreamFailureCatchableArray5515D8;
+extern const LegacyExceptionCatchableArrayStorage<2> gLegacyRuntimeErrorCatchableArray551648;
+extern const LegacyExceptionCatchableArrayStorage<3> gLegacyStringLengthCatchableArray551800;
+extern const LegacyExceptionCatchableArrayStorage<2> gLegacyLogicErrorCatchableArray551870;
+extern const LegacyExceptionCatchableArrayStorage<3> gLegacyStringRangeCatchableArray551928;
+
 // 原ThrowInfo仅此W32被5404FA读取；完整LegacyCppThrowInfo继续不透明。
 struct LegacyExceptionThrowInfoPrefix final {
     std::uint32_t attributes; // 原+00；一次缓存W32后核低位01/02。

@@ -220,6 +220,28 @@ const LegacyExceptionCatchableObjectType gLegacyStringRangeCatchable551908{
     CopyLegacyStringRangeErrorForCatch
 };
 
+// 原五捕获数组保持派生→基类顺序及同一基类记录共享；不产生SDK ThrowInfo/RVA。
+const LegacyExceptionCatchableArrayStorage<3> gLegacyStreamFailureCatchableArray5515D8{
+    3,
+    {&gLegacyStreamFailureCatchable5515B8, &gLegacyRuntimeErrorCatchable551598, &gLegacyExceptionCatchable551578}
+};
+const LegacyExceptionCatchableArrayStorage<2> gLegacyRuntimeErrorCatchableArray551648{
+    2,
+    {&gLegacyRuntimeErrorCatchable551598, &gLegacyExceptionCatchable551578}
+};
+const LegacyExceptionCatchableArrayStorage<3> gLegacyStringLengthCatchableArray551800{
+    3,
+    {&gLegacyStringLengthCatchable5517E0, &gLegacyLogicErrorCatchable5517C0, &gLegacyExceptionCatchable551578}
+};
+const LegacyExceptionCatchableArrayStorage<2> gLegacyLogicErrorCatchableArray551870{
+    2,
+    {&gLegacyLogicErrorCatchable5517C0, &gLegacyExceptionCatchable551578}
+};
+const LegacyExceptionCatchableArrayStorage<3> gLegacyStringRangeCatchableArray551928{
+    3,
+    {&gLegacyStringRangeCatchable551908, &gLegacyLogicErrorCatchable5517C0, &gLegacyExceptionCatchable551578}
+};
+
 LegacyExceptionObject* ConstructLegacyExceptionText_54B079(
     LegacyExceptionObject* const storage, const char* const* const sourceText)
 {

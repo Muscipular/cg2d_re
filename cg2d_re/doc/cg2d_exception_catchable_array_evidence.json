@@ -1,0 +1,274 @@
+{
+  "description": "当前IDA原五捕获数组的S32数量/顺序与实际六对象类型记录共享引用；原生内联指针数组只地址拓宽，不抄为SDK RVA或自动接线。",
+  "original_arrays": [
+    {
+      "address": "0x5515d8",
+      "name": "__CTA3?AVfailure@ios_base@std@@",
+      "count": 3,
+      "entries": [
+        "0x5515b8",
+        "0x551598",
+        "0x551578"
+      ],
+      "loaded_bytes": [
+        3,
+        0,
+        0,
+        0,
+        184,
+        21,
+        85,
+        0,
+        152,
+        21,
+        85,
+        0,
+        120,
+        21,
+        85,
+        0
+      ]
+    },
+    {
+      "address": "0x551648",
+      "name": "__CTA2?AVruntime_error@std@@",
+      "count": 2,
+      "entries": [
+        "0x551598",
+        "0x551578"
+      ],
+      "loaded_bytes": [
+        2,
+        0,
+        0,
+        0,
+        152,
+        21,
+        85,
+        0,
+        120,
+        21,
+        85,
+        0
+      ]
+    },
+    {
+      "address": "0x551800",
+      "name": "__CTA3?AVlength_error@std@@",
+      "count": 3,
+      "entries": [
+        "0x5517e0",
+        "0x5517c0",
+        "0x551578"
+      ],
+      "loaded_bytes": [
+        3,
+        0,
+        0,
+        0,
+        224,
+        23,
+        85,
+        0,
+        192,
+        23,
+        85,
+        0,
+        120,
+        21,
+        85,
+        0
+      ]
+    },
+    {
+      "address": "0x551870",
+      "name": "__CTA2?AVlogic_error@std@@",
+      "count": 2,
+      "entries": [
+        "0x5517c0",
+        "0x551578"
+      ],
+      "loaded_bytes": [
+        2,
+        0,
+        0,
+        0,
+        192,
+        23,
+        85,
+        0,
+        120,
+        21,
+        85,
+        0
+      ]
+    },
+    {
+      "address": "0x551928",
+      "name": "__CTA3?AVout_of_range@std@@",
+      "count": 3,
+      "entries": [
+        "0x551908",
+        "0x5517c0",
+        "0x551578"
+      ],
+      "loaded_bytes": [
+        3,
+        0,
+        0,
+        0,
+        8,
+        25,
+        85,
+        0,
+        192,
+        23,
+        85,
+        0,
+        120,
+        21,
+        85,
+        0
+      ]
+    }
+  ],
+  "original_count_iteration_evidence": [
+    [
+      "0x5403a3",
+      "mov     eax, [eax+0Ch]"
+    ],
+    [
+      "0x5403a6",
+      "lea     edi, [eax+4]"
+    ],
+    [
+      "0x5403a9",
+      "mov     eax, [eax]"
+    ],
+    [
+      "0x5403ab",
+      "test    eax, eax"
+    ],
+    [
+      "0x5403b0",
+      "jle     short loc_5403D1"
+    ],
+    [
+      "0x5403b5",
+      "push    dword ptr [edi]; struct _s_CatchableType *"
+    ],
+    [
+      "0x5403cc",
+      "cmp     [ebp+var_8], eax"
+    ],
+    [
+      "0x5403cf",
+      "jg      short loc_5403B2"
+    ]
+  ],
+  "native_bindings": [
+    {
+      "original_address": "0x5515D8",
+      "symbol": "gLegacyStreamFailureCatchableArray5515D8",
+      "count": 3,
+      "entry_addresses": [
+        "0x5515B8",
+        "0x551598",
+        "0x551578"
+      ],
+      "entry_symbols": [
+        "gLegacyStreamFailureCatchable5515B8",
+        "gLegacyRuntimeErrorCatchable551598",
+        "gLegacyExceptionCatchable551578"
+      ],
+      "source": "src/platform/LegacyException.cpp",
+      "storage_implemented": true,
+      "sdk_throwinfo_connected": false,
+      "handler_parent_connected": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x551648",
+      "symbol": "gLegacyRuntimeErrorCatchableArray551648",
+      "count": 2,
+      "entry_addresses": [
+        "0x551598",
+        "0x551578"
+      ],
+      "entry_symbols": [
+        "gLegacyRuntimeErrorCatchable551598",
+        "gLegacyExceptionCatchable551578"
+      ],
+      "source": "src/platform/LegacyException.cpp",
+      "storage_implemented": true,
+      "sdk_throwinfo_connected": false,
+      "handler_parent_connected": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x551800",
+      "symbol": "gLegacyStringLengthCatchableArray551800",
+      "count": 3,
+      "entry_addresses": [
+        "0x5517E0",
+        "0x5517C0",
+        "0x551578"
+      ],
+      "entry_symbols": [
+        "gLegacyStringLengthCatchable5517E0",
+        "gLegacyLogicErrorCatchable5517C0",
+        "gLegacyExceptionCatchable551578"
+      ],
+      "source": "src/platform/LegacyException.cpp",
+      "storage_implemented": true,
+      "sdk_throwinfo_connected": false,
+      "handler_parent_connected": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x551870",
+      "symbol": "gLegacyLogicErrorCatchableArray551870",
+      "count": 2,
+      "entry_addresses": [
+        "0x5517C0",
+        "0x551578"
+      ],
+      "entry_symbols": [
+        "gLegacyLogicErrorCatchable5517C0",
+        "gLegacyExceptionCatchable551578"
+      ],
+      "source": "src/platform/LegacyException.cpp",
+      "storage_implemented": true,
+      "sdk_throwinfo_connected": false,
+      "handler_parent_connected": false,
+      "runtime_verified": false
+    },
+    {
+      "original_address": "0x551928",
+      "symbol": "gLegacyStringRangeCatchableArray551928",
+      "count": 3,
+      "entry_addresses": [
+        "0x551908",
+        "0x5517C0",
+        "0x551578"
+      ],
+      "entry_symbols": [
+        "gLegacyStringRangeCatchable551908",
+        "gLegacyLogicErrorCatchable5517C0",
+        "gLegacyExceptionCatchable551578"
+      ],
+      "source": "src/platform/LegacyException.cpp",
+      "storage_implemented": true,
+      "sdk_throwinfo_connected": false,
+      "handler_parent_connected": false,
+      "runtime_verified": false
+    }
+  ],
+  "native_offsets": {
+    "count": 0,
+    "entries": 8,
+    "two_entry_bytes": 24,
+    "three_entry_bytes": 32
+  },
+  "boundary": "五数组13引用保留原序/共享身份，无复制基类记录或数量扩大；仅实际被动数据，不完成LegacyCppThrowInfo/54B123/5402AB、handler帧或SDK传播，不改已有匹配/成员/PMD算法。"
+}

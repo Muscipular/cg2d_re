@@ -477,4 +477,44 @@ void* AdjustLegacyExceptionObject_5409E7(
     return adjusted;
 }
 
+std::int32_t MatchLegacyExceptionType_5404FA(
+    const LegacyExceptionHandlerTypePrefix* const handler,
+    const LegacyExceptionCatchableTypePrefix* const catchable,
+    const LegacyExceptionThrowInfoPrefix* const throwInfo)
+{
+    const LegacyExceptionTypeDescriptorPrefix* const handlerType = handler->type;
+    if (handlerType == nullptr) {
+        return 1;
+    }
+    // 原名称内联在两个地址之后；不从cachedName取名称，也不读取后续未知字段。
+    const auto* const handlerName = reinterpret_cast<const char*>(handlerType + 1);
+    if (*handlerName == '\0') {
+        return 1;
+    }
+
+    const LegacyExceptionTypeDescriptorPrefix* const catchableType = catchable->type;
+    if (handlerType != catchableType) {
+        const auto* const catchableName = reinterpret_cast<const char*>(catchableType + 1);
+        if (StrCmp_5450F0(handlerName, catchableName) != 0) {
+            return 0;
+        }
+    }
+
+    // 原这里均为U8读取；各分支按原顺序读取handler属性，不提前缓存。
+    if ((*reinterpret_cast<const unsigned char*>(&catchable->properties) & 2u) != 0
+        && (*reinterpret_cast<const unsigned char*>(&handler->properties) & 8u) == 0) {
+        return 0;
+    }
+    const std::uint32_t attributes = throwInfo->attributes;
+    if ((attributes & 1u) != 0
+        && (*reinterpret_cast<const unsigned char*>(&handler->properties) & 1u) == 0) {
+        return 0;
+    }
+    if ((attributes & 2u) != 0
+        && (*reinterpret_cast<const unsigned char*>(&handler->properties) & 2u) == 0) {
+        return 0;
+    }
+    return 1;
+}
+
 } // namespace cg::platform

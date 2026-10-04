@@ -19,6 +19,40 @@ static_assert(offsetof(LegacyExceptionPmd, virtualBaseDisplacement) == 8);
 // 仅显式校正非拥有对象地址；不补PMD值/元数据或启用异常主链。
 void* AdjustLegacyExceptionObject_5409E7(void* storage, const LegacyExceptionPmd* displacement);
 
+// 原TypeDescriptor已证两个地址前缀；名称字节紧随前缀，不定义名称容量或宿主RTTI。
+struct LegacyExceptionTypeDescriptorMethods;
+struct LegacyExceptionTypeDescriptorPrefix final {
+    const LegacyExceptionTypeDescriptorMethods* methods; // 原+00方法表地址，本匹配函数不调用。
+    char* cachedName; // 原+04缓存地址；54AC66按原堆释放，本匹配函数不读取。
+};
+static_assert(sizeof(LegacyExceptionTypeDescriptorPrefix) == 16);
+static_assert(offsetof(LegacyExceptionTypeDescriptorPrefix, cachedName) == 8);
+
+// 原HandlerType/CatchableType只声明匹配所读前缀，不补后续字段、生产或默认值。
+struct LegacyExceptionHandlerTypePrefix final {
+    std::uint32_t properties; // 原+00；匹配按低U8读取位01/02/08。
+    const LegacyExceptionTypeDescriptorPrefix* type; // 原+04；空地址是原直接匹配分支。
+};
+struct LegacyExceptionCatchableTypePrefix final {
+    std::uint32_t properties; // 原+00；匹配只读低U8的位02。
+    const LegacyExceptionTypeDescriptorPrefix* type; // 原+04；描述符身份先于名称比较。
+};
+static_assert(sizeof(LegacyExceptionHandlerTypePrefix) == 16);
+static_assert(offsetof(LegacyExceptionHandlerTypePrefix, type) == 8);
+static_assert(sizeof(LegacyExceptionCatchableTypePrefix) == 16);
+static_assert(offsetof(LegacyExceptionCatchableTypePrefix, type) == 8);
+
+// 原ThrowInfo仅此W32被5404FA读取；完整LegacyCppThrowInfo继续不透明。
+struct LegacyExceptionThrowInfoPrefix final {
+    std::uint32_t attributes; // 原+00；一次缓存W32后核低位01/02。
+};
+static_assert(sizeof(LegacyExceptionThrowInfoPrefix) == 4);
+// 原5404FA返回完整S32的0/1；只消费真实原生前缀，不启用异常父链或生成SDK元数据。
+std::int32_t MatchLegacyExceptionType_5404FA(
+    const LegacyExceptionHandlerTypePrefix* handler,
+    const LegacyExceptionCatchableTypePrefix* catchable,
+    const LegacyExceptionThrowInfoPrefix* throwInfo);
+
 struct LegacyExceptionObject;
 
 // 原5501C8的两个真实方法槽；原生显式this，不是宿主C++虚表/RTTI/ThrowInfo。

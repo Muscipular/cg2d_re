@@ -42566,22 +42566,64 @@
     {
       "original_entry": "0x5404FA",
       "inventory_id": "F:001404FA",
-      "status": "原异常核心叶全本体已取证；新端承接与等价验收未完成",
+      "status": "原异常类型匹配完整语义本体源码已实现；实际元数据生产/异常父链及SDK运行未闭",
       "original_end_exclusive": "0x540557",
       "instruction_count": 42,
       "original_direct_reference_count": 1,
-      "verification_level": "完整指令及直接入向；54B123另核已加载模板",
+      "verification_level": "完整指令及直接入向；54B123另核已加载模板；新42条、字段读取时序与唯一5450F0真实调用静态核对，不回核已过比较算法或运行",
       "inbound_evidence": [
         {
           "address": "0x5403BA",
           "parent_entry": "0x5402AB"
         }
       ],
-      "sources": [],
+      "sources": [
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "MatchLegacyExceptionType_5404FA"
+          ],
+          "relationship": "完整42条语义本体；先空型/空名、身份/真实字符串比较，再顺序读取低U8属性与W32抛出属性"
+        },
+        {
+          "path": "src/platform/LegacyException.hpp",
+          "symbols": [
+            "LegacyExceptionTypeDescriptorPrefix",
+            "LegacyExceptionHandlerTypePrefix",
+            "LegacyExceptionCatchableTypePrefix",
+            "LegacyExceptionThrowInfoPrefix",
+            "MatchLegacyExceptionType_5404FA"
+          ],
+          "relationship": "仅已证读取前缀/原生非拥有地址/内联名称起点，无初值、全局元数据或完整SDK布局"
+        }
+      ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md"
       ],
-      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。"
+      "boundary": "空处理类型或空类型名匹配；否则先比较描述符身份、再比较+8处名称，随后核catchable位2/handler位8及throw位1/2与handler对应位。只确定原类型匹配，不以相同名字忽略属性。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04完整本体落位：handler.type空或内联名称首U8为0时直接返回S32 1且不读catchable/throwInfo；其余先比较同一描述符地址，不同才以真实StrCmp_5450F0比较原序两内联名称。同型/同名后核catchable低U8位02要求handler低U8位08，再一次读取ThrowInfo首W32，位01/02分别要求handler对应低U8位，否则S32 0。两个TypeDescriptor地址只拓宽，名称从已证两地址前缀之后取，不读缓存名；Handler/Catchable只定义W32+地址读取前缀，ThrowInfo只定义首W32视图。无空指针/范围保护或预清；真实原生元数据生产、5402AB唯一父、54B123/SDK异常主链仍未闭，不能直接转换原x86元数据或据此前缀声称原生SDK类型已生成。",
+      "function_chunks": [
+        {
+          "start": "0x5404FA",
+          "end_exclusive": "0x540557"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/LegacyException.cpp",
+        "symbol": "MatchLegacyExceptionType_5404FA",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "type_match_call_connections": [
+        {
+          "original_call": "0x540520",
+          "callee_entry": "0x5450F0",
+          "source": "src/platform/LegacyException.cpp",
+          "source_symbol": "MatchLegacyExceptionType_5404FA",
+          "callee_symbol": "StrCmp_5450F0",
+          "source_call_implemented": true,
+          "runtime_verified": false
+        }
+      ]
     },
     {
       "original_entry": "0x540557",

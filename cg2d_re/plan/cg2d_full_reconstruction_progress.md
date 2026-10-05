@@ -2111,3 +2111,12 @@ BNA01验证结论：整CPP两根11组11定义11处从HEAD精确重放，17 targe
 
 BNB01验证结论：整CPP单根14组14定义15处从HEAD精确重放，所有其它正文/属性和声明保持。原caster同解析位置/固定payload先skill、actor先level、2019/普通图号位置先表、target比较先pub/同位置空门禁、Take固定W32 flags与附加效果调用后live重读、AddAppendEffect target-level-skill、EffectList target先caster、基础及成功四组字段actor先值、99状态skill先actor/payload、2019 level-actor-减一-payload-S32余数原序有限静态通过。三种状态生产、固定payload跨144/EDI跨目标默认、2019在144后重新读取live level计算余数、全部原调用次数和初始空直接返回/循环Finish后仍caster终结-Move增58无RID、正确分派/关联头与消费者保持，不加默认/保护/异常模型。
 原主体400条1639B五页40call连续实际字节/全部直接出口，99..104直接六W32状态槽24B/默认不覆盖type、2019实际高表45B选槽4与原图20B、3001实际比较链、两个正确只读状态helper20条52B有限上下文通过；原表具名引用缺失在本步补齐并通过捕获保存与两JSON全部字段增量核对，未留下无来源引用。既有93尾12条53B/2call与HEAD逐指令一致非新增，本步新388条1586B/38call分列。全部捕获/保存字段、单根改前源码与旧812完整HEAD前态、两JSON完整指定增量、本次对象与六文档仅追加/七open进展及引用/锚点、UTF-8无BOM/LF通过。获准measure与-Check终态成功，派生快照全部字段指定增量一致；E425仅双域四局部I/S，所有其它指标/分类/完整成员与门禁保持。107等其它技能-全路由/完整父-SEH/所有消费者与owner重进退出失效/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/整体继续。未构建/测试/运行/计算摘要，不以该同主体或静态汇总宣完整功能/整体完成。
+
+## BNC01 战斗技能107角色与效果取样（2026-10-06）
+
+- **开发**：[具体SPEC](../doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision)先落后实施，单根五组五定义五处恢复同解析caster/target、固定payload先skill/actor先level、target比较先pub/同位置空门禁、Take固定W32 flags后caster先flags pub/再target-actor固定参数EffectList。原fpUsed/25-151-55-104、全部取包、初空Finish直接返回/循环空Finish仍终结-Move增58无RID保持；其它全部根/正确分派和声明不改，不新owner/保护/默认/异常模型。
+- **原端/映射**：[93条355B两页15call](../doc/cg2d_battle_m_skill107_sampling_evidence.json)主体42EB32..42EC95、六直接跳转均本组或父437A29，实际case107原202B入口仅有界上下文；无既有尾混计新增分母。旧812仅增五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员，不据原17298父统计验全功能。
+- **计量/剩余**：108等其它技能-全路由/完整父-SEH/全部消费者和owner重进退出借用失效/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/整体继续。语义1350/有效ID1345、片段5/分类456、YOBI55/BATTLE52/RENDER26/LOOP32、关联1463/3680=39.76%、R7区间67/3061/队列175、60任务已闭10/七open及完整门禁保持，E425→429仅双域四局部I/S。快照 `cg2d-re-battle-m-skill107-sampling-20261006`，本组14文件/用户既有六项排除；只必要静态/获准文本汇总，不构建/测试/运行/摘要/全面核对，网络原格式明文/音频暂停保持。
+
+BNC01验证结论：整CPP单根五组五定义五处从HEAD精确重放，全部其它正文/属性和声明保持。同解析caster/target、固定payload先skill与actor先level、target255比较先pub/同位置空门禁、Take固定W32 flags后live caster先flags pub/再target-actor固定参数EffectList原序有限静态通过；原fpUsed/25-151-55-104、全部调用次数与取包、初空Finish直接返回/循环空Finish后仍末终结Move增58无RID、正确分派/关联声明和消费者边界保持，不新默认/保护/owner/异常模型。
+实际主体93条355B两页15call连续字节/六直接跳转均本组或父437A29、case107实际202B定位表与五差异原EA通过；全部捕获/保存字段、单根源码及旧812完整HEAD前态一致，不增既有尾/上下文分母。两JSON完整指定增量及本步对象、六文档仅追加/七open进展及引用锚点、UTF-8无BOM/LF通过；获准measure及-Check终态成功，派生快照全部字段指定增量一致。E429仅双域四局部I/S，所有其它指标/分类/完整成员与门禁保持。108等其它技能-全路由/完整父-SEH/全部消费者与owner重进退出失效/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/整体继续；未构建/测试/运行/计算摘要，不以该93条正常主体或静态汇总代完整功能/整体完成。

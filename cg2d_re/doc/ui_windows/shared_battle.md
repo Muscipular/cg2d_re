@@ -8343,3 +8343,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNB01 共享战斗状态取样（2026-10-06）
 
 [单根14定义15处](../cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision)恢复99..104/2019/3001角色/字段与附加效果参数的原序；状态固定payload跨144保留、2019余数在144后重新live取样，三个原生产路径和无RID终结保持。[400条实际证据](../cg2d_battle_m_skill99_family_sampling_evidence.json)及原入口/表/图号有来源；旧812有界追加，不据主体或局部I/S验完整共享战斗、所有owner与画面运行。
+
+## BNC01 技能107角色与效果参数（2026-10-06）
+
+[单根五处](../cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision)明确初caster同解析位置及两字段原序、target255比较先pub/同位置判空、Take flags后live caster先发布flags，再target/actor-固定参数EffectList。[93条原主体](../cg2d_battle_m_skill107_sampling_evidence.json)与原四动作/无RID终结有来源，旧812只局部纳管，完整共享战斗-所有owner/画面运行另验。

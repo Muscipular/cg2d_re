@@ -4181,3 +4181,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNB01 技能99族14组15处实修（2026-10-06）
 
 [BNB01具体SPEC](cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision)和[原端证据](cg2d_battle_m_skill99_family_sampling_evidence.json)覆盖99..104/2019/3001同主体400条1639B五页40call：单根14定义15处恢复caster/target、固定flags/附加效果参数、字段与状态skill及2019余数取样。保三路径固定payload跨144、调用后live重读/原EDI跨目标默认、初始空返回/循环Finish-终结和末无RID；全部其它正文/头保持。原六槽24B、2019高入口45B/图20B和3001比较链、正确状态helper52B仅有界上下文；既有93尾12条53B非新增，不代完整父/消费者-owner/SDK-ABI-PC53-时钟RNG画面运行。
+
+## BNC01 技能107五处取样实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision)修复单根五处同解析caster/target、payload先skill/actor先level、target比较先pub及Take固定W32 flags-caster先pub/固定参数。[实际93条355B两页15call](cg2d_battle_m_skill107_sampling_evidence.json)含原入口202B上下文；25/151/55/104、初空直接返回/循环空Finish仍终结Move增58无RID和全部其它根头保持，不代完整父/所有消费者-owner-运行。

@@ -636,3 +636,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNB01 技能99族局部I/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-acceptance)限定单根14定义15处落码和[400条实际正文/原表上下文](cg2d_battle_m_skill99_family_sampling_evidence.json)。E421→425只增加YOBI/BATTLE四局部I/S；七任务open和完整门禁/完整成员保持。全部其它指标、分类与原基线不变，不以固定payload/具体主体和获准文本汇总替代完整父/SDK-ABI/owner/运行或R1/R7/R8。
+
+## BNC01 技能107局部I/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-acceptance)限定单根五定义五处落码和[93条实际正文/原202B表上下文](cg2d_battle_m_skill107_sampling_evidence.json)。E425→429仅YOBI/BATTLE四局部I/S；七任务open和全部完整门禁/完整成员及其它指标分类保持。完整父SEH/全部消费者-owner/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8不因局部证据或文本汇总退出0变pass。

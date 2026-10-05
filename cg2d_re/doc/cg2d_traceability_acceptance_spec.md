@@ -229,3 +229,10 @@ U10/R01/R04/V03仍open，P09/P10源码关闭状态保持；原帧/业务/明文�
 [三字段生产取证](cg2d_trade_target_production_spec.md#trade-target-production-source-state)只完成定点定位、采集器与范围冲突修正，未捕写者/证明容量/安装执行。旧51功能补当前依据和阻碍，原成员0、完整门禁和源本体状态不变；不登记客户端软件门禁或原处置通过。
 
 U02补具名open依据，原派生状态本来open，R02/R04/V03保持；整体指标/函数分母/语义数/范围及音频暂停、原格式明文不变。动态许可需按AGENTS第3/12条单独明确恢复，工具存在不解除限制。
+
+
+## APS01 音频暂停归属与实现/处置分开（2026-10-05）
+
+[23成员范围依据](cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state)补FUNC-AUDIO的七既定暂停根和16依赖，scope保持paused/成员未闭；不新增equivalent/adapted/host/excluded或客户端门禁。十六已知队列项保留原ID/定位缺口，派生为paused，需范围/映射核定75→59/明确暂停0→16只是队列分类。
+
+P11–P17/V05补当前open依据，原派生状态本来open，R01/R04保持。原处置342/3680、语义/软件证据、全部原分母/其他范围和完整门禁不提高；R1最终处置及完整音乐两链/生命周期/真实执行仍待，不能将已列原成员当已实现/已验收。

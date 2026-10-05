@@ -1421,9 +1421,34 @@
       "scope": "paused",
       "baseline_documents": [
         "doc/cg2d_audio_update.md",
-        "doc/cg2d_display_settings.md"
+        "doc/cg2d_display_settings.md",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:00054C30",
+        "F:00054EE0",
+        "F:00058AE0",
+        "F:000FDBD0",
+        "F:000FE0E0",
+        "F:0010E680",
+        "F:0012C3D0",
+        "F:00054FE0",
+        "F:00055030",
+        "F:00055100",
+        "F:00055260",
+        "F:00055280",
+        "F:000553B0",
+        "F:00055400",
+        "F:00055450",
+        "F:00055470",
+        "F:0012B710",
+        "F:0012B810",
+        "F:0012B880",
+        "F:0012BBE0",
+        "F:0012BD40",
+        "F:0012BE60",
+        "F:0012C160"
+      ],
       "closure_task_ids": [
         "P11",
         "P12",
@@ -1437,14 +1462,18 @@
       "dependencies": [],
       "acceptance_focus": "设备/资源、音量/循环/通知及退出；当前暂停",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-decision"
       ],
       "blockers": [
-        "用户暂停音频；基线成员和门禁证据待归档"
+        "用户暂停音频；基线成员和门禁证据待归档",
+        "APS01七既定暂停根及16固定MThd/COM、WAV/PCM/线程依赖已作范围关联；23成员不代源码或最终逐ID处置，原音频暂停持续。完整固定音乐与WAV两链/返回/参数/owner/失败/通知/音量/退出、未知alias、真实SDK/资源/运行及其他成员未闭，不用现有SDL WAV代全音频"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
     },
     {
       "id": "UI-M-001",
@@ -12612,7 +12641,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
       ]
     },
     {
@@ -12692,7 +12722,8 @@
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
-        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
       ]
     },
     {
@@ -12778,6 +12809,78 @@
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-gap",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
+      ]
+    },
+    {
+      "task_id": "P11",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P12",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P13",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P14",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P15",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P16",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "P17",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "V05",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
       ]
     }
   ],

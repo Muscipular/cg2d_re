@@ -56,7 +56,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-UIRUNTIME | included：公共窗口机制与旧表路由 | [shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_window_mouse_byte_spec](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline)、[cg2d_mouse_input_chain_spec](../doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline)、[cg2d_boundary_merged_identity_spec](../doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline)、[cg2d_legacy_line_sampling_spec](../doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline)、[cg2d_legacy_ui_add_arithmetic_spec](../doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline) | 11/49 | U04、U10、V04、U07 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-YOBI | included：Yobi创建更新与释放 | [cg2d_yobi_runtime](../doc/cg2d_yobi_runtime.md)、[cg2d_yobi_update_coverage](../doc/cg2d_yobi_update_coverage.md)、[cg2d_boundary_merged_identity_spec](../doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline) | 2/15 | U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-BATTLE | included：战斗状态与执行 | [shared_battle](../doc/ui_windows/shared_battle.md)、[battle_scene](../doc/yobi_updates/battle_scene.md)、[battle_actor](../doc/yobi_updates/battle_actor.md)、[cg2d_battle_attack_targets_spec](../doc/cg2d_battle_attack_targets_spec.md) | 1/21 | P01、U08、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-AUDIO | paused：音频状态与播放 | [cg2d_audio_update](../doc/cg2d_audio_update.md)、[cg2d_display_settings](../doc/cg2d_display_settings.md) | 0/8 | P11、P12、P13、P14、P15、P16、P17、V05 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-AUDIO | paused：音频状态与播放 | [cg2d_audio_update](../doc/cg2d_audio_update.md)、[cg2d_display_settings](../doc/cg2d_display_settings.md)、[cg2d_audio_paused_identity_spec](../doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline) | 23/8 | P11、P12、P13、P14、P15、P16、P17、V05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-001 | included：现代窗口1：状态栏与提示按钮 | [window_1](../doc/ui_windows/window_1.md) | 0/3 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-002 | included：现代窗口2：紧凑状态栏 | [window_2](../doc/ui_windows/window_2.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-003 | included：现代窗口3：折叠状态栏 | [window_3](../doc/ui_windows/window_3.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -236,21 +236,12 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 |---|---:|---|
 | 定位及语义关联均未登记 | 178 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
 | 语义身份尚未登记 | 0 | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |
-| 需先核范围/定位/身份 | 75 | 下方明细；不等于待实现或已允许运行的项数 |
-| 已明确暂停 / 具名排除的本队列项 | 0 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
+| 需先核范围/定位/身份 | 59 | 下方明细；不等于待实现或已允许运行的项数 |
+| 已明确暂停 / 具名排除的本队列项 | 16 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
 | 已处置纯NOP元数据项 | 1 | 保留原库存/队列身份；不计源码实现或范围排除，不为填充生成空函数 |
 
 | 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |
 |---|---|---|---|---|---|
-| mapping_location_unrecorded | F:00054FE0 | 0x454FE0 | sub_454FE0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055030 | 0x455030 | sub_455030 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055100 | 0x455100 | sub_455100 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055260 | 0x455260 | sub_455260 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055280 | 0x455280 | World::PlayFixedBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:000553B0 | 0x4553B0 | World::PlaySegment | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055400 | 0x455400 | sub_455400 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055450 | 0x455450 | World::StopBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:00055470 | 0x455470 | sub_455470 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:000FD9F0 | 0x4FD9F0 | sub_4FD9F0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:000FDA00 | 0x4FDA00 | sub_4FDA00 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:000FDD70 | 0x4FDD70 | sub_4FDD70 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
@@ -260,13 +251,6 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | mapping_location_unrecorded | F:000FE320 | 0x4FE320 | sub_4FE320 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:000FE370 | 0x4FE370 | sub_4FE370 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:000FE3B0 | 0x4FE3B0 | sub_4FE3B0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012B710 | 0x52B710 | sub_52B710 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012B810 | 0x52B810 | sub_52B810 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012B880 | 0x52B880 | sub_52B880 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012BBE0 | 0x52BBE0 | sub_52BBE0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012BD40 | 0x52BD40 | SoundThreadMain | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012BE60 | 0x52BE60 | World::LoadAndPlayBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0012C160 | 0x52C160 | sub_52C160 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0013B498 | 0x53B498 | __ftol | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0013BDC0 | 0x53BDC0 | __alloca_probe | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0013D000 | 0x53D000 | __CIpow | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |

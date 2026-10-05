@@ -1,0 +1,818 @@
+{
+  "schema_version": 1,
+  "scope": "APS01七既定暂停根+16原音频依赖的范围关联；不验全部本体/源码/ABI或执行，不新原处置/完成声明",
+  "snapshot": "cg2d-re-audio-paused-identity-20261005",
+  "known_paused_roots": [
+    {
+      "entry": "0x454c30",
+      "end_exclusive": "0x454ed7",
+      "instruction_count": 225,
+      "inbound_references": [
+        {
+          "site": "0x45793f",
+          "type": 17,
+          "parent_entry": "0x4576b0"
+        }
+      ],
+      "inventory_id": "F:00054C30",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x454ee0",
+      "end_exclusive": "0x454fd4",
+      "instruction_count": 86,
+      "inbound_references": [
+        {
+          "site": "0x454c49",
+          "type": 17,
+          "parent_entry": "0x454c30"
+        },
+        {
+          "site": "0x457a54",
+          "type": 17,
+          "parent_entry": "0x457a40"
+        }
+      ],
+      "inventory_id": "F:00054EE0",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x458ae0",
+      "end_exclusive": "0x458db5",
+      "instruction_count": 268,
+      "inbound_references": [
+        {
+          "site": "0x458dc0",
+          "type": 17,
+          "parent_entry": "0x458dc0"
+        }
+      ],
+      "inventory_id": "F:00058AE0",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x4fdbd0",
+      "end_exclusive": "0x4fdd62",
+      "instruction_count": 126,
+      "inbound_references": [],
+      "inventory_id": "F:000FDBD0",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x4fe0e0",
+      "end_exclusive": "0x4fe312",
+      "instruction_count": 173,
+      "inbound_references": [],
+      "inventory_id": "F:000FE0E0",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x50e680",
+      "end_exclusive": "0x50e6b3",
+      "instruction_count": 18,
+      "inbound_references": [
+        {
+          "site": "0x515e22",
+          "type": 17,
+          "parent_entry": "0x512e40"
+        }
+      ],
+      "inventory_id": "F:0010E680",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    },
+    {
+      "entry": "0x52c3d0",
+      "end_exclusive": "0x52c449",
+      "instruction_count": 42,
+      "inbound_references": [
+        {
+          "site": "0x494a44",
+          "type": 17,
+          "parent_entry": "0x4949c0"
+        },
+        {
+          "site": "0x494b66",
+          "type": 17,
+          "parent_entry": "0x494ae0"
+        },
+        {
+          "site": "0x494c94",
+          "type": 17,
+          "parent_entry": "0x494c10"
+        },
+        {
+          "site": "0x494db6",
+          "type": 17,
+          "parent_entry": "0x494d30"
+        },
+        {
+          "site": "0x4fdd83",
+          "type": 17,
+          "parent_entry": "0x4fdd70"
+        },
+        {
+          "site": "0x4fddd2",
+          "type": 17,
+          "parent_entry": "0x4fddc0"
+        }
+      ],
+      "inventory_id": "F:0012C3D0",
+      "basis": "既有pending_records具名用户暂停入口，不新增暂停授权"
+    }
+  ],
+  "fixed_music_chain": [
+    {
+      "entry": "0x454fe0",
+      "end_exclusive": "0x45502f",
+      "instruction_count": 31,
+      "calls": [
+        {
+          "site": "0x454ff2",
+          "instruction": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "site": "0x455015",
+          "instruction": "call    dword ptr [ecx+18h]"
+        },
+        {
+          "site": "0x455029",
+          "instruction": "call    dword ptr [ecx+8]"
+        }
+      ],
+      "inventory_id": "F:00054FE0",
+      "scope_role": "固定音乐加载链COM调用叶",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455030",
+      "end_exclusive": "0x455100",
+      "instruction_count": 60,
+      "calls": [
+        {
+          "site": "0x455089",
+          "instruction": "call    dword ptr [edx]"
+        },
+        {
+          "site": "0x4550ee",
+          "instruction": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "site": "0x4550f8",
+          "instruction": "call    dword ptr [ecx+8]"
+        }
+      ],
+      "inventory_id": "F:00055030",
+      "scope_role": "初始化和固定音乐共用COM调用体",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455100",
+      "end_exclusive": "0x455259",
+      "instruction_count": 99,
+      "calls": [
+        {
+          "site": "0x455112",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x4551a6",
+          "instruction": "call    _mbstowcs"
+        },
+        {
+          "site": "0x4551ce",
+          "instruction": "call    dword ptr [edx+0Ch]"
+        },
+        {
+          "site": "0x4551ff",
+          "instruction": "call    dword ptr [edx+10h]"
+        },
+        {
+          "site": "0x45520b",
+          "instruction": "call    sub_454FE0"
+        },
+        {
+          "site": "0x455233",
+          "instruction": "call    dword ptr [ecx+10h]"
+        },
+        {
+          "site": "0x455242",
+          "instruction": "call    dword ptr [ecx+8]"
+        }
+      ],
+      "inventory_id": "F:00055100",
+      "scope_role": "音乐初始化COM调用体（含文本转换）",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455260",
+      "end_exclusive": "0x45527a",
+      "instruction_count": 8,
+      "calls": [
+        {
+          "site": "0x45526c",
+          "instruction": "call    dword ptr [ecx+8]"
+        }
+      ],
+      "inventory_id": "F:00055260",
+      "scope_role": "音乐关闭链COM调用叶",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455280",
+      "end_exclusive": "0x4553ac",
+      "instruction_count": 70,
+      "calls": [
+        {
+          "site": "0x455298",
+          "instruction": "call    World__StopBGM"
+        },
+        {
+          "site": "0x4552a9",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x455360",
+          "instruction": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "site": "0x455386",
+          "instruction": "call    sub_455030"
+        },
+        {
+          "site": "0x455393",
+          "instruction": "call    sub_455470"
+        },
+        {
+          "site": "0x45539b",
+          "instruction": "call    World__PlaySegment"
+        }
+      ],
+      "inventory_id": "F:00055280",
+      "scope_role": "两固定MThd音乐源加载并沿既有停止/播放链执行",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x4553b0",
+      "end_exclusive": "0x455400",
+      "instruction_count": 29,
+      "calls": [
+        {
+          "site": "0x4553d1",
+          "instruction": "call    sub_455400"
+        },
+        {
+          "site": "0x4553f3",
+          "instruction": "call    dword ptr [ecx+10h]"
+        }
+      ],
+      "inventory_id": "F:000553B0",
+      "scope_role": "固定音乐片段播放调用体",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455400",
+      "end_exclusive": "0x45544b",
+      "instruction_count": 23,
+      "calls": [
+        {
+          "site": "0x455444",
+          "instruction": "call    dword ptr [edx+88h]"
+        }
+      ],
+      "inventory_id": "F:00055400",
+      "scope_role": "片段播放前COM调用叶",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455450",
+      "end_exclusive": "0x45546e",
+      "instruction_count": 13,
+      "calls": [
+        {
+          "site": "0x455465",
+          "instruction": "call    dword ptr [ecx+14h]"
+        }
+      ],
+      "inventory_id": "F:00055450",
+      "scope_role": "固定音乐链停止调用体",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x455470",
+      "end_exclusive": "0x45548b",
+      "instruction_count": 11,
+      "calls": [
+        {
+          "site": "0x455482",
+          "instruction": "call    dword ptr [ecx+18h]"
+        }
+      ],
+      "inventory_id": "F:00055470",
+      "scope_role": "固定音乐加载后COM调用叶",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    }
+  ],
+  "wave_pcm_chain": [
+    {
+      "entry": "0x52b710",
+      "end_exclusive": "0x52b810",
+      "instruction_count": 114,
+      "calls": [
+        {
+          "site": "0x52b757",
+          "instruction": "call    edi ; mmioDescend"
+        },
+        {
+          "site": "0x52b77c",
+          "instruction": "call    edi ; mmioDescend"
+        },
+        {
+          "site": "0x52b794",
+          "instruction": "call    ds:mmioRead"
+        },
+        {
+          "site": "0x52b7c0",
+          "instruction": "call    ds:mmioAscend"
+        },
+        {
+          "site": "0x52b7e9",
+          "instruction": "call    edi ; mmioDescend"
+        }
+      ],
+      "inventory_id": "F:0012B710",
+      "scope_role": "RIFF/WAVE fmt与data查找",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52b810",
+      "end_exclusive": "0x52b877",
+      "instruction_count": 45,
+      "calls": [
+        {
+          "site": "0x52b82e",
+          "instruction": "call    dword ptr [eax+2Ch]"
+        },
+        {
+          "site": "0x52b848",
+          "instruction": "call    ds:mmioRead"
+        },
+        {
+          "site": "0x52b85e",
+          "instruction": "call    dword ptr [edx+4Ch]"
+        }
+      ],
+      "inventory_id": "F:0012B810",
+      "scope_role": "波形PCM写入原播放缓冲",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52b880",
+      "end_exclusive": "0x52b8d2",
+      "instruction_count": 27,
+      "calls": [
+        {
+          "site": "0x52b8c5",
+          "instruction": "call    dword ptr [edx+0Ch]"
+        }
+      ],
+      "inventory_id": "F:0012B880",
+      "scope_role": "波形播放缓冲创建",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52bbe0",
+      "end_exclusive": "0x52bd31",
+      "instruction_count": 133,
+      "calls": [
+        {
+          "site": "0x52bc17",
+          "instruction": "call    dword ptr [ecx+2Ch]"
+        },
+        {
+          "site": "0x52bd28",
+          "instruction": "call    dword ptr [ecx+4Ch]"
+        }
+      ],
+      "inventory_id": "F:0012BBE0",
+      "scope_role": "流式PCM填充",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52bd40",
+      "end_exclusive": "0x52be59",
+      "instruction_count": 85,
+      "calls": [
+        {
+          "site": "0x52bd71",
+          "instruction": "call    sub_52BBE0"
+        },
+        {
+          "site": "0x52bda1",
+          "instruction": "call    esi ; WaitForMultipleObjects"
+        },
+        {
+          "site": "0x52bdc2",
+          "instruction": "call    ebp ; ExitThread"
+        },
+        {
+          "site": "0x52bdcb",
+          "instruction": "call    ebp ; ExitThread"
+        },
+        {
+          "site": "0x52be08",
+          "instruction": "call    sub_52BBE0"
+        },
+        {
+          "site": "0x52be4c",
+          "instruction": "call    sub_52BBE0"
+        }
+      ],
+      "inventory_id": "F:0012BD40",
+      "scope_role": "流式播放线程与通知",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52be60",
+      "end_exclusive": "0x52c15c",
+      "instruction_count": 286,
+      "calls": [
+        {
+          "site": "0x52beaf",
+          "instruction": "call    sub_52B8E0"
+        },
+        {
+          "site": "0x52bf17",
+          "instruction": "call    ds:mmioOpenA"
+        },
+        {
+          "site": "0x52bf3a",
+          "instruction": "call    sub_52B710"
+        },
+        {
+          "site": "0x52bf75",
+          "instruction": "call    _fopen"
+        },
+        {
+          "site": "0x52bf90",
+          "instruction": "call    _fseek"
+        },
+        {
+          "site": "0x52bf96",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bf9e",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bfbf",
+          "instruction": "call    _fseek"
+        },
+        {
+          "site": "0x52bfc5",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bfcd",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bfd8",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bfe3",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bff6",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52bffe",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52c009",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52c014",
+          "instruction": "call    _fgetc"
+        },
+        {
+          "site": "0x52c01f",
+          "instruction": "call    _fclose"
+        },
+        {
+          "site": "0x52c035",
+          "instruction": "call    sub_52C160"
+        },
+        {
+          "site": "0x52c05d",
+          "instruction": "call    ds:mmioClose"
+        },
+        {
+          "site": "0x52c07a",
+          "instruction": "call    dword ptr [ecx+44h]"
+        },
+        {
+          "site": "0x52c0ae",
+          "instruction": "call    dword ptr [ebx+3Ch]"
+        },
+        {
+          "site": "0x52c0c9",
+          "instruction": "call    dword ptr [edx+30h]"
+        },
+        {
+          "site": "0x52c0e3",
+          "instruction": "call    sub_52B880"
+        },
+        {
+          "site": "0x52c104",
+          "instruction": "call    sub_52B810"
+        },
+        {
+          "site": "0x52c125",
+          "instruction": "call    dword ptr [ecx+30h]"
+        },
+        {
+          "site": "0x52c12e",
+          "instruction": "call    ds:GetTickCount"
+        }
+      ],
+      "inventory_id": "F:0012BE60",
+      "scope_role": "WAV BGM加载播放父",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    },
+    {
+      "entry": "0x52c160",
+      "end_exclusive": "0x52c3c9",
+      "instruction_count": 202,
+      "calls": [
+        {
+          "site": "0x52c1a5",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x52c1b9",
+          "instruction": "call    _malloc"
+        },
+        {
+          "site": "0x52c1db",
+          "instruction": "call    ds:mmioRead"
+        },
+        {
+          "site": "0x52c226",
+          "instruction": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "site": "0x52c234",
+          "instruction": "call    free"
+        },
+        {
+          "site": "0x52c257",
+          "instruction": "call    dword ptr [ecx]"
+        },
+        {
+          "site": "0x52c264",
+          "instruction": "call    free"
+        },
+        {
+          "site": "0x52c27c",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x52c298",
+          "instruction": "call    esi ; CreateEventA"
+        },
+        {
+          "site": "0x52c2a3",
+          "instruction": "call    esi ; CreateEventA"
+        },
+        {
+          "site": "0x52c2ae",
+          "instruction": "call    esi ; CreateEventA"
+        },
+        {
+          "site": "0x52c2f0",
+          "instruction": "call    dword ptr [ecx+0Ch]"
+        },
+        {
+          "site": "0x52c303",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x52c313",
+          "instruction": "call    free"
+        },
+        {
+          "site": "0x52c327",
+          "instruction": "call    dword ptr [ecx+8]"
+        },
+        {
+          "site": "0x52c39c",
+          "instruction": "call    ds:CreateThread"
+        }
+      ],
+      "inventory_id": "F:0012C160",
+      "scope_role": "流式BGM缓冲/事件/线程创建",
+      "role_is_scoping_only": true,
+      "has_new_implementation_claim": false
+    }
+  ],
+  "fixed_music_inbound_and_string_metadata": [
+    {
+      "entry": "0x454fe0",
+      "references": [
+        {
+          "site": "0x45520b",
+          "type": 17,
+          "parent": "0x455100",
+          "instruction": "call    sub_454FE0"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455030",
+      "references": [
+        {
+          "site": "0x454ec7",
+          "type": 17,
+          "parent": "0x454c30",
+          "instruction": "call    sub_455030"
+        },
+        {
+          "site": "0x455386",
+          "type": 17,
+          "parent": "0x455280",
+          "instruction": "call    sub_455030"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455100",
+      "references": [
+        {
+          "site": "0x454ebe",
+          "type": 17,
+          "parent": "0x454c30",
+          "instruction": "call    sub_455100"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455260",
+      "references": [
+        {
+          "site": "0x454ee1",
+          "type": 17,
+          "parent": "0x454ee0",
+          "instruction": "call    sub_455260"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455280",
+      "references": [
+        {
+          "site": "0x50e696",
+          "type": 17,
+          "parent": "0x50e680",
+          "instruction": "call    World__PlayFixedBGM"
+        }
+      ],
+      "strings": [
+        {
+          "site": "0x455313",
+          "address": "0x556bf8",
+          "bytes": "4d5468640601304d54",
+          "instruction": "mov     [esp+350h+var_350.pbMemData], offset aMthd; \"MThd\\x00\\x00\\x00\\x06\\x00\\x00\\x00\\x01\"..."
+        },
+        {
+          "site": "0x455336",
+          "address": "0x556744",
+          "bytes": "4d546864060108604d54726b1b",
+          "instruction": "mov     [esp+350h+var_350.pbMemData], offset aMthd_0; \"MThd\\x00\\x00\\x00\\x06\\x00\\x01\\x00\\b\\x00`\"..."
+        }
+      ]
+    },
+    {
+      "entry": "0x4553b0",
+      "references": [
+        {
+          "site": "0x45539b",
+          "type": 17,
+          "parent": "0x455280",
+          "instruction": "call    World__PlaySegment"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455400",
+      "references": [
+        {
+          "site": "0x4553d1",
+          "type": 17,
+          "parent": "0x4553b0",
+          "instruction": "call    sub_455400"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455450",
+      "references": [
+        {
+          "site": "0x455298",
+          "type": 17,
+          "parent": "0x455280",
+          "instruction": "call    World__StopBGM"
+        }
+      ],
+      "strings": []
+    },
+    {
+      "entry": "0x455470",
+      "references": [
+        {
+          "site": "0x455393",
+          "type": 17,
+          "parent": "0x455280",
+          "instruction": "call    sub_455470"
+        }
+      ],
+      "strings": []
+    }
+  ],
+  "fixed_music_headers": [
+    {
+      "address": "0x556bf8",
+      "read_bytes": 16,
+      "raw_bytes": "4d546864000000060000000100304d54",
+      "scope": "只核固定音乐源的MThd头，不解码或确认整个MIDI资源/播放"
+    },
+    {
+      "address": "0x556744",
+      "read_bytes": 16,
+      "raw_bytes": "4d546864000000060001000800604d54",
+      "scope": "只核固定音乐源的MThd头，不解码或确认整个MIDI资源/播放"
+    }
+  ],
+  "member_inventory_ids": [
+    "F:00054C30",
+    "F:00054EE0",
+    "F:00058AE0",
+    "F:000FDBD0",
+    "F:000FE0E0",
+    "F:0010E680",
+    "F:0012C3D0",
+    "F:00054FE0",
+    "F:00055030",
+    "F:00055100",
+    "F:00055260",
+    "F:00055280",
+    "F:000553B0",
+    "F:00055400",
+    "F:00055450",
+    "F:00055470",
+    "F:0012B710",
+    "F:0012B810",
+    "F:0012B880",
+    "F:0012BBE0",
+    "F:0012BD40",
+    "F:0012BE60",
+    "F:0012C160"
+  ],
+  "classification": {
+    "feature_id": "FUNC-AUDIO",
+    "feature_scope": "paused",
+    "member_inventory_closed": false,
+    "new_function_dispositions": 0,
+    "new_semantic_records": 0,
+    "new_software_evidence": 0,
+    "new_exclusions": 0,
+    "source_implementation_changed": false
+  },
+  "limitation": "边界/指令数属原元数据，call/MThd只证本组用途；不代完整返回/参数/COM/线程/所有alias/全部音频源，IDA字符串元数据不是原二进制数据，原头另读16B。现有音频暂停持续，不扩大到未列UI/非音频父。"
+}

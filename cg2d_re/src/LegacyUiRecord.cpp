@@ -11943,10 +11943,16 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
     const std::int32_t y = gLegacyGatherResultPanel583A38.y;
     LegacyPanelButtonRecord button {x + 140, y + 418, x + 100, y + 408, 80, 20, 23395, 23396};
     GraphicDescriptor16 descriptor {};
-    descriptor.bytes[8] = 0xFF;
-    descriptor.bytes[9] = 0xFF;
-    descriptor.bytes[10] = 0xFF;
-    descriptor.bytes[11] = 0xFF;
+    // 原4EDB54–4EDBAB保留重叠的三W32零/两W16零/一W32颜色和一W8标志写序。
+    const std::uint32_t descriptorZero32 = 0;
+    const std::uint16_t descriptorZero16 = 0;
+    const std::uint32_t descriptorColor = 0xFFFFFFFFu;
+    std::memcpy(descriptor.bytes.data() + 2, &descriptorZero32, sizeof(descriptorZero32));
+    std::memcpy(descriptor.bytes.data() + 6, &descriptorZero32, sizeof(descriptorZero32));
+    std::memcpy(descriptor.bytes.data() + 10, &descriptorZero32, sizeof(descriptorZero32));
+    std::memcpy(descriptor.bytes.data(), &descriptorZero16, sizeof(descriptorZero16));
+    std::memcpy(descriptor.bytes.data() + 14, &descriptorZero16, sizeof(descriptorZero16));
+    std::memcpy(descriptor.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));
     descriptor.bytes[13] = 4;
     const std::int32_t state = Sub_503160(opened, &gLegacyGatherResultPanel583A38, nullptr, 1);
     if (state == 0) {
@@ -11976,8 +11982,9 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         const std::int32_t mapped = Sub_504C50(GetYobiActionField2A8(action), requestedImage);
         action = gLegacyGatherResultActionD67CD4;
         if (mapped != GetYobiActionField2A8(action)) {
+            const bool belowRebirthRange = mapped < 110350;
             SetYobiActionField2A8(action, mapped);
-            if (mapped >= 110350 && mapped <= 110373) {
+            if (!belowRebirthRange && mapped <= 110373) {
                 SetYobiActionField309(gLegacyGatherResultActionD67CD4, 4);
                 SetYobiActionField310(gLegacyGatherResultActionD67CD4, 4);
             } else {
@@ -12052,14 +12059,19 @@ std::uintptr_t Sub_4EDB20(const std::int32_t opened)
         drawAt(ui::detail::BorrowGatherResultNameD2DA94(), 136 - width / 2, 91, 0);
         const std::int32_t image = ui::detail::ReadGatherResultImageCF3FF0();
         const std::int32_t top = gLegacyGatherResultPanel583A38.y;
+        const std::int32_t imageY = top + 184;
         const std::int32_t left = gLegacyGatherResultPanel583A38.x;
-        static_cast<void>(DrawGraphic(left + 192, top + 184, 213, image, 0, &descriptor));
+        static_cast<void>(DrawGraphic(left + 192, imageY, 213, image, 0, &descriptor));
         drawAt(ui::detail::BorrowGatherResultSuffixCB1E1C(), 10, 114, 0);
     }
     for (std::int32_t row = 0; row < 8; ++row) {
         if (input::ExtractLegacyLine_503AB0(
                 buffer, 256, ui::detail::BorrowGatherResultDetailsCC190C(), row, 28) != 0) {
-            drawAt(buffer, 10, 237 + 20 * row, 0);
+            const std::int32_t top = gLegacyGatherResultPanel583A38.y;
+            const std::int32_t lineY = top + 20 * row + 237;
+            const std::int32_t left = gLegacyGatherResultPanel583A38.x;
+            static_cast<void>(DrawText(static_cast<std::int16_t>(left + 10),
+                static_cast<std::int16_t>(lineY), 2, 0, 0, buffer, 0, 0));
         }
     }
     if (Sub_503590(&gLegacyGatherResultPanel583A38) != 0) {

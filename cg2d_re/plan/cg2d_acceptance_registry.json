@@ -1574,7 +1574,8 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1589,7 +1590,8 @@
         "F:00103AB0",
         "F:000A0640",
         "F:000FACE0",
-        "F:000EF5F0"
+        "F:000EF5F0",
+        "F:000EDB20"
       ],
       "closure_task_ids": [
         "U04",
@@ -1610,14 +1612,16 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07",
         "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数",
-        "UPS01旧页共用预览三入口身份/一X587B用途纳管，结果判定先于图号读取已修；一代码片段不是库存函数，两F同YOBI。八父/所有页面和外层路由/数据资源、owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭，不计完整旧UI通过"
+        "UPS01旧页共用预览三入口身份/一X587B用途纳管，结果判定先于图号读取已修；一代码片段不是库存函数，两F同YOBI。八父/所有页面和外层路由/数据资源、owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭，不计完整旧UI通过",
+        "GRS01真实旧39采集结果父四取样/descriptor宽度片段已修，一旧F纳管/同UI-L-039；437条1538B保存与空入向只相关局部，不代旧57C368路由/所有数据资源/完整页面和owner寿命/SDK/ABI/PC53/RNG/画面运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1626,7 +1630,8 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -4627,9 +4632,12 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_gather_result.md"
+        "doc/ui_windows/legacy_gather_result.md",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000EDB20"
+      ],
       "closure_task_ids": [
         "U04",
         "V04"
@@ -4638,13 +4646,18 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "GRS01既有采集结果父四片段已修，原state0/2/对象复读与创建失败/原结果与FP门禁/消息/重试/格式/详情/尾返回保持，一旧F身份追加并关联公共UI；空原入向集合不证明不可达，完整旧实际路由/全部生产消费/资源及owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+      ]
     },
     {
       "id": "UI-L-040",
@@ -15205,6 +15218,122 @@
       "observation": "完整三390条1331B与587B X无隙用途、两错位临时解码、单根三替换全文重放/结果先判后取图及两共享分支有限静态",
       "expected": "保持原空门禁后先保存完整S32结果零判定，再一次图号读取与两写入分支；源仅三替换，原六区间/四动作与未匹配保旧、创建/回调/父调用及owner布局保持",
       "actual": "单根三替换及三既有入口身份/一完整X区间关联，局部I/S同源共证据；所有完整父/页面/外层路由和数据资源、ABI/SDK/PC53/时钟RNG/owner寿命与画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-GATHER-RESULT-SAMPLING-UIRUNTIME-I-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "GRS01采集结果页完整437条1538B/单chunk与空IDA入向集合，descriptor七写/状态和坐标取样；doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-gather-result-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4EDB20",
+        "src/LegacyPanelRuntime.hpp#Sub_4EDB20"
+      ],
+      "differences": [
+        {
+          "description": "仅一根四具名片段：descriptor三W32零/两W16零/W32色与W8标志按原序显式发布，mapped先判下界再写对象图，结果图及非空详情行Y计算先于X取样；其它正文/owner保持",
+          "decision_ref": "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单根四片段已落码，原失败/对象复读和结果/FP与重试、格式/详情/请求/音效和尾返回保持；一既有语义追加/同两域F不计新函数",
+      "expected": "descriptor七次原宽度重叠写序，mapped下界先判后发布/再上界；结果图与非空详情行Y算后才取X，原S32/低S16/调用参数和所有其它正文保持",
+      "actual": "同一四片段源实修与437条基线，旧F/语义追加与公共UI/旧39成员分列；只局部I/S，完整旧表路由/数据资源生产消费与owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未验"
+    },
+    {
+      "id": "E-GATHER-RESULT-SAMPLING-UIRUNTIME-S-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "GRS01采集结果页完整437条1538B/单chunk与空IDA入向集合，descriptor七写/状态和坐标取样；doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-gather-result-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4EDB20",
+        "src/LegacyPanelRuntime.hpp#Sub_4EDB20"
+      ],
+      "differences": [
+        {
+          "description": "仅一根四具名片段：descriptor三W32零/两W16零/W32色与W8标志按原序显式发布，mapped先判下界再写对象图，结果图及非空详情行Y计算先于X取样；其它正文/owner保持",
+          "decision_ref": "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原437条1538B/空入向和库存，四片段全文精确重放与descriptor七写宽度/先判后pub、图/详情行取样及旧分支有限静态",
+      "expected": "descriptor七次原宽度重叠写序，mapped下界先判后发布/再上界；结果图与非空详情行Y算后才取X，原S32/低S16/调用参数和所有其它正文保持",
+      "actual": "同一四片段源实修与437条基线，旧F/语义追加与公共UI/旧39成员分列；只局部I/S，完整旧表路由/数据资源生产消费与owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未验"
+    },
+    {
+      "id": "E-GATHER-RESULT-SAMPLING-UI39-I-20261006",
+      "feature_id": "UI-L-039",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "GRS01采集结果页完整437条1538B/单chunk与空IDA入向集合，descriptor七写/状态和坐标取样；doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-gather-result-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4EDB20",
+        "src/LegacyPanelRuntime.hpp#Sub_4EDB20"
+      ],
+      "differences": [
+        {
+          "description": "仅一根四具名片段：descriptor三W32零/两W16零/W32色与W8标志按原序显式发布，mapped先判下界再写对象图，结果图及非空详情行Y计算先于X取样；其它正文/owner保持",
+          "decision_ref": "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单根四片段已落码，原失败/对象复读和结果/FP与重试、格式/详情/请求/音效和尾返回保持；一既有语义追加/同两域F不计新函数",
+      "expected": "descriptor七次原宽度重叠写序，mapped下界先判后发布/再上界；结果图与非空详情行Y算后才取X，原S32/低S16/调用参数和所有其它正文保持",
+      "actual": "同一四片段源实修与437条基线，旧F/语义追加与公共UI/旧39成员分列；只局部I/S，完整旧表路由/数据资源生产消费与owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未验"
+    },
+    {
+      "id": "E-GATHER-RESULT-SAMPLING-UI39-S-20261006",
+      "feature_id": "UI-L-039",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "GRS01采集结果页完整437条1538B/单chunk与空IDA入向集合，descriptor七写/状态和坐标取样；doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-gather-result-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4EDB20",
+        "src/LegacyPanelRuntime.hpp#Sub_4EDB20"
+      ],
+      "differences": [
+        {
+          "description": "仅一根四具名片段：descriptor三W32零/两W16零/W32色与W8标志按原序显式发布，mapped先判下界再写对象图，结果图及非空详情行Y计算先于X取样；其它正文/owner保持",
+          "decision_ref": "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原437条1538B/空入向和库存，四片段全文精确重放与descriptor七写宽度/先判后pub、图/详情行取样及旧分支有限静态",
+      "expected": "descriptor七次原宽度重叠写序，mapped下界先判后发布/再上界；结果图与非空详情行Y算后才取X，原S32/低S16/调用参数和所有其它正文保持",
+      "actual": "同一四片段源实修与437条基线，旧F/语义追加与公共UI/旧39成员分列；只局部I/S，完整旧表路由/数据资源生产消费与owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未验"
     }
   ],
   "task_acceptance": [
@@ -15544,7 +15673,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -15619,7 +15749,8 @@
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -15750,7 +15881,8 @@
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -15788,7 +15920,8 @@
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -15827,7 +15960,8 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
       ]
     },
     {
@@ -20096,6 +20230,18 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000EDB20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json"
       ]
     }
   ],

@@ -142,3 +142,9 @@ FP不足或背包空槽<=0分别追加原消息(4,3)、SE55、开关写0；
 [局部SPEC](../cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state)仅修4EF5F0：空对象门禁之后先保存result零判定，再读一次image，两动作写分支共用该判定；六图号族、18/15与5/10、低图号保旧动作及四实际调用不变。4FAAA0/4FACE0正文与原失败/映射和九动作集合保持，不再新建预览业务。
 
 [完整390条1331B/587B区间](../cg2d_ui_preview_sampling_evidence.json)向台账新增两F与一代码片段；4FAC1B/21只读临时解码与两端90H整字节用途可追，X mapped不等于新增库存函数、原新ABI或整页验收。8工厂call、4结果call和唯一type1回调绑定分列；所有完整父/资源与owner寿命/旧表外层分派/SDK/ABI/PC53/时钟RNG和画面运行仍未闭。
+
+## GRS01 描述符、图号判定与结果坐标取样（2026-10-06）
+
+[具名裁决](../cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision)仅4EDB20四片段：descriptor2/6/10三W32零、0/14两W16零、8处W32 FFFFFFFF及13处W8 4按原序显式发布；mapped下界先判后写对象图/再上界；结果图片image→Y→Y+184→X，非空详情行Y→Y+20*row+237→X后按原低S16绘字。16B值类型/零值初始化、其它drawAt与所有分支/格式/请求/音效、对象复读与owner保持。
+
+[437条1538B/单chunk/空入向集合](../cg2d_gather_result_sampling_evidence.json)只本次相关取样验收，空引用不当不可达；一旧语义增量/同两域F成员不等完整旧39/公共UI通过。旧57C368实际外层路由、完整玩家/技能/回复和资源生产消费、owner重进退出/借用失效及SDK/ABI/PC53/时钟RNG/采集往返和画面运行仍未闭。

@@ -2273,3 +2273,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [完整三个390条1331B](cg2d_ui_preview_sampling_evidence.json)与[源状态](cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state)新增4FACE0/4EF5F0两原F及4FAAA0一个X内代码片段，三既有正文仅4EF5F0结果判定取样三替换；全旧语义/历史来源保留。8创建call/4状态call和1回调地址引用不混计，原错位head按临时解码恢复，不改数据库。
 
 语义1301→1304/有效ID1297→1299，非函数代码片段4→5，处置401→403/R7区间66→67；UIRUNTIME11→13与YOBI2→4为同两F，X整字节用途mapped不当新增业务函数或范围排除。完整caller/页面和所有资源/owner寿命/外层旧表/SDK/ABI/画面运行未验。
+
+## GRS01 采集结果既有身份增量（2026-10-06）
+
+[原437条1538B/空入向集合](cg2d_gather_result_sampling_evidence.json)与[源状态](cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state)仅向既有语义1035/F:000EDB20追加四取样片段和原字段宽度/源边界；所有历史来源/字段保留，未新增原函数或语义记录。源只一根，descriptor七写/先判mapped下界后图号发布及图/详情行Y计算后X取样可追。
+
+语义1304/有效ID1299及代码片段5保持，处置403→404，公共UI13→14/旧39的0→1成员同F不双计；R7区间67和队列保持。原完整业务路由/生产消费、owner寿命/ABI/SDK/PC53/时钟RNG/实际采集往返和画面运行未验，空引用不当可达性裁决。

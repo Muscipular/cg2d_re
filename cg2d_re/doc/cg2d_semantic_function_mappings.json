@@ -121244,7 +121244,7 @@
     {
       "original_entry": "0x4EDB20",
       "inventory_id": "F:000EDB20",
-      "status": "旧采集或技能结果三处已证格式已接线；原父及整体验收未闭合",
+      "status": "GRS01采集结果页descriptor原宽度/先判下界与结果图/详情行取样四片段实修，既有语义追加；原父和完整页面运行未验",
       "original_end_exclusive": "0x4EE122",
       "instruction_count": 437,
       "sources": [
@@ -121254,13 +121254,32 @@
             "Sub_4EDB20"
           ],
           "relationship": "仅三个格式接口改变，其他正文/uintptr_t混合返回保持"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4EDB20"
+          ],
+          "relationship": "GRS01仅该根四取样片段：descriptor七原宽度写序、mapped先判下界后写图、结果图/非空详情行Y计算先于X取样；全部其它正文和owner保持"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_4EDB20"
+          ],
+          "relationship": "既有uintptr_t返回/原S32 opened与panel非拥有声明，本次未改"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/legacy_gather_result.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_evidence.json"
       ],
-      "boundary": "只换三个格式接口，既有pair低S8/技能index低S16快照、4C4CH记录+1C等级/+24经验、经验绘后新+1C/+20有符号门槛再+28下一经验，共未清256B与每次新布局/font1保持。原关闭通知/帧内控制与费用/预览或目标共享生产/按钮与说明抽行/动画生命周期/完整uintptr_t返回全部不动。限值文本不算格式，原父/旧真实路由/数据生产/运行未闭合。",
+      "boundary": "只换三个格式接口，既有pair低S8/技能index低S16快照、4C4CH记录+1C等级/+24经验、经验绘后新+1C/+20有符号门槛再+28下一经验，共未清256B与每次新布局/font1保持。原关闭通知/帧内控制与费用/预览或目标共享生产/按钮与说明抽行/动画生命周期/完整uintptr_t返回全部不动。限值文本不算格式，原父/旧真实路由/数据生产/运行未闭合。；GRS01单根四片段：descriptor2/6/10三W32零、0/14两W16零、8处W32 FFFFFFFF、13处W8 4相对原序显式发布；mapped<110350先判后对象image pub及随后上界，保逐次取共享对象写309/310和末复读；图号→Y→Y+184→X、非空详情Y→Y+20*row+237→X与低S16原绘制。既有16B零值初始化/所有其它源码与分支/格式/请求/音频/owner布局保持，不新增保护/异常或回绕/故障模拟及称等价。所有旧57C368外层实际路由、完整玩家/技能/回复/资源生产及owner重进退出/借用失效、真实ABI/SDK/PC53/时钟RNG和完整采集往返/画面运行未验。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [
@@ -121360,7 +121379,24 @@
           "relationship": "经验文本绘制后重读同源技能+1C等级/+20上限两S32，严格有符号小于才读+28 S32下一经验，宽8写同一未清256B；格式后新面板Y/X，layer2/font1/color0/尾0，保留每段读序与既有技能索引快照，不预先取全部字段或重查pair。"
         }
       ],
-      "verification_level": "本步只读120/437新格式邻窗，余317沿既有父合同；553FB4沿已核字节，新589864只读原加载字节。整份源仅三个格式标识符，字段/符号性/参数/容量/帧索引与绘后读序/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。"
+      "verification_level": "本步只读120/437新格式邻窗，余317沿既有父合同；553FB4沿已核字节，新589864只读原加载字节。整份源仅三个格式标识符，字段/符号性/参数/容量/帧索引与绘后读序/返回、JSON增量/文档末追加/编码/差异静态核对通过。禁构建/测试/客户端/hash；原父/旧路由/生产/运行未闭合。；GRS01原完整437条1538B/空入向集合与库存、四具名源码片段全文精确重放及descriptor七写/先判后pub/结果图与详情行取样有限静态；不据空引用称不可达，不验整路由/数据资源/owner寿命或ABI/SDK/运行",
+      "gather_result_sampling": {
+        "spec_id": "GRS01",
+        "evidence_refs": [
+          "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+          "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+          "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
+          "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+          "doc/cg2d_gather_result_sampling_evidence.json"
+        ],
+        "original_entry": "0x4edb20",
+        "instruction_count": 437,
+        "code_bytes": 1538,
+        "inbound_references": [],
+        "inbound_reference_count": 0,
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4EF0F0",

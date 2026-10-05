@@ -557,9 +557,12 @@
       "scope": "included",
       "baseline_documents": [
         "doc/cg2d_main_loop.md",
-        "doc/cg2d_scene_state.md"
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0011D5B0"
+      ],
       "closure_task_ids": [
         "U11",
         "V02",
@@ -570,14 +573,18 @@
       ],
       "acceptance_focus": "真实状态入口、时钟/RNG、断线/重进及退出",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "MSS01真实250/252入口仅半字快照/gate复读两块实修，一个既有ID纳管且与MAP关联；全部场景分发成员/父/callee/初值时钟RNG/断线重进退出及owner寿命/空链机器返回/实际ABI/SDK/场景画面运行未闭，完整门禁不提升"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+      ]
     },
     {
       "id": "FUNC-LOGIN",
@@ -1036,7 +1043,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-baseline",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1073,7 +1081,8 @@
         "F:0006E2A0",
         "F:0006E340",
         "F:0006E390",
-        "F:0006F160"
+        "F:0006F160",
+        "F:0011D5B0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1091,7 +1100,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-decision",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1100,7 +1110,8 @@
         "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟",
         "MCA01五像素运动/一投影块正常S32已落码，20读/10写与原投影取样/真实窄化、计时/低W16/RNG/方向/回收保持，kind4重设尾恢复计数4→新Y速度；六身份局部纳管，全调度/场景/多轮/alias/所有owner寿命/投影环境/实际ABI/SDK/像素RNG运行未验，异常不保护或模拟",
         "MFP01效果记录镜像/固定点补回四原字段读取点，正常S32×65536及两W32写已落码；原池/失败/参数/写序/计数/指针返回及MFA01/MCA01保持，一个生产身份局部纳管；完整父/所有池alias与owner寿命/实际ABI/SDK/像素RNG运行未闭，异常不保护或模拟",
-        "MEP01池初始化恢复原低W16写、领取/回收三块落实原头/链接取样及写序，500项/499轮原生链和原载荷/计数/返回保持；四既有身份纳管，其中清理未改。完整场景/所有父与池alias/owner重进退出及borrow失效/实际ABI/SDK/画面RNG运行未闭，异常不保护或模拟"
+        "MEP01池初始化恢复原低W16写、领取/回收三块落实原头/链接取样及写序，500项/499轮原生链和原载荷/计数/返回保持；四既有身份纳管，其中清理未改。完整场景/所有父与池alias/owner重进退出及borrow失效/实际ABI/SDK/画面RNG运行未闭，异常不保护或模拟",
+        "MSS01共享快照恢复低W16读取/高W16缓存发布及停止路径gate原复读点，同一packed owner/低半保持；一个既有ID与LOOP共同关联，原短路/状态/回调/计数和尾接不改，全部父/callee/alias与owner寿命/实际ABI/SDK/场景画面RNG运行未闭，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1110,7 +1121,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13157,6 +13169,122 @@
       "observation": "四原105条400B/库存/25call十父，低W16/499逐项链/领取回收原序与清理消费局部静态及精确差异可追",
       "expected": "只写C8A744低2B；按原时点取nextFree/两activeHead/prev→条件写→next及freeHead，保原生指针和全部写序/返回，不批量快照或修补原空闲反链",
       "actual": "仅本次正常池合同与源/台账静态，不重验全部调用父/其它生产绘制/间接alias和所有owner重进退出/borrow失效/实际ABI/SDK/画面RNG运行；完整门禁不提升，异常不保护或模拟/称故障等价"
+    },
+    {
+      "id": "E-SCENE-SNAPSHOT-WIDTH-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原31条138B/两call两父，仅共享半字快照与停止路径gate复读；doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-scene-snapshot-width-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D5B0",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两块恢复低W16读取/高W16缓存写和停止路径复读gate→清计数→条件回调；同一ID/原证据共同关联MAP/LOOP，不计两次开发",
+          "decision_ref": "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两模式两块已落码，原2B读写共享packed owner及gate复读点，原其它状态/回调/计数/返回保持",
+      "expected": "保原字段读序/独立W16写/首次gate点，高半只写原缓存低半；停止路径先复读gate再清计数，按已读值回调",
+      "actual": "只一源码本体/一原证据双关联，四条I/S记录不代表四项开发；完整父/callee/所有owner与alias/空链机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-SCENE-SNAPSHOT-WIDTH-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原31条138B/两call两父，仅共享半字快照与停止路径gate复读；doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-scene-snapshot-width-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D5B0",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两块恢复低W16读取/高W16缓存写和停止路径复读gate→清计数→条件回调；同一ID/原证据共同关联MAP/LOOP，不计两次开发",
+          "decision_ref": "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原31条138B/库存/两call两父，原半字/gate取样与两源片段精确差异、真实本体/声明限定静态",
+      "expected": "保原字段读序/独立W16写/首次gate点，高半只写原缓存低半；停止路径先复读gate再清计数，按已读值回调",
+      "actual": "只一源码本体/一原证据双关联，四条I/S记录不代表四项开发；完整父/callee/所有owner与alias/空链机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-SCENE-SNAPSHOT-WIDTH-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原31条138B/两call两父，仅共享半字快照与停止路径gate复读；doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-scene-snapshot-width-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D5B0",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两块恢复低W16读取/高W16缓存写和停止路径复读gate→清计数→条件回调；同一ID/原证据共同关联MAP/LOOP，不计两次开发",
+          "decision_ref": "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两模式两块已落码，原2B读写共享packed owner及gate复读点，原其它状态/回调/计数/返回保持",
+      "expected": "保原字段读序/独立W16写/首次gate点，高半只写原缓存低半；停止路径先复读gate再清计数，按已读值回调",
+      "actual": "只一源码本体/一原证据双关联，四条I/S记录不代表四项开发；完整父/callee/所有owner与alias/空链机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-SCENE-SNAPSHOT-WIDTH-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原31条138B/两call两父，仅共享半字快照与停止路径gate复读；doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-scene-snapshot-width-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D5B0",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两块恢复低W16读取/高W16缓存写和停止路径复读gate→清计数→条件回调；同一ID/原证据共同关联MAP/LOOP，不计两次开发",
+          "decision_ref": "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原31条138B/库存/两call两父，原半字/gate取样与两源片段精确差异、真实本体/声明限定静态",
+      "expected": "保原字段读序/独立W16写/首次gate点，高半只写原缓存低半；停止路径先复读gate再清计数，按已读值回调",
+      "actual": "只一源码本体/一原证据双关联，四条I/S记录不代表四项开发；完整父/callee/所有owner与alias/空链机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
     }
   ],
   "task_acceptance": [
@@ -13313,7 +13441,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13542,7 +13671,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13597,7 +13727,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13643,7 +13774,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13666,7 +13798,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     },
     {
@@ -13824,7 +13957,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
-        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state"
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
       ]
     }
   ],
@@ -17586,6 +17720,18 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_map_effect_pool_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0011D5B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json"
       ]
     }
   ],

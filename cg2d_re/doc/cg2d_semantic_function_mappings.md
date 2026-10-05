@@ -2183,3 +2183,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [池合同](cg2d_map_effect_pool_spec.md#map-effect-pool-source-state)和[四原证据](cg2d_map_effect_pool_evidence.json)为46E2A0/46E340/46E390/46F160补正式语义/真实本体与声明来源及adapted。前三根本次源实修低W16写/头与链接取样，最后一根已有清理消费未修改，不计新实现。四体105条400B/25call十父仅正常池合同及原引用身份，不代全父、所有alias或完整owner/运行。
 
 语义1275→1279/有效ID1271→1275，处置368→372、MAP31→35成员；池500项与原库存分母/历史位置、pending、非FID、R7/差集保持。所有完整功能门禁和任务关闭数不提升。
+
+## MSS01 场景快照原身份与双功能关联（2026-10-05）
+
+51D5B0一个既有本体补唯一语义/本体声明来源及adapted，依据[具名合同](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state)和[31条138B原证据](cg2d_scene_snapshot_width_evidence.json)。本次仅两源块恢复两半字2B宽度与gate复读点，状态/回调/计数/尾接保持；两call/两父身份不代完整父/callee/所有alias/owner寿命/运行。
+
+语义1279→1280/有效ID1275→1276、处置372→373；同一原ID关联MAP35→36与LOOP0→1明确成员，双关联不增函数分母或代码次数。原历史位置、队列/pending/非FID/R7/其他域保持，完整功能和任务门禁不提升。

@@ -145802,6 +145802,52 @@
       ],
       "verification_level": "四原105条400B/25call十父保存，三模式三块源差异与四体正常池合同局部静态；清理本体未改，不代完整父/所有alias与owner寿命/运行",
       "boundary": "既有清理本体不修改：筛种类6/7/8，8先死亡及清动作槽，再缓存next→回收→W16计数减一→缓存next续遍历；仅已有消费原身份/真实source纳管，不计新增清理功能。 原25直接引用身份不代完整父/间接alias、所有owner重进退出/清理后借用失效、实际ABI/SDK/像素RNG运行；RPLAN.24异常不保护/拒绝或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x51d5b0",
+      "inventory_id": "F:0011D5B0",
+      "status": "MSS01共享快照半字宽度/gate复读实修及原身份纳管；MAP/LOOP同一ID，完整场景运行未验",
+      "original_end_exclusive": "0x51d63a",
+      "instruction_count": 31,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D5B0",
+            "gMapCharaSceneSlots",
+            "gValueD67E78",
+            "gValueFF0D74"
+          ],
+          "relationship": "既有真实场景入口，MSS01仅2B低读/高写与停止路径gate复读取样实修，唯一packed owner/状态250252/回调/计数/尾接保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51D5B0"
+          ],
+          "relationship": "既有真实私有声明和非统一原返回位型承载保持，不擅定稳定action指针"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46ae26",
+          "parent_entry": "0x46ada0"
+        },
+        {
+          "address": "0x50943a",
+          "parent_entry": "0x5093f0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_scene_snapshot_width_evidence.json"
+      ],
+      "verification_level": "原31条138B/两直接call两父与两模式两块源码精确差异/正常入口合同静态；一ID双关联，不代完整父/callee/全部owner或运行",
+      "boundary": "先读C8A73E W16/低C8A744 W16，写C8A740后取首次D67E78，再按原+2地址写高W16缓存值；低半和唯一owner保持。停止/未命中路径先复读gate再清计数并依据已读值回调；原短路/250252状态/计数重读和callee后原位加一、尾43F230及现有非统一返回承载不改。所有父/callee、地址逃逸/间接alias及owner重进退出/borrow失效、原空链机器返回、实际ABI/SDK/时钟RNG/场景画面运行未验；异常不加保护/回绕或故障模拟/称等价。"
     }
   ]
 }

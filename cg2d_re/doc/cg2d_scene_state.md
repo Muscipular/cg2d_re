@@ -7599,3 +7599,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [池增量合同](cg2d_map_effect_pool_spec.md#map-effect-pool-source-state)仅修§20.4–20.5三源块：46E2A0的C8A744低半字以2B memcpy清零，保高半字且撤整U32读改写；46E340保存nextFree、先取旧活动头再清prev/接next，接next后重取活动头用于条件回链；46E390先取prev/条件写，再取当前next/条件写，尾段先取空闲头再清prev/接next/发布。原不改旧空闲头prev，不新增反向链修补。
 
 500项/499轮next→下项prev交替、末next/活动头、独立W16/F32槽与末记录返回保持；记录未知载荷不清、原生指针/失败/计数/种类/其它owner槽及生产绘制保持。46F160已有种类筛选/死亡清动作/缓存next回收/W16计数本体未改，只纳管身份。四原105条400B/25call十父保存仅正常池合同静态，不代全部父/所有alias与owner重进退出/借用失效/实际ABI/SDK/画面RNG运行，异常不保护或模拟/称等价。
+
+## MSS01 当前场景快照半字与gate复读（2026-10-05）
+
+[快照子SPEC](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state)仅修§116既有51D5B0两块：C8A744低半以2B memcpy取样，先写独立C8A740、取首次D67E78后，再向同一packed owner的+2高半写2B缓存值；不重读低半或读改写整W32。停止/未命中路径先保存复读gate，再清FF0D74并依据已复读值决定51BEF0。
+
+原短路/玩家索引与查找、250/252状态/回调、计数两读取及callee后原位加一、尾43F230和现有返回承载保持。MEP01/MFP01/MFA01/MCA01及所有父/callee不改；31条138B/两call两父保存仅正常入口和两源块静态，一原ID同时关联地图与场景分发，不计两次代码开发。完整父/传递callee/所有alias和owner重进退出/borrow失效、空链原机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护或模拟/称等价。

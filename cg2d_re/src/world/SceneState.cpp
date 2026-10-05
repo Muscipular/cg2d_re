@@ -7402,19 +7402,20 @@ void DrawBattleScene_43CBB0()
 void* __cdecl Sub_51D5B0()
 {
     const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;
-    const std::uint16_t low = static_cast<std::uint16_t>(
-        gMapCharaSceneSlots.valueC8A744);
+    std::uint16_t low;
+    std::memcpy(&low, &gMapCharaSceneSlots.valueC8A744, sizeof(low));
     gMapCharaSceneSlots.valueC8A740 = current;
     const std::uint32_t gate = gValueD67E78;
-    gMapCharaSceneSlots.valueC8A744 =
-        (gMapCharaSceneSlots.valueC8A744 & 0x0000FFFFu)
-        | (static_cast<std::uint32_t>(low) << 16);
+    std::memcpy(
+        reinterpret_cast<std::uint8_t*>(&gMapCharaSceneSlots.valueC8A744) + sizeof(low),
+        &low, sizeof(low));
 
     if (gate != 0
         || login::detail::Sub_43F1F0(ReadPlayerObjectIndex_FDA880())
             == nullptr) {
+        const std::uint32_t currentGate = gValueD67E78;
         gValueFF0D74 = 0;
-        if (gValueD67E78 != 0) {
+        if (currentGate != 0) {
             Sub_51BEF0();
         }
     } else if (gValueFF0D74 == 0) {

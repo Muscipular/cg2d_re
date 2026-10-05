@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "scope": "MSS01仅51D5B0两半字宽度及停止分支gate复读取样实修，一原ID关联MAP/LOOP；完整父/callee/alias及owner寿命/运行未闭",
+  "baseline_snapshot": "cg2d-re-map-effect-pool-20261005",
+  "implementation_snapshot": "cg2d-re-scene-snapshot-width-20261005",
+  "original_functions": [
+    {
+      "entry": "0x51d5b0",
+      "actual_start": "0x51d5b0",
+      "end_exclusive": "0x51d63a",
+      "chunks": [
+        {
+          "start": "0x51d5b0",
+          "end_exclusive": "0x51d63a"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x46ae26",
+          "type": 17,
+          "parent_entry": "0x46ada0"
+        },
+        {
+          "site": "0x50943a",
+          "type": 17,
+          "parent_entry": "0x5093f0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51d5b0",
+          "size": 6,
+          "bytes": "66a13ea7c800",
+          "text": "mov     ax, word_C8A73E"
+        },
+        {
+          "ea": "0x51d5b6",
+          "size": 7,
+          "bytes": "668b0d44a7c800",
+          "text": "mov     cx, word ptr dword_C8A744"
+        },
+        {
+          "ea": "0x51d5bd",
+          "size": 6,
+          "bytes": "66a340a7c800",
+          "text": "mov     word_C8A740, ax"
+        },
+        {
+          "ea": "0x51d5c3",
+          "size": 5,
+          "bytes": "a1787ed600",
+          "text": "mov     eax, dword_D67E78"
+        },
+        {
+          "ea": "0x51d5c8",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x51d5ca",
+          "size": 7,
+          "bytes": "66890d46a7c800",
+          "text": "mov     word ptr dword_C8A744+2, cx"
+        },
+        {
+          "ea": "0x51d5d1",
+          "size": 2,
+          "bytes": "754a",
+          "text": "jnz     short loc_51D61D"
+        },
+        {
+          "ea": "0x51d5d3",
+          "size": 6,
+          "bytes": "8b1580a8fd00",
+          "text": "mov     edx, gPlayerDataVal.ojbIndex"
+        },
+        {
+          "ea": "0x51d5d9",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x51d5da",
+          "size": 5,
+          "bytes": "e8111cf2ff",
+          "text": "call    sub_43F1F0"
+        },
+        {
+          "ea": "0x51d5df",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x51d5e2",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x51d5e4",
+          "size": 2,
+          "bytes": "7437",
+          "text": "jz      short loc_51D61D"
+        },
+        {
+          "ea": "0x51d5e6",
+          "size": 5,
+          "bytes": "a1740dff00",
+          "text": "mov     eax, dword_FF0D74"
+        },
+        {
+          "ea": "0x51d5eb",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x51d5ed",
+          "size": 2,
+          "bytes": "7517",
+          "text": "jnz     short loc_51D606"
+        },
+        {
+          "ea": "0x51d5ef",
+          "size": 10,
+          "bytes": "c705640dff00fa000000",
+          "text": "mov     gWorld__SceneState, 0FAh"
+        },
+        {
+          "ea": "0x51d5f9",
+          "size": 5,
+          "bytes": "e85239f2ff",
+          "text": "call    sub_440F50"
+        },
+        {
+          "ea": "0x51d5fe",
+          "size": 6,
+          "bytes": "ff05740dff00",
+          "text": "inc     dword_FF0D74"
+        },
+        {
+          "ea": "0x51d604",
+          "size": 2,
+          "bytes": "eb2f",
+          "text": "jmp     short loc_51D635"
+        },
+        {
+          "ea": "0x51d606",
+          "size": 5,
+          "bytes": "a1740dff00",
+          "text": "mov     eax, dword_FF0D74"
+        },
+        {
+          "ea": "0x51d60b",
+          "size": 10,
+          "bytes": "c705640dff00fc000000",
+          "text": "mov     gWorld__SceneState, 0FCh"
+        },
+        {
+          "ea": "0x51d615",
+          "size": 1,
+          "bytes": "40",
+          "text": "inc     eax"
+        },
+        {
+          "ea": "0x51d616",
+          "size": 5,
+          "bytes": "a3740dff00",
+          "text": "mov     dword_FF0D74, eax"
+        },
+        {
+          "ea": "0x51d61b",
+          "size": 2,
+          "bytes": "eb18",
+          "text": "jmp     short loc_51D635"
+        },
+        {
+          "ea": "0x51d61d",
+          "size": 5,
+          "bytes": "a1787ed600",
+          "text": "mov     eax, dword_D67E78"
+        },
+        {
+          "ea": "0x51d622",
+          "size": 10,
+          "bytes": "c705740dff0000000000",
+          "text": "mov     dword_FF0D74, 0"
+        },
+        {
+          "ea": "0x51d62c",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x51d62e",
+          "size": 2,
+          "bytes": "7405",
+          "text": "jz      short loc_51D635"
+        },
+        {
+          "ea": "0x51d630",
+          "size": 5,
+          "bytes": "e8bbe8ffff",
+          "text": "call    sub_51BEF0"
+        },
+        {
+          "ea": "0x51d635",
+          "size": 5,
+          "bytes": "e9f61bf2ff",
+          "text": "jmp     sub_43F230"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "instructions": 31,
+    "code_bytes": 138,
+    "direct_calls": 2,
+    "parents_count": 2,
+    "source_patterns": 2,
+    "changed_blocks": 2,
+    "identity_roots": 1,
+    "feature_memberships": 2,
+    "local_gate_records": 4,
+    "half_read_bytes": 2,
+    "half_write_bytes": 2
+  },
+  "source_path": "src/world/SceneState.cpp",
+  "source_patches": [
+    {
+      "owners": [
+        "Sub_51D5B0半字快照"
+      ],
+      "expected_occurrences": 1,
+      "before": "    const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;\n    const std::uint16_t low = static_cast<std::uint16_t>(\n        gMapCharaSceneSlots.valueC8A744);\n    gMapCharaSceneSlots.valueC8A740 = current;\n    const std::uint32_t gate = gValueD67E78;\n    gMapCharaSceneSlots.valueC8A744 =\n        (gMapCharaSceneSlots.valueC8A744 & 0x0000FFFFu)\n        | (static_cast<std::uint32_t>(low) << 16);",
+      "after": "    const std::uint16_t current = gMapCharaSceneSlots.valueC8A73E;\n    std::uint16_t low;\n    std::memcpy(&low, &gMapCharaSceneSlots.valueC8A744, sizeof(low));\n    gMapCharaSceneSlots.valueC8A740 = current;\n    const std::uint32_t gate = gValueD67E78;\n    std::memcpy(\n        reinterpret_cast<std::uint8_t*>(&gMapCharaSceneSlots.valueC8A744) + sizeof(low),\n        &low, sizeof(low));"
+    },
+    {
+      "owners": [
+        "Sub_51D5B0复读gate"
+      ],
+      "expected_occurrences": 1,
+      "before": "        gValueFF0D74 = 0;\n        if (gValueD67E78 != 0) {\n            Sub_51BEF0();\n        }",
+      "after": "        const std::uint32_t currentGate = gValueD67E78;\n        gValueFF0D74 = 0;\n        if (currentGate != 0) {\n            Sub_51BEF0();\n        }"
+    }
+  ],
+  "retained_contract": {
+    "snapshot_order": [
+      "读C8A73E W16",
+      "读C8A744低W16",
+      "写C8A740 W16",
+      "读首次D67E78 W32",
+      "写C8A746高W16缓存值"
+    ],
+    "stop_order": [
+      "复读D67E78 W32",
+      "清FF0D74",
+      "按复读值条件调用51BEF0"
+    ],
+    "packed_owner_shared": true,
+    "low_half_preserved": true,
+    "high_half_from_cached_low": true,
+    "scene_250_252_and_callbacks_unchanged": true,
+    "counter_sampling_and_tail_unchanged": true,
+    "new_owner": false,
+    "new_guard": false,
+    "other_sources_or_asm_changed": false
+  },
+  "verification": "仅两模式两块源精确差异、原31条138B/两call两父及原两半字/复读gate正常入口合同静态；完整父/callee/间接alias和owner寿命、空链原返回承载/实际ABI/SDK/时钟RNG/场景画面运行未验，异常不专项保护或模拟/称等价"
+}

@@ -320,3 +320,9 @@ G01/G02/U11/R01/R04/V04追加同一具名引用且继续open。所有B/D/W/R、�
 [验收合同](cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance)以四原105条400B/25call十父及原低W16/领取回收读写、已有清理消费为基线。三源片段实修，四身份/真实来源/限定adapted和MAP35成员登记；E207→209仅本次I/S，已有46F160清理本体未修改，不把原体保存或身份数计为新增功能。
 
 G01/G02/U11/R01/R04/V04追加同一具名引用并保持open。完整池/场景/所有父与alias/owner重进退出/借用失效和实际ABI/SDK/画面RNG运行未闭，B/D/W/R及全部完整门禁、R1/R7/R8/整体判定不提升；音频暂停、原格式明文和现行执行限制保持。
+
+## MSS01 共用原证据的MAP/LOOP局部I/S（2026-10-05）
+
+[半字快照合同](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance)以31条138B/两call两父及原2B取样/高半发布、复读gate→清计数为基线。一语义/来源/adapted分别关联MAP36与LOOP1，E209→213仅各一组I/S；四条记录共用同一实际改动/原证据，不当四项开发或完整功能门禁。
+
+G01/G02/U11/R01/R04/V04追加具名引用且继续open，V02及其他任务保持。完整父/callee/alias及owner寿命/空链机器返回、真实ABI/SDK/时钟RNG/场景画面运行未闭，所有B/D/W/R/完整功能、R1/R7/R8与整体判定不提升；现行执行限制、音频暂停与网络原格式明文保持。

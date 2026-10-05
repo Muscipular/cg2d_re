@@ -608,7 +608,8 @@
         "doc/cg2d_command_checksum_publication_spec.md",
         "doc/cg2d_append_transform_spec.md",
         "doc/cg2d_dispatch_account_field_read_spec.md",
-        "doc/cg2d_workspace_byte_pointer_spec.md"
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_header_single_read_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -645,7 +646,8 @@
         "F:00117190",
         "F:001171B0",
         "F:001176B0",
-        "F:00117730"
+        "F:00117730",
+        "F:00117040"
       ],
       "closure_task_ids": [
         "P09",
@@ -663,7 +665,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
         "doc/cg2d_append_transform_spec.md#append-transform-decision",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -673,7 +676,8 @@
         "NCS01仅517510完整命令体的局部S32校验和/ASCII状态发布源码校准；83调用父完整业务、全部owner/alias/动态边、实际CRT ABI/失败、真实收发与运行未闭。六上下文根不按本轮新增源码/审核重复计数",
         "NAT01四既有入口、两实际跳表/234原直接call已具名，追加体写后源读取/NUL与限长表达实修；完整调用父/owner/alias/动态边、实际CRT ABI/失败、命令往返/明文互通与运行未闭，不称新增四业务本体",
         "NDR01仅原账号与85文本取值窗口/32掩码源码校准；不据主根5779条元数据宣称整根、所有整数/108回复本体或完整owner/alias、实际ABI/链接/明文往返/运行通过，不新增R1处置",
-        "NWT01工作区字节指针类型与四解码本体/90直接引用具名，SDK同域/读序/原失败释放保持；未知间接alias/完整owner/重进、整分派/全部回复及实际ABI/链接/正常失败/明文往返/运行未闭。NDR01限定父与三既有父不重复新增R1分类"
+        "NWT01工作区字节指针类型与四解码本体/90直接引用具名，SDK同域/读序/原失败释放保持；未知间接alias/完整owner/重进、整分派/全部回复及实际ABI/链接/正常失败/明文往返/运行未闭。NDR01限定父与三既有父不重复新增R1分类",
+        "NHS01仅取包头首指针一次读取缺口已修，原22条/64B与唯一caller具名；不全量核对，不据取头关闭整分派/完整参数传递/全部回复/owner/alias、实际ABI/链接/原格式明文互通与运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -683,7 +687,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure"
       ]
     },
     {
@@ -10543,6 +10548,96 @@
       "observation": "四完整根196条/518B/244call、63B原表及限定源/数据静态对照",
       "expected": "原byte buffer用原生std::uint8_t*承载，原数量/读取/SDK域和所有生命周期路径保持",
       "actual": "workspace成员/借用/表与元素malloc/目标槽同型；四已存在解码入口补语义和分类，未改算法或完整门禁"
+    },
+    {
+      "id": "E-HEADER-SINGLE-READ-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517040完整22条/64B，517048输出清零、51704E唯一首指针读与两复制分支；doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-header-single-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-acceptance",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
+        "doc/cg2d_header_single_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_517040",
+        "src/network/NetworkRuntime.cpp#CopyProtocolBytes_517080",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40"
+      ],
+      "differences": [
+        {
+          "description": "旧源码非空路径读参数表首指针两次；改为输出清零后一次局部读取，原非空快照/空来源及复制接口保持",
+          "decision_ref": "doc/cg2d_header_single_read_spec.md#header-single-read-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP一个来源选择片段，既有取头本体修正",
+      "expected": "参数表首指针只读取一次，输出清零在先；目的/容量/原空来源/复制/接口保持",
+      "actual": "既有Sub_517040以const char*局部承接原EAX快照，只修来源选择；整分派/参数传递/全部回复及运行未验"
+    },
+    {
+      "id": "E-HEADER-SINGLE-READ-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517040完整22条/64B，517048输出清零、51704E唯一首指针读与两复制分支；doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-header-single-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-acceptance",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
+        "doc/cg2d_header_single_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_517040",
+        "src/network/NetworkRuntime.cpp#CopyProtocolBytes_517080",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40"
+      ],
+      "differences": [
+        {
+          "description": "旧源码非空路径读参数表首指针两次；改为输出清零后一次局部读取，原非空快照/空来源及复制接口保持",
+          "decision_ref": "doc/cg2d_header_single_read_spec.md#header-single-read-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原输出清零→单次参数表首指针读→分支复用来源；无新owner或副本",
+      "expected": "参数表首指针只读取一次，输出清零在先；目的/容量/原空来源/复制/接口保持",
+      "actual": "既有Sub_517040以const char*局部承接原EAX快照，只修来源选择；整分派/参数传递/全部回复及运行未验"
+    },
+    {
+      "id": "E-HEADER-SINGLE-READ-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517040完整22条/64B，517048输出清零、51704E唯一首指针读与两复制分支；doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-header-single-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_header_single_read_spec.md#header-single-read-baseline",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-acceptance",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
+        "doc/cg2d_header_single_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_517040",
+        "src/network/NetworkRuntime.cpp#CopyProtocolBytes_517080",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40"
+      ],
+      "differences": [
+        {
+          "description": "旧源码非空路径读参数表首指针两次；改为输出清零后一次局部读取，原非空快照/空来源及复制接口保持",
+          "decision_ref": "doc/cg2d_header_single_read_spec.md#header-single-read-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原完整22条/64B与唯一直接caller；本步源码/台账差异及新增引用限定静态检查",
+      "expected": "参数表首指针只读取一次，输出清零在先；目的/容量/原空来源/复制/接口保持",
+      "actual": "既有Sub_517040以const char*局部承接原EAX快照，只修来源选择；整分派/参数传递/全部回复及运行未验"
     }
   ],
   "task_acceptance": [
@@ -10830,7 +10925,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure"
       ]
     },
     {
@@ -10843,7 +10939,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure"
       ]
     },
     {
@@ -10856,7 +10953,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure"
       ]
     }
   ],
@@ -12445,6 +12543,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00117040",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure"
       ]
     }
   ],

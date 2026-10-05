@@ -179,7 +179,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前状态 | 下一步 | 关闭条件 |
 |---|---|---|---|
-| R01 / 函数分母 | NWT01四既有解码入口新adapted，处置190/3680；三父类型补充不重复分类 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；NDR01完整父未验，不以基线/数量当全功能完成率 |
+| R01 / 函数分母 | NHS01取头单次读取缺口已修并新增adapted，处置191/3680；既有分类保持 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[NHS01](../doc/cg2d_header_single_read_spec.md#header-single-read-source-closure)；只核已发现缺口，NDR01完整父未验，不以数量当功能完成率 |
 | R02 / 数据/间接目标 | NWT01 DA3F98的90直接引用/三父与已知byte pointer类型/SDK域明确 | 未知间接alias/完整owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；导入15/218保持，直接引用/类型不代所有权闭合 |
 | R03 / 未归属区间 | 3061原区间快照与部分后置回调/数据/填充分组已有 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达 |
 | R04 / 台账一致性 | 本表已识别总览、局部速查和机器自由文本的时效差 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | 清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |

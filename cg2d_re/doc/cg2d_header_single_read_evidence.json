@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "group": "NHS01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_header_single_read_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-header-single-read-source-20261005",
+  "authority": {
+    "instance": "ida-17524",
+    "binary": "cg2d.exe",
+    "imagebase": "0x400000",
+    "method": "当前已打开原会话MCP只读Python；未改动/重载/导出数据库"
+  },
+  "original_root": {
+    "entry": "0x00517040",
+    "chunks": [
+      [
+        "0x00517040",
+        "0x00517080"
+      ]
+    ],
+    "instructions": [
+      {
+        "ea": "0x00517040",
+        "size": 4,
+        "line": "mov     eax, [esp+arg_0]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517044",
+        "size": 4,
+        "line": "mov     ecx, [esp+arg_C]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517048",
+        "size": 6,
+        "line": "mov     dword ptr [eax], 0",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051704E",
+        "size": 2,
+        "line": "mov     eax, [ecx]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517050",
+        "size": 2,
+        "line": "test    eax, eax",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517052",
+        "size": 2,
+        "line": "jnz     short loc_51706C",
+        "code_refs": [
+          "0x0051706C"
+        ]
+      },
+      {
+        "ea": "0x00517054",
+        "size": 4,
+        "line": "mov     edx, [esp+a3]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517058",
+        "size": 4,
+        "line": "mov     eax, [esp+a1]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051705C",
+        "size": 1,
+        "line": "push    edx; a3",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051705D",
+        "size": 5,
+        "line": "push    offset byte_593850; a2",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517062",
+        "size": 1,
+        "line": "push    eax; a1",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517063",
+        "size": 5,
+        "line": "call    sub_517080",
+        "code_refs": [
+          "0x00517080"
+        ]
+      },
+      {
+        "ea": "0x00517068",
+        "size": 3,
+        "line": "add     esp, 0Ch",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051706B",
+        "size": 1,
+        "line": "retn",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051706C",
+        "size": 4,
+        "line": "mov     ecx, [esp+a3]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517070",
+        "size": 4,
+        "line": "mov     edx, [esp+a1]",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517074",
+        "size": 1,
+        "line": "push    ecx; a3",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517075",
+        "size": 1,
+        "line": "push    eax; a2",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517076",
+        "size": 1,
+        "line": "push    edx; a1",
+        "code_refs": []
+      },
+      {
+        "ea": "0x00517077",
+        "size": 5,
+        "line": "call    sub_517080",
+        "code_refs": [
+          "0x00517080"
+        ]
+      },
+      {
+        "ea": "0x0051707C",
+        "size": 3,
+        "line": "add     esp, 0Ch",
+        "code_refs": []
+      },
+      {
+        "ea": "0x0051707F",
+        "size": 1,
+        "line": "retn",
+        "code_refs": []
+      }
+    ],
+    "instruction_count": 22,
+    "byte_count": 64,
+    "inbound": [
+      {
+        "from": "0x00512E82",
+        "parent": "0x00512E40",
+        "type": 17,
+        "line": "call    sub_517040"
+      }
+    ]
+  },
+  "read_contract": {
+    "output_zero": "0x00517048",
+    "first_pointer_read": "0x0051704E",
+    "nonnull_snapshot_use": "0x00517075",
+    "null_source": "0x00593850",
+    "copy_calls": [
+      "0x00517063",
+      "0x00517077"
+    ],
+    "original_pointer_reads": 1,
+    "previous_nonnull_source_reads": 2,
+    "current_pointer_reads": 1
+  },
+  "scope": {
+    "changed_body": "Sub_517040",
+    "new_body": false,
+    "new_owner": false,
+    "whole_dispatch_verified": false,
+    "parameter_transmission_order_verified": false,
+    "runtime_verified": false,
+    "focus": "已发现的首指针读取缺口；不全量核对"
+  },
+  "not_promoted": {
+    "previous_integer_slot_observations": 157,
+    "previous_reply_target_observations": 108,
+    "whole_dispatch_acceptance": false
+  }
+}

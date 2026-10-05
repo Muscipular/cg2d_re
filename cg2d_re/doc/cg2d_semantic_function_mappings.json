@@ -140985,6 +140985,52 @@
         "full_owners_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x00517040",
+      "inventory_id": "F:00117040",
+      "status": "NHS01取包头首指针单次读取缺口已修；整分派/参数传递/回复和实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x00517040",
+          "0x00517080"
+        ]
+      ],
+      "instruction_count": 22,
+      "original_byte_count": 64,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_517040"
+          ],
+          "relationship": "既有完整取头本体，NHS01仅修来源选择的单次读取"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_header_single_read_spec.md",
+        "doc/cg2d_header_single_read_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "517048输出W32先清零；51704E唯一参数表首指针读，非空517075复用快照，空分支用593850，两分支仍517080复制。源码读入一个const char*局部再分支，目的指针/S32容量/void接口/父调用保持，无新owner/保护/算法/格式。只修已发现缺口，未验整分派/完整参数传递/全部回复/alias/owner、实际ABI或运行；原格式明文、既定排除/音频暂停与RPLAN.24保持。",
+      "verification_level": "原完整22条/64B及唯一512E82直接caller，本步一CPP一个片段、台账限定差异与新增引用静态检查；不全面核对，不构建/测试/运行/摘要",
+      "header_single_read_contract": {
+        "group": "NHS01",
+        "spec": "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_517040",
+        "existing_body_before_this_step": true,
+        "body_changed": true,
+        "original_reads": 1,
+        "previous_nonnull_source_reads": 2,
+        "current_reads": 1,
+        "output_zero_before_read": true,
+        "new_owner": false,
+        "whole_dispatch_verified": false,
+        "parameter_transmission_order_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

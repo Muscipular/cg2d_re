@@ -1346,11 +1346,11 @@ void Sub_517040(
     char* const* const protocolArgs)
 {
     *output = 0;
-    const char* const source = *protocolArgs != nullptr
-        ? *protocolArgs : input::LegacyText593850();
+    const char* const source = *protocolArgs;
     CopyProtocolBytes_517080(
         destination,
-        reinterpret_cast<const std::uint8_t*>(source),
+        reinterpret_cast<const std::uint8_t*>(
+            source != nullptr ? source : input::LegacyText593850()),
         capacity);
 }
 

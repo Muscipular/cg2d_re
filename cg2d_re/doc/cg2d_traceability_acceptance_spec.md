@@ -512,3 +512,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance)要求三完整302条966B/五页/2普通call与1绑定3父/10出向、十三片段精确差异和真实合并/冲突/工厂失败/初始化合同；正确依赖/初始化/公共头及共享声明头仅具名注释差异保持。
 
 旧814/815仅追加、一新F及三adapted双域共用局部I/S/七任务和完整门禁保持open；未知头原计数不补零/加拒绝，不宣异常或编译指令/运行故障等价，完整所有事件/资源消费及owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BMF01 三域局部实现/静态证据（2026-10-06）
+
+[验收边界](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance)：两完整850条3188B与十八逻辑二十二处源码修复，完成→Init/标死和十状态C/M/Yobi清理/转场/退出请求真实接线纳管；三表22槽88B含原音乐父选择，音频仍暂停。旧803追加/一新场景、两adapted及三域成员：LOOP只场景，YOBI/BATTLE两根；E337→343仅六局部I/S。
+
+七任务仍open、60项已闭10及全部完整门禁不提升，原格式明文不变。关联1463/3680=39.76%仅关联覆盖率；完整427470/五父/资源owner与ABI/PC53/时钟RNG/画面、R1/R7/R8与整体继续。静态文本汇总不替代运行验收。

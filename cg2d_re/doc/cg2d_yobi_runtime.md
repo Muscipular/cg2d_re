@@ -4057,3 +4057,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [十三片段修复](cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision)恢复两根S32索引、Check先mask后bit、场景/退出和回合取样、五W32末W16清计数、两merge先5C/A8取样与CHT/BST的lastCreated先取再A8 pub。cached/live分工、未知头/工厂失败保持；正确初始化不加ClearYobi/free，声明头仅更正具名过期工厂注释。
 
 [三完整302条966B](cg2d_battle_m_event_dispatch_sampling_evidence.json)/2普通call与1回调绑定3父/10出向五页纳管；旧814/815历史追加、一初始化身份和三分类可追。事件创建/合并/等待与32/22非拥有表生产不代全部消费和owner/ABI/画面运行。
+
+## BMF01 事件完成与场景生命周期取样（2026-10-06）
+
+[完成三项四处、场景十五项十八处](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision)恢复S32头/标题、A8及活动mask先后、原W8/W16与W32复制计数、C/M比较先pub/尾copy、notice AND与状态7首零先增量、三载体先读再发和同退出指针门禁。NUL亦copy3/live64与slot复读、每Init后mask重读、busy0再MarkDeath、7/9清理差异及其它正确正文保持，标死不立即free；头仅具名过期注释更正。
+
+[两完整850条3188B](cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)/95普通call5父139出向/十二指令页三引用页及三表22槽88B纳管。旧803历史追加、新场景身份和两adapted；完整427470/五父全文/全部资源owner、借用失效及ABI/PC53/画面仍待，音频暂停和原格式明文保持。

@@ -8219,3 +8219,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前合同](../cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state)补43B360→43B290→439B30完整链、4383B0原回调绑定及正确4383F0初始化。两根十三片段取样/宽度和原零写落码、正确依赖保持；冲突前写/输出保持而失败不pubmask，工厂失败lastCreated置null/前事件保留/组界末计数、未知头未初始化原计数路径不改。
 
 [三完整字节/引用](../cg2d_battle_m_event_dispatch_sampling_evidence.json)302条966B/2call1绑定3父/10出向可追，绑定不记直接call；旧814/815历史保留、初始化仅补身份。U08/U09和完整门禁open，所有3父/消息消费及owner运行继续。
+
+## BMF01 十状态消费者与明文退出（2026-10-06）
+
+[完整十状态及公共绘制尾](../cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state)补一场景原身份，并实修W8玩家/字段/点击与四W16退出门禁、原W32 C/M计数及先条件后pub/尾copy。7先活动mask再exit且调用43BED0；9先exit再活动mask且无43BED0；原重复四零/状态7fallthrough8、输入渲染顺序、三数值载体构造析构和随机消费保持。退出HP同指针单次有符号读，后续hover/绘制仍live复读；原SendBattlePacket请求不变。
+
+[741条2889B完整场景、109条299B完成根](../cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)和三直接表可追，LOOP仅场景、YOBI/BATTLE两根共用；既有音乐表选择不解除音频暂停，数值载体非网络cipher。完整事件分派与资源/owner/画面运行门禁保留。

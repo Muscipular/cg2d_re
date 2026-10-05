@@ -95602,7 +95602,7 @@
     {
       "original_entry": "0x43B6C0",
       "inventory_id": "F:0003B6C0",
-      "status": "既有事件推进三字节复制已接真实核心；其余依赖及完整运行未验；本步M头表查找亦接真实子串核心",
+      "status": "既有事件推进三字节复制已接真实核心；其余依赖及完整运行未验；本步M头表查找亦接真实子串核心；BMF01当前完整完成/退休根三项四处取样修复纳管，完整owner运行未验",
       "original_end_exclusive": "0x43B7EB",
       "instruction_count": 109,
       "original_direct_reference_count": 94,
@@ -95612,7 +95612,15 @@
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "FinishBattleEvent_43B6C0"
-          ]
+          ],
+          "relationship": "完整事件完成/退休根纳管：25头S32、两轮先A8再bit和注销先slot bit→活动mask取样→取反AND/pub恢复；消息数先减/pub后门禁、NUL亦copy3/packet64复读、slot清表前复读、Init后mask逐轮复读、busy0才MarkDeath均保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "FinishBattleEvent_43B6C0"
+          ],
+          "relationship": "既有公开声明/非拥有T*与私有payload保持，不新增布局或ABI桥"
         }
       ],
       "copy_call_connections": [
@@ -95630,10 +95638,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json"
       ],
-      "verification_level": "完整109条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行；本步查找相邻28条与25项原头字节/实际参数，七标识符整份限定差异静态核对，未执行",
-      "boundary": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。 本步0x43B731头表查找接真实53BE40，原25项/3B头/首次匹配或失配时旧phase及后续计数/初始化/动作保持；整份YobiRuntime只七查找标识符替换，不重验父其余正文或上游全链。",
+      "verification_level": "完整109条原指令/真实参数/引用取证；整份源码限定四标识符、核心/头保持、文档追加及JSON四新父/共享项限定差异静态核对；不重验其他上游父或消费者内部，未构建或执行；本步查找相邻28条与25项原头字节/实际参数，七标识符整份限定差异静态核对，未执行；BMF01完整109条299B/94普通call4父/5出向，两根850条3188B/十二指令页三引用页、95call5父139出向、三表22槽88B及十八项二十二处有限静态；不验全部五父或owner/SDK/ABI/PC53/时钟RNG/画面",
+      "boundary": "remaining减后正数分支NUL也复制3B，先重读偏移算next再末NUL/发布next；原25头查找及动作次序保持。本步仅将限定3B复制交真实53BEC0；整份YobiRuntime只有四调用标识符替换，核心算法/声明及所有其他正文逐字保持；不新增补零、保护、私有游标、转码或故障模拟，不触碰424620待批var_50。其他依赖/数据生产/完整战斗与跨板块运行验收仍待，音频/加解密不恢复。 本步0x43B731头表查找接真实53BE40，原25项/3B头/首次匹配或失配时旧phase及后续计数/初始化/动作保持；整份YobiRuntime只七查找标识符替换，不重验父其余正文或上游全链。 BMF01追加完整完成/退休合同：完整事件完成/退休根纳管：25头S32、两轮先A8再bit和注销先slot bit→活动mask取样→取反AND/pub恢复；消息数先减/pub后门禁、NUL亦copy3/packet64复读、slot清表前复读、Init后mask逐轮复读、busy0才MarkDeath均保持。 不增加free、guard/补零/异常回绕模型；原字符串接线历史保持，完整运行门禁保留。",
       "search_call_connections": [
         {
           "parent_entry": "0x43B6C0",
@@ -95666,7 +95679,32 @@
           "reference_count": 88,
           "relationship": "仅原直接call引用枚举；不计该父正文或完整分派验收"
         }
-      ]
+      ],
+      "battle_event_finish_scene_lifecycle_sampling": {
+        "spec_id": "BMF01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b6c0",
+        "original_end_exclusive": "0x43b7eb",
+        "original_instruction_count": 109,
+        "original_code_bytes": 299,
+        "incoming_reference_count": 94,
+        "ordinary_call_count": 94,
+        "callback_binding_count": 0,
+        "instruction_page_count": 2,
+        "reference_page_count": 2,
+        "outgoing_call_count": 5,
+        "source_body_changed": true,
+        "source_patch_count": 3,
+        "source_replaced_span_count": 4,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4F24A0",
@@ -151260,6 +151298,68 @@
         "source_patch_count": 0,
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43cbb0",
+      "inventory_id": "F:0003CBB0",
+      "status": "BMF01完整十状态与公共绘制/退出尾十八处修复纳管，完整战斗owner/画面运行未验",
+      "original_end_exclusive": "0x43d6f9",
+      "instruction_count": 741,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "DrawBattleScene_43CBB0"
+          ],
+          "relationship": "完整十状态/公共绘制和退出消费者纳管，十五逻辑项十八处恢复S32/W32计数、W8/W16取样、C/M比较先于pub/尾copy、notice AND和状态7零写增量、三数值载体先读后发/同退出指针HP门禁；原顺序、live复读、失败/返回/重复清理、输入/渲染/原格式明文及音频暂停保持。"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "DrawBattleScene_43CBB0"
+          ],
+          "relationship": "既有声明与共享数据布局保持，唯一具名43B610工厂过期注释更正；完整427470/owner与画面运行仍待。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json"
+      ],
+      "verification_level": "BMF01完整741条2889B/51C71C普通call父51C430/134出向、三直接表22槽88B与十五逻辑十八处有限静态；两根共850条3188B十二指令页三引用页及十八逻辑二十二处。不验五父全文/全部资源owner或ABI/PC53/画面运行。",
+      "boundary": "完整0..9状态/default公共尾和完成/初始化/清理/转场/明文退出接线纳管；状态7与9次序和43BED0差异、三载体构造析构和token/reserved、原两音频调用系暂停范围保持。根内memcpy W16读取lambda仅现代承载，不新增F/X身份或公共HP getter，不加保护/回绕/owner，不以静态通过提升完整门禁。",
+      "battle_event_finish_scene_lifecycle_sampling": {
+        "spec_id": "BMF01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+          "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json"
+        ],
+        "original_entry": "0x43cbb0",
+        "original_end_exclusive": "0x43d6f9",
+        "original_instruction_count": 741,
+        "original_code_bytes": 2889,
+        "incoming_reference_count": 1,
+        "ordinary_call_count": 1,
+        "callback_binding_count": 0,
+        "instruction_page_count": 10,
+        "reference_page_count": 1,
+        "outgoing_call_count": 134,
+        "source_body_changed": true,
+        "source_patch_count": 15,
+        "source_replaced_span_count": 18,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false,
+        "direct_switch_table_count": 3,
+        "direct_switch_slot_count": 22,
+        "direct_switch_bytes": 88
       }
     }
   ]

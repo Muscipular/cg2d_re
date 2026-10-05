@@ -1314,7 +1314,7 @@ extern std::uint32_t gBattleTurnSnapshot5ABC08;
 extern std::uint32_t gValue5ABCB0;
 extern std::int32_t gBattleBackgroundSnapshot5ABCD8; // 43CB10末尾写，DrawBattleScene比较。
 using cg::login::detail::Sub_520160;
-void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；43B610/427470传递依赖仍未闭合。
+void DrawBattleScene_43CBB0(); // 完整十状态及绘制/退出尾；427470/完整事件寿命与画面运行门禁仍未闭合。
 
 // 原 0x51FDE0；第三槽保持原 32 位载荷，浮点目标自行解释位模式。
 std::int32_t Sub_51FDE0(

@@ -103,3 +103,9 @@
 [裁决](../cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision)恢复两merge先取5C/A8再pub5C/同mask，CHT14/BST20先取lastCreated再A8 pub；入口sceneType/exit、回合在三零写前取样、共享22计数五W32末W16与S32索引保持。Check先mask再bit，new事件先bit再live activeMask，两处不抹平。
 
 [三完整302条966B](../cg2d_battle_m_event_dispatch_sampling_evidence.json)/2call1绑定3父/10出向与实际工厂/初始化消费纳管，失败/未知头/非拥有表和正确初始化保持；不把完整根外推全部资源消费、owner重进退出/浅别名/借用失效或画面运行。
+
+## BMF01 完成恢复与延迟退休（2026-10-06）
+
+[完成根合同](../cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision)保持remaining先S32−1/pub后判正数、NUL亦copy3/25头首次匹配或保旧phase、live64与eventSlot复读、22轮每次先A8再bit并调用4390E0；注销先构slot bit再取活动mask、取反AND/pub，清槽后22轮恢复、清busy再MarkDeath。只标死，回收仍归Yobi实际寿命链。
+
+[850条3188B两完整根](../cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)同时纳管真实十状态清表/清Yobi/转场/明文退出顺序；完整427470消息执行、五父与全部角色/附件资源owner和重进退出/ABI/画面未闭，不新增保护/free或异常模拟。

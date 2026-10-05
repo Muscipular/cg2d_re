@@ -7002,6 +7002,12 @@ void DrawBattleScene_43CBB0()
         Sub_43CB10();
         state = gCurrentSceneState;
     }
+    // 原退出门禁逐项读W16，保持短路，不读取整个W32后截断。
+    const auto readBattleEffectWord = [](const std::uint32_t& effect, const std::size_t offset) {
+        std::uint16_t value;
+        std::memcpy(&value, reinterpret_cast<const std::byte*>(&effect) + offset, sizeof(value));
+        return value;
+    };
     const auto clearBattleEffects = [] {
         const std::uint16_t zero = 0;
         std::memcpy(&gBattleSceneEffectC8A768, &zero, sizeof(zero));
@@ -7013,12 +7019,14 @@ void DrawBattleScene_43CBB0()
     case 0: {
         gValue5ABFC4 = 0;
         std::memset(gBattleNamedEffects5ABCE0.data(), 0, sizeof(gBattleNamedEffects5ABCE0));
-        std::size_t title = 0;
-        while (title < gSortedTitlesDE03F8.size() && gSortedTitlesDE03F8[title].value != 1101) {
+        std::int32_t title = 0;
+        while (title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size())
+            && gSortedTitlesDE03F8[title].value != 1101) {
             ++title;
         }
+        const bool titleFound = title < static_cast<std::int32_t>(gSortedTitlesDE03F8.size());
         gBattleAttributeEffectFlags59F9E0 = 0;
-        if (title < gSortedTitlesDE03F8.size()) {
+        if (titleFound) {
             gBattleAttributeEffectFlags59F9E0 = 5;
         }
         if (gMapCharaSceneSlots.valueC8A73E != 0
@@ -7126,23 +7134,24 @@ void DrawBattleScene_43CBB0()
         static_cast<void>(ui::RenderWindows_504120());
         RenderInput_4590E0();
         static_cast<void>(NextRotationValue_455C70());
-        if ((gBattlePlayerFlags5ABCAC & 0x40U) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleStartHint5541CC);
         }
         const std::int32_t readIndex = gBattleCReadIndex5AAA44;
         if (readIndex != gBattleCWriteIndex5AAA6C) {
             const char* const source = gBattleCQueue5A4A3C.data() + readIndex * 0x1000;
-            const std::size_t size = std::strlen(source) + 1;
-            const std::size_t wordBytes = size & ~std::size_t{3};
+            const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
+            const std::uint32_t wordBytes = size & ~3U;
             std::memcpy(gBattleCText5A3A20.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
+            const bool consumedLastSlot = nextIndex >= 4;
             gBattleCReadIndex5AAA44 = nextIndex;
             std::memcpy(gBattleCText5A3A20.data() + wordBytes, source + wordBytes, size & 3U);
-            if (nextIndex >= 4) {
+            if (consumedLastSlot) {
                 gBattleCReadIndex5AAA44 = 0;
             }
             ParseBattleC_438550();
-            if ((gBattleFieldFlags5ABB58 & 0x20U) != 0) {
+            if ((*reinterpret_cast<const unsigned char*>(&gBattleFieldFlags5ABB58) & 0x20U) != 0) {
                 gCurrentSceneState = 7;
                 break;
             }
@@ -7169,7 +7178,7 @@ void DrawBattleScene_43CBB0()
             }
             gCurrentSceneState = 3;
         }
-        if ((gBattlePlayerFlags5ABCAC & 0x40U) != 0) {
+        if ((*reinterpret_cast<const unsigned char*>(&gBattlePlayerFlags5ABCAC) & 0x40U) != 0) {
             std::strcpy(ui::detail::gHoverTextD68AE8.data(), kBattleTurnHint5541BC);
         }
         break;
@@ -7189,9 +7198,9 @@ void DrawBattleScene_43CBB0()
         if (Sub_43C910() == 1) {
             if (gBattleEntryNoticeAction5ABFB8 != nullptr) {
                 static_cast<void>(MarkDeath(gBattleEntryNoticeAction5ABFB8));
-                const std::uint32_t flags = gBattlePlayerFlags5ABCAC;
+                const std::uint32_t flags = gBattlePlayerFlags5ABCAC & ~3U;
                 gBattleEntryNoticeAction5ABFB8 = nullptr;
-                gBattlePlayerFlags5ABCAC = flags & ~3U;
+                gBattlePlayerFlags5ABCAC = flags;
             }
             Sub_43C4E0();
             gCurrentSceneState = 4;
@@ -7226,13 +7235,14 @@ void DrawBattleScene_43CBB0()
         const std::int32_t readIndex = gBattleMReadIndex5AAA68;
         if (readIndex != gBattleMWriteIndex5A3A1C) {
             const char* const source = gBattleMQueue59FA18.data() + readIndex * 0x1000;
-            const std::size_t size = std::strlen(source) + 1;
-            const std::size_t wordBytes = size & ~std::size_t{3};
+            const std::uint32_t size = static_cast<std::uint32_t>(std::strlen(source)) + 1U;
+            const std::uint32_t wordBytes = size & ~3U;
             std::memcpy(gBattleMText5AAA7C.data(), source, wordBytes);
             const std::int32_t nextIndex = readIndex + 1;
+            const bool consumedLastSlot = nextIndex >= 4;
             gBattleMReadIndex5AAA68 = nextIndex;
             std::memcpy(gBattleMText5AAA7C.data() + wordBytes, source + wordBytes, size & 3U);
-            if (nextIndex >= 4) {
+            if (consumedLastSlot) {
                 gBattleMReadIndex5AAA68 = 0;
             }
             gBattleMScanOffset5A8A3C = 2;
@@ -7264,17 +7274,23 @@ void DrawBattleScene_43CBB0()
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(audio::Sub_52B990());
         static_cast<void>(Sub_51D750());
-        const std::uint16_t firstEffect = static_cast<std::uint16_t>(gBattleSceneEffectC8A768);
+        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
+        const bool firstEffectPresent = firstEffect != 0;
         platform::gValue73ECC0 = 2;
-        if (firstEffect != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A768 >> 16) != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C) != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C >> 16) != 0) {
+        if (firstEffectPresent
+            || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
+            || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
+            || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
             static_cast<void>(Sub_46E4C0(160));
         }
-        const std::int32_t nextState = gCurrentSceneState + 1;
-        clearBattleEffects();
+        const std::int32_t currentState = gCurrentSceneState;
+        const std::uint16_t zero = 0;
+        std::memcpy(&gBattleSceneEffectC8A768, &zero, sizeof(zero));
+        const std::int32_t nextState = currentState + 1;
+        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A768) + 2, &zero, sizeof(zero));
+        std::memcpy(&gBattleSceneEffectC8A76C, &zero, sizeof(zero));
+        std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A76C) + 2, &zero, sizeof(zero));
         gValue58B6D0 = 1;
         gCurrentSceneState = nextState;
         [[fallthrough]];
@@ -7295,9 +7311,12 @@ void DrawBattleScene_43CBB0()
         Sub_446610();
         platform::LegacyCryptInt zero;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
-        gRippleGate.mask = zero.mask;
-        gRippleGate.encoded = zero.encoded;
-        gRippleGate.readCount = zero.readCount;
+        const std::uint32_t zeroMask = zero.mask;
+        const std::uint32_t zeroEncoded = zero.encoded;
+        const std::uint8_t zeroReadCount = zero.readCount;
+        gRippleGate.mask = zeroMask;
+        gRippleGate.encoded = zeroEncoded;
+        gRippleGate.readCount = zeroReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&zero);
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
@@ -7311,12 +7330,13 @@ void DrawBattleScene_43CBB0()
         gBattleAllEntries59E980.fill(nullptr);
         static_cast<void>(audio::Sub_52B990());
         static_cast<void>(Sub_51D750());
-        const std::uint16_t firstEffect = static_cast<std::uint16_t>(gBattleSceneEffectC8A768);
+        const std::uint16_t firstEffect = readBattleEffectWord(gBattleSceneEffectC8A768, 0);
+        const bool firstEffectPresent = firstEffect != 0;
         platform::gValue73ECC0 = 2;
-        if (firstEffect != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A768 >> 16) != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C) != 0
-            || static_cast<std::uint16_t>(gBattleSceneEffectC8A76C >> 16) != 0) {
+        if (firstEffectPresent
+            || readBattleEffectWord(gBattleSceneEffectC8A768, 2) != 0
+            || readBattleEffectWord(gBattleSceneEffectC8A76C, 0) != 0
+            || readBattleEffectWord(gBattleSceneEffectC8A76C, 2) != 0) {
             clearBattleEffects();
             static_cast<void>(Sub_46E4C0(160));
         }
@@ -7325,15 +7345,21 @@ void DrawBattleScene_43CBB0()
         Sub_446610();
         platform::LegacyCryptInt rippleZero;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&rippleZero, 0);
-        gRippleGate.mask = rippleZero.mask;
-        gRippleGate.encoded = rippleZero.encoded;
-        gRippleGate.readCount = rippleZero.readCount;
+        const std::uint32_t rippleZeroMask = rippleZero.mask;
+        const std::uint32_t rippleZeroEncoded = rippleZero.encoded;
+        const std::uint8_t rippleZeroReadCount = rippleZero.readCount;
+        gRippleGate.mask = rippleZeroMask;
+        gRippleGate.encoded = rippleZeroEncoded;
+        gRippleGate.readCount = rippleZeroReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&rippleZero);
         platform::LegacyCryptInt transitionZero;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&transitionZero, 0);
-        gValue73ECD0.mask = transitionZero.mask;
-        gValue73ECD0.encoded = transitionZero.encoded;
-        gValue73ECD0.readCount = transitionZero.readCount;
+        const std::uint32_t transitionZeroMask = transitionZero.mask;
+        const std::uint32_t transitionZeroEncoded = transitionZero.encoded;
+        const std::uint8_t transitionZeroReadCount = transitionZero.readCount;
+        gValue73ECD0.mask = transitionZeroMask;
+        gValue73ECD0.encoded = transitionZeroEncoded;
+        gValue73ECD0.readCount = transitionZeroReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&transitionZero);
         static_cast<void>(SetPendingSceneType(7));
         return;
@@ -7374,17 +7400,20 @@ void DrawBattleScene_43CBB0()
         gCurrentSceneState = 7;
         gValue5ABCB0 = 0;
     }
-    if (gBattleExitAction5ABCDC != nullptr && ReadYobiActionHpOnce(gBattleExitAction5ABCDC) > 0) {
+    login::YobiAction* const exitAction = gBattleExitAction5ABCDC;
+    if (exitAction != nullptr && ReadYobiActionHpOnce(exitAction) > 0) {
         login::YobiAction* const action = gBattleExitAction5ABCDC;
         const std::int32_t y = GetYobiActionField34(action);
         const std::int32_t x = GetYobiActionField30(action);
         if (Sub_5049A0(x + 20, y + 37, x + 110, y + 63, 213) == 1) {
             constexpr std::size_t wordBytes = sizeof(kBattleExitHint554194) & ~std::size_t{3};
             std::memcpy(ui::detail::gHoverTextD68AE8.data(), kBattleExitHint554194, wordBytes);
-            const auto clicked = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+            const auto clicked = *reinterpret_cast<const unsigned char*>(
+                &platform::gLegacyMouseState.edgeButtons);
+            const bool exitClicked = (clicked & 1U) != 0;
             std::memcpy(ui::detail::gHoverTextD68AE8.data() + wordBytes,
                 kBattleExitHint554194 + wordBytes, sizeof(kBattleExitHint554194) & 3U);
-            if ((clicked & 1U) != 0) {
+            if (exitClicked) {
                 static_cast<void>(audio::PlaySe_52C450(51, 320));
                 static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, kBattleExitRequest554190));
                 gCurrentSceneState = 7;

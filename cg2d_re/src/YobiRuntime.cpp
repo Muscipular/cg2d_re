@@ -21159,28 +21159,34 @@ void FinishBattleEvent_43B6C0(YobiAction* const action)
         const std::int32_t next = payload->packetOffset64 + 4;
         header[3] = '\0';
         payload->packetOffset64 = next;
-        std::size_t kind = 0;
-        while (kind < kBattleMHeaders553E94.size()
+        std::int32_t kind = 0;
+        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
             && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
-        if (kind < kBattleMHeaders553E94.size()) {
+        if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
             action->phase = static_cast<std::int32_t>(kind);
         }
         payload->packetSubState58 = 0;
         payload->groupBase68 = 0;
         for (std::int32_t index = 0; index < 22; ++index) {
-            if ((payload->entryMaskA8 & (1u << index)) != 0) {
+            const std::uint32_t eventMask = payload->entryMaskA8;
+            const std::uint32_t bit = 1u << index;
+            if ((eventMask & bit) != 0) {
                 InitBattleCastList_4390E0(index);
             }
         }
         gValue5ABB1C = 0;
         payload->waitCountAC = 0;
     } else {
-        gBattleActiveEventMask5AAA74 &= ~(1u << payload->eventSlot60);
+        const std::uint32_t eventBit = 1u << payload->eventSlot60;
+        const std::uint32_t activeEvents = gBattleActiveEventMask5AAA74;
+        gBattleActiveEventMask5AAA74 = activeEvents & ~eventBit;
         gBattleEventActions5ABA9C[payload->eventSlot60] = nullptr;
         for (std::int32_t index = 0; index < 22; ++index) {
-            if ((payload->entryMaskA8 & (1u << index)) != 0) {
+            const std::uint32_t eventMask = payload->entryMaskA8;
+            const std::uint32_t bit = 1u << index;
+            if ((eventMask & bit) != 0) {
                 InitBattleCastList_4390E0(index);
             }
         }

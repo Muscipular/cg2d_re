@@ -2495,3 +2495,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [两根11处与默认](cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state)对应306条1163B八页31call，追加ProcessBattleMSkill98Mode17/StatusTargets实修及正确ProcessBattleMSkill98 wrapper仅纳管。最后比较默认EB0A、状态10种初始模式与动态mode证实；原98区段由五既有具名子SPEC和本步按EA去重合并1833条7116B/170call无缺口，无字节冲突。不新F/X/adapted/分类/完整成员，保持历史时点与其它字段。
 
 只闭合原98区段指令来源和有界关系；语义1350/有效ID1345、片段5/分类456及关联1463保持，完整父17298-SEH/其它技能-全路由/所有消费者-owner/SDK/ABI/画面运行仍待。
+
+## BNB01 旧812技能99族有界追加（2026-10-06）
+
+[BNB01具体SPEC](cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision)和[原端证据](cg2d_battle_m_skill99_family_sampling_evidence.json)覆盖99..104/2019/3001同主体400条1639B五页40call：单根14定义15处恢复caster/target、固定flags/附加效果参数、字段与状态skill及2019余数取样。保三路径固定payload跨144、调用后live重读/原EDI跨目标默认、初始空返回/循环Finish-终结和末无RID；全部其它正文/头保持。原六槽24B、2019高入口45B/图20B和3001比较链、正确状态helper52B仅有界上下文；既有93尾12条53B非新增，不代完整父/消费者-owner/SDK-ABI-PC53-时钟RNG画面运行。
+
+旧812仅增五引用、ProcessBattleMSkill99Family symbol与本步对象；不新增F/X/adapted、分类或完整成员。语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%、YOBI55/BATTLE52/RENDER26/LOOP32保持。

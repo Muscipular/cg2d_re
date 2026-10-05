@@ -632,3 +632,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance)：本步306条1163B八页31call/直接目标及最后比较默认EB0A，整CPP两根11处/17 fixed flags与状态caster先pub-S32选择/字段和原动态mode、正确wrapper/默认/全部其它根头保持有限静态。五既有证据与HEAD一致、本步与原捕获一致，原98区段1833条7116B/170call按EA去重连续且重叠字节一致；既有26条97B非新增。E417→421仅YOBI/BATTLE四局部I/S。
 
 区段覆盖不代完整父-SEH/SDK/ABI-所有消费者与资源owner/PC53/时钟RNG/画面运行，七open/60项已闭10/R7及所有完整分类-成员-门禁保持；其它技能真实缺口与R1/R7/R8/整体继续，不降低标准。
+
+## BNB01 技能99族局部I/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-acceptance)限定单根14定义15处落码和[400条实际正文/原表上下文](cg2d_battle_m_skill99_family_sampling_evidence.json)。E421→425只增加YOBI/BATTLE四局部I/S；七任务open和完整门禁/完整成员保持。全部其它指标、分类与原基线不变，不以固定payload/具体主体和获准文本汇总替代完整父/SDK-ABI/owner/运行或R1/R7/R8。

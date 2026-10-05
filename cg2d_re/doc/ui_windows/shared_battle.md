@@ -8339,3 +8339,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state)纳管17五处和状态六处、正确默认。状态初始0..5/9..11/18入口在EDI5时转入，效果/字段后再live mode决定当次动作；18仍消费目标/flags/效果和基础字段，不另造动作。17先aux后Effect/0金额及250-251-58-36保持；状态空Finish仍终结caster，默认没有效果终结，只Move-RID-增58。
 
 [八页31call](../cg2d_battle_m_skill98_mode17_status_sampling_evidence.json)本步306条1163B/直接目标和最后比较；原98全区段1833条7116B/170call由既有子SPEC合并无缺口，不能代完整父/全部owner与SDK/ABI/画面运行。原格式明文/音频暂停与完整门禁保持。
+
+## BNB01 共享战斗状态取样（2026-10-06）
+
+[单根14定义15处](../cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision)恢复99..104/2019/3001角色/字段与附加效果参数的原序；状态固定payload跨144保留、2019余数在144后重新live取样，三个原生产路径和无RID终结保持。[400条实际证据](../cg2d_battle_m_skill99_family_sampling_evidence.json)及原入口/表/图号有来源；旧812有界追加，不据主体或局部I/S验完整共享战斗、所有owner与画面运行。

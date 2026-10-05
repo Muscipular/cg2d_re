@@ -4177,3 +4177,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [两根11处实修](cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision)恢复17的Take固定flags条件/两个S32选择与aux固定flags后Effect live参数，状态目标caster先flags pub/固定参数和四字段actor先值。原aux先Effect、业务firstImage正常零/无空门禁、状态动态mode-0..5/9/10/11/18及80000原动作与Finish尾保持；正确wrapper/默认只Move-RID-增58不改。
 
 [本步306条1163B](cg2d_battle_m_skill98_mode17_status_sampling_evidence.json)八页31call和最后比较/默认纳管，26条97B既有尾非新增。五既有具名子SPEC加本步按EA合并原98区段1833条7116B/170call无缺口，只闭合该区段指令/有界源码来源；其它技能-全路由/完整父-SEH/SDK/ABI/所有消费者-owner/画面运行继续。
+
+## BNB01 技能99族14组15处实修（2026-10-06）
+
+[BNB01具体SPEC](cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision)和[原端证据](cg2d_battle_m_skill99_family_sampling_evidence.json)覆盖99..104/2019/3001同主体400条1639B五页40call：单根14定义15处恢复caster/target、固定flags/附加效果参数、字段与状态skill及2019余数取样。保三路径固定payload跨144、调用后live重读/原EDI跨目标默认、初始空返回/循环Finish-终结和末无RID；全部其它正文/头保持。原六槽24B、2019高入口45B/图20B和3001比较链、正确状态helper52B仅有界上下文；既有93尾12条53B非新增，不代完整父/消费者-owner/SDK-ABI-PC53-时钟RNG画面运行。

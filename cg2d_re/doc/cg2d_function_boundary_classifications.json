@@ -16,7 +16,11 @@
           "Sub_4C2630"
         ]
       },
-      "boundary": "4C2630先从栈参数读取index到ECX，再落入元数据4C2634正文；原元素表指向4C2630。现有两参数回调覆盖前缀和整段，不为4C2634另造丢失索引的包装。"
+      "boundary": "4C2630先从栈参数读取index到ECX，再落入元数据4C2634正文；原元素表指向4C2630。现有两参数回调覆盖前缀和整段，不为4C2634另造丢失索引的包装。；BMR01当前merged处置及完整原基线/现有源码归属已登记；仅当前片段合同，不新增包装/空体，原ID/几何/事实与全部父/alias/运行边界保持。",
+      "evidence_documents": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_boundary_merged_identity_evidence.json"
+      ]
     },
     {
       "original_entry": "0x4D6650",
@@ -30,7 +34,11 @@
           "Sub_4D6640"
         ]
       },
-      "boundary": "4D6644分配后test EAX，非零跳4D6651，零落入本条C3返回。现有工厂空分配直接return nullptr；不是可独立补空体的业务函数。"
+      "boundary": "4D6644分配后test EAX，非零跳4D6651，零落入本条C3返回。现有工厂空分配直接return nullptr；不是可独立补空体的业务函数。；BMR01当前merged处置及完整原基线/现有源码归属已登记；仅当前片段合同，不新增包装/空体，原ID/几何/事实与全部父/alias/运行边界保持。",
+      "evidence_documents": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_boundary_merged_identity_evidence.json"
+      ]
     },
     {
       "original_entry": "0x4C48EB",

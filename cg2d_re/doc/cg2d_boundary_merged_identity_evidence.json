@@ -1,0 +1,438 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "BMR01两合并片段和既有工厂的逐ID登记；客户端本体保持",
+  "original": {
+    "functions": [
+      {
+        "start": "0x4c2634",
+        "end": "0x4c26af",
+        "chunks": [
+          [
+            4990516,
+            4990639
+          ]
+        ],
+        "rows": [
+          [
+            "0x4c2634",
+            "8b159446cf00",
+            "mov     edx, gCurrentWindow"
+          ],
+          [
+            "0x4c263a",
+            "53",
+            "push    ebx"
+          ],
+          [
+            "0x4c263b",
+            "8a5c240c",
+            "mov     bl, [esp+4+arg_4]"
+          ],
+          [
+            "0x4c263f",
+            "8b522c",
+            "mov     edx, [edx+2Ch]"
+          ],
+          [
+            "0x4c2642",
+            "8d0cc9",
+            "lea     ecx, [ecx+ecx*8]"
+          ],
+          [
+            "0x4c2645",
+            "33c0",
+            "xor     eax, eax"
+          ],
+          [
+            "0x4c2647",
+            "56",
+            "push    esi"
+          ],
+          [
+            "0x4c2648",
+            "8b748a1c",
+            "mov     esi, [edx+ecx*4+1Ch]"
+          ],
+          [
+            "0x4c264c",
+            "f6c302",
+            "test    bl, 2"
+          ],
+          [
+            "0x4c264f",
+            "743f",
+            "jz      short loc_4C2690"
+          ],
+          [
+            "0x4c2651",
+            "a104d6d200",
+            "mov     eax, dword_D2D604"
+          ],
+          [
+            "0x4c2656",
+            "68f0000000",
+            "push    0F0h"
+          ],
+          [
+            "0x4c265b",
+            "85c0",
+            "test    eax, eax"
+          ],
+          [
+            "0x4c265d",
+            "6840010000",
+            "push    140h"
+          ],
+          [
+            "0x4c2662",
+            "7e04",
+            "jle     short loc_4C2668"
+          ],
+          [
+            "0x4c2664",
+            "6a33",
+            "push    33h ; '3'"
+          ],
+          [
+            "0x4c2666",
+            "eb02",
+            "jmp     short loc_4C266A"
+          ],
+          [
+            "0x4c2668",
+            "6a37",
+            "push    37h ; '7'"
+          ],
+          [
+            "0x4c266a",
+            "e8e19d0600",
+            "call    World__PlaySe"
+          ],
+          [
+            "0x4c266f",
+            "a104d6d200",
+            "mov     eax, dword_D2D604"
+          ],
+          [
+            "0x4c2674",
+            "83c40c",
+            "add     esp, 0Ch"
+          ],
+          [
+            "0x4c2677",
+            "83e805",
+            "sub     eax, 5"
+          ],
+          [
+            "0x4c267a",
+            "a304d6d200",
+            "mov     dword_D2D604, eax"
+          ],
+          [
+            "0x4c267f",
+            "790a",
+            "jns     short loc_4C268B"
+          ],
+          [
+            "0x4c2681",
+            "c70504d6d20000000000",
+            "mov     dword_D2D604, 0"
+          ],
+          [
+            "0x4c268b",
+            "b801000000",
+            "mov     eax, 1"
+          ],
+          [
+            "0x4c2690",
+            "f6c301",
+            "test    bl, 1"
+          ],
+          [
+            "0x4c2693",
+            "c70656b50300",
+            "mov     dword ptr [esi], 3B556h"
+          ],
+          [
+            "0x4c2699",
+            "7406",
+            "jz      short loc_4C26A1"
+          ],
+          [
+            "0x4c269b",
+            "c70658b50300",
+            "mov     dword ptr [esi], 3B558h"
+          ],
+          [
+            "0x4c26a1",
+            "f6c308",
+            "test    bl, 8"
+          ],
+          [
+            "0x4c26a4",
+            "7406",
+            "jz      short loc_4C26AC"
+          ],
+          [
+            "0x4c26a6",
+            "c70657b50300",
+            "mov     dword ptr [esi], 3B557h"
+          ],
+          [
+            "0x4c26ac",
+            "5e",
+            "pop     esi"
+          ],
+          [
+            "0x4c26ad",
+            "5b",
+            "pop     ebx"
+          ],
+          [
+            "0x4c26ae",
+            "c3",
+            "retn"
+          ]
+        ],
+        "incoming": [
+          [
+            "0x4c2630",
+            21,
+            true
+          ]
+        ]
+      },
+      {
+        "start": "0x4d6640",
+        "end": "0x4d6650",
+        "chunks": [
+          [
+            5072448,
+            5072464
+          ],
+          [
+            5072465,
+            5072528
+          ]
+        ],
+        "rows": [
+          [
+            "0x4d6640",
+            "6a00",
+            "push    0"
+          ],
+          [
+            "0x4d6642",
+            "6a02",
+            "push    2"
+          ],
+          [
+            "0x4d6644",
+            "e897e4f2ff",
+            "call    YobiAction__new"
+          ],
+          [
+            "0x4d6649",
+            "83c408",
+            "add     esp, 8"
+          ],
+          [
+            "0x4d664c",
+            "85c0",
+            "test    eax, eax"
+          ],
+          [
+            "0x4d664e",
+            "7501",
+            "jnz     short loc_4D6651"
+          ],
+          [
+            "0x4d6651",
+            "8b4c2404",
+            "mov     ecx, [esp+arg_0]"
+          ],
+          [
+            "0x4d6655",
+            "8b542408",
+            "mov     edx, [esp+arg_4]"
+          ],
+          [
+            "0x4d6659",
+            "8988a8020000",
+            "mov     [eax+2A8h], ecx"
+          ],
+          [
+            "0x4d665f",
+            "8b4c240c",
+            "mov     ecx, [esp+arg_8]"
+          ],
+          [
+            "0x4d6663",
+            "c7400890664d00",
+            "mov     dword ptr [eax+8], offset sub_4D6690"
+          ],
+          [
+            "0x4d666a",
+            "c780b002000000000000",
+            "mov     dword ptr [eax+2B0h], 0"
+          ],
+          [
+            "0x4d6674",
+            "c780b802000005000000",
+            "mov     dword ptr [eax+2B8h], 5"
+          ],
+          [
+            "0x4d667e",
+            "c64015dd",
+            "mov     byte ptr [eax+15h], 0DDh"
+          ],
+          [
+            "0x4d6682",
+            "c7402416000000",
+            "mov     dword ptr [eax+24h], 16h"
+          ],
+          [
+            "0x4d6689",
+            "895030",
+            "mov     [eax+30h], edx"
+          ],
+          [
+            "0x4d668c",
+            "894834",
+            "mov     [eax+34h], ecx"
+          ],
+          [
+            "0x4d668f",
+            "c3",
+            "retn"
+          ]
+        ],
+        "incoming": [
+          [
+            "0x4d66fc",
+            17,
+            true
+          ],
+          [
+            "0x4d6a4f",
+            17,
+            true
+          ],
+          [
+            "0x4d6e8f",
+            17,
+            true
+          ],
+          [
+            "0x4d745f",
+            17,
+            true
+          ],
+          [
+            "0x4d7c0f",
+            17,
+            true
+          ],
+          [
+            "0x4d821f",
+            17,
+            true
+          ]
+        ]
+      },
+      {
+        "start": "0x4d6650",
+        "end": "0x4d6651",
+        "chunks": [
+          [
+            5072464,
+            5072465
+          ]
+        ],
+        "rows": [
+          [
+            "0x4d6650",
+            "c3",
+            "retn"
+          ]
+        ],
+        "incoming": [
+          [
+            "0x4d664e",
+            21,
+            true
+          ]
+        ]
+      }
+    ],
+    "callback_prefix": {
+      "start": "0x4c2630",
+      "end": "0x4c2634",
+      "bytes": "8b4c2404",
+      "line": "mov     ecx, [esp+arg_0]",
+      "incoming": [
+        [
+          "0x575988",
+          1,
+          false
+        ]
+      ]
+    }
+  },
+  "callback_table": {
+    "xref_from_item": "0x575988",
+    "item_head": "0x575988",
+    "item_size": 2240,
+    "item_name": "stru_575988",
+    "entry13_start": "0x575b28",
+    "entry13_bytes": "01000000e200000037000000120000001200000001000000b858570030264c00",
+    "candidate_callback_slot": "0x575b44",
+    "candidate_callback_value": "0x4c2630"
+  },
+  "xref_item_first_word": {
+    "slot": "0x575988",
+    "value": "0x0",
+    "bytes": "00000000"
+  },
+  "counts": {
+    "inventory_ids": 3,
+    "instructions": 55,
+    "code_bytes": 203,
+    "callback_prefix_instructions": 1,
+    "callback_prefix_bytes": 4,
+    "parent_direct_calls": 6,
+    "software_evidence_added": 0
+  },
+  "verification": {
+    "method": "限定静态",
+    "source_changed": false,
+    "original_metadata_changed": false,
+    "scope_changed": false,
+    "software_gate_changed": false,
+    "limits": "xref来源是数组整体，须以实际回调槽为证；只登记已证前缀/失败正常返回，全父/alias/寿命/运行未闭"
+  },
+  "source_excerpts": {
+    "callback": {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4C2630",
+      "text": "std::int32_t Sub_4C2630(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    std::int32_t consumed = 0;\n    if ((state & 2) != 0) {\n        static_cast<void>(audio::PlaySe_52C450(gWindow69ScrollD2D604 > 0 ? 51 : 55, 320));\n        const std::int32_t position = gWindow69ScrollD2D604 - 5;\n        gWindow69ScrollD2D604 = position;\n        if (position < 0) {\n            gWindow69ScrollD2D604 = 0;\n        }\n        consumed = 1;\n    }\n    graphic->imageNo = 243030;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 243032;\n    }\n    if ((state & 8) != 0) {\n        graphic->imageNo = 243031;\n    }\n    return consumed;\n}\n\n"
+    },
+    "factory": {
+      "path": "src/YobiRuntime.cpp",
+      "symbol": "Sub_4D6640",
+      "text": "YobiAction* Sub_4D6640(const std::int32_t image, const std::int32_t x, const std::int32_t y)\n{\n    YobiAction* const action = NewYobiAction_404AE0(2, 0);\n    if (action == nullptr) {\n        return nullptr;\n    }\n    action->imageNo = image;\n    action->callback = [](YobiAction* const value) { static_cast<void>(Sub_4D6690(value)); };\n    action->characterAction = 0;\n    action->direction = 5;\n    action->displayPriority = 0xDD;\n    action->flags = 0x16;\n    action->x = x;\n    action->y = y;\n    return action;\n}\n\n"
+    },
+    "prototype": {
+      "path": "src/ui/WindowPrototypes.cpp",
+      "array_symbol": "gWindowElements575988",
+      "index": 13,
+      "text": "    {1, 226, 55, 18, 18, 1, {.graphic = &gWindowGraphic5758B8}, &Sub_4C2630},"
+    },
+    "declaration": {
+      "path": "include/cg/YobiRuntime.hpp",
+      "symbol": "Sub_4D6640",
+      "text": "YobiAction* Sub_4D6640(std::int32_t image, std::int32_t x, std::int32_t y);"
+    }
+  }
+}

@@ -1258,7 +1258,8 @@
         "doc/ui_windows/shared_legacy_panels.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1268,7 +1269,8 @@
         "F:00073F80",
         "F:00072F00",
         "F:00073E40",
-        "F:00073560"
+        "F:00073560",
+        "F:000C2634"
       ],
       "closure_task_ids": [
         "U04",
@@ -1284,7 +1286,8 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1293,7 +1296,8 @@
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline"
+        "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
       ]
     },
     {
@@ -1305,9 +1309,13 @@
       "scope": "included",
       "baseline_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_update_coverage.md"
+        "doc/cg2d_yobi_update_coverage.md",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000D6640",
+        "F:000D6650"
+      ],
       "closure_task_ids": [
         "U09",
         "V04"
@@ -1315,14 +1323,17 @@
       "dependencies": [],
       "acceptance_focus": "创建、四相调度、克隆、显式更新、借用与清理",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
+      ]
     },
     {
       "id": "FUNC-BATTLE",
@@ -12226,7 +12237,8 @@
         "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
-        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
       ]
     },
     {
@@ -12296,7 +12308,8 @@
         "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
-        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
       ]
     },
     {
@@ -12314,7 +12327,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
       ]
     },
     {
@@ -12331,6 +12345,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
+      ]
+    },
+    {
+      "task_id": "U04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
       ]
     }
   ],
@@ -15488,6 +15510,47 @@
         "doc/cg2d_function_boundary_classifications.json#/records/3"
       ],
       "reason": "原共享RET归同一父的已证Count0/相等正常返回，保留原身份/一字节和两入向；没有独立置零体/新接口，不改分母或按纯NOP处置，全alias/ABI/运行未验"
+    },
+    {
+      "inventory_id": "F:000C2634",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-acceptance",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_boundary_merged_identity_evidence.json",
+        "doc/cg2d_function_boundary_classifications.json#/records/0"
+      ],
+      "reason": "原数据数组真实回调槽指4C2630，前缀读取index后落入4C2634主体，同一两参数回调承接，不另造丢索引包装；全部父/alias/运行未验"
+    },
+    {
+      "inventory_id": "F:000D6640",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-acceptance",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_boundary_merged_identity_evidence.json"
+      ],
+      "reason": "已有typed x64 YobiAction*工厂保留原正常成功字段及空分配返回，完整原身份/基线可追，不新增实现或software验收，全上游/寿命/运行未验"
+    },
+    {
+      "inventory_id": "F:000D6650",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-acceptance",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_boundary_merged_identity_evidence.json",
+        "doc/cg2d_function_boundary_classifications.json#/records/1"
+      ],
+      "reason": "原C3分配失败返回由同一父正常空T*路径承接，不新增独立空体/新caller，不套NOP元数据类别，原ID/分母及全部alias/运行边界保持"
     }
   ],
   "auxiliary_dispositions": [

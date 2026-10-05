@@ -173,3 +173,11 @@ metadata_kind须为alignment_padding，metadata_reference须指向分类JSON确�
 两限定I/S证据仅覆盖该源表达/原基线/SDK头，不声明全部CRT消费者或运行通过。
 父原几何/源算法、共享RET一字节及两入向可追；不混为metadata_only、独立置零体或新caller。
 两CRT已知成员和四开放任务同步，完整成员/软件门禁及R1/R7/R8保持。
+
+
+## BMR01 既有合并片段与父入口的处置（2026-10-05）
+
+[三身份登记](cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state)补两merged/一adapted，绑定已有真实前缀回调/分配失败路径和typed工厂。
+数组item head的xref不能代替具体指针槽，BMR01保留实际第13项575B44及前缀索引读取证据。
+没有新客户端业务实现、软件证据或全模块完成声明；原ID/分母/范围及完整门禁保持。
+公共窗口机制一成员、Yobi两成员和四任务仍open，原其他未知/生命周期/运行及R1/R7/R8继续推进。

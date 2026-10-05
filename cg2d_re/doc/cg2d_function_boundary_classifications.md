@@ -197,3 +197,12 @@ JSON保留每个W32目标、每段U8原字节、引用指令及对齐原字节�
 本组仅更新records/3当前status/source/evidence及说明；原ID/入口/末界/C3/两个入向不改，没有独立返回0函数。
 该RET自身不写EAX，不把未知独立入向当固定0接口，不套NOP的metadata_only，不把无父直接xref当不可达证据。
 父低两位对齐和六W32取样表达已落源；共享元数据记merged，原分母保持，全部alias/实际ABI/运行仍待。
+
+
+## BMR01 页面前缀与分配失败的当前R1处置（2026-10-05）
+
+[当前登记](cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state)将既有records/0的页面主体及records/1的失败RET记merged，父4D6640记adapted。
+[原三身份](cg2d_boundary_merged_identity_evidence.json)保留36条/123B页面主体、18条/79B工厂两chunk、一条/一字节失败RET及四字节mov索引前缀。
+原数据xref来源575988为2240B/70项数组的item head，实际第13项回调槽575B44才是4C2630指针；当前原型仍绑定该两参数回调。
+原父JNE+1跳过失败C3到成功续段；现有空分配直接返回，成功字段保持，不新增独立空调用/固定返回接口。
+原ID/几何/事实及四分类记录保留，只补当前依据；不是全部父/旧路由/生产/alias/寿命或运行验收。

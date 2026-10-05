@@ -109,3 +109,9 @@
 [完成根合同](../cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision)保持remaining先S32−1/pub后判正数、NUL亦copy3/25头首次匹配或保旧phase、live64与eventSlot复读、22轮每次先A8再bit并调用4390E0；注销先构slot bit再取活动mask、取反AND/pub，清槽后22轮恢复、清busy再MarkDeath。只标死，回收仍归Yobi实际寿命链。
 
 [850条3188B两完整根](../cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)同时纳管真实十状态清表/清Yobi/转场/明文退出顺序；完整427470消息执行、五父与全部角色/附件资源owner和重进退出/ABI/画面未闭，不新增保护/free或异常模拟。
+
+## BMG01 队列动作166的计时条件消费（2026-10-06）
+
+[共享倒计时裁决](../cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision)核411CD2..411CFD原12条43B，与两失活BST和43BAA0共四inline/四源码表达式。只恢复现代timer helper的同remaining负条件先pub，原FDA70C唯一owner/S32秒×1000和负值0不变；动作166的原队列index/值、数字特效和状态推进正文保持，原inline不造独立函数身份。
+
+[312条1201B有界证据](../cg2d_battle_event_execution_gates_evidence.json)不代动作166整个父/全部排空链或427470所有消息目标、资源owner/SDK/ABI/PC53/画面验收，恢复/回存保持、完整范围继续。

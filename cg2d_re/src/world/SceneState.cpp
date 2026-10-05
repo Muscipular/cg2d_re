@@ -8539,8 +8539,10 @@ std::int32_t ReadPlayerTimerMode10() noexcept
 
 void ConsumeBattlePlayerTimer(const std::int32_t seconds)
 {
-    gPlayerRuntime.timerRemaining0C -= 1000 * seconds;
-    if (gPlayerRuntime.timerRemaining0C < 0) {
+    const std::int32_t remaining = gPlayerRuntime.timerRemaining0C - 1000 * seconds;
+    const bool negative = remaining < 0;
+    gPlayerRuntime.timerRemaining0C = remaining;
+    if (negative) {
         gPlayerRuntime.timerRemaining0C = 0;
     }
 }

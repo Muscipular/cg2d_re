@@ -518,3 +518,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收边界](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-acceptance)：两完整850条3188B与十八逻辑二十二处源码修复，完成→Init/标死和十状态C/M/Yobi清理/转场/退出请求真实接线纳管；三表22槽88B含原音乐父选择，音频仍暂停。旧803追加/一新场景、两adapted及三域成员：LOOP只场景，YOBI/BATTLE两根；E337→343仅六局部I/S。
 
 七任务仍open、60项已闭10及全部完整门禁不提升，原格式明文不变。关联1463/3680=39.76%仅关联覆盖率；完整427470/五父/资源owner与ABI/PC53/时钟RNG/画面、R1/R7/R8与整体继续。静态文本汇总不替代运行验收。
+
+## BMG01 有界门禁实现与静态证据（2026-10-06）
+
+[验收边界](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance)：四区间312条1201B七页/25槽100B和真实type1/data绑定、四inline计时去重；两CPP三根四片段恢复S32头与CHT/延迟零/同timer剩余值负条件先pub，其它正文/头保持。旧812追加、不新原身份/分类/完整成员，E343→347仅YOBI/BATTLE四局部I/S。
+
+七任务open、语义/有效ID/关联/成员、R7与60项已闭10和所有完整门禁保持。17298父统计不代全部消息目标/SEH/SDK/ABI/owner/时钟RNG/画面运行，R1/R7/R8和整体继续；获准汇总仅文本，不降标准或解除运行限制。

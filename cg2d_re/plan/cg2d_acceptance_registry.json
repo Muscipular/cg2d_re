@@ -1677,7 +1677,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1761,7 +1762,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1781,7 +1783,8 @@
         "BMS01五M读取/预扫描完整328条911B纳管，四根七顺序/宽度片段实修，439600正确双全局pub保持；696普通call8父/27出向仅有限静态，全部M生产消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待",
         "BMD01三M分派/读取完整1725条6015B、父三顺序/宽度片段实修，六逻辑表/全部分类和共享数据生产纳管；41普通call6父/435出向有限静态，全部M消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待",
         "BME01冲突/调度与正确初始化三原完整302条966B纳管、两根十三片段修复；2普通call与1绑定3父/10出向/五页可追，完整所有M事件消费和owner/SDK/ABI/PC53/时钟RNG/画面仍待",
-        "BMF01完成/退休和场景清理两根850条3188B纳管，18项22处修复；非拥有事件/角色表、MarkDeath延迟回收与状态7/9不同顺序保留，完整427470/五父/全owner与ABI/PC53/画面运行仍待"
+        "BMF01完成/退休和场景清理两根850条3188B纳管，18项22处修复；非拥有事件/角色表、MarkDeath延迟回收与状态7/9不同顺序保留，完整427470/五父/全owner与ABI/PC53/画面运行仍待",
+        "BMG01入口失活耗尽/延迟与恢复回存有界312条1201B纳管，四源码片段恢复先条件再pub；原25case/固定payload及Finish返回保持，四inline计时真实共用；完整17298父/SEH/全部消息及资源owner/ABI/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1803,7 +1806,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -1833,7 +1837,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1918,7 +1923,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1938,7 +1944,8 @@
         "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭",
         "BMD01原25消息/技能382表槽和19表外分类、22B计数/W8次数/S32输出与特效对/20*36B名称表生产、正确攻击/辅助图形合同纳管；同三F双域不双计，全部6父与资源消费/owner/SDK/ABI/PC53/时钟RNG/画面未闭",
         "BME01实际43B360→43B290→439B30/工厂/等待和32/22非拥有表初始化合同纳管，保两merge取样/失败及cached/live分工，同三F双域不双计；全部3父/事件资源消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
-        "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待"
+        "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待",
+        "BMG01失活CHT/BST/负延迟执行入口和四内联计时正常条件恢复；仅旧812追加和双域四局部I/S，不新成员/分类/身份，全部消息目标、owner/时钟RNG/画面未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1958,7 +1965,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -17869,6 +17877,146 @@
       "observation": "两完整根850条3188B/95call5父139出向十二指令页三引用页、三表22槽88B及18项22处正常取样/发布次序有限静态，整两CPP精确差异/公开头及共有声明保持",
       "expected": "完成消息数先减/pub后门禁、NUL亦copy3与live64/slot/mask复读，先slot bit再活动mask/取反AND；十状态原W8/W16和W32计数、C/M比较先pub、退出7/9差异/重复零写、三载体先取再发和同退出pointer HP门禁/后续live复读，原明文退出和暂停音频",
       "actual": "两F共用18项22处局部I/S，不重复关联/身份计数；完整427470/全部五父与资源owner/SDK/ABI/PC53/时钟RNG/画面仍待，不宣编译指令/运行故障/异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-EVENT-EXECUTION-GATES-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMG01四有界区间312条1201B七页/25槽100B和真实data绑定，四计时inline去重；doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-event-execution-gates-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json",
+        "src/YobiRuntime.cpp#DrainInactiveBattleMEvent",
+        "src/YobiRuntime.cpp#PrepareBattleMExecution",
+        "src/YobiRuntime.cpp#RestoreBattleMExecutionState",
+        "src/YobiRuntime.cpp#SaveBattleMExecutionState",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP三根四片段恢复失活头S32、命中CHT条件先计数pub、延迟零条件先68 pub，共享timer同remaining负条件先pub；原负值零写/四消费者、15项恢复/13项回存及25case正确正文保持",
+          "decision_ref": "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三根四片段落码：入口失活/延迟门禁与四inline共用timer正常条件恢复，真实总入口/恢复/回存和Finish返回接线有界纳管，旧812追加、不新身份/分类/完整成员",
+      "expected": "失活头S32/25容量、remaining减→kind14条件→pub→同条件消费；delay减→零条件→68 pub→同条件组计数、返回；四inline正常S32 timer计算→负条件→同remaining pub→原负值0，原恢复回存和25路由保持",
+      "actual": "仅有界原范围与四源码片段局部I/S，17298为含两chunk父统计；全部消息目标/SEH/SDK/ABI/资源owner/PC53/时钟RNG/画面未验，不新增F/X/adapted或完整成员，不宣异常或编译指令等价，所有完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-EVENT-EXECUTION-GATES-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMG01四有界区间312条1201B七页/25槽100B和真实data绑定，四计时inline去重；doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-event-execution-gates-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json",
+        "src/YobiRuntime.cpp#DrainInactiveBattleMEvent",
+        "src/YobiRuntime.cpp#PrepareBattleMExecution",
+        "src/YobiRuntime.cpp#RestoreBattleMExecutionState",
+        "src/YobiRuntime.cpp#SaveBattleMExecutionState",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP三根四片段恢复失活头S32、命中CHT条件先计数pub、延迟零条件先68 pub，共享timer同remaining负条件先pub；原负值零写/四消费者、15项恢复/13项回存及25case正确正文保持",
+          "decision_ref": "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "312条1201B四有界区间七页/原字节、25槽100B和data绑定类型、四inline计时去重与四源码片段/全部其它CPP及公开头保持有限静态",
+      "expected": "失活头S32/25容量、remaining减→kind14条件→pub→同条件消费；delay减→零条件→68 pub→同条件组计数、返回；四inline正常S32 timer计算→负条件→同remaining pub→原负值0，原恢复回存和25路由保持",
+      "actual": "仅有界原范围与四源码片段局部I/S，17298为含两chunk父统计；全部消息目标/SEH/SDK/ABI/资源owner/PC53/时钟RNG/画面未验，不新增F/X/adapted或完整成员，不宣异常或编译指令等价，所有完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-EVENT-EXECUTION-GATES-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMG01四有界区间312条1201B七页/25槽100B和真实data绑定，四计时inline去重；doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-event-execution-gates-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json",
+        "src/YobiRuntime.cpp#DrainInactiveBattleMEvent",
+        "src/YobiRuntime.cpp#PrepareBattleMExecution",
+        "src/YobiRuntime.cpp#RestoreBattleMExecutionState",
+        "src/YobiRuntime.cpp#SaveBattleMExecutionState",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP三根四片段恢复失活头S32、命中CHT条件先计数pub、延迟零条件先68 pub，共享timer同remaining负条件先pub；原负值零写/四消费者、15项恢复/13项回存及25case正确正文保持",
+          "decision_ref": "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三根四片段落码：入口失活/延迟门禁与四inline共用timer正常条件恢复，真实总入口/恢复/回存和Finish返回接线有界纳管，旧812追加、不新身份/分类/完整成员",
+      "expected": "失活头S32/25容量、remaining减→kind14条件→pub→同条件消费；delay减→零条件→68 pub→同条件组计数、返回；四inline正常S32 timer计算→负条件→同remaining pub→原负值0，原恢复回存和25路由保持",
+      "actual": "仅有界原范围与四源码片段局部I/S，17298为含两chunk父统计；全部消息目标/SEH/SDK/ABI/资源owner/PC53/时钟RNG/画面未验，不新增F/X/adapted或完整成员，不宣异常或编译指令等价，所有完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-EVENT-EXECUTION-GATES-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMG01四有界区间312条1201B七页/25槽100B和真实data绑定，四计时inline去重；doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-event-execution-gates-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json",
+        "src/YobiRuntime.cpp#DrainInactiveBattleMEvent",
+        "src/YobiRuntime.cpp#PrepareBattleMExecution",
+        "src/YobiRuntime.cpp#RestoreBattleMExecutionState",
+        "src/YobiRuntime.cpp#SaveBattleMExecutionState",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP三根四片段恢复失活头S32、命中CHT条件先计数pub、延迟零条件先68 pub，共享timer同remaining负条件先pub；原负值零写/四消费者、15项恢复/13项回存及25case正确正文保持",
+          "decision_ref": "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "312条1201B四有界区间七页/原字节、25槽100B和data绑定类型、四inline计时去重与四源码片段/全部其它CPP及公开头保持有限静态",
+      "expected": "失活头S32/25容量、remaining减→kind14条件→pub→同条件消费；delay减→零条件→68 pub→同条件组计数、返回；四inline正常S32 timer计算→负条件→同remaining pub→原负值0，原恢复回存和25路由保持",
+      "actual": "仅有界原范围与四源码片段局部I/S，17298为含两chunk父统计；全部消息目标/SEH/SDK/ABI/资源owner/PC53/时钟RNG/画面未验，不新增F/X/adapted或完整成员，不宣异常或编译指令等价，所有完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -18055,7 +18203,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18318,7 +18467,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18468,7 +18618,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18524,7 +18675,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18551,7 +18703,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18733,7 +18886,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     },
     {
@@ -18756,7 +18910,8 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state"
       ]
     }
   ],

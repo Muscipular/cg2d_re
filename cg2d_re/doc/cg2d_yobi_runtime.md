@@ -4063,3 +4063,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [完成三项四处、场景十五项十八处](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision)恢复S32头/标题、A8及活动mask先后、原W8/W16与W32复制计数、C/M比较先pub/尾copy、notice AND与状态7首零先增量、三载体先读再发和同退出指针门禁。NUL亦copy3/live64与slot复读、每Init后mask重读、busy0再MarkDeath、7/9清理差异及其它正确正文保持，标死不立即free；头仅具名过期注释更正。
 
 [两完整850条3188B](cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)/95普通call5父139出向/十二指令页三引用页及三表22槽88B纳管。旧803历史追加、新场景身份和两adapted；完整427470/五父全文/全部资源owner、借用失效及ABI/PC53/画面仍待，音频暂停和原格式明文保持。
+
+## BMG01 事件入口/失活耗尽与倒计时门禁（2026-10-06）
+
+[四片段实际修复](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision)恢复失活25头S32、命中CHT条件先计数pub、延迟零条件先68 pub、共享timer同remaining负条件先pub。原初始5C减/每轮live读取、未知头只continue、两256B未清字符串、0→−1延迟返回和原负值清零保持。15项恢复/13项回存和25case正确正文不改，9C/A0只局部不回存。
+
+[四有界区间312条1201B七页](cg2d_battle_event_execution_gates_evidence.json)、25槽100B与43B63D真实data绑定可追，四计时inline去重；旧812只追加，无新原F/X、adapted或完整成员。17298是含主/SEH两chunk的父统计，全部消息目标/SDK/SEH/ABI和资源owner/画面仍待。

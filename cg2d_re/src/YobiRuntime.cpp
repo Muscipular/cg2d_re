@@ -13995,16 +13995,18 @@ namespace {
     }
     --payload->remainingMessages5C;
     while (payload->remainingMessages5C > 0 && GetBattleMObjectHeader_423960(scene, header.data()) == 0) {
-        std::size_t kind = 0;
-        while (kind < kBattleMHeaders553E94.size()
+        std::int32_t kind = 0;
+        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
             && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }
-        if (kind == kBattleMHeaders553E94.size()) {
+        if (kind == static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
             continue;
         }
-        --payload->remainingMessages5C;
-        if (kind == 14) {
+        const std::int32_t remaining = payload->remainingMessages5C - 1;
+        const bool isChat = kind == 14;
+        payload->remainingMessages5C = remaining;
+        if (isChat) {
             gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             const std::int32_t color = TakeBattleMInteger_438F70(scene);
             const std::int32_t font = TakeBattleMInteger_438F70(scene);
@@ -14038,8 +14040,9 @@ namespace {
     const std::int32_t delay = payload->groupBase68;
     if (delay >= 0) {
         const std::int32_t nextDelay = delay - 1;
+        const bool groupDelayFinished = nextDelay == 0;
         payload->groupBase68 = nextDelay;
-        if (nextDelay == 0) {
+        if (groupDelayFinished) {
             --gBattlePendingGroupCount5ABB24;
         }
         return false;

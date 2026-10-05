@@ -2381,3 +2381,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [完整基线与当前源码](cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state)保旧803当时字符串局部历史，追加当前完整完成/退休合同和三逻辑四处修复；新增F:0003CBB0一语义、两F adapted。场景十五逻辑十八处，根内W16 memcpy读取lambda仅现代承载，无新原F/X。十二指令页三引用页/95call5父139出向、三表22槽88B可核，引用不验五父全文。
 
 YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有效ID1344→1345、文档关联1462→1463。计数不是完成率，完整生命周期与运行门禁保持。
+
+## BMG01 旧812的有界门禁合同追加（2026-10-06）
+
+[当前具名范围](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state)追加入口/失活/延迟/恢复与回存及共享timer四inline接线；父427470有主/SEH两chunk，17298为统计，四区间312条1201B七页和25槽100B仅对应本步范围。旧查找/格式记录历史不覆盖，Restore/Save和timer是现代helper，不新F/X、adapted或完整成员。
+
+两CPP三根四片段实修，语义1350/有效ID1345、片段5/分类456与关联1463保持；全部消息目标和所有资源寿命/运行仍待。

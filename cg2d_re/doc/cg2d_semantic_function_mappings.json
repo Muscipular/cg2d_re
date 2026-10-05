@@ -97016,7 +97016,7 @@
     {
       "original_entry": "0x427470",
       "inventory_id": "F:00027470",
-      "status": "既有战斗M头表查找与一索引提示真实格式已接；其他依赖及完整战斗/运行未验",
+      "status": "既有战斗M头表查找与一索引提示真实格式已接；其他依赖及完整战斗/运行未验；BMG01入口/失活耗尽/延迟条件与共享计时四片段实修、有界恢复回存纳管；完整父/owner运行未验",
       "original_end_exclusive": "0x437AD3",
       "instruction_count": 17298,
       "original_direct_reference_count": 1,
@@ -97029,8 +97029,18 @@
             "PrepareBattleMExecution",
             "DrainInactiveBattleMEvent",
             "ProcessBattleMSkill32Family",
-            "ProcessBattleMSkillHeader"
-          ]
+            "ProcessBattleMSkillHeader",
+            "RestoreBattleMExecutionState",
+            "SaveBattleMExecutionState"
+          ],
+          "relationship": "BMG01同一既有父有界入口/失活/延迟和恢复回存纳管；三根四片段跨两CPP，非完整17298条或所有消息目标验收，helper不独立注册。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConsumeBattlePlayerTimer"
+          ],
+          "relationship": "现代共享helper恢复四inline计时正常条件先pub；失活首/排空BST、43BAA0排空BST和411CB0队列动作166共用，原inline不造独立F或原callsite"
         }
       ],
       "search_call_connections": [
@@ -97065,10 +97075,15 @@
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json"
       ],
-      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。",
-      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。",
+      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。；BMG01四有界区间312条1201B七页与25槽100B/真实data绑定，四内联计时重合段去重、两CPP三根四片段/所有头与其它正文保持有限静态；17298仅包括两chunk的父统计，不称完整父原指令/SDK/SEH/ABI或运行已验",
+      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。 BMG01追加入口253条942B和公共尾35条170B、两外部计时内联24条89B的有界合同：S32失活头、命中聊天条件和延迟零条件先发布、共享timer同remaining负条件先发布恢复；两256B原未清字符串/NUL边界、失配不第二次减、每轮live5C、15项恢复/13项回存且9C/A0不回存、完整25case正确正文保持。只有四处消费同共享timer，无独立原callee/F/X或新owner；不增adapted/完整成员、保护/异常模型或新零写，不覆盖旧查找/格式历史。",
       "callback_address_evidence": [
         {
           "reference_site": "0x43B63D",
@@ -97117,7 +97132,79 @@
           "relationship": "只此标准callee交53B304；当前S32索引/原ASCII格式/既有未清64B缓冲与调试输出、输出后采结果旗标/continue及其后目标处理保持。原端完整目的容量本步不证明；现格式最大S32正文沿既有buffer，不加截断、默认值或原极值/越界模拟，不据callback地址/入向数量宣整父完成。"
         }
       ],
-      "business_format_source_expression_count": 1
+      "business_format_source_expression_count": 1,
+      "event_execution_gates": {
+        "spec_id": "BMG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+          "doc/cg2d_battle_event_execution_gates_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "parent_chunks": [
+          [
+            "0x427470",
+            "0x437ad3"
+          ],
+          [
+            "0x54b720",
+            "0x54b848"
+          ]
+        ],
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "start": "0x427470",
+            "end_exclusive": "0x42781e",
+            "meaning": "固定载荷/活动位、失活CHT/BST耗尽、延迟及15项恢复/25头分发表入口",
+            "parent_entry": "0x427470",
+            "instruction_count": 253,
+            "code_bytes": 942
+          },
+          {
+            "start": "0x437a29",
+            "end_exclusive": "0x437ad3",
+            "meaning": "13项逐项回存与公共返回；无9C/A0回存",
+            "parent_entry": "0x427470",
+            "instruction_count": 35,
+            "code_bytes": 170
+          },
+          {
+            "start": "0x43bbce",
+            "end_exclusive": "0x43bbfc",
+            "parent_entry": "0x43baa0",
+            "source_symbol": "Sub_43BAA0",
+            "source_expression_group": "scene_drained_bst",
+            "instruction_count": 12,
+            "code_bytes": 46
+          },
+          {
+            "start": "0x411cd2",
+            "end_exclusive": "0x411cfd",
+            "parent_entry": "0x411cb0",
+            "source_symbol": "UpdateBattleAction166_411CB0",
+            "source_expression_group": "queued_actor_166",
+            "instruction_count": 12,
+            "code_bytes": 43
+          }
+        ],
+        "unique_reviewed_instruction_count": 312,
+        "unique_reviewed_code_bytes": 1201,
+        "instruction_page_count": 7,
+        "direct_switch_slots": 25,
+        "direct_switch_bytes": 100,
+        "ordinary_inbound_calls": 0,
+        "callback_data_bindings": 1,
+        "source_body_changed": true,
+        "source_root_count": 3,
+        "source_patch_count": 4,
+        "shared_timer_source_expression_count": 4,
+        "shared_timer_original_inline_region_count": 4,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x439770",

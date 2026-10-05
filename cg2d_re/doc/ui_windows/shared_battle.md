@@ -8225,3 +8225,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [完整十状态及公共绘制尾](../cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state)补一场景原身份，并实修W8玩家/字段/点击与四W16退出门禁、原W32 C/M计数及先条件后pub/尾copy。7先活动mask再exit且调用43BED0；9先exit再活动mask且无43BED0；原重复四零/状态7fallthrough8、输入渲染顺序、三数值载体构造析构和随机消费保持。退出HP同指针单次有符号读，后续hover/绘制仍live复读；原SendBattlePacket请求不变。
 
 [741条2889B完整场景、109条299B完成根](../cg2d_battle_event_finish_scene_lifecycle_sampling_evidence.json)和三直接表可追，LOOP仅场景、YOBI/BATTLE两根共用；既有音乐表选择不解除音频暂停，数值载体非网络cipher。完整事件分派与资源/owner/画面运行门禁保留。
+
+## BMG01 从活动位到失活排空与共享计时（2026-10-06）
+
+[具名入口合同](../cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state)固定payload、slot先构bit再取活动mask；失活CHT之后live复读phase/substate再BST，初始remaining减/pub后每轮再读，取头终止或失配路径保持，命中聊天先比较再发布次数，Finish后立即返回。活动68>=0减并先保存零条件/发布后按条件扣组数且直接返回；仅负延迟恢复再25case/回存。
+
+[原区间](../cg2d_battle_event_execution_gates_evidence.json)只覆盖312条1201B/七页及25槽100B，不称完整17298父。timer四源码消费对应四原inline：首/队列失活BST、43BAA0场景BST、411CB0动作166；同正常剩余值负条件先pub，既有负值0保持，无新owner/原callee。原格式明文、音频暂停和所有运行门禁保持。

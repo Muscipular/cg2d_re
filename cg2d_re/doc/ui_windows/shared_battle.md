@@ -8267,3 +8267,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state)纳管ITM7/COM8及ITM0/6就绪、COM406260/Finish三个尾。ITM0/6/7各不同耗包/哨兵/空角色结束和58保持，mode0空目标Finish后仍公共效果-1/Move/增量；COM四state原真实16B分派表、序列I8参数、参与者/图数组/末RID及58保持，不补空列表amount默认。
 
 [968条3545B十五页119call](../cg2d_battle_m_item_combo_sampling_evidence.json)对应二十四组二十七处修复，特别保调用后live消息/flags和末11后先target再flags、46使用同缓存target。24非技能头有界纳管不代技能头0/全部消费者owner或运行，原格式明文/音频暂停与完整门禁保留。
+
+## BMN01 SKL入口、等待态与五整数（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state)纳管技能头0的入口/等待态、五整数归一化及三个Caster就绪尾。state0一次58取样后按原顺序五Take；state2原37技能门禁及最后参与者Advance，state1原七类finish/skill68就绪参数1、Clear先Finish后live角色字段清理、skill98固定16B效果目标列表保持。不改变各调用后重新取样位置、技能集合/取包或业务零写。
+
+[490条1894B十页35call](../cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)与五压缩表实际512B仅有界静态，42AE37后正常主体分派/所有技能主体另验。原格式明文/音频暂停、owner与整体门禁保持，四组八处不代完整SKL/427470或运行。

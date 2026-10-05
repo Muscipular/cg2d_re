@@ -15805,12 +15805,11 @@ namespace {
 
 // 原427470/SKL的非零子状态；技能生产仍待，不能作为完整消息回调注册。
 [[maybe_unused]] void ProcessBattleMSkillWaitingState(
-    YobiAction* const scene, BattleScenePayload* const payload)
+    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t subState)
 {
     using namespace world::detail;
     const std::int32_t skill = gBattleMSkill5AAA78;
     const std::int32_t value88 = gBattleMValue5A4A34;
-    const std::int32_t subState = payload->packetSubState58;
     if (subState == 2) {
         switch (skill) {
         case 19: case 20: case 21: case 22: case 23: case 24: case 25:
@@ -15920,7 +15919,7 @@ namespace {
         YobiAction* const last = gBattleAllEntries59E980[gBattleMValue5ABA7C];
         if (last != nullptr) {
             auto* const lastPayload = static_cast<BattleActorPayload*>(last->payload);
-            if ((lastPayload->flagsFDC & 2u) == 0) {
+            if ((*reinterpret_cast<const unsigned char*>(&lastPayload->flagsFDC) & 2u) == 0) {
                 if (gBattleMSkill5AAA78 == 105) {
                     lastPayload->flash1004 = 0;
                 }
@@ -15944,18 +15943,21 @@ namespace {
         return;
     case FinishKind::BothCasters: {
         YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
-        if (caster != nullptr && (static_cast<BattleActorPayload*>(caster->payload)->flagsFDC & 2u) == 0) {
+        if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
+                &static_cast<BattleActorPayload*>(caster->payload)->flagsFDC) & 2u) == 0) {
             Sub_406260(caster);
         }
         YobiAction* const last = gBattleAllEntries59E980[gBattleMValue5ABA7C];
-        if (last != nullptr && (static_cast<BattleActorPayload*>(last->payload)->flagsFDC & 2u) == 0) {
+        if (last != nullptr && (*reinterpret_cast<const unsigned char*>(
+                &static_cast<BattleActorPayload*>(last->payload)->flagsFDC) & 2u) == 0) {
             Sub_406260(last);
         }
         break;
     }
     case FinishKind::CasterFlash: {
         YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
-        if (caster != nullptr && (static_cast<BattleActorPayload*>(caster->payload)->flagsFDC & 2u) == 0) {
+        if (caster != nullptr && (*reinterpret_cast<const unsigned char*>(
+                &static_cast<BattleActorPayload*>(caster->payload)->flagsFDC) & 2u) == 0) {
             Sub_406260(caster);
             static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
                 ->flash1004 = 0;
@@ -15993,8 +15995,9 @@ namespace {
     std::int32_t requestedLevel = TakeBattleMInteger_438F70(scene);
     if (gBattleMTechnique5A4A38 >= 205000) {
         const std::int32_t remainder = gBattleMSkillLevel5A4A2C % 30;
+        const bool belowOne = remainder < 1;
         gBattleMSkillLevel5A4A2C = remainder;
-        if (remainder < 1) {
+        if (belowOne) {
             gBattleMSkillLevel5A4A2C = 1;
         } else if (remainder >= 15) {
             gBattleMSkillLevel5A4A2C = 15;
@@ -16010,9 +16013,10 @@ namespace {
     const std::int32_t skill = initialTechnique / 100;
     std::int32_t technique = initialTechnique % 100;
     gBattleMSkill5AAA78 = skill;
+    const bool reduceByFifty = technique >= 50;
     gBattleMTechnique5A4A38 = technique;
     gBattleMSkillLevelIndex5A3A18 = technique;
-    if (technique >= 50) {
+    if (reduceByFifty) {
         technique %= 50;
         gBattleMTechnique5A4A38 = technique;
         gBattleMSkillLevelIndex5A3A18 = technique;
@@ -20262,8 +20266,9 @@ void ProcessBattleMSkillHeader(
     YobiAction* const scene, BattleScenePayload* const payload,
     const std::uint32_t flags9C, const std::int32_t valueA0)
 {
-    if (payload->packetSubState58 != 0) {
-        ProcessBattleMSkillWaitingState(scene, payload);
+    const std::int32_t subState = payload->packetSubState58;
+    if (subState != 0) {
+        ProcessBattleMSkillWaitingState(scene, payload, subState);
         return;
     }
     std::int32_t fpUsed;

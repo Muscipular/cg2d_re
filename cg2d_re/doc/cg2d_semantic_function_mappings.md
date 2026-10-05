@@ -2423,3 +2423,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [五具名范围](cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state)968条3545B十五页119call和四态表四W32/16B，追加ProcessBattleMItemHeader/ProcessBattleMComboHeader两根二十四组二十七处状态。三个共用尾分列，42782E间接表437B38不作代码跳转目标；所有旧历史/其它字段保持，不新F/X、adapted或完整成员。
 
 24非技能头分组有界纳管，完整技能0/17298父和全部owner/消费者运行另验；语义1350/有效ID1345、片段5/分类456及关联1463保持。
+
+## BMN01 旧812的SKL入口/等待态有界追加（2026-10-06）
+
+[五具名范围](cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state)490条1894B十页35call和五压缩表实际512B，追加ProcessBattleMSkillWaitingState/ReadBattleMSkillHeader与已有ProcessBattleMSkillHeader三根四组七定义八处状态。三Caster尾分列，五间接表不作代码目标；42AE37作为正常技能主体分派边界，后续表/各主体未以本组验收。所有旧历史/其它字段保持，不新F/X、adapted、分类或完整成员。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；完整17298父/SEH和所有消费者/owner运行继续。

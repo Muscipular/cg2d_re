@@ -4105,3 +4105,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [二十四组二十七处实修](cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision)恢复ITM目标与消息pub/正反效果/技能零pub条件和当前消息取样，COM序列与就绪两W8、累计值/效果/参与者/两S32图索引和辅助参数、player/165-27/末11-46目标位置寿命。单CPP两根，原正常失败/返回与调用后live消息/flags、重复列表/RID/58及所有其它源头核心保持。
 
 [五区间968条3545B](cg2d_battle_m_item_combo_sampling_evidence.json)十五页119call及四态四W32/16B表纳管，三个共用尾分列，表地址不作代码目标。24非技能消息头已按既有分组纳管有界基线，仍不代完整技能0/17298父与SEH/owner/SDK/ABI/画面。
+
+## BMN01 技能入口与等待态四组取样（2026-10-06）
+
+[四组七定义八处实修](cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision)恢复Header一次S32子状态传private Waiting、四处flagsFDC原W8对象字节、高段remainder条件先pub和低段50条件在skill pub后tech-index两pub前。原37技能state2满足时推进最后参与者、七类finish及skill68参数1、调用后live角色与Clear先Finish后清字段、skill98固定16B效果序列和五Take/初始与live technique区别/正常等级范围保持。
+
+[五区间490条1894B](cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)十页35call、五等待态压缩表28W32跳槽112B与400W8索引400B纳管，三Caster共用尾分列，表地址不作代码目标；42AE37明确为正常技能主体分派边界，后续各主体/完整17298父与SEH/owner/SDK/ABI/画面继续。

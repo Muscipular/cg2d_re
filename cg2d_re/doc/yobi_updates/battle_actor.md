@@ -151,3 +151,9 @@
 [二十四组裁决](../cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision)恢复target条件/pub、caster/target与actor/payload的取样、参与者count先caster和player比较先同位置actor、循环/末165-27两种原序，COM末11/46跨分支目标位置借用及11调用后target先flags。序列count和就绪FDC均原W8对象字节读取，两图非地址索引S32，不改共享布局/owner或新增保护。
 
 [两主目标/三尾和实际四态表](../cg2d_battle_m_item_combo_sampling_evidence.json)968条3545B仅有限合同。原重复列表、未补empty amount、调用后live消息flags与当前槽重借、RID/58及其它源头正确核心保持；全部资源owner重进退出/借用失效、消费者与SDK/ABI/画面继续。
+
+## BMN01 等待态角色借用与原字节门禁（2026-10-06）
+
+[四组裁决](../cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision)恢复一次58同值参数、LastCaster/BothCasters两点/CasterFlash四FDC原W8读取；不把其他W32 flags/phase或寄存器位运算误改成byte。state2的caster仅作phase门禁，真正Advance沿已借最后参与者；Both第一调用后重新借last，CasterFlash调用后重新借caster，Clear先Finish后逐次借caster清字段/3D门禁后的flags保持原序。五整数两条件/pub差异也已落码，不改变共享布局或owner。
+
+[五区间和五实际表](../cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)490条1894B/512B不代42AE37后技能主体和完整父；skill98固定casterPayload/effects16B序列、全部资源owner重进退出/借用失效及消费者/SDK/ABI/画面继续。

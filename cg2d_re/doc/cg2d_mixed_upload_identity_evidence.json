@@ -1,0 +1,2462 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "MUP01三原入口/两混合范围身份和既有CPU源段对应；不新增业务实现",
+  "original_session": {
+    "binary_name": "cg2d.exe",
+    "bitness": 32,
+    "base_address": "0x400000",
+    "method": "当前已开IDA会话MCP只读Python"
+  },
+  "functions": [
+    {
+      "start": "0x44ff40",
+      "end": "0x450160",
+      "rows": [
+        [
+          "0x44ff40",
+          "8b542404",
+          "mov     edx, [esp+arg_0]"
+        ],
+        [
+          "0x44ff44",
+          "81ec8c000000",
+          "sub     esp, 8Ch"
+        ],
+        [
+          "0x44ff4a",
+          "85d2",
+          "test    edx, edx"
+        ],
+        [
+          "0x44ff4c",
+          "57",
+          "push    edi"
+        ],
+        [
+          "0x44ff4d",
+          "0f8405020000",
+          "jz      loc_450158"
+        ],
+        [
+          "0x44ff53",
+          "b91f000000",
+          "mov     ecx, 1Fh"
+        ],
+        [
+          "0x44ff58",
+          "33c0",
+          "xor     eax, eax"
+        ],
+        [
+          "0x44ff5a",
+          "8d7c2414",
+          "lea     edi, [esp+90h+var_7C]"
+        ],
+        [
+          "0x44ff5e",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x44ff60",
+          "f3ab",
+          "rep stosd"
+        ],
+        [
+          "0x44ff62",
+          "8b02",
+          "mov     eax, [edx]"
+        ],
+        [
+          "0x44ff64",
+          "8d4c2418",
+          "lea     ecx, [esp+94h+var_7C]"
+        ],
+        [
+          "0x44ff68",
+          "6a01",
+          "push    1"
+        ],
+        [
+          "0x44ff6a",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x44ff6b",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x44ff6d",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x44ff6e",
+          "c74424287c000000",
+          "mov     [esp+0A4h+var_7C.dwSize], 7Ch ; '|'"
+        ],
+        [
+          "0x44ff76",
+          "ff5064",
+          "call    dword ptr [eax+64h]"
+        ],
+        [
+          "0x44ff79",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x44ff7b",
+          "0f85d7010000",
+          "jnz     loc_450158"
+        ],
+        [
+          "0x44ff81",
+          "8b9424a8000000",
+          "mov     edx, [esp+90h+arg_14]"
+        ],
+        [
+          "0x44ff88",
+          "53",
+          "push    ebx"
+        ],
+        [
+          "0x44ff89",
+          "55",
+          "push    ebp"
+        ],
+        [
+          "0x44ff8a",
+          "8b6c2440",
+          "mov     ebp, [esp+98h+var_7C.lpSurface]"
+        ],
+        [
+          "0x44ff8e",
+          "85d2",
+          "test    edx, edx"
+        ],
+        [
+          "0x44ff90",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x44ff91",
+          "896c241c",
+          "mov     [esp+9Ch+var_80], ebp"
+        ],
+        [
+          "0x44ff95",
+          "7420",
+          "jz      short loc_44FFB7"
+        ],
+        [
+          "0x44ff97",
+          "8b4a04",
+          "mov     ecx, [edx+4]"
+        ],
+        [
+          "0x44ff9a",
+          "8b1dc40e0201",
+          "mov     ebx, dword_1020EC4"
+        ],
+        [
+          "0x44ffa0",
+          "8bc1",
+          "mov     eax, ecx"
+        ],
+        [
+          "0x44ffa2",
+          "8bbc24a4000000",
+          "mov     edi, [esp+9Ch+arg_4]"
+        ],
+        [
+          "0x44ffa9",
+          "0faf8424a8000000",
+          "imul    eax, [esp+9Ch+arg_8]"
+        ],
+        [
+          "0x44ffb1",
+          "03c3",
+          "add     eax, ebx"
+        ],
+        [
+          "0x44ffb3",
+          "03c7",
+          "add     eax, edi"
+        ],
+        [
+          "0x44ffb5",
+          "eb1f",
+          "jmp     short loc_44FFD6"
+        ],
+        [
+          "0x44ffb7",
+          "8b0dd40e0201",
+          "mov     ecx, gCurrentGraphicWidth"
+        ],
+        [
+          "0x44ffbd",
+          "8b35c00e0201",
+          "mov     esi, gGraphicDataPtr.buffer"
+        ],
+        [
+          "0x44ffc3",
+          "8bc1",
+          "mov     eax, ecx"
+        ],
+        [
+          "0x44ffc5",
+          "8b9424a4000000",
+          "mov     edx, [esp+9Ch+arg_4]"
+        ],
+        [
+          "0x44ffcc",
+          "0faf8424a8000000",
+          "imul    eax, [esp+9Ch+arg_8]"
+        ],
+        [
+          "0x44ffd4",
+          "03c6",
+          "add     eax, esi"
+        ],
+        [
+          "0x44ffd6",
+          "03c2",
+          "add     eax, edx"
+        ],
+        [
+          "0x44ffd8",
+          "8bd1",
+          "mov     edx, ecx"
+        ],
+        [
+          "0x44ffda",
+          "8b4c2430",
+          "mov     ecx, dword ptr [esp+9Ch+var_7C.10h]"
+        ],
+        [
+          "0x44ffde",
+          "89542410",
+          "mov     [esp+9Ch+var_8C], edx"
+        ],
+        [
+          "0x44ffe2",
+          "894c2418",
+          "mov     [esp+9Ch+var_84], ecx"
+        ],
+        [
+          "0x44ffe6",
+          "8b0d704b5500",
+          "mov     ecx, BITSPIXEL"
+        ],
+        [
+          "0x44ffec",
+          "83c1f8",
+          "add     ecx, 0FFFFFFF8h; switch 25 cases"
+        ],
+        [
+          "0x44ffef",
+          "83f918",
+          "cmp     ecx, 18h"
+        ],
+        [
+          "0x44fff2",
+          "0f874b010000",
+          "ja      def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x44fff8",
+          "33db",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x44fffa",
+          "8a9974014500",
+          "mov     bl, ds:byte_450174[ecx]"
+        ],
+        [
+          "0x450000",
+          "ff249d60014500",
+          "jmp     ds:jpt_450000[ebx*4]; switch jump"
+        ],
+        [
+          "0x450007",
+          "8b9424b0000000",
+          "mov     edx, [esp+9Ch+arg_10]; jumptable 00450000 case 8"
+        ],
+        [
+          "0x45000e",
+          "85d2",
+          "test    edx, edx"
+        ],
+        [
+          "0x450010",
+          "0f8e2d010000",
+          "jle     def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450016",
+          "8b8c24ac000000",
+          "mov     ecx, [esp+9Ch+arg_C]"
+        ],
+        [
+          "0x45001d",
+          "8bf0",
+          "mov     esi, eax"
+        ],
+        [
+          "0x45001f",
+          "8bd9",
+          "mov     ebx, ecx"
+        ],
+        [
+          "0x450021",
+          "8bfd",
+          "mov     edi, ebp"
+        ],
+        [
+          "0x450023",
+          "c1e902",
+          "shr     ecx, 2"
+        ],
+        [
+          "0x450026",
+          "f3a5",
+          "rep movsd"
+        ],
+        [
+          "0x450028",
+          "8bcb",
+          "mov     ecx, ebx"
+        ],
+        [
+          "0x45002a",
+          "83e103",
+          "and     ecx, 3"
+        ],
+        [
+          "0x45002d",
+          "f3a4",
+          "rep movsb"
+        ],
+        [
+          "0x45002f",
+          "8b7c2410",
+          "mov     edi, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x450033",
+          "8b742418",
+          "mov     esi, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x450037",
+          "2bc7",
+          "sub     eax, edi"
+        ],
+        [
+          "0x450039",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x45003b",
+          "4a",
+          "dec     edx"
+        ],
+        [
+          "0x45003c",
+          "75d8",
+          "jnz     short loc_450016"
+        ],
+        [
+          "0x45003e",
+          "e900010000",
+          "jmp     def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450043",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+arg_10]; jumptable 00450000 case 16"
+        ],
+        [
+          "0x45004a",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x45004c",
+          "0f8ef1000000",
+          "jle     def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450052",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+arg_C]"
+        ],
+        [
+          "0x450059",
+          "894c2410",
+          "mov     [esp+9Ch+var_8C], ecx"
+        ],
+        [
+          "0x45005d",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x45005f",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x450061",
+          "7e1b",
+          "jle     short loc_45007E"
+        ],
+        [
+          "0x450063",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x450065",
+          "33db",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x450067",
+          "83c602",
+          "add     esi, 2"
+        ],
+        [
+          "0x45006a",
+          "8a1c01",
+          "mov     bl, [ecx+eax]"
+        ],
+        [
+          "0x45006d",
+          "41",
+          "inc     ecx"
+        ],
+        [
+          "0x45006e",
+          "3bcf",
+          "cmp     ecx, edi"
+        ],
+        [
+          "0x450070",
+          "668b1c5d64ae6200",
+          "mov     bx, word_62AE64[ebx*2]"
+        ],
+        [
+          "0x450078",
+          "66895efe",
+          "mov     [esi-2], bx"
+        ],
+        [
+          "0x45007c",
+          "7ce7",
+          "jl      short loc_450065"
+        ],
+        [
+          "0x45007e",
+          "8b742418",
+          "mov     esi, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x450082",
+          "8b4c2410",
+          "mov     ecx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x450086",
+          "2bc2",
+          "sub     eax, edx"
+        ],
+        [
+          "0x450088",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x45008a",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x45008b",
+          "894c2410",
+          "mov     [esp+9Ch+var_8C], ecx"
+        ],
+        [
+          "0x45008f",
+          "75cc",
+          "jnz     short loc_45005D"
+        ],
+        [
+          "0x450091",
+          "e9ad000000",
+          "jmp     def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450096",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+arg_10]; jumptable 00450000 case 24"
+        ],
+        [
+          "0x45009d",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x45009f",
+          "0f8e9e000000",
+          "jle     def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4500a5",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+arg_C]"
+        ],
+        [
+          "0x4500ac",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x4500b0",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x4500b2",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x4500b4",
+          "7e2c",
+          "jle     short loc_4500E2"
+        ],
+        [
+          "0x4500b6",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x4500b8",
+          "33d2",
+          "xor     edx, edx"
+        ],
+        [
+          "0x4500ba",
+          "8bde",
+          "mov     ebx, esi"
+        ],
+        [
+          "0x4500bc",
+          "8a1401",
+          "mov     dl, [ecx+eax]"
+        ],
+        [
+          "0x4500bf",
+          "41",
+          "inc     ecx"
+        ],
+        [
+          "0x4500c0",
+          "83c603",
+          "add     esi, 3"
+        ],
+        [
+          "0x4500c3",
+          "3bcf",
+          "cmp     ecx, edi"
+        ],
+        [
+          "0x4500c5",
+          "8d94522ca36200",
+          "lea     edx, word_62A32C[edx+edx*2]"
+        ],
+        [
+          "0x4500cc",
+          "668b2a",
+          "mov     bp, [edx]"
+        ],
+        [
+          "0x4500cf",
+          "66892b",
+          "mov     [ebx], bp"
+        ],
+        [
+          "0x4500d2",
+          "8a5202",
+          "mov     dl, [edx+2]"
+        ],
+        [
+          "0x4500d5",
+          "885302",
+          "mov     [ebx+2], dl"
+        ],
+        [
+          "0x4500d8",
+          "7cde",
+          "jl      short loc_4500B8"
+        ],
+        [
+          "0x4500da",
+          "8b6c241c",
+          "mov     ebp, [esp+9Ch+var_80]"
+        ],
+        [
+          "0x4500de",
+          "8b542410",
+          "mov     edx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x4500e2",
+          "8b742418",
+          "mov     esi, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x4500e6",
+          "8b4c2414",
+          "mov     ecx, [esp+9Ch+var_88]"
+        ],
+        [
+          "0x4500ea",
+          "2bc2",
+          "sub     eax, edx"
+        ],
+        [
+          "0x4500ec",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x4500ee",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x4500ef",
+          "896c241c",
+          "mov     [esp+9Ch+var_80], ebp"
+        ],
+        [
+          "0x4500f3",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x4500f7",
+          "75b7",
+          "jnz     short loc_4500B0"
+        ],
+        [
+          "0x4500f9",
+          "eb48",
+          "jmp     short def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4500fb",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+arg_10]; jumptable 00450000 case 32"
+        ],
+        [
+          "0x450102",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x450104",
+          "7e3d",
+          "jle     short def_450000; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450106",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+arg_C]"
+        ],
+        [
+          "0x45010d",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x450111",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x450113",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x450115",
+          "7e19",
+          "jle     short loc_450130"
+        ],
+        [
+          "0x450117",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x450119",
+          "33db",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x45011b",
+          "83c604",
+          "add     esi, 4"
+        ],
+        [
+          "0x45011e",
+          "8a1c01",
+          "mov     bl, [ecx+eax]"
+        ],
+        [
+          "0x450121",
+          "41",
+          "inc     ecx"
+        ],
+        [
+          "0x450122",
+          "3bcf",
+          "cmp     ecx, edi"
+        ],
+        [
+          "0x450124",
+          "8b1c9dc08b6200",
+          "mov     ebx, dword ptr gPaletteAutoMap.field_0[ebx*4]"
+        ],
+        [
+          "0x45012b",
+          "895efc",
+          "mov     [esi-4], ebx"
+        ],
+        [
+          "0x45012e",
+          "7ce9",
+          "jl      short loc_450119"
+        ],
+        [
+          "0x450130",
+          "8b742418",
+          "mov     esi, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x450134",
+          "8b4c2414",
+          "mov     ecx, [esp+9Ch+var_88]"
+        ],
+        [
+          "0x450138",
+          "2bc2",
+          "sub     eax, edx"
+        ],
+        [
+          "0x45013a",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x45013c",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x45013d",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x450141",
+          "75ce",
+          "jnz     short loc_450111"
+        ],
+        [
+          "0x450143",
+          "8b8424a0000000",
+          "mov     eax, [esp+9Ch+arg_0]; jumptable 00450000 default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x45014a",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x45014c",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x45014d",
+          "8b08",
+          "mov     ecx, [eax]"
+        ],
+        [
+          "0x45014f",
+          "ff9180000000",
+          "call    dword ptr [ecx+80h]"
+        ],
+        [
+          "0x450155",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x450156",
+          "5d",
+          "pop     ebp"
+        ],
+        [
+          "0x450157",
+          "5b",
+          "pop     ebx"
+        ],
+        [
+          "0x450158",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x450159",
+          "81c48c000000",
+          "add     esp, 8Ch"
+        ],
+        [
+          "0x45015f",
+          "c3",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x45045b",
+          17,
+          true
+        ]
+      ]
+    },
+    {
+      "start": "0x450190",
+      "end": "0x4503cc",
+      "rows": [
+        [
+          "0x450190",
+          "8b542404",
+          "mov     edx, [esp+arg_0]"
+        ],
+        [
+          "0x450194",
+          "81ec8c000000",
+          "sub     esp, 8Ch"
+        ],
+        [
+          "0x45019a",
+          "85d2",
+          "test    edx, edx"
+        ],
+        [
+          "0x45019c",
+          "53",
+          "push    ebx"
+        ],
+        [
+          "0x45019d",
+          "55",
+          "push    ebp"
+        ],
+        [
+          "0x45019e",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x45019f",
+          "57",
+          "push    edi"
+        ],
+        [
+          "0x4501a0",
+          "0f841b020000",
+          "jz      def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4501a6",
+          "b91f000000",
+          "mov     ecx, 1Fh"
+        ],
+        [
+          "0x4501ab",
+          "33c0",
+          "xor     eax, eax"
+        ],
+        [
+          "0x4501ad",
+          "8d7c2420",
+          "lea     edi, [esp+9Ch+var_7C]"
+        ],
+        [
+          "0x4501b1",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x4501b3",
+          "f3ab",
+          "rep stosd"
+        ],
+        [
+          "0x4501b5",
+          "8b02",
+          "mov     eax, [edx]"
+        ],
+        [
+          "0x4501b7",
+          "8d4c2424",
+          "lea     ecx, [esp+0A0h+var_7C]"
+        ],
+        [
+          "0x4501bb",
+          "6a01",
+          "push    1"
+        ],
+        [
+          "0x4501bd",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x4501be",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x4501c0",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x4501c1",
+          "c74424347c000000",
+          "mov     [esp+0B0h+var_7C.dwSize], 7Ch ; '|'"
+        ],
+        [
+          "0x4501c9",
+          "ff5064",
+          "call    dword ptr [eax+64h]"
+        ],
+        [
+          "0x4501cc",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x4501ce",
+          "0f85ed010000",
+          "jnz     def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4501d4",
+          "8b8c24b4000000",
+          "mov     ecx, [esp+9Ch+arg_14]"
+        ],
+        [
+          "0x4501db",
+          "8b6c2444",
+          "mov     ebp, [esp+9Ch+var_7C.lpSurface]"
+        ],
+        [
+          "0x4501df",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x4501e1",
+          "896c2414",
+          "mov     [esp+9Ch+var_88], ebp"
+        ],
+        [
+          "0x4501e5",
+          "7420",
+          "jz      short loc_450207"
+        ],
+        [
+          "0x4501e7",
+          "8b5904",
+          "mov     ebx, [ecx+4]"
+        ],
+        [
+          "0x4501ea",
+          "8b3dc40e0201",
+          "mov     edi, dword_1020EC4"
+        ],
+        [
+          "0x4501f0",
+          "8bc3",
+          "mov     eax, ebx"
+        ],
+        [
+          "0x4501f2",
+          "8bb424a4000000",
+          "mov     esi, [esp+9Ch+arg_4]"
+        ],
+        [
+          "0x4501f9",
+          "0faf8424a8000000",
+          "imul    eax, [esp+9Ch+arg_8]"
+        ],
+        [
+          "0x450201",
+          "03c7",
+          "add     eax, edi"
+        ],
+        [
+          "0x450203",
+          "03c6",
+          "add     eax, esi"
+        ],
+        [
+          "0x450205",
+          "eb1f",
+          "jmp     short loc_450226"
+        ],
+        [
+          "0x450207",
+          "8b1dd40e0201",
+          "mov     ebx, gCurrentGraphicWidth"
+        ],
+        [
+          "0x45020d",
+          "8b15c00e0201",
+          "mov     edx, gGraphicDataPtr.buffer"
+        ],
+        [
+          "0x450213",
+          "8bc3",
+          "mov     eax, ebx"
+        ],
+        [
+          "0x450215",
+          "8b8c24a4000000",
+          "mov     ecx, [esp+9Ch+arg_4]"
+        ],
+        [
+          "0x45021c",
+          "0faf8424a8000000",
+          "imul    eax, [esp+9Ch+arg_8]"
+        ],
+        [
+          "0x450224",
+          "03c2",
+          "add     eax, edx"
+        ],
+        [
+          "0x450226",
+          "8b542430",
+          "mov     edx, dword ptr [esp+9Ch+var_7C.10h]"
+        ],
+        [
+          "0x45022a",
+          "03c1",
+          "add     eax, ecx"
+        ],
+        [
+          "0x45022c",
+          "8b0d704b5500",
+          "mov     ecx, BITSPIXEL"
+        ],
+        [
+          "0x450232",
+          "895c2410",
+          "mov     [esp+9Ch+var_8C], ebx"
+        ],
+        [
+          "0x450236",
+          "8954241c",
+          "mov     [esp+9Ch+var_80], edx"
+        ],
+        [
+          "0x45023a",
+          "8d71f8",
+          "lea     esi, [ecx-8]; switch 25 cases"
+        ],
+        [
+          "0x45023d",
+          "83fe18",
+          "cmp     esi, 18h"
+        ],
+        [
+          "0x450240",
+          "0f877b010000",
+          "ja      def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450246",
+          "33d2",
+          "xor     edx, edx"
+        ],
+        [
+          "0x450248",
+          "8a96e0034500",
+          "mov     dl, ds:byte_4503E0[esi]"
+        ],
+        [
+          "0x45024e",
+          "ff2495cc034500",
+          "jmp     ds:jpt_45024E[edx*4]; switch jump"
+        ],
+        [
+          "0x450255",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+th]; jumptable 0045024E case 8"
+        ],
+        [
+          "0x45025c",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x45025e",
+          "0f8e5d010000",
+          "jle     def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x450264",
+          "894c2410",
+          "mov     [esp+9Ch+var_8C], ecx"
+        ],
+        [
+          "0x450268",
+          "8b8c24ac000000",
+          "mov     ecx, [esp+9Ch+tw]"
+        ],
+        [
+          "0x45026f",
+          "8bf0",
+          "mov     esi, eax"
+        ],
+        [
+          "0x450271",
+          "8bd1",
+          "mov     edx, ecx"
+        ],
+        [
+          "0x450273",
+          "8bfd",
+          "mov     edi, ebp"
+        ],
+        [
+          "0x450275",
+          "c1e902",
+          "shr     ecx, 2"
+        ],
+        [
+          "0x450278",
+          "f3a5",
+          "rep movsd"
+        ],
+        [
+          "0x45027a",
+          "8bca",
+          "mov     ecx, edx"
+        ],
+        [
+          "0x45027c",
+          "8b54241c",
+          "mov     edx, [esp+9Ch+var_80]"
+        ],
+        [
+          "0x450280",
+          "83e103",
+          "and     ecx, 3"
+        ],
+        [
+          "0x450283",
+          "2bc3",
+          "sub     eax, ebx"
+        ],
+        [
+          "0x450285",
+          "f3a4",
+          "rep movsb"
+        ],
+        [
+          "0x450287",
+          "8b4c2410",
+          "mov     ecx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x45028b",
+          "03ea",
+          "add     ebp, edx"
+        ],
+        [
+          "0x45028d",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x45028e",
+          "894c2410",
+          "mov     [esp+9Ch+var_8C], ecx"
+        ],
+        [
+          "0x450292",
+          "75d4",
+          "jnz     short loc_450268"
+        ],
+        [
+          "0x450294",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x450295",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x450296",
+          "5d",
+          "pop     ebp"
+        ],
+        [
+          "0x450297",
+          "5b",
+          "pop     ebx"
+        ],
+        [
+          "0x450298",
+          "81c48c000000",
+          "add     esp, 8Ch"
+        ],
+        [
+          "0x45029e",
+          "c3",
+          "retn"
+        ],
+        [
+          "0x45029f",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+th]; jumptable 0045024E case 16"
+        ],
+        [
+          "0x4502a6",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x4502a8",
+          "0f8e13010000",
+          "jle     def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4502ae",
+          "8b9424b8000000",
+          "mov     edx, [esp+9Ch+arg_18]"
+        ],
+        [
+          "0x4502b5",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+tw]"
+        ],
+        [
+          "0x4502bc",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x4502c0",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x4502c2",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x4502c4",
+          "7e1b",
+          "jle     short loc_4502E1"
+        ],
+        [
+          "0x4502c6",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x4502c8",
+          "33db",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x4502ca",
+          "83c602",
+          "add     esi, 2"
+        ],
+        [
+          "0x4502cd",
+          "8a1c01",
+          "mov     bl, [ecx+eax]"
+        ],
+        [
+          "0x4502d0",
+          "41",
+          "inc     ecx"
+        ],
+        [
+          "0x4502d1",
+          "3bcf",
+          "cmp     ecx, edi"
+        ],
+        [
+          "0x4502d3",
+          "668b1c5a",
+          "mov     bx, [edx+ebx*2]"
+        ],
+        [
+          "0x4502d7",
+          "66895efe",
+          "mov     [esi-2], bx"
+        ],
+        [
+          "0x4502db",
+          "7ceb",
+          "jl      short loc_4502C8"
+        ],
+        [
+          "0x4502dd",
+          "8b5c2410",
+          "mov     ebx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x4502e1",
+          "8b74241c",
+          "mov     esi, [esp+9Ch+var_80]"
+        ],
+        [
+          "0x4502e5",
+          "8b4c2414",
+          "mov     ecx, [esp+9Ch+var_88]"
+        ],
+        [
+          "0x4502e9",
+          "2bc3",
+          "sub     eax, ebx"
+        ],
+        [
+          "0x4502eb",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x4502ed",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x4502ee",
+          "894c2414",
+          "mov     [esp+9Ch+var_88], ecx"
+        ],
+        [
+          "0x4502f2",
+          "75cc",
+          "jnz     short loc_4502C0"
+        ],
+        [
+          "0x4502f4",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x4502f5",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x4502f6",
+          "5d",
+          "pop     ebp"
+        ],
+        [
+          "0x4502f7",
+          "5b",
+          "pop     ebx"
+        ],
+        [
+          "0x4502f8",
+          "81c48c000000",
+          "add     esp, 8Ch"
+        ],
+        [
+          "0x4502fe",
+          "c3",
+          "retn"
+        ],
+        [
+          "0x4502ff",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+th]; jumptable 0045024E case 24"
+        ],
+        [
+          "0x450306",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x450308",
+          "0f8eb3000000",
+          "jle     def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x45030e",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+tw]"
+        ],
+        [
+          "0x450315",
+          "894c2418",
+          "mov     [esp+9Ch+var_84], ecx"
+        ],
+        [
+          "0x450319",
+          "33d2",
+          "xor     edx, edx"
+        ],
+        [
+          "0x45031b",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x45031d",
+          "7e31",
+          "jle     short loc_450350"
+        ],
+        [
+          "0x45031f",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x450321",
+          "8b9c24b8000000",
+          "mov     ebx, [esp+9Ch+arg_18]"
+        ],
+        [
+          "0x450328",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x45032a",
+          "8a0c02",
+          "mov     cl, [edx+eax]"
+        ],
+        [
+          "0x45032d",
+          "8d1c4b",
+          "lea     ebx, [ebx+ecx*2]"
+        ],
+        [
+          "0x450330",
+          "03cb",
+          "add     ecx, ebx"
+        ],
+        [
+          "0x450332",
+          "8bde",
+          "mov     ebx, esi"
+        ],
+        [
+          "0x450334",
+          "42",
+          "inc     edx"
+        ],
+        [
+          "0x450335",
+          "83c603",
+          "add     esi, 3"
+        ],
+        [
+          "0x450338",
+          "668b29",
+          "mov     bp, [ecx]"
+        ],
+        [
+          "0x45033b",
+          "3bd7",
+          "cmp     edx, edi"
+        ],
+        [
+          "0x45033d",
+          "66892b",
+          "mov     [ebx], bp"
+        ],
+        [
+          "0x450340",
+          "8a4902",
+          "mov     cl, [ecx+2]"
+        ],
+        [
+          "0x450343",
+          "884b02",
+          "mov     [ebx+2], cl"
+        ],
+        [
+          "0x450346",
+          "7cd9",
+          "jl      short loc_450321"
+        ],
+        [
+          "0x450348",
+          "8b6c2414",
+          "mov     ebp, [esp+9Ch+var_88]"
+        ],
+        [
+          "0x45034c",
+          "8b5c2410",
+          "mov     ebx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x450350",
+          "8b54241c",
+          "mov     edx, [esp+9Ch+var_80]"
+        ],
+        [
+          "0x450354",
+          "8b4c2418",
+          "mov     ecx, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x450358",
+          "2bc3",
+          "sub     eax, ebx"
+        ],
+        [
+          "0x45035a",
+          "03ea",
+          "add     ebp, edx"
+        ],
+        [
+          "0x45035c",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x45035d",
+          "896c2414",
+          "mov     [esp+9Ch+var_88], ebp"
+        ],
+        [
+          "0x450361",
+          "894c2418",
+          "mov     [esp+9Ch+var_84], ecx"
+        ],
+        [
+          "0x450365",
+          "75b2",
+          "jnz     short loc_450319"
+        ],
+        [
+          "0x450367",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x450368",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x450369",
+          "5d",
+          "pop     ebp"
+        ],
+        [
+          "0x45036a",
+          "5b",
+          "pop     ebx"
+        ],
+        [
+          "0x45036b",
+          "81c48c000000",
+          "add     esp, 8Ch"
+        ],
+        [
+          "0x450371",
+          "c3",
+          "retn"
+        ],
+        [
+          "0x450372",
+          "8b8c24b0000000",
+          "mov     ecx, [esp+9Ch+th]; jumptable 0045024E case 32"
+        ],
+        [
+          "0x450379",
+          "85c9",
+          "test    ecx, ecx"
+        ],
+        [
+          "0x45037b",
+          "7e44",
+          "jle     short def_45024E; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x45037d",
+          "8b9424b8000000",
+          "mov     edx, [esp+9Ch+arg_18]"
+        ],
+        [
+          "0x450384",
+          "8bbc24ac000000",
+          "mov     edi, [esp+9Ch+tw]"
+        ],
+        [
+          "0x45038b",
+          "894c2418",
+          "mov     [esp+9Ch+var_84], ecx"
+        ],
+        [
+          "0x45038f",
+          "33c9",
+          "xor     ecx, ecx"
+        ],
+        [
+          "0x450391",
+          "85ff",
+          "test    edi, edi"
+        ],
+        [
+          "0x450393",
+          "7e19",
+          "jle     short loc_4503AE"
+        ],
+        [
+          "0x450395",
+          "8bf5",
+          "mov     esi, ebp"
+        ],
+        [
+          "0x450397",
+          "33db",
+          "xor     ebx, ebx"
+        ],
+        [
+          "0x450399",
+          "83c604",
+          "add     esi, 4"
+        ],
+        [
+          "0x45039c",
+          "8a1c01",
+          "mov     bl, [ecx+eax]"
+        ],
+        [
+          "0x45039f",
+          "41",
+          "inc     ecx"
+        ],
+        [
+          "0x4503a0",
+          "3bcf",
+          "cmp     ecx, edi"
+        ],
+        [
+          "0x4503a2",
+          "8b1c9a",
+          "mov     ebx, [edx+ebx*4]"
+        ],
+        [
+          "0x4503a5",
+          "895efc",
+          "mov     [esi-4], ebx"
+        ],
+        [
+          "0x4503a8",
+          "7ced",
+          "jl      short loc_450397"
+        ],
+        [
+          "0x4503aa",
+          "8b5c2410",
+          "mov     ebx, [esp+9Ch+var_8C]"
+        ],
+        [
+          "0x4503ae",
+          "8b74241c",
+          "mov     esi, [esp+9Ch+var_80]"
+        ],
+        [
+          "0x4503b2",
+          "8b4c2418",
+          "mov     ecx, [esp+9Ch+var_84]"
+        ],
+        [
+          "0x4503b6",
+          "2bc3",
+          "sub     eax, ebx"
+        ],
+        [
+          "0x4503b8",
+          "03ee",
+          "add     ebp, esi"
+        ],
+        [
+          "0x4503ba",
+          "49",
+          "dec     ecx"
+        ],
+        [
+          "0x4503bb",
+          "894c2418",
+          "mov     [esp+9Ch+var_84], ecx"
+        ],
+        [
+          "0x4503bf",
+          "75ce",
+          "jnz     short loc_45038F"
+        ],
+        [
+          "0x4503c1",
+          "5f",
+          "pop     edi; jumptable 0045024E default case, cases 9-15,17-23,25-31"
+        ],
+        [
+          "0x4503c2",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x4503c3",
+          "5d",
+          "pop     ebp"
+        ],
+        [
+          "0x4503c4",
+          "5b",
+          "pop     ebx"
+        ],
+        [
+          "0x4503c5",
+          "81c48c000000",
+          "add     esp, 8Ch"
+        ],
+        [
+          "0x4503cb",
+          "c3",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x450428",
+          17,
+          true
+        ]
+      ]
+    },
+    {
+      "start": "0x450400",
+      "end": "0x450470",
+      "rows": [
+        [
+          "0x450400",
+          "8b44241c",
+          "mov     eax, [esp+arg_18]"
+        ],
+        [
+          "0x450404",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x450405",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x450407",
+          "7434",
+          "jz      short loc_45043D"
+        ],
+        [
+          "0x450409",
+          "8b4c2418",
+          "mov     ecx, [esp+4+th]"
+        ],
+        [
+          "0x45040d",
+          "8b542414",
+          "mov     edx, [esp+4+tw]"
+        ],
+        [
+          "0x450411",
+          "8b742408",
+          "mov     esi, [esp+4+arg_0]"
+        ],
+        [
+          "0x450415",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x450416",
+          "8b442420",
+          "mov     eax, [esp+8+arg_14]"
+        ],
+        [
+          "0x45041a",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x45041b",
+          "8b442418",
+          "mov     eax, [esp+0Ch+arg_8]"
+        ],
+        [
+          "0x45041f",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x450420",
+          "8b4c2418",
+          "mov     ecx, [esp+10h+arg_4]"
+        ],
+        [
+          "0x450424",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x450425",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x450426",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x450427",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x450428",
+          "e863fdffff",
+          "call    sub_450190"
+        ],
+        [
+          "0x45042d",
+          "8b0e",
+          "mov     ecx, [esi]"
+        ],
+        [
+          "0x45042f",
+          "83c41c",
+          "add     esp, 1Ch"
+        ],
+        [
+          "0x450432",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x450434",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x450435",
+          "ff9180000000",
+          "call    dword ptr [ecx+80h]"
+        ],
+        [
+          "0x45043b",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x45043c",
+          "c3",
+          "retn"
+        ],
+        [
+          "0x45043d",
+          "8b54241c",
+          "mov     edx, [esp+4+arg_14]"
+        ],
+        [
+          "0x450441",
+          "8b442418",
+          "mov     eax, [esp+4+th]"
+        ],
+        [
+          "0x450445",
+          "8b4c2414",
+          "mov     ecx, [esp+4+tw]"
+        ],
+        [
+          "0x450449",
+          "8b742408",
+          "mov     esi, [esp+4+arg_0]"
+        ],
+        [
+          "0x45044d",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x45044e",
+          "8b542414",
+          "mov     edx, [esp+8+arg_8]"
+        ],
+        [
+          "0x450452",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x450453",
+          "8b442414",
+          "mov     eax, [esp+0Ch+arg_4]"
+        ],
+        [
+          "0x450457",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x450458",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x450459",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x45045a",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x45045b",
+          "e8e0faffff",
+          "call    sub_44FF40"
+        ],
+        [
+          "0x450460",
+          "8b0e",
+          "mov     ecx, [esi]"
+        ],
+        [
+          "0x450462",
+          "83c418",
+          "add     esp, 18h"
+        ],
+        [
+          "0x450465",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x450467",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x450468",
+          "ff9180000000",
+          "call    dword ptr [ecx+80h]"
+        ],
+        [
+          "0x45046e",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x45046f",
+          "c3",
+          "retn"
+        ]
+      ],
+      "inbound": [
+        [
+          "0x520cc1",
+          17,
+          true
+        ],
+        [
+          "0x520d82",
+          17,
+          true
+        ]
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "selector_address": "0x450174",
+      "selector_bytes": "00040404040404040104040404040404020404040404040403",
+      "table_address": "0x450160",
+      "targets": [
+        "0x450007",
+        "0x450043",
+        "0x450096",
+        "0x4500fb",
+        "0x450143"
+      ],
+      "case32_index": 3,
+      "case32_target": "0x4500fb"
+    },
+    {
+      "selector_address": "0x4503e0",
+      "selector_bytes": "00040404040404040104040404040404020404040404040403",
+      "table_address": "0x4503cc",
+      "targets": [
+        "0x450255",
+        "0x45029f",
+        "0x4502ff",
+        "0x450372",
+        "0x4503c1"
+      ],
+      "case32_index": 3,
+      "case32_target": "0x450372"
+    }
+  ],
+  "caller_windows": [
+    {
+      "call": "0x520cc1",
+      "rows": [
+        [
+          "0x520c8e",
+          "0f8407010000",
+          "jz      loc_520D9B"
+        ],
+        [
+          "0x520c94",
+          "f6432104",
+          "test    byte ptr [ebx+21h], 4"
+        ],
+        [
+          "0x520c98",
+          "7507",
+          "jnz     short loc_520CA1"
+        ],
+        [
+          "0x520c9a",
+          "0504040000",
+          "add     eax, 404h"
+        ],
+        [
+          "0x520c9f",
+          "eb03",
+          "jmp     short loc_520CA4"
+        ],
+        [
+          "0x520ca1",
+          "83c004",
+          "add     eax, 4"
+        ],
+        [
+          "0x520ca4",
+          "0fbf5606",
+          "movsx   edx, word ptr [esi+6]"
+        ],
+        [
+          "0x520ca8",
+          "8b4c2420",
+          "mov     ecx, [esp+18h+texture]"
+        ],
+        [
+          "0x520cac",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x520cad",
+          "0fbf470e",
+          "movsx   eax, word ptr [edi+0Eh]"
+        ],
+        [
+          "0x520cb1",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x520cb3",
+          "55",
+          "push    ebp"
+        ],
+        [
+          "0x520cb4",
+          "2bd0",
+          "sub     edx, eax"
+        ],
+        [
+          "0x520cb6",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x520cb7",
+          "0fbf4f0c",
+          "movsx   ecx, word ptr [edi+0Ch]"
+        ],
+        [
+          "0x520cbb",
+          "4a",
+          "dec     edx"
+        ],
+        [
+          "0x520cbc",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x520cbd",
+          "8b17",
+          "mov     edx, [edi]"
+        ],
+        [
+          "0x520cbf",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x520cc0",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x520cc1",
+          "e83af7f2ff",
+          "call    Texture__LoadFromBuffer"
+        ],
+        [
+          "0x520cc6",
+          "83c41c",
+          "add     esp, 1Ch"
+        ],
+        [
+          "0x520cc9",
+          "e9cd000000",
+          "jmp     loc_520D9B"
+        ],
+        [
+          "0x520cce",
+          "8b4608",
+          "mov     eax, [esi+8]"
+        ],
+        [
+          "0x520cd1",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x520cd3",
+          "7423",
+          "jz      short loc_520CF8"
+        ],
+        [
+          "0x520cd5",
+          "8b4c2410",
+          "mov     ecx, [esp+18h+var_8]"
+        ],
+        [
+          "0x520cd9",
+          "8b5004",
+          "mov     edx, [eax+4]"
+        ]
+      ]
+    },
+    {
+      "call": "0x520d82",
+      "rows": [
+        [
+          "0x520d57",
+          "8b4608",
+          "mov     eax, [esi+8]"
+        ],
+        [
+          "0x520d5a",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x520d5c",
+          "7405",
+          "jz      short loc_520D63"
+        ],
+        [
+          "0x520d5e",
+          "83c010",
+          "add     eax, 10h"
+        ],
+        [
+          "0x520d61",
+          "eb02",
+          "jmp     short loc_520D65"
+        ],
+        [
+          "0x520d63",
+          "33c0",
+          "xor     eax, eax"
+        ],
+        [
+          "0x520d65",
+          "0fbf5606",
+          "movsx   edx, word ptr [esi+6]"
+        ],
+        [
+          "0x520d69",
+          "8b4c2420",
+          "mov     ecx, [esp+18h+texture]"
+        ],
+        [
+          "0x520d6d",
+          "50",
+          "push    eax"
+        ],
+        [
+          "0x520d6e",
+          "0fbf470e",
+          "movsx   eax, word ptr [edi+0Eh]"
+        ],
+        [
+          "0x520d72",
+          "6a00",
+          "push    0"
+        ],
+        [
+          "0x520d74",
+          "55",
+          "push    ebp"
+        ],
+        [
+          "0x520d75",
+          "2bd0",
+          "sub     edx, eax"
+        ],
+        [
+          "0x520d77",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x520d78",
+          "0fbf4f0c",
+          "movsx   ecx, word ptr [edi+0Ch]"
+        ],
+        [
+          "0x520d7c",
+          "4a",
+          "dec     edx"
+        ],
+        [
+          "0x520d7d",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x520d7e",
+          "8b17",
+          "mov     edx, [edi]"
+        ],
+        [
+          "0x520d80",
+          "51",
+          "push    ecx"
+        ],
+        [
+          "0x520d81",
+          "52",
+          "push    edx"
+        ],
+        [
+          "0x520d82",
+          "e879f6f2ff",
+          "call    Texture__LoadFromBuffer"
+        ],
+        [
+          "0x520d87",
+          "c6460e00",
+          "mov     byte ptr [esi+0Eh], 0"
+        ],
+        [
+          "0x520d8b",
+          "a1d80e0201",
+          "mov     eax, gCurrentGraphicPaletteSize"
+        ],
+        [
+          "0x520d90",
+          "83c41c",
+          "add     esp, 1Ch"
+        ],
+        [
+          "0x520d93",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x520d95",
+          "7e04",
+          "jle     short loc_520D9B"
+        ],
+        [
+          "0x520d97",
+          "c6460e01",
+          "mov     byte ptr [esi+0Eh], 1"
+        ],
+        [
+          "0x520d9b",
+          "668b442410",
+          "mov     ax, word ptr [esp+18h+var_8]"
+        ]
+      ]
+    }
+  ],
+  "optional_source_direct_refs": {
+    "address": "0x1020ec4",
+    "refs": [
+      {
+        "from": "0x44ff9a",
+        "type": 3,
+        "function": "0x44ff40",
+        "rows": [
+          [
+            "0x44ff91",
+            "896c241c",
+            "mov     [esp+9Ch+var_80], ebp"
+          ],
+          [
+            "0x44ff95",
+            "7420",
+            "jz      short loc_44FFB7"
+          ],
+          [
+            "0x44ff97",
+            "8b4a04",
+            "mov     ecx, [edx+4]"
+          ],
+          [
+            "0x44ff9a",
+            "8b1dc40e0201",
+            "mov     ebx, dword_1020EC4"
+          ],
+          [
+            "0x44ffa0",
+            "8bc1",
+            "mov     eax, ecx"
+          ],
+          [
+            "0x44ffa2",
+            "8bbc24a4000000",
+            "mov     edi, [esp+9Ch+arg_4]"
+          ],
+          [
+            "0x44ffa9",
+            "0faf8424a8000000",
+            "imul    eax, [esp+9Ch+arg_8]"
+          ]
+        ]
+      },
+      {
+        "from": "0x4501ea",
+        "type": 3,
+        "function": "0x450190",
+        "rows": [
+          [
+            "0x4501e1",
+            "896c2414",
+            "mov     [esp+9Ch+var_88], ebp"
+          ],
+          [
+            "0x4501e5",
+            "7420",
+            "jz      short loc_450207"
+          ],
+          [
+            "0x4501e7",
+            "8b5904",
+            "mov     ebx, [ecx+4]"
+          ],
+          [
+            "0x4501ea",
+            "8b3dc40e0201",
+            "mov     edi, dword_1020EC4"
+          ],
+          [
+            "0x4501f0",
+            "8bc3",
+            "mov     eax, ebx"
+          ],
+          [
+            "0x4501f2",
+            "8bb424a4000000",
+            "mov     esi, [esp+9Ch+arg_4]"
+          ],
+          [
+            "0x4501f9",
+            "0faf8424a8000000",
+            "imul    eax, [esp+9Ch+arg_8]"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_excerpts": {
+    "core": {
+      "path": "src/render/GraphicDxCache.cpp",
+      "symbol": "LoadTextureFromBuffer32_450400",
+      "text": "void LoadTextureFromBuffer32_450400(\n    TextureSurface* const surface, const std::int32_t x, const std::int32_t y,\n    const std::int32_t width, const std::int32_t height,\n    const std::uint8_t* const source, const std::int32_t sourceWidth,\n    const std::uint8_t* const palette) noexcept\n{\n    if (height <= 0) {\n        return;\n    }\n\n    const std::uint8_t* row = source + y * sourceWidth + x;\n    std::uint32_t* target = surface->pixels.get();\n    for (std::int32_t rowIndex = 0; rowIndex < height; ++rowIndex) {\n        for (std::int32_t column = 0; column < width; ++column) {\n            const std::uint8_t index = row[column];\n            if (palette != nullptr) {\n                std::memcpy(&target[column], palette + static_cast<std::size_t>(index) * 4, 4);\n            } else {\n                target[column] = gPaletteAutoMap[index];\n            }\n        }\n        if (rowIndex + 1 < height) {\n            row -= sourceWidth;\n        }\n        target += surface->width;\n    }\n}\n\n"
+    },
+    "calls": [
+      "            LoadTextureFromBuffer32_450400(\n                surface, sourceBlockX, sourceHeight - sourceBlockY - 1,\n                width, height, resource::gGraphicDataPtr,\n                static_cast<std::int32_t>(resource::gCurrentGraphicWidth),\n                reinterpret_cast<const std::uint8_t*>(colors));",
+      "        LoadTextureFromBuffer32_450400(\n            surface, sourceBlockX, sourceHeight - sourceBlockY - 1,\n            width, height, resource::gGraphicDataPtr,\n            static_cast<std::int32_t>(resource::gCurrentGraphicWidth), colors);"
+    ],
+    "declaration": {
+      "path": "src/render/GraphicDxCacheState.hpp",
+      "symbol": "LoadTextureFromBuffer32_450400",
+      "text": "void LoadTextureFromBuffer32_450400(\n    TextureSurface* surface, std::int32_t x, std::int32_t y,\n    std::int32_t width, std::int32_t height,\n    const std::uint8_t* source, std::int32_t sourceWidth,\n    const std::uint8_t* palette) noexcept;"
+    }
+  },
+  "counts": {
+    "function_count": 3,
+    "instruction_count": 392,
+    "code_bytes": 1228,
+    "leaf_direct_calls": 2,
+    "parent_direct_calls": 2,
+    "table_bytes": 90,
+    "semantic_records_added": 3,
+    "function_dispositions_added": 3,
+    "software_evidence_added": 0
+  },
+  "verification": {
+    "method": "限定静态",
+    "source_changed": false,
+    "scope_changed": false,
+    "software_gate_changed": false,
+    "limits": "已知两个caller/CPU32位段定位可追；可选源生产/全部父和模式/生命周期/alias/ABI/像素及运行未闭"
+  }
+}

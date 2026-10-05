@@ -1013,7 +1013,8 @@
         "doc/cg2d_queued_draw_alignment_spec.md",
         "doc/cg2d_palette_cache_alignment_spec.md",
         "doc/cg2d_cache_lifecycle_alignment_spec.md",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1037,7 +1038,10 @@
         "F:00123310",
         "F:001231A0",
         "F:00122B30",
-        "F:00122C50"
+        "F:00122C50",
+        "F:0004FF40",
+        "F:00050190",
+        "F:00050400"
       ],
       "closure_task_ids": [
         "G01",
@@ -1054,7 +1058,8 @@
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-decision",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-decision",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1074,7 +1079,8 @@
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-baseline",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-baseline",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline"
       ]
     },
     {
@@ -11961,7 +11967,8 @@
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
       ]
     },
     {
@@ -12148,7 +12155,8 @@
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state"
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
       ]
     },
     {
@@ -12215,7 +12223,8 @@
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
-        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state"
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
       ]
     },
     {
@@ -12234,6 +12243,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+      ]
+    },
+    {
+      "task_id": "G04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
       ]
     }
   ],
@@ -15308,6 +15325,47 @@
         "doc/cg2d_declared_exclusion_registry_evidence.json"
       ],
       "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0004FF40",
+      "disposition": "mixed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json",
+        "doc/cg2d_render_depth_scope.json#/records/7"
+      ],
+      "reason": "仅绑定原身份、已批32位范围及既有CPU段/两个已知caller；没有新增业务实现或软件验收，原低色深授权/可选源/所有父与运行边界保持"
+    },
+    {
+      "inventory_id": "F:00050190",
+      "disposition": "mixed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json",
+        "doc/cg2d_render_depth_scope.json#/records/8"
+      ],
+      "reason": "仅绑定原身份、已批32位范围及既有CPU段/两个已知caller；没有新增业务实现或软件验收，原低色深授权/可选源/所有父与运行边界保持"
+    },
+    {
+      "inventory_id": "F:00050400",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json"
+      ],
+      "reason": "仅绑定原身份、已批32位范围及既有CPU段/两个已知caller；没有新增业务实现或软件验收，原低色深授权/可选源/所有父与运行边界保持"
     }
   ],
   "auxiliary_dispositions": [

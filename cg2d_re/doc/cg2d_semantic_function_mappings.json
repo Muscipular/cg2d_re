@@ -143124,6 +143124,157 @@
           "relationship": "释放当前index，结果不消费，随后清index"
         }
       ]
+    },
+    {
+      "original_entry": "0x44FF40",
+      "inventory_id": "F:0004FF40",
+      "status": "MUP01混合范围原身份/既有32位CPU段登记，低色深保持排除；可选源/全父/alias/ABI/像素/运行未闭",
+      "original_end_exclusive": "0x450160",
+      "instruction_count": 165,
+      "original_code_bytes": 544,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400",
+            "LoadGraphicTexture_520B10"
+          ],
+          "relationship": "现有空palette分支逐U8索引查AutoMap，源行倒退/目标行前进；原低色深排除/可选源未闭"
+        },
+        {
+          "path": "src/render/GraphicDxCacheState.hpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400"
+          ],
+          "relationship": "既有八参数CPU段声明，区别原七参数COM入口；不补可选源描述符或伪造原生返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json"
+      ],
+      "boundary": "只绑定当前已有CPU32位写入段及已证520B10两caller，原入口/表项/分支和W8索引/W32颜色/源行倒退与目标pitch可追；新显式source/sourceWidth取代原第六参分流在这两个零参数caller上的共享源。原Lock/Unlock/返回机制沿已批SDL/CPU替换，AutoMap原叶内和父各Unlock一次，显式路径仅父Unlock；不称两路原生调用序相同或全间接ABI等价。1020EC4及非空第六参的生产/地址/alias仍未闭，不造空producer、不冻结当前零值或称不可达。只补身份/基线，源码/原色深授权/范围/软件证据保持；全部父/模式/生命周期/实际像素/SDL driver/运行与R1/R7/R8未验，RPLAN.24、原格式明文和音频暂停保持。",
+      "verification_level": "三根392条/1228B、两张实际表与四直接调用点/两caller及现有源段限定静态；不构建/测试/运行/摘要",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 7,
+          "status": "混合范围：保留32位，排除低色深分支"
+        }
+      ],
+      "retained_bits_per_pixel": [
+        32
+      ],
+      "excluded_bits_per_pixel": [
+        8,
+        16,
+        24
+      ],
+      "retained_branch": "0x4500FB"
+    },
+    {
+      "original_entry": "0x450190",
+      "inventory_id": "F:00050190",
+      "status": "MUP01混合范围原身份/既有32位CPU段登记，低色深保持排除；可选源/全父/alias/ABI/像素/运行未闭",
+      "original_end_exclusive": "0x4503CC",
+      "instruction_count": 182,
+      "original_code_bytes": 572,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400",
+            "LoadGraphicTexture_520B10"
+          ],
+          "relationship": "现有非空palette分支按U8索引取W32载荷，源行倒退/目标行前进；原低色深排除/可选源未闭"
+        },
+        {
+          "path": "src/render/GraphicDxCacheState.hpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400"
+          ],
+          "relationship": "既有八参数CPU段声明，区别原七参数COM入口；不补可选源描述符或伪造原生返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json"
+      ],
+      "boundary": "只绑定当前已有CPU32位写入段及已证520B10两caller，原入口/表项/分支和W8索引/W32颜色/源行倒退与目标pitch可追；新显式source/sourceWidth取代原第六参分流在这两个零参数caller上的共享源。原Lock/Unlock/返回机制沿已批SDL/CPU替换，AutoMap原叶内和父各Unlock一次，显式路径仅父Unlock；不称两路原生调用序相同或全间接ABI等价。1020EC4及非空第六参的生产/地址/alias仍未闭，不造空producer、不冻结当前零值或称不可达。只补身份/基线，源码/原色深授权/范围/软件证据保持；全部父/模式/生命周期/实际像素/SDL driver/运行与R1/R7/R8未验，RPLAN.24、原格式明文和音频暂停保持。",
+      "verification_level": "三根392条/1228B、两张实际表与四直接调用点/两caller及现有源段限定静态；不构建/测试/运行/摘要",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 8,
+          "status": "混合范围：保留32位，排除低色深分支"
+        }
+      ],
+      "retained_bits_per_pixel": [
+        32
+      ],
+      "excluded_bits_per_pixel": [
+        8,
+        16,
+        24
+      ],
+      "retained_branch": "0x450372"
+    },
+    {
+      "original_entry": "0x450400",
+      "inventory_id": "F:00050400",
+      "status": "MUP01父入口原身份/既有显式源CPU接口登记；可选源/全父/alias/ABI/像素/运行未闭",
+      "original_end_exclusive": "0x450470",
+      "instruction_count": 45,
+      "original_code_bytes": 112,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400",
+            "LoadGraphicTexture_520B10"
+          ],
+          "relationship": "两条已知520B10调用提供显式共享源和源宽，沿已有CPU接口承接空/非空palette选择；源码保持"
+        },
+        {
+          "path": "src/render/GraphicDxCacheState.hpp",
+          "symbols": [
+            "LoadTextureFromBuffer32_450400"
+          ],
+          "relationship": "既有八参数CPU段声明，区别原七参数COM入口；不补可选源描述符或伪造原生返回"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-acceptance",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_mixed_upload_identity_evidence.json"
+      ],
+      "boundary": "只绑定当前已有CPU32位写入段及已证520B10两caller，原入口/表项/分支和W8索引/W32颜色/源行倒退与目标pitch可追；新显式source/sourceWidth取代原第六参分流在这两个零参数caller上的共享源。原Lock/Unlock/返回机制沿已批SDL/CPU替换，AutoMap原叶内和父各Unlock一次，显式路径仅父Unlock；不称两路原生调用序相同或全间接ABI等价。1020EC4及非空第六参的生产/地址/alias仍未闭，不造空producer、不冻结当前零值或称不可达。只补身份/基线，源码/原色深授权/范围/软件证据保持；全部父/模式/生命周期/实际像素/SDL driver/运行与R1/R7/R8未验，RPLAN.24、原格式明文和音频暂停保持。",
+      "verification_level": "三根392条/1228B、两张实际表与四直接调用点/两caller及现有源段限定静态；不构建/测试/运行/摘要",
+      "original_internal_calls": [
+        {
+          "call_site": "0x450428",
+          "target_entry": "0x450190",
+          "source_symbol": "LoadTextureFromBuffer32_450400",
+          "relationship": "第七参非空选择显式W32颜色载荷分支"
+        },
+        {
+          "call_site": "0x45045B",
+          "target_entry": "0x44FF40",
+          "source_symbol": "LoadTextureFromBuffer32_450400",
+          "relationship": "第七参为空选择AutoMap颜色分支"
+        }
+      ]
     }
   ]
 }

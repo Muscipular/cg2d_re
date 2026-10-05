@@ -8,13 +8,13 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1357/3680（36.88%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 2323 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1358/3680（36.9%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 2322 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1239条/1235个原ID | 无独立函数ID另列4条，其中原区间绑定 |
+| 语义登记 | 1242条/1238个原ID | 无独立函数ID另列4条，其中原区间绑定 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 320/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 323/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置15 / 2 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -49,7 +49,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md)、[cg2d_input_append_alignment_spec](../doc/cg2d_input_append_alignment_spec.md)、[cg2d_input_text_alignment_spec](../doc/cg2d_input_text_alignment_spec.md) | 14/48 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-TEXT | included：文本与字体显示 | [cg2d_text_encoding_spec](../doc/cg2d_text_encoding_spec.md)、[cg2d_font_measure](../doc/cg2d_font_measure.md)、[cg2d_text_pending_queue](../doc/cg2d_text_pending_queue.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md)、[cg2d_input_append_alignment_spec](../doc/cg2d_input_append_alignment_spec.md)、[cg2d_input_text_alignment_spec](../doc/cg2d_input_text_alignment_spec.md)、[cg2d_text_queue_alignment_spec](../doc/cg2d_text_queue_alignment_spec.md)、[cg2d_font_lifecycle_alignment_spec](../doc/cg2d_font_lifecycle_alignment_spec.md)、[cg2d_multibyte_string_spec](../doc/cg2d_multibyte_string_spec.md) | 20/29 | T01、T03、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-MAP | included：地图与世界数据 | [cg2d_map_scene_drawing](../doc/cg2d_map_scene_drawing.md)、[cg2d_map_draw_cache](../doc/cg2d_map_draw_cache.md)、[cg2d_world_objects](../doc/cg2d_world_objects.md)、[cg2d_world_state_lifecycle_spec](../doc/cg2d_world_state_lifecycle_spec.md) | 17/26 | U11、G01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-RESOURCE | included：资源加载与来源 | [cg2d_resource_sources](../doc/cg2d_resource_sources.md)、[cg2d_resource_implementation](../doc/cg2d_resource_implementation.md)、[cg2d_graphic_decode](../doc/cg2d_graphic_decode.md)、[cg2d_graphic_info](../doc/cg2d_graphic_info.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md)、[cg2d_graphic_load_alignment_spec](../doc/cg2d_graphic_load_alignment_spec.md)、[cg2d_graphic_upload_alignment_spec](../doc/cg2d_graphic_upload_alignment_spec.md)、[cg2d_queued_draw_alignment_spec](../doc/cg2d_queued_draw_alignment_spec.md)、[cg2d_palette_cache_alignment_spec](../doc/cg2d_palette_cache_alignment_spec.md)、[cg2d_cache_lifecycle_alignment_spec](../doc/cg2d_cache_lifecycle_alignment_spec.md)、[cg2d_palette_global_memory_spec](../doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline) | 22/71 | G01、G05、V01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-RESOURCE | included：资源加载与来源 | [cg2d_resource_sources](../doc/cg2d_resource_sources.md)、[cg2d_resource_implementation](../doc/cg2d_resource_implementation.md)、[cg2d_graphic_decode](../doc/cg2d_graphic_decode.md)、[cg2d_graphic_info](../doc/cg2d_graphic_info.md)、[cg2d_resource_container_lifecycle_spec](../doc/cg2d_resource_container_lifecycle_spec.md)、[cg2d_graphic_load_alignment_spec](../doc/cg2d_graphic_load_alignment_spec.md)、[cg2d_graphic_upload_alignment_spec](../doc/cg2d_graphic_upload_alignment_spec.md)、[cg2d_queued_draw_alignment_spec](../doc/cg2d_queued_draw_alignment_spec.md)、[cg2d_palette_cache_alignment_spec](../doc/cg2d_palette_cache_alignment_spec.md)、[cg2d_cache_lifecycle_alignment_spec](../doc/cg2d_cache_lifecycle_alignment_spec.md)、[cg2d_palette_global_memory_spec](../doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline)、[cg2d_mixed_upload_identity_spec](../doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline) | 25/74 | G01、G05、V01、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-ANIMATION | included：动画索引与播放 | [cg2d_animation_runtime](../doc/cg2d_animation_runtime.md) | 0/14 | G01、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-RENDER | included：32位渲染与缓存 | [cg2d_graphic_dx_cache_x64_spec](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[cg2d_texture_rendering](../doc/cg2d_texture_rendering.md)、[cg2d_sdl_presenter](../doc/cg2d_sdl_presenter.md)、[cg2d_sub_507140](../doc/cg2d_sub_507140.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md)、[cg2d_text_queue_alignment_spec](../doc/cg2d_text_queue_alignment_spec.md)、[cg2d_font_lifecycle_alignment_spec](../doc/cg2d_font_lifecycle_alignment_spec.md)、[cg2d_graphic_sort_alignment_spec](../doc/cg2d_graphic_sort_alignment_spec.md)、[cg2d_graphic_load_alignment_spec](../doc/cg2d_graphic_load_alignment_spec.md)、[cg2d_graphic_upload_alignment_spec](../doc/cg2d_graphic_upload_alignment_spec.md)、[cg2d_queued_draw_alignment_spec](../doc/cg2d_queued_draw_alignment_spec.md)、[cg2d_palette_cache_alignment_spec](../doc/cg2d_palette_cache_alignment_spec.md)、[cg2d_cache_lifecycle_alignment_spec](../doc/cg2d_cache_lifecycle_alignment_spec.md) | 26/52 | C09、G01、G02、G03、G04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-UI | included：窗口与旧面板 | [cg2d_ui_window_runtime](../doc/cg2d_ui_window_runtime.md)、[shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md) | 0/27 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -234,15 +234,13 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 
 | 登记差集 | 数量 | 判定与下一步 |
 |---|---:|---|
-| 定位及语义关联均未登记 | 184 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
+| 定位及语义关联均未登记 | 182 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
 | 语义身份尚未登记 | 0 | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |
-| 需先核范围/定位/身份 | 81 | 下方明细；不等于待实现或已允许运行的项数 |
+| 需先核范围/定位/身份 | 79 | 下方明细；不等于待实现或已允许运行的项数 |
 | 已明确暂停 / 具名排除的本队列项 | 0 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
 
 | 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |
 |---|---|---|---|---|---|
-| mapping_location_unrecorded | F:0004FF40 | 0x44FF40 | sub_44FF40 | mixed | 核保留分支及其实际接线，不整体排除 |
-| mapping_location_unrecorded | F:00050190 | 0x450190 | sub_450190 | mixed | 核保留分支及其实际接线，不整体排除 |
 | mapping_location_unrecorded | F:00054FE0 | 0x454FE0 | sub_454FE0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:00055030 | 0x455030 | sub_455030 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:00055100 | 0x455100 | sub_455100 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |

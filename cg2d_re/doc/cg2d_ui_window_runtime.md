@@ -229,3 +229,11 @@ git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re
 焦点与尾部两次D68DB4赋值改为只写低W8，尾部阈值判断取低U8；修复整W32写入/比较偏差，保留高三字节和唯一owner。
 原窗口/元素、共享索引重读、焦点/拖动、update/draw返回传递和快捷键/预设热键顺序及504120入口保持。
 只登记本根语义、处置和限定静态；旧99表外层/键表、全回调与alias/寿命、输入/画面/ABI及运行仍未验收。
+
+
+## MIC01 鼠标阶段、命中与元素事件合同（2026-10-05）
+
+[三根合同](cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state)及[原327条/1106B](cg2d_mouse_input_chain_evidence.json)补472F00、473E40、473560的原新映射。
+既有X命中短路/跳过Y读取、阶段1回调后重读及阶段2入口限定、type4 X后Y、入口element借用与按钮低W8映射可追。
+三根源码及共享helper保持，不新增旧表外层或输入框架；两void根只针对当前caller弃返回，不假设原EAX固定值或全ABI等价。
+这只是基线/登记收口，全上游/父/间接目标、owner/alias、完整输入/寿命、旧路由及运行仍未验收。

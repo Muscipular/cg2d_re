@@ -1,0 +1,2355 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "MIC01三鼠标输入根原指令与既有源码合同，原会话只读",
+  "original_bodies": [
+    {
+      "start": "0x472f00",
+      "end_exclusive": "0x472f3b",
+      "instructions": [
+        {
+          "ea": "0x472f00",
+          "size": 4,
+          "raw": "8b442404",
+          "text": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x472f04",
+          "size": 5,
+          "raw": "b9f88cd600",
+          "text": "mov     ecx, offset mouseX"
+        },
+        {
+          "ea": "0x472f09",
+          "size": 1,
+          "raw": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x472f0a",
+          "size": 5,
+          "raw": "e851eff8ff",
+          "text": "call    CryptInt__dec"
+        },
+        {
+          "ea": "0x472f0f",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x472f11",
+          "size": 2,
+          "raw": "7c25",
+          "text": "jl      short loc_472F38"
+        },
+        {
+          "ea": "0x472f13",
+          "size": 4,
+          "raw": "3b44240c",
+          "text": "cmp     eax, [esp+arg_8]"
+        },
+        {
+          "ea": "0x472f17",
+          "size": 2,
+          "raw": "7d1f",
+          "text": "jge     short loc_472F38"
+        },
+        {
+          "ea": "0x472f19",
+          "size": 4,
+          "raw": "8b4c2408",
+          "text": "mov     ecx, [esp+arg_4]"
+        },
+        {
+          "ea": "0x472f1d",
+          "size": 1,
+          "raw": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x472f1e",
+          "size": 5,
+          "raw": "b9088dd600",
+          "text": "mov     ecx, offset mouseY"
+        },
+        {
+          "ea": "0x472f23",
+          "size": 5,
+          "raw": "e838eff8ff",
+          "text": "call    CryptInt__dec"
+        },
+        {
+          "ea": "0x472f28",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x472f2a",
+          "size": 2,
+          "raw": "7c0c",
+          "text": "jl      short loc_472F38"
+        },
+        {
+          "ea": "0x472f2c",
+          "size": 4,
+          "raw": "3b442410",
+          "text": "cmp     eax, [esp+arg_C]"
+        },
+        {
+          "ea": "0x472f30",
+          "size": 2,
+          "raw": "7d06",
+          "text": "jge     short loc_472F38"
+        },
+        {
+          "ea": "0x472f32",
+          "size": 5,
+          "raw": "b801000000",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x472f37",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x472f38",
+          "size": 2,
+          "raw": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x472f3a",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x472e18",
+          "parent": "0x472d20",
+          "type": 17
+        },
+        {
+          "ea": "0x472ea1",
+          "parent": "0x472d20",
+          "type": 17
+        },
+        {
+          "ea": "0x472edc",
+          "parent": "0x472d20",
+          "type": 17
+        },
+        {
+          "ea": "0x4735df",
+          "parent": "0x473560",
+          "type": 17
+        },
+        {
+          "ea": "0x4736e3",
+          "parent": "0x473560",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "start": "0x473e40",
+      "end_exclusive": "0x473f78",
+      "instructions": [
+        {
+          "ea": "0x473e40",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x473e45",
+          "size": 1,
+          "raw": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x473e46",
+          "size": 1,
+          "raw": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x473e47",
+          "size": 2,
+          "raw": "33ff",
+          "text": "xor     edi, edi"
+        },
+        {
+          "ea": "0x473e49",
+          "size": 3,
+          "raw": "83f801",
+          "text": "cmp     eax, 1"
+        },
+        {
+          "ea": "0x473e4c",
+          "size": 6,
+          "raw": "0f8597000000",
+          "text": "jnz     loc_473EE9"
+        },
+        {
+          "ea": "0x473e52",
+          "size": 6,
+          "raw": "8b3518c15700",
+          "text": "mov     esi, Mouse__MoveState"
+        },
+        {
+          "ea": "0x473e58",
+          "size": 2,
+          "raw": "3bf7",
+          "text": "cmp     esi, edi"
+        },
+        {
+          "ea": "0x473e5a",
+          "size": 6,
+          "raw": "0f8404010000",
+          "text": "jz      loc_473F64"
+        },
+        {
+          "ea": "0x473e60",
+          "size": 6,
+          "raw": "8a159c8dd600",
+          "text": "mov     dl, byte ptr gMouseClickState"
+        },
+        {
+          "ea": "0x473e66",
+          "size": 2,
+          "raw": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x473e68",
+          "size": 3,
+          "raw": "f6c201",
+          "text": "test    dl, 1"
+        },
+        {
+          "ea": "0x473e6b",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_473E72"
+        },
+        {
+          "ea": "0x473e6d",
+          "size": 5,
+          "raw": "b802000000",
+          "text": "mov     eax, 2"
+        },
+        {
+          "ea": "0x473e72",
+          "size": 3,
+          "raw": "f6c202",
+          "text": "test    dl, 2"
+        },
+        {
+          "ea": "0x473e75",
+          "size": 2,
+          "raw": "7402",
+          "text": "jz      short loc_473E79"
+        },
+        {
+          "ea": "0x473e77",
+          "size": 2,
+          "raw": "0c04",
+          "text": "or      al, 4"
+        },
+        {
+          "ea": "0x473e79",
+          "size": 6,
+          "raw": "8a0d988dd600",
+          "text": "mov     cl, byte ptr gMouseBtnDown2"
+        },
+        {
+          "ea": "0x473e7f",
+          "size": 3,
+          "raw": "f6c101",
+          "text": "test    cl, 1"
+        },
+        {
+          "ea": "0x473e82",
+          "size": 2,
+          "raw": "7402",
+          "text": "jz      short loc_473E86"
+        },
+        {
+          "ea": "0x473e84",
+          "size": 2,
+          "raw": "0c08",
+          "text": "or      al, 8"
+        },
+        {
+          "ea": "0x473e86",
+          "size": 3,
+          "raw": "f6c102",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x473e89",
+          "size": 2,
+          "raw": "7402",
+          "text": "jz      short loc_473E8D"
+        },
+        {
+          "ea": "0x473e8b",
+          "size": 2,
+          "raw": "0c10",
+          "text": "or      al, 10h"
+        },
+        {
+          "ea": "0x473e8d",
+          "size": 3,
+          "raw": "f6c210",
+          "text": "test    dl, 10h"
+        },
+        {
+          "ea": "0x473e90",
+          "size": 2,
+          "raw": "7403",
+          "text": "jz      short loc_473E95"
+        },
+        {
+          "ea": "0x473e92",
+          "size": 3,
+          "raw": "80cc01",
+          "text": "or      ah, 1"
+        },
+        {
+          "ea": "0x473e95",
+          "size": 3,
+          "raw": "f6c220",
+          "text": "test    dl, 20h"
+        },
+        {
+          "ea": "0x473e98",
+          "size": 2,
+          "raw": "7403",
+          "text": "jz      short loc_473E9D"
+        },
+        {
+          "ea": "0x473e9a",
+          "size": 3,
+          "raw": "80cc02",
+          "text": "or      ah, 2"
+        },
+        {
+          "ea": "0x473e9d",
+          "size": 6,
+          "raw": "8a0da08dd600",
+          "text": "mov     cl, byte ptr gMouseBtnDown"
+        },
+        {
+          "ea": "0x473ea3",
+          "size": 3,
+          "raw": "f6c101",
+          "text": "test    cl, 1"
+        },
+        {
+          "ea": "0x473ea6",
+          "size": 2,
+          "raw": "7403",
+          "text": "jz      short loc_473EAB"
+        },
+        {
+          "ea": "0x473ea8",
+          "size": 3,
+          "raw": "80cc04",
+          "text": "or      ah, 4"
+        },
+        {
+          "ea": "0x473eab",
+          "size": 3,
+          "raw": "f6c102",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x473eae",
+          "size": 2,
+          "raw": "7403",
+          "text": "jz      short loc_473EB3"
+        },
+        {
+          "ea": "0x473eb0",
+          "size": 3,
+          "raw": "80cc08",
+          "text": "or      ah, 8"
+        },
+        {
+          "ea": "0x473eb3",
+          "size": 6,
+          "raw": "8b0d14c15700",
+          "text": "mov     ecx, gDragItemSourceIndex"
+        },
+        {
+          "ea": "0x473eb9",
+          "size": 1,
+          "raw": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x473eba",
+          "size": 1,
+          "raw": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x473ebb",
+          "size": 1,
+          "raw": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x473ebc",
+          "size": 2,
+          "raw": "ffd6",
+          "text": "call    esi ; Mouse__MoveState"
+        },
+        {
+          "ea": "0x473ebe",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x473ec3",
+          "size": 3,
+          "raw": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x473ec6",
+          "size": 3,
+          "raw": "83f803",
+          "text": "cmp     eax, 3"
+        },
+        {
+          "ea": "0x473ec9",
+          "size": 2,
+          "raw": "7530",
+          "text": "jnz     short loc_473EFB"
+        },
+        {
+          "ea": "0x473ecb",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473ecc",
+          "size": 10,
+          "raw": "c70528c1570004000000",
+          "text": "mov     Mouse__CurrentState, 4"
+        },
+        {
+          "ea": "0x473ed6",
+          "size": 10,
+          "raw": "c705b40aca0001000000",
+          "text": "mov     gWindowHasFocus, 1"
+        },
+        {
+          "ea": "0x473ee0",
+          "size": 7,
+          "raw": "c605b48dd60005",
+          "text": "mov     gMouseEventState, 5"
+        },
+        {
+          "ea": "0x473ee7",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473ee8",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x473ee9",
+          "size": 3,
+          "raw": "83f802",
+          "text": "cmp     eax, 2"
+        },
+        {
+          "ea": "0x473eec",
+          "size": 2,
+          "raw": "75d8",
+          "text": "jnz     short loc_473EC6"
+        },
+        {
+          "ea": "0x473eee",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473eef",
+          "size": 10,
+          "raw": "c70528c1570000000000",
+          "text": "mov     Mouse__CurrentState, 0"
+        },
+        {
+          "ea": "0x473ef9",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473efa",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x473efb",
+          "size": 3,
+          "raw": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x473efe",
+          "size": 2,
+          "raw": "7551",
+          "text": "jnz     short loc_473F51"
+        },
+        {
+          "ea": "0x473f00",
+          "size": 5,
+          "raw": "a118c15700",
+          "text": "mov     eax, Mouse__MoveState"
+        },
+        {
+          "ea": "0x473f05",
+          "size": 2,
+          "raw": "3bc7",
+          "text": "cmp     eax, edi"
+        },
+        {
+          "ea": "0x473f07",
+          "size": 2,
+          "raw": "740f",
+          "text": "jz      short loc_473F18"
+        },
+        {
+          "ea": "0x473f09",
+          "size": 6,
+          "raw": "8b1514c15700",
+          "text": "mov     edx, gDragItemSourceIndex"
+        },
+        {
+          "ea": "0x473f0f",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x473f10",
+          "size": 1,
+          "raw": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x473f11",
+          "size": 2,
+          "raw": "6a02",
+          "text": "push    2"
+        },
+        {
+          "ea": "0x473f13",
+          "size": 2,
+          "raw": "ffd0",
+          "text": "call    eax ; Mouse__MoveState"
+        },
+        {
+          "ea": "0x473f15",
+          "size": 3,
+          "raw": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x473f18",
+          "size": 6,
+          "raw": "893d10c15700",
+          "text": "mov     dword_57C110, edi"
+        },
+        {
+          "ea": "0x473f1e",
+          "size": 6,
+          "raw": "893d14c15700",
+          "text": "mov     gDragItemSourceIndex, edi"
+        },
+        {
+          "ea": "0x473f24",
+          "size": 6,
+          "raw": "893d18c15700",
+          "text": "mov     Mouse__MoveState, edi"
+        },
+        {
+          "ea": "0x473f2a",
+          "size": 7,
+          "raw": "66893d1cc15700",
+          "text": "mov     word_57C11C, di"
+        },
+        {
+          "ea": "0x473f31",
+          "size": 7,
+          "raw": "66893d1ec15700",
+          "text": "mov     word_57C11E, di"
+        },
+        {
+          "ea": "0x473f38",
+          "size": 6,
+          "raw": "893d20c15700",
+          "text": "mov     gFocusWinId, edi"
+        },
+        {
+          "ea": "0x473f3e",
+          "size": 6,
+          "raw": "893d28c15700",
+          "text": "mov     Mouse__CurrentState, edi"
+        },
+        {
+          "ea": "0x473f44",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473f45",
+          "size": 10,
+          "raw": "c70524c15700ffffffff",
+          "text": "mov     gFocusTmpIndex, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x473f4f",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473f50",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x473f51",
+          "size": 3,
+          "raw": "83f806",
+          "text": "cmp     eax, 6"
+        },
+        {
+          "ea": "0x473f54",
+          "size": 2,
+          "raw": "7509",
+          "text": "jnz     short loc_473F5F"
+        },
+        {
+          "ea": "0x473f56",
+          "size": 6,
+          "raw": "893d28c15700",
+          "text": "mov     Mouse__CurrentState, edi"
+        },
+        {
+          "ea": "0x473f5c",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473f5d",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473f5e",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x473f5f",
+          "size": 3,
+          "raw": "83f801",
+          "text": "cmp     eax, 1"
+        },
+        {
+          "ea": "0x473f62",
+          "size": 2,
+          "raw": "7511",
+          "text": "jnz     short loc_473F75"
+        },
+        {
+          "ea": "0x473f64",
+          "size": 10,
+          "raw": "c705b40aca0001000000",
+          "text": "mov     gWindowHasFocus, 1"
+        },
+        {
+          "ea": "0x473f6e",
+          "size": 7,
+          "raw": "c605b48dd60005",
+          "text": "mov     gMouseEventState, 5"
+        },
+        {
+          "ea": "0x473f75",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473f76",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473f77",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x473f9c",
+          "parent": "0x473f80",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "start": "0x473560",
+      "end_exclusive": "0x47383f",
+      "instructions": [
+        {
+          "ea": "0x473560",
+          "size": 3,
+          "raw": "83ec10",
+          "text": "sub     esp, 10h"
+        },
+        {
+          "ea": "0x473563",
+          "size": 5,
+          "raw": "a19446cf00",
+          "text": "mov     eax, gCurrentWindow"
+        },
+        {
+          "ea": "0x473568",
+          "size": 1,
+          "raw": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x473569",
+          "size": 1,
+          "raw": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x47356a",
+          "size": 1,
+          "raw": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x47356b",
+          "size": 3,
+          "raw": "8b702c",
+          "text": "mov     esi, [eax+2Ch]"
+        },
+        {
+          "ea": "0x47356e",
+          "size": 1,
+          "raw": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x47356f",
+          "size": 4,
+          "raw": "8b7c2424",
+          "text": "mov     edi, [esp+20h+a1]"
+        },
+        {
+          "ea": "0x473573",
+          "size": 3,
+          "raw": "8b580c",
+          "text": "mov     ebx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x473576",
+          "size": 3,
+          "raw": "8b6810",
+          "text": "mov     ebp, [eax+10h]"
+        },
+        {
+          "ea": "0x473579",
+          "size": 8,
+          "raw": "c744241000000000",
+          "text": "mov     [esp+20h+var_10], 0"
+        },
+        {
+          "ea": "0x473581",
+          "size": 3,
+          "raw": "8d3cff",
+          "text": "lea     edi, [edi+edi*8]"
+        },
+        {
+          "ea": "0x473584",
+          "size": 3,
+          "raw": "c1e702",
+          "text": "shl     edi, 2"
+        },
+        {
+          "ea": "0x473587",
+          "size": 2,
+          "raw": "03f7",
+          "text": "add     esi, edi"
+        },
+        {
+          "ea": "0x473589",
+          "size": 3,
+          "raw": "8b460c",
+          "text": "mov     eax, [esi+0Ch]"
+        },
+        {
+          "ea": "0x47358c",
+          "size": 3,
+          "raw": "8b4e08",
+          "text": "mov     ecx, [esi+8]"
+        },
+        {
+          "ea": "0x47358f",
+          "size": 3,
+          "raw": "8b5614",
+          "text": "mov     edx, [esi+14h]"
+        },
+        {
+          "ea": "0x473592",
+          "size": 2,
+          "raw": "03e8",
+          "text": "add     ebp, eax"
+        },
+        {
+          "ea": "0x473594",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x473599",
+          "size": 2,
+          "raw": "03d9",
+          "text": "add     ebx, ecx"
+        },
+        {
+          "ea": "0x47359b",
+          "size": 3,
+          "raw": "8b4e10",
+          "text": "mov     ecx, [esi+10h]"
+        },
+        {
+          "ea": "0x47359e",
+          "size": 3,
+          "raw": "83f801",
+          "text": "cmp     eax, 1"
+        },
+        {
+          "ea": "0x4735a1",
+          "size": 4,
+          "raw": "896c2414",
+          "text": "mov     [esp+20h+var_C], ebp"
+        },
+        {
+          "ea": "0x4735a5",
+          "size": 4,
+          "raw": "894c2418",
+          "text": "mov     [esp+20h+var_8], ecx"
+        },
+        {
+          "ea": "0x4735a9",
+          "size": 4,
+          "raw": "8954241c",
+          "text": "mov     [esp+20h+var_4], edx"
+        },
+        {
+          "ea": "0x4735ad",
+          "size": 6,
+          "raw": "0f841f010000",
+          "text": "jz      loc_4736D2"
+        },
+        {
+          "ea": "0x4735b3",
+          "size": 3,
+          "raw": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x4735b6",
+          "size": 6,
+          "raw": "0f8416010000",
+          "text": "jz      loc_4736D2"
+        },
+        {
+          "ea": "0x4735bc",
+          "size": 3,
+          "raw": "83f802",
+          "text": "cmp     eax, 2"
+        },
+        {
+          "ea": "0x4735bf",
+          "size": 6,
+          "raw": "0f840d010000",
+          "text": "jz      loc_4736D2"
+        },
+        {
+          "ea": "0x4735c5",
+          "size": 3,
+          "raw": "83f806",
+          "text": "cmp     eax, 6"
+        },
+        {
+          "ea": "0x4735c8",
+          "size": 6,
+          "raw": "0f8404010000",
+          "text": "jz      loc_4736D2"
+        },
+        {
+          "ea": "0x4735ce",
+          "size": 7,
+          "raw": "833db40aca0000",
+          "text": "cmp     gWindowHasFocus, 0"
+        },
+        {
+          "ea": "0x4735d5",
+          "size": 6,
+          "raw": "0f85d8010000",
+          "text": "jnz     loc_4737B3"
+        },
+        {
+          "ea": "0x4735db",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x4735dc",
+          "size": 1,
+          "raw": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x4735dd",
+          "size": 1,
+          "raw": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x4735de",
+          "size": 1,
+          "raw": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x4735df",
+          "size": 5,
+          "raw": "e81cf9ffff",
+          "text": "call    Mouse__isInRect"
+        },
+        {
+          "ea": "0x4735e4",
+          "size": 3,
+          "raw": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x4735e7",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4735e9",
+          "size": 6,
+          "raw": "0f84bf010000",
+          "text": "jz      loc_4737AE"
+        },
+        {
+          "ea": "0x4735ef",
+          "size": 6,
+          "raw": "8a0d9c8dd600",
+          "text": "mov     cl, byte ptr gMouseClickState"
+        },
+        {
+          "ea": "0x4735f5",
+          "size": 8,
+          "raw": "c744241001000000",
+          "text": "mov     [esp+20h+var_10], 1"
+        },
+        {
+          "ea": "0x4735fd",
+          "size": 3,
+          "raw": "f6c101",
+          "text": "test    cl, 1"
+        },
+        {
+          "ea": "0x473600",
+          "size": 2,
+          "raw": "7408",
+          "text": "jz      short loc_47360A"
+        },
+        {
+          "ea": "0x473602",
+          "size": 8,
+          "raw": "c744241003000000",
+          "text": "mov     [esp+20h+var_10], 3"
+        },
+        {
+          "ea": "0x47360a",
+          "size": 3,
+          "raw": "f6c102",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x47360d",
+          "size": 2,
+          "raw": "740a",
+          "text": "jz      short loc_473619"
+        },
+        {
+          "ea": "0x47360f",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x473613",
+          "size": 2,
+          "raw": "0c04",
+          "text": "or      al, 4"
+        },
+        {
+          "ea": "0x473615",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x473619",
+          "size": 5,
+          "raw": "a0988dd600",
+          "text": "mov     al, byte ptr gMouseBtnDown2"
+        },
+        {
+          "ea": "0x47361e",
+          "size": 2,
+          "raw": "a801",
+          "text": "test    al, 1"
+        },
+        {
+          "ea": "0x473620",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_473627"
+        },
+        {
+          "ea": "0x473622",
+          "size": 5,
+          "raw": "834c241008",
+          "text": "or      [esp+20h+var_10], 8"
+        },
+        {
+          "ea": "0x473627",
+          "size": 2,
+          "raw": "a802",
+          "text": "test    al, 2"
+        },
+        {
+          "ea": "0x473629",
+          "size": 2,
+          "raw": "740a",
+          "text": "jz      short loc_473635"
+        },
+        {
+          "ea": "0x47362b",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x47362f",
+          "size": 2,
+          "raw": "0c10",
+          "text": "or      al, 10h"
+        },
+        {
+          "ea": "0x473631",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x473635",
+          "size": 3,
+          "raw": "f6c110",
+          "text": "test    cl, 10h"
+        },
+        {
+          "ea": "0x473638",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473645"
+        },
+        {
+          "ea": "0x47363a",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x47363e",
+          "size": 3,
+          "raw": "80cc01",
+          "text": "or      ah, 1"
+        },
+        {
+          "ea": "0x473641",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x473645",
+          "size": 3,
+          "raw": "f6c120",
+          "text": "test    cl, 20h"
+        },
+        {
+          "ea": "0x473648",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473655"
+        },
+        {
+          "ea": "0x47364a",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x47364e",
+          "size": 3,
+          "raw": "80cc02",
+          "text": "or      ah, 2"
+        },
+        {
+          "ea": "0x473651",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x473655",
+          "size": 5,
+          "raw": "a0a08dd600",
+          "text": "mov     al, byte ptr gMouseBtnDown"
+        },
+        {
+          "ea": "0x47365a",
+          "size": 2,
+          "raw": "a801",
+          "text": "test    al, 1"
+        },
+        {
+          "ea": "0x47365c",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473669"
+        },
+        {
+          "ea": "0x47365e",
+          "size": 4,
+          "raw": "8b4c2410",
+          "text": "mov     ecx, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x473662",
+          "size": 3,
+          "raw": "80cd04",
+          "text": "or      ch, 4"
+        },
+        {
+          "ea": "0x473665",
+          "size": 4,
+          "raw": "894c2410",
+          "text": "mov     [esp+20h+var_10], ecx"
+        },
+        {
+          "ea": "0x473669",
+          "size": 2,
+          "raw": "a802",
+          "text": "test    al, 2"
+        },
+        {
+          "ea": "0x47366b",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473678"
+        },
+        {
+          "ea": "0x47366d",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x473671",
+          "size": 3,
+          "raw": "80cc08",
+          "text": "or      ah, 8"
+        },
+        {
+          "ea": "0x473674",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x473678",
+          "size": 6,
+          "raw": "8b0d9446cf00",
+          "text": "mov     ecx, gCurrentWindow"
+        },
+        {
+          "ea": "0x47367e",
+          "size": 3,
+          "raw": "8b412c",
+          "text": "mov     eax, [ecx+2Ch]"
+        },
+        {
+          "ea": "0x473681",
+          "size": 2,
+          "raw": "03c7",
+          "text": "add     eax, edi"
+        },
+        {
+          "ea": "0x473683",
+          "size": 3,
+          "raw": "833804",
+          "text": "cmp     dword ptr [eax], 4"
+        },
+        {
+          "ea": "0x473686",
+          "size": 6,
+          "raw": "0f8522010000",
+          "text": "jnz     loc_4737AE"
+        },
+        {
+          "ea": "0x47368c",
+          "size": 3,
+          "raw": "8b681c",
+          "text": "mov     ebp, [eax+1Ch]"
+        },
+        {
+          "ea": "0x47368f",
+          "size": 3,
+          "raw": "8b5008",
+          "text": "mov     edx, [eax+8]"
+        },
+        {
+          "ea": "0x473692",
+          "size": 3,
+          "raw": "8b410c",
+          "text": "mov     eax, [ecx+0Ch]"
+        },
+        {
+          "ea": "0x473695",
+          "size": 5,
+          "raw": "b9f88cd600",
+          "text": "mov     ecx, offset mouseX"
+        },
+        {
+          "ea": "0x47369a",
+          "size": 2,
+          "raw": "03d0",
+          "text": "add     edx, eax"
+        },
+        {
+          "ea": "0x47369c",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x47369d",
+          "size": 5,
+          "raw": "e8bee7f8ff",
+          "text": "call    CryptInt__dec"
+        },
+        {
+          "ea": "0x4736a2",
+          "size": 3,
+          "raw": "894504",
+          "text": "mov     [ebp+4], eax"
+        },
+        {
+          "ea": "0x4736a5",
+          "size": 5,
+          "raw": "a19446cf00",
+          "text": "mov     eax, gCurrentWindow"
+        },
+        {
+          "ea": "0x4736aa",
+          "size": 3,
+          "raw": "8b482c",
+          "text": "mov     ecx, [eax+2Ch]"
+        },
+        {
+          "ea": "0x4736ad",
+          "size": 4,
+          "raw": "8b54390c",
+          "text": "mov     edx, [ecx+edi+0Ch]"
+        },
+        {
+          "ea": "0x4736b1",
+          "size": 3,
+          "raw": "8b4810",
+          "text": "mov     ecx, [eax+10h]"
+        },
+        {
+          "ea": "0x4736b4",
+          "size": 2,
+          "raw": "03d1",
+          "text": "add     edx, ecx"
+        },
+        {
+          "ea": "0x4736b6",
+          "size": 5,
+          "raw": "b9088dd600",
+          "text": "mov     ecx, offset mouseY"
+        },
+        {
+          "ea": "0x4736bb",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x4736bc",
+          "size": 5,
+          "raw": "e89fe7f8ff",
+          "text": "call    CryptInt__dec"
+        },
+        {
+          "ea": "0x4736c1",
+          "size": 3,
+          "raw": "894508",
+          "text": "mov     [ebp+8], eax"
+        },
+        {
+          "ea": "0x4736c4",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x4736c9",
+          "size": 4,
+          "raw": "8b6c2414",
+          "text": "mov     ebp, [esp+20h+var_C]"
+        },
+        {
+          "ea": "0x4736cd",
+          "size": 5,
+          "raw": "e9e1000000",
+          "text": "jmp     loc_4737B3"
+        },
+        {
+          "ea": "0x4736d2",
+          "size": 7,
+          "raw": "803db48dd600d4",
+          "text": "cmp     gMouseEventState, 0D4h"
+        },
+        {
+          "ea": "0x4736d9",
+          "size": 6,
+          "raw": "0f83d4000000",
+          "text": "jnb     loc_4737B3"
+        },
+        {
+          "ea": "0x4736df",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x4736e0",
+          "size": 1,
+          "raw": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x4736e1",
+          "size": 1,
+          "raw": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x4736e2",
+          "size": 1,
+          "raw": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x4736e3",
+          "size": 5,
+          "raw": "e818f8ffff",
+          "text": "call    Mouse__isInRect"
+        },
+        {
+          "ea": "0x4736e8",
+          "size": 3,
+          "raw": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x4736eb",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4736ed",
+          "size": 6,
+          "raw": "0f84bb000000",
+          "text": "jz      loc_4737AE"
+        },
+        {
+          "ea": "0x4736f3",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x4736f8",
+          "size": 3,
+          "raw": "83f801",
+          "text": "cmp     eax, 1"
+        },
+        {
+          "ea": "0x4736fb",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_473702"
+        },
+        {
+          "ea": "0x4736fd",
+          "size": 3,
+          "raw": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x473700",
+          "size": 2,
+          "raw": "7508",
+          "text": "jnz     short loc_47370A"
+        },
+        {
+          "ea": "0x473702",
+          "size": 8,
+          "raw": "c744241020000000",
+          "text": "mov     [esp+20h+var_10], 20h ; ' '"
+        },
+        {
+          "ea": "0x47370a",
+          "size": 6,
+          "raw": "8b0d20c15700",
+          "text": "mov     ecx, gFocusWinId"
+        },
+        {
+          "ea": "0x473710",
+          "size": 6,
+          "raw": "8b151c7ad600",
+          "text": "mov     edx, gCurrentWinId"
+        },
+        {
+          "ea": "0x473716",
+          "size": 2,
+          "raw": "3bca",
+          "text": "cmp     ecx, edx"
+        },
+        {
+          "ea": "0x473718",
+          "size": 6,
+          "raw": "0f8595000000",
+          "text": "jnz     loc_4737B3"
+        },
+        {
+          "ea": "0x47371e",
+          "size": 6,
+          "raw": "8b1524c15700",
+          "text": "mov     edx, gFocusTmpIndex"
+        },
+        {
+          "ea": "0x473724",
+          "size": 6,
+          "raw": "8b0d2cc15700",
+          "text": "mov     ecx, gTmpIndex"
+        },
+        {
+          "ea": "0x47372a",
+          "size": 2,
+          "raw": "3bd1",
+          "text": "cmp     edx, ecx"
+        },
+        {
+          "ea": "0x47372c",
+          "size": 6,
+          "raw": "0f8581000000",
+          "text": "jnz     loc_4737B3"
+        },
+        {
+          "ea": "0x473732",
+          "size": 6,
+          "raw": "8a159c8dd600",
+          "text": "mov     dl, byte ptr gMouseClickState"
+        },
+        {
+          "ea": "0x473738",
+          "size": 3,
+          "raw": "f6c201",
+          "text": "test    dl, 1"
+        },
+        {
+          "ea": "0x47373b",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_473742"
+        },
+        {
+          "ea": "0x47373d",
+          "size": 5,
+          "raw": "834c241002",
+          "text": "or      [esp+20h+var_10], 2"
+        },
+        {
+          "ea": "0x473742",
+          "size": 3,
+          "raw": "f6c202",
+          "text": "test    dl, 2"
+        },
+        {
+          "ea": "0x473745",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_47374C"
+        },
+        {
+          "ea": "0x473747",
+          "size": 5,
+          "raw": "834c241004",
+          "text": "or      [esp+20h+var_10], 4"
+        },
+        {
+          "ea": "0x47374c",
+          "size": 6,
+          "raw": "8a0d988dd600",
+          "text": "mov     cl, byte ptr gMouseBtnDown2"
+        },
+        {
+          "ea": "0x473752",
+          "size": 3,
+          "raw": "f6c101",
+          "text": "test    cl, 1"
+        },
+        {
+          "ea": "0x473755",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_47375C"
+        },
+        {
+          "ea": "0x473757",
+          "size": 5,
+          "raw": "834c241008",
+          "text": "or      [esp+20h+var_10], 8"
+        },
+        {
+          "ea": "0x47375c",
+          "size": 3,
+          "raw": "f6c102",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x47375f",
+          "size": 2,
+          "raw": "7405",
+          "text": "jz      short loc_473766"
+        },
+        {
+          "ea": "0x473761",
+          "size": 5,
+          "raw": "834c241010",
+          "text": "or      [esp+20h+var_10], 10h"
+        },
+        {
+          "ea": "0x473766",
+          "size": 3,
+          "raw": "f6c210",
+          "text": "test    dl, 10h"
+        },
+        {
+          "ea": "0x473769",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473776"
+        },
+        {
+          "ea": "0x47376b",
+          "size": 4,
+          "raw": "8b4c2410",
+          "text": "mov     ecx, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x47376f",
+          "size": 3,
+          "raw": "80cd01",
+          "text": "or      ch, 1"
+        },
+        {
+          "ea": "0x473772",
+          "size": 4,
+          "raw": "894c2410",
+          "text": "mov     [esp+20h+var_10], ecx"
+        },
+        {
+          "ea": "0x473776",
+          "size": 3,
+          "raw": "f6c220",
+          "text": "test    dl, 20h"
+        },
+        {
+          "ea": "0x473779",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_473786"
+        },
+        {
+          "ea": "0x47377b",
+          "size": 4,
+          "raw": "8b4c2410",
+          "text": "mov     ecx, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x47377f",
+          "size": 3,
+          "raw": "80cd02",
+          "text": "or      ch, 2"
+        },
+        {
+          "ea": "0x473782",
+          "size": 4,
+          "raw": "894c2410",
+          "text": "mov     [esp+20h+var_10], ecx"
+        },
+        {
+          "ea": "0x473786",
+          "size": 6,
+          "raw": "8a0da08dd600",
+          "text": "mov     cl, byte ptr gMouseBtnDown"
+        },
+        {
+          "ea": "0x47378c",
+          "size": 3,
+          "raw": "f6c101",
+          "text": "test    cl, 1"
+        },
+        {
+          "ea": "0x47378f",
+          "size": 2,
+          "raw": "740b",
+          "text": "jz      short loc_47379C"
+        },
+        {
+          "ea": "0x473791",
+          "size": 4,
+          "raw": "8b542410",
+          "text": "mov     edx, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x473795",
+          "size": 3,
+          "raw": "80ce04",
+          "text": "or      dh, 4"
+        },
+        {
+          "ea": "0x473798",
+          "size": 4,
+          "raw": "89542410",
+          "text": "mov     [esp+20h+var_10], edx"
+        },
+        {
+          "ea": "0x47379c",
+          "size": 3,
+          "raw": "f6c102",
+          "text": "test    cl, 2"
+        },
+        {
+          "ea": "0x47379f",
+          "size": 2,
+          "raw": "7412",
+          "text": "jz      short loc_4737B3"
+        },
+        {
+          "ea": "0x4737a1",
+          "size": 4,
+          "raw": "8b4c2410",
+          "text": "mov     ecx, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x4737a5",
+          "size": 3,
+          "raw": "80cd08",
+          "text": "or      ch, 8"
+        },
+        {
+          "ea": "0x4737a8",
+          "size": 4,
+          "raw": "894c2410",
+          "text": "mov     [esp+20h+var_10], ecx"
+        },
+        {
+          "ea": "0x4737ac",
+          "size": 2,
+          "raw": "eb05",
+          "text": "jmp     short loc_4737B3"
+        },
+        {
+          "ea": "0x4737ae",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x4737b3",
+          "size": 3,
+          "raw": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x4737b6",
+          "size": 2,
+          "raw": "752c",
+          "text": "jnz     short loc_4737E4"
+        },
+        {
+          "ea": "0x4737b8",
+          "size": 7,
+          "raw": "0fbf051cc15700",
+          "text": "movsx   eax, word_57C11C"
+        },
+        {
+          "ea": "0x4737bf",
+          "size": 2,
+          "raw": "2bc3",
+          "text": "sub     eax, ebx"
+        },
+        {
+          "ea": "0x4737c1",
+          "size": 2,
+          "raw": "7821",
+          "text": "js      short loc_4737E4"
+        },
+        {
+          "ea": "0x4737c3",
+          "size": 4,
+          "raw": "3b442418",
+          "text": "cmp     eax, [esp+20h+var_8]"
+        },
+        {
+          "ea": "0x4737c7",
+          "size": 2,
+          "raw": "7d1b",
+          "text": "jge     short loc_4737E4"
+        },
+        {
+          "ea": "0x4737c9",
+          "size": 7,
+          "raw": "0fbf051ec15700",
+          "text": "movsx   eax, word_57C11E"
+        },
+        {
+          "ea": "0x4737d0",
+          "size": 2,
+          "raw": "2bc5",
+          "text": "sub     eax, ebp"
+        },
+        {
+          "ea": "0x4737d2",
+          "size": 2,
+          "raw": "7810",
+          "text": "js      short loc_4737E4"
+        },
+        {
+          "ea": "0x4737d4",
+          "size": 4,
+          "raw": "3b44241c",
+          "text": "cmp     eax, [esp+20h+var_4]"
+        },
+        {
+          "ea": "0x4737d8",
+          "size": 2,
+          "raw": "7d0a",
+          "text": "jge     short loc_4737E4"
+        },
+        {
+          "ea": "0x4737da",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x4737de",
+          "size": 2,
+          "raw": "0c40",
+          "text": "or      al, 40h"
+        },
+        {
+          "ea": "0x4737e0",
+          "size": 4,
+          "raw": "89442410",
+          "text": "mov     [esp+20h+var_10], eax"
+        },
+        {
+          "ea": "0x4737e4",
+          "size": 4,
+          "raw": "837e1801",
+          "text": "cmp     dword ptr [esi+18h], 1"
+        },
+        {
+          "ea": "0x4737e8",
+          "size": 2,
+          "raw": "754d",
+          "text": "jnz     short loc_473837"
+        },
+        {
+          "ea": "0x4737ea",
+          "size": 4,
+          "raw": "8b442410",
+          "text": "mov     eax, [esp+20h+var_10]"
+        },
+        {
+          "ea": "0x4737ee",
+          "size": 4,
+          "raw": "8b4c2424",
+          "text": "mov     ecx, [esp+20h+a1]"
+        },
+        {
+          "ea": "0x4737f2",
+          "size": 1,
+          "raw": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x4737f3",
+          "size": 1,
+          "raw": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x4737f4",
+          "size": 3,
+          "raw": "ff5620",
+          "text": "call    dword ptr [esi+20h]"
+        },
+        {
+          "ea": "0x4737f7",
+          "size": 3,
+          "raw": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x4737fa",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4737fc",
+          "size": 2,
+          "raw": "7439",
+          "text": "jz      short loc_473837"
+        },
+        {
+          "ea": "0x4737fe",
+          "size": 5,
+          "raw": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x473803",
+          "size": 7,
+          "raw": "c605b48dd600d4",
+          "text": "mov     gMouseEventState, 0D4h"
+        },
+        {
+          "ea": "0x47380a",
+          "size": 3,
+          "raw": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x47380d",
+          "size": 10,
+          "raw": "c705b40aca0001000000",
+          "text": "mov     gWindowHasFocus, 1"
+        },
+        {
+          "ea": "0x473817",
+          "size": 2,
+          "raw": "751e",
+          "text": "jnz     short loc_473837"
+        },
+        {
+          "ea": "0x473819",
+          "size": 5,
+          "raw": "a118c15700",
+          "text": "mov     eax, Mouse__MoveState"
+        },
+        {
+          "ea": "0x47381e",
+          "size": 2,
+          "raw": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x473820",
+          "size": 2,
+          "raw": "7410",
+          "text": "jz      short loc_473832"
+        },
+        {
+          "ea": "0x473822",
+          "size": 6,
+          "raw": "8b1514c15700",
+          "text": "mov     edx, gDragItemSourceIndex"
+        },
+        {
+          "ea": "0x473828",
+          "size": 1,
+          "raw": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x473829",
+          "size": 2,
+          "raw": "6a00",
+          "text": "push    0"
+        },
+        {
+          "ea": "0x47382b",
+          "size": 2,
+          "raw": "6a04",
+          "text": "push    4"
+        },
+        {
+          "ea": "0x47382d",
+          "size": 2,
+          "raw": "ffd0",
+          "text": "call    eax ; Mouse__MoveState"
+        },
+        {
+          "ea": "0x47382f",
+          "size": 3,
+          "raw": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x473832",
+          "size": 5,
+          "raw": "e8a92b0000",
+          "text": "call    MouseEvent__reset"
+        },
+        {
+          "ea": "0x473837",
+          "size": 1,
+          "raw": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x473838",
+          "size": 1,
+          "raw": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x473839",
+          "size": 1,
+          "raw": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x47383a",
+          "size": 1,
+          "raw": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x47383b",
+          "size": 3,
+          "raw": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x47383e",
+          "size": 1,
+          "raw": "c3",
+          "text": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x474023",
+          "parent": "0x473f80",
+          "type": 17
+        }
+      ]
+    }
+  ],
+  "direct_state_accesses": {
+    "address": "0xD68DB4",
+    "references": [
+      {
+        "ea": "0x46f76a",
+        "type": 3,
+        "parent": "0x46f680",
+        "text": "cmp     gMouseEventState, bl",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 1,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x46f80c",
+        "type": 3,
+        "parent": "0x46f680",
+        "text": "cmp     gMouseEventState, bl",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 1,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4736d2",
+        "type": 3,
+        "parent": "0x473560",
+        "text": "cmp     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x473803",
+        "type": 2,
+        "parent": "0x473560",
+        "text": "mov     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x473ee0",
+        "type": 2,
+        "parent": "0x473e40",
+        "text": "mov     gMouseEventState, 5",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0x5",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x473f6e",
+        "type": 2,
+        "parent": "0x473e40",
+        "text": "mov     gMouseEventState, 5",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0x5",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x474058",
+        "type": 2,
+        "parent": "0x473f80",
+        "text": "mov     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4740d9",
+        "type": 3,
+        "parent": "0x473f80",
+        "text": "cmp     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4740e7",
+        "type": 2,
+        "parent": "0x473f80",
+        "text": "mov     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4fb43f",
+        "type": 3,
+        "parent": "0x4faef0",
+        "text": "cmp     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x5073de",
+        "type": 2,
+        "parent": "0x507140",
+        "text": "mov     gMouseEventState, 0D4h",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0xd4",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x507c0e",
+        "type": 2,
+        "parent": "0x507140",
+        "text": "mov     gMouseEventState, dl",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 1,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x507c47",
+        "type": 2,
+        "parent": "0x507140",
+        "text": "mov     gMouseEventState, dl",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 1,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x507c54",
+        "type": 2,
+        "parent": "0x507140",
+        "text": "mov     gMouseEventState, 5",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 0,
+            "value": "0x0",
+            "addr": "0xd68db4"
+          },
+          {
+            "type": 5,
+            "dtype": 0,
+            "value": "0x5",
+            "addr": "0x0"
+          }
+        ]
+      }
+    ]
+  },
+  "totals": {
+    "roots": 3,
+    "instructions": 327,
+    "bytes": 1106,
+    "direct_inbound": 7,
+    "direct_calls": 7,
+    "indirect_calls": 4
+  },
+  "source": {
+    "path": "src/ui/WindowRuntime.cpp",
+    "symbols": [
+      "Sub_472F00",
+      "Sub_473E40",
+      "Sub_473560",
+      "AppendMouseButtonEvents"
+    ],
+    "state_header": "src/ui/WindowRuntimeState.hpp",
+    "body_changed": false
+  },
+  "button_mapping": {
+    "edge": {
+      "1": 2,
+      "2": 4,
+      "16": 256,
+      "32": 512
+    },
+    "held": {
+      "1": 8,
+      "2": 16
+    },
+    "pulse": {
+      "1": 1024,
+      "2": 2048
+    },
+    "sample_width_bits": 8
+  },
+  "verification": {
+    "method": "限定静态",
+    "original": "三完整根及当前直接入向/状态字节访问",
+    "source": "现有短路、回调后重读、分支位置/字段宽度与按钮映射；没有源码改动",
+    "limits": "只列直接引用，不推全部间接边/完整父；旧99表/全输入/alias/生命周期/ABI/链接与运行未验，不构建/测试/运行/摘要"
+  }
+}

@@ -142783,6 +142783,177 @@
           "relationship": "窗口draw；原caller清栈4，返回续作carry"
         }
       ]
+    },
+    {
+      "original_entry": "0x472F00",
+      "inventory_id": "F:00072F00",
+      "status": "MIC01既有Sub_472F00完整原根与输入合同登记；源码保持，完整父/全部间接边/ABI/运行未验",
+      "original_end_exclusive": "0x472F3B",
+      "instruction_count": 20,
+      "original_direct_reference_count": 5,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_472F00"
+          ],
+          "relationship": "既有唯一正文及共享按钮helper按原正常分支/原宽/调用序登记，本步不改C++"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "boundary": "X先401E60读取/减left，x<0或x>=width直接0且不读Y；通过才401E60读取Y/减top，0<=y<height返回1，否则0。两Read/RNG次数保持，参数/算术/比较/返回S32。原20条/59B、五直接入向来自472D20三点/473560两点；不代完整父或全间接调用/ABI/运行，不新增保护/回绕/钳制；RPLAN.24、原格式明文、音频暂停及不构建/测试/运行/摘要保持。",
+      "verification_level": "完整原根/直接入向、现有源码短路/阶段/事件映射限定静态；全父/间接目标/别名与ABI/运行未验",
+      "original_internal_calls": [
+        {
+          "call_site": "0x472F0A",
+          "target_entry": "0x401E60",
+          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "relationship": "先X/left，未通过就返回0"
+        },
+        {
+          "call_site": "0x472F23",
+          "target_entry": "0x401E60",
+          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "relationship": "仅X通过才Y/top"
+        }
+      ],
+      "original_indirect_calls": []
+    },
+    {
+      "original_entry": "0x473E40",
+      "inventory_id": "F:00073E40",
+      "status": "MIC01既有Sub_473E40完整原根与输入合同登记；源码保持，完整父/全部间接边/ABI/运行未验",
+      "original_end_exclusive": "0x473F78",
+      "instruction_count": 93,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_473E40",
+            "AppendMouseButtonEvents"
+          ],
+          "relationship": "既有唯一正文及共享按钮helper按原正常分支/原宽/调用序登记，本步不改C++"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "boundary": "进入phase2才清0返回；进入1且callback空，只写focus1与D68DB4低W8=5，存在则按edge/held/pulse W8映射事件，调用(0,events,sourceIndex)后重读phase。随后3->4/focus1/低字节5；4可选(2,0,sourceIndex)后按原序清57C110、sourceIndex、callback、两个S16坐标、focusId、phase，focusIndex最后-1；6清phase，1发布focus1/低字节5。回调后phase2不误走入口2分支。原93条/312B、唯一473F9C来自473F80。现有void只承载当前caller弃返回，不假定原EAX固定或所有间接ABI已验；原字段/owner、原格式明文、音频暂停、不构建/测试/运行/摘要和RPLAN.24保持。",
+      "verification_level": "完整原根/直接入向、现有源码短路/阶段/事件映射限定静态；全父/间接目标/别名与ABI/运行未验",
+      "original_internal_calls": [],
+      "original_indirect_calls": [
+        {
+          "call_site": "0x473EBC",
+          "storage": "MouseMoveState57C118",
+          "arguments": [
+            0,
+            "events",
+            "sourceIndex57C114"
+          ],
+          "relationship": "入口1且callback非空，事件映射完成后调用，再重读phase"
+        },
+        {
+          "call_site": "0x473F13",
+          "storage": "MouseMoveState57C118",
+          "arguments": [
+            2,
+            0,
+            "sourceIndex57C114"
+          ],
+          "relationship": "观察phase4，callback非空时调用，之后原序清状态"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x473560",
+      "inventory_id": "F:00073560",
+      "status": "MIC01既有Sub_473560完整原根与输入合同登记；源码保持，完整父/全部间接边/ABI/运行未验",
+      "original_end_exclusive": "0x47383F",
+      "instruction_count": 214,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_473560",
+            "AppendMouseButtonEvents"
+          ],
+          "relationship": "既有唯一正文及共享按钮helper按原正常分支/原宽/调用序登记，本步不改C++"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "boundary": "保存入口element/矩形，phase1/4/2/6先D68DB4低U8<212再命中并重读phase，焦点window/sharedIndex同一才追加按钮位；其他阶段仅focus0时命中，events1并追加W8 edge/held/pulse，type4才取X->Y/存两个S32 delta。phase4以两个S16拖动坐标和保存矩形追加40；仍用入口保存element，visible严格1才mouseCallback(index,events)。非零后重读phase、写低W8=212及focus1，phase4可选拖动(4,0,sourceIndex)后重置。原214条/735B、唯一474023来自473F80；现有void只针对已证caller弃返回。没有重建元素owner/私有事件状态，全上游/父/间接目标/alias/寿命/ABI/运行未验；不构建/测试/运行/摘要、音频暂停、原格式明文及RPLAN.24保持。",
+      "verification_level": "完整原根/直接入向、现有源码短路/阶段/事件映射限定静态；全父/间接目标/别名与ABI/运行未验",
+      "original_internal_calls": [
+        {
+          "call_site": "0x4735DF",
+          "target_entry": "0x472F00",
+          "source_symbol": "Sub_472F00",
+          "relationship": "其他阶段且无focus的入口矩形命中"
+        },
+        {
+          "call_site": "0x47369D",
+          "target_entry": "0x401E60",
+          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "relationship": "type4当前element数据的deltaX，X先读/存"
+        },
+        {
+          "call_site": "0x4736BC",
+          "target_entry": "0x401E60",
+          "source_symbol": "platform::legacy_crypt_int::Subtract_401E60",
+          "relationship": "X写后重读当前window/元素Y并读Y存deltaY"
+        },
+        {
+          "call_site": "0x4736E3",
+          "target_entry": "0x472F00",
+          "source_symbol": "Sub_472F00",
+          "relationship": "phase1/4/2/6且低U8<212后的入口矩形命中"
+        },
+        {
+          "call_site": "0x473832",
+          "target_entry": "0x4763E0",
+          "source_symbol": "Sub_4763E0",
+          "relationship": "元素callback非零且重读phase4，可选拖动调用之后重置"
+        }
+      ],
+      "original_indirect_calls": [
+        {
+          "call_site": "0x4737F4",
+          "storage": "savedEntryElement+0x20",
+          "arguments": [
+            "index",
+            "events"
+          ],
+          "relationship": "仍用入口element，仅visible==1调用"
+        },
+        {
+          "call_site": "0x47382D",
+          "storage": "MouseMoveState57C118",
+          "arguments": [
+            4,
+            0,
+            "sourceIndex57C114"
+          ],
+          "relationship": "元素callback非零后观察phase4且dragCallback非空"
+        }
+      ]
     }
   ]
 }

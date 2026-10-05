@@ -160,7 +160,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | U08 / 战斗执行闭环 | 257表项/200动作及43CBB0→427470链已有 | P01攻击生产、载荷完整字段/归属、附属清理及事件执行 | 生产→动作→回调→释放顺序；[战斗](../doc/ui_windows/shared_battle.md) |
 | U09 / Yobi 生命周期 | New/四相更新/Clone/终止删除及8个新增身份已有 | 全部creator/cleanup、载荷浅复制后的共享寿命 | 保留Clone原失败返回，不能以基础生命周期存在称所有对象完成；[Yobi](../doc/cg2d_yobi_runtime.md) |
 | U10 / 跨页持久化与请求 | NDR01账号/读序保持；NWT01字节工作区同SDK域和四解码基线明确 | 各业务生产/回复/权限/回滚，整分派/整数/108回复与owner/alias | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；类型收敛/四基线不代每条业务链或原格式往返 |
-| U11 / 场景/主循环传递依赖 | WMB01修正473F80两W8写/一U8比较，真实504120入口保持；MainLoop/22状态及CQA01保持 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | [WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)限定修复，不代完整依赖/运行；[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[主循环](../doc/cg2d_main_loop.md)、[场景](../doc/cg2d_scene_state.md) |
+| U11 / 场景/主循环传递依赖 | MIC01补三输入根/原327条基线，X短路/RNG与回调后重读保持；WMB01/MainLoop/22状态及CQA01保持 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | [MIC01](../doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state)、[WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)限定修复，不代完整依赖/运行；[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[主循环](../doc/cg2d_main_loop.md)、[场景](../doc/cg2d_scene_state.md) |
 
 ### 6.3 渲染、资源与文本
 
@@ -172,14 +172,14 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | G04 / 渲染替换差异 | SDL/CPU已批；上传/绘制/颜色实修，GCL01修Build高度先/宽度后低W16与局部完整数、原失败尾保持 | 其他上层RAND/宽度/坐标/色键/提交序、全部模式/浮点ABI、资源寿命和像素画面 | 保持open；[GCL01](../doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure)、[GPC01](../doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure)、[总SPEC §10](cg2d_full_reconstruction_plan.md#10-完成门禁)；不扩原生豁免 |
 | G05 / 原图标/光标 | 使用关系有记录，原资源取得/权限未闭合 | 明确合法可用原资源与读取条件 | 不重开原EXE、不造替代图/下载；[启动](../doc/cg2d_startup_flow.md)、[资源来源](../doc/cg2d_resource_sources.md) |
 | T01 / 文本生产消费合同 | SDB01修正9A4EAC/128B共享声明；输入/文本生产及字体消费已局部对照；GQS01原钳制后首槽/每项共享取样/最终S16排序数量已修 | 各来源编码、容量/NUL、共享存储、字节/像素单位及全部上游/命中/排序父/资源/生命周期逐链归档 | 保持open；[SDB01](../doc/cg2d_character_select_scene.md#character-message-storage-source-state)、[GQS01](../doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure)、[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)、[文本SPEC §5](../doc/cg2d_text_encoding_spec.md#5-跨函数复核模板)；不推全工程代码页/验收 |
-| T02 / 输入/IME差异 | WMB01窗口鼠标状态低字节读写已修正，高三字节/原序保持；输入/队列与FLC01局部对齐保持 | 全部上游/原新参数、排序/初始化退出/资源父、焦点/索引、原API候选/间接alias及完整寿命，SDK/画面运行未验 | 保持open；[WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)、[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)、[TQP01](../doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)；D05/RPLAN.24保持 |
+| T02 / 输入/IME差异 | MIC01三根命中/阶段/元素事件基线已登记，W8标志及RNG/回调序保持；WMB01/FLC01/队列局部修复保持 | 全部上游/原新参数、排序/初始化退出/资源父、焦点/索引、原API候选/间接alias及完整寿命，SDK/画面运行未验 | 保持open；[MIC01](../doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state)、[WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)、[FLC01](../doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure)、[TQP01](../doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)；D05/RPLAN.24保持 |
 | T03 / 字体与显示 | 原字节TextOutA、共享Back DIB和case4已接 | 目标字体、字形、原字节显示边界及现有失败/超长处理的适用范围 | [字体](../doc/cg2d_font_measure.md)、[文本SPEC](../doc/cg2d_text_encoding_spec.md)；原数据不被显示副本反写，实际画面留V04 |
 
 ### 6.4 全量覆盖与最终验收
 
 | 编号 / 范围 | 当前状态 | 下一步 | 关闭条件 |
 |---|---|---|---|
-| R01 / 函数分母 | CQA01四个既有算术叶按RPLAN.24对齐并补adapted，处置207/3680；原宽/读取与编码保持 | CRI01四片段按原区间绑定，不增函数分母；GQ01队列显式列未定位/未绑定身份，先核范围/当前源码后推进；其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)、[GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)、[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；本组四叶/114引用不代全部父或整体验收 |
+| R01 / 函数分母 | MIC01三既有输入根补基线/处置，当前211/3680；CQA01原宽/读取与编码保持 | CRI01四片段按原区间绑定，不增函数分母；GQ01队列显式列未定位/未绑定身份，先核范围/当前源码后推进；其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[MIC01](../doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state)、[CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)、[GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)、[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；本组四叶/114引用不代全部父或整体验收 |
 | R02 / 数据/间接目标 | NWT01 DA3F98的90直接引用/三父与已知byte pointer类型/SDK域明确 | 未知间接alias/完整owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；导入15/218保持，直接引用/类型不代所有权闭合 |
 | R03 / 未归属区间 | CRI01四片段绑定两原X区间，1335B代码/NOP用途连续覆盖；用途审2/3061 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达；[CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)不造函数ID；完整区间闭包保持open |
 | R04 / 台账一致性 | CRI01汇总器校验非函数区间身份、差集排除已绑定四片段；GQ01定位缺失不判未实现 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | [CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)；清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |
@@ -187,7 +187,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | V01 / 环境与输入 | 基线/部分来源已有；运行环境未完整冻结 | 在运行准备获准后记录实际工具链、SDK、系统/编码、参数/配置/资源 | 可复核实际来源/版本/输入与缺失项，不设文件摘要门禁 |
 | V02 / 完整启动退出/链接 | HPI01已接兼容heap/lowio同TU前置与普通stdio收尾；源70＋SDK15角色保持 | 跨TU首次使用/SDK继承ABI、全部owner/alias、normal/quick/callable全序及完整链接/运行仍待 | 保持open；[HPI01](../doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure)；局部接线静态不代完整入口验收，执行限制保持 |
 | V03 / 登录与网络真实流程 | NDR01账号/字段修复保持；NWT01字节工作区与四解码基线可追 | 整分派/整数/108回复、数据/owner/失败、CRT与SDK ABI/链接及真实流程 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；静态类型/基线不代登录/创建/断线/原格式明文互通 |
-| V04 / 世界/UI/渲染/输入 | WMB01修正窗口鼠标字节访问；局部源码/静态不代真实流程 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | 保持open；[WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)；时间/RNG消费、坐标/裁剪/像素、状态及生命周期有对照证据 |
+| V04 / 世界/UI/渲染/输入 | MIC01三输入根基线/映射与WMB01字节修复保持；源码/静态不代真实流程 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | 保持open；[MIC01](../doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state)、[WMB01](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)；时间/RNG消费、坐标/裁剪/像素、状态及生命周期有对照证据 |
 | V05 / 音频真实流程 | 暂停且未验 | 用户恢复P11–P17并允许运行后核播放、通知、音量、循环与退出 | 真实设备/资源/时序通过；暂停不得据此宣称整体完成 |
 | V06 / 最终验收报告 | 尚无完整R8结果 | 汇总R01–R05和V01–V05，逐适用门禁列结果/未决/例外 | 总SPEC §10全部适用条件闭合；未知/未验尚在则保持整体未完成 |
 

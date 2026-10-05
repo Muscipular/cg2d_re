@@ -1241,14 +1241,18 @@
         "doc/ui_windows/shared_runtime.md",
         "doc/ui_windows/shared_legacy_panels.md",
         "doc/cg2d_ui_input_lifecycle_spec.md",
-        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline"
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
         "F:000883F0",
         "F:000998F0",
         "F:000CD240",
-        "F:00073F80"
+        "F:00073F80",
+        "F:00072F00",
+        "F:00073E40",
+        "F:00073560"
       ],
       "closure_task_ids": [
         "U04",
@@ -1263,7 +1267,8 @@
       "acceptance_focus": "创建/输入/刷新/绘制/释放及旧99handler外层路由",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision"
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -11706,6 +11711,38 @@
       "observation": "一源三片段、原三访问指令及完整根/唯一入向和本组映射静态",
       "expected": "两低字节写/一U8比较匹配原宽，W32共享owner/高三字节和所有其余正文及当前入口保持",
       "actual": "仅本组源码修复/限定静态；全输入/回调目标、alias/寿命、旧99路由、ABI/链接/运行未验，完整软件门禁不提升"
+    },
+    {
+      "id": "E-MOUSE-INPUT-CHAIN-S-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原输入根327条/1106B、七直接入向；doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-input-chain-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-acceptance",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_472F00",
+        "src/ui/WindowRuntime.cpp#Sub_473E40",
+        "src/ui/WindowRuntime.cpp#Sub_473560",
+        "src/ui/WindowRuntime.cpp#AppendMouseButtonEvents",
+        "src/ui/WindowRuntimeState.hpp#gDragX57C11C"
+      ],
+      "differences": [
+        {
+          "description": "既有两void根只承载当前已证caller弃返回，原EAX非固定值；地址/回调使用本机非拥有指针，不宣称所有间接调用或ABI等价",
+          "decision_ref": "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三完整原根、现有几何短路/阶段分支位置/事件映射和本组登记静态",
+      "expected": "现有正常路径按原宽、X/Y/RNG消费及回调后重读/同源状态序可追，基线身份不遗漏",
+      "actual": "只登记已有实现，C++不改；全输入/上游/父/间接目标/alias/寿命、旧表路由/ABI/运行未验，完整门禁保持"
     }
   ],
   "task_acceptance": [
@@ -11965,7 +12002,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
-        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
       ]
     },
     {
@@ -12033,7 +12071,8 @@
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
-        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
       ]
     },
     {
@@ -12078,7 +12117,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
       ]
     },
     {
@@ -12104,7 +12144,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
       ]
     }
   ],
@@ -13840,6 +13881,39 @@
         "doc/cg2d_window_mouse_byte_evidence.json"
       ],
       "reason": "既有窗口更新根按原W8读写纠正；地址/回调按已批x64原生指针承载，本记录只指源码处置，全部ABI/输入/运行及间接边未验"
+    },
+    {
+      "inventory_id": "F:00072F00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "reason": "既有完整输入根与原宽/正常分支/事件取样序可追；原地址按已批x64指针承载，两void根仅针对已证caller弃返回，不代全部ABI/间接目标/运行"
+    },
+    {
+      "inventory_id": "F:00073E40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "reason": "既有完整输入根与原宽/正常分支/事件取样序可追；原地址按已批x64指针承载，两void根仅针对已证caller弃返回，不代全部ABI/间接目标/运行"
+    },
+    {
+      "inventory_id": "F:00073560",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_mouse_input_chain_evidence.json"
+      ],
+      "reason": "既有完整输入根与原宽/正常分支/事件取样序可追；原地址按已批x64指针承载，两void根仅针对已证caller弃返回，不代全部ABI/间接目标/运行"
     }
   ],
   "auxiliary_dispositions": [

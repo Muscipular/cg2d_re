@@ -135688,7 +135688,7 @@
           "0x404CF7"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YLC01真实UpdateAll摘链/阶段计数取样实修，既有生命周期记录追加；完整callback/对象及场景寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -135703,20 +135703,163 @@
             "YobiUpdateAll_404C50"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "YobiUpdateAll_404C50"
+          ],
+          "relationship": "本组只摘链两轮prev→next/next→prev重取及计数先局部比较/发布/可选清零；原真实callback/门禁和释放后保存next消费保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
       ],
-      "boundary": "四相门禁/真实callback、callback后重读next、死亡摘链/删除与计数1..4存回0；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "四相门禁/真实callback、callback后重读next、死亡摘链/删除与计数1..4存回0；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YLC01第一次prev→next读取后写prev.next，再次next→prev读取后写next.prev，两写后另取next供Delete后继续；阶段计数一次读/正常S32+1，按局部结果>=4先判后发布/可选清0、完整返回局部1..4。其余四相门禁/callback后next读取保持；不统一缓存两个链接写的指针或异常保护/模拟，完整父/callback/callee和所有alias/owner寿命/场景运行未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YLC01追加三完整160条444B/31type17call10父、三源片段全文精确重放，限摘链/计数和载荷删除取样，不代整链所有alias/寿命或实际ABI/SDK/场景运行",
       "native_signature": "std::int32_t YobiUpdateAll_404C50()",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_cleanup_sampling": {
+        "spec_id": "YLC01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+          "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+        ],
+        "original_entry": "0x404c50",
+        "instruction_count": 60,
+        "code_bytes": 167,
+        "inbound_references": [
+          {
+            "site": "0x404d65",
+            "type": 17,
+            "parent_entry": "0x404d60"
+          },
+          {
+            "site": "0x43ce32",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43cfc2",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d032",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d0f1",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d1c5",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d204",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d32b",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x458167",
+            "type": 17,
+            "parent_entry": "0x457b10"
+          },
+          {
+            "site": "0x51c4ad",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c4d1",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c4eb",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c50a",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c543",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c61e",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c632",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c8bc",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cb32",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cdc1",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51ce51",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51ceb0",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cfcc",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51d269",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          }
+        ],
+        "full_runtime_verified": false
       }
     },
     {
@@ -135731,7 +135874,7 @@
           "0x404D30"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YLC01删除入口payload单次取样实修，既有生命周期记录追加；完整对象/场景寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -135739,20 +135882,53 @@
             "DeleteYobiAction_404D10"
           ],
           "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DeleteYobiAction_404D10"
+          ],
+          "relationship": "本组只payload一次读取/非空释放快照后free实际主节点，原类型擦除/应用释放域保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
       ],
-      "boundary": "先非空payload free再action free，不代替标死/摘链或场景观察槽清理；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "先非空payload free再action free，不代替标死/摘链或场景观察槽清理；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YLC01 404D15单次读payload供非空门禁/free，然后free原主节点，不提前清槽/增加action空检查或释放全部附件，八槽/文本/玩家清理另由519D50保持。完整父和所有owner寿命/场景运行仍未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YLC01追加三完整160条444B/31type17call10父、三源片段全文精确重放，限摘链/计数和载荷删除取样，不代整链所有alias/寿命或实际ABI/SDK/场景运行",
       "native_signature": "void DeleteYobiAction_404D10(YobiAction* const action)",
       "interface_visibility": "同一CPP私有实际helper",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_cleanup_sampling": {
+        "spec_id": "YLC01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+          "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+          "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+        ],
+        "original_entry": "0x404d10",
+        "instruction_count": 13,
+        "code_bytes": 32,
+        "inbound_references": [
+          {
+            "site": "0x404ccc",
+            "type": 17,
+            "parent_entry": "0x404c50"
+          }
+        ],
+        "full_runtime_verified": false
       }
     },
     {
@@ -146783,6 +146959,91 @@
       ],
       "verification_level": "两完整212条829B/12type17call8父及两个源片段，临时三取样先于三发布/原字段宽度和真实四组构析有限静态；完整父实参/所有callee/对象寿命/运行未验",
       "boundary": "444000从通用赋值承接转入口私有lambda，先取encoded/mask/U8count三值再按同序发布，mapX200/mapY210/mapX1E0/mapY1F0四次原序构析；零载荷/失败空/无新回调或completionSlot、原投影和指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。"
+    },
+    {
+      "original_entry": "0x519d50",
+      "inventory_id": "F:00119D50",
+      "status": "YLC01既有玩家八槽/文本清理与主标死/尾链保持、原身份纳管；完整场景/owner寿命运行未验",
+      "original_end_exclusive": "0x519e45",
+      "instruction_count": 87,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_519D50"
+          ],
+          "relationship": "既有玩家清理真实入口，初玩家门禁/载荷八槽文本/玩家复读与主标死清槽/真实尾返回保持，本次未改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ClearMapActorAttachments",
+            "MarkDeath"
+          ],
+          "relationship": "既有非拥有载荷八槽按序标死/清槽与文本释放，通用MarkDeath只标死；不代立即删除/摘链/清34和38"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_519D50"
+          ],
+          "relationship": "既有真实低S8返回声明，与当前入口和调用者接线，本次未改"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ClearMapActorAttachments"
+          ],
+          "relationship": "既有原生借用窄声明，本次不新增公共接口/所有权"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4462f0",
+          "parent_entry": "0x4462e0",
+          "type": 17
+        },
+        {
+          "address": "0x45ebdf",
+          "parent_entry": "0x45ebb0",
+          "type": 17
+        },
+        {
+          "address": "0x50943f",
+          "parent_entry": "0x5093f0",
+          "type": 17
+        },
+        {
+          "address": "0x50d15d",
+          "parent_entry": "0x50d120",
+          "type": 17
+        },
+        {
+          "address": "0x51c66f",
+          "parent_entry": "0x51c430",
+          "type": 17
+        },
+        {
+          "address": "0x51c6d6",
+          "parent_entry": "0x51c430",
+          "type": 17
+        },
+        {
+          "address": "0x51d2c8",
+          "parent_entry": "0x51c7d0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+      ],
+      "verification_level": "三原160条444B/31call10父及两实修根三片段；519D50原87条清理与现未改入口/八槽 helper/主槽重读/尾返回有限静态，全父/callee/场景寿命运行未验",
+      "boundary": "初玩家空时跳过孩子/文本/主标死清槽，初玩家非空捕获payload，非空载荷只八槽04/08/0C/10/2C/4C/30/44按序非空MarkDeath后清、再文本free清，34/38不清；载荷空仍回主入口重读玩家MarkDeath并清共享槽，统一51A5B0→51BEC0完整S32判零，非零51BE50(0)返回低S8。 本次源码保持，仅原身份/分工纳管，不外推全部父实参/callback/callee/所有资源和链表别名/owner重进退出/借用失效/ABI/SDK/时钟RNG/PC53/完整画面运行；不新增保护或异常模拟/称等价。"
     }
   ]
 }

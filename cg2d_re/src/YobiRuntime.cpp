@@ -1412,8 +1412,9 @@ void UpdateModalAction_5046D0(YobiAction* const action)
 
 void DeleteYobiAction_404D10(YobiAction* const action)
 {
-    if (action->payload != nullptr) {
-        std::free(action->payload);
+    void* const payload = action->payload;
+    if (payload != nullptr) {
+        std::free(payload);
     }
     std::free(action);
 }
@@ -6478,8 +6479,12 @@ std::int32_t YobiUpdateAll_404C50()
                 continue;
             }
 
-            current->prev->next = current->next;
-            current->next->prev = current->prev;
+            YobiAction* const previous = current->prev;
+            YobiAction* const firstNext = current->next;
+            previous->next = firstNext;
+            YobiAction* const currentNext = current->next;
+            YobiAction* const currentPrevious = current->prev;
+            currentNext->prev = currentPrevious;
             YobiAction* const next = current->next;
             DeleteYobiAction_404D10(current);
             current = next;
@@ -6493,8 +6498,10 @@ std::int32_t YobiUpdateAll_404C50()
         current = current->next;
     }
 
-    const std::int32_t result = ++gYobiUpdatePhaseCounter;
-    if (gYobiUpdatePhaseCounter >= 4) {
+    const std::int32_t result = gYobiUpdatePhaseCounter + 1;
+    const bool resetPhase = result >= 4;
+    gYobiUpdatePhaseCounter = result;
+    if (resetPhase) {
         gYobiUpdatePhaseCounter = 0;
     }
     return result;

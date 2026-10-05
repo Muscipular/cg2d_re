@@ -2249,3 +2249,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原212条829B](cg2d_actor_coordinate_producer_evidence.json)和[源状态](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state)为441DB0/444000新增真实语义/本体和声明来源/adapted；两创建者各四组三值临时取样/发布已实修，通用工具不变。原12直接call/8父保持；444000首附件两原kind图号分支共一现表达式，5原点对应4现表达式，不少计原call。
 
 语义1298→1300、有效ID1294→1296、处置392→394，MAP55→57/LOOP20→22成员，双域同两ID不重复计函数。全部父实参/所有callee/上游和owner寿命/SDK/PC53/画面运行仍未闭，pending/队列/R7等不按本组源码量提升。
+
+## YLC01 通用回收与玩家清理身份（2026-10-05）
+
+[原160条444B/31type17call10父](cg2d_yobi_cleanup_sampling_evidence.json)与[源状态](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state)新增519D50真实入口/八槽helper与声明来源；既有404C50/404D10仅追加本组原取样实修和元数据证据，保留此前全部字段/来源与历史证据。玩家清理源码保持，通用回收只三片段，不把两旧根重复登记为新实现。
+
+语义1300→1301、有效ID1296→1297、处置394→397，MAP57→60/LOOP22→25成员，同三ID跨域不重复计函数。完整caller/callback/callee/所有资源生产及链别名/owner重进退出/borrow失效/真实ABI/SDK/运行未验，其它pending/队列/R7保持。

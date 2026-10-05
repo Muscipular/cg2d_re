@@ -7665,3 +7665,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [生产合同](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state)在441DB0和444000恢复各四次临时载体三字段取齐后发布；分别count/encoded/mask与encoded/mask/count，不统一两入口取读顺序。玩家真实519CD0实体创建、4417E0回调及442F70挂件消费保持，同一原生字段/失败返回/投影和RNG顺序，不新增未知初始化或owner。
 
 [两完整212条829B/12call8父](cg2d_actor_coordinate_producer_evidence.json)只支持两局部生产取样；444000五原call对应四现表达式、首附件两图号分支共一调用保留，全部父实参/所有callee和owner寿命/SDK/PC53/场景运行未验。
+
+## YLC01 玩家清理与通用回收分工（2026-10-05）
+
+[具名合同](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state)修Yobi通用UpdateAll摘链两轮指针读取/计数一次取样及Delete一次载荷取样；519D50已有入口/ClearMapActorAttachments未改，按原八槽04/08/0C/10/2C/4C/30/44逐次标死清槽，再文本释放清槽，主入口重读玩家标死并清共享槽、尾51A5B0/51BEC0/51BE50低S8合同保持。
+
+不清34/38、不在玩家清理中free主/payload；通用删除仍只free载荷再主节点，实际删除前由UpdateAll摘链，两写后独立保存next供释放后继续。[三原160条444B/31call10父](cg2d_yobi_cleanup_sampling_evidence.json)和局部源码实修分列，完整父/callback/callee/所有链别名与owner重进退出/借用失效/ABI/SDK/场景画面运行未验。

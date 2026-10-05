@@ -386,3 +386,9 @@ G01/G02/U11/R01/R04/V04仍open；全部完整门禁/功能及R1/R7/R8/整体仍�
 [限定验收](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance)核两具名源片段/两完整212条829B、12type17call8父、各四独立构析/三字段先取齐再原序发布和W32/U8/低W16保持。两语义/来源/adapted，MAP57/LOOP22成员、E249→253仅双域各局部I/S共用同一实修/原证据；5原挂件call/4现表达式分列。
 
 六任务仍open，全部完整门禁/功能、R1/R7/R8和整体不提升；完整父实参/其它语义及所有callee/上游和owner重进退出/借用失效/SDK/PC53/时钟RNG/场景画面运行未验。
+
+## YLC01 回收取样局部I/S（2026-10-05）
+
+[限定验收](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance)核三完整160条444B/31call10父、三源片段全文件精确重放，两个链接写之间原指针重取/计数单读局部判定完整返回/payload单次判空释放，原四相/回调和玩家八槽/文本/玩家槽尾链保持。新增一语义/追加两既有语义、三adapted、MAP60/LOOP25成员，E253→257仅双域各局部I/S同证据。
+
+六任务open、全部完整门禁/功能和R1/R7/R8/整体不升级；完整父/callback/callee/生产/链别名与owner寿命/ABI/SDK/PC53/时钟RNG/场景画面运行仍未验，完整原指令保存不代这些验收。

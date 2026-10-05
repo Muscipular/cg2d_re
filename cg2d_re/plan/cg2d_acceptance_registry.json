@@ -568,7 +568,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -592,7 +593,10 @@
         "F:000417E0",
         "F:00042F70",
         "F:00041DB0",
-        "F:00044000"
+        "F:00044000",
+        "F:00004C50",
+        "F:00004D10",
+        "F:00119D50"
       ],
       "closure_task_ids": [
         "U11",
@@ -615,7 +619,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -629,7 +634,8 @@
         "MCE01真实子/父退场两身份纳管，十取样片段恢复原阶段/参数/共用排序和绘子项序；43F520本体及其余语义不改，依赖窗不加全根身份。完整父与callee/上游/所有间接目标和owner寿命/SDK/PC53/场景运行未闭，双域共用同ID/原证据",
         "MOB01观察主回调初阶段/方向/父绘图索引/末frame五片段实修及一原身份纳管，后部阶段复读、子生产消费与MCE01共用保持；完整体保存不代全部语义/父与callee/上游和owner寿命/真实SDK/PC53/场景运行，双域共用同ID/原证据",
         "AAS01实体回调/附加绘制两依赖与MAP共用同ID/证据，五路径四读序及入口/首附件十片段已实修；真实441DB0 type1绑定/4417E0 type17call保持，不把43E490四窗当完整根。原其它语义/全部场景传递依赖/owner重进退出和借用失效/ABI/SDK/PC53/RNG/画面运行未闭",
-        "ACP01两实体附件生产依赖两片段实修/原身份纳管，四独立构析和字段W32/U8/低W16、原生对象/真实回调与投影及失败返回保持；5原挂件call对应4现表达式，同ID/证据关联MAP。全部场景传递父/callee/数据生产与owner重进退出/borrow失效/真实SDK/PC53/RNG/画面运行未闭"
+        "ACP01两实体附件生产依赖两片段实修/原身份纳管，四独立构析和字段W32/U8/低W16、原生对象/真实回调与投影及失败返回保持；5原挂件call对应4现表达式，同ID/证据关联MAP。全部场景传递父/callee/数据生产与owner重进退出/borrow失效/真实SDK/PC53/RNG/画面运行未闭",
+        "YLC01原生通用链两链接写之间按原重读、阶段计数单读/局部判定与完整返回、payload单读/先载荷后节点释放已实修；玩家清理分工/真实尾链保持，三ID共用MAP。三原160条444B不代所有场景caller/callback/callee/资源生产与owner寿命/真实ABI/SDK/PC53/RNG/画面运行，异常不保护/模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -644,7 +650,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -1115,7 +1122,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1174,7 +1182,10 @@
         "F:000417E0",
         "F:00042F70",
         "F:00041DB0",
-        "F:00044000"
+        "F:00044000",
+        "F:00004C50",
+        "F:00004D10",
+        "F:00119D50"
       ],
       "closure_task_ids": [
         "U11",
@@ -1203,7 +1214,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1223,7 +1235,8 @@
         "MCE01子退场七/父初阶段一/共用排序绘图两片段实修，恢复当次玩家号及原数值叶/五槽/正常恢复和计数保持；两完整638条2111B、依赖窗92条250B只共用局部，1call/1type1不混。完整父/callee/上游与间接别名及owner寿命/SDK/PC53/画面运行未闭，同ID关联LOOP",
         "MOB01真实43F520五片段/四类取样已实修，完整319条999B纳管、唯一type1绑定不是call；本轮新227条/复用92条，共用与子生产消费及正常飞行/就绪和死亡后继续保持。全其它语义/父与所有callee/上游/间接别名与owner寿命/真实SDK/PC53/画面运行未闭，同ID关联LOOP",
         "AAS01共用五附件路径恢复四取样顺序、附加入口/首附件恢复同指针快照/逐次目标源读取，十片段实修；4417E0一完整466条与442F70两窗143条及43E490四窗106条共715条2252B。两ID纳管，其中一既有语义只追加、旧名称证据保持。同ID关联LOOP，全其它语义/父/callee/上游和间接别名及owner寿命/SDK/PC53/画面运行未闭，异常不保护或模拟",
-        "ACP01实体/挂件两个真实创建者四组临时载体各先三字段取齐/再原序发布已实修；两完整212条829B/12call8父，通用赋值/其它入口和AAS01保持，两ID同LOOP纳管。完整父实参/所有callee/上游与间接别名和owner寿命/ABI/SDK/PC53/RNG/画面运行未闭，异常不保护或模拟"
+        "ACP01实体/挂件两个真实创建者四组临时载体各先三字段取齐/再原序发布已实修；两完整212条829B/12call8父，通用赋值/其它入口和AAS01保持，两ID同LOOP纳管。完整父实参/所有callee/上游与间接别名和owner寿命/ABI/SDK/PC53/RNG/画面运行未闭，异常不保护或模拟",
+        "YLC01UpdateAll摘链/计数与Delete载荷单次取样三片段已实修，原四相/回调后next/释放后保存next保持；519D50已有八槽/文本/玩家复读/尾链未改补身份。三完整160条444B/31call10父、一新/二既有语义追加/三ID同LOOP。全部父/callback/callee/所有资源生产/链表别名与owner重进退出/借用失效/SDK/ABI/PC53/RNG/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1244,7 +1257,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -14647,6 +14661,134 @@
       "observation": "原两完整212条829B/库存/12type17call8父、两个源片段全文精确重放/临时三快照及目标发布序、W32/U8/原低W16与构析/RNG有限静态；五原父点与四现表达式分别记录",
       "expected": "441DB0先U8count→U32encoded→U32mask，444000先U32encoded→U32mask→U8count，三值取齐后依同序写实际目标；各四次独立构析/原RNG，四坐标/实体中间低W16清和原字段/失败/回调/投影/指针返回保持",
       "actual": "四局部I/S共用两源片段和212条829B、12call8父证据，两个语义/adapted与MAP/LOOP同ID；通用工具/其它入口保持，完整父实参/其它语义/callee/上游和owner寿命/真实ABI/SDK/PC53/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-CLEANUP-SAMPLING-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三完整160条444B/31type17call10父，UpdateAll摘链/计数、Delete载荷取样与既有519D50玩家清理分工；doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-cleanup-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "src/YobiRuntime.cpp#DeleteYobiAction_404D10",
+        "src/YobiRuntime.cpp#ClearMapActorAttachments",
+        "src/world/SceneState.cpp#Sub_519D50",
+        "src/world/WorldUpdateDependencies.hpp#Sub_519D50"
+      ],
+      "differences": [
+        {
+          "description": "UpdateAll摘链先prev/next写前驱，写后next/prev重取写后继；计数一次读/先局部判定再发布和可选清零、完整返回，Delete载荷一次读供判空/释放；519D50原八槽/文本/玩家槽与尾链保持",
+          "decision_ref": "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三具名片段已落实，两个既有生命周期根追加本组实修；未改玩家八槽/文本/主标死清槽及尾链真实入口补来源，原原生链/门禁/callback保持",
+      "expected": "两个摘链链接写入之间按原依次重读prev/next而非统一缓存，最后独立保存next供释放后继续；计数一次读并先按局部结果判断/发布/可选清0、返回完整result；payload一次读供非空free后主free，原玩家八槽和尾链保持",
+      "actual": "四局部I/S共用三源片段/三原160条444B，一新增/两既有语义追加及三ID/adapted同MAP/LOOP纳管；519D50与八槽未改不计新实现。全部父/callback/callee/上游/所有链别名与owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-CLEANUP-SAMPLING-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三完整160条444B/31type17call10父，UpdateAll摘链/计数、Delete载荷取样与既有519D50玩家清理分工；doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-cleanup-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "src/YobiRuntime.cpp#DeleteYobiAction_404D10",
+        "src/YobiRuntime.cpp#ClearMapActorAttachments",
+        "src/world/SceneState.cpp#Sub_519D50",
+        "src/world/WorldUpdateDependencies.hpp#Sub_519D50"
+      ],
+      "differences": [
+        {
+          "description": "UpdateAll摘链先prev/next写前驱，写后next/prev重取写后继；计数一次读/先局部判定再发布和可选清零、完整返回，Delete载荷一次读供判空/释放；519D50原八槽/文本/玩家槽与尾链保持",
+          "decision_ref": "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三完整160条444B/31call10父与库存/原指令一致、三源片段全文精确重放/分轮prev-next取样与计数单读/完整返回/载荷单读，八槽及玩家尾链未改的限定静态",
+      "expected": "两个摘链链接写入之间按原依次重读prev/next而非统一缓存，最后独立保存next供释放后继续；计数一次读并先按局部结果判断/发布/可选清0、返回完整result；payload一次读供非空free后主free，原玩家八槽和尾链保持",
+      "actual": "四局部I/S共用三源片段/三原160条444B，一新增/两既有语义追加及三ID/adapted同MAP/LOOP纳管；519D50与八槽未改不计新实现。全部父/callback/callee/上游/所有链别名与owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-CLEANUP-SAMPLING-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三完整160条444B/31type17call10父，UpdateAll摘链/计数、Delete载荷取样与既有519D50玩家清理分工；doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-cleanup-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "src/YobiRuntime.cpp#DeleteYobiAction_404D10",
+        "src/YobiRuntime.cpp#ClearMapActorAttachments",
+        "src/world/SceneState.cpp#Sub_519D50",
+        "src/world/WorldUpdateDependencies.hpp#Sub_519D50"
+      ],
+      "differences": [
+        {
+          "description": "UpdateAll摘链先prev/next写前驱，写后next/prev重取写后继；计数一次读/先局部判定再发布和可选清零、完整返回，Delete载荷一次读供判空/释放；519D50原八槽/文本/玩家槽与尾链保持",
+          "decision_ref": "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三具名片段已落实，两个既有生命周期根追加本组实修；未改玩家八槽/文本/主标死清槽及尾链真实入口补来源，原原生链/门禁/callback保持",
+      "expected": "两个摘链链接写入之间按原依次重读prev/next而非统一缓存，最后独立保存next供释放后继续；计数一次读并先按局部结果判断/发布/可选清0、返回完整result；payload一次读供非空free后主free，原玩家八槽和尾链保持",
+      "actual": "四局部I/S共用三源片段/三原160条444B，一新增/两既有语义追加及三ID/adapted同MAP/LOOP纳管；519D50与八槽未改不计新实现。全部父/callback/callee/上游/所有链别名与owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-CLEANUP-SAMPLING-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三完整160条444B/31type17call10父，UpdateAll摘链/计数、Delete载荷取样与既有519D50玩家清理分工；doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-cleanup-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "src/YobiRuntime.cpp#DeleteYobiAction_404D10",
+        "src/YobiRuntime.cpp#ClearMapActorAttachments",
+        "src/world/SceneState.cpp#Sub_519D50",
+        "src/world/WorldUpdateDependencies.hpp#Sub_519D50"
+      ],
+      "differences": [
+        {
+          "description": "UpdateAll摘链先prev/next写前驱，写后next/prev重取写后继；计数一次读/先局部判定再发布和可选清零、完整返回，Delete载荷一次读供判空/释放；519D50原八槽/文本/玩家槽与尾链保持",
+          "decision_ref": "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三完整160条444B/31call10父与库存/原指令一致、三源片段全文精确重放/分轮prev-next取样与计数单读/完整返回/载荷单读，八槽及玩家尾链未改的限定静态",
+      "expected": "两个摘链链接写入之间按原依次重读prev/next而非统一缓存，最后独立保存next供释放后继续；计数一次读并先按局部结果判断/发布/可选清0、返回完整result；payload一次读供非空free后主free，原玩家八槽和尾链保持",
+      "actual": "四局部I/S共用三源片段/三原160条444B，一新增/两既有语义追加及三ID/adapted同MAP/LOOP纳管；519D50与八槽未改不计新实现。全部父/callback/callee/上游/所有链别名与owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -14814,7 +14956,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -15054,7 +15197,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -15120,7 +15264,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -15177,7 +15322,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -15211,7 +15357,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     },
     {
@@ -15380,7 +15527,8 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state"
       ]
     }
   ],
@@ -19406,6 +19554,42 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_actor_coordinate_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00004C50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00004D10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00119D50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_evidence.json"
       ]
     }
   ],

@@ -3943,3 +3943,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名裁决](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision)实修两个具名片段：441DB0已有局部lambda先U8 readCount→U32 encoded→U32 mask取齐，再依同序写目标；444000四次通用赋值转本入口lambda，先encoded→mask→readCount取齐，再同序发布。两个入口各四次构造/析构，四目标顺序/441DB0中间field270低W16清保持，vft/reserved与通用CopyPayload/AssignFromInt不改。
 
 原New(2,sizeof实际实体载荷)/New(2,0)、失败即空、方向/图号/动作/priority/flags、真实4417E0绑定或无新增回调/槽、X先乘64/移动与phase清零/世界X后Y、真实投影/屏幕窄化和原生指针返回保持。AAS01及其它同形创建者/全部头和数值叶不改。[两原212条829B](cg2d_actor_coordinate_producer_evidence.json)及12type17调用8父纳管，五挂件原点对应四现表达式，完整父/callee/上游和owner寿命/真实SDK/PC53/RNG/场景画面运行仍未闭。
+
+## YLC01 摘链/阶段计数/载荷删除取样（2026-10-05）
+
+[裁决](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision)将404C50两复合链接赋值改为先prev→next读取/写前驱next，写后再next→prev读取/写后继prev；两写后仍单独保存next，删除当前节点后沿它继续。末阶段计数一次读→正常S32+1→按局部result>=4判断→发布result→满足再清0，完整返回仍result。404D10仅一次保存void* payload，非空free快照后free原action，不清槽或增加action空检查。三片段，原四相门禁/callback后next复读和所有其它正文保持。
+
+519D50原八槽/文本/主玩家复读与尾链保持，仅纳管身份/分工，不计新的清理实现。[三原160条444B](cg2d_yobi_cleanup_sampling_evidence.json)完整保存与局部取样验收区分，两旧语义追加/一新语义，31type17call/10父。完整callback/callee/父实参/资源和数据生产/链别名与owner寿命/SDK/ABI/时钟RNG/画面运行仍待。

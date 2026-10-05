@@ -51,3 +51,10 @@ kind固定unassigned_range_fragment；start必须等于原入口，end必须等�
 四个既有源码片段按实际X库存区间绑定，两个原区间的代码/NOP用途完整登记；
 原函数身份不增加，代码片段不会再被要求强行配函数ID。未绑定的记录仍保留差集。
 只收口本组身份和字节用途，不把mapped区间当作完整软件功能或运行通过。
+
+
+## RPA01 首批64区间全字节用途（2026-10-05）
+
+[具名完整分类](cg2d_unassigned_range_classification_spec.md#range-classification-source-state)在原2项之外登记64个原X区间，共502B：62纯90H段448B、两混合区间54B（两跳转表32B/八目标、2B边界对齐和20B后缀90H）。前后块以真实Chunks处理尾块，直接JMP与RET的顺序终止/逐字节owner和引用证据保留。
+
+两混合区间全部连续分项，并关联4038A0/403A70既有源；mapped只表示全部字节用途登记，不产生F、空体/新软件I/W/S/R或范围排除。区间处置2→66/3061，R03/R04及完整R1/R7/R8仍open，未知间接alias/相邻整父/寿命/运行不由本步通过。

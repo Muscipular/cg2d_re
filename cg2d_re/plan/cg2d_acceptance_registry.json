@@ -667,7 +667,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -739,7 +740,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -754,7 +756,8 @@
         "NCP01仅协议复制容量回绕模拟残留已按RPLAN.24更新；两既有完整根/返回与91原直接call具名，不全面复检；原正常/失败及读写序保持，整分派/全部参数传递/回复/owner/alias、实际ABI/链接/原格式明文互通和运行仍待，不宣称异常等价",
         "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK",
         "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待",
-        "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验"
+        "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验",
+        "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -769,7 +772,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state"
       ]
     },
     {
@@ -13043,7 +13047,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
-        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state"
       ]
     },
     {
@@ -13071,7 +13076,8 @@
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
-        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state"
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state"
       ]
     },
     {
@@ -16957,6 +16963,1574 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_network_adapter_sampling_evidence.json"
+      ]
+    },
+    {
+      "id": "X:00001029-00001030",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401029",
+          "end_exclusive": "0x401030",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:00001167-00001170",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401167",
+          "end_exclusive": "0x401170",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:00001181-00001190",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401181",
+          "end_exclusive": "0x401190",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00001196-000011A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401196",
+          "end_exclusive": "0x4011A0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:00001269-00001270",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401269",
+          "end_exclusive": "0x401270",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:000012E6-000012F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4012E6",
+          "end_exclusive": "0x4012F0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:000013CD-000013D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4013CD",
+          "end_exclusive": "0x4013D0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00001463-00001470",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401463",
+          "end_exclusive": "0x401470",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:000014AF-000014B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4014AF",
+          "end_exclusive": "0x4014B0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001915-00001920",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401915",
+          "end_exclusive": "0x401920",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00001953-00001960",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401953",
+          "end_exclusive": "0x401960",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00001AA5-00001AB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401AA5",
+          "end_exclusive": "0x401AB0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00001C03-00001C10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C03",
+          "end_exclusive": "0x401C10",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00001C1A-00001C20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C1A",
+          "end_exclusive": "0x401C20",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:00001C34-00001C40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C34",
+          "end_exclusive": "0x401C40",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:00001C4C-00001C50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C4C",
+          "end_exclusive": "0x401C50",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00001C64-00001C70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C64",
+          "end_exclusive": "0x401C70",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:00001C92-00001CA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401C92",
+          "end_exclusive": "0x401CA0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00001CBE-00001CC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401CBE",
+          "end_exclusive": "0x401CC0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:00001CE7-00001CF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401CE7",
+          "end_exclusive": "0x401CF0",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:00001CF7-00001D00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401CF7",
+          "end_exclusive": "0x401D00",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:00001D0F-00001D10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401D0F",
+          "end_exclusive": "0x401D10",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001D1F-00001D20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401D1F",
+          "end_exclusive": "0x401D20",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001D4F-00001D50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401D4F",
+          "end_exclusive": "0x401D50",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001D7F-00001D80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401D7F",
+          "end_exclusive": "0x401D80",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001DAF-00001DB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401DAF",
+          "end_exclusive": "0x401DB0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001DBF-00001DC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401DBF",
+          "end_exclusive": "0x401DC0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001DFB-00001E00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401DFB",
+          "end_exclusive": "0x401E00",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00001E0F-00001E10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E0F",
+          "end_exclusive": "0x401E10",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001E1C-00001E20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E1C",
+          "end_exclusive": "0x401E20",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00001E3A-00001E40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E3A",
+          "end_exclusive": "0x401E40",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:00001E5A-00001E60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E5A",
+          "end_exclusive": "0x401E60",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:00001E6C-00001E70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E6C",
+          "end_exclusive": "0x401E70",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00001E8D-00001E90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E8D",
+          "end_exclusive": "0x401E90",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00001E9D-00001EA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401E9D",
+          "end_exclusive": "0x401EA0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00001EA5-00001EB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401EA5",
+          "end_exclusive": "0x401EB0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00001F45-00001F50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401F45",
+          "end_exclusive": "0x401F50",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00001F5F-00001F60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401F5F",
+          "end_exclusive": "0x401F60",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00001F71-00001F80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401F71",
+          "end_exclusive": "0x401F80",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00001F91-00001FA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401F91",
+          "end_exclusive": "0x401FA0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00001FB1-00001FC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401FB1",
+          "end_exclusive": "0x401FC0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00001FD1-00001FE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401FD1",
+          "end_exclusive": "0x401FE0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00001FF2-00002000",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x401FF2",
+          "end_exclusive": "0x402000",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00002011-00002020",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402011",
+          "end_exclusive": "0x402020",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00002196-000021A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402196",
+          "end_exclusive": "0x4021A0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:00002B26-00002B30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402B26",
+          "end_exclusive": "0x402B30",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:00002B63-00002B70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402B63",
+          "end_exclusive": "0x402B70",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00002B9B-00002BA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402B9B",
+          "end_exclusive": "0x402BA0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00002BBF-00002BC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402BBF",
+          "end_exclusive": "0x402BC0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00002C45-00002C50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402C45",
+          "end_exclusive": "0x402C50",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00002D28-00002D30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x402D28",
+          "end_exclusive": "0x402D30",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000365B-00003660",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40365B",
+          "end_exclusive": "0x403660",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000374F-00003750",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40374F",
+          "end_exclusive": "0x403750",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:000037CD-000037D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4037CD",
+          "end_exclusive": "0x4037D0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00003899-000038A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x403899",
+          "end_exclusive": "0x4038A0",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:00003A52-00003A70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "switch_table_with_alignment",
+      "parts": [
+        {
+          "start": "0x403A52",
+          "end_exclusive": "0x403a54",
+          "kind": "alignment_bytes",
+          "bytes": 2
+        },
+        {
+          "start": "0x403a54",
+          "end_exclusive": "0x403a64",
+          "kind": "switch_target_table",
+          "bytes": 16,
+          "source_symbol": "Sub_4038A0",
+          "targets": [
+            "0x40398e",
+            "0x40399a",
+            "0x4039a6",
+            "0x4039b3"
+          ]
+        },
+        {
+          "start": "0x403a64",
+          "end_exclusive": "0x403A70",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:00003C38-00003C50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "switch_table_with_alignment",
+      "parts": [
+        {
+          "start": "0x403c38",
+          "end_exclusive": "0x403c48",
+          "kind": "switch_target_table",
+          "bytes": 16,
+          "source_symbol": "Sub_403A70",
+          "targets": [
+            "0x403b62",
+            "0x403b6e",
+            "0x403b7a",
+            "0x403b87"
+          ]
+        },
+        {
+          "start": "0x403c48",
+          "end_exclusive": "0x403C50",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00003E4D-00003E50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x403E4D",
+          "end_exclusive": "0x403E50",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000405A-00004060",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40405A",
+          "end_exclusive": "0x404060",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000411E-00004120",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40411E",
+          "end_exclusive": "0x404120",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000412A-00004130",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40412A",
+          "end_exclusive": "0x404130",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000413A-00004140",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40413A",
+          "end_exclusive": "0x404140",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000414C-00004150",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40414C",
+          "end_exclusive": "0x404150",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000415A-00004160",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-padding",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_unassigned_range_classification_evidence.json"
+      ],
+      "reason": "RPA01本区间全部字节用途/实际块边界和引用分类；mapped只记原字节用途，不算业务开发/原新机器或运行通过，不计范围排除",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40415A",
+          "end_exclusive": "0x404160",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
       ]
     }
   ]

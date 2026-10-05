@@ -44,3 +44,10 @@
 | N5 验收 | 当前核源码/原格式/长度与状态时序；用户允许运行后做明文收发、半包/连续包、登录和V03，当前未互通 |
 
 发送报告三入口与signed门禁见[接线SPEC](cg2d_network_exclusion_wiring_spec.md#三个发送侧状态入口的显式存储关联2026-10-02)。P09/P10源码工作项已关闭；两父154/146条、真实回调/Loop接线及局部I/W/S证据见[源码收口](cg2d_network_plaintext_frame_spec.md#frame-source-closure)。仍保留18项pending入口身份及完整互通/功能验收残余；不是算法恢复或网络完成。
+
+
+## RPA01 两父原跳转表数据依据（2026-10-05）
+
+[403A54/403C38两表](cg2d_unassigned_range_classification_spec.md#range-classification-switch)各四原W32目标，共32B、八目标，实际父分别4038A0/403A70；原cmp EDX,3、unsigned ja与EDX×4窗口有证据。两父已有NetworkRuntime源码/签名/接线不改，只追加原数据/边界区间依据，不迁原x86表/地址或恢复加解密。
+
+本步64个X区间属于R7原字节用途分类，无网络业务开发或运行证据；原格式明文/两帧叶排除及47个网络成员保持。两原表局部依据不代完整父/所有alias/owner、SDK/ABI或完整互通验收。

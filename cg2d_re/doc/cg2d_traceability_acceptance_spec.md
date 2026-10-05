@@ -271,3 +271,10 @@ E190→192仅FUNC-INPUT本次I/S局部；T01/T02/R04/V04、全输入/文本门�
 [本组合同](cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state)实际撤两个工具S32回绕承载，21源表达式/原阶段和字段/数量/窄化/排队发布保持。语义1260/有效ID1256、处置350/3680及输入/文本14/22明确成员保持，只加旧根依据与两匿名来源。
 
 E192→194仅FUNC-INPUT本次I/S局部；T01/T02/R04/V04、完整两功能门禁、10/60关闭数和R1/R7/R8仍未闭。原332条保存不代全部语义/完整父/owner/alias/焦点/IME、SDK/机器/像素画面运行，数学异常不专项模拟/保护或称故障等价。
+
+
+## RPA01 未归属区间完整字节分类（2026-10-05）
+
+[64项区间合同](cg2d_unassigned_range_classification_spec.md#range-classification-source-state)依既有辅助mapped规则纳管原全部502B，逐项parts连续覆盖；62段纯填充及两表/对齐/后缀有原字节、实际块和引用依据。原2项保留，reviewed_ranges=66/3061，剩余2995；原区间分母/函数分母不改，R03/R04保持open。
+
+无新增F/源实现/软件证据或范围排除；两表父语义/网络数据依据追加，成员47、E194、350函数处置与其余门禁保持。mapped是字节用途登记，不能作为相邻完整功能/未知间接目标、owner/SDK/ABI或实际运行验收。

@@ -2134,3 +2134,10 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [既有F:000568A0](cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state)在同一语义/equivalent处置追加本次依据，来源补AddW32/SubW32两个工具，不给匿名工具独立F。正常S32加减保13加/8减表达式及原字段/数量/窄化/阶段、真实复制/测宽/队列令牌发布。
 
 原332条1159B、32引用/25父身份保存，仅本组正常算术/接口与源两body限定静态，未重验全部原语义、完整父/字体队列消费/焦点/IME/alias/所有owner寿命或PC53机器环境/SDK/像素画面运行，异常不专项保护/模拟或称等价。
+
+
+## RPA01 原区间填充与两表父关联（2026-10-05）
+
+[首批64个原X区间](cg2d_unassigned_range_classification_spec.md#range-classification-source-state)全部502B用途登记mapped，62纯90H段和两含跳转表段分别保存；原函数身份与分类不增，填充不生成空函数。现有4038A0/403A70两语义只追加表/边界数据依据，源/状态/既有处置类别保持。
+
+真实尾块与直接JMP、逐字节owner/directxref以及两表八同父代码目标可追；零直接引用不外推所有间接alias/整父/owner寿命、原新机器或运行通过。语义1260/有效ID1256、函数处置350与业务软件证据E194保持，R7区间66/3061仍未闭。

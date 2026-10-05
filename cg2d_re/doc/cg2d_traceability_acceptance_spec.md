@@ -596,3 +596,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-acceptance)：241条1085B四页39call/主体与真实尾直接目标闭合、202B入口case93，整CPP单根五处/比较pub与字段-Album后参数、工厂前后两target/固定created-payload及十整数-29字符串-四内存载体-W16零/坐标live/无RID尾和其它源头核心保持有限静态。E393→397仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及全部完整门禁保持。98及其它各技能/全路由/完整父-SEH、所有消费者与资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，文本汇总不代工厂owner或其它运行验收，不降低标准。
+
+## BMV01 技能98准备局部实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-acceptance)：86条362B两页11call/准备范围直接目标闭合，202B入口case98与48B原偏移上下文；整CPP单根五处、同位置caster/字段-图偏移原序、三Take/空Finish false和六动作后true，无目标/RID/58新消费及其它根/头保持有限静态。E397→401仅YOBI/BATTLE四局部I/S。
+
+旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及全部完整门禁保持。42D0D0起原比较链分派/各模式主体、其它技能/全路由/完整父-SEH、所有消费者和资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续；不降低完整98/整体验收标准。

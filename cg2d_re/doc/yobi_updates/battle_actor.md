@@ -187,3 +187,9 @@
 [五组裁决](../cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision)恢复同解析caster-target借用/条件pub与字段、Album后caster-target-actor。旧actor MarkDeath后重新取target创建，工厂后再取target发布；created与其payload固定跨各Take/四临时数值载体，后续效果/列表另借当前槽，不混为同一缓存。W32 flags高位和W16 fields288槽3/2/1/0正常零、各坐标逐次live与原无RID尾保持，不新owner/空保护。
 
 [完整正常有界主体与尾](../cg2d_battle_m_skill93_sampling_evidence.json)241条1085B四页39call；所有actor owner重进退出/借用失效、98及其它技能消费者/SDK/ABI/画面继续。
+
+## BMV01 98准备字段的角色和值读取（2026-10-06）
+
+[五组裁决](../cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision)恢复同解析caster位置发布和actor借用，固定初始caster payload先skill；level/mode字段各次caster→actor→live值→payload，不跨字段复用角色或跨Take固定mode。图号level比较12后caster先低段原偏移，fpUsed与六次动作各次live借用保持，不新owner/空保护或额外状态消费。
+
+[入口准备](../cg2d_battle_m_skill98_prepare_sampling_evidence.json)86条362B两页11call；42D0D0之后各模式消费与所有actor owner重进退出/借用失效、SDK/ABI/画面继续分段推进。

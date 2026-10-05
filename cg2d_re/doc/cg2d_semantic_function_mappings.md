@@ -2459,3 +2459,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [正常主体及实际尾](cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state)241条1085B四页39call，追加ProcessBattleMSkill93单根五处/角色重建原消费，202B表仅93定位，不新F/X/adapted/分类/完整成员，旧历史/其它字段保持；父437A29定位探针不当完整回存新证据。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；98各现代模式继续分段核原端和开发，全部其它技能/全路由/完整父-SEH/消费者-owner运行仍待。
+
+## BMV01 旧812的技能98准备追加（2026-10-06）
+
+[有界准备](cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state)86条362B两页11call，追加PrepareBattleMSkill98单根五处及三Take/字段/六动作原消费。202B表仅98入口、48B偏移仅上下文；42D0D0起模式分派和各主体不纳本步，不把现代switch/定位探针当原跳表证据。不新F/X/adapted/分类/完整成员，历史和其它字段保持。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；各98模式和其它技能/全路由/完整父-SEH/消费者-owner运行继续。

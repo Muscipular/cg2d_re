@@ -8303,3 +8303,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state)纳管93主体五处。目标先255比较/pub同位置旧actor MarkDeath，工厂前后两次live target与固定created/payload保持；四内存载体/原W32高位与四W16正常槽序/坐标live、Album后效果与80/54保持，MarkDeath不改立即释放，不补工厂null/默认。
 
 [241条1085B四页39call](../cg2d_battle_m_skill93_sampling_evidence.json)含432E99真实效果终结-Move-增58尾，原无RID，初始空caster直接Finish回存。98现代0..18路由另分子SPEC取证/开发，所有owner和完整运行门禁继续，原格式明文/音频暂停保持。
+
+## BMV01 98准备与模式边界（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state)纳管98入口准备五处。mode字段另借当时caster→actor→live value5A4A34→payload/pub1048，不复用第三Take前解析值；skill/level及图偏移恢复原序，三Take/六动作/失败与成功门禁保持。
+
+[86条362B两页11call](../cg2d_battle_m_skill98_prepare_sampling_evidence.json)截止42D0D0，后续原比较链/状态目标、6/7/8、12/13/14、15/16、17及默认分组另验，不把现代路由存在当原覆盖。准备段无目标/RID/58消费；wrapper/各主体保持，完整运行门禁继续，原格式明文/音频暂停保持。

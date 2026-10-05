@@ -3911,3 +3911,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [委托裁决](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision)以五限定片段明确原入口frame/方向、两轴查询后的父frame/像素坐标与槽偏移、排序nextIndex/复读currentIndex/先两子指针后当前深度、子绘图描述符/图形/Y/X。原PC53叶、非空FrameMove后子指针复读、五槽坐标/序号发布与-1尾、deltaY降序及S8交换/绘主项/绘后frame递增保持；不变drawY排序，不添空/死亡过滤。
 
 233条767B完整原体保存仅取读局部，唯一type1来自440B70 callback绑定；只有私有void本体及YobiCallback签名，不捏造公开声明。完整其它语义/callee/上游与间接别名及owner寿命/真实ABI/PC53/SDK/场景画面运行未验。
+
+## MCS01 当前子更新阶段/图号读取点（2026-10-05）
+
+[委托裁决](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision)在43F910保存initialSlot后取payload；偏移调用前按父方向/当次槽/父图号取样，父Y后读initialPhase用于阶段1/2，后部phase仍复读。阶段2及阶段1达目标在原位置取图号，共用动作分类接收快照；保留单参数形式供440440等原调用者在原点读取图号，九组闭区间/动作值不改。共七片段，两已有正确创建者正文不改，不称两个新增/修复入口。
+
+三原422条1479B/三call两父保存仅生产/阶段取样局部，原私有本体/非拥有parent与五槽/失败和计数、正常算术/两个音效调用及未消费第三压栈值合同保持；不新增第三实参/音频实现，不初始化未知阶段相对坐标或异常保护。其它语义/完整父与所有callee/别名和owner寿命/真实ABI/SDK/场景画面运行未验。

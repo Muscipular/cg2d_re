@@ -2385,9 +2385,9 @@ YobiAction* Sub_43FE00(YobiAction* const parent, const std::int32_t index)
 }
 
 // 43F910/440440共用的原三类动作；不等同于实体骑乘复原的0/11分类。
-void SetObservationChildAction(YobiAction* const action)
+void SetObservationChildAction(
+    YobiAction* const action, const std::int32_t imageNo)
 {
-    const std::int32_t imageNo = action->imageNo;
     if ((imageNo >= 0x1BD50 && imageNo <= 0x1BDF9)
         || (imageNo >= 0x1B580 && imageNo <= 0x1B587)
         || (imageNo >= 0x1B58A && imageNo <= 0x1B59C)
@@ -2404,12 +2404,18 @@ void SetObservationChildAction(YobiAction* const action)
     }
 }
 
+void SetObservationChildAction(YobiAction* const action)
+{
+    SetObservationChildAction(action, action->imageNo);
+}
+
 void Sub_43F910(YobiAction* const action)
 {
     const std::uint32_t playerIndex = world::ReadPlayerObjectIndex_FDA880();
     YobiAction* const parent = action->observationParent10;
+    const std::int32_t initialSlot = action->field1D0;
     auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
-    const std::uint32_t objectIndex = payload->values[action->field1D0];
+    const std::uint32_t objectIndex = payload->values[initialSlot];
     YobiAction* const source = objectIndex == playerIndex
         ? world::detail::ReadPlayerAction()
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -2422,14 +2428,18 @@ void Sub_43F910(YobiAction* const action)
     }
     std::int32_t slotX = 0;
     std::int32_t slotY = 0;
-    Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+    const std::int32_t slotDirection = parent->direction;
+    const std::int32_t slot = action->field1D0;
+    const std::int32_t parentImageNo = parent->imageNo;
+    Sub_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
     const std::int32_t parentY = parent->y;
+    const std::int32_t initialPhase = action->phase;
     const std::int32_t parentX = parent->x;
     const std::int32_t frameY = parent->frameY;
     const std::int32_t frameX = parent->frameX;
     std::int32_t relativeX;
     std::int32_t relativeY;
-    if (action->phase == 1) {
+    if (initialPhase == 1) {
         const std::int32_t frame = action->value1D4;
         relativeX = frameX + slotX;
         if (frame < 15) {
@@ -2446,15 +2456,17 @@ void Sub_43F910(YobiAction* const action)
         }
         action->characterAction = 11;
         if (currentFrame > 15 && targetY <= relativeY) {
+            const std::int32_t imageNo = action->imageNo;
             action->phase = 2;
             action->value1D4 = 0;
-            SetObservationChildAction(action);
+            SetObservationChildAction(action, imageNo);
             static_cast<void>(audio::PlaySe_52C450(0x1CE, action->x));
         }
-    } else if (action->phase == 2) {
+    } else if (initialPhase == 2) {
         relativeX = frameX + slotX;
+        const std::int32_t imageNo = action->imageNo;
         relativeY = frameY + slotY;
-        SetObservationChildAction(action);
+        SetObservationChildAction(action, imageNo);
     }
     const std::int32_t overrideAction = parent->counter1DC;
     if (overrideAction >= 0) {

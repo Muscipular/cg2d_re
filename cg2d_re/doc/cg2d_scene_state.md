@@ -7635,3 +7635,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [读取序合同](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state)沿MOS01源/生产者修440C50五片段，入口frame→方向、两轴查询后父frame/像素坐标和槽偏移、排序先两子指针后当前deltaY、子绘图描述符→图形→Y→X。现有场景接线、PC53/MASM数值叶、五槽/原deltaY降序/S8交换和绘后frame递增保持。
 
 [一原233条767B](cg2d_map_observer_callback_order_evidence.json)与440B70@440B85唯一type1 callback地址写者纳管；它不是直接call。所有callee/完整父与全上游、间接别名及owner寿命/真实PC53/SDK/场景画面运行未闭，局部静态不代完整场景。
+
+## MCS01 观察子节点生产与阶段取样（2026-10-05）
+
+[阶段合同](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state)沿MOC01核两个真实子创建者43F290/43FE00及43F910更新。两创建者已有完整同序源码，保持(3,0)、失败、原生parent/slot和阶段1/3；实修43F910五取样块及共用分类两承接块：槽先取后载荷，偏移参数方向/槽/父图号，父Y后阶段快照选初分支，转态前图号先取再phase/frame写后分类。
+
+[三原422条1479B/三call两父](cg2d_map_child_stage_sampling_evidence.json)与实际43F520/440070消费纳管；后部phase仍当次读取，正常插值/抛物线、槽门槛/偏移和frame递增、原音效两实参及暂停保持。其它原语义/完整父与所有callee/上游/间接别名及owner寿命/真实SDK/场景运行未闭。

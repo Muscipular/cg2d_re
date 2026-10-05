@@ -356,3 +356,9 @@ G01/G02/U11/R01/R04/V04仍open；完整父与callee/全上游/间接别名和own
 [限定验收](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance)核一回调五片段/原233条767B/唯一type1地址写者，恢复入口/两轴/排序与子绘图读取序；原数值叶、五槽/降序/S8交换及绘后递增保持。一语义/来源/adapted、MAP47/LOOP12成员，E229→233只两域各局部I/S，共用一实修/一原体，不记双份函数或直接call。
 
 六任务G01/G02/U11/R01/R04/V04仍open，所有callee/完整父和全上游/间接别名及owner寿命/真实PC53/SDK/场景画面运行未闭；完整门禁/功能、R1/R7/R8及整体判定不提升。
+
+## MCS01 子生产/阶段取样局部I/S（2026-10-05）
+
+[限定验收](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-acceptance)核422条1479B/三call两父、七源片段、正常子阶段及图号读取点与分类快照承接；两个已有同序创建者保持，单参数分类形式保其它调用者读取点。三语义/来源/adapted、MAP50/LOOP15成员同步，E233→237仅双域各局部I/S，共用一子更新及分类承接/三原体，不记双份函数或两创建者为实修。
+
+G01/G02/U11/R01/R04/V04仍open；其它422语义/完整父与callee/全上游/间接别名和owner寿命/真实ABI/SDK/场景画面运行未闭，音频继续暂停。完整门禁/功能、R1/R7/R8及整体判定不提升。

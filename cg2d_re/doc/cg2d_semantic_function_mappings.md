@@ -2219,3 +2219,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原233条767B/唯一type1地址写者](cg2d_map_observer_callback_order_evidence.json)及[源状态](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state)为440C50补正式语义/真实私有本体、YobiCallback及生产者绑定/adapted；五片段读取序实修，原数值叶/排序和五槽保持。type1不是直接call，没有伪造公开440C50声明。
 
 语义1290→1291、有效ID1286→1287、处置383→384，MAP46→47/LOOP11→12成员，同ID不重复计函数。全部原定位/pending/队列/非FID/R7及其它功能保持；其它233语义/所有callee/完整父与上游/间接别名和owner寿命/真实PC53/SDK/运行未验。
+
+## MCS01 真实子创建与更新身份（2026-10-05）
+
+[三原422条1479B/三call两父](cg2d_map_child_stage_sampling_evidence.json)及[源状态](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state)为43F290/43F910/43FE00补正式语义/真实私有本体和调用来源/adapted；一子更新五取样块/共用分类两承接块实修，两正确创建者保持，仅随消费链纳管。
+
+语义1291→1294、有效ID1287→1290、处置384→387，MAP47→50/LOOP12→15成员，同ID不重复计函数或把正确创建者记为源修复。原定位/pending/队列/非FID/R7和其它功能保持，完整父/callee/上游与间接别名及owner寿命/真实SDK/运行未验。

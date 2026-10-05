@@ -1292,3 +1292,13 @@ LegacyException.cpp已有MatchLegacyExceptionType_5404FA真实名称比较，
 [通用转换SPEC](cg2d_multibyte_string_spec.md#multibyte-string-decision)补53C9DD目标空/C locale分支的53CAB5：直接调用现有StrLen_53F9E0并返U32，忽略MaxCount，不造固定长度/Unicode长度。
 真实长度19→20/24，另4已批准宿主承接，原24直接入向已逐点有当前源码或具名宿主归属；这只收口该直接清单，不称未知间接入向或完整调用链/运行。原唯一业务455100属于暂停音频，未接或恢复，不能当字体转换。
 原算法/其他19点/宿主4归属保持；[94条原证据](cg2d_multibyte_string_evidence.json)与同源状态可追，C12/T01/T03/V04和完整门禁继续open。
+
+
+## MRC01 分块比较的当前取样表达（2026-10-05）
+
+[取样/返回SPEC](cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state)与[原78条/172B及SDK源段](cg2d_memory_compare_sampling_evidence.json)补当前约束。
+54B160六个W32读取表达式经单一ReadMemoryComparisonWord：完整U32载荷复制前后各标准signal_fence，首次/失配复读/尾三阶段保留左后右。
+原对齐分类改为比较边界只取两地址uintptr_t的OR低两位，撤去std::align/space4形成的舍入指针；没有地址缓存/W32截断或容量门槛。
+Count0、未对齐U8、原W32/FF0000尾读取及正常-1/0/+1保持，不把普通对象强转W32别名。
+共享54B1AC按正常Count0/相等路径merged归同一核心，无独立置零体或新caller；边界records/3的过时“承接未判定”更新为当前归属。
+本机MSVC标准头只证明源码编译器约束，实际生成指令/读次数/ABI、全alias/CRT及运行未验；RPLAN.24不评异常故障等价，音频暂停不变。

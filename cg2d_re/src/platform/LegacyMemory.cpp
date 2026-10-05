@@ -1,6 +1,7 @@
 #include "cg/platform/LegacyMemory.hpp"
 #include "cg/platform/LegacyTime.hpp"
 
+#include <atomic>
 #include <cstring>
 #include <memory>
 
@@ -24,6 +25,17 @@ constexpr char kGlobalHeapSelection54FAD4[] = "__GLOBAL_HEAP_SELECTED";
 static_assert(sizeof(kHeapSelectName54FAEC) == 21);
 static_assert(sizeof(kGlobalHeapSelection54FAD4) == 23);
 static_assert(sizeof(OSVERSIONINFOA) == 0x94);
+
+// 原54B160的W32取样：完整载荷复制前后约束编译器，不复用失配前的取值。
+// 只供CompareLegacyMemory_54B160三个读取阶段使用，字段宽度和对象别名规则保持。
+std::uint32_t ReadMemoryComparisonWord(const unsigned char* const source) noexcept
+{
+    std::atomic_signal_fence(std::memory_order_seq_cst);
+    std::uint32_t word;
+    std::memcpy(&word, source, sizeof(word));
+    std::atomic_signal_fence(std::memory_order_seq_cst);
+    return word;
+}
 
 // 原541A43；输出先清W32，再按原顺序写链接器主/次版本两个U8。
 void ReadLegacyModuleLinkerVersion_541A43(std::uint32_t* const version)
@@ -208,13 +220,9 @@ std::int32_t CompareLegacyMemory_54B160(
     }
     const auto* left = static_cast<const unsigned char*>(leftBuffer);
     const auto* right = static_cast<const unsigned char*>(rightBuffer);
-    void* alignedLeft = const_cast<void*>(leftBuffer);
-    void* alignedRight = const_cast<void*>(rightBuffer);
-    std::size_t leftSpace = 4;
-    std::size_t rightSpace = 4;
-    static_cast<void>(std::align(4, 1, alignedLeft, leftSpace));
-    static_cast<void>(std::align(4, 1, alignedRight, rightSpace));
-    if (alignedLeft != leftBuffer || alignedRight != rightBuffer) {
+    // 原54B174/54B176只比较地址低两位；不构造小缓冲范围外的对齐指针。
+    if (((reinterpret_cast<std::uintptr_t>(leftBuffer)
+            | reinterpret_cast<std::uintptr_t>(rightBuffer)) & 3u) != 0) {
         if ((byteCount & 1u) != 0) {
             const unsigned char leftByte = *left;
             const unsigned char rightByte = *right;
@@ -245,15 +253,15 @@ std::int32_t CompareLegacyMemory_54B160(
     while (words != 0) {
         std::uint32_t leftWord;
         std::uint32_t rightWord;
-        std::memcpy(&leftWord, left, sizeof(leftWord));
-        std::memcpy(&rightWord, right, sizeof(rightWord));
+        leftWord = ReadMemoryComparisonWord(left);
+        rightWord = ReadMemoryComparisonWord(right);
         left += 4;
         right += 4;
         --words;
         if (leftWord != rightWord) {
             // 原失配块再次读取，不能改成复用第一次读取的值。
-            std::memcpy(&leftWord, left - 4, sizeof(leftWord));
-            std::memcpy(&rightWord, right - 4, sizeof(rightWord));
+            leftWord = ReadMemoryComparisonWord(left - 4);
+            rightWord = ReadMemoryComparisonWord(right - 4);
             for (std::uint32_t shift = 0; shift != 24; shift += 8) {
                 const auto leftByte = static_cast<std::uint8_t>(leftWord >> shift);
                 const auto rightByte = static_cast<std::uint8_t>(rightWord >> shift);
@@ -270,8 +278,8 @@ std::int32_t CompareLegacyMemory_54B160(
     // 原对齐尾仍读取两W32，随后只按剩余1/2/3字节比较；不改原读取合同。
     std::uint32_t leftWord;
     std::uint32_t rightWord;
-    std::memcpy(&leftWord, left, sizeof(leftWord));
-    std::memcpy(&rightWord, right, sizeof(rightWord));
+    leftWord = ReadMemoryComparisonWord(left);
+    rightWord = ReadMemoryComparisonWord(right);
     const auto firstLeft = static_cast<std::uint8_t>(leftWord);
     const auto firstRight = static_cast<std::uint8_t>(rightWord);
     if (firstLeft != firstRight) {

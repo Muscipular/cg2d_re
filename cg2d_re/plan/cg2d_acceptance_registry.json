@@ -296,7 +296,8 @@
         "doc/cg2d_array_counter_spec.md",
         "doc/cg2d_hosted_exception_filter_spec.md",
         "doc/cg2d_multibyte_string_spec.md",
-        "doc/cg2d_cryptint_arithmetic_spec.md"
+        "doc/cg2d_cryptint_arithmetic_spec.md",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -441,7 +442,9 @@
         "F:00001E10",
         "F:00001E60",
         "F:00001E90",
-        "F:00001FE0"
+        "F:00001FE0",
+        "F:0014B160",
+        "F:0014B1AC"
       ],
       "closure_task_ids": [
         "C01",
@@ -475,7 +478,8 @@
         "doc/cg2d_array_counter_spec.md#array-counter-decision",
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
         "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
-        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision"
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -528,7 +532,8 @@
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline"
       ]
     },
     {
@@ -11818,6 +11823,68 @@
       "observation": "原完整两根、两owner原取样/清空与API序、源/台账和限定引用静态",
       "expected": "解锁后重读owner再释放，清records之前保存index，保持同域/八SDK调用与原失败清空序",
       "actual": "只修本组释放接线与限定静态；初始化/布局保持，全父/alias/借用失效、SDK/ABI/模式/生命周期与运行未验，完整软件门禁不提升"
+    },
+    {
+      "id": "E-MEMORY-COMPARE-SAMPLING-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原父77条/171B加共享RET一条/一字节、两chunk及两入向；doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-memory-compare-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json",
+        "src/platform/LegacyMemory.cpp#CompareLegacyMemory_54B160",
+        "src/platform/LegacyMemory.cpp#ReadMemoryComparisonWord",
+        "include/cg/platform/LegacyMemory.hpp#CompareLegacyMemory_54B160",
+        "doc/cg2d_function_boundary_classifications.json#/records/3"
+      ],
+      "differences": [
+        {
+          "description": "x64借用地址/标准载荷复制沿已有合同，signal_fence仅当前SDK编译器取样表达；不引入硬件fence或源字段/线程同步差异",
+          "decision_ref": "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两源/头中六W32取样点接同一标准屏障载荷helper，共享RET归属正常父返回",
+      "expected": "三阶段W32载荷/失配再次取值以compiler fence约束，原U8/数量/掩码/正常返回不改，不独立造共享RET空体",
+      "actual": "仅源码表达/SDK头与逐ID归属限定静态；实际生成指令/读次数/ABI、全部caller/alias/完整CRT和运行未验，完整软件门禁不提升"
+    },
+    {
+      "id": "E-MEMORY-COMPARE-SAMPLING-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原父77条/171B加共享RET一条/一字节、两chunk及两入向；doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-memory-compare-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json",
+        "src/platform/LegacyMemory.cpp#CompareLegacyMemory_54B160",
+        "src/platform/LegacyMemory.cpp#ReadMemoryComparisonWord",
+        "include/cg/platform/LegacyMemory.hpp#CompareLegacyMemory_54B160",
+        "doc/cg2d_function_boundary_classifications.json#/records/3"
+      ],
+      "differences": [
+        {
+          "description": "x64借用地址/标准载荷复制沿已有合同，signal_fence仅当前SDK编译器取样表达；不引入硬件fence或源字段/线程同步差异",
+          "decision_ref": "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原78条/172B/两入向与本组源补丁/SDK标准头/身份限定静态",
+      "expected": "三阶段W32载荷/失配再次取值以compiler fence约束，原U8/数量/掩码/正常返回不改，不独立造共享RET空体",
+      "actual": "仅源码表达/SDK头与逐ID归属限定静态；实际生成指令/读次数/ABI、全部caller/alias/完整CRT和运行未验，完整软件门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12046,7 +12113,8 @@
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
       ],
       "task_id": "C01",
       "state": "open"
@@ -12157,7 +12225,8 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
         "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
-        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state"
+        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
       ]
     },
     {
@@ -12226,7 +12295,8 @@
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
-        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state"
+        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
       ]
     },
     {
@@ -12253,6 +12323,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
+      ]
+    },
+    {
+      "task_id": "V06",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state"
       ]
     }
   ],
@@ -15383,6 +15461,33 @@
         "doc/cg2d_metadata_padding_disposition_evidence.json"
       ],
       "reason": "仅原五NOP完整元数据范围的身份处置，保留3680库存分母与同一队列项；不新增空函数/语义/业务实现，不计用户范围排除或功能accepted，相邻入口/未知alias与全部门禁保持"
+    },
+    {
+      "inventory_id": "F:0014B160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json"
+      ],
+      "reason": "原分块比较正常算法/字段宽度保持，六W32取样源表达以标准compiler signal_fence约束；只核本机SDK头，不称生成读取/ABI/全caller/运行已验"
+    },
+    {
+      "inventory_id": "F:0014B1AC",
+      "disposition": "merged",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json",
+        "doc/cg2d_function_boundary_classifications.json#/records/3"
+      ],
+      "reason": "原共享RET归同一父的已证Count0/相等正常返回，保留原身份/一字节和两入向；没有独立置零体/新接口，不改分母或按纯NOP处置，全alias/ABI/运行未验"
     }
   ],
   "auxiliary_dispositions": [

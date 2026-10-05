@@ -164,3 +164,12 @@ metadata_kind须为alignment_padding，metadata_reference须指向分类JSON确�
 该处置保持原函数库存分母，既不是源码实现/语义映射，也不是用户范围排除或功能accepted。
 队列保留同一身份，记metadata_padding/metadata_only并单列metadata_only_receipt_items；普通定位差集与需核定位数分开统计。
 本组只登记F:000C48EB；其他RET/库/无xref入口或区间不能套用，全部软件门禁和R1/R7/R8保持。
+
+
+## MRC01 源码取样约束与共享RET归属（2026-10-05）
+
+[本组合同](cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state)落实原低两位对齐和六W32源码取样约束，父记adapted、共享返回记merged。
+原两chunk和独立RET的库存身份保持；普通W32载荷复制前后标准signal_fence只核本机SDK头，实际生成指令/读次数/ABI另验。
+两限定I/S证据仅覆盖该源表达/原基线/SDK头，不声明全部CRT消费者或运行通过。
+父原几何/源算法、共享RET一字节及两入向可追；不混为metadata_only、独立置零体或新caller。
+两CRT已知成员和四开放任务同步，完整成员/软件门禁及R1/R7/R8保持。

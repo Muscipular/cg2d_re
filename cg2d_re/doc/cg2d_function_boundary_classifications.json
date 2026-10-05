@@ -52,7 +52,7 @@
       "original_entry": "0x54B1AC",
       "original_end": "0x54B1AD",
       "inventory_id": "F:0014B1AC",
-      "status": "已确认属于内存比较的共享返回片段；父入口承接未判定",
+      "status": "已确认属于内存比较的共享返回片段；MRC01由父正常返回承接，全部alias/运行未验",
       "parent_entry": "0x54B160",
       "bytes": [
         195
@@ -67,7 +67,18 @@
           "kind": "主段相等路径pop esi后顺序落入"
         }
       ],
-      "boundary": "一字节RET由54B160的count0及主段相等路径共用；独立元数据ID保留，不将其做成空函数、不额外计业务。父函数另含54B1AD..54B20C尾块，无直接caller不证明全局不可达；本条只分类边界，不称memcmp已经实现或排除。"
+      "boundary": "一字节RET由54B160的count0及主段相等路径共用；独立元数据ID保留，不将其做成空函数、不额外计业务。父函数另含54B1AD..54B20C尾块，无直接caller不证明全局不可达；本条只分类边界，不称memcmp已经实现或排除。；MRC01当前源码归属：父完整本体已有，六W32取样表达补compiler fence；本条正常Count0/相等返回由同一父核心承接，保留原ID/几何/C3/两入向，不独立置零、不按NOP处置，不称全部alias/ABI/运行已验。",
+      "source": {
+        "path": "src/platform/LegacyMemory.cpp",
+        "symbols": [
+          "CompareLegacyMemory_54B160"
+        ],
+        "relationship": "正常Count0/相等归同一核心，不生成独立返回0体"
+      },
+      "evidence_documents": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json"
+      ]
     }
   ],
   "unassigned_ranges": [

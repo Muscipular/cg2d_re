@@ -2011,3 +2011,13 @@ F:00122B30/522B30和F:00122C50/522C50补语义/adapted处置；[合同](cg2d_pal
 对应现有LoadTextureFromBuffer32_450400的CPU32位段与520B10两个caller；原低色深授权及源码保持，不另拆同义函数或补推测producer。
 语义1242/1238有效ID、处置323/3680含113排除、E173；定位差集184→182/需核81→79，减少的是两混合入口的缺定位，不是两个新增业务完成。
 可选1020EC4源/非空第六参地址与alias、完整父/生命周期/像素/ABI及运行未闭；R1/R7/R8和软件门禁保持。
+
+
+## MRC01 比较取样与共用返回身份（2026-10-05）
+
+同一F:0014B160记录更新当前SDK取样表达，新增F:0014B1AC共享返回记录；两原库存身份分别adapted/merged。
+[原新合同](cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state)与[78条/172B证据](cg2d_memory_compare_sampling_evidence.json)绑定低两位对齐、六W32点/单一helper/标准compiler fence及原正常返回。
+新helper没有原函数ID，不新增callee caller或独立RET空体；原数量/字节次序/掩码、分母/音频暂停/原格式明文保持。
+语义1243/1239有效ID、处置326/3680、限定E175；CRT已知成员143→145，仍未全闭。
+队列182→181/普通定位181→180/需核78→77，仅消除共享RET缺源码归属；metadata_only回执1、排除103保持，不推业务完成率。
+实际生成读取/ABI、全部caller/alias、完整CRT及运行未验，R1/R7/R8和全部完整软件门禁不提升。

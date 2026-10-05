@@ -21,6 +21,7 @@ void* CopyLegacyMemory_541620(void* destination, const void* source, std::uint32
 // 原5419D0；值仅低U8参与，Count保持U32，0数量不写，返回原目标。
 void* FillLegacyMemory_5419D0(void* destination, std::int32_t value, std::uint32_t byteCount);
 // 原54B160/分离chunk与54B1AC共用返回；精确-1/0/+1，0数量不读缓冲。
+// 三阶段W32取样/失配复读经signal_fence约束编译器；实际生成指令/ABI仍待核。
 std::int32_t CompareLegacyMemory_54B160(
     const void* left, const void* right, std::uint32_t byteCount);
 

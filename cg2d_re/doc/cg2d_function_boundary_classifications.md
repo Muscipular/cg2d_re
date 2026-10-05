@@ -188,3 +188,12 @@ JSON保留每个W32目标、每段U8原字节、引用指令及对齐原字节�
 登记含确切分类指针和alignment_padding类型，汇总器对完整范围/五字节/无源映射等条件作严格核定。
 不修改原分类JSON、IDA或3680分母，不为其造空函数、附业务源码或按无xref称不可达。
 同一条队列身份独立计数；原其他边界、相邻真实入口、共享RET及未知alias/运行均不由本项收口。
+
+
+## MRC01 54B1AC共享返回的当前归属（2026-10-05）
+
+[取样与共享返回合同](cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state)与[原两身份](cg2d_memory_compare_sampling_evidence.json)保留父77条/171B及C3一条/一字节。
+54B166的Count0条件跳转与54B1AB正常相等尾的顺序落入由CompareLegacyMemory_54B160同一核心返回承接。
+本组仅更新records/3当前status/source/evidence及说明；原ID/入口/末界/C3/两个入向不改，没有独立返回0函数。
+该RET自身不写EAX，不把未知独立入向当固定0接口，不套NOP的metadata_only，不把无父直接xref当不可达证据。
+父低两位对齐和六W32取样表达已落源；共享元数据记merged，原分母保持，全部alias/实际ABI/运行仍待。

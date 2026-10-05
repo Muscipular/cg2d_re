@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "MRC01只落实比较W32源码取样约束及共享返回归属；没有新增实际caller",
+  "original_functions": [
+    {
+      "start": "0x54b160",
+      "end": "0x54b1ac",
+      "chunks": [
+        [
+          5550432,
+          5550508
+        ],
+        [
+          5550509,
+          5550604
+        ]
+      ],
+      "rows": [
+        [
+          "0x54b160",
+          "8b44240c",
+          "mov     eax, [esp+Size]"
+        ],
+        [
+          "0x54b164",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b166",
+          "7444",
+          "jz      short retnull_0"
+        ],
+        [
+          "0x54b168",
+          "8b542404",
+          "mov     edx, [esp+Buf1]"
+        ],
+        [
+          "0x54b16c",
+          "56",
+          "push    esi"
+        ],
+        [
+          "0x54b16d",
+          "57",
+          "push    edi"
+        ],
+        [
+          "0x54b16e",
+          "8bf2",
+          "mov     esi, edx"
+        ],
+        [
+          "0x54b170",
+          "8b7c2410",
+          "mov     edi, [esp+8+Buf2]"
+        ],
+        [
+          "0x54b174",
+          "0bd7",
+          "or      edx, edi"
+        ],
+        [
+          "0x54b176",
+          "83e203",
+          "and     edx, 3"
+        ],
+        [
+          "0x54b179",
+          "7432",
+          "jz      short dwords_0"
+        ],
+        [
+          "0x54b17b",
+          "a901000000",
+          "test    eax, 1"
+        ],
+        [
+          "0x54b180",
+          "740b",
+          "jz      short main_loop_4"
+        ],
+        [
+          "0x54b182",
+          "8a0e",
+          "mov     cl, [esi]"
+        ],
+        [
+          "0x54b184",
+          "3a0f",
+          "cmp     cl, [edi]"
+        ],
+        [
+          "0x54b186",
+          "7552",
+          "jnz     short not_equal"
+        ],
+        [
+          "0x54b188",
+          "46",
+          "inc     esi"
+        ],
+        [
+          "0x54b189",
+          "47",
+          "inc     edi"
+        ],
+        [
+          "0x54b18a",
+          "48",
+          "dec     eax"
+        ],
+        [
+          "0x54b18b",
+          "741d",
+          "jz      short done_0"
+        ],
+        [
+          "0x54b18d",
+          "8a0e",
+          "mov     cl, [esi]"
+        ],
+        [
+          "0x54b18f",
+          "8a17",
+          "mov     dl, [edi]"
+        ],
+        [
+          "0x54b191",
+          "38d1",
+          "cmp     cl, dl"
+        ],
+        [
+          "0x54b193",
+          "7545",
+          "jnz     short not_equal"
+        ],
+        [
+          "0x54b195",
+          "8a4e01",
+          "mov     cl, [esi+1]"
+        ],
+        [
+          "0x54b198",
+          "8a5701",
+          "mov     dl, [edi+1]"
+        ],
+        [
+          "0x54b19b",
+          "38d1",
+          "cmp     cl, dl"
+        ],
+        [
+          "0x54b19d",
+          "753b",
+          "jnz     short not_equal"
+        ],
+        [
+          "0x54b19f",
+          "83c702",
+          "add     edi, 2"
+        ],
+        [
+          "0x54b1a2",
+          "83c602",
+          "add     esi, 2"
+        ],
+        [
+          "0x54b1a5",
+          "83e802",
+          "sub     eax, 2"
+        ],
+        [
+          "0x54b1a8",
+          "75e3",
+          "jnz     short main_loop_4"
+        ],
+        [
+          "0x54b1aa",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x54b1ab",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x54b1ad",
+          "8bc8",
+          "mov     ecx, eax"
+        ],
+        [
+          "0x54b1af",
+          "83e003",
+          "and     eax, 3"
+        ],
+        [
+          "0x54b1b2",
+          "c1e902",
+          "shr     ecx, 2"
+        ],
+        [
+          "0x54b1b5",
+          "742b",
+          "jz      short tail_loop_start_1"
+        ],
+        [
+          "0x54b1b7",
+          "f3a7",
+          "repe cmpsd"
+        ],
+        [
+          "0x54b1b9",
+          "7427",
+          "jz      short tail_loop_start_1"
+        ],
+        [
+          "0x54b1bb",
+          "8b4efc",
+          "mov     ecx, [esi-4]"
+        ],
+        [
+          "0x54b1be",
+          "8b57fc",
+          "mov     edx, [edi-4]"
+        ],
+        [
+          "0x54b1c1",
+          "38d1",
+          "cmp     cl, dl"
+        ],
+        [
+          "0x54b1c3",
+          "7510",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b1c5",
+          "38f5",
+          "cmp     ch, dh"
+        ],
+        [
+          "0x54b1c7",
+          "750c",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b1c9",
+          "c1e910",
+          "shr     ecx, 10h"
+        ],
+        [
+          "0x54b1cc",
+          "c1ea10",
+          "shr     edx, 10h"
+        ],
+        [
+          "0x54b1cf",
+          "38d1",
+          "cmp     cl, dl"
+        ],
+        [
+          "0x54b1d1",
+          "7502",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b1d3",
+          "38f5",
+          "cmp     ch, dh"
+        ],
+        [
+          "0x54b1d5",
+          "b800000000",
+          "mov     eax, 0"
+        ],
+        [
+          "0x54b1da",
+          "1bc0",
+          "sbb     eax, eax"
+        ],
+        [
+          "0x54b1dc",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x54b1dd",
+          "83d8ff",
+          "sbb     eax, 0FFFFFFFFh"
+        ],
+        [
+          "0x54b1e0",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x54b1e1",
+          "c3",
+          "retn"
+        ],
+        [
+          "0x54b1e2",
+          "85c0",
+          "test    eax, eax"
+        ],
+        [
+          "0x54b1e4",
+          "74c4",
+          "jz      short done_0"
+        ],
+        [
+          "0x54b1e6",
+          "8b16",
+          "mov     edx, [esi]"
+        ],
+        [
+          "0x54b1e8",
+          "8b0f",
+          "mov     ecx, [edi]"
+        ],
+        [
+          "0x54b1ea",
+          "38ca",
+          "cmp     dl, cl"
+        ],
+        [
+          "0x54b1ec",
+          "75e7",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b1ee",
+          "48",
+          "dec     eax"
+        ],
+        [
+          "0x54b1ef",
+          "7418",
+          "jz      short tail_done"
+        ],
+        [
+          "0x54b1f1",
+          "38ee",
+          "cmp     dh, ch"
+        ],
+        [
+          "0x54b1f3",
+          "75e0",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b1f5",
+          "48",
+          "dec     eax"
+        ],
+        [
+          "0x54b1f6",
+          "7411",
+          "jz      short tail_done"
+        ],
+        [
+          "0x54b1f8",
+          "81e10000ff00",
+          "and     ecx, (offset gPlayerDataVal.Items.desc+1572Ch)"
+        ],
+        [
+          "0x54b1fe",
+          "81e20000ff00",
+          "and     edx, (offset gPlayerDataVal.Items.desc+1572Ch)"
+        ],
+        [
+          "0x54b204",
+          "3bd1",
+          "cmp     edx, ecx"
+        ],
+        [
+          "0x54b206",
+          "75cd",
+          "jnz     short difference_in_tail"
+        ],
+        [
+          "0x54b208",
+          "48",
+          "dec     eax"
+        ],
+        [
+          "0x54b209",
+          "5f",
+          "pop     edi"
+        ],
+        [
+          "0x54b20a",
+          "5e",
+          "pop     esi"
+        ],
+        [
+          "0x54b20b",
+          "c3",
+          "retn"
+        ]
+      ],
+      "incoming": []
+    },
+    {
+      "start": "0x54b1ac",
+      "end": "0x54b1ad",
+      "chunks": [
+        [
+          5550508,
+          5550509
+        ]
+      ],
+      "rows": [
+        [
+          "0x54b1ac",
+          "c3",
+          "retn"
+        ]
+      ],
+      "incoming": [
+        [
+          "0x54b1ab",
+          21,
+          true
+        ],
+        [
+          "0x54b166",
+          19,
+          true
+        ]
+      ]
+    }
+  ],
+  "source_excerpts": {
+    "source": {
+      "path": "src/platform/LegacyMemory.cpp",
+      "helper": "std::uint32_t ReadMemoryComparisonWord(const unsigned char* const source) noexcept\n{\n    std::atomic_signal_fence(std::memory_order_seq_cst);\n    std::uint32_t word;\n    std::memcpy(&word, source, sizeof(word));\n    std::atomic_signal_fence(std::memory_order_seq_cst);\n    return word;\n}\n\n",
+      "core": "std::int32_t CompareLegacyMemory_54B160(\n    const void* const leftBuffer, const void* const rightBuffer, std::uint32_t byteCount)\n{\n    if (byteCount == 0) {\n        return 0;\n    }\n    const auto* left = static_cast<const unsigned char*>(leftBuffer);\n    const auto* right = static_cast<const unsigned char*>(rightBuffer);\n    // 原54B174/54B176只比较地址低两位；不构造小缓冲范围外的对齐指针。\n    if (((reinterpret_cast<std::uintptr_t>(leftBuffer)\n            | reinterpret_cast<std::uintptr_t>(rightBuffer)) & 3u) != 0) {\n        if ((byteCount & 1u) != 0) {\n            const unsigned char leftByte = *left;\n            const unsigned char rightByte = *right;\n            if (leftByte != rightByte) {\n                return leftByte < rightByte ? -1 : 1;\n            }\n            ++left;\n            ++right;\n            --byteCount;\n        }\n        while (byteCount != 0) {\n            for (std::uint32_t index = 0; index != 2; ++index) {\n                const unsigned char leftByte = left[index];\n                const unsigned char rightByte = right[index];\n                if (leftByte != rightByte) {\n                    return leftByte < rightByte ? -1 : 1;\n                }\n            }\n            left += 2;\n            right += 2;\n            byteCount -= 2;\n        }\n        return 0;\n    }\n\n    std::uint32_t words = byteCount >> 2;\n    byteCount &= 3u;\n    while (words != 0) {\n        std::uint32_t leftWord;\n        std::uint32_t rightWord;\n        leftWord = ReadMemoryComparisonWord(left);\n        rightWord = ReadMemoryComparisonWord(right);\n        left += 4;\n        right += 4;\n        --words;\n        if (leftWord != rightWord) {\n            // 原失配块再次读取，不能改成复用第一次读取的值。\n            leftWord = ReadMemoryComparisonWord(left - 4);\n            rightWord = ReadMemoryComparisonWord(right - 4);\n            for (std::uint32_t shift = 0; shift != 24; shift += 8) {\n                const auto leftByte = static_cast<std::uint8_t>(leftWord >> shift);\n                const auto rightByte = static_cast<std::uint8_t>(rightWord >> shift);\n                if (leftByte != rightByte) {\n                    return leftByte < rightByte ? -1 : 1;\n                }\n            }\n            return (leftWord >> 24) < (rightWord >> 24) ? -1 : 1;\n        }\n    }\n    if (byteCount == 0) {\n        return 0;\n    }\n    // 原对齐尾仍读取两W32，随后只按剩余1/2/3字节比较；不改原读取合同。\n    std::uint32_t leftWord;\n    std::uint32_t rightWord;\n    leftWord = ReadMemoryComparisonWord(left);\n    rightWord = ReadMemoryComparisonWord(right);\n    const auto firstLeft = static_cast<std::uint8_t>(leftWord);\n    const auto firstRight = static_cast<std::uint8_t>(rightWord);\n    if (firstLeft != firstRight) {\n        return firstLeft < firstRight ? -1 : 1;\n    }\n    if (--byteCount == 0) {\n        return 0;\n    }\n    const auto secondLeft = static_cast<std::uint8_t>(leftWord >> 8);\n    const auto secondRight = static_cast<std::uint8_t>(rightWord >> 8);\n    if (secondLeft != secondRight) {\n        return secondLeft < secondRight ? -1 : 1;\n    }\n    if (--byteCount == 0) {\n        return 0;\n    }\n    leftWord &= 0x00FF0000u;\n    rightWord &= 0x00FF0000u;\n    if (leftWord != rightWord) {\n        return leftWord < rightWord ? -1 : 1;\n    }\n    return 0;\n}\n\n"
+    },
+    "declaration": {
+      "path": "include/cg/platform/LegacyMemory.hpp",
+      "text": "std::int32_t CompareLegacyMemory_54B160(\n    const void* left, const void* right, std::uint32_t byteCount);"
+    },
+    "sdk": {
+      "family": "MSVC",
+      "version": "14.50.35717",
+      "atomic_file": "include/atomic",
+      "atomic_start_line": 268,
+      "atomic_text": "_EXPORT_STD extern \"C\" inline void atomic_signal_fence(const memory_order _Order) noexcept {\n    if (_Order != memory_order_relaxed) {\n        _Compiler_barrier();\n    }\n}",
+      "compiler_barrier_file": "include/xatomic.h",
+      "compiler_barrier_line": 56,
+      "compiler_barrier_text": "#define _Compiler_barrier() _STL_DISABLE_DEPRECATED_WARNING _ReadWriteBarrier() _STL_RESTORE_DEPRECATED_WARNING",
+      "align_file": "include/xmemory",
+      "align_lines": [
+        2720,
+        2722,
+        2732,
+        2733
+      ],
+      "align_text": [
+        "_EXPORT_STD inline void* align(size_t _Bound, size_t _Size, void*& _Ptr, size_t& _Space) noexcept /* strengthened */ {",
+        "    size_t _Off = static_cast<size_t>(reinterpret_cast<uintptr_t>(_Ptr) & (_Bound - 1));",
+        "    _Ptr = static_cast<char*>(_Ptr) + _Off;",
+        "    _Space -= _Off;"
+      ]
+    }
+  },
+  "primary_sources": [
+    {
+      "title": "atomic_signal_fence 标准接口",
+      "url": "https://learn.microsoft.com/zh-cn/cpp/standard-library/atomic-functions?view=msvc-170#atomic_signal_fence"
+    },
+    {
+      "title": "编译器屏障消除/重排约束及弃用边界",
+      "url": "https://learn.microsoft.com/zh-cn/cpp/intrinsics/readwritebarrier?view=msvc-170"
+    }
+  ],
+  "sampling_sites": [
+    {
+      "original_site": "0x54B1B7",
+      "stage": "首次块比较",
+      "source_calls": [
+        "ReadMemoryComparisonWord(left)",
+        "ReadMemoryComparisonWord(right)"
+      ],
+      "width_bits": 32
+    },
+    {
+      "original_sites": [
+        "0x54B1BB",
+        "0x54B1BE"
+      ],
+      "stage": "失配块复读",
+      "source_calls": [
+        "ReadMemoryComparisonWord(left - 4)",
+        "ReadMemoryComparisonWord(right - 4)"
+      ],
+      "width_bits": 32
+    },
+    {
+      "original_sites": [
+        "0x54B1E6",
+        "0x54B1E8"
+      ],
+      "stage": "对齐1..3B尾取样",
+      "source_calls": [
+        "ReadMemoryComparisonWord(left)",
+        "ReadMemoryComparisonWord(right)"
+      ],
+      "width_bits": 32
+    }
+  ],
+  "counts": {
+    "original_instructions": 78,
+    "original_code_bytes": 172,
+    "parent_instructions": 77,
+    "parent_code_bytes": 171,
+    "shared_return_instructions": 1,
+    "source_word_calls": 6,
+    "helper_signal_fence_calls": 2,
+    "helper_payload_copy_calls": 1
+  },
+  "verification": {
+    "method": "限定静态",
+    "source_changed": true,
+    "original_metadata_changed": false,
+    "caller_added": false,
+    "source_sampling_constraint": "本机SDK标准signal_fence前后约束完整U32载荷复制，普通对象别名合法，原读取表达式三阶段保持",
+    "limits": "没有构建/检查产物或执行；实际生成W32指令/读次数/ABI、全部caller/alias/完整CRT及运行未验，RPLAN.24不做异常专项或故障等价",
+    "source_alignment_constraint": "原OR两地址低两位判断在uintptr_t比较边界表达，撤去std::align/space4形成的舍入指针；不保存地址整数或新增容量门槛"
+  }
+}

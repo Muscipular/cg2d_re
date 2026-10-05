@@ -34774,16 +34774,17 @@
     {
       "original_entry": "0x54B160",
       "inventory_id": "F:0014B160",
-      "status": "原分块内存比较本体及共用返回已实现；无新增已证caller，完整消费/运行未验",
+      "status": "MRC01分块比较六W32取样表达已加标准编译器屏障，共享RET归父正常返回；实际生成/全caller/alias/CRT/运行未验",
       "original_end_exclusive": "0x54B1AC",
       "instruction_count": 77,
       "sources": [
         {
           "path": "src/platform/LegacyMemory.cpp",
           "symbols": [
-            "CompareLegacyMemory_54B160"
+            "CompareLegacyMemory_54B160",
+            "ReadMemoryComparisonWord"
           ],
-          "relationship": "原未对齐U8路径/双4B对齐W32比较、失配块复读及1/2/3字节尾实际W32读与FF0000掩码，精确S32-1/0/+1"
+          "relationship": "原三阶段W32载荷读取/失配复读及尾掩码保持；六点经同一U32复制helper的前后signal_fence约束当前SDK编译器，其他正常算法不改"
         },
         {
           "path": "include/cg/platform/LegacyMemory.hpp",
@@ -34796,9 +34797,14 @@
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_function_boundary_classifications.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json"
       ],
-      "boundary": "原无直接入向；不能因未查到xref判定全局不可达或排除。Count0返回0；非零按U8首差异返回-1/+1，相等返回0。两chunk共77条，Count0及主段相等落向独立元数据54B1AC的RET；其一条另在边界分类登记，不生成假空函数。当前音频std::memcmp不作为原调用证据，音频保持暂停。；2026-10-04落位完整两chunk及共用54B1AC返回语义，未生成独立空函数/重复ID。Count0先返0；任一地址未4B对齐走奇数首字节/逐两U8；双对齐先逐W32，失配块再次左/右W32读并按低字节先判，最后字节按原CF选择-1/+1；对齐1..3尾仍先读两W32再按实际数量/FF0000判，不改成有界逐字节读取/修复越界。不引入整数地址缓存/容量保护或std::memcmp替代；没有原callee入向证明，不造音频/其他调用，音频仍暂停，运行及故障等价未验。",
+      "boundary": "原无直接入向；不能因未查到xref判定全局不可达或排除。Count0返回0；非零按U8首差异返回-1/+1，相等返回0。两chunk共77条，Count0及主段相等落向独立元数据54B1AC的RET；其一条另在边界分类登记，不生成假空函数。当前音频std::memcmp不作为原调用证据，音频保持暂停。；2026-10-04落位完整两chunk及共用54B1AC返回语义，未生成独立空函数/重复ID。Count0先返0；任一地址未4B对齐走奇数首字节/逐两U8；双对齐先逐W32，失配块再次左/右W32读并按低字节先判，最后字节按原CF选择-1/+1；对齐1..3尾仍先读两W32再按实际数量/FF0000判，不改成有界逐字节读取/修复越界。不引入整数地址缓存/容量保护或std::memcmp替代；没有原callee入向证明，不造音频/其他调用，音频仍暂停，运行及故障等价未验。；MRC01六W32取样点沿同一U32载荷复制helper，前后标准signal_fence约束当前MSVC编译器，首次/失配复读/尾三阶段左后右及原控制流不改。只修源码表达，不宣实际生成W32指令/读取次数/ABI已验；没有新caller、容量保护、有界尾读取或硬件/线程同步。共享54B1AC由本核心正常Count0/相等路径承接，不造独立空体，原两身份/分母保持。现行RPLAN.24不做异常专项或故障等价评价，覆盖记录中的旧故障等价待验表述；完整caller/alias/CRT/运行仍待。 对齐分类改为比较边界只取两地址uintptr_t的OR低两位，未缓存/截W32地址；撤去space4的std::align及新指针计算，不扩缓冲容量或加输入限制。",
       "original_chunks": [
         [
           "0x54B160",
@@ -143275,6 +143281,43 @@
           "relationship": "第七参为空选择AutoMap颜色分支"
         }
       ]
+    },
+    {
+      "original_entry": "0x54B1AC",
+      "inventory_id": "F:0014B1AC",
+      "status": "MRC01共享RET正常返回归属已并入比较父核心；全间接alias/实际ABI/运行未验",
+      "original_end_exclusive": "0x54B1AD",
+      "instruction_count": 1,
+      "original_code_bytes": 1,
+      "original_direct_reference_count": 2,
+      "parent_inventory_id": "F:0014B160",
+      "parent_entry": "0x54B160",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMemory.cpp",
+          "symbols": [
+            "CompareLegacyMemory_54B160"
+          ],
+          "relationship": "仅正常Count0及原数量减至0的相等路径返回身份，同一父核心承接，不生成独立RET函数"
+        },
+        {
+          "path": "include/cg/platform/LegacyMemory.hpp",
+          "symbols": [
+            "CompareLegacyMemory_54B160"
+          ],
+          "relationship": "只声明父核心的两借用地址/U32数量和S32返回；没有54B1AC独立接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-acceptance",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_memory_compare_sampling_evidence.json",
+        "doc/cg2d_function_boundary_classifications.json#/records/3"
+      ],
+      "boundary": "原C3一字节/一条，入向54B166(count0条件跳转)和54B1AB(正常相等数量减至0后的顺序落入)可追；两个已证父内部路径由同一核心返回0承接。RET自身没有置零动作，不能把未知独立入向当固定返回0接口。仅按当前父/共享返回关系merged归属，原库存ID/几何/字节/两入向保持；不按NOP的metadata_only处理、不造包装/空体或新caller，不称所有间接alias/原ABI/SDK/CRT/运行等价。",
+      "verification_level": "原一条/一字节、两入向与完整父77条/171B/源码正常返回限定静态；无独立空函数，实际生成/全alias/运行未验"
     }
   ]
 }

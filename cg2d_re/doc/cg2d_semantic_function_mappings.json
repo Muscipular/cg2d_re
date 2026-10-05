@@ -32554,7 +32554,7 @@
     {
       "original_entry": "0x508230",
       "inventory_id": "F:00108230",
-      "status": "现有接收队列消耗已修复复制数量U32边界；运行未验",
+      "status": "NQA01既有队列消耗恢复正常S32减法、当前adapted处置纳管；完整网络/运行未验",
       "original_end_exclusive": "0x508274",
       "instruction_count": 21,
       "sources": [
@@ -32568,14 +32568,20 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
       ],
-      "boundary": "入口活动门禁0返回-100，参数S32>=16384返回-1；先发布剩余W32长度，再按U32数量调用重叠移动，返回0。无新增负参数/超过当前长度门禁；真实帧格式与全网络收发仍待。"
+      "boundary": "入口活动门禁0返回-100，参数S32>=16384返回-1；先发布剩余W32长度，再按U32数量调用重叠移动，返回0。无新增负参数/超过当前长度门禁；两帧父源码/绑定已接，完整网络/互通仍待。 NQA01队列长度增减恢复正常S32，撤U32/bit_cast回绕；原门禁、复制数量和长度发布序保持，仅正常域限定静态，不验异常等价或完整网络/ABI/互通。",
+      "verification_level": "原21条68B完整叶/唯一直接边及源减法/发布序限定静态；实际ABI/完整网络/运行未验"
     },
     {
       "original_entry": "0x508280",
       "inventory_id": "F:00108280",
-      "status": "现有发送队列消耗已修复复制数量U32边界；运行未验",
+      "status": "NQA01既有队列消耗恢复正常S32减法、当前adapted处置纳管；完整网络/运行未验",
       "original_end_exclusive": "0x5082C4",
       "instruction_count": 21,
       "sources": [
@@ -32589,9 +32595,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
       ],
-      "boundary": "门禁和返回同508230；从原发送长度别名读取，先发布新长度再移动发送区，数量保持U32。没有建立新长度副本或改变队列布局；不称异常地址/故障时点等价。"
+      "boundary": "门禁和返回同508230；从原发送长度别名读取，先发布新长度再移动发送区，数量保持U32。没有建立新长度副本或改变队列布局；不称异常地址/故障时点等价。 NQA01队列长度增减恢复正常S32，撤U32/bit_cast回绕；原门禁、复制数量和长度发布序保持，仅正常域限定静态，不验异常等价或完整网络/ABI/互通。",
+      "verification_level": "原21条68B完整叶/唯一直接边及源减法/发布序限定静态；实际ABI/完整网络/运行未验"
     },
     {
       "original_entry": "0x53D710",
@@ -136093,9 +136105,14 @@
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_network_exclusion_wiring_spec.md",
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
       ],
-      "boundary": "同源D9F2C9与原len+size+1按W32加后S32门禁；D9F2D0标记13先于报告，S32报告>0/510140==1/S32截止<0时FC并清同源槽，否则一次RAND(20,250)。先旧尾复制，再FC8 W16/字节清和原%s格式，再重读FCE完整W32长度；仅401960旁路。低W16实际传输长写原2B头，局部正文DWORD/读len/尾byte及入队DWORD/发布len/尾byte顺序保持。再次后读FCE更新FA0四槽前缀/大包16B，最后FCC写FCE。 唯一既有owner，不变命令/编码/字段，不加密解密；原异常域沿RPLAN.24不专项模拟/保护。",
+      "boundary": "同源D9F2C9与原len+size+1按W32加后S32门禁；D9F2D0标记13先于报告，S32报告>0/510140==1/S32截止<0时FC并清同源槽，否则一次RAND(20,250)。先旧尾复制，再FC8 W16/字节清和原%s格式，再重读FCE完整W32长度；仅401960旁路。低W16实际传输长写原2B头，局部正文DWORD/读len/尾byte及入队DWORD/发布len/尾byte顺序保持。再次后读FCE更新FA0四槽前缀/大包16B，最后FCC写FCE。 唯一既有owner，不变命令/编码/字段，不加密解密；原异常域沿RPLAN.24不专项模拟/保护。 NQA01队列长度增减恢复正常S32，撤U32/bit_cast回绕；原门禁、复制数量和长度发布序保持，仅正常域限定静态，不验异常等价或完整网络/ABI/互通。",
       "instruction_count": 146,
       "function_chunks": [
         {
@@ -136109,7 +136126,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "全部原指令/精确原字节、新增完整本体、W16/W32/S32比较及共享owner/读写顺序、真实绑定/Loop调用静态对照；未构建/测试/运行"
+      "verification_level": "全部原指令/精确原字节、新增完整本体、W16/W32/S32比较及共享owner/读写顺序、真实绑定/Loop调用静态对照；未构建/测试/运行；NQA01仅发送两窗11条46B正常长度算术增量"
     },
     {
       "original_entry": "0x424620",
@@ -144385,6 +144402,48 @@
       ],
       "boundary": "未清128B/cap127字段提取弃结果，首NUL返W32-1，非空调用既有真实Atoi_53C649透传；不补默认文本/严格校验或新的代码页。 x64仅承载已证字节指针，既有正文/调用/owner保持。引用统计及选定父边不是全部306/550业务父、字段布局/间接alias/Atoi内部或原格式明文互通/ABI/链接/运行验收；原函数间隙不计本组代码或R7区间关闭。音频暂停/不构建测试运行摘要/原格式明文及RPLAN.24保持。",
       "verification_level": "四组132条/311B完整指令与原引用统计/选定父边、当前源段及同名声明限定静态；无新源码或软件门禁"
+    },
+    {
+      "original_entry": "0x5081E0",
+      "inventory_id": "F:001081E0",
+      "status": "NQA01既有接收入队恢复正常S32长度加法，补当前显式语义/适配处置；完整网络/运行未验",
+      "original_role": "原接收字节入队和长度发布",
+      "original_end_exclusive": "0x50822B",
+      "instruction_count": 27,
+      "original_code_bytes": 75,
+      "function_chunks": [
+        {
+          "start": "0x5081E0",
+          "end_exclusive": "0x50822B"
+        }
+      ],
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "AppendReceiveQueue_5081E0"
+          ],
+          "relationship": "既有完整接收入队正文，正常S32 next恢复并保持先复制后发布唯一长度"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x507F13",
+          "parent_entry": "0x507DF0",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "同源D9F2C9门禁0返回-100；读S32 D69790、正常加size后signed大于0x4000返-1，正常复制到原接收队列后发布next/返0。size原U32接口、复制数量/唯一owner保持，运算边界显式S32转换；不加负值/输入/越界保护或异常回绕。完整Loop/全部命令/共享寿命/间接alias、实际ABI/半包和明文互通未验。",
+      "verification_level": "原27条75B完整叶与唯一507F13直接边、源本组增量限定静态；不称实际ABI或运行通过"
     }
   ]
 }

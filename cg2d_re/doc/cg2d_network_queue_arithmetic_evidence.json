@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "scope": "NQA01发送两长度窗口及三个队列完整叶；80条257B正常算术/原门禁与读写序，非完整网络/ABI/运行验收",
+  "baseline_snapshot": "cg2d-re-legacy-ui-add-arithmetic-20261005",
+  "implementation_snapshot": "cg2d-re-network-queue-arithmetic-20261005",
+  "source_path": "src/network/NetworkRuntime.cpp",
+  "source_patches": [
+    {
+      "owner": "Sub_403E50",
+      "before": "    const std::int32_t checkedLength = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(sendLength) + size + 1U);",
+      "after": "    const std::int32_t checkedLength =\n        sendLength + static_cast<std::int32_t>(size) + 1;"
+    },
+    {
+      "owner": "Sub_403E50",
+      "before": "    const std::uint32_t nextLength =\n        static_cast<std::uint32_t>(sendLength) + frameLength;",
+      "after": "    const std::int32_t nextLength =\n        sendLength + static_cast<std::int32_t>(frameLength);"
+    },
+    {
+      "owner": "AppendReceiveQueue_5081E0",
+      "before": "    const std::int32_t next = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(previous) + size);",
+      "after": "    const std::int32_t next =\n        previous + static_cast<std::int32_t>(size);"
+    },
+    {
+      "owner": "ConsumeReceiveQueue_508230",
+      "before": "    const std::int32_t remaining = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(gNetworkRuntimeState.receiveLengthD69790)\n        - static_cast<std::uint32_t>(size));",
+      "after": "    const std::int32_t remaining =\n        gNetworkRuntimeState.receiveLengthD69790 - size;"
+    },
+    {
+      "owner": "ConsumeSendQueue_508280",
+      "before": "    const std::int32_t remaining = std::bit_cast<std::int32_t>(\n        static_cast<std::uint32_t>(previous) - static_cast<std::uint32_t>(size));",
+      "after": "    const std::int32_t remaining = previous - size;"
+    }
+  ],
+  "original_metadata": [
+    {
+      "entry": "0x403e50",
+      "end_exclusive": "0x40405a",
+      "instruction_count": 146,
+      "function_chunks": [
+        {
+          "start": "0x403e50",
+          "end_exclusive": "0x40405a"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x50816e",
+          "type": 1,
+          "parent_entry": "0x508140",
+          "instruction": "push    offset sub_403E50; int"
+        }
+      ]
+    },
+    {
+      "entry": "0x5081e0",
+      "end_exclusive": "0x50822b",
+      "instruction_count": 27,
+      "function_chunks": [
+        {
+          "start": "0x5081e0",
+          "end_exclusive": "0x50822b"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x507f13",
+          "type": 17,
+          "parent_entry": "0x507df0",
+          "instruction": "call    sub_5081E0"
+        }
+      ]
+    },
+    {
+      "entry": "0x508230",
+      "end_exclusive": "0x508274",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x508230",
+          "end_exclusive": "0x508274"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x403d97",
+          "type": 17,
+          "parent_entry": "0x403c50",
+          "instruction": "call    sub_508230"
+        }
+      ]
+    },
+    {
+      "entry": "0x508280",
+      "end_exclusive": "0x5082c4",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x508280",
+          "end_exclusive": "0x5082c4"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x5080fa",
+          "type": 17,
+          "parent_entry": "0x507df0",
+          "instruction": "call    sub_508280"
+        }
+      ]
+    }
+  ],
+  "original_windows": [
+    {
+      "original_entry": "0x403e50",
+      "start": "0x403e7d",
+      "end_exclusive": "0x403e99",
+      "instruction_count": 5,
+      "code_bytes": 28,
+      "instructions": [
+        {
+          "ea": "0x403e7d",
+          "size": 7,
+          "bytes": "8b9c2428c00000",
+          "instruction": "mov     ebx, [esp+0C01Ch+arg_8]"
+        },
+        {
+          "ea": "0x403e84",
+          "size": 5,
+          "bytes": "a1bcf2d900",
+          "instruction": "mov     eax, len"
+        },
+        {
+          "ea": "0x403e89",
+          "size": 4,
+          "bytes": "8d4c1801",
+          "instruction": "lea     ecx, [eax+ebx+1]"
+        },
+        {
+          "ea": "0x403e8d",
+          "size": 6,
+          "bytes": "81f900400000",
+          "instruction": "cmp     ecx, 4000h"
+        },
+        {
+          "ea": "0x403e93",
+          "size": 6,
+          "bytes": "0f8fb4010000",
+          "instruction": "jg      loc_40404D"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x403e50",
+      "start": "0x403fce",
+      "end_exclusive": "0x403fe0",
+      "instruction_count": 6,
+      "code_bytes": 18,
+      "instructions": [
+        {
+          "ea": "0x403fce",
+          "size": 2,
+          "bytes": "f3a5",
+          "instruction": "rep movsd"
+        },
+        {
+          "ea": "0x403fd0",
+          "size": 2,
+          "bytes": "8bcd",
+          "instruction": "mov     ecx, ebp"
+        },
+        {
+          "ea": "0x403fd2",
+          "size": 4,
+          "bytes": "8d440202",
+          "instruction": "lea     eax, [edx+eax+2]"
+        },
+        {
+          "ea": "0x403fd6",
+          "size": 3,
+          "bytes": "83e103",
+          "instruction": "and     ecx, 3"
+        },
+        {
+          "ea": "0x403fd9",
+          "size": 5,
+          "bytes": "a3bcf2d900",
+          "instruction": "mov     len, eax"
+        },
+        {
+          "ea": "0x403fde",
+          "size": 2,
+          "bytes": "f3a4",
+          "instruction": "rep movsb"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x5081e0",
+      "start": "0x5081e0",
+      "end_exclusive": "0x50822b",
+      "instruction_count": 27,
+      "code_bytes": 75,
+      "instructions": [
+        {
+          "ea": "0x5081e0",
+          "size": 5,
+          "bytes": "a0c9f2d900",
+          "instruction": "mov     al, byte_D9F2C9"
+        },
+        {
+          "ea": "0x5081e5",
+          "size": 2,
+          "bytes": "84c0",
+          "instruction": "test    al, al"
+        },
+        {
+          "ea": "0x5081e7",
+          "size": 2,
+          "bytes": "7506",
+          "instruction": "jnz     short loc_5081EF"
+        },
+        {
+          "ea": "0x5081e9",
+          "size": 5,
+          "bytes": "b89cffffff",
+          "instruction": "mov     eax, 0FFFFFF9Ch"
+        },
+        {
+          "ea": "0x5081ee",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x5081ef",
+          "size": 6,
+          "bytes": "8b159097d600",
+          "instruction": "mov     edx, dword_D69790"
+        },
+        {
+          "ea": "0x5081f5",
+          "size": 4,
+          "bytes": "8b4c2408",
+          "instruction": "mov     ecx, [esp+arg_4]"
+        },
+        {
+          "ea": "0x5081f9",
+          "size": 3,
+          "bytes": "8d040a",
+          "instruction": "lea     eax, [edx+ecx]"
+        },
+        {
+          "ea": "0x5081fc",
+          "size": 5,
+          "bytes": "3d00400000",
+          "instruction": "cmp     eax, 4000h"
+        },
+        {
+          "ea": "0x508201",
+          "size": 2,
+          "bytes": "7e04",
+          "instruction": "jle     short loc_508207"
+        },
+        {
+          "ea": "0x508203",
+          "size": 3,
+          "bytes": "83c8ff",
+          "instruction": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x508206",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x508207",
+          "size": 1,
+          "bytes": "56",
+          "instruction": "push    esi"
+        },
+        {
+          "ea": "0x508208",
+          "size": 4,
+          "bytes": "8b742408",
+          "instruction": "mov     esi, [esp+4+arg_0]"
+        },
+        {
+          "ea": "0x50820c",
+          "size": 1,
+          "bytes": "57",
+          "instruction": "push    edi"
+        },
+        {
+          "ea": "0x50820d",
+          "size": 6,
+          "bytes": "8dbabcb2d900",
+          "instruction": "lea     edi, word_D9B2BC[edx]"
+        },
+        {
+          "ea": "0x508213",
+          "size": 2,
+          "bytes": "8bd1",
+          "instruction": "mov     edx, ecx"
+        },
+        {
+          "ea": "0x508215",
+          "size": 3,
+          "bytes": "c1e902",
+          "instruction": "shr     ecx, 2"
+        },
+        {
+          "ea": "0x508218",
+          "size": 2,
+          "bytes": "f3a5",
+          "instruction": "rep movsd"
+        },
+        {
+          "ea": "0x50821a",
+          "size": 2,
+          "bytes": "8bca",
+          "instruction": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x50821c",
+          "size": 3,
+          "bytes": "83e103",
+          "instruction": "and     ecx, 3"
+        },
+        {
+          "ea": "0x50821f",
+          "size": 2,
+          "bytes": "f3a4",
+          "instruction": "rep movsb"
+        },
+        {
+          "ea": "0x508221",
+          "size": 5,
+          "bytes": "a39097d600",
+          "instruction": "mov     dword_D69790, eax"
+        },
+        {
+          "ea": "0x508226",
+          "size": 1,
+          "bytes": "5f",
+          "instruction": "pop     edi"
+        },
+        {
+          "ea": "0x508227",
+          "size": 2,
+          "bytes": "33c0",
+          "instruction": "xor     eax, eax"
+        },
+        {
+          "ea": "0x508229",
+          "size": 1,
+          "bytes": "5e",
+          "instruction": "pop     esi"
+        },
+        {
+          "ea": "0x50822a",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x508230",
+      "start": "0x508230",
+      "end_exclusive": "0x508274",
+      "instruction_count": 21,
+      "code_bytes": 68,
+      "instructions": [
+        {
+          "ea": "0x508230",
+          "size": 5,
+          "bytes": "a0c9f2d900",
+          "instruction": "mov     al, byte_D9F2C9"
+        },
+        {
+          "ea": "0x508235",
+          "size": 2,
+          "bytes": "84c0",
+          "instruction": "test    al, al"
+        },
+        {
+          "ea": "0x508237",
+          "size": 2,
+          "bytes": "7506",
+          "instruction": "jnz     short loc_50823F"
+        },
+        {
+          "ea": "0x508239",
+          "size": 5,
+          "bytes": "b89cffffff",
+          "instruction": "mov     eax, 0FFFFFF9Ch"
+        },
+        {
+          "ea": "0x50823e",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x50823f",
+          "size": 4,
+          "bytes": "8b442404",
+          "instruction": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x508243",
+          "size": 5,
+          "bytes": "3d00400000",
+          "instruction": "cmp     eax, 4000h"
+        },
+        {
+          "ea": "0x508248",
+          "size": 2,
+          "bytes": "7c04",
+          "instruction": "jl      short loc_50824E"
+        },
+        {
+          "ea": "0x50824a",
+          "size": 3,
+          "bytes": "83c8ff",
+          "instruction": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x50824d",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x50824e",
+          "size": 6,
+          "bytes": "8b0d9097d600",
+          "instruction": "mov     ecx, dword_D69790"
+        },
+        {
+          "ea": "0x508254",
+          "size": 2,
+          "bytes": "2bc8",
+          "instruction": "sub     ecx, eax"
+        },
+        {
+          "ea": "0x508256",
+          "size": 6,
+          "bytes": "8d80bcb2d900",
+          "instruction": "lea     eax, word_D9B2BC[eax]"
+        },
+        {
+          "ea": "0x50825c",
+          "size": 1,
+          "bytes": "51",
+          "instruction": "push    ecx; Size"
+        },
+        {
+          "ea": "0x50825d",
+          "size": 1,
+          "bytes": "50",
+          "instruction": "push    eax; Src"
+        },
+        {
+          "ea": "0x50825e",
+          "size": 5,
+          "bytes": "68bcb2d900",
+          "instruction": "push    offset word_D9B2BC; void *"
+        },
+        {
+          "ea": "0x508263",
+          "size": 6,
+          "bytes": "890d9097d600",
+          "instruction": "mov     dword_D69790, ecx"
+        },
+        {
+          "ea": "0x508269",
+          "size": 5,
+          "bytes": "e8a2540300",
+          "instruction": "call    _memcpy"
+        },
+        {
+          "ea": "0x50826e",
+          "size": 3,
+          "bytes": "83c40c",
+          "instruction": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x508271",
+          "size": 2,
+          "bytes": "33c0",
+          "instruction": "xor     eax, eax"
+        },
+        {
+          "ea": "0x508273",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x508280",
+      "start": "0x508280",
+      "end_exclusive": "0x5082c4",
+      "instruction_count": 21,
+      "code_bytes": 68,
+      "instructions": [
+        {
+          "ea": "0x508280",
+          "size": 5,
+          "bytes": "a0c9f2d900",
+          "instruction": "mov     al, byte_D9F2C9"
+        },
+        {
+          "ea": "0x508285",
+          "size": 2,
+          "bytes": "84c0",
+          "instruction": "test    al, al"
+        },
+        {
+          "ea": "0x508287",
+          "size": 2,
+          "bytes": "7506",
+          "instruction": "jnz     short loc_50828F"
+        },
+        {
+          "ea": "0x508289",
+          "size": 5,
+          "bytes": "b89cffffff",
+          "instruction": "mov     eax, 0FFFFFF9Ch"
+        },
+        {
+          "ea": "0x50828e",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x50828f",
+          "size": 4,
+          "bytes": "8b442404",
+          "instruction": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x508293",
+          "size": 5,
+          "bytes": "3d00400000",
+          "instruction": "cmp     eax, 4000h"
+        },
+        {
+          "ea": "0x508298",
+          "size": 2,
+          "bytes": "7c04",
+          "instruction": "jl      short loc_50829E"
+        },
+        {
+          "ea": "0x50829a",
+          "size": 3,
+          "bytes": "83c8ff",
+          "instruction": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x50829d",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        },
+        {
+          "ea": "0x50829e",
+          "size": 6,
+          "bytes": "8b0dbcf2d900",
+          "instruction": "mov     ecx, len"
+        },
+        {
+          "ea": "0x5082a4",
+          "size": 2,
+          "bytes": "2bc8",
+          "instruction": "sub     ecx, eax"
+        },
+        {
+          "ea": "0x5082a6",
+          "size": 6,
+          "bytes": "8d80b8f2d800",
+          "instruction": "lea     eax, buf[eax]"
+        },
+        {
+          "ea": "0x5082ac",
+          "size": 1,
+          "bytes": "51",
+          "instruction": "push    ecx; Size"
+        },
+        {
+          "ea": "0x5082ad",
+          "size": 1,
+          "bytes": "50",
+          "instruction": "push    eax; Src"
+        },
+        {
+          "ea": "0x5082ae",
+          "size": 5,
+          "bytes": "68b8f2d800",
+          "instruction": "push    offset buf; void *"
+        },
+        {
+          "ea": "0x5082b3",
+          "size": 6,
+          "bytes": "890dbcf2d900",
+          "instruction": "mov     len, ecx"
+        },
+        {
+          "ea": "0x5082b9",
+          "size": 5,
+          "bytes": "e852540300",
+          "instruction": "call    _memcpy"
+        },
+        {
+          "ea": "0x5082be",
+          "size": 3,
+          "bytes": "83c40c",
+          "instruction": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x5082c1",
+          "size": 2,
+          "bytes": "33c0",
+          "instruction": "xor     eax, eax"
+        },
+        {
+          "ea": "0x5082c3",
+          "size": 1,
+          "bytes": "c3",
+          "instruction": "retn"
+        }
+      ]
+    }
+  ],
+  "normal_original_contract": "发送JG、入队JLE、两消耗JL门禁；原长度owner/字段/复制数量及发布序保持",
+  "approved_difference": "RPLAN.24仅恢复正常S32长度算术，不专项模拟/保护数学溢出，不验异常等价",
+  "verification": "限定静态；无构建/测试/运行/摘要"
+}

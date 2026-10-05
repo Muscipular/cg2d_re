@@ -255,8 +255,8 @@ std::int32_t Sub_403E50(
         &sendLength,
         gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
         sizeof(sendLength));
-    const std::int32_t checkedLength = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(sendLength) + size + 1U);
+    const std::int32_t checkedLength =
+        sendLength + static_cast<std::int32_t>(size) + 1;
     if (checkedLength > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
     }
@@ -311,8 +311,8 @@ std::int32_t Sub_403E50(
         gNetworkRuntimeState.queueBytes.data() + sendLength,
         frame.data(),
         frameLength & ~3U);
-    const std::uint32_t nextLength =
-        static_cast<std::uint32_t>(sendLength) + frameLength;
+    const std::int32_t nextLength =
+        sendLength + static_cast<std::int32_t>(frameLength);
     std::memcpy(
         gNetworkRuntimeState.queueBytes.data() + kSendLengthOffset,
         &nextLength,
@@ -4701,8 +4701,8 @@ std::int32_t AppendReceiveQueue_5081E0(
     }
 
     const std::int32_t previous = gNetworkRuntimeState.receiveLengthD69790;
-    const std::int32_t next = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(previous) + size);
+    const std::int32_t next =
+        previous + static_cast<std::int32_t>(size);
     if (next > static_cast<std::int32_t>(kQueueCapacity)) {
         return -1;
     }
@@ -4724,9 +4724,8 @@ std::int32_t ConsumeReceiveQueue_508230(const std::int32_t size)
         return -1;
     }
 
-    const std::int32_t remaining = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(gNetworkRuntimeState.receiveLengthD69790)
-        - static_cast<std::uint32_t>(size));
+    const std::int32_t remaining =
+        gNetworkRuntimeState.receiveLengthD69790 - size;
     gNetworkRuntimeState.receiveLengthD69790 = remaining;
     std::uint8_t* const receive =
         gNetworkRuntimeState.queueBytes.data() + kReceiveQueueOffset;
@@ -4746,8 +4745,7 @@ std::int32_t ConsumeSendQueue_508280(const std::int32_t size)
     std::uint8_t* const send = gNetworkRuntimeState.queueBytes.data();
     std::int32_t previous;
     std::memcpy(&previous, send + kSendLengthOffset, sizeof(previous));
-    const std::int32_t remaining = std::bit_cast<std::int32_t>(
-        static_cast<std::uint32_t>(previous) - static_cast<std::uint32_t>(size));
+    const std::int32_t remaining = previous - size;
     std::memcpy(send + kSendLengthOffset, &remaining, sizeof(remaining));
     std::memmove(send, send + size, static_cast<std::uint32_t>(remaining));
     return 0;

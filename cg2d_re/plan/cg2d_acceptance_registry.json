@@ -660,7 +660,8 @@
         "doc/cg2d_header_single_read_spec.md",
         "doc/cg2d_protocol_copy_capacity_spec.md",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -706,7 +707,10 @@
         "F:0012CEA0",
         "F:0012CED0",
         "F:0012CF30",
-        "F:0012CFA0"
+        "F:0012CFA0",
+        "F:001081E0",
+        "F:00108230",
+        "F:00108280"
       ],
       "closure_task_ids": [
         "P09",
@@ -728,7 +732,8 @@
         "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -742,7 +747,8 @@
         "NHS01仅取包头首指针一次读取缺口已修，原22条/64B与唯一caller具名；不全量核对，不据取头关闭整分派/完整参数传递/全部回复/owner/alias、实际ABI/链接/原格式明文互通与运行",
         "NCP01仅协议复制容量回绕模拟残留已按RPLAN.24更新；两既有完整根/返回与91原直接call具名，不全面复检；原正常/失败及读写序保持，整分派/全部参数传递/回复/owner/alias、实际ABI/链接/原格式明文互通和运行仍待，不宣称异常等价",
         "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK",
-        "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待"
+        "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待",
+        "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -756,7 +762,8 @@
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -12175,6 +12182,70 @@
       "observation": "唯一源码精确增量、149调用表达式/六归属、原SHR邻窗及台账限定静态",
       "expected": "正常算术、既有参数/取样/字段/调用/页面适配保持，不专项保护或模拟数学溢出",
       "actual": "仅本组源码/限定静态；工具无独立原ID，完整父/原成员/路由/生产/owner/alias/ABI/画面/运行和异常等价未验，完整门禁不提升"
+    },
+    {
+      "id": "E-NETWORK-QUEUE-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五原窗口/叶共80条257B及四入向边；doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-queue-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_403E50",
+        "src/network/NetworkRuntime.cpp#AppendReceiveQueue_5081E0",
+        "src/network/NetworkRuntime.cpp#ConsumeReceiveQueue_508230",
+        "src/network/NetworkRuntime.cpp#ConsumeSendQueue_508280",
+        "include/cg/network/NetworkRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24仅恢复正常S32长度加减，不专项保护/模拟异常；原U32复制数量/字段及W16帧保持",
+          "decision_ref": "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "发送两处及三个队列叶正常长度算术已修；四既有入口/接线保持",
+      "expected": "原门禁/正常字段/复制数量/长度发布顺序和原格式明文保持；数学溢出不专项模拟",
+      "actual": "仅本组源码/限定静态；完整父/命令/owner/alias/寿命、ABI/SDK/半包/部分发送/实际明文互通与运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-NETWORK-QUEUE-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "五原窗口/叶共80条257B及四入向边；doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-queue-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_403E50",
+        "src/network/NetworkRuntime.cpp#AppendReceiveQueue_5081E0",
+        "src/network/NetworkRuntime.cpp#ConsumeReceiveQueue_508230",
+        "src/network/NetworkRuntime.cpp#ConsumeSendQueue_508280",
+        "include/cg/network/NetworkRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24仅恢复正常S32长度加减，不专项保护/模拟异常；原U32复制数量/字段及W16帧保持",
+          "decision_ref": "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "80条257B连续原窗/叶、signed门禁/发布序/四边和五源码块及台账限定静态",
+      "expected": "原门禁/正常字段/复制数量/长度发布顺序和原格式明文保持；数学溢出不专项模拟",
+      "actual": "仅本组源码/限定静态；完整父/命令/owner/alias/寿命、ABI/SDK/半包/部分发送/实际明文互通与运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12484,7 +12555,8 @@
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -12502,7 +12574,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -12532,7 +12605,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -12609,7 +12683,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -12754,7 +12829,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_network_plaintext_frame_spec.md#frame-source-closure",
-        "doc/cg2d_network_compatibility_spec.md"
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
       ]
     },
     {
@@ -16017,6 +16093,42 @@
         "doc/cg2d_font_width_arithmetic_evidence.json"
       ],
       "reason": "已有测宽本体按RPLAN.24恢复正常S32宽度/预算算术，撤U32回绕模拟；正常字段/字节推进/取样/原早退保持，不计异常等价或全字体验收"
+    },
+    {
+      "inventory_id": "F:001081E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00108230",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00108280",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-acceptance",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_evidence.json"
+      ]
     }
   ],
   "auxiliary_dispositions": [

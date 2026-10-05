@@ -144545,6 +144545,228 @@
       },
       "boundary": "原以0x1000步长触页/调整ESP为编译器私有帧职责，x64自动帧/检查由本机提供者承担。现有std::array数量/类型/自动寿命/两明文父源码保持，原33call只列统计/样例，不称已生成特定__chkstk/阈值/ABI/栈故障等价或完整父验证。",
       "verification_level": "两原32条86B完整帮助体及引用统计/局部提供者角色限定静态；host不代原机制等价或当前生成ABI/运行"
+    },
+    {
+      "original_entry": "0x46BD60",
+      "inventory_id": "F:0006BD60",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "主项记录生产/旧数返回",
+      "original_end_exclusive": "0x46BE50",
+      "instruction_count": 59,
+      "original_code_bytes": 240,
+      "original_direct_reference_count": 13,
+      "original_direct_call_reference_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x46bd60",
+          "end_exclusive": "0x46be50"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "Sub_46BD60"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x46BE50",
+      "inventory_id": "F:0006BE50",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "按mapNo及flag2分流的地图对象生产",
+      "original_end_exclusive": "0x46C059",
+      "instruction_count": 130,
+      "original_code_bytes": 521,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x46be50",
+          "end_exclusive": "0x46c059"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "Sub_46BE50"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x46C060",
+      "inventory_id": "F:0006C060",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "主项before/after挂件生产",
+      "original_end_exclusive": "0x46C1BA",
+      "instruction_count": 90,
+      "original_code_bytes": 346,
+      "original_direct_reference_count": 14,
+      "original_direct_call_reference_count": 14,
+      "function_chunks": [
+        {
+          "start": "0x46c060",
+          "end_exclusive": "0x46c1ba"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "DrawGearNormal_46C060"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x46DFF0",
+      "inventory_id": "F:0006DFF0",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "直接普通对象生产与描述符尾发布",
+      "original_end_exclusive": "0x46E0C1",
+      "instruction_count": 50,
+      "original_code_bytes": 209,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x46dff0",
+          "end_exclusive": "0x46e0c1"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "Sub_46DFF0"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x46C300",
+      "inventory_id": "F:0006C300",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "主项/对象遮挡比较",
+      "original_end_exclusive": "0x46C416",
+      "instruction_count": 110,
+      "original_code_bytes": 278,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x46c300",
+          "end_exclusive": "0x46c416"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "CompareMapObject_46C300"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x46C440",
+      "inventory_id": "F:0006C440",
+      "status": "MFI01既有完整实现正式纳管；正常合同限定静态，全部父/地图整体/运行未验",
+      "original_role": "主项排序比较回调",
+      "original_end_exclusive": "0x46C4C8",
+      "instruction_count": 53,
+      "original_code_bytes": 136,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 0,
+      "function_chunks": [
+        {
+          "start": "0x46c440",
+          "end_exclusive": "0x46c4c8"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "CompareMapPrimary_46C440"
+          ],
+          "relationship": "既有完整真实实现；沿原数值/分流/描述符/比较序，仅已证双链接拓宽，源码未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ],
+      "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
+      "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
     }
   ]
 }

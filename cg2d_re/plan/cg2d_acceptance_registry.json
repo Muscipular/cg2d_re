@@ -989,7 +989,8 @@
         "doc/cg2d_map_scene_drawing.md",
         "doc/cg2d_map_draw_cache.md",
         "doc/cg2d_world_objects.md",
-        "doc/cg2d_world_state_lifecycle_spec.md"
+        "doc/cg2d_world_state_lifecycle_spec.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1008,7 +1009,13 @@
         "F:00067EB0",
         "F:00067EF0",
         "F:001183D0",
-        "F:00118520"
+        "F:00118520",
+        "F:0006BD60",
+        "F:0006BE50",
+        "F:0006C060",
+        "F:0006DFF0",
+        "F:0006C300",
+        "F:0006C440"
       ],
       "closure_task_ids": [
         "U11",
@@ -1021,16 +1028,19 @@
       ],
       "acceptance_focus": "地图/对象生产、绘制、共享数据与切图清理",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用"
+        "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
+        "MFI01六已有地图生产/比较身份及正常合同正式纳管，成员23仍不完整；原六体492条/1730B及33引用身份不代完整父实参、其余排序合并/alias/全部owner与PC53机器环境/SDK/链接/画面运行，数学异常不模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline"
+        "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     },
     {
@@ -12352,6 +12362,37 @@
       "observation": "两源码片段、原六转换/计数局部邻窗、原两帮助体及台账限定静态",
       "expected": "正常原字段/取样/类型/转换与窄化、计数/发布序保持，不专项处理异常",
       "actual": "仅调色板实际源修正/限定静态；host角色不称生成ABI或全340/3/33父、全调色板/资源/浮点环境/画面/运行通过，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-RECORD-IDENTITY-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四生产/两比较原完整492条1730B及33引用身份；doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-record-identity-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json",
+        "src/world/MapDrawCache.cpp",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "沿既有52B→64B真实非拥有链接/专用排序适配；六函数实际源码不改，正式身份补齐，不以host或equivalent覆盖",
+          "decision_ref": "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "六原体与当前正常分支/描述符/计数/比较合同限定静态，历史直接位置补正式六语义及adapted处置",
+      "expected": "正常原位宽、字段/未写字节/两链、取样/分流/复制发布/比较序保持，源头身份与真实提供者可追",
+      "actual": "已有实现正式纳管，源码未改；全部33父实参/其余排序合并/alias/所有owner/PC53机器环境/SDK/ABI/链接/画面运行未验；不新增I或完整门禁，异常不模拟或称等价"
     }
   ],
   "task_acceptance": [
@@ -12716,7 +12757,8 @@
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     },
     {
@@ -12765,7 +12807,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     },
     {
@@ -12798,7 +12841,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     },
     {
@@ -12812,7 +12856,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     },
     {
@@ -12958,6 +13003,14 @@
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "G02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
       ]
     }
   ],
@@ -16351,6 +16404,90 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_compiler_helper_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006BD60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006BE50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006C060",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006DFF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006C300",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006C440",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_draw_cache.md",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-contract",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_record_identity_evidence.json"
       ]
     }
   ],

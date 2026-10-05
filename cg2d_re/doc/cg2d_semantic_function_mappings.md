@@ -2369,3 +2369,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [完整原基线](cg2d_battle_m_dispatch_sampling_evidence.json)与[当前状态](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state)补三新F/adapted；父三片段实修、两个正确依赖/私有分类helper保持。1725条6015B/41call6父/435出向与6逻辑表646B及全部382技能槽+19表外不代完整父/资源消费验收。
 
 语义1345→1348/有效ID1340→1343、adapted448→451，YOBI47→50/BATTLE44→47同三F不双计、片段5保持；E329→333仅双域四局部I/S，全部完整门禁保持。
+
+## BME01 两旧完整状态与一初始化身份（2026-10-06）
+
+[完整基线](cg2d_battle_m_event_dispatch_sampling_evidence.json)及[源码状态](cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state)追加旧814/815完整79/203条，补初始化20条一新F语义和三adapted/双域成员。三302条966B/2call1绑定3父/10出向五页不代所有父/完整生命周期，两个原绑定/查找局部记录及历史字段保持。
+
+语义1348→1349/有效ID1343→1344、adapted451→454，YOBI50→53/BATTLE47→50同三F不双计、E333→337仅四局部I/S；片段5及完整门禁保持。两根十三源片段实修，正确初始化与共享头声明保持，具名过期注释更正。

@@ -4051,3 +4051,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [三项修复](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision)恢复439B30五W32/末W16计数零写、Attack的W8计数取/增→同源条件→同计数pub、skill2002先判再两S32清零。全部消息/技能、正确439920/43BF30和私有分类helper保持；两个原模式图形字段顺序/原首位返回与FF退出不改。
 
 [三完整1725条6015B](cg2d_battle_m_dispatch_sampling_evidence.json)/41call6父/435出向、23指令页及6逻辑表646B补原身份。原25消息/382技能表槽与19表外分支及共享特效对/20*36B名称表生产可追，全部M资源消费和owner/ABI/画面运行继续。
+
+## BME01 M冲突/调度与初始化（2026-10-06）
+
+[十三片段修复](cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision)恢复两根S32索引、Check先mask后bit、场景/退出和回合取样、五W32末W16清计数、两merge先5C/A8取样与CHT/BST的lastCreated先取再A8 pub。cached/live分工、未知头/工厂失败保持；正确初始化不加ClearYobi/free，声明头仅更正具名过期工厂注释。
+
+[三完整302条966B](cg2d_battle_m_event_dispatch_sampling_evidence.json)/2普通call与1回调绑定3父/10出向五页纳管；旧814/815历史追加、一初始化身份和三分类可追。事件创建/合并/等待与32/22非拥有表生产不代全部消费和owner/ABI/画面运行。

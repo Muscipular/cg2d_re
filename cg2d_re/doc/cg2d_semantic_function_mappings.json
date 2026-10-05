@@ -97168,7 +97168,7 @@
     {
       "original_entry": "0x43B290",
       "inventory_id": "F:0003B290",
-      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验；BME01当前完整原根和两根十三源片段取样/宽度实修纳管，完整事件消费/owner运行未验",
       "original_end_exclusive": "0x43B35A",
       "instruction_count": 79,
       "original_direct_reference_count": 1,
@@ -97178,7 +97178,15 @@
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "CheckBattleMParticipants_43B290"
-          ]
+          ],
+          "relationship": "完整冲突根纳管，S32头索引/先currentMask再bit/pub恢复；同源豁免、W8逐槽冲突/先前发布与失败0不发布mask、成功及未知头原路径/返回保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "CheckBattleMParticipants_43B290"
+          ],
+          "relationship": "既有公开声明/非拥有T*和W32mask/S32输出保持，不新增布局或ABI桥"
         }
       ],
       "search_call_connections": [
@@ -97206,15 +97214,43 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
       ],
-      "verification_level": "父79条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
-      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。"
+      "verification_level": "父79条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行；BME01本根完整79条202B/实际字节和原入向；三完整302条966B/2普通call与1真实绑定3父/10出向及五页、两根十三片段/共有头具名注释精确差异有限静态。历史相邻28条仅当时局部范围保持，不重复身份，不验全部父/消费与owner/SDK/ABI/PC53/时钟RNG/画面",
+      "boundary": "本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 BME01当前完整根与相关初始化有限静态追加：完整冲突根纳管，S32头索引/先currentMask再bit/pub恢复；同源豁免、W8逐槽冲突/先前发布与失败0不发布mask、成功及未知头原路径/返回保持。 原未知头未初始化局部计数/工厂失败和var_8路径保持，不增拒绝/补零/guard/回绕或owner；历史局部记录不否定当前完整取证，完整运行未验，不宣运行故障/编译指令/异常等价。",
+      "battle_m_event_dispatch_sampling": {
+        "spec_id": "BME01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b290",
+        "original_end_exclusive": "0x43b35a",
+        "original_instruction_count": 79,
+        "original_code_bytes": 202,
+        "incoming_reference_count": 1,
+        "ordinary_call_count": 1,
+        "callback_binding_count": 0,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 3,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x43B360",
       "inventory_id": "F:0003B360",
-      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验",
+      "status": "既有战斗M头表子串查找已接真实核心；其他依赖及完整运行未验；BME01当前完整原根和两根十三源片段取样/宽度实修纳管，完整事件消费/owner运行未验",
       "original_end_exclusive": "0x43B60A",
       "instruction_count": 203,
       "original_direct_reference_count": 1,
@@ -97224,7 +97260,15 @@
           "path": "src/YobiRuntime.cpp",
           "symbols": [
             "DispatchBattleEvents_43B360"
-          ]
+          ],
+          "relationship": "完整调度回调纳管，入口sceneType/exit及先条件再busy、回合先取再三清零、五W32/末W16零写、S32头/slot/位索引、两合并5C/A8先取与CHT/BST lastCreated先取再mask pub恢复；原live/cached分工、工厂失败/各发布和返回保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "DispatchBattleEvents_43B360"
+          ],
+          "relationship": "既有公开声明/非拥有T*和W32mask/S32输出保持，不新增布局或ABI桥"
         }
       ],
       "search_call_connections": [
@@ -97252,10 +97296,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
-        "doc/ui_windows/shared_battle.md"
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
       ],
-      "verification_level": "父203条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行",
-      "boundary": "原4383C7向对象+8写函数地址，既有分派回调绑定保持，非直接call。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。",
+      "verification_level": "父203条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行；BME01本根完整203条682B/实际字节和原入向；三完整302条966B/2普通call与1真实绑定3父/10出向及五页、两根十三片段/共有头具名注释精确差异有限静态。历史相邻28条仅当时局部范围保持，不重复身份，不验全部父/消费与owner/SDK/ABI/PC53/时钟RNG/画面",
+      "boundary": "原4383C7向对象+8写函数地址，既有分派回调绑定保持，非直接call。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 BME01当前完整根与相关初始化有限静态追加：完整调度回调纳管，入口sceneType/exit及先条件再busy、回合先取再三清零、五W32/末W16零写、S32头/slot/位索引、两合并5C/A8先取与CHT/BST lastCreated先取再mask pub恢复；原live/cached分工、工厂失败/各发布和返回保持。 原未知头未初始化局部计数/工厂失败和var_8路径保持，不增拒绝/补零/guard/回绕或owner；历史局部记录不否定当前完整取证，完整运行未验，不宣运行故障/编译指令/异常等价。",
       "callback_address_evidence": [
         {
           "reference_site": "0x4383C7",
@@ -97264,7 +97313,30 @@
           "destination": "dword ptr [eax+8]",
           "relationship": "原向对象+8写函数地址，data xref；当前同一callback赋值保持，不增加直接call"
         }
-      ]
+      ],
+      "battle_m_event_dispatch_sampling": {
+        "spec_id": "BME01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b360",
+        "original_end_exclusive": "0x43b60a",
+        "original_instruction_count": 203,
+        "original_code_bytes": 682,
+        "incoming_reference_count": 1,
+        "ordinary_call_count": 0,
+        "callback_binding_count": 1,
+        "instruction_page_count": 3,
+        "outgoing_call_count": 5,
+        "source_body_changed": true,
+        "source_patch_count": 11,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x43BAA0",
@@ -151129,6 +151201,61 @@
         "incoming_parent_count": 5,
         "instruction_page_count": 1,
         "outgoing_call_count": 14,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4383f0",
+      "inventory_id": "F:000383F0",
+      "status": "BME01正确既有初始化完整原基线/缺失身份纳管，正文保持，完整owner运行未验",
+      "original_end_exclusive": "0x438442",
+      "instruction_count": 20,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitializeBattleScene_4383F0"
+          ],
+          "relationship": "正确既有初始化完整基线/缺失身份纳管，工厂结果含null先pub、32/22非拥有T*清表/六W32零写→496570保持；不新增ClearYobi/释放，不据引用验43CBB0完整owner。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitializeBattleScene_4383F0"
+          ],
+          "relationship": "三既有公开声明/非拥有T*及W32mask/S32输出保持，不新增公共布局或ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
+      ],
+      "verification_level": "BME01完整20条82B/两原出向、实际43CC60普通call和三完整302条966B五页与两根十三片段有限静态；初始化正确正文保持，不验43CBB0或全部owner/SDK/ABI/PC53/时钟RNG/画面",
+      "boundary": "正确既有初始化完整基线/缺失身份纳管，工厂结果含null先pub、32/22非拥有T*清表/六W32零写→496570保持；不新增ClearYobi/释放，不据引用验43CBB0完整owner。 不增保护/补零/回绕/钳制/资源owner，原格式明文和音频暂停，全部运行门禁保持。",
+      "battle_m_event_dispatch_sampling": {
+        "spec_id": "BME01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_event_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x4383f0",
+        "original_end_exclusive": "0x438442",
+        "original_instruction_count": 20,
+        "original_code_bytes": 82,
+        "incoming_reference_count": 1,
+        "ordinary_call_count": 1,
+        "callback_binding_count": 0,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 2,
         "source_body_changed": false,
         "source_patch_count": 0,
         "full_original_body_reviewed": true,

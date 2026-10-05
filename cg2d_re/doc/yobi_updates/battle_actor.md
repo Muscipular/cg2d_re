@@ -97,3 +97,9 @@
 [原生产合同](../cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision)恢复入口flag0后五W32/末W16清计数、同源门禁在W8计数pub前、2002门禁在S32对清零前。父保所有分派/字段数量与源flag输出；5A8A40对和20条36B名称表沿原首空/首同名/全无匹配规则，共享实际数组不改。
 
 [三完整字节与调用](../cg2d_battle_m_dispatch_sampling_evidence.json)1725条6015B/41call6父/435出向、6逻辑表646B及全技能分类可追。两个攻击/辅助读取正确根保持，原RID19与试读20整数差异保留，不据完整生产根宣全部消费/owner/画面运行通过。
+
+## BME01 M事件合并与状态发布（2026-10-06）
+
+[裁决](../cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision)恢复两merge先取5C/A8再pub5C/同mask，CHT14/BST20先取lastCreated再A8 pub；入口sceneType/exit、回合在三零写前取样、共享22计数五W32末W16与S32索引保持。Check先mask再bit，new事件先bit再live activeMask，两处不抹平。
+
+[三完整302条966B](../cg2d_battle_m_event_dispatch_sampling_evidence.json)/2call1绑定3父/10出向与实际工厂/初始化消费纳管，失败/未知头/非拥有表和正确初始化保持；不把完整根外推全部资源消费、owner重进退出/浅别名/借用失效或画面运行。

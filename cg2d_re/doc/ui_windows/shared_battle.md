@@ -8213,3 +8213,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前基线](../cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state)纳管439B30/439920/43BF30三完整根及25消息、17布局/Mode98条件链；父三片段原零写/条件发布修复，两个正确依赖保持。私有分类helper不造原身份，原内联字符串比较/复制不伪称StrCmp/StrCpy原call；共享SceneState数组及现有消费者保持。
 
 [1725条6015B](../cg2d_battle_m_dispatch_sampling_evidence.json)/41call6父/435出向与23页；5压缩表分别按实际W8索引和W32目标取回，382技能槽+19表外与源逐项一致。旧完整合同不代当前源码增量或6父/所有M消费/owner运行验收，U08/U09及完整门禁open。
+
+## BME01 预扫描冲突到事件调度（2026-10-06）
+
+[当前合同](../cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state)补43B360→43B290→439B30完整链、4383B0原回调绑定及正确4383F0初始化。两根十三片段取样/宽度和原零写落码、正确依赖保持；冲突前写/输出保持而失败不pubmask，工厂失败lastCreated置null/前事件保留/组界末计数、未知头未初始化原计数路径不改。
+
+[三完整字节/引用](../cg2d_battle_m_event_dispatch_sampling_evidence.json)302条966B/2call1绑定3父/10出向可追，绑定不记直接call；旧814/815历史保留、初始化仅补身份。U08/U09和完整门禁open，所有3父/消息消费及owner运行继续。

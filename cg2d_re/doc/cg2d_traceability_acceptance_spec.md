@@ -506,3 +506,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance)要求三完整1725条6015B/41call6父/435出向与23页、6逻辑表646B及407输入槽/382技能槽+19表外当前分类、父三片段精确差异/两个正确依赖和共享表/公开头保持，数据生产/原消费次数可追。
 
 三新F/adapted双域共用局部I/S/七任务及所有完整门禁保持open；源码零写/条件序不证明运行故障/编译后指令或异常等价，全部6父/M资源消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BME01 M冲突/事件/初始化局部I/S（2026-10-06）
+
+[验收标准](cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-acceptance)要求三完整302条966B/五页/2普通call与1绑定3父/10出向、十三片段精确差异和真实合并/冲突/工厂失败/初始化合同；正确依赖/初始化/公共头及共享声明头仅具名注释差异保持。
+
+旧814/815仅追加、一新F及三adapted双域共用局部I/S/七任务和完整门禁保持open；未知头原计数不补零/加拒绝，不宣异常或编译指令/运行故障等价，完整所有事件/资源消费及owner/SDK/ABI/PC53/时钟RNG/画面继续。

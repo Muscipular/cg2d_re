@@ -13715,12 +13715,12 @@ std::int32_t CheckBattleMParticipants_43B290(
     if (GetBattleMPreviewHeader_439700(header.data()) == 1) {
         return 1;
     }
-    std::size_t kind = 0;
-    while (kind < kBattleMHeaders553E94.size()
+    std::int32_t kind = 0;
+    while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
         && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
         ++kind;
     }
-    if (kind < kBattleMHeaders553E94.size()) {
+    if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
         ScanBattleMParticipants_439B30(static_cast<std::int32_t>(kind), participants.data(), source, flag);
         for (std::int32_t index = 0; index < 22; ++index) {
             const std::uint8_t count = participants[index];
@@ -13737,7 +13737,9 @@ std::int32_t CheckBattleMParticipants_43B290(
     // 原未知头路径不初始化局部计数；不补零或新增拒绝分支。
     for (std::int32_t index = 0; index < 22; ++index) {
         if (participants[index] != 0) {
-            *mask |= 1u << index;
+            const std::uint32_t currentMask = *mask;
+            const std::uint32_t bit = 1u << index;
+            *mask = currentMask | bit;
         }
     }
     return 1;
@@ -13748,8 +13750,9 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     using namespace world::detail;
     std::int32_t source = -1;
     std::int32_t previousSource = -1;
+    const std::int32_t sceneType = world::gCurrentSceneType;
     const std::uint32_t exitRequested = gValue5ABB20;
-    if (!(world::gCurrentSceneType == 10
+    if (!(sceneType == 10
             && static_cast<std::uint32_t>(world::gCurrentSceneState) > 5U)
         && exitRequested != 1) {
         return;
@@ -13760,32 +13763,43 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     } else if (gValue5ABB1C != 0) {
         return;
     }
+    const bool exiting = exitRequested == 1;
     gValue5ABB1C = 1;
-    if (exitRequested == 1) {
+    if (exiting) {
         world::gCurrentSceneState = 7;
         return;
     }
     if (gValue5ABB28 == 1) {
         if (activeEvents == 0 && CheckBattleTurnReady_4394A0(scene, 1) != 0) {
+            const std::uint32_t turn = gBattleTurnSnapshot5ABC08;
             gValue5ABB28 = 0;
             gValue5ABB1C = 0;
             gBattlePendingGroupCount5ABB24 = 0;
-            ++gBattleTurnSnapshot5ABC08;
+            gBattleTurnSnapshot5ABC08 = turn + 1U;
             world::gCurrentSceneState = 2;
         }
         return;
     }
 
-    std::size_t slot = 0;
-    while (slot < gBattleEventActions5ABA9C.size()
+    std::int32_t slot = 0;
+    while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())
         && gBattleEventActions5ABA9C[slot] != nullptr) {
         ++slot;
     }
-    gBattlePreviewParticipants5AAA48.fill(0);
+    // 原43B446..43B464按五W32和末W16清共享参与计数。
+    const std::uint32_t zero32 = 0;
+    const std::uint16_t zero16 = 0;
+    std::memcpy(gBattlePreviewParticipants5AAA48.data(), &zero32, sizeof(zero32));
+    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 4, &zero32, sizeof(zero32));
+    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 8, &zero32, sizeof(zero32));
+    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 12, &zero32, sizeof(zero32));
+    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 16, &zero32, sizeof(zero32));
+    std::memcpy(gBattlePreviewParticipants5AAA48.data() + 20, &zero16, sizeof(zero16));
     for (YobiAction* const event : gBattleEventActions5ABA9C) {
         if (event != nullptr) {
             const auto* const payload = static_cast<const BattleScenePayload*>(event->payload);
-            for (std::size_t position = 0; position < gBattlePreviewParticipants5AAA48.size(); ++position) {
+            for (std::int32_t position = 0;
+                 position < static_cast<std::int32_t>(gBattlePreviewParticipants5AAA48.size()); ++position) {
                 if ((payload->entryMaskA8 & (1U << position)) != 0) {
                     ++gBattlePreviewParticipants5AAA48[position];
                 }
@@ -13797,7 +13811,7 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
     // 原var_8仅由工厂写入；previousEvent首次非空前必经一次成功创建。
     YobiAction* lastCreated;
     std::int32_t groupBoundary;
-    while (slot < gBattleEventActions5ABA9C.size()) {
+    while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())) {
         const std::int32_t priorSource = previousSource;
         std::uint32_t participants = 0;
         if (CheckBattleMParticipants_43B290(
@@ -13811,32 +13825,38 @@ void DispatchBattleEvents_43B360(YobiAction* const scene)
         }
         if (previousEvent != nullptr && priorSource == source) {
             auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
-            ++payload->remainingMessages5C;
-            payload->entryMaskA8 |= participants;
+            const std::int32_t messages = payload->remainingMessages5C;
+            const std::uint32_t eventMask = payload->entryMaskA8;
+            payload->remainingMessages5C = messages + 1;
+            payload->entryMaskA8 = eventMask | participants;
             gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
         } else {
-            std::size_t kind = 0;
-            while (kind < kBattleMHeaders553E94.size()
+            std::int32_t kind = 0;
+            while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
                 && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
                 ++kind;
             }
-            if (kind < kBattleMHeaders553E94.size()) {
+            if (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())) {
                 if (previousEvent != nullptr
-                    && (kind == static_cast<std::size_t>(BattleMDataHeader::Chat)
-                        || kind == static_cast<std::size_t>(BattleMStatusHeader::QueuedValue))) {
+                    && (kind == static_cast<std::int32_t>(BattleMDataHeader::Chat)
+                        || kind == static_cast<std::int32_t>(BattleMStatusHeader::QueuedValue))) {
                     auto* const payload = static_cast<BattleScenePayload*>(previousEvent->payload);
-                    ++payload->remainingMessages5C;
-                    payload->entryMaskA8 |= participants;
+                    const std::int32_t messages = payload->remainingMessages5C;
+                    const std::uint32_t eventMask = payload->entryMaskA8;
+                    payload->remainingMessages5C = messages + 1;
+                    const std::uint32_t combinedMask = eventMask | participants;
+                    YobiAction* const mergedEvent = lastCreated;
+                    payload->entryMaskA8 = combinedMask;
                     gBattleMScanOffset5A8A3C = gBattleMPreviewOffset5AAA60;
                     previousSource = source;
-                    previousEvent = lastCreated;
+                    previousEvent = mergedEvent;
                 } else {
                     lastCreated = NewBattleEvent_43B610(
                         static_cast<std::int32_t>(kind), static_cast<std::int32_t>(slot),
                         participants, gBattlePendingGroupCount5ABB24);
                     if (lastCreated != nullptr) {
                         gBattleActiveEventMask5AAA74 |= 1U << slot;
-                        while (slot < gBattleEventActions5ABA9C.size()
+                        while (slot < static_cast<std::int32_t>(gBattleEventActions5ABA9C.size())
                             && gBattleEventActions5ABA9C[slot] != nullptr) {
                             ++slot;
                         }

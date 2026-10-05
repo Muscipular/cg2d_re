@@ -626,3 +626,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-acceptance)：五范围363条1280B九页35call直接目标闭合、两主体与不同参数尾都核；四条18B比较/BMO八W32正常零与202B仅上下文。整CPP单根五处/target-effect-aux-S32选择/player原序，真实6/3与无空门禁、原flags条件重读/动作-金额/图值跨目标及同caster终结Move-RID-增58有限静态；其它根头和正确尾helper保持，BMX尾18条67B非新增。E413→417仅YOBI/BATTLE四局部I/S。
 
 旧812有界追加，七open/60项已闭10/R7与完整门禁保持。状态目标/17-默认及完整98-其它技能-全路由/完整父-SEH/所有消费者-owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，不降低标准。
+
+## BNA01 技能98原区段指令闭合与局部门禁（2026-10-06）
+
+[验收标准](cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance)：本步306条1163B八页31call/直接目标及最后比较默认EB0A，整CPP两根11处/17 fixed flags与状态caster先pub-S32选择/字段和原动态mode、正确wrapper/默认/全部其它根头保持有限静态。五既有证据与HEAD一致、本步与原捕获一致，原98区段1833条7116B/170call按EA去重连续且重叠字节一致；既有26条97B非新增。E417→421仅YOBI/BATTLE四局部I/S。
+
+区段覆盖不代完整父-SEH/SDK/ABI-所有消费者与资源owner/PC53/时钟RNG/画面运行，七open/60项已闭10/R7及所有完整分类-成员-门禁保持；其它技能真实缺口与R1/R7/R8/整体继续，不降低标准。

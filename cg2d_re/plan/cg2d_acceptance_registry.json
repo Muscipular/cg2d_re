@@ -1699,7 +1699,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-baseline",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-baseline",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-baseline",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1801,7 +1802,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1839,7 +1841,8 @@
         "BMW01技能98 mode6及两个实际尾98条405B三页12call/26条114B原比较链入口纳管，单根四处实修；其它mode/完整98、所有actor owner-ABI-画面未闭",
         "BMX01技能98 mode7/8两主体和三个尾341条1410B七页23call/两个原比较五条22B入口纳管，两根18处实修；BMW既有尾22条82B保持非新增，其它mode/完整98及所有actor owner-ABI-画面未闭",
         "BMY01技能98 mode12/13/14三主体与两尾681条2625B十二页72call/六条27B选择比较纳管，三根32处实修，BMW既有尾19条73B非新增；状态目标/15-16/17-默认及完整98和所有actor owner-ABI-画面未闭",
-        "BMZ01技能98 mode15/16两原主体与三真实尾363条1280B九页35call纳管，单共用根五处实修；BMX尾18条67B非新增，状态目标/17-默认及完整98和所有actor owner-ABI-画面未闭"
+        "BMZ01技能98 mode15/16两原主体与三真实尾363条1280B九页35call纳管，单共用根五处实修；BMX尾18条67B非新增，状态目标/17-默认及完整98和所有actor owner-ABI-画面未闭",
+        "BNA01 mode17/状态目标两根11处及正确默认纳管，原98区段1833条7116B170call由具名子SPEC无缺口合并，仅有界指令/源码关系；完整父-SEH/其它技能-全路由及所有actor owner-ABI-画面未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1879,7 +1882,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -1927,7 +1931,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-baseline",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-baseline",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-baseline",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2030,7 +2035,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2068,7 +2074,8 @@
         "BMW01目标比较先pub/同位置空门禁-解析target效果及两字段actor先值恢复，255/空Finish均仍终结-Move-RID-增58，五动作live保持；仅旧812及四局部I/S，不新完整成员，其它模式/完整父-SEH/消费者-owner运行继续",
         "BMX01换位固定oldSlot/moving与八坐标/三附件各次取样、mode8 flagsFDC W8及Reset固定target恢复；原非对称门禁/槽发布与255或空Finish后的终结Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
         "BMY01两类中点/效果参数-S32选择/字段-player和0-149条件取样、14双位置金额类型恢复；12/13初始失败直接回存-循环selected终结74、14无空门禁且双哨兵caster终结和Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
-        "BMZ01两路径核后保持6/3共用，目标比较pub-effect/aux参数-S32选择/player同位置恢复；无actor空门禁及flags条件重读/47-46和不同哨兵参数尾-Move-RID增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续"
+        "BMZ01两路径核后保持6/3共用，目标比较pub-effect/aux参数-S32选择/player同位置恢复；无actor空门禁及flags条件重读/47-46和不同哨兵参数尾-Move-RID增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+        "BNA01 flags caster先pub/固定值与live-S32选择/状态字段恢复，原19模式入口和动态mode/默认正确消费纳管；仅旧812/四局部I-S及原98区段覆盖，不新完整成员/分类，所有消费者-owner/SDK/ABI/时钟RNG/画面运行继续"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2106,7 +2113,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -20833,6 +20841,174 @@
       "observation": "363条1280B九页35call五范围直接目标闭合，两路径完整分别核后支持共用根；四条18B比较只入口、正常零与BMX既有尾18条67B非新增，整CPP五处/两真实调用有限静态",
       "expected": "两路径target255比较先pub、effects/aux原序-S32图选择及34后player同位置；既有6/3调用/图值跨目标和flags门禁、不同哨兵参数尾同施法者终结保持",
       "actual": "仅15/16两条主体/三尾和五组局部I/S，状态目标/17-默认未纳管，不据共用根或现代switch验完整98，既有尾非新增。旧812追加不新F/X/adapted/分类/完整成员，所有其它技能-全路由-17298父-SEH/SDK/ABI-全部消费者/资源owner/PC53/时钟RNG/画面待，完整门禁保持，不宣编译指令或异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-SKILL98-MODE17-STATUS-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNA01两主体三尾306条1163B八页31call/最后比较与默认，原98区段1833条7116B170call由五既有证据加本步无缺口合并；doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-skill98-mode17-status-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98Mode17",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98StatusTargets",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98",
+        "src/YobiRuntime.cpp#CompleteBattleMSkill98Targets",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/YobiRuntime.cpp#ResetBattleCastList_4391E0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根11处恢复17 Take返回flags/S32选择和aux固定flags后Effect live参数，状态Take flags-caster先pub/固定参数及字段原序；正确wrapper/默认仅纳管",
+          "decision_ref": "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "11处落码，17 aux先Effect与无空门禁/业务firstImage正常零，状态动态mode-0..5/9/10/11/18原动作/80000条件和Finish尾、默认只有Move-RID-增58保持；正确wrapper/其它根不改",
+      "expected": "17目标和Take固定flags条件/aux参数-S32选择与aux后live普通效果，状态caster先flags pub/固定参数及各字段actor先值；原动态mode和默认-尾保持",
+      "actual": "仅两根11组局部I/S、正确wrapper/默认和原98区段指令覆盖闭合，不代完整427470父17298/SEH-全部消费者/SDK-ABI/owner/PC53/时钟RNG/画面。旧812追加不新F/X/adapted/分类/完整成员，其它技能/全路由继续，全部完整门禁保持，不宣编译指令或异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-SKILL98-MODE17-STATUS-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNA01两主体三尾306条1163B八页31call/最后比较与默认，原98区段1833条7116B170call由五既有证据加本步无缺口合并；doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-skill98-mode17-status-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98Mode17",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98StatusTargets",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98",
+        "src/YobiRuntime.cpp#CompleteBattleMSkill98Targets",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/YobiRuntime.cpp#ResetBattleCastList_4391E0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根11处恢复17 Take返回flags/S32选择和aux固定flags后Effect live参数，状态Take flags-caster先pub/固定参数及字段原序；正确wrapper/默认仅纳管",
+          "decision_ref": "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "306条1163B八页31call五范围直接目标闭合，最后17比较/默认EB0A与19原模式入口；五既有证据按EA合并1833条7116B170call完整原98区段，编译/SDK/owner运行未验",
+      "expected": "17目标和Take固定flags条件/aux参数-S32选择与aux后live普通效果，状态caster先flags pub/固定参数及各字段actor先值；原动态mode和默认-尾保持",
+      "actual": "仅两根11组局部I/S、正确wrapper/默认和原98区段指令覆盖闭合，不代完整427470父17298/SEH-全部消费者/SDK-ABI/owner/PC53/时钟RNG/画面。旧812追加不新F/X/adapted/分类/完整成员，其它技能/全路由继续，全部完整门禁保持，不宣编译指令或异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-SKILL98-MODE17-STATUS-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNA01两主体三尾306条1163B八页31call/最后比较与默认，原98区段1833条7116B170call由五既有证据加本步无缺口合并；doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-skill98-mode17-status-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98Mode17",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98StatusTargets",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98",
+        "src/YobiRuntime.cpp#CompleteBattleMSkill98Targets",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/YobiRuntime.cpp#ResetBattleCastList_4391E0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根11处恢复17 Take返回flags/S32选择和aux固定flags后Effect live参数，状态Take flags-caster先pub/固定参数及字段原序；正确wrapper/默认仅纳管",
+          "decision_ref": "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "11处落码，17 aux先Effect与无空门禁/业务firstImage正常零，状态动态mode-0..5/9/10/11/18原动作/80000条件和Finish尾、默认只有Move-RID-增58保持；正确wrapper/其它根不改",
+      "expected": "17目标和Take固定flags条件/aux参数-S32选择与aux后live普通效果，状态caster先flags pub/固定参数及各字段actor先值；原动态mode和默认-尾保持",
+      "actual": "仅两根11组局部I/S、正确wrapper/默认和原98区段指令覆盖闭合，不代完整427470父17298/SEH-全部消费者/SDK-ABI/owner/PC53/时钟RNG/画面。旧812追加不新F/X/adapted/分类/完整成员，其它技能/全路由继续，全部完整门禁保持，不宣编译指令或异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-SKILL98-MODE17-STATUS-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNA01两主体三尾306条1163B八页31call/最后比较与默认，原98区段1833条7116B170call由五既有证据加本步无缺口合并；doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-skill98-mode17-status-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-acceptance",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98Mode17",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98StatusTargets",
+        "src/YobiRuntime.cpp#ProcessBattleMSkill98",
+        "src/YobiRuntime.cpp#CompleteBattleMSkill98Targets",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleAuxEffects_43BC10",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/YobiRuntime.cpp#ResetBattleCastList_4391E0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#ParseBattleMRide_4239D0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根11处恢复17 Take返回flags/S32选择和aux固定flags后Effect live参数，状态Take flags-caster先pub/固定参数及字段原序；正确wrapper/默认仅纳管",
+          "decision_ref": "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "306条1163B八页31call五范围直接目标闭合，最后17比较/默认EB0A与19原模式入口；五既有证据按EA合并1833条7116B170call完整原98区段，编译/SDK/owner运行未验",
+      "expected": "17目标和Take固定flags条件/aux参数-S32选择与aux后live普通效果，状态caster先flags pub/固定参数及各字段actor先值；原动态mode和默认-尾保持",
+      "actual": "仅两根11组局部I/S、正确wrapper/默认和原98区段指令覆盖闭合，不代完整427470父17298/SEH-全部消费者/SDK-ABI/owner/PC53/时钟RNG/画面。旧812追加不新F/X/adapted/分类/完整成员，其它技能/全路由继续，全部完整门禁保持，不宣编译指令或异常等价"
     }
   ],
   "task_acceptance": [
@@ -21037,7 +21213,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21318,7 +21495,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21486,7 +21664,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21560,7 +21739,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21605,7 +21785,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21805,7 +21986,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     },
     {
@@ -21846,7 +22028,8 @@
         "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
         "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
-        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state"
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state"
       ]
     }
   ],

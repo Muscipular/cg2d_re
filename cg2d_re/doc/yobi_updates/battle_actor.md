@@ -217,3 +217,9 @@
 [五组裁决](../cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision)恢复target比较pub、两次效果参数原序、两个S32选择计数与player同位置；首次效果和后续aux分别live caster/actor，不跨调用缓存，图号两值/三数组仅正常零一次跨目标。两路径6/3和111011/金额字段各次live、原flags W32到EAX/AL-AH与条件重读及47/46保持，不新owner/空保护。
 
 [两主体和三个实际尾](../cg2d_battle_m_skill98_mode15_16_sampling_evidence.json)363条1280B九页35call；BMX尾18条67B非新增，所有actor owner重进退出借用失效、状态目标/17-默认/SDK/ABI/画面继续。
+
+## BNA01 固定flags、发布与字段各次借用（2026-10-06）
+
+[11组裁决](../cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision)恢复17 Take返回flags先pub/仅aux后重读、aux graphics-caster-fixed flags-target-actor，再普通Effect live参数；状态Take flags后先caster再pub，首次效果沿固定resultFlags/后live目标和actor，各基础/0..5重写字段target-actor-live值-payload。状态mode字段仍live、不替本次分支快照，原10同side/11 Reset-Phase0-F32 8.0与金额5、18基础消费保持，不新owner/空保护。
+
+[完整有界两个主体及尾](../cg2d_battle_m_skill98_mode17_status_sampling_evidence.json)306条1163B八页31call，既有26条97B非新增；原98连续指令合并1833条7116B不代所有actor owner重进退出/借用失效与SDK/ABI/画面运行。

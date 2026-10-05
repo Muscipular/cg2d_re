@@ -2489,3 +2489,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [单共用根五处](cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state)对应五范围363条1280B九页35call，追加ProcessBattleMSkill98DamageTargets；两条原主体分别证实后保留真实6/3调用，16不同哨兵参数尾完整追到caster终结。四条18B比较/正常初始化和202B仅入口上下文，BMX既有尾18条67B非新增，不新F/X/adapted/分类/完整成员，历史/其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456和关联1463保持；状态目标/17-默认及其它技能-全路由-完整父-SEH/所有消费者-owner运行继续。
+
+## BNA01 旧812最后模式与正确wrapper纳管（2026-10-06）
+
+[两根11处与默认](cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state)对应306条1163B八页31call，追加ProcessBattleMSkill98Mode17/StatusTargets实修及正确ProcessBattleMSkill98 wrapper仅纳管。最后比较默认EB0A、状态10种初始模式与动态mode证实；原98区段由五既有具名子SPEC和本步按EA去重合并1833条7116B/170call无缺口，无字节冲突。不新F/X/adapted/分类/完整成员，保持历史时点与其它字段。
+
+只闭合原98区段指令来源和有界关系；语义1350/有效ID1345、片段5/分类456及关联1463保持，完整父17298-SEH/其它技能-全路由/所有消费者-owner/SDK/ABI/画面运行仍待。

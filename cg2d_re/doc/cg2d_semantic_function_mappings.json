@@ -138674,9 +138674,11 @@
             "Sub_44A410",
             "DrawBasicCaret",
             "DrawImeCaret",
-            "AdvanceCaretPhase"
+            "AdvanceCaretPhase",
+            "AddW32",
+            "SubW32"
           ],
-          "relationship": "真实入口两原门禁/IME分派、恒调用测宽与前后取样、原字节入队和本次相位计算值比较；撤销额外probe/拒绝"
+          "relationship": "真实入口两原门禁/IME分派、恒调用测宽与前后取样、原字节入队和本次相位计算值比较；撤销额外probe/拒绝；ICM01两匿名算术工具及相位恢复正常S32，取样/真实窄化/调用表达式不变"
         },
         {
           "path": "src/world/WorldUpdateDependencies.hpp",
@@ -138706,9 +138708,14 @@
         "doc/cg2d_input_caret_alignment_spec.md",
         "doc/cg2d_input_caret_alignment_evidence.json",
         "doc/cg2d_font_measure.md",
-        "doc/cg2d_text_encoding_spec.md"
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-acceptance",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_caret_arithmetic_evidence.json"
       ],
-      "boundary": "原[44A410,44A535)完整83条；原入口空对象/626AA0且C9A96C=0早退不推进。signed相位>=20才IME查询/绘制，组合空走基础、首属性非0只跳绘制；组合路径始终真实44B2E0，测宽前颜色/完整字体/模式低U8/Y和测宽后当前字体/X样本保持。删除三辅助空对象/两直接字体拒绝与父正游标/字体判断及组合预扫描，不在发布后重读相位比较。A2 78 00静态借用、S16坐标/S8参数/原X公式及value7=0/返回弃不改。相位尾重读一次/计算/比较/发布新值、>=40才0；RPLAN.24异常域不模拟或记安全/故障等价，三父/完整输入和SDK/运行未验。",
+      "boundary": "原[44A410,44A535)完整83条；原入口空对象/626AA0且C9A96C=0早退不推进。signed相位>=20才IME查询/绘制，组合空走基础、首属性非0只跳绘制；组合路径始终真实44B2E0，测宽前颜色/完整字体/模式低U8/Y和测宽后当前字体/X样本保持。删除三辅助空对象/两直接字体拒绝与父正游标/字体判断及组合预扫描，不在发布后重读相位比较。A2 78 00静态借用、S16坐标/S8参数/原X公式及value7=0/返回弃不改。相位尾重读一次/计算/比较/发布新值、>=40才0；RPLAN.24异常域不模拟或记安全/故障等价，三父/完整输入和SDK/运行未验。 ICM01仅两匿名坐标加减/相位递增恢复正常S32，撤U32/bit_cast回绕承载；两减一加表达式、/2向零、低S16/S8/模式W8窄化和前后取样/本次值比较/先发布新值再条件0保持。完整83条293B保存仅坐标/相位限定静态，不重验全部原语义、三完整父/16实参/字体排队/焦点/IME/alias/全部owner寿命/实际PC53/ABI/SDK/画面运行，数学异常不专项保护或模拟/称等价。",
       "instruction_count": 83,
       "function_chunks": [
         {

@@ -23,18 +23,14 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::int32_t SubW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        - std::bit_cast<std::uint32_t>(right));
+    return left - right;
 }
 
 std::int16_t LowS16(const std::int32_t value) noexcept
@@ -118,9 +114,7 @@ void DrawImeCaret()
 
 void AdvanceCaretPhase()
 {
-    const std::uint32_t phaseBits = std::bit_cast<std::uint32_t>(
-        input::gValue626C0C);
-    const std::int32_t nextPhase = std::bit_cast<std::int32_t>(phaseBits + 1U);
+    const std::int32_t nextPhase = input::gValue626C0C + 1;
     const bool resetPhase = nextPhase >= 40;
     input::gValue626C0C = nextPhase;
     if (resetPhase) {

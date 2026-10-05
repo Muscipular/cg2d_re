@@ -2120,3 +2120,10 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [已有F:0004A7D0](cg2d_input_terminal_length_spec.md#input-terminal-length-source-state)在同一语义记录及原equivalent处置追加本步依据；不新增原身份、成员或处置类别。终行正常S32长度+1替换U32+1U/bit_cast，原独立扫描、unsigned预算与剩余正文保持。
 
 完整137条441B及唯一4596FC七条邻窗作为原基线，本步仅终行/局部接口和源三行精确差异限定静态，不重新证明全部137条语义或完整分派、焦点/IME/alias/寿命、机器PC53/SDK/画面运行，异常不模拟或称等价。
+
+
+## ICM01 光标正常S32算术与原身份（2026-10-05）
+
+[既有F:0004A410](cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state)在同一语义/原equivalent处置追加本步依据，源码来源补AddW32/SubW32两个匿名工具，不给它们制造独立原ID。83条293B和16引用身份保存，仅坐标/相位及精确三块增量限定静态。
+
+正常S32两减一加和相位+1、原真实窄化/前后取样/调用/发布序保持；全部原体语义、三完整父/16实参、焦点/IME/alias/所有owner与机器PC53/SDK/画面运行未验，数学异常不专项保护或模拟/称等价。

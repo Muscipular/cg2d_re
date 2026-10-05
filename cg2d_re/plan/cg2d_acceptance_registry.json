@@ -829,7 +829,8 @@
         "doc/cg2d_input_edit_alignment_spec.md",
         "doc/cg2d_input_append_alignment_spec.md",
         "doc/cg2d_input_text_alignment_spec.md",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -862,7 +863,8 @@
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
         "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -873,7 +875,8 @@
         "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价",
         "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
         "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价",
-        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟"
+        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟",
+        "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -885,7 +888,8 @@
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
         "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -909,7 +913,8 @@
         "doc/cg2d_font_lifecycle_alignment_spec.md",
         "doc/cg2d_multibyte_string_spec.md",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -956,7 +961,8 @@
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
         "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -969,7 +975,8 @@
         "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "FWA01两测宽入口已撤专项U32回绕并恢复正常S32算术/原计数与读取顺序；完整147/6父、字体/字形/owner/间接alias、生成ABI/画面/运行及整体文本仍待，不据原代码或局部静态称异常等价",
-        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟"
+        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟",
+        "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -983,7 +990,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -12463,6 +12471,74 @@
       "observation": "137条441B原体保存，终行含NUL槽/早退、唯一父邻窗及源精确增量/台账限定静态",
       "expected": "终行独立扫描和S32含NUL数量、原槽写/早退/光标及当前字段/owner保持，异常不专项处理或模拟",
       "actual": "只计本次源码及限定静态，不验全部137条语义/完整分派/焦点/IME/alias/所有owner寿命/机器PC53/ABI/SDK/链接/画面运行；完整输入/文本门禁不提升，原数学异常不称等价或安全"
+    },
+    {
+      "id": "E-INPUT-CARET-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "光标83条293B完整原体/16引用保存，仅坐标相位限定静态；doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-caret-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-acceptance",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_caret_arithmetic_evidence.json",
+        "src/InputCaret.cpp#AddW32",
+        "src/InputCaret.cpp#SubW32",
+        "src/InputCaret.cpp#AdvanceCaretPhase",
+        "src/InputCaret.cpp#Sub_44A410",
+        "include/cg/Input.hpp",
+        "include/cg/render/Font.hpp",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24正常S32坐标加减/相位递增，撤U32/bit_cast回绕承载；原窄化、取样、/2向零/真实调用和发布序保持",
+          "decision_ref": "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "坐标两工具/相位三块源码已恢复正常S32，其他正文保持",
+      "expected": "S32坐标/相位及原低W16/W8、共享取样、真实callee/顺序保持，异常不专项保护或模拟",
+      "actual": "仅本次源码/坐标相位限定静态，不重验全部原体语义/三完整父/16实参/字体排队/焦点/IME/alias/所有owner寿命/机器PC53/ABI/SDK/链接/像素画面运行；完整输入/文本门禁不提升，数学异常不称安全或故障等价"
+    },
+    {
+      "id": "E-INPUT-CARET-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "光标83条293B完整原体/16引用保存，仅坐标相位限定静态；doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-caret-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-acceptance",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_caret_arithmetic_evidence.json",
+        "src/InputCaret.cpp#AddW32",
+        "src/InputCaret.cpp#SubW32",
+        "src/InputCaret.cpp#AdvanceCaretPhase",
+        "src/InputCaret.cpp#Sub_44A410",
+        "include/cg/Input.hpp",
+        "include/cg/render/Font.hpp",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24正常S32坐标加减/相位递增，撤U32/bit_cast回绕承载；原窄化、取样、/2向零/真实调用和发布序保持",
+          "decision_ref": "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "83条293B原体/16引用保存，坐标相位局部点、源三块精确增量/台账限定静态",
+      "expected": "S32坐标/相位及原低W16/W8、共享取样、真实callee/顺序保持，异常不专项保护或模拟",
+      "actual": "仅本次源码/坐标相位限定静态，不重验全部原体语义/三完整父/16实参/字体排队/焦点/IME/alias/所有owner寿命/机器PC53/ABI/SDK/链接/像素画面运行；完整输入/文本门禁不提升，数学异常不称安全或故障等价"
     }
   ],
   "task_acceptance": [
@@ -12716,7 +12792,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -12736,7 +12813,8 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -12915,7 +12993,8 @@
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -12931,7 +13010,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state"
       ]
     },
     {
@@ -13876,7 +13956,12 @@
       "disposition": "equivalent",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure"
+        "doc/cg2d_input_caret_alignment_spec.md#input-caret-source-closure",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-acceptance",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_caret_arithmetic_evidence.json"
       ]
     },
     {

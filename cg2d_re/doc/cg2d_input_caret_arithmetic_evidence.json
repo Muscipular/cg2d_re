@@ -1,0 +1,654 @@
+{
+  "schema_version": 1,
+  "scope": "ICM01光标坐标两匿名工具及相位正常S32；原体保存，仅坐标/相位与接口限定静态",
+  "baseline_snapshot": "cg2d-re-input-terminal-length-20261005",
+  "implementation_snapshot": "cg2d-re-input-caret-arithmetic-20261005",
+  "original_function": {
+    "entry": "0x44a410",
+    "actual_start": "0x44a410",
+    "end_exclusive": "0x44a535",
+    "chunks": [
+      {
+        "start": "0x44a410",
+        "end_exclusive": "0x44a535"
+      }
+    ],
+    "instructions": [
+      {
+        "ea": "0x44a410",
+        "size": 5,
+        "bytes": "a1046c6200",
+        "text": "mov     eax, gCurrentInputData"
+      },
+      {
+        "ea": "0x44a415",
+        "size": 2,
+        "bytes": "85c0",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": "0x44a417",
+        "size": 6,
+        "bytes": "0f8417010000",
+        "text": "jz      locret_44A534"
+      },
+      {
+        "ea": "0x44a41d",
+        "size": 5,
+        "bytes": "3da06a6200",
+        "text": "cmp     eax, offset stru_626AA0"
+      },
+      {
+        "ea": "0x44a422",
+        "size": 2,
+        "bytes": "750d",
+        "text": "jnz     short loc_44A431"
+      },
+      {
+        "ea": "0x44a424",
+        "size": 5,
+        "bytes": "a16ca9c900",
+        "text": "mov     eax, dword_C9A96C"
+      },
+      {
+        "ea": "0x44a429",
+        "size": 2,
+        "bytes": "85c0",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": "0x44a42b",
+        "size": 6,
+        "bytes": "0f8403010000",
+        "text": "jz      locret_44A534"
+      },
+      {
+        "ea": "0x44a431",
+        "size": 7,
+        "bytes": "833d0c6c620014",
+        "text": "cmp     dword_626C0C, 14h"
+      },
+      {
+        "ea": "0x44a438",
+        "size": 6,
+        "bytes": "0f8cdc000000",
+        "text": "jl      loc_44A51A"
+      },
+      {
+        "ea": "0x44a43e",
+        "size": 5,
+        "bytes": "e84dec0000",
+        "text": "call    sub_459090"
+      },
+      {
+        "ea": "0x44a443",
+        "size": 2,
+        "bytes": "85c0",
+        "text": "test    eax, eax"
+      },
+      {
+        "ea": "0x44a445",
+        "size": 2,
+        "bytes": "7550",
+        "text": "jnz     short loc_44A497"
+      },
+      {
+        "ea": "0x44a447",
+        "size": 6,
+        "bytes": "8b0d046c6200",
+        "text": "mov     ecx, gCurrentInputData"
+      },
+      {
+        "ea": "0x44a44d",
+        "size": 2,
+        "bytes": "6a00",
+        "text": "push    0"
+      },
+      {
+        "ea": "0x44a44f",
+        "size": 5,
+        "bytes": "6824495500",
+        "text": "push    offset asc_554924; \"│\""
+      },
+      {
+        "ea": "0x44a454",
+        "size": 6,
+        "bytes": "8b9140010000",
+        "text": "mov     edx, [ecx+140h]"
+      },
+      {
+        "ea": "0x44a45a",
+        "size": 6,
+        "bytes": "8b813c010000",
+        "text": "mov     eax, [ecx+13Ch]"
+      },
+      {
+        "ea": "0x44a460",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a461",
+        "size": 6,
+        "bytes": "8a9138010000",
+        "text": "mov     dl, [ecx+138h]"
+      },
+      {
+        "ea": "0x44a467",
+        "size": 1,
+        "bytes": "50",
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x44a468",
+        "size": 2,
+        "bytes": "fec2",
+        "text": "inc     dl"
+      },
+      {
+        "ea": "0x44a46a",
+        "size": 3,
+        "bytes": "8d0440",
+        "text": "lea     eax, [eax+eax*2]"
+      },
+      {
+        "ea": "0x44a46d",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a46e",
+        "size": 6,
+        "bytes": "8b9124010000",
+        "text": "mov     edx, [ecx+124h]"
+      },
+      {
+        "ea": "0x44a474",
+        "size": 6,
+        "bytes": "8b8920010000",
+        "text": "mov     ecx, [ecx+120h]"
+      },
+      {
+        "ea": "0x44a47a",
+        "size": 7,
+        "bytes": "8b04c5748f5500",
+        "text": "mov     eax, gFontList.doubleWidth[eax*8]"
+      },
+      {
+        "ea": "0x44a481",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a482",
+        "size": 1,
+        "bytes": "99",
+        "text": "cdq"
+      },
+      {
+        "ea": "0x44a483",
+        "size": 2,
+        "bytes": "2bc2",
+        "text": "sub     eax, edx"
+      },
+      {
+        "ea": "0x44a485",
+        "size": 2,
+        "bytes": "d1f8",
+        "text": "sar     eax, 1"
+      },
+      {
+        "ea": "0x44a487",
+        "size": 2,
+        "bytes": "2bc8",
+        "text": "sub     ecx, eax"
+      },
+      {
+        "ea": "0x44a489",
+        "size": 1,
+        "bytes": "51",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x44a48a",
+        "size": 5,
+        "bytes": "e8e1c10000",
+        "text": "call    Renderer__DrawText2"
+      },
+      {
+        "ea": "0x44a48f",
+        "size": 3,
+        "bytes": "83c41c",
+        "text": "add     esp, 1Ch"
+      },
+      {
+        "ea": "0x44a492",
+        "size": 5,
+        "bytes": "e983000000",
+        "text": "jmp     loc_44A51A"
+      },
+      {
+        "ea": "0x44a497",
+        "size": 5,
+        "bytes": "a0e0ed7300",
+        "text": "mov     al, gImeInputStr"
+      },
+      {
+        "ea": "0x44a49c",
+        "size": 2,
+        "bytes": "84c0",
+        "text": "test    al, al"
+      },
+      {
+        "ea": "0x44a49e",
+        "size": 2,
+        "bytes": "74a7",
+        "text": "jz      short loc_44A447"
+      },
+      {
+        "ea": "0x44a4a0",
+        "size": 5,
+        "bytes": "a0e0ee7300",
+        "text": "mov     al, byte_73EEE0"
+      },
+      {
+        "ea": "0x44a4a5",
+        "size": 2,
+        "bytes": "84c0",
+        "text": "test    al, al"
+      },
+      {
+        "ea": "0x44a4a7",
+        "size": 2,
+        "bytes": "7571",
+        "text": "jnz     short loc_44A51A"
+      },
+      {
+        "ea": "0x44a4a9",
+        "size": 5,
+        "bytes": "a1046c6200",
+        "text": "mov     eax, gCurrentInputData"
+      },
+      {
+        "ea": "0x44a4ae",
+        "size": 1,
+        "bytes": "56",
+        "text": "push    esi"
+      },
+      {
+        "ea": "0x44a4af",
+        "size": 2,
+        "bytes": "6a00",
+        "text": "push    0"
+      },
+      {
+        "ea": "0x44a4b1",
+        "size": 5,
+        "bytes": "6824495500",
+        "text": "push    offset asc_554924; \"│\""
+      },
+      {
+        "ea": "0x44a4b6",
+        "size": 6,
+        "bytes": "8b9040010000",
+        "text": "mov     edx, [eax+140h]"
+      },
+      {
+        "ea": "0x44a4bc",
+        "size": 6,
+        "bytes": "8b883c010000",
+        "text": "mov     ecx, [eax+13Ch]"
+      },
+      {
+        "ea": "0x44a4c2",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a4c3",
+        "size": 6,
+        "bytes": "8a9038010000",
+        "text": "mov     dl, [eax+138h]"
+      },
+      {
+        "ea": "0x44a4c9",
+        "size": 6,
+        "bytes": "8b8024010000",
+        "text": "mov     eax, [eax+124h]"
+      },
+      {
+        "ea": "0x44a4cf",
+        "size": 2,
+        "bytes": "fec2",
+        "text": "inc     dl"
+      },
+      {
+        "ea": "0x44a4d1",
+        "size": 1,
+        "bytes": "51",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x44a4d2",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a4d3",
+        "size": 6,
+        "bytes": "8b15e0ef7300",
+        "text": "mov     edx, gTmpTextLength"
+      },
+      {
+        "ea": "0x44a4d9",
+        "size": 1,
+        "bytes": "50",
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x44a4da",
+        "size": 1,
+        "bytes": "52",
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x44a4db",
+        "size": 1,
+        "bytes": "51",
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x44a4dc",
+        "size": 5,
+        "bytes": "68e0ed7300",
+        "text": "push    offset gImeInputStr"
+      },
+      {
+        "ea": "0x44a4e1",
+        "size": 5,
+        "bytes": "e8fa0d0000",
+        "text": "call    Font__measure"
+      },
+      {
+        "ea": "0x44a4e6",
+        "size": 6,
+        "bytes": "8b0d046c6200",
+        "text": "mov     ecx, gCurrentInputData"
+      },
+      {
+        "ea": "0x44a4ec",
+        "size": 2,
+        "bytes": "8bf0",
+        "text": "mov     esi, eax"
+      },
+      {
+        "ea": "0x44a4ee",
+        "size": 3,
+        "bytes": "83c40c",
+        "text": "add     esp, 0Ch"
+      },
+      {
+        "ea": "0x44a4f1",
+        "size": 6,
+        "bytes": "8b813c010000",
+        "text": "mov     eax, [ecx+13Ch]"
+      },
+      {
+        "ea": "0x44a4f7",
+        "size": 6,
+        "bytes": "8b8920010000",
+        "text": "mov     ecx, [ecx+120h]"
+      },
+      {
+        "ea": "0x44a4fd",
+        "size": 3,
+        "bytes": "8d0440",
+        "text": "lea     eax, [eax+eax*2]"
+      },
+      {
+        "ea": "0x44a500",
+        "size": 7,
+        "bytes": "8b04c5748f5500",
+        "text": "mov     eax, gFontList.doubleWidth[eax*8]"
+      },
+      {
+        "ea": "0x44a507",
+        "size": 1,
+        "bytes": "99",
+        "text": "cdq"
+      },
+      {
+        "ea": "0x44a508",
+        "size": 2,
+        "bytes": "2bc2",
+        "text": "sub     eax, edx"
+      },
+      {
+        "ea": "0x44a50a",
+        "size": 2,
+        "bytes": "d1f8",
+        "text": "sar     eax, 1"
+      },
+      {
+        "ea": "0x44a50c",
+        "size": 2,
+        "bytes": "2bc8",
+        "text": "sub     ecx, eax"
+      },
+      {
+        "ea": "0x44a50e",
+        "size": 2,
+        "bytes": "03f1",
+        "text": "add     esi, ecx"
+      },
+      {
+        "ea": "0x44a510",
+        "size": 1,
+        "bytes": "56",
+        "text": "push    esi"
+      },
+      {
+        "ea": "0x44a511",
+        "size": 5,
+        "bytes": "e85ac10000",
+        "text": "call    Renderer__DrawText2"
+      },
+      {
+        "ea": "0x44a516",
+        "size": 3,
+        "bytes": "83c41c",
+        "text": "add     esp, 1Ch"
+      },
+      {
+        "ea": "0x44a519",
+        "size": 1,
+        "bytes": "5e",
+        "text": "pop     esi"
+      },
+      {
+        "ea": "0x44a51a",
+        "size": 5,
+        "bytes": "a10c6c6200",
+        "text": "mov     eax, dword_626C0C"
+      },
+      {
+        "ea": "0x44a51f",
+        "size": 1,
+        "bytes": "40",
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x44a520",
+        "size": 3,
+        "bytes": "83f828",
+        "text": "cmp     eax, 28h ; '('"
+      },
+      {
+        "ea": "0x44a523",
+        "size": 5,
+        "bytes": "a30c6c6200",
+        "text": "mov     dword_626C0C, eax"
+      },
+      {
+        "ea": "0x44a528",
+        "size": 2,
+        "bytes": "7c0a",
+        "text": "jl      short locret_44A534"
+      },
+      {
+        "ea": "0x44a52a",
+        "size": 10,
+        "bytes": "c7050c6c620000000000",
+        "text": "mov     dword_626C0C, 0"
+      },
+      {
+        "ea": "0x44a534",
+        "size": 1,
+        "bytes": "c3",
+        "text": "retn"
+      }
+    ],
+    "references": [
+      {
+        "site": "0x43cde6",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43ce23",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43ce46",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43cfdb",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43d046",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43d10a",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43d1d9",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x43d3f4",
+        "type": 17,
+        "parent_entry": "0x43cbb0"
+      },
+      {
+        "site": "0x51c4bc",
+        "type": 17,
+        "parent_entry": "0x51c430"
+      },
+      {
+        "site": "0x51c519",
+        "type": 17,
+        "parent_entry": "0x51c430"
+      },
+      {
+        "site": "0x51c552",
+        "type": 17,
+        "parent_entry": "0x51c430"
+      },
+      {
+        "site": "0x51cde4",
+        "type": 17,
+        "parent_entry": "0x51c7d0"
+      },
+      {
+        "site": "0x51d1a0",
+        "type": 17,
+        "parent_entry": "0x51c7d0"
+      },
+      {
+        "site": "0x51d20f",
+        "type": 17,
+        "parent_entry": "0x51c7d0"
+      },
+      {
+        "site": "0x51d296",
+        "type": 17,
+        "parent_entry": "0x51c7d0"
+      },
+      {
+        "site": "0x51d43b",
+        "type": 17,
+        "parent_entry": "0x51c7d0"
+      }
+    ]
+  },
+  "counts": {
+    "instructions": 83,
+    "code_bytes": 293,
+    "direct_references": 16,
+    "parents": {
+      "0x43cbb0": 8,
+      "0x51c430": 3,
+      "0x51c7d0": 5
+    }
+  },
+  "source_patches": [
+    {
+      "owner": "AddW32",
+      "before": "    return std::bit_cast<std::int32_t>(\n        std::bit_cast<std::uint32_t>(left)\n        + std::bit_cast<std::uint32_t>(right));",
+      "after": "    return left + right;"
+    },
+    {
+      "owner": "SubW32",
+      "before": "    return std::bit_cast<std::int32_t>(\n        std::bit_cast<std::uint32_t>(left)\n        - std::bit_cast<std::uint32_t>(right));",
+      "after": "    return left - right;"
+    },
+    {
+      "owner": "AdvanceCaretPhase",
+      "before": "    const std::uint32_t phaseBits = std::bit_cast<std::uint32_t>(\n        input::gValue626C0C);\n    const std::int32_t nextPhase = std::bit_cast<std::int32_t>(phaseBits + 1U);",
+      "after": "    const std::int32_t nextPhase = input::gValue626C0C + 1;"
+    }
+  ],
+  "source_path": "src/InputCaret.cpp",
+  "identity": "F:0004A410",
+  "changed_source_symbols": [
+    "AddW32",
+    "SubW32",
+    "AdvanceCaretPhase"
+  ],
+  "retained_source_symbols": [
+    "Sub_44A410",
+    "DrawBasicCaret",
+    "DrawImeCaret",
+    "LowS16",
+    "LowS8",
+    "IncrementModeW8"
+  ],
+  "retained_contract": {
+    "numeric_width": "S32",
+    "half_width": "S32 /2向零",
+    "coordinate_narrowing": "低S16",
+    "mode_narrowing": "inc DL低W8后S8",
+    "font_color_narrowing": "低S8",
+    "phase_sample": "44A51A当前槽独立一次",
+    "phase_compare": "本次计算S32值>=40",
+    "phase_publish_order": "先新值、满足才0，无写回后重取",
+    "new_guard": false,
+    "new_owner": false
+  },
+  "verification": "完整83条基线保存，限定坐标/相位及源三块精确差异；不重新验全部原语义/三完整父/字体排队/焦点/IME/alias/所有owner寿命/实际ABI/SDK/像素画面运行，数学异常不保护或模拟/称等价"
+}

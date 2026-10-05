@@ -828,7 +828,8 @@
         "doc/cg2d_input_render_alignment_spec.md",
         "doc/cg2d_input_edit_alignment_spec.md",
         "doc/cg2d_input_append_alignment_spec.md",
-        "doc/cg2d_input_text_alignment_spec.md"
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -860,7 +861,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-decision",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-decision",
         "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -870,7 +872,8 @@
         "RIN01仅4590E0完整父/21直接caller和共享阶段局部静态；未知说明坐标writer、候选分配/间接alias、三父/焦点/寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "IED01七编辑/边界521条仅局部静态；AppendChar/其他编辑、完整分派/间接别名、焦点/输入寿命及SDK/显示运行仍未验，RPLAN.24异常不计安全/故障等价",
         "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
-        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -881,7 +884,8 @@
         "doc/cg2d_input_render_alignment_spec.md#input-render-baseline",
         "doc/cg2d_input_edit_alignment_spec.md#input-edit-baseline",
         "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -904,7 +908,8 @@
         "doc/cg2d_text_queue_alignment_spec.md",
         "doc/cg2d_font_lifecycle_alignment_spec.md",
         "doc/cg2d_multibyte_string_spec.md",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -950,7 +955,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
         "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -962,7 +968,8 @@
         "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
-        "FWA01两测宽入口已撤专项U32回绕并恢复正常S32算术/原计数与读取顺序；完整147/6父、字体/字形/owner/间接alias、生成ABI/画面/运行及整体文本仍待，不据原代码或局部静态称异常等价"
+        "FWA01两测宽入口已撤专项U32回绕并恢复正常S32算术/原计数与读取顺序；完整147/6父、字体/字形/owner/间接alias、生成ABI/画面/运行及整体文本仍待，不据原代码或局部静态称异常等价",
+        "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -975,7 +982,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -12393,6 +12401,68 @@
       "observation": "六原体与当前正常分支/描述符/计数/比较合同限定静态，历史直接位置补正式六语义及adapted处置",
       "expected": "正常原位宽、字段/未写字节/两链、取样/分流/复制发布/比较序保持，源头身份与真实提供者可追",
       "actual": "已有实现正式纳管，源码未改；全部33父实参/其余排序合并/alias/所有owner/PC53机器环境/SDK/ABI/链接/画面运行未验；不新增I或完整门禁，异常不模拟或称等价"
+    },
+    {
+      "id": "E-INPUT-TERMINAL-LENGTH-I-20261005",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "下移光标原137条441B保存，仅终行/唯一4596FC调用邻窗限定静态；doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-terminal-length-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-acceptance",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_terminal_length_evidence.json",
+        "src/Input.cpp#Sub_44A7D0",
+        "include/cg/Input.hpp",
+        "src/InputKeyDispatch.cpp",
+        "src/InputKeyDispatchDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24终行正常S32长度+1含NUL，撤U32+bit_cast回绕模拟；原字段、独立取样/unsigned预算/末槽写后早退与光标序保持",
+          "decision_ref": "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "终行三行片段已改为正常S32长度加1，其他正文保持",
+      "expected": "终行独立扫描和S32含NUL数量、原槽写/早退/光标及当前字段/owner保持，异常不专项处理或模拟",
+      "actual": "只计本次源码及限定静态，不验全部137条语义/完整分派/焦点/IME/alias/所有owner寿命/机器PC53/ABI/SDK/链接/画面运行；完整输入/文本门禁不提升，原数学异常不称等价或安全"
+    },
+    {
+      "id": "E-INPUT-TERMINAL-LENGTH-S-20261005",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "下移光标原137条441B保存，仅终行/唯一4596FC调用邻窗限定静态；doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-terminal-length-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-acceptance",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_terminal_length_evidence.json",
+        "src/Input.cpp#Sub_44A7D0",
+        "include/cg/Input.hpp",
+        "src/InputKeyDispatch.cpp",
+        "src/InputKeyDispatchDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24终行正常S32长度+1含NUL，撤U32+bit_cast回绕模拟；原字段、独立取样/unsigned预算/末槽写后早退与光标序保持",
+          "decision_ref": "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "137条441B原体保存，终行含NUL槽/早退、唯一父邻窗及源精确增量/台账限定静态",
+      "expected": "终行独立扫描和S32含NUL数量、原槽写/早退/光标及当前字段/owner保持，异常不专项处理或模拟",
+      "actual": "只计本次源码及限定静态，不验全部137条语义/完整分派/焦点/IME/alias/所有owner寿命/机器PC53/ABI/SDK/链接/画面运行；完整输入/文本门禁不提升，原数学异常不称等价或安全"
     }
   ],
   "task_acceptance": [
@@ -12645,7 +12715,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -12664,7 +12735,8 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -12842,7 +12914,8 @@
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -12857,7 +12930,8 @@
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state"
       ]
     },
     {
@@ -13826,7 +13900,12 @@
       "disposition": "equivalent",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure"
+        "doc/cg2d_input_edit_alignment_spec.md#input-edit-source-closure",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-acceptance",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_terminal_length_evidence.json"
       ]
     },
     {

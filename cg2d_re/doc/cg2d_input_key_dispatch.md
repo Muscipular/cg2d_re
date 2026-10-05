@@ -312,3 +312,10 @@ C9A930并返回S32的两倍，不引入字体度量或钳制。实际父入口�
 [IED01](cg2d_input_edit_alignment_spec.md#input-edit-source-closure)核六编辑叶及44B1D0共521条，当前本体/原门禁与六分派点已经落实；早期“只声明/其余未完成”沿各日期后续成果解读，不作为当前缺体结论。上下行宽在strlen前保存，低U32余长度与保存预算比较/分类；下移在目标/列确定后独立扫描终行含NUL长度，不能复用前次值。
 
 两288项S32行表/两288B尾串/分类copied五局部预清撤销，原实际写与复制填充/NUL保持。退格负caret钳0后44AA6C才重取result，左右两叶仍绑定原对象caret字段地址，不迁移到当前全局目标。单caller/521条只支撑本组局部I/W/S，完整分派、AppendChar/焦点/共享寿命、SDK和运行尚未验；音频继续暂停，RPLAN.24异常不记安全/故障等价。
+
+
+## ICL01 下移叶终行长度更新（2026-10-05）
+
+[44A7D0当前源码](cg2d_input_terminal_length_spec.md#input-terminal-length-source-state)只撤终行U32加法/bit_cast回绕承载，保正常S32 strlen长度+1计入NUL；独立扫描和末槽写后早退不改。唯一4596FC调用、公开/私有签名、原0x10键位和相位/门禁不变；只保存七条邻窗，不重验完整4596D0或恢复暂停音频。
+
+原终行44A923 repne scasb、44A92A not ecx、44A92E写槽、44A932 signed比较及原字段仍可追。全输入分派/焦点/IME、其他编辑/所有owner/alias/机器环境/SDK/显示运行仍待，数学异常不专项处理或模拟。

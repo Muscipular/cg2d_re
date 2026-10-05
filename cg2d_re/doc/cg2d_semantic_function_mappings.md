@@ -2113,3 +2113,10 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [六项来源与原合同](cg2d_map_record_identity_spec.md#map-record-identity-source-state)覆盖46BD60、46BE50、46C060、46DFF0、46C300、46C440；均指向已有MapDrawCache真实实现，历史直接位置保留，源与头不改。六完整原体492条1730B及33引用身份登记；adapted仅沿既有52B→64B非拥有链接及数值/专用原算法承载，不称host或原机器等价。
 
 四生产保原门禁、分流、描述符/发布和挂件两次计数取样，两比较保F32/F64存储边界、S16阈值及从不返0的排序合同。全部33父实参、其余排序合并/alias/owner/PC53机器环境/SDK/画面运行未验，RPLAN.24异常不模拟或保护。
+
+
+## ICL01 下移光标终行正常S32（2026-10-05）
+
+[已有F:0004A7D0](cg2d_input_terminal_length_spec.md#input-terminal-length-source-state)在同一语义记录及原equivalent处置追加本步依据；不新增原身份、成员或处置类别。终行正常S32长度+1替换U32+1U/bit_cast，原独立扫描、unsigned预算与剩余正文保持。
+
+完整137条441B及唯一4596FC七条邻窗作为原基线，本步仅终行/局部接口和源三行精确差异限定静态，不重新证明全部137条语义或完整分派、焦点/IME/alias/寿命、机器PC53/SDK/画面运行，异常不模拟或称等价。

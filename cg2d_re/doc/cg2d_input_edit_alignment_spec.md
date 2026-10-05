@@ -10,7 +10,7 @@
 | 部分 | 原行为 | 修正 |
 |---|---|---|
 | 上/下扫描 | 44A675/44A875先保存完整S32 maxCharPerLine，再扫描余串；低W32长度与保存预算按unsigned比较 | 不以宿主size_t扩宽数量，不在扫描后再次取预算；分类参数用保存值 |
-| 下移终行 | 44A901..917先确定目标行/列，44A91B..92E再扫描终行并按含NUL长度写最后行槽 | 不复用之前剩余长度；同一当前对象+offset另取终行strlen/W32再+1 |
+| 下移终行 | 44A901..917先确定目标行/列，44A91B..92E再扫描终行并按含NUL长度写最后行槽 | 不复用之前剩余长度；同一当前对象+offset另取终行S32长度再正常+1；ICL01不专项模拟回绕 |
 | 局部行/尾缓冲 | 两0x480B行表（288 S32）及两0x120B尾串均没有整块预清 | 仅撤销现有{}；所有原实际写/读、容量保持 |
 | 边界44B1D0 | 0x120B未预清，真实strncpy按Count原U32、随后signed位置NUL，再S32扫描返回0/1/2/3 | 撤销额外整块{}，保复制实际补NUL/填充，不删原写或加Count拒绝 |
 | 退格钳制 | 44AA66写光标0后44AA6C再取当前对象，44AA71才判断该对象首字节 | 在原负光标分支内重取result，不提前/无条件重读 |
@@ -30,7 +30,7 @@
 ## 3. 决定与实施
 
 1. 只改Input.cpp两上下扫描：maxBytes在strlen前取完整S32；remaining在库边界取低U32，与U32 maxBytes比较；Classify参数复用保存预算。其后再取当前对象的maxCharPerLine用于offset，原重读保持。
-2. 下移终行先按原取目标/列，再用context->text+offset独立strlen取低W32，含NUL长度+1写lineLengths[lineCount]；保持原targetLine>=lineCount早退发生在该槽写后。无最大行、NUL或预算补值门禁。
+2. 下移终行先按原取目标/列，再用context->text+offset独立strlen取S32长度，正常+1计入NUL并写lineLengths[lineCount]；保持原targetLine>=lineCount早退发生在该槽写后。无最大行、NUL或预算补值门禁。
 3. 两lineLengths/两tail及边界copied共五处{}撤销；既有容量/strcpy/strcat/真实StrNCpy及显式NUL/返回不变。HasSafeLegacyState与AppendChar暂不跨改，下一小步继续按完整父证据处理。
 4. 退格result由const局部改非拥有可重赋指针，仅原负光标钳0后重读当前槽；后面空文本清长度/相位原序保持。不增加任何失败恢复、上下文默认值/owner。
 5. 左右两叶不改；既有分派和私有声明不改。七完整体各以限定适用路径equivalent登记，六编辑新语义、已有边界只更新当前实现；不把七ID或单call齐备当全键盘/文本门禁闭合。
@@ -56,3 +56,10 @@ IED01源码已落实：上下行宽在strlen前保存，余串低U32与保存预
 集中静态通过：编辑六限定补丁与copied初始化逆换后，整份Input.cpp与前提交全文相同；七完整体153/137/21/22/79/65/44共521唯一指令和原局部区、六分派/七边界点核准，预算/终行/钳制内取样及左右保存字段对应。语义六本体补映射/一边界当前更新，其余1183旧条/全部顶层保持；1190条/1187有效ID、18pending/4分类引用不变。旧51证据/93处置、其他任务/功能、执行策略与全局闭包保持，七equivalent/三限定I/W/S使100/54。
 
 固定Git命名快照cg2d-re-input-edit-source-20261005；T01/T02继续open，关闭10/60、叶0/182和完整输入/文本门禁不提升。AppendChar/其他编辑、完整分派/焦点/IME/间接别名和共享寿命、SDK/实际显示运行未验。RPLAN.24异常不专项模拟、不记安全/故障等价；未构建/检查产物/新增或执行测试/运行/摘要。
+
+
+## ICL01 当前终行正常长度算术（2026-10-05）
+
+[本次具名合同](cg2d_input_terminal_length_spec.md#input-terminal-length-source-state)将44A7D0 terminalLength及其转换恢复S32，写槽为正常+1，撤U32+1U后bit_cast回S32。原137条441B保存仅供基线，本步限定终行/not ecx含NUL槽、槽写后signed早退与源三行差异，不重新验全部137条语义。
+
+两处扫描、unsigned余串预算、Classify实参及返回后对象重读、目标/列与光标写序、原288项S32表/0x120文本/相位20和其余源码保持。原IED01历史取样/预清成果保留；ICL01不称异常等价、安全或全输入/父/焦点/IME/寿命/SDK/画面运行通过。

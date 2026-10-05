@@ -476,9 +476,9 @@ void Sub_44A7D0()
                     targetLine = lineCount;
                     column = context->caretByteOffset - offset;
                 }
-                const std::uint32_t terminalLength = static_cast<std::uint32_t>(
+                const std::int32_t terminalLength = static_cast<std::int32_t>(
                     std::strlen(context->text + offset));
-                lineLengths[lineCount] = std::bit_cast<std::int32_t>(terminalLength + 1U);
+                lineLengths[lineCount] = terminalLength + 1;
                 break;
             }
 

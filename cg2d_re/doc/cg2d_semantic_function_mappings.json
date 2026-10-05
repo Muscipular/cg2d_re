@@ -139379,9 +139379,14 @@
         "doc/cg2d_input_key_dispatch.md",
         "doc/cg2d_input_edit_alignment_spec.md",
         "doc/cg2d_input_edit_alignment_evidence.json",
-        "doc/cg2d_text_encoding_spec.md"
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-acceptance",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_terminal_length_evidence.json"
       ],
-      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。",
+      "boundary": "原完整本体与唯一4596D0 caller按IED01限定核对；上下行宽在余串扫描前保存/低W32 unsigned比较及分类传同预算，下移终行独立扫描；两行表/两尾串不预清。退格原负caret钳0后才重新取result；左右原字段地址/分支指针或整数返回保持。原上下文/IME/行/光标门禁、CR/高位字节与返回/相位不改，不新增owner/输入保护；异常域依RPLAN.24不记安全/故障等价，SDK/完整输入寿命与运行未验。 ICL01终行独立strlen结果改正常S32长度+1写含NUL行槽，撤U32+1U/bit_cast回绕承载；余串unsigned预算与其他正文保持。原完整137条441B保存，仅终行/局部接口及源三行精确增量限定静态，不重验整137条全部语义、完整父/焦点/IME/alias/寿命或实际PC53/ABI/SDK/画面/运行，数学异常不专项保护或模拟/称等价。",
       "native_provider": {
         "source": "src/Input.cpp",
         "symbol": "Sub_44A7D0",

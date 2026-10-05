@@ -302,3 +302,9 @@ E198→201只本次ANIMATION I/W/S局部，W不代所有owner寿命。G01/U09/R0
 [本组合同](cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state)实际将固定点四加法/两相机缩放恢复正常S32，原低S32/位型/四固定点与两像素写、x87和RNG序保持。新增三语义/限定adapted使1268条/1264有效ID、361处置；MAP23→24/CRT147→149明确成员。
 
 E201→203只MAP本次I/S局部；六任务和完整功能门禁保持open，原495条/两块内核及引用类型保存不代完整场景/一般pow/其它调用与所有owner寿命/真实ABI/SDK/像素RNG运行。两原定位差集有源可追不计新增数学实现，R1/R7/R8仍未闭。
+
+## MCA01 六处正常坐标算术实修（2026-10-05）
+
+[本组合同](cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state)实际将五像素运动/一投影增量恢复正常S32，原20读10写、取样/扰动/真实位型与投影低W32/快照序保持，另恢复kind4重设尾计数4→新Y速度原序。六新语义/限定adapted使1274条/1270有效ID、367/3680处置，MAP24→30明确成员；候选继续按同文档引用派生。
+
+E203→205只MAP本次I/S；六任务/完整功能门禁和10关闭数保持。908条2948B/六call三父只局部静态，不代全场景/特殊多轮/所有调度/alias/owner寿命/投影环境/实际SDK/像素RNG运行；R1/R7/R8仍未闭，异常不保护或模拟/称等价。

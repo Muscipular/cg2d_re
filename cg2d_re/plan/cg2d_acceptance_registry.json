@@ -1033,7 +1033,8 @@
         "doc/cg2d_world_objects.md",
         "doc/cg2d_world_state_lifecycle_spec.md",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1059,7 +1060,13 @@
         "F:0006DFF0",
         "F:0006C300",
         "F:0006C440",
-        "F:0006F1D0"
+        "F:0006F1D0",
+        "F:0006E4E0",
+        "F:0006E6C0",
+        "F:0006E940",
+        "F:0006EBB0",
+        "F:0006ED50",
+        "F:0006F000"
       ],
       "closure_task_ids": [
         "U11",
@@ -1074,20 +1081,23 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
         "MFI01六已有地图生产/比较身份及正常合同正式纳管，成员23仍不完整；原六体492条/1730B及33引用身份不代完整父实参、其余排序合并/alias/全部owner与PC53机器环境/SDK/链接/画面运行，数学异常不模拟",
-        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟"
+        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟",
+        "MCA01五像素运动/一投影块正常S32已落码，20读/10写与原投影取样/真实窄化、计时/低W16/RNG/方向/回收保持，kind4重设尾恢复计数4→新Y速度；六身份局部纳管，全调度/场景/多轮/alias/所有owner寿命/投影环境/实际ABI/SDK/像素RNG运行未验，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -12944,6 +12954,74 @@
       "observation": "三原495条1697B/两块内核与六引用类型、固定点局部/两pow路径及一段源精确差异/台账静态",
       "expected": "效果正常S32有符号16.16、原真实低W32/位型写及x87/控制字/RNG消费保持，不专项回绕或异常模拟",
       "actual": "仅本次固定点正常局部实修/静态，不重验完整357条场景/一般pow/53D019及负底数helper/所有父/间接alias/owner寿命/浮点环境/实际ABI/SDK/像素和RNG运行；完整门禁不提升，异常不称安全或故障等价"
+    },
+    {
+      "id": "E-MAP-COORDINATE-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "六原908条2948B/六call三父，仅五像素/一投影正常块；doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-coordinate-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json",
+        "src/world/SceneState.cpp#Sub_46E4E0",
+        "src/world/SceneState.cpp#Sub_46E6C0",
+        "src/world/SceneState.cpp#Sub_46E940",
+        "src/world/SceneState.cpp#Sub_46EBB0",
+        "src/world/SceneState.cpp#Sub_46ED50",
+        "src/world/SceneState.cpp#Sub_46F000",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五像素运动/一投影增量恢复正常S32，另恢复kind4重设尾计数4→新Y速度；20读/10写、原RNG位置与独有取样/分组/投影哨兵窄化快照保持",
+          "decision_ref": "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "六种片段/七局部块已落码，六坐标块正常S32及kind4重设尾原序/真实位型和其它业务保持",
+      "expected": "像素坐标/速度及投影差按S32正常算术，保持W32存储位型和原取样/调用/写序，不专项回绕或保护异常",
+      "actual": "仅本次正常坐标局部实修/静态，不重验全部908条/完整调度/场景/特殊多轮/初始化退出/间接alias和所有owner寿命/实际投影环境/ABI/SDK/像素RNG运行；完整门禁不提升，异常不称安全或故障等价"
+    },
+    {
+      "id": "E-MAP-COORDINATE-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "六原908条2948B/六call三父，仅五像素/一投影正常块；doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-coordinate-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json",
+        "src/world/SceneState.cpp#Sub_46E4E0",
+        "src/world/SceneState.cpp#Sub_46E6C0",
+        "src/world/SceneState.cpp#Sub_46E940",
+        "src/world/SceneState.cpp#Sub_46EBB0",
+        "src/world/SceneState.cpp#Sub_46ED50",
+        "src/world/SceneState.cpp#Sub_46F000",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五像素运动/一投影增量恢复正常S32，另恢复kind4重设尾计数4→新Y速度；20读/10写、原RNG位置与独有取样/分组/投影哨兵窄化快照保持",
+          "decision_ref": "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "六原908条2948B/六call三父与六局部窗，六种片段七块/20读10写、重设尾原序与台账限定静态",
+      "expected": "像素坐标/速度及投影差按S32正常算术，保持W32存储位型和原取样/调用/写序，不专项回绕或保护异常",
+      "actual": "仅本次正常坐标局部实修/静态，不重验全部908条/完整调度/场景/特殊多轮/初始化退出/间接alias和所有owner寿命/实际投影环境/ABI/SDK/像素RNG运行；完整门禁不提升，异常不称安全或故障等价"
     }
   ],
   "task_acceptance": [
@@ -13097,7 +13175,8 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -13323,7 +13402,8 @@
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -13375,7 +13455,8 @@
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -13418,7 +13499,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -13438,7 +13520,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     },
     {
@@ -13593,7 +13676,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state"
       ]
     }
   ],
@@ -17223,6 +17307,78 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006E4E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006E6C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006E940",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006EBB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006ED50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006F000",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
       ]
     }
   ],

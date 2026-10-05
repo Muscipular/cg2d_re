@@ -145252,6 +145252,247 @@
       ],
       "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
       "boundary": "原130条含54348E..54349B共享尾块，当前仅46F1D0两正底数活动点的FYL2X→__twoToTOS正常路径由既有专用x87 Divisor内联承接；53D019的flow不记call，原完整一般pow/负底数检查/其它边界和父仍未迁/未验，不将局部定位当整个数学库实现。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+    },
+    {
+      "original_entry": "0x46e4e0",
+      "inventory_id": "F:0006E4E0",
+      "status": "MCA01既有效果/投影本体正常坐标算术实修与原身份纳管；完整调度/寿命/运行未验",
+      "original_end_exclusive": "0x46e6b9",
+      "instruction_count": 141,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E4E0",
+            "ApplyMapEffectDirection"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46E4E0"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e4a0",
+          "parent_entry": "0x46e4a0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "kind1像素X/Y四读取先后保持，坐标/速度解释S32后正常加，X→Y写真实W32位型；方向/边界/生成回收和计数保持。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46e6c0",
+      "inventory_id": "F:0006E6C0",
+      "status": "MCA01既有效果/投影本体正常坐标算术实修与原身份纳管；完整调度/寿命/运行未验",
+      "original_end_exclusive": "0x46e938",
+      "instruction_count": 198,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E6C0",
+            "ApplyMapEffectDirection"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46E6C0"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e4a5",
+          "parent_entry": "0x46e4a0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "kind2先读取X速度/X/Y，写X后再读Y速度/写Y；普通S32加和W32存储，独有取样点不合并；其它创建/条件/计时/回收保持。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46e940",
+      "inventory_id": "F:0006E940",
+      "status": "MCA01既有效果/投影本体正常坐标算术实修与原身份纳管；完整调度/寿命/运行未验",
+      "original_end_exclusive": "0x46eba7",
+      "instruction_count": 196,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E940",
+            "ApplyMapEffectDirection"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46E940"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e4cc",
+          "parent_entry": "0x46e4c0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "多轮kind2仅像素块恢复正常S32；原cycles<=0返回、selected低W16/计数/独立streak与创建/回收/返回及RNG序保持。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46ebb0",
+      "inventory_id": "F:0006EBB0",
+      "status": "MCA01既有效果/投影本体正常坐标算术实修与原身份纳管；完整调度/寿命/运行未验",
+      "original_end_exclusive": "0x46ed46",
+      "instruction_count": 126,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46EBB0",
+            "ApplyMapEffectDirection"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46EBB0"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e4c6",
+          "parent_entry": "0x46e4c0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "多轮kind1仅像素块恢复正常S32；原cycles/selected低W16、独立创建/计数/方向/回收及返回保持，不套kind2的streak逻辑。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46ed50",
+      "inventory_id": "F:0006ED50",
+      "status": "MCA01kind4正常坐标与重设尾写序实修/原身份纳管；完整调度寿命运行未验",
+      "original_end_exclusive": "0x46effd",
+      "instruction_count": 202,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46ED50",
+            "ApplyMapEffectDirection"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46ED50"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e4b4",
+          "parent_entry": "0x46e4a0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "kind4旧坐标/速度解释S32，随机扰动(rand−1)分组和X随机→X读写→Y随机→Y读写保持；remaining原W32/signed门槛不改，重设尾先取最后RNG结果、写计数4再写+2C新Y速度；RNG次数/取样位置和回收保持。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46f000",
+      "inventory_id": "F:0006F000",
+      "status": "MCA01既有效果/投影本体正常坐标算术实修与原身份纳管；完整调度/寿命/运行未验",
+      "original_end_exclusive": "0x46f089",
+      "instruction_count": 45,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F000",
+            "gProjectedX55DEA4",
+            "gProjectedY55DEA8"
+          ],
+          "relationship": "既有完整本体，仅MCA01正常坐标局部；共享记录/方向/投影快照及其它正文保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_46F000"
+          ],
+          "relationship": "既有真实声明/原定宽参数，公开调用边界不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46f23e",
+          "parent_entry": "0x46f1d0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-acceptance",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_evidence.json"
+      ],
+      "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
+      "boundary": "原点投影保两F32→F64+0.5→S64→低W32/S32；旧X=-1不访两输出，只更新新X/Y并返回Y。其余X差/原位累计→Y差/原位累计→新X/Y发布恢复正常S32，潜在输出/快照alias不另加快照或保护。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
     }
   ]
 }

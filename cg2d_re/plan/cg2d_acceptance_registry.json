@@ -282,7 +282,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md",
         "doc/cg2d_sdk_standard_stream_owners_spec.md",
         "doc/cg2d_stdio_table_heap_spec.md",
-        "doc/cg2d_mode3_heap_facade_spec.md"
+        "doc/cg2d_mode3_heap_facade_spec.md",
+        "doc/cg2d_mode3_private_core_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -410,7 +411,10 @@
         "F:0013C3EA",
         "F:0013C0A9",
         "F:0013FA5B",
-        "F:0013FCFB"
+        "F:0013FCFB",
+        "F:00141FB1",
+        "F:00141C88",
+        "F:00142466"
       ],
       "closure_task_ids": [
         "C01",
@@ -436,7 +440,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-decision",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision"
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -480,7 +485,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-baseline",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline"
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ]
     },
     {
@@ -9684,6 +9690,117 @@
       "observation": "原449/1167及分支限定差",
       "expected": "五完整原根、七数字call/mode六引用与源码分支/头注释可追",
       "actual": "一CPP/两头限定重放；原模式1/2/其他源与政策保持，SDK/运行不宣称"
+    },
+    {
+      "id": "E-MODE3-PRIVATE-CORE-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原核心799条/2344B与七直属call；doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-private-core-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-acceptance",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "src/platform/LegacyHeap.hpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "原私有分配/拆合/原位机制由已接SDK提供者承担；host非原体等价，无旧bool/region ABI或同名包装",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        },
+        {
+          "description": "只退休三个无本体声明；CPP/模式1/2/旧元数据/各域保持；全部未知owner/alias/模式寿命/R1/运行仍未闭",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三个无本体声明退休，五已有SDK操作保持",
+      "expected": "撤销不可调用旧接口并按D02映射私有角色，不新增假体/重复free或完整验收声称",
+      "actual": "三声明撤下，三原ID登记host，源码和数据其余范围保持"
+    },
+    {
+      "id": "E-MODE3-PRIVATE-CORE-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原核心799条/2344B与七直属call；doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-private-core-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-acceptance",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "src/platform/LegacyHeap.hpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "原私有分配/拆合/原位机制由已接SDK提供者承担；host非原体等价，无旧bool/region ABI或同名包装",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        },
+        {
+          "description": "只退休三个无本体声明；CPP/模式1/2/旧元数据/各域保持；全部未知owner/alias/模式寿命/R1/运行仍未闭",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "七原call逐项对应SDK角色，两个迁移释放由realloc内部承担",
+      "expected": "撤销不可调用旧接口并按D02映射私有角色，不新增假体/重复free或完整验收声称",
+      "actual": "三声明撤下，三原ID登记host，源码和数据其余范围保持"
+    },
+    {
+      "id": "E-MODE3-PRIVATE-CORE-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原核心799条/2344B与七直属call；doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mode3-private-core-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-baseline",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-acceptance",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_mode3_private_core_evidence.json",
+        "src/platform/LegacyHeap.hpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#AllocateLegacyHeapBlock_53C3EA",
+        "src/platform/LegacyHeap.cpp#CallocateLegacyMemory_53BFF8",
+        "src/platform/LegacyHeap.cpp#ReallocateLegacyMemory_53FA5B",
+        "src/platform/LegacyHeap.cpp#FreeLegacyHeapMemory_53C0A9",
+        "src/platform/LegacyHeap.cpp#GetLegacyAllocationSize_53FCFB"
+      ],
+      "differences": [
+        {
+          "description": "原私有分配/拆合/原位机制由已接SDK提供者承担；host非原体等价，无旧bool/region ABI或同名包装",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        },
+        {
+          "description": "只退休三个无本体声明；CPP/模式1/2/旧元数据/各域保持；全部未知owner/alias/模式寿命/R1/运行仍未闭",
+          "decision_ref": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三个完整原体/3-3-1引用、单头三替换及限定数据差分归档",
+      "expected": "撤销不可调用旧接口并按D02映射私有角色，不新增假体/重复free或完整验收声称",
+      "actual": "三声明撤下，三原ID登记host，源码和数据其余范围保持"
     }
   ],
   "task_acceptance": [
@@ -9853,7 +9970,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -9866,7 +9984,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -9892,7 +10011,8 @@
       "evidence_refs": [
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+        "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ],
       "task_id": "C01",
       "state": "open"
@@ -11259,6 +11379,30 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00141FB1",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00141C88",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00142466",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ]
     }
   ],

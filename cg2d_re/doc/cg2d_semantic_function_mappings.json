@@ -50281,12 +50281,21 @@
     {
       "original_entry": "0x541C88",
       "inventory_id": "F:00141C88",
-      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
       "original_end_exclusive": "0x541FB1",
       "instruction_count": 265,
       "original_direct_reference_count": 3,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
-      "sources": [],
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "FreeLegacyHeapMemory_53C0A9",
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x53C0CC",
@@ -50302,18 +50311,49 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_mode3_private_core_spec.md",
+        "doc/cg2d_mode3_private_core_evidence.json"
       ],
-      "boundary": "模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "模式3释放入口：由free一次、realloc迁移后两次调用；包含VirtualFree解除提交/释放、HeapFree与头记录复制调用。合并位图和完整释放失败语义未逐条验收。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "mode3_private_core_host_contract": {
+        "group": "M3P01",
+        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "disposition": "host",
+        "original_body_implemented": false,
+        "obsolete_declaration_retired": true,
+        "roles": [
+          {
+            "call_site": "0x53C0CC",
+            "parent_entry": "0x53C0A9",
+            "source_symbol": "FreeLegacyHeapMemory_53C0A9",
+            "sdk_provider": "std::free"
+          },
+          {
+            "call_site": "0x53FAFF",
+            "parent_entry": "0x53FA5B",
+            "source_symbol": "ReallocateLegacyMemory_53FA5B",
+            "sdk_provider": "std::realloc内部管理旧块；无重复free"
+          },
+          {
+            "call_site": "0x53FB46",
+            "parent_entry": "0x53FA5B",
+            "source_symbol": "ReallocateLegacyMemory_53FA5B",
+            "sdk_provider": "std::realloc内部管理旧块；无重复free"
+          }
+        ],
+        "unknown_aliases_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x541FB1",
       "inventory_id": "F:00141FB1",
-      "status": "完整分配指令及原生布局约束已取证；区域/组依赖已实现，分配本体仍待",
+      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
       "original_end_exclusive": "0x5422BA",
       "instruction_count": 275,
       "original_direct_reference_count": 3,
-      "verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施",
+      "verification_level": "完整275条及三个直接入向已读取；管理区/块几何与16B布局约束已核，完整分配算法未实施；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
       "sources": [
         {
           "path": "src/platform/LegacyHeap.cpp",
@@ -50322,6 +50362,15 @@
             "CommitLegacySmallHeap3Group_54236B"
           ],
           "relationship": "仅该父两个真实依赖已实现，不是541FB1本体"
+        },
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "CallocateLegacyMemory_53BFF8",
+            "AllocateLegacyHeapBlock_53C3EA",
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
         }
       ],
       "inbound_evidence": [
@@ -50339,9 +50388,40 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_mode3_private_core_spec.md",
+        "doc/cg2d_mode3_private_core_evidence.json"
       ],
-      "boundary": "calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。"
+      "boundary": "calloc、malloc内部叶和realloc各一调用；两个区域/组生产依赖已实现。原541FD1..541FD7按(request+23)&~15，54226C..54226E写任何非零剩余，可正常产生16B空闲块；其首尾W32和两个64位链接不能同放16B。未擅增最小块、吞掉剩余、改容量查询或建立影子链，保留拆分/合并适配缺口。当前275条完整读取不等于已实现或运行验收。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "mode3_private_core_host_contract": {
+        "group": "M3P01",
+        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "disposition": "host",
+        "original_body_implemented": false,
+        "obsolete_declaration_retired": true,
+        "roles": [
+          {
+            "call_site": "0x53C036",
+            "parent_entry": "0x53BFF8",
+            "source_symbol": "CallocateLegacyMemory_53BFF8",
+            "sdk_provider": "std::calloc"
+          },
+          {
+            "call_site": "0x53C402",
+            "parent_entry": "0x53C3EA",
+            "source_symbol": "AllocateLegacyHeapBlock_53C3EA",
+            "sdk_provider": "std::malloc"
+          },
+          {
+            "call_site": "0x53FAD2",
+            "parent_entry": "0x53FA5B",
+            "source_symbol": "ReallocateLegacyMemory_53FA5B",
+            "sdk_provider": "std::realloc"
+          }
+        ],
+        "unknown_aliases_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5422BA",
@@ -50420,12 +50500,20 @@
     {
       "original_entry": "0x542466",
       "inventory_id": "F:00142466",
-      "status": "小块池私有依赖边界和调用归属已确认；完整本体语义未验、未实现旧池",
+      "status": "M3P01：旧mode3私有核心由SDK角色承接，三无本体声明退休；host非原算法实现，完整owner/模式寿命/alias/R1/运行待验",
       "original_end_exclusive": "0x54275C",
       "instruction_count": 259,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过",
-      "sources": [],
+      "verification_level": "边界、代码指令计数、全部直接入向及call位置；不计逐条语义通过；M3P01归档三完整原体799条/2344B及3/3/1引用，只核接口退休和SDK角色映射，非原私有算法逐条等价或运行验收",
+      "sources": [
+        {
+          "path": "src/platform/LegacyHeap.cpp",
+          "symbols": [
+            "ReallocateLegacyMemory_53FA5B"
+          ],
+          "relationship": "D02 host角色承接，经M3H01实际SDK分支；不是旧核心C++本体"
+        }
+      ],
       "inbound_evidence": [
         {
           "address": "0x53FAC5",
@@ -50433,9 +50521,28 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_crt_memory_contract.md"
+        "doc/cg2d_crt_memory_contract.md",
+        "doc/cg2d_mode3_private_core_spec.md",
+        "doc/cg2d_mode3_private_core_evidence.json"
       ],
-      "boundary": "模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。"
+      "boundary": "模式3原位调整大小私有依赖：唯一realloc@53FAC5调用，成功路径复用原块；本体无call，完整合并/拆分与失败条件仍待。 不因既有宿主堆适配或待批CRT提案而记为整体实现/排除。；2026-10-05 M3P01依据D02，原私有机制按host纳管，经M3H01真实SDK五操作族接替；七原call逐项映射，realloc迁移后的两释放由SDK内部承担，不重复free。三个旧无本体声明撤下，原函数/指令/身份不删除；未知alias/owner/模式稳定/实际SDK及运行不闭合。",
+      "mode3_private_core_host_contract": {
+        "group": "M3P01",
+        "spec": "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "disposition": "host",
+        "original_body_implemented": false,
+        "obsolete_declaration_retired": true,
+        "roles": [
+          {
+            "call_site": "0x53FAC5",
+            "parent_entry": "0x53FA5B",
+            "source_symbol": "ReallocateLegacyMemory_53FA5B",
+            "sdk_provider": "std::realloc整体扩容；不提供旧bool/region接口"
+          }
+        ],
+        "unknown_aliases_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5428A0",

@@ -116,3 +116,15 @@ realloc失败handler统一原输入数量，旧某fallback物理对齐参数不�
 原selector3只兼容选择，实际mode3为SDK域；模式须在块存活期稳定，原Win32块不混入。
 全部owner/未知alias/R1和SDK实际ABI/失败/正常快速退出运行仍待，
 C01/C08/C11不完整关闭。
+
+## M3P01 模式3私有核心接口退休（2026-10-05）
+
+[本组合同](cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)
+撤下541FB1/541C88/542466三个无本体、已无源码引用的声明；
+原身份/799条/2344B和七原call保留。三原ID按D02登记host，
+分别由M3H01的实际SDK分配/清零/扩容/释放角色承担。
+原realloc迁移后的两free由SDK内部管理，不再重复执行旧free或区域参数。
+
+不再把这三个旧私有内核列成工程待实现；不称原体等价/排除，
+五外层adapted、模式1/2和原兼容元数据保持。
+完整owner/模式寿命/alias/R1/R7与实际SDK/运行继续待，C01/C08/C11仍open。

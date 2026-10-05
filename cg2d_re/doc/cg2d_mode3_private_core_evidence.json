@@ -1,0 +1,4199 @@
+{
+  "schema_version": 1,
+  "group": "M3P01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_mode3_private_core_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-mode3-private-core-source-20261005",
+  "authority": {
+    "instance": "ida-17524",
+    "binary": "cg2d.exe",
+    "base": "0x400000",
+    "method": "当前已打开原会话MCP只读Python；未修改或导出数据库/原EXE"
+  },
+  "original_roots": [
+    {
+      "entry": "0x00541FB1",
+      "name": "___sbh_alloc_block",
+      "chunks": [
+        [
+          "0x00541FB1",
+          "0x005422BA"
+        ]
+      ],
+      "instruction_count": 275,
+      "byte_count": 777,
+      "instructions": [
+        {
+          "ea": "0x00541FB1",
+          "size": 1,
+          "disassembly": "push    ebp"
+        },
+        {
+          "ea": "0x00541FB2",
+          "size": 2,
+          "disassembly": "mov     ebp, esp"
+        },
+        {
+          "ea": "0x00541FB4",
+          "size": 3,
+          "disassembly": "sub     esp, 14h"
+        },
+        {
+          "ea": "0x00541FB7",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086998"
+        },
+        {
+          "ea": "0x00541FBC",
+          "size": 6,
+          "disassembly": "mov     edx, dword_108699C"
+        },
+        {
+          "ea": "0x00541FC2",
+          "size": 1,
+          "disassembly": "push    ebx"
+        },
+        {
+          "ea": "0x00541FC3",
+          "size": 1,
+          "disassembly": "push    esi"
+        },
+        {
+          "ea": "0x00541FC4",
+          "size": 3,
+          "disassembly": "lea     eax, [eax+eax*4]"
+        },
+        {
+          "ea": "0x00541FC7",
+          "size": 1,
+          "disassembly": "push    edi"
+        },
+        {
+          "ea": "0x00541FC8",
+          "size": 3,
+          "disassembly": "lea     edi, [edx+eax*4]"
+        },
+        {
+          "ea": "0x00541FCB",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541FCE",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], edi"
+        },
+        {
+          "ea": "0x00541FD1",
+          "size": 3,
+          "disassembly": "lea     ecx, [eax+17h]"
+        },
+        {
+          "ea": "0x00541FD4",
+          "size": 3,
+          "disassembly": "and     ecx, 0FFFFFFF0h"
+        },
+        {
+          "ea": "0x00541FD7",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_10], ecx"
+        },
+        {
+          "ea": "0x00541FDA",
+          "size": 3,
+          "disassembly": "sar     ecx, 4"
+        },
+        {
+          "ea": "0x00541FDD",
+          "size": 1,
+          "disassembly": "dec     ecx"
+        },
+        {
+          "ea": "0x00541FDE",
+          "size": 3,
+          "disassembly": "cmp     ecx, 20h ; ' '"
+        },
+        {
+          "ea": "0x00541FE1",
+          "size": 2,
+          "disassembly": "jge     short loc_541FF1"
+        },
+        {
+          "ea": "0x00541FE3",
+          "size": 3,
+          "disassembly": "or      esi, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x00541FE6",
+          "size": 2,
+          "disassembly": "shr     esi, cl"
+        },
+        {
+          "ea": "0x00541FE8",
+          "size": 4,
+          "disassembly": "or      [ebp+var_8], 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x00541FEC",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], esi"
+        },
+        {
+          "ea": "0x00541FEF",
+          "size": 2,
+          "disassembly": "jmp     short loc_542001"
+        },
+        {
+          "ea": "0x00541FF1",
+          "size": 3,
+          "disassembly": "add     ecx, 0FFFFFFE0h"
+        },
+        {
+          "ea": "0x00541FF4",
+          "size": 3,
+          "disassembly": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x00541FF7",
+          "size": 2,
+          "disassembly": "xor     esi, esi"
+        },
+        {
+          "ea": "0x00541FF9",
+          "size": 2,
+          "disassembly": "shr     eax, cl"
+        },
+        {
+          "ea": "0x00541FFB",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], esi"
+        },
+        {
+          "ea": "0x00541FFE",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_8], eax"
+        },
+        {
+          "ea": "0x00542001",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086990"
+        },
+        {
+          "ea": "0x00542006",
+          "size": 2,
+          "disassembly": "mov     ebx, eax"
+        },
+        {
+          "ea": "0x00542008",
+          "size": 2,
+          "disassembly": "cmp     ebx, edi"
+        },
+        {
+          "ea": "0x0054200A",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x0054200D",
+          "size": 2,
+          "disassembly": "jnb     short loc_542028"
+        },
+        {
+          "ea": "0x0054200F",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+4]"
+        },
+        {
+          "ea": "0x00542012",
+          "size": 2,
+          "disassembly": "mov     edi, [ebx]"
+        },
+        {
+          "ea": "0x00542014",
+          "size": 3,
+          "disassembly": "and     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00542017",
+          "size": 2,
+          "disassembly": "and     edi, esi"
+        },
+        {
+          "ea": "0x00542019",
+          "size": 2,
+          "disassembly": "or      ecx, edi"
+        },
+        {
+          "ea": "0x0054201B",
+          "size": 2,
+          "disassembly": "jnz     short loc_542028"
+        },
+        {
+          "ea": "0x0054201D",
+          "size": 3,
+          "disassembly": "add     ebx, 14h"
+        },
+        {
+          "ea": "0x00542020",
+          "size": 3,
+          "disassembly": "cmp     ebx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542023",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x00542026",
+          "size": 2,
+          "disassembly": "jb      short loc_54200F"
+        },
+        {
+          "ea": "0x00542028",
+          "size": 3,
+          "disassembly": "cmp     ebx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x0054202B",
+          "size": 2,
+          "disassembly": "jnz     short loc_5420A6"
+        },
+        {
+          "ea": "0x0054202D",
+          "size": 2,
+          "disassembly": "mov     ebx, edx"
+        },
+        {
+          "ea": "0x0054202F",
+          "size": 2,
+          "disassembly": "cmp     ebx, eax"
+        },
+        {
+          "ea": "0x00542031",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x00542034",
+          "size": 2,
+          "disassembly": "jnb     short loc_54204B"
+        },
+        {
+          "ea": "0x00542036",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+4]"
+        },
+        {
+          "ea": "0x00542039",
+          "size": 2,
+          "disassembly": "mov     edi, [ebx]"
+        },
+        {
+          "ea": "0x0054203B",
+          "size": 3,
+          "disassembly": "and     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x0054203E",
+          "size": 2,
+          "disassembly": "and     edi, esi"
+        },
+        {
+          "ea": "0x00542040",
+          "size": 2,
+          "disassembly": "or      ecx, edi"
+        },
+        {
+          "ea": "0x00542042",
+          "size": 2,
+          "disassembly": "jnz     short loc_542049"
+        },
+        {
+          "ea": "0x00542044",
+          "size": 3,
+          "disassembly": "add     ebx, 14h"
+        },
+        {
+          "ea": "0x00542047",
+          "size": 2,
+          "disassembly": "jmp     short loc_54202F"
+        },
+        {
+          "ea": "0x00542049",
+          "size": 2,
+          "disassembly": "cmp     ebx, eax"
+        },
+        {
+          "ea": "0x0054204B",
+          "size": 2,
+          "disassembly": "jnz     short loc_5420A6"
+        },
+        {
+          "ea": "0x0054204D",
+          "size": 3,
+          "disassembly": "cmp     ebx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542050",
+          "size": 2,
+          "disassembly": "jnb     short loc_542063"
+        },
+        {
+          "ea": "0x00542052",
+          "size": 4,
+          "disassembly": "cmp     dword ptr [ebx+8], 0"
+        },
+        {
+          "ea": "0x00542056",
+          "size": 2,
+          "disassembly": "jnz     short loc_542060"
+        },
+        {
+          "ea": "0x00542058",
+          "size": 3,
+          "disassembly": "add     ebx, 14h"
+        },
+        {
+          "ea": "0x0054205B",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x0054205E",
+          "size": 2,
+          "disassembly": "jmp     short loc_54204D"
+        },
+        {
+          "ea": "0x00542060",
+          "size": 3,
+          "disassembly": "cmp     ebx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542063",
+          "size": 2,
+          "disassembly": "jnz     short loc_54208B"
+        },
+        {
+          "ea": "0x00542065",
+          "size": 2,
+          "disassembly": "mov     ebx, edx"
+        },
+        {
+          "ea": "0x00542067",
+          "size": 2,
+          "disassembly": "cmp     ebx, eax"
+        },
+        {
+          "ea": "0x00542069",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x0054206C",
+          "size": 2,
+          "disassembly": "jnb     short loc_54207B"
+        },
+        {
+          "ea": "0x0054206E",
+          "size": 4,
+          "disassembly": "cmp     dword ptr [ebx+8], 0"
+        },
+        {
+          "ea": "0x00542072",
+          "size": 2,
+          "disassembly": "jnz     short loc_542079"
+        },
+        {
+          "ea": "0x00542074",
+          "size": 3,
+          "disassembly": "add     ebx, 14h"
+        },
+        {
+          "ea": "0x00542077",
+          "size": 2,
+          "disassembly": "jmp     short loc_542067"
+        },
+        {
+          "ea": "0x00542079",
+          "size": 2,
+          "disassembly": "cmp     ebx, eax"
+        },
+        {
+          "ea": "0x0054207B",
+          "size": 2,
+          "disassembly": "jnz     short loc_54208B"
+        },
+        {
+          "ea": "0x0054207D",
+          "size": 5,
+          "disassembly": "call    ___sbh_alloc_new_region"
+        },
+        {
+          "ea": "0x00542082",
+          "size": 2,
+          "disassembly": "mov     ebx, eax"
+        },
+        {
+          "ea": "0x00542084",
+          "size": 2,
+          "disassembly": "test    ebx, ebx"
+        },
+        {
+          "ea": "0x00542086",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_0], ebx"
+        },
+        {
+          "ea": "0x00542089",
+          "size": 2,
+          "disassembly": "jz      short loc_54209F"
+        },
+        {
+          "ea": "0x0054208B",
+          "size": 1,
+          "disassembly": "push    ebx"
+        },
+        {
+          "ea": "0x0054208C",
+          "size": 5,
+          "disassembly": "call    ___sbh_alloc_new_group"
+        },
+        {
+          "ea": "0x00542091",
+          "size": 1,
+          "disassembly": "pop     ecx"
+        },
+        {
+          "ea": "0x00542092",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+10h]"
+        },
+        {
+          "ea": "0x00542095",
+          "size": 2,
+          "disassembly": "mov     [ecx], eax"
+        },
+        {
+          "ea": "0x00542097",
+          "size": 3,
+          "disassembly": "mov     eax, [ebx+10h]"
+        },
+        {
+          "ea": "0x0054209A",
+          "size": 3,
+          "disassembly": "cmp     dword ptr [eax], 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x0054209D",
+          "size": 2,
+          "disassembly": "jnz     short loc_5420A6"
+        },
+        {
+          "ea": "0x0054209F",
+          "size": 2,
+          "disassembly": "xor     eax, eax"
+        },
+        {
+          "ea": "0x005420A1",
+          "size": 5,
+          "disassembly": "jmp     loc_5422B5"
+        },
+        {
+          "ea": "0x005420A6",
+          "size": 6,
+          "disassembly": "mov     dword_1086990, ebx"
+        },
+        {
+          "ea": "0x005420AC",
+          "size": 3,
+          "disassembly": "mov     eax, [ebx+10h]"
+        },
+        {
+          "ea": "0x005420AF",
+          "size": 2,
+          "disassembly": "mov     edx, [eax]"
+        },
+        {
+          "ea": "0x005420B1",
+          "size": 3,
+          "disassembly": "cmp     edx, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x005420B4",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], edx"
+        },
+        {
+          "ea": "0x005420B7",
+          "size": 2,
+          "disassembly": "jz      short loc_5420CD"
+        },
+        {
+          "ea": "0x005420B9",
+          "size": 7,
+          "disassembly": "mov     ecx, [eax+edx*4+0C4h]"
+        },
+        {
+          "ea": "0x005420C0",
+          "size": 4,
+          "disassembly": "mov     edi, [eax+edx*4+44h]"
+        },
+        {
+          "ea": "0x005420C4",
+          "size": 3,
+          "disassembly": "and     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x005420C7",
+          "size": 2,
+          "disassembly": "and     edi, esi"
+        },
+        {
+          "ea": "0x005420C9",
+          "size": 2,
+          "disassembly": "or      ecx, edi"
+        },
+        {
+          "ea": "0x005420CB",
+          "size": 2,
+          "disassembly": "jnz     short loc_542104"
+        },
+        {
+          "ea": "0x005420CD",
+          "size": 6,
+          "disassembly": "mov     edx, [eax+0C4h]"
+        },
+        {
+          "ea": "0x005420D3",
+          "size": 3,
+          "disassembly": "mov     esi, [eax+44h]"
+        },
+        {
+          "ea": "0x005420D6",
+          "size": 3,
+          "disassembly": "and     edx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x005420D9",
+          "size": 3,
+          "disassembly": "and     esi, [ebp+var_C]"
+        },
+        {
+          "ea": "0x005420DC",
+          "size": 4,
+          "disassembly": "and     [ebp+var_4], 0"
+        },
+        {
+          "ea": "0x005420E0",
+          "size": 3,
+          "disassembly": "lea     ecx, [eax+44h]"
+        },
+        {
+          "ea": "0x005420E3",
+          "size": 2,
+          "disassembly": "or      edx, esi"
+        },
+        {
+          "ea": "0x005420E5",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+var_C]"
+        },
+        {
+          "ea": "0x005420E8",
+          "size": 2,
+          "disassembly": "jnz     short loc_542101"
+        },
+        {
+          "ea": "0x005420EA",
+          "size": 6,
+          "disassembly": "mov     edx, [ecx+84h]"
+        },
+        {
+          "ea": "0x005420F0",
+          "size": 3,
+          "disassembly": "inc     [ebp+var_4]"
+        },
+        {
+          "ea": "0x005420F3",
+          "size": 3,
+          "disassembly": "and     edx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x005420F6",
+          "size": 3,
+          "disassembly": "add     ecx, 4"
+        },
+        {
+          "ea": "0x005420F9",
+          "size": 2,
+          "disassembly": "mov     edi, esi"
+        },
+        {
+          "ea": "0x005420FB",
+          "size": 2,
+          "disassembly": "and     edi, [ecx]"
+        },
+        {
+          "ea": "0x005420FD",
+          "size": 2,
+          "disassembly": "or      edx, edi"
+        },
+        {
+          "ea": "0x005420FF",
+          "size": 2,
+          "disassembly": "jz      short loc_5420EA"
+        },
+        {
+          "ea": "0x00542101",
+          "size": 3,
+          "disassembly": "mov     edx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542104",
+          "size": 2,
+          "disassembly": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x00542106",
+          "size": 2,
+          "disassembly": "xor     edi, edi"
+        },
+        {
+          "ea": "0x00542108",
+          "size": 6,
+          "disassembly": "imul    ecx, 204h"
+        },
+        {
+          "ea": "0x0054210E",
+          "size": 7,
+          "disassembly": "lea     ecx, [ecx+eax+144h]"
+        },
+        {
+          "ea": "0x00542115",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], ecx"
+        },
+        {
+          "ea": "0x00542118",
+          "size": 4,
+          "disassembly": "mov     ecx, [eax+edx*4+44h]"
+        },
+        {
+          "ea": "0x0054211C",
+          "size": 2,
+          "disassembly": "and     ecx, esi"
+        },
+        {
+          "ea": "0x0054211E",
+          "size": 2,
+          "disassembly": "jnz     short loc_54212D"
+        },
+        {
+          "ea": "0x00542120",
+          "size": 7,
+          "disassembly": "mov     ecx, [eax+edx*4+0C4h]"
+        },
+        {
+          "ea": "0x00542127",
+          "size": 2,
+          "disassembly": "push    20h ; ' '"
+        },
+        {
+          "ea": "0x00542129",
+          "size": 3,
+          "disassembly": "and     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x0054212C",
+          "size": 1,
+          "disassembly": "pop     edi"
+        },
+        {
+          "ea": "0x0054212D",
+          "size": 2,
+          "disassembly": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x0054212F",
+          "size": 2,
+          "disassembly": "jl      short loc_542136"
+        },
+        {
+          "ea": "0x00542131",
+          "size": 2,
+          "disassembly": "shl     ecx, 1"
+        },
+        {
+          "ea": "0x00542133",
+          "size": 1,
+          "disassembly": "inc     edi"
+        },
+        {
+          "ea": "0x00542134",
+          "size": 2,
+          "disassembly": "jmp     short loc_54212D"
+        },
+        {
+          "ea": "0x00542136",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x00542139",
+          "size": 4,
+          "disassembly": "mov     edx, [ecx+edi*8+4]"
+        },
+        {
+          "ea": "0x0054213D",
+          "size": 2,
+          "disassembly": "mov     ecx, [edx]"
+        },
+        {
+          "ea": "0x0054213F",
+          "size": 3,
+          "disassembly": "sub     ecx, [ebp+var_10]"
+        },
+        {
+          "ea": "0x00542142",
+          "size": 2,
+          "disassembly": "mov     esi, ecx"
+        },
+        {
+          "ea": "0x00542144",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_8], ecx"
+        },
+        {
+          "ea": "0x00542147",
+          "size": 3,
+          "disassembly": "sar     esi, 4"
+        },
+        {
+          "ea": "0x0054214A",
+          "size": 1,
+          "disassembly": "dec     esi"
+        },
+        {
+          "ea": "0x0054214B",
+          "size": 3,
+          "disassembly": "cmp     esi, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x0054214E",
+          "size": 2,
+          "disassembly": "jle     short loc_542153"
+        },
+        {
+          "ea": "0x00542150",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00542152",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x00542153",
+          "size": 2,
+          "disassembly": "cmp     esi, edi"
+        },
+        {
+          "ea": "0x00542155",
+          "size": 6,
+          "disassembly": "jz      loc_542268"
+        },
+        {
+          "ea": "0x0054215B",
+          "size": 3,
+          "disassembly": "mov     ecx, [edx+4]"
+        },
+        {
+          "ea": "0x0054215E",
+          "size": 3,
+          "disassembly": "cmp     ecx, [edx+8]"
+        },
+        {
+          "ea": "0x00542161",
+          "size": 2,
+          "disassembly": "jnz     short loc_5421C4"
+        },
+        {
+          "ea": "0x00542163",
+          "size": 3,
+          "disassembly": "cmp     edi, 20h ; ' '"
+        },
+        {
+          "ea": "0x00542166",
+          "size": 2,
+          "disassembly": "jge     short loc_542193"
+        },
+        {
+          "ea": "0x00542168",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x0054216D",
+          "size": 2,
+          "disassembly": "mov     ecx, edi"
+        },
+        {
+          "ea": "0x0054216F",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00542171",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542174",
+          "size": 4,
+          "disassembly": "lea     edi, [eax+edi+4]"
+        },
+        {
+          "ea": "0x00542178",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x0054217A",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_14], ebx"
+        },
+        {
+          "ea": "0x0054217D",
+          "size": 4,
+          "disassembly": "and     ebx, [eax+ecx*4+44h]"
+        },
+        {
+          "ea": "0x00542181",
+          "size": 4,
+          "disassembly": "mov     [eax+ecx*4+44h], ebx"
+        },
+        {
+          "ea": "0x00542185",
+          "size": 2,
+          "disassembly": "dec     byte ptr [edi]"
+        },
+        {
+          "ea": "0x00542187",
+          "size": 2,
+          "disassembly": "jnz     short loc_5421C1"
+        },
+        {
+          "ea": "0x00542189",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x0054218C",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_14]"
+        },
+        {
+          "ea": "0x0054218F",
+          "size": 2,
+          "disassembly": "and     [ebx], ecx"
+        },
+        {
+          "ea": "0x00542191",
+          "size": 2,
+          "disassembly": "jmp     short loc_5421C4"
+        },
+        {
+          "ea": "0x00542193",
+          "size": 3,
+          "disassembly": "lea     ecx, [edi-20h]"
+        },
+        {
+          "ea": "0x00542196",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x0054219B",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x0054219D",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x005421A0",
+          "size": 4,
+          "disassembly": "lea     edi, [eax+edi+4]"
+        },
+        {
+          "ea": "0x005421A4",
+          "size": 7,
+          "disassembly": "lea     ecx, [eax+ecx*4+0C4h]"
+        },
+        {
+          "ea": "0x005421AB",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x005421AD",
+          "size": 2,
+          "disassembly": "and     [ecx], ebx"
+        },
+        {
+          "ea": "0x005421AF",
+          "size": 2,
+          "disassembly": "dec     byte ptr [edi]"
+        },
+        {
+          "ea": "0x005421B1",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_14], ebx"
+        },
+        {
+          "ea": "0x005421B4",
+          "size": 2,
+          "disassembly": "jnz     short loc_5421C1"
+        },
+        {
+          "ea": "0x005421B6",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x005421B9",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_14]"
+        },
+        {
+          "ea": "0x005421BC",
+          "size": 3,
+          "disassembly": "and     [ebx+4], ecx"
+        },
+        {
+          "ea": "0x005421BF",
+          "size": 2,
+          "disassembly": "jmp     short loc_5421C4"
+        },
+        {
+          "ea": "0x005421C1",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x005421C4",
+          "size": 3,
+          "disassembly": "mov     ecx, [edx+8]"
+        },
+        {
+          "ea": "0x005421C7",
+          "size": 3,
+          "disassembly": "mov     edi, [edx+4]"
+        },
+        {
+          "ea": "0x005421CA",
+          "size": 4,
+          "disassembly": "cmp     [ebp+var_8], 0"
+        },
+        {
+          "ea": "0x005421CE",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], edi"
+        },
+        {
+          "ea": "0x005421D1",
+          "size": 3,
+          "disassembly": "mov     ecx, [edx+4]"
+        },
+        {
+          "ea": "0x005421D4",
+          "size": 3,
+          "disassembly": "mov     edi, [edx+8]"
+        },
+        {
+          "ea": "0x005421D7",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], edi"
+        },
+        {
+          "ea": "0x005421DA",
+          "size": 6,
+          "disassembly": "jz      loc_542274"
+        },
+        {
+          "ea": "0x005421E0",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x005421E3",
+          "size": 4,
+          "disassembly": "mov     edi, [ecx+esi*8+4]"
+        },
+        {
+          "ea": "0x005421E7",
+          "size": 3,
+          "disassembly": "lea     ecx, [ecx+esi*8]"
+        },
+        {
+          "ea": "0x005421EA",
+          "size": 3,
+          "disassembly": "mov     [edx+4], edi"
+        },
+        {
+          "ea": "0x005421ED",
+          "size": 3,
+          "disassembly": "mov     [edx+8], ecx"
+        },
+        {
+          "ea": "0x005421F0",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], edx"
+        },
+        {
+          "ea": "0x005421F3",
+          "size": 3,
+          "disassembly": "mov     ecx, [edx+4]"
+        },
+        {
+          "ea": "0x005421F6",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], edx"
+        },
+        {
+          "ea": "0x005421F9",
+          "size": 3,
+          "disassembly": "mov     ecx, [edx+4]"
+        },
+        {
+          "ea": "0x005421FC",
+          "size": 3,
+          "disassembly": "cmp     ecx, [edx+8]"
+        },
+        {
+          "ea": "0x005421FF",
+          "size": 2,
+          "disassembly": "jnz     short loc_542265"
+        },
+        {
+          "ea": "0x00542201",
+          "size": 4,
+          "disassembly": "mov     cl, [esi+eax+4]"
+        },
+        {
+          "ea": "0x00542205",
+          "size": 3,
+          "disassembly": "cmp     esi, 20h ; ' '"
+        },
+        {
+          "ea": "0x00542208",
+          "size": 3,
+          "disassembly": "mov     byte ptr [ebp+arg_0+3], cl"
+        },
+        {
+          "ea": "0x0054220B",
+          "size": 2,
+          "disassembly": "jge     short loc_542236"
+        },
+        {
+          "ea": "0x0054220D",
+          "size": 2,
+          "disassembly": "inc     cl"
+        },
+        {
+          "ea": "0x0054220F",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_0+3], 0"
+        },
+        {
+          "ea": "0x00542213",
+          "size": 4,
+          "disassembly": "mov     [esi+eax+4], cl"
+        },
+        {
+          "ea": "0x00542217",
+          "size": 2,
+          "disassembly": "jnz     short loc_542224"
+        },
+        {
+          "ea": "0x00542219",
+          "size": 5,
+          "disassembly": "mov     edi, 80000000h"
+        },
+        {
+          "ea": "0x0054221E",
+          "size": 2,
+          "disassembly": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x00542220",
+          "size": 2,
+          "disassembly": "shr     edi, cl"
+        },
+        {
+          "ea": "0x00542222",
+          "size": 2,
+          "disassembly": "or      [ebx], edi"
+        },
+        {
+          "ea": "0x00542224",
+          "size": 5,
+          "disassembly": "mov     edi, 80000000h"
+        },
+        {
+          "ea": "0x00542229",
+          "size": 2,
+          "disassembly": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x0054222B",
+          "size": 2,
+          "disassembly": "shr     edi, cl"
+        },
+        {
+          "ea": "0x0054222D",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542230",
+          "size": 4,
+          "disassembly": "or      [eax+ecx*4+44h], edi"
+        },
+        {
+          "ea": "0x00542234",
+          "size": 2,
+          "disassembly": "jmp     short loc_542265"
+        },
+        {
+          "ea": "0x00542236",
+          "size": 2,
+          "disassembly": "inc     cl"
+        },
+        {
+          "ea": "0x00542238",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_0+3], 0"
+        },
+        {
+          "ea": "0x0054223C",
+          "size": 4,
+          "disassembly": "mov     [esi+eax+4], cl"
+        },
+        {
+          "ea": "0x00542240",
+          "size": 2,
+          "disassembly": "jnz     short loc_54224F"
+        },
+        {
+          "ea": "0x00542242",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi-20h]"
+        },
+        {
+          "ea": "0x00542245",
+          "size": 5,
+          "disassembly": "mov     edi, 80000000h"
+        },
+        {
+          "ea": "0x0054224A",
+          "size": 2,
+          "disassembly": "shr     edi, cl"
+        },
+        {
+          "ea": "0x0054224C",
+          "size": 3,
+          "disassembly": "or      [ebx+4], edi"
+        },
+        {
+          "ea": "0x0054224F",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542252",
+          "size": 7,
+          "disassembly": "lea     edi, [eax+ecx*4+0C4h]"
+        },
+        {
+          "ea": "0x00542259",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi-20h]"
+        },
+        {
+          "ea": "0x0054225C",
+          "size": 5,
+          "disassembly": "mov     esi, 80000000h"
+        },
+        {
+          "ea": "0x00542261",
+          "size": 2,
+          "disassembly": "shr     esi, cl"
+        },
+        {
+          "ea": "0x00542263",
+          "size": 2,
+          "disassembly": "or      [edi], esi"
+        },
+        {
+          "ea": "0x00542265",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00542268",
+          "size": 2,
+          "disassembly": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x0054226A",
+          "size": 2,
+          "disassembly": "jz      short loc_542277"
+        },
+        {
+          "ea": "0x0054226C",
+          "size": 2,
+          "disassembly": "mov     [edx], ecx"
+        },
+        {
+          "ea": "0x0054226E",
+          "size": 4,
+          "disassembly": "mov     [ecx+edx-4], ecx"
+        },
+        {
+          "ea": "0x00542272",
+          "size": 2,
+          "disassembly": "jmp     short loc_542277"
+        },
+        {
+          "ea": "0x00542274",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00542277",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+var_10]"
+        },
+        {
+          "ea": "0x0054227A",
+          "size": 2,
+          "disassembly": "add     edx, ecx"
+        },
+        {
+          "ea": "0x0054227C",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi+1]"
+        },
+        {
+          "ea": "0x0054227F",
+          "size": 2,
+          "disassembly": "mov     [edx], ecx"
+        },
+        {
+          "ea": "0x00542281",
+          "size": 4,
+          "disassembly": "mov     [edx+esi-4], ecx"
+        },
+        {
+          "ea": "0x00542285",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+var_C]"
+        },
+        {
+          "ea": "0x00542288",
+          "size": 2,
+          "disassembly": "mov     ecx, [esi]"
+        },
+        {
+          "ea": "0x0054228A",
+          "size": 2,
+          "disassembly": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x0054228C",
+          "size": 3,
+          "disassembly": "lea     edi, [ecx+1]"
+        },
+        {
+          "ea": "0x0054228F",
+          "size": 2,
+          "disassembly": "mov     [esi], edi"
+        },
+        {
+          "ea": "0x00542291",
+          "size": 2,
+          "disassembly": "jnz     short loc_5422AD"
+        },
+        {
+          "ea": "0x00542293",
+          "size": 6,
+          "disassembly": "cmp     ebx, dword_1086994"
+        },
+        {
+          "ea": "0x00542299",
+          "size": 2,
+          "disassembly": "jnz     short loc_5422AD"
+        },
+        {
+          "ea": "0x0054229B",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x0054229E",
+          "size": 6,
+          "disassembly": "cmp     ecx, dword_108698C"
+        },
+        {
+          "ea": "0x005422A4",
+          "size": 2,
+          "disassembly": "jnz     short loc_5422AD"
+        },
+        {
+          "ea": "0x005422A6",
+          "size": 7,
+          "disassembly": "and     dword_1086994, 0"
+        },
+        {
+          "ea": "0x005422AD",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x005422B0",
+          "size": 2,
+          "disassembly": "mov     [eax], ecx"
+        },
+        {
+          "ea": "0x005422B2",
+          "size": 3,
+          "disassembly": "lea     eax, [edx+4]"
+        },
+        {
+          "ea": "0x005422B5",
+          "size": 1,
+          "disassembly": "pop     edi"
+        },
+        {
+          "ea": "0x005422B6",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x005422B7",
+          "size": 1,
+          "disassembly": "pop     ebx"
+        },
+        {
+          "ea": "0x005422B8",
+          "size": 1,
+          "disassembly": "leave"
+        },
+        {
+          "ea": "0x005422B9",
+          "size": 1,
+          "disassembly": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x0053C036",
+          "parent_entry": "0x0053BFF8",
+          "type": 17
+        },
+        {
+          "address": "0x0053C402",
+          "parent_entry": "0x0053C3EA",
+          "type": 17
+        },
+        {
+          "address": "0x0053FAD2",
+          "parent_entry": "0x0053FA5B",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "entry": "0x00541C88",
+      "name": "sub_541C88",
+      "chunks": [
+        [
+          "0x00541C88",
+          "0x00541FB1"
+        ]
+      ],
+      "instruction_count": 265,
+      "byte_count": 809,
+      "instructions": [
+        {
+          "ea": "0x00541C88",
+          "size": 1,
+          "disassembly": "push    ebp"
+        },
+        {
+          "ea": "0x00541C89",
+          "size": 2,
+          "disassembly": "mov     ebp, esp"
+        },
+        {
+          "ea": "0x00541C8B",
+          "size": 3,
+          "disassembly": "sub     esp, 10h"
+        },
+        {
+          "ea": "0x00541C8E",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541C91",
+          "size": 1,
+          "disassembly": "push    ebx"
+        },
+        {
+          "ea": "0x00541C92",
+          "size": 1,
+          "disassembly": "push    esi"
+        },
+        {
+          "ea": "0x00541C93",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541C96",
+          "size": 3,
+          "disassembly": "mov     eax, [ecx+10h]"
+        },
+        {
+          "ea": "0x00541C99",
+          "size": 1,
+          "disassembly": "push    edi"
+        },
+        {
+          "ea": "0x00541C9A",
+          "size": 2,
+          "disassembly": "mov     edi, esi"
+        },
+        {
+          "ea": "0x00541C9C",
+          "size": 3,
+          "disassembly": "add     esi, 0FFFFFFFCh"
+        },
+        {
+          "ea": "0x00541C9F",
+          "size": 3,
+          "disassembly": "sub     edi, [ecx+0Ch]"
+        },
+        {
+          "ea": "0x00541CA2",
+          "size": 3,
+          "disassembly": "shr     edi, 0Fh"
+        },
+        {
+          "ea": "0x00541CA5",
+          "size": 2,
+          "disassembly": "mov     ecx, edi"
+        },
+        {
+          "ea": "0x00541CA7",
+          "size": 6,
+          "disassembly": "imul    ecx, 204h"
+        },
+        {
+          "ea": "0x00541CAD",
+          "size": 7,
+          "disassembly": "lea     ecx, [ecx+eax+144h]"
+        },
+        {
+          "ea": "0x00541CB4",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_10], ecx"
+        },
+        {
+          "ea": "0x00541CB7",
+          "size": 2,
+          "disassembly": "mov     ecx, [esi]"
+        },
+        {
+          "ea": "0x00541CB9",
+          "size": 1,
+          "disassembly": "dec     ecx"
+        },
+        {
+          "ea": "0x00541CBA",
+          "size": 3,
+          "disassembly": "test    cl, 1"
+        },
+        {
+          "ea": "0x00541CBD",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], ecx"
+        },
+        {
+          "ea": "0x00541CC0",
+          "size": 6,
+          "disassembly": "jnz     loc_541FAC"
+        },
+        {
+          "ea": "0x00541CC6",
+          "size": 3,
+          "disassembly": "mov     edx, [ecx+esi]"
+        },
+        {
+          "ea": "0x00541CC9",
+          "size": 3,
+          "disassembly": "lea     ebx, [ecx+esi]"
+        },
+        {
+          "ea": "0x00541CCC",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], edx"
+        },
+        {
+          "ea": "0x00541CCF",
+          "size": 3,
+          "disassembly": "mov     edx, [esi-4]"
+        },
+        {
+          "ea": "0x00541CD2",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_8], edx"
+        },
+        {
+          "ea": "0x00541CD5",
+          "size": 3,
+          "disassembly": "mov     edx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x00541CD8",
+          "size": 3,
+          "disassembly": "test    dl, 1"
+        },
+        {
+          "ea": "0x00541CDB",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_4], ebx"
+        },
+        {
+          "ea": "0x00541CDE",
+          "size": 2,
+          "disassembly": "jnz     short loc_541D5E"
+        },
+        {
+          "ea": "0x00541CE0",
+          "size": 3,
+          "disassembly": "sar     edx, 4"
+        },
+        {
+          "ea": "0x00541CE3",
+          "size": 1,
+          "disassembly": "dec     edx"
+        },
+        {
+          "ea": "0x00541CE4",
+          "size": 3,
+          "disassembly": "cmp     edx, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x00541CE7",
+          "size": 2,
+          "disassembly": "jbe     short loc_541CEC"
+        },
+        {
+          "ea": "0x00541CE9",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00541CEB",
+          "size": 1,
+          "disassembly": "pop     edx"
+        },
+        {
+          "ea": "0x00541CEC",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+4]"
+        },
+        {
+          "ea": "0x00541CEF",
+          "size": 3,
+          "disassembly": "cmp     ecx, [ebx+8]"
+        },
+        {
+          "ea": "0x00541CF2",
+          "size": 2,
+          "disassembly": "jnz     short loc_541D40"
+        },
+        {
+          "ea": "0x00541CF4",
+          "size": 3,
+          "disassembly": "cmp     edx, 20h ; ' '"
+        },
+        {
+          "ea": "0x00541CF7",
+          "size": 2,
+          "disassembly": "jnb     short loc_541D17"
+        },
+        {
+          "ea": "0x00541CF9",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00541CFE",
+          "size": 2,
+          "disassembly": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x00541D00",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00541D02",
+          "size": 4,
+          "disassembly": "lea     ecx, [edx+eax+4]"
+        },
+        {
+          "ea": "0x00541D06",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x00541D08",
+          "size": 4,
+          "disassembly": "and     [eax+edi*4+44h], ebx"
+        },
+        {
+          "ea": "0x00541D0C",
+          "size": 2,
+          "disassembly": "dec     byte ptr [ecx]"
+        },
+        {
+          "ea": "0x00541D0E",
+          "size": 2,
+          "disassembly": "jnz     short loc_541D38"
+        },
+        {
+          "ea": "0x00541D10",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541D13",
+          "size": 2,
+          "disassembly": "and     [ecx], ebx"
+        },
+        {
+          "ea": "0x00541D15",
+          "size": 2,
+          "disassembly": "jmp     short loc_541D38"
+        },
+        {
+          "ea": "0x00541D17",
+          "size": 3,
+          "disassembly": "lea     ecx, [edx-20h]"
+        },
+        {
+          "ea": "0x00541D1A",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00541D1F",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00541D21",
+          "size": 4,
+          "disassembly": "lea     ecx, [edx+eax+4]"
+        },
+        {
+          "ea": "0x00541D25",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x00541D27",
+          "size": 7,
+          "disassembly": "and     [eax+edi*4+0C4h], ebx"
+        },
+        {
+          "ea": "0x00541D2E",
+          "size": 2,
+          "disassembly": "dec     byte ptr [ecx]"
+        },
+        {
+          "ea": "0x00541D30",
+          "size": 2,
+          "disassembly": "jnz     short loc_541D38"
+        },
+        {
+          "ea": "0x00541D32",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541D35",
+          "size": 3,
+          "disassembly": "and     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x00541D38",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00541D3B",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541D3E",
+          "size": 2,
+          "disassembly": "jmp     short loc_541D43"
+        },
+        {
+          "ea": "0x00541D40",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00541D43",
+          "size": 3,
+          "disassembly": "mov     edx, [ebx+8]"
+        },
+        {
+          "ea": "0x00541D46",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebx+4]"
+        },
+        {
+          "ea": "0x00541D49",
+          "size": 3,
+          "disassembly": "add     ecx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x00541D4C",
+          "size": 3,
+          "disassembly": "mov     [edx+4], ebx"
+        },
+        {
+          "ea": "0x00541D4F",
+          "size": 3,
+          "disassembly": "mov     edx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541D52",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], ecx"
+        },
+        {
+          "ea": "0x00541D55",
+          "size": 3,
+          "disassembly": "mov     ebx, [edx+4]"
+        },
+        {
+          "ea": "0x00541D58",
+          "size": 3,
+          "disassembly": "mov     edx, [edx+8]"
+        },
+        {
+          "ea": "0x00541D5B",
+          "size": 3,
+          "disassembly": "mov     [ebx+8], edx"
+        },
+        {
+          "ea": "0x00541D5E",
+          "size": 2,
+          "disassembly": "mov     edx, ecx"
+        },
+        {
+          "ea": "0x00541D60",
+          "size": 3,
+          "disassembly": "sar     edx, 4"
+        },
+        {
+          "ea": "0x00541D63",
+          "size": 1,
+          "disassembly": "dec     edx"
+        },
+        {
+          "ea": "0x00541D64",
+          "size": 3,
+          "disassembly": "cmp     edx, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x00541D67",
+          "size": 2,
+          "disassembly": "jbe     short loc_541D6C"
+        },
+        {
+          "ea": "0x00541D69",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00541D6B",
+          "size": 1,
+          "disassembly": "pop     edx"
+        },
+        {
+          "ea": "0x00541D6C",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00541D6F",
+          "size": 3,
+          "disassembly": "and     ebx, 1"
+        },
+        {
+          "ea": "0x00541D72",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], ebx"
+        },
+        {
+          "ea": "0x00541D75",
+          "size": 6,
+          "disassembly": "jnz     loc_541E0F"
+        },
+        {
+          "ea": "0x00541D7B",
+          "size": 3,
+          "disassembly": "sub     esi, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00541D7E",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00541D81",
+          "size": 3,
+          "disassembly": "sar     ebx, 4"
+        },
+        {
+          "ea": "0x00541D84",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00541D86",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_4], esi"
+        },
+        {
+          "ea": "0x00541D89",
+          "size": 1,
+          "disassembly": "dec     ebx"
+        },
+        {
+          "ea": "0x00541D8A",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x00541D8B",
+          "size": 2,
+          "disassembly": "cmp     ebx, esi"
+        },
+        {
+          "ea": "0x00541D8D",
+          "size": 2,
+          "disassembly": "jbe     short loc_541D91"
+        },
+        {
+          "ea": "0x00541D8F",
+          "size": 2,
+          "disassembly": "mov     ebx, esi"
+        },
+        {
+          "ea": "0x00541D91",
+          "size": 3,
+          "disassembly": "add     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00541D94",
+          "size": 2,
+          "disassembly": "mov     edx, ecx"
+        },
+        {
+          "ea": "0x00541D96",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], ecx"
+        },
+        {
+          "ea": "0x00541D99",
+          "size": 3,
+          "disassembly": "sar     edx, 4"
+        },
+        {
+          "ea": "0x00541D9C",
+          "size": 1,
+          "disassembly": "dec     edx"
+        },
+        {
+          "ea": "0x00541D9D",
+          "size": 2,
+          "disassembly": "cmp     edx, esi"
+        },
+        {
+          "ea": "0x00541D9F",
+          "size": 2,
+          "disassembly": "jbe     short loc_541DA3"
+        },
+        {
+          "ea": "0x00541DA1",
+          "size": 2,
+          "disassembly": "mov     edx, esi"
+        },
+        {
+          "ea": "0x00541DA3",
+          "size": 2,
+          "disassembly": "cmp     ebx, edx"
+        },
+        {
+          "ea": "0x00541DA5",
+          "size": 2,
+          "disassembly": "jz      short loc_541E0A"
+        },
+        {
+          "ea": "0x00541DA7",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541DAA",
+          "size": 3,
+          "disassembly": "mov     esi, [ecx+4]"
+        },
+        {
+          "ea": "0x00541DAD",
+          "size": 3,
+          "disassembly": "cmp     esi, [ecx+8]"
+        },
+        {
+          "ea": "0x00541DB0",
+          "size": 2,
+          "disassembly": "jnz     short loc_541DF2"
+        },
+        {
+          "ea": "0x00541DB2",
+          "size": 3,
+          "disassembly": "cmp     ebx, 20h ; ' '"
+        },
+        {
+          "ea": "0x00541DB5",
+          "size": 2,
+          "disassembly": "jnb     short loc_541DD3"
+        },
+        {
+          "ea": "0x00541DB7",
+          "size": 5,
+          "disassembly": "mov     esi, 80000000h"
+        },
+        {
+          "ea": "0x00541DBC",
+          "size": 2,
+          "disassembly": "mov     ecx, ebx"
+        },
+        {
+          "ea": "0x00541DBE",
+          "size": 2,
+          "disassembly": "shr     esi, cl"
+        },
+        {
+          "ea": "0x00541DC0",
+          "size": 2,
+          "disassembly": "not     esi"
+        },
+        {
+          "ea": "0x00541DC2",
+          "size": 4,
+          "disassembly": "and     [eax+edi*4+44h], esi"
+        },
+        {
+          "ea": "0x00541DC6",
+          "size": 4,
+          "disassembly": "dec     byte ptr [ebx+eax+4]"
+        },
+        {
+          "ea": "0x00541DCA",
+          "size": 2,
+          "disassembly": "jnz     short loc_541DF2"
+        },
+        {
+          "ea": "0x00541DCC",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541DCF",
+          "size": 2,
+          "disassembly": "and     [ecx], esi"
+        },
+        {
+          "ea": "0x00541DD1",
+          "size": 2,
+          "disassembly": "jmp     short loc_541DF2"
+        },
+        {
+          "ea": "0x00541DD3",
+          "size": 3,
+          "disassembly": "lea     ecx, [ebx-20h]"
+        },
+        {
+          "ea": "0x00541DD6",
+          "size": 5,
+          "disassembly": "mov     esi, 80000000h"
+        },
+        {
+          "ea": "0x00541DDB",
+          "size": 2,
+          "disassembly": "shr     esi, cl"
+        },
+        {
+          "ea": "0x00541DDD",
+          "size": 2,
+          "disassembly": "not     esi"
+        },
+        {
+          "ea": "0x00541DDF",
+          "size": 7,
+          "disassembly": "and     [eax+edi*4+0C4h], esi"
+        },
+        {
+          "ea": "0x00541DE6",
+          "size": 4,
+          "disassembly": "dec     byte ptr [ebx+eax+4]"
+        },
+        {
+          "ea": "0x00541DEA",
+          "size": 2,
+          "disassembly": "jnz     short loc_541DF2"
+        },
+        {
+          "ea": "0x00541DEC",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541DEF",
+          "size": 3,
+          "disassembly": "and     [ecx+4], esi"
+        },
+        {
+          "ea": "0x00541DF2",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541DF5",
+          "size": 3,
+          "disassembly": "mov     esi, [ecx+8]"
+        },
+        {
+          "ea": "0x00541DF8",
+          "size": 3,
+          "disassembly": "mov     ecx, [ecx+4]"
+        },
+        {
+          "ea": "0x00541DFB",
+          "size": 3,
+          "disassembly": "mov     [esi+4], ecx"
+        },
+        {
+          "ea": "0x00541DFE",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541E01",
+          "size": 3,
+          "disassembly": "mov     esi, [ecx+4]"
+        },
+        {
+          "ea": "0x00541E04",
+          "size": 3,
+          "disassembly": "mov     ecx, [ecx+8]"
+        },
+        {
+          "ea": "0x00541E07",
+          "size": 3,
+          "disassembly": "mov     [esi+8], ecx"
+        },
+        {
+          "ea": "0x00541E0A",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00541E0D",
+          "size": 2,
+          "disassembly": "jmp     short loc_541E12"
+        },
+        {
+          "ea": "0x00541E0F",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541E12",
+          "size": 4,
+          "disassembly": "cmp     [ebp+var_C], 0"
+        },
+        {
+          "ea": "0x00541E16",
+          "size": 2,
+          "disassembly": "jnz     short loc_541E20"
+        },
+        {
+          "ea": "0x00541E18",
+          "size": 2,
+          "disassembly": "cmp     ebx, edx"
+        },
+        {
+          "ea": "0x00541E1A",
+          "size": 6,
+          "disassembly": "jz      loc_541EA1"
+        },
+        {
+          "ea": "0x00541E20",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_10]"
+        },
+        {
+          "ea": "0x00541E23",
+          "size": 4,
+          "disassembly": "mov     ebx, [ecx+edx*8+4]"
+        },
+        {
+          "ea": "0x00541E27",
+          "size": 3,
+          "disassembly": "lea     ecx, [ecx+edx*8]"
+        },
+        {
+          "ea": "0x00541E2A",
+          "size": 3,
+          "disassembly": "mov     [esi+4], ebx"
+        },
+        {
+          "ea": "0x00541E2D",
+          "size": 3,
+          "disassembly": "mov     [esi+8], ecx"
+        },
+        {
+          "ea": "0x00541E30",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], esi"
+        },
+        {
+          "ea": "0x00541E33",
+          "size": 3,
+          "disassembly": "mov     ecx, [esi+4]"
+        },
+        {
+          "ea": "0x00541E36",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], esi"
+        },
+        {
+          "ea": "0x00541E39",
+          "size": 3,
+          "disassembly": "mov     ecx, [esi+4]"
+        },
+        {
+          "ea": "0x00541E3C",
+          "size": 3,
+          "disassembly": "cmp     ecx, [esi+8]"
+        },
+        {
+          "ea": "0x00541E3F",
+          "size": 2,
+          "disassembly": "jnz     short loc_541EA1"
+        },
+        {
+          "ea": "0x00541E41",
+          "size": 4,
+          "disassembly": "mov     cl, [edx+eax+4]"
+        },
+        {
+          "ea": "0x00541E45",
+          "size": 3,
+          "disassembly": "cmp     edx, 20h ; ' '"
+        },
+        {
+          "ea": "0x00541E48",
+          "size": 3,
+          "disassembly": "mov     byte ptr [ebp+arg_4+3], cl"
+        },
+        {
+          "ea": "0x00541E4B",
+          "size": 2,
+          "disassembly": "inc     cl"
+        },
+        {
+          "ea": "0x00541E4D",
+          "size": 4,
+          "disassembly": "mov     [edx+eax+4], cl"
+        },
+        {
+          "ea": "0x00541E51",
+          "size": 2,
+          "disassembly": "jnb     short loc_541E78"
+        },
+        {
+          "ea": "0x00541E53",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_4+3], 0"
+        },
+        {
+          "ea": "0x00541E57",
+          "size": 2,
+          "disassembly": "jnz     short loc_541E67"
+        },
+        {
+          "ea": "0x00541E59",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00541E5E",
+          "size": 2,
+          "disassembly": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x00541E60",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00541E62",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541E65",
+          "size": 2,
+          "disassembly": "or      [ecx], ebx"
+        },
+        {
+          "ea": "0x00541E67",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00541E6C",
+          "size": 2,
+          "disassembly": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x00541E6E",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00541E70",
+          "size": 4,
+          "disassembly": "lea     eax, [eax+edi*4+44h]"
+        },
+        {
+          "ea": "0x00541E74",
+          "size": 2,
+          "disassembly": "or      [eax], ebx"
+        },
+        {
+          "ea": "0x00541E76",
+          "size": 2,
+          "disassembly": "jmp     short loc_541EA1"
+        },
+        {
+          "ea": "0x00541E78",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_4+3], 0"
+        },
+        {
+          "ea": "0x00541E7C",
+          "size": 2,
+          "disassembly": "jnz     short loc_541E8E"
+        },
+        {
+          "ea": "0x00541E7E",
+          "size": 3,
+          "disassembly": "lea     ecx, [edx-20h]"
+        },
+        {
+          "ea": "0x00541E81",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00541E86",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00541E88",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541E8B",
+          "size": 3,
+          "disassembly": "or      [ecx+4], ebx"
+        },
+        {
+          "ea": "0x00541E8E",
+          "size": 3,
+          "disassembly": "lea     ecx, [edx-20h]"
+        },
+        {
+          "ea": "0x00541E91",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x00541E96",
+          "size": 2,
+          "disassembly": "shr     edx, cl"
+        },
+        {
+          "ea": "0x00541E98",
+          "size": 7,
+          "disassembly": "lea     eax, [eax+edi*4+0C4h]"
+        },
+        {
+          "ea": "0x00541E9F",
+          "size": 2,
+          "disassembly": "or      [eax], edx"
+        },
+        {
+          "ea": "0x00541EA1",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00541EA4",
+          "size": 2,
+          "disassembly": "mov     [esi], eax"
+        },
+        {
+          "ea": "0x00541EA6",
+          "size": 4,
+          "disassembly": "mov     [eax+esi-4], eax"
+        },
+        {
+          "ea": "0x00541EAA",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+var_10]"
+        },
+        {
+          "ea": "0x00541EAD",
+          "size": 2,
+          "disassembly": "dec     dword ptr [eax]"
+        },
+        {
+          "ea": "0x00541EAF",
+          "size": 6,
+          "disassembly": "jnz     loc_541FAC"
+        },
+        {
+          "ea": "0x00541EB5",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541EBA",
+          "size": 2,
+          "disassembly": "test    eax, eax"
+        },
+        {
+          "ea": "0x00541EBC",
+          "size": 6,
+          "disassembly": "jz      loc_541F9E"
+        },
+        {
+          "ea": "0x00541EC2",
+          "size": 6,
+          "disassembly": "mov     ecx, dword_108698C"
+        },
+        {
+          "ea": "0x00541EC8",
+          "size": 6,
+          "disassembly": "mov     esi, ds:VirtualFree"
+        },
+        {
+          "ea": "0x00541ECE",
+          "size": 3,
+          "disassembly": "shl     ecx, 0Fh"
+        },
+        {
+          "ea": "0x00541ED1",
+          "size": 3,
+          "disassembly": "add     ecx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x00541ED4",
+          "size": 5,
+          "disassembly": "mov     ebx, 8000h"
+        },
+        {
+          "ea": "0x00541ED9",
+          "size": 5,
+          "disassembly": "push    4000h; dwFreeType"
+        },
+        {
+          "ea": "0x00541EDE",
+          "size": 1,
+          "disassembly": "push    ebx; dwSize"
+        },
+        {
+          "ea": "0x00541EDF",
+          "size": 1,
+          "disassembly": "push    ecx; lpAddress"
+        },
+        {
+          "ea": "0x00541EE0",
+          "size": 2,
+          "disassembly": "call    esi ; VirtualFree; ;0x4000 -> MEM_DECOMMIT"
+        },
+        {
+          "ea": "0x00541EE2",
+          "size": 6,
+          "disassembly": "mov     ecx, dword_108698C"
+        },
+        {
+          "ea": "0x00541EE8",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541EED",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x00541EF2",
+          "size": 2,
+          "disassembly": "shr     edx, cl"
+        },
+        {
+          "ea": "0x00541EF4",
+          "size": 3,
+          "disassembly": "or      [eax+8], edx"
+        },
+        {
+          "ea": "0x00541EF7",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541EFC",
+          "size": 6,
+          "disassembly": "mov     ecx, dword_108698C"
+        },
+        {
+          "ea": "0x00541F02",
+          "size": 3,
+          "disassembly": "mov     eax, [eax+10h]"
+        },
+        {
+          "ea": "0x00541F05",
+          "size": 8,
+          "disassembly": "and     dword ptr [eax+ecx*4+0C4h], 0"
+        },
+        {
+          "ea": "0x00541F0D",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F12",
+          "size": 3,
+          "disassembly": "mov     eax, [eax+10h]"
+        },
+        {
+          "ea": "0x00541F15",
+          "size": 3,
+          "disassembly": "dec     byte ptr [eax+43h]"
+        },
+        {
+          "ea": "0x00541F18",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F1D",
+          "size": 3,
+          "disassembly": "mov     ecx, [eax+10h]"
+        },
+        {
+          "ea": "0x00541F20",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ecx+43h], 0"
+        },
+        {
+          "ea": "0x00541F24",
+          "size": 2,
+          "disassembly": "jnz     short loc_541F2F"
+        },
+        {
+          "ea": "0x00541F26",
+          "size": 4,
+          "disassembly": "and     dword ptr [eax+4], 0FFFFFFFEh"
+        },
+        {
+          "ea": "0x00541F2A",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F2F",
+          "size": 4,
+          "disassembly": "cmp     dword ptr [eax+8], 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x00541F33",
+          "size": 2,
+          "disassembly": "jnz     short loc_541F9E"
+        },
+        {
+          "ea": "0x00541F35",
+          "size": 1,
+          "disassembly": "push    ebx; dwFreeType"
+        },
+        {
+          "ea": "0x00541F36",
+          "size": 2,
+          "disassembly": "push    0; dwSize"
+        },
+        {
+          "ea": "0x00541F38",
+          "size": 3,
+          "disassembly": "push    dword ptr [eax+0Ch]; lpAddress"
+        },
+        {
+          "ea": "0x00541F3B",
+          "size": 2,
+          "disassembly": "call    esi ; VirtualFree; ;0x8000 -> MEM_RELEASE"
+        },
+        {
+          "ea": "0x00541F3D",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F42",
+          "size": 3,
+          "disassembly": "push    dword ptr [eax+10h]; lpMem"
+        },
+        {
+          "ea": "0x00541F45",
+          "size": 2,
+          "disassembly": "push    0; dwFlags"
+        },
+        {
+          "ea": "0x00541F47",
+          "size": 6,
+          "disassembly": "push    hHeap; hHeap"
+        },
+        {
+          "ea": "0x00541F4D",
+          "size": 6,
+          "disassembly": "call    ds:HeapFree"
+        },
+        {
+          "ea": "0x00541F53",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086998"
+        },
+        {
+          "ea": "0x00541F58",
+          "size": 6,
+          "disassembly": "mov     edx, dword_108699C"
+        },
+        {
+          "ea": "0x00541F5E",
+          "size": 3,
+          "disassembly": "lea     eax, [eax+eax*4]"
+        },
+        {
+          "ea": "0x00541F61",
+          "size": 3,
+          "disassembly": "shl     eax, 2"
+        },
+        {
+          "ea": "0x00541F64",
+          "size": 2,
+          "disassembly": "mov     ecx, eax"
+        },
+        {
+          "ea": "0x00541F66",
+          "size": 5,
+          "disassembly": "mov     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F6B",
+          "size": 2,
+          "disassembly": "sub     ecx, eax"
+        },
+        {
+          "ea": "0x00541F6D",
+          "size": 4,
+          "disassembly": "lea     ecx, [ecx+edx-14h]"
+        },
+        {
+          "ea": "0x00541F71",
+          "size": 1,
+          "disassembly": "push    ecx; Size"
+        },
+        {
+          "ea": "0x00541F72",
+          "size": 3,
+          "disassembly": "lea     ecx, [eax+14h]"
+        },
+        {
+          "ea": "0x00541F75",
+          "size": 1,
+          "disassembly": "push    ecx; Src"
+        },
+        {
+          "ea": "0x00541F76",
+          "size": 1,
+          "disassembly": "push    eax; void *"
+        },
+        {
+          "ea": "0x00541F77",
+          "size": 5,
+          "disassembly": "call    _memcpy"
+        },
+        {
+          "ea": "0x00541F7C",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541F7F",
+          "size": 3,
+          "disassembly": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x00541F82",
+          "size": 6,
+          "disassembly": "dec     dword_1086998"
+        },
+        {
+          "ea": "0x00541F88",
+          "size": 6,
+          "disassembly": "cmp     eax, dword_1086994"
+        },
+        {
+          "ea": "0x00541F8E",
+          "size": 2,
+          "disassembly": "jbe     short loc_541F94"
+        },
+        {
+          "ea": "0x00541F90",
+          "size": 4,
+          "disassembly": "sub     [ebp+arg_0], 14h"
+        },
+        {
+          "ea": "0x00541F94",
+          "size": 5,
+          "disassembly": "mov     eax, dword_108699C"
+        },
+        {
+          "ea": "0x00541F99",
+          "size": 5,
+          "disassembly": "mov     dword_1086990, eax"
+        },
+        {
+          "ea": "0x00541F9E",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00541FA1",
+          "size": 6,
+          "disassembly": "mov     dword_108698C, edi"
+        },
+        {
+          "ea": "0x00541FA7",
+          "size": 5,
+          "disassembly": "mov     dword_1086994, eax"
+        },
+        {
+          "ea": "0x00541FAC",
+          "size": 1,
+          "disassembly": "pop     edi"
+        },
+        {
+          "ea": "0x00541FAD",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x00541FAE",
+          "size": 1,
+          "disassembly": "pop     ebx"
+        },
+        {
+          "ea": "0x00541FAF",
+          "size": 1,
+          "disassembly": "leave"
+        },
+        {
+          "ea": "0x00541FB0",
+          "size": 1,
+          "disassembly": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x0053C0CC",
+          "parent_entry": "0x0053C0A9",
+          "type": 17
+        },
+        {
+          "address": "0x0053FAFF",
+          "parent_entry": "0x0053FA5B",
+          "type": 17
+        },
+        {
+          "address": "0x0053FB46",
+          "parent_entry": "0x0053FA5B",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "entry": "0x00542466",
+      "name": "___sbh_resize_block",
+      "chunks": [
+        [
+          "0x00542466",
+          "0x0054275C"
+        ]
+      ],
+      "instruction_count": 259,
+      "byte_count": 758,
+      "instructions": [
+        {
+          "ea": "0x00542466",
+          "size": 1,
+          "disassembly": "push    ebp"
+        },
+        {
+          "ea": "0x00542467",
+          "size": 2,
+          "disassembly": "mov     ebp, esp"
+        },
+        {
+          "ea": "0x00542469",
+          "size": 3,
+          "disassembly": "sub     esp, 0Ch"
+        },
+        {
+          "ea": "0x0054246C",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x0054246F",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x00542472",
+          "size": 1,
+          "disassembly": "push    ebx"
+        },
+        {
+          "ea": "0x00542473",
+          "size": 1,
+          "disassembly": "push    esi"
+        },
+        {
+          "ea": "0x00542474",
+          "size": 1,
+          "disassembly": "push    edi"
+        },
+        {
+          "ea": "0x00542475",
+          "size": 3,
+          "disassembly": "mov     edi, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00542478",
+          "size": 2,
+          "disassembly": "mov     edx, edi"
+        },
+        {
+          "ea": "0x0054247A",
+          "size": 3,
+          "disassembly": "lea     esi, [eax+17h]"
+        },
+        {
+          "ea": "0x0054247D",
+          "size": 3,
+          "disassembly": "sub     edx, [ecx+0Ch]"
+        },
+        {
+          "ea": "0x00542480",
+          "size": 3,
+          "disassembly": "mov     eax, [ecx+10h]"
+        },
+        {
+          "ea": "0x00542483",
+          "size": 3,
+          "disassembly": "and     esi, 0FFFFFFF0h"
+        },
+        {
+          "ea": "0x00542486",
+          "size": 3,
+          "disassembly": "shr     edx, 0Fh"
+        },
+        {
+          "ea": "0x00542489",
+          "size": 2,
+          "disassembly": "mov     ecx, edx"
+        },
+        {
+          "ea": "0x0054248B",
+          "size": 6,
+          "disassembly": "imul    ecx, 204h"
+        },
+        {
+          "ea": "0x00542491",
+          "size": 7,
+          "disassembly": "lea     ecx, [ecx+eax+144h]"
+        },
+        {
+          "ea": "0x00542498",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_C], ecx"
+        },
+        {
+          "ea": "0x0054249B",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi-4]"
+        },
+        {
+          "ea": "0x0054249E",
+          "size": 1,
+          "disassembly": "dec     ecx"
+        },
+        {
+          "ea": "0x0054249F",
+          "size": 2,
+          "disassembly": "cmp     esi, ecx"
+        },
+        {
+          "ea": "0x005424A1",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_8], ecx"
+        },
+        {
+          "ea": "0x005424A4",
+          "size": 4,
+          "disassembly": "mov     ebx, [ecx+edi-4]"
+        },
+        {
+          "ea": "0x005424A8",
+          "size": 4,
+          "disassembly": "lea     edi, [ecx+edi-4]"
+        },
+        {
+          "ea": "0x005424AC",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_4], ebx"
+        },
+        {
+          "ea": "0x005424AF",
+          "size": 6,
+          "disassembly": "jle     loc_542614"
+        },
+        {
+          "ea": "0x005424B5",
+          "size": 3,
+          "disassembly": "test    bl, 1"
+        },
+        {
+          "ea": "0x005424B8",
+          "size": 6,
+          "disassembly": "jnz     loc_54260D"
+        },
+        {
+          "ea": "0x005424BE",
+          "size": 2,
+          "disassembly": "add     ebx, ecx"
+        },
+        {
+          "ea": "0x005424C0",
+          "size": 2,
+          "disassembly": "cmp     esi, ebx"
+        },
+        {
+          "ea": "0x005424C2",
+          "size": 6,
+          "disassembly": "jg      loc_54260D"
+        },
+        {
+          "ea": "0x005424C8",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x005424CB",
+          "size": 3,
+          "disassembly": "sar     ecx, 4"
+        },
+        {
+          "ea": "0x005424CE",
+          "size": 1,
+          "disassembly": "dec     ecx"
+        },
+        {
+          "ea": "0x005424CF",
+          "size": 3,
+          "disassembly": "cmp     ecx, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x005424D2",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_8], ecx"
+        },
+        {
+          "ea": "0x005424D5",
+          "size": 2,
+          "disassembly": "jbe     short loc_5424DD"
+        },
+        {
+          "ea": "0x005424D7",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x005424D9",
+          "size": 1,
+          "disassembly": "pop     ecx"
+        },
+        {
+          "ea": "0x005424DA",
+          "size": 3,
+          "disassembly": "mov     [ebp+var_8], ecx"
+        },
+        {
+          "ea": "0x005424DD",
+          "size": 3,
+          "disassembly": "mov     ebx, [edi+4]"
+        },
+        {
+          "ea": "0x005424E0",
+          "size": 3,
+          "disassembly": "cmp     ebx, [edi+8]"
+        },
+        {
+          "ea": "0x005424E3",
+          "size": 2,
+          "disassembly": "jnz     short loc_54252D"
+        },
+        {
+          "ea": "0x005424E5",
+          "size": 3,
+          "disassembly": "cmp     ecx, 20h ; ' '"
+        },
+        {
+          "ea": "0x005424E8",
+          "size": 2,
+          "disassembly": "jnb     short loc_542509"
+        },
+        {
+          "ea": "0x005424EA",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x005424EF",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x005424F1",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x005424F4",
+          "size": 4,
+          "disassembly": "lea     ecx, [ecx+eax+4]"
+        },
+        {
+          "ea": "0x005424F8",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x005424FA",
+          "size": 4,
+          "disassembly": "and     [eax+edx*4+44h], ebx"
+        },
+        {
+          "ea": "0x005424FE",
+          "size": 2,
+          "disassembly": "dec     byte ptr [ecx]"
+        },
+        {
+          "ea": "0x00542500",
+          "size": 2,
+          "disassembly": "jnz     short loc_54252D"
+        },
+        {
+          "ea": "0x00542502",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00542505",
+          "size": 2,
+          "disassembly": "and     [ecx], ebx"
+        },
+        {
+          "ea": "0x00542507",
+          "size": 2,
+          "disassembly": "jmp     short loc_54252D"
+        },
+        {
+          "ea": "0x00542509",
+          "size": 3,
+          "disassembly": "add     ecx, 0FFFFFFE0h"
+        },
+        {
+          "ea": "0x0054250C",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x00542511",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x00542513",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_8]"
+        },
+        {
+          "ea": "0x00542516",
+          "size": 4,
+          "disassembly": "lea     ecx, [ecx+eax+4]"
+        },
+        {
+          "ea": "0x0054251A",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x0054251C",
+          "size": 7,
+          "disassembly": "and     [eax+edx*4+0C4h], ebx"
+        },
+        {
+          "ea": "0x00542523",
+          "size": 2,
+          "disassembly": "dec     byte ptr [ecx]"
+        },
+        {
+          "ea": "0x00542525",
+          "size": 2,
+          "disassembly": "jnz     short loc_54252D"
+        },
+        {
+          "ea": "0x00542527",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x0054252A",
+          "size": 3,
+          "disassembly": "and     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x0054252D",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi+8]"
+        },
+        {
+          "ea": "0x00542530",
+          "size": 3,
+          "disassembly": "mov     ebx, [edi+4]"
+        },
+        {
+          "ea": "0x00542533",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x00542536",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi+4]"
+        },
+        {
+          "ea": "0x00542539",
+          "size": 3,
+          "disassembly": "mov     edi, [edi+8]"
+        },
+        {
+          "ea": "0x0054253C",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], edi"
+        },
+        {
+          "ea": "0x0054253F",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x00542542",
+          "size": 2,
+          "disassembly": "sub     ecx, esi"
+        },
+        {
+          "ea": "0x00542544",
+          "size": 3,
+          "disassembly": "add     [ebp+var_4], ecx"
+        },
+        {
+          "ea": "0x00542547",
+          "size": 4,
+          "disassembly": "cmp     [ebp+var_4], 0"
+        },
+        {
+          "ea": "0x0054254B",
+          "size": 6,
+          "disassembly": "jle     loc_5425FB"
+        },
+        {
+          "ea": "0x00542551",
+          "size": 3,
+          "disassembly": "mov     edi, [ebp+var_4]"
+        },
+        {
+          "ea": "0x00542554",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x00542557",
+          "size": 3,
+          "disassembly": "sar     edi, 4"
+        },
+        {
+          "ea": "0x0054255A",
+          "size": 1,
+          "disassembly": "dec     edi"
+        },
+        {
+          "ea": "0x0054255B",
+          "size": 4,
+          "disassembly": "lea     ecx, [ecx+esi-4]"
+        },
+        {
+          "ea": "0x0054255F",
+          "size": 3,
+          "disassembly": "cmp     edi, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x00542562",
+          "size": 2,
+          "disassembly": "jbe     short loc_542567"
+        },
+        {
+          "ea": "0x00542564",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00542566",
+          "size": 1,
+          "disassembly": "pop     edi"
+        },
+        {
+          "ea": "0x00542567",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x0054256A",
+          "size": 3,
+          "disassembly": "lea     ebx, [ebx+edi*8]"
+        },
+        {
+          "ea": "0x0054256D",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_8], ebx"
+        },
+        {
+          "ea": "0x00542570",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebx+4]"
+        },
+        {
+          "ea": "0x00542573",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x00542576",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x00542579",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], ebx"
+        },
+        {
+          "ea": "0x0054257C",
+          "size": 3,
+          "disassembly": "mov     [ebx+4], ecx"
+        },
+        {
+          "ea": "0x0054257F",
+          "size": 3,
+          "disassembly": "mov     ebx, [ecx+4]"
+        },
+        {
+          "ea": "0x00542582",
+          "size": 3,
+          "disassembly": "mov     [ebx+8], ecx"
+        },
+        {
+          "ea": "0x00542585",
+          "size": 3,
+          "disassembly": "mov     ebx, [ecx+4]"
+        },
+        {
+          "ea": "0x00542588",
+          "size": 3,
+          "disassembly": "cmp     ebx, [ecx+8]"
+        },
+        {
+          "ea": "0x0054258B",
+          "size": 2,
+          "disassembly": "jnz     short loc_5425E9"
+        },
+        {
+          "ea": "0x0054258D",
+          "size": 4,
+          "disassembly": "mov     cl, [edi+eax+4]"
+        },
+        {
+          "ea": "0x00542591",
+          "size": 3,
+          "disassembly": "cmp     edi, 20h ; ' '"
+        },
+        {
+          "ea": "0x00542594",
+          "size": 3,
+          "disassembly": "mov     byte ptr [ebp+arg_8+3], cl"
+        },
+        {
+          "ea": "0x00542597",
+          "size": 2,
+          "disassembly": "inc     cl"
+        },
+        {
+          "ea": "0x00542599",
+          "size": 4,
+          "disassembly": "mov     [edi+eax+4], cl"
+        },
+        {
+          "ea": "0x0054259D",
+          "size": 2,
+          "disassembly": "jnb     short loc_5425C0"
+        },
+        {
+          "ea": "0x0054259F",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_8+3], 0"
+        },
+        {
+          "ea": "0x005425A3",
+          "size": 2,
+          "disassembly": "jnz     short loc_5425B3"
+        },
+        {
+          "ea": "0x005425A5",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x005425AA",
+          "size": 2,
+          "disassembly": "mov     ecx, edi"
+        },
+        {
+          "ea": "0x005425AC",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x005425AE",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x005425B1",
+          "size": 2,
+          "disassembly": "or      [ecx], ebx"
+        },
+        {
+          "ea": "0x005425B3",
+          "size": 4,
+          "disassembly": "lea     eax, [eax+edx*4+44h]"
+        },
+        {
+          "ea": "0x005425B7",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x005425BC",
+          "size": 2,
+          "disassembly": "mov     ecx, edi"
+        },
+        {
+          "ea": "0x005425BE",
+          "size": 2,
+          "disassembly": "jmp     short loc_5425E5"
+        },
+        {
+          "ea": "0x005425C0",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_8+3], 0"
+        },
+        {
+          "ea": "0x005425C4",
+          "size": 2,
+          "disassembly": "jnz     short loc_5425D6"
+        },
+        {
+          "ea": "0x005425C6",
+          "size": 3,
+          "disassembly": "lea     ecx, [edi-20h]"
+        },
+        {
+          "ea": "0x005425C9",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x005425CE",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x005425D0",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x005425D3",
+          "size": 3,
+          "disassembly": "or      [ecx+4], ebx"
+        },
+        {
+          "ea": "0x005425D6",
+          "size": 7,
+          "disassembly": "lea     eax, [eax+edx*4+0C4h]"
+        },
+        {
+          "ea": "0x005425DD",
+          "size": 3,
+          "disassembly": "lea     ecx, [edi-20h]"
+        },
+        {
+          "ea": "0x005425E0",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x005425E5",
+          "size": 2,
+          "disassembly": "shr     edx, cl"
+        },
+        {
+          "ea": "0x005425E7",
+          "size": 2,
+          "disassembly": "or      [eax], edx"
+        },
+        {
+          "ea": "0x005425E9",
+          "size": 3,
+          "disassembly": "mov     edx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x005425EC",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_4]"
+        },
+        {
+          "ea": "0x005425EF",
+          "size": 4,
+          "disassembly": "lea     eax, [edx+esi-4]"
+        },
+        {
+          "ea": "0x005425F3",
+          "size": 2,
+          "disassembly": "mov     [eax], ecx"
+        },
+        {
+          "ea": "0x005425F5",
+          "size": 4,
+          "disassembly": "mov     [ecx+eax-4], ecx"
+        },
+        {
+          "ea": "0x005425F9",
+          "size": 2,
+          "disassembly": "jmp     short loc_5425FE"
+        },
+        {
+          "ea": "0x005425FB",
+          "size": 3,
+          "disassembly": "mov     edx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x005425FE",
+          "size": 3,
+          "disassembly": "lea     eax, [esi+1]"
+        },
+        {
+          "ea": "0x00542601",
+          "size": 3,
+          "disassembly": "mov     [edx-4], eax"
+        },
+        {
+          "ea": "0x00542604",
+          "size": 4,
+          "disassembly": "mov     [edx+esi-8], eax"
+        },
+        {
+          "ea": "0x00542608",
+          "size": 5,
+          "disassembly": "jmp     loc_542754"
+        },
+        {
+          "ea": "0x0054260D",
+          "size": 2,
+          "disassembly": "xor     eax, eax"
+        },
+        {
+          "ea": "0x0054260F",
+          "size": 5,
+          "disassembly": "jmp     loc_542757"
+        },
+        {
+          "ea": "0x00542614",
+          "size": 6,
+          "disassembly": "jge     loc_542754"
+        },
+        {
+          "ea": "0x0054261A",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x0054261D",
+          "size": 3,
+          "disassembly": "sub     [ebp+arg_8], esi"
+        },
+        {
+          "ea": "0x00542620",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi+1]"
+        },
+        {
+          "ea": "0x00542623",
+          "size": 3,
+          "disassembly": "mov     [ebx-4], ecx"
+        },
+        {
+          "ea": "0x00542626",
+          "size": 4,
+          "disassembly": "lea     ebx, [ebx+esi-4]"
+        },
+        {
+          "ea": "0x0054262A",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x0054262D",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_4], ebx"
+        },
+        {
+          "ea": "0x00542630",
+          "size": 3,
+          "disassembly": "sar     esi, 4"
+        },
+        {
+          "ea": "0x00542633",
+          "size": 1,
+          "disassembly": "dec     esi"
+        },
+        {
+          "ea": "0x00542634",
+          "size": 3,
+          "disassembly": "mov     [ebx-4], ecx"
+        },
+        {
+          "ea": "0x00542637",
+          "size": 3,
+          "disassembly": "cmp     esi, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x0054263A",
+          "size": 2,
+          "disassembly": "jbe     short loc_54263F"
+        },
+        {
+          "ea": "0x0054263C",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x0054263E",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x0054263F",
+          "size": 4,
+          "disassembly": "test    byte ptr [ebp+var_4], 1"
+        },
+        {
+          "ea": "0x00542643",
+          "size": 6,
+          "disassembly": "jnz     loc_5426CE"
+        },
+        {
+          "ea": "0x00542649",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+var_4]"
+        },
+        {
+          "ea": "0x0054264C",
+          "size": 3,
+          "disassembly": "sar     esi, 4"
+        },
+        {
+          "ea": "0x0054264F",
+          "size": 1,
+          "disassembly": "dec     esi"
+        },
+        {
+          "ea": "0x00542650",
+          "size": 3,
+          "disassembly": "cmp     esi, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x00542653",
+          "size": 2,
+          "disassembly": "jbe     short loc_542658"
+        },
+        {
+          "ea": "0x00542655",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x00542657",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x00542658",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi+4]"
+        },
+        {
+          "ea": "0x0054265B",
+          "size": 3,
+          "disassembly": "cmp     ecx, [edi+8]"
+        },
+        {
+          "ea": "0x0054265E",
+          "size": 2,
+          "disassembly": "jnz     short loc_5426A7"
+        },
+        {
+          "ea": "0x00542660",
+          "size": 3,
+          "disassembly": "cmp     esi, 20h ; ' '"
+        },
+        {
+          "ea": "0x00542663",
+          "size": 2,
+          "disassembly": "jnb     short loc_542683"
+        },
+        {
+          "ea": "0x00542665",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x0054266A",
+          "size": 2,
+          "disassembly": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x0054266C",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x0054266E",
+          "size": 4,
+          "disassembly": "lea     esi, [esi+eax+4]"
+        },
+        {
+          "ea": "0x00542672",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x00542674",
+          "size": 4,
+          "disassembly": "and     [eax+edx*4+44h], ebx"
+        },
+        {
+          "ea": "0x00542678",
+          "size": 2,
+          "disassembly": "dec     byte ptr [esi]"
+        },
+        {
+          "ea": "0x0054267A",
+          "size": 2,
+          "disassembly": "jnz     short loc_5426A4"
+        },
+        {
+          "ea": "0x0054267C",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x0054267F",
+          "size": 2,
+          "disassembly": "and     [ecx], ebx"
+        },
+        {
+          "ea": "0x00542681",
+          "size": 2,
+          "disassembly": "jmp     short loc_5426A4"
+        },
+        {
+          "ea": "0x00542683",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi-20h]"
+        },
+        {
+          "ea": "0x00542686",
+          "size": 5,
+          "disassembly": "mov     ebx, 80000000h"
+        },
+        {
+          "ea": "0x0054268B",
+          "size": 2,
+          "disassembly": "shr     ebx, cl"
+        },
+        {
+          "ea": "0x0054268D",
+          "size": 4,
+          "disassembly": "lea     ecx, [esi+eax+4]"
+        },
+        {
+          "ea": "0x00542691",
+          "size": 2,
+          "disassembly": "not     ebx"
+        },
+        {
+          "ea": "0x00542693",
+          "size": 7,
+          "disassembly": "and     [eax+edx*4+0C4h], ebx"
+        },
+        {
+          "ea": "0x0054269A",
+          "size": 2,
+          "disassembly": "dec     byte ptr [ecx]"
+        },
+        {
+          "ea": "0x0054269C",
+          "size": 2,
+          "disassembly": "jnz     short loc_5426A4"
+        },
+        {
+          "ea": "0x0054269E",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x005426A1",
+          "size": 3,
+          "disassembly": "and     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x005426A4",
+          "size": 3,
+          "disassembly": "mov     ebx, [ebp+arg_4]"
+        },
+        {
+          "ea": "0x005426A7",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi+8]"
+        },
+        {
+          "ea": "0x005426AA",
+          "size": 3,
+          "disassembly": "mov     esi, [edi+4]"
+        },
+        {
+          "ea": "0x005426AD",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], esi"
+        },
+        {
+          "ea": "0x005426B0",
+          "size": 3,
+          "disassembly": "mov     ecx, [edi+4]"
+        },
+        {
+          "ea": "0x005426B3",
+          "size": 3,
+          "disassembly": "mov     esi, [edi+8]"
+        },
+        {
+          "ea": "0x005426B6",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], esi"
+        },
+        {
+          "ea": "0x005426B9",
+          "size": 3,
+          "disassembly": "mov     esi, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x005426BC",
+          "size": 3,
+          "disassembly": "add     esi, [ebp+var_4]"
+        },
+        {
+          "ea": "0x005426BF",
+          "size": 3,
+          "disassembly": "mov     [ebp+arg_8], esi"
+        },
+        {
+          "ea": "0x005426C2",
+          "size": 3,
+          "disassembly": "sar     esi, 4"
+        },
+        {
+          "ea": "0x005426C5",
+          "size": 1,
+          "disassembly": "dec     esi"
+        },
+        {
+          "ea": "0x005426C6",
+          "size": 3,
+          "disassembly": "cmp     esi, 3Fh ; '?'"
+        },
+        {
+          "ea": "0x005426C9",
+          "size": 2,
+          "disassembly": "jbe     short loc_5426CE"
+        },
+        {
+          "ea": "0x005426CB",
+          "size": 2,
+          "disassembly": "push    3Fh ; '?'"
+        },
+        {
+          "ea": "0x005426CD",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x005426CE",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+var_C]"
+        },
+        {
+          "ea": "0x005426D1",
+          "size": 4,
+          "disassembly": "mov     edi, [ecx+esi*8+4]"
+        },
+        {
+          "ea": "0x005426D5",
+          "size": 3,
+          "disassembly": "lea     ecx, [ecx+esi*8]"
+        },
+        {
+          "ea": "0x005426D8",
+          "size": 3,
+          "disassembly": "mov     [ebx+4], edi"
+        },
+        {
+          "ea": "0x005426DB",
+          "size": 3,
+          "disassembly": "mov     [ebx+8], ecx"
+        },
+        {
+          "ea": "0x005426DE",
+          "size": 3,
+          "disassembly": "mov     [ecx+4], ebx"
+        },
+        {
+          "ea": "0x005426E1",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+4]"
+        },
+        {
+          "ea": "0x005426E4",
+          "size": 3,
+          "disassembly": "mov     [ecx+8], ebx"
+        },
+        {
+          "ea": "0x005426E7",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebx+4]"
+        },
+        {
+          "ea": "0x005426EA",
+          "size": 3,
+          "disassembly": "cmp     ecx, [ebx+8]"
+        },
+        {
+          "ea": "0x005426ED",
+          "size": 2,
+          "disassembly": "jnz     short loc_54274B"
+        },
+        {
+          "ea": "0x005426EF",
+          "size": 4,
+          "disassembly": "mov     cl, [esi+eax+4]"
+        },
+        {
+          "ea": "0x005426F3",
+          "size": 3,
+          "disassembly": "cmp     esi, 20h ; ' '"
+        },
+        {
+          "ea": "0x005426F6",
+          "size": 3,
+          "disassembly": "mov     byte ptr [ebp+arg_4+3], cl"
+        },
+        {
+          "ea": "0x005426F9",
+          "size": 2,
+          "disassembly": "inc     cl"
+        },
+        {
+          "ea": "0x005426FB",
+          "size": 4,
+          "disassembly": "mov     [esi+eax+4], cl"
+        },
+        {
+          "ea": "0x005426FF",
+          "size": 2,
+          "disassembly": "jnb     short loc_542722"
+        },
+        {
+          "ea": "0x00542701",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_4+3], 0"
+        },
+        {
+          "ea": "0x00542705",
+          "size": 2,
+          "disassembly": "jnz     short loc_542715"
+        },
+        {
+          "ea": "0x00542707",
+          "size": 5,
+          "disassembly": "mov     edi, 80000000h"
+        },
+        {
+          "ea": "0x0054270C",
+          "size": 2,
+          "disassembly": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x0054270E",
+          "size": 2,
+          "disassembly": "shr     edi, cl"
+        },
+        {
+          "ea": "0x00542710",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00542713",
+          "size": 2,
+          "disassembly": "or      [ecx], edi"
+        },
+        {
+          "ea": "0x00542715",
+          "size": 4,
+          "disassembly": "lea     eax, [eax+edx*4+44h]"
+        },
+        {
+          "ea": "0x00542719",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x0054271E",
+          "size": 2,
+          "disassembly": "mov     ecx, esi"
+        },
+        {
+          "ea": "0x00542720",
+          "size": 2,
+          "disassembly": "jmp     short loc_542747"
+        },
+        {
+          "ea": "0x00542722",
+          "size": 4,
+          "disassembly": "cmp     byte ptr [ebp+arg_4+3], 0"
+        },
+        {
+          "ea": "0x00542726",
+          "size": 2,
+          "disassembly": "jnz     short loc_542738"
+        },
+        {
+          "ea": "0x00542728",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi-20h]"
+        },
+        {
+          "ea": "0x0054272B",
+          "size": 5,
+          "disassembly": "mov     edi, 80000000h"
+        },
+        {
+          "ea": "0x00542730",
+          "size": 2,
+          "disassembly": "shr     edi, cl"
+        },
+        {
+          "ea": "0x00542732",
+          "size": 3,
+          "disassembly": "mov     ecx, [ebp+arg_0]"
+        },
+        {
+          "ea": "0x00542735",
+          "size": 3,
+          "disassembly": "or      [ecx+4], edi"
+        },
+        {
+          "ea": "0x00542738",
+          "size": 7,
+          "disassembly": "lea     eax, [eax+edx*4+0C4h]"
+        },
+        {
+          "ea": "0x0054273F",
+          "size": 3,
+          "disassembly": "lea     ecx, [esi-20h]"
+        },
+        {
+          "ea": "0x00542742",
+          "size": 5,
+          "disassembly": "mov     edx, 80000000h"
+        },
+        {
+          "ea": "0x00542747",
+          "size": 2,
+          "disassembly": "shr     edx, cl"
+        },
+        {
+          "ea": "0x00542749",
+          "size": 2,
+          "disassembly": "or      [eax], edx"
+        },
+        {
+          "ea": "0x0054274B",
+          "size": 3,
+          "disassembly": "mov     eax, [ebp+arg_8]"
+        },
+        {
+          "ea": "0x0054274E",
+          "size": 2,
+          "disassembly": "mov     [ebx], eax"
+        },
+        {
+          "ea": "0x00542750",
+          "size": 4,
+          "disassembly": "mov     [eax+ebx-4], eax"
+        },
+        {
+          "ea": "0x00542754",
+          "size": 2,
+          "disassembly": "push    1"
+        },
+        {
+          "ea": "0x00542756",
+          "size": 1,
+          "disassembly": "pop     eax"
+        },
+        {
+          "ea": "0x00542757",
+          "size": 1,
+          "disassembly": "pop     edi"
+        },
+        {
+          "ea": "0x00542758",
+          "size": 1,
+          "disassembly": "pop     esi"
+        },
+        {
+          "ea": "0x00542759",
+          "size": 1,
+          "disassembly": "pop     ebx"
+        },
+        {
+          "ea": "0x0054275A",
+          "size": 1,
+          "disassembly": "leave"
+        },
+        {
+          "ea": "0x0054275B",
+          "size": 1,
+          "disassembly": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "address": "0x0053FAC5",
+          "parent_entry": "0x0053FA5B",
+          "type": 17
+        }
+      ]
+    }
+  ],
+  "original_totals": {
+    "function_count": 3,
+    "instruction_count": 799,
+    "byte_count": 2344,
+    "direct_references": 7,
+    "original_body_equivalence_verified": false
+  },
+  "host_role_mappings": [
+    {
+      "original_entry": "0x541FB1",
+      "inventory_id": "F:00141FB1",
+      "operations": [
+        {
+          "call_site": "0x53C036",
+          "parent_entry": "0x53BFF8",
+          "source_symbol": "CallocateLegacyMemory_53BFF8",
+          "sdk_provider": "std::calloc"
+        },
+        {
+          "call_site": "0x53C402",
+          "parent_entry": "0x53C3EA",
+          "source_symbol": "AllocateLegacyHeapBlock_53C3EA",
+          "sdk_provider": "std::malloc"
+        },
+        {
+          "call_site": "0x53FAD2",
+          "parent_entry": "0x53FA5B",
+          "source_symbol": "ReallocateLegacyMemory_53FA5B",
+          "sdk_provider": "std::realloc"
+        }
+      ],
+      "source": "src/platform/LegacyHeap.cpp",
+      "scope": "仅原mode3私有核心角色；SDK经M3H01五操作族接通",
+      "disposition": "host",
+      "old_core_body_implemented": false
+    },
+    {
+      "original_entry": "0x541C88",
+      "inventory_id": "F:00141C88",
+      "operations": [
+        {
+          "call_site": "0x53C0CC",
+          "parent_entry": "0x53C0A9",
+          "source_symbol": "FreeLegacyHeapMemory_53C0A9",
+          "sdk_provider": "std::free"
+        },
+        {
+          "call_site": "0x53FAFF",
+          "parent_entry": "0x53FA5B",
+          "source_symbol": "ReallocateLegacyMemory_53FA5B",
+          "sdk_provider": "std::realloc内部管理旧块；无重复free"
+        },
+        {
+          "call_site": "0x53FB46",
+          "parent_entry": "0x53FA5B",
+          "source_symbol": "ReallocateLegacyMemory_53FA5B",
+          "sdk_provider": "std::realloc内部管理旧块；无重复free"
+        }
+      ],
+      "source": "src/platform/LegacyHeap.cpp",
+      "scope": "仅原mode3私有核心角色；SDK经M3H01五操作族接通",
+      "disposition": "host",
+      "old_core_body_implemented": false
+    },
+    {
+      "original_entry": "0x542466",
+      "inventory_id": "F:00142466",
+      "operations": [
+        {
+          "call_site": "0x53FAC5",
+          "parent_entry": "0x53FA5B",
+          "source_symbol": "ReallocateLegacyMemory_53FA5B",
+          "sdk_provider": "std::realloc整体扩容；不提供旧bool/region接口"
+        }
+      ],
+      "source": "src/platform/LegacyHeap.cpp",
+      "scope": "仅原mode3私有核心角色；SDK经M3H01五操作族接通",
+      "disposition": "host",
+      "old_core_body_implemented": false
+    }
+  ],
+  "source_change": {
+    "path": "src/platform/LegacyHeap.hpp",
+    "retired_unimplemented_declarations": 3,
+    "comment_updates": 2,
+    "old_core_calls_before": 0,
+    "old_core_calls_after": 0,
+    "cpp_changed": false,
+    "mode1_and_mode2_changed": false,
+    "old_metadata_layout_changed": false,
+    "sdk_operations_changed": false
+  },
+  "verification": {
+    "method": "static",
+    "source_replay_scope": "单头三个已列替换；其余src/include无改动",
+    "runtime": false,
+    "build": false,
+    "tests": false,
+    "hashes": false
+  },
+  "remaining": [
+    "全部owner/模式稳定/同域与未知alias",
+    "完整R1/R7间接目标及分类",
+    "SDK实际ABI/失败/退出/运行",
+    "C01/C08/C11与任务10/60、叶0/182保持"
+  ]
+}

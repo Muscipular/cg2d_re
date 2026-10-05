@@ -648,3 +648,15 @@ count/乘积/对齐bytes/new-mode与541A28请求仍W32，真实SDKcalloc清零�
 旧部分fallback对齐数量/私有复制尾/地址容量与SDK错误策略按D02 adapted。
 五原完整根449条/1167B及限定源码/头注释归档，
 21应用calloc/六裸字节/其他已迁域保持；完整caller/owner/alias/R1、SDK及运行不闭。
+
+## M3P01 三私有核心的真实提供者归属（2026-10-05）
+
+[源码合同](cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)
+将七原call逐项对应已有SDK分支，三个旧声明从活动头撤销。
+541FB1的三父分别采用calloc/malloc/realloc；
+541C88的free父采用free、两迁移后free由SDK realloc内部管理；
+542466由同一realloc整体扩容，不暴露旧bool/region接口或复造16B链。
+
+三原ID为host，五外层仍M3H01 adapted；原身份/完整指令/直接引用保留。
+原模式1/2、兼容元数据、初始化、handler、其他已迁域保持。
+全部owner/模式稳定/未知alias及运行仍待，不把三接口退休当全域验收。

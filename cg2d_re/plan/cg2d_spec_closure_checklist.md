@@ -117,17 +117,17 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 
 | 编号 / 范围 | 当前证据级别 | 剩余差异与下一步 | 依赖与完成条件 |
 |---|---|---|---|
-| C01 / CRT 总策略 | 原受限域/SCH01保持；M3H01通用mode3五操作同域SDK化，七旧核心调用消除 | 所有owner/模式寿命/alias、SDK异常失败及完整CRT运行未闭 | 保持open；[M3H01](../doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)、[运行库](../doc/cg2d_crt_runtime_boundary_spec.md)；SDK私有错误策略具名adapted |
+| C01 / CRT 总策略 | M3H01五操作SDK同域保持；M3P01三旧无本体声明退休并按host纳管 | 全部owner/模式寿命/alias/R1/R7和SDK异常失败/完整CRT运行未闭 | 保持open；[M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)、[运行库](../doc/cg2d_crt_runtime_boundary_spec.md)；不把host当原体或整体验收 |
 | C02 / C++90 初始化表 | SSO01：70有序源投影＋15完整SDK预先提供＝85对应，标准流槽角色已对应 | 两暂停音频及全入口/完整消费者/alias/SDK运行仍待；null1/键盘排除2另列 | 保持open；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；85不是85调用，不重复旧CRT构造/登记 |
 | C03 / 四Init与登记 | 六兼容Init接口已类型化；SDK完整标准流/缓冲及私有登记有实际提供者 | 原完整容量/较大索引/alias、Legacy活动消费者/facet/codecvt、SDK构析和退出运行仍待 | 保持open；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)、[SR01](../doc/cg2d_standard_stream_registry_prefix_spec.md#standard-registry-source-closure)；不镜像SDK或降低原容量未知要求 |
 | C04 / 构析与入口迁移 | 应用即时登记/pubSync与原70保持，15私有角色由SDK完整对象生命周期承担 | 完整Legacy消费者/全owner/EH/normal/quick/callable退出及SDK运行仍待 | 保持open；[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)、[SSX01](../doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-source-closure)；私有差异adapted不代应用清理 |
 | C05 / codecvt | 原消费者/槽已有；FBO01两输出数量按原整数地址差/U32对齐，原借用/写消费保持 | 真实facet/完整方法表/状态生产及全流活动归属、SDK运行仍待 | 保持open；[FBO01](../doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure)、[运行库子SPEC](../doc/cg2d_crt_runtime_boundary_spec.md)；不造空表/桥半类型/猜编码，局部输出不代生产 |
 | C06 / 异常查找捕获 | 原数据/部分叶及NCE01六本机类型/原逻辑层级已有 | 旧私有5402AB/5407BC职责与实际Typed捕获/清理、硬件SEH仍须成组映射 | 保持open；[NCE01](../doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)，不把compiler类型源码当SDK/运行验收 |
 | C07 / 抛出与SDK | NCE01八实际throw/一当前异常重抛、单payload owner及原copy/析构/what已接；旧SDK声明撤销 | 实际C++20生成ABI、按值捕获/展开/非法重抛与SDK及完整生命周期仍待 | 保持open；[NCE01收口](../doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure)，不手造ThrowInfo/RVA或记原54B123体等价 |
-| C08 / 原堆模式3 | M3H01 malloc/calloc/realloc/free/size成组SDK承接，无旧核心/块前缀读取 | 模式寿命稳定/同域、全部owner/alias/R1和SDK实际失败/退出运行仍待 | 保持open；[M3H01](../doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)；mode1/2保留，不以移除七调用当全域验收 |
+| C08 / 原堆模式3 | 五SDK操作已接；M3P01撤三无本体核心声明，七原call各有实际宿主角色映射 | 模式稳定/同域、全部owner/未知alias/R1/R7与SDK实际失败/退出运行仍待 | 保持open；[M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)；旧私有拆合/原位机制host，mode1/2及兼容元数据保持 |
 | C09 / 图形双树 | AIS01两图形调用原序/旧模块删除保持；70源投影＋15SDK角色分列对应 | 两暂停音频/完整应用入口及逐surface/快速退出清理和SDK运行仍待 | 保持open；[双树源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)、[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；TextureSurfaceOwner独立清理保持 |
 | C10 / FILE 剩余原调用 | 既有本体/FPW01保持；SCH01两表生产与512/20/错误26真实消费已对应 | 其他原点/全FILE/描述符/owner/alias及实际SDK成功失败仍待 | 保持open；[SCH01](../doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure)、[FPW01](../doc/cg2d_file_position_width_spec.md#file-position-width-source-closure)；表块不与FILE项混域 |
-| C11 / 应用分配域 | 21应用calloc/六裸字节与独立域保持；通用mode3五操作SDK化，mode1/2仍原域 | 全部producer/owner配对及稳定模式、未知alias和SDK运行未闭 | 保持open；[M3H01](../doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure)、[内存](../doc/cg2d_crt_memory_contract.md)；不允许外来Win32/模式2块进入SDK路径 |
+| C11 / 应用分配域 | 通用mode3五操作及各独立域保持；三私有核心接口退休，两个迁移释放由SDK内部承担 | 全部producer/owner配对、稳定模式/未知alias与SDK运行仍待 | 保持open；[M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)、[内存](../doc/cg2d_crt_memory_contract.md)；不重复free或引入混域 |
 | C12 / 字符串与格式剩余 | 已接点及分类计数见§2 | 长度余1与格式余23逐原点处理；范围排除/音频/替换/待事实或实施不混算 | [字符串](../doc/cg2d_legacy_string_compare.md)、[stdio](../doc/cg2d_stdio_contract.md)；格式余1沿P07补事实，旧点不重做 |
 
 FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”仅为该函数原引用差集，不是新任务总数：

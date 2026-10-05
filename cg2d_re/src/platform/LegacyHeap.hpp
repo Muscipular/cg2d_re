@@ -15,7 +15,7 @@ struct LegacySmallHeap3Link final {
 static_assert(sizeof(LegacySmallHeap3Link) == 16);
 
 // 原实空闲块首W32及+04起的两个地址；首块位于页+0C，链接实际8B对齐。
-// 本步只用于4080B初始块；16B拆分块的原生链布局仍待闭合。
+// 仅保留4080B初始块的兼容元数据；SDK模式3不使用旧16B拆分布局。
 #pragma pack(push, 4)
 struct LegacySmallHeap3FreeBlock final {
     std::uint32_t boundary;
@@ -85,11 +85,8 @@ void* AllocateLegacyHeapWithHandler_53C3BE(std::uint32_t byteCount, std::int32_t
 void* AllocateLegacyHeapMemory_53C3AC(std::uint32_t byteCount);
 void FreeLegacyHeapMemory_53C0A9(void* memory);
 
-// 原模式3核心仅留身份/参考；通用mode3用SDK，不造旧16B链或同名假体。
-void* AllocateLegacySmallHeap3Block_541FB1(std::uint32_t byteCount);
-void FreeLegacySmallHeap3Block_541C88(LegacySmallHeap3Region* region, void* memory);
-std::int32_t ResizeLegacySmallHeap3Block_542466(
-    LegacySmallHeap3Region* region, void* memory, std::uint32_t byteCount);
+// M3P01：541FB1/541C88/542466身份与七原call保留在SPEC；三私有核心由SDK承接。
+// 通用mode3只经上述分配族及LegacyMemory.hpp的清零/扩容/容量接口，不暴露旧核心。
 
 // 原541BB8；创建后发布模式，子初始化失败销毁堆但不清共享槽。
 std::int32_t InitializeLegacyHeap_541BB8(std::int32_t serialized);
@@ -98,7 +95,7 @@ std::int32_t InitializeLegacySmallHeap3_541C15(std::uint32_t threshold);
 // 原541C5D；按原顺序查100000H所属区域，不改输入或共享槽。
 LegacySmallHeap3Region* FindLegacySmallHeap3Region_541C5D(void* memory);
 
-// 原5422BA/54236B；真实区域与组生产者，原分配/释放/拆分消费者尚待。
+// 原5422BA/54236B兼容区域与组生产者保留；通用SDK模式3不消费这些元数据。
 LegacySmallHeap3Region* CreateLegacySmallHeap3Region_5422BA();
 std::int32_t CommitLegacySmallHeap3Group_54236B(LegacySmallHeap3Region* region);
 

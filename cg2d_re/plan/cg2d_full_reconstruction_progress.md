@@ -1089,3 +1089,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余/交付**：模式3工程不再卡16B双链，但完整owner/模式寿命/未知alias/R1、SDK真实失败/ABI/normal/quick/callable退出及全CRT仍待。未构建/查产物/新增或执行测试/运行/摘要；单线程/RPLAN.24、原格式明文和音频暂停保持。精确14项，快照`cg2d-re-mode3-heap-facade-source-20261005`，用户既有六项不暂存。
 
 **M3H01交付检查**：14项严格UTF-8无BOM/LF、718个本地Markdown链接、42项限定证据/决议引用及Git差异格式通过；measure生成与独立-Check均退出0。任务10/60、叶0/182及完整门禁不提升。
+
+## M3P01 模式3私有核心接口退休与host归属（2026-10-05）
+
+- **开发**：先记[M3P01 SPEC](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision)，撤下三个已无src/include引用、从未实现的旧私有核心声明，对齐两处过时注释。原身份/指令与七call保留，不造空包装/旧ABI，五SDK操作及全部CPP、模式1/2和兼容元数据保持。
+- **实际角色**：[归档](../doc/cg2d_mode3_private_core_evidence.json)保三完整原体799条/2344B和3/3/1直属引用；原分配三父对应SDK calloc/malloc/realloc，原free父对应SDK free；realloc迁移后的两free由SDK内部管理，原原位扩容也由同一realloc整体承接，不重复释放旧块。
+- **处置**：三旧语义定点/1204其他与政策保持；三个新host使156→159/3680，限定E114→117。原算法未逐条等价，外层继续M3H01 adapted；语义1207条/1204有效原ID、18pending/4分类引用不变，不把host当新增原本体或范围排除。
+- **剩余**：C01/C08/C11继续open，任务10/60、叶0/182及完整门禁/R不提升。存活模式稳定/同域、全部owner/未知alias、完整R1/R7与SDK ABI/失败/退出/运行仍待；旧UI真实间接路径/旧62事实与音频暂停另留原任务，不能据无直接调用编造分派。
+- **交付范围**：精确12项，快照`cg2d-re-mode3-private-core-source-20261005`；用户既有六项不暂存。未构建/查产物/测试/运行/摘要；单线程、原格式明文、音频暂停及RPLAN.24保持。
+
+**M3P01交付检查**：12项严格UTF-8无BOM/LF、724个本地Markdown链接、39项限定证据/决议引用及Git差异格式通过；单头三替换、三记录/登记簿限定重放及measure生成/独立-Check通过。任务10/60、叶0/182与完整门禁不提升。

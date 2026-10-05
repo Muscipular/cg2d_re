@@ -606,7 +606,8 @@
         "doc/cg2d_winsock_import_binding_spec.md",
         "doc/cg2d_network_buffer_lifecycle_spec.md",
         "doc/cg2d_command_checksum_publication_spec.md",
-        "doc/cg2d_append_transform_spec.md"
+        "doc/cg2d_append_transform_spec.md",
+        "doc/cg2d_dispatch_account_field_read_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -638,7 +639,8 @@
         "F:000038A0",
         "F:00003A70",
         "F:001170D0",
-        "F:00117160"
+        "F:00117160",
+        "F:00112E40"
       ],
       "closure_task_ids": [
         "P09",
@@ -654,7 +656,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
-        "doc/cg2d_append_transform_spec.md#append-transform-decision"
+        "doc/cg2d_append_transform_spec.md#append-transform-decision",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -662,7 +665,8 @@
         "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK",
         "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭",
         "NCS01仅517510完整命令体的局部S32校验和/ASCII状态发布源码校准；83调用父完整业务、全部owner/alias/动态边、实际CRT ABI/失败、真实收发与运行未闭。六上下文根不按本轮新增源码/审核重复计数",
-        "NAT01四既有入口、两实际跳表/234原直接call已具名，追加体写后源读取/NUL与限长表达实修；完整调用父/owner/alias/动态边、实际CRT ABI/失败、命令往返/明文互通与运行未闭，不称新增四业务本体"
+        "NAT01四既有入口、两实际跳表/234原直接call已具名，追加体写后源读取/NUL与限长表达实修；完整调用父/owner/alias/动态边、实际CRT ABI/失败、命令往返/明文互通与运行未闭，不称新增四业务本体",
+        "NDR01仅原账号与85文本取值窗口/32掩码源码校准；不据主根5779条元数据宣称整根、所有整数/108回复本体或完整owner/alias、实际ABI/链接/明文往返/运行通过，不新增R1处置"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -670,7 +674,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
-        "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
       ]
     },
     {
@@ -10296,6 +10301,123 @@
       "observation": "四完整根379条/1004B、两表32B及限定源/数据静态对照",
       "expected": "容量/位置S32、原字节/变换常量/表/返回及先写再读/NUL动作保持",
       "actual": "仅追加体恢复原限长表达与目标写→源重读→NUL判断/最终写；其余三体保持，四既有入口纳管，完整父/运行未闭"
+    },
+    {
+      "id": "E-DISPATCH-ACCOUNT-FIELD-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原512E40元数据5779条/15645B；限定账号操作数/108命令字节/85文本窗口，非整根验收；doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-account-field-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-acceptance",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_dispatch_account_field_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/LoginScene.cpp#gValueDA38DC",
+        "src/LoginScene.cpp#gValueDA3A1C",
+        "src/LoginState.cpp#gValueDA38DC"
+      ],
+      "differences": [
+        {
+          "description": "逆向变换第五参数由错误DA3A1C改原账号DA38DC，两原生64B数组及生产者分开；不改账号/密码/校验流程，不执行摘要或新增状态",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        },
+        {
+          "description": "私有掩码只还原85文本字段的38/47两类基址/容量取值序；32行外路由/字节/类型/返回保持。原主根/整数路径/108回复与全部owner/alias/ABI/运行未闭，本步不新增R1整根处置",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP37限定替换：三个模板、32掩码、一账号引用",
+      "expected": "原账号参与逆向命令变换；文本解码后逐点恢复基址/容量读取顺序，槽在两者之后取",
+      "actual": "第五参数用DA38DC；38处工作区基址先读、47处容量先读，原108行/类型/回调/返回保留；仅限定静态修正"
+    },
+    {
+      "id": "E-DISPATCH-ACCOUNT-FIELD-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原512E40元数据5779条/15645B；限定账号操作数/108命令字节/85文本窗口，非整根验收；doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-account-field-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-acceptance",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_dispatch_account_field_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/LoginScene.cpp#gValueDA38DC",
+        "src/LoginScene.cpp#gValueDA3A1C",
+        "src/LoginState.cpp#gValueDA38DC"
+      ],
+      "differences": [
+        {
+          "description": "逆向变换第五参数由错误DA3A1C改原账号DA38DC，两原生64B数组及生产者分开；不改账号/密码/校验流程，不执行摘要或新增状态",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        },
+        {
+          "description": "私有掩码只还原85文本字段的38/47两类基址/容量取值序；32行外路由/字节/类型/返回保持。原主根/整数路径/108回复与全部owner/alias/ABI/运行未闭，本步不新增R1整根处置",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原DA38DC/DA3A5C操作数、独立owner/生产者、85同编号源/工作区及源码T位置对应",
+      "expected": "原账号参与逆向命令变换；文本解码后逐点恢复基址/容量读取顺序，槽在两者之后取",
+      "actual": "第五参数用DA38DC；38处工作区基址先读、47处容量先读，原108行/类型/回调/返回保留；仅限定静态修正"
+    },
+    {
+      "id": "E-DISPATCH-ACCOUNT-FIELD-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原512E40元数据5779条/15645B；限定账号操作数/108命令字节/85文本窗口，非整根验收；doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-dispatch-account-field-read-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-baseline",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-acceptance",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_dispatch_account_field_read_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/LoginScene.cpp#gValueDA38DC",
+        "src/LoginScene.cpp#gValueDA3A1C",
+        "src/LoginState.cpp#gValueDA38DC"
+      ],
+      "differences": [
+        {
+          "description": "逆向变换第五参数由错误DA3A1C改原账号DA38DC，两原生64B数组及生产者分开；不改账号/密码/校验流程，不执行摘要或新增状态",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        },
+        {
+          "description": "私有掩码只还原85文本字段的38/47两类基址/容量取值序；32行外路由/字节/类型/返回保持。原主根/整数路径/108回复与全部owner/alias/ABI/运行未闭，本步不新增R1整根处置",
+          "decision_ref": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "108原命令含NUL字节、85完整文本取值窗口/原点和32掩码归档；整体分派未验",
+      "expected": "原账号参与逆向命令变换；文本解码后逐点恢复基址/容量读取顺序，槽在两者之后取",
+      "actual": "第五参数用DA38DC；38处工作区基址先读、47处容量先读，原108行/类型/回调/返回保留；仅限定静态修正"
     }
   ],
   "task_acceptance": [
@@ -10568,7 +10690,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
-        "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
       ]
     },
     {
@@ -10579,7 +10702,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
-        "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
       ]
     },
     {
@@ -10590,7 +10714,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
-        "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
       ]
     },
     {
@@ -10601,7 +10726,8 @@
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
-        "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
       ]
     }
   ],

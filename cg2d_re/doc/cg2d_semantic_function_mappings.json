@@ -140728,6 +140728,57 @@
         "all_calling_parents_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x00512E40",
+      "inventory_id": "F:00112E40",
+      "status": "NDR01接收分派原账号与85文本取值顺序已修；仅限定映射，原5779条整根/整数路径/全部回复与owner/运行未闭",
+      "original_chunks": [
+        [
+          "0x00512E40",
+          "0x00516B5D"
+        ]
+      ],
+      "original_instruction_count": 5779,
+      "original_byte_count": 15645,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "NetworkDispatch_512E40",
+            "DecodeDispatchArgument",
+            "DecodeDispatchArguments",
+            "TryDispatchReply"
+          ],
+          "relationship": "既有父与三个模板限定修改；37块/32掩码/一账号引用，不记整根5779条逐段已验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_dispatch_account_field_read_spec.md",
+        "doc/cg2d_dispatch_account_field_read_evidence.json",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。",
+      "verification_level": "当前原会话账号四操作数/108命令字节/85文本窗口及源码同编号位置与38/47读取序静态核；一CPP37块、限定新语义/登记簿重放；未构建/测试/运行/摘要",
+      "dispatch_account_field_contract": {
+        "group": "NDR01",
+        "spec": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "original_account": "0x00DA38DC",
+        "source_account": "login::gValueDA38DC",
+        "wrong_source_replaced": "login::gValueDA3A1C",
+        "commands": 108,
+        "text_fields": 85,
+        "workspace_before_capacity_fields": 38,
+        "capacity_before_workspace_fields": 47,
+        "masked_commands": 32,
+        "full_parent_verified": false,
+        "all_integer_paths_verified": false,
+        "new_r1_disposition": false,
+        "wire_format_changed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

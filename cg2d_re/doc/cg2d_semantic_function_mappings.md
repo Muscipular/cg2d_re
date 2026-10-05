@@ -1901,3 +1901,13 @@ C03/C05/R02、任务10/60、叶0/182及完整门禁不提升；真实codecvt生�
 语义1226/1223有效原ID、处置195/3680、导入15/218不增；限定E147→150。
 C02/C04/C08/C10/C11/V02保持open，任务10/60、叶0/182及完整门禁不提升。
 跨TU首次使用、SDK/继承ABI、稳定模式/owner/未知alias和完整启动退出/运行仍待。
+
+## HSI01 既有stdio身份的宿主活动消费（2026-10-05）
+
+[合同](cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure)与
+[归档](cg2d_hosted_stdio_init_evidence.json)复用SCH01原初始化59条/165B，
+仅新取C5五槽/20B与唯一553174数据入向。
+一CPP三片段新增一个真实53E9A5调用，位于lowio后、普通stdio登记/multibyte前；
+provider/取流/刷新/WinMain保持。一既有语义补活动源/边界，其他1225记录及政策保持。
+语义1226/1223有效原ID、处置195/3680、导入15/218不增；限定E150→153。
+七任务仍open，关闭10/60、叶0/182及完整门禁不提升；全部FILE/跨TU/owner/ABI/退出运行仍待。

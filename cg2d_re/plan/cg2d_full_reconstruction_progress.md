@@ -1208,3 +1208,12 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余**：跨TU首次使用、SDK/继承ABI、稳定模式/同域owner/未知alias、console/filter与normal/quick/callable全序和运行、R1/R7与最终验收仍待。兼容堆/描述符保进程寿命，不新增清表、HeapDestroy/额外关闭或SDK FILE副本，不启用旧自定义入口/cinit/90表。
 - **交付**：精确11项，快照`cg2d-re-hosted-prefix-io-source-20261005`；用户既有六项不暂存。只查本缺口/差异/新引用；未构建/查产物/新增或执行测试/运行/摘要，既定排除、音频暂停、单线程及RPLAN.24保持。
 - **限定验证**：一CPP三片段/四provider和WinMain未变、四语义补充/登记簿精确转换通过；11项UTF-8无BOM/LF、10个新增Markdown链接、33个本组E引用及Git差异格式通过。看板生成及独立Check通过；未扫描历史Markdown，不提升完整门禁。
+
+## HSI01 兼容FILE表未生产缺口（2026-10-05）
+
+- **开发**：先记[HSI01 SPEC](../doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision)，再改LegacyMouse一CPP三片段：加stdio头文件/前置注释，并在lowio之后、普通stdio登记/multibyte前调用已有InitializeLegacyStdio_53E9A5。真实唯一表在同TU应用前生产；复用SCH01 SDK表块，原512/20/错误26、20静态FILE/三句柄及取流/刷新/WinMain保持，不改业务。
+- **证据**：[归档](../doc/cg2d_hosted_stdio_init_evidence.json)复用SCH01已核59条/165B根，当前IDA只补C5五槽/20B与唯一553174数据入向；stdio槽553174在multibyte槽553178之前。原io→cinit背景沿HPI01，不重验已过root/callee或全面核对。
+- **台账**：一既有语义补真实活动消费，其他1225记录/政策保持；语义1226/1223有效原ID、处置195/3680、导入15/218不增，限定E153。C01/C02/C04/C08/C10/C11/V02保持open，关闭10/60、叶0/182及完整门禁不提升。
+- **剩余**：全部FILE/配置流程、跨TU首次使用、稳定模式/全部owner/未知alias、SDK继承ABI和normal/quick/callable全序/运行、R1/R7与最终验收仍待。不增加重复初始化、成功标记/保护/回滚、全表free或SDK FILE副本，旧入口/cinit/90表不启用；70源＋15SDK/85计数保持。
+- **交付**：精确11项，快照`cg2d-re-hosted-stdio-init-source-20261005`；用户既有六项不暂存。只查此生产缺口、本步差异/新引用，未构建/查产物/新增或执行测试/运行/摘要；音频暂停、既定排除、单线程与RPLAN.24保持。
+- **限定验证**：一CPP三片段/一个stdio调用、原provider/取流/刷新/退出/WinMain保持，一语义补充/登记簿精确转换通过；11项UTF-8无BOM/LF、10个新增Markdown链接、33个本组E引用和Git差异格式通过。看板生成及独立Check通过；未扫描历史Markdown，不提升完整门禁。

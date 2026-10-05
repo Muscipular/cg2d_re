@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "group": "HSI01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_hosted_stdio_init_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-hosted-stdio-init-source-20261005",
+  "authority": {
+    "database": "cg2d.exe",
+    "primary_source": "doc/cg2d_stdio_table_heap_evidence.json#primary",
+    "method": "当前原IDA会话只读MCP仅补C5表与唯一数据入向；初始化归档沿SCH01，不重验全部正文",
+    "root_count": 1,
+    "instruction_count": 59,
+    "byte_count": 165
+  },
+  "original_root": {
+    "entry": "0x53e9a5",
+    "chunks": [
+      [
+        "0x53e9a5",
+        "0x53ea4a"
+      ]
+    ],
+    "instruction_count": 59,
+    "byte_count": 165,
+    "instructions": [
+      {
+        "address": "0x53e9a5",
+        "asm": "mov     eax, dword_1087AE0"
+      },
+      {
+        "address": "0x53e9aa",
+        "asm": "push    esi"
+      },
+      {
+        "address": "0x53e9ab",
+        "asm": "push    14h"
+      },
+      {
+        "address": "0x53e9ad",
+        "asm": "test    eax, eax"
+      },
+      {
+        "address": "0x53e9af",
+        "asm": "pop     esi"
+      },
+      {
+        "address": "0x53e9b0",
+        "asm": "jnz     short loc_53E9B9"
+      },
+      {
+        "address": "0x53e9b2",
+        "asm": "mov     eax, 200h"
+      },
+      {
+        "address": "0x53e9b7",
+        "asm": "jmp     short loc_53E9BF"
+      },
+      {
+        "address": "0x53e9b9",
+        "asm": "cmp     eax, esi"
+      },
+      {
+        "address": "0x53e9bb",
+        "asm": "jge     short loc_53E9C4"
+      },
+      {
+        "address": "0x53e9bd",
+        "asm": "mov     eax, esi"
+      },
+      {
+        "address": "0x53e9bf",
+        "asm": "mov     dword_1087AE0, eax"
+      },
+      {
+        "address": "0x53e9c4",
+        "asm": "push    4; int"
+      },
+      {
+        "address": "0x53e9c6",
+        "asm": "push    eax; Size"
+      },
+      {
+        "address": "0x53e9c7",
+        "asm": "call    cAlloc"
+      },
+      {
+        "address": "0x53e9cc",
+        "asm": "pop     ecx"
+      },
+      {
+        "address": "0x53e9cd",
+        "asm": "mov     dword_1086AC4, eax"
+      },
+      {
+        "address": "0x53e9d2",
+        "asm": "test    eax, eax"
+      },
+      {
+        "address": "0x53e9d4",
+        "asm": "pop     ecx"
+      },
+      {
+        "address": "0x53e9d5",
+        "asm": "jnz     short loc_53E9F8"
+      },
+      {
+        "address": "0x53e9d7",
+        "asm": "push    4; int"
+      },
+      {
+        "address": "0x53e9d9",
+        "asm": "push    esi; Size"
+      },
+      {
+        "address": "0x53e9da",
+        "asm": "mov     dword_1087AE0, esi"
+      },
+      {
+        "address": "0x53e9e0",
+        "asm": "call    cAlloc"
+      },
+      {
+        "address": "0x53e9e5",
+        "asm": "pop     ecx"
+      },
+      {
+        "address": "0x53e9e6",
+        "asm": "mov     dword_1086AC4, eax"
+      },
+      {
+        "address": "0x53e9eb",
+        "asm": "test    eax, eax"
+      },
+      {
+        "address": "0x53e9ed",
+        "asm": "pop     ecx"
+      },
+      {
+        "address": "0x53e9ee",
+        "asm": "jnz     short loc_53E9F8"
+      },
+      {
+        "address": "0x53e9f0",
+        "asm": "push    1Ah; NumberOfBytesWritten"
+      },
+      {
+        "address": "0x53e9f2",
+        "asm": "call    __amsg_exit"
+      },
+      {
+        "address": "0x53e9f7",
+        "asm": "pop     ecx"
+      },
+      {
+        "address": "0x53e9f8",
+        "asm": "xor     ecx, ecx"
+      },
+      {
+        "address": "0x53e9fa",
+        "asm": "mov     eax, offset off_58F8B8"
+      },
+      {
+        "address": "0x53e9ff",
+        "asm": "mov     edx, dword_1086AC4"
+      },
+      {
+        "address": "0x53ea05",
+        "asm": "mov     [ecx+edx], eax"
+      },
+      {
+        "address": "0x53ea08",
+        "asm": "add     eax, 20h ; ' '"
+      },
+      {
+        "address": "0x53ea0b",
+        "asm": "add     ecx, 4"
+      },
+      {
+        "address": "0x53ea0e",
+        "asm": "cmp     eax, offset off_58FB38"
+      },
+      {
+        "address": "0x53ea13",
+        "asm": "jl      short loc_53E9FF"
+      },
+      {
+        "address": "0x53ea15",
+        "asm": "xor     edx, edx"
+      },
+      {
+        "address": "0x53ea17",
+        "asm": "mov     ecx, offset unk_58F8C8"
+      },
+      {
+        "address": "0x53ea1c",
+        "asm": "mov     eax, edx"
+      },
+      {
+        "address": "0x53ea1e",
+        "asm": "mov     esi, edx"
+      },
+      {
+        "address": "0x53ea20",
+        "asm": "sar     eax, 5"
+      },
+      {
+        "address": "0x53ea23",
+        "asm": "and     esi, 1Fh"
+      },
+      {
+        "address": "0x53ea26",
+        "asm": "mov     eax, dword_10869C0[eax*4]"
+      },
+      {
+        "address": "0x53ea2d",
+        "asm": "mov     eax, [eax+esi*8]"
+      },
+      {
+        "address": "0x53ea30",
+        "asm": "cmp     eax, 0FFFFFFFFh"
+      },
+      {
+        "address": "0x53ea33",
+        "asm": "jz      short loc_53EA39"
+      },
+      {
+        "address": "0x53ea35",
+        "asm": "test    eax, eax"
+      },
+      {
+        "address": "0x53ea37",
+        "asm": "jnz     short loc_53EA3C"
+      },
+      {
+        "address": "0x53ea39",
+        "asm": "or      dword ptr [ecx], 0FFFFFFFFh"
+      },
+      {
+        "address": "0x53ea3c",
+        "asm": "add     ecx, 20h ; ' '"
+      },
+      {
+        "address": "0x53ea3f",
+        "asm": "inc     edx"
+      },
+      {
+        "address": "0x53ea40",
+        "asm": "cmp     ecx, offset dword_58F928"
+      },
+      {
+        "address": "0x53ea46",
+        "asm": "jl      short loc_53EA1C"
+      },
+      {
+        "address": "0x53ea48",
+        "asm": "pop     esi"
+      },
+      {
+        "address": "0x53ea49",
+        "asm": "retn"
+      }
+    ],
+    "inbound": [
+      {
+        "from": "0x553174",
+        "type": 1,
+        "parent": null
+      }
+    ]
+  },
+  "new_c_table_evidence": {
+    "entry": "0x0053E9A5",
+    "inbound": [
+      {
+        "from": "0x00553174",
+        "type": 1,
+        "parent": null,
+        "line": "dd offset ___initstdio"
+      }
+    ],
+    "c_table": {
+      "start": "0x0055316C",
+      "end_exclusive": "0x00553180",
+      "slot_count": 5,
+      "slot_bytes": 4,
+      "bytes": 20,
+      "slots": [
+        {
+          "slot": 0,
+          "address": "0x0055316C",
+          "target": "0x00000000"
+        },
+        {
+          "slot": 1,
+          "address": "0x00553170",
+          "target": "0x0053B418"
+        },
+        {
+          "slot": 2,
+          "address": "0x00553174",
+          "target": "0x0053E9A5"
+        },
+        {
+          "slot": 3,
+          "address": "0x00553178",
+          "target": "0x00546CAE"
+        },
+        {
+          "slot": 4,
+          "address": "0x0055317C",
+          "target": "0x00545080"
+        }
+      ]
+    }
+  },
+  "parent_order_reference": "doc/cg2d_hosted_runtime_prefix_evidence.json#original_roots：原53DE24 lowio→53DE48 cinit",
+  "hosted_stdio_contract": {
+    "source": "src/platform/LegacyMouse.cpp",
+    "initializer": "LegacyMultibyteStaticInitializer",
+    "added_call": "InitializeLegacyStdio_53E9A5()",
+    "sequence": [
+      "heap(0)/失败28",
+      "InitializeLegacyDescriptors_53F52D()",
+      "InitializeLegacyStdio_53E9A5()",
+      "std::atexit(FinishHostedLegacyStdio)",
+      "InitializeLegacyMultibyte_546CAE()",
+      "既有同TU应用投影"
+    ],
+    "producer_unchanged": "真实表/512/20/错误26、20静态FILE及0..2底层句柄规则沿SCH01",
+    "consumer_source_background": [
+      "AcquireLegacyStream_53F848：上限0不遍历，真实表生产使原取流路径可用",
+      "FlushLegacyStreams_53BBA2：从同一限制/表取流",
+      "WinMain：CGstart路径原OpenLegacyStream/ReadLine/Close"
+    ],
+    "source_changes": [
+      "stdio头文件",
+      "前置注释",
+      "一个初始化调用"
+    ],
+    "no_new_owner_or_cleanup": true
+  },
+  "scope": {
+    "verification": "本组接线/必要C槽与台账静态；未编译/测试/运行/摘要",
+    "open_tasks": [
+      "C01",
+      "C02",
+      "C04",
+      "C08",
+      "C10",
+      "C11",
+      "V02"
+    ],
+    "remaining": [
+      "全部FILE/配置实际流程与SDK继承ABI",
+      "跨TU首次使用、稳定模式/全部owner/未知alias",
+      "normal/quick/callable全序与运行",
+      "R1/R7/最终验收"
+    ],
+    "full_feature_gates_unchanged": true,
+    "function_dispositions_unchanged": true
+  }
+}

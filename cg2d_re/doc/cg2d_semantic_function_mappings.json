@@ -39974,7 +39974,7 @@
     {
       "original_entry": "0x53E9A5",
       "inventory_id": "F:0013E9A5",
-      "status": "SCH01stdio索引表两分配/清零点已接SDK，父512/20/错误26及消费者保持；未新增活动STDIO，完整owner/alias/CRT运行未闭",
+      "status": "HSI01兼容stdio真实表已接同TU宿主前置；SCH01分配域与原消费者保持，完整FILE/跨TU/owner/ABI/退出运行未闭",
       "original_end_exclusive": "0x53EA4A",
       "instruction_count": 59,
       "original_direct_reference_count": 1,
@@ -39997,6 +39997,13 @@
             "InitializeLegacyCrt_53C8CD"
           ],
           "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer"
+          ],
+          "relationship": "HSI01：lowio之后/stdio登记与multibyte之前，复用原stdio提供者；仅同TU前置"
         }
       ],
       "evidence_documents": [
@@ -40004,9 +40011,11 @@
         "doc/cg2d_startup_flow.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_stdio_table_heap_spec.md",
-        "doc/cg2d_stdio_table_heap_evidence.json"
+        "doc/cg2d_stdio_table_heap_evidence.json",
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "doc/cg2d_hosted_stdio_init_evidence.json"
       ],
-      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。",
+      "boundary": "S32上限0改512、小于20改20；两次原53BFF8 calloc先发布结果，失败回退20再试，仍失败原错误26。逐项重读表填20个静态FILE，再读取底层fd0..2句柄，只有-1/0把FILE.fd改-1。原calloc本体已实现，模式3核心仍待，lowio生产本体已实现但启动时点未接，未用宿主表或假初始化。 原FILE/低层表只各有一个新端存储；底层write和描述符生产本体已实现，启动时点、模式3及现有业务FILE迁移仍未闭合，不代表当前已链接/运行。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 SCH01只将53E9C7/53E9E0的stdio指针索引表allocate/clear切私有SDK std::calloc；既有pointer size8、低W32乘积/零变1/16对齐/上界、失败new-mode与541A28(bytes)重试/异常传播保持。父512/20/错误26/20实际静态FILE写入/三底层句柄消费及原所有表消费者/FILE项std释放保持。不读旧mode3/块头，不新增整表释放/query/resize、修重初始化泄漏或启动；全表实际已知无这些操作，十直接引用不排除未知alias/free。SDK私有容量/分桶/对齐尾零/低内存和错误策略adapted，原21应用calloc、通用旧堆/其余域不改，完整C01/C08/C10/C11/运行未闭。；2026-10-05 HSI01：HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open。前段未接活动STDIO为各旧快照，不覆盖本步局部已接状态。",
       "function_chunks": [
         {
           "start": "0x53E9A5",
@@ -40019,7 +40028,7 @@
           "reference_kind": "data"
         }
       ],
-      "verification_level": "完整原指令、全部直接入向、原静态字段/共享表；新增源码静态核对，未执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要",
+      "verification_level": "完整原指令、全部直接入向、原静态字段/共享表；新增源码静态核对，未执行；SCH01五完整根260条/659B、两真实calloc/23已证直属入向/十表引用及一源限定清零域/父失败消费静态；共享root仅本表分域对应，不构建/测试/运行/摘要；HSI01仅复用已有59条/165B原根，新C5五槽/20B与唯一数据入向、一个宿主真实调用及新增差异/引用静态；未构建/测试/运行/摘要",
       "native_reference": {
         "component": "本机UCRT生命周期职责参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/stdio/_file.cpp",
@@ -40059,6 +40068,15 @@
         "new_activity": false,
         "unknown_alias_closed": false,
         "runtime_verified": false
+      },
+      "hosted_stdio_contract": {
+        "spec": "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "source": "src/platform/LegacyMouse.cpp",
+        "initializer": "LegacyMultibyteStaticInitializer",
+        "call": "InitializeLegacyStdio_53E9A5()",
+        "previous": "InitializeLegacyDescriptors_53F52D()",
+        "next": "std::atexit(FinishHostedLegacyStdio) → InitializeLegacyMultibyte_546CAE() → 既有应用投影",
+        "scope": "仅同TUstdio生产接线；所有原provider/消费者保持，完整文件/跨TU/owner/ABI/退出运行待验"
       }
     },
     {

@@ -153,3 +153,14 @@ SDK窄flush顺序/指针门禁/现代sentry及注册时点差异按D02/D03 adapt
 原四provider/WinMain正文不改；固定C-term迁宿主登记按D02/D03具名适配。
 本组静态接线不代跨TU首次使用、SDK继承ABI/owner/alias、
 console/filter与normal/quick/callable完整退出及运行；六关联任务保持open。
+
+## HSI01 兼容stdio活动前置（2026-10-05）
+
+[本组合同](cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure)及
+[证据](cg2d_hosted_stdio_init_evidence.json)补HPI01之后的FILE表生产缺口。
+当前同TU前置为heap/失败28→lowio→stdio→普通stdio登记→multibyte→既有应用投影；
+stdio先于multibyte沿原C5的553174/553178相邻序。复用SCH01表块及唯一LegacyFile域，
+512/20/错误26、20静态记录/三底层句柄、取流/刷新和WinMain正文保持。
+不执行整套C5/旧entry/cinit/90表，不增加全表释放或SDK FILE副本；
+70源＋15SDK/85对应计数不变。跨TU首次使用、全部FILE/owner/alias、SDK继承ABI
+和normal/quick/callable全序及运行仍待，七关联任务保持open。

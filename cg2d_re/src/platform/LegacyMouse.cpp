@@ -5,6 +5,7 @@
 #include "LegacyLowIo.hpp"
 #include "LegacyRuntimeError.hpp"
 #include "LegacyRuntimeExit.hpp"
+#include "LegacyStdio.hpp"
 
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacyPanelRuntime.hpp"
@@ -42,7 +43,7 @@ void FinishHostedLegacyStdio()
     FinishLegacyStdio_53EA4A();
 }
 
-// HPI01/AIS01：heap、lowio先于原C表投影和应用序，不执行整套旧CRT。
+// HSI01/HPI01/AIS01：heap、lowio、stdio先于multibyte和应用序，不执行整套旧CRT。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
@@ -50,6 +51,7 @@ struct LegacyMultibyteStaticInitializer {
             FastLegacyRuntimeErrorExit_53DED0(28);
         }
         static_cast<void>(InitializeLegacyDescriptors_53F52D());
+        InitializeLegacyStdio_53E9A5();
         static_cast<void>(std::atexit(FinishHostedLegacyStdio));
         InitializeLegacyMultibyte_546CAE();
     }

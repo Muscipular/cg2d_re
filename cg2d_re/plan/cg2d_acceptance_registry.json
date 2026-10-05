@@ -285,7 +285,8 @@
         "doc/cg2d_mode3_heap_facade_spec.md",
         "doc/cg2d_mode3_private_core_spec.md",
         "doc/cg2d_stream_table_pointer_spec.md",
-        "doc/cg2d_hosted_runtime_prefix_spec.md"
+        "doc/cg2d_hosted_runtime_prefix_spec.md",
+        "doc/cg2d_hosted_stdio_init_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -453,7 +454,8 @@
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -476,7 +478,8 @@
         "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭",
         "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭",
         "STP01仅四已有streambuf/filebuf方法表地址的const T*与十消费类型接线闭合，不新增原函数/处置或重验旧算法；真实codecvt/facet生产/完整表、全活动流/owner/alias及SDK ABI/链接/退出/运行仍待，C03/C05保持open",
-        "HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open"
+        "HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open",
+        "HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -502,7 +505,8 @@
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ]
     },
     {
@@ -11044,6 +11048,102 @@
       "observation": "仅本步三源码片段/四语义补充/新引用和台账限定静态",
       "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
       "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-STDIO-INIT-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "SCH01已有初始化59条/165B与当前C5五槽/20B、唯一553174数据入向；doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-stdio-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-acceptance",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_hosted_stdio_init_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#FlushLegacyStreams_53BBA2",
+        "src/platform/ClientEntry.cpp#WinMain"
+      ],
+      "differences": [
+        {
+          "description": "原C5 stdio时点移至宿主同TU前置，沿D02/D03；不启用整套旧CRT或宣称其SEH/完整退出与SDK行为等价",
+          "decision_ref": "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP三片段新增一个已有stdio初始化调用，不新建表/状态/provider",
+      "expected": "补真实stdio表生产缺口，使用原512/20/错误26、20静态记录与三句柄规则，不改消费/分配域",
+      "actual": "同TU前置源码已接；一既有语义补映射，整体成员/跨TU/owner/ABI/实际文件与退出运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-STDIO-INIT-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "SCH01已有初始化59条/165B与当前C5五槽/20B、唯一553174数据入向；doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-stdio-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-acceptance",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_hosted_stdio_init_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#FlushLegacyStreams_53BBA2",
+        "src/platform/ClientEntry.cpp#WinMain"
+      ],
+      "differences": [
+        {
+          "description": "原C5 stdio时点移至宿主同TU前置，沿D02/D03；不启用整套旧CRT或宣称其SEH/完整退出与SDK行为等价",
+          "decision_ref": "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "lowio之后、既有普通stdio登记及multibyte/同TU应用投影之前生产唯一表，取流/刷新消费者正文保持",
+      "expected": "补真实stdio表生产缺口，使用原512/20/错误26、20静态记录与三句柄规则，不改消费/分配域",
+      "actual": "同TU前置源码已接；一既有语义补映射，整体成员/跨TU/owner/ABI/实际文件与退出运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-STDIO-INIT-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "SCH01已有初始化59条/165B与当前C5五槽/20B、唯一553174数据入向；doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-stdio-init-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-baseline",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-acceptance",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_hosted_stdio_init_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyStdio.cpp#InitializeLegacyStdio_53E9A5",
+        "src/platform/LegacyStdio.cpp#AcquireLegacyStream_53F848",
+        "src/platform/LegacyStdio.cpp#FlushLegacyStreams_53BBA2",
+        "src/platform/ClientEntry.cpp#WinMain"
+      ],
+      "differences": [
+        {
+          "description": "原C5 stdio时点移至宿主同TU前置，沿D02/D03；不启用整套旧CRT或宣称其SEH/完整退出与SDK行为等价",
+          "decision_ref": "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原stdio根复用SCH01，仅新C5槽/入向及本步源码/一语义补充/台账和新增引用静态",
+      "expected": "补真实stdio表生产缺口，使用原512/20/错误26、20静态记录与三句柄规则，不改消费/分配域",
+      "actual": "同TU前置源码已接；一既有语义补映射，整体成员/跨TU/owner/ABI/实际文件与退出运行仍待，功能门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11154,7 +11254,8 @@
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ]
     },
     {
@@ -11174,7 +11275,8 @@
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ]
     },
     {
@@ -11218,7 +11320,8 @@
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -11233,7 +11336,8 @@
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -11260,7 +11364,8 @@
         "doc/cg2d_locale_object_heap_migration_spec.md#locale-object-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ],
       "task_id": "C01",
       "state": "open"
@@ -11312,7 +11417,8 @@
       "evidence_refs": [
         "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ]
     },
     {
@@ -11383,7 +11489,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
-        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
       ]
     }
   ],

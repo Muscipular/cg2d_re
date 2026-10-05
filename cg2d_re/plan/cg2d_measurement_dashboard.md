@@ -174,7 +174,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-048 | included：旧选择48：送信宠物 | [legacy_mail_pet_list](../doc/ui_windows/legacy_mail_pet_list.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-049 | included：旧选择49：宠物邮件撰写 | [legacy_mail_compose](../doc/ui_windows/legacy_mail_compose.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-050 | included：旧选择50：邮件赠品 | [legacy_mail_gift_items](../doc/ui_windows/legacy_mail_gift_items.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-051 | included：旧选择51：交易目标名单 | [legacy_trade_target_list](../doc/ui_windows/legacy_trade_target_list.md) | 0/1 | U04、V04、U02 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-051 | included：旧选择51：交易目标名单 | [legacy_trade_target_list](../doc/ui_windows/legacy_trade_target_list.md)、[cg2d_trade_target_production_spec](../doc/cg2d_trade_target_production_spec.md#trade-target-production-gap) | 0/1 | U04、V04、U02 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-052 | included：旧选择52：交易 | [legacy_trade_panel](../doc/ui_windows/legacy_trade_panel.md) | 0/7 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-053 | included：旧选择53：普通对话 | [legacy_basic_dialogs](../doc/ui_windows/legacy_basic_dialogs.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-054 | included：旧选择54：普通行选择 | [legacy_basic_dialogs](../doc/ui_windows/legacy_basic_dialogs.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "scope": "TTP01三个生产字段的限定定位和工具准备；未执行调试，不证明容量/写者或客户端验收",
+  "snapshot": "cg2d-re-trade-target-capture-ready-20261005",
+  "targets_and_debugger_state": {
+    "debugger_on": false,
+    "process_state": 0,
+    "fields": [
+      {
+        "address": "0xcb1d1c",
+        "watch_width": 1,
+        "label": "首条名称首字节",
+        "references": [
+          {
+            "site": "0x4e507d",
+            "type": 1,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "lea     edx, byte_CB1D1C[ecx+eax]"
+          },
+          {
+            "site": "0x4e517c",
+            "type": 1,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "lea     edx, byte_CB1D1C[ecx+eax]"
+          }
+        ],
+        "item_head_metadata": "0xcb1d1c",
+        "item_end_metadata": "0xcb1dc8",
+        "metadata_proves_capacity": false
+      },
+      {
+        "address": "0xd30134",
+        "watch_width": 4,
+        "label": "名单总数",
+        "references": [
+          {
+            "site": "0x4e4fbf",
+            "type": 3,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "mov     edx, dword_D30134"
+          },
+          {
+            "site": "0x4e5169",
+            "type": 3,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "mov     edx, dword_D30134"
+          }
+        ],
+        "item_head_metadata": "0xd30134",
+        "item_end_metadata": "0xd30138",
+        "metadata_proves_capacity": false
+      },
+      {
+        "address": "0xcf46d0",
+        "watch_width": 4,
+        "label": "名单页数",
+        "references": [
+          {
+            "site": "0x4e4f97",
+            "type": 3,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "mov     eax, dword_CF46D0"
+          },
+          {
+            "site": "0x4e5110",
+            "type": 3,
+            "parent_entry": "0x4e4ea0",
+            "instruction": "mov     ecx, dword_CF46D0"
+          }
+        ],
+        "item_head_metadata": "0xcf46d0",
+        "item_end_metadata": "0xcf46d4",
+        "metadata_proves_capacity": false
+      }
+    ]
+  },
+  "bounded_neighborhood_searches": [
+    {
+      "start": "0xcb1c00",
+      "end_exclusive": "0xcb1e30",
+      "direct_reference_count": 104,
+      "relevant_direct_references": [
+        {
+          "target": "0xcb1d18",
+          "site": "0x4a38ff",
+          "type": 2,
+          "parent": "0x4a38c0",
+          "instruction": "mov     dword_CB1D18, eax"
+        },
+        {
+          "target": "0xcb1d18",
+          "site": "0x4a4592",
+          "type": 3,
+          "parent": "0x4a4540",
+          "instruction": "mov     eax, dword_CB1D18"
+        },
+        {
+          "target": "0xcb1d1c",
+          "site": "0x4e507d",
+          "type": 1,
+          "parent": "0x4e4ea0",
+          "instruction": "lea     edx, byte_CB1D1C[ecx+eax]"
+        },
+        {
+          "target": "0xcb1d1c",
+          "site": "0x4e517c",
+          "type": 1,
+          "parent": "0x4e4ea0",
+          "instruction": "lea     edx, byte_CB1D1C[ecx+eax]"
+        }
+      ],
+      "limitation": "邻域查询不证明任意基址形成/未知alias不存在，也不证明容量"
+    },
+    {
+      "start": "0xd30120",
+      "end_exclusive": "0xd30150",
+      "direct_reference_count": 9,
+      "relevant_direct_references": [
+        {
+          "target": "0xd30134",
+          "site": "0x4e4fbf",
+          "type": 3,
+          "parent": "0x4e4ea0",
+          "instruction": "mov     edx, dword_D30134"
+        },
+        {
+          "target": "0xd30134",
+          "site": "0x4e5169",
+          "type": 3,
+          "parent": "0x4e4ea0",
+          "instruction": "mov     edx, dword_D30134"
+        }
+      ],
+      "limitation": "邻域查询不证明任意基址形成/未知alias不存在，也不证明容量"
+    },
+    {
+      "start": "0xcf46b0",
+      "end_exclusive": "0xcf46f0",
+      "direct_reference_count": 113,
+      "relevant_direct_references": [
+        {
+          "target": "0xcf46d0",
+          "site": "0x4e4f97",
+          "type": 3,
+          "parent": "0x4e4ea0",
+          "instruction": "mov     eax, dword_CF46D0"
+        },
+        {
+          "target": "0xcf46d0",
+          "site": "0x4e5110",
+          "type": 3,
+          "parent": "0x4e4ea0",
+          "instruction": "mov     ecx, dword_CF46D0"
+        }
+      ],
+      "limitation": "邻域查询不证明任意基址形成/未知alias不存在，也不证明容量"
+    }
+  ],
+  "neighboring_field_window": {
+    "scope": "仅邻近CB1D18写点，不把邻接字段当名单owner",
+    "entry": "0x4a38c0",
+    "instructions": [
+      {
+        "ea": "0x4a38e7",
+        "bytes": "c1e105",
+        "size": 3,
+        "instruction": "shl     ecx, 5"
+      },
+      {
+        "ea": "0x4a38ea",
+        "bytes": "2bc8",
+        "size": 2,
+        "instruction": "sub     ecx, eax"
+      },
+      {
+        "ea": "0x4a38ec",
+        "bytes": "8b148d201b0501",
+        "size": 7,
+        "instruction": "mov     edx, dword_1051B20[ecx*4]"
+      },
+      {
+        "ea": "0x4a38f3",
+        "bytes": "52",
+        "size": 1,
+        "instruction": "push    edx"
+      },
+      {
+        "ea": "0x4a38f4",
+        "bytes": "e8c75c0700",
+        "size": 5,
+        "instruction": "call    sub_5195C0"
+      },
+      {
+        "ea": "0x4a38f9",
+        "bytes": "8b0d587bd600",
+        "size": 6,
+        "instruction": "mov     ecx, dword_D67B58"
+      },
+      {
+        "ea": "0x4a38ff",
+        "bytes": "a3181dcb00",
+        "size": 5,
+        "instruction": "mov     dword_CB1D18, eax"
+      },
+      {
+        "ea": "0x4a3904",
+        "bytes": "6a37",
+        "size": 2,
+        "instruction": "push    37h ; '7'; a1"
+      },
+      {
+        "ea": "0x4a3906",
+        "bytes": "8b148d407bd600",
+        "size": 7,
+        "instruction": "mov     edx, dword_D67B40[ecx*4]"
+      },
+      {
+        "ea": "0x4a390d",
+        "bytes": "03d6",
+        "size": 2,
+        "instruction": "add     edx, esi"
+      },
+      {
+        "ea": "0x4a390f",
+        "bytes": "8b0c95e4fcc900",
+        "size": 7,
+        "instruction": "mov     ecx, dword_C9FCE4[edx*4]"
+      },
+      {
+        "ea": "0x4a3916",
+        "bytes": "8bd1",
+        "size": 2,
+        "instruction": "mov     edx, ecx"
+      },
+      {
+        "ea": "0x4a3918",
+        "bytes": "c1e205",
+        "size": 3,
+        "instruction": "shl     edx, 5"
+      },
+      {
+        "ea": "0x4a391b",
+        "bytes": "2bd1",
+        "size": 2,
+        "instruction": "sub     edx, ecx"
+      }
+    ]
+  },
+  "neighboring_current_source": {
+    "path": "src/ui/WindowRuntime.cpp",
+    "symbols": [
+      "mailMemberIndexCB1D18",
+      "Sub_4A38C0",
+      "Sub_4A4540"
+    ],
+    "relationship": "独立成员查找结果/使用；邻接CB1D1C不能视为名单生产"
+  },
+  "capture": {
+    "path": "plan/cg2d_trade_target_capture.py",
+    "base_path": "plan/cg2d_pet_catalog_capture.py",
+    "targets": [
+      [
+        13311260,
+        1
+      ],
+      [
+        13828404,
+        4
+      ],
+      [
+        13584080,
+        4
+      ]
+    ],
+    "snapshots": [
+      [
+        13311260,
+        17
+      ]
+    ],
+    "base_patches": [
+      {
+        "before": "    REGISTERS = (\"EIP\", \"EAX\", \"EBX\", \"ECX\", \"EDX\", \"ESI\", \"EDI\", \"EBP\", \"ESP\")",
+        "after": "    SNAPSHOTS = ((0xCA0478, 96, \"首条96B\"),)\n    REGISTERS = (\"EIP\", \"EAX\", \"EBX\", \"ECX\", \"EDX\", \"ESI\", \"EDI\", \"EBP\", \"ESP\")"
+      },
+      {
+        "before": "            for offset in range(size):\n                if self._breakpoint(ea + offset) is not None:\n                    raise RuntimeError(\"监视范围已有断点：\" + hex(ea))",
+        "after": "            for point in self.existing_breakpoints:\n                point_size = 1 if point[\"type\"] == ida_idd.BPT_SOFT else point[\"size\"]\n                if point_size <= 0:\n                    raise RuntimeError(\"现有断点范围无法确定：\" + hex(point[\"ea\"]))\n                if point[\"ea\"] < ea + size and ea < point[\"ea\"] + point_size:\n                    raise RuntimeError(\"监视范围已有断点：\" + hex(point[\"ea\"]))\n        for ea, size, _name in self.SNAPSHOTS:\n            if ea < module.base or ea + size > module.base + module.size:\n                raise RuntimeError(\"快照范围不在已核模块内\")"
+      },
+      {
+        "before": "            event[\"memory\"][\"首条96B\"] = {\"ea\": 0xCA0478, \"hex\": self._memory(0xCA0478, 96)}",
+        "after": "            for ea, size, name in self.SNAPSHOTS:\n                event[\"memory\"][name] = {\"ea\": ea, \"hex\": self._memory(ea, size)}"
+      }
+    ],
+    "executed": false,
+    "breakpoints_installed": false,
+    "capacity_proven": false,
+    "producer_proven": false
+  },
+  "verification": "仅工具/数据/文档的必要静态；无客户端I/W/S/R门禁，动态许可待明确恢复",
+  "static_capture_syntax": [
+    {
+      "file": "cg2d_pet_catalog_capture.py",
+      "syntax": "AST可解析，未执行模块",
+      "literal_configuration": {
+        "TARGETS": [
+          [
+            13239416,
+            2,
+            "首条used"
+          ],
+          [
+            13152132,
+            4,
+            "目录页数"
+          ],
+          [
+            13385316,
+            4,
+            "目录图号"
+          ]
+        ],
+        "SNAPSHOTS": [
+          [
+            13239416,
+            96,
+            "首条96B"
+          ]
+        ]
+      },
+      "module_level_calls": [],
+      "module_level_debugger_calls": []
+    },
+    {
+      "file": "cg2d_trade_target_capture.py",
+      "syntax": "AST可解析，未执行模块",
+      "literal_configuration": {
+        "TARGETS": [
+          [
+            13311260,
+            1,
+            "首条名称首字节"
+          ],
+          [
+            13828404,
+            4,
+            "名单总数"
+          ],
+          [
+            13584080,
+            4,
+            "名单页数"
+          ]
+        ],
+        "SNAPSHOTS": [
+          [
+            13311260,
+            17,
+            "首条17B"
+          ]
+        ]
+      },
+      "module_level_calls": [
+        "runpy.run_path",
+        "str",
+        "Path(__file__).with_name",
+        "Path"
+      ],
+      "module_level_debugger_calls": []
+    }
+  ]
+}

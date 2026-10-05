@@ -119180,9 +119180,15 @@
       "evidence_documents": [
         "doc/ui_windows/legacy_trade_target_list.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-gap",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-observation",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-implementation",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_trade_target_production_evidence.json"
       ],
-      "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。",
+      "boundary": "只替换页码原4E5126，586D48 %d/%d/两S32/未清128B；CF46D0>1布局快照、标题后新读CC3208页号/CF46D0页数、格式后新Y/X、另读页号及原各次扫描/绘制缓存、CC4D48发布后发送后重读选择/借原名称4E5620、提示和完整尾返回不动。CC3208已有唯一定义不报缺；CB1D1C名单容量/生产、D30134总数、CF46D0页数三项继续外部未闭合，不注册或补空数据。；2026-10-04依据PE.data载入填零尾证据建立已消费S32槽真实唯一存储；仅装载初值0，不添加运行时复位/补值/生产，未定数组继续extern，既有全部正文/读取/发送及后续重读保持。 TTP01三生产字段定点采集工具/方案已准备，当前原端未在调试，容量/写者未证；基类补完整断点范围冲突检查。未安装/执行采集，不增加客户端功能或完整门禁，动态许可须独立恢复。",
       "original_incoming": [],
       "original_data_references": [],
       "business_call_connections": [

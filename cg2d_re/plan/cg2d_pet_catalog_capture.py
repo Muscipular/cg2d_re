@@ -20,6 +20,7 @@ class PetCatalogCapture(ida_dbg.DBG_Hooks):
         (0xC8AF84, 4, "目录页数"),
         (0xCC3E64, 4, "目录图号"),
     )
+    SNAPSHOTS = ((0xCA0478, 96, "首条96B"),)
     REGISTERS = ("EIP", "EAX", "EBX", "ECX", "EDX", "ESI", "EDI", "EBP", "ESP")
 
     def __init__(self):
@@ -81,9 +82,15 @@ class PetCatalogCapture(ida_dbg.DBG_Hooks):
         for ea, size, _name in self.TARGETS:
             if ea < module.base or ea + size > module.base + module.size:
                 raise RuntimeError("监视字段不在已核模块内")
-            for offset in range(size):
-                if self._breakpoint(ea + offset) is not None:
-                    raise RuntimeError("监视范围已有断点：" + hex(ea))
+            for point in self.existing_breakpoints:
+                point_size = 1 if point["type"] == ida_idd.BPT_SOFT else point["size"]
+                if point_size <= 0:
+                    raise RuntimeError("现有断点范围无法确定：" + hex(point["ea"]))
+                if point["ea"] < ea + size and ea < point["ea"] + point_size:
+                    raise RuntimeError("监视范围已有断点：" + hex(point["ea"]))
+        for ea, size, _name in self.SNAPSHOTS:
+            if ea < module.base or ea + size > module.base + module.size:
+                raise RuntimeError("快照范围不在已核模块内")
 
         if not self.hook():
             raise RuntimeError("安装通知hook失败，未添加断点")
@@ -128,7 +135,8 @@ class PetCatalogCapture(ida_dbg.DBG_Hooks):
                 event["registers"][name] = int(value.ival)
             for ea, size, name in self.TARGETS:
                 event["memory"][name] = {"ea": ea, "hex": self._memory(ea, size)}
-            event["memory"]["首条96B"] = {"ea": 0xCA0478, "hex": self._memory(0xCA0478, 96)}
+            for ea, size, name in self.SNAPSHOTS:
+                event["memory"][name] = {"ea": ea, "hex": self._memory(ea, size)}
             ip = event["registers"]["EIP"]
             module = ida_idd.modinfo_t()
             if not ida_dbg.get_module_info(ip, module):

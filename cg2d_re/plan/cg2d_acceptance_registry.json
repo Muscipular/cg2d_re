@@ -4625,7 +4625,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_trade_target_list.md"
+        "doc/ui_windows/legacy_trade_target_list.md",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-gap"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -4637,9 +4638,13 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-observation",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission"
+      ],
       "blockers": [
-        "原成员、传递依赖和逐门禁证据待归档"
+        "原成员、传递依赖和逐门禁证据待归档",
+        "TTP01三字段采集器已准备、未执行/未获动态许可；CB1D1C容量/定义/生产、D30134/CF46D0运行时生产及完整路由/共享寿命/交易流程仍未证，不用空名单或相邻地址补实现"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -12575,7 +12580,8 @@
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
       ]
     },
     {
@@ -12624,7 +12630,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
       ]
     },
     {
@@ -12684,7 +12691,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
-        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state"
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
       ]
     },
     {
@@ -12759,6 +12767,17 @@
       "evidence_refs": [
         "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+      ]
+    },
+    {
+      "task_id": "U02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_trade_target_list.md",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-gap",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-permission",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
       ]
     }
   ],

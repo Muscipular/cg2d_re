@@ -231,3 +231,7 @@
 ## BNC01 技能107字段取样原序（2026-10-06）
 
 [五处实修](../cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision)保初payload先skill、actor先level、同解析角色/target与比较先pub和固定flags-caster先pub/target-actor。原fpUsed/25-151-55-104、取包及两种失败、末终结Move-增58无RID保持；[93条355B原证据](../cg2d_battle_m_skill107_sampling_evidence.json)不代完整父或消费-owner运行，所有其它正文和声明保持。
+
+## BND01 技能108目标与结果发布（2026-10-06）
+
+[单根十处](../cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision)明确初payload先skill/actor先level、同解析caster/target与比较先pub，Take flags后live target先flags pub/actor先skill、level独立取样；比较后的0/106或57角色沿原位置，两个图号路径先target后偏移表，EffectList最后另读live flags-caster-target-actor。固定amount、149/184原选择/159门禁、失败和末55共用尾保持；[实际239条981B](../cg2d_battle_m_skill108_sampling_evidence.json)不代完整父/消费-owner运行，所有其它正文/声明不改。

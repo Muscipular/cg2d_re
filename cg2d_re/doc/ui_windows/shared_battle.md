@@ -8347,3 +8347,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNC01 技能107角色与效果参数（2026-10-06）
 
 [单根五处](../cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision)明确初caster同解析位置及两字段原序、target255比较先pub/同位置判空、Take flags后live caster先发布flags，再target/actor-固定参数EffectList。[93条原主体](../cg2d_battle_m_skill107_sampling_evidence.json)与原四动作/无RID终结有来源，旧812只局部纳管，完整共享战斗-所有owner/画面运行另验。
+
+## BND01 技能108固定比较与效果取样（2026-10-06）
+
+[十处实修](../cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision)恢复target先flags pub/actor先字段值、0动作和106/57沿已比较位置、图号target先表与最后EffectList live参数原序。[239条主体/真实共用尾](../cg2d_battle_m_skill108_sampling_evidence.json)有来源，两个正常分支与159门禁不重选、原失败68-22331-59/金额两字段和55终结保持；旧812有界追加，不代完整共享战斗-所有owner/画面运行。

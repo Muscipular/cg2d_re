@@ -2505,3 +2505,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNC01 旧812技能107有界追加（2026-10-06）
 
 [具体合同](cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-acceptance)和[93条355B两页15call/原入口202B上下文](cg2d_battle_m_skill107_sampling_evidence.json)支持单根五处正常取样；旧812只追加五引用/一symbol及本步对象。原取包/四动作/两种失败与末无RID、全部其它根头保持；不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456和关联1463/3680=39.76%及完整门禁保持。
+
+## BND01 旧812技能108与真实尾有界追加（2026-10-06）
+
+[具体合同](cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-acceptance)和[239条981B四页26call证据](cg2d_battle_m_skill108_sampling_evidence.json)含原226条主体与真实13条尾、全部出口和两个正常效果路径；BMM旧尾非新增，202B入口/48B偏移仅上下文。单根十处实修，旧812只增五引用/一symbol/本步对象；不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%及完整门禁保持。

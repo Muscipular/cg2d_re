@@ -329,8 +329,9 @@ std::int32_t ValidateLegacyExecutablePointer_5450D6(FARPROC const function)
 LONG WINAPI FilterLegacyUnhandledException_54503A(EXCEPTION_POINTERS* const information)
 {
     const auto* const record = information->ExceptionRecord;
+    // HFI01：本机MSVC x64多一个镜像基址参数；保原魔数及终止/转调职责。
     if (record->ExceptionCode == 0xE06D7363u
-        && record->NumberParameters == 3
+        && record->NumberParameters == 4
         && static_cast<std::uint32_t>(record->ExceptionInformation[0]) == 0x19930520u) {
         TerminateLegacyRuntime_540A5C();
     }

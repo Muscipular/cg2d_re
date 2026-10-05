@@ -287,7 +287,8 @@
         "doc/cg2d_stream_table_pointer_spec.md",
         "doc/cg2d_hosted_runtime_prefix_spec.md",
         "doc/cg2d_hosted_stdio_init_spec.md",
-        "doc/cg2d_array_counter_spec.md"
+        "doc/cg2d_array_counter_spec.md",
+        "doc/cg2d_hosted_exception_filter_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -459,7 +460,8 @@
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
-        "doc/cg2d_array_counter_spec.md#array-counter-decision"
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -11252,6 +11254,105 @@
       "observation": "两原根/必要算术原点、限定源码/两语义和处置/台账及新增引用静态",
       "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
       "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-FILTER-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四原根49条/145B、55317C安装及三非空终止槽；SDK源码证明x64参数数4；doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-exception-filter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "differences": [
+        {
+          "description": "D02适配本机x64四参数记录，D03承接宿主即时登记/退出时机和失败；不宣称原私有ABI/完整SDK运行等价",
+          "decision_ref": "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两CPP五限定片段：当前x64参数数4，真实安装和两真实收尾",
+      "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-FILTER-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四原根49条/145B、55317C安装及三非空终止槽；SDK源码证明x64参数数4；doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-exception-filter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "differences": [
+        {
+          "description": "D02适配本机x64四参数记录，D03承接宿主即时登记/退出时机和失败；不宣称原私有ABI/完整SDK运行等价",
+          "decision_ref": "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "546CAE后/应用前安装；既有同一宿主退出callback保持先登记，app→stdio→console→恢复filter顺序",
+      "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-FILTER-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四原根49条/145B、55317C安装及三非空终止槽；SDK源码证明x64参数数4；doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-exception-filter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-baseline",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-acceptance",
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure",
+        "doc/cg2d_hosted_exception_filter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#FilterLegacyUnhandledException_54503A",
+        "src/platform/LegacyRuntimeExit.cpp#InstallLegacyExceptionFilter_545080",
+        "src/platform/LegacyRuntimeExit.cpp#RestoreLegacyExceptionFilter_545091",
+        "src/platform/LegacyRuntimeExit.cpp#CloseLegacyConsole_54B20C",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyRuntime"
+      ],
+      "differences": [
+        {
+          "description": "D02适配本机x64四参数记录，D03承接宿主即时登记/退出时机和失败；不宣称原私有ABI/完整SDK运行等价",
+          "decision_ref": "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四原根/必要数据槽及本机SDK参数合同、两源/四语义/处置与限定引用静态",
+      "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
+      "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -13247,6 +13348,38 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014503A",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00145080",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00145091",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0014B20C",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure"
       ]
     }
   ],

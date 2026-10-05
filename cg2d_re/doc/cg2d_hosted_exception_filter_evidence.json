@@ -1,0 +1,418 @@
+{
+  "schema_version": 1,
+  "step": "HFI01",
+  "recorded_on": "2026-10-05",
+  "scope": "宿主x64顶层异常筛选与原C5尾/固定终止非空槽接线，仅新增源码静态",
+  "roots": [
+    {
+      "start": "0x54503a",
+      "end": "0x545080",
+      "instructions": [
+        {
+          "ea": "0x54503a",
+          "line": "push    esi"
+        },
+        {
+          "ea": "0x54503b",
+          "line": "mov     esi, [esp+4+ExceptionInfo]"
+        },
+        {
+          "ea": "0x54503f",
+          "line": "mov     eax, [esi]"
+        },
+        {
+          "ea": "0x545041",
+          "line": "cmp     dword ptr [eax], 0E06D7363h"
+        },
+        {
+          "ea": "0x545047",
+          "line": "jnz     short loc_54505D"
+        },
+        {
+          "ea": "0x545049",
+          "line": "cmp     dword ptr [eax+10h], 3"
+        },
+        {
+          "ea": "0x54504d",
+          "line": "jnz     short loc_54505D"
+        },
+        {
+          "ea": "0x54504f",
+          "line": "cmp     dword ptr [eax+14h], 19930520h"
+        },
+        {
+          "ea": "0x545056",
+          "line": "jnz     short loc_54505D"
+        },
+        {
+          "ea": "0x545058",
+          "line": "jmp     sub_540A5C"
+        },
+        {
+          "ea": "0x54505d",
+          "line": "mov     eax, lpfn"
+        },
+        {
+          "ea": "0x545062",
+          "line": "test    eax, eax"
+        },
+        {
+          "ea": "0x545064",
+          "line": "jz      short loc_54507A"
+        },
+        {
+          "ea": "0x545066",
+          "line": "push    eax; lpfn"
+        },
+        {
+          "ea": "0x545067",
+          "line": "call    ?_ValidateExecute@@YAHP6GHXZ@Z"
+        },
+        {
+          "ea": "0x54506c",
+          "line": "test    eax, eax"
+        },
+        {
+          "ea": "0x54506e",
+          "line": "pop     ecx"
+        },
+        {
+          "ea": "0x54506f",
+          "line": "jz      short loc_54507A"
+        },
+        {
+          "ea": "0x545071",
+          "line": "push    esi; ExceptionInfo"
+        },
+        {
+          "ea": "0x545072",
+          "line": "call    lpfn"
+        },
+        {
+          "ea": "0x545078",
+          "line": "jmp     short loc_54507C"
+        },
+        {
+          "ea": "0x54507a",
+          "line": "xor     eax, eax"
+        },
+        {
+          "ea": "0x54507c",
+          "line": "pop     esi"
+        },
+        {
+          "ea": "0x54507d",
+          "line": "retn    4"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x545080",
+          "type": 1,
+          "parent": "0x545080",
+          "line": "push    offset ?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z; lpTopLevelExceptionFilter"
+        },
+        {
+          "ea": "0x58fb68",
+          "type": 1,
+          "parent": null,
+          "line": "dd offset ?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z"
+        },
+        {
+          "ea": "0x592f98",
+          "type": 1,
+          "parent": null,
+          "line": "dd offset ?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z"
+        }
+      ]
+    },
+    {
+      "start": "0x545080",
+      "end_exclusive": "0x545091",
+      "instructions": [
+        {
+          "ea": "0x545080",
+          "line": "push    offset ?__CxxUnhandledExceptionFilter@@YGJPAU_EXCEPTION_POINTERS@@@Z; lpTopLevelExceptionFilter"
+        },
+        {
+          "ea": "0x545085",
+          "line": "call    ds:SetUnhandledExceptionFilter"
+        },
+        {
+          "ea": "0x54508b",
+          "line": "mov     lpfn, eax"
+        },
+        {
+          "ea": "0x545090",
+          "line": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x55317c",
+          "type": 1,
+          "parent": null,
+          "line": "dd offset sub_545080"
+        }
+      ]
+    },
+    {
+      "start": "0x545091",
+      "end_exclusive": "0x54509e",
+      "instructions": [
+        {
+          "ea": "0x545091",
+          "line": "push    lpfn; lpTopLevelExceptionFilter"
+        },
+        {
+          "ea": "0x545097",
+          "line": "call    ds:SetUnhandledExceptionFilter"
+        },
+        {
+          "ea": "0x54509d",
+          "line": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x553198",
+          "type": 1,
+          "parent": null,
+          "line": "dd offset sub_545091"
+        }
+      ]
+    },
+    {
+      "start": "0x54b20c",
+      "end_exclusive": "0x54b239",
+      "instructions": [
+        {
+          "ea": "0x54b20c",
+          "line": "mov     eax, hObject"
+        },
+        {
+          "ea": "0x54b211",
+          "line": "push    esi"
+        },
+        {
+          "ea": "0x54b212",
+          "line": "mov     esi, ds:CloseHandle"
+        },
+        {
+          "ea": "0x54b218",
+          "line": "cmp     eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x54b21b",
+          "line": "jz      short loc_54B225"
+        },
+        {
+          "ea": "0x54b21d",
+          "line": "cmp     eax, 0FFFFFFFEh"
+        },
+        {
+          "ea": "0x54b220",
+          "line": "jz      short loc_54B225"
+        },
+        {
+          "ea": "0x54b222",
+          "line": "push    eax; hObject"
+        },
+        {
+          "ea": "0x54b223",
+          "line": "call    esi ; CloseHandle"
+        },
+        {
+          "ea": "0x54b225",
+          "line": "mov     eax, dword_592FA0"
+        },
+        {
+          "ea": "0x54b22a",
+          "line": "cmp     eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x54b22d",
+          "line": "jz      short loc_54B237"
+        },
+        {
+          "ea": "0x54b22f",
+          "line": "cmp     eax, 0FFFFFFFEh"
+        },
+        {
+          "ea": "0x54b232",
+          "line": "jz      short loc_54B237"
+        },
+        {
+          "ea": "0x54b234",
+          "line": "push    eax; hObject"
+        },
+        {
+          "ea": "0x54b235",
+          "line": "call    esi ; CloseHandle"
+        },
+        {
+          "ea": "0x54b237",
+          "line": "pop     esi"
+        },
+        {
+          "ea": "0x54b238",
+          "line": "retn"
+        }
+      ],
+      "incoming": [
+        {
+          "ea": "0x55318c",
+          "type": 1,
+          "parent": null,
+          "line": "dd offset ___termcon"
+        }
+      ]
+    }
+  ],
+  "root_instruction_count": 49,
+  "root_bytes": 145,
+  "C5_last_slot": {
+    "ea": "0x55317C",
+    "value": "0x545080"
+  },
+  "termination_slots": [
+    {
+      "ea": "0x553184",
+      "value": "0x0"
+    },
+    {
+      "ea": "0x553188",
+      "value": "0x53ea4a"
+    },
+    {
+      "ea": "0x55318c",
+      "value": "0x54b20c"
+    },
+    {
+      "ea": "0x553190",
+      "value": "0x0"
+    },
+    {
+      "ea": "0x553194",
+      "value": "0x0"
+    },
+    {
+      "ea": "0x553198",
+      "value": "0x545091"
+    },
+    {
+      "ea": "0x55319c",
+      "value": "0x0"
+    }
+  ],
+  "unchanged_array_filter": {
+    "start": "0x5405f5",
+    "end": "0x54060b",
+    "instructions": [
+      {
+        "ea": "0x5405f5",
+        "line": "mov     eax, [esp+arg_0]"
+      },
+      {
+        "ea": "0x5405f9",
+        "line": "mov     eax, [eax]"
+      },
+      {
+        "ea": "0x5405fb",
+        "line": "cmp     dword ptr [eax], 0E06D7363h"
+      },
+      {
+        "ea": "0x540601",
+        "line": "jz      short loc_540606"
+      },
+      {
+        "ea": "0x540603",
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x540605",
+        "line": "retn"
+      },
+      {
+        "ea": "0x540606",
+        "line": "jmp     sub_540A5C"
+      }
+    ],
+    "incoming": [
+      {
+        "ea": "0x53c59f",
+        "type": 17,
+        "parent": "0x53c560",
+        "line": "call    unknown_libname_49; Microsoft VisualC 2-14/net runtime"
+      },
+      {
+        "ea": "0x5405c1",
+        "type": 17,
+        "parent": "0x540557",
+        "line": "call    unknown_libname_49; Microsoft VisualC 2-14/net runtime"
+      }
+    ]
+  },
+  "sdk_reference": {
+    "component": "本机MSVC 14.50.35717，源码只读",
+    "record_parameters": {
+      "source": "include/ehdata_values.h:62–66",
+      "x64": 4,
+      "x86": 3
+    },
+    "magic": {
+      "source": "include/ehdata_values.h:28–33",
+      "native_value": "0x19930520"
+    },
+    "relative_type_info": {
+      "source": "include/ehdata_forceinclude.h:_WIN64分支",
+      "value": 1
+    },
+    "throw_producer": {
+      "source": "crt/src/vcruntime/throw.cpp:_CxxThrowException",
+      "fields": [
+        "magicNumber",
+        "pExceptionObject",
+        "pTI",
+        "throwImageBase"
+      ],
+      "sink": "RaiseException",
+      "parameter_count": "_countof(parameters)"
+    },
+    "host_filter_background": {
+      "source": "crt/src/vcruntime/utility_desktop.cpp:86–102",
+      "symbols": [
+        "__scrt_unhandled_exception_filter",
+        "__scrt_set_unhandled_exception_filter"
+      ],
+      "boundary": "只证明本机机制背景，不扩大本线魔数/托管范围"
+    }
+  },
+  "source_change": {
+    "filter": "参数数3→当前x64四参数；其余判定/终止/旧过滤器重读和返回保持",
+    "prefix": "multibyte后安装545080，随后现有应用投影",
+    "ordinary_exit": "既有同一即时登记callback改名后，callable=0→stdio→console→恢复filter",
+    "excluded_from_change": [
+      "5405F5及数组清理",
+      "原Dispatch normal/quick/callable",
+      "原WinMain/完整入口",
+      "70源＋15SDK配置投影",
+      "stdio/低层/堆/provider正文"
+    ]
+  },
+  "runtime_executed": false,
+  "build_executed": false,
+  "task_closed": false,
+  "full_gates_promoted": false,
+  "static_validation": {
+    "source": "两CPP五片段，扣除补丁全文保持",
+    "data": "四语义/四adapted/三限定E及登记簿精确转换",
+    "documents": "四文档限定追加及C04/C06两行",
+    "encoding": "13项UTF-8无BOM/LF",
+    "new_markdown_links": 12,
+    "new_evidence_links": 36,
+    "git_diff_format": "pass",
+    "measurement": "生成及独立Check通过",
+    "runtime": "未执行"
+  }
+}

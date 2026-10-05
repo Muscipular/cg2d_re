@@ -1920,3 +1920,10 @@ provider/取流/刷新/WinMain保持。一既有语义补活动源/边界，其�
 两既有记录补裁决，其他1224与政策保持；语义1226/1223有效原ID不增。
 两个adapted使195→197/3680，限定E153→156，导入15/218不变；
 C04/C06/C07/V02仍open，关闭10/60、叶0/182及完整门禁不提升。
+
+
+## HFI01 宿主x64筛选和固定终止接线（2026-10-05）
+
+[专项SPEC](cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)及[原/SDK证据](cg2d_hosted_exception_filter_evidence.json)对应54503A/545080/545091/54B20C四既有身份，共49条/145B。
+原三参数事实保留，当前筛选适配本机x64四参数；安装在多字节之后/应用之前，既有同一宿主callback按stdio→console→filter恢复收尾。
+四记录补LegacyMouse活动消费和具名差异，其他1222记录/政策保持；原代码/魔数/terminate/旧槽重读、三provider及旧表/完整入口保持。语义1226/1223不增，处置197→201/3680，限定E156→159，导入15/218不变；C02/C04/C06/C07/C08/V02、任务10/60/叶0/182与完整门禁不提升。

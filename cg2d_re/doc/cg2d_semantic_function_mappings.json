@@ -53704,7 +53704,7 @@
     {
       "original_entry": "0x54503A",
       "inventory_id": "F:0014503A",
-      "status": "原异常/终止/信号本体及内部调用已实现；完整CRT与运行未验",
+      "status": "HFI01宿主x64筛选/安装/普通收尾源码已接；完整SDK/SEH/退出运行未验",
       "original_end_exclusive": "0x545080",
       "instruction_count": 24,
       "original_direct_reference_count": 3,
@@ -53728,12 +53728,21 @@
           "symbols": [
             "FilterLegacyUnhandledException_54503A"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyRuntime"
+          ],
+          "relationship": "HFI01同一宿主前置/普通收尾投影；原旧入口/cinit/终止表及业务不改"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_hosted_exception_filter_spec.md"
       ],
-      "boundary": "原生Windows异常指针字段，异常码E06D7363/参数数3/参数0低W32魔数19930520全命中进入原terminate；否则旧过滤器非空且IsBadCodePtr验证通过才重读共享槽转调并透传返回，其他0。安装/恢复接同槽；原三参数合同不等于宿主x64四参数C++记录已适配，未实际安装/运行。",
+      "boundary": "原生Windows异常指针字段，异常码E06D7363/参数数3/参数0低W32魔数19930520全命中进入原terminate；否则旧过滤器非空且IsBadCodePtr验证通过才重读共享槽转调并透传返回，其他0。安装/恢复接同槽；原三参数合同不等于宿主x64四参数C++记录已适配，未实际安装/运行。；HFI01按当前MSVC x64 SDK四参数记录适配参数数3→4；保E06D7363/参数0低W32魔数19930520、原terminate与验证后旧槽重读/透传返回。当前545080已从宿主C5尾调用；实际API/生成ABI/异常与完整运行未验。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
@@ -53751,7 +53760,7 @@
     {
       "original_entry": "0x545080",
       "inventory_id": "F:00145080",
-      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
+      "status": "HFI01宿主x64筛选/安装/普通收尾源码已接；完整SDK/SEH/退出运行未验",
       "original_end_exclusive": "0x545091",
       "instruction_count": 4,
       "original_direct_reference_count": 1,
@@ -53780,12 +53789,21 @@
             "InitializeLegacyCrt_53C8CD"
           ],
           "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyRuntime"
+          ],
+          "relationship": "HFI01同一宿主前置/普通收尾投影；原旧入口/cinit/终止表及业务不改"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_hosted_exception_filter_spec.md"
       ],
-      "boundary": "将真实54503A交SetUnhandledExceptionFilter并保存返回到唯一10862E0；未新增静态对象主动安装。过滤器本体及恢复调用已接，原CRT55317C初始化时点和宿主x64四参数记录适配仍未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "将真实54503A交SetUnhandledExceptionFilter并保存返回到唯一10862E0；未新增静态对象主动安装。过滤器本体及恢复调用已接，原CRT55317C初始化时点和宿主x64四参数记录适配仍未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；HFI01在LegacyMouse既有首前置构造的546CAE之后、应用投影之前调用一次，保原C5末槽55317C和同一10862E0发布。原安装本体不改；54503A已按x64四参数适配，实际安装/API失败/SDK和运行未验。",
       "native_reference": {
         "component": "MSVC 14.50.35717，仅作顶层过滤差异参考",
         "source_path": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/MSVC/14.50.35717/crt/src/vcruntime/utility_desktop.cpp",
@@ -53816,7 +53834,7 @@
     {
       "original_entry": "0x545091",
       "inventory_id": "F:00145091",
-      "status": "原退出或argv本体及内部调用已实现；FILE/登记依赖和完整启动未闭合",
+      "status": "HFI01宿主x64筛选/安装/普通收尾源码已接；完整SDK/SEH/退出运行未验",
       "original_end_exclusive": "0x54509E",
       "instruction_count": 3,
       "original_direct_reference_count": 1,
@@ -53838,12 +53856,21 @@
           "symbols": [
             "RestoreLegacyExceptionFilter_545091"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyRuntime"
+          ],
+          "relationship": "HFI01同一宿主前置/普通收尾投影；原旧入口/cinit/终止表及业务不改"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_hosted_exception_filter_spec.md"
       ],
-      "boundary": "从545080共享10862E0槽调用SetUnhandledExceptionFilter，不加空值门禁或清槽；第二终止表及54503A本体已接，原启动安装时点尚未接通，未安装/恢复或运行。",
+      "boundary": "从545080共享10862E0槽调用SetUnhandledExceptionFilter，不加空值门禁或清槽；第二终止表及54503A本体已接，原启动安装时点尚未接通，未安装/恢复或运行。；HFI01接入既有宿主退出callback的stdio→console之后；同一callback先登记、应用后登记先退出，复用唯一10862E0恢复，不加空门禁/清槽/额外登记。原恢复本体和旧终止表保持；实际退出/SDK/运行未验。",
       "function_chunks": [
         {
           "start": "0x545091",
@@ -79697,8 +79724,8 @@
     {
       "original_entry": "0x54B20C",
       "inventory_id": "F:0014B20C",
-      "status": "原控制台关闭本体及终止表调用已实现；完整启动与运行未验",
-      "boundary": "先读592FA4后读592FA0，仅HANDLE -1/-2跳过，其他调用缓存CloseHandle并保留槽。两槽原加载FFFFFFFE按原生HANDLE -2初始化，不因只有读xref删除逻辑；第一终止表已接，未执行关闭或运行。",
+      "status": "HFI01宿主x64筛选/安装/普通收尾源码已接；完整SDK/SEH/退出运行未验",
+      "boundary": "先读592FA4后读592FA0，仅HANDLE -1/-2跳过，其他调用缓存CloseHandle并保留槽。两槽原加载FFFFFFFE按原生HANDLE -2初始化，不因只有读xref删除逻辑；第一终止表已接，未执行关闭或运行。；HFI01接入既有宿主退出callback的stdio之后、filter恢复之前；两个独立HANDLE槽的-2初值、-1/-2跳过和先FA4后FA0/不清槽保持。原本体/旧终止表不改，不从只读xref排除未知间接写者；实际关闭/SDK/运行未验。",
       "original_end_exclusive": "0x54B239",
       "instruction_count": 18,
       "original_direct_reference_count": 1,
@@ -79726,11 +79753,20 @@
           "symbols": [
             "CloseLegacyConsole_54B20C"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyRuntime"
+          ],
+          "relationship": "HFI01同一宿主前置/普通收尾投影；原旧入口/cinit/终止表及业务不改"
         }
       ],
       "verification_level": "完整原指令、数据槽入向与句柄初值；新增源码静态核对，未执行",
       "evidence_documents": [
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_hosted_exception_filter_spec.md"
       ]
     },
     {

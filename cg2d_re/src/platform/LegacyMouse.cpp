@@ -36,14 +36,16 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
-// HPI01：普通宿主退出只刷新兼容FILE；保留旧callable退出自己的关闭分支。
-void FinishHostedLegacyStdio()
+// HFI01：普通宿主退出按原固定槽序刷新FILE、关控制台、恢复过滤器。
+void FinishHostedLegacyRuntime()
 {
     gLegacyRuntimeExitCallable1086020 = 0;
     FinishLegacyStdio_53EA4A();
+    CloseLegacyConsole_54B20C();
+    RestoreLegacyExceptionFilter_545091();
 }
 
-// HSI01/HPI01/AIS01：heap、lowio、stdio先于multibyte和应用序，不执行整套旧CRT。
+// HFI01/HSI01：heap、lowio、stdio、multibyte、filter先于应用序，不执行整套旧CRT。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
@@ -52,8 +54,9 @@ struct LegacyMultibyteStaticInitializer {
         }
         static_cast<void>(InitializeLegacyDescriptors_53F52D());
         InitializeLegacyStdio_53E9A5();
-        static_cast<void>(std::atexit(FinishHostedLegacyStdio));
+        static_cast<void>(std::atexit(FinishHostedLegacyRuntime));
         InitializeLegacyMultibyte_546CAE();
+        InstallLegacyExceptionFilter_545080();
     }
 };
 

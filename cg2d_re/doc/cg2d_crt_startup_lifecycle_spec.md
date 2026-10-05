@@ -173,3 +173,11 @@ stdio先于multibyte沿原C5的553174/553178相邻序。复用SCH01表块及唯�
 原U32步长/尺寸偏移、逆序/失败前缀、SEH/筛选、构造和三组实际父保持；
 数学溢出/越界沿RPLAN.24不专项处理，不记故障等价/x64安全。
 两adapted只记本组源码/批准差异，完整成员EH/硬件SEH、SDK及完整退出运行继续待验。
+
+
+## HFI01 x64异常筛选与宿主固定终止接线（2026-10-05）
+
+[专项源码收口](cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)已修正54503A对本机x64记录的参数数识别，并在原553178多字节之后、应用投影之前接545080安装。
+既有普通宿主callback统一为FinishHostedLegacyRuntime，保callable=0/stdio，再按原槽序执行console关闭和filter恢复；同一即时登记的位置不变，应用退出在本组之前。
+本机SDK源码证明原生四参数/19930520，原四根49条/145B与真实C5末槽/三个终止槽可追；原5405F5/数组EH及normal/quick/callable/完整旧入口不改。
+四语义/四adapted补当前接线，语义1226/1223、导入15/218保持，处置197→201/3680，限定E156→159。C02/C04/C06/C07/C08/V02和完整门禁继续open；SDK生成ABI、API实际失败/恢复、全部捕获/清理、跨TU/owner/alias及退出运行未验。

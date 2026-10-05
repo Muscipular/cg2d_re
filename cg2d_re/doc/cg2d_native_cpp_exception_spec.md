@@ -59,3 +59,10 @@ NativeCppException.hpp六实际C++类型和LegacyException.cpp同一payload owne
 九原根与十四原copy/清理/what成员共23既有语义同步；1152/1149有效ID、18pending/4分类引用保持。九原根按本组adapted使已审78→87/3680，三限定E-NATIVE-CPP-EXCEPTION-I/W/S-20261005使累计33→36；204重复归属/198唯一只支撑本组，不加原F或以源码数推总覆盖。实现固定至Git命名快照cg2d-re-native-cpp-exception-source-20261005。
 
 C06/C07保持open：本机类型、九原点和当前正常C++清理源码已接，实际C++20生成ABI、按值捕获/非法重抛、SDK/硬件SEH/完整CRT与运行未验。源码任务关闭10/60、叶验收0/182、完整功能门禁及R8不提升；禁构建/检查产物/新增或执行测试/运行/摘要、音频暂停及原格式明文保持。
+
+
+## HFI01 本机抛出后的顶层筛选（2026-10-05）
+
+[宿主筛选SPEC](cg2d_hosted_exception_filter_spec.md#hosted-filter-decision)补本机throw的下游：54503A原三参数条件改接当前MSVC x64四参数，保持原代码/19930520低W32识别、原terminate及旧filter转调。
+LegacyMouse按真实C5尾安装，普通宿主收尾按stdio→console→恢复filter接同一owner；未改六本机异常类型、八throw/一重抛、消息/复制/清理或原5405F5。
+当前记录合同来自已安装SDK源码，只完成本组源码接线；实际生成ABI、按值捕获/清理、非法重抛、硬件SEH/SDK/完整退出运行及C06/C07仍须原门禁证据，不记整体验收。

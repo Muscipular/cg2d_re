@@ -1608,8 +1608,10 @@ YobiAction* NewYobiAction_404AE0(
     }
 
     if (payloadSize != 0) {
-        action->payload = std::calloc(std::size_t{1}, payloadSize);
-        if (action->payload == nullptr) {
+        void* const payload = std::calloc(std::size_t{1}, payloadSize);
+        const bool missingPayload = payload == nullptr;
+        action->payload = payload;
+        if (missingPayload) {
             std::free(action);
             platform::ShowLegacyMessage(
                 kYobiAllocationText,
@@ -1617,7 +1619,7 @@ YobiAction* NewYobiAction_404AE0(
                 0);
             return nullptr;
         }
-        std::memset(action->payload, 0, payloadSize);
+        std::memset(payload, 0, payloadSize);
     }
 
     action->callback = nullptr;
@@ -1627,18 +1629,27 @@ YobiAction* NewYobiAction_404AE0(
     action->framePlayingRate = 100;
     action->scaleX = 1.0F;
     action->scaleY = 1.0F;
-    action->drawMode.bytes[8] = 0xFF;
-    action->drawMode.bytes[9] = 0xFF;
-    action->drawMode.bytes[10] = 0xFF;
-    action->drawMode.bytes[11] = 0xFF;
+    // 原404BB2–404BE0逐项W16/W32发布；不能仅借calloc省略显式零写。
+    const std::uint16_t descriptorZero = 0;
+    const std::uint32_t descriptorColor = 0xFFFFFFFFu;
+    std::memcpy(action->drawMode.bytes.data(), &descriptorZero, sizeof(descriptorZero));
+    std::memcpy(action->drawMode.bytes.data() + 2, &descriptorZero, sizeof(descriptorZero));
+    std::memcpy(action->drawMode.bytes.data() + 4, &descriptorZero, sizeof(descriptorZero));
+    std::memcpy(action->drawMode.bytes.data() + 6, &descriptorZero, sizeof(descriptorZero));
+    std::memcpy(action->drawMode.bytes.data() + 8, &descriptorColor, sizeof(descriptorColor));
+    action->drawMode.bytes[12] = 0;
+    action->drawMode.bytes[13] = 0;
+    std::memcpy(action->drawMode.bytes.data() + 14, &descriptorZero, sizeof(descriptorZero));
     action->batchType = 0;
     action->color2 = -1;
     action->rebirthValue1 = 0;
     action->rebirthValue2 = 0;
     action->walkSpeed = 100;
 
-    YobiAction* insertionPoint = gYobiActionStart->next;
-    YobiAction* const stop = gYobiActionEnd->next;
+    YobiAction* const start = gYobiActionStart;
+    YobiAction* const end = gYobiActionEnd;
+    YobiAction* insertionPoint = start->next;
+    YobiAction* const stop = end->next;
     if (insertionPoint != stop) {
         while (insertionPoint->priority <= priority) {
             insertionPoint = insertionPoint->next;
@@ -1650,7 +1661,8 @@ YobiAction* NewYobiAction_404AE0(
         YobiAction* const previous = insertionPoint->prev;
         action->next = insertionPoint;
         action->prev = previous;
-        previous->next = action;
+        YobiAction* const currentPrevious = insertionPoint->prev;
+        currentPrevious->next = action;
         insertionPoint->prev = action;
     }
     return action;

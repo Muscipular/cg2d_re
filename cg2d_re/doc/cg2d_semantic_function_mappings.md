@@ -2261,3 +2261,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原59条225B/22type17call13父](cg2d_yobi_sentinel_sampling_evidence.json)与[源状态](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state)只向既有404A40/404D30/404D60追加本组证据/来源和边界，保全部旧字段/历史来源。初始化四取样实修，清场/终止未改；真实应用初终调用者另列，不能以源码位置代整个应用验收。
 
 语义1301/有效ID1297保持、处置397→400，MAP60→63/LOOP25→28成员，双域共用同三ID，不新增原函数或将三个旧入口都称新实现。原文档关联/其它pending/队列/R7保持，完整父/callee/应用与场景/所有资源生产和owner寿命/ABI/SDK/运行未验。
+
+## YAS01 共用动作创建旧身份增量（2026-10-05）
+
+[原118条354B/113type17call/86已知父+1未归属调用点](cg2d_yobi_allocation_sampling_evidence.json)及[源状态](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state)只向既有404AE0追加本组载荷/描述符/插链取样实修与16B值类型来源、原元数据及边界，保留全部旧字段/历史来源。四片段不计新原函数或113调用点全部通过。
+
+语义1301/有效ID1297保持、处置400→401，MAP63→64/LOOP28→29成员，同ID跨域不多计函数；原关联/pending/队列/R7保持。所有父实参/载荷类型与全部callee/资源和链别名/未链接对象及owner寿命/SDK/ABI/运行未验。

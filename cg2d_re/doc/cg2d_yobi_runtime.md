@@ -3955,3 +3955,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名裁决](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision)实修404A40四片段：第二calloc返回保存allocatedEnd后取initialStart，发布end后用初start写prev空；forwardStart→forwardEnd/ backwardEnd→backwardStart读后写链接；priority写前保存result，当次end图形索引写后返回result。其它逐次目标读取/两独立std::calloc(1,sizeof原生YobiAction))、U8 priority0/FF与S32 -1、无失败门禁/未知字段和阶段计数保持。
 
 404D30/404D60正确本体不改、三旧语义只追加原身份/生命周期来源；清场先start.next快照→46DD40→逐节点death1/next/当次end比较，终止先清场再UpdateAll后首释放/再取尾释放，不清共享槽/反复回收或解四相门禁。[三完整59条225B](cg2d_yobi_sentinel_sampling_evidence.json)和局部验收分别记；全部父/应用初终/callee/资源生产和owner寿命/SDK/ABI/时钟RNG/场景画面运行未闭。
+
+## YAS01 分配返回、描述符发布与插鏈前驱（2026-10-05）
+
+[具名裁决](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision)实修404AE0四块，载荷使用分配返回同快照判空结果/发布和再次memset，原两失败与消息顺序保持；descriptor0/2/4/6/14五W16零、8处W32 FFFFFFFF、12/13两W8零分别发布，不仅依calloc或以四W8代W32。其它默认字段/原生sizeof分配域和U8 priority/U32 payloadSize不变。
+
+插链取样start→end→start.next→end.next；保存初previous供action.prev，两新链接写后重新读取point.prev，再写当前前驱next、最后point.prev。unsigned<=和同值FIFO、stop一次缓存及初point==stop/扫描到stop两原未链接返回保持。完整W8不新增FF输入拒绝/钳制，不能将早期业务priority描述当新门禁。[118条354B/113type17call/86已知父+1未归属调用点](cg2d_yobi_allocation_sampling_evidence.json)与四片段局部验收分列，不代全部caller/载荷/所有alias及owner寿命/ABI/SDK/时钟RNG/场景画面运行。

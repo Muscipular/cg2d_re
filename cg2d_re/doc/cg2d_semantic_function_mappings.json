@@ -135686,7 +135686,7 @@
           "0x404C42"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YAS01动作分配/描述符默认发布/插链四片段取样实修，既有语义追加；完整父/载荷和owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -135701,20 +135701,625 @@
             "NewYobiAction_404AE0"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewYobiAction_404AE0"
+          ],
+          "relationship": "YAS01仅载荷返回快照/原描述符五W16一W32两W8、首尾先取和新链接发布后前驱复读；原失败消息/无符号FIFO及未插链返回保持"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "GraphicDescriptor16"
+          ],
+          "relationship": "已有16B bytes值类型，本次按已证宽度逐项发布，头和类型未改、不新建业务接口"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json"
       ],
-      "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "U8 priority/U32 payloadSize；action/可选载荷真实分配、失败消息/释放与再次清零、稳定优先级插入；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YAS01载荷返回先判空结果再发布/同指针清零，descriptor五W16零/一W32 FFFFFFFF/两W8零按原序；start→end→两next，action.next/prev发布后复读point.prev再接前驱next。U8 priority/U32 payloadSize、原calloc/free域/两失败消息和释放、同值FIFO/缓存stop及到stop未链接返回保持，不新增FF输入限制/失败回退/异常保护或回绕及故障模拟/称等价。完整113调用点实参/载荷类型和全部callee/对象资源生产/所有链别名与未插链对象和owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/完整画面运行未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YAS01追加当前完整118条354B/113type17call/86已知父+1未归属调用点及四具名源片段全文精确重放，载荷同快照/原失败、描述符原宽度显式发布和首尾/前驱读序有限静态；不验所有父实参/载荷/SDK及owner寿命或运行",
       "native_signature": "YobiAction* NewYobiAction_404AE0(\n    const std::uint8_t priority,\n    const std::uint32_t payloadSize)",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_allocation_sampling": {
+        "spec_id": "YAS01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+          "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+          "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+          "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+          "doc/cg2d_yobi_allocation_sampling_evidence.json"
+        ],
+        "original_entry": "0x404ae0",
+        "instruction_count": 118,
+        "code_bytes": 354,
+        "inbound_references": [
+          {
+            "site": "0x418b7b",
+            "type": 17,
+            "parent_entry": "0x418b70"
+          },
+          {
+            "site": "0x418df8",
+            "type": 17,
+            "parent_entry": "0x418df0"
+          },
+          {
+            "site": "0x418ff8",
+            "type": 17,
+            "parent_entry": "0x418ff0"
+          },
+          {
+            "site": "0x41918b",
+            "type": 17,
+            "parent_entry": "0x419180"
+          },
+          {
+            "site": "0x41939b",
+            "type": 17,
+            "parent_entry": "0x419390"
+          },
+          {
+            "site": "0x419604",
+            "type": 17,
+            "parent_entry": "0x4195f0"
+          },
+          {
+            "site": "0x419c15",
+            "type": 17,
+            "parent_entry": "0x419c10"
+          },
+          {
+            "site": "0x419cf5",
+            "type": 17,
+            "parent_entry": "0x419cf0"
+          },
+          {
+            "site": "0x419dab",
+            "type": 17,
+            "parent_entry": "0x419da0"
+          },
+          {
+            "site": "0x419fc5",
+            "type": 17,
+            "parent_entry": "0x419fc0"
+          },
+          {
+            "site": "0x41a0d5",
+            "type": 17,
+            "parent_entry": "0x41a0d0"
+          },
+          {
+            "site": "0x41a433",
+            "type": 17,
+            "parent_entry": "0x41a310"
+          },
+          {
+            "site": "0x41a6b7",
+            "type": 17,
+            "parent_entry": "0x41a590"
+          },
+          {
+            "site": "0x41a8d6",
+            "type": 17,
+            "parent_entry": "0x41a7d0"
+          },
+          {
+            "site": "0x41cd2e",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d6ef",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d77a",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d835",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d895",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d8f2",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41d96d",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41da0b",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41dae2",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41dc3f",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41debf",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41def5",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41df26",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41df57",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41df88",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41dfb9",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41e002",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41e14b",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41e1c0",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41e297",
+            "type": 17,
+            "parent_entry": "0x41cd00"
+          },
+          {
+            "site": "0x41e515",
+            "type": 17,
+            "parent_entry": "0x41e510"
+          },
+          {
+            "site": "0x41e685",
+            "type": 17,
+            "parent_entry": "0x41e680"
+          },
+          {
+            "site": "0x41e725",
+            "type": 17,
+            "parent_entry": "0x41e720"
+          },
+          {
+            "site": "0x41e7c5",
+            "type": 17,
+            "parent_entry": "0x41e7c0"
+          },
+          {
+            "site": "0x41e9ec",
+            "type": 17,
+            "parent_entry": "0x41e9d0"
+          },
+          {
+            "site": "0x41eac4",
+            "type": 17,
+            "parent_entry": "0x41eab0"
+          },
+          {
+            "site": "0x41f27a",
+            "type": 17,
+            "parent_entry": "0x41f1a0"
+          },
+          {
+            "site": "0x41f4c5",
+            "type": 17,
+            "parent_entry": "0x41f4c0"
+          },
+          {
+            "site": "0x41f5b5",
+            "type": 17,
+            "parent_entry": "0x41f5b0"
+          },
+          {
+            "site": "0x41f72e",
+            "type": 17,
+            "parent_entry": "0x41f660"
+          },
+          {
+            "site": "0x41f87c",
+            "type": 17,
+            "parent_entry": "0x41f860"
+          },
+          {
+            "site": "0x41fa1c",
+            "type": 17,
+            "parent_entry": "0x41fa00"
+          },
+          {
+            "site": "0x41fc1c",
+            "type": 17,
+            "parent_entry": "0x41fbe0"
+          },
+          {
+            "site": "0x41fe1c",
+            "type": 17,
+            "parent_entry": "0x41fe00"
+          },
+          {
+            "site": "0x420005",
+            "type": 17,
+            "parent_entry": "0x41ffe0"
+          },
+          {
+            "site": "0x42016c",
+            "type": 17,
+            "parent_entry": "0x420100"
+          },
+          {
+            "site": "0x4205f8",
+            "type": 17,
+            "parent_entry": "0x4205f0"
+          },
+          {
+            "site": "0x420780",
+            "type": 17,
+            "parent_entry": "0x4206c0"
+          },
+          {
+            "site": "0x420e47",
+            "type": 17,
+            "parent_entry": "0x420d50"
+          },
+          {
+            "site": "0x421577",
+            "type": 17,
+            "parent_entry": "0x421570"
+          },
+          {
+            "site": "0x421615",
+            "type": 17,
+            "parent_entry": "0x421610"
+          },
+          {
+            "site": "0x421704",
+            "type": 17,
+            "parent_entry": "0x421700"
+          },
+          {
+            "site": "0x421807",
+            "type": 17,
+            "parent_entry": "0x4217f0"
+          },
+          {
+            "site": "0x4221f7",
+            "type": 17,
+            "parent_entry": "0x4221f0"
+          },
+          {
+            "site": "0x422a43",
+            "type": 17,
+            "parent_entry": "0x422a30"
+          },
+          {
+            "site": "0x422b13",
+            "type": 17,
+            "parent_entry": "0x422b00"
+          },
+          {
+            "site": "0x42415a",
+            "type": 17,
+            "parent_entry": "0x4239d0"
+          },
+          {
+            "site": "0x428fac",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4291b6",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4292e3",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x431069",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4382a4",
+            "type": 17,
+            "parent_entry": "0x438290"
+          },
+          {
+            "site": "0x4383b7",
+            "type": 17,
+            "parent_entry": "0x4383b0"
+          },
+          {
+            "site": "0x43b618",
+            "type": 17,
+            "parent_entry": "0x43b610"
+          },
+          {
+            "site": "0x43e069",
+            "type": 17,
+            "parent_entry": "0x43dd00"
+          },
+          {
+            "site": "0x43e6be",
+            "type": 17,
+            "parent_entry": "0x43e490"
+          },
+          {
+            "site": "0x43ebf2",
+            "type": 17,
+            "parent_entry": "0x43e490"
+          },
+          {
+            "site": "0x43f2cc",
+            "type": 17,
+            "parent_entry": "0x43f290"
+          },
+          {
+            "site": "0x43f339",
+            "type": 17,
+            "parent_entry": "0x43f330"
+          },
+          {
+            "site": "0x43fe3f",
+            "type": 17,
+            "parent_entry": "0x43fe00"
+          },
+          {
+            "site": "0x43feb8",
+            "type": 17,
+            "parent_entry": "0x43feb0"
+          },
+          {
+            "site": "0x440b75",
+            "type": 17,
+            "parent_entry": "0x440b70"
+          },
+          {
+            "site": "0x440bf5",
+            "type": 17,
+            "parent_entry": "0x440b70"
+          },
+          {
+            "site": "0x4410f4",
+            "type": 17,
+            "parent_entry": "0x4410f0"
+          },
+          {
+            "site": "0x44113a",
+            "type": 17,
+            "parent_entry": "0x441130"
+          },
+          {
+            "site": "0x441db9",
+            "type": 17,
+            "parent_entry": "0x441db0"
+          },
+          {
+            "site": "0x444008",
+            "type": 17,
+            "parent_entry": "0x444000"
+          },
+          {
+            "site": "0x444268",
+            "type": 17,
+            "parent_entry": "0x444260"
+          },
+          {
+            "site": "0x444cfd",
+            "type": 17,
+            "parent_entry": "0x444410"
+          },
+          {
+            "site": "0x44804c",
+            "type": 17,
+            "parent_entry": "0x448040"
+          },
+          {
+            "site": "0x4482de",
+            "type": 17,
+            "parent_entry": "0x448290"
+          },
+          {
+            "site": "0x4488a3",
+            "type": 17,
+            "parent_entry": "0x448810"
+          },
+          {
+            "site": "0x448e4e",
+            "type": 17,
+            "parent_entry": "0x448d90"
+          },
+          {
+            "site": "0x4491a0",
+            "type": 17,
+            "parent_entry": "0x449160"
+          },
+          {
+            "site": "0x4497b4",
+            "type": 17,
+            "parent_entry": "0x449700"
+          },
+          {
+            "site": "0x449bed",
+            "type": 17,
+            "parent_entry": "0x449bc0"
+          },
+          {
+            "site": "0x45f3d3",
+            "type": 17,
+            "parent_entry": "0x45f190"
+          },
+          {
+            "site": "0x45f458",
+            "type": 17,
+            "parent_entry": "0x45f190"
+          },
+          {
+            "site": "0x460e1a",
+            "type": 17,
+            "parent_entry": "0x460d00"
+          },
+          {
+            "site": "0x4628b1",
+            "type": 17,
+            "parent_entry": "0x462880"
+          },
+          {
+            "site": "0x4628e9",
+            "type": 17,
+            "parent_entry": "0x462880"
+          },
+          {
+            "site": "0x46de5a",
+            "type": 17,
+            "parent_entry": "0x46de50"
+          },
+          {
+            "site": "0x46f2ec",
+            "type": 17,
+            "parent_entry": "0x46f1d0"
+          },
+          {
+            "site": "0x47161d",
+            "type": 17,
+            "parent_entry": "0x471440"
+          },
+          {
+            "site": "0x475966",
+            "type": 17,
+            "parent_entry": "0x475950"
+          },
+          {
+            "site": "0x48ac83",
+            "type": 17,
+            "parent_entry": "0x48ac60"
+          },
+          {
+            "site": "0x4abf09",
+            "type": 17,
+            "parent_entry": "0x4abef0"
+          },
+          {
+            "site": "0x4ace99",
+            "type": 17,
+            "parent_entry": "0x4ace80"
+          },
+          {
+            "site": "0x4b3e08",
+            "type": 17,
+            "parent_entry": "0x4b3bf0"
+          },
+          {
+            "site": "0x4b4342",
+            "type": 17,
+            "parent_entry": "0x4b4140"
+          },
+          {
+            "site": "0x4b484f",
+            "type": 17,
+            "parent_entry": "0x4b4680"
+          },
+          {
+            "site": "0x4d0c61",
+            "type": 17,
+            "parent_entry": "0x4d0a80"
+          },
+          {
+            "site": "0x4d3114",
+            "type": 17,
+            "parent_entry": "0x4d3110"
+          },
+          {
+            "site": "0x4d6644",
+            "type": 17,
+            "parent_entry": "0x4d6640"
+          },
+          {
+            "site": "0x4ebf74",
+            "type": 17,
+            "parent_entry": "0x4ebf70"
+          },
+          {
+            "site": "0x4f9ff4",
+            "type": 17,
+            "parent_entry": "0x4f9ff0"
+          },
+          {
+            "site": "0x4faaa5",
+            "type": 17,
+            "parent_entry": null
+          },
+          {
+            "site": "0x5044e5",
+            "type": 17,
+            "parent_entry": "0x5044e0"
+          },
+          {
+            "site": "0x51adca",
+            "type": 17,
+            "parent_entry": "0x51a840"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false,
+        "known_parent_count": 86,
+        "unassigned_call_sites": [
+          "0x4faaa5"
+        ]
       }
     },
     {

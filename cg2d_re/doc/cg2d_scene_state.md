@@ -7677,3 +7677,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [局部生命周期合同](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state)恢复初始化四取样点：第二分配后start先读/end后发布、两个链接目标/值读取序、尾priority前取得返回快照而graphic目标仍复读。真实InitializeClient_4576B0/ShutdownClient_457A40分别调用初始化和终止，本次只关联现调用，不验整个应用初终。
 
 [三原59条225B/22call13父](cg2d_yobi_sentinel_sampling_evidence.json)中清场/终止正文保持：清场先取首节点再46DD40/逐节点标死；终止ClearUp→YLC01 UpdateAll→首free后再读尾free。不清start/end或重置counter，不强制关闭四相门禁/多轮回收；完整应用与场景caller/callee/资源/链别名及owner寿命/ABI/SDK/画面运行未验。
+
+## YAS01 共用动作生产取样（2026-10-05）
+
+[动作分配合同](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state)在既有404AE0修四片段：载荷返回快照先判空/发布/同值清零；16B描述符五W16/一W32/两W8逐项原序默认发布；start/end先取再两next，action.next/prev写后复读point.prev再发布前驱next。原U8优先级/U32载荷数量、两失败路径消息/释放与无符号同值FIFO、到stop未链接返回保持。
+
+[完整118条354B/113call/86已知父+1未归属调用点](cg2d_yobi_allocation_sampling_evidence.json)只纳管本组分配/插链取样，既有实体/附件/战斗/UI调用不变；所有父实参/载荷类型及callee/资源生产、未链接对象和owner重进退出/借用失效/SDK/ABI/PC53/场景运行未验。

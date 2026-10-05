@@ -398,3 +398,9 @@ G01/G02/U11/R01/R04/V04仍open；全部完整门禁/功能及R1/R7/R8/整体仍�
 [限定验收](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance)核初始化四片段及三完整59条225B/22call13父，初start早于end发布、两链接原读序、priority前result快照/graphic目标复读返回result，原两分配/字段和已有清场终止保持。三既有语义仅追加/三adapted，MAP63/LOOP28成员，E257→261仅双域各局部I/S共用同一实修/原证据；语义条数和有效ID不增加。
 
 六任务open、全部完整功能/门禁和R1/R7/R8/整体保持未闭；全部应用/场景父与callee/callback、资源生产/实际跨门禁清场和链别名/owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/画面运行仍未验。
+
+## YAS01 分配插链局部I/S（2026-10-05）
+
+[限定验收](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance)核一完整118条354B/113call/86已知父+1未归属调用点、四源片段全文重放，载荷同返回快照/原失败与再次清零、原描述符八字段宽度/写序、首尾及两next取样和新节点链接写后的前驱复读；原unsigned FIFO和未链接返回不变。仅一旧语义追加/一adapted，MAP64/LOOP29成员，E261→265只双域局部I/S共用同一源/原证据，语义条数和有效ID不增加。
+
+六任务及全部完整功能/门禁/R1/R7/R8/整体保持未闭；所有113调用点实参/载荷与全部callee/资源生产/链别名和owner寿命/ABI/SDK/PC53/时钟RNG/场景画面运行仍未验。原正常显式零写不当作新增异常保护或故障等价。

@@ -570,7 +570,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -600,7 +601,8 @@
         "F:00119D50",
         "F:00004A40",
         "F:00004D30",
-        "F:00004D60"
+        "F:00004D60",
+        "F:00004AE0"
       ],
       "closure_task_ids": [
         "U11",
@@ -625,7 +627,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -641,7 +644,8 @@
         "AAS01实体回调/附加绘制两依赖与MAP共用同ID/证据，五路径四读序及入口/首附件十片段已实修；真实441DB0 type1绑定/4417E0 type17call保持，不把43E490四窗当完整根。原其它语义/全部场景传递依赖/owner重进退出和借用失效/ABI/SDK/PC53/RNG/画面运行未闭",
         "ACP01两实体附件生产依赖两片段实修/原身份纳管，四独立构析和字段W32/U8/低W16、原生对象/真实回调与投影及失败返回保持；5原挂件call对应4现表达式，同ID/证据关联MAP。全部场景传递父/callee/数据生产与owner重进退出/borrow失效/真实SDK/PC53/RNG/画面运行未闭",
         "YLC01原生通用链两链接写之间按原重读、阶段计数单读/局部判定与完整返回、payload单读/先载荷后节点释放已实修；玩家清理分工/真实尾链保持，三ID共用MAP。三原160条444B不代所有场景caller/callback/callee/资源生产与owner寿命/真实ABI/SDK/PC53/RNG/画面运行，异常不保护/模拟",
-        "YSS01哨兵初终三旧依赖来源/真实应用初始化与终止调用者纳管，仅初始化四片段实修；清场先缓存节点、46DD40后标死/UpdateAll回收及首free后再读尾free保持。同三ID/证据关联MAP，完整所有应用/场景parent及callee/资源生产/owner重进退出和借用失效/SDK/ABI/PC53/RNG/画面运行未闭"
+        "YSS01哨兵初终三旧依赖来源/真实应用初始化与终止调用者纳管，仅初始化四片段实修；清场先缓存节点、46DD40后标死/UpdateAll回收及首free后再读尾free保持。同三ID/证据关联MAP，完整所有应用/场景parent及callee/资源生产/owner重进退出和借用失效/SDK/ABI/PC53/RNG/画面运行未闭",
+        "YAS01真实共用节点生产依赖四片段实修/旧语义追加和同ID关联MAP，原U8/U32/原生分配域、默认字段与两失败/FIFO及无插链返回保持；完整118条保存只局部分配取样验收，全部场景/应用父与载荷/所有callee和链别名/owner寿命/SDK/ABI/PC53/RNG/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -658,7 +662,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -1131,7 +1136,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1196,7 +1202,8 @@
         "F:00119D50",
         "F:00004A40",
         "F:00004D30",
-        "F:00004D60"
+        "F:00004D60",
+        "F:00004AE0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1227,7 +1234,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1249,7 +1257,8 @@
         "AAS01共用五附件路径恢复四取样顺序、附加入口/首附件恢复同指针快照/逐次目标源读取，十片段实修；4417E0一完整466条与442F70两窗143条及43E490四窗106条共715条2252B。两ID纳管，其中一既有语义只追加、旧名称证据保持。同ID关联LOOP，全其它语义/父/callee/上游和间接别名及owner寿命/SDK/PC53/画面运行未闭，异常不保护或模拟",
         "ACP01实体/挂件两个真实创建者四组临时载体各先三字段取齐/再原序发布已实修；两完整212条829B/12call8父，通用赋值/其它入口和AAS01保持，两ID同LOOP纳管。完整父实参/所有callee/上游与间接别名和owner寿命/ABI/SDK/PC53/RNG/画面运行未闭，异常不保护或模拟",
         "YLC01UpdateAll摘链/计数与Delete载荷单次取样三片段已实修，原四相/回调后next/释放后保存next保持；519D50已有八槽/文本/玩家复读/尾链未改补身份。三完整160条444B/31call10父、一新/二既有语义追加/三ID同LOOP。全部父/callback/callee/所有资源生产/链表别名与owner重进退出/借用失效/SDK/ABI/PC53/RNG/画面运行未闭",
-        "YSS01初始化四取样片段恢复第二分配后start先取/end发布、两链接读序与尾返回快照；已正确清场/终止不改，三原59条225B/22call13父、三旧语义追加与三ID同LOOP。原生sizeof/应用calloc/free、四相及共享槽保持。完整父/callback/callee/应用初终和资源/链别名及owner寿命/ABI/SDK/PC53/RNG/画面运行未闭"
+        "YSS01初始化四取样片段恢复第二分配后start先取/end发布、两链接读序与尾返回快照；已正确清场/终止不改，三原59条225B/22call13父、三旧语义追加与三ID同LOOP。原生sizeof/应用calloc/free、四相及共享槽保持。完整父/callback/callee/应用初终和资源/链别名及owner寿命/ABI/SDK/PC53/RNG/画面运行未闭",
+        "YAS01共用动作分配四取样片段恢复载荷返回/原描述符五W16一W32两W8、首尾先取与新链接写后前驱复读；原两失败/无符号同值FIFO和未插链返回保持。原118条354B/113call/86已知父+1未归属调用点，一旧语义追加/一ID同LOOP，不称所有父/载荷和owner寿命/ABI/SDK/PC53/RNG/画面运行已验，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1272,7 +1281,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -14935,6 +14945,126 @@
       "observation": "三完整59条225B/22call13父与库存、四源片段全文精确重放/初start与链接及result快照、未改清场终止/真实应用调用者与原生宽度/无失败保护的有限静态",
       "expected": "第二分配后先initialStart再end发布，forwardStart→forwardEnd/ backwardEnd→backwardStart读后发布，priority前result取样、graphicIndex仍重读end并返回result；保两独立calloc/原生sizeof/字段与已有清场/终止同序",
       "actual": "四局部I/S共用一根四片段/三原59条225B，三既有语义只追加、三adapted同MAP/LOOP，不增语义或有效ID/计清场终止新增。全部应用父/callback/callee与资源和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-ALLOCATION-SAMPLING-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原完整118条354B/113type17call/86已知父+1未归属调用点，共用动作分配/默认描述符及插链取样；doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-allocation-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp#NewYobiAction_404AE0",
+        "include/cg/render/GraphicPendingQueue.hpp#GraphicDescriptor16"
+      ],
+      "differences": [
+        {
+          "description": "载荷返回先判空后发布/同快照再次清零，descriptor按原五W16一W32两W8显式字段发布，首尾先取两next后取，新节点next/prev写后复读前驱再接链；四片段/原失败与FIFO及未插链返回保持",
+          "decision_ref": "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四分配/描述符/插链片段已落码，保原U8/U32/原生类型与两失败/无符号FIFO和未链接对象返回；旧语义追加/同ID双域，不记新函数或全113调用点通过",
+      "expected": "载荷分配返回同一快照供原比较/发布/清零，描述符按五W16一W32两W8逐项默认发布，start/end先取再两next，插链新next/prev写后重读当前前驱；原失败消息/释放、unsigned<=和FIFO及到stop未插链返回保持",
+      "actual": "四局部I/S共用一根四片段/完整118条354B，既有语义追加/一adapted同MAP/LOOP，不增函数或验全113调用点/载荷类型。所有caller/callee/资源与链别名和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-ALLOCATION-SAMPLING-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原完整118条354B/113type17call/86已知父+1未归属调用点，共用动作分配/默认描述符及插链取样；doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-allocation-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp#NewYobiAction_404AE0",
+        "include/cg/render/GraphicPendingQueue.hpp#GraphicDescriptor16"
+      ],
+      "differences": [
+        {
+          "description": "载荷返回先判空后发布/同快照再次清零，descriptor按原五W16一W32两W8显式字段发布，首尾先取两next后取，新节点next/prev写后复读前驱再接链；四片段/原失败与FIFO及未插链返回保持",
+          "decision_ref": "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原118条354B/113type17call/86已知父+1未归属调用点/库存、四片段全文精确重放及同载荷快照/八描述符字段写序宽度/首尾与前驱重读和既有失败/FIFO/未插链有限静态",
+      "expected": "载荷分配返回同一快照供原比较/发布/清零，描述符按五W16一W32两W8逐项默认发布，start/end先取再两next，插链新next/prev写后重读当前前驱；原失败消息/释放、unsigned<=和FIFO及到stop未插链返回保持",
+      "actual": "四局部I/S共用一根四片段/完整118条354B，既有语义追加/一adapted同MAP/LOOP，不增函数或验全113调用点/载荷类型。所有caller/callee/资源与链别名和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-ALLOCATION-SAMPLING-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原完整118条354B/113type17call/86已知父+1未归属调用点，共用动作分配/默认描述符及插链取样；doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-allocation-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp#NewYobiAction_404AE0",
+        "include/cg/render/GraphicPendingQueue.hpp#GraphicDescriptor16"
+      ],
+      "differences": [
+        {
+          "description": "载荷返回先判空后发布/同快照再次清零，descriptor按原五W16一W32两W8显式字段发布，首尾先取两next后取，新节点next/prev写后复读前驱再接链；四片段/原失败与FIFO及未插链返回保持",
+          "decision_ref": "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四分配/描述符/插链片段已落码，保原U8/U32/原生类型与两失败/无符号FIFO和未链接对象返回；旧语义追加/同ID双域，不记新函数或全113调用点通过",
+      "expected": "载荷分配返回同一快照供原比较/发布/清零，描述符按五W16一W32两W8逐项默认发布，start/end先取再两next，插链新next/prev写后重读当前前驱；原失败消息/释放、unsigned<=和FIFO及到stop未插链返回保持",
+      "actual": "四局部I/S共用一根四片段/完整118条354B，既有语义追加/一adapted同MAP/LOOP，不增函数或验全113调用点/载荷类型。所有caller/callee/资源与链别名和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-YOBI-ALLOCATION-SAMPLING-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原完整118条354B/113type17call/86已知父+1未归属调用点，共用动作分配/默认描述符及插链取样；doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-yobi-allocation-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp#NewYobiAction_404AE0",
+        "include/cg/render/GraphicPendingQueue.hpp#GraphicDescriptor16"
+      ],
+      "differences": [
+        {
+          "description": "载荷返回先判空后发布/同快照再次清零，descriptor按原五W16一W32两W8显式字段发布，首尾先取两next后取，新节点next/prev写后复读前驱再接链；四片段/原失败与FIFO及未插链返回保持",
+          "decision_ref": "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原118条354B/113type17call/86已知父+1未归属调用点/库存、四片段全文精确重放及同载荷快照/八描述符字段写序宽度/首尾与前驱重读和既有失败/FIFO/未插链有限静态",
+      "expected": "载荷分配返回同一快照供原比较/发布/清零，描述符按五W16一W32两W8逐项默认发布，start/end先取再两next，插链新next/prev写后重读当前前驱；原失败消息/释放、unsigned<=和FIFO及到stop未插链返回保持",
+      "actual": "四局部I/S共用一根四片段/完整118条354B，既有语义追加/一adapted同MAP/LOOP，不增函数或验全113调用点/载荷类型。所有caller/callee/资源与链别名和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -15104,7 +15234,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -15346,7 +15477,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -15414,7 +15546,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -15473,7 +15606,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -15509,7 +15643,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     },
     {
@@ -15680,7 +15815,8 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
-        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state"
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
       ]
     }
   ],
@@ -19778,6 +19914,18 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00004AE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-acceptance",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_evidence.json"
       ]
     }
   ],

@@ -4147,3 +4147,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [五处实修](cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision)恢复同解析caster发布/actor、初始payload先skill、另caster-actor-live level或mode-payload，以及level比较12后caster先低段偏移。三Take首弃/第二pub mode/第三caster，空Finish false与六动作25/55/39/40/139/64后true、原fpUsed和110056偏移/111018常数保持，无目标/RID/58新消费。
 
 [准备86条362B](cg2d_battle_m_skill98_prepare_sampling_evidence.json)两页11call/全部直接目标闭合，202B表仅98入口、48B偏移沿原基线。42D0D0起原比较链分派和各模式按子SPEC继续，不以现代switch/定位探针代原跳表或完整98；完整父/owner/SDK/SEH/ABI/画面仍待。
+
+## BMW01 技能98 mode6四处取样（2026-10-06）
+
+[四处实修](cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision)恢复解析target255比较先pub/同位置actor空门禁，首次效果沿解析target后live caster-actor，两字段各target-actor-skill或level-payload。288/22404/168、80/83/68/81/56各次live和循环保持；255或空Finish break均走效果终结-Move-RID-增58，不将失败改return。
+
+[主体与两个实际尾98条405B](cg2d_battle_m_skill98_mode6_sampling_evidence.json)三页12call/全部直接目标闭合，26条114B原mode比较链与202B SKL表仅入口上下文；准备/wrapper/正确尾helper保持，其它各mode和完整父/owner/SDK/SEH/ABI/画面继续。

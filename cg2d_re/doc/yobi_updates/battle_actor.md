@@ -193,3 +193,9 @@
 [五组裁决](../cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision)恢复同解析caster位置发布和actor借用，固定初始caster payload先skill；level/mode字段各次caster→actor→live值→payload，不跨字段复用角色或跨Take固定mode。图号level比较12后caster先低段原偏移，fpUsed与六次动作各次live借用保持，不新owner/空保护或额外状态消费。
 
 [入口准备](../cg2d_battle_m_skill98_prepare_sampling_evidence.json)86条362B两页11call；42D0D0之后各模式消费与所有actor owner重进退出/借用失效、SDK/ABI/画面继续分段推进。
+
+## BMW01 mode6解析目标与调用后借用（2026-10-06）
+
+[四组裁决](../cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision)恢复同解析target/255比较先pub、首次效果沿解析target而后live caster-actor；两字段各次live target→actor→技能或level→payload，不复用空门禁actor。288/22404/168和五动作重新借live目标；空Finish后仍走原尾，不新caster保护/owner或异常模型。
+
+[主体与两个实际尾](../cg2d_battle_m_skill98_mode6_sampling_evidence.json)98条405B三页12call纳管；其它98模式及全部actor owner重进退出/借用失效、SDK/ABI/画面继续。

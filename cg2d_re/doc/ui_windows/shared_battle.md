@@ -8309,3 +8309,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state)纳管98入口准备五处。mode字段另借当时caster→actor→live value5A4A34→payload/pub1048，不复用第三Take前解析值；skill/level及图偏移恢复原序，三Take/六动作/失败与成功门禁保持。
 
 [86条362B两页11call](../cg2d_battle_m_skill98_prepare_sampling_evidence.json)截止42D0D0，后续原比较链/状态目标、6/7/8、12/13/14、15/16、17及默认分组另验，不把现代路由存在当原覆盖。准备段无目标/RID/58消费；wrapper/各主体保持，完整运行门禁继续，原格式明文/音频暂停保持。
+
+## BMW01 98 mode6目标与正常尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state)纳管mode6四处；目标先比较255再pub，同解析target用于空门禁及首次4393A0，效果调用后字段和五次动作另借live目标。255或空Finish仍走终结(-1,0,0)、Move/RID/固定scene58递增，正确共用尾保持。
+
+[三范围98条405B三页12call](../cg2d_battle_m_skill98_mode6_sampling_evidence.json)含42D68D失败/终结参数尾与42EB02实际消费尾，26条114B比较链不计主体/不代其它mode覆盖。其它模式及所有owner/完整运行门禁继续，原格式明文/音频暂停保持。

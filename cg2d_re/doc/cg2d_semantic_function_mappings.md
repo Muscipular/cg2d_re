@@ -2465,3 +2465,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [有界准备](cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state)86条362B两页11call，追加PrepareBattleMSkill98单根五处及三Take/字段/六动作原消费。202B表仅98入口、48B偏移仅上下文；42D0D0起模式分派和各主体不纳本步，不把现代switch/定位探针当原跳表证据。不新F/X/adapted/分类/完整成员，历史和其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；各98模式和其它技能/全路由/完整父-SEH/消费者-owner运行继续。
+
+## BMW01 旧812的技能98 mode6追加（2026-10-06）
+
+[有界mode6及两尾](cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state)98条405B三页12call，追加ProcessBattleMSkill98Mode6单根四处/目标循环和终结-Move-RID-增58消费。26条114B mode比较链及202B SKL表仅入口上下文，不将其它分支/现代switch当完整原模式证据；不新F/X/adapted/分类/完整成员，历史和其它字段保持。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；其它98模式/技能-全路由/完整父-SEH/所有消费者-owner运行继续。

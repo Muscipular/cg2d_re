@@ -16833,20 +16833,27 @@ void CompleteBattleMSkill98Targets(YobiAction* const scene, BattleScenePayload* 
 {
     using namespace world::detail;
     for (;;) {
-        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
-        if (gBattleMTargetPosition5AAA40 == 255) {
+        const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        const bool targetUnavailable = targetPosition == 255;
+        gBattleMTargetPosition5AAA40 = targetPosition;
+        if (targetUnavailable) {
             break;
         }
-        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+        if (gBattleAllEntries59E980[targetPosition] == nullptr) {
             FinishBattleEvent_43B6C0(scene);
             break;
         }
-        AppendBattleEffectList_4393A0(
-            gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMTargetPosition5AAA40, 0, 0);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
-            ->castSkill103C = gBattleMSkill5AAA78;
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
-            ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+        const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
+        YobiAction* const effectCaster = gBattleAllEntries59E980[effectCasterPosition];
+        AppendBattleEffectList_4393A0(effectCaster, targetPosition, 0, 0);
+        const std::int32_t skillTargetPosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const skillTarget = gBattleAllEntries59E980[skillTargetPosition];
+        const std::int32_t skill = gBattleMSkill5AAA78;
+        static_cast<BattleActorPayload*>(skillTarget->payload)->castSkill103C = skill;
+        const std::int32_t levelTargetPosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const levelTarget = gBattleAllEntries59E980[levelTargetPosition];
+        const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;
+        static_cast<BattleActorPayload*>(levelTarget->payload)->castSkillLevel1044 = skillLevel;
         static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)->value1018 = 288;
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 80);
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 83);

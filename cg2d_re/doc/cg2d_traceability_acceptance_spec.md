@@ -188,3 +188,10 @@ metadata_kind须为alignment_padding，metadata_reference须指向分类JSON确�
 [本组合同](cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)登记534EF0 adapted、54AB16 host及I:0014D388 mapped，已有两真实SDK调用和原参数保持，不新造跳板空体。
 每槽13B清零、类型一次读取和六U8原序已落既有源；限定I/S证据各一，完整FUNC-NETWORK门禁、成员闭合和五任务仍open，原业务分母/范围/格式调用计数保持。
 API本机声明/源调用及导入关系不代加载、链接、SDK实际成功失败、全父/owner/未知alias或原格式明文互通/运行。
+
+
+## LSP01 五行同源生产和旧字节取样处置（2026-10-05）
+
+[两原身份与共享数据合同](cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state)登记503AB0/4A0640为adapted。原正文写CC2525五行、D672D8只保存同一行T*、旧55借同一owner；不以共享指针表名称判成第二套正文。
+本次实际开发为503AB0首U8缓存和首写后尾读取样表达，五行生产体早已存在。限定I/S各一、公共窗口成员9→11并关联U07，U07当前登记open及其余六任务/完整门禁保持，不新增功能分母或改变原排除范围。
+全部100父/未知alias/旧表外层/实际ABI及画面/运行继续，静态归属和五行生产存在不能替完整窗口流程验收。

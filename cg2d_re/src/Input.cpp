@@ -812,9 +812,15 @@ std::int32_t ExtractLegacyLine_503AB0(
     }
     std::int32_t line = 0;
     std::int32_t column = 0;
-    while (*source != '\0') {
-        const auto value = static_cast<std::uint8_t>(*source);
-        if ((value & 0x80u) != 0) {
+    for (;;) {
+        // 原503ADD/503B55每轮只取一次首U8，分流和写出均复用该值。
+        const volatile char* const sampledSource = source;
+        const char value = *sampledSource;
+        if (value == '\0') {
+            break;
+        }
+        const auto byte = static_cast<std::uint8_t>(value);
+        if ((byte & 0x80u) != 0) {
             column += 2;
             if (column > width) {
                 ++line;
@@ -822,8 +828,9 @@ std::int32_t ExtractLegacyLine_503AB0(
                 continue;
             }
             if (line == requestedLine) {
-                destination[0] = source[0];
-                destination[1] = source[1];
+                destination[0] = value;
+                // 原503AFD先写首字节，再503AFF取尾；保持源/目标可能重叠的原序。
+                destination[1] = sampledSource[1];
                 destination += 2;
             }
             source += 2;
@@ -844,7 +851,7 @@ std::int32_t ExtractLegacyLine_503AB0(
             continue;
         } else {
             if (line == requestedLine) {
-                *destination++ = *source;
+                *destination++ = value;
             }
             ++source;
             ++column;

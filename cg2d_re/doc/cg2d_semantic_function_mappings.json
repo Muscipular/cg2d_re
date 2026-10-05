@@ -143455,6 +143455,642 @@
         }
       ],
       "verification_level": "原一条6B跳板/两直接call与唯一导入边、现有两源API位置限定静态，未执行"
+    },
+    {
+      "original_entry": "0x503AB0",
+      "inventory_id": "F:00103AB0",
+      "status": "LSP01原首U8缓存/首写后尾读已校正；全部父/alias/运行未验",
+      "original_role": "按旧字节列宽提取指定行",
+      "original_end_exclusive": "0x503B6D",
+      "instruction_count": 83,
+      "original_code_bytes": 189,
+      "original_direct_reference_count": 100,
+      "original_direct_call_reference_count": 100,
+      "function_chunks": [
+        {
+          "start": "0x503AB0",
+          "end_exclusive": "0x503B6D"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "ExtractLegacyLine_503AB0"
+          ],
+          "relationship": "本组实际源码修正，每轮首U8一次取样并缓存，目标行双字节首写后尾读；其余分行/门禁/返回保持"
+        },
+        {
+          "path": "include/cg/Input.hpp",
+          "symbols": [
+            "ExtractLegacyLine_503AB0"
+          ],
+          "relationship": "既有公开声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json"
+      ],
+      "verification_level": "完整83条/189B及100直接引用集合，仅4A06B2父生产边与本组源补丁限定静态；不验100完整父或运行",
+      "boundary": "本机char位型借只读volatile视图，首取样一字节供NUL/bit7/CR/LF/01和首写/ASCII；目标行先首写再尾读，未选行不读尾，超列不推进源重新取样。原line<0/width<=0/capacity<=width返0且不写；正常尾NUL及1、双字节宽2/CR与LF分别换行/01下个8行/原递增及停点保持。不新增代码页、保护/拒绝/补零/回绕或线程同步；全部父/owner/alias/实际ABI/画面/运行未验，RPLAN.24保持。",
+      "inbound_evidence": [
+        {
+          "reference_site": "0x478f98",
+          "parent_entry": "0x478a10",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x478fe6",
+          "parent_entry": "0x478a10",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x479035",
+          "parent_entry": "0x478a10",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x479084",
+          "parent_entry": "0x478a10",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x47aa63",
+          "parent_entry": "0x47a7a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x47abd2",
+          "parent_entry": "0x47a7a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x47ae54",
+          "parent_entry": "0x47a7a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x47af5e",
+          "parent_entry": "0x47a7a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x47b05d",
+          "parent_entry": "0x47a7a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x48f7d9",
+          "parent_entry": "0x48f6c0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x49e105",
+          "parent_entry": "0x49df30",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a01b3",
+          "parent_entry": "0x4a0140",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a0373",
+          "parent_entry": "0x4a0300",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a0513",
+          "parent_entry": "0x4a04a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a06b2",
+          "parent_entry": "0x4a0640",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a0802",
+          "parent_entry": "0x4a0790",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a08eb",
+          "parent_entry": "0x4a0850",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a4aca",
+          "parent_entry": "0x4a49b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a4ca3",
+          "parent_entry": "0x4a49b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a4ec0",
+          "parent_entry": "0x4a49b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b6e75",
+          "parent_entry": "0x4b6e00",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b6ebc",
+          "parent_entry": "0x4b6e00",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b6f03",
+          "parent_entry": "0x4b6e00",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b702a",
+          "parent_entry": "0x4b6e00",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7145",
+          "parent_entry": "0x4b70d0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7395",
+          "parent_entry": "0x4b70d0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7554",
+          "parent_entry": "0x4b74e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b759b",
+          "parent_entry": "0x4b74e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b75e2",
+          "parent_entry": "0x4b74e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7763",
+          "parent_entry": "0x4b74e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7874",
+          "parent_entry": "0x4b77e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b78bb",
+          "parent_entry": "0x4b77e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7902",
+          "parent_entry": "0x4b77e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7949",
+          "parent_entry": "0x4b77e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7a00",
+          "parent_entry": "0x4b77e0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b7db8",
+          "parent_entry": "0x4b7ab0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4b81e8",
+          "parent_entry": "0x4b7ee0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd5b7",
+          "parent_entry": "0x4bd540",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd619",
+          "parent_entry": "0x4bd540",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd6f8",
+          "parent_entry": "0x4bd680",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd888",
+          "parent_entry": "0x4bd810",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd8cf",
+          "parent_entry": "0x4bd810",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bd916",
+          "parent_entry": "0x4bd810",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bda2e",
+          "parent_entry": "0x4bd810",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bdb48",
+          "parent_entry": "0x4bdad0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bdb8f",
+          "parent_entry": "0x4bdad0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bdbd6",
+          "parent_entry": "0x4bdad0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bdcee",
+          "parent_entry": "0x4bdad0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bde15",
+          "parent_entry": "0x4bdd90",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4bdff5",
+          "parent_entry": "0x4bdf70",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4be03c",
+          "parent_entry": "0x4bdf70",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4be083",
+          "parent_entry": "0x4bdf70",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4be285",
+          "parent_entry": "0x4be200",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4be38a",
+          "parent_entry": "0x4be200",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c142c",
+          "parent_entry": "0x4c13b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c1473",
+          "parent_entry": "0x4c13b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c14ba",
+          "parent_entry": "0x4c13b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c166c",
+          "parent_entry": "0x4c13b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c35cc",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c3613",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c365a",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c36a1",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c36e8",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c372f",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c3776",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c390f",
+          "parent_entry": "0x4c3550",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c5819",
+          "parent_entry": "0x4c5790",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4c6133",
+          "parent_entry": "0x4c6060",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cb1b4",
+          "parent_entry": "0x4cafa0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cb203",
+          "parent_entry": "0x4cafa0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cb252",
+          "parent_entry": "0x4cafa0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cb2a4",
+          "parent_entry": "0x4cafa0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cbc0e",
+          "parent_entry": "0x4cb9f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cbc57",
+          "parent_entry": "0x4cb9f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cbca0",
+          "parent_entry": "0x4cb9f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cbcec",
+          "parent_entry": "0x4cb9f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cd76f",
+          "parent_entry": "0x4cd4f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cda83",
+          "parent_entry": "0x4cd4f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4cf8be",
+          "parent_entry": "0x4cf8a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4d05cf",
+          "parent_entry": "0x4d04a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4d0619",
+          "parent_entry": "0x4d04a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4d2b05",
+          "parent_entry": "0x4d2840",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4d2b32",
+          "parent_entry": "0x4d2840",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4d64e7",
+          "parent_entry": "0x4d62a0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4dfe53",
+          "parent_entry": "0x4df730",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4e02f8",
+          "parent_entry": "0x4e02b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4e57ae",
+          "parent_entry": "0x4e5770",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4eaf4d",
+          "parent_entry": "0x4eaaa0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4ee034",
+          "parent_entry": "0x4edb20",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4ef52f",
+          "parent_entry": "0x4ef0f0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4f2065",
+          "parent_entry": "0x4f1c40",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4f339f",
+          "parent_entry": "0x4f2a30",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4f4311",
+          "parent_entry": "0x4f3ed0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4f5fe6",
+          "parent_entry": "0x4f5a60",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4f9e93",
+          "parent_entry": "0x4f9b10",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x5000a0",
+          "parent_entry": "0x4ff650",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x51898c",
+          "parent_entry": "0x518870",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x5196e3",
+          "parent_entry": "0x5196b0",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x5197b9",
+          "parent_entry": "0x519770",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x52eae1",
+          "parent_entry": "0x52e650",
+          "reference_type": 17
+        }
+      ],
+      "sampling_contract": {
+        "first_read_sites": [
+          "0x503ADD",
+          "0x503B55"
+        ],
+        "first_store_site": "0x503AFD",
+        "trail_read_site": "0x503AFF",
+        "trail_store_site": "0x503B02",
+        "ascii_store_site": "0x503B2B",
+        "unselected_row_trail_read": false,
+        "invalid_parameters_write": false,
+        "normal_nul_site": "0x503B5B",
+        "normal_return": 1,
+        "invalid_return": 0
+      }
+    },
+    {
+      "original_entry": "0x4A0640",
+      "inventory_id": "F:000A0640",
+      "status": "LSP01既有技能正文生产与旧/现代同源借用已证；旧表外路由/运行未验",
+      "original_role": "技能选择图号/标题/五正文行生产及现代选择创建",
+      "original_end_exclusive": "0x4A0700",
+      "instruction_count": 62,
+      "original_code_bytes": 192,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x4A0640",
+          "end_exclusive": "0x4A0700"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4A0640",
+            "FillChoiceDialogBody",
+            "gNpcDialogLinesCC24D4",
+            "gChoiceDialogLinesD672D8",
+            "BorrowNpcDialogLinesCC24D4"
+          ],
+          "relationship": "已有完整生产/每行写后发布同一行T*、同源借用及case16接线保持，不新增正文或镜像"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "WindowDialogTextLine",
+            "BorrowNpcDialogLinesCC24D4",
+            "Sub_4A0640"
+          ],
+          "relationship": "既有81B行类型/非拥有借用/根声明保持"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_4D6710"
+          ],
+          "relationship": "仅既有旧55五行消费同一共享owner，未完整重验该父或外层路由"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json"
+      ],
+      "verification_level": "完整62条/192B/唯一caller集合、旧55共享绘制邻窗与现有源段限定静态；旧55完整父/外路由/运行未验",
+      "boundary": "先图号字段1发布CC4890、标题字段2容量21→同一CC24D4并反转义；正文字段3容量255写未清256B局部/反转义后，以width20/cap81/行0..4将CC2525至CC26BA五81B旧共享行逐项写出，写后发布D672D8非拥有指针；现代创建使用这些T*，原5正文/3按钮与回调保持。旧55实际借同一行数组，旧“只生产现代正文”缺失标记撤，不新增生产体/空正文/镜像。仅当前数据边，不推旧99表外层、全部consumer/owner/alias、实际ABI/画面/运行完整；x64只拓已证行指针。",
+      "inbound_evidence": [
+        {
+          "reference_site": "0x49d53f",
+          "parent_entry": "0x49d2e0",
+          "reference_type": 17
+        }
+      ],
+      "shared_row_contract": {
+        "title_address": "0xCC24D4",
+        "first_body_address": "0xCC2525",
+        "body_end_exclusive": "0xCC26BA",
+        "body_rows": 5,
+        "row_bytes": 81,
+        "pointer_array": "0xD672D8",
+        "parse_capacity": 255,
+        "local_body_bytes": 256,
+        "title_capacity": 21,
+        "line_width": 20,
+        "source_owner": "src/ui/WindowRuntime.cpp:gNpcDialogLinesCC24D4",
+        "pointer_publish_site": "0x4A06B7",
+        "pointer_relation": "同一已写行的非拥有地址，指针在x64自然拓宽；不复制正文到另一区"
+      }
     }
   ]
 }

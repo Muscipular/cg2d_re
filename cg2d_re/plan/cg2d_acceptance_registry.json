@@ -1265,7 +1265,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1276,12 +1277,15 @@
         "F:00072F00",
         "F:00073E40",
         "F:00073560",
-        "F:000C2634"
+        "F:000C2634",
+        "F:00103AB0",
+        "F:000A0640"
       ],
       "closure_task_ids": [
         "U04",
         "U10",
-        "V04"
+        "V04",
+        "U07"
       ],
       "dependencies": [
         "FUNC-INPUT",
@@ -1293,17 +1297,20 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用"
+        "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
+        "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -11962,6 +11969,72 @@
       "observation": "原连续155/405、跳板1/6和两API/导入关系、精确源与登记差异限定静态",
       "expected": "原清零和取样序、原字节格式与正常/失败/释放副作用保持",
       "actual": "仅本组源/原端/本机SDK声明与身份限定静态；生成ABI/加载/链接、全父/owner/未知alias/实际API失败和明文互通/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-LEGACY-LINE-SAMPLING-I-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原根145条/381B与100直接引用集合/既有生产消费邻窗；doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-line-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json",
+        "src/Input.cpp#ExtractLegacyLine_503AB0",
+        "include/cg/Input.hpp#ExtractLegacyLine_503AB0",
+        "src/ui/WindowRuntime.cpp#FillChoiceDialogBody",
+        "src/ui/WindowRuntime.cpp#Sub_4A0640",
+        "src/ui/WindowRuntimeState.hpp#WindowDialogTextLine",
+        "src/LegacyUiRecord.cpp#Sub_4D6710"
+      ],
+      "differences": [
+        {
+          "description": "x64借用行T*沿已有共享owner承载；本组volatile char局部只读视图恢复原U8取样，未改数据布局或线程状态",
+          "decision_ref": "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "既有行提取叶恢复首U8缓存及首写后尾读，五正文生产/共享指针/旧55消费本来已存在",
+      "expected": "原字节分行、容量/正常失败/取样序、同源五行与非拥有指针发布保持",
+      "actual": "仅本组源码/静态证据，不推全部100父/owner/间接alias/旧外路由/生成ABI/画面/运行通过，完整门禁不升级"
+    },
+    {
+      "id": "E-LEGACY-LINE-SAMPLING-S-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原根145条/381B与100直接引用集合/既有生产消费邻窗；doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-line-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json",
+        "src/Input.cpp#ExtractLegacyLine_503AB0",
+        "include/cg/Input.hpp#ExtractLegacyLine_503AB0",
+        "src/ui/WindowRuntime.cpp#FillChoiceDialogBody",
+        "src/ui/WindowRuntime.cpp#Sub_4A0640",
+        "src/ui/WindowRuntimeState.hpp#WindowDialogTextLine",
+        "src/LegacyUiRecord.cpp#Sub_4D6710"
+      ],
+      "differences": [
+        {
+          "description": "x64借用行T*沿已有共享owner承载；本组volatile char局部只读视图恢复原U8取样，未改数据布局或线程状态",
+          "decision_ref": "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原根/选定边、共享数据及源精确补丁/登记限定静态",
+      "expected": "原字节分行、容量/正常失败/取样序、同源五行与非拥有指针发布保持",
+      "actual": "仅本组源码/静态证据，不推全部100父/owner/间接alias/旧外路由/生成ABI/画面/运行通过，完整门禁不升级"
     }
   ],
   "task_acceptance": [
@@ -12210,7 +12283,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
         "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
-        "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -12227,7 +12301,8 @@
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -12307,7 +12382,8 @@
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -12380,7 +12456,8 @@
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -12390,7 +12467,8 @@
       "evidence_refs": [
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     },
     {
@@ -12423,7 +12501,16 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+      ]
+    },
+    {
+      "task_id": "U07",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
       ]
     }
   ],
@@ -15648,6 +15735,32 @@
         "doc/cg2d_network_adapter_sampling_evidence.json"
       ],
       "reason": "原API跳板由既有两GetAdaptersAddresses真实本机SDK调用承接，不新增空跳板、改变参数或宣称运行提供者已验"
+    },
+    {
+      "inventory_id": "F:00103AB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json"
+      ],
+      "reason": "既有分行叶恢复原首U8取样/首写后尾读，正常门禁/返回/分行保持；不验全100父/运行"
+    },
+    {
+      "inventory_id": "F:000A0640",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_evidence.json"
+      ],
+      "reason": "既有完整正文生产与旧/现代同源地址明确，x64行指针沿同一owner自然拓宽；不以现代创建调用代旧表路由"
     }
   ],
   "auxiliary_dispositions": [

@@ -1778,3 +1778,19 @@ SDK私有分桶/容量/错误策略和realloc handler统一原输入数量具名
 限定证据114→117，语义1207/1204有效ID、18pending及4分类引用保持。
 源码只改一头三处，五SDK分支/全部CPP和原模式1/2及兼容元数据保持。
 C01/C08/C11、任务10/60、叶0/182和完整门禁仍未闭；未知owner/alias/模式/R1及SDK运行待验。
+
+## NWI01 Winsock导入与连接重读取值时点（2026-10-05）
+
+[具名合同](cg2d_winsock_import_binding_spec.md#winsock-import-source-closure)
+与[归档](cg2d_winsock_import_binding_evidence.json)
+保连接父339条/1180B及十五跳板15条/90B、十五序号槽和41入向；
+26范围内call对应现有SDK API，15newest引用仍排除。
+
+508360修七socket/一phase的原重读时点；创建返回/集合快照、
+正常失败/日志/关闭/字段及原格式明文保持。十五跳板按host纳管、十五槽mapped，
+不造旧C++空跳板或声称外部ABI/完整父与运行已验。
+
+16旧记录定点/1191其他与政策保持；新host使159→174/3680，
+导入已审0→15/218、限定E117→120；语义1207/1204有效ID、18pending/4分类保持。
+U10/V03/R01/R02、任务10/60、叶0/182及完整门禁不提升，
+全部owner/未知alias/间接目标、SDK链接/失败/真实互通和R仍待。

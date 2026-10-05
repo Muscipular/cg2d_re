@@ -602,11 +602,33 @@
         "doc/cg2d_network_compatibility_spec.md",
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_network_dispatch.md",
-        "doc/cg2d_network_plaintext_frame_spec.md"
+        "doc/cg2d_network_plaintext_frame_spec.md",
+        "doc/cg2d_winsock_import_binding_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
-        "F:00003E50"
+        "F:00003E50",
+        "F:00134A36",
+        "F:00134A60",
+        "F:00134A72",
+        "F:00134A6C",
+        "F:00134A7E",
+        "F:00134A3C",
+        "F:00134A48",
+        "F:00134A30",
+        "F:00134A78",
+        "F:00134A84",
+        "F:00134A66",
+        "F:00134A5A",
+        "F:00134A4E",
+        "F:00134A54",
+        "F:00134A42",
+        "F:00107DF0",
+        "F:00108140",
+        "F:001081A0",
+        "F:001082D0",
+        "F:00108310",
+        "F:00108360"
       ],
       "closure_task_ids": [
         "P09",
@@ -618,15 +640,17 @@
       "dependencies": [],
       "acceptance_focus": "原格式明文、命令/字段、队列、状态与正常失败；两算法叶排除",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
-        "murD及音频传递依赖仍暂停；完整登录/明文互通和V03未验，R受执行限制"
+        "murD及音频传递依赖仍暂停；完整登录/明文互通和V03未验，R受执行限制",
+        "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
     },
     {
       "id": "FUNC-SAVED",
@@ -9801,6 +9825,120 @@
       "observation": "三个完整原体/3-3-1引用、单头三替换及限定数据差分归档",
       "expected": "撤销不可调用旧接口并按D02映射私有角色，不新增假体/重复free或完整验收声称",
       "actual": "三声明撤下，三原ID登记host，源码和数据其余范围保持"
+    },
+    {
+      "id": "E-WINSOCK-IMPORT-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15序号槽/15条90B跳板/41入向（26纳入/15newest排除），339条1180B连接父；doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-winsock-import-binding-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-acceptance",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_winsock_import_binding_evidence.json",
+        "src/LoginState.cpp#Sub_508360",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "include/cg/platform/MainLoop.hpp#gConnectionSocket"
+      ],
+      "differences": [
+        {
+          "description": "原WSOCK32序号/IAT/跳板保留身份，既有ws2_32/SDK提供原生API；跳板host、槽mapped不代表外部ABI/全部父与运行通过，newest15引用排除不随共享API恢复",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        },
+        {
+          "description": "只修七socket/一phase的原取值时点；原fd集合快照、格式/状态/错误/关闭/超时、队列及原格式明文保持，未知owner/alias/R1/R7与SDK链接/正常失败/互通待验",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "连接父八处共享读取值时点修复",
+      "expected": "原共享状态在指定call后重读；共享IAT保留原身份和排除界线，实际SDK接口可追",
+      "actual": "七句柄使用点改当时共享值，登录发送后重读阶段；十五导入/跳板和范围内26调用明确归属"
+    },
+    {
+      "id": "E-WINSOCK-IMPORT-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15序号槽/15条90B跳板/41入向（26纳入/15newest排除），339条1180B连接父；doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-winsock-import-binding-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-acceptance",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_winsock_import_binding_evidence.json",
+        "src/LoginState.cpp#Sub_508360",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "include/cg/platform/MainLoop.hpp#gConnectionSocket"
+      ],
+      "differences": [
+        {
+          "description": "原WSOCK32序号/IAT/跳板保留身份，既有ws2_32/SDK提供原生API；跳板host、槽mapped不代表外部ABI/全部父与运行通过，newest15引用排除不随共享API恢复",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        },
+        {
+          "description": "只修七socket/一phase的原取值时点；原fd集合快照、格式/状态/错误/关闭/超时、队列及原格式明文保持，未知owner/alias/R1/R7与SDK链接/正常失败/互通待验",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "十五槽/跳板及41入向、26实际API调用逐点对应",
+      "expected": "原共享状态在指定call后重读；共享IAT保留原身份和排除界线，实际SDK接口可追",
+      "actual": "七句柄使用点改当时共享值，登录发送后重读阶段；十五导入/跳板和范围内26调用明确归属"
+    },
+    {
+      "id": "E-WINSOCK-IMPORT-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "15序号槽/15条90B跳板/41入向（26纳入/15newest排除），339条1180B连接父；doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-winsock-import-binding-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-baseline",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-acceptance",
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_winsock_import_binding_evidence.json",
+        "src/LoginState.cpp#Sub_508360",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "include/cg/platform/MainLoop.hpp#gConnectionSocket"
+      ],
+      "differences": [
+        {
+          "description": "原WSOCK32序号/IAT/跳板保留身份，既有ws2_32/SDK提供原生API；跳板host、槽mapped不代表外部ABI/全部父与运行通过，newest15引用排除不随共享API恢复",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        },
+        {
+          "description": "只修七socket/一phase的原取值时点；原fd集合快照、格式/状态/错误/关闭/超时、队列及原格式明文保持，未知owner/alias/R1/R7与SDK链接/正常失败/互通待验",
+          "decision_ref": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原连接339条/跳板15条、SDK十五声明与限定源/数据静态归档",
+      "expected": "原共享状态在指定call后重读；共享IAT保留原身份和排除界线，实际SDK接口可追",
+      "actual": "七句柄使用点改当时共享值，登录发送后重读阶段；十五导入/跳板和范围内26调用明确归属"
     }
   ],
   "task_acceptance": [
@@ -10063,6 +10201,38 @@
       "evidence_refs": [
         "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+      ]
+    },
+    {
+      "task_id": "U10",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "task_id": "R01",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "task_id": "R02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
       ]
     }
   ],
@@ -11404,7 +11574,248 @@
       "evidence_refs": [
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
       ]
+    },
+    {
+      "inventory_id": "F:00134A36",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A60",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A72",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A6C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A7E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A3C",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A48",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A30",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A78",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A84",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A66",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A5A",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A4E",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A54",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00134A42",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
     }
   ],
-  "auxiliary_dispositions": []
+  "auxiliary_dispositions": [
+    {
+      "id": "I:0014D370",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D354",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D348",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D34C",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D378",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D36C",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D364",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D374",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D37C",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D380",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D350",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D358",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D360",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D35C",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "I:0014D368",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    }
+  ]
 }

@@ -168,7 +168,7 @@ std::int32_t Sub_508360()
         if (platform::gNoDelay != 0) {
             int noDelay = 1;
             if (::setsockopt(
-                    connectionSocket,
+                    static_cast<SOCKET>(platform::gConnectionSocket),
                     IPPROTO_TCP,
                     TCP_NODELAY,
                     reinterpret_cast<const char*>(&noDelay),
@@ -188,7 +188,8 @@ std::int32_t Sub_508360()
                     gRequestMessage,
                     kServerAddressFailureFormat,
                     serverAddress));
-                static_cast<void>(::closesocket(connectionSocket));
+                static_cast<void>(::closesocket(
+                    static_cast<SOCKET>(platform::gConnectionSocket)));
                 return -4;
             }
             std::memcpy(
@@ -201,7 +202,7 @@ std::int32_t Sub_508360()
         network::WriteValueD9F2D0(0);
 
         if (::connect(
-                connectionSocket,
+                static_cast<SOCKET>(platform::gConnectionSocket),
                 reinterpret_cast<sockaddr*>(&address),
                 0x10) == SOCKET_ERROR) {
             const int error = ::WSAGetLastError();
@@ -210,7 +211,8 @@ std::int32_t Sub_508360()
                 static_cast<void>(platform::FormatLegacyString_53B304(
                     logMessage, "CONNECT ERROR=%d", error));
                 static_cast<void>(Sub_44B5C0(logMessage));
-                static_cast<void>(::closesocket(connectionSocket));
+                static_cast<void>(::closesocket(
+                    static_cast<SOCKET>(platform::gConnectionSocket)));
                 static_cast<void>(platform::FormatLegacyString_53B304(
                     gRequestMessage, kConnectFailureMessage));
                 return -5;
@@ -240,15 +242,18 @@ std::int32_t Sub_508360()
         static_cast<void>(
             ::select(2, &readSet, &writeSet, &exceptionSet, &timeout));
 
-        if (::__WSAFDIsSet(connectionSocket, &writeSet) != 0) {
+        if (::__WSAFDIsSet(
+                static_cast<SOCKET>(platform::gConnectionSocket), &writeSet) != 0) {
             gConnectionStep = 71;
             gRequestPollingEnabled = 1;
             static_cast<void>(Sub_44B5C0("CONNECT OK"));
         }
-        if (::__WSAFDIsSet(connectionSocket, &exceptionSet) != 0) {
+        if (::__WSAFDIsSet(
+                static_cast<SOCKET>(platform::gConnectionSocket), &exceptionSet) != 0) {
             static_cast<void>(platform::FormatLegacyString_53B304(
                 gRequestMessage, kConnectExceptionMessage));
-            static_cast<void>(::closesocket(connectionSocket));
+            static_cast<void>(::closesocket(
+                static_cast<SOCKET>(platform::gConnectionSocket)));
             return -6;
         }
     }
@@ -269,6 +274,8 @@ std::int32_t Sub_508360()
                 accountCopy,
                 gValueDA3A5C,
                 adapterId));
+            // 原508748：登录发送返回后先重读阶段，再发布请求状态。
+            step = gConnectionStep;
             gRequestStatus = 1;
         }
         else if (gRequestStatus == 2) {

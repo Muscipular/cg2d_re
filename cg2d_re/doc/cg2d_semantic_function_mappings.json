@@ -10153,7 +10153,7 @@
     {
       "original_entry": "0x534A30",
       "inventory_id": "F:00134A30",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：send",
       "import_binding": {
         "original_end": "0x534A36",
@@ -10177,14 +10177,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D374",
+        "module": "WSOCK32",
+        "slot": "0x0054D374",
+        "ordinal": 19,
+        "api": "send",
+        "included_calls": [
+          {
+            "from": "0x005080BC",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    send",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::send"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FF54",
+            "parent": "0x0050FF10",
+            "type": 17,
+            "line": "call    send"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A36",
       "inventory_id": "F:00134A36",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：closesocket",
       "import_binding": {
         "original_end": "0x534A3C",
@@ -10223,14 +10256,113 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D370",
+        "module": "WSOCK32",
+        "slot": "0x0054D370",
+        "ordinal": 3,
+        "api": "closesocket",
+        "included_calls": [
+          {
+            "from": "0x00507F35",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x005080E5",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x005081C6",
+            "parent": "0x005081A0",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "ShutdownNetworkRuntime_5081A0",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x005084B3",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x0050852B",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x00508678",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::closesocket"
+          },
+          {
+            "from": "0x005087AC",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    closesocket",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::closesocket"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FEAD",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    closesocket"
+          },
+          {
+            "from": "0x0050FEF1",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    closesocket"
+          },
+          {
+            "from": "0x0051012F",
+            "parent": "0x00510120",
+            "type": 17,
+            "line": "call    closesocket"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A3C",
       "inventory_id": "F:00134A3C",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：recv",
       "import_binding": {
         "original_end": "0x534A42",
@@ -10254,14 +10386,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D36C",
+        "module": "WSOCK32",
+        "slot": "0x0054D36C",
+        "ordinal": 16,
+        "api": "recv",
+        "included_calls": [
+          {
+            "from": "0x00507EF7",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    recv",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::recv"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x00510041",
+            "parent": "0x0050FF70",
+            "type": 17,
+            "line": "call    recv"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A42",
       "inventory_id": "F:00134A42",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：__WSAFDIsSet",
       "import_binding": {
         "original_end": "0x534A48",
@@ -10294,14 +10459,65 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D368",
+        "module": "WSOCK32",
+        "slot": "0x0054D368",
+        "ordinal": 151,
+        "api": "__WSAFDIsSet",
+        "included_calls": [
+          {
+            "from": "0x00507EC9",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    __WSAFDIsSet",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::FD_ISSET宏→::__WSAFDIsSet"
+          },
+          {
+            "from": "0x0050861E",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    __WSAFDIsSet",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::__WSAFDIsSet"
+          },
+          {
+            "from": "0x00508652",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    __WSAFDIsSet",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::__WSAFDIsSet"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FFCC",
+            "parent": "0x0050FF70",
+            "type": 17,
+            "line": "call    __WSAFDIsSet"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A48",
       "inventory_id": "F:00134A48",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：select",
       "import_binding": {
         "original_end": "0x534A4E",
@@ -10333,14 +10549,56 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D364",
+        "module": "WSOCK32",
+        "slot": "0x0054D364",
+        "ordinal": 18,
+        "api": "select",
+        "included_calls": [
+          {
+            "from": "0x00507EB8",
+            "parent": "0x00507DF0",
+            "type": 17,
+            "line": "call    select",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "NetworkLoop_507DF0",
+            "native_call": "::select"
+          },
+          {
+            "from": "0x0050860A",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    select",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::select"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FFBB",
+            "parent": "0x0050FF70",
+            "type": 17,
+            "line": "call    select"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A4E",
       "inventory_id": "F:00134A4E",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：WSAStartup",
       "import_binding": {
         "original_end": "0x534A54",
@@ -10364,14 +10622,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D360",
+        "module": "WSOCK32",
+        "slot": "0x0054D360",
+        "ordinal": 115,
+        "api": "WSAStartup",
+        "included_calls": [
+          {
+            "from": "0x00508150",
+            "parent": "0x00508140",
+            "type": 17,
+            "line": "call    WSAStartup",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "InitializeNetworkRuntime_508140",
+            "native_call": "::WSAStartup"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FCA8",
+            "parent": "0x0050FC30",
+            "type": 17,
+            "line": "call    WSAStartup"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A54",
       "inventory_id": "F:00134A54",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：WSACleanup",
       "import_binding": {
         "original_end": "0x534A5A",
@@ -10395,14 +10686,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D35C",
+        "module": "WSOCK32",
+        "slot": "0x0054D35C",
+        "ordinal": 116,
+        "api": "WSACleanup",
+        "included_calls": [
+          {
+            "from": "0x005081CB",
+            "parent": "0x005081A0",
+            "type": 17,
+            "line": "call    WSACleanup",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "ShutdownNetworkRuntime_5081A0",
+            "native_call": "::WSACleanup"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x00510134",
+            "parent": "0x00510120",
+            "type": 19,
+            "line": "jmp     WSACleanup"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A5A",
       "inventory_id": "F:00134A5A",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：WSAGetLastError",
       "import_binding": {
         "original_end": "0x534A60",
@@ -10435,14 +10759,65 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D358",
+        "module": "WSOCK32",
+        "slot": "0x0054D358",
+        "ordinal": 111,
+        "api": "WSAGetLastError",
+        "included_calls": [
+          {
+            "from": "0x005082D7",
+            "parent": "0x005082D0",
+            "type": 17,
+            "line": "call    WSAGetLastError",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "Sub_5082D0",
+            "native_call": "::WSAGetLastError"
+          },
+          {
+            "from": "0x00508317",
+            "parent": "0x00508310",
+            "type": 17,
+            "line": "call    WSAGetLastError",
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbol": "Sub_508310",
+            "native_call": "::WSAGetLastError"
+          },
+          {
+            "from": "0x005084F5",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    WSAGetLastError",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::WSAGetLastError"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FEDE",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    WSAGetLastError"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A60",
       "inventory_id": "F:00134A60",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：connect",
       "import_binding": {
         "original_end": "0x534A66",
@@ -10467,14 +10842,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D354",
+        "module": "WSOCK32",
+        "slot": "0x0054D354",
+        "ordinal": 4,
+        "api": "connect",
+        "included_calls": [
+          {
+            "from": "0x005084EB",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    connect",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::connect"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FED4",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    connect"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A66",
       "inventory_id": "F:00134A66",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：gethostbyname",
       "import_binding": {
         "original_end": "0x534A6C",
@@ -10499,14 +10907,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D350",
+        "module": "WSOCK32",
+        "slot": "0x0054D350",
+        "ordinal": 52,
+        "api": "gethostbyname",
+        "included_calls": [
+          {
+            "from": "0x00508489",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    gethostbyname",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::gethostbyname"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FE9D",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    gethostbyname"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A6C",
       "inventory_id": "F:00134A6C",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：inet_addr",
       "import_binding": {
         "original_end": "0x534A72",
@@ -10531,14 +10972,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D34C",
+        "module": "WSOCK32",
+        "slot": "0x0054D34C",
+        "ordinal": 10,
+        "api": "inet_addr",
+        "included_calls": [
+          {
+            "from": "0x00508473",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    inet_addr",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::inet_addr"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FE8A",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    inet_addr"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A72",
       "inventory_id": "F:00134A72",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：htons",
       "import_binding": {
         "original_end": "0x534A78",
@@ -10563,14 +11037,47 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D348",
+        "module": "WSOCK32",
+        "slot": "0x0054D348",
+        "ordinal": 9,
+        "api": "htons",
+        "included_calls": [
+          {
+            "from": "0x00508461",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    htons",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::htons"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FE7B",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    htons"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A78",
       "inventory_id": "F:00134A78",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：setsockopt",
       "import_binding": {
         "original_end": "0x534A7E",
@@ -10594,14 +11101,40 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D37C",
+        "module": "WSOCK32",
+        "slot": "0x0054D37C",
+        "ordinal": 21,
+        "api": "setsockopt",
+        "included_calls": [
+          {
+            "from": "0x0050843D",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    setsockopt",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::setsockopt"
+          }
+        ],
+        "excluded_newest_calls": [],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A7E",
       "inventory_id": "F:00134A7E",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：ioctlsocket",
       "import_binding": {
         "original_end": "0x534A84",
@@ -10625,14 +11158,40 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D378",
+        "module": "WSOCK32",
+        "slot": "0x0054D378",
+        "ordinal": 12,
+        "api": "ioctlsocket",
+        "included_calls": [
+          {
+            "from": "0x0050841C",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    ioctlsocket",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::ioctlsocket"
+          }
+        ],
+        "excluded_newest_calls": [],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A84",
       "inventory_id": "F:00134A84",
-      "status": "原生调用位置已映射，链接与运行未验",
+      "status": "NWI01：原Winsock跳板由既有SDK原生API承接；原模块/序号/槽和newest排除引用保留；仅接口/提供者映射，外部ABI/完整父和运行待验",
       "original_role": "平台导入跳板：socket",
       "import_binding": {
         "original_end": "0x534A8A",
@@ -10657,9 +11216,42 @@
       ],
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。"
+      "boundary": "原导入身份保留WSOCK32及序号，API标签沿既有网络取证；新端在既有Winsock原生边界调用，SOCKET使用本机宽度，CMake声明ws2_32。newest链中的其他引用仍按用户排除；加密最终接线与实际收发未验，不因共享系统API存在而恢复排除链。；2026-10-05 NWI01当前原会话核15单jmp/90B、15WSOCK32导入和41入向；26范围内call对应现有SDK API，15newest引用保持排除。SOCKET原生宽度、fd_set/WSADATA/hostent按实际SDK结构，数值/端口/IPv4不扩宽；跳板host、槽mapped只定位接口/提供者，不关闭SDK ABI/链接、完整所有权/状态/间接目标与运行。",
+      "winsock_import_binding_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "import_id": "I:0014D380",
+        "module": "WSOCK32",
+        "slot": "0x0054D380",
+        "ordinal": 23,
+        "api": "socket",
+        "included_calls": [
+          {
+            "from": "0x005083DD",
+            "parent": "0x00508360",
+            "type": 17,
+            "line": "call    socket; ;0x1 -> SOCK_STREAM",
+            "path": "src/LoginState.cpp",
+            "symbol": "Sub_508360",
+            "native_call": "::socket"
+          }
+        ],
+        "excluded_newest_calls": [
+          {
+            "from": "0x0050FE58",
+            "parent": "0x0050FE30",
+            "type": 17,
+            "line": "call    socket; ;0x2 -> AF_INET"
+          }
+        ],
+        "native_provider": "已有Windows SDK / ws2_32原生API",
+        "thunk_body_added": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x534A8A",
@@ -88731,7 +89323,7 @@
     {
       "original_entry": "0x508360",
       "inventory_id": "F:00108360",
-      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "status": "NWI01七次共享socket重读与发送后阶段重读已对齐；原连接/格式/错误及协议保持，完整父/生命周期/SDK/运行未验",
       "original_end_exclusive": "0x5087FC",
       "instruction_count": 339,
       "original_direct_reference_count": 1,
@@ -88931,10 +89523,56 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_winsock_import_binding_evidence.json"
       ],
-      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
-      "boundary": "八格式全部接真实53B304；六无参提示恢复目标+原常量的两实参，去除宿主%s包装，IP失败仍带原serverAddress、CONNECT日志仍带已采样S32错误。DA34DC共享1024B目标不清余部/不新增owner；连接错误先格式日志/真实44B5C0/关闭/失败提示，地址/例外/拒绝先提示后关闭，原负返回/门禁/状态/600000超时以及socket/协议/adapter正文保持。局部栈/SDK布局沿既有适配，不转记原帧或完整登录已验收。"
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行；NWI01归档339条/1180B，仅八读取值时点及单CPP限定重放；不声称余体/全部依赖、链接或运行新增通过",
+      "boundary": "八格式全部接真实53B304；六无参提示恢复目标+原常量的两实参，去除宿主%s包装，IP失败仍带原serverAddress、CONNECT日志仍带已采样S32错误。DA34DC共享1024B目标不清余部/不新增owner；连接错误先格式日志/真实44B5C0/关闭/失败提示，地址/例外/拒绝先提示后关闭，原负返回/门禁/状态/600000超时以及socket/协议/adapter正文保持。局部栈/SDK布局沿既有适配，不转记原帧或完整登录已验收。；2026-10-05 NWI01按508429/4A9/4D7/521/60F/644/66E分别取当时共享原生socket，仍保创建返回给紧邻ioctl及fd集合的同次快照；508748发送返回后先重读阶段，再状态1与原递增。其余格式/失败/关闭/状态/超时及所有协议字节不改，完整父/所有权/SDK与运行不据此关闭。",
+      "network_shared_state_reload_contract": {
+        "group": "NWI01",
+        "spec": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "source": "src/LoginState.cpp",
+        "symbol": "Sub_508360",
+        "socket_reloads": 7,
+        "phase_reload": 1,
+        "original_read_points": [
+          {
+            "original_read": "0x508429",
+            "role": "ioctlsocket后setsockopt独立重取共享socket"
+          },
+          {
+            "original_read": "0x5084A9",
+            "role": "DNS失败提示后close重新读取共享socket"
+          },
+          {
+            "original_read": "0x5084D7",
+            "role": "协议重置后connect重新读取共享socket"
+          },
+          {
+            "original_read": "0x508521",
+            "role": "CONNECT ERROR格式与日志后close重新读取共享socket"
+          },
+          {
+            "original_read": "0x50860F",
+            "role": "select后write fd查询重新读取共享socket"
+          },
+          {
+            "original_read": "0x508644",
+            "role": "CONNECT OK日志后exception fd查询重新读取共享socket"
+          },
+          {
+            "original_read": "0x50866E",
+            "role": "连接例外提示后close重新读取共享socket"
+          },
+          {
+            "original_read": "0x508748",
+            "role": "phase71发送返回后重新读取连接阶段，再状态1/递增"
+          }
+        ],
+        "wire_format_changed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5082D0",

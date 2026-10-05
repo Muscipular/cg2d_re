@@ -619,3 +619,16 @@ Multiline/Multiline_New比较次序保持，不加CR拆分或容量门禁。723�
 依工程委托裁决，UpdateServerConnection入口W16 phase==0的连接提示定长memcpy恢复实际45D9AC→53B304，格式返回显式弃用，复用已有内部声明头。55C7F0原文无占位/无变参，写同源9A5D6C/现256B gServerConnectingText的正文和NUL，保留余部；之后原TextMeasure/布局计算/提示对象和阶段顺序不动。
 
 不改其他消息复制、真实连接/轮询/非零结果死亡/清槽、共享S32返回与已批准newest五函数排除路径，不新增成功/保护或状态。原[45D990,45DBEF)165条只26phase0邻指令，余139条/原caller和已有依赖不重验；原无变参call/原字节/目的及仅此复制恢复格式静态核对。限定扩展原记录，不构建/测试/运行/hash，不宣完整连接/收发/CRT或总PLAN验收。
+
+## NWI01 连接共享socket与阶段重读（2026-10-05）
+
+[本组合同](cg2d_winsock_import_binding_spec.md#winsock-import-source-closure)
+按原508429/5084A9/5084D7/508521/50860F/508644/50866E修复七个共享socket取值时点。
+创建socket返回仍供其紧邻ioctl，等待阶段三个fd集合仍只取原同次快照；
+select/CONNECT OK日志/提示后实际检查与关闭使用当时共享句柄。
+
+原508748位于登录512800发送返回后、请求状态1写入之前；
+新端在此重读gConnectionStep，再执行原状态发布和阶段递增。
+调用/错误/关闭/NoDelay/超时/提示与账号/adapter/明文请求保持，
+不新增状态、校验或异常捕获。单CPP八处外全文保持；
+完整登录/网络父、所有权/间接alias及SDK/运行不据本组验收关闭。

@@ -1099,3 +1099,13 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **交付范围**：精确12项，快照`cg2d-re-mode3-private-core-source-20261005`；用户既有六项不暂存。未构建/查产物/测试/运行/摘要；单线程、原格式明文、音频暂停及RPLAN.24保持。
 
 **M3P01交付检查**：12项严格UTF-8无BOM/LF、724个本地Markdown链接、39项限定证据/决议引用及Git差异格式通过；单头三替换、三记录/登记簿限定重放及measure生成/独立-Check通过。任务10/60、叶0/182与完整门禁不提升。
+
+## NWI01 Winsock导入归属与连接共享状态重读（2026-10-05）
+
+- **开发**：先记[NWI01 SPEC](../doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision)，再修Sub_508360七个跨ioctl/格式/日志/重置/select后的共享socket取值时点；phase71发送返回后先重读gConnectionStep，再状态1/原递增。创建返回给ioctl、三个fd集合的同次快照保持；单CPP八处外全文保持，不改协议字节、请求/错误/日志/关闭/超时或其它源码。
+- **基线/接线**：[机器归档](../doc/cg2d_winsock_import_binding_evidence.json)保339条/1180B连接父、15单jmp/90B跳板、15个原WSOCK32序号槽及41入向。26范围内call对应现有实际SDK API，newest15引用保排除，htons PE导入描述引用另列；SDK十五声明/FD_ISSET宏、原生句柄与结构及既有ws2_32文本配置已记录，不造旧ABI空跳板。
+- **台账**：16既有语义定点/1191其他及政策保持；15新host使159→174/3680，导入mapped使0→15/218，限定E117→120。语义1207/1204有效ID、18pending/4分类、任务10/60、叶0/182与完整门禁/R不变；15跳板不是新增业务本体，IAT mapped不代外部ABI/运行验收。
+- **剩余**：U10/V03/R01/R02继续open；P09/P10既有源码工作项状态保持。其余203导入、3061未归属区间、全部父/生产/owner/alias/动态边、SDK实际ABI/链接/正常失败及登录明文互通和R1/R7仍待。没有借共享API恢复newest，不扩大网络两算法叶排除。
+- **交付**：精确12项，快照`cg2d-re-winsock-import-binding-source-20261005`；用户既有六项不暂存。未构建/查产物/新增或执行测试/运行/摘要；单线程、RPLAN.24、原格式明文及音频暂停保持。
+
+**NWI01交付检查**：12项严格UTF-8无BOM/LF、787个本地Markdown链接、42项限定证据/决议引用及Git差异格式通过；单CPP八替换、16记录/登记簿限定重放、26实际API点对应及measure生成/独立-Check通过。任务10/60、叶0/182与完整门禁不提升。

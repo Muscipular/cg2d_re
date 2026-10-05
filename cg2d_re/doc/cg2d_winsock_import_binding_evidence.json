@@ -1,0 +1,3224 @@
+{
+  "schema_version": 1,
+  "group": "NWI01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_winsock_import_binding_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-winsock-import-binding-source-20261005",
+  "authority": {
+    "binary": "cg2d.exe",
+    "instance": "ida-17524",
+    "imagebase": "0x400000",
+    "method": "当前已打开原会话MCP只读；未重载/修改/导出数据库"
+  },
+  "original_imports": [
+    {
+      "module": "WSOCK32",
+      "entries": [
+        {
+          "slot": "0x0054D370",
+          "rva": "0x0014D370",
+          "import_name": "__imp_closesocket",
+          "ordinal": 3,
+          "refs": [
+            {
+              "from": "0x00534A36",
+              "parent": "0x00534A36",
+              "type": 3,
+              "line": "jmp     ds:__imp_closesocket"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D354",
+          "rva": "0x0014D354",
+          "import_name": "__imp_connect",
+          "ordinal": 4,
+          "refs": [
+            {
+              "from": "0x00534A60",
+              "parent": "0x00534A60",
+              "type": 3,
+              "line": "jmp     ds:__imp_connect"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D348",
+          "rva": "0x0014D348",
+          "import_name": "__imp_htons",
+          "ordinal": 9,
+          "refs": [
+            {
+              "from": "0x00534A72",
+              "parent": "0x00534A72",
+              "type": 3,
+              "line": "jmp     ds:__imp_htons"
+            },
+            {
+              "from": "0x005519D0",
+              "parent": null,
+              "type": 1,
+              "line": "dd rva __imp_htons; Import Address Table"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D34C",
+          "rva": "0x0014D34C",
+          "import_name": "__imp_inet_addr",
+          "ordinal": 10,
+          "refs": [
+            {
+              "from": "0x00534A6C",
+              "parent": "0x00534A6C",
+              "type": 3,
+              "line": "jmp     ds:__imp_inet_addr"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D378",
+          "rva": "0x0014D378",
+          "import_name": "__imp_ioctlsocket",
+          "ordinal": 12,
+          "refs": [
+            {
+              "from": "0x00534A7E",
+              "parent": "0x00534A7E",
+              "type": 3,
+              "line": "jmp     ds:__imp_ioctlsocket"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D36C",
+          "rva": "0x0014D36C",
+          "import_name": "__imp_recv",
+          "ordinal": 16,
+          "refs": [
+            {
+              "from": "0x00534A3C",
+              "parent": "0x00534A3C",
+              "type": 3,
+              "line": "jmp     ds:__imp_recv"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D364",
+          "rva": "0x0014D364",
+          "import_name": "__imp_select",
+          "ordinal": 18,
+          "refs": [
+            {
+              "from": "0x00534A48",
+              "parent": "0x00534A48",
+              "type": 3,
+              "line": "jmp     ds:__imp_select"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D374",
+          "rva": "0x0014D374",
+          "import_name": "__imp_send",
+          "ordinal": 19,
+          "refs": [
+            {
+              "from": "0x00534A30",
+              "parent": "0x00534A30",
+              "type": 3,
+              "line": "jmp     ds:__imp_send"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D37C",
+          "rva": "0x0014D37C",
+          "import_name": "__imp_setsockopt",
+          "ordinal": 21,
+          "refs": [
+            {
+              "from": "0x00534A78",
+              "parent": "0x00534A78",
+              "type": 3,
+              "line": "jmp     ds:__imp_setsockopt"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D380",
+          "rva": "0x0014D380",
+          "import_name": "__imp_socket",
+          "ordinal": 23,
+          "refs": [
+            {
+              "from": "0x00534A84",
+              "parent": "0x00534A84",
+              "type": 3,
+              "line": "jmp     ds:__imp_socket"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D350",
+          "rva": "0x0014D350",
+          "import_name": "__imp_gethostbyname",
+          "ordinal": 52,
+          "refs": [
+            {
+              "from": "0x00534A66",
+              "parent": "0x00534A66",
+              "type": 3,
+              "line": "jmp     ds:__imp_gethostbyname"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D358",
+          "rva": "0x0014D358",
+          "import_name": "__imp_WSAGetLastError",
+          "ordinal": 111,
+          "refs": [
+            {
+              "from": "0x00534A5A",
+              "parent": "0x00534A5A",
+              "type": 3,
+              "line": "jmp     ds:__imp_WSAGetLastError"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D360",
+          "rva": "0x0014D360",
+          "import_name": "__imp_WSAStartup",
+          "ordinal": 115,
+          "refs": [
+            {
+              "from": "0x00534A4E",
+              "parent": "0x00534A4E",
+              "type": 3,
+              "line": "jmp     ds:__imp_WSAStartup"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D35C",
+          "rva": "0x0014D35C",
+          "import_name": "__imp_WSACleanup",
+          "ordinal": 116,
+          "refs": [
+            {
+              "from": "0x00534A54",
+              "parent": "0x00534A54",
+              "type": 3,
+              "line": "jmp     ds:__imp_WSACleanup"
+            }
+          ]
+        },
+        {
+          "slot": "0x0054D368",
+          "rva": "0x0014D368",
+          "import_name": "__imp___WSAFDIsSet",
+          "ordinal": 151,
+          "refs": [
+            {
+              "from": "0x00534A42",
+              "parent": "0x00534A42",
+              "type": 3,
+              "line": "jmp     ds:__imp___WSAFDIsSet"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_thunks": [
+    {
+      "thunk": "0x00534A36",
+      "instructions": [
+        [
+          "0x00534A36",
+          "jmp     ds:__imp_closesocket"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00507F35",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x005080E5",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x005081C6",
+          "parent": "0x005081A0",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x005084B3",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0050852B",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x00508678",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x005087AC",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0050FEAD",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0050FEF1",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0051012F",
+          "parent": "0x00510120",
+          "type": 17,
+          "line": "call    closesocket"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A36",
+          "0x00534A3C"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D370",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A60",
+      "instructions": [
+        [
+          "0x00534A60",
+          "jmp     ds:__imp_connect"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x005084EB",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    connect"
+        },
+        {
+          "from": "0x0050FED4",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    connect"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A60",
+          "0x00534A66"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D354",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A72",
+      "instructions": [
+        [
+          "0x00534A72",
+          "jmp     ds:__imp_htons"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00508461",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    htons"
+        },
+        {
+          "from": "0x0050FE7B",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    htons"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A72",
+          "0x00534A78"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D348",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A6C",
+      "instructions": [
+        [
+          "0x00534A6C",
+          "jmp     ds:__imp_inet_addr"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00508473",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    inet_addr"
+        },
+        {
+          "from": "0x0050FE8A",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    inet_addr"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A6C",
+          "0x00534A72"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D34C",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A7E",
+      "instructions": [
+        [
+          "0x00534A7E",
+          "jmp     ds:__imp_ioctlsocket"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x0050841C",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    ioctlsocket"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A7E",
+          "0x00534A84"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D378",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A3C",
+      "instructions": [
+        [
+          "0x00534A3C",
+          "jmp     ds:__imp_recv"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00507EF7",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    recv"
+        },
+        {
+          "from": "0x00510041",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    recv"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A3C",
+          "0x00534A42"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D36C",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A48",
+      "instructions": [
+        [
+          "0x00534A48",
+          "jmp     ds:__imp_select"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00507EB8",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    select"
+        },
+        {
+          "from": "0x0050860A",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    select"
+        },
+        {
+          "from": "0x0050FFBB",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    select"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A48",
+          "0x00534A4E"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D364",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A30",
+      "instructions": [
+        [
+          "0x00534A30",
+          "jmp     ds:__imp_send"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x005080BC",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    send"
+        },
+        {
+          "from": "0x0050FF54",
+          "parent": "0x0050FF10",
+          "type": 17,
+          "line": "call    send"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A30",
+          "0x00534A36"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D374",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A78",
+      "instructions": [
+        [
+          "0x00534A78",
+          "jmp     ds:__imp_setsockopt"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x0050843D",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    setsockopt"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A78",
+          "0x00534A7E"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D37C",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A84",
+      "instructions": [
+        [
+          "0x00534A84",
+          "jmp     ds:__imp_socket"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x005083DD",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    socket; ;0x1 -> SOCK_STREAM"
+        },
+        {
+          "from": "0x0050FE58",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    socket; ;0x2 -> AF_INET"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A84",
+          "0x00534A8A"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D380",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A66",
+      "instructions": [
+        [
+          "0x00534A66",
+          "jmp     ds:__imp_gethostbyname"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00508489",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    gethostbyname"
+        },
+        {
+          "from": "0x0050FE9D",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    gethostbyname"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A66",
+          "0x00534A6C"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D350",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A5A",
+      "instructions": [
+        [
+          "0x00534A5A",
+          "jmp     ds:__imp_WSAGetLastError"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x005082D7",
+          "parent": "0x005082D0",
+          "type": 17,
+          "line": "call    WSAGetLastError"
+        },
+        {
+          "from": "0x00508317",
+          "parent": "0x00508310",
+          "type": 17,
+          "line": "call    WSAGetLastError"
+        },
+        {
+          "from": "0x005084F5",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    WSAGetLastError"
+        },
+        {
+          "from": "0x0050FEDE",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    WSAGetLastError"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A5A",
+          "0x00534A60"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D358",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A4E",
+      "instructions": [
+        [
+          "0x00534A4E",
+          "jmp     ds:__imp_WSAStartup"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00508150",
+          "parent": "0x00508140",
+          "type": 17,
+          "line": "call    WSAStartup"
+        },
+        {
+          "from": "0x0050FCA8",
+          "parent": "0x0050FC30",
+          "type": 17,
+          "line": "call    WSAStartup"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A4E",
+          "0x00534A54"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D360",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A54",
+      "instructions": [
+        [
+          "0x00534A54",
+          "jmp     ds:__imp_WSACleanup"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x005081CB",
+          "parent": "0x005081A0",
+          "type": 17,
+          "line": "call    WSACleanup"
+        },
+        {
+          "from": "0x00510134",
+          "parent": "0x00510120",
+          "type": 19,
+          "line": "jmp     WSACleanup"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A54",
+          "0x00534A5A"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D35C",
+      "mnemonic": "jmp"
+    },
+    {
+      "thunk": "0x00534A42",
+      "instructions": [
+        [
+          "0x00534A42",
+          "jmp     ds:__imp___WSAFDIsSet"
+        ]
+      ],
+      "inbound": [
+        {
+          "from": "0x00507EC9",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    __WSAFDIsSet"
+        },
+        {
+          "from": "0x0050861E",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    __WSAFDIsSet"
+        },
+        {
+          "from": "0x00508652",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    __WSAFDIsSet"
+        },
+        {
+          "from": "0x0050FFCC",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    __WSAFDIsSet"
+        }
+      ],
+      "byte_count": 6,
+      "instruction_count": 1,
+      "source_role": "由既有SDK API调用承接导入机制，无新建旧跳板C++包装",
+      "chunks": [
+        [
+          "0x00534A42",
+          "0x00534A48"
+        ]
+      ],
+      "instruction_size": 6,
+      "iat_operand": "0x0054D368",
+      "mnemonic": "jmp"
+    }
+  ],
+  "original_connection": {
+    "entry": "0x00508360",
+    "chunks": [
+      [
+        "0x00508360",
+        "0x005087FC"
+      ]
+    ],
+    "instruction_count": 339,
+    "instructions": [
+      {
+        "ea": "0x00508360",
+        "size": 5,
+        "line": "mov     al, byte_D9F2C8"
+      },
+      {
+        "ea": "0x00508365",
+        "size": 6,
+        "line": "sub     esp, 408h"
+      },
+      {
+        "ea": "0x0050836B",
+        "size": 2,
+        "line": "test    al, al"
+      },
+      {
+        "ea": "0x0050836D",
+        "size": 1,
+        "line": "push    ebx"
+      },
+      {
+        "ea": "0x0050836E",
+        "size": 1,
+        "line": "push    ebp"
+      },
+      {
+        "ea": "0x0050836F",
+        "size": 1,
+        "line": "push    esi"
+      },
+      {
+        "ea": "0x00508370",
+        "size": 6,
+        "line": "jz      loc_5087F0"
+      },
+      {
+        "ea": "0x00508376",
+        "size": 5,
+        "line": "mov     eax, gConnection__Step"
+      },
+      {
+        "ea": "0x0050837B",
+        "size": 6,
+        "line": "mov     ebp, ds:GetTickCount"
+      },
+      {
+        "ea": "0x00508381",
+        "size": 2,
+        "line": "xor     esi, esi"
+      },
+      {
+        "ea": "0x00508383",
+        "size": 2,
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x00508385",
+        "size": 6,
+        "line": "jnz     loc_508589"
+      },
+      {
+        "ea": "0x0050838B",
+        "size": 2,
+        "line": "call    ebp ; GetTickCount"
+      },
+      {
+        "ea": "0x0050838D",
+        "size": 7,
+        "line": "movsx   edx, gSelectedServer"
+      },
+      {
+        "ea": "0x00508394",
+        "size": 5,
+        "line": "mov     dword_DA3B38, eax"
+      },
+      {
+        "ea": "0x00508399",
+        "size": 4,
+        "line": "lea     eax, [esp+414h+hostshort]"
+      },
+      {
+        "ea": "0x0050839D",
+        "size": 7,
+        "line": "lea     ecx, [esp+414h+cp]"
+      },
+      {
+        "ea": "0x005083A4",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x005083A5",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x005083A6",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x005083A7",
+        "size": 5,
+        "line": "call    GetServerAddressInfo"
+      },
+      {
+        "ea": "0x005083AC",
+        "size": 3,
+        "line": "add     esp, 0Ch"
+      },
+      {
+        "ea": "0x005083AF",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x005083B1",
+        "size": 2,
+        "line": "jge     short loc_5083D4"
+      },
+      {
+        "ea": "0x005083B3",
+        "size": 5,
+        "line": "push    offset asc_58AF74; Format"
+      },
+      {
+        "ea": "0x005083B8",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x005083BD",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x005083C2",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x005083C5",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFFEh"
+      },
+      {
+        "ea": "0x005083CA",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x005083CB",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x005083CC",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x005083CD",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x005083D3",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x005083D4",
+        "size": 5,
+        "line": "mov     ebx, 1"
+      },
+      {
+        "ea": "0x005083D9",
+        "size": 1,
+        "line": "push    esi; protocol"
+      },
+      {
+        "ea": "0x005083DA",
+        "size": 1,
+        "line": "push    ebx; type"
+      },
+      {
+        "ea": "0x005083DB",
+        "size": 2,
+        "line": "push    2; af"
+      },
+      {
+        "ea": "0x005083DD",
+        "size": 5,
+        "line": "call    socket; ;0x1 -> SOCK_STREAM"
+      },
+      {
+        "ea": "0x005083E2",
+        "size": 3,
+        "line": "cmp     eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x005083E5",
+        "size": 5,
+        "line": "mov     s, eax"
+      },
+      {
+        "ea": "0x005083EA",
+        "size": 2,
+        "line": "jnz     short loc_50840D"
+      },
+      {
+        "ea": "0x005083EC",
+        "size": 5,
+        "line": "push    offset aTcp; \"網路通訊協定（TCP）錯誤。\""
+      },
+      {
+        "ea": "0x005083F1",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x005083F6",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x005083FB",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x005083FE",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFFDh"
+      },
+      {
+        "ea": "0x00508403",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x00508404",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x00508405",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x00508406",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x0050840C",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x0050840D",
+        "size": 4,
+        "line": "lea     ecx, [esp+414h+argp]"
+      },
+      {
+        "ea": "0x00508411",
+        "size": 4,
+        "line": "mov     [esp+414h+argp], ebx"
+      },
+      {
+        "ea": "0x00508415",
+        "size": 1,
+        "line": "push    ecx; argp"
+      },
+      {
+        "ea": "0x00508416",
+        "size": 5,
+        "line": "push    8004667Eh; cmd"
+      },
+      {
+        "ea": "0x0050841B",
+        "size": 1,
+        "line": "push    eax; s"
+      },
+      {
+        "ea": "0x0050841C",
+        "size": 5,
+        "line": "call    ioctlsocket"
+      },
+      {
+        "ea": "0x00508421",
+        "size": 6,
+        "line": "cmp     NoDelay, esi"
+      },
+      {
+        "ea": "0x00508427",
+        "size": 2,
+        "line": "jz      short loc_508455"
+      },
+      {
+        "ea": "0x00508429",
+        "size": 5,
+        "line": "mov     eax, s"
+      },
+      {
+        "ea": "0x0050842E",
+        "size": 4,
+        "line": "lea     edx, [esp+414h+optval]"
+      },
+      {
+        "ea": "0x00508432",
+        "size": 2,
+        "line": "push    4; optlen"
+      },
+      {
+        "ea": "0x00508434",
+        "size": 1,
+        "line": "push    edx; optval"
+      },
+      {
+        "ea": "0x00508435",
+        "size": 1,
+        "line": "push    ebx; optname"
+      },
+      {
+        "ea": "0x00508436",
+        "size": 2,
+        "line": "push    6; level"
+      },
+      {
+        "ea": "0x00508438",
+        "size": 1,
+        "line": "push    eax; s"
+      },
+      {
+        "ea": "0x00508439",
+        "size": 4,
+        "line": "mov     dword ptr [esp+428h+optval], ebx"
+      },
+      {
+        "ea": "0x0050843D",
+        "size": 5,
+        "line": "call    setsockopt"
+      },
+      {
+        "ea": "0x00508442",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x00508444",
+        "size": 2,
+        "line": "jz      short loc_508455"
+      },
+      {
+        "ea": "0x00508446",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x00508447",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x00508448",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFF9Ch"
+      },
+      {
+        "ea": "0x0050844D",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x0050844E",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x00508454",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x00508455",
+        "size": 4,
+        "line": "mov     ecx, dword ptr [esp+414h+hostshort]"
+      },
+      {
+        "ea": "0x00508459",
+        "size": 7,
+        "line": "mov     [esp+414h+name.sa_family], 2"
+      },
+      {
+        "ea": "0x00508460",
+        "size": 1,
+        "line": "push    ecx; hostshort"
+      },
+      {
+        "ea": "0x00508461",
+        "size": 5,
+        "line": "call    htons"
+      },
+      {
+        "ea": "0x00508466",
+        "size": 7,
+        "line": "lea     edx, [esp+414h+cp]"
+      },
+      {
+        "ea": "0x0050846D",
+        "size": 5,
+        "line": "mov     word ptr [esp+414h+name.sa_data], ax"
+      },
+      {
+        "ea": "0x00508472",
+        "size": 1,
+        "line": "push    edx; cp"
+      },
+      {
+        "ea": "0x00508473",
+        "size": 5,
+        "line": "call    inet_addr"
+      },
+      {
+        "ea": "0x00508478",
+        "size": 3,
+        "line": "cmp     eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x0050847B",
+        "size": 4,
+        "line": "mov     dword ptr [esp+414h+name.sa_data+2], eax"
+      },
+      {
+        "ea": "0x0050847F",
+        "size": 2,
+        "line": "jnz     short loc_5084D2"
+      },
+      {
+        "ea": "0x00508481",
+        "size": 7,
+        "line": "lea     eax, [esp+414h+cp]"
+      },
+      {
+        "ea": "0x00508488",
+        "size": 1,
+        "line": "push    eax; name"
+      },
+      {
+        "ea": "0x00508489",
+        "size": 5,
+        "line": "call    gethostbyname"
+      },
+      {
+        "ea": "0x0050848E",
+        "size": 2,
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x00508490",
+        "size": 2,
+        "line": "jnz     short loc_5084C7"
+      },
+      {
+        "ea": "0x00508492",
+        "size": 7,
+        "line": "lea     ecx, [esp+414h+cp]"
+      },
+      {
+        "ea": "0x00508499",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x0050849A",
+        "size": 5,
+        "line": "push    offset aIpS; \"無法取得伺服器的 IP 位址。(%s)\""
+      },
+      {
+        "ea": "0x0050849F",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x005084A4",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x005084A9",
+        "size": 6,
+        "line": "mov     edx, s"
+      },
+      {
+        "ea": "0x005084AF",
+        "size": 3,
+        "line": "add     esp, 0Ch"
+      },
+      {
+        "ea": "0x005084B2",
+        "size": 1,
+        "line": "push    edx; s"
+      },
+      {
+        "ea": "0x005084B3",
+        "size": 5,
+        "line": "call    closesocket"
+      },
+      {
+        "ea": "0x005084B8",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x005084B9",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x005084BA",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFFCh"
+      },
+      {
+        "ea": "0x005084BF",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x005084C0",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x005084C6",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x005084C7",
+        "size": 3,
+        "line": "mov     eax, [eax+0Ch]"
+      },
+      {
+        "ea": "0x005084CA",
+        "size": 2,
+        "line": "mov     ecx, [eax]"
+      },
+      {
+        "ea": "0x005084CC",
+        "size": 2,
+        "line": "mov     edx, [ecx]"
+      },
+      {
+        "ea": "0x005084CE",
+        "size": 4,
+        "line": "mov     dword ptr [esp+414h+name.sa_data+2], edx"
+      },
+      {
+        "ea": "0x005084D2",
+        "size": 5,
+        "line": "call    sub_4037D0"
+      },
+      {
+        "ea": "0x005084D7",
+        "size": 6,
+        "line": "mov     ecx, s"
+      },
+      {
+        "ea": "0x005084DD",
+        "size": 4,
+        "line": "lea     eax, [esp+414h+name]"
+      },
+      {
+        "ea": "0x005084E1",
+        "size": 2,
+        "line": "push    10h; namelen"
+      },
+      {
+        "ea": "0x005084E3",
+        "size": 1,
+        "line": "push    eax; name"
+      },
+      {
+        "ea": "0x005084E4",
+        "size": 1,
+        "line": "push    ecx; s"
+      },
+      {
+        "ea": "0x005084E5",
+        "size": 6,
+        "line": "mov     dword_D9F2D0, esi"
+      },
+      {
+        "ea": "0x005084EB",
+        "size": 5,
+        "line": "call    connect"
+      },
+      {
+        "ea": "0x005084F0",
+        "size": 3,
+        "line": "cmp     eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x005084F3",
+        "size": 2,
+        "line": "jnz     short loc_508551"
+      },
+      {
+        "ea": "0x005084F5",
+        "size": 5,
+        "line": "call    WSAGetLastError"
+      },
+      {
+        "ea": "0x005084FA",
+        "size": 5,
+        "line": "cmp     eax, 2733h"
+      },
+      {
+        "ea": "0x005084FF",
+        "size": 2,
+        "line": "jz      short loc_508551"
+      },
+      {
+        "ea": "0x00508501",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x00508502",
+        "size": 7,
+        "line": "lea     edx, [esp+418h+anonymous_0]"
+      },
+      {
+        "ea": "0x00508509",
+        "size": 5,
+        "line": "push    offset aConnectErrorD; \"CONNECT ERROR=%d\""
+      },
+      {
+        "ea": "0x0050850E",
+        "size": 1,
+        "line": "push    edx; Buffer"
+      },
+      {
+        "ea": "0x0050850F",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x00508514",
+        "size": 7,
+        "line": "lea     eax, [esp+420h+anonymous_0]"
+      },
+      {
+        "ea": "0x0050851B",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x0050851C",
+        "size": 5,
+        "line": "call    sub_44B5C0"
+      },
+      {
+        "ea": "0x00508521",
+        "size": 6,
+        "line": "mov     ecx, s"
+      },
+      {
+        "ea": "0x00508527",
+        "size": 3,
+        "line": "add     esp, 10h"
+      },
+      {
+        "ea": "0x0050852A",
+        "size": 1,
+        "line": "push    ecx; s"
+      },
+      {
+        "ea": "0x0050852B",
+        "size": 5,
+        "line": "call    closesocket"
+      },
+      {
+        "ea": "0x00508530",
+        "size": 5,
+        "line": "push    offset asc_58AF04; \"無法開始處理與伺服器的連接。\""
+      },
+      {
+        "ea": "0x00508535",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x0050853A",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x0050853F",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x00508542",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFFBh"
+      },
+      {
+        "ea": "0x00508547",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x00508548",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x00508549",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x0050854A",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x00508550",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x00508551",
+        "size": 6,
+        "line": "mov     gConnection__Step, ebx"
+      },
+      {
+        "ea": "0x00508557",
+        "size": 2,
+        "line": "call    ebp ; GetTickCount"
+      },
+      {
+        "ea": "0x00508559",
+        "size": 6,
+        "line": "sub     eax, dword_DA3B38"
+      },
+      {
+        "ea": "0x0050855F",
+        "size": 5,
+        "line": "cmp     eax, 927C0h"
+      },
+      {
+        "ea": "0x00508564",
+        "size": 6,
+        "line": "jbe     loc_5087F0"
+      },
+      {
+        "ea": "0x0050856A",
+        "size": 5,
+        "line": "push    offset asc_58AEEC; \"與伺服器的連接逾時。\""
+      },
+      {
+        "ea": "0x0050856F",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x00508574",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x00508579",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x0050857C",
+        "size": 3,
+        "line": "or      eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x0050857F",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x00508580",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x00508581",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x00508582",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x00508588",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x00508589",
+        "size": 5,
+        "line": "mov     ebx, 1"
+      },
+      {
+        "ea": "0x0050858E",
+        "size": 2,
+        "line": "cmp     eax, ebx"
+      },
+      {
+        "ea": "0x00508590",
+        "size": 6,
+        "line": "jl      loc_50868C"
+      },
+      {
+        "ea": "0x00508596",
+        "size": 3,
+        "line": "cmp     eax, 46h ; 'F'"
+      },
+      {
+        "ea": "0x00508599",
+        "size": 6,
+        "line": "jg      loc_50868C"
+      },
+      {
+        "ea": "0x0050859F",
+        "size": 1,
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x005085A0",
+        "size": 3,
+        "line": "cmp     eax, 46h ; 'F'"
+      },
+      {
+        "ea": "0x005085A3",
+        "size": 5,
+        "line": "mov     gConnection__Step, eax"
+      },
+      {
+        "ea": "0x005085A8",
+        "size": 2,
+        "line": "jnz     short loc_5085B4"
+      },
+      {
+        "ea": "0x005085AA",
+        "size": 10,
+        "line": "mov     gConnection__Step, 45h ; 'E'"
+      },
+      {
+        "ea": "0x005085B4",
+        "size": 5,
+        "line": "mov     eax, s"
+      },
+      {
+        "ea": "0x005085B9",
+        "size": 4,
+        "line": "lea     edx, [esp+414h+hostshort]"
+      },
+      {
+        "ea": "0x005085BD",
+        "size": 7,
+        "line": "mov     dword ptr [esp+414h+anonymous_2+4], eax"
+      },
+      {
+        "ea": "0x005085C4",
+        "size": 7,
+        "line": "mov     dword ptr [esp+414h+anonymous_0+4], eax"
+      },
+      {
+        "ea": "0x005085CB",
+        "size": 7,
+        "line": "mov     dword ptr [esp+414h+anonymous_1+4], eax"
+      },
+      {
+        "ea": "0x005085D2",
+        "size": 7,
+        "line": "lea     eax, [esp+414h+anonymous_1]"
+      },
+      {
+        "ea": "0x005085D9",
+        "size": 1,
+        "line": "push    edx; timeout"
+      },
+      {
+        "ea": "0x005085DA",
+        "size": 7,
+        "line": "lea     ecx, [esp+418h+anonymous_0]"
+      },
+      {
+        "ea": "0x005085E1",
+        "size": 1,
+        "line": "push    eax; exceptfds"
+      },
+      {
+        "ea": "0x005085E2",
+        "size": 7,
+        "line": "lea     edx, [esp+41Ch+anonymous_2]"
+      },
+      {
+        "ea": "0x005085E9",
+        "size": 1,
+        "line": "push    ecx; writefds"
+      },
+      {
+        "ea": "0x005085EA",
+        "size": 1,
+        "line": "push    edx; readfds"
+      },
+      {
+        "ea": "0x005085EB",
+        "size": 2,
+        "line": "push    2; nfds"
+      },
+      {
+        "ea": "0x005085ED",
+        "size": 4,
+        "line": "mov     dword ptr [esp+428h+hostshort], esi"
+      },
+      {
+        "ea": "0x005085F1",
+        "size": 4,
+        "line": "mov     [esp+428h+var_404], esi"
+      },
+      {
+        "ea": "0x005085F5",
+        "size": 7,
+        "line": "mov     dword ptr [esp+428h+anonymous_2], ebx"
+      },
+      {
+        "ea": "0x005085FC",
+        "size": 7,
+        "line": "mov     dword ptr [esp+428h+anonymous_0], ebx"
+      },
+      {
+        "ea": "0x00508603",
+        "size": 7,
+        "line": "mov     dword ptr [esp+428h+anonymous_1], ebx"
+      },
+      {
+        "ea": "0x0050860A",
+        "size": 5,
+        "line": "call    select"
+      },
+      {
+        "ea": "0x0050860F",
+        "size": 6,
+        "line": "mov     ecx, s"
+      },
+      {
+        "ea": "0x00508615",
+        "size": 7,
+        "line": "lea     eax, [esp+414h+anonymous_0]"
+      },
+      {
+        "ea": "0x0050861C",
+        "size": 1,
+        "line": "push    eax; fd_set *"
+      },
+      {
+        "ea": "0x0050861D",
+        "size": 1,
+        "line": "push    ecx; fd"
+      },
+      {
+        "ea": "0x0050861E",
+        "size": 5,
+        "line": "call    __WSAFDIsSet"
+      },
+      {
+        "ea": "0x00508623",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x00508625",
+        "size": 2,
+        "line": "jz      short loc_508644"
+      },
+      {
+        "ea": "0x00508627",
+        "size": 5,
+        "line": "push    offset aConnectOk; \"CONNECT OK\""
+      },
+      {
+        "ea": "0x0050862C",
+        "size": 10,
+        "line": "mov     gConnection__Step, 47h ; 'G'"
+      },
+      {
+        "ea": "0x00508636",
+        "size": 6,
+        "line": "mov     byte_D9F2C9, bl"
+      },
+      {
+        "ea": "0x0050863C",
+        "size": 5,
+        "line": "call    sub_44B5C0"
+      },
+      {
+        "ea": "0x00508641",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x00508644",
+        "size": 5,
+        "line": "mov     eax, s"
+      },
+      {
+        "ea": "0x00508649",
+        "size": 7,
+        "line": "lea     edx, [esp+414h+anonymous_1]"
+      },
+      {
+        "ea": "0x00508650",
+        "size": 1,
+        "line": "push    edx; fd_set *"
+      },
+      {
+        "ea": "0x00508651",
+        "size": 1,
+        "line": "push    eax; fd"
+      },
+      {
+        "ea": "0x00508652",
+        "size": 5,
+        "line": "call    __WSAFDIsSet"
+      },
+      {
+        "ea": "0x00508657",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x00508659",
+        "size": 6,
+        "line": "jz      loc_508557"
+      },
+      {
+        "ea": "0x0050865F",
+        "size": 5,
+        "line": "push    offset asc_55C62C; \"無法連上伺服器。 \""
+      },
+      {
+        "ea": "0x00508664",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x00508669",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x0050866E",
+        "size": 6,
+        "line": "mov     ecx, s"
+      },
+      {
+        "ea": "0x00508674",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x00508677",
+        "size": 1,
+        "line": "push    ecx; s"
+      },
+      {
+        "ea": "0x00508678",
+        "size": 5,
+        "line": "call    closesocket"
+      },
+      {
+        "ea": "0x0050867D",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x0050867E",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x0050867F",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFFAh"
+      },
+      {
+        "ea": "0x00508684",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x00508685",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x0050868B",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x0050868C",
+        "size": 3,
+        "line": "cmp     eax, 47h ; 'G'"
+      },
+      {
+        "ea": "0x0050868F",
+        "size": 6,
+        "line": "jl      loc_5087C0"
+      },
+      {
+        "ea": "0x00508695",
+        "size": 3,
+        "line": "cmp     eax, 50h ; 'P'"
+      },
+      {
+        "ea": "0x00508698",
+        "size": 6,
+        "line": "jg      loc_5087C0"
+      },
+      {
+        "ea": "0x0050869E",
+        "size": 3,
+        "line": "cmp     eax, 47h ; 'G'"
+      },
+      {
+        "ea": "0x005086A1",
+        "size": 6,
+        "line": "jnz     loc_508775"
+      },
+      {
+        "ea": "0x005086A7",
+        "size": 4,
+        "line": "lea     edx, [esp+414h+name]"
+      },
+      {
+        "ea": "0x005086AB",
+        "size": 1,
+        "line": "push    edi"
+      },
+      {
+        "ea": "0x005086AC",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x005086AD",
+        "size": 7,
+        "line": "mov     word_DA3B22, si"
+      },
+      {
+        "ea": "0x005086B4",
+        "size": 5,
+        "line": "call    sub_534EF0"
+      },
+      {
+        "ea": "0x005086B9",
+        "size": 5,
+        "line": "mov     edi, offset gAccount"
+      },
+      {
+        "ea": "0x005086BE",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x005086C1",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x005086C3",
+        "size": 4,
+        "line": "lea     edx, [esp+418h+var_3E4]"
+      },
+      {
+        "ea": "0x005086C7",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x005086C9",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x005086CB",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x005086CD",
+        "size": 2,
+        "line": "mov     eax, ecx"
+      },
+      {
+        "ea": "0x005086CF",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x005086D1",
+        "size": 2,
+        "line": "mov     edi, edx"
+      },
+      {
+        "ea": "0x005086D3",
+        "size": 4,
+        "line": "lea     edx, [esp+418h+var_3B8]"
+      },
+      {
+        "ea": "0x005086D7",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x005086DA",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x005086DC",
+        "size": 2,
+        "line": "mov     ecx, eax"
+      },
+      {
+        "ea": "0x005086DE",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x005086E0",
+        "size": 3,
+        "line": "and     ecx, 3"
+      },
+      {
+        "ea": "0x005086E3",
+        "size": 2,
+        "line": "rep movsb"
+      },
+      {
+        "ea": "0x005086E5",
+        "size": 4,
+        "line": "lea     edi, [esp+418h+name]"
+      },
+      {
+        "ea": "0x005086E9",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x005086EC",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x005086EE",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x005086F0",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x005086F2",
+        "size": 2,
+        "line": "mov     eax, ecx"
+      },
+      {
+        "ea": "0x005086F4",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x005086F6",
+        "size": 2,
+        "line": "mov     edi, edx"
+      },
+      {
+        "ea": "0x005086F8",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x005086FB",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x005086FD",
+        "size": 2,
+        "line": "mov     ecx, eax"
+      },
+      {
+        "ea": "0x005086FF",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x00508701",
+        "size": 3,
+        "line": "and     ecx, 3"
+      },
+      {
+        "ea": "0x00508704",
+        "size": 2,
+        "line": "rep movsb"
+      },
+      {
+        "ea": "0x00508706",
+        "size": 4,
+        "line": "lea     edi, [esp+418h+var_3E4]"
+      },
+      {
+        "ea": "0x0050870A",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x0050870D",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x0050870F",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x00508711",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x00508713",
+        "size": 4,
+        "line": "lea     eax, [esp+418h+var_3B8]"
+      },
+      {
+        "ea": "0x00508717",
+        "size": 2,
+        "line": "mov     edx, ecx"
+      },
+      {
+        "ea": "0x00508719",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x0050871B",
+        "size": 5,
+        "line": "mov     edi, offset gAccount"
+      },
+      {
+        "ea": "0x00508720",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x00508721",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x00508724",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x00508726",
+        "size": 2,
+        "line": "mov     ecx, edx"
+      },
+      {
+        "ea": "0x00508728",
+        "size": 6,
+        "line": "mov     edx, s"
+      },
+      {
+        "ea": "0x0050872E",
+        "size": 3,
+        "line": "and     ecx, 3"
+      },
+      {
+        "ea": "0x00508731",
+        "size": 5,
+        "line": "push    offset gPassword"
+      },
+      {
+        "ea": "0x00508736",
+        "size": 2,
+        "line": "rep movsb"
+      },
+      {
+        "ea": "0x00508738",
+        "size": 4,
+        "line": "lea     ecx, [esp+420h+var_3E4]"
+      },
+      {
+        "ea": "0x0050873C",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x0050873D",
+        "size": 5,
+        "line": "push    offset byte_DA3A1C"
+      },
+      {
+        "ea": "0x00508742",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x00508743",
+        "size": 5,
+        "line": "call    sub_512800"
+      },
+      {
+        "ea": "0x00508748",
+        "size": 5,
+        "line": "mov     eax, gConnection__Step"
+      },
+      {
+        "ea": "0x0050874D",
+        "size": 3,
+        "line": "add     esp, 14h"
+      },
+      {
+        "ea": "0x00508750",
+        "size": 6,
+        "line": "mov     dword_DA3B34, ebx"
+      },
+      {
+        "ea": "0x00508756",
+        "size": 1,
+        "line": "pop     edi"
+      },
+      {
+        "ea": "0x00508757",
+        "size": 1,
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x00508758",
+        "size": 3,
+        "line": "cmp     eax, 51h ; 'Q'"
+      },
+      {
+        "ea": "0x0050875B",
+        "size": 5,
+        "line": "mov     gConnection__Step, eax"
+      },
+      {
+        "ea": "0x00508760",
+        "size": 6,
+        "line": "jnz     loc_508557"
+      },
+      {
+        "ea": "0x00508766",
+        "size": 10,
+        "line": "mov     gConnection__Step, 50h ; 'P'"
+      },
+      {
+        "ea": "0x00508770",
+        "size": 5,
+        "line": "jmp     loc_508557"
+      },
+      {
+        "ea": "0x00508775",
+        "size": 7,
+        "line": "cmp     dword_DA3B34, 2"
+      },
+      {
+        "ea": "0x0050877C",
+        "size": 2,
+        "line": "jnz     short loc_508757"
+      },
+      {
+        "ea": "0x0050877E",
+        "size": 7,
+        "line": "cmp     word_DA3B22, si"
+      },
+      {
+        "ea": "0x00508785",
+        "size": 2,
+        "line": "jz      short loc_50878E"
+      },
+      {
+        "ea": "0x00508787",
+        "size": 5,
+        "line": "mov     eax, 51h ; 'Q'"
+      },
+      {
+        "ea": "0x0050878C",
+        "size": 2,
+        "line": "jmp     short loc_508757"
+      },
+      {
+        "ea": "0x0050878E",
+        "size": 5,
+        "line": "push    offset asc_58AED4; \"無法登入。\""
+      },
+      {
+        "ea": "0x00508793",
+        "size": 5,
+        "line": "push    offset byte_DA34DC; Buffer"
+      },
+      {
+        "ea": "0x00508798",
+        "size": 6,
+        "line": "mov     dword_DA3B34, esi"
+      },
+      {
+        "ea": "0x0050879E",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x005087A3",
+        "size": 5,
+        "line": "mov     eax, s"
+      },
+      {
+        "ea": "0x005087A8",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x005087AB",
+        "size": 1,
+        "line": "push    eax; s"
+      },
+      {
+        "ea": "0x005087AC",
+        "size": 5,
+        "line": "call    closesocket"
+      },
+      {
+        "ea": "0x005087B1",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x005087B2",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x005087B3",
+        "size": 5,
+        "line": "mov     eax, 0FFFFFFF9h"
+      },
+      {
+        "ea": "0x005087B8",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x005087B9",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x005087BF",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x005087C0",
+        "size": 3,
+        "line": "cmp     eax, 51h ; 'Q'"
+      },
+      {
+        "ea": "0x005087C3",
+        "size": 2,
+        "line": "jl      short loc_5087D5"
+      },
+      {
+        "ea": "0x005087C5",
+        "size": 3,
+        "line": "cmp     eax, 62h ; 'b'"
+      },
+      {
+        "ea": "0x005087C8",
+        "size": 2,
+        "line": "jg      short loc_5087D5"
+      },
+      {
+        "ea": "0x005087CA",
+        "size": 1,
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x005087CB",
+        "size": 5,
+        "line": "mov     gConnection__Step, eax"
+      },
+      {
+        "ea": "0x005087D0",
+        "size": 5,
+        "line": "jmp     loc_508557"
+      },
+      {
+        "ea": "0x005087D5",
+        "size": 3,
+        "line": "cmp     eax, 63h ; 'c'"
+      },
+      {
+        "ea": "0x005087D8",
+        "size": 6,
+        "line": "jnz     loc_508557"
+      },
+      {
+        "ea": "0x005087DE",
+        "size": 6,
+        "line": "mov     dword_DA3B34, esi"
+      },
+      {
+        "ea": "0x005087E4",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x005087E5",
+        "size": 2,
+        "line": "mov     eax, ebx"
+      },
+      {
+        "ea": "0x005087E7",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x005087E8",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x005087E9",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x005087EF",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x005087F0",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x005087F1",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x005087F2",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x005087F4",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x005087F5",
+        "size": 6,
+        "line": "add     esp, 408h"
+      },
+      {
+        "ea": "0x005087FB",
+        "size": 1,
+        "line": "retn"
+      }
+    ],
+    "inbound": [
+      [
+        "0x0045DB30",
+        "sub_45D990",
+        17
+      ]
+    ]
+  },
+  "binding_rows": [
+    {
+      "import_id": "I:0014D370",
+      "thunk_id": "F:00134A36",
+      "module": "WSOCK32",
+      "slot": "0x0054D370",
+      "ordinal": 3,
+      "api": "closesocket",
+      "thunk": "0x00534A36",
+      "included_calls": [
+        {
+          "from": "0x00507F35",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x005080E5",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x005081C6",
+          "parent": "0x005081A0",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "ShutdownNetworkRuntime_5081A0",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x005084B3",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x0050852B",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x00508678",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::closesocket"
+        },
+        {
+          "from": "0x005087AC",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    closesocket",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::closesocket"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FEAD",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0050FEF1",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    closesocket"
+        },
+        {
+          "from": "0x0051012F",
+          "parent": "0x00510120",
+          "type": 17,
+          "line": "call    closesocket"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D354",
+      "thunk_id": "F:00134A60",
+      "module": "WSOCK32",
+      "slot": "0x0054D354",
+      "ordinal": 4,
+      "api": "connect",
+      "thunk": "0x00534A60",
+      "included_calls": [
+        {
+          "from": "0x005084EB",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    connect",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::connect"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FED4",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    connect"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D348",
+      "thunk_id": "F:00134A72",
+      "module": "WSOCK32",
+      "slot": "0x0054D348",
+      "ordinal": 9,
+      "api": "htons",
+      "thunk": "0x00534A72",
+      "included_calls": [
+        {
+          "from": "0x00508461",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    htons",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::htons"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FE7B",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    htons"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D34C",
+      "thunk_id": "F:00134A6C",
+      "module": "WSOCK32",
+      "slot": "0x0054D34C",
+      "ordinal": 10,
+      "api": "inet_addr",
+      "thunk": "0x00534A6C",
+      "included_calls": [
+        {
+          "from": "0x00508473",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    inet_addr",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::inet_addr"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FE8A",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    inet_addr"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D378",
+      "thunk_id": "F:00134A7E",
+      "module": "WSOCK32",
+      "slot": "0x0054D378",
+      "ordinal": 12,
+      "api": "ioctlsocket",
+      "thunk": "0x00534A7E",
+      "included_calls": [
+        {
+          "from": "0x0050841C",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    ioctlsocket",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::ioctlsocket"
+        }
+      ],
+      "excluded_newest_calls": []
+    },
+    {
+      "import_id": "I:0014D36C",
+      "thunk_id": "F:00134A3C",
+      "module": "WSOCK32",
+      "slot": "0x0054D36C",
+      "ordinal": 16,
+      "api": "recv",
+      "thunk": "0x00534A3C",
+      "included_calls": [
+        {
+          "from": "0x00507EF7",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    recv",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::recv"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x00510041",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    recv"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D364",
+      "thunk_id": "F:00134A48",
+      "module": "WSOCK32",
+      "slot": "0x0054D364",
+      "ordinal": 18,
+      "api": "select",
+      "thunk": "0x00534A48",
+      "included_calls": [
+        {
+          "from": "0x00507EB8",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    select",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::select"
+        },
+        {
+          "from": "0x0050860A",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    select",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::select"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FFBB",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    select"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D374",
+      "thunk_id": "F:00134A30",
+      "module": "WSOCK32",
+      "slot": "0x0054D374",
+      "ordinal": 19,
+      "api": "send",
+      "thunk": "0x00534A30",
+      "included_calls": [
+        {
+          "from": "0x005080BC",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    send",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::send"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FF54",
+          "parent": "0x0050FF10",
+          "type": 17,
+          "line": "call    send"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D37C",
+      "thunk_id": "F:00134A78",
+      "module": "WSOCK32",
+      "slot": "0x0054D37C",
+      "ordinal": 21,
+      "api": "setsockopt",
+      "thunk": "0x00534A78",
+      "included_calls": [
+        {
+          "from": "0x0050843D",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    setsockopt",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::setsockopt"
+        }
+      ],
+      "excluded_newest_calls": []
+    },
+    {
+      "import_id": "I:0014D380",
+      "thunk_id": "F:00134A84",
+      "module": "WSOCK32",
+      "slot": "0x0054D380",
+      "ordinal": 23,
+      "api": "socket",
+      "thunk": "0x00534A84",
+      "included_calls": [
+        {
+          "from": "0x005083DD",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    socket; ;0x1 -> SOCK_STREAM",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::socket"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FE58",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    socket; ;0x2 -> AF_INET"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D350",
+      "thunk_id": "F:00134A66",
+      "module": "WSOCK32",
+      "slot": "0x0054D350",
+      "ordinal": 52,
+      "api": "gethostbyname",
+      "thunk": "0x00534A66",
+      "included_calls": [
+        {
+          "from": "0x00508489",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    gethostbyname",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::gethostbyname"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FE9D",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    gethostbyname"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D358",
+      "thunk_id": "F:00134A5A",
+      "module": "WSOCK32",
+      "slot": "0x0054D358",
+      "ordinal": 111,
+      "api": "WSAGetLastError",
+      "thunk": "0x00534A5A",
+      "included_calls": [
+        {
+          "from": "0x005082D7",
+          "parent": "0x005082D0",
+          "type": 17,
+          "line": "call    WSAGetLastError",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_5082D0",
+          "native_call": "::WSAGetLastError"
+        },
+        {
+          "from": "0x00508317",
+          "parent": "0x00508310",
+          "type": 17,
+          "line": "call    WSAGetLastError",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_508310",
+          "native_call": "::WSAGetLastError"
+        },
+        {
+          "from": "0x005084F5",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    WSAGetLastError",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::WSAGetLastError"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FEDE",
+          "parent": "0x0050FE30",
+          "type": 17,
+          "line": "call    WSAGetLastError"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D360",
+      "thunk_id": "F:00134A4E",
+      "module": "WSOCK32",
+      "slot": "0x0054D360",
+      "ordinal": 115,
+      "api": "WSAStartup",
+      "thunk": "0x00534A4E",
+      "included_calls": [
+        {
+          "from": "0x00508150",
+          "parent": "0x00508140",
+          "type": 17,
+          "line": "call    WSAStartup",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "InitializeNetworkRuntime_508140",
+          "native_call": "::WSAStartup"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FCA8",
+          "parent": "0x0050FC30",
+          "type": 17,
+          "line": "call    WSAStartup"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D35C",
+      "thunk_id": "F:00134A54",
+      "module": "WSOCK32",
+      "slot": "0x0054D35C",
+      "ordinal": 116,
+      "api": "WSACleanup",
+      "thunk": "0x00534A54",
+      "included_calls": [
+        {
+          "from": "0x005081CB",
+          "parent": "0x005081A0",
+          "type": 17,
+          "line": "call    WSACleanup",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "ShutdownNetworkRuntime_5081A0",
+          "native_call": "::WSACleanup"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x00510134",
+          "parent": "0x00510120",
+          "type": 19,
+          "line": "jmp     WSACleanup"
+        }
+      ]
+    },
+    {
+      "import_id": "I:0014D368",
+      "thunk_id": "F:00134A42",
+      "module": "WSOCK32",
+      "slot": "0x0054D368",
+      "ordinal": 151,
+      "api": "__WSAFDIsSet",
+      "thunk": "0x00534A42",
+      "included_calls": [
+        {
+          "from": "0x00507EC9",
+          "parent": "0x00507DF0",
+          "type": 17,
+          "line": "call    __WSAFDIsSet",
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "NetworkLoop_507DF0",
+          "native_call": "::FD_ISSET宏→::__WSAFDIsSet"
+        },
+        {
+          "from": "0x0050861E",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    __WSAFDIsSet",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::__WSAFDIsSet"
+        },
+        {
+          "from": "0x00508652",
+          "parent": "0x00508360",
+          "type": 17,
+          "line": "call    __WSAFDIsSet",
+          "path": "src/LoginState.cpp",
+          "symbol": "Sub_508360",
+          "native_call": "::__WSAFDIsSet"
+        }
+      ],
+      "excluded_newest_calls": [
+        {
+          "from": "0x0050FFCC",
+          "parent": "0x0050FF70",
+          "type": 17,
+          "line": "call    __WSAFDIsSet"
+        }
+      ]
+    }
+  ],
+  "native_sdk": {
+    "sdk": "Windows Kits 10.0.26100.0",
+    "source": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\\WinSock2.h",
+    "declarations": [
+      {
+        "api": "closesocket",
+        "declaration": "closesocket(\n    _In_ SOCKET s\n    );"
+      },
+      {
+        "api": "connect",
+        "declaration": "connect(\n    _In_ SOCKET s,\n    _In_reads_bytes_(namelen) const struct sockaddr FAR * name,\n    _In_ int namelen\n    );"
+      },
+      {
+        "api": "htons",
+        "declaration": "htons(\n    _In_ u_short hostshort\n    );"
+      },
+      {
+        "api": "inet_addr",
+        "declaration": "inet_addr(\n    _In_z_ const char FAR * cp\n    );"
+      },
+      {
+        "api": "ioctlsocket",
+        "declaration": "ioctlsocket(\n    _In_ SOCKET s,\n    _In_ long cmd,\n    _When_(cmd != FIONREAD, _Inout_)\n    _When_(cmd == FIONREAD, _Out_)\n    u_long FAR * argp\n    );"
+      },
+      {
+        "api": "recv",
+        "declaration": "recv(\n    _In_ SOCKET s,\n    _Out_writes_bytes_to_(len, return) __out_data_source(NETWORK) char FAR * buf,\n    _In_ int len,\n    _In_ int flags\n    );"
+      },
+      {
+        "api": "select",
+        "declaration": "select(\n    _In_ int nfds,\n    _Inout_opt_ fd_set FAR * readfds,\n    _Inout_opt_ fd_set FAR * writefds,\n    _Inout_opt_ fd_set FAR * exceptfds,\n    _In_opt_ const struct timeval FAR * timeout\n    );"
+      },
+      {
+        "api": "send",
+        "declaration": "send(\n    _In_ SOCKET s,\n    _In_reads_bytes_(len) const char FAR * buf,\n    _In_ int len,\n    _In_ int flags\n    );"
+      },
+      {
+        "api": "setsockopt",
+        "declaration": "setsockopt(\n    _In_ SOCKET s,\n    _In_ int level,\n    _In_ int optname,\n    _In_reads_bytes_opt_(optlen) const char FAR * optval,\n    _In_ int optlen\n    );"
+      },
+      {
+        "api": "socket",
+        "declaration": "socket(\n    _In_ int af,\n    _In_ int type,\n    _In_ int protocol\n    );"
+      },
+      {
+        "api": "gethostbyname",
+        "declaration": "gethostbyname(\n    _In_z_ const char FAR * name\n    );"
+      },
+      {
+        "api": "WSAGetLastError",
+        "declaration": "WSAGetLastError(\n    void\n    );"
+      },
+      {
+        "api": "WSAStartup",
+        "declaration": "WSAStartup(\n    _In_ WORD wVersionRequested,\n    _Out_ LPWSADATA lpWSAData\n    );"
+      },
+      {
+        "api": "WSACleanup",
+        "declaration": "WSACleanup(\n    void\n    );"
+      },
+      {
+        "api": "__WSAFDIsSet",
+        "declaration": "extern int PASCAL FAR __WSAFDIsSet(SOCKET fd, fd_set FAR *);"
+      }
+    ],
+    "fd_is_set_macro": "#define FD_ISSET(fd, set) __WSAFDIsSet((SOCKET)(fd), (fd_set FAR *)(set))",
+    "socket_type": "UINT_PTR",
+    "scalar_types": [
+      "u_short=unsigned short",
+      "u_long=unsigned long",
+      "u_int=unsigned int"
+    ],
+    "link_configuration": "cg2d_re/CMakeLists.txt: cg2d_re_startup已有ws2_32"
+  },
+  "source_corrections": [
+    {
+      "original_read": "0x508429",
+      "role": "ioctlsocket后setsockopt独立重取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x5084A9",
+      "role": "DNS失败提示后close重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x5084D7",
+      "role": "协议重置后connect重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x508521",
+      "role": "CONNECT ERROR格式与日志后close重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x50860F",
+      "role": "select后write fd查询重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x508644",
+      "role": "CONNECT OK日志后exception fd查询重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x50866E",
+      "role": "连接例外提示后close重新读取共享socket",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    },
+    {
+      "original_read": "0x508748",
+      "role": "phase71发送返回后重新读取连接阶段，再状态1/递增",
+      "source": "src/LoginState.cpp",
+      "symbol": "Sub_508360",
+      "scope": "一个既有共享读取值时点修复，无新算法/保护"
+    }
+  ],
+  "totals": {
+    "imports": 15,
+    "thunks": 15,
+    "thunk_instructions": 15,
+    "thunk_bytes": 90,
+    "thunk_inbound": 41,
+    "included_calls": 26,
+    "newest_excluded_references": 15,
+    "connection_instructions": 339,
+    "connection_bytes": 1180,
+    "source_patches": 8,
+    "socket_reloads": 7,
+    "phase_reload": 1
+  },
+  "verification": {
+    "level": "静态接口/原引用/八处取值时点及限定差分；不代完整父/生命周期",
+    "abi_runtime_verified": false,
+    "link_verified": false,
+    "build": false,
+    "tests": false,
+    "runtime": false,
+    "hashes": false
+  },
+  "remaining": [
+    "其余203导入槽、全函数及未归属区间处置",
+    "未知alias/间接目标/全部owner与R1/R7",
+    "六父完整状态/字节/失败及网络生命周期",
+    "实际SDK ABI/链接/正常失败/明文互通及运行",
+    "音频暂停与newest/加解密叶既定范围保留"
+  ]
+}

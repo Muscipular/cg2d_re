@@ -1,0 +1,615 @@
+{
+  "schema_version": 1,
+  "group": "ACI01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_array_counter_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-array-counter-source-20261005",
+  "authority": {
+    "database": "cg2d.exe",
+    "method": "当前原IDA会话只读MCP Python，未重开/修改/保存；本步只对齐计数残留",
+    "root_count": 2,
+    "instruction_count": 77,
+    "byte_count": 222
+  },
+  "original_roots": [
+    {
+      "entry": "0x0053C4E0",
+      "chunks": [
+        [
+          "0x0053C4E0",
+          "0x0053C560"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x0053C4E0",
+          "size": 1,
+          "line": "push    ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4E1",
+          "size": 2,
+          "line": "mov     ebp, esp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4E3",
+          "size": 2,
+          "line": "push    0FFFFFFFFh",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4E5",
+          "size": 5,
+          "line": "push    offset stru_54F940",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4EA",
+          "size": 5,
+          "line": "push    offset __except_handler3",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4EF",
+          "size": 6,
+          "line": "mov     eax, large fs:0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4F5",
+          "size": 1,
+          "line": "push    eax",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4F6",
+          "size": 7,
+          "line": "mov     large fs:0, esp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C4FD",
+          "size": 3,
+          "line": "sub     esp, 0Ch",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C500",
+          "size": 1,
+          "line": "push    ebx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C501",
+          "size": 1,
+          "line": "push    esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C502",
+          "size": 1,
+          "line": "push    edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C503",
+          "size": 4,
+          "line": "and     [ebp+var_1C], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C507",
+          "size": 3,
+          "line": "mov     esi, [ebp+arg_4]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C50A",
+          "size": 2,
+          "line": "mov     eax, esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C50C",
+          "size": 4,
+          "line": "imul    eax, [ebp+arg_8]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C510",
+          "size": 3,
+          "line": "add     [ebp+arg_0], eax",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C513",
+          "size": 4,
+          "line": "and     [ebp+ms_exc.registration.TryLevel], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C517",
+          "size": 3,
+          "line": "dec     [ebp+arg_8]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C51A",
+          "size": 2,
+          "line": "js      short loc_53C527",
+          "code_refs": [
+            "0x0053C527"
+          ]
+        },
+        {
+          "ea": "0x0053C51C",
+          "size": 3,
+          "line": "sub     [ebp+arg_0], esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C51F",
+          "size": 3,
+          "line": "mov     ecx, [ebp+arg_0]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C522",
+          "size": 3,
+          "line": "call    [ebp+arg_C]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C525",
+          "size": 2,
+          "line": "jmp     short loc_53C517",
+          "code_refs": [
+            "0x0053C517"
+          ]
+        },
+        {
+          "ea": "0x0053C527",
+          "size": 7,
+          "line": "mov     [ebp+var_1C], 1",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C52E",
+          "size": 4,
+          "line": "or      [ebp+ms_exc.registration.TryLevel], 0FFFFFFFFh",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C532",
+          "size": 5,
+          "line": "call    loc_53C548",
+          "code_refs": [
+            "0x0053C548"
+          ]
+        },
+        {
+          "ea": "0x0053C537",
+          "size": 3,
+          "line": "mov     ecx, [ebp+ms_exc.registration.Next]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C53A",
+          "size": 7,
+          "line": "mov     large fs:0, ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C541",
+          "size": 1,
+          "line": "pop     edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C542",
+          "size": 1,
+          "line": "pop     esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C543",
+          "size": 1,
+          "line": "pop     ebx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C544",
+          "size": 1,
+          "line": "leave",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C545",
+          "size": 3,
+          "line": "retn    10h",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C548",
+          "size": 4,
+          "line": "cmp     [ebp+var_1C], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C54C",
+          "size": 2,
+          "line": "jnz     short loc_53C55F",
+          "code_refs": [
+            "0x0053C55F"
+          ]
+        },
+        {
+          "ea": "0x0053C54E",
+          "size": 3,
+          "line": "push    [ebp+arg_C]; void (__thiscall *)(void *)",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C551",
+          "size": 3,
+          "line": "push    [ebp+arg_8]; int",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C554",
+          "size": 3,
+          "line": "push    [ebp+arg_4]; unsigned int",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C557",
+          "size": 3,
+          "line": "push    [ebp+arg_0]; void *",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C55A",
+          "size": 5,
+          "line": "call    ?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z",
+          "code_refs": [
+            "0x0053C560"
+          ]
+        },
+        {
+          "ea": "0x0053C55F",
+          "size": 1,
+          "line": "retn",
+          "code_refs": [
+            "0x0053C537"
+          ]
+        }
+      ],
+      "instruction_count": 42,
+      "byte_count": 128,
+      "inbound": [
+        {
+          "from": "0x0043D7B4",
+          "type": 17,
+          "parent": "0x0043D7A0",
+          "line": "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        },
+        {
+          "from": "0x004CD293",
+          "type": 17,
+          "parent": "0x004CD250",
+          "line": "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        },
+        {
+          "from": "0x00518571",
+          "type": 17,
+          "parent": "0x00518560",
+          "line": "call    ??_M@YGXPAXIHP6EX0@Z@Z; `eh vector destructor iterator'(void *,uint,int,void (*)(void *))"
+        }
+      ]
+    },
+    {
+      "entry": "0x0053C560",
+      "chunks": [
+        [
+          "0x0053C560",
+          "0x0053C5BE"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x0053C560",
+          "size": 1,
+          "line": "push    ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C561",
+          "size": 2,
+          "line": "mov     ebp, esp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C563",
+          "size": 2,
+          "line": "push    0FFFFFFFFh",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C565",
+          "size": 5,
+          "line": "push    offset stru_54F950",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C56A",
+          "size": 5,
+          "line": "push    offset __except_handler3",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C56F",
+          "size": 6,
+          "line": "mov     eax, large fs:0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C575",
+          "size": 1,
+          "line": "push    eax",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C576",
+          "size": 7,
+          "line": "mov     large fs:0, esp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C57D",
+          "size": 1,
+          "line": "push    ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C57E",
+          "size": 1,
+          "line": "push    ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C57F",
+          "size": 1,
+          "line": "push    ebx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C580",
+          "size": 1,
+          "line": "push    esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C581",
+          "size": 1,
+          "line": "push    edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C582",
+          "size": 3,
+          "line": "mov     [ebp+ms_exc.old_esp], esp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C585",
+          "size": 4,
+          "line": "and     [ebp+ms_exc.registration.TryLevel], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C589",
+          "size": 3,
+          "line": "dec     [ebp+arg_8]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C58C",
+          "size": 2,
+          "line": "js      short loc_53C5A9",
+          "code_refs": [
+            "0x0053C5A9"
+          ]
+        },
+        {
+          "ea": "0x0053C58E",
+          "size": 3,
+          "line": "mov     ecx, [ebp+arg_0]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C591",
+          "size": 3,
+          "line": "sub     ecx, [ebp+arg_4]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C594",
+          "size": 3,
+          "line": "mov     [ebp+arg_0], ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C597",
+          "size": 3,
+          "line": "call    [ebp+arg_C]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C59A",
+          "size": 2,
+          "line": "jmp     short loc_53C589",
+          "code_refs": [
+            "0x0053C589"
+          ]
+        },
+        {
+          "ea": "0x0053C59C",
+          "size": 3,
+          "line": "push    [ebp+ms_exc.exc_ptr]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C59F",
+          "size": 5,
+          "line": "call    unknown_libname_49; Microsoft VisualC 2-14/net runtime",
+          "code_refs": [
+            "0x005405F5"
+          ]
+        },
+        {
+          "ea": "0x0053C5A4",
+          "size": 1,
+          "line": "pop     ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5A5",
+          "size": 1,
+          "line": "retn",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5A6",
+          "size": 3,
+          "line": "mov     esp, [ebp+ms_exc.old_esp]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5A9",
+          "size": 4,
+          "line": "or      [ebp+ms_exc.registration.TryLevel], 0FFFFFFFFh",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5AD",
+          "size": 3,
+          "line": "mov     ecx, [ebp+ms_exc.registration.Next]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5B0",
+          "size": 7,
+          "line": "mov     large fs:0, ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5B7",
+          "size": 1,
+          "line": "pop     edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5B8",
+          "size": 1,
+          "line": "pop     esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5B9",
+          "size": 1,
+          "line": "pop     ebx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5BA",
+          "size": 1,
+          "line": "leave",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0053C5BB",
+          "size": 3,
+          "line": "retn    10h",
+          "code_refs": []
+        }
+      ],
+      "instruction_count": 35,
+      "byte_count": 94,
+      "inbound": [
+        {
+          "from": "0x0053C4DA",
+          "type": 17,
+          "parent": "0x0053C45E",
+          "line": "call    ?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z"
+        },
+        {
+          "from": "0x0053C55A",
+          "type": 17,
+          "parent": "0x0053C4E0",
+          "line": "call    ?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z"
+        }
+      ]
+    }
+  ],
+  "counter_contract": {
+    "quantity": "S32",
+    "stride": "U32",
+    "end_offset": "U32，普通elementBytes * elementCount，不扩大为size_t",
+    "decrements": [
+      "0x0053C517 → js → 减当前地址 → 析构",
+      "0x0053C589 → js → 减当前地址 → 析构"
+    ],
+    "failure_prefix": "complete=0时当前地址/已递减remaining/原步长/原callback交53C560，不重试失败元素",
+    "source_patches": [
+      {
+        "before": "std::uint32_t remaining = std::bit_cast<std::uint32_t>(elementCount);",
+        "after": "std::int32_t remaining = elementCount;",
+        "count": 2
+      },
+      {
+        "before": "if (std::bit_cast<std::int32_t>(remaining) < 0)",
+        "after": "if (remaining < 0)",
+        "count": 2
+      },
+      {
+        "before": "const std::uint32_t endOffset = elementBytes * std::bit_cast<std::uint32_t>(elementCount);",
+        "after": "const std::uint32_t endOffset = elementBytes * elementCount;",
+        "count": 1
+      },
+      {
+        "before": "current, elementBytes, std::bit_cast<std::int32_t>(remaining), destructor);",
+        "after": "current, elementBytes, remaining, destructor);",
+        "count": 1
+      }
+    ],
+    "unchanged": [
+      "构造53C45E/筛选5405F5",
+      "原SEH与complete门禁",
+      "三组实际构析父/typed元素回调、独立owner/成员RNG",
+      "其它初始化/退出/FILE与普通宿主接线"
+    ],
+    "difference": "RPLAN.24不专项处理数量数学溢出/越界，不声称故障等价/x64安全"
+  },
+  "scope": {
+    "verification": "仅两根必要原点/本次差异/台账与新引用静态；未构建/测试/运行/摘要",
+    "original_calls_scope": "三析构直接入向/两展开直接入向，不排除未知alias或新增任意callback",
+    "open_tasks": [
+      "C04",
+      "C06",
+      "C07",
+      "V02"
+    ],
+    "remaining": [
+      "任意回调异常/SDK实际传播、成员数组EH与硬件SEH",
+      "完整normal/quick/callable退出及运行",
+      "R1/R7与最终验收"
+    ],
+    "full_feature_gates_unchanged": true
+  },
+  "deferred_gap_observations": {
+    "pet_catalog": "CA0478/CC3E64/C8AF84直接引用仍为已知消费者；邻接CA0474实际属于窗口55滚动，不据邻接证明目录生产/容量；U01未实现生产",
+    "audio_cleanup": "454EE0沿现有暂停音频边界，不在本步实现"
+  }
+}

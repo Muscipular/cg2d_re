@@ -50152,7 +50152,7 @@
     {
       "original_entry": "0x53C4E0",
       "inventory_id": "F:0013C4E0",
-      "status": "原数组生命周期本体及三组构析消费者真实接线已实现；原生成员C++/SEH及SDK完整运行未验",
+      "status": "ACI01数组清理S32剩余计数已按RPLAN.24对齐，原逆序/失败前缀及三组实际父保持；完整成员EH/SEH/SDK运行未验",
       "original_end_exclusive": "0x53C560",
       "instruction_count": 42,
       "original_direct_reference_count": 3,
@@ -50199,9 +50199,11 @@
         "doc/cg2d_world_objects.md",
         "doc/cg2d_scene_state.md",
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_array_counter_spec.md",
+        "doc/cg2d_array_counter_evidence.json"
       ],
-      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。",
+      "boundary": "原先移到数组尾，每次先减数量及地址再析构；异常尾以当前地址和剩余数进入53C560，不重试失败元素。当前三组叶均为401CF0仅写token，正常逆序已有；不把原任意回调抛出语义推广成已实现。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。",
       "function_chunks": [
         {
           "start": "0x53C4E0",
@@ -50214,7 +50216,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
+      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶；ACI01两完整原根77条/222B、三析构父/两展开入向及本步四类六处限定静态；未构建/测试/运行/摘要",
       "array_lifetime_internal_call_connections": [
         {
           "parent_entry": "0x53C4E0",
@@ -50294,12 +50296,19 @@
           "target_symbol": "platform::DestroyLegacyArray_53C4E0",
           "relationship": "原数值父调用真实接线；同一调用方owner/S32数量及U32新端实际类型步长，原回调签名由显式地址适配，非函数指针强转"
         }
-      ]
+      ],
+      "array_counter_contract": {
+        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "quantity": "S32 remaining直接递减/判负/finally传递",
+        "end_offset": "U32 elementBytes * elementCount",
+        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
+      }
     },
     {
       "original_entry": "0x53C560",
       "inventory_id": "F:0013C560",
-      "status": "原数组生命周期本体及三组构析消费者真实接线已实现；原生成员C++/SEH及SDK完整运行未验",
+      "status": "ACI01数组清理S32剩余计数已按RPLAN.24对齐，原逆序/失败前缀及三组实际父保持；完整成员EH/SEH/SDK运行未验",
       "original_end_exclusive": "0x53C5BE",
       "instruction_count": 35,
       "original_direct_reference_count": 2,
@@ -50330,9 +50339,11 @@
       "evidence_documents": [
         "doc/cg2d_semantic_function_mappings.md",
         "doc/ui_windows/window_68.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_array_counter_spec.md",
+        "doc/cg2d_array_counter_evidence.json"
       ],
-      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。",
+      "boundary": "53C4DA/53C55A仅来自上述两迭代器；先减数量、减地址再调用析构。展开自身的异常过滤5405F5检查E06D7363并有尾跳，不等同普通catch后重抛。本步不批准CRT宿主提案、不补通用SEH包装、不执行异常模拟或声称故障等价。；2026-10-04四原CRT本体128条源码落位，构造成功后前移/递增，正常末complete1；析构先W32步长×S32位模式低W32乘积算尾，数量W32递减后按S32负判停，再减地址/调析构。原两finally只未完成时以当前地址/已完成或剩余数调53C560，不重试失败元素；展开自身原生__except调用5405F5，仅E06D7363进入已过540A5C原终止，其他返回0继续搜索，不加参数数目/版本/空指针/数量保护或宿主terminate。三条原Scope表逐字段关联，用编译器原生SEH，不复制x86链/FuncInfo或拿catch替代。当前三组业务依然既有原生循环，类型callback及原helper父调用尚未迁，不把新本体计全接线/SEH或故障等价；旧正常/RNG/宿主/音频保持，SDK实际传播/编译链接与完整运行未闭。；2026-10-04三组构造3/3与析构3/3原helper父点及typed回调已实际调用，独立owner/S32数量/U32实际sizeof步长保持，成员与数组清理分层；不计实际EH/故障或完整运行验收。；2026-10-05 ACI01：ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open。前段W32数量/bit_cast为旧快照，本步S32直接递减/判负/传递；U32 endOffset普通elementBytes * elementCount不扩大地址宽度，数学溢出/越界不专项处理或记故障等价。",
       "function_chunks": [
         {
           "start": "0x53C560",
@@ -50345,7 +50356,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶",
+      "verification_level": "；仅四体128条/四数字call尾调/三参数间调/三Scope、W32递减/乘积及时点新增静态；未构建/模拟/执行或复验旧叶；ACI01两完整原根77条/222B、三析构父/两展开入向及本步四类六处限定静态；未构建/测试/运行/摘要",
       "array_lifetime_internal_call_connections": [
         {
           "parent_entry": "0x53C560",
@@ -50421,7 +50432,14 @@
           "source": "src/world/SceneState.cpp",
           "symbol": "DestroyLegacyPetElement_4CD2D0"
         }
-      ]
+      ],
+      "array_counter_contract": {
+        "spec": "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "source": "src/platform/LegacyRuntimeExit.cpp",
+        "quantity": "S32 remaining直接递减/判负/finally传递",
+        "end_offset": "U32 elementBytes * elementCount",
+        "scope": "RPLAN.24局部源码裁决；原SEH/失败前缀/所有父保持，完整SDK/运行待验"
+      }
     },
     {
       "original_entry": "0x53FA5B",

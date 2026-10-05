@@ -1217,3 +1217,12 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **剩余**：全部FILE/配置流程、跨TU首次使用、稳定模式/全部owner/未知alias、SDK继承ABI和normal/quick/callable全序/运行、R1/R7与最终验收仍待。不增加重复初始化、成功标记/保护/回滚、全表free或SDK FILE副本，旧入口/cinit/90表不启用；70源＋15SDK/85计数保持。
 - **交付**：精确11项，快照`cg2d-re-hosted-stdio-init-source-20261005`；用户既有六项不暂存。只查此生产缺口、本步差异/新引用，未构建/查产物/新增或执行测试/运行/摘要；音频暂停、既定排除、单线程与RPLAN.24保持。
 - **限定验证**：一CPP三片段/一个stdio调用、原provider/取流/刷新/退出/WinMain保持，一语义补充/登记簿精确转换通过；11项UTF-8无BOM/LF、10个新增Markdown链接、33个本组E引用和Git差异格式通过。看板生成及独立Check通过；未扫描历史Markdown，不提升完整门禁。
+
+## ACI01 数组清理专项数量回绕（2026-10-05）
+
+- **开发**：先记[ACI01 SPEC](../doc/cg2d_array_counter_spec.md#array-counter-decision)，再改LegacyRuntimeExit一CPP四类片段/六处：两remaining直接S32接数量，两判负不再bit_cast，finally直接传递剩余数，W32 endOffset使用普通elementBytes * elementCount。原先递减数量/地址后析构、complete门禁/失败前缀、SEH筛选及构造/三组实际父保持。
+- **证据**：[两根归档](../doc/cg2d_array_counter_evidence.json)77条/222B、三析构父/两展开入向可追，仅本步必要原点和差异，不全面复检旧成员/构造/业务。RPLAN.24数学溢出/越界不专项处理、不记故障等价或x64安全。
+- **台账**：两既有语义补裁决，其他1224记录与政策保持；语义1226/1223有效原ID，处置197/3680，限定E156，导入15/218不增。C04/C06/C07/V02仍open，关闭10/60、叶0/182与完整门禁不提升，任意callback异常/成员EH/硬件SEH/SDK及完整退出运行继续推进。
+- **业务缺口追查**：U01本址仍只见已知消费，CA0474的实际owner为窗口55滚动，与CA0478邻接不证明目录生产/容量；继续追间接写入与真实存储边界。454EE0沿音频暂停，不实现空清理或跳过调用。
+- **交付**：精确11项，快照`cg2d-re-array-counter-source-20261005`；用户既有六项不暂存。未构建/查产物/新增或执行测试/运行/摘要，音频暂停、既定排除、单线程与RPLAN.24保持。
+- **限定验证**：一CPP四类片段/六处、原构造/筛选/全部父与失败前缀保持；两语义/两个adapted及登记簿精确转换通过。11项UTF-8无BOM/LF、10个新增Markdown链接、27个本组E引用及Git差异格式、看板生成与独立Check通过；未扫描历史Markdown，不提升完整门禁。

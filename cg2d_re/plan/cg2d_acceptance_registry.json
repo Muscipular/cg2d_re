@@ -286,7 +286,8 @@
         "doc/cg2d_mode3_private_core_spec.md",
         "doc/cg2d_stream_table_pointer_spec.md",
         "doc/cg2d_hosted_runtime_prefix_spec.md",
-        "doc/cg2d_hosted_stdio_init_spec.md"
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "doc/cg2d_array_counter_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -425,7 +426,9 @@
         "F:00141BB8",
         "F:0013F52D",
         "F:0013EA4A",
-        "F:0013DDB5"
+        "F:0013DDB5",
+        "F:0013C4E0",
+        "F:0013C560"
       ],
       "closure_task_ids": [
         "C01",
@@ -455,7 +458,8 @@
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -479,7 +483,8 @@
         "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭",
         "STP01仅四已有streambuf/filebuf方法表地址的const T*与十消费类型接线闭合，不新增原函数/处置或重验旧算法；真实codecvt/facet生产/完整表、全活动流/owner/alias及SDK ABI/链接/退出/运行仍待，C03/C05保持open",
         "HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open",
-        "HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open"
+        "HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open",
+        "ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -506,7 +511,8 @@
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ]
     },
     {
@@ -11144,6 +11150,96 @@
       "observation": "原stdio根复用SCH01，仅新C5槽/入向及本步源码/一语义补充/台账和新增引用静态",
       "expected": "补真实stdio表生产缺口，使用原512/20/错误26、20静态记录与三句柄规则，不改消费/分配域",
       "actual": "同TU前置源码已接；一既有语义补映射，整体成员/跨TU/owner/ABI/实际文件与退出运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-ARRAY-COUNTER-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根77条/222B、三析构父/两展开入向，原dec/js与finally剩余前缀；doc/cg2d_array_counter_spec.md#array-counter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-array-counter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24撤数量专项U32/bit_cast回绕；原W32步长/尺寸偏移及正常逆序/失败前缀保持，不声称数学溢出/越界故障等价或x64安全",
+          "decision_ref": "doc/cg2d_array_counter_spec.md#array-counter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP四类片段/六处，两S32数量/判负与直接传剩余数；W32尺寸乘积用普通表达式",
+      "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+    },
+    {
+      "id": "E-ARRAY-COUNTER-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根77条/222B、三析构父/两展开入向，原dec/js与finally剩余前缀；doc/cg2d_array_counter_spec.md#array-counter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-array-counter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24撤数量专项U32/bit_cast回绕；原W32步长/尺寸偏移及正常逆序/失败前缀保持，不声称数学溢出/越界故障等价或x64安全",
+          "decision_ref": "doc/cg2d_array_counter_spec.md#array-counter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原先递减数量/地址再析构、complete门禁/未完成前缀、SEH/筛选及三组实际父保持",
+      "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
+    },
+    {
+      "id": "E-ARRAY-COUNTER-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根77条/222B、三析构父/两展开入向，原dec/js与finally剩余前缀；doc/cg2d_array_counter_spec.md#array-counter-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-array-counter-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_array_counter_spec.md#array-counter-baseline",
+        "doc/cg2d_array_counter_spec.md#array-counter-decision",
+        "doc/cg2d_array_counter_spec.md#array-counter-acceptance",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_array_counter_evidence.json",
+        "src/platform/LegacyRuntimeExit.cpp#DestroyLegacyArray_53C4E0",
+        "src/platform/LegacyRuntimeExit.cpp#UnwindLegacyArray_53C560",
+        "src/platform/LegacyRuntimeExit.cpp#ConstructLegacyArray_53C45E"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24撤数量专项U32/bit_cast回绕；原W32步长/尺寸偏移及正常逆序/失败前缀保持，不声称数学溢出/越界故障等价或x64安全",
+          "decision_ref": "doc/cg2d_array_counter_spec.md#array-counter-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原根/必要算术原点、限定源码/两语义和处置/台账及新增引用静态",
+      "expected": "按最新异常裁决承载数量循环，保已证正常/失败控制流与清理前缀",
+      "actual": "仅本组源码/具名差异处置通过；任意callback异常、完整成员EH/硬件SEH/SDK及运行仍待，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11276,7 +11372,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ]
     },
     {
@@ -11345,7 +11442,8 @@
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ],
       "task_id": "C06",
       "state": "open"
@@ -11353,7 +11451,8 @@
     {
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure"
+        "doc/cg2d_native_cpp_exception_spec.md#native-cpp-exception-source-closure",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ],
       "task_id": "C07",
       "state": "open"
@@ -11490,7 +11589,8 @@
       "evidence_refs": [
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ]
     }
   ],
@@ -13119,6 +13219,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C4E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C560",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
       ]
     }
   ],

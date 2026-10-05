@@ -173,11 +173,11 @@ void UnwindLegacyArray_53C560(
     const LegacyArrayElementCallback destructor)
 {
     auto* current = static_cast<std::byte*>(onePast);
-    std::uint32_t remaining = std::bit_cast<std::uint32_t>(elementCount);
+    std::int32_t remaining = elementCount;
     __try {
         for (;;) {
             --remaining;
-            if (std::bit_cast<std::int32_t>(remaining) < 0) {
+            if (remaining < 0) {
                 break;
             }
             current -= elementBytes;
@@ -215,14 +215,14 @@ void DestroyLegacyArray_53C4E0(
     const LegacyArrayElementCallback destructor)
 {
     // 原imul只保留W32乘积，随后才作用于地址；数量/步长不按指针扩宽。
-    const std::uint32_t endOffset = elementBytes * std::bit_cast<std::uint32_t>(elementCount);
+    const std::uint32_t endOffset = elementBytes * elementCount;
     auto* current = static_cast<std::byte*>(storage) + endOffset;
-    std::uint32_t remaining = std::bit_cast<std::uint32_t>(elementCount);
+    std::int32_t remaining = elementCount;
     std::uint32_t complete = 0;
     __try {
         for (;;) {
             --remaining;
-            if (std::bit_cast<std::int32_t>(remaining) < 0) {
+            if (remaining < 0) {
                 break;
             }
             current -= elementBytes;
@@ -233,7 +233,7 @@ void DestroyLegacyArray_53C4E0(
         // 原53C548共享finally：失败对象地址和已递减剩余数交展开，不重试失败析构。
         if (complete == 0) {
             UnwindLegacyArray_53C560(
-                current, elementBytes, std::bit_cast<std::int32_t>(remaining), destructor);
+                current, elementBytes, remaining, destructor);
         }
     }
 }

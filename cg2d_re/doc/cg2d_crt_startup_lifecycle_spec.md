@@ -164,3 +164,12 @@ stdio先于multibyte沿原C5的553174/553178相邻序。复用SCH01表块及唯�
 不执行整套C5/旧entry/cinit/90表，不增加全表释放或SDK FILE副本；
 70源＋15SDK/85对应计数不变。跨TU首次使用、全部FILE/owner/alias、SDK继承ABI
 和normal/quick/callable全序及运行仍待，七关联任务保持open。
+
+## ACI01 数组清理数量裁决（2026-10-05）
+
+[本组合同](cg2d_array_counter_spec.md#array-counter-source-closure)与
+[证据](cg2d_array_counter_evidence.json)记录两已有根77条/222B。
+析构/展开remaining改直接S32递减、判负及finally传递，撤数量专项回绕。
+原U32步长/尺寸偏移、逆序/失败前缀、SEH/筛选、构造和三组实际父保持；
+数学溢出/越界沿RPLAN.24不专项处理，不记故障等价/x64安全。
+两adapted只记本组源码/批准差异，完整成员EH/硬件SEH、SDK及完整退出运行继续待验。

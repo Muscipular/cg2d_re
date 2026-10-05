@@ -1012,7 +1012,8 @@
         "doc/cg2d_graphic_upload_alignment_spec.md",
         "doc/cg2d_queued_draw_alignment_spec.md",
         "doc/cg2d_palette_cache_alignment_spec.md",
-        "doc/cg2d_cache_lifecycle_alignment_spec.md"
+        "doc/cg2d_cache_lifecycle_alignment_spec.md",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1034,7 +1035,9 @@
         "F:0004E290",
         "F:0004E230",
         "F:00123310",
-        "F:001231A0"
+        "F:001231A0",
+        "F:00122B30",
+        "F:00122C50"
       ],
       "closure_task_ids": [
         "G01",
@@ -1050,7 +1053,8 @@
         "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision",
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-decision",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-decision",
-        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision"
+        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1069,7 +1073,8 @@
         "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-baseline",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-baseline",
-        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline"
+        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline"
       ]
     },
     {
@@ -11743,6 +11748,70 @@
       "observation": "三完整原根、现有几何短路/阶段分支位置/事件映射和本组登记静态",
       "expected": "现有正常路径按原宽、X/Y/RNG消费及回调后重读/同源状态序可追，基线身份不遗漏",
       "actual": "只登记已有实现，C++不改；全输入/上游/父/间接目标/alias/寿命、旧表路由/ABI/运行未验，完整门禁保持"
+    },
+    {
+      "id": "E-PALETTE-GLOBAL-MEMORY-I-20261005",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原两根126条/377B、四直接入向及四申请/锁定与八释放API；doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-global-memory-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json",
+        "src/GraphicRead.cpp#ReleaseIndependentPalettes_522C50",
+        "src/GraphicRead.cpp#InitializeIndependentPalettes_522B30",
+        "src/platform/StartupCommon.cpp#UnlockGlobalMemory",
+        "src/platform/StartupCommon.cpp#FreeGlobalMemory",
+        "include/cg/platform/Startup.hpp#UnlockGlobalMemory"
+      ],
+      "differences": [
+        {
+          "description": "x64索引仅原T*拓宽、原U8/0xB04保持；原私有队列沿已批宿主角色，两void根/SDK结果只描述已证caller弃返回，不宣称全部间接ABI等价",
+          "decision_ref": "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三源/头三片段完成两个SDK阶段/owner重新取样接线",
+      "expected": "解锁后重读owner再释放，清records之前保存index，保持同域/八SDK调用与原失败清空序",
+      "actual": "只修本组释放接线与限定静态；初始化/布局保持，全父/alias/借用失效、SDK/ABI/模式/生命周期与运行未验，完整软件门禁不提升"
+    },
+    {
+      "id": "E-PALETTE-GLOBAL-MEMORY-S-20261005",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原两根126条/377B、四直接入向及四申请/锁定与八释放API；doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-global-memory-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json",
+        "src/GraphicRead.cpp#ReleaseIndependentPalettes_522C50",
+        "src/GraphicRead.cpp#InitializeIndependentPalettes_522B30",
+        "src/platform/StartupCommon.cpp#UnlockGlobalMemory",
+        "src/platform/StartupCommon.cpp#FreeGlobalMemory",
+        "include/cg/platform/Startup.hpp#UnlockGlobalMemory"
+      ],
+      "differences": [
+        {
+          "description": "x64索引仅原T*拓宽、原U8/0xB04保持；原私有队列沿已批宿主角色，两void根/SDK结果只描述已证caller弃返回，不宣称全部间接ABI等价",
+          "decision_ref": "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原完整两根、两owner原取样/清空与API序、源/台账和限定引用静态",
+      "expected": "解锁后重读owner再释放，清records之前保存index，保持同域/八SDK调用与原失败清空序",
+      "actual": "只修本组释放接线与限定静态；初始化/布局保持，全父/alias/借用失效、SDK/ABI/模式/生命周期与运行未验，完整软件门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11835,7 +11904,8 @@
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
       ]
     },
     {
@@ -11890,7 +11960,8 @@
         "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-source-closure",
         "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure",
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure",
-        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure"
+        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
       ]
     },
     {
@@ -11937,7 +12008,8 @@
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
       ],
       "task_id": "C11",
       "state": "open"
@@ -12072,7 +12144,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
       ]
     },
     {
@@ -12145,7 +12218,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
       ]
     }
   ],
@@ -13914,6 +13988,28 @@
         "doc/cg2d_mouse_input_chain_evidence.json"
       ],
       "reason": "既有完整输入根与原宽/正常分支/事件取样序可追；原地址按已批x64指针承载，两void根仅针对已证caller弃返回，不代全部ABI/间接目标/运行"
+    },
+    {
+      "inventory_id": "F:00122B30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
+    },
+    {
+      "inventory_id": "F:00122C50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
     }
   ],
   "auxiliary_dispositions": [

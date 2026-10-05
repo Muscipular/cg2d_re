@@ -142954,6 +142954,173 @@
           "relationship": "元素callback非零后观察phase4且dragCallback非空"
         }
       ]
+    },
+    {
+      "original_entry": "0x522B30",
+      "inventory_id": "F:00122B30",
+      "status": "PGM01既有独立调色板初始化根/分配域及原新映射登记；分配正文保持，完整队列/父/alias/SDK/运行未验",
+      "original_end_exclusive": "0x522C4E",
+      "instruction_count": 94,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "InitializeIndependentPalettes_522B30",
+            "IndependentPaletteIndex",
+            "IndependentPaletteRecord"
+          ],
+          "relationship": "既有初始化保持；索引8->16B仅首T*拓宽，loaded为U8，记录0xB04，两独立owner/数量不改"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "AllocateLockedZeroedGlobalMemory"
+          ],
+          "relationship": "既有GPTR/GlobalLock边界，不增失败分支"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "boundary": "队列归起点后逐原hidden base插入，522900读取索引再发布S32数量；两次GPTR(0x40)->GlobalLock，首索引表按原域清零、记录表0xB04*count，逐条发布record借用及loaded低W8=0，返回S32最终索引。x64索引16B仅已证T*拓宽，loaded/后三字节和无指针记录0xB04保持。原94条/286B、两个直接入向；本步初始化/hidden表/DBF本体未改/未重核整表，SDK域和原失败无保护/回滚保持，不把普通乘法溢出或非法地址列故障等价。队列/private容器沿已批宿主承接，全部父/别名/实际SDK/ABI/运行未验，原格式明文/音频暂停/不构建测试运行摘要保持。",
+      "verification_level": "原完整94条/286B、直接入向/四API与现有布局/分配顺序限定静态，完整队列/表/SDK及运行未验",
+      "original_internal_calls": [
+        {
+          "call_site": "0x522B7E",
+          "target_entry": "0x5236B0",
+          "source_symbol": "BorrowIndependentPaletteQueue().push_back",
+          "relationship": "原Vector插入机制沿既有已批宿主角色，不称原5236B0本体或整个队列验收通过"
+        },
+        {
+          "call_site": "0x522B8E",
+          "target_entry": "0x522900",
+          "source_symbol": "LoadIndependentPaletteIndex_522900",
+          "relationship": "hidden序列插入后，数量发布/两表分配之前"
+        }
+      ],
+      "original_sdk_calls": [
+        {
+          "call_site": "0x522BBE",
+          "api": "GlobalAlloc",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "索引表GPTR分配"
+        },
+        {
+          "call_site": "0x522BC7",
+          "api": "GlobalLock",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "索引分配后锁定，再发布/清表"
+        },
+        {
+          "call_site": "0x522C04",
+          "api": "GlobalAlloc",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "记录表GPTR分配"
+        },
+        {
+          "call_site": "0x522C07",
+          "api": "GlobalLock",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "记录表分配后锁定，发布记录owner"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x522C50",
+      "inventory_id": "F:00122C50",
+      "status": "PGM01独立调色板释放按原owner重读/第二组先取样修复；完整父/alias/SDK/运行未验",
+      "original_end_exclusive": "0x522CAB",
+      "instruction_count": 32,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "ReleaseIndependentPalettes_522C50"
+          ],
+          "relationship": "解锁后重读owner再释放；清records前保存index，index解锁后重新取当前owner释放"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "UnlockGlobalMemory",
+            "FreeGlobalMemory"
+          ],
+          "relationship": "拆原组合接口为两个SDK阶段，保留原Handle/Unlock/Handle/Free八调用"
+        },
+        {
+          "path": "include/cg/platform/Startup.hpp",
+          "symbols": [
+            "UnlockGlobalMemory",
+            "FreeGlobalMemory"
+          ],
+          "relationship": "原生void*仅为通用SDK内存边界，调用侧保持资源T*与取样序，不向资源层暴露Win32类型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "boundary": "先用当前records做GlobalHandle/Unlock，再重读records做Handle/Free；接着取当前index，清records后用该保存值做Handle/Unlock，再重读index做Handle/Free，最后清index。八SDK调用原序/结果弃置/无条件清指针保持，未添加NULL跳过、重试、回滚或重复释放。组合值形参退休，两个SDK阶段沿既有源/头拆分，资源owner/分配域/队列/DBF及其他缓存不改。原32条/91B、两个直接入向，现有void仅对应已证caller弃返回，不假定SDK失败返回或全间接ABI等价。所有父/模式重建/上游/借用失效/未知alias、实际SDK/ABI/生命周期及运行未验，RPLAN.24、原格式明文/音频暂停与不构建测试运行摘要保持。",
+      "verification_level": "原完整32条/91B与八API/字段取样、三源/头片段及本组登记限定静态，SDK失败/全生命周期/运行未验",
+      "original_sdk_calls": [
+        {
+          "call_site": "0x522C5F",
+          "api": "GlobalHandle",
+          "source_symbol": "platform::UnlockGlobalMemory",
+          "relationship": "第一次取records"
+        },
+        {
+          "call_site": "0x522C68",
+          "api": "GlobalUnlock",
+          "source_symbol": "platform::UnlockGlobalMemory",
+          "relationship": "records解锁"
+        },
+        {
+          "call_site": "0x522C71",
+          "api": "GlobalHandle",
+          "source_symbol": "platform::FreeGlobalMemory",
+          "relationship": "解锁后重读records"
+        },
+        {
+          "call_site": "0x522C7A",
+          "api": "GlobalFree",
+          "source_symbol": "platform::FreeGlobalMemory",
+          "relationship": "释放当前records，结果不消费"
+        },
+        {
+          "call_site": "0x522C8D",
+          "api": "GlobalHandle",
+          "source_symbol": "platform::UnlockGlobalMemory",
+          "relationship": "原清records之前取index的保存值"
+        },
+        {
+          "call_site": "0x522C90",
+          "api": "GlobalUnlock",
+          "source_symbol": "platform::UnlockGlobalMemory",
+          "relationship": "index解锁"
+        },
+        {
+          "call_site": "0x522C98",
+          "api": "GlobalHandle",
+          "source_symbol": "platform::FreeGlobalMemory",
+          "relationship": "解锁后重读当前index"
+        },
+        {
+          "call_site": "0x522C9B",
+          "api": "GlobalFree",
+          "source_symbol": "platform::FreeGlobalMemory",
+          "relationship": "释放当前index，结果不消费，随后清index"
+        }
+      ]
     }
   ]
 }

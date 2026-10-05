@@ -43,9 +43,13 @@ void* AllocateLockedZeroedGlobalMemory(const std::size_t bytes)
     return ::GlobalLock(::GlobalAlloc(GPTR, bytes));
 }
 
-void ReleaseLockedGlobalMemory(void* const memory)
+void UnlockGlobalMemory(void* const memory)
 {
     ::GlobalUnlock(::GlobalHandle(memory));
+}
+
+void FreeGlobalMemory(void* const memory)
+{
     ::GlobalFree(::GlobalHandle(memory));
 }
 

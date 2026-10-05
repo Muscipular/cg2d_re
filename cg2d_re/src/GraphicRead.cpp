@@ -475,9 +475,12 @@ std::int32_t InitializeIndependentPalettes_522B30()
 
 void ReleaseIndependentPalettes_522C50()
 {
-    platform::ReleaseLockedGlobalMemory(gIndependentPaletteRecords);
+    platform::UnlockGlobalMemory(gIndependentPaletteRecords);
+    platform::FreeGlobalMemory(gIndependentPaletteRecords);
+    IndependentPaletteIndex* const index = gIndependentPaletteIndex;
     gIndependentPaletteRecords = nullptr;
-    platform::ReleaseLockedGlobalMemory(gIndependentPaletteIndex);
+    platform::UnlockGlobalMemory(index);
+    platform::FreeGlobalMemory(gIndependentPaletteIndex);
     gIndependentPaletteIndex = nullptr;
 }
 

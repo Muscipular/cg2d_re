@@ -187,3 +187,11 @@ action仍归runtime/list，队列非拥有；清计数/覆盖/MarkDeath不释放
 | 52254A（属5222D0） | scan绕回scanStart才将当前S32索引按58D348原%d+LF写未清256B→调试输出→返回；领取/解绑和半链不清不回滚，不补尾next，不改reuseState/扫描/块大小/调色板/恒空参数 |
 
 该小步只静态核两个调用邻窗/格式/采样/差异，未重验两个完整父，也未实际写模式文件或运行。容量全链、像素、后端/CRT与总SPEC门禁保持。
+
+
+## PGM01 独立调色板两组全局内存收尾（2026-10-05）
+
+[专项SPEC](cg2d_palette_global_memory_spec.md#palette-global-memory-source-state)及[原两根126条/377B](cg2d_palette_global_memory_evidence.json)补522B30/522C50的同域生产/释放基线。
+原GPTR/GlobalLock分配、索引16B仅首T*拓宽/loaded低W8及记录0xB04保持；只拆既有组合释放接口。
+解锁后重新取当前owner释放，清records之前保存index，index解锁后再取当前owner释放；原八SDK调用/弃返回/无条件清指针保持。
+两个private owner、队列/DBF和其他缓存借用保持，完整父/模式重建/上游/间接alias、借用失效、SDK/ABI及运行仍未验收。

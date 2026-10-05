@@ -1199,3 +1199,12 @@ IED01最终集中静态归档：唯一Input.cpp六编辑块补丁/分类预清�
 - **交付**：精确11项，快照`cg2d-re-saved-codec-arithmetic-source-20261005`；用户既有六项不暂存。不全面核对，未构建/查产物/新增或执行测试/运行编解码或客户端/读写存档/计算摘要；网络原格式明文、既定排除与音频暂停保持。
 
 **SCA01交付检查**：本步11项严格UTF-8无BOM/LF、12个新增Markdown链接、30项限定证据/决议引用及Git差异格式通过；一CPP三算术片段限定重放、原U8格式/长度重读保留、解码/两包装及余源码不变、两完整原根245条/592B/六直接call、两新语义/登记簿限定重放、measure生成与独立-Check通过。V02仅补具名open，未扫描历史文档或全面复检；任务10/60、叶0/182及完整门禁不提升，原异常不记故障等价PASS，完整文件流/owner/实际ABI与运行未验。
+
+## HPI01 宿主兼容堆/描述符生产缺口（2026-10-05）
+
+- **开发**：先记[HPI01 SPEC](../doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision)，再改LegacyMouse一CPP三片段：在首个multibyte投影前接heap(0)/失败28、lowio及普通stdio即时宿主登记。后登记应用回调先于本组stdio收尾；callback先发布callable=0再调原刷新。provider/WinMain/后续应用与SDK配置保持，70源投影＋15宿主角色/85对应计数不增。
+- **证据**：[归档](../doc/cg2d_hosted_runtime_prefix_evidence.json)保四已有根256条/786B，仅作为本步必要序/父背景，不重验四本体/callee。原heap→io→cinit与stdio先flush/再callable条件close均可追；固定C-term迁宿主登记按D02/D03适配，不宣称旧SEH/登记失败/全部退出行为等价。
+- **台账**：四既有语义补接线，其他1222记录与政策保持；语义1226/1223有效原ID、处置195/3680、导入15/218不增，限定E150。C02/C04/C08/C10/C11/V02保持open，任务10/60、叶0/182及完整门禁不提升。
+- **剩余**：跨TU首次使用、SDK/继承ABI、稳定模式/同域owner/未知alias、console/filter与normal/quick/callable全序和运行、R1/R7与最终验收仍待。兼容堆/描述符保进程寿命，不新增清表、HeapDestroy/额外关闭或SDK FILE副本，不启用旧自定义入口/cinit/90表。
+- **交付**：精确11项，快照`cg2d-re-hosted-prefix-io-source-20261005`；用户既有六项不暂存。只查本缺口/差异/新引用；未构建/查产物/新增或执行测试/运行/摘要，既定排除、音频暂停、单线程及RPLAN.24保持。
+- **限定验证**：一CPP三片段/四provider和WinMain未变、四语义补充/登记簿精确转换通过；11项UTF-8无BOM/LF、10个新增Markdown链接、33个本组E引用及Git差异格式通过。看板生成及独立Check通过；未扫描历史Markdown，不提升完整门禁。

@@ -40080,14 +40080,24 @@
           "symbols": [
             "FinishLegacyStdio_53EA4A"
           ]
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyStdio"
+          ],
+          "relationship": "HPI01具名宿主前置与普通stdio适配，仅本组接线"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_hosted_runtime_prefix_spec.md",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json"
       ],
-      "boundary": "先调用真实53BB99全流刷新，之后重读1086020，非零才调5446AD关闭全部流；两本体及内部FILE链已接。底层write/描述符生产本体已实现，calloc、完整启动与业务迁移仍未完成，不使用宿主FILE表或空回调，完整资源生命周期未验。",
+      "boundary": "先调用真实53BB99全流刷新，之后重读1086020，非零才调5446AD关闭全部流；两本体及内部FILE链已接。底层write/描述符生产本体已实现，calloc、完整启动与业务迁移仍未完成，不使用宿主FILE表或空回调，完整资源生命周期未验。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
       "function_chunks": [
         {
           "start": "0x53EA4A",
@@ -40106,7 +40116,14 @@
         "symbol": "__acrt_uninitialize_stdio",
         "relationship": "宿主职责/差异背景，不作为当前原合同本体提供者"
       },
-      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行"
+      "verification_level": "完整原指令、全部直接入向、共享槽及表值；新增源码静态核对，未执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要",
+      "hosted_prefix_contract": {
+        "spec": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "source": "src/platform/LegacyMouse.cpp",
+        "initializer": "LegacyMultibyteStaticInitializer",
+        "normal_exit": "FinishHostedLegacyStdio",
+        "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      }
     },
     {
       "original_entry": "0x53F52D",
@@ -40134,14 +40151,24 @@
             "RunLegacyProcessEntry_53DDB5"
           ],
           "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyStdio"
+          ],
+          "relationship": "HPI01具名宿主前置与普通stdio适配，仅本组接线"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_hosted_runtime_prefix_spec.md",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json"
       ],
-      "boundary": "按32项原生记录分配/发布并仅写flags、HANDLE和pipeByte；继承块S32 N/W8 flags保持，HANDLE按x64拓宽且未对齐读取。句柄区用未裁N定位，继承数S32裁2048，扩容失败只缩到已分配容量。FPIPE绕过GetFileType，API后重读继承字段；fd0..2保留原标准句柄/类型分支，不加句柄0提前拒绝。返回SetHandleCount；原start调用时点及跨位宽父块未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "按32项原生记录分配/发布并仅写flags、HANDLE和pipeByte；继承块S32 N/W8 flags保持，HANDLE按x64拓宽且未对齐读取。句柄区用未裁N定位，继承数S32裁2048，扩容失败只缩到已分配容量。FPIPE绕过GetFileType，API后重读继承字段；fd0..2保留原标准句柄/类型分支，不加句柄0提前拒绝。返回SetHandleCount；原start调用时点及跨位宽父块未验。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
       "function_chunks": [
         {
           "start": "0x53F52D",
@@ -40154,7 +40181,7 @@
           "parent_entry": "0x53DDB5"
         }
       ],
-      "verification_level": "完整原指令、直接入向、局部布局及本机继承ABI参考；新增源码静态核对，未执行",
+      "verification_level": "完整原指令、直接入向、局部布局及本机继承ABI参考；新增源码静态核对，未执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要",
       "native_reference": {
         "component": "本机UCRT生命周期职责参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/lowio/ioinit.cpp",
@@ -40172,7 +40199,14 @@
           "arguments": "无参/返回未消费，tryLevel0第一项",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
         }
-      ]
+      ],
+      "hosted_prefix_contract": {
+        "spec": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "source": "src/platform/LegacyMouse.cpp",
+        "initializer": "LegacyMultibyteStaticInitializer",
+        "normal_exit": "FinishHostedLegacyStdio",
+        "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      }
     },
     {
       "original_entry": "0x543711",
@@ -50712,13 +50746,23 @@
             "RunLegacyProcessEntry_53DDB5"
           ],
           "relationship": "本次完整CRT父或真实C表/浮点槽的新消费者，仅真实接线，旧本体/原数组不回核；当前入口未启用"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyStdio"
+          ],
+          "relationship": "HPI01具名宿主前置与普通stdio适配，仅本组接线"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_crt_memory_contract.md",
-        "doc/cg2d_startup_flow.md"
+        "doc/cg2d_startup_flow.md",
+        "doc/cg2d_hosted_runtime_prefix_spec.md",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json"
       ],
-      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。",
+      "boundary": "按实参零选择HeapCreate flags=1，否则0；初始1000H、最大0，先发布句柄再判断。成功选择并发布模式：3调用541C15(3F8H)，2调用真实54275C；子初始化失败重读共享句柄销毁且不清槽。原start未接，不把宿主malloc/free对象交给原堆。；本次新增完整CRT父/C表/浮点槽的真实源码消费，保留既有原顺序/参数、返回未消费或SEH/退出门禁；目标本体/旧数组不改或复检，C++表/存储/实际启动与运行未闭。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
       "native_reference": {
         "component": "UCRT 10.0.26100.0，仅作宿主堆生命周期参考",
         "source_path": "C:/Program Files (x86)/Windows Kits/10/Source/10.0.26100.0/ucrt/heap/heap_handle.cpp",
@@ -50730,7 +50774,7 @@
           "parent_entry": "0x53DDB5"
         }
       ],
-      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行",
+      "verification_level": "既有本体保持；模式2创建/容量查询真实接线静态核对，未构建、链接或执行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要",
       "crt_parent_call_connections": [
         {
           "parent_entry": "0x53DDB5",
@@ -50742,7 +50786,14 @@
           "arguments": "0 S32，GetVersion四字段写后/tryLevel-1",
           "relationship": "原完整父入口实际次序/失败/SEH筛选及退出源码；旧目标/数组不复检，当前不启用新入口"
         }
-      ]
+      ],
+      "hosted_prefix_contract": {
+        "spec": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "source": "src/platform/LegacyMouse.cpp",
+        "initializer": "LegacyMultibyteStaticInitializer",
+        "normal_exit": "FinishHostedLegacyStdio",
+        "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      }
     },
     {
       "original_entry": "0x541C15",
@@ -128928,11 +128979,21 @@
             "gLegacyRuntimeOsBuild1085FEC"
           ],
           "relationship": "原PE .data节头/载入填零规则已证初值0，新增真实W32共享存储；既有消费者/volatile次数/别名保持，不代补后续生产"
+        },
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbols": [
+            "LegacyMultibyteStaticInitializer",
+            "FinishHostedLegacyStdio"
+          ],
+          "relationship": "HPI01具名宿主前置与普通stdio适配，仅本组接线"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_hosted_runtime_prefix_spec.md",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json"
       ],
       "implemented_instruction_fragments": [
         {
@@ -128942,8 +129003,8 @@
           "entry_symbol": "CaptureLegacyEnvironment_53DE34"
         }
       ],
-      "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；2026-10-04当前IDA $ PE header的.data节头（supval3）VA153000/VirtualSizeB34B08/RawSize40000与映像基址400000，证明[593000,1087B08)属于载入填零尾部。0x1085FF8/gLegacyRuntimeOsMinor1085FF8、0x1085FF4/gLegacyRuntimeOsMajor1085FF4、0x1085FF0/gLegacyRuntimeOsCombined1085FF0、0x1085FEC/gLegacyRuntimeOsBuild1085FEC完整四字节在此范围，新端原生独立W32实际存储=0，地址身份由现有extern/读写消费者承接，volatile与两次读取/输出别名不改。只证明载入初值和存储，不能用此代替运行时生产、复位或待批补值，也不证明完整owner/方法表、模式3、SDK或运行；既有函数算法/时序不改或复检。",
-      "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验；仅新PE节头/载入范围与七W32定义/真实消费者绑定静态，未构建或运行",
+      "boundary": "原78条仅统计，24条局部上下文只读取证，本项只承接2条环境发布；53DE3E argv→53DE43环境表→53DE48 cinit等原顺序仍需完整入口落位，不从捕获片段自动调用后三项。完整初始化/宿主静态对象双执行与析构登记、启动/退出和运行未闭合，不固定成功或改原异常ABI。；2026-10-04两原父共78+12=90完整指令源码实现：GetVersion依序四W32→heap(0)/失败28在保护区外，tryLevel0起io→两旧捕获片段→argv→envp→cinit→dwFlags0/GetStartupInfoA→切片→show U16或10→GetModuleHandleA(nullptr)/WinMain→正常exit；原SEH先缓存information->Code并保存本帧，再真实Filter，handler沿缓存W32位型quick_exit，不用catch替SEH或改错误28范围。cinit仅一次读浮点地址、非空调用缓存，再正序5 C槽/90 C++槽，返回不消费。已加载58F864初值真实53B447，C5首null/四真实目标定义，pointer返回仅类型适配；CPP90与OS四共享字段只extern，不补初值或造表。旧叶/数组不改或复检，当前不替换/启用启动、宿主CRT提案未代批，C++表绑定/存储生产/模式3/SDK及完整运行仍待。；2026-10-04当前IDA $ PE header的.data节头（supval3）VA153000/VirtualSizeB34B08/RawSize40000与映像基址400000，证明[593000,1087B08)属于载入填零尾部。0x1085FF8/gLegacyRuntimeOsMinor1085FF8、0x1085FF4/gLegacyRuntimeOsMajor1085FF4、0x1085FF0/gLegacyRuntimeOsCombined1085FF0、0x1085FEC/gLegacyRuntimeOsBuild1085FEC完整四字节在此范围，新端原生独立W32实际存储=0，地址身份由现有extern/读写消费者承接，volatile与两次读取/输出别名不改。只证明载入初值和存储，不能用此代替运行时生产、复位或待批补值，也不证明完整owner/方法表、模式3、SDK或运行；既有函数算法/时序不改或复检。；2026-10-05 HPI01：HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open。",
+      "verification_level": "局部上下文24条/新发布2条及544294唯一原caller已核，余54条不重验/未验；源码/JSON片段限定静态核对，未构建或执行；两完整新父90条/14数值call与浮点槽、C5绑定及SEH scope三W32/95原表值和新增源码静态，实际x64编译/SDK/启动未验；仅新PE节头/载入范围与七W32定义/真实消费者绑定静态，未构建或运行；HPI01仅新宿主前置与普通stdio适配、限定源码/新引用静态，未构建/测试/运行/摘要",
       "crt_parent_internal_call_connections": [
         {
           "parent_entry": "0x53DDB5",
@@ -129172,7 +129233,14 @@
           "source_storage_implemented": true,
           "runtime_verified": false
         }
-      ]
+      ],
+      "hosted_prefix_contract": {
+        "spec": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "source": "src/platform/LegacyMouse.cpp",
+        "initializer": "LegacyMultibyteStaticInitializer",
+        "normal_exit": "FinishHostedLegacyStdio",
+        "scope": "已有provider消费及同TU应用序前置/普通stdio；旧入口仍未启用，完整跨TU/退出/ABI待验"
+      }
     },
     {
       "original_entry": "0x54A67A",

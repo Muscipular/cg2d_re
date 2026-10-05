@@ -1,6 +1,9 @@
 #include "cg/platform/LegacyMouse.hpp"
 
+#include "LegacyHeap.hpp"
 #include "LegacyIos.hpp"
+#include "LegacyLowIo.hpp"
+#include "LegacyRuntimeError.hpp"
 #include "LegacyRuntimeExit.hpp"
 
 #include "../LoginMessageDependencies.hpp"
@@ -32,10 +35,22 @@ std::uint32_t gValueD68DC8 = 0;
 
 namespace {
 
-// AIS01：原C表553178先于C++90；只移动既有调用，不执行整套旧CRT。
+// HPI01：普通宿主退出只刷新兼容FILE；保留旧callable退出自己的关闭分支。
+void FinishHostedLegacyStdio()
+{
+    gLegacyRuntimeExitCallable1086020 = 0;
+    FinishLegacyStdio_53EA4A();
+}
+
+// HPI01/AIS01：heap、lowio先于原C表投影和应用序，不执行整套旧CRT。
 struct LegacyMultibyteStaticInitializer {
     LegacyMultibyteStaticInitializer()
     {
+        if (InitializeLegacyHeap_541BB8(0) == 0) {
+            FastLegacyRuntimeErrorExit_53DED0(28);
+        }
+        static_cast<void>(InitializeLegacyDescriptors_53F52D());
+        static_cast<void>(std::atexit(FinishHostedLegacyStdio));
         InitializeLegacyMultibyte_546CAE();
     }
 };

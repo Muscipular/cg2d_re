@@ -284,7 +284,8 @@
         "doc/cg2d_stdio_table_heap_spec.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
         "doc/cg2d_mode3_private_core_spec.md",
-        "doc/cg2d_stream_table_pointer_spec.md"
+        "doc/cg2d_stream_table_pointer_spec.md",
+        "doc/cg2d_hosted_runtime_prefix_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -419,7 +420,11 @@
         "F:001485FE",
         "F:0014970A",
         "F:001486B1",
-        "F:0014976A"
+        "F:0014976A",
+        "F:00141BB8",
+        "F:0013F52D",
+        "F:0013EA4A",
+        "F:0013DDB5"
       ],
       "closure_task_ids": [
         "C01",
@@ -447,7 +452,8 @@
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
-        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision"
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -469,7 +475,8 @@
         "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭",
         "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭",
         "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭",
-        "STP01仅四已有streambuf/filebuf方法表地址的const T*与十消费类型接线闭合，不新增原函数/处置或重验旧算法；真实codecvt/facet生产/完整表、全活动流/owner/alias及SDK ABI/链接/退出/运行仍待，C03/C05保持open"
+        "STP01仅四已有streambuf/filebuf方法表地址的const T*与十消费类型接线闭合，不新增原函数/处置或重验旧算法；真实codecvt/facet生产/完整表、全活动流/owner/alias及SDK ABI/链接/退出/运行仍待，C03/C05保持open",
+        "HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -494,7 +501,8 @@
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
         "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
-        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ]
     },
     {
@@ -10940,6 +10948,102 @@
       "observation": "两完整根245条/592B、六直接call及本步源/语义/登记簿限定差异与新增引用静态检查",
       "expected": "按现行异常裁决承载长度和平方，原文件格式与普通容量/模式/访问和返回保持",
       "actual": "仅编码三片段实修，两已有叶补基线/语义/adapted；全部持久化父/文件流/owner/ABI及运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-PREFIX-IO-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四已有原根256条/786B仅作必要序/父背景；doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-prefix-io-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "differences": [
+        {
+          "description": "宿主同TU应用投影前置heap/lowio；普通stdio C-term迁std::atexit，失败与时点按D02/D03，旧SEH/完整quick/callable不据此等价",
+          "decision_ref": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP三片段接实际heap/lowio及普通stdio，无新增影子状态/销毁",
+      "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-PREFIX-IO-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四已有原根256条/786B仅作必要序/父背景；doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-prefix-io-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "differences": [
+        {
+          "description": "宿主同TU应用投影前置heap/lowio；普通stdio C-term迁std::atexit，失败与时点按D02/D03，旧SEH/完整quick/callable不据此等价",
+          "decision_ref": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "已有共享堆/描述符表真实生产在原C表投影和同TU应用序之前，登记早于后项，普通callback发布callable=0后刷新",
+      "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
+    },
+    {
+      "id": "E-HOSTED-PREFIX-IO-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四已有原根256条/786B仅作必要序/父背景；doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-prefix-io-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-baseline",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-acceptance",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_evidence.json",
+        "src/platform/LegacyMouse.cpp#LegacyMultibyteStaticInitializer",
+        "src/platform/LegacyMouse.cpp#FinishHostedLegacyStdio",
+        "src/platform/LegacyHeap.cpp#InitializeLegacyHeap_541BB8",
+        "src/platform/LegacyLowIo.cpp#InitializeLegacyDescriptors_53F52D",
+        "src/platform/LegacyRuntimeExit.cpp#FinishLegacyStdio_53EA4A"
+      ],
+      "differences": [
+        {
+          "description": "宿主同TU应用投影前置heap/lowio；普通stdio C-term迁std::atexit，失败与时点按D02/D03，旧SEH/完整quick/callable不据此等价",
+          "decision_ref": "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "仅本步三源码片段/四语义补充/新引用和台账限定静态",
+      "expected": "按具名宿主适配落实兼容堆/低层表启动前置与普通流收尾，后续原应用序/provider正文保持",
+      "actual": "仅本组源码接线静态通过；四既有身份补关系不增R1处置，完整成员/跨TU/owner/ABI/全退出和运行待验，功能门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11049,7 +11153,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ]
     },
     {
@@ -11068,7 +11173,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ]
     },
     {
@@ -11111,7 +11217,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ],
       "task_id": "C08",
       "state": "open"
@@ -11125,7 +11232,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-source-closure",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-source-closure",
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ],
       "task_id": "C11",
       "state": "open"
@@ -11203,7 +11311,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_file_position_width_spec.md#file-position-width-source-closure",
-        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure"
+        "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ]
     },
     {
@@ -11273,7 +11382,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure"
       ]
     }
   ],

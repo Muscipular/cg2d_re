@@ -142,3 +142,14 @@ SDK窄flush顺序/指针门禁/现代sentry及注册时点差异按D02/D03 adapt
 此前“15项待接”仅属于原固定快照，不把新增关系当15新增活动调用。
 原null/音频暂停/键盘排除和完整消费者/registry容量/facet/alias/R1、
 正常快速callable退出与SDK运行仍待，C02/C03/C04/C09不关闭。
+
+## HPI01 宿主前置与普通stdio收尾（2026-10-05）
+
+[局部合同](cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure)及
+[原证据](cg2d_hosted_runtime_prefix_evidence.json)定位旧entry未启用后的heap/lowio生产缺口。
+仅在LegacyMouse同TU首个C表投影前接heap(0)/失败28、lowio和普通stdio即时宿主登记，
+再继续原multibyte与70源投影。另15宿主角色、85对应总量及SDK配置/pubSync保持。
+普通退出callback发布既有callable=0再调原53EA4A；不造清表、HeapDestroy或额外关闭。
+原四provider/WinMain正文不改；固定C-term迁宿主登记按D02/D03具名适配。
+本组静态接线不代跨TU首次使用、SDK继承ABI/owner/alias、
+console/filter与normal/quick/callable完整退出及运行；六关联任务保持open。

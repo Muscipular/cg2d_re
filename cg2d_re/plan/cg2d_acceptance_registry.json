@@ -603,7 +603,8 @@
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_network_dispatch.md",
         "doc/cg2d_network_plaintext_frame_spec.md",
-        "doc/cg2d_winsock_import_binding_spec.md"
+        "doc/cg2d_winsock_import_binding_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -628,7 +629,9 @@
         "F:001081A0",
         "F:001082D0",
         "F:00108310",
-        "F:00108360"
+        "F:00108360",
+        "F:00116B60",
+        "F:00116DA0"
       ],
       "closure_task_ids": [
         "P09",
@@ -641,16 +644,21 @@
       "acceptance_focus": "原格式明文、命令/字段、队列、状态与正常失败；两算法叶排除",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision"
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
         "murD及音频传递依赖仍暂停；完整登录/明文互通和V03未验，R受执行限制",
-        "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK"
+        "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK",
+        "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
     },
     {
       "id": "FUNC-SAVED",
@@ -9939,6 +9947,126 @@
       "observation": "原连接339条/跳板15条、SDK十五声明与限定源/数据静态归档",
       "expected": "原共享状态在指定call后重读；共享IAT保留原身份和排除界线，实际SDK接口可追",
       "actual": "七句柄使用点改当时共享值，登录发送后重读阶段；十五导入/跳板和范围内26调用明确归属"
+    },
+    {
+      "id": "E-NETWORK-BUFFER-LIFECYCLE-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整根607条/2068B，516DA0的17长度重读/三发布序，5081A0两原块与12直接caller；doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-buffer-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-acceptance",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#AllocateProtocolBuffers_516DA0",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "include/cg/network/NetworkRuntime.hpp#AllocateProtocolBuffers_516DA0"
+      ],
+      "differences": [
+        {
+          "description": "地址/SDK结构及Malloc/Free沿既有x64与宿主合同，原指针表槽尺度拓宽；API数值/长度/三倍积保持U32，实际SDK ABI及运行未验",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        },
+        {
+          "description": "撤九原端不存在的terminate，恢复17共享长度取值/三发布序和单次flags；原后置失败/泄漏/不清槽/启动弃返回保持，不模拟或宣称非法地址/数学溢出/原x86故障等价",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "九缓冲生产体与轮询标志取值已校准",
+      "expected": "不缓存跨malloc/清零的共享长度，不新增终止/保护；保持原活动/状态/收发/失败/清理顺序",
+      "actual": "两体实修、九terminate撤销；原已存在七入口有具名源码/数据/生命周期映射，完整父/SDK/运行未闭"
+    },
+    {
+      "id": "E-NETWORK-BUFFER-LIFECYCLE-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整根607条/2068B，516DA0的17长度重读/三发布序，5081A0两原块与12直接caller；doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-buffer-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-acceptance",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#AllocateProtocolBuffers_516DA0",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "include/cg/network/NetworkRuntime.hpp#AllocateProtocolBuffers_516DA0"
+      ],
+      "differences": [
+        {
+          "description": "地址/SDK结构及Malloc/Free沿既有x64与宿主合同，原指针表槽尺度拓宽；API数值/长度/三倍积保持U32，实际SDK ABI及运行未验",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        },
+        {
+          "description": "撤九原端不存在的terminate，恢复17共享长度取值/三发布序和单次flags；原后置失败/泄漏/不清槽/启动弃返回保持，不模拟或宣称非法地址/数学溢出/原x86故障等价",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "九块/18槽生产、消费/原失败/退出序逐段对应",
+      "expected": "不缓存跨malloc/清零的共享长度，不新增终止/保护；保持原活动/状态/收发/失败/清理顺序",
+      "actual": "两体实修、九terminate撤销；原已存在七入口有具名源码/数据/生命周期映射，完整父/SDK/运行未闭"
+    },
+    {
+      "id": "E-NETWORK-BUFFER-LIFECYCLE-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "七完整根607条/2068B，516DA0的17长度重读/三发布序，5081A0两原块与12直接caller；doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-buffer-lifecycle-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-baseline",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-acceptance",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkLoop_507DF0",
+        "src/network/NetworkRuntime.cpp#InitializeNetworkRuntime_508140",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#Sub_5082D0",
+        "src/network/NetworkRuntime.cpp#Sub_508310",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#AllocateProtocolBuffers_516DA0",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "include/cg/network/NetworkRuntime.hpp#AllocateProtocolBuffers_516DA0"
+      ],
+      "differences": [
+        {
+          "description": "地址/SDK结构及Malloc/Free沿既有x64与宿主合同，原指针表槽尺度拓宽；API数值/长度/三倍积保持U32，实际SDK ABI及运行未验",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        },
+        {
+          "description": "撤九原端不存在的terminate，恢复17共享长度取值/三发布序和单次flags；原后置失败/泄漏/不清槽/启动弃返回保持，不模拟或宣称非法地址/数学溢出/原x86故障等价",
+          "decision_ref": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "七完整根607条/2068B、17读取点、单CPP限定静态对照",
+      "expected": "不缓存跨malloc/清零的共享长度，不新增终止/保护；保持原活动/状态/收发/失败/清理顺序",
+      "actual": "两体实修、九terminate撤销；原已存在七入口有具名源码/数据/生命周期映射，完整父/SDK/运行未闭"
     }
   ],
   "task_acceptance": [
@@ -10208,7 +10336,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
       ]
     },
     {
@@ -10216,7 +10345,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
       ]
     },
     {
@@ -10224,7 +10354,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
       ]
     },
     {
@@ -10232,7 +10363,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
       ]
     }
   ],
@@ -11693,6 +11825,62 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00107DF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00108140",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001081A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001082D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00108310",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00116B60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00116DA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
       ]
     }
   ],

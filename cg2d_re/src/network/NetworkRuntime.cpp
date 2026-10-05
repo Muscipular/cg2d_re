@@ -38,7 +38,6 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <exception>
 #include <string>
 #include <tuple>
 #include <type_traits>
@@ -1206,110 +1205,82 @@ std::int32_t AllocateProtocolBuffers_516DA0(
     gNetworkRuntimeState.tripleBuffer58B60C = nullptr;
     gNetworkRuntimeState.tripleBuffer58B610 = nullptr;
 
-    const std::uint32_t tripleLength = bufferLength * 3U;
     gNetworkRuntimeState.buffer58B5F0 = static_cast<std::uint8_t*>(
         std::malloc(static_cast<std::size_t>(bufferLength)));
-    gNetworkRuntimeState.buffer58B5F4 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(bufferLength)));
-    gNetworkRuntimeState.buffer58B5F8 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(bufferLength)));
+    std::uint8_t* const second = static_cast<std::uint8_t*>(
+        std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength)));
+    // 原16DF9/16E0A：先取下一请求长度，再发布本次分配结果。
+    const std::uint32_t thirdLength = gNetworkRuntimeState.bufferLength;
+    gNetworkRuntimeState.buffer58B5F4 = second;
+    std::uint8_t* const third = static_cast<std::uint8_t*>(
+        std::malloc(static_cast<std::size_t>(thirdLength)));
+    const std::uint32_t fourthLength = gNetworkRuntimeState.bufferLength;
+    gNetworkRuntimeState.buffer58B5F8 = third;
     gNetworkRuntimeState.buffer58B5FC = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(bufferLength)));
+        std::malloc(static_cast<std::size_t>(fourthLength)));
     gNetworkRuntimeState.pointerTable58B614 = static_cast<char**>(
         std::malloc(
-            static_cast<std::size_t>(bufferLength) * sizeof(char*)));
+            static_cast<std::size_t>(gNetworkRuntimeState.bufferLength) * sizeof(char*)));
     gNetworkRuntimeState.tripleBuffer58B604 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(tripleLength)));
+        std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength * 3U)));
     gNetworkRuntimeState.tripleBuffer58B608 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(tripleLength)));
+        std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength * 3U)));
     gNetworkRuntimeState.tripleBuffer58B60C = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(tripleLength)));
-    gNetworkRuntimeState.tripleBuffer58B610 = static_cast<std::uint8_t*>(
-        std::malloc(static_cast<std::size_t>(tripleLength)));
+        std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength * 3U)));
+    std::uint8_t* const fourthTriple = static_cast<std::uint8_t*>(
+        std::malloc(static_cast<std::size_t>(gNetworkRuntimeState.bufferLength * 3U)));
 
-    if (bufferLength != 0U) {
-        if (gNetworkRuntimeState.buffer58B5F0 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.buffer58B5F0,
-            0,
-            static_cast<std::size_t>(bufferLength));
+    // 原16E7E/16E84：末结果发布前取首清零长度和指针；零计数不执行REP写入。
+    std::uint32_t clearLength = gNetworkRuntimeState.bufferLength;
+    std::uint8_t* clearBuffer = gNetworkRuntimeState.buffer58B5F0;
+    gNetworkRuntimeState.tripleBuffer58B610 = fourthTriple;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (bufferLength != 0U) {
-        if (gNetworkRuntimeState.buffer58B5F4 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.buffer58B5F4,
-            0,
-            static_cast<std::size_t>(bufferLength));
+    clearLength = gNetworkRuntimeState.bufferLength;
+    clearBuffer = gNetworkRuntimeState.buffer58B5F4;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (bufferLength != 0U) {
-        if (gNetworkRuntimeState.buffer58B5F8 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.buffer58B5F8,
-            0,
-            static_cast<std::size_t>(bufferLength));
+    clearLength = gNetworkRuntimeState.bufferLength;
+    clearBuffer = gNetworkRuntimeState.buffer58B5F8;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (bufferLength != 0U) {
-        if (gNetworkRuntimeState.buffer58B5FC == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.buffer58B5FC,
-            0,
-            static_cast<std::size_t>(bufferLength));
+    clearLength = gNetworkRuntimeState.bufferLength;
+    clearBuffer = gNetworkRuntimeState.buffer58B5FC;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (bufferLength != 0U) {
-        if (gNetworkRuntimeState.pointerTable58B614 == nullptr) {
-            std::terminate();
-        }
-        std::fill_n(
-            gNetworkRuntimeState.pointerTable58B614,
-            static_cast<std::size_t>(bufferLength),
-            nullptr);
+    clearLength = gNetworkRuntimeState.bufferLength;
+    char** const clearTable = gNetworkRuntimeState.pointerTable58B614;
+    if (clearLength != 0U) {
+        std::fill_n(clearTable, static_cast<std::size_t>(clearLength), nullptr);
     }
-    if (tripleLength != 0U) {
-        if (gNetworkRuntimeState.tripleBuffer58B604 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.tripleBuffer58B604,
-            0,
-            static_cast<std::size_t>(tripleLength));
+    clearLength = gNetworkRuntimeState.bufferLength * 3U;
+    clearBuffer = gNetworkRuntimeState.tripleBuffer58B604;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (tripleLength != 0U) {
-        if (gNetworkRuntimeState.tripleBuffer58B608 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.tripleBuffer58B608,
-            0,
-            static_cast<std::size_t>(tripleLength));
+    clearLength = gNetworkRuntimeState.bufferLength * 3U;
+    clearBuffer = gNetworkRuntimeState.tripleBuffer58B608;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (tripleLength != 0U) {
-        if (gNetworkRuntimeState.tripleBuffer58B60C == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.tripleBuffer58B60C,
-            0,
-            static_cast<std::size_t>(tripleLength));
+    clearLength = gNetworkRuntimeState.bufferLength * 3U;
+    clearBuffer = gNetworkRuntimeState.tripleBuffer58B60C;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
-    if (tripleLength != 0U) {
-        if (gNetworkRuntimeState.tripleBuffer58B610 == nullptr) {
-            std::terminate();
-        }
-        std::memset(
-            gNetworkRuntimeState.tripleBuffer58B610,
-            0,
-            static_cast<std::size_t>(tripleLength));
+    clearLength = gNetworkRuntimeState.bufferLength * 3U;
+    clearBuffer = gNetworkRuntimeState.tripleBuffer58B610;
+    if (clearLength != 0U) {
+        std::memset(clearBuffer, 0, static_cast<std::size_t>(clearLength));
     }
 
-    if (gNetworkRuntimeState.buffer58B5F0 == nullptr) {
+    // 原16F7E：后置检查和首个失败释放共用同次首指针。
+    std::uint8_t* const firstBuffer = gNetworkRuntimeState.buffer58B5F0;
+    if (firstBuffer == nullptr) {
         goto allocationFailure;
     }
     if (gNetworkRuntimeState.buffer58B5F4 == nullptr) {
@@ -1339,7 +1310,7 @@ std::int32_t AllocateProtocolBuffers_516DA0(
     return 0;
 
 allocationFailure:
-    std::free(gNetworkRuntimeState.buffer58B5F0);
+    std::free(firstBuffer);
     std::free(gNetworkRuntimeState.buffer58B5FC);
     std::free(gNetworkRuntimeState.buffer58B5F8);
     std::free(gNetworkRuntimeState.buffer58B5F4);
@@ -4585,8 +4556,9 @@ std::int32_t InitializeNetworkRuntime_508140()
 
 std::uint8_t NetworkLoop_507DF0()
 {
-    if ((gNetworkRuntimeState.flagsD9F2C0 & 1U) == 0) {
-        gNetworkRuntimeState.flagsD9F2C0 |= 1U;
+    const std::uint8_t flags = gNetworkRuntimeState.flagsD9F2C0;
+    if ((flags & 1U) == 0) {
+        gNetworkRuntimeState.flagsD9F2C0 = static_cast<std::uint8_t>(flags | 1U);
         gNetworkRuntimeState.lastTickD9F2C4 = ::GetTickCount();
     }
     if (gNetworkRuntimeState.active == 0) {

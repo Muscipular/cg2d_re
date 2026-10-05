@@ -89577,7 +89577,7 @@
     {
       "original_entry": "0x5082D0",
       "inventory_id": "F:001082D0",
-      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "status": "NLC01原S32错误快照/256B真实格式/日志后would-block过滤已静态纳管；完整父/SDK/网络运行未闭",
       "original_end_exclusive": "0x508310",
       "instruction_count": 21,
       "original_direct_reference_count": 1,
@@ -89634,15 +89634,29 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json"
       ],
-      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
-      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。"
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行；NLC01完整两21条/64B及两Loop直接call；不重复新增源码/旧格式工作项",
+      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。；2026-10-05 NLC01保错误S32→真实格式→日志→仅10035转0，SNED原字节和原低W32返回保持；源码不改，纳入七根607条/2068B原失败/收发/退出对照，外部ABI/完整父/生命周期/运行仍待。",
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5082D0",
+        "implementation_kind": "existing_body_error_mapping",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x508310",
       "inventory_id": "F:00108310",
-      "status": "既有连接/错误父的全部格式生产者已接真实核心与既有消费者；完整网络/启动/运行未验",
+      "status": "NLC01原S32错误快照/256B真实格式/日志后would-block过滤已静态纳管；完整父/SDK/网络运行未闭",
       "original_end_exclusive": "0x508350",
       "instruction_count": 21,
       "original_direct_reference_count": 1,
@@ -89699,10 +89713,24 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json"
       ],
-      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行",
-      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。"
+      "verification_level": "三父完整381条/三个入向、十原格式点与十表达式、六无参形态修复/十字节串、日志/关闭/过滤/失败/共享提示及限定源码/JSON差异静态核对；未重验连接阶段/socket/协议/父控制器算法，未执行；NLC01完整两21条/64B及两Loop直接call；不重复新增源码/旧格式工作项",
+      "boundary": "先采WSAGetLastError S32，在原256B未清局部以原RECV或SNED格式输出，再调用已接真实FILE的44B5C0；日志返回忽略，最后仅10035转0、其他错误透传，不提前过滤/修正拼写/改网络返回。两个父及接收/发送循环的其余正文保持，真实收发/日志内容未验。；2026-10-05 NLC01保错误S32→真实格式→日志→仅10035转0，SNED原字节和原低W32返回保持；源码不改，纳入七根607条/2068B原失败/收发/退出对照，外部ABI/完整父/生命周期/运行仍待。",
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_508310",
+        "implementation_kind": "existing_body_error_mapping",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x50CF20",
@@ -140166,6 +140194,310 @@
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x507DF0",
+      "inventory_id": "F:00107DF0",
+      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "original_chunks": [
+        [
+          "0x00507DF0",
+          "0x0050813A"
+        ]
+      ],
+      "instruction_count": 243,
+      "original_byte_count": 842,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "NetworkLoop_507DF0"
+          ],
+          "relationship": "既有完整本体及NLC01限定校准；不是本轮新造业务入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x00457103",
+          "parent": "0x00457020",
+          "type": 17
+        }
+      ],
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "NetworkLoop_507DF0",
+        "implementation_kind": "existing_loop_single_flag_snapshot_fix",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x508140",
+      "inventory_id": "F:00108140",
+      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "original_chunks": [
+        [
+          "0x00508140",
+          "0x00508193"
+        ]
+      ],
+      "instruction_count": 21,
+      "original_byte_count": 83,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "InitializeNetworkRuntime_508140"
+          ],
+          "relationship": "既有完整本体及NLC01限定校准；不是本轮新造业务入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x0045DAE9",
+          "parent": "0x0045D990",
+          "type": 17
+        }
+      ],
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "InitializeNetworkRuntime_508140",
+        "implementation_kind": "existing_body_lifecycle_mapping",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x5081A0",
+      "inventory_id": "F:001081A0",
+      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "original_chunks": [
+        [
+          "0x005081A0",
+          "0x005081DB"
+        ],
+        [
+          "0x00516BF0",
+          "0x00516C89"
+        ]
+      ],
+      "instruction_count": 59,
+      "original_byte_count": 212,
+      "original_direct_reference_count": 12,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ShutdownNetworkRuntime_5081A0"
+          ],
+          "relationship": "既有完整本体及NLC01限定校准；不是本轮新造业务入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x00457A86",
+          "parent": "0x00457A40",
+          "type": 17
+        },
+        {
+          "from": "0x0045DAD6",
+          "parent": "0x0045D990",
+          "type": 17
+        },
+        {
+          "from": "0x0045EC7D",
+          "parent": "0x0045EBB0",
+          "type": 17
+        },
+        {
+          "from": "0x0045ECA3",
+          "parent": "0x0045EBB0",
+          "type": 17
+        },
+        {
+          "from": "0x0045ED03",
+          "parent": "0x0045EBB0",
+          "type": 17
+        },
+        {
+          "from": "0x0045ED45",
+          "parent": "0x0045EBB0",
+          "type": 17
+        },
+        {
+          "from": "0x004608EB",
+          "parent": "0x0045FEA0",
+          "type": 17
+        },
+        {
+          "from": "0x00461068",
+          "parent": "0x00460FF0",
+          "type": 17
+        },
+        {
+          "from": "0x00461081",
+          "parent": "0x00460FF0",
+          "type": 17
+        },
+        {
+          "from": "0x0046109D",
+          "parent": "0x00460FF0",
+          "type": 17
+        },
+        {
+          "from": "0x004619CF",
+          "parent": "0x00460FF0",
+          "type": 17
+        },
+        {
+          "from": "0x0051C6E0",
+          "parent": "0x0051C430",
+          "type": 17
+        }
+      ],
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "ShutdownNetworkRuntime_5081A0",
+        "implementation_kind": "existing_body_lifecycle_mapping",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x516B60",
+      "inventory_id": "F:00116B60",
+      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "original_chunks": [
+        [
+          "0x00516B60",
+          "0x00516BEB"
+        ]
+      ],
+      "instruction_count": 53,
+      "original_byte_count": 139,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "AllocateNetworkWorkspace_516B60"
+          ],
+          "relationship": "既有完整本体及NLC01限定校准；不是本轮新造业务入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x00508173",
+          "parent": "0x00508140",
+          "type": 17
+        }
+      ],
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "AllocateNetworkWorkspace_516B60",
+        "implementation_kind": "existing_body_producer_mapping",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x516DA0",
+      "inventory_id": "F:00116DA0",
+      "status": "NLC01原已存在网络生产/轮询/启动/退出入口静态纳管；九缓冲取值/发布与单次flags已实修，完整父/SDK/运行未闭",
+      "original_chunks": [
+        [
+          "0x00516DA0",
+          "0x00517038"
+        ]
+      ],
+      "instruction_count": 189,
+      "original_byte_count": 664,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "AllocateProtocolBuffers_516DA0"
+          ],
+          "relationship": "既有完整本体及NLC01限定校准；不是本轮新造业务入口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_network_buffer_lifecycle_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x00516B7F",
+          "parent": "0x00516B60",
+          "type": 17
+        }
+      ],
+      "network_buffer_lifecycle_contract": {
+        "group": "NLC01",
+        "spec": "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "AllocateProtocolBuffers_516DA0",
+        "implementation_kind": "existing_body_length_publication_and_clear_fix",
+        "existing_body_before_this_step": true,
+        "new_protection": false,
+        "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
       }
     }
   ]
